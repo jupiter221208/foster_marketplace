@@ -1,0 +1,14 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background-color: $brand-02-color;
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,0 +1,62 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 84px;
+  height: 100vh;
+  background-color: $background-dark-color;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.logoArea {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.navmenuArea {
+  width: 100%;
+  padding-top: 49px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.navItemArea {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  border: 2px solid $brand-03-color;
+  overflow: hidden;
+}
+
+.logoutArea {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  background: url('../../assets/icons/logout-gray.svg');
+  &:hover {
+    background: url('../../assets/icons/logout-green.svg');
+  }
+}

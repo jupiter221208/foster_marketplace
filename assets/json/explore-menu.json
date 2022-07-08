@@ -1,0 +1,5 @@
+[
+  { "id": 0, "label": "Explore 01", "value": "/explore-01" },
+  { "id": 1, "label": "Explore 02", "value": "/explore-02" },
+  { "id": 2, "label": "Explore 03", "value": "/explore-03" }
+]

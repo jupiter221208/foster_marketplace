@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Group_51037" data-name="Group 51037" transform="translate(-636.51 -58.02)">
+    <g id="Group_51035" data-name="Group 51035" transform="translate(0 -0.48)">
+      <rect id="Rectangle_20873" data-name="Rectangle 20873" width="49" height="49" rx="12" transform="translate(637.01 59)" fill="none" stroke="#63D6CD" stroke-width="1"/>
+      <g id="Logout" transform="translate(639 61)">
+        <rect id="Rectangle_20893" data-name="Rectangle 20893" width="46" height="46" fill="none"/>
+        <path id="sign-out-alt" d="M3.359,13.83a.9.9,0,0,1,1.21.406,7.225,7.225,0,1,0,0-6.412.909.909,0,1,1-1.626-.813,9.031,9.031,0,1,1,0,8.037.9.9,0,0,1,.415-1.219Zm-.452-3.7h8.661L9.491,8.06a.907.907,0,0,1,1.282-1.282l3.612,3.612a.934.934,0,0,1,0,1.282l-3.612,3.612A.907.907,0,1,1,9.491,14l2.077-2.068H2.908a.9.9,0,0,1,0-1.806Z" transform="translate(11.967 11.969)" fill="#63D6CD"/>
+      </g>
+    </g>
+  </g>
+</svg>

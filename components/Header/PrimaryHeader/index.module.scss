@@ -1,0 +1,11 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(90deg, #305856 0%, #142021 50%, $background-dark-color 100%);
+}

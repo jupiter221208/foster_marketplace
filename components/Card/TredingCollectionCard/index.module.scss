@@ -1,0 +1,56 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  max-width: 359px;
+  width: 100%;
+  max-height: 528px;
+  height: 100%;
+  background-color: $background-dark-color;
+  border-radius: 30px;
+  padding: 19px;
+}
+
+.nftName {
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.nftType {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: $text-gray-200-color;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: $text-gray-200-color;
+  padding: 5px 13px;
+  background-color: rgba($brand-01-color, 0.1);
+}
+
+.artistName {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $brand-03-color;
+}
+
+.priceName {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $brand-03-color;
+}
+
+.price {
+  margin-left: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
