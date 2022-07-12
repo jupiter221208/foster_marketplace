@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "image": "/images/popular-category-01.png",
+    "name": "Photography",
+    "nfts": 2131,
+    "collections": 287
+  },
+  {
+    "id": 1,
+    "image": "/images/popular-category-02.png",
+    "name": "Music",
+    "nfts": 2131,
+    "collections": 287
+  },
+  {
+    "id": 2,
+    "image": "/images/popular-category-03.png",
+    "name": "Degen Art",
+    "nfts": 2131,
+    "collections": 287
+  },
+  {
+    "id": 3,
+    "image": "/images/popular-category-04.png",
+    "name": "Comedy",
+    "nfts": 2131,
+    "collections": 287
+  },
+  {
+    "id": 4,
+    "image": "/images/popular-category-05.png",
+    "name": "Sports",
+    "nfts": 2131,
+    "collections": 287
+  }
+]

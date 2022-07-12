@@ -5,22 +5,19 @@ import { useDispatch } from 'react-redux'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
-import NewReleaseCard from 'components/Card/NewReleaseCard'
-import TredingCollectionCard from 'components/Card/TredingCollectionCard'
-import AuctionCard from 'components/Card/AuctionCard'
-
-// images and icons
-import LemonPoundPicture from 'assets/images/lemon-pound-picture.png'
-import AnatonyPicture from 'assets/images/anatony.png'
-import PinkWastelandPicture from 'assets/images/pink-wasteland.png'
-import PhotographyPicture from 'assets/images/photography.png'
-import SolanaLogo from 'assets/icons/solana-logo.svg'
-import CategoryCard from 'components/Card/CategoryCard'
+import MainSection from './Home/MainSection'
+import PopularCategorySection from './Home/PopularCategorySection'
+import TrendingArtistSection from './Home/TrendingArtistSection'
+import NewReleaseSection from './Home/NewReleaseSection'
+import TrendingCollectionSection from './Home/TrendingCollectionSection'
+import LiveAuctionSection from './Home/LiveAuctionSection'
+import CreateSellNFTSection from './Home/CreateSellNFTSection'
 
 const Home = props => {
   const { viewport } = props
   const dispatch = useDispatch()
   dispatch({ type: 'set', viewport: viewport })
+
   return (
     <div>
       <Head>
@@ -29,11 +26,13 @@ const Home = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
 
-      <main>
-        {/* main section part */}
-        <section></section>
-        <h1>Foster Marketplace</h1>
-      </main>
+      <MainSection viewport={viewport} />
+      <PopularCategorySection viewport={viewport} />
+      <TrendingArtistSection viewport={viewport} />
+      <NewReleaseSection viewport={viewport} />
+      <TrendingCollectionSection viewport={viewport} />
+      <LiveAuctionSection viewport={viewport} />
+      <CreateSellNFTSection viewport={viewport} />
     </div>
   )
 }

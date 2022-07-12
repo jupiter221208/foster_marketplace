@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -15,14 +15,14 @@ import ChartGreenIcon from 'assets/icons/chart-green.svg'
 import ChartGrayIcon from 'assets/icons/chart-gray.svg'
 import BookGreenIcon from 'assets/icons/book-green.svg'
 import BookGrayIcon from 'assets/icons/book-gray.svg'
-import LogoutGreenIcon from 'assets/icons/logout-green.svg'
-import LogoutGrayIcon from 'assets/icons/logout-gray.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const Navbar = props => {
   const router = useRouter()
+
+  const [selectedNavMenu, setSelectedNavMenu] = useState('')
   return (
     <div className={styles.container}>
       <div>
@@ -35,21 +35,61 @@ const Navbar = props => {
               <Image src={AvatarIcon} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
             </div>
           </div>
-          <div className={styles.navItemArea}>
-            <Image src={SpeedGreenIcon} alt="" />
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('speed')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#speed')}
+          >
+            <Image
+              src={
+                router.asPath === '/#speed' || router.asPath === '/' || selectedNavMenu === 'speed'
+                  ? SpeedGreenIcon
+                  : SpeedGrayIcon
+              }
+              alt=""
+            />
           </div>
-          <div className={styles.navItemArea}>
-            <Image src={DashboardGrayIcon} alt="" />
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('dashboard')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#dashboard')}
+          >
+            <Image
+              src={
+                router.asPath === '/#dashboard' || selectedNavMenu === 'dashboard'
+                  ? DashboardGreenIcon
+                  : DashboardGrayIcon
+              }
+              alt=""
+            />
           </div>
-          <div className={styles.navItemArea}>
-            <Image src={ChartGrayIcon} alt="" />
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('chart')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#chart')}
+          >
+            <Image
+              src={router.asPath === '/#chart' || selectedNavMenu === 'chart' ? ChartGreenIcon : ChartGrayIcon}
+              alt=""
+            />
           </div>
-          <div className={styles.navItemArea}>
-            <Image src={BookGrayIcon} alt="" />
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('book')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#book')}
+          >
+            <Image
+              src={router.asPath === '/#book' || selectedNavMenu === 'book' ? BookGreenIcon : BookGrayIcon}
+              alt=""
+            />
           </div>
         </div>
       </div>
-      <div className={styles.logoutArea}>{/* <Image src={LogoutGrayIcon} alt="" /> */}</div>
+      <div className={styles.logoutArea} />
     </div>
   )
 }

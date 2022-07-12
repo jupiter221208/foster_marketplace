@@ -9,6 +9,7 @@
   min-height: 653px;
   height: 100%;
   background: $text-gray-800-color;
+  z-index: 10;
 }
 
 .title {
@@ -39,4 +40,21 @@
   &:hover {
     opacity: 0.6;
   }
+}
+
+.greenText {
+  width: 100%;
+  margin-top: 62px;
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    margin-top: 107px;
+    font-size: 18px;
+  }
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+  opacity: 0.6;
 }

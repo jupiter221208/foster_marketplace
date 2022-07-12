@@ -4,18 +4,21 @@ import Head from 'next/head'
 import { useDispatch } from 'react-redux'
 
 // components
+import HeroCard from 'components/Card/HeroCard'
+import CategoryCard from 'components/Card/CategoryCard'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import NewReleaseCard from 'components/Card/NewReleaseCard'
-import TredingCollectionCard from 'components/Card/TredingCollectionCard'
-import AuctionCard from 'components/Card/AuctionCard'
+import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
+import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // images and icons
+import HeroPicture from 'assets/images/hero.png'
+import AvatarImage from 'assets/images/avatar.jpg'
 import LemonPoundPicture from 'assets/images/lemon-pound-picture.png'
 import AnatonyPicture from 'assets/images/anatony.png'
 import PinkWastelandPicture from 'assets/images/pink-wasteland.png'
 import PhotographyPicture from 'assets/images/photography.png'
 import SolanaLogo from 'assets/icons/solana-logo.svg'
-import CategoryCard from 'components/Card/CategoryCard'
 
 const Components = props => {
   const { viewport } = props
@@ -32,6 +35,15 @@ const Components = props => {
       <main>
         <h1>Components part</h1>
         <div>
+          <HeroCard
+            image={HeroPicture}
+            nftName="Way Home"
+            collectionName="Dreams Collection"
+            avatar={AvatarImage}
+            artistName="@Oterex"
+          />
+        </div>
+        <div>
           <CategoryCard image={PhotographyPicture} name="Photography" nfts={2131} collections={287} />
         </div>
         <div className="mt-[4px]">
@@ -44,7 +56,7 @@ const Components = props => {
           />
         </div>
         <div className="mt-[4px]">
-          <TredingCollectionCard
+          <TrendingCollectionCard
             image={AnatonyPicture}
             nftName="Anatony"
             nftType="Degan Art"
@@ -55,13 +67,13 @@ const Components = props => {
           />
         </div>
         <div className="mt-[4px]">
-          <AuctionCard
+          <LiveAuctionCard
             image={PinkWastelandPicture}
             nftName="Pink Wasteland"
             artistName="Kobe Beef"
-            nfts="8"
             icon={SolanaLogo}
             count={87}
+            endsIn="2d 6h 18m"
           />
         </div>
       </main>

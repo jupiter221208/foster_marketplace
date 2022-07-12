@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'assets/scss/variable.module.scss';
+
 html,
 body {
   padding: 0;
@@ -75,5 +77,70 @@ h6 {
   @media (min-width: 1536px) {
     padding-left: 150px;
     padding-right: 150px;
+  }
+}
+
+.heroSwiper {
+  padding-bottom: 46px !important;
+  .swiper-horizontal > .swiper-pagination-bullets,
+  .swiper-pagination-bullets.swiper-pagination-horizontal,
+  .swiper-pagination-custom,
+  .swiper-pagination-fraction {
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: $text-gray-200-color;
+    opacity: 0.7;
+  }
+
+  .swiper-pagination-bullet-active {
+    color: #fff;
+    background: $success-color;
+    width: 35px;
+    height: 8px;
+    border-radius: 4px;
+  }
+}
+
+.navigationSwiper {
+  padding-bottom: 30px !important;
+  @media (min-width: 1024px) {
+    padding-bottom: 73px !important;
+  }
+  .swiper-button-prev {
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    right: 55px;
+    // height: 40px;
+    color: $text-gray-200-color;
+    opacity: 0.7;
+    &::after {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+
+  .swiper-button-next {
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    right: 0px;
+    // height: 40px;
+    color: $text-gray-200-color;
+    opacity: 0.7;
+    &::after {
+      font-size: 40px;
+      font-weight: 700;
+    }
   }
 }

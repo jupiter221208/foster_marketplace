@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
-  viewport: 'desktop',
+  viewport: 'lg',
   expired: false,
   web3: {
     provider: null,

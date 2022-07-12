@@ -21,11 +21,11 @@ const CategoryCard = props => {
       />
       <div className={styles.bottomSection}>
         <div className={styles.name}>{name}</div>
-        <div className="flex mt-[4px]">
+        <div className="flex mt-[4px] w-full">
           <div className={styles.nftTitle}>NFTs:</div>
           <div className={`${styles.nftValue} ml-[4px]`}>{nfts}</div>
         </div>
-        <div className="flex mt-[3px]">
+        <div className="hidden lg:flex mt-[3px] w-full">
           <div className={styles.nftTitle}>Collections:</div>
           <div className={`${styles.nftValue} ml-[4px]`}>{collections}</div>
         </div>

@@ -1,8 +1,5 @@
 import React from 'react'
 
-// third party components
-import { useSelector } from 'react-redux'
-
 // custom components
 import Navbar from 'components/Navbar'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
@@ -12,13 +9,13 @@ import PrimaryFooter from 'components/Footer/PrimaryFooter'
 import styles from './index.module.scss'
 
 const PrimaryLayout = ({ children }) => {
-  const viewport = useSelector(state => state.viewport)
+  const { viewport } = children.props
   return (
     <div className={styles.container}>
-      <Navbar />
-      <PrimaryHeader />
-      <main className="w-full g-container">{children}</main>
-      <PrimaryFooter />
+      {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar viewport={viewport} />}
+      <PrimaryHeader viewport={viewport} />
+      <main className="inline justify-center g-container">{children}</main>
+      <PrimaryFooter viewport={viewport} />
     </div>
   )
 }

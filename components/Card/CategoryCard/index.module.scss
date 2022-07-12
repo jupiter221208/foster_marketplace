@@ -12,7 +12,10 @@
 
 .bottomSection {
   width: 100%;
-  height: 88px;
+  height: 45px;
+  @media (min-width: 1024px) {
+    height: 88px;
+  }
   background: linear-gradient(to right, rgba($text-gray-200-color, 1), rgba($brand-02-color, 0.5));
   position: absolute;
   bottom: 0px;
@@ -22,26 +25,42 @@
   padding-top: 4px;
   padding-left: 25px;
   padding-right: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .name {
+  width: 100%;
   font-weight: 700;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 12px;
+  line-height: 12px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 30px;
+  }
   letter-spacing: 0;
   color: $text-gray-800-color;
 }
 
 .nftTitle {
   font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 12px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
   color: $text-gray-800-color;
 }
 
 .nftValue {
   font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 12px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
   color: $brand-02-color;
 }
