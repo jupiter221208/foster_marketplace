@@ -1,0 +1,19 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  height: 53px;
+  background: linear-gradient(to left, rgba($brand-01-color, 1), rgba($brand-02-color, 1));
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 12px;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-800-color;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

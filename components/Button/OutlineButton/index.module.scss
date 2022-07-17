@@ -1,0 +1,20 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  height: 53px;
+  background: transparent;
+  border: 1px solid $brand-01-color;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 12px;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

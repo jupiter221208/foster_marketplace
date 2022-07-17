@@ -20,71 +20,137 @@ import MediumWhiteIcon from 'assets/icons/medium-white.svg'
 import styles from './index.module.scss'
 
 const PrimaryFooter = props => {
+  const { viewport } = props
   const router = useRouter()
 
   const [email, setEmail] = useState('')
   return (
     <div className={styles.container}>
-      <div className="g-container flex flex-wrap justify-between gap-4">
-        <div className="max-w-[347px] block justify-start">
-          <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
-            <Image src={LogoText01Icon} alt="" />
+      {viewport !== 'sm' && viewport !== 'md' ? (
+        <div className="g-container flex flex-wrap justify-between gap-4">
+          <div className="max-w-[347px] block justify-start">
+            <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
+              <Image src={LogoText01Icon} alt="" />
+            </div>
+            <div className={styles.text}>
+              Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
+            </div>
+            <div className="flex flex-wrap mt-[54px] gap-5">
+              <div>
+                <IconButton
+                  icon={InstagramWhiteIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
+                />
+              </div>
+              <div>
+                <IconButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+              </div>
+              <div>
+                <IconButton icon={TwitterWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+              </div>
+              <div>
+                <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+              </div>
+              <div>
+                <IconButton icon={MediumWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)} />
+              </div>
+            </div>
           </div>
-          <div className={styles.text}>
-            Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
-          </div>
-          <div className="flex flex-wrap mt-[54px] gap-5">
-            <div>
-              <IconButton
-                icon={InstagramWhiteIcon}
-                onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
-              />
+          <div className="max-w-[347px] block justify-start">
+            <div className={styles.title}>About Us</div>
+            <div className={`${styles.linkText} !mt-[52px]`} onClick={() => router.push('/#')}>
+              White Paper
             </div>
-            <div>
-              <IconButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Brand & Design Guide
             </div>
-            <div>
-              <IconButton icon={TwitterWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Press Releases
             </div>
-            <div>
-              <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Terms & Conditions
             </div>
-            <div>
-              <IconButton icon={MediumWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)} />
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Private Policy
             </div>
           </div>
+          <div className="max-w-[347px] block justify-start">
+            <div className={styles.title}>Contact Us</div>
+            <div className={`${styles.linkText} !mt-[52px]`} onClick={() => router.push('/#')}>
+              {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
+            </div>
+          </div>
+          <div className="max-w-[347px] block justify-start">
+            <div className={styles.title}>Newsletter</div>
+            <div className="mt-[52px]">
+              <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
+            </div>
+          </div>
+          <div className={styles.greenText}>© All Rights Reserved</div>
         </div>
-        <div className="max-w-[347px] block justify-start">
-          <div className={styles.title}>About Us</div>
-          <div className={`${styles.linkText} !mt-[52px]`} onClick={() => router.push('/#')}>
-            White Paper
+      ) : (
+        <div className="g-container flex flex-wrap justify-center gap-4 my-[60px]">
+          <div className="w-full flex flex-wrap justify-center">
+            <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
+              <Image src={LogoText01Icon} alt="" />
+            </div>
+            <div className={`${styles.text} flex justify-center text-center`}>
+              Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
+            </div>
+            <div className="flex flex-wrap mt-[44px] gap-[18px]">
+              <div>
+                <IconButton
+                  icon={InstagramWhiteIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
+                />
+              </div>
+              <div>
+                <IconButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+              </div>
+              <div>
+                <IconButton icon={TwitterWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+              </div>
+              <div>
+                <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+              </div>
+              <div>
+                <IconButton icon={MediumWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)} />
+              </div>
+            </div>
           </div>
-          <div className={styles.linkText} onClick={() => router.push('/#')}>
-            Brand & Design Guide
+          <div className="w-full block justify-center text-center mt-[44px]">
+            <div className={styles.title}>About Us</div>
+            <div className={`${styles.linkText} !mt-[34px]`} onClick={() => router.push('/#')}>
+              White Paper
+            </div>
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Brand & Design Guide
+            </div>
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Press Releases
+            </div>
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Terms & Conditions
+            </div>
+            <div className={styles.linkText} onClick={() => router.push('/#')}>
+              Private Policy
+            </div>
           </div>
-          <div className={styles.linkText} onClick={() => router.push('/#')}>
-            Press Releases
+          <div className="w-full block justify-center text-center mt-[44px]">
+            <div className={styles.title}>Contact Us</div>
+            <div className={`${styles.linkText} !mt-[26px]`} onClick={() => router.push('/#')}>
+              {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
+            </div>
           </div>
-          <div className={styles.linkText} onClick={() => router.push('/#')}>
-            Terms & Conditions
+          <div className="w-full block justify-center text-center mt-[44px]">
+            <div className={styles.title}>Newsletter</div>
+            <div className="mt-[26px] flex justify-center">
+              <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
+            </div>
           </div>
-          <div className={styles.linkText} onClick={() => router.push('/#')}>
-            Private Policy
-          </div>
+          <div className={styles.greenText}>© All Rights Reserved</div>
         </div>
-        <div className="max-w-[347px] block justify-start">
-          <div className={styles.title}>Contact Us</div>
-          <div className={`${styles.linkText} !mt-[52px]`} onClick={() => router.push('/#')}>
-            {process.env.NEXT_PUBLIC_CONTACT_EMAIL}
-          </div>
-        </div>
-        <div className="max-w-[347px] block justify-start">
-          <div className={styles.title}>Newsletter</div>
-          <div className="mt-[52px]">
-            <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   )
 }

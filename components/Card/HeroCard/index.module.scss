@@ -1,0 +1,99 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  max-width: 550px;
+  width: 100%;
+  max-height: 772px;
+  height: 120px;
+  border-radius: 10px;
+  @media (min-width: 640px) {
+    height: 160px;
+    border-radius: 10px;
+  }
+  @media (min-width: 768px) {
+    height: 200px;
+    border-radius: 10px;
+  }
+  @media (min-width: 1024px) {
+    height: 100%;
+    border-radius: 30px;
+  }
+  background-color: $background-dark-color;
+  position: relative;
+  overflow: hidden;
+}
+
+.bottomSection {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 73px;
+  border-radius: 10px;
+  max-height: 201px;
+  height: 74px;
+  padding: 8px 14px;
+  background: rgba($background-light-color, 0.6);
+  @media (min-width: 1024px) {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    height: 100%;
+    border-radius: 30px;
+    padding: 30px 35px 35px 35px;
+    background: #121212;
+  }
+}
+
+.nftName {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: $text-gray-800-color;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    line-height: 36px;
+    color: $text-gray-200-color;
+  }
+  letter-spacing: 0;
+}
+
+.collectionName {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: $text-gray-800-color;
+  @media (min-width: 1024px) {
+    margin-top: 4px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 24px;
+    color: $brand-03-color;
+  }
+  letter-spacing: 0;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  @media (min-width: 1024px) {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  }
+  border: 1px solid $text-gray-200-color;
+}
+
+.artistName {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0;
+  color: $text-gray-800-color;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 24px;
+    color: $brand-03-color;
+  }
+}

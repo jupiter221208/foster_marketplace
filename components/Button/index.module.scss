@@ -1,0 +1,23 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  height: 53px;
+  background: $brand-01-color;
+  padding-left: 16px;
+  padding-right: 16px;
+  @media (min-width: 1024px) {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  border-radius: 12px;
+
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-800-color;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
