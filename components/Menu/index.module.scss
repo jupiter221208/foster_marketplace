@@ -6,7 +6,7 @@
   align-items: center;
   cursor: pointer;
 
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
@@ -17,23 +17,29 @@
 .menuArea {
   position: absolute;
   top: 65px;
-  right: 0;
+  left: -36px;
   min-width: 200px;
-  width: 100%;
-  padding: 16px;
-  background-color: $background-light-color;
+  width: auto;
+  padding: 8px;
+  background-color: $background-dark-color;
+  border-radius: 15px;
+  border: 1px solid #22777b;
 }
 
 .menuItem {
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-600-color;
-  padding: 16px;
+  color: $text-gray-200-color;
+  padding: 8px;
   cursor: pointer;
   border-radius: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
   &:hover {
-    background-color: $brand-03-color;
+    background-color: rgba($text-gray-200-color, 0.3);
   }
 }

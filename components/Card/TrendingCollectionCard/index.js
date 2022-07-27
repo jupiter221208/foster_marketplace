@@ -8,43 +8,32 @@ import styles from './index.module.scss'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const TrendingCollectionCard = props => {
-  const { image, nftName, nftType, artistName, icon, nfts, price, viewport } = props
+  const { image, nftName, nftType, artistName, nfts, avatar, viewport } = props
   return (
     <div className={styles.container}>
-      <div className="relative w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
-        <div className="hidden lg:flex absolute bottom-[14px] right-[8px]">
-          <Image src={CheckedGreenIcon} alt="" width={28} height={28} />
-        </div>
-      </div>
-      <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
-        <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{nftName}</div>
-          <div className={styles.priceName}>Total NFTs</div>
-        </div>
-        <div className="w-full mt-[4px] flex justify-between">
-          <div className={`${styles.artistName} flex items-center`}>
-            {artistName}
-            <div className="flex lg:hidden ml-1">
-              <Image src={CheckedGreenIcon} alt="" width={12} height={12} />
-            </div>
-          </div>
-          <div className={styles.price}>{nfts}</div>
-        </div>
-        <div className="w-full mt-[4px] flex justify-between items-center">
-          <div className={styles.nftType}>{nftType} </div>
-          <div className="items-center">
-            <div className={styles.priceName}>Floor Price</div>
-            <div className="flex justify-end">
-              <Image
-                src={icon}
+      <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
+        <Image src={image} alt="" width={492} height={515} layout="responsive" objectFit="cover" />
+        <div className={styles.bottomMask}></div>
+        <div className="w-full h-[40px] lg:h-[54px] flex justify-between absolute lg:bottom-[28px] bottom-[15px] left-[0px] right-[0px] items-center">
+          <div className="ml-[15px] lg:ml-[28px]">
+            <div className="flex justify-between items-center">
+              <div className={styles.nftName}>{nftName}</div>
+              {/* <Image
+                src={CheckedGreenIcon}
                 alt=""
-                width={viewport === 'sm' || viewport === 'md' ? 12 : 24}
-                height={viewport === 'sm' || viewport === 'md' ? 12 : 24}
-              />
-              <div className={styles.price}>{price}</div>
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 28}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 28}
+              /> */}
+            </div>
+            <div className="flex">
+              <div className={styles.artistName}>{artistName}</div>
+              <div className={styles.dotStyle}>&#183;</div>
+              <div className={styles.artistName}>{nfts} NFTs</div>
             </div>
           </div>
+        </div>
+        <div className={styles.avatar}>
+          <Image src={avatar} alt="" width={58} height={58} />
         </div>
       </div>
     </div>

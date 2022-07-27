@@ -8,43 +8,54 @@
   background-color: $background-dark-color;
   border-radius: 30px;
   position: relative;
+  border: 1px solid rgba(white, 0.1);
+  box-shadow: 0px 3px 6px rgba(black, 0.5);
+}
+
+.bottomMask {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 230px;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  background: url('../../../assets/icons/white-black-mask.svg');
 }
 
 .bottomSection {
   width: 100%;
-  height: 45px;
-  @media (min-width: 1024px) {
-    height: 88px;
-  }
-  background: linear-gradient(to right, rgba($text-gray-200-color, 1), rgba($brand-02-color, 0.5));
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
-  padding-top: 4px;
-  padding-left: 25px;
-  padding-right: 25px;
+  bottom: 0;
+  left: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 
 .name {
-  width: 100%;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 12px;
-  @media (min-width: 1024px) {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  font-size: 20px;
+  @media (min-width: 576px) {
     font-size: 24px;
     line-height: 30px;
   }
   letter-spacing: 0;
-  color: $text-gray-800-color;
+  color: $text-gray-200-color;
+}
+
+.logoIcon {
+  mix-blend-mode: luminosity;
+  padding-top: 8px;
 }
 
 .nftTitle {
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 12px;
   line-height: 12px;
   @media (min-width: 1024px) {
@@ -55,7 +66,7 @@
 }
 
 .nftValue {
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 12px;
   line-height: 12px;
   @media (min-width: 1024px) {

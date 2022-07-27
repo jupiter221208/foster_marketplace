@@ -1,0 +1,44 @@
+[
+  {
+    "id": 0,
+    "image": "/images/most-popular-4.png",
+    "nftName": "Lemon Pound 01",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 1,
+    "image": "/images/most-popular-2.png",
+    "nftName": "Lemon Pound 02",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 2,
+    "image": "/images/most-popular-4.png",
+    "nftName": "Lemon Pound 03",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 3,
+    "image": "/images/most-popular-2.png",
+    "nftName": "Lemon Pound 04",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 4,
+    "image": "/images/lemon-pound-picture.png",
+    "nftName": "Lemon Pound 05",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 5,
+    "image": "/images/most-popular-2.png",
+    "nftName": "Lemon Pound 06",
+    "artistName": "Lane Rudd",
+    "price": 15
+  }
+]

@@ -1,0 +1,83 @@
+[
+  {
+    "id": 0,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 01",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 1,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 02",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 2,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 03",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 3,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 04",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 4,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 05",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 5,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 06",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 6,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 07",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 7,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 08",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  },
+  {
+    "id": 8,
+    "image": "/images/anatony.png",
+    "nftName": "Anatomy 09",
+    "nftType": "Degan Art",
+    "artistName": "Lane Rudd",
+    "nfts": 8,
+    "price": 15
+  }
+]

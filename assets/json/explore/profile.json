@@ -1,0 +1,5 @@
+[
+  { "id": "profile-0", "label": "Artist", "value": "Artist" },
+  { "id": "profile-1", "label": "Collector", "value": "Collector" },
+  { "id": "profile-2", "label": "All", "value": "All" }
+]

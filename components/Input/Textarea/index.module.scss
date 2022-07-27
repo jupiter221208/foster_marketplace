@@ -1,0 +1,34 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 141px;
+  font-size: 14px;
+  line-height: 21px;
+  @media (min-width: 1024px) {
+    height: 100px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+  border-radius: 12px;
+  background-color: rgba(#ffffff, 0.25);
+  padding: 20px 24px;
+
+  font-family: 'Muli-Regular';
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.label {
+  margin-top: 10px;
+  margin-left: 24px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 21px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 0.5);
+}

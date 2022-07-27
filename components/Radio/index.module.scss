@@ -1,0 +1,40 @@
+@import 'assets/scss/variable.module.scss';
+
+.radio {
+  appearance: none;
+  border: 2px solid rgba($text-gray-200-color, 0.6);
+  background-color: transparent;
+  vertical-align: top;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+
+  &:checked {
+    border: 2px solid $brand-03-color;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      background-color: $brand-03-color;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.label {
+  flex: 1;
+  cursor: pointer;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+  letter-spacing: 0;
+}

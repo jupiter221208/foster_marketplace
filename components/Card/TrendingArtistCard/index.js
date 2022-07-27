@@ -10,7 +10,7 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import styles from './index.module.scss'
 
 const TrendingArtistCard = props => {
-  const { image, name, nfts, collections } = props
+  const { image, name } = props
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
@@ -18,28 +18,16 @@ const TrendingArtistCard = props => {
           <Image
             src={image}
             alt=""
-            width={70}
-            height={70}
+            width={206}
+            height={206}
             layout="responsive"
             objectFit="cover"
-            className="rounded-[6px]"
+            className="rounded-[103px]"
           />
         </div>
       </div>
-      <div className="ml-3">
-        <div className="flex">
-          <div className={styles.name}>{name}</div>
-          <Image src={CheckedGreenIcon} alt="" />
-        </div>
-        <div className="flex">
-          <div className={styles.boldText}>NFTs :</div>
-          <div className={styles.text}>{nfts}</div>
-        </div>
-        <div className="flex">
-          <div className={styles.boldText}>Collections :</div>
-          <div className={styles.text}>{collections}</div>
-        </div>
-      </div>
+
+      <div className={styles.name}>{name}</div>
     </div>
   )
 }

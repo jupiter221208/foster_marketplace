@@ -1,0 +1,63 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 28px;
+  margin-bottom: 368px;
+  @media (min-width: 1024px) {
+    margin-top: 150px;
+    margin-bottom: 245px;
+  }
+}
+
+.topLeftEllipse {
+  position: absolute;
+  top: -960px;
+  left: -960px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.topRightEllipse {
+  position: absolute;
+  top: -519px;
+  right: -400px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.bottomRightEllipse {
+  position: absolute;
+  bottom: -290px;
+  right: -900px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.bottomLeftEllipse {
+  position: absolute;
+  bottom: -800px;
+  left: -1399px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 25px;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 48px;
+    line-height: 60px;
+  }
+  color: $text-gray-200-color;
+}

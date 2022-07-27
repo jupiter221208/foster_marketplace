@@ -1,0 +1,7 @@
+[
+  { "id": 0, "label": "Square [1080px by 1080px]", "value": "Square [1080px by 1080px]" },
+  { "id": 1, "label": "Landscape [1920px by 1080px]", "value": "Landscape [1920px by 1080px]" },
+  { "id": 2, "label": "Landscape [1920px by 1440px]", "value": "Landscape [1920px by 1440px]" },
+  { "id": 3, "label": "Portrait [1080px by 1920px]", "value": "Portrait [1080px by 1920px]" },
+  { "id": 4, "label": "Portrait [1440px by 1920px]", "value": "Portrait [1440px by 1920px]" }
+]

@@ -1,10 +1,24 @@
 import React from 'react'
 
+// next components
+import Image from 'next/image'
+
 // styles
 import styles from './index.module.scss'
 
 const OutlineButton = props => {
-  const { label, onClick, fullWidth, color, borderColor, size } = props
+  const {
+    label,
+    onClick,
+    fullWidth,
+    color,
+    borderWidth = 1,
+    borderColor,
+    width = '',
+    height = '',
+    icon = '',
+    direction = 'ltr',
+  } = props
   return (
     <button
       type="button"
@@ -12,13 +26,23 @@ const OutlineButton = props => {
       className={styles.container}
       style={{
         color: color,
+        borderWidth: borderWidth,
         borderColor: borderColor,
-        height: size === 'h40' ? '40px' : '53px',
-        width: fullWidth ? '100%' : 'auto',
-        fontSize: size === 'h40' ? '12px' : '18px',
+        height: height,
+        width: fullWidth ? '100%' : width,
       }}
     >
-      {label}
+      {direction === 'rtl' && icon !== '' && (
+        <div className="flex items-center mr-[15px]">
+          <Image src={icon} alt="" />
+        </div>
+      )}
+      <div>{label}</div>
+      {direction === 'ltr' && icon !== '' && (
+        <div className="flex items-center ml-[15px]">
+          <Image src={icon} alt="" />
+        </div>
+      )}
     </button>
   )
 }

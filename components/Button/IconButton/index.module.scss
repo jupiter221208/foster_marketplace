@@ -4,11 +4,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 46px;
+  width: auto;
   height: 46px;
   border-radius: 12px;
-  background-color: $brand-02-color;
+  background-color: $background-dark-color;
   &:hover {
     opacity: 0.8;
   }
+
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-800-color;
+}
+
+.image {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

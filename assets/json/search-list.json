@@ -1,0 +1,38 @@
+{
+  "nfts": [
+    { "id": 0, "image": "/images/nft.png", "label": "NFT Name 1", "value": "NFT Name 1" },
+    { "id": 1, "image": "/images/nft.png", "label": "NFT Name 2", "value": "NFT Name 2" },
+    { "id": 2, "image": "/images/nft.png", "label": "NFT Name 3", "value": "NFT Name 3" },
+    { "id": 3, "image": "/images/nft.png", "label": "NFT Name 4", "value": "NFT Name 4" },
+    { "id": 4, "image": "/images/nft.png", "label": "NFT Name 5", "value": "NFT Name 5" },
+    { "id": 5, "image": "/images/nft.png", "label": "NFT Name 6", "value": "NFT Name 6" },
+    { "id": 6, "image": "/images/nft.png", "label": "NFT Name 7", "value": "NFT Name 7" },
+    { "id": 7, "image": "/images/nft.png", "label": "NFT Name 8", "value": "NFT Name 8" },
+    { "id": 8, "image": "/images/nft.png", "label": "NFT Name 9", "value": "NFT Name 9" },
+    { "id": 9, "image": "/images/nft.png", "label": "NFT Name 10", "value": "NFT Name 10" }
+  ],
+  "artists": [
+    { "id": 0, "image": "/images/avatar.png", "label": "Artist Name 1", "value": "Artist Name 1" },
+    { "id": 1, "image": "/images/avatar.png", "label": "Artist Name 2", "value": "Artist Name 2" },
+    { "id": 2, "image": "/images/avatar.png", "label": "Artist Name 3", "value": "Artist Name 3" },
+    { "id": 3, "image": "/images/avatar.png", "label": "Artist Name 4", "value": "Artist Name 4" },
+    { "id": 4, "image": "/images/avatar.png", "label": "Artist Name 5", "value": "Artist Name 5" },
+    { "id": 5, "image": "/images/avatar.png", "label": "Artist Name 6", "value": "Artist Name 6" },
+    { "id": 6, "image": "/images/avatar.png", "label": "Artist Name 7", "value": "Artist Name 7" },
+    { "id": 7, "image": "/images/avatar.png", "label": "Artist Name 8", "value": "Artist Name 8" },
+    { "id": 8, "image": "/images/avatar.png", "label": "Artist Name 9", "value": "Artist Name 9" },
+    { "id": 9, "image": "/images/avatar.png", "label": "Artist Name 10", "value": "Artist Name 10" }
+  ],
+  "collections": [
+    { "id": 0, "image": "/images/collection.png", "label": "Collection Name 1", "value": "Collection Name 1" },
+    { "id": 1, "image": "/images/collection.png", "label": "Collection Name 2", "value": "Collection Name 2" },
+    { "id": 2, "image": "/images/collection.png", "label": "Collection Name 3", "value": "Collection Name 3" },
+    { "id": 3, "image": "/images/collection.png", "label": "Collection Name 4", "value": "Collection Name 4" },
+    { "id": 4, "image": "/images/collection.png", "label": "Collection Name 5", "value": "Collection Name 5" },
+    { "id": 5, "image": "/images/collection.png", "label": "Collection Name 6", "value": "Collection Name 6" },
+    { "id": 6, "image": "/images/collection.png", "label": "Collection Name 7", "value": "Collection Name 7" },
+    { "id": 7, "image": "/images/collection.png", "label": "Collection Name 8", "value": "Collection Name 8" },
+    { "id": 8, "image": "/images/collection.png", "label": "Collection Name 9", "value": "Collection Name 9" },
+    { "id": 9, "image": "/images/collection.png", "label": "Collection Name 10", "value": "Collection Name 10" }
+  ]
+}

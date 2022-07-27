@@ -3,12 +3,15 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// images and icons
+import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+
 // styles
 import styles from './index.module.scss'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const LiveAuctionCard = props => {
-  const { image, nftName, artistName, icon, count, endsIn, viewport } = props
+  const { image, nftName, artistName, count, endsIn, viewport } = props
   return (
     <div className={styles.container}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
@@ -18,58 +21,38 @@ const LiveAuctionCard = props => {
         <div className="w-full flex justify-between items-center">
           <div className={styles.nftName}>{nftName}</div>
         </div>
-        <div className="w-full mt-[4px] flex items-center">
+        <div className="w-full flex items-center mt-[2px] lg:mt-[4px]">
           <div className={styles.artistName}>{artistName}</div>
-          <div className="pl-[6px]">
+          <div className="pl-[6px] flex items-center">
             <Image
               src={CheckedGreenIcon}
               alt=""
-              width={viewport === 'sm' || viewport === 'md' ? 12 : 28}
-              height={viewport === 'sm' || viewport === 'md' ? 12 : 28}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 22}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 22}
             />
           </div>
         </div>
       </div>
       <div className={styles.bidContainer}>
-        {viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full flex flex-wrap">
-            <div className="w-full flex items-center">
-              <div className={styles.bidName}>Current Bid :&nbsp;</div>
-              <div className={styles.bidCount}>{count}</div>
+        <div className="w-full flex flex-wrap justify-between">
+          <div>
+            <div className={styles.bidName}>Current Bid</div>
+            <div className="flex justify-start mt-[4px] lg:mt-[6px]">
               <Image
-                src={icon}
+                src={SolanaLogoIcon}
                 alt=""
-                width={viewport === 'sm' || viewport === 'md' ? 12 : 24}
-                height={viewport === 'sm' || viewport === 'md' ? 12 : 24}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 23}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 23}
               />
-            </div>
-            <div className="w-full flex items-center mt-1">
-              <div className={styles.bidName}>Ends in :&nbsp;</div>
-              <div className={styles.bidCount}>{endsIn}</div>
+              <div className={styles.bidCount}>{count}</div>
             </div>
           </div>
-        ) : (
-          <div className="w-full flex justify-between">
-            <div>
-              <div className={styles.bidName}>Current Bid</div>
-              <div className="flex items-center">
-                <div className={styles.bidCount}>{count}</div>
-                <Image
-                  src={icon}
-                  alt=""
-                  width={viewport === 'sm' || viewport === 'md' ? 12 : 24}
-                  height={viewport === 'sm' || viewport === 'md' ? 12 : 24}
-                />
-              </div>
-            </div>
-            <div>
-              <div className={styles.bidName}>Ends in</div>
-              <div className="flex items-center">
-                <div className={styles.bidCount}>{endsIn}</div>
-              </div>
-            </div>
+
+          <div className="mt-[0px] lg:mt-[0px]">
+            <div className={styles.endsIn}>Ends in</div>
+            <div className={styles.endTime}>{endsIn}</div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

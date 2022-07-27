@@ -1,0 +1,12 @@
+[
+  { "id": 0, "label": "Recently Minted", "value": "Recently Minted" },
+  { "id": 1, "label": "Most Collectors", "value": "Most Collectors" },
+  { "id": 2, "label": "Trending", "value": "Trending" },
+  { "id": 3, "label": "Total Volume", "value": "Total Volume" },
+  { "id": 4, "label": "Alphabetical (A-Z)", "value": "Alphabetical (A-Z)" },
+  { "id": 5, "label": "Alphabetical (Z-A)", "value": "Alphabetical (Z-A)" },
+  { "id": 6, "label": "Floor Price (Highest)", "value": "Floor Price (Highest)" },
+  { "id": 7, "label": "Floor Price (Lowest)", "value": "Floor Price (Lowest)" },
+  { "id": 8, "label": "Item Count (Highest)", "value": "Item Count (Highest)" },
+  { "id": 9, "label": "Item Count (Lowest)", "value": "Item Count (Lowest)" }
+]

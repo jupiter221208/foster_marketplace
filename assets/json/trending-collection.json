@@ -6,7 +6,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -16,7 +16,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -26,7 +26,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -36,7 +36,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -46,7 +46,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -56,7 +56,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -66,7 +66,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -76,7 +76,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   },
   {
@@ -86,77 +86,7 @@
     "nftType": "Degan Art",
     "artistName": "Lane Rudd",
     "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 9,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 10",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 10,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 11",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 11,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 12",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 12,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 13",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 13,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 14",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 14,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 15",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
-    "price": 15
-  },
-  {
-    "id": 15,
-    "image": "/images/anatony.png",
-    "nftName": "Anatomy 16",
-    "nftType": "Degan Art",
-    "artistName": "Lane Rudd",
-    "nfts": 8,
-    "icon": "/images/solana-logo.svg",
+    "avatar": "/images/avatar.png",
     "price": 15
   }
 ]

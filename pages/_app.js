@@ -8,7 +8,7 @@ import 'assets/scss/global.scss'
 
 const MyApp = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout || (page => page)
-  const [viewport, setViewport] = useState('lg') // sm, md, lg, xl, 2xl
+  const [viewport, setViewport] = useState('lg') // xs, sm, md, lg, xl, 2xl
 
   useEffect(() => {
     if (window.innerWidth > 1536) {
@@ -17,10 +17,12 @@ const MyApp = ({ Component, pageProps }) => {
       setViewport('xl')
     } else if (window.innerWidth > 1024 && window.innerWidth <= 1280) {
       setViewport('lg')
-    } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+    } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
       setViewport('md')
-    } else {
+    } else if (window.innerWidth >= 640 && window.innerWidth <= 768) {
       setViewport('sm')
+    } else {
+      setViewport('xs')
     }
   }, [])
 
@@ -32,10 +34,12 @@ const MyApp = ({ Component, pageProps }) => {
         setViewport('xl')
       } else if (window.innerWidth > 1024 && window.innerWidth <= 1280) {
         setViewport('lg')
-      } else if (window.innerWidth >= 768 && window.innerWidth <= 1024) {
+      } else if (window.innerWidth > 768 && window.innerWidth <= 1024) {
         setViewport('md')
-      } else {
+      } else if (window.innerWidth >= 640 && window.innerWidth <= 768) {
         setViewport('sm')
+      } else {
+        setViewport('xs')
       }
     }
     window.addEventListener('resize', resizeFunction)

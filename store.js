@@ -3,6 +3,9 @@ import { createStore } from 'redux'
 const initialState = {
   viewport: 'lg',
   expired: false,
+  openMobileMenu: false,
+  openMobileSearchBox: false,
+  exploreTab: 0,
   web3: {
     provider: null,
     web3Provider: null,

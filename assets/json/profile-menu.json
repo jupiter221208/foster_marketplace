@@ -1,5 +1,4 @@
 [
-  { "id": 0, "label": "Profile 01", "value": "/profile-01" },
-  { "id": 1, "label": "Profile 02", "value": "/profile-02" },
-  { "id": 2, "label": "Profile 03", "value": "/profile-03" }
+  { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "path": "/create-01" },
+  { "id": 1, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/create-02" }
 ]
