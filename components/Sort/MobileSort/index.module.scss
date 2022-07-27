@@ -1,0 +1,49 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: fixed;
+  top: 80px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  // overflow: hidden;
+  background-color: $background-dark-color;
+  border-radius: 0px;
+  padding: 17px 0px 96px 0px;
+  z-index: 1000;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 16px;
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  line-height: 28px;
+  color: $text-gray-200-color;
+}
+
+.subTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: $brand-06-color;
+  margin-bottom: 26px;
+}
+
+.bottomArea {
+  width: 100%;
+  height: 96px;
+  background-color: #2b2f32;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}

@@ -1,0 +1,16 @@
+[
+  { "id": 0, "label": "Recently Joined", "value": "Recently Joined" },
+  { "id": 1, "label": "Trending", "value": "Trending" },
+  { "id": 2, "label": "Most Popular", "value": "Most Popular" },
+  { "id": 3, "label": "Alphabetical (A-Z)", "value": "Alphabetical (A-Z)" },
+  { "id": 4, "label": "Alphabetical (Z-A)", "value": "Alphabetical (Z-A)" },
+  { "id": 5, "label": "Floor Price (Highest)", "value": "Floor Price (Highest)" },
+  { "id": 6, "label": "Floor Price (Lowest)", "value": "Floor Price (Lowest)" },
+  { "id": 7, "label": "Total Volume", "value": "Total Volume" },
+  { "id": 8, "label": "Item Count (Highest)", "value": "Item Count (Highest)" },
+  { "id": 9, "label": "Item Count (Lowest)", "value": "Item Count (Lowest)" },
+  { "id": 10, "label": "Collection Count (Highest)", "value": "Collection Count (Highest)" },
+  { "id": 11, "label": "Collection Count (Lowest)", "value": "Collection Count (Lowest)" },
+  { "id": 12, "label": "Unique Collectors", "value": "Unique Collectors" },
+  { "id": 13, "label": "Creators Supported", "value": "Creators Supported" }
+]

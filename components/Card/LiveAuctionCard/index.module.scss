@@ -1,33 +1,45 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-width: 359px;
+  width: 359px;
   width: 100%;
   max-height: 550px;
   height: 100%;
-  background-color: $background-dark-color;
+  background-color: $background-black-color;
   border-radius: 13px;
-  padding: 8px;
+  padding: 9px;
   @media (min-width: 1024px) {
+    padding: 15px;
+    border-radius: 30px;
+  }
+  @media (min-width: 1536px) {
     padding: 19px;
     border-radius: 30px;
   }
+  border: 0.5px solid rgba($text-gray-200-color, 0.15);
+  box-shadow: 0px 3px 6px rgba(black, 0.5);
 }
 
 .nftName {
-  font-weight: 600;
+  font-family: 'Muli-SemiBold';
   font-size: 12px;
   line-height: 14px;
   @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 22px;
+    margin-top: 4px;
+  }
+  @media (min-width: 1536px) {
     font-size: 22px;
     line-height: 28px;
+    margin-top: 4px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
 }
 
 .nftType {
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 8px;
   line-height: 8px;
   @media (min-width: 1024px) {
@@ -43,22 +55,47 @@
 }
 
 .bidName {
-  font-weight: 700;
-  font-size: 8px;
-  line-height: 8px;
+  font-family: 'Muli-SemiBold';
+  font-size: 10px;
+  line-height: 12px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.endsIn {
+  font-family: 'Muli-SemiBold';
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 20px;
+    line-height: 24px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
 }
 
 .artistName {
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 10px;
   line-height: 10px;
   @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (min-width: 1536px) {
     font-size: 18px;
     line-height: 24px;
   }
@@ -67,7 +104,7 @@
 }
 
 .priceName {
-  font-weight: 400;
+  font-family: 'Muli-Regular';
   font-size: 10px;
   line-height: 10px;
   @media (min-width: 1024px) {
@@ -79,29 +116,70 @@
 }
 
 .bidCount {
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 10px;
+  font-family: 'Muli-SemiBold';
+  font-size: 11px;
+  line-height: 11px;
+  margin-left: 5px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 24px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $brand-06-color;
+}
+
+.endTime {
+  font-family: 'Muli-SemiBold';
+  font-size: 11px;
+  line-height: 11px;
+  margin-top: 4px;
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 24px;
   }
+  @media (min-width: 1280px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 24px;
+    line-height: 24px;
+  }
   letter-spacing: 0;
-  color: $brand-01-color;
+  color: $brand-06-color;
 }
 
 .bidContainer {
   width: 100%;
-  height: 38px;
-  margin-top: 0px;
+  height: 46px;
   border-radius: 10px;
-  padding: 5px 8px;
+  padding: 8px 10px;
+  margin-top: 6px;
+  @media (min-width: 640px) {
+    height: 48px;
+    padding: 10px 14px;
+  }
   @media (min-width: 1024px) {
     width: 100%;
     height: 68px;
-    margin-top: 25px;
+    margin-top: 16px;
     border-radius: 20px;
-    padding: 13px 28px;
+    padding: 10px 14px;
   }
-  background-color: rgba($brand-02-color, 0.3);
+  @media (min-width: 1536px) {
+    width: 100%;
+    height: 82px;
+    margin-top: 11px;
+    border-radius: 20px;
+    padding: 13px 19px;
+  }
+  background-color: rgba($brand-02-color, 0.15);
 }

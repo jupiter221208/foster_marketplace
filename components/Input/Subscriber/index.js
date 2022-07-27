@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // import images and icons
-import EmailGreenIcon from 'assets/icons/email-green.svg'
+import FosterGreenIcon from 'assets/icons/foster-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -19,7 +19,7 @@ const Subscriber = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
-      <Image src={EmailGreenIcon} alt="" className="cursor-pointer" onClick={() => onClick()} />
+      <Image src={FosterGreenIcon} alt="" className="cursor-pointer" onClick={() => onClick()} />
     </div>
   )
 }

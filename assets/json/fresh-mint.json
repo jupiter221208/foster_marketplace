@@ -1,0 +1,30 @@
+[
+  {
+    "id": 0,
+    "image": "/images/most-popular-4.png",
+    "nftName": "Kingdom of Heaven",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 1,
+    "image": "/images/kindom-heaven.png",
+    "nftName": "Kingdom of Heaven",
+    "artistName": "Oterex",
+    "price": 15
+  },
+  {
+    "id": 2,
+    "image": "/images/most-popular-2.png",
+    "nftName": "Lemon Pound 03",
+    "artistName": "Lane Rudd",
+    "price": 15
+  },
+  {
+    "id": 3,
+    "image": "/images/fresh-mint.png",
+    "nftName": "Lemon Pound 04",
+    "artistName": "Lane Rudd",
+    "price": 15
+  }
+]

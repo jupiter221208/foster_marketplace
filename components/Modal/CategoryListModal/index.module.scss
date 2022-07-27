@@ -1,0 +1,113 @@
+@import 'assets/scss/variable.module.scss';
+
+.menu {
+  width: 100vw;
+  min-height: calc(100vh - 80px);
+  height: 100%;
+  background-color: #0f1316;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: fixed;
+  // top: 0;
+  // left: -100vw;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  z-index: 120;
+  overflow: hidden;
+}
+
+.menuOpen {
+  width: 100vw;
+  min-height: calc(100vh - 80px);
+  background-color: #0f1316;
+  z-index: 100;
+  padding: 15px 15px 92px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: fixed;
+  top: 80px;
+  left: 0;
+  // animation-name: menu_open;
+  // animation-duration: 0.8s;
+  // animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  // animation-direction: alternate;
+  // overflow: hidden;
+}
+
+.menuClose {
+  width: 100vw;
+  min-height: calc(100vh - 80px);
+  background-color: #0f1316;
+  z-index: 100;
+  padding: 15px 15px 92px 15px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+
+  position: fixed;
+  top: 80px;
+  left: 0;
+  // animation-name: menu_close;
+  // animation-duration: 0.8s;
+  // animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  // animation-direction: alternate;
+  // animation-fill-mode: forwards;
+  // overflow: hidden;
+}
+
+@keyframes menu_open {
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes menu_close {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  padding-left: 15px;
+  overflow: auto;
+  width: 100%;
+}
+
+.content {
+  width: 100%;
+  height: calc(100vh - 80px - 68px - 96px);
+  display: flex;
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 96px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2b2f32;
+}

@@ -4,7 +4,7 @@
     "image": "/images/hero.png",
     "nftName": "Way Home 1",
     "collectionName": "Dreams Collection 1",
-    "avatar": "/images/avatar.jpg",
+    "avatar": "/images/avatar.png",
     "artistName": "@Oterex 1"
   },
   {
@@ -12,7 +12,7 @@
     "image": "/images/hero.png",
     "nftName": "Way Home 2",
     "collectionName": "Dreams Collection 2",
-    "avatar": "/images/avatar.jpg",
+    "avatar": "/images/avatar.png",
     "artistName": "@Oterex 2"
   },
   {
@@ -20,7 +20,7 @@
     "image": "/images/hero.png",
     "nftName": "Way Home 3",
     "collectionName": "Dreams Collection 3",
-    "avatar": "/images/avatar.jpg",
+    "avatar": "/images/avatar.png",
     "artistName": "@Oterex 3"
   },
   {
@@ -28,7 +28,7 @@
     "image": "/images/hero.png",
     "nftName": "Way Home 4",
     "collectionName": "Dreams Collection 4",
-    "avatar": "/images/avatar.jpg",
+    "avatar": "/images/avatar.png",
     "artistName": "@Oterex 4"
   },
   {
@@ -36,7 +36,7 @@
     "image": "/images/hero.png",
     "nftName": "Way Home 5",
     "collectionName": "Dreams Collection 5",
-    "avatar": "/images/avatar.jpg",
+    "avatar": "/images/avatar.png",
     "artistName": "@Oterex 5"
   }
 ]

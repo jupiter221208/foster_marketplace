@@ -1,0 +1,18 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: 1px solid #eceef4;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 0.6);
+}

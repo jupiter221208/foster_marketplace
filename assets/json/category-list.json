@@ -1,0 +1,23 @@
+[
+  { "id": 0, "label": "3D", "value": "3D" },
+  { "id": 1, "label": "Abstract", "value": "Abstract" },
+  { "id": 2, "label": "Algorithmic", "value": "Algorithmic" },
+  { "id": 3, "label": "Animation", "value": "Animation" },
+  { "id": 4, "label": "Audiovisual", "value": "Audiovisual" },
+  { "id": 5, "label": "Black and white", "value": "Black and white" },
+  { "id": 6, "label": "Collage", "value": "Collage" },
+  { "id": 7, "label": "Collaboration", "value": "Collaboration" },
+  { "id": 8, "label": "Degenerative", "value": "Degenerative" },
+  { "id": 9, "label": "Drawing", "value": "Drawing" },
+  { "id": 10, "label": "Figurative", "value": "Figurative" },
+  { "id": 11, "label": "Generative", "value": "Generative" },
+  { "id": 12, "label": "Glitch", "value": "Glitch" },
+  { "id": 13, "label": "Moving image", "value": "Moving image" },
+  { "id": 14, "label": "Painting", "value": "Painting" },
+  { "id": 15, "label": "Performance", "value": "Performance" },
+  { "id": 16, "label": "Photography", "value": "Photography" },
+  { "id": 17, "label": "Sculpture", "value": "Sculpture" },
+  { "id": 18, "label": "Sports", "value": "Sports" },
+  { "id": 19, "label": "Surrealism", "value": "Surrealism" },
+  { "id": 20, "label": "Text", "value": "Text" }
+]

@@ -6,23 +6,34 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 653px;
+  min-height: 564px;
   height: 100%;
-  background: $text-gray-800-color;
+  background: #0f1316;
   z-index: 10;
 }
 
+.topLeftEllipse {
+  position: absolute;
+  top: 152px;
+  right: -220px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
 .title {
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 24px;
   line-height: 36px;
   letter-spacing: 0;
   color: $text-gray-200-color;
+  @media (max-width: 576px) {
+    font-size: 18px;
+  }
 }
 
 .text {
   margin-top: 39px;
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
@@ -32,13 +43,19 @@
 .linkText {
   cursor: pointer;
   margin-top: 16px;
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
+  opacity: 0.8;
   color: $text-gray-200-color;
   &:hover {
     opacity: 0.6;
+  }
+  @media (max-width: 576px) {
+    font-size: 12px;
+    font-family: 'Muli-SemiBold';
+    margin-top: 14px;
   }
 }
 
@@ -47,12 +64,12 @@
   margin-top: 62px;
   font-size: 14px;
   @media (min-width: 1024px) {
-    margin-top: 107px;
+    margin-top: 96px;
     font-size: 18px;
   }
   display: flex;
   justify-content: center;
-  font-weight: 700;
+  font-family: 'Muli-Bold';
   line-height: 24px;
   letter-spacing: 0;
   color: $text-gray-200-color;

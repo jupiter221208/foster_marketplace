@@ -1,5 +1,5 @@
 [
-  { "id": 0, "label": "Explore 01", "value": "/explore-01" },
-  { "id": 1, "label": "Explore 02", "value": "/explore-02" },
-  { "id": 2, "label": "Explore 03", "value": "/explore-03" }
+  { "id": 0, "icon": "/icons/dashboard-green.svg", "label": "NFTs by Category", "path": "/explore" },
+  { "id": 1, "icon": "/icons/collection-green.svg", "label": "NFTs by Collection", "path": "/explore" },
+  { "id": 2, "icon": "/icons/artist-green.svg", "label": "NFTs by Artist", "path": "/explore" }
 ]

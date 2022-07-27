@@ -1,0 +1,21 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  margin-top: 64px;
+  @media (min-width: 1024px) {
+    margin-top: 160px;
+  }
+}
+
+.title {
+  font-family: 'Muli-ExtraBold';
+  font-size: 24px;
+  line-height: 36px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 40px;
+    line-height: 56px;
+  }
+  color: $text-gray-200-color;
+}

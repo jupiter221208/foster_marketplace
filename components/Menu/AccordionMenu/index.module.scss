@@ -1,0 +1,54 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 71px;
+  border-radius: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: $background-dark-color;
+
+  &:hover {
+    background-color: $brand-02-color;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.label {
+  margin-left: 20px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.menuItem {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 12px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  &:hover {
+    background-color: rgba($text-gray-200-color, 0.3);
+  }
+}
+
+.imageArea {
+  width: 24px;
+  height: 24px;
+  border-radius: 14px;
+  border: 2px solid #41d0c6;
+}

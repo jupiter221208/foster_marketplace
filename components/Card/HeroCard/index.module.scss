@@ -26,31 +26,46 @@
 .bottomSection {
   position: absolute;
   bottom: 8px;
-  left: 8px;
-  right: 73px;
+  left: 12px;
+  right: 12px;
   border-radius: 10px;
-  max-height: 201px;
+  max-height: 114px;
   height: 74px;
-  padding: 8px 14px;
-  background: rgba($background-light-color, 0.6);
+  padding: 18px 14px;
+  background: rgba($background-black-color, 0.6);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   @media (min-width: 1024px) {
     position: absolute;
     bottom: 40px;
-    left: 40px;
+    left: 35px;
+    right: 40px;
+    height: 100px;
+    border-radius: 24px;
+    padding: 15px 18px;
+  }
+  @media (min-width: 1536px) {
+    position: absolute;
+    bottom: 40px;
+    left: 35px;
     right: 40px;
     height: 100%;
     border-radius: 30px;
-    padding: 30px 35px 35px 35px;
-    background: #121212;
+    padding: 20px 35px;
   }
 }
 
 .nftName {
-  font-weight: 600;
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-800-color;
+  color: $text-gray-200-color;
   @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 36px;
+    color: $text-gray-200-color;
+  }
+  @media (min-width: 1536px) {
     font-size: 22px;
     line-height: 36px;
     color: $text-gray-200-color;
@@ -59,13 +74,20 @@
 }
 
 .collectionName {
-  font-weight: 400;
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 16px;
-  color: $text-gray-800-color;
+  color: $brand-03-color;
   @media (min-width: 1024px) {
     margin-top: 4px;
-    font-weight: 700;
+    font-family: 'Muli-Bold';
+    font-size: 14px;
+    line-height: 20px;
+    color: $brand-03-color;
+  }
+  @media (min-width: 1536px) {
+    margin-top: 4px;
+    font-family: 'Muli-Bold';
     font-size: 18px;
     line-height: 24px;
     color: $brand-03-color;
@@ -78,6 +100,16 @@
   height: 32px;
   border-radius: 16px;
   @media (min-width: 1024px) {
+    width: 36px;
+    height: 36px;
+    border-radius: 30px;
+  }
+  @media (min-width: 1280px) {
+    width: 48px;
+    height: 48px;
+    border-radius: 30px;
+  }
+  @media (min-width: 1536px) {
     width: 60px;
     height: 60px;
     border-radius: 30px;
@@ -86,14 +118,17 @@
 }
 
 .artistName {
-  font-weight: 400;
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0;
-  color: $text-gray-800-color;
+  color: $brand-03-color;
   @media (min-width: 1024px) {
+    font-size: 12px;
+    line-height: 16px;
+  }
+  @media (min-width: 1280px) {
     font-size: 14px;
     line-height: 24px;
-    color: $brand-03-color;
   }
 }

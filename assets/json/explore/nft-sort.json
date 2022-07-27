@@ -1,0 +1,10 @@
+[
+  { "id": 0, "label": "Recently Minted", "value": "Recently Minted" },
+  { "id": 1, "label": "Recently Fostered", "value": "Recently Fostered" },
+  { "id": 2, "label": "Trending", "value": "Trending" },
+  { "id": 3, "label": "Most Popular", "value": "Most Popular" },
+  { "id": 4, "label": "Alphabetical (A-Z)", "value": "Alphabetical (A-Z)" },
+  { "id": 5, "label": "Alphabetical (Z-A)", "value": "Alphabetical (Z-A)" },
+  { "id": 6, "label": "Least Expensive", "value": "Least Expensive" },
+  { "id": 7, "label": "Most Expensive", "value": "Most Expensive" }
+]

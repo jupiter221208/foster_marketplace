@@ -1,15 +1,20 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  height: 53px;
+  height: 40px;
   background: linear-gradient(to left, rgba($brand-01-color, 1), rgba($brand-02-color, 1));
-  padding-left: 30px;
-  padding-right: 30px;
   border-radius: 12px;
 
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 24px;
+  font-family: 'Muli-Bold';
+  padding-left: 22px;
+  padding-right: 22px;
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    height: 53px;
+    font-size: 18px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
   letter-spacing: 0;
   color: $text-gray-800-color;
 
