@@ -96,12 +96,18 @@ const PrimaryHeader = props => {
     router.push(item.path)
   }
 
-  const handleopenMobileSearchBox = () => {
+  const handleOpenMobileSearchBox = () => {
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
   }
 
   const handleOpenMobileMenu = () => {
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
+  }
+
+  const handleGotoHomepage = () => {
+    dispatch({ type: 'set', openMobileSearchBox: false })
+    dispatch({ type: 'set', openMobileMenu: false })
+    router.push('/')
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -136,19 +142,25 @@ const PrimaryHeader = props => {
       </div>
     </div>
   ) : (
-    <div className={styles.mobileContainer}>
-      <div className="g-container flex justify-between items-center">
-        <div className="cursor-pointer" onClick={() => router.push('/')}>
-          <Image src={LogoTextIcon} alt="" />
-        </div>
-        <div className="flex">
-          <IconButton icon={SearchGrayIcon} onClick={() => handleopenMobileSearchBox()} backgroundColor="transparent" />
-          <div className="ml-3">
+    <div className={styles.mobileBlurContainer}>
+      <div className={styles.mobileContainer}>
+        <div className="g-container flex justify-between items-center">
+          <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
+            <Image src={LogoTextIcon} alt="" />
+          </div>
+          <div className="flex">
             <IconButton
-              icon={HamburgerMenuGreenIcon}
-              onClick={() => handleOpenMobileMenu()}
+              icon={SearchGrayIcon}
+              onClick={() => handleOpenMobileSearchBox()}
               backgroundColor="transparent"
             />
+            <div className="ml-3">
+              <IconButton
+                icon={HamburgerMenuGreenIcon}
+                onClick={() => handleOpenMobileMenu()}
+                backgroundColor="transparent"
+              />
+            </div>
           </div>
         </div>
       </div>
