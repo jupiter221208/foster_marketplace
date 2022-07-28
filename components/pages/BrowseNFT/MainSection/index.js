@@ -5,6 +5,8 @@ import Image from 'next/image'
 
 // third party components
 import Blur from 'react-blur'
+import { Disclosure } from '@headlessui/react'
+import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // components
 import IconButton from 'components/Button/IconButton'
@@ -92,6 +94,22 @@ const MainSection = props => {
                 By selecting "Quick Buy" or "Make an offer", you agree to the&nbsp;
               </div>
               <div className={styles.greenDiscription}>Terms of Service</div>
+            </div>
+            <div className="w-full mt-4 gap-5">
+              <Disclosure>
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button className="flex w-full justify-between">
+                      <div className={styles.subTitle}>Description</div>
+                      <ChevronUpIcon
+                        className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
+                        style={{ color: '#DEEFD0' }}
+                      />
+                    </Disclosure.Button>
+                    <Disclosure.Panel></Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
             </div>
           </div>
         </div>
