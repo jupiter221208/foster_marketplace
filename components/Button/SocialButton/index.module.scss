@@ -1,0 +1,20 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border-width: 1px;
+}
+
+.image {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

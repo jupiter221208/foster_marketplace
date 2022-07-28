@@ -16,8 +16,8 @@ const GradientButton = props => {
     backgroundColor02,
     width = '',
     height = '',
-    icon = '',
-    direction = 'ltr',
+    direction,
+    icon,
   } = props
   return (
     <button
@@ -31,15 +31,15 @@ const GradientButton = props => {
         height: height,
       }}
     >
-      {direction === 'ltr' ? (
-        <div className="flex gap-3">
-          {label}
-          {icon !== '' && <Image src={icon} alt="" />}
+      {direction === 'rtl' && icon !== '' && (
+        <div className="flex items-center mr-[15px]">
+          <Image src={icon} alt="" />
         </div>
-      ) : (
-        <div className="flex gap-3">
-          {icon !== '' && <Image src={icon} alt="" />}
-          {label}
+      )}
+      <div>{label}</div>
+      {direction === 'ltr' && icon !== '' && (
+        <div className="flex items-center ml-[15px]">
+          <Image src={icon} alt="" />
         </div>
       )}
     </button>
