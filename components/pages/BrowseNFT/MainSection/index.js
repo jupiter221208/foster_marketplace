@@ -8,6 +8,22 @@ import Blur from 'react-blur'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Filler,
+  Legend,
+} from 'chart.js'
+import { Line } from 'react-chartjs-2'
+import faker from 'faker'
+
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
+
 // components
 import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
@@ -21,12 +37,74 @@ import CandyWhiteIcon from 'assets/icons/candy-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
+import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
+import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
+import CircusTentFilledWhiteIcon from 'assets/icons/circus-tent-filled-white.svg'
+
+// json
+import TimeList from 'assets/json/time-list.json'
 
 // styles
 import styles from './index.module.scss'
+import Select from 'components/Select'
 
 const MainSection = props => {
   const { viewport } = props
+
+  const [selectedTime, setSelectedTime] = useState(TimeList[0])
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: 'bottom',
+      },
+      title: {
+        display: false,
+        text: 'Chart.js Line Chart',
+      },
+    },
+    maintainAspectRatio: false,
+    elements: {
+      line: {
+        tension: 0.5, // disables bezier curves
+      },
+      point: {
+        radius: 0,
+      },
+    },
+    scales: {
+      yAxes: [
+        {
+          gridLines: {
+            color: 'red',
+          },
+        },
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            color: 'blue',
+          },
+        },
+      ],
+    },
+  }
+  const labels = ['', '12/21', '1/22', '2/22', '3/22', '4/22', '5/22']
+  const data = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 10 })),
+        borderColor: 'rgba(90, 195,186, 0.16)',
+        backgroundColor: 'rgba(90, 195,186, 0.16)',
+        height: '100px',
+      },
+    ],
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -95,18 +173,145 @@ const MainSection = props => {
               </div>
               <div className={styles.greenDiscription}>Terms of Service</div>
             </div>
-            <div className="w-full mt-4 gap-5">
+            <div className="mx-auto w-full mt-4">
               <Disclosure>
                 {({ open }) => (
                   <>
-                    <Disclosure.Button className="flex w-full justify-between">
-                      <div className={styles.subTitle}>Description</div>
+                    <Disclosure.Button
+                      className={styles.accordionButton}
+                      style={{
+                        backgroundColor: open ? '#1f2020' : '#121212',
+                        borderColor: open ? '#DEEFD0' : '#707070',
+                        height: open ? '58px' : '80px',
+                        borderBottomLeftRadius: open ? '0px' : '12px',
+                        borderBottomRightRadius: open ? '0px' : '12px',
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Image src={DescriptionWhiteIcon} alt="" />
+                        <div className={styles.subTitle}>Description</div>
+                      </div>
                       <ChevronUpIcon
                         className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
                         style={{ color: '#DEEFD0' }}
                       />
                     </Disclosure.Button>
-                    <Disclosure.Panel></Disclosure.Panel>
+                    <Disclosure.Panel
+                      className={styles.accordionArea}
+                      style={{
+                        borderTopLeftRadius: open ? '0px' : '12px',
+                        borderTopRightRadius: open ? '0px' : '12px',
+                      }}
+                    >
+                      <div className={styles.whiteDiscription}>
+                        Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem
+                        lacus, ornare non ante sed.
+                      </div>
+                      <div className="w-full flex flex-wrap mt-[37px] gap-5">
+                        <OutlineButton
+                          label="Abstract"
+                          onClick={() => {}}
+                          color="#EFF0F6"
+                          borderColor="#EFF0F6"
+                          borderRadius="16px"
+                          height="32px"
+                          fontSize="16px"
+                        />
+                        <OutlineButton
+                          label="Degen Art"
+                          onClick={() => {}}
+                          color="#EFF0F6"
+                          borderColor="#EFF0F6"
+                          borderRadius="16px"
+                          height="32px"
+                          fontSize="16px"
+                        />
+                        <OutlineButton
+                          label="Environment"
+                          onClick={() => {}}
+                          color="#EFF0F6"
+                          borderColor="#EFF0F6"
+                          borderRadius="16px"
+                          height="32px"
+                          fontSize="16px"
+                        />
+                      </div>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+              <Disclosure as="div" className="mt-2">
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button
+                      className={styles.accordionButton}
+                      style={{
+                        backgroundColor: open ? '#1f2020' : '#121212',
+                        borderColor: open ? '#DEEFD0' : '#707070',
+                        height: open ? '58px' : '80px',
+                        borderBottomLeftRadius: open ? '0px' : '12px',
+                        borderBottomRightRadius: open ? '0px' : '12px',
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Image src={PriceHistoryWhiteIcon} alt="" />
+                        <div className={styles.subTitle}>Price History</div>
+                      </div>
+                      <ChevronUpIcon
+                        className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
+                        style={{ color: '#DEEFD0' }}
+                      />
+                    </Disclosure.Button>
+                    <Disclosure.Panel
+                      className={styles.accordionArea}
+                      style={{
+                        borderTopLeftRadius: open ? '0px' : '12px',
+                        borderTopRightRadius: open ? '0px' : '12px',
+                      }}
+                    >
+                      <div className="w-full flex justify-between gap-[30px]">
+                        <div className="w-[150px]">
+                          <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
+                        </div>
+                        <div className="flex flex-1">
+                          <Line options={options} data={data} height="100px" />
+                        </div>
+                      </div>
+                    </Disclosure.Panel>
+                  </>
+                )}
+              </Disclosure>
+              <Disclosure as="div" className="mt-2">
+                {({ open }) => (
+                  <>
+                    <Disclosure.Button
+                      className={styles.accordionButton}
+                      style={{
+                        backgroundColor: open ? '#1f2020' : '#121212',
+                        borderColor: open ? '#DEEFD0' : '#707070',
+                        height: open ? '58px' : '80px',
+                        borderBottomLeftRadius: open ? '0px' : '12px',
+                        borderBottomRightRadius: open ? '0px' : '12px',
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Image src={CircusTentFilledWhiteIcon} alt="" />
+                        <div className={styles.subTitle}>Activity</div>
+                      </div>
+                      <ChevronUpIcon
+                        className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
+                        style={{ color: '#DEEFD0' }}
+                      />
+                    </Disclosure.Button>
+                    <Disclosure.Panel
+                      className={styles.accordionArea}
+                      style={{
+                        borderTopLeftRadius: open ? '0px' : '12px',
+                        borderTopRightRadius: open ? '0px' : '12px',
+                      }}
+                    >
+                      Price History
+                    </Disclosure.Panel>
                   </>
                 )}
               </Disclosure>

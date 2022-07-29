@@ -8,16 +8,18 @@ import styles from './index.module.scss'
 
 const OutlineButton = props => {
   const {
-    label,
-    onClick,
-    fullWidth,
-    color,
-    borderWidth = 1,
     borderColor,
-    width = '',
+    borderRadius = '',
+    borderWidth = 1,
+    color,
+    direction = 'ltr',
+    fontSize = '',
+    fullWidth,
     height = '',
     icon = '',
-    direction = 'ltr',
+    label,
+    onClick,
+    width = '',
   } = props
   return (
     <button
@@ -28,6 +30,8 @@ const OutlineButton = props => {
         color: color,
         borderWidth: borderWidth,
         borderColor: borderColor,
+        borderRadius: borderRadius,
+        fontSize: fontSize,
         height: height,
         width: fullWidth ? '100%' : width,
       }}

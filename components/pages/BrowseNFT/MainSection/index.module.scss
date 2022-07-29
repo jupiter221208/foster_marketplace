@@ -55,7 +55,7 @@
   background-color: #121212;
   border-radius: 27px;
   border: 1px solid #707070;
-  padding: 58px 65px;
+  padding: 40px 65px;
 }
 
 .greenTitle {
@@ -105,4 +105,28 @@
   font-size: 14px;
   line-height: 24px;
   color: $brand-01-color;
+}
+
+.accordionButton {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 12px;
+  padding-right: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba($text-gray-200-color, 0.6);
+  background-color: #121212;
+}
+
+.accordionArea {
+  display: flex;
+  flex-wrap: wrap;
+  max-height: 150px;
+
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba($text-gray-200-color, 0.6);
+  background-color: #1f2020;
 }
