@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
-import MainSection from 'components/pages/Profile/MainSection'
+import MainSection from 'components/pages/ArtistProfile/MainSection'
 
 // styles
 import styles from './index.module.scss'
