@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 // components
 import Tab from 'components/Tab'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
+import ExploreNFTSection from 'components/pages/ArtistProfile/ExploreNFTSection'
+import ExploreCollectionSection from 'components/pages/ArtistProfile/ExploreCollectionSection'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
@@ -40,10 +42,13 @@ const NFTSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <div className="w-full flex justify-between">aaa</div>
-          <div className="w-full">
-            <LiveAuctionSection viewport={viewport} />
-          </div>
+          <LiveAuctionSection viewport={viewport} />
+          <ExploreNFTSection viewport={viewport} />
+        </div>
+      )}
+      {activeTab === 1 && (
+        <div className="w-full flex flex-wrap">
+          <ExploreCollectionSection viewport={viewport} />
         </div>
       )}
     </div>
