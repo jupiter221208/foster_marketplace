@@ -28,7 +28,7 @@ const PrimaryFooter = props => {
   return (
     <div className={styles.container}>
       {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
-        <div className="g-container flex flex-wrap justify-between gap-4">
+        <div className="g-container flex flex-wrap justify-between gap-4 z-10">
           <div className="max-w-[347px] block justify-start">
             <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
               <Image src={LogoText01Icon} alt="" />
@@ -102,7 +102,7 @@ const PrimaryFooter = props => {
           <div className={styles.greenText}>© All Rights Reserved</div>
         </div>
       ) : (
-        <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px]">
+        <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
           <div className={styles.topLeftEllipse}>
             <Image src={EllipseGreen} width={652} height={652} alt="" />
           </div>

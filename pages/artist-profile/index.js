@@ -2,11 +2,15 @@ import React from 'react'
 
 // next components
 import Head from 'next/head'
+import Image from 'next/image'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/ArtistProfile/MainSection'
 import NFTSection from 'components/pages/ArtistProfile/NFTSection'
+
+// images and icons
+import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -22,6 +26,9 @@ const ArtistProfile = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
+        <div className={styles.bottomLeftEllipse}>
+          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+        </div>
         <MainSection viewport={viewport} />
         <NFTSection viewport={viewport} />
       </div>
