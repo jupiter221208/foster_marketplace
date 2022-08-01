@@ -8,6 +8,7 @@ import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseNFT/MainSection'
 import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
 import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
+import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 
 // styles
 import styles from './index.module.scss'
@@ -25,6 +26,7 @@ const BrowseNFT = props => {
         <MainSection viewport={viewport} />
         <MoreCollectionSection viewport={viewport} />
         <MoreArtistSection viewport={viewport} />
+        <MoreCategorySection viewport={viewport} />
       </div>
     </div>
   )
