@@ -5,9 +5,14 @@
   justify-content: center;
   align-items: center;
   width: auto;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  @media (min-width: 1024px) {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
   border-width: 1px;
 }
 

@@ -24,7 +24,10 @@
   width: 100%;
   text-align: center;
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
   line-height: 24px;
   color: rgba($text-gray-200-color, 0.7);
 }
@@ -38,15 +41,21 @@
 
 .nftInfoLabel {
   font-family: 'Muli-SemiBold';
-  font-size: 22px;
   line-height: 36px;
+  font-size: 16px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+  }
   color: $brand-06-color;
 }
 
 .nftInfoValue {
   font-family: 'Muli-Regular';
-  font-size: 14px;
   line-height: 24px;
+  font-size: 10px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
   color: $text-gray-200-color;
 }
 
