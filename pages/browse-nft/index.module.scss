@@ -1,4 +1,21 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
+  position: relative;
+}
+
+.topRightEllipse {
+  position: absolute;
+  top: 70vh;
+  right: -860px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.bottomLeftEllipse {
+  position: absolute;
+  bottom: -50vh;
+  left: -860px;
+  z-index: 0;
+  opacity: 0.6;
 }
