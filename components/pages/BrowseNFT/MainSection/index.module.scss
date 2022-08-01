@@ -55,19 +55,24 @@
 
 .nftDetailCard {
   width: 100%;
+  padding: 39px 16px 25px 16px;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
+    padding: 40px 65px;
   }
   background-color: #121212;
   border-radius: 27px;
   border: 1px solid #707070;
-  padding: 40px 65px;
 }
 
 .greenTitle {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 18px;
+  line-height: 28px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
   color: $brand-01-color;
 }
 
@@ -80,22 +85,34 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 48px;
-  line-height: 60px;
+  font-size: 25px;
+  line-height: 43px;
+  @media (min-width: 1024px) {
+    font-size: 48px;
+    line-height: 60px;
+  }
   color: $text-gray-200-color;
 }
 
 .grayText {
   font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
   color: rgba($text-gray-200-color, 0.6);
 }
 
 .greenText {
   font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
   color: $brand-01-color;
 }
 
@@ -130,8 +147,10 @@
   display: flex;
   flex-wrap: wrap;
   max-height: 150px;
-
-  padding: 20px;
+  padding: 8px 4px;
+  @media (min-width: 1024px) {
+    padding: 20px;
+  }
   border-radius: 12px;
   border: 1px solid rgba($text-gray-200-color, 0.6);
   background-color: #1f2020;
@@ -139,14 +158,22 @@
 
 .tableTitle {
   font-family: 'Muli-Bold';
-  font-size: 12px;
+  font-size: 10px;
   line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 12px;
+    line-height: 24px;
+  }
   color: $text-gray-200-color;
 }
 
 .tableText {
   font-family: 'Muli-Bold';
-  font-size: 14px;
+  font-size: 10px;
   line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
   color: rgba($text-gray-200-color, 0.74);
 }

@@ -77,7 +77,10 @@ const MainSection = props => {
       },
     },
   }
-  const labels = ['', '12/21', '1/22', '2/22', '3/22', '4/22', '5/22']
+  const labels =
+    viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+      ? ['12/21', '1/22', '2/22', '3/22']
+      : ['', '12/21', '1/22', '2/22', '3/22', '4/22', '5/22']
   const data = {
     labels,
     datasets: [
@@ -87,6 +90,7 @@ const MainSection = props => {
         borderColor: 'rgba(90, 195,186, 0.16)',
         backgroundColor: 'rgba(90, 195,186, 0.16)',
         height: '100px',
+        width: '150px',
       },
     ],
   }
@@ -123,26 +127,21 @@ const MainSection = props => {
                 <IconButton icon={CandyWhiteIcon} backgroundColor="transparent" onClick={() => {}} />
               </div>
             </div>
-            <div className="w-full flex mt-[38px]">
+            <div className="w-full flex mt-[5px] lg:mt-[38px]">
               <div className={styles.title}>The Glass Banana</div>
             </div>
-            <div className="w-full flex mt-7">
-              <div className={`${styles.grayText} mr-3`}>Fostered by</div>
-              <div className={`${styles.greenText} mr-[34px]`}>BillBudz</div>
-              <div className={`${styles.grayText} mr-3`}>Created by</div>
+            <div className="w-full flex flex-wrap mt-4 lg:mt-7">
+              <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
+              <div className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}>BillBudz</div>
+              <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
               <div className={styles.greenText}>Plumpadoodle</div>
             </div>
-            <div className="w-full flex items-center mt-[100px]">
-              <div className={`${styles.greenTitle} mr-4`}>Price</div>
-              <Image
-                src={SolanaLogoIcon}
-                alt=""
-                width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-              />
+            <div className="w-full flex items-center mt-[77px] lg:mt-[100px]">
+              <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
+              <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
               <div className={`${styles.whiteTitle} ml-[6px]`}>1.1</div>
             </div>
-            <div className="w-full flex mt-[14px] gap-10">
+            <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
               <GradientButton label="Quick Buy" onClick={() => {}} icon={QuickBuyBlackIcon} direction="rtl" />
               <OutlineButton
                 label="Make Offer"
@@ -255,12 +254,12 @@ const MainSection = props => {
                         borderTopRightRadius: open ? '0px' : '12px',
                       }}
                     >
-                      <div className="w-full flex justify-between gap-[30px]">
-                        <div className="w-[150px]">
+                      <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
+                        <div className="w-[100px] lg:w-[150px]">
                           <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
                         </div>
                         <div className="flex flex-1">
-                          <Line options={options} data={data} height="100px" />
+                          <Line options={options} data={data} height="100px" width="150px" />
                         </div>
                       </div>
                     </Disclosure.Panel>
@@ -312,8 +311,13 @@ const MainSection = props => {
                           {ActivityList.map((item, index) => (
                             <tr key={index} className={`${styles.tableText} gap-2`}>
                               <td className="mx-2">
-                                <div className="flex items-center ml-2">
-                                  <Image src={item.event === 'Sale' ? SaleWhiteIcon : TagWhiteIcon} alt="" />
+                                <div className="flex items-center lg:ml-2">
+                                  <Image
+                                    src={item.event === 'Sale' ? SaleWhiteIcon : TagWhiteIcon}
+                                    alt=""
+                                    width={viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32}
+                                    height={viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32}
+                                  />
                                   <div className="ml-2">{item.event}</div>
                                 </div>
                               </td>
@@ -325,25 +329,37 @@ const MainSection = props => {
                                     width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                   />
-                                  <div className="ml-2">{item.price}</div>
+                                  <div className="ml-2">
+                                    {item.price}
+                                    {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? ' SOL' : ''}
+                                  </div>
                                 </div>
                               </td>
                               <td>
                                 <div className="flex items-center mx-2 gap-2">
                                   {item.from !== undefined && item.from.slice(0, 4)}
-                                  ...
-                                  {item.from !== undefined && item.from.slice(-4)}
+                                  {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
+                                  {item.from !== undefined &&
+                                    item.from.slice(
+                                      viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
+                                    )}
                                 </div>
                               </td>
                               <td>
                                 <div className="flex items-center mx-2 gap-2">
                                   {item.to !== undefined && item.to.slice(0, 4)}
-                                  ...
-                                  {item.to !== undefined && item.to.slice(-4)}
+                                  {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
+                                  {item.to !== undefined &&
+                                    item.to.slice(
+                                      viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
+                                    )}
                                 </div>
                               </td>
                               <td>
-                                <div className="flex items-center mx-2 gap-2">{item.date}</div>
+                                <div className="flex items-center mx-2 gap-2">
+                                  {item.date}
+                                  {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? ' ago' : ''}
+                                </div>
                               </td>
                             </tr>
                           ))}

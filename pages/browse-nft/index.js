@@ -33,10 +33,12 @@ const BrowseNFT = props => {
         <div className={styles.bottomLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <MainSection viewport={viewport} />
-        <MoreCollectionSection viewport={viewport} />
-        <MoreArtistSection viewport={viewport} />
-        <MoreCategorySection viewport={viewport} />
+        <div className="z-10">
+          <MainSection viewport={viewport} />
+          <MoreCollectionSection viewport={viewport} />
+          <MoreArtistSection viewport={viewport} />
+          <MoreCategorySection viewport={viewport} />
+        </div>
       </div>
     </div>
   )

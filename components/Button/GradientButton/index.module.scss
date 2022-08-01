@@ -9,8 +9,12 @@
   border-radius: 12px;
 
   font-family: 'Muli-Bold';
-  padding-left: 22px;
-  padding-right: 22px;
+  padding-left: 8px;
+  padding-right: 8px;
+  @media (min-width: 1024px) {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
   font-size: 14px;
   @media (min-width: 1024px) {
     height: 53px;
