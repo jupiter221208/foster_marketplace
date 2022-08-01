@@ -25,6 +25,7 @@ const EcosystemCard = props => {
             width={viewport === 'xs' ? 32 : 70}
             height={viewport === 'xs' ? 32 : 70}
             className="rounded-full"
+            alt=""
           />
         </div>
       </div>

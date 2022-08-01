@@ -154,7 +154,7 @@ const MainSection = props => {
             </div>
             <div className="w-full flex content-none mt-[14px]">
               <p className={styles.whiteDiscription}>
-                By selecting "Quick Buy" or "Make an offer", you agree to the&nbsp;
+                By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
                 <span className={styles.greenDiscription}>Terms of Service</span>
               </p>
             </div>

@@ -6,6 +6,7 @@ import Head from 'next/head'
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/ArtistProfile/MainSection'
+import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
 // styles
 import styles from './index.module.scss'
@@ -22,6 +23,7 @@ const ArtistProfile = props => {
       </Head>
       <div className={styles.container}>
         <MainSection viewport={viewport} />
+        <NFTSection viewport={viewport} />
       </div>
     </div>
   )
