@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -52,6 +52,20 @@ import Select from 'components/Select'
 
 const MainSection = props => {
   const { viewport } = props
+
+  const buttonRefs = useRef([])
+  const openedRef = useRef(null)
+  const clickRecent = index => {
+    const clickedButton = buttonRefs.current[index]
+    if (clickedButton === openedRef.current) {
+      openedRef.current = null
+      return
+    }
+    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
+      openedRef.current?.click()
+    }
+    openedRef.current = clickedButton
+  }
 
   const [selectedTime, setSelectedTime] = useState(TimeList[0])
 
@@ -158,7 +172,7 @@ const MainSection = props => {
                 <span className={styles.greenDiscription}>Terms of Service</span>
               </p>
             </div>
-            <div className="mx-auto w-full mt-4">
+            <div className="mx-auto w-full mt-4 z-10">
               <Disclosure>
                 {({ open }) => (
                   <>
@@ -171,6 +185,11 @@ const MainSection = props => {
                         borderBottomLeftRadius: open ? '0px' : '12px',
                         borderBottomRightRadius: open ? '0px' : '12px',
                       }}
+                      data-value={open}
+                      ref={ref => {
+                        buttonRefs.current[0] = ref
+                      }}
+                      onClick={() => clickRecent(0)}
                     >
                       <div className="flex items-center gap-3">
                         <Image src={DescriptionWhiteIcon} alt="" />
@@ -237,6 +256,11 @@ const MainSection = props => {
                         borderBottomLeftRadius: open ? '0px' : '12px',
                         borderBottomRightRadius: open ? '0px' : '12px',
                       }}
+                      data-value={open}
+                      ref={ref => {
+                        buttonRefs.current[1] = ref
+                      }}
+                      onClick={() => clickRecent(1)}
                     >
                       <div className="flex items-center gap-3">
                         <Image src={PriceHistoryWhiteIcon} alt="" />
@@ -266,7 +290,7 @@ const MainSection = props => {
                   </>
                 )}
               </Disclosure>
-              <Disclosure as="div" className="mt-2">
+              <Disclosure as="div1" className="mt-2">
                 {({ open }) => (
                   <>
                     <Disclosure.Button
@@ -278,6 +302,11 @@ const MainSection = props => {
                         borderBottomLeftRadius: open ? '0px' : '12px',
                         borderBottomRightRadius: open ? '0px' : '12px',
                       }}
+                      data-value={open}
+                      ref={ref => {
+                        buttonRefs.current[2] = ref
+                      }}
+                      onClick={() => clickRecent(2)}
                     >
                       <div className="flex items-center gap-3">
                         <Image src={CircusTentFilledWhiteIcon} alt="" />
