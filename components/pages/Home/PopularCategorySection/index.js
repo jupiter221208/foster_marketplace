@@ -22,21 +22,23 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const PopularCategorySection = props => {
-  const { viewport } = props
+  const { type, viewport } = props
   const router = useRouter()
 
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-center lg:justify-between items-center z-10">
-        <div className={styles.title}>Popular Categories</div>
-        <div className="hidden lg:flex">
-          <OutlineButton
-            label="See More"
-            onClick={() => router.push('/see-more')}
-            borderColor="#ffffff"
-            height="42px"
-          />
-        </div>
+        <div className={styles.title}>{type === 'home' ? 'Popular Categories' : 'Discover Something New'}</div>
+        {type === 'home' && (
+          <div className="hidden lg:flex">
+            <OutlineButton
+              label="See More"
+              onClick={() => router.push('/see-more')}
+              borderColor="#ffffff"
+              height="42px"
+            />
+          </div>
+        )}
       </div>
       <div className="w-full mt-[32px] lg:mt-[34px] z-10">
         <Swiper
@@ -55,7 +57,13 @@ const PopularCategorySection = props => {
         >
           {PopularCategoryList.map((item, index) => (
             <SwiperSlide key={index}>
-              <CategoryCard image={item.image} name={item.name} nfts={item.nfts} collections={item.collections} />
+              <CategoryCard
+                image={item.image}
+                name={item.name}
+                nfts={item.nfts}
+                collections={item.collections}
+                onClick={() => router.push('/category')}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -63,17 +71,19 @@ const PopularCategorySection = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <></>
       ) : (
-        <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => router.push('/see-more')}
-              borderColor="#ffffff"
-              height="40px"
-            />
+        type === 'home' && (
+          <div className="w-full flex lg:hidden justify-center">
+            <div className="w-full max-w-[242px] z-10">
+              <OutlineButton
+                label="See More"
+                fullWidth
+                onClick={() => router.push('/see-more')}
+                borderColor="#ffffff"
+                height="40px"
+              />
+            </div>
           </div>
-        </div>
+        )
       )}
     </section>
   )

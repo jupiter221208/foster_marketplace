@@ -10,9 +10,9 @@ import styles from './index.module.scss'
 import LogoGrayIcon from 'assets/icons/logo-gray.svg'
 
 const CategoryCard = props => {
-  const { image, name, nfts, collections } = props
+  const { image, name, nfts, collections, onClick } = props
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick()}>
       <Image
         src={image}
         alt=""

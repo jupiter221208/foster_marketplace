@@ -29,7 +29,7 @@ const Home = props => {
       </Head>
 
       <MainSection viewport={viewport} />
-      <PopularCategorySection viewport={viewport} />
+      <PopularCategorySection viewport={viewport} type="home" />
       <TrendingArtistSection viewport={viewport} />
       <TrendingCollectionSection viewport={viewport} />
       <MostPopularSection viewport={viewport} />
