@@ -10,13 +10,25 @@ import FileCopyIcon from 'assets/icons/file-copy.svg'
 import styles from './index.module.scss'
 
 const AddressButton = props => {
-  const { label, onClick } = props
+  const { label, onClick, width, height, viewport } = props
   return (
-    <button type="button" onClick={() => onClick()} className={styles.container}>
+    <button
+      type="button"
+      onClick={() => onClick()}
+      className={styles.container}
+      style={{ width: width, height: height }}
+    >
+      {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+        <div className="flex items-center mr-2">
+          <Image src={FileCopyIcon} alt="" width={12} height={12} />
+        </div>
+      )}
       <div>{label}</div>
-      <div className="flex items-center ml-[20px]">
-        <Image src={FileCopyIcon} alt="" />
-      </div>
+      {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
+        <div className="flex items-center ml-[20px]">
+          <Image src={FileCopyIcon} alt="" width={20} height={20} />
+        </div>
+      )}
     </button>
   )
 }

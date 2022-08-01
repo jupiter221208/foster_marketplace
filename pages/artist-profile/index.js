@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -12,6 +11,8 @@ import ProfileHeaderSection from 'components/pages/Profile/ProfileHeaderSection'
 import styles from './index.module.scss'
 
 const ArtistProfile = props => {
+  const { viewport } = props
+
   return (
     <div className="g-container">
       <Head>
@@ -20,7 +21,7 @@ const ArtistProfile = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <ProfileHeaderSection></ProfileHeaderSection>
+        <ProfileHeaderSection viewport={viewport} />
       </div>
     </div>
   )

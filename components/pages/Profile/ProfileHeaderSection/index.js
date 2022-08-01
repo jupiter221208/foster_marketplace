@@ -36,18 +36,62 @@ const ProfileHeaderSection = props => {
         <Image src={HeaderImage} alt="" objectFit="cover" />
       </div>
       <div className="w-full">
-        <div className="grid grid-cols-12 items-center mt-[-95px]">
+        <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
-            <GradientButton width={146} label="Follow" direction={'rtl'} icon={AvatarFollowIcon} />
+            <GradientButton
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+              label="Follow"
+              direction={'rtl'}
+              icon={AvatarFollowIcon}
+            />
           </div>
           <div className="col-span-6">
-            <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} />
-            <div className="flex justify-center mt-[16px]">
-              <AddressButton label={'cGtKb..3fRm'} />
+            <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} viewport={viewport} />
+            <div className="hidden lg:flex justify-center mt-[16px]">
+              <AddressButton
+                label={'cGtKb..3fRm'}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                onClick={() => {}}
+                viewport={viewport}
+              />
+            </div>
+            <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
+              <div>
+                <SocialButton
+                  icon={YoutubeWhiteIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
+                />
+              </div>
+              <div>
+                <SocialButton
+                  icon={TwitterWhiteIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
+                />
+              </div>
+              <div>
+                <SocialButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+              </div>
+              <div>
+                <SocialButton
+                  icon={FacebookWhiteIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
+                />
+              </div>
             </div>
           </div>
           <div className="col-span-3 flex justify-end">
-            <div className="flex gap-[10px]">
+            <div className="flex lg:hidden justify-center lg:mt-[16px]">
+              <AddressButton
+                label={'cGb.fRm'}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                onClick={() => {}}
+                viewport={viewport}
+              />
+            </div>
+            <div className="hidden lg:flex gap-[10px]">
               <div>
                 <SocialButton
                   icon={YoutubeWhiteIcon}
@@ -72,10 +116,12 @@ const ProfileHeaderSection = props => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-[32px]">
-          <div className={styles.description}>
-            Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
-            non ante sed.
+        <div className="flex justify-center w-full mt-[32px]">
+          <div className="max-w-[734px]">
+            <div className={styles.description}>
+              Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
+              non ante sed.
+            </div>
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">

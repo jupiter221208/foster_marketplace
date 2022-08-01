@@ -6,11 +6,11 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
-  margin-top: 28px;
-  margin-bottom: 368px;
+  margin-top: 16px;
+  margin-bottom: 28px;
   @media (min-width: 1024px) {
-    margin-top: 150px;
-    margin-bottom: 245px;
+    margin-top: 32px;
+    margin-bottom: 121px;
   }
 }
 
@@ -21,12 +21,12 @@
 }
 
 .description {
-  width: 50%;
+  width: 100%;
   text-align: center;
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.7);
 }
 
 .nftInfo {
@@ -56,4 +56,8 @@
   justify-content: center;
   max-width: 768px;
   width: 100%;
+  gap: 14px;
+  @media (min-width: 1024px) {
+    gap: 20px;
+  }
 }

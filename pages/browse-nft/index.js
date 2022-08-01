@@ -19,6 +19,7 @@ import styles from './index.module.scss'
 
 const BrowseNFT = props => {
   const { viewport } = props
+
   return (
     <div className="g-container">
       <Head>

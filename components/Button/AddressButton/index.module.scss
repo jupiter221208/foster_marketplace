@@ -4,19 +4,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 51px;
   background: $text-gray-800-color;
   border-radius: 12px;
 
   font-family: 'Muli-Bold';
-  padding-left: 20px;
-  padding-right: 20px;
-  font-size: 14px;
-
+  height: 29px;
+  font-size: 12px;
   @media (min-width: 1024px) {
+    height: 51px;
     font-size: 18px;
-    padding-left: 24px;
-    padding-right: 24px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
