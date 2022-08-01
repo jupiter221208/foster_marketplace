@@ -40,9 +40,11 @@ import TagWhiteIcon from 'assets/icons/tag-white.svg'
 import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
 import CircusTentFilledWhiteIcon from 'assets/icons/circus-tent-filled-white.svg'
+import SaleWhiteIcon from 'assets/icons/sale-white.svg'
 
 // json
-import TimeList from 'assets/json/time-list.json'
+import TimeList from 'assets/json/browse-nft/time-list.json'
+import ActivityList from 'assets/json/browse-nft/activity-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -73,22 +75,6 @@ const MainSection = props => {
       point: {
         radius: 0,
       },
-    },
-    scales: {
-      yAxes: [
-        {
-          gridLines: {
-            color: 'red',
-          },
-        },
-      ],
-      xAxes: [
-        {
-          gridLines: {
-            color: 'blue',
-          },
-        },
-      ],
     },
   }
   const labels = ['', '12/21', '1/22', '2/22', '3/22', '4/22', '5/22']
@@ -167,11 +153,11 @@ const MainSection = props => {
                 borderWidth={2}
               />
             </div>
-            <div className="w-full flex mt-[14px]">
-              <div className={styles.whiteDiscription}>
+            <div className="w-full flex content-none mt-[14px]">
+              <p className={styles.whiteDiscription}>
                 By selecting "Quick Buy" or "Make an offer", you agree to the&nbsp;
-              </div>
-              <div className={styles.greenDiscription}>Terms of Service</div>
+                <span className={styles.greenDiscription}>Terms of Service</span>
+              </p>
             </div>
             <div className="mx-auto w-full mt-4">
               <Disclosure>
@@ -308,9 +294,61 @@ const MainSection = props => {
                       style={{
                         borderTopLeftRadius: open ? '0px' : '12px',
                         borderTopRightRadius: open ? '0px' : '12px',
+                        padding: '0px',
+                        overflow: 'auto',
                       }}
                     >
-                      Price History
+                      <table className="w-full table-auto">
+                        <thead>
+                          <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                            <th>Event</th>
+                            <th>Price</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {ActivityList.map((item, index) => (
+                            <tr key={index} className={`${styles.tableText} gap-2`}>
+                              <td className="mx-2">
+                                <div className="flex items-center ml-2">
+                                  <Image src={item.event === 'Sale' ? SaleWhiteIcon : TagWhiteIcon} alt="" />
+                                  <div className="ml-2">{item.event}</div>
+                                </div>
+                              </td>
+                              <td>
+                                <div className="flex items-center mx-2 gap-2">
+                                  <Image
+                                    src={SolanaLogoIcon}
+                                    alt=""
+                                    width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                                    height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                                  />
+                                  <div className="ml-2">{item.price}</div>
+                                </div>
+                              </td>
+                              <td>
+                                <div className="flex items-center mx-2 gap-2">
+                                  {item.from !== undefined && item.from.slice(0, 4)}
+                                  ...
+                                  {item.from !== undefined && item.from.slice(-4)}
+                                </div>
+                              </td>
+                              <td>
+                                <div className="flex items-center mx-2 gap-2">
+                                  {item.to !== undefined && item.to.slice(0, 4)}
+                                  ...
+                                  {item.to !== undefined && item.to.slice(-4)}
+                                </div>
+                              </td>
+                              <td>
+                                <div className="flex items-center mx-2 gap-2">{item.date}</div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </Disclosure.Panel>
                   </>
                 )}

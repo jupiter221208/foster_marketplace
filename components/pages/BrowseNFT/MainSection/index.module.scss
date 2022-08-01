@@ -130,3 +130,17 @@
   border: 1px solid rgba($text-gray-200-color, 0.6);
   background-color: #1f2020;
 }
+
+.tableTitle {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+}
+
+.tableText {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.74);
+}

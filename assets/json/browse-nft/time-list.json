@@ -1,0 +1,5 @@
+[
+  { "id": 0, "label": "24 Hour", "value": "24 Hour" },
+  { "id": 1, "label": "30 Day", "value": "30 Day" },
+  { "id": 2, "label": "All Time", "value": "All Time" }
+]
