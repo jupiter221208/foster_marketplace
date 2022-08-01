@@ -53,6 +53,10 @@ const MobileSearchBox = props => {
     dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
   }
 
+  const handleClose = () => {
+    setSearchList({ nfts: [], artists: [], collections: [] })
+  }
+
   return (
     // <div className={openMobileSearchBox ? styles.menuOpen : !openMobileSearchBox ? styles.menuClose : styles.menu}>
     <div className={styles.menu}>
@@ -63,6 +67,7 @@ const MobileSearchBox = props => {
         searchList={searchList}
         viewport={viewport}
         onClick={() => handleClick()}
+        onClose={() => handleClose()}
       />
     </div>
   )
