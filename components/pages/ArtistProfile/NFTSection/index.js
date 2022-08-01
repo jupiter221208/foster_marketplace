@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import Tab from 'components/Tab'
+import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import ExploreNFTSection from 'components/pages/ArtistProfile/ExploreNFTSection'
+import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import ExploreCollectionSection from 'components/pages/ArtistProfile/ExploreCollectionSection'
 
 // json
@@ -42,12 +44,14 @@ const NFTSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
+          <NFTSwiperSection viewport={viewport} />
           <LiveAuctionSection viewport={viewport} />
           <ExploreNFTSection viewport={viewport} />
         </div>
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
+          <CollectionSwiperSection viewport={viewport} />
           <ExploreCollectionSection viewport={viewport} />
         </div>
       )}
