@@ -1,0 +1,63 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 16px;
+  margin-bottom: 28px;
+  @media (min-width: 1024px) {
+    margin-top: 32px;
+    margin-bottom: 121px;
+  }
+}
+
+.headerImage {
+  width: 100%;
+  border-radius: 20px;
+  position: relative;
+}
+
+.description {
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.7);
+}
+
+.nftInfo {
+  width: 499px;
+  height: 98px;
+  background: rgba($text-gray-800-color, 0.5);
+  border-radius: 16px;
+}
+
+.nftInfoLabel {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  line-height: 36px;
+  color: $brand-06-color;
+}
+
+.nftInfoValue {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+}
+
+.userType {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 768px;
+  width: 100%;
+  gap: 14px;
+  @media (min-width: 1024px) {
+    gap: 20px;
+  }
+}

@@ -5,7 +5,7 @@ import Head from 'next/head'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
-import ProfileHeaderSection from 'components/pages/Profile/ProfileHeaderSection'
+import MainSection from 'components/pages/Profile/MainSection'
 
 // styles
 import styles from './index.module.scss'
@@ -21,7 +21,7 @@ const ArtistProfile = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <ProfileHeaderSection viewport={viewport} />
+        <MainSection viewport={viewport} />
       </div>
     </div>
   )
