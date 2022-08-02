@@ -30,8 +30,9 @@ const Category = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <div className="w-full mt-4 lg:mt-8">
+        <div className="relative w-full mt-4 lg:mt-8">
           <Image src={CategoryImage} alt="" />
+          <div className={styles.title}>Black & White</div>
         </div>
         <TrendingCollectionSection viewport={viewport} />
         <MostPopularSection viewport={viewport} />
