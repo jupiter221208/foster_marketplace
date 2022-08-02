@@ -37,13 +37,13 @@ const OutlineButton = props => {
       }}
     >
       {direction === 'rtl' && icon !== '' && (
-        <div className="flex items-center mr-2 lg:mr-[15px]">
+        <div className="flex items-center mr-2 xl:mr-[15px]">
           <Image src={icon} alt="" />
         </div>
       )}
       <div>{label}</div>
       {direction === 'ltr' && icon !== '' && (
-        <div className="flex items-center ml-2 lg:ml-[15px]">
+        <div className="flex items-center ml-2 xl:ml-[15px]">
           <Image src={icon} alt="" />
         </div>
       )}

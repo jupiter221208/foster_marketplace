@@ -54,12 +54,29 @@
 }
 
 .nftDetailCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
-  padding: 39px 16px 25px 16px;
+
+  padding: 25px 16px 25px 16px;
+  @media (min-width: 640px) {
+    padding: 28px 25px 28px 25px;
+  }
+  @media (min-width: 768px) {
+    padding: 32px 35px 32px 35px;
+  }
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
-    padding: 40px 65px;
+    padding: 35px 25px 35px 25px;
   }
+  @media (min-width: 1280px) {
+    padding: 38px 40px 38px 40px;
+  }
+  @media (min-width: 1536px) {
+    padding: 40px 65px 40px 65px;
+  }
+
   background-color: #121212;
   border-radius: 27px;
   border: 1px solid #707070;
@@ -68,10 +85,10 @@
 .greenTitle {
   font-family: 'Muli-Bold';
   font-size: 18px;
-  line-height: 28px;
+  line-height: 20px;
   @media (min-width: 1024px) {
     font-size: 24px;
-    line-height: 36px;
+    line-height: 28px;
   }
   color: $brand-01-color;
 }
@@ -86,11 +103,28 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 25px;
-  line-height: 43px;
+  line-height: 34px;
+  @media (min-width: 640px) {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  @media (min-width: 768px) {
+    font-size: 32px;
+    line-height: 40px;
+  }
   @media (min-width: 1024px) {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 40px;
+    line-height: 50px;
+  }
+  @media (min-width: 1536px) {
     font-size: 48px;
     line-height: 60px;
   }
+
   color: $text-gray-200-color;
 }
 
@@ -133,7 +167,54 @@
 .accordionButton {
   display: flex;
   width: 100%;
-  height: 80px;
+
+  height: 60px;
+  @media (min-width: 640px) {
+    height: 64px;
+  }
+  @media (min-width: 768px) {
+    height: 68px;
+  }
+  @media (min-width: 1024px) {
+    height: 72px;
+  }
+  @media (min-width: 1280px) {
+    height: 76px;
+  }
+  @media (min-width: 1536px) {
+    height: 80px;
+  }
+
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 12px;
+  padding-right: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba($text-gray-200-color, 0.6);
+  background-color: #121212;
+}
+
+.accordionOpenButton {
+  display: flex;
+  width: 100%;
+
+  height: 38px;
+  @media (min-width: 640px) {
+    height: 42px;
+  }
+  @media (min-width: 768px) {
+    height: 46px;
+  }
+  @media (min-width: 1024px) {
+    height: 50px;
+  }
+  @media (min-width: 1280px) {
+    height: 54px;
+  }
+  @media (min-width: 1536px) {
+    height: 58px;
+  }
+
   justify-content: space-between;
   align-items: center;
   padding-left: 12px;
@@ -146,6 +227,7 @@
 .accordionArea {
   display: flex;
   flex-wrap: wrap;
+  min-height: 120px;
   max-height: 150px;
   padding: 8px 4px;
   @media (min-width: 1024px) {
