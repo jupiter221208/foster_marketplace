@@ -47,7 +47,7 @@ const CollectionSwiperSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+      <div className="w-full z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}

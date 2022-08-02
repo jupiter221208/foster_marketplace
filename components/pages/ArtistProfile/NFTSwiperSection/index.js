@@ -80,8 +80,8 @@ const NFTSwiperSection = props => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className="hidden lg:flex z-10">
+        <div className="flex justify-between lg:justify-start items-center gap-4 lg:gap-8">
+          <div className="flex z-10">
             <Button
               label="Created"
               onClick={() => handleChangeActive(0)}
@@ -102,13 +102,14 @@ const NFTSwiperSection = props => {
             />
           </div>
         </div>
-        <div className="hidden lg:flex z-10">
+        <div className="flex z-10">
           <OutlineButton
-            label="Filter"
+            label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'Filter'}
             icon={FilterGreenIcon}
             onClick={() => {}}
-            borderColor="#ffffff"
-            height="51px"
+            borderColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#63D6CD' : '#ffffff'}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '51px'}
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : ''}
             direction="rtl"
           />
         </div>

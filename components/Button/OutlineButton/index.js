@@ -25,7 +25,7 @@ const OutlineButton = props => {
     <button
       type="button"
       onClick={() => onClick()}
-      className={styles.container}
+      className={`${styles.container} gap-2 xl:gap-4`}
       style={{
         color: color,
         borderWidth: borderWidth,
@@ -37,13 +37,13 @@ const OutlineButton = props => {
       }}
     >
       {direction === 'rtl' && icon !== '' && (
-        <div className="flex items-center mr-2 xl:mr-[15px]">
+        <div className="flex items-center">
           <Image src={icon} alt="" />
         </div>
       )}
-      <div>{label}</div>
+      {label !== '' && <div>{label}</div>}
       {direction === 'ltr' && icon !== '' && (
-        <div className="flex items-center ml-2 xl:ml-[15px]">
+        <div className="flex items-center">
           <Image src={icon} alt="" />
         </div>
       )}
