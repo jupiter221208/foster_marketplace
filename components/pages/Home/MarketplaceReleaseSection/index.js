@@ -118,6 +118,7 @@ const MarketplaceReleaseSection = props => {
                   artistName={item.artistName}
                   icon={item.icon}
                   price={item.price}
+                  onClick={() => router.push('/browse-nft')}
                   key={item}
                 />
               </div>

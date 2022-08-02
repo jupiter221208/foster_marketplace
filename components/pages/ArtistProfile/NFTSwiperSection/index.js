@@ -138,6 +138,7 @@ const NFTSwiperSection = props => {
                     artistName={nftItem.artistName}
                     icon={nftItem.icon}
                     price={nftItem.price}
+                    onClick={() => router.push('/browse-nft')}
                     key={nftIndex}
                   />
                 ))}

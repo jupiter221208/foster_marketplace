@@ -134,6 +134,7 @@ const TrendingArtistSection = props => {
                   name={item.name}
                   nfts={item.nfts}
                   collections={item.collections}
+                  onClick={() => router.push('/artist-profile')}
                   key={index}
                 />
               </SwiperSlide>
