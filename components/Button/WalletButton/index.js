@@ -12,7 +12,7 @@ import styles from './index.module.scss'
 const WalletButton = props => {
   const { label, onClick } = props
   return (
-    <button className={styles.container} onClick={() => onClick}>
+    <button className={styles.container} onClick={() => onClick()}>
       <div className="mr-[13px]">{label}</div>
       <Image src={WalletGrayIcon} alt="" />
     </button>

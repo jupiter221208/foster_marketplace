@@ -93,6 +93,7 @@ const PrimaryHeader = props => {
 
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
+  const openConnectWallet = useSelector(state => state.openConnectWallet)
   const dispatch = useDispatch()
 
   const handleExploreMenu = item => {
@@ -106,6 +107,11 @@ const PrimaryHeader = props => {
 
   const handleOpenMobileMenu = () => {
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
+  }
+
+  const handleOpenConnectWallet = () => {
+    console.log('------openConnectWallet-------', openConnectWallet)
+    dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
   }
 
   const handleGotoHomepage = () => {
@@ -137,7 +143,7 @@ const PrimaryHeader = props => {
               <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
             </div>
             <div className="ml-[60px]">
-              <WalletButton label="cGtKb.frm" onClick={() => {}} />
+              <WalletButton label="cGtKb.frm" onClick={() => handleOpenConnectWallet()} />
             </div>
             <div className="ml-[60px]">
               <ProfileMenu avatar={AvatarImage} menuList={ProfileMenuList} onSelect={item => router.push(item.path)} />

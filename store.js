@@ -5,6 +5,7 @@ const initialState = {
   expired: false,
   openMobileMenu: false,
   openMobileSearchBox: false,
+  openConnectWallet: false,
   exploreTab: 0,
   web3: {
     provider: null,
