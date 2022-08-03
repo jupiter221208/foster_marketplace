@@ -87,6 +87,10 @@ const PrimaryHeader = props => {
     }
   }
 
+  const handleClose = () => {
+    setSearchList({ nfts: [], artists: [], collections: [] })
+  }
+
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
   const dispatch = useDispatch()
@@ -122,6 +126,7 @@ const PrimaryHeader = props => {
               searchList={searchList}
               viewport={viewport}
               onClick={() => handleSearch()}
+              onClose={() => handleClose()}
             />
           </div>
           <div className="flex justify-end items-center">

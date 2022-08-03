@@ -12,8 +12,8 @@ import Subscriber from 'components/Input/Subscriber'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
 import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
-import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
+import DiscordGreenIcon from 'assets/icons/discord-green.svg'
+import TwitterGreenIcon from 'assets/icons/twitter-green.svg'
 import GithubWhiteIcon from 'assets/icons/github-white.svg'
 import MediumWhiteIcon from 'assets/icons/medium-white.svg'
 
@@ -28,7 +28,7 @@ const PrimaryFooter = props => {
   return (
     <div className={styles.container}>
       {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
-        <div className="g-container flex flex-wrap justify-between gap-4">
+        <div className="g-container flex flex-wrap justify-between gap-4 z-10">
           <div className="max-w-[347px] block justify-start">
             <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
               <Image src={LogoText01Icon} alt="" />
@@ -86,10 +86,10 @@ const PrimaryFooter = props => {
                 />
               </div>
               <div>
-                <IconButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+                <IconButton icon={DiscordGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
               </div>
               <div>
-                <IconButton icon={TwitterWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+                <IconButton icon={TwitterGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
               </div>
               <div>
                 <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
@@ -102,7 +102,7 @@ const PrimaryFooter = props => {
           <div className={styles.greenText}>© All Rights Reserved</div>
         </div>
       ) : (
-        <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px]">
+        <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
           <div className={styles.topLeftEllipse}>
             <Image src={EllipseGreen} width={652} height={652} alt="" />
           </div>
@@ -163,10 +163,10 @@ const PrimaryFooter = props => {
                 />
               </div>
               <div>
-                <IconButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+                <IconButton icon={DiscordGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
               </div>
               <div>
-                <IconButton icon={TwitterWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+                <IconButton icon={TwitterGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
               </div>
               <div>
                 <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />

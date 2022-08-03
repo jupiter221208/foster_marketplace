@@ -11,7 +11,7 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import styles from './index.module.scss'
 
 const SearchBox = props => {
-  const { value, placeholder, onChange, searchList, viewport = 'sm', onClick } = props
+  const { value, placeholder, onChange, searchList, viewport = 'sm', onClick, onClose } = props
   return (
     <div className={styles.container}>
       <input
@@ -34,6 +34,7 @@ const SearchBox = props => {
               <div
                 key={index}
                 className="w-full flex justify-start items-center cursor-pointer hover:bg-slate-600 p-2 rounded-lg"
+                onClick={() => onClose()}
               >
                 <div className="w-[35px] h-[35px] mr-5">
                   <Image
@@ -57,6 +58,7 @@ const SearchBox = props => {
               <div
                 key={index}
                 className="w-full flex justify-start items-center cursor-pointer hover:bg-slate-600 p-2 rounded-lg"
+                onClick={() => onClose()}
               >
                 <div className="w-[35px] h-[35px] mr-5">
                   <Image
@@ -82,6 +84,7 @@ const SearchBox = props => {
               <div
                 key={index}
                 className="w-full flex justify-start items-center cursor-pointer hover:bg-slate-600 p-2 rounded-lg"
+                onClick={() => onClose()}
               >
                 <div className="w-[35px] h-[35px] mr-5">
                   <Image

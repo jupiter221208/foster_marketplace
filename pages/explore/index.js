@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 // next components
 import Head from 'next/head'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -43,6 +44,7 @@ import styles from './index.module.scss'
 
 const Explore = props => {
   const { viewport } = props
+  const router = useRouter()
   const dispatch = useDispatch()
 
   const exploreTab = useSelector(state => state.exploreTab)
@@ -155,9 +157,10 @@ const Explore = props => {
               <div className={styles.bottomLeftEllipse}>
                 <Image src={EllipseGreen} width={1399} height={1399} alt="" objectFit="cover" />
               </div>
-
+            </div>
+            <div className="w-full relative z-10">
               {exploreTab === 0 && (
-                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
+                <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
                   {NFTExploreList.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <NFTCard
@@ -166,6 +169,7 @@ const Explore = props => {
                         nftName={item.nftName}
                         artistName={item.artistName}
                         icon={item.icon}
+                        onClick={() => router.push('/browse-nft')}
                         price={item.price}
                       />
                     </div>

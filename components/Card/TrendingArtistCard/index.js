@@ -10,9 +10,9 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import styles from './index.module.scss'
 
 const TrendingArtistCard = props => {
-  const { image, name } = props
+  const { image, name, onClick } = props
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick()}>
       <div className={styles.avatarArea}>
         <div className={styles.avatar}>
           <Image

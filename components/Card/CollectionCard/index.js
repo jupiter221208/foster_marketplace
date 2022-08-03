@@ -14,7 +14,7 @@ const CollectionCard = props => {
   const { image, nftName, nftType, artistName, nfts, price, viewport } = props
   return (
     <div className={styles.container}>
-      <div className="relative w-full rounded-[24px] overflow-hidden">
+      <div className="relative w-full rounded-[10px] lg:rounded-[20px] overflow-hidden">
         <Image src={image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
         <div className="absolute bottom-[14px] right-[8px]"></div>
       </div>

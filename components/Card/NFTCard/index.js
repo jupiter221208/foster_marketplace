@@ -10,10 +10,10 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const NFTCard = props => {
-  const { viewport, image, nftName, artistName, price, showCount = true } = props
+  const { viewport, image, nftName, artistName, price, showCount = true, onClick } = props
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick()}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
         <Image src={image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
       </div>

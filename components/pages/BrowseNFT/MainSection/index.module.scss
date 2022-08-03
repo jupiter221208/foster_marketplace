@@ -1,0 +1,261 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px);
+  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blurBackground {
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 27px;
+  background: linear-gradient(
+    to top,
+    rgba($text-gray-800-color, 0.5) 0%,
+    rgba($text-gray-800-color, 0.1) 40%,
+    rgba($text-gray-800-color, 0.15) 60%,
+    rgba($text-gray-800-color, 0.5) 100%
+  );
+  z-index: 1;
+}
+
+.imageArea {
+  margin: 11px;
+  border-radius: 12px;
+  padding: 8px;
+  background: linear-gradient(to bottom, rgba($text-gray-800-color, 0.4), rgba($text-gray-200-color, 0.4));
+  overflow: hidden;
+  max-width: calc(100% - 32px);
+  max-height: calc(100% - 32px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.imageRealArea {
+  margin: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.nftDetailCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
+  padding: 25px 16px 25px 16px;
+  @media (min-width: 640px) {
+    padding: 28px 25px 28px 25px;
+  }
+  @media (min-width: 768px) {
+    padding: 32px 35px 32px 35px;
+  }
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+    padding: 35px 25px 35px 25px;
+  }
+  @media (min-width: 1280px) {
+    padding: 38px 40px 38px 40px;
+  }
+  @media (min-width: 1536px) {
+    padding: 40px 65px 40px 65px;
+  }
+
+  background-color: #121212;
+  border-radius: 27px;
+  border: 1px solid #707070;
+}
+
+.greenTitle {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  color: $brand-01-color;
+}
+
+.whiteTitle {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 36px;
+  color: #ffffff;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 25px;
+  line-height: 34px;
+  @media (min-width: 640px) {
+    font-size: 28px;
+    line-height: 36px;
+  }
+  @media (min-width: 768px) {
+    font-size: 32px;
+    line-height: 40px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 36px;
+    line-height: 44px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 40px;
+    line-height: 50px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  color: $text-gray-200-color;
+}
+
+.grayText {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: rgba($text-gray-200-color, 0.6);
+}
+
+.greenText {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: $brand-01-color;
+}
+
+.whiteDiscription {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.74);
+}
+
+.greenDiscription {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: $brand-01-color;
+}
+
+.accordionButton {
+  display: flex;
+  width: 100%;
+
+  height: 60px;
+  @media (min-width: 640px) {
+    height: 64px;
+  }
+  @media (min-width: 768px) {
+    height: 68px;
+  }
+  @media (min-width: 1024px) {
+    height: 72px;
+  }
+  @media (min-width: 1280px) {
+    height: 76px;
+  }
+  @media (min-width: 1536px) {
+    height: 80px;
+  }
+
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 12px;
+  padding-right: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba($text-gray-200-color, 0.6);
+  background-color: #121212;
+}
+
+.accordionOpenButton {
+  display: flex;
+  width: 100%;
+
+  height: 38px;
+  @media (min-width: 640px) {
+    height: 42px;
+  }
+  @media (min-width: 768px) {
+    height: 46px;
+  }
+  @media (min-width: 1024px) {
+    height: 50px;
+  }
+  @media (min-width: 1280px) {
+    height: 54px;
+  }
+  @media (min-width: 1536px) {
+    height: 58px;
+  }
+
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 12px;
+  padding-right: 30px;
+  border-radius: 12px;
+  border: 1px solid rgba($text-gray-200-color, 0.6);
+  background-color: #121212;
+}
+
+.accordionArea {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 120px;
+  max-height: 150px;
+  padding: 8px 8px;
+  @media (min-width: 1024px) {
+    padding: 20px;
+  }
+  border-radius: 12px;
+  border: 1px solid rgba($text-gray-200-color, 0.6);
+  background-color: #1f2020;
+}
+
+.tableTitle {
+  font-family: 'Muli-Bold';
+  font-size: 10px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 12px;
+    line-height: 24px;
+  }
+  color: $text-gray-200-color;
+}
+
+.tableText {
+  font-family: 'Muli-Bold';
+  font-size: 10px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  color: rgba($text-gray-200-color, 0.74);
+}

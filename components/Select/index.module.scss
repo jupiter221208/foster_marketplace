@@ -8,8 +8,12 @@
   border-radius: 12px;
   background-color: transparent;
   border: 1px solid rgba($text-gray-200-color, 0.6);
-  padding-left: 24px;
-  padding-right: 50px;
+  padding-left: 12px;
+  padding-right: 25px;
+  @media (min-width: 1024px) {
+    padding-left: 24px;
+    padding-right: 50px;
+  }
   &:focus {
     outline: none;
   }
@@ -44,12 +48,16 @@
   line-height: 24px;
   letter-spacing: 0;
   color: $text-gray-200-color;
+  z-index: 1;
 }
 
 .menuItem {
   position: relative;
   cursor: pointer;
-  padding: 8px 16px 8px 40px;
+  padding: 8px 8px 8px 8px;
+  @media (min-width: 1024px) {
+    padding: 8px 16px 8px 40px;
+  }
 
   font-family: 'Muli-Regular';
   font-size: 16px;
@@ -71,4 +79,8 @@
   align-items: center;
   padding-left: 12px;
   color: $text-gray-200-color;
+  display: none;
+  @media (min-width: 1024px) {
+    display: block;
+  }
 }

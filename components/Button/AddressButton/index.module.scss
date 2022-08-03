@@ -1,0 +1,23 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $text-gray-800-color;
+  border-radius: 12px;
+
+  font-family: 'Muli-Bold';
+  height: 29px;
+  font-size: 12px;
+  @media (min-width: 1024px) {
+    height: 51px;
+    font-size: 18px;
+  }
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

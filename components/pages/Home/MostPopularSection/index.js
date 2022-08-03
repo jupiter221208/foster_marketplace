@@ -117,6 +117,7 @@ const MostPopularSection = props => {
                   nftName={item.nftName}
                   artistName={item.artistName}
                   price={item.price}
+                  onClick={() => router.push('/browse-nft')}
                   key={item}
                 />
               </div>
