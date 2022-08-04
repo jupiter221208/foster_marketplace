@@ -29,6 +29,7 @@ const Collection = props => {
   // step 1
   const [collectionName, setCollectionName] = useState('')
   const [description, setDescription] = useState('')
+  const [coverImage, setCoverImage] = useState()
   const [categoryList, setCategoryList] = useState([])
   const [dimension, setDimension] = useState(CollectionDimensionList[0])
 
@@ -70,10 +71,12 @@ const Collection = props => {
             onChangeCollectionName={collectionName => setCollectionName(collectionName)}
             description={description}
             onChangeDescription={description => setDescription(description)}
-            categoryList={categoryList}
-            onChangeCategoryList={categoryList => setCategoryList(categoryList)}
             dimension={dimension}
             onChangeDimension={dimension => setDimension(dimension)}
+            coverImage={coverImage}
+            onChangeCoverImage={coverImage => setCoverImage(coverImage)}
+            categoryList={categoryList}
+            onChangeCategoryList={categoryList => setCategoryList(categoryList)}
           />
         )}
         {currentStep === 2 && (
@@ -81,6 +84,7 @@ const Collection = props => {
             viewport={viewport}
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
+            dimension={dimension}
           />
         )}
         {currentStep === 3 && (

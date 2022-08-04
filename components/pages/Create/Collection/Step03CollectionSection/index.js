@@ -279,7 +279,7 @@ const Step03CollectionSection = props => {
                   )}
                 </FullScreen>
                 <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                  {collectionArt !== undefined ? (
+                  {collectionArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                     <AvatarEditor
                       image={collectionArt[0]}
                       width={artWidth - 32}
@@ -415,7 +415,7 @@ const Step03CollectionSection = props => {
               )}
             </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {collectionArt !== undefined ? (
+              {collectionArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
                   image={collectionArt[0]}
                   width={artWidth - 16}

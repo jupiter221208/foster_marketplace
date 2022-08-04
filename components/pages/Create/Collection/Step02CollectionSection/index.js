@@ -27,7 +27,8 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 const Step02CollectionSection = props => {
-  const { viewport, currentStep, onChangeCurrentStep } = props
+  const { viewport, currentStep, onChangeCurrentStep, dimension } = props
+  // console.log('dimension', dimension)
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenHeight, setScreenHeight] = useState(1080)
 
@@ -51,7 +52,6 @@ const Step02CollectionSection = props => {
     onChangeCurrentStep(step)
   }
   // step 1
-  const [selectedDimension, setSelectedDimension] = useState(CollectionDimensionList[0])
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
 
@@ -69,7 +69,7 @@ const Step02CollectionSection = props => {
         width = screenWidth / 2 - 100 - 50 - 32
         break
       default:
-        switch (selectedDimension.id) {
+        switch (dimension.id) {
           case 0:
             width = screenWidth - 140
             break
@@ -88,7 +88,7 @@ const Step02CollectionSection = props => {
         }
         break
     }
-    switch (selectedDimension.id) {
+    switch (dimension.id) {
       case 0:
         ratio = 1920 / 1920
         if (width > 672) {
@@ -140,7 +140,7 @@ const Step02CollectionSection = props => {
         }
         break
     }
-  }, [viewport, selectedDimension, screenWidth])
+  }, [viewport, dimension, screenWidth])
 
   const [collectionArt, setCollectionArt] = useState()
 
@@ -167,9 +167,6 @@ const Step02CollectionSection = props => {
   const [collectionName, setCollectionName] = useState('')
   const [description, setDescription] = useState('')
 
-  // step 3
-  const [royalties, setRoyalties] = useState('')
-
   // form validate
 
   return (
@@ -179,7 +176,7 @@ const Step02CollectionSection = props => {
           {/* left part */}
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Preview Collection</div>
+              <div className={`${styles.title} w-full`}>Preview Art</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
                   {fullScreenMode && (
@@ -196,7 +193,7 @@ const Step02CollectionSection = props => {
                   )}
                 </FullScreen>
                 <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                  {collectionArt !== undefined ? (
+                  {collectionArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                     <AvatarEditor
                       image={collectionArt[0]}
                       width={artWidth - 32}
@@ -246,7 +243,7 @@ const Step02CollectionSection = props => {
                   />
                 </div>
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
+                  <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
                   <div className="mt-5">
                     <Dropzone onDrop={acceptedFiles => setCollectionArt(acceptedFiles)}>
                       {({ getRootProps, getInputProps }) => (
@@ -254,7 +251,7 @@ const Step02CollectionSection = props => {
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
-                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4 and .gif</p>
+                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4 and .mov</p>
                             <p className={styles.greenText}>Max File Size 30mb</p>
                           </div>
                         </section>
@@ -294,7 +291,7 @@ const Step02CollectionSection = props => {
               viewport={viewport}
             />
           </div>
-          <div className={`${styles.title} w-full`}>Preview Collection</div>
+          <div className={`${styles.title} w-full`}>Preview Art</div>
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
               {fullScreenMode && (
@@ -311,7 +308,7 @@ const Step02CollectionSection = props => {
               )}
             </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {collectionArt !== undefined ? (
+              {collectionArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
                   image={collectionArt[0]}
                   width={artWidth - 16}
@@ -355,7 +352,7 @@ const Step02CollectionSection = props => {
             )}
           </div>
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-10`}>Collection Files *</div>
+            <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
             <div className="mt-5">
               <Dropzone onDrop={acceptedFiles => setCollectionArt(acceptedFiles)}>
                 {({ getRootProps, getInputProps }) => (
@@ -366,7 +363,7 @@ const Step02CollectionSection = props => {
                       <p className={styles.text}>
                         Supported File Formats
                         <br />
-                        .png .jpeg .mp4 and .gif
+                        .png .jpeg .mp4 and .mov
                       </p>
                       <p className={styles.greenText}>Max File Size 30mb</p>
                     </div>

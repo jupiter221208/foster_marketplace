@@ -287,7 +287,7 @@ const SingleNft = props => {
                     )}
                   </FullScreen>
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                    {nftArt !== undefined ? (
+                    {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                       <AvatarEditor
                         image={nftArt[0]}
                         width={artWidth - 32}
@@ -519,7 +519,7 @@ const SingleNft = props => {
               )}
             </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {nftArt !== undefined ? (
+              {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
                   image={nftArt[0]}
                   width={artWidth - 16}

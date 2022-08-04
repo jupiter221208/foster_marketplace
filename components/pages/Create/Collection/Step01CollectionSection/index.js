@@ -39,10 +39,12 @@ const Step01CollectionSection = props => {
     onChangeCollectionName,
     description,
     onChangeDescription,
-    categoryList,
-    onChangeCategoryList,
     dimension,
     onChangeDimension,
+    coverImage,
+    onChangeCoverImage,
+    categoryList,
+    onChangeCategoryList,
   } = props
 
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -158,8 +160,6 @@ const Step01CollectionSection = props => {
     }
   }, [viewport, dimension, screenWidth])
 
-  const [collectionCover, setCollectionCover] = useState()
-
   const handleFullScreen = useFullScreenHandle()
   const [fullScreenMode, setFullScreenMode] = useState(false)
 
@@ -173,18 +173,7 @@ const Step01CollectionSection = props => {
     setFullScreenMode(state)
   }
 
-  // const [categoryList, onChangeCategoryList] = useState([])
   const [showCategoryList, setShowCategoryList] = useState(false)
-
-  // useEffect(() => {
-  //   let array = []
-  //   CategoryList.map(item => {
-  //     let object = item
-  //     object.checked = false
-  //     array.push(object)
-  //   })
-  //   onChangeCategoryList(array)
-  // }, [])
 
   const handleSelectCategory = index => {
     let array = [...categoryList]
@@ -197,7 +186,6 @@ const Step01CollectionSection = props => {
     array.map(item => {
       item.checked = false
     })
-    // onChangeCategoryList(categoryList => [...categoryList, array])
     onChangeCategoryList(array)
   }
 
@@ -207,12 +195,12 @@ const Step01CollectionSection = props => {
       if (item.checked === true) count++
     })
 
-    if (collectionName !== '' && description !== '' && count !== 0 && collectionCover !== undefined) {
+    if (collectionName !== '' && description !== '' && count !== 0 && coverImage !== undefined) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
     }
-  }, [collectionName, description, collectionCover, categoryList])
+  }, [collectionName, description, coverImage, categoryList])
 
   // form validate
   const handleFormValidate = () => {
@@ -220,13 +208,14 @@ const Step01CollectionSection = props => {
     categoryList.map(item => {
       if (item.checked === true) count++
     })
-    if (collectionName !== '' && description !== '' && count !== 0 && collectionCover !== undefined) {
+    if (collectionName !== '' && description !== '' && count !== 0 && coverImage !== undefined) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
     }
   }
 
+  console.log('coverImage', coverImage)
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -237,9 +226,9 @@ const Step01CollectionSection = props => {
               <div className={`${styles.title} w-full`}>Preview Collection Cover</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
-                  {fullScreenMode && (
+                  {fullScreenMode && coverImage !== undefined && (
                     <AvatarEditor
-                      image={collectionCover !== undefined && collectionCover[0]}
+                      image={coverImage[0]}
                       width={screenHeight - 36}
                       height={screenHeight - 36}
                       border={16}
@@ -251,9 +240,9 @@ const Step01CollectionSection = props => {
                   )}
                 </FullScreen>
                 <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                  {collectionCover !== undefined ? (
+                  {coverImage !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                     <AvatarEditor
-                      image={collectionCover[0]}
+                      image={coverImage[0]}
                       width={artWidth - 32}
                       height={artHeight - 32}
                       border={16}
@@ -266,7 +255,7 @@ const Step01CollectionSection = props => {
                     <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
                   )}
                 </div>
-                {collectionCover !== undefined && (
+                {coverImage !== undefined && (
                   <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                     <IconButton icon={EditorGrayIcon} onClick={() => {}} backgroundColor="transparent" />
                     <IconButton
@@ -276,7 +265,7 @@ const Step01CollectionSection = props => {
                     />
                     <IconButton
                       icon={TrashGrayIcon}
-                      onClick={() => setCollectionCover()}
+                      onClick={() => onChangeCoverImage()}
                       backgroundColor="transparent"
                     />
                   </div>
@@ -339,7 +328,7 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
                   <div className="mt-5">
-                    <Dropzone onDrop={acceptedFiles => setCollectionCover(acceptedFiles)}>
+                    <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}>
                       {({ getRootProps, getInputProps }) => (
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectArea}>
@@ -390,7 +379,7 @@ const Step01CollectionSection = props => {
             <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
               {fullScreenMode && (
                 <AvatarEditor
-                  image={collectionCover !== undefined && collectionCover[0]}
+                  image={coverImage !== undefined && coverImage[0]}
                   width={screenHeight - 36}
                   height={screenHeight - 36}
                   border={6}
@@ -402,9 +391,9 @@ const Step01CollectionSection = props => {
               )}
             </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {collectionCover !== undefined ? (
+              {coverImage !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
-                  image={collectionCover[0]}
+                  image={coverImage[0]}
                   width={artWidth - 16}
                   height={artHeight - 16}
                   border={8}
@@ -417,7 +406,7 @@ const Step01CollectionSection = props => {
                 <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
               )}
             </div>
-            {collectionCover !== undefined && (
+            {coverImage !== undefined && (
               <div className="w-full mt-4 flex justify-center">
                 <div className="flex justify-between" style={{ width: artWidth }}>
                   <IconButton
@@ -436,7 +425,7 @@ const Step01CollectionSection = props => {
                   />
                   <IconButton
                     icon={TrashGrayIcon}
-                    onClick={() => setCollectionCover()}
+                    onClick={() => onChangeCoverImage()}
                     backgroundColor="transparent"
                     width="32px"
                     height="32px"
@@ -476,7 +465,7 @@ const Step01CollectionSection = props => {
             </div>
             <div className={`${styles.subTitle} mt-10`}>Art *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => setCollectionCover(acceptedFiles)}>
+              <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}>
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>
