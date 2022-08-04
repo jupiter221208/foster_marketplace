@@ -5,8 +5,23 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
+// next components
+import Image from 'next/image'
+
+// components
+import WalletItem from 'components/Card/WalletItem'
+
+// images
+import LogoBigIcon from 'assets/logo-big.svg'
+import LogoIcon from 'assets/icons/logo.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg'
+import ConnectLogo from 'assets/images/connect_wallet_logo.png'
+
 // styles
 import styles from './index.module.scss'
+
+// json
+import WalletItemList from 'assets/json/wallet-item.json'
 
 const ConnectWallet = () => {
   const openConnectWallet = useSelector(state => state.openConnectWallet)
@@ -44,23 +59,41 @@ const ConnectWallet = () => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={styles.modalView}>
-                <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                  Connect a Wallet
-                </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    By connecting your wallet, you agree to our Terms of Services and our Privacy Policy..
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                    onClick={closeModal}
-                  >
-                    Done
-                  </button>
+                <div className="w-full h-full grid grid-cols-12">
+                  <div className="col-span-6 pt-[10px] pb-[10px] pl-[14px]">
+                    <div className={styles.leftPanel}>
+                      <div className={styles.title}>Connect a Wallet</div>
+                      <p className={styles.content}>
+                        By connecting your wallet, you agree to our{' '}
+                        <span className={styles.contentBold}>Terms of Services</span> and our{' '}
+                        <span className={styles.contentBold}>Privacy Policy</span>.
+                      </p>
+                      <div className="mt-[30px]">
+                        {WalletItemList.map((item, index) => (
+                          <div key={index}>
+                            <WalletItem icon={item.image} name={item.name} />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-6 relative overflow-hidden">
+                    <div className={styles.rightBack}>
+                      <Image src={LogoBigIcon} alt="" width={566} height={657} />
+                    </div>
+                    <div className={styles.close} onClick={closeModal}>
+                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                    </div>
+                    <div className={styles.rightPanel}>
+                      <Image src={LogoIcon} alt="" width={40} height={46} />
+                      <div className="flex justify-center">
+                        <div className={styles.rightTitle}>Foster Digital Art & NFT Utility</div>
+                      </div>
+                      <div className="mt-[24px]">
+                        <Image src={ConnectLogo} alt="" width={366} height={366} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

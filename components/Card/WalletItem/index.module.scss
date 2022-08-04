@@ -1,0 +1,35 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  width: 100%;
+  padding: 15px 0px 15px 0px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.line {
+  width: 2px;
+  height: 40px;
+  background-color: $brand-03-color;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.name {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  margin-left: 20px;
+}
+
+.connect {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: $brand-06-color;
+}
