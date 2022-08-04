@@ -33,8 +33,6 @@ const Collection = props => {
   const [categoryList, setCategoryList] = useState([])
   const [dimension, setDimension] = useState(CollectionDimensionList[0])
 
-  // step 2
-
   useEffect(() => {
     let array = []
     CategoryList.map(item => {
@@ -45,8 +43,48 @@ const Collection = props => {
     setCategoryList(array)
   }, [])
 
-  // step 3
-  const [royalties, setRoyalties] = useState('')
+  // step 2
+  const [collectionFiles, setCollectionFiles] = useState([])
+
+  const onChangeCollectionFiles = files => {
+    const array = []
+    files.map((item, index) => {
+      let object = {}
+      object.id = index
+      object.file = item
+      object.name = ''
+      object.description = ''
+      array.push(object)
+    })
+    setCollectionFiles(array)
+  }
+
+  const handleRemoveCollectionFile = item => {
+    let array = [...collectionFiles]
+    let index = array.indexOf(item)
+    if (index !== -1) {
+      array.splice(index, 1)
+    }
+    setCollectionFiles(array)
+  }
+
+  const handleChangeCollectionName = (item, value) => {
+    let array = [...collectionFiles]
+    let index = array.indexOf(item)
+    if (index !== -1) {
+      array[index].name = value
+    }
+    setCollectionFiles(array)
+  }
+
+  const handleChangeCollectionDescription = (item, value) => {
+    let array = [...collectionFiles]
+    let index = array.indexOf(item)
+    if (index !== -1) {
+      array[index].description = value
+    }
+    setCollectionFiles(array)
+  }
 
   return (
     <div className="w-full">
@@ -85,6 +123,11 @@ const Collection = props => {
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             dimension={dimension}
+            collectionFiles={collectionFiles}
+            onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
+            onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
+            onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
+            onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
           />
         )}
         {currentStep === 3 && (

@@ -10,6 +10,7 @@ const Input = props => {
     label = '',
     onChange,
     color = '',
+    fullWidth = false,
     backgroundColor = '',
     borderColor = '',
     borderWidth = 0,
@@ -25,7 +26,7 @@ const Input = props => {
         type={type}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
-        style={{ color, backgroundColor, borderColor, borderWidth, width, height }}
+        style={{ color, backgroundColor, borderColor, borderWidth, width: fullWidth ? '100%' : width, height }}
       />
       {label !== '' && <div className={styles.label}>{label}</div>}
     </div>

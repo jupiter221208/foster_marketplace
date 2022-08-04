@@ -110,7 +110,6 @@ const PrimaryHeader = props => {
   }
 
   const handleOpenConnectWallet = () => {
-    console.log('------openConnectWallet-------', openConnectWallet)
     dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
   }
 

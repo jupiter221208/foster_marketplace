@@ -215,7 +215,6 @@ const Step01CollectionSection = props => {
     }
   }
 
-  console.log('coverImage', coverImage)
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -350,11 +349,12 @@ const Step01CollectionSection = props => {
                 <div className="absolute bottom-0 w-full flex justify-between">
                   <div />
                   {disabledNextButton ? (
-                    <Button label="Next Step" disabled={disabledNextButton} backgroundColor="#888A8E" />
+                    <Button label="Next Step" disabled={disabledNextButton} backgroundColor="#888A8E" height="53px" />
                   ) : (
                     <GradientButton
                       label="Next Step"
                       onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                      height="53px"
                     />
                   )}
                 </div>

@@ -376,10 +376,12 @@ const Step03CollectionSection = props => {
                     onClick={() => handleChangeCurrentStep(currentStep - 1)}
                     backgroundColor="#378287"
                     color="#EFF0F6"
+                    height="53px"
                   />
                   <GradientButton
                     label="Next Step"
                     onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                    height="53px"
                   />
                 </div>
               </div>
