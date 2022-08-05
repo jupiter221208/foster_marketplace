@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
+import { useRouter } from 'next/router'
+
 import Head from 'next/head'
 import Image from 'next/image'
 
@@ -15,12 +17,23 @@ import FreshMintSection from 'components/pages/Home/FreshMintSection'
 // images and icons
 import CategoryImage from 'assets/images/category.png'
 
+// json
+import PopularCategoryList from 'assets/json/popular-category.json'
+
 // styles
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 
 const Category = props => {
   const { viewport } = props
+  const router = useRouter()
+  const [categoryInfo, setCategoryInfo] = useState('')
+
+  useEffect(() => {
+    const cateId = router.query.id
+    let category = PopularCategoryList[cateId]
+    setCategoryInfo(category)
+  }, [])
 
   return (
     <div className="g-container">
@@ -31,8 +44,19 @@ const Category = props => {
       </Head>
       <div className={styles.container}>
         <div className="relative w-full mt-4 lg:mt-8">
-          <Image src={CategoryImage} alt="" />
-          <div className={styles.title}>Black & White</div>
+          {categoryInfo.type === 'image' ? <Image src={categoryInfo.banner} width={1620} height={460} alt="" /> : <></>}
+          {categoryInfo.type === 'video' ? (
+            <div className={styles.videoContainer}>
+              <video autoPlay loop muted>
+                <source type="video/mp4" src={categoryInfo.banner} />
+              </video>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className={styles.bottomMask}></div>
+
+          <div className={styles.title}>{categoryInfo.name}</div>
         </div>
         <TrendingCollectionSection viewport={viewport} />
         <MostPopularSection viewport={viewport} />
@@ -49,4 +73,10 @@ export default Category
 
 Category.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
+}
+
+export async function getServerSideProps(context) {
+  return {
+    props: {},
+  }
 }

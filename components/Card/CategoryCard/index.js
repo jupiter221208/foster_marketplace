@@ -24,7 +24,7 @@ const CategoryCard = props => {
           className="rounded-[30px]"
         />
       ) : (
-        <video autoPlay loop muted width="359" height="490">
+        <video autoPlay loop muted>
           <source type="video/mp4" src={image} />
         </video>
       )}
