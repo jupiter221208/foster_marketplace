@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -24,7 +24,11 @@ import styles from './index.module.scss'
 const PopularCategorySection = props => {
   const { type, viewport } = props
   const router = useRouter()
+  const [categoryList, setCategoryList] = useState([])
 
+  useEffect(() => {
+    setCategoryList(PopularCategoryList)
+  }, [])
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-center lg:justify-between items-center z-10">
@@ -51,14 +55,14 @@ const PopularCategorySection = props => {
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 5000,
+            delay: 500000,
             disableOnInteraction: false,
           }}
         >
-          {PopularCategoryList.map((item, index) => (
+          {categoryList.map((item, index) => (
             <SwiperSlide key={index}>
               <CategoryCard
-                image={item.image}
+                image={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? item.mobile : item.image}
                 name={item.name}
                 type={item.type}
                 nfts={item.nfts}

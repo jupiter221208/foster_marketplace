@@ -54,7 +54,11 @@ const Category = props => {
           ) : (
             <></>
           )}
-          <div className={styles.bottomMask}></div>
+          {viewport === 'md' || viewport === 'sm' || viewport === 'xs' ? (
+            <></>
+          ) : (
+            <div className={styles.bottomMask}></div>
+          )}
 
           <div className={styles.title}>{categoryInfo.name}</div>
         </div>
