@@ -86,6 +86,8 @@ const Collection = props => {
     setCollectionFiles(array)
   }
 
+  // step 3
+
   return (
     <div className="w-full">
       <Head>
@@ -135,6 +137,7 @@ const Collection = props => {
             viewport={viewport}
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
+            coverImage={coverImage}
           />
         )}
         {currentStep === 4 && <SuccessMintCollectionSection viewport={viewport} />}

@@ -151,7 +151,7 @@ const Step02CollectionSection = props => {
   }, [viewport, dimension, screenWidth])
 
   useEffect(() => {
-    if (collectionFiles !== undefined) {
+    if (collectionFiles.length !== 0) {
       setDisabledNextButton(false)
     }
   }, [collectionFiles])
