@@ -236,7 +236,7 @@ const Step02CollectionSection = props => {
                 <div className="w-full">
                   <CollectionStepper
                     currentStep={currentStep}
-                    onChange={step => handleChangeCurrentStep(step)}
+                    // onChange={step => handleChangeCurrentStep(step)}
                     viewport={viewport}
                   />
                 </div>
@@ -336,7 +336,7 @@ const Step02CollectionSection = props => {
           <div className="w-full">
             <CollectionStepper
               currentStep={currentStep}
-              onChange={step => handleChangeCurrentStep(step)}
+              // onChange={step => handleChangeCurrentStep(step)}
               viewport={viewport}
             />
           </div>
