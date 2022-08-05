@@ -78,39 +78,13 @@
   flex-direction: column;
 }
 
-.nftName {
+.collectionName {
   font-family: 'Muli-Bold';
   font-size: 22px;
   line-height: 36px;
   letter-spacing: 0;
   color: $text-gray-200-color;
   text-align: center;
-}
-
-.descriptionArea {
-  width: 100%;
-  height: auto;
-  padding: 24px 24px 56px 24px;
-  background-color: #373d41;
-  border-radius: 20px;
-}
-
-.descriptionTitle {
-  text-align: start;
-  font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 24px;
-  letter-spacing: 0;
-  color: $text-gray-200-color;
-}
-
-.descriptionText {
-  margin-top: 17px;
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0;
-  color: $text-gray-200-color;
 }
 
 // right part
@@ -161,41 +135,4 @@
   }
   letter-spacing: 0;
   color: $brand-03-color;
-}
-
-.congratelationsArea {
-  min-height: calc(100vh - 80px);
-  @media (min-width: 1024px) {
-    min-height: calc(100vh - 100px);
-  }
-}
-
-.mintTitle {
-  width: 100%;
-  font-family: 'Muli-SemiBold';
-  font-size: 24px;
-  line-height: 30px;
-  @media (min-width: 1024px) {
-    font-size: 40px;
-    line-height: 56px;
-  }
-  letter-spacing: 0;
-  color: $brand-06-color;
-  text-align: center;
-}
-
-.mintText {
-  width: 100%;
-  font-family: 'Muli-Bold';
-  margin-top: 20px;
-  font-size: 16px;
-  line-height: 20px;
-  @media (min-width: 1024px) {
-    margin-top: 25px;
-    font-size: 18px;
-    line-height: 24px;
-  }
-  letter-spacing: 0;
-  color: $text-gray-200-color;
-  text-align: center;
 }

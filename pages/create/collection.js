@@ -87,6 +87,8 @@ const Collection = props => {
   }
 
   // step 3
+  const [banner, setBanner] = useState()
+  const [royalties, setRoyalties] = useState('')
 
   return (
     <div className="w-full">
@@ -138,6 +140,11 @@ const Collection = props => {
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverImage={coverImage}
+            collectionFiles={collectionFiles}
+            banner={banner}
+            onChangeBanner={banner => setBanner(banner)}
+            royalties={royalties}
+            onChangeRoyalties={royalties => setRoyalties(royalties)}
           />
         )}
         {currentStep === 4 && <SuccessMintCollectionSection viewport={viewport} />}
