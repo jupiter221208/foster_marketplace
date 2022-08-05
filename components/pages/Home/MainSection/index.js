@@ -40,13 +40,6 @@ const MainSection = props => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 gap-8 items-center">
         <div className="col-span-12 lg:col-span-7 xl:col-span-7">
-          {/* {viewport === 'md' || viewport === 'sm' ? (
-            <div className="w-full flex justify-center">
-              <Image src={HeroHeaderMobile} width={304} height={76} alt="" objectFit="cover" />
-            </div>
-          ) : (
-            <Image src={HeroHeader} width={910} height={180} alt="" objectFit="cover" />
-          )} */}
           <div className={styles.whiteTitle}>The Art of Blockchain</div>
           <div className={styles.heroTextContainer}>
             <div className={styles.greenTitle}>Foster Your Flav</div>

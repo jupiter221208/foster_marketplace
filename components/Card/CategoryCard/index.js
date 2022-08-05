@@ -10,18 +10,24 @@ import styles from './index.module.scss'
 import LogoGrayIcon from 'assets/icons/logo-gray.svg'
 
 const CategoryCard = props => {
-  const { image, name, nfts, collections, onClick } = props
+  const { image, name, type = 'image', nfts, collections, onClick } = props
   return (
     <div className={styles.container} onClick={() => onClick()}>
-      <Image
-        src={image}
-        alt=""
-        width={359}
-        height={490}
-        layout="responsive"
-        objectFit="cover"
-        className="rounded-[30px]"
-      />
+      {type === 'image' ? (
+        <Image
+          src={image}
+          alt=""
+          width={359}
+          height={490}
+          layout="responsive"
+          objectFit="cover"
+          className="rounded-[30px]"
+        />
+      ) : (
+        <video autoplay="true" loop muted width="359" height="490">
+          <source type="video/mp4" src={image} />
+        </video>
+      )}
       <div className={styles.bottomMask}></div>
       <div className={styles.bottomSection}>
         <div className={styles.name}>{name}</div>

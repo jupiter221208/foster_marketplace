@@ -60,6 +60,7 @@ const PopularCategorySection = props => {
               <CategoryCard
                 image={item.image}
                 name={item.name}
+                type={item.type}
                 nfts={item.nfts}
                 collections={item.collections}
                 onClick={() => router.push('/category')}
