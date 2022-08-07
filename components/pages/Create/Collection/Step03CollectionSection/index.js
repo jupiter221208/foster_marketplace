@@ -252,7 +252,40 @@ const Step03CollectionSection = props => {
           </div>
           <div className={`${styles.title} w-full`}>Preview Collection</div>
 
-          <div className="w-full flex flex-wrap justify-center mt-[22px]">{/* banner part */}</div>
+          <div className="w-full flex flex-wrap justify-center mt-[22px]">
+            {/* banner part */}
+            <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
+              {/* banner image */}
+              <div className={styles.bannerImageArea}>
+                {banner !== undefined ? (
+                  <Image
+                    src={URL.createObjectURL(banner[0])}
+                    alt=""
+                    width={758}
+                    height={194}
+                    layout="responsive"
+                    objectFit="cover"
+                    className="rounded-[20px]"
+                  />
+                ) : (
+                  <div style={{ width: artWidth, height: artHeight }} />
+                )}
+                <div className="absolute left-0 -bottom-[50px] w-full flex justify-center">
+                  <div className={styles.coverImageArea}>
+                    <Image
+                      src={URL.createObjectURL(coverImage[0])}
+                      alt=""
+                      width={86}
+                      height={86}
+                      layout="responsive"
+                      objectFit="cover"
+                      className="rounded-[6px]"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="w-full">
             <div className={`${styles.subTitle} mt-10`}>Banner *</div>

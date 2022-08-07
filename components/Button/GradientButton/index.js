@@ -17,7 +17,7 @@ const GradientButton = props => {
     width = '',
     height = '',
     direction = 'ltr',
-    icon,
+    icon = '',
   } = props
   console.log('label', label)
   console.log('icon', icon)

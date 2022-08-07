@@ -126,8 +126,12 @@
 }
 
 .coverImageArea {
-  width: 160px;
-  height: 160px;
+  width: 86px;
+  height: 86px;
+  @media (min-width: 1024px) {
+    width: 160px;
+    height: 160px;
+  }
   border-radius: 10px;
   background-color: rgba($background-light-color, 0.5);
   padding: 5px;
