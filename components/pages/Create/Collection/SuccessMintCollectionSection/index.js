@@ -7,19 +7,19 @@ import Image from 'next/image'
 import AvatarEditor from 'react-avatar-editor'
 
 // components
-import Button from 'components/Button'
-import IconButton from 'components/Button/IconButton'
+import OutlineButton from 'components/Button/OutlineButton'
+import GradientButton from 'components/Button/GradientButton'
 import LinkTextButton from 'components/Button/LinkTextButton'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import TwitterBackgroundWhiteIcon from 'assets/icons/twitter-background-white.svg'
+import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const SuccessMintCollectionSection = props => {
-  const { viewport, collectionArt } = props
+  const { viewport, collectionArt, coverImage, banner } = props
   const [screenWidth, setScreenWidth] = useState(1920)
 
   useEffect(() => {
@@ -40,99 +40,133 @@ const SuccessMintCollectionSection = props => {
           <div className={styles.topLeftEllipse}>
             <Image src={EllipseGreen} alt="" objectFit="cover" />
           </div>
-          <div className="w-full flex justify-center items-center z-10">
-            <div className="max-w-[392px] rounded-[16px] overflow-hidden mt-[82px]">
-              <AvatarEditor
-                image={collectionArt !== undefined && collectionArt[0]}
-                width={screenWidth > 400 ? 360 : screenWidth - 72}
-                height={screenWidth > 400 ? 360 : screenWidth - 72}
-                border={16}
-                borderRadius={12}
-                color={[255, 255, 255, 0.5]} // RGBA
-                scale={1}
-                rotate={0}
-              />
+          <div className="w-full flex flex-wrap justify-center z-10 mt-[107px] z-10">
+            {/* banner image */}
+            <div className={styles.bannerImageArea}>
+              {banner !== undefined ? (
+                <Image
+                  src={URL.createObjectURL(banner[0])}
+                  alt=""
+                  width={758}
+                  height={194}
+                  layout="responsive"
+                  objectFit="cover"
+                  className="rounded-[20px]"
+                />
+              ) : (
+                <div style={{ width: artWidth, height: artHeight }} />
+              )}
+              <div className="absolute left-0 -bottom-[100px] w-full flex justify-center">
+                <div className={styles.coverImageArea}>
+                  <Image
+                    src={URL.createObjectURL(coverImage[0])}
+                    alt=""
+                    width={150}
+                    height={150}
+                    layout="responsive"
+                    objectFit="cover"
+                    className="rounded-[6px]"
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="max-w-[568px] mt-[62px] mb-[130px] flex flex-wrap justify-center z-10">
+          <div className="max-w-[568px] mt-[142px] mb-[130px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratelations!</div>
-            <div className={styles.mintText}>Your Collection has been minted successfully!</div>
+            <div className={styles.mintText}>Your NFT collection has been minted successfully!</div>
             <div className="w-full flex justify-between gap-[30px] mt-[60px]">
               <div className="w-full">
-                <IconButton
-                  icon={TwitterBackgroundWhiteIcon}
+                <GradientButton
+                  icon={TwitterBackgroundBlackIcon}
                   fullWidth
                   label="Tweet your Mint"
-                  color="#ffffff"
+                  color="#202427"
                   backgroundColor="#378287"
                   height="68px"
                   onClick={() => {}}
+                  direction="rtl"
                 />
               </div>
               <div className="w-full">
-                <Button
+                <OutlineButton
                   fullWidth
                   label="Mint another Collection"
                   backgroundColor="#63D6CD"
                   height="68px"
                   onClick={() => setCurrentStep(1)}
+                  borderColor="#5AC3BA"
                 />
               </div>
             </div>
             <div className="mt-[44px]">
-              <LinkTextButton label="My Mint" link="/" />
+              <LinkTextButton label="View on Solscan" link="/" />
             </div>
           </div>
         </div>
       ) : (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
-          <div className="w-full flex justify-center items-center z-10 mt-10">
-            <div className="max-w-[237px] z-10">
-              <div className="w-full rounded-[16px] overflow-hidden">
-                {collectionArt !== undefined ? (
-                  <AvatarEditor
-                    image={collectionArt[0]}
-                    width={225}
-                    height={225}
-                    border={6}
-                    borderRadius={12}
-                    color={[77, 92, 94, 1]} // RGBA
-                    scale={1}
-                    rotate={0}
+          <div className="w-full flex justify-center items-center z-10">
+            <div className="w-full flex flex-wrap justify-center z-10 mt-[40px] z-10">
+              {/* banner image */}
+              <div className={styles.bannerImageArea}>
+                {banner !== undefined ? (
+                  <Image
+                    src={URL.createObjectURL(banner[0])}
+                    alt=""
+                    width={758}
+                    height={194}
+                    layout="responsive"
+                    objectFit="cover"
+                    className="rounded-[20px]"
                   />
                 ) : (
-                  <div className={styles.artArea} />
+                  <div style={{ width: artWidth, height: artHeight }} />
                 )}
+                <div className="absolute left-0 -bottom-[50px] w-full flex justify-center">
+                  <div className={styles.coverImageArea}>
+                    <Image
+                      src={URL.createObjectURL(coverImage[0])}
+                      alt=""
+                      width={86}
+                      height={86}
+                      layout="responsive"
+                      objectFit="cover"
+                      className="rounded-[6px]"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div className="w-full mt-[60px] mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratelations!</div>
-            <div className={styles.mintText}>Your Collection has been minted successfully!</div>
+            <div className={styles.mintText}>Your NFT collection has been minted successfully!</div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
-                <IconButton
-                  icon={TwitterBackgroundWhiteIcon}
+                <GradientButton
+                  icon={TwitterBackgroundBlackIcon}
                   fullWidth
                   label="Tweet your Mint"
-                  color="#ffffff"
+                  color="#202427"
                   backgroundColor="#378287"
                   height="45px"
                   onClick={() => {}}
+                  direction="rtl"
                 />
               </div>
               <div className="w-[221px]">
-                <Button
+                <OutlineButton
                   fullWidth
                   label="Mint another Collection"
                   backgroundColor="#63D6CD"
                   height="45px"
                   onClick={() => setCurrentStep(1)}
+                  borderColor="#5AC3BA"
                 />
               </div>
             </div>
             <div className="mt-[33px]">
-              <LinkTextButton label="My Mint" link="/" />
+              <LinkTextButton label="View on Solscan" link="/" />
             </div>
           </div>
         </div>

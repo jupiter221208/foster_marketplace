@@ -147,7 +147,9 @@ const Collection = props => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
           />
         )}
-        {currentStep === 4 && <SuccessMintCollectionSection viewport={viewport} />}
+        {currentStep === 4 && (
+          <SuccessMintCollectionSection viewport={viewport} coverImage={coverImage} banner={banner} />
+        )}
       </div>
     </div>
   )

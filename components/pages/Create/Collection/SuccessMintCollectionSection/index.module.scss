@@ -199,3 +199,25 @@
   color: $text-gray-200-color;
   text-align: center;
 }
+
+.bannerImageArea {
+  position: relative;
+  max-width: 758px;
+  max-height: 194px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: rgba(#ffffff, 0.1);
+}
+
+.coverImageArea {
+  width: 86px;
+  height: 86px;
+  @media (min-width: 1024px) {
+    width: 160px;
+    height: 160px;
+  }
+  border-radius: 10px;
+  background-color: rgba($background-light-color, 0.5);
+  padding: 5px;
+}
