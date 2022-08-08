@@ -91,6 +91,8 @@ const PrimaryHeader = props => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
+  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
   const openConnectWallet = useSelector(state => state.openConnectWallet)
@@ -142,7 +144,7 @@ const PrimaryHeader = props => {
               <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
             </div>
             <div className="ml-[60px]">
-              <WalletButton label="cGtKb.frm" onClick={() => handleOpenConnectWallet()} />
+              <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connectWalletStatus} />
             </div>
             <div className="ml-[60px]">
               <ProfileMenu avatar={AvatarImage} menuList={ProfileMenuList} onSelect={item => router.push(item.path)} />

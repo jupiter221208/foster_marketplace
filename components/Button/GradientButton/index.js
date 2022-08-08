@@ -19,8 +19,7 @@ const GradientButton = props => {
     direction = 'ltr',
     icon = '',
   } = props
-  console.log('label', label)
-  console.log('icon', icon)
+
   return (
     <button
       type="button"

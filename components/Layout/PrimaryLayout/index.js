@@ -9,7 +9,7 @@ import MobileMenu from 'components/Menu/MobileMenu'
 import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
 import PrimaryFooter from 'components/Footer/PrimaryFooter'
-import ConnectWallet from 'components/Modal/ConnectWallet'
+import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
 
 // styles
 import styles from './index.module.scss'
@@ -23,9 +23,7 @@ const PrimaryLayout = ({ children }) => {
     <div className={styles.container}>
       {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar viewport={viewport} />}
       <PrimaryHeader viewport={viewport} />
-      <ConnectWallet />
-      {/* {openConnectWallet && <ConnectWallet />} */}
-      {/* <MobileMenu /> */}
+      <ConnectWalletModal viewport={viewport} />
       {openMobileMenu && <MobileMenu />}
       {openMobileSearchBox && <MobileSearchBox viewport={viewport} />}
 

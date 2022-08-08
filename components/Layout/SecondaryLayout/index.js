@@ -8,6 +8,7 @@ import Navbar from 'components/Navbar'
 import MobileMenu from 'components/Menu/MobileMenu'
 import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
+import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
 
 // styles
 import styles from './index.module.scss'
@@ -21,6 +22,7 @@ const SecondaryLayout = ({ children }) => {
     <div className={styles.container}>
       {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar viewport={viewport} />}
       <PrimaryHeader viewport={viewport} />
+      <ConnectWalletModal viewport={viewport} />
       {/* <MobileMenu /> */}
       {openMobileMenu && <MobileMenu />}
       {openMobileSearchBox && <MobileSearchBox viewport={viewport} />}

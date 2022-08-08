@@ -7,6 +7,7 @@ const initialState = {
   openMobileSearchBox: false,
   openConnectWallet: false,
   exploreTab: 0,
+  connectWalletStatus: true,
   web3: {
     provider: null,
     web3Provider: null,
