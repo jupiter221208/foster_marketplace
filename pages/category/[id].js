@@ -44,14 +44,20 @@ const Category = props => {
       </Head>
       <div className={styles.container}>
         <div className="relative w-full mt-4 lg:mt-8">
-          {categoryInfo.type === 'image' ? <Image src={categoryInfo.banner} width={1620} height={460} alt="" /> : <></>}
+          {categoryInfo.type === 'image' ? (
+            <div className={styles.imageContainer}>
+              <Image src={categoryInfo.banner} width={1620} height={460} alt="" />
+            </div>
+          ) : (
+            <></>
+          )}
           {categoryInfo.type === 'video' ? (
             <div className={styles.videoContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <div
                   className="overflow-hidden w-full"
                   dangerouslySetInnerHTML={{
-                    __html: `<video class="overflow-hidden w-full rounded-lg" autoplay loop muted playsinline>
+                    __html: `<video class="overflow-hidden w-full rounded-[16px]" autoplay loop muted playsinline>
                     <source src=${categoryInfo.mobile_banner} type="video/mp4" /></video>`,
                   }}
                 />
@@ -64,11 +70,8 @@ const Category = props => {
           ) : (
             <></>
           )}
-          {viewport === 'md' || viewport === 'sm' || viewport === 'xs' ? (
-            <></>
-          ) : (
-            <div className={styles.bottomMask}></div>
-          )}
+
+          <div className={styles.bottomMask}></div>
 
           <div className={styles.title}>{categoryInfo.name}</div>
         </div>

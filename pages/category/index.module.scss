@@ -9,17 +9,30 @@
   left: 0px;
   bottom: 0px;
   width: 100%;
-  height: 230px;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-  background: url('../../assets/icons/white-black-banner-mask.svg');
+  height: 60px;
+  // border-bottom-left-radius: 0px;
+  // border-bottom-right-radius: 0px;
+  background: url('../../assets/icons/white-black-banner-mobile-mask.svg');
+  @media (min-width: 1024px) {
+    height: 230px;
+    border-bottom-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+    background: url('../../assets/icons/white-black-banner-mask.svg');
+  }
 }
 
 .videoContainer {
-  border-radius: 12px;
   overflow: hidden;
   @media (min-width: 1024px) {
-    border-radius: 12px;
+    border-radius: 30px;
+  }
+}
+
+.imageContainer {
+  border-radius: 16px;
+  overflow: hidden;
+  @media (min-width: 1024px) {
+    border-radius: 30px;
   }
 }
 
