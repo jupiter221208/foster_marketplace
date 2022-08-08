@@ -55,7 +55,7 @@ const PopularCategorySection = props => {
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 5000000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
         >
