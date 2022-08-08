@@ -12,6 +12,7 @@ import Input from 'components/Input'
 import Button from 'components/Button'
 import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
+import CollectionFilesModal from 'components/Modal/CollectionFilesModal'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -93,6 +94,8 @@ const Step03CollectionSection = props => {
 
   // form validate
   const handleFormValidate = () => {}
+
+  const [showCollectionFiles, setShowCollectionFiles] = useState(false)
 
   return (
     <div className="w-full">
@@ -186,7 +189,7 @@ const Step03CollectionSection = props => {
                 <div className="w-full">
                   <div className={`${styles.subTitle} mt-10`}>Banner *</div>
                   <div className="mt-5">
-                    <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)}>
+                    <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)} maxFiles={1}>
                       {({ getRootProps, getInputProps }) => (
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectArea}>
@@ -288,9 +291,26 @@ const Step03CollectionSection = props => {
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-10`}>Banner *</div>
+            <div className={`${styles.subTitle} mt-20`}>Collection Files *</div>
+            <div className="w-full grid grid-cols-2 mt-4">
+              <div className="col-span-1">
+                <GradientButton
+                  fullWidth
+                  label="See All Files"
+                  onClick={() => setShowCollectionFiles(true)}
+                  height="45px"
+                />
+              </div>
+            </div>
+            {showCollectionFiles && (
+              <CollectionFilesModal
+                data={collectionFiles}
+                onClick={() => setShowCollectionFiles(!showCollectionFiles)}
+              />
+            )}
+            <div className={`${styles.subTitle} mt-8`}>Banner *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)}>
+              <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)} maxFiles={1}>
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>

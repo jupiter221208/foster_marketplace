@@ -195,7 +195,7 @@ const Step01CollectionSection = props => {
       if (item.checked === true) count++
     })
 
-    if (collectionName !== '' && description !== '' && count !== 0 && coverImage !== undefined) {
+    if (collectionName !== '' && description !== '' && count > 0 && count <= 3 && coverImage !== undefined) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
@@ -208,7 +208,7 @@ const Step01CollectionSection = props => {
     categoryList.map(item => {
       if (item.checked === true) count++
     })
-    if (collectionName !== '' && description !== '' && count !== 0 && coverImage !== undefined) {
+    if (collectionName !== '' && description !== '' && count > 0 && count <= 3 && coverImage !== undefined) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
@@ -327,7 +327,7 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
                   <div className="mt-5">
-                    <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}>
+                    <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)} maxFiles={1}>
                       {({ getRootProps, getInputProps }) => (
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectArea}>
@@ -454,7 +454,7 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-20`}>Collection Dimensions *</div>
+            <div className={`${styles.subTitle} mt-8`}>Collection Dimensions *</div>
             <div className="max-w-[370px] w-full mt-5 pl-6">
               <Radio
                 data={CollectionDimensionList}
@@ -465,7 +465,7 @@ const Step01CollectionSection = props => {
             </div>
             <div className={`${styles.subTitle} mt-10`}>Art *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}>
+              <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)} maxFiles={1}>
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>
