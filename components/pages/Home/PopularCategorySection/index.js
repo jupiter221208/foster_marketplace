@@ -55,13 +55,14 @@ const PopularCategorySection = props => {
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 5000,
+            delay: 5000000,
             disableOnInteraction: false,
           }}
         >
           {categoryList.map((item, index) => (
             <SwiperSlide key={index}>
               <CategoryCard
+                viewport={viewport}
                 image={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? item.mobile : item.image}
                 name={item.name}
                 type={item.type}

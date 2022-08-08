@@ -16,8 +16,11 @@
 }
 
 .videoContainer {
-  border-radius: 30px;
+  border-radius: 12px;
   overflow: hidden;
+  @media (min-width: 1024px) {
+    border-radius: 12px;
+  }
 }
 
 .title {

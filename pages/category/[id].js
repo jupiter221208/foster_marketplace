@@ -47,9 +47,19 @@ const Category = props => {
           {categoryInfo.type === 'image' ? <Image src={categoryInfo.banner} width={1620} height={460} alt="" /> : <></>}
           {categoryInfo.type === 'video' ? (
             <div className={styles.videoContainer}>
-              <video autoPlay loop muted>
-                <source type="video/mp4" src={categoryInfo.banner} />
-              </video>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <div
+                  className="overflow-hidden w-full"
+                  dangerouslySetInnerHTML={{
+                    __html: `<video class="overflow-hidden w-full rounded-lg" autoplay loop muted playsinline>
+                    <source src=${categoryInfo.mobile_banner} type="video/mp4" /></video>`,
+                  }}
+                />
+              ) : (
+                <video autoPlay loop muted>
+                  <source type="video/mp4" src={categoryInfo.banner} />
+                </video>
+              )}
             </div>
           ) : (
             <></>
