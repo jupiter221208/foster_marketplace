@@ -13,7 +13,7 @@ import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
-import Checkbox from 'components/Checkbox'
+import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import Radio from 'components/Radio'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
@@ -342,7 +342,7 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Categories (max. 3) *</div>
                   <div className="w-full mt-5">
-                    <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
+                    <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                   </div>
                 </div>
                 <div className="w-full h-32" />

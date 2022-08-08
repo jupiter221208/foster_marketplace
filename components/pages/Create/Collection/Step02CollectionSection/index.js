@@ -169,6 +169,14 @@ const Step02CollectionSection = props => {
     setFullScreenMode(state)
   }
 
+  const [selectedCollectionFile, setSelectedCollectionFile] = useState()
+
+  useEffect(() => {
+    if (collectionFiles.length !== 0) {
+      setSelectedCollectionFile(collectionFiles[0])
+    }
+  }, [])
+
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -193,9 +201,9 @@ const Step02CollectionSection = props => {
                   )}
                 </FullScreen>
                 <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                  {collectionFiles.length !== 0 && artWidth !== 0 && artHeight !== 0 ? (
+                  {selectedCollectionFile !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                     <AvatarEditor
-                      image={collectionFiles[0].file}
+                      image={selectedCollectionFile.file}
                       width={artWidth - 32}
                       height={artHeight - 32}
                       border={16}
@@ -260,7 +268,11 @@ const Step02CollectionSection = props => {
                 <div className="w-full mt-[70px]">
                   {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
-                      <div className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer" key={index}>
+                      <div
+                        className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
+                        key={index}
+                        onClick={() => setSelectedCollectionFile(item)}
+                      >
                         <div>{index + 1}</div>
                         <div>
                           <Image
@@ -357,9 +369,9 @@ const Step02CollectionSection = props => {
               )}
             </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {collectionFiles.length !== 0 && artWidth !== 0 && artHeight !== 0 ? (
+              {selectedCollectionFile !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
-                  image={collectionFiles[0].file}
+                  image={selectedCollectionFile.file}
                   width={artWidth - 16}
                   height={artHeight - 16}
                   border={8}
