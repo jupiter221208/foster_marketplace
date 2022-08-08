@@ -49,10 +49,11 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  z-index: 1;
 }
 
 .logoIcon {
-  mix-blend-mode: luminosity;
+  // mix-blend-mode: luminosity;
   padding-top: 8px;
 }
 
