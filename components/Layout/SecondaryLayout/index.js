@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 // custom components
 import Navbar from 'components/Navbar'
-import MobileMenu from 'components/MobileMenu'
+import MobileMenu from 'components/Menu/MobileMenu'
 import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
 
