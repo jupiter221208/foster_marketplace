@@ -136,3 +136,23 @@
   letter-spacing: 0;
   color: $brand-03-color;
 }
+
+.selectedImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  background-color: #5ee1ea;
+  border-radius: 8px;
+}
+
+.nonSelectedImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  // background-color: #5ee1ea;
+  border-radius: 8px;
+}

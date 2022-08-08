@@ -169,7 +169,7 @@ const Step02CollectionSection = props => {
     setFullScreenMode(state)
   }
 
-  const [selectedCollectionFile, setSelectedCollectionFile] = useState(collectionFiles[0])
+  const [selectedCollectionFile, setSelectedCollectionFile] = useState()
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {
@@ -273,19 +273,45 @@ const Step02CollectionSection = props => {
                         key={index}
                         onClick={() => setSelectedCollectionFile(item)}
                       >
-                        <div>{index + 1}</div>
-                        <div>
+                        <div
+                          className={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                              ? styles.greenText
+                              : styles.text
+                          }
+                        >
+                          {index + 1}
+                        </div>
+                        <div
+                          className={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                              ? styles.selectedImage
+                              : styles.nonSelectedImage
+                          }
+                        >
                           <Image
                             src={URL.createObjectURL(item.file)}
                             alt=""
-                            width={68}
-                            height={68}
+                            width={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                            }
+                            height={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                            }
                             objectFit="cover"
                             className="rounded-lg"
                           />
                         </div>
                         <div className="flex-1 block h-[120px]">
-                          <div>NFT Name *</div>
+                          <div
+                            className={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                ? styles.greenText
+                                : styles.text
+                            }
+                          >
+                            NFT Name *
+                          </div>
                           <div>
                             <Input
                               value={item.name}
@@ -298,7 +324,15 @@ const Step02CollectionSection = props => {
                           </div>
                         </div>
                         <div className="flex-1 block h-[120px]">
-                          <div>Description *</div>
+                          <div
+                            className={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                                ? styles.greenText
+                                : styles.text
+                            }
+                          >
+                            Description *
+                          </div>
                           <div>
                             <Textarea
                               value={item.description}
@@ -441,13 +475,31 @@ const Step02CollectionSection = props => {
                     onClick={() => setSelectedCollectionFile(item)}
                   >
                     <div className="w-full flex justify-between items-center">
-                      <div>{index + 1}</div>
-                      <div>
+                      <div
+                        className={
+                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                            ? styles.greenText
+                            : styles.text
+                        }
+                      >
+                        {index + 1}
+                      </div>
+                      <div
+                        className={
+                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                            ? styles.selectedImage
+                            : styles.nonSelectedImage
+                        }
+                      >
                         <Image
                           src={URL.createObjectURL(item.file)}
                           alt=""
-                          width={68}
-                          height={68}
+                          width={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          height={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
                           objectFit="cover"
                           className="rounded-lg"
                         />
@@ -459,7 +511,15 @@ const Step02CollectionSection = props => {
                       />
                     </div>
                     <div className="w-full">
-                      <div>NFT Name *</div>
+                      <div
+                        className={
+                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                            ? styles.greenText
+                            : styles.text
+                        }
+                      >
+                        NFT Name *
+                      </div>
                       <div>
                         <Input
                           value={item.name}
@@ -472,7 +532,15 @@ const Step02CollectionSection = props => {
                       </div>
                     </div>
                     <div className="w-full">
-                      <div>Description *</div>
+                      <div
+                        className={
+                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                            ? styles.greenText
+                            : styles.text
+                        }
+                      >
+                        Description *
+                      </div>
                       <div>
                         <Textarea
                           value={item.description}
