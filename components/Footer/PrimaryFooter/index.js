@@ -11,7 +11,6 @@ import Subscriber from 'components/Input/Subscriber'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
-import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
 import DiscordGreenIcon from 'assets/icons/discord-green.svg'
 import TwitterGreenIcon from 'assets/icons/twitter-green.svg'
@@ -109,7 +108,7 @@ const PrimaryFooter = props => {
           </div>
           <div className="w-full flex flex-wrap justify-center">
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={LogoText01MobileIcon} width={176} height={40} alt="" />
+              <Image src={LogoText01Icon} width={176} height={40} alt="" />
             </div>
           </div>
           <div className="w-full flex justify-around">

@@ -15,7 +15,8 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButton from 'components/Button/IconButton'
 
 // images and icons
-import LogoTextIcon from 'assets/icons/logo-text.svg'
+import LogoTextIcon from 'assets/icons/logo-text-01.svg'
+import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/images/avatar.jpg'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
@@ -125,6 +126,9 @@ const PrimaryHeader = props => {
     <div className={styles.blurContainer}>
       <div className={styles.container}>
         <div className="g-container w-full h-full flex justify-between items-center">
+          <div className="cursor-pointer mr-[4px] flex items-center" onClick={() => handleGotoHomepage()}>
+            <Image src={LogoTextIcon} alt="" />
+          </div>
           <div className="flex-1 flex justify-center">
             <SearchBox
               value={searchKeyword}
@@ -158,7 +162,7 @@ const PrimaryHeader = props => {
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-            <Image src={LogoTextIcon} alt="" />
+            <Image src={LogoTextMobileIcon} width={110} height={25} alt="" />
           </div>
           <div className="flex">
             <IconButton
