@@ -186,7 +186,7 @@ const Step03CollectionSection = props => {
                 <div className="w-full">
                   <div className={`${styles.subTitle} mt-10`}>Banner *</div>
                   <div className="mt-5">
-                    <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)}>
+                    <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)} maxFiles={1}>
                       {({ getRootProps, getInputProps }) => (
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectArea}>
@@ -290,7 +290,7 @@ const Step03CollectionSection = props => {
           <div className="w-full">
             <div className={`${styles.subTitle} mt-10`}>Banner *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)}>
+              <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)} maxFiles={1}>
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>

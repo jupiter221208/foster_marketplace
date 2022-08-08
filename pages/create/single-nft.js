@@ -355,7 +355,7 @@ const SingleNft = props => {
                       </div>
                       <div className={`${styles.subTitle} mt-10`}>Art *</div>
                       <div className="mt-5">
-                        <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)}>
+                        <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
                           {({ getRootProps, getInputProps }) => (
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectArea}>
@@ -579,7 +579,7 @@ const SingleNft = props => {
               </div>
               <div className={`${styles.subTitle} mt-10`}>Art *</div>
               <div className="mt-5">
-                <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)}>
+                <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
                   {({ getRootProps, getInputProps }) => (
                     <section className={styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
