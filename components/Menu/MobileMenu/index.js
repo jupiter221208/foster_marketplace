@@ -1,11 +1,12 @@
 import React from 'react'
 
 // third party components
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
 import AccordionMenu from 'components/Menu/AccordionMenu'
 import OutlineButton from 'components/Button/OutlineButton'
+import WalletButton from 'components/Button/WalletButton'
 
 // images and icons
 import AvatarIcon from 'assets/images/avatar.jpg'
@@ -27,50 +28,78 @@ import CreateMenuList from 'assets/json/create-menu.json'
 import styles from './index.module.scss'
 
 const MobileMenu = () => {
-  const openMobileMenu = useSelector(state => state.openMobileMenu)
+  const dispatch = useDispatch()
+
+  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+
+  const handleDisconnectWallet = () => {
+    dispatch({ type: 'set', connectWalletStatus: false })
+    dispatch({ type: 'set', openMobileMenu: false })
+  }
+
+  const handleOpenConnectWallet = () => {
+    dispatch({ type: 'set', connectWalletStatus: true })
+    dispatch({ type: 'set', openMobileMenu: false })
+  }
 
   return (
     // <div className={openMobileMenu ? styles.menuOpen : !openMobileMenu ? styles.menuClose : styles.menu}>
     <div className={styles.menu}>
-      <div className={styles.container}>
-        <div className="w-full">
-          <div className="my-[10px]">
-            <AccordionMenu icon={AvatarIcon} label="Lesile Alexander" type="avatar" data={ProfileMenuList} />
+      {connectWalletStatus ? (
+        <div className={styles.container}>
+          <div className="w-full">
+            <div className="my-[10px]">
+              <AccordionMenu icon={AvatarIcon} label="Lesile Alexander" type="avatar" data={ProfileMenuList} />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} path="/" />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={CollectionWhiteIcon} label="Collections" type="" data={[]} path="/" />
+            </div>
+
+            <div className="my-[10px]">
+              <AccordionMenu icon={ChartWhiteIcon} label="Stats" type="" data={[]} path="/" />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={BookWhiteIcon} label="Resources" type="" data={[]} path="/" />
+            </div>
           </div>
-          <div className="my-[10px]">
+          <div className="w-full">
+            <OutlineButton
+              label="Logout part"
+              fullWidth
+              onClick={() => handleDisconnectWallet()}
+              borderColor="#ffffff"
+              height="45px"
+              icon={LogoutWhiteIcon}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
             <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
-          </div>
-          <div className="my-[10px]">
             <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
           </div>
-          <div className="my-[10px]">
-            <AccordionMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
-          </div>
-          <div className="my-[10px]">
-            <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} path="/" />
-          </div>
-          <div className="my-[10px]">
-            <AccordionMenu icon={CollectionWhiteIcon} label="Collections" type="" data={[]} path="/" />
-          </div>
-
-          <div className="my-[10px]">
-            <AccordionMenu icon={ChartWhiteIcon} label="Stats" type="" data={[]} path="/" />
-          </div>
-          <div className="my-[10px]">
-            <AccordionMenu icon={BookWhiteIcon} label="Resources" type="" data={[]} path="/" />
+          <div className="w-full flex items-end">
+            <WalletButton
+              onClick={() => handleOpenConnectWallet()}
+              connectWalletStatus={connectWalletStatus}
+              fullWidth
+            />
           </div>
         </div>
-        <div className="w-full">
-          <OutlineButton
-            label="Logout part"
-            fullWidth
-            onClick={() => {}}
-            borderColor="#ffffff"
-            height="45px"
-            icon={LogoutWhiteIcon}
-          />
-        </div>
-      </div>
+      )}
     </div>
   )
 }
