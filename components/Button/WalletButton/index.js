@@ -12,10 +12,11 @@ import styles from './index.module.scss'
 
 const WalletButton = props => {
   const { onClick, connectWalletStatus } = props
+
   return (
-    <button className={styles.container} onClick={() => onClick()}>
-      <div>{connectWalletStatus ? 'Connect Wallet' : 'cGtKb.frm'}</div>
-      <Image src={connectWalletStatus ? FosterLightGreenIcon : WalletGrayIcon} alt="" />
+    <button className={connectWalletStatus ? styles.connectedContainer : styles.container} onClick={() => onClick()}>
+      <div>{connectWalletStatus ? 'cGtKb.frm' : 'Connect Wallet'}</div>
+      <Image src={connectWalletStatus ? WalletGrayIcon : FosterLightGreenIcon} alt="" />
     </button>
   )
 }

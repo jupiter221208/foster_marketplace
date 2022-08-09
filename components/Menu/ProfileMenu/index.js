@@ -3,11 +3,14 @@ import React, { useEffect, useRef, useState } from 'react'
 // next components
 import Image from 'next/image'
 
+// images and icons
+import UserAccountWhiteIcon from 'assets/icons/user-account-white.svg'
+
 // styles
 import styles from './index.module.scss'
 
 const ProfileMenu = props => {
-  const { avatar, menuList, onSelect } = props
+  const { avatar, menuList, onSelect, connectWalletStatus } = props
   const [open, setOpen] = useState(false)
 
   const closeRef = useRef()
@@ -37,10 +40,14 @@ const ProfileMenu = props => {
 
   return (
     <div className="relative">
-      <div className={styles.container} onClick={() => setOpen(!open)}>
-        <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+      <div className={connectWalletStatus ? styles.activeContainer : styles.container} onClick={() => setOpen(!open)}>
+        {connectWalletStatus ? (
+          <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+        ) : (
+          <Image src={UserAccountWhiteIcon} alt="" />
+        )}
       </div>
-      {open && (
+      {connectWalletStatus && open && (
         <div className={styles.menuArea} ref={closeRef}>
           {menuList.map((item, index) => (
             <div

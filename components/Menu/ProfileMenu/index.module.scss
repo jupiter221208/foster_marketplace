@@ -4,6 +4,16 @@
   width: 46px;
   height: 46px;
   border-radius: 10px;
+  border: 2px solid rgba(#ffffff, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activeContainer {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
   border: 2px solid $brand-03-color;
   overflow: hidden;
   cursor: pointer;

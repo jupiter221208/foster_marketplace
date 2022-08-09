@@ -32,4 +32,8 @@
   font-size: 16px;
   line-height: 24px;
   color: $brand-06-color;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }

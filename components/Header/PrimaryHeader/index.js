@@ -113,7 +113,16 @@ const PrimaryHeader = props => {
   }
 
   const handleOpenConnectWallet = () => {
-    dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
+    switch (connectWalletStatus) {
+      case true:
+        dispatch({ type: 'set', connectWalletStatus: !connectWalletStatus })
+        break
+      case false:
+        dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
+        break
+      default:
+        break
+    }
   }
 
   const handleGotoHomepage = () => {
@@ -144,7 +153,12 @@ const PrimaryHeader = props => {
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
           <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connectWalletStatus} />
-          <ProfileMenu avatar={AvatarImage} menuList={ProfileMenuList} onSelect={item => router.push(item.path)} />
+          <ProfileMenu
+            avatar={AvatarImage}
+            menuList={ProfileMenuList}
+            onSelect={item => router.push(item.path)}
+            connectWalletStatus={connectWalletStatus}
+          />
         </div>
       </div>
     </div>

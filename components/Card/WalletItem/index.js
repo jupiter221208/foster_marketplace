@@ -7,17 +7,19 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 
 const WalletItem = props => {
-  const { icon, name } = props
+  const { item, onClick } = props
   return (
     <div className={styles.container}>
       <div className="w-full flex items-center">
         <div className={styles.line}></div>
         <div className={styles.icon}>
-          <Image src={icon} alt="" width={40} height={40} />
+          <Image src={item.image} alt="" width={40} height={40} />
         </div>
-        <div className={styles.name}>{name}</div>
+        <div className={styles.name}>{item.name}</div>
       </div>
-      <div className={styles.connect}>Connect</div>
+      <div className={styles.connect} onClick={() => onClick(item)}>
+        Connect
+      </div>
     </div>
   )
 }

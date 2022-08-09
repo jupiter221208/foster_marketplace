@@ -33,6 +33,11 @@ const ConnectWalletModal = props => {
     dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
   }
 
+  const handleConnectWallet = item => {
+    dispatch({ type: 'set', connectWalletStatus: true })
+    dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
+  }
+
   return (
     <Transition appear show={openConnectWallet} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={closeModal}>
@@ -45,7 +50,6 @@ const ConnectWalletModal = props => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          {/* <div className="fixed inset-0 bg-black bg-opacity-25" /> */}
           <div className={styles.bgView} />
         </Transition.Child>
 
@@ -66,14 +70,14 @@ const ConnectWalletModal = props => {
                     <div className={styles.leftPanel}>
                       <div className={styles.title}>Connect a Wallet</div>
                       <p className={styles.content}>
-                        By connecting your wallet, you agree to our{' '}
-                        <span className={styles.contentBold}>Terms of Services</span> and our{' '}
+                        By connecting your wallet, you agree to our&nbsp;
+                        <span className={styles.contentBold}>Terms of Services</span> and our&nbsp;
                         <span className={styles.contentBold}>Privacy Policy</span>.
                       </p>
                       <div className="mt-[30px]">
                         {WalletItemList.map((item, index) => (
                           <div key={index}>
-                            <WalletItem icon={item.image} name={item.name} />
+                            <WalletItem item={item} onClick={item => handleConnectWallet(item)} />
                           </div>
                         ))}
                       </div>
