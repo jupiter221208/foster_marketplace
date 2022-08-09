@@ -26,11 +26,14 @@ import CreateMenuList from 'assets/json/create-menu.json'
 
 // styles
 import styles from './index.module.scss'
+import MyWalletMenu from '../MyWalletMenu'
+import MyWalletSubMenu from '../MyWalletSubMenu'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
 
   const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+  const openMyWallet = useSelector(state => state.openMyWallet)
 
   const handleDisconnectWallet = () => {
     dispatch({ type: 'set', connectWalletStatus: false })
@@ -38,14 +41,14 @@ const MobileMenu = () => {
   }
 
   const handleOpenConnectWallet = () => {
-    dispatch({ type: 'set', connectWalletStatus: true })
-    dispatch({ type: 'set', openMobileMenu: false })
+    dispatch({ type: 'set', openMyWallet: true })
   }
 
   return (
-    // <div className={openMobileMenu ? styles.menuOpen : !openMobileMenu ? styles.menuClose : styles.menu}>
     <div className={styles.menu}>
-      {connectWalletStatus ? (
+      {openMyWallet ? (
+        <MyWalletMenu />
+      ) : connectWalletStatus ? (
         <div className={styles.container}>
           <div className="w-full">
             <div className="my-[10px]">
@@ -58,7 +61,7 @@ const MobileMenu = () => {
               <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
             </div>
             <div className="my-[10px]">
-              <AccordionMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
+              <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
             </div>
             <div className="my-[10px]">
               <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} path="/" />

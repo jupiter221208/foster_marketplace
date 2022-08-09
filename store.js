@@ -8,6 +8,7 @@ const initialState = {
   openConnectWallet: false,
   exploreTab: 0,
   connectWalletStatus: false,
+  openMyWallet: false,
   web3: {
     provider: null,
     web3Provider: null,
