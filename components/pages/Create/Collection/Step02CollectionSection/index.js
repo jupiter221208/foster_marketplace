@@ -173,12 +173,6 @@ const Step02CollectionSection = props => {
   const [showMore, setShowMore] = useState(false)
   const [subCollectionFiles, setSubCollectionFiles] = useState()
 
-  useEffect(() => {
-    if (collectionFiles.length !== 0) {
-      setSubCollectionFiles(collectionFiles.slice(0, 5))
-    }
-  }, [showMore])
-
   const [selectedCollectionFile, setSelectedCollectionFile] = useState()
 
   useEffect(() => {
@@ -186,6 +180,18 @@ const Step02CollectionSection = props => {
       setSelectedCollectionFile(collectionFiles[0])
     }
   }, [])
+
+  useEffect(() => {
+    if (collectionFiles.length !== 0) {
+      setSubCollectionFiles(collectionFiles.slice(0, 5))
+    }
+  }, [showMore, collectionFiles])
+
+  useEffect(() => {
+    if (subCollectionFiles !== undefined && subCollectionFiles.length !== 0) {
+      setSelectedCollectionFile(subCollectionFiles[0])
+    }
+  }, [subCollectionFiles])
 
   return (
     <div className="w-full">
@@ -276,7 +282,6 @@ const Step02CollectionSection = props => {
                   </div>
                 </div>
                 <div className="w-full mt-[70px]">
-                  <div>{showMore}</div>
                   {!showMore &&
                     subCollectionFiles !== undefined &&
                     subCollectionFiles.length !== 0 &&
@@ -364,7 +369,7 @@ const Step02CollectionSection = props => {
                         />
                       </div>
                     ))}
-                  {!showMore && (
+                  {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
                     <div className="w-full flex justify-center">
                       <IconButton
                         icon={ArrowDownGreenIcon}
@@ -667,7 +672,7 @@ const Step02CollectionSection = props => {
                     </div>
                   </div>
                 ))}
-              {!showMore && (
+              {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
                 <div className="w-full flex justify-center">
                   <IconButton
                     icon={ArrowDownGreenIcon}
