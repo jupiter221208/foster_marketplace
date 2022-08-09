@@ -125,35 +125,26 @@ const PrimaryHeader = props => {
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.blurContainer}>
       <div className={styles.container}>
-        <div className="g-container w-full h-full flex justify-between items-center">
-          <div className="cursor-pointer mr-[4px] flex items-center" onClick={() => handleGotoHomepage()}>
+        <div className="g-container w-full h-full flex justify-between items-center gap-4">
+          <div
+            className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
+            onClick={() => handleGotoHomepage()}
+          >
             <Image src={LogoTextIcon} alt="" />
           </div>
-          <div className="flex-1 flex justify-center">
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search by NFT, Collection, or Artist"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              viewport={viewport}
-              onClick={() => handleSearch()}
-              onClose={() => handleClose()}
-            />
-          </div>
-          <div className="flex justify-end items-center">
-            <div className="ml-[60px]">
-              <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
-            </div>
-            <div className="ml-[60px]">
-              <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
-            </div>
-            <div className="ml-[60px]">
-              <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connectWalletStatus} />
-            </div>
-            <div className="ml-[60px]">
-              <ProfileMenu avatar={AvatarImage} menuList={ProfileMenuList} onSelect={item => router.push(item.path)} />
-            </div>
-          </div>
+          <SearchBox
+            value={searchKeyword}
+            placeholder="Search by NFT, Collection, or Artist"
+            onChange={value => setSearchKeyword(value)}
+            searchList={searchList}
+            viewport={viewport}
+            onClick={() => handleSearch()}
+            onClose={() => handleClose()}
+          />
+          <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
+          <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
+          <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connectWalletStatus} />
+          <ProfileMenu avatar={AvatarImage} menuList={ProfileMenuList} onSelect={item => router.push(item.path)} />
         </div>
       </div>
     </div>

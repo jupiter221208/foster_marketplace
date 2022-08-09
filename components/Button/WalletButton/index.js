@@ -14,7 +14,7 @@ const WalletButton = props => {
   const { onClick, connectWalletStatus } = props
   return (
     <button className={styles.container} onClick={() => onClick()}>
-      <div className="mr-[13px]">{connectWalletStatus ? 'Connect Wallet' : 'cGtKb.frm'}</div>
+      <div>{connectWalletStatus ? 'Connect Wallet' : 'cGtKb.frm'}</div>
       <Image src={connectWalletStatus ? FosterLightGreenIcon : WalletGrayIcon} alt="" />
     </button>
   )
