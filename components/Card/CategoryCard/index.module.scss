@@ -11,6 +11,7 @@
   border: 1px solid rgba(white, 0.1);
   box-shadow: 0px 3px 6px rgba(black, 0.5);
   cursor: pointer;
+  overflow: hidden;
 }
 
 .bottomMask {
@@ -48,10 +49,11 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  z-index: 1;
 }
 
 .logoIcon {
-  mix-blend-mode: luminosity;
+  // mix-blend-mode: luminosity;
   padding-top: 8px;
 }
 

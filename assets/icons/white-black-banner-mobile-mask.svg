@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="343" height="60.632" viewBox="0 0 343 60.632">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.032" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-opacity="0"/>
+      <stop offset="1"/>
+    </linearGradient>
+  </defs>
+  <path id="bg_overlay" data-name="bg overlay" d="M16,0H328c8.837,0,15,7.685,15,16.566V45.313c0,8.881-7.5,15.318-16.336,15.318L16,60.483c-8.837,0-16-6.338-16-15.219V16.08A16.04,16.04,0,0,1,16,0Z" fill="url(#linear-gradient)"/>
+</svg>

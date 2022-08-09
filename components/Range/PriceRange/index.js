@@ -65,7 +65,6 @@ const PriceRange = props => {
         min={MIN}
         max={MAX}
         onChange={values => {
-          console.log(values)
           setValues(values)
         }}
         renderTrack={({ props, children }) => (

@@ -1,0 +1,8 @@
+<svg id="Disconnect_Wallet_Icon" data-name="Disconnect Wallet Icon" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46">
+  <rect id="Rectangle_20893" data-name="Rectangle 20893" width="46" height="46" fill="none"/>
+  <g id="noun-close-wallet-756481-EFF0F6" transform="translate(6.344 6.658)">
+    <path id="Path_105802" data-name="Path 105802" d="M33.4,62.194l3.21-3.21" transform="translate(-20.355 -40.688)" fill="none" stroke="#eeeff5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_105803" data-name="Path 105803" d="M33.4,58.984l3.21,3.21" transform="translate(-20.355 -40.688)" fill="none" stroke="#eff0f6" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+    <path id="Path_105804" data-name="Path 105804" d="M25.136,9.388l-15.786,0a.545.545,0,1,1,0-1.09l13.725,0a.652.652,0,1,0,0-1.3H8.912A1.524,1.524,0,0,0,7.39,8.511V22.238a.788.788,0,0,0,.787.787H9.851a5.737,5.737,0,0,0,9.7,0h5.588a.787.787,0,0,0,.787-.787V10.175a.787.787,0,0,0-.787-.787ZM14.7,24.608a4.657,4.657,0,1,1,4.657-4.656A4.662,4.662,0,0,1,14.7,24.608Zm10.019-9.9H20.454a1.46,1.46,0,0,1,0-2.92h4.264Zm-4.746-1.459a.626.626,0,1,0,.626-.626A.626.626,0,0,0,19.972,13.248Z" fill="#5ac3ba"/>
+  </g>
+</svg>

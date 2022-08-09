@@ -1,0 +1,32 @@
+[
+  {
+    "id": 0,
+    "image": "/images/phantom.png",
+    "name": "Phantom"
+  },
+  {
+    "id": 1,
+    "image": "/images/flare.png",
+    "name": "Solflare"
+  },
+  {
+    "id": 2,
+    "image": "/images/sollet.png",
+    "name": "Sollet"
+  },
+  {
+    "id": 3,
+    "image": "/images/ledger.png",
+    "name": "Ledger"
+  },
+  {
+    "id": 4,
+    "image": "/images/slope.png",
+    "name": "Slope"
+  },
+  {
+    "id": 5,
+    "image": "/images/clover.png",
+    "name": "Clover"
+  }
+]

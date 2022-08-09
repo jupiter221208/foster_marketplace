@@ -40,13 +40,6 @@ const MainSection = props => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 gap-8 items-center">
         <div className="col-span-12 lg:col-span-7 xl:col-span-7">
-          {/* {viewport === 'md' || viewport === 'sm' ? (
-            <div className="w-full flex justify-center">
-              <Image src={HeroHeaderMobile} width={304} height={76} alt="" objectFit="cover" />
-            </div>
-          ) : (
-            <Image src={HeroHeader} width={910} height={180} alt="" objectFit="cover" />
-          )} */}
           <div className={styles.whiteTitle}>The Art of Blockchain</div>
           <div className={styles.heroTextContainer}>
             <div className={styles.greenTitle}>Foster Your Flav</div>
@@ -78,7 +71,7 @@ const MainSection = props => {
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
-              <GreenGradientButton label="Explore" onClick={() => router.push('/explore')} />
+              <GreenGradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton label="Create" width={124} onClick={() => router.push('/create')} />
             </div>
           ) : (
@@ -134,7 +127,7 @@ const MainSection = props => {
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end">
             <div className="w-full flex justify-center gap-8">
-              <GreenGradientButton label="Explore" onClick={() => router.push('/explore')} />
+              <GreenGradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton
                 borderColor={viewport === 'lg' ? '#5AC3BA' : '#fff'}
                 label="Create"

@@ -16,9 +16,10 @@ const GradientButton = props => {
     backgroundColor02,
     width = '',
     height = '',
-    direction,
-    icon,
+    direction = 'ltr',
+    icon = '',
   } = props
+
   return (
     <button
       type="button"

@@ -15,7 +15,8 @@ import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButton from 'components/Button/IconButton'
 
 // images and icons
-import LogoTextIcon from 'assets/icons/logo-text.svg'
+import LogoTextIcon from 'assets/icons/logo-text-01.svg'
+import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/images/avatar.jpg'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
@@ -91,8 +92,11 @@ const PrimaryHeader = props => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
+  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
+  const openConnectWallet = useSelector(state => state.openConnectWallet)
   const dispatch = useDispatch()
 
   const handleExploreMenu = item => {
@@ -108,6 +112,19 @@ const PrimaryHeader = props => {
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
   }
 
+  const handleOpenConnectWallet = () => {
+    switch (connectWalletStatus) {
+      case true:
+        dispatch({ type: 'set', connectWalletStatus: !connectWalletStatus })
+        break
+      case false:
+        dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
+        break
+      default:
+        break
+    }
+  }
+
   const handleGotoHomepage = () => {
     dispatch({ type: 'set', openMobileSearchBox: false })
     dispatch({ type: 'set', openMobileMenu: false })
@@ -117,32 +134,31 @@ const PrimaryHeader = props => {
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.blurContainer}>
       <div className={styles.container}>
-        <div className="g-container w-full h-full flex justify-between items-center">
-          <div className="flex-1 flex justify-center">
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search by NFT, Collection, or Artist"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              viewport={viewport}
-              onClick={() => handleSearch()}
-              onClose={() => handleClose()}
-            />
+        <div className="g-container w-full h-full flex justify-between items-center gap-4">
+          <div
+            className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
+            onClick={() => handleGotoHomepage()}
+          >
+            <Image src={LogoTextIcon} alt="" />
           </div>
-          <div className="flex justify-end items-center">
-            <div className="ml-[60px]">
-              <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
-            </div>
-            <div className="ml-[60px]">
-              <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
-            </div>
-            <div className="ml-[60px]">
-              <WalletButton label="cGtKb.frm" onClick={() => {}} />
-            </div>
-            <div className="ml-[60px]">
-              <ProfileMenu avatar={AvatarImage} menuList={ProfileMenuList} onSelect={item => router.push(item.path)} />
-            </div>
-          </div>
+          <SearchBox
+            value={searchKeyword}
+            placeholder="Search by NFT, Collection, or Artist"
+            onChange={value => setSearchKeyword(value)}
+            searchList={searchList}
+            viewport={viewport}
+            onClick={() => handleSearch()}
+            onClose={() => handleClose()}
+          />
+          <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
+          <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
+          <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connectWalletStatus} />
+          <ProfileMenu
+            avatar={AvatarImage}
+            menuList={ProfileMenuList}
+            onSelect={item => router.push(item.path)}
+            connectWalletStatus={connectWalletStatus}
+          />
         </div>
       </div>
     </div>
@@ -151,7 +167,7 @@ const PrimaryHeader = props => {
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-            <Image src={LogoTextIcon} alt="" />
+            <Image src={LogoTextMobileIcon} width={110} height={25} alt="" />
           </div>
           <div className="flex">
             <IconButton

@@ -36,7 +36,7 @@ const MainSection = props => {
   return (
     <div className={styles.container}>
       <div className={styles.headerImage}>
-        <Image src={HeaderImage} alt="" objectFit="cover" />
+        <Image src={HeaderImage} alt="" objectFit="cover" className="rounded-[20px]" />
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">

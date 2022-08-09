@@ -18,7 +18,9 @@ import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
-import Checkbox from 'components/Checkbox'
+import IconButton from 'components/Button/IconButton'
+import OutlineButton from 'components/Button/OutlineButton'
+import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import Radio from 'components/Radio'
 import LinkTextButton from 'components/Button/LinkTextButton'
 import CategoryListModal from 'components/Modal/CategoryListModal'
@@ -28,7 +30,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
 import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
-import TwitterBackgroundWhiteIcon from 'assets/icons/twitter-background-white.svg'
+import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
@@ -36,7 +38,6 @@ import CategoryList from 'assets/json/category-list.json'
 
 // styles
 import styles from './single-nft.module.scss'
-import IconButton from 'components/Button/IconButton'
 
 const SingleNft = props => {
   const { viewport } = props
@@ -287,7 +288,7 @@ const SingleNft = props => {
                     )}
                   </FullScreen>
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                    {nftArt !== undefined ? (
+                    {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                       <AvatarEditor
                         image={nftArt[0]}
                         width={artWidth - 32}
@@ -354,7 +355,7 @@ const SingleNft = props => {
                       </div>
                       <div className={`${styles.subTitle} mt-10`}>Art *</div>
                       <div className="mt-5">
-                        <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)}>
+                        <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
                           {({ getRootProps, getInputProps }) => (
                             <section className={styles.dropzone}>
                               <div {...getRootProps()} className={styles.selectArea}>
@@ -391,7 +392,7 @@ const SingleNft = props => {
                       </div>
                       <div className={`${styles.subTitle} mt-20`}>Categories (max. 3) *</div>
                       <div className="w-full mt-5">
-                        <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
+                        <CheckboxGroup categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
                       </div>
                     </div>
                   )}
@@ -468,23 +469,25 @@ const SingleNft = props => {
               <div className={styles.mintText}>Your NFT has been minted successfully!</div>
               <div className="w-full flex justify-between gap-[30px] mt-[60px]">
                 <div className="w-full">
-                  <IconButton
-                    icon={TwitterBackgroundWhiteIcon}
+                  <GradientButton
+                    icon={TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color="#ffffff"
+                    color="#202427"
                     backgroundColor="#378287"
                     height="68px"
                     onClick={() => {}}
+                    direction="rtl"
                   />
                 </div>
                 <div className="w-full">
-                  <Button
+                  <OutlineButton
                     fullWidth
                     label="Mint another NFT"
                     backgroundColor="#63D6CD"
                     height="68px"
                     onClick={() => setCurrentStep(1)}
+                    borderColor="#5AC3BA"
                   />
                 </div>
               </div>
@@ -519,7 +522,7 @@ const SingleNft = props => {
               )}
             </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {nftArt !== undefined ? (
+              {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
                   image={nftArt[0]}
                   width={artWidth - 16}
@@ -576,7 +579,7 @@ const SingleNft = props => {
               </div>
               <div className={`${styles.subTitle} mt-10`}>Art *</div>
               <div className="mt-5">
-                <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)}>
+                <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
                   {({ getRootProps, getInputProps }) => (
                     <section className={styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
@@ -767,23 +770,25 @@ const SingleNft = props => {
             <div className={styles.mintText}>Your NFT has been minted successfully!</div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
-                <IconButton
-                  icon={TwitterBackgroundWhiteIcon}
+                <GradientButton
+                  icon={TwitterBackgroundBlackIcon}
                   fullWidth
                   label="Tweet your Mint"
-                  color="#ffffff"
+                  color="#202427"
                   backgroundColor="#378287"
                   height="45px"
                   onClick={() => {}}
+                  direction="rtl"
                 />
               </div>
               <div className="w-[221px]">
-                <Button
+                <OutlineButton
                   fullWidth
                   label="Mint another NFT"
                   backgroundColor="#63D6CD"
                   height="45px"
                   onClick={() => setCurrentStep(1)}
+                  borderColor="#5AC3BA"
                 />
               </div>
             </div>

@@ -108,7 +108,7 @@ const PrimaryFooter = props => {
           </div>
           <div className="w-full flex flex-wrap justify-center">
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={LogoText01Icon} width={179} height={41} alt="" />
+              <Image src={LogoText01Icon} width={176} height={40} alt="" />
             </div>
           </div>
           <div className="w-full flex justify-around">

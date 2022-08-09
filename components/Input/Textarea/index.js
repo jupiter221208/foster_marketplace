@@ -4,7 +4,7 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const Textarea = props => {
-  const { value, placeholder, label, onChange } = props
+  const { value, placeholder, label, onChange, fullWidth = false, width = '', height = '' } = props
   return (
     <div className="w-full">
       <textarea
@@ -12,6 +12,7 @@ const Textarea = props => {
         value={value}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
+        style={{ width: fullWidth ? '100%' : width, height: height }}
       />
       <div className={styles.label}>{label}</div>
     </div>

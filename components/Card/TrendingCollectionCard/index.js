@@ -2,6 +2,7 @@ import React from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // styles
 import styles from './index.module.scss'
@@ -9,8 +10,10 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const TrendingCollectionCard = props => {
   const { image, nftName, nftType, artistName, nfts, avatar, viewport } = props
+  const router = useRouter()
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => router.push('/browse-collection')}>
       <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
         <Image src={image} alt="" width={492} height={515} layout="responsive" objectFit="cover" />
         <div className={styles.bottomMask}></div>
