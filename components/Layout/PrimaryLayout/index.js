@@ -27,8 +27,10 @@ const PrimaryLayout = ({ children }) => {
       )}
       <PrimaryHeader viewport={viewport} />
       <ConnectWalletModal viewport={viewport} />
-      {openMobileMenu && <MobileMenu />}
-      {openMobileSearchBox && <MobileSearchBox viewport={viewport} />}
+      {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
+      {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
+        <MobileSearchBox viewport={viewport} />
+      )}
 
       <main className="w-full flex justify-center mt-[80px] lg:mt-[100px]">{children}</main>
       <PrimaryFooter viewport={viewport} />
