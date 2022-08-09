@@ -68,7 +68,7 @@ const ConnectWalletModal = props => {
                 <div className="w-full h-full grid grid-cols-12">
                   <div className="col-span-6 pt-[10px] pb-[10px] pl-[14px]">
                     <div className={styles.leftPanel}>
-                      <div className={styles.title}>Connect a Wallet</div>
+                      <div className={styles.title}>Connect your wallet</div>
                       <p className={styles.content}>
                         By connecting your wallet, you agree to our&nbsp;
                         <span className={styles.contentBold}>Terms of Services</span> and our&nbsp;
@@ -83,7 +83,7 @@ const ConnectWalletModal = props => {
                       </div>
                     </div>
                   </div>
-                  <div className="col-span-6 relative overflow-hidden">
+                  <div className="col-span-6 relative overflow-hidden rounded-[24px]">
                     <div className={styles.rightBack}>
                       <Image src={LogoBigIcon} alt="" width={566} height={657} />
                     </div>
