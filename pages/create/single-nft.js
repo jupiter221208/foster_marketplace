@@ -8,6 +8,7 @@ import Image from 'next/image'
 import AvatarEditor from 'react-avatar-editor'
 import Dropzone from 'react-dropzone'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
+import { limit } from 'utils/strings'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -71,10 +72,6 @@ const SingleNft = props => {
   const [selectedDimension, setSelectedDimension] = useState(NFTDimensionList[0])
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
-
-  function limit(string = '', limit = 0) {
-    return string.substring(0, limit)
-  }
 
   useEffect(() => {
     let width = 0
@@ -693,12 +690,12 @@ const SingleNft = props => {
                   value={royalties}
                   placeholder="Insert a royalty percentage"
                   label="From 1 to 20%"
-                  type="tel"
+                  type="number"
                   onChange={value => setRoyalties(value)}
                 />
               </div>
               <div className="w-full mt-10">
-                {royalties === '' ? (
+                {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
                   <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
                 ) : (
                   <GradientButton
