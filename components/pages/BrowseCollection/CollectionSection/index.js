@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 // components
 import Tab from 'components/Tab'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
+import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
 import OtherCollectionSection from 'components/pages/BrowseCollection/OtherCollectionSection'
 import ExploreCollectionSection from 'components/pages/BrowseCollection/ExploreCollectionSection'
 
@@ -45,7 +46,11 @@ const CollectionSection = props => {
           <NFTSwiperSection viewport={viewport} />
         </div>
       )}
-      {activeTab === 1 && <div className="w-full flex flex-wrap">activity part</div>}
+      {activeTab === 1 && (
+        <div className="w-full flex flex-wrap">
+          <ActivitySection viewport={viewport} />
+        </div>
+      )}
       {/* <div className="w-full flex z-0"> */}
       <OtherCollectionSection viewport={viewport} />
       <ExploreCollectionSection viewport={viewport} />

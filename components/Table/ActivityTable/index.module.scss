@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .header {
-  width: 100%;
+  // width: 100%;
   height: 65px;
   background-color: $background-black-color;
   border: 1px solid $brand-01-color;
@@ -15,9 +15,9 @@
 }
 
 .card {
-  width: 100%;
+  // width: 100%;
   height: 90px;
-  background: linear-gradient(to top, $brand-02-color 35%, $background-dark-color 35%);
+  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
   border: 1px solid rgba(#ffffff, 0.1);
   border-radius: 8px;
 
@@ -26,9 +26,36 @@
   line-height: 24px;
   letter-spacing: 0;
   color: rgba($text-gray-200-color, 0.6);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
 }
+
+// #activityTable table {
+//   border-collapse: separate;
+//   border-spacing: 0;
+// }
+
+// #activityTable table tr td {
+//   border: solid 1px #000;
+//   border-style: none solid solid none;
+//   padding: 10px;
+// }
+
+// #activityTable table tr:first-child td:first-child {
+//   border-top-left-radius: 10px;
+// }
+// #activityTable table tr:first-child td:last-child {
+//   border-top-right-radius: 10px;
+// }
+
+// #activityTable table tr:last-child td:first-child {
+//   border-bottom-left-radius: 10px;
+// }
+// #activityTable table tr:last-child td:last-child {
+//   border-bottom-right-radius: 10px;
+// }
+
+// #activityTable table tr:first-child td {
+//   // border-top-style: solid;
+// }
+// #activityTable table tr td:first-child {
+//   // border-left-style: solid;
+// }

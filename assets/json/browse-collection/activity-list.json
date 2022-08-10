@@ -27,7 +27,7 @@
   },
   {
     "id": 2,
-    "avatar": "/images/most-popular-1.png",
+    "avatar": "/images/most-popular-2.png",
     "name01": "Art Name Line 1",
     "name02": "Art Name Line 2",
     "type": "Listing",
@@ -53,7 +53,7 @@
   },
   {
     "id": 4,
-    "avatar": "/images/most-popular-3.png",
+    "avatar": "/images/most-popular-4.png",
     "name01": "Art Name Line 1",
     "name02": "Art Name Line 2",
     "type": "Auction Started",
@@ -79,7 +79,7 @@
   },
   {
     "id": 6,
-    "avatar": "/images/most-popular-1.png",
+    "avatar": "/images/most-popular-4.png",
     "name01": "Art Name Line 1",
     "name02": "Art Name Line 2",
     "type": "Auction Started",
