@@ -200,6 +200,15 @@ const SingleNft = props => {
 
   const handleSelectCategory = index => {
     let array = [...categoryList]
+    let checkedCount = 0
+    array.map(item => {
+      if (item.checked === true) {
+        checkedCount++
+      }
+    })
+
+    if (checkedCount >= 3 && array[index].checked === false) return
+
     array[index].checked = !array[index].checked
     setCategoryList(array)
   }
@@ -410,12 +419,20 @@ const SingleNft = props => {
                           value={royalties}
                           placeholder="Insert a royalty percentage"
                           label="From 1 to 20%"
+                          type="number"
                           onChange={value => setRoyalties(value)}
                         />
                       </div>
+                      {console.log(parseInt(royalties))}
                       <div className="w-full mt-16">
-                        {royalties === '' ? (
-                          <Button label="Mint NFT" disabled={disabledNextButton} backgroundColor="#888A8E" />
+                        {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
+                          <Button
+                            width={112}
+                            height={viewport === 'lg' ? 46 : 53}
+                            label="Mint NFT"
+                            disabled={disabledNextButton}
+                            backgroundColor="#888A8E"
+                          />
                         ) : (
                           <GradientButton
                             label="Mint NFT"
@@ -433,13 +450,21 @@ const SingleNft = props => {
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
                         backgroundColor="#378287"
                         color="#EFF0F6"
+                        width={117}
+                        height={viewport === 'lg' ? 46 : 53}
                       />
                     ) : (
                       <div />
                     )}
                     {currentStep < 3 &&
                       (disabledNextButton ? (
-                        <Button label="Next Step" disabled={disabledNextButton} backgroundColor="#888A8E" />
+                        <Button
+                          width={117}
+                          height={viewport === 'lg' ? 46 : 53}
+                          label="Next Step"
+                          disabled={disabledNextButton}
+                          backgroundColor="#888A8E"
+                        />
                       ) : (
                         <GradientButton
                           label="Next Step"
@@ -610,7 +635,7 @@ const SingleNft = props => {
               <div className={`${styles.subTitle} mt-5`}>NFT Name *</div>
               <div className="max-w-[370px] w-full mt-4">
                 <Input
-                  value={nftName}
+                  value={limit(nftName, 100)}
                   placeholder="Give your art name"
                   label="Max Characters 100"
                   onChange={value => setNftName(value)}
@@ -619,7 +644,7 @@ const SingleNft = props => {
               <div className={`${styles.subTitle} mt-5`}>Description *</div>
               <div className="w-full mt-5">
                 <Textarea
-                  value={description}
+                  value={limit(description, 300)}
                   placeholder="Add a short description..."
                   label="Max Characters 300"
                   onChange={value => setDescription(value)}
@@ -658,6 +683,7 @@ const SingleNft = props => {
                   value={royalties}
                   placeholder="Insert a royalty percentage"
                   label="From 1 to 20%"
+                  type="tel"
                   onChange={value => setRoyalties(value)}
                 />
               </div>
