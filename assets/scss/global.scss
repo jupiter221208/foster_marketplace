@@ -231,6 +231,40 @@ h6 {
   }
 }
 
+.showNavigationSwiper {
+  padding-bottom: 30px !important;
+  @media (min-width: 1024px) {
+    padding-bottom: 80px !important;
+  }
+  .swiper-button-prev {
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    right: 55px;
+    color: $text-gray-200-color;
+    opacity: 0.7;
+    &::after {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+
+  .swiper-button-next {
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    right: 0px;
+    color: $text-gray-200-color;
+    opacity: 0.7;
+    &::after {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+}
+
 // scrollbar
 ::-webkit-scrollbar {
   width: 8px;

@@ -3,9 +3,7 @@ import React, { useEffect, useState } from 'react'
 // components
 import Tab from 'components/Tab'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
-import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import ExploreNFTSection from 'components/pages/BrowseCollection/ExploreNFTSection'
-import CollectionSwiperSection from 'components/pages/BrowseCollection/CollectionSwiperSection'
+import OtherCollectionSection from 'components/pages/BrowseCollection/OtherCollectionSection'
 import ExploreCollectionSection from 'components/pages/BrowseCollection/ExploreCollectionSection'
 
 // json
@@ -14,7 +12,7 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 // styles
 import styles from './index.module.scss'
 
-const NFTSection = props => {
+const CollectionSection = props => {
   const { viewport } = props
 
   const [activeTab, setActiveTab] = useState(0)
@@ -39,24 +37,21 @@ const NFTSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center z-10">
         <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
           <NFTSwiperSection viewport={viewport} />
-          <LiveAuctionSection viewport={viewport} />
-          <ExploreNFTSection viewport={viewport} />
         </div>
       )}
-      {activeTab === 1 && (
-        <div className="w-full flex flex-wrap">
-          <CollectionSwiperSection viewport={viewport} />
-          <ExploreCollectionSection viewport={viewport} />
-        </div>
-      )}
+      {activeTab === 1 && <div className="w-full flex flex-wrap">activity part</div>}
+      {/* <div className="w-full flex z-0"> */}
+      <OtherCollectionSection viewport={viewport} />
+      <ExploreCollectionSection viewport={viewport} />
+      {/* </div> */}
     </div>
   )
 }
 
-export default NFTSection
+export default CollectionSection

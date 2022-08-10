@@ -10,22 +10,22 @@ import 'swiper/css/navigation'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import EcosystemCard from 'components/Card/EcosystemCard'
+import CollectionCard from 'components/Card/CollectionCard'
 
 // json
-import ExploreList from 'assets/json/explore/ecosystem-explore-list.json'
+import ExploreList from 'assets/json/explore/collection-explore-list.json'
 
 // styles
 import styles from './index.module.scss'
 
-const ExploreNFTSection = props => {
+const ExploreCollectionSection = props => {
   const { viewport } = props
   return (
     <section className={styles.container}>
       <div className={styles.topLeftEllipse} />
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Explore the Circus</div>
+          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Other Collections by Artist</div>
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton
@@ -52,14 +52,14 @@ const ExploreNFTSection = props => {
         >
           {ExploreList.map((item, index) => (
             <SwiperSlide key={index}>
-              <EcosystemCard
+              <CollectionCard
                 image={item.image}
-                avatar={item.avatar}
+                nftName={item.nftName}
+                nftType={item.nftType}
                 artistName={item.artistName}
                 nfts={item.nfts}
-                followers={item.followers}
-                collections={item.collections}
-                floor={item.floor}
+                icon={item.icon}
+                price={item.price}
                 viewport={viewport}
               />
             </SwiperSlide>
@@ -81,4 +81,4 @@ const ExploreNFTSection = props => {
   )
 }
 
-export default ExploreNFTSection
+export default ExploreCollectionSection
