@@ -70,6 +70,10 @@ const SingleNft = props => {
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
 
+  function limit(string = '', limit = 0) {
+    return string.substring(0, limit)
+  }
+
   useEffect(() => {
     let width = 0
     let ratio = 1920 / 1920
@@ -315,7 +319,9 @@ const SingleNft = props => {
                     </div>
                   )}
                 </div>
-                <div className={`w-full flex justify-center items-center mt-[35px] ${styles.nftName}`}>{nftName}</div>
+                <div className={`w-full break-all flex justify-center items-center mt-[35px] ${styles.nftName}`}>
+                  {nftName}
+                </div>
                 {description !== '' && (
                   <div className={`w-full flex flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}>
                     <div className={`${styles.descriptionTitle} w-full`}>Description</div>
@@ -375,7 +381,7 @@ const SingleNft = props => {
                       <div className={`${styles.subTitle} mt-20`}>NFT Name *</div>
                       <div className="max-w-[370px] w-full mt-5">
                         <Input
-                          value={nftName}
+                          value={limit(nftName, 100)}
                           placeholder="Give your art name"
                           label="Max Characters 100"
                           onChange={value => setNftName(value)}
@@ -384,7 +390,7 @@ const SingleNft = props => {
                       <div className={`${styles.subTitle} mt-20`}>Description *</div>
                       <div className="w-full mt-5">
                         <Textarea
-                          value={description}
+                          value={limit(description, 300)}
                           placeholder="Add a short description..."
                           label="Max Characters 300"
                           onChange={value => setDescription(value)}
