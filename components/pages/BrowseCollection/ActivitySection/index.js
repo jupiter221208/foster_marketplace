@@ -12,14 +12,11 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import CollectionCard from 'components/Card/CollectionCard'
 import ActivityTable from 'components/Table/ActivityTable'
+import ActivityAccordion from 'components/Accordion/ActivityAccordion'
 
 // json
 import ActivityList from 'assets/json/browse-collection/activity-list.json'
-
-// styles
-import styles from './index.module.scss'
 
 const ActivitySection = props => {
   const { viewport } = props
@@ -42,23 +39,30 @@ const ActivitySection = props => {
   }, [])
 
   return (
-    <section className={styles.container}>
+    <section className="w-full mt-6 lg:mt-12">
       <div className="w-full z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
           slidesPerView={1}
-          spaceBetween={0}
+          spaceBetween={4}
           modules={[Autoplay, Lazy, Navigation]}
           className="showNavigationSwiper"
           loop
         >
-          {activityList.length !== 0 &&
-            activityList.map((item, index) => (
-              <SwiperSlide key={index}>
-                <ActivityTable data={item} />
-              </SwiperSlide>
-            ))}
+          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
+            ? activityList.length !== 0 &&
+              activityList.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <ActivityTable data={item} viewport={viewport} />
+                </SwiperSlide>
+              ))
+            : activityList.length !== 0 &&
+              activityList.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <ActivityAccordion data={item} viewport={viewport} />
+                </SwiperSlide>
+              ))}
         </Swiper>
       </div>
     </section>

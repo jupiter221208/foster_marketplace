@@ -10,7 +10,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const ActivityTable = props => {
-  const { data } = props
+  const { data, viewport } = props
 
   return (
     <table className="w-full table-auto activityTable" id="activityTable">
@@ -31,7 +31,13 @@ const ActivityTable = props => {
         {data.map((item, index) => (
           <tr key={index}>
             <td className="h-[90px] flex justify-center items-center">
-              <Image src={item.avatar} alt="" width={70} height={70} className="rounded-[15px]" />
+              <Image
+                src={item.avatar}
+                alt=""
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+                className="rounded-[15px]"
+              />
             </td>
             <td>
               <div className="block">
