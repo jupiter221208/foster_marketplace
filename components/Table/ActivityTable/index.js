@@ -12,12 +12,11 @@ import styles from './index.module.scss'
 const ActivityTable = props => {
   const { data } = props
 
-  console.log('data', data)
   return (
-    <table className="w-full table-auto" id="activityTable">
+    <table className="w-full table-auto activityTable" id="activityTable">
       <thead>
-        <tr className={styles.header}>
-          <th>aaa</th>
+        <tr>
+          <th></th>
           <th>Name</th>
           <th>Type</th>
           <th>Transaction ID</th>
@@ -30,7 +29,7 @@ const ActivityTable = props => {
       </thead>
       <tbody>
         {data.map((item, index) => (
-          <tr key={index} className={styles.card}>
+          <tr key={index}>
             <td className="h-[90px] flex justify-center items-center">
               <Image src={item.avatar} alt="" width={70} height={70} className="rounded-[15px]" />
             </td>
