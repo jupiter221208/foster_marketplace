@@ -43,7 +43,7 @@ const EcosystemCard = props => {
         </div>
       </div>
       <div className={styles.contentCard}>
-        <div className="w-full flex justify-between">
+        <div className="w-full flex flex-wrap justify-between">
           <div className="flex">
             <div className={styles.title}>NFTs :</div>
             <div className={styles.text}>{nfts}</div>
@@ -53,7 +53,7 @@ const EcosystemCard = props => {
             <div className={styles.text}>{followers}</div>
           </div>
         </div>
-        <div className="w-full flex justify-between">
+        <div className="w-full flex flex-wrap justify-between">
           <div className="flex">
             <div className={styles.title}>Collections :</div>
             <div className={styles.text}>{collections}</div>
