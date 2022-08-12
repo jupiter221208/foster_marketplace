@@ -47,7 +47,6 @@ const MobileNFTFilter = props => {
   const handleSelectCategory = index => {
     let array = [...categoryList]
     array[index].checked = !array[index].checked
-    console.log(array)
     setCategoryList(array)
   }
 

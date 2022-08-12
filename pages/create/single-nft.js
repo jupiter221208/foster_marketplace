@@ -430,7 +430,6 @@ const SingleNft = props => {
                           onChange={value => setRoyalties(value)}
                         />
                       </div>
-                      {console.log(parseInt(royalties))}
                       <div className="w-full mt-16">
                         {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
                           <Button
