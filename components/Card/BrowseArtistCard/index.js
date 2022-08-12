@@ -6,7 +6,7 @@ import Image from 'next/image'
 // styles
 import styles from './index.module.scss'
 
-const BrowseCollectionCard = props => {
+const BrowseArtistCard = props => {
   const { image, collectionName, artistName, viewport } = props
 
   return (
@@ -34,4 +34,4 @@ const BrowseCollectionCard = props => {
   )
 }
 
-export default BrowseCollectionCard
+export default BrowseArtistCard
