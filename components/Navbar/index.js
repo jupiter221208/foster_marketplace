@@ -11,10 +11,16 @@ import SpeedGreenIcon from 'assets/icons/speed-green.svg'
 import SpeedGrayIcon from 'assets/icons/speed-gray.svg'
 import DashboardGreenIcon from 'assets/icons/dashboard-green.svg'
 import DashboardGrayIcon from 'assets/icons/dashboard-gray.svg'
-import ChartGreenIcon from 'assets/icons/chart-green.svg'
-import ChartGrayIcon from 'assets/icons/chart-gray.svg'
-import BookGreenIcon from 'assets/icons/book-green.svg'
-import BookGrayIcon from 'assets/icons/book-gray.svg'
+import NotificationGreenIcon from 'assets/icons/notification-green.svg'
+import NotificationGrayIcon from 'assets/icons/notification-gray.svg'
+import StatisticGreenIcon from 'assets/icons/statistic-green.svg'
+import StatisticGrayIcon from 'assets/icons/statistic-gray.svg'
+import ResourceGreenIcon from 'assets/icons/resource-green.svg'
+import ResourceGrayIcon from 'assets/icons/resource-gray.svg'
+import SettingGreenIcon from 'assets/icons/setting-green.svg'
+import SettingGrayIcon from 'assets/icons/setting-gray.svg'
+import DaoGreenIcon from 'assets/icons/dao-green.svg'
+import DaoGrayIcon from 'assets/icons/dao-gray.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -35,7 +41,7 @@ const Navbar = props => {
               <Image src={AvatarIcon} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
             </div>
           </div>
-          <div
+          {/* <div
             className={styles.navItemArea}
             onMouseOver={() => setSelectedNavMenu('speed')}
             onMouseLeave={() => setSelectedNavMenu('')}
@@ -49,16 +55,16 @@ const Navbar = props => {
               }
               alt=""
             />
-          </div>
+          </div> */}
           <div
             className={styles.navItemArea}
             onMouseOver={() => setSelectedNavMenu('dashboard')}
             onMouseLeave={() => setSelectedNavMenu('')}
-            onClick={() => router.push('/#dashboard')}
+            onClick={() => router.push('/dashboard')}
           >
             <Image
               src={
-                router.asPath === '/#dashboard' || selectedNavMenu === 'dashboard'
+                router.asPath === '/dashboard' || selectedNavMenu === 'dashboard'
                   ? DashboardGreenIcon
                   : DashboardGrayIcon
               }
@@ -67,25 +73,65 @@ const Navbar = props => {
           </div>
           <div
             className={styles.navItemArea}
-            onMouseOver={() => setSelectedNavMenu('chart')}
+            onMouseOver={() => setSelectedNavMenu('notification')}
             onMouseLeave={() => setSelectedNavMenu('')}
-            onClick={() => router.push('/#chart')}
+            onClick={() => router.push('/#notification')}
           >
             <Image
-              src={router.asPath === '/#chart' || selectedNavMenu === 'chart' ? ChartGreenIcon : ChartGrayIcon}
+              src={
+                router.asPath === '/#notification' || selectedNavMenu === 'notification'
+                  ? NotificationGreenIcon
+                  : NotificationGrayIcon
+              }
               alt=""
             />
           </div>
           <div
             className={styles.navItemArea}
-            onMouseOver={() => setSelectedNavMenu('book')}
+            onMouseOver={() => setSelectedNavMenu('statistic')}
             onMouseLeave={() => setSelectedNavMenu('')}
-            onClick={() => router.push('/#book')}
+            onClick={() => router.push('/#statistic')}
           >
             <Image
-              src={router.asPath === '/#book' || selectedNavMenu === 'book' ? BookGreenIcon : BookGrayIcon}
+              src={
+                router.asPath === '/#statistic' || selectedNavMenu === 'statistic'
+                  ? StatisticGreenIcon
+                  : StatisticGrayIcon
+              }
               alt=""
             />
+          </div>
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('resource')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#resource')}
+          >
+            <Image
+              src={
+                router.asPath === '/#resource' || selectedNavMenu === 'resource' ? ResourceGreenIcon : ResourceGrayIcon
+              }
+              alt=""
+            />
+          </div>
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('setting')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#setting')}
+          >
+            <Image
+              src={router.asPath === '/#setting' || selectedNavMenu === 'setting' ? SettingGreenIcon : SettingGrayIcon}
+              alt=""
+            />
+          </div>
+          <div
+            className={styles.navItemArea}
+            onMouseOver={() => setSelectedNavMenu('dao')}
+            onMouseLeave={() => setSelectedNavMenu('')}
+            onClick={() => router.push('/#dao')}
+          >
+            <Image src={router.asPath === '/#dao' || selectedNavMenu === 'dao' ? DaoGreenIcon : DaoGrayIcon} alt="" />
           </div>
         </div>
       </div>
