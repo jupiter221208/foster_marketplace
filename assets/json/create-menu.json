@@ -1,4 +1,4 @@
 [
   { "id": 0, "icon": "/icons/single-nft-green.svg", "label": "Single NFT", "path": "/create/single-nft" },
-  { "id": 1, "icon": "/icons/collection-green.svg", "label": "Collection", "path": "/create/collection" }
+  { "id": 1, "icon": "/icons/large-collection-green.svg", "label": "Collection", "path": "/create/collection" }
 ]

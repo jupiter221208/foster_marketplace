@@ -1,5 +1,5 @@
 [
   { "id": 0, "icon": "/icons/dashboard-green.svg", "label": "NFTs by Category", "path": "/explore" },
-  { "id": 1, "icon": "/icons/collection-green.svg", "label": "NFTs by Collection", "path": "/explore" },
+  { "id": 1, "icon": "/icons/large-collection-green.svg", "label": "NFTs by Collection", "path": "/explore" },
   { "id": 2, "icon": "/icons/artist-green.svg", "label": "NFTs by Artist", "path": "/explore" }
 ]
