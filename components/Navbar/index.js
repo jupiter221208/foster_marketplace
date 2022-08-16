@@ -174,6 +174,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'dashboard' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[12px] h-[30px]'}`}
+              onClick={() => router.push('/dashboard')}
             >
               Dashboard
             </div>
@@ -183,6 +184,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'notification' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[40px] h-[30px]'}`}
+              onClick={() => router.push('/#notification')}
             >
               Notifications
             </div>
@@ -192,6 +194,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'statistic' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[32px] h-[30px]'}`}
+              onClick={() => router.push('/#statistic')}
             >
               Stats
             </div>
@@ -201,6 +204,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'dao' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[32px] h-[30px]'}`}
+              onClick={() => router.push('/#dao')}
             >
               DAO
             </div>
@@ -210,6 +214,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'resource' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[36px] h-[30px]'}`}
+              onClick={() => router.push('/#resource')}
             >
               Resources
             </div>
@@ -219,6 +224,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'setting' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[36px] h-[30px]'}`}
+              onClick={() => router.push('/#setting')}
             >
               Settings
             </div>
@@ -232,7 +238,7 @@ const Navbar = props => {
         </div>
       </div>
 
-      <div className={showMenu ? styles.logoutShow : styles.logoutHide}>
+      <div className={showMenu ? styles.logoutShow : styles.logoutHide} onClick={() => router.push('/')}>
         <div className="ml-[60px]">
           <Image src={LogoutIcon} alt="" />
         </div>
