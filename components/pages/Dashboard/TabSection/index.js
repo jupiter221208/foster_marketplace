@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import IconTab from 'components/Tab/IconTab'
 import MyNFTSection from 'components/pages/Dashboard/MyNFTSection'
 import ListedNFTSection from 'components/pages/Dashboard/ListedNFTSection'
+import ActivitySection from 'components/pages/Dashboard/ActivitySection'
 
 // json
 import TabList from 'assets/json/dashboard/tab-list.json'
@@ -47,6 +48,11 @@ const TabSection = props => {
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
           <ListedNFTSection viewport={viewport} />
+        </div>
+      )}
+      {activeTab === 2 && (
+        <div className="w-full flex flex-wrap">
+          <ActivitySection viewport={viewport} />
         </div>
       )}
     </div>
