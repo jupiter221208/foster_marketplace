@@ -14,7 +14,7 @@ import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import YoutubeWhiteIcon from 'assets/icons/youtube-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
-import BrowseCollectionCard from 'components/Card/BrowseCollectionCard'
+import BrowseArtistCard from 'components/Card/BrowseArtistCard'
 import GradientButton from 'components/Button/GradientButton'
 import SocialButton from 'components/Button/SocialButton'
 import ArtistTypeCard from 'components/Card/ArtistTypeCard'
@@ -49,7 +49,7 @@ const MainSection = props => {
             />
           </div>
           <div className="col-span-6">
-            <BrowseCollectionCard
+            <BrowseArtistCard
               image={AvatarImage}
               collectionName="Collection Name"
               artistName="Artist Name"

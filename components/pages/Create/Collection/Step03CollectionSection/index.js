@@ -208,22 +208,26 @@ const Step03CollectionSection = props => {
                       value={royalties}
                       placeholder="Insert a royalty percentage"
                       label="From 1 to 20%"
+                      type="number"
                       onChange={value => onChangeRoyalties(value)}
                     />
                   </div>
                   <div className="w-full mt-16">
-                    {royalties === '' ? (
+                    {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 || banner === undefined ? (
                       <Button
                         label="Mint Collection"
                         disabled={disabledNextButton}
                         backgroundColor="#888A8E"
-                        height="56px"
+                        width={viewport === '2xl' ? 166 : 158}
+                        height={viewport === '2xl' ? 53 : 46}
+                        onClick={() => {}}
                       />
                     ) : (
                       <GradientButton
                         label="Mint Collection"
                         onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
-                        height="56px"
+                        width={viewport === '2xl' ? 166 : 158}
+                        height={viewport === '2xl' ? 53 : 46}
                       />
                     )}
                   </div>
@@ -231,11 +235,12 @@ const Step03CollectionSection = props => {
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-between">
                   <Button
+                    width={viewport === '2xl' ? 124 : 117}
+                    height={viewport === '2xl' ? 53 : 46}
                     label="Back"
                     onClick={() => handleChangeCurrentStep(currentStep - 1)}
                     backgroundColor="#378287"
                     color="#EFF0F6"
-                    height="53px"
                   />
                 </div>
               </div>
@@ -333,11 +338,12 @@ const Step03CollectionSection = props => {
                 value={royalties}
                 placeholder="Insert a royalty percentage"
                 label="From 1 to 20%"
+                type="number"
                 onChange={value => onChangeRoyalties(value)}
               />
             </div>
             <div className="w-full mt-10">
-              {royalties === '' ? (
+              {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
                 <Button
                   label="Mint Collection"
                   fullWidth

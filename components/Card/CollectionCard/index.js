@@ -21,7 +21,7 @@ const CollectionCard = props => {
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-between items-center">
           <div className={styles.nftName}>{nftName}</div>
-          <div className={styles.priceName}>Total NFTs</div>
+          <div className={`${styles.priceName} mt-[4px] md:mt-[10px] lg:mt-[10px]`}>NFTs</div>
         </div>
         <div className="w-full flex justify-between items-center">
           <div className="flex justify-start items-center">
@@ -30,8 +30,12 @@ const CollectionCard = props => {
               <Image
                 src={CheckedGreenIcon}
                 alt=""
-                width={viewport === 'xs' ? 11 : viewport === 'lg' ? 16 : 24}
-                height={viewport === 'xs' ? 11 : viewport === 'lg' ? 16 : 24}
+                width={
+                  viewport === 'xs' ? 11 : viewport === 'sm' ? 12 : viewport === 'md' ? 13 : viewport === 'lg' ? 16 : 24
+                }
+                height={
+                  viewport === 'xs' ? 11 : viewport === 'sm' ? 12 : viewport === 'md' ? 13 : viewport === 'lg' ? 16 : 24
+                }
               />
             </div>
           </div>
@@ -41,11 +45,15 @@ const CollectionCard = props => {
           <div className={styles.nftType}>{nftType}</div>
           <div className="items-center">
             <div className={styles.priceName}>Floor Price</div>
-            <div className="flex justify-end items-center">
+            <div className="flex justify-end items-center mt-[4px]">
               <Image
                 src={SolanaLogoIcon}
-                width={viewport === 'xs' ? 11 : viewport === 'lg' ? 16 : 24}
-                height={viewport === 'xs' ? 11 : viewport === 'lg' ? 16 : 24}
+                width={
+                  viewport === 'xs' ? 11 : viewport === 'sm' ? 13 : viewport === 'md' ? 14 : viewport === 'lg' ? 16 : 24
+                }
+                height={
+                  viewport === 'xs' ? 11 : viewport === 'sm' ? 13 : viewport === 'md' ? 14 : viewport === 'lg' ? 16 : 24
+                }
                 alt=""
               />
               <div className={`${styles.price} ml-1 lg:ml-3`}>{price}</div>

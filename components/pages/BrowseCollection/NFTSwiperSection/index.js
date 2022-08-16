@@ -79,41 +79,6 @@ const NFTSwiperSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10">
-        <div className="flex justify-between lg:justify-start items-center gap-4 lg:gap-8">
-          <div className="flex z-10">
-            <Button
-              label="Created"
-              onClick={() => handleChangeActive(0)}
-              color={active === 0 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="All"
-              onClick={() => handleChangeActive(1)}
-              color={active === 1 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="Collected"
-              onClick={() => handleChangeActive(2)}
-              color={active === 2 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-            />
-          </div>
-        </div>
-        <div className="flex z-10">
-          <OutlineButton
-            label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'Filter'}
-            icon={FilterGreenIcon}
-            onClick={() => {}}
-            borderColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#63D6CD' : '#ffffff'}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '51px'}
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : ''}
-            direction="rtl"
-          />
-        </div>
-      </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
@@ -121,7 +86,7 @@ const NFTSwiperSection = props => {
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
+          className="showNavigationSwiper"
           loop
           autoplay={{
             delay: 5000,

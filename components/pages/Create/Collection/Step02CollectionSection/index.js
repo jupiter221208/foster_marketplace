@@ -475,15 +475,23 @@ const Step02CollectionSection = props => {
                     onClick={() => handleChangeCurrentStep(currentStep - 1)}
                     backgroundColor="#378287"
                     color="#EFF0F6"
-                    height="53px"
+                    width={viewport === '2xl' ? 124 : 117}
+                    height={viewport === '2xl' ? 53 : 46}
                   />
                   {disabledNextButton ? (
-                    <Button label="Next Step" disabled={disabledNextButton} backgroundColor="#888A8E" height="53px" />
+                    <Button
+                      width={viewport === '2xl' ? 124 : 117}
+                      height={viewport === '2xl' ? 53 : 46}
+                      label="Next Step"
+                      disabled={disabledNextButton}
+                      backgroundColor="#888A8E"
+                    />
                   ) : (
                     <GradientButton
+                      width={viewport === '2xl' ? 124 : 117}
+                      height={viewport === '2xl' ? 53 : 46}
                       label="Next Step"
                       onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
-                      height="53px"
                     />
                   )}
                 </div>

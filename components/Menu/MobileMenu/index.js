@@ -15,8 +15,8 @@ import PlusWhiteIcon from 'assets/icons/plus-white.svg'
 import WalletWhiteIcon from 'assets/icons/wallet-white.svg'
 import SpeedWhiteIcon from 'assets/icons/speed-white.svg'
 import CollectionWhiteIcon from 'assets/icons/collection-white.svg'
-import ChartWhiteIcon from 'assets/icons/chart-white.svg'
-import BookWhiteIcon from 'assets/icons/book-white.svg'
+import StatisticWhiteIcon from 'assets/icons/statistic-white.svg'
+import ResourceWhiteIcon from 'assets/icons/resource-white.svg'
 import LogoutWhiteIcon from 'assets/icons/logout-white.svg'
 
 // json data
@@ -71,10 +71,10 @@ const MobileMenu = () => {
             </div>
 
             <div className="my-[10px]">
-              <AccordionMenu icon={ChartWhiteIcon} label="Stats" type="" data={[]} path="/" />
+              <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/" />
             </div>
             <div className="my-[10px]">
-              <AccordionMenu icon={BookWhiteIcon} label="Resources" type="" data={[]} path="/" />
+              <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/" />
             </div>
           </div>
           <div className="w-full">

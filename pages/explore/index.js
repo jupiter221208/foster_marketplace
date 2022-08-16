@@ -168,7 +168,6 @@ const Explore = props => {
                         image={item.image}
                         nftName={item.nftName}
                         artistName={item.artistName}
-                        icon={item.icon}
                         onClick={() => router.push('/browse-nft')}
                         price={item.price}
                       />
@@ -197,7 +196,7 @@ const Explore = props => {
               {exploreTab === 2 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {EcosystemExploreList.map((item, index) => (
-                    <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
+                    <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
                       <EcosystemCard
                         image={item.image}
                         avatar={item.avatar}

@@ -1,0 +1,52 @@
+[
+  {
+    "id": 0,
+    "icon01": "/icons/diamond-green.svg",
+    "icon02": "/icons/diamond-gray.svg",
+    "label": "My NFTs",
+    "value": "My NFTs"
+  },
+  {
+    "id": 1,
+    "icon01": "/icons/list-ui-alt-green.svg",
+    "icon02": "/icons/list-ui-alt-gray.svg",
+    "label": "Listed NFTs",
+    "value": "Listed NFTs"
+  },
+  {
+    "id": 2,
+    "icon01": "/icons/heart-rate-green.svg",
+    "icon02": "/icons/heart-rate-gray.svg",
+    "label": "Activity",
+    "value": "Activity"
+  },
+  {
+    "id": 3,
+    "icon01": "/icons/create-dashboard-green.svg",
+    "icon02": "/icons/create-dashboard-gray.svg",
+    "label": "Collected",
+    "value": "Collected"
+  },
+  {
+    "id": 4,
+    "icon01": "/icons/collection-green.svg",
+    "icon02": "/icons/collection-gray.svg",
+    "label": "My Collections",
+    "value": "My Collections"
+  },
+  {
+    "id": 5,
+    "icon01": "/icons/heart-green.svg",
+    "icon02": "/icons/heart-gray.svg",
+    "label": "Favorites",
+    "value": "Favorites"
+  },
+  {
+    "id": 6,
+    "icon01": "/icons/eye-slash-green.svg",
+    "icon02": "/icons/eye-slash-gray.svg",
+    "label": "Hidden",
+    "value": "Hidden"
+  },
+  { "id": 7, "icon01": "/icons/tag-green.svg", "icon02": "/icons/tag-gray.svg", "label": "Offers", "value": "Offers" }
+]

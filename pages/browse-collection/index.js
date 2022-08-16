@@ -2,15 +2,11 @@ import React from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
-import NFTSection from 'components/pages/BrowseCollection/NFTSection'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import CollectionSection from 'components/pages/BrowseCollection/CollectionSection'
 
 // styles
 import styles from './index.module.scss'
@@ -26,11 +22,8 @@ const BrowseCollection = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.bottomLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
-        </div>
         <MainSection viewport={viewport} />
-        <NFTSection viewport={viewport} />
+        <CollectionSection viewport={viewport} />
       </div>
     </div>
   )

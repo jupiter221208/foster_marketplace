@@ -119,7 +119,6 @@ const FreshMintSection = props => {
                   price={item.price}
                   showCount={false}
                   onClick={() => router.push('/browse-nft')}
-                  key={item}
                 />
               </div>
             </SwiperSlide>

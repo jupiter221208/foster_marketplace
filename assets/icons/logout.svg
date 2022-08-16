@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="137" height="68" viewBox="0 0 137 68">
+  <defs>
+    <filter id="Rectangle_20873" x="0" y="0" width="137" height="68" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Logout_Expanded" data-name="Logout Expanded" transform="translate(-627.51 -52.02)">
+    <g id="Group_51035" data-name="Group 51035" transform="translate(0 -0.48)">
+      <g transform="matrix(1, 0, 0, 1, 627.51, 52.5)" filter="url(#Rectangle_20873)">
+        <rect id="Rectangle_20873-2" data-name="Rectangle 20873" width="118" height="49" rx="12" transform="translate(9.5 6.5)" fill="none" stroke="#eff0f6" stroke-width="1"/>
+      </g>
+      <text id="Logout" transform="translate(655.01 88.504)" fill="#deefd0" font-size="18" font-family="SegoeUI-Bold, Segoe UI" font-weight="700"><tspan x="0" y="0">Logout</tspan></text>
+      <g id="Logout-2" data-name="Logout" transform="translate(712 61)">
+        <rect id="Rectangle_20893" data-name="Rectangle 20893" width="46" height="46" fill="none"/>
+        <path id="sign-out-alt" d="M3.359,13.83a.9.9,0,0,1,1.21.406,7.225,7.225,0,1,0,0-6.412.909.909,0,1,1-1.626-.813,9.031,9.031,0,1,1,0,8.037.9.9,0,0,1,.415-1.219Zm-.452-3.7h8.661L9.491,8.06a.907.907,0,0,1,1.282-1.282l3.612,3.612a.934.934,0,0,1,0,1.282l-3.612,3.612A.907.907,0,1,1,9.491,14l2.077-2.068H2.908a.9.9,0,0,1,0-1.806Z" transform="translate(11.967 11.969)" fill="#deefd0"/>
+      </g>
+    </g>
+  </g>
+</svg>

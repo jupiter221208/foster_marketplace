@@ -39,7 +39,7 @@ import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
 import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
-import CircusTentFilledWhiteIcon from 'assets/icons/circus-tent-filled-white.svg'
+import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
 import SaleWhiteIcon from 'assets/icons/sale-white.svg'
 
 // json
@@ -368,7 +368,7 @@ const MainSection = props => {
                         onClick={() => clickRecent(2)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={CircusTentFilledWhiteIcon} alt="" />
+                          <Image src={NotificationWhiteIcon} alt="" />
                           <div className={styles.subTitle}>Activity</div>
                         </div>
                         <ChevronUpIcon

@@ -5,9 +5,183 @@
   top: 0;
   left: 0;
   bottom: 0;
+  height: 100vh;
+  z-index: 10001;
+}
+
+.logoExpand {
+  position: fixed;
+  top: 32px;
+  left: 0px;
+  width: 277px;
+  height: 100px;
+  z-index: 10001;
+}
+
+.menuContent {
+  position: fixed;
+  top: 0;
+  left: 0px;
+  bottom: 0;
+  width: 193px;
+  height: 100vh;
+  z-index: 10000;
+  background-color: transparent;
+}
+
+.menuText {
+  position: fixed;
+  top: 220px;
+  left: 0px;
+  width: 193px;
+  height: 100%;
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+.menuShowBlur {
+  position: fixed;
+  top: 0;
+  left: 84px;
+  bottom: 0;
+  width: 193px;
+  height: 100vh;
+  z-index: 9999;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: linear-gradient(to right, rgba($background-dark-color, 1), rgba($background-dark-color, 0.5));
+  animation-name: menu_open;
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-direction: alternate;
+  overflow: hidden;
+}
+
+.menuHide {
+  position: fixed;
+  top: 0;
+  left: 84px;
+  bottom: 0;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: linear-gradient(to right, rgba($background-dark-color, 1), rgba($background-dark-color, 0.5));
+  width: 193px;
+  height: 100vh;
+  z-index: 100;
+  animation-name: menu_close;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+.textGreenColor {
+  color: $brand-03-color;
+}
+
+.textGrayColor {
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.logoShow {
+  position: fixed;
+  top: 0;
+  left: 0px;
+  bottom: 0;
+  width: 277px;
+  height: 100px;
+  z-index: 10001;
+  background: linear-gradient(
+    to right,
+    rgba($background-dark-color, 1) 0%,
+    rgba($background-dark-color, 1) 30%,
+    rgba($background-dark-color, 0) 31%,
+    rgba($background-dark-color, 0) 100%
+  );
+  animation-name: menu_open;
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-direction: alternate;
+  overflow: hidden;
+}
+
+.logoHide {
+  position: fixed;
+  top: 0;
+  left: 0px;
+  bottom: 0;
+  width: 277px;
+  height: 100px;
+  z-index: 10001;
+  background: linear-gradient(
+    to right,
+    rgba($background-dark-color, 1) 0%,
+    rgba($background-dark-color, 1) 30%,
+    rgba($background-dark-color, 0) 31%,
+    rgba($background-dark-color, 0) 100%
+  );
+  animation-name: menu_close;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+.logoutShow {
+  position: fixed;
+  left: 0px;
+  bottom: 0;
+  width: 277px;
+  height: 88px;
+  z-index: 10001;
+  background: linear-gradient(
+    to right,
+    rgba($background-dark-color, 1) 0%,
+    rgba($background-dark-color, 1) 30%,
+    rgba($background-dark-color, 0) 31%,
+    rgba($background-dark-color, 0) 100%
+  );
+  animation-name: menu_open;
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-direction: alternate;
+  overflow: hidden;
+}
+
+.logoutHide {
+  position: fixed;
+  left: 0px;
+  bottom: 0;
+  width: 277px;
+  height: 88px;
+  z-index: 10001;
+  background: linear-gradient(
+    to right,
+    rgba($background-dark-color, 1) 0%,
+    rgba($background-dark-color, 1) 30%,
+    rgba($background-dark-color, 0) 31%,
+    rgba($background-dark-color, 0) 100%
+  );
+  animation-name: menu_close;
+  animation-duration: 0.4s;
+  animation-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  animation-direction: alternate;
+  animation-fill-mode: forwards;
+  overflow: hidden;
+}
+
+.iconBar {
+  background-color: $background-dark-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: 84px;
   height: 100vh;
-  background-color: $background-dark-color;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,5 +232,23 @@
   background: url('../../assets/icons/logout-gray.svg');
   &:hover {
     background: url('../../assets/icons/logout-green.svg');
+  }
+}
+
+@keyframes menu_open {
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes menu_close {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
   }
 }

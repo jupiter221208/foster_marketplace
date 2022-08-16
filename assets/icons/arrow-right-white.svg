@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="navigate_back" data-name="navigate back" transform="translate(24 24) rotate(180)">
+    <rect id="Boundary" width="24" height="24" fill="none"/>
+    <path id="angle-down-9" d="M16.264,9.149a.928.928,0,0,0-1.309,0l-3.332,3.285L8.337,9.149a.929.929,0,1,0-1.309,1.318L10.964,14.4a.928.928,0,0,0,1.318,0l3.982-3.935a.928.928,0,0,0,0-1.318Z" transform="translate(23.478 0.354) rotate(90)" fill="#eff0f6"/>
+  </g>
+</svg>

@@ -18,6 +18,8 @@ const GradientButton = props => {
     height = '',
     direction = 'ltr',
     icon = '',
+    fontSize = '',
+    borderRadius = '',
   } = props
 
   return (
@@ -30,6 +32,8 @@ const GradientButton = props => {
         color: color,
         background: `linear-gradient(to left, ${backgroundColor01}, ${backgroundColor02})`,
         height: height,
+        fontSize: fontSize,
+        borderRadius: borderRadius,
       }}
     >
       {direction === 'rtl' && icon !== '' && (

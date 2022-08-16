@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import AvatarEditor from 'react-avatar-editor'
 import Dropzone from 'react-dropzone'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
+import { limit } from 'utils/strings'
 
 // components
 import Chip from 'components/Chip'
@@ -177,6 +178,15 @@ const Step01CollectionSection = props => {
 
   const handleSelectCategory = index => {
     let array = [...categoryList]
+    let checkedCount = 0
+    array.map(item => {
+      if (item.checked === true) {
+        checkedCount++
+      }
+    })
+
+    if (checkedCount >= 3 && array[index].checked === false) return
+
     array[index].checked = !array[index].checked
     onChangeCategoryList(array)
   }
@@ -270,11 +280,13 @@ const Step01CollectionSection = props => {
                   </div>
                 )}
               </div>
-              <div className={`w-full flex justify-center items-center mt-[35px] ${styles.collectionName}`}>
+              <div className={`w-full flex break-all justify-center items-center mt-[35px] ${styles.collectionName}`}>
                 {collectionName}
               </div>
               {description !== '' && (
-                <div className={`w-full flex flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}>
+                <div
+                  className={`w-full flex break-all flex-wrap justify-start items-center mt-7 ${styles.descriptionArea}`}
+                >
                   <div className={`${styles.descriptionTitle} w-full`}>Description</div>
                   <div className={styles.descriptionText}>{description}</div>
                 </div>
@@ -302,7 +314,7 @@ const Step01CollectionSection = props => {
                   <div className={`${styles.subTitle} mt-[75px]`}>Collection Name *</div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
-                      value={collectionName}
+                      value={limit(collectionName, 100)}
                       placeholder="Give your art name"
                       label="Max Characters 100"
                       onChange={value => onChangeCollectionName(value)}
@@ -311,7 +323,7 @@ const Step01CollectionSection = props => {
                   <div className={`${styles.subTitle} mt-10`}>Description *</div>
                   <div className="w-full mt-5">
                     <Textarea
-                      value={description}
+                      value={limit(description, 300)}
                       placeholder="Add a short description..."
                       label="Max Characters 300"
                       onChange={value => onChangeDescription(value)}
@@ -349,12 +361,19 @@ const Step01CollectionSection = props => {
                 <div className="absolute bottom-0 w-full flex justify-between">
                   <div />
                   {disabledNextButton ? (
-                    <Button label="Next Step" disabled={disabledNextButton} backgroundColor="#888A8E" height="53px" />
+                    <Button
+                      width={viewport === '2xl' ? 124 : 117}
+                      height={viewport === '2xl' ? 53 : 46}
+                      label="Next Step"
+                      disabled={disabledNextButton}
+                      backgroundColor="#888A8E"
+                    />
                   ) : (
                     <GradientButton
+                      width={viewport === '2xl' ? 124 : 117}
+                      height={viewport === '2xl' ? 53 : 46}
                       label="Next Step"
                       onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
-                      height="53px"
                     />
                   )}
                 </div>
@@ -439,7 +458,7 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
             <div className="max-w-[370px] w-full mt-4">
               <Input
-                value={collectionName}
+                value={limit(collectionName, 100)}
                 placeholder="Give your art name"
                 label="Max Characters 100"
                 onChange={value => onChangeCollectionName(value)}
@@ -448,7 +467,7 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-5`}>Description *</div>
             <div className="w-full mt-5">
               <Textarea
-                value={description}
+                value={limit(description, 300)}
                 placeholder="Add a short description..."
                 label="Max Characters 300"
                 onChange={value => onChangeDescription(value)}

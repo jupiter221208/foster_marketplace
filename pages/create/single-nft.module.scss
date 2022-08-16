@@ -111,6 +111,7 @@
   line-height: 24px;
   letter-spacing: 0;
   color: $text-gray-200-color;
+  word-break: break-all;
 }
 
 // right part
@@ -119,7 +120,7 @@
   min-height: calc(100vh - 100px);
   padding: 16px 0px 16px 16px;
   @media (min-width: 1024px) {
-    padding: 50px 0px 80px 50px;
+    padding: 60px 0px 80px 60px;
   }
   display: flex;
   justify-content: center;

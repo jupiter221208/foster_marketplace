@@ -7,7 +7,17 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 
 const IconButton = props => {
-  const { icon, label = '', fullWidth = false, onClick, color = '', backgroundColor, width = '', height = '' } = props
+  const {
+    icon,
+    label = '',
+    fullWidth = false,
+    onClick,
+    color = '',
+    backgroundColor,
+    width = '',
+    height = '',
+    borderRadius,
+  } = props
   return (
     <button
       type="button"
@@ -18,6 +28,7 @@ const IconButton = props => {
         color: color,
         backgroundColor: backgroundColor,
         height: height,
+        borderRadius: borderRadius,
       }}
     >
       <div className={styles.image}>
