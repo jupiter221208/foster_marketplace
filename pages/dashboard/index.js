@@ -6,6 +6,7 @@ import Head from 'next/head'
 // custom components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MainSection from 'components/pages/Dashboard/MainSection'
+import TabSection from 'components/pages/Dashboard/TabSection'
 
 // styles
 import styles from './index.module.scss'
@@ -22,6 +23,7 @@ const Dashbord = props => {
       </Head>
       <div className={styles.container}>
         <MainSection viewport={viewport} />
+        <TabSection viewport={viewport} />
       </div>
     </div>
   )
