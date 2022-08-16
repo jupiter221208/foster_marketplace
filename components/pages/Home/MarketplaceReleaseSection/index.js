@@ -116,10 +116,8 @@ const MarketplaceReleaseSection = props => {
                   image={item.image}
                   nftName={item.nftName}
                   artistName={item.artistName}
-                  icon={item.icon}
                   price={item.price}
                   onClick={() => router.push('/browse-nft')}
-                  key={item}
                 />
               </div>
             </SwiperSlide>

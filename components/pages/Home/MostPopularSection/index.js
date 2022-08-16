@@ -118,7 +118,6 @@ const MostPopularSection = props => {
                   artistName={item.artistName}
                   price={item.price}
                   onClick={() => router.push('/browse-nft')}
-                  key={item}
                 />
               </div>
             </SwiperSlide>

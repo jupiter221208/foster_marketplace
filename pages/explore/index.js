@@ -168,7 +168,6 @@ const Explore = props => {
                         image={item.image}
                         nftName={item.nftName}
                         artistName={item.artistName}
-                        icon={item.icon}
                         onClick={() => router.push('/browse-nft')}
                         price={item.price}
                       />
