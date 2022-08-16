@@ -35,7 +35,6 @@ const ListedNFTSection = props => {
 
   const [selectedData, setSelectedData] = useState()
   const handleSelectData = item => {
-    console.log('item', item)
     setSelectedData(item)
     setShowListNFTModal(true)
   }
