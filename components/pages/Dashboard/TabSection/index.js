@@ -9,6 +9,7 @@ import CollectedSection from 'components/pages/Dashboard/CollectedSection'
 import MyCollectionSection from 'components/pages/Dashboard/MyCollectionSection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
 import HiddenSection from 'components/pages/Dashboard/HiddenSection'
+import OfferSection from 'components/pages/Dashboard/OfferSection'
 
 // json
 import TabList from 'assets/json/dashboard/tab-list.json'
@@ -77,6 +78,11 @@ const TabSection = props => {
       {activeTab === 6 && (
         <div className="w-full flex flex-wrap">
           <HiddenSection viewport={viewport} />
+        </div>
+      )}
+      {activeTab === 7 && (
+        <div className="w-full flex flex-wrap">
+          <OfferSection viewport={viewport} />
         </div>
       )}
     </div>
