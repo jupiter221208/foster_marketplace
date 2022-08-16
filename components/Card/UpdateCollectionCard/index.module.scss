@@ -1,0 +1,205 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: $background-black-color;
+  border-radius: 17px;
+  padding: 8px;
+  @media (min-width: 640px) {
+    border-radius: 17px;
+    padding: 10px;
+  }
+  @media (min-width: 768px) {
+    border-radius: 18px;
+    padding: 12px;
+  }
+  @media (min-width: 1024px) {
+    border-radius: 20px;
+    padding: 14px;
+  }
+  @media (min-width: 1280px) {
+    border-radius: 24px;
+    padding: 16px;
+  }
+  @media (min-width: 1536px) {
+    border-radius: 30px;
+    padding: 19px;
+  }
+  border: 0.5px solid rgba($text-gray-200-color, 0.15);
+  box-shadow: 0px 3px 6px rgba(black, 0.5);
+}
+
+.nftName {
+  font-family: 'Muli-Bold';
+  font-size: 10px;
+  line-height: 16px;
+  @media (min-width: 640px) {
+    font-size: 12px;
+    line-height: 20px;
+  }
+  @media (min-width: 768px) {
+    font-size: 15px;
+    line-height: 24px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 20px;
+    line-height: 32px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 22px;
+    line-height: 36px;
+  }
+
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.nftType {
+  font-family: 'Muli-Bold';
+  font-size: 8px;
+  line-height: 8px;
+  @media (min-width: 640px) {
+    font-size: 10px;
+    line-height: 10px;
+  }
+  @media (min-width: 768px) {
+    font-size: 11px;
+    line-height: 12px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  color: $text-gray-200-color;
+  border-radius: 16px;
+  border-width: 1px;
+  border-color: $text-gray-200-color;
+  padding: 5px 13px;
+  background-color: rgba($brand-01-color, 0.1);
+}
+
+.artistName {
+  font-family: 'Muli-Bold';
+  font-size: 8px;
+  line-height: 8px;
+  @media (min-width: 640px) {
+    font-size: 10px;
+    line-height: 12px;
+  }
+  @media (min-width: 768px) {
+    font-size: 12px;
+    line-height: 15px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    line-height: 21px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  letter-spacing: 0;
+  color: $brand-03-color;
+}
+
+.priceName {
+  font-family: 'Muli-Regular';
+  font-size: 10px;
+  line-height: 10px;
+  @media (min-width: 640px) {
+    font-size: 12px;
+    line-height: 14px;
+  }
+  @media (min-width: 768px) {
+    font-size: 13px;
+    line-height: 15px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  letter-spacing: 0;
+  color: $brand-03-color;
+}
+
+.price {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 14px;
+
+  @media (min-width: 640px) {
+    font-size: 13px;
+    line-height: 15px;
+  }
+  @media (min-width: 768px) {
+    font-size: 14px;
+    line-height: 16px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    line-height: 21px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.bgModal {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(#000000, 0.6);
+  border: 1px solid $brand-01-color;
+  border-radius: 17px;
+  padding: 8px;
+  @media (min-width: 1024px) {
+    padding: 15px;
+    border-radius: 30px;
+  }
+  @media (min-width: 1536px) {
+    padding: 19px;
+    border-radius: 30px;
+  }
+  cursor: pointer;
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

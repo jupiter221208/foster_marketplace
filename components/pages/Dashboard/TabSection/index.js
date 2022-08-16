@@ -8,6 +8,7 @@ import ActivitySection from 'components/pages/Dashboard/ActivitySection'
 import CollectedSection from 'components/pages/Dashboard/CollectedSection'
 import MyCollectionSection from 'components/pages/Dashboard/MyCollectionSection'
 import FavoriteSection from 'components/pages/Dashboard/FavoriteSection'
+import HiddenSection from 'components/pages/Dashboard/HiddenSection'
 
 // json
 import TabList from 'assets/json/dashboard/tab-list.json'
@@ -68,10 +69,14 @@ const TabSection = props => {
           <MyCollectionSection viewport={viewport} />
         </div>
       )}
-
       {activeTab === 5 && (
         <div className="w-full flex flex-wrap">
           <FavoriteSection viewport={viewport} />
+        </div>
+      )}
+      {activeTab === 6 && (
+        <div className="w-full flex flex-wrap">
+          <HiddenSection viewport={viewport} />
         </div>
       )}
     </div>
