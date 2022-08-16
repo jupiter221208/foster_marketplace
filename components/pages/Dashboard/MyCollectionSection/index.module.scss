@@ -1,0 +1,10 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  margin-top: 16px;
+  @media (min-width: 1024px) {
+    margin-top: 52px;
+  }
+  width: 100%;
+}
