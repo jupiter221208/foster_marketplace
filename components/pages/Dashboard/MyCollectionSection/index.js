@@ -34,7 +34,7 @@ const MyCollectionSection = props => {
         ))}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />
+        <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} viewport={viewport} />
       </div>
     </section>
   )

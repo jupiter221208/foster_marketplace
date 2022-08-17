@@ -26,19 +26,21 @@ const Accordion = props => {
             )}
           </Disclosure.Button>
           {data.length !== 0 && (
-            <Disclosure.Panel className="absolute bottom-28 px-4 pt-4 pb-2 text-sm text-gray-500">
-              {data.map((item, index) => (
-                <div
-                  key={index}
-                  className={styles.menuItem}
-                  onClick={() => {
-                    // setOpen(false)
-                    onClick(item)
-                  }}
-                >
-                  {item.label}
-                </div>
-              ))}
+            <Disclosure.Panel className="absolute bottom-28 pt-4 pb-2 text-sm text-gray-500">
+              {({ close }) =>
+                data.map((item, index) => (
+                  <div
+                    key={index}
+                    className={styles.menuItem}
+                    onClick={() => {
+                      close()
+                      onClick(item)
+                    }}
+                  >
+                    {item.label}
+                  </div>
+                ))
+              }
             </Disclosure.Panel>
           )}
         </>

@@ -23,7 +23,7 @@ const OfferSection = props => {
         )}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={OfferList} getCurrentData={data => setOfferList(data)} />
+        <Pagination data={OfferList} getCurrentData={data => setOfferList(data)} viewport={viewport} />
       </div>
     </section>
   )
