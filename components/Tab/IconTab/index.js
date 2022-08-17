@@ -10,11 +10,11 @@ import { Tab as HTab } from '@headlessui/react'
 import styles from './index.module.scss'
 
 const IconTab = props => {
-  const { tabList, onChange } = props
+  const { tabList, onChange, viewport } = props
 
   return (
     <HTab.Group>
-      <HTab.List className="flex flex-wrap justify-center items-center z-10">
+      <HTab.List className={viewport === 'xs' || viewport === 'sm' ? styles.mobileScrollbar : styles.scrollbar}>
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
             <button
