@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // components
 import OfferTable from 'components/Table/OfferTable'
-import ActivityAccordion from 'components/Accordion/ActivityAccordion'
+import OfferAccordion from 'components/Accordion/OfferAccordion'
 import Pagination from 'components/Button/Pagination'
 
 // json
@@ -19,7 +19,7 @@ const OfferSection = props => {
         {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
           <OfferTable data={offerList} viewport={viewport} />
         ) : (
-          <ActivityAccordion data={offerList} viewport={viewport} />
+          <OfferAccordion data={offerList} viewport={viewport} />
         )}
       </div>
       <div className="w-full flex justify-end">

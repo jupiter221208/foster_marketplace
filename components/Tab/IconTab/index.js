@@ -14,7 +14,7 @@ const IconTab = props => {
 
   return (
     <HTab.Group>
-      <HTab.List className="flex flex-wrap justify-center items-center">
+      <HTab.List className="flex flex-wrap justify-center items-center z-10">
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
             <button
