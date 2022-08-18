@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -29,6 +29,7 @@ import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import QuickBuyProgressingModal from 'components/Modal/QuickBuyProgressingModal'
+import Alert from 'components/Alert'
 
 // images and icons
 import Avatar from 'assets/images/NFT-Display-Group.png'
@@ -111,6 +112,16 @@ const MainSection = props => {
   }
 
   const [openQuickBuyProgressingModal, setOpenQuickBuyProgressingModal] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+
+  useEffect(() => {
+    if (openQuickBuyProgressingModal) {
+      setTimeout(() => {
+        setOpenQuickBuyProgressingModal(false)
+        setShowAlert(true)
+      }, 5000)
+    }
+  }, [openQuickBuyProgressingModal])
 
   return (
     <div className={styles.container}>
@@ -471,6 +482,14 @@ const MainSection = props => {
         </div>
       </div>
       <QuickBuyProgressingModal viewport={viewport} open={openQuickBuyProgressingModal} />
+      <Alert
+        viewport={viewport}
+        open={showAlert}
+        close={() => setShowAlert(false)}
+        title="Successful Purchase!"
+        description="Navigate to My Dashboard to view your purchased NFT."
+        type="success"
+      />
     </div>
   )
 }
