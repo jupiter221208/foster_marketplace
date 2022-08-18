@@ -28,7 +28,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
-import QuickBuyProgressingModal from 'components/Modal/QuickBuyProgressingModal'
+import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 
 // images and icons
@@ -111,17 +111,17 @@ const MainSection = props => {
     ],
   }
 
-  const [openQuickBuyProgressingModal, setOpenQuickBuyProgressingModal] = useState(false)
+  const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
-    if (openQuickBuyProgressingModal) {
+    if (openProgressingModal) {
       setTimeout(() => {
-        setOpenQuickBuyProgressingModal(false)
+        setOpenProgressingModal(false)
         setShowAlert(true)
       }, 5000)
     }
-  }, [openQuickBuyProgressingModal])
+  }, [openProgressingModal])
 
   return (
     <div className={styles.container}>
@@ -194,7 +194,7 @@ const MainSection = props => {
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 <GradientButton
                   label="Quick Buy"
-                  onClick={() => setOpenQuickBuyProgressingModal(true)}
+                  onClick={() => setOpenProgressingModal(true)}
                   icon={QuickBuyBlackIcon}
                   direction="rtl"
                 />
@@ -481,7 +481,7 @@ const MainSection = props => {
           </div>
         </div>
       </div>
-      <QuickBuyProgressingModal viewport={viewport} open={openQuickBuyProgressingModal} />
+      <ProgressingModal viewport={viewport} open={openProgressingModal} />
       <Alert
         viewport={viewport}
         open={showAlert}

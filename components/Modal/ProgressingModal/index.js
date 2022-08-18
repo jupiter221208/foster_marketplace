@@ -8,7 +8,7 @@ import styles from './index.module.scss'
 
 // json
 
-const QuickBuyProgressingModal = props => {
+const ProgressingModal = props => {
   const { viewport, open } = props
 
   return (
@@ -70,4 +70,4 @@ const QuickBuyProgressingModal = props => {
   )
 }
 
-export default QuickBuyProgressingModal
+export default ProgressingModal
