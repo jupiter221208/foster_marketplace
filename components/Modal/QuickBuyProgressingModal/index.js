@@ -1,27 +1,12 @@
 import React, { Fragment } from 'react'
 
 // third party components
-import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
 import RingLoader from 'react-spinners/RingLoader'
 
-// next components
-import Image from 'next/image'
-
-// components
-import WalletItem from 'components/Card/WalletItem'
-
-// images
-import LogoBigIcon from 'assets/logo-big.svg'
-import LogoIcon from 'assets/icons/logo.svg'
-import CloseIcon from 'assets/icons/close-wallet.svg'
-import ConnectLogo from 'assets/images/connect_wallet_logo.png'
-
-// styles
 import styles from './index.module.scss'
 
 // json
-import WalletItemList from 'assets/json/wallet-item.json'
 
 const QuickBuyProgressingModal = props => {
   const { viewport, open } = props
