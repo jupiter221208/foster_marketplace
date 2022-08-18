@@ -28,6 +28,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import QuickBuyProgressingModal from 'components/Modal/QuickBuyProgressingModal'
 
 // images and icons
 import Avatar from 'assets/images/NFT-Display-Group.png'
@@ -109,6 +110,8 @@ const MainSection = props => {
     ],
   }
 
+  const [openQuickBuyProgressingModal, setOpenQuickBuyProgressingModal] = useState(false)
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -178,7 +181,12 @@ const MainSection = props => {
                 <div className={`${styles.whiteTitle} ml-[6px]`}>1.1</div>
               </div>
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                <GradientButton label="Quick Buy" onClick={() => {}} icon={QuickBuyBlackIcon} direction="rtl" />
+                <GradientButton
+                  label="Quick Buy"
+                  onClick={() => setOpenQuickBuyProgressingModal(true)}
+                  icon={QuickBuyBlackIcon}
+                  direction="rtl"
+                />
                 <OutlineButton
                   label="Make Offer"
                   onClick={() => {}}
@@ -462,6 +470,7 @@ const MainSection = props => {
           </div>
         </div>
       </div>
+      <QuickBuyProgressingModal viewport={viewport} open={openQuickBuyProgressingModal} />
     </div>
   )
 }
