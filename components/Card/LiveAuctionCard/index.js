@@ -11,9 +11,10 @@ import styles from './index.module.scss'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const LiveAuctionCard = props => {
-  const { image, nftName, artistName, count, endsIn, viewport } = props
+  const { image, nftName, artistName, count, endsIn, viewport, onClick } = props
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick()}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
         <Image src={image} alt="" width={321} height={345} layout="responsive" objectFit="cover" />
       </div>
