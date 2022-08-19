@@ -11,7 +11,7 @@ import GradientButton from 'components/Button/GradientButton'
 // json
 
 const MakeAnOfferModal = props => {
-  const { viewport, open } = props
+  const { viewport, open, close, onClick } = props
 
   const [minimumOffer, setMinimumOffer] = useState(0)
 
@@ -63,7 +63,13 @@ const MakeAnOfferModal = props => {
                     <PriceInput value={minimumOffer} fullWidth onChange={value => setMinimumOffer(value)} />
                   </div>
                   <div className="w-full max-w-[126px] min-w-[126px]">
-                    <GradientButton label="Make Offer" fullWidth onClick={() => {}} height="50px" fontSize="16px" />
+                    <GradientButton
+                      label="Make Offer"
+                      fullWidth
+                      onClick={() => onClick()}
+                      height="50px"
+                      fontSize="16px"
+                    />
                   </div>
                 </div>
                 <div className="w-full mt-[103px]">

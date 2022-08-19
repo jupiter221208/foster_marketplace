@@ -505,7 +505,15 @@ const MainSection = props => {
         description="Navigate to My Dashboard to view your purchased NFT."
         type="success"
       />
-      <MakeAnOfferModal viewport={viewport} open={openOfferModal} />
+      <MakeAnOfferModal
+        viewport={viewport}
+        open={openOfferModal}
+        close={() => setOpenOfferModal(false)}
+        onClick={() => {
+          setOpenOfferModal(false)
+          setOpenProgressingModal(true)
+        }}
+      />
     </div>
   )
 }
