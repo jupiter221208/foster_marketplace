@@ -7,6 +7,9 @@ import Image from 'next/image'
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/LiveAuction/MainSection'
+import MoreCollectionSection from 'components/pages/LiveAuction/MoreCollectionSection'
+import MoreArtistSection from 'components/pages/LiveAuction/MoreArtistSection'
+import MoreCategorySection from 'components/pages/LiveAuction/MoreCategorySection'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -33,6 +36,9 @@ const LiveAuction = props => {
         </div>
         <div className="z-10">
           <MainSection viewport={viewport} />
+          <MoreCollectionSection viewport={viewport} />
+          <MoreArtistSection viewport={viewport} />
+          <MoreCategorySection viewport={viewport} />
         </div>
       </div>
     </div>
