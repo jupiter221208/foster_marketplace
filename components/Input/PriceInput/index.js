@@ -19,7 +19,9 @@ const PriceInput = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
-      <Image src={SolanaLogoIcon} alt="" />
+      <div className="w-6 h-6">
+        <Image src={SolanaLogoIcon} alt="" />
+      </div>
     </div>
   )
 }

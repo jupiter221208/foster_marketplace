@@ -59,12 +59,55 @@ const MakeAnOfferModal = props => {
                   </div>
                 </div>
                 <div className="w-full flex justify-between gap-4 mt-10">
-                  <div className="flex flex-1">
+                  <div className={styles.inputArea}>
                     <PriceInput value={minimumOffer} fullWidth onChange={value => setMinimumOffer(value)} />
                   </div>
-                  <div className="w-full max-w-[126px]">
-                    <GradientButton label="Make Offer" fullWidth onClick={() => {}} />
+                  <div className="w-full max-w-[126px] min-w-[126px]">
+                    <GradientButton label="Make Offer" fullWidth onClick={() => {}} height="50px" fontSize="16px" />
                   </div>
+                </div>
+                <div className="w-full mt-[103px]">
+                  <div className={styles.cardTitle}>NFT Name</div>
+                </div>
+                <div className="w-full mt-2">
+                  <div className={styles.greenText}>Collection Name (if applicable)</div>
+                </div>
+                <div className="w-full mt-5 mb-[22px]">
+                  <div className={styles.greenLine} />
+                </div>
+                <div className="w-full flex flex-wrap gap-3">
+                  <div className="w-full flex justify-between">
+                    <div className={styles.grayText}>Buy now price</div>
+                    <div className={styles.grayText}>189.00 SOL</div>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.whiteText}>Minimum offer (50%)</div>
+                    <div className={styles.whiteText}>94.50 SOL</div>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.whiteText}>Main Wallet Balance</div>
+                    <div className={styles.whiteText}>100.00 SOL</div>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.whiteText}>Bidding Wallet Balance</div>
+                    <div className={styles.whiteText}>0.00 SOL</div>
+                  </div>
+                </div>
+                <div className="w-full mt-5 mb-[22px]">
+                  <div className={styles.greenLine} />
+                </div>
+                <div className="w-full flex flex-wrap gap-3">
+                  <div className="w-full flex justify-between">
+                    <div className={styles.whiteText}>New Main Wallet Balance</div>
+                    <div className={styles.whiteText}>5.50 SOL</div>
+                  </div>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.whiteText}>New Bidding Wallet Balance</div>
+                    <div className={styles.whiteText}>94.50 SOL</div>
+                  </div>
+                </div>
+                <div className="w-full flex justify-center text-center mt-[31px]">
+                  <div className={styles.termText}>By selecting “Make offer” you agree to Terms of Services</div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

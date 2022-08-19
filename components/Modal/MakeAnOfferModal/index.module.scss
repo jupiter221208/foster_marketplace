@@ -19,7 +19,8 @@
 }
 
 .modalView {
-  width: 488px;
+  width: 100%;
+  max-width: 488px;
   height: 100%;
   background-color: #121212;
   border: 1px solid #41d0c6;
@@ -56,14 +57,40 @@
   color: $text-gray-200-color;
 }
 
-.whiteBackground {
-  width: 100%;
-  background-color: $text-gray-200-color;
-  border-radius: 12px;
-  padding: 15px;
+.inputArea {
+  width: calc(100% - 150px);
+}
 
+.greenText {
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-800-color;
+  color: $brand-01-color;
+}
+
+.greenLine {
+  width: 100%;
+  height: 1px;
+  background-color: $brand-01-color;
+}
+
+.grayText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.7);
+}
+
+.whiteText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+}
+
+.termText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: $brand-06-color;
 }
