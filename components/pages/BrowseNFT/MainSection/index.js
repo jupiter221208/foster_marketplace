@@ -44,6 +44,9 @@ import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
 import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
 import SaleWhiteIcon from 'assets/icons/sale-white.svg'
+import LikeIcon from 'assets/icons/like.svg'
+import HandsIcon from 'assets/icons/hands.svg'
+import AirBallonIcon from 'assets/icons/air-ballon.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -153,28 +156,37 @@ const MainSection = props => {
             <div className="w-full flex flex-wrap">
               <div className="w-full flex justify-between items-center">
                 <div className={styles.greenTitle}>The GB Series</div>
-                <div className="flex gap-4">
-                  <IconButton
-                    icon={HeartUnfilledWhiteIcon}
-                    backgroundColor="transparent"
-                    onClick={() => {}}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                  />
-                  <IconButton
-                    icon={SendWhiteIcon}
-                    backgroundColor="transparent"
-                    onClick={() => {}}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                  />
-                  <IconButton
-                    icon={CandyWhiteIcon}
-                    backgroundColor="transparent"
-                    onClick={() => {}}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                  />
+                <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                  <div className="flex flex-wrap items-center">
+                    <IconButton
+                      icon={LikeIcon}
+                      backgroundColor="transparent"
+                      onClick={() => {}}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
+                    />
+                    <div className={styles.likeTitle}>254</div>
+                  </div>
+                  <div className="flex flex-wrap items-center">
+                    <IconButton
+                      icon={HandsIcon}
+                      backgroundColor="transparent"
+                      onClick={() => {}}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
+                    />
+                    <div className={styles.likeTitle}>254</div>
+                  </div>
+                  <div className="flex flex-wrap items-center">
+                    <IconButton
+                      icon={AirBallonIcon}
+                      backgroundColor="transparent"
+                      onClick={() => {}}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
+                    />
+                    <div className={styles.likeTitle}>254</div>
+                  </div>
                 </div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">

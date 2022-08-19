@@ -93,6 +93,17 @@
   color: $brand-01-color;
 }
 
+.likeTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: $brand-01-color;
+}
+
 .whiteTitle {
   font-family: 'Muli-Bold';
   font-size: 24px;
