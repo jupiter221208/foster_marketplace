@@ -30,6 +30,7 @@ import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
+import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 
 // images and icons
 import Avatar from 'assets/images/NFT-Display-Group.png'
@@ -123,6 +124,8 @@ const MainSection = props => {
     }
   }, [openProgressingModal])
 
+  const [openOfferModal, setOpenOfferModal] = useState(false)
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -200,7 +203,7 @@ const MainSection = props => {
                 />
                 <OutlineButton
                   label="Make Offer"
-                  onClick={() => {}}
+                  onClick={() => setOpenOfferModal(true)}
                   icon={TagWhiteIcon}
                   direction="rtl"
                   borderColor="#ffffff"
@@ -490,6 +493,7 @@ const MainSection = props => {
         description="Navigate to My Dashboard to view your purchased NFT."
         type="success"
       />
+      <MakeAnOfferModal viewport={viewport} open={openOfferModal} />
     </div>
   )
 }
