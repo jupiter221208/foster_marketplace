@@ -44,7 +44,7 @@ import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
 import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
 import SaleWhiteIcon from 'assets/icons/sale-white.svg'
-import LikeIcon from 'assets/icons/like.svg'
+import BloodDropIcon from 'assets/icons/blood-drop.svg'
 import HandsIcon from 'assets/icons/hands.svg'
 import AirBallonIcon from 'assets/icons/air-ballon.svg'
 
@@ -159,7 +159,7 @@ const MainSection = props => {
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                   <div className="flex flex-wrap items-center">
                     <IconButton
-                      icon={LikeIcon}
+                      icon={BloodDropIcon}
                       backgroundColor="transparent"
                       onClick={() => {}}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
