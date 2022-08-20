@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -29,6 +29,7 @@ import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import AuctionCard from 'components/Card/AuctionCard'
+import PlaceBidModal from 'components/Modal/PlaceBidModal'
 
 // images and icons
 import Avatar from 'assets/images/live-auction.png'
@@ -110,19 +111,7 @@ const MainSection = props => {
     ],
   }
 
-  const [openProgressingModal, setOpenProgressingModal] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-
-  useEffect(() => {
-    if (openProgressingModal) {
-      setTimeout(() => {
-        setOpenProgressingModal(false)
-        setShowAlert(true)
-      }, 5000)
-    }
-  }, [openProgressingModal])
-
-  const [openOfferModal, setOpenOfferModal] = useState(false)
+  const [showPlaceBidModal, setShowPlaceBidModal] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -199,12 +188,12 @@ const MainSection = props => {
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 <GradientButton
                   label="Place Bid"
-                  onClick={() => setOpenProgressingModal(true)}
+                  onClick={() => setShowPlaceBidModal(true)}
                   icon={SolanaAuctionIcon}
                   direction="rtl"
                 />
               </div>
-              <div className="w-full flex content-none mt-[14px]">
+              <div className="w-full flex content-none mt-6 lg:mt-7">
                 <AuctionCard />
               </div>
               <div className="mx-auto w-full mt-4">
@@ -475,6 +464,7 @@ const MainSection = props => {
           </div>
         </div>
       </div>
+      <PlaceBidModal viewport={viewport} open={showPlaceBidModal} onClose={() => setShowPlaceBidModal(false)} />
     </div>
   )
 }
