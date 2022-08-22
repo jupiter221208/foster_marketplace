@@ -333,7 +333,7 @@ tr th:last-child {
 tbody:before {
   content: '@';
   display: block;
-  line-height: 8px;
+  line-height: 0px;
   text-indent: -99999px;
 }
 
