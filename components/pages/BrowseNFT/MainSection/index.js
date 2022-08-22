@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -61,6 +62,7 @@ import Select from 'components/Select'
 
 const MainSection = props => {
   const { viewport } = props
+  const router = useRouter()
 
   const buttonRefs = useRef([])
   const openedRef = useRef(null)
@@ -201,9 +203,16 @@ const MainSection = props => {
               </div>
               <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7">
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
-                <div className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}>BillBudz</div>
+                <div
+                  className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
+                  onClick={() => router.push('/artist-profile')}
+                >
+                  BillBudz
+                </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
-                <div className={styles.greenText}>Plumpadoodle</div>
+                <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
+                  Plumpadoodle
+                </div>
               </div>
             </div>
 

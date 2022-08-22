@@ -159,6 +159,10 @@
     line-height: 24px;
   }
   color: $brand-01-color;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
 .whiteDiscription {
