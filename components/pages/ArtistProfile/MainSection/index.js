@@ -44,7 +44,7 @@ const MainSection = props => {
             <GradientButton
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-              label="Follow"
+              label="Connect"
               direction={'rtl'}
               icon={AvatarFollowIcon}
             />

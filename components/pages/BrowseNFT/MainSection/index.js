@@ -436,15 +436,19 @@ const MainSection = props => {
                         }}
                       >
                         <table className="w-full table-auto">
-                          <thead>
-                            <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
-                              <th>Event</th>
-                              <th>Price</th>
-                              <th>From</th>
-                              <th>To</th>
-                              <th>Date</th>
-                            </tr>
-                          </thead>
+                          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                            <></>
+                          ) : (
+                            <thead>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                                <th>Event</th>
+                                <th>Price</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                          )}
                           <tbody>
                             {ActivityList.map((item, index) => (
                               <tr key={index} className={`${styles.tableText} gap-2`}>
@@ -470,26 +474,34 @@ const MainSection = props => {
                                     <div className="ml-2">{item.price}</div>
                                   </div>
                                 </td>
-                                <td>
-                                  <div className="flex items-center mx-2 gap-2">
-                                    {item.from !== undefined && item.from.slice(0, 4)}
-                                    {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                    {item.from !== undefined &&
-                                      item.from.slice(
-                                        viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
-                                      )}
-                                  </div>
-                                </td>
-                                <td>
-                                  <div className="flex items-center mx-2 gap-2">
-                                    {item.to !== undefined && item.to.slice(0, 4)}
-                                    {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                    {item.to !== undefined &&
-                                      item.to.slice(
-                                        viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
-                                      )}
-                                  </div>
-                                </td>
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <></>
+                                ) : (
+                                  <td>
+                                    <div className="flex items-center mx-2 gap-2">
+                                      {item.from !== undefined && item.from.slice(0, 4)}
+                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
+                                      {item.from !== undefined &&
+                                        item.from.slice(
+                                          viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
+                                        )}
+                                    </div>
+                                  </td>
+                                )}
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <></>
+                                ) : (
+                                  <td>
+                                    <div className="flex items-center mx-2 gap-2">
+                                      {item.to !== undefined && item.to.slice(0, 4)}
+                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
+                                      {item.to !== undefined &&
+                                        item.to.slice(
+                                          viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
+                                        )}
+                                    </div>
+                                  </td>
+                                )}
                                 <td>
                                   <div className="flex items-center mx-2 gap-2">
                                     {item.date}

@@ -434,10 +434,7 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div className="ml-2">
-                                      {item.price}
-                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? ' SOL' : ''}
-                                    </div>
+                                    <div className="ml-2">{item.price}</div>
                                   </div>
                                 </td>
                                 <td>
