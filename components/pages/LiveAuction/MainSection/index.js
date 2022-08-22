@@ -43,6 +43,9 @@ import SaleWhiteIcon from 'assets/icons/sale-white.svg'
 import BloodDropIcon from 'assets/icons/blood-drop.svg'
 import HandsIcon from 'assets/icons/hands.svg'
 import AirBallonIcon from 'assets/icons/air-ballon.svg'
+import BloodDropToggleIcon from 'assets/icons/blood-drop-toggle.svg'
+import HandsToggleIcon from 'assets/icons/hands-toggle.svg'
+import AirBallonToggleIcon from 'assets/icons/air-ballon-toggle.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -57,6 +60,9 @@ const MainSection = props => {
 
   const buttonRefs = useRef([])
   const openedRef = useRef(null)
+  const [like, setLike] = useState(false)
+  const [share, setShare] = useState(false)
+  const [favorite, setFavorite] = useState(false)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -143,33 +149,33 @@ const MainSection = props => {
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                   <div className="flex flex-wrap items-center">
                     <IconButton
-                      icon={BloodDropIcon}
+                      icon={like ? BloodDropToggleIcon : BloodDropIcon}
                       backgroundColor="transparent"
-                      onClick={() => {}}
+                      onClick={() => setLike(!like)}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
                     />
-                    <div className={styles.likeTitle}>254</div>
+                    <div className={styles.likeTitle}>{like ? 255 : 254}</div>
                   </div>
                   <div className="flex flex-wrap items-center">
                     <IconButton
-                      icon={HandsIcon}
+                      icon={share ? HandsToggleIcon : HandsIcon}
                       backgroundColor="transparent"
-                      onClick={() => {}}
+                      onClick={() => setShare(!share)}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
                     />
-                    <div className={styles.likeTitle}>254</div>
+                    <div className={styles.likeTitle}>{share ? 255 : 254}</div>
                   </div>
                   <div className="flex flex-wrap items-center">
                     <IconButton
-                      icon={AirBallonIcon}
+                      icon={favorite ? AirBallonToggleIcon : AirBallonIcon}
                       backgroundColor="transparent"
-                      onClick={() => {}}
+                      onClick={() => setFavorite(!favorite)}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
                     />
-                    <div className={styles.likeTitle}>254</div>
+                    <div className={styles.likeTitle}>{favorite ? 255 : 254}</div>
                   </div>
                 </div>
               </div>
