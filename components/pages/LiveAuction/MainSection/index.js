@@ -403,7 +403,7 @@ const MainSection = props => {
                         }}
                       >
                         <table className="w-full table-auto">
-                          {/* <thead>
+                          <thead>
                             <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
                               <th>Event</th>
                               <th>Price</th>
@@ -411,7 +411,7 @@ const MainSection = props => {
                               <th>To</th>
                               <th>Date</th>
                             </tr>
-                          </thead> */}
+                          </thead>
                           <tbody>
                             {ActivityList.map((item, index) => (
                               <tr key={index} className={`${styles.tableText} gap-2`}>

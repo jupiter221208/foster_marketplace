@@ -436,7 +436,7 @@ const MainSection = props => {
                         }}
                       >
                         <table className="w-full table-auto">
-                          {/* <thead>
+                          <thead>
                             <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
                               <th>Event</th>
                               <th>Price</th>
@@ -444,7 +444,7 @@ const MainSection = props => {
                               <th>To</th>
                               <th>Date</th>
                             </tr>
-                          </thead> */}
+                          </thead>
                           <tbody>
                             {ActivityList.map((item, index) => (
                               <tr key={index} className={`${styles.tableText} gap-2`}>
@@ -467,10 +467,7 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div className="ml-2">
-                                      {item.price}
-                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? ' SOL' : ''}
-                                    </div>
+                                    <div className="ml-2">{item.price}</div>
                                   </div>
                                 </td>
                                 <td>

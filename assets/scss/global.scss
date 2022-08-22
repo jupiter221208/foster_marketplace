@@ -293,8 +293,8 @@ th {
   border: 1px solid $brand-01-color;
   border-style: solid none solid none;
   padding: 4px;
-  height: 65px;
   background-color: $background-black-color;
+  height: 30px;
 
   font-family: 'Muli-Bold';
   font-size: 9px;
@@ -305,12 +305,18 @@ th {
     font-size: 12px;
   }
   @media (min-width: 1024px) {
+    height: 65px;
+
     font-size: 14px;
   }
   @media (min-width: 1280px) {
+    height: 65px;
+
     font-size: 15px;
   }
   @media (min-width: 1536px) {
+    height: 65px;
+
     font-size: 16px;
   }
   line-height: 24px;
@@ -341,7 +347,7 @@ td {
   border: 1px solid rgba(#ffffff, 0.1);
   border-style: solid none solid none;
   padding: 4px;
-  height: 90px;
+  height: 30px;
   background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
 
   font-family: 'Muli-Bold';
@@ -357,9 +363,11 @@ td {
   }
   @media (min-width: 1280px) {
     font-size: 15px;
+    height: 90px;
   }
   @media (min-width: 1536px) {
     font-size: 16px;
+    height: 90px;
   }
 
   line-height: 24px;
