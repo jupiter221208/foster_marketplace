@@ -1,5 +1,4 @@
-import React, { Fragment, useState } from 'react'
-import React, { useMemo } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
