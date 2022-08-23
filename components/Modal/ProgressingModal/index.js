@@ -56,7 +56,7 @@ const ProgressingModal = props => {
                     Did you know:&nbsp;
                     <span>
                       <strong>
-                        The idea for Foster Marketplace was conceived during a drunken' game of pool in June 2022.
+                        The idea for Foster Marketplace was conceived during a drunken&apos; game of pool in June 2022.
                       </strong>
                     </span>
                   </div>

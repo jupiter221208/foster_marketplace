@@ -47,7 +47,7 @@ const MakeAnOfferModal = props => {
                   <div className={styles.text}>
                     When you make an offer, the funds are kept in your bidding wallet to allow you to make multiple
                     offers using the same funds. To view, deposit or withdraw from your bidding wallet, please visit
-                    "offers" on your dashboard.
+                    &quot;offers&quot; on your dashboard.
                   </div>
                 </div>
                 <div className="w-full mt-[30px]">
