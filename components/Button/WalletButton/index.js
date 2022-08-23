@@ -50,10 +50,16 @@ const WalletButton = props => {
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
+          {
+            /* <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
             cGtKb.frm
             <Image src={WalletGrayIcon} alt="" />
-          </Menu.Button>
+          </Menu.Button> */
+            <WalletMultiButton className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
+              <div>{address}</div>
+              <Image src={WalletGrayIcon} alt="" />
+            </WalletMultiButton>
+          }
         </div>
         <Transition
           as={Fragment}
