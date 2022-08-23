@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-import { Provider } from 'react-redux'
-import store from 'store.js'
-
 // styles
+import '@solana/wallet-adapter-react-ui/styles.css'
 import 'assets/scss/global.scss'
 
-const MyApp = ({ Component, pageProps }) => {
+import Providers from 'providers'
+
+const MyApp = ({ Component, pageProps, cluster }) => {
   const getLayout = Component.getLayout || (page => page)
   const [viewport, setViewport] = useState('lg') // xs, sm, md, lg, xl, 2xl
 
@@ -45,7 +45,7 @@ const MyApp = ({ Component, pageProps }) => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
-  return <Provider store={store}>{getLayout(<Component {...pageProps} viewport={viewport} />)}</Provider>
+  return <Providers cluster={cluster}>{getLayout(<Component {...pageProps} viewport={viewport} />)}</Providers>
 }
 
 export default MyApp

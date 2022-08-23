@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -10,18 +10,23 @@ import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 // styles
 import styles from './index.module.scss'
 
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
+
 const WalletButton = props => {
-  const { onClick, connectWalletStatus, fullWidth = false } = props
+  const { fullWidth = false } = props
+  const { connected, publicKey } = useWallet()
+  const base58 = useMemo(() => publicKey?.toBase58(), [publicKey])
+  const address = useMemo(() => base58 && base58.slice(0, 4) + '..' + base58.slice(-4), [base58])
 
   return (
-    <button
-      className={connectWalletStatus ? styles.connectedContainer : styles.container}
-      onClick={() => onClick()}
+    <WalletMultiButton
+      className={connected ? styles.connectedContainer : styles.container}
       style={{ width: fullWidth ? '100%' : '' }}
     >
-      <div>{connectWalletStatus ? 'cGtKb.frm' : 'Connect Wallet'}</div>
-      <Image src={connectWalletStatus ? WalletGrayIcon : FosterLightGreenIcon} alt="" />
-    </button>
+      <div>{connected ? address : 'Connect Wallet'}</div>
+      <Image src={connected ? WalletGrayIcon : FosterLightGreenIcon} alt="" />
+    </WalletMultiButton>
   )
 }
 

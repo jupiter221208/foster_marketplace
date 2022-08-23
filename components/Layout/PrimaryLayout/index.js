@@ -2,6 +2,7 @@ import React from 'react'
 
 // third party components
 import { useSelector } from 'react-redux'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom components
 import Navbar from 'components/Navbar'
@@ -18,11 +19,11 @@ const PrimaryLayout = ({ children }) => {
   const { viewport } = children.props
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
-  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+  const wallet = useWallet()
 
   return (
     <div className={styles.container}>
-      {connectWalletStatus && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
+      {wallet.connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
         <Navbar viewport={viewport} />
       )}
       <PrimaryHeader viewport={viewport} />

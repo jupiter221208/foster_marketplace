@@ -2,6 +2,8 @@ import React from 'react'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletDisconnectButton } from '@solana/wallet-adapter-react-ui'
 
 // custom components
 import AccordionMenu from 'components/Menu/AccordionMenu'
@@ -28,11 +30,12 @@ import CreateMenuList from 'assets/json/create-menu.json'
 import styles from './index.module.scss'
 import MyWalletMenu from '../MyWalletMenu'
 import MyWalletSubMenu from '../MyWalletSubMenu'
+import Image from 'next/image'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
 
-  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+  const { connected } = useWallet()
   const openMyWallet = useSelector(state => state.openMyWallet)
 
   const handleDisconnectWallet = () => {
@@ -48,7 +51,7 @@ const MobileMenu = () => {
     <div className={styles.menu}>
       {openMyWallet ? (
         <MyWalletMenu />
-      ) : connectWalletStatus ? (
+      ) : connected ? (
         <div className={styles.container}>
           <div className="w-full">
             <div className="my-[10px]">
@@ -78,14 +81,20 @@ const MobileMenu = () => {
             </div>
           </div>
           <div className="w-full">
-            <OutlineButton
+            {/* <OutlineButton
               label="Logout part"
               fullWidth
               onClick={() => handleDisconnectWallet()}
               borderColor="#ffffff"
               height="45px"
               icon={LogoutWhiteIcon}
-            />
+            /> */}
+            <WalletDisconnectButton className={styles.logout}>
+              <div>Logout part</div>
+              <div className="flex items-center ml-2">
+                <Image src={LogoutWhiteIcon} alt="" />
+              </div>
+            </WalletDisconnectButton>
           </div>
         </div>
       ) : (
@@ -95,11 +104,7 @@ const MobileMenu = () => {
             <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
           </div>
           <div className="w-full flex items-end">
-            <WalletButton
-              onClick={() => handleOpenConnectWallet()}
-              connectWalletStatus={connectWalletStatus}
-              fullWidth
-            />
+            <WalletButton fullWidth />
           </div>
         </div>
       )}
