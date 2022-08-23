@@ -3,6 +3,10 @@ const path = require('path')
 
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    BASE_CLUSTER: process.env.BASE_CLUSTER,
+    MAINNET_PRIMARY: process.env.MAINNET_PRIMARY,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },

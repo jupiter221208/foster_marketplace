@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react'
+import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -29,8 +30,14 @@ import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.s
 // styles
 import styles from './index.module.scss'
 
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
+
 const WalletButton = props => {
-  const { onClick, connectWalletStatus, fullWidth = false } = props
+  const { onClick, fullWidth = false } = props
+  const { connected, publicKey } = useWallet()
+  const base58 = useMemo(() => publicKey?.toBase58(), [publicKey])
+  const address = useMemo(() => base58 && base58.slice(0, 4) + '..' + base58.slice(-4), [base58])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -40,7 +47,7 @@ const WalletButton = props => {
   const [status, setStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
   const [price, setPrice] = useState(13.2)
 
-  return connectWalletStatus ? (
+  return connected ? (
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
@@ -195,10 +202,13 @@ const WalletButton = props => {
       </Menu>
     </div>
   ) : (
-    <button className={styles.container} onClick={() => onClick()} style={{ width: fullWidth ? '100%' : '' }}>
-      <div>Connect Wallet</div>
-      <Image src={FosterLightGreenIcon} alt="" />
-    </button>
+    <WalletMultiButton
+      className={connected ? styles.connectedContainer : styles.container}
+      style={{ width: fullWidth ? '100%' : '' }}
+    >
+      <div>{connected ? address : 'Connect Wallet'}</div>
+      <Image src={connected ? WalletGrayIcon : FosterLightGreenIcon} alt="" />
+    </WalletMultiButton>
   )
 }
 

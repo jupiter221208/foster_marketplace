@@ -93,3 +93,26 @@
   width: 100%;
   height: 100%;
 }
+
+.logout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid rgb(255, 255, 255);
+  font-size: 14px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 12px;
+  font-family: Muli-Bold;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: #eff0f6;
+
+  &:not([disabled]):hover {
+    background-color: transparent;
+    opacity: 0.8;
+  }
+}

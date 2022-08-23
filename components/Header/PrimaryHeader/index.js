@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -92,7 +95,7 @@ const PrimaryHeader = props => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
+  const { connected } = useWallet()
 
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
@@ -110,19 +113,6 @@ const PrimaryHeader = props => {
 
   const handleOpenMobileMenu = () => {
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
-  }
-
-  const handleOpenConnectWallet = () => {
-    switch (connectWalletStatus) {
-      case true:
-        dispatch({ type: 'set', connectWalletStatus: !connectWalletStatus })
-        break
-      case false:
-        dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
-        break
-      default:
-        break
-    }
   }
 
   const handleGotoHomepage = () => {
@@ -152,12 +142,12 @@ const PrimaryHeader = props => {
           />
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
-          <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connectWalletStatus} />
+          <WalletButton />
           <ProfileMenu
             avatar={AvatarImage}
             menuList={ProfileMenuList}
             onSelect={item => router.push(item.path)}
-            connectWalletStatus={connectWalletStatus}
+            connectWalletStatus={connected}
           />
         </div>
       </div>
