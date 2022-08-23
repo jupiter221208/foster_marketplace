@@ -19,13 +19,11 @@ const PrimaryLayout = ({ children }) => {
   const { viewport } = children.props
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
-  const wallet = useWallet()
+  const { connected } = useWallet()
 
   return (
     <div className={styles.container}>
-      {wallet.connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-        <Navbar viewport={viewport} />
-      )}
+      {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar viewport={viewport} />}
       <PrimaryHeader viewport={viewport} />
       <ConnectWalletModal viewport={viewport} />
       {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
