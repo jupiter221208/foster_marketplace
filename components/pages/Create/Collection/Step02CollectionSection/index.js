@@ -179,7 +179,7 @@ const Step02CollectionSection = props => {
     if (collectionFiles.length !== 0) {
       setSelectedCollectionFile(collectionFiles[0])
     }
-  }, [])
+  }, [collectionFiles])
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {

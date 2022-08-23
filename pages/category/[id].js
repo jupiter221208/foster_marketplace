@@ -33,7 +33,7 @@ const Category = props => {
     const cateId = router.query.id
     let category = PopularCategoryList[cateId]
     setCategoryInfo(category)
-  }, [])
+  }, [router.query.id])
 
   return (
     <div className="g-container">

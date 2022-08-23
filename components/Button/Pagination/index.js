@@ -33,7 +33,7 @@ const Pagination = props => {
 
   useEffect(() => {
     getCurrentData(currentData)
-  }, [currentData])
+  }, [getCurrentData, currentData])
 
   const handlePrev = () => {
     if (currentPage - 1 >= 0) setCurrentPage(currentPage - 1)
@@ -45,7 +45,7 @@ const Pagination = props => {
 
   useEffect(() => {
     setCurrentData(data.slice(currentPage * rowCount, currentPage * rowCount + rowCount))
-  }, [currentPage])
+  }, [data, currentPage, rowCount])
 
   return (
     <div className={styles.container}>
