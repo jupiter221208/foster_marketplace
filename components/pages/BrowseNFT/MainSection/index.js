@@ -35,9 +35,6 @@ import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 
 // images and icons
 import Avatar from 'assets/images/NFT-Display-Group.png'
-import HeartUnfilledWhiteIcon from 'assets/icons/heart-unfilled-white.svg'
-import SendWhiteIcon from 'assets/icons/send-white.svg'
-import CandyWhiteIcon from 'assets/icons/candy-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -521,24 +518,31 @@ const MainSection = props => {
           </div>
         </div>
       </div>
-      <ProgressingModal viewport={viewport} open={openProgressingModal} />
-      <Alert
-        viewport={viewport}
-        open={showAlert}
-        close={() => setShowAlert(false)}
-        title="Successful Purchase!"
-        description="Navigate to My Dashboard to view your purchased NFT."
-        type="success"
-      />
-      <MakeAnOfferModal
-        viewport={viewport}
-        open={openOfferModal}
-        close={() => setOpenOfferModal(false)}
-        onClick={() => {
-          setOpenOfferModal(false)
-          setOpenProgressingModal(true)
-        }}
-      />
+      {openProgressingModal && <ProgressingModal viewport={viewport} open={openProgressingModal} />}
+      {showAlert && (
+        <Alert
+          viewport={viewport}
+          open={showAlert}
+          close={() => {
+            setShowAlert(false)
+            setOpenProgressingModal(false)
+          }}
+          title="Successful Purchase!"
+          description="Navigate to My Dashboard to view your purchased NFT."
+          type="success"
+        />
+      )}
+      {openOfferModal && (
+        <MakeAnOfferModal
+          viewport={viewport}
+          open={openOfferModal}
+          close={() => setOpenOfferModal(false)}
+          onClick={() => {
+            setOpenOfferModal(false)
+            setOpenProgressingModal(true)
+          }}
+        />
+      )}
     </div>
   )
 }
