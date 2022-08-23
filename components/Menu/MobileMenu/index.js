@@ -81,14 +81,6 @@ const MobileMenu = () => {
             </div>
           </div>
           <div className="w-full">
-            {/* <OutlineButton
-              label="Logout part"
-              fullWidth
-              onClick={() => handleDisconnectWallet()}
-              borderColor="#ffffff"
-              height="45px"
-              icon={LogoutWhiteIcon}
-            /> */}
             <WalletDisconnectButton className={styles.logout}>
               <div>Logout part</div>
               <div className="flex items-center ml-2">
