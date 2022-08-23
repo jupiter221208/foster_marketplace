@@ -1,0 +1,19 @@
+@import 'assets/scss/variable.module.scss';
+
+.avatarArea {
+  // position: absolute;
+  // bottom: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  @media (min-width: 640px) {
+    // bottom: -39px;
+    width: 78px;
+    height: 78px;
+    border-radius: 39px;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to left, rgba($brand-02-color, 1), rgba($text-gray-400-color, 1));
+}
