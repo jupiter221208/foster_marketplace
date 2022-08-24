@@ -137,11 +137,11 @@ const Navbar = props => {
               className={styles.navItemArea}
               onMouseOver={() => setSelectedNavMenu('resource')}
               onMouseLeave={() => setSelectedNavMenu('')}
-              onClick={() => router.push('/#resource')}
+              onClick={() => router.push('/resources')}
             >
               <Image
                 src={
-                  router.asPath === '/#resource' || selectedNavMenu === 'resource'
+                  router.asPath === '/resources' || selectedNavMenu === 'resource'
                     ? ResourceGreenIcon
                     : ResourceGrayIcon
                 }
@@ -214,7 +214,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'resource' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[36px] h-[30px]'}`}
-              onClick={() => router.push('/#resource')}
+              onClick={() => router.push('/resources')}
             >
               Resources
             </div>

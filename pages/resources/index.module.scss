@@ -1,0 +1,39 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 114px;
+  margin-bottom: 54px;
+  @media (min-width: 1024px) {
+    margin-top: 118px;
+    margin-bottom: 54px;
+  }
+}
+
+.topLeftEllipse {
+  position: absolute;
+  top: -960px;
+  left: -960px;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 28px;
+    line-height: 34px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 34px;
+    line-height: 44px;
+  }
+  color: $text-gray-200-color;
+}
