@@ -18,9 +18,7 @@ import RowCountList from 'assets/json/dashboard/row-count-list.json'
 import styles from './index.module.scss'
 
 const Pagination = props => {
-  const { data, getCurrentData } = props
-
-  const dispatch = useDispatch()
+  const { data, getCurrentData, viewport } = props
 
   const [rowCount, setRowCount] = useState(12)
   const [totalCount, setTotalCount] = useState(0)
@@ -35,7 +33,7 @@ const Pagination = props => {
 
   useEffect(() => {
     getCurrentData(currentData)
-  }, [currentData])
+  }, [getCurrentData, currentData])
 
   const handlePrev = () => {
     if (currentPage - 1 >= 0) setCurrentPage(currentPage - 1)
@@ -47,7 +45,7 @@ const Pagination = props => {
 
   useEffect(() => {
     setCurrentData(data.slice(currentPage * rowCount, currentPage * rowCount + rowCount))
-  }, [currentPage])
+  }, [data, currentPage, rowCount])
 
   return (
     <div className={styles.container}>
@@ -62,6 +60,8 @@ const Pagination = props => {
       </div>
       <div>
         <IconButton
+          width={viewport === 'xs' || viewport === 'sm' ? '30px' : '46px'}
+          height={viewport === 'xs' || viewport === 'sm' ? '30px' : '46px'}
           icon={ArrowLeftIcon}
           alt=""
           backgroundColor="#202427"
@@ -71,6 +71,8 @@ const Pagination = props => {
       </div>
       <div>
         <IconButton
+          width={viewport === 'xs' || viewport === 'sm' ? '30px' : '46px'}
+          height={viewport === 'xs' || viewport === 'sm' ? '30px' : '46px'}
           icon={ArrowRightIcon}
           alt=""
           backgroundColor="#202427"

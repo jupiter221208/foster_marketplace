@@ -12,6 +12,7 @@ import ArtistTypeCard from 'components/Card/ArtistTypeCard'
 import AddressButton from 'components/Button/AddressButton'
 
 // images and icons
+import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import HeaderImage from 'assets/images/alexander-ant.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
@@ -36,10 +37,13 @@ const MainSection = props => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.topLeftEllipse}>
+        <Image src={EllipseGreen} alt="" objectFit="cover" />
+      </div>
       <div className={styles.headerImage}>
         <Image src={HeaderImage} alt="" objectFit="stretch" className="rounded-[20px]" />
       </div>
-      <div className="w-full">
+      <div className="w-full z-10">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
             <GradientButton

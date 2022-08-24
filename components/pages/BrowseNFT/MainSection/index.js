@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -28,12 +29,12 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import Alert from 'components/Alert'
+import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 
 // images and icons
 import Avatar from 'assets/images/NFT-Display-Group.png'
-import HeartUnfilledWhiteIcon from 'assets/icons/heart-unfilled-white.svg'
-import SendWhiteIcon from 'assets/icons/send-white.svg'
-import CandyWhiteIcon from 'assets/icons/candy-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -41,6 +42,12 @@ import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
 import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
 import SaleWhiteIcon from 'assets/icons/sale-white.svg'
+import BloodDropIcon from 'assets/icons/blood-drop.svg'
+import HandsIcon from 'assets/icons/hands.svg'
+import AirBallonIcon from 'assets/icons/air-ballon.svg'
+import BloodDropToggleIcon from 'assets/icons/blood-drop-toggle.svg'
+import HandsToggleIcon from 'assets/icons/hands-toggle.svg'
+import AirBallonToggleIcon from 'assets/icons/air-ballon-toggle.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -52,9 +59,14 @@ import Select from 'components/Select'
 
 const MainSection = props => {
   const { viewport } = props
+  const router = useRouter()
 
   const buttonRefs = useRef([])
   const openedRef = useRef(null)
+  const [like, setLike] = useState(false)
+  const [share, setShare] = useState(false)
+  const [favorite, setFavorite] = useState(false)
+
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -109,6 +121,20 @@ const MainSection = props => {
     ],
   }
 
+  const [openProgressingModal, setOpenProgressingModal] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+
+  useEffect(() => {
+    if (openProgressingModal) {
+      setTimeout(() => {
+        setOpenProgressingModal(false)
+        setShowAlert(true)
+      }, 5000)
+    }
+  }, [openProgressingModal])
+
+  const [openOfferModal, setOpenOfferModal] = useState(false)
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -136,28 +162,37 @@ const MainSection = props => {
             <div className="w-full flex flex-wrap">
               <div className="w-full flex justify-between items-center">
                 <div className={styles.greenTitle}>The GB Series</div>
-                <div className="flex gap-4">
-                  <IconButton
-                    icon={HeartUnfilledWhiteIcon}
-                    backgroundColor="transparent"
-                    onClick={() => {}}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                  />
-                  <IconButton
-                    icon={SendWhiteIcon}
-                    backgroundColor="transparent"
-                    onClick={() => {}}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                  />
-                  <IconButton
-                    icon={CandyWhiteIcon}
-                    backgroundColor="transparent"
-                    onClick={() => {}}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                  />
+                <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                  <div className="flex flex-wrap items-center">
+                    <IconButton
+                      icon={like ? BloodDropToggleIcon : BloodDropIcon}
+                      backgroundColor="transparent"
+                      onClick={() => setLike(!like)}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
+                    />
+                    <div className={styles.likeTitle}>{like ? 255 : 254}</div>
+                  </div>
+                  <div className="flex flex-wrap items-center">
+                    <IconButton
+                      icon={share ? HandsToggleIcon : HandsIcon}
+                      backgroundColor="transparent"
+                      onClick={() => setShare(!share)}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
+                    />
+                    <div className={styles.likeTitle}>{share ? 255 : 254}</div>
+                  </div>
+                  <div className="flex flex-wrap items-center">
+                    <IconButton
+                      icon={favorite ? AirBallonToggleIcon : AirBallonIcon}
+                      backgroundColor="transparent"
+                      onClick={() => setFavorite(!favorite)}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
+                    />
+                    <div className={styles.likeTitle}>{favorite ? 255 : 254}</div>
+                  </div>
                 </div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
@@ -165,9 +200,16 @@ const MainSection = props => {
               </div>
               <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7">
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
-                <div className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}>BillBudz</div>
+                <div
+                  className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
+                  onClick={() => router.push('/artist-profile')}
+                >
+                  BillBudz
+                </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
-                <div className={styles.greenText}>Plumpadoodle</div>
+                <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
+                  Plumpadoodle
+                </div>
               </div>
             </div>
 
@@ -178,10 +220,15 @@ const MainSection = props => {
                 <div className={`${styles.whiteTitle} ml-[6px]`}>1.1</div>
               </div>
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                <GradientButton label="Quick Buy" onClick={() => {}} icon={QuickBuyBlackIcon} direction="rtl" />
+                <GradientButton
+                  label="Quick Buy"
+                  onClick={() => setOpenProgressingModal(true)}
+                  icon={QuickBuyBlackIcon}
+                  direction="rtl"
+                />
                 <OutlineButton
                   label="Make Offer"
-                  onClick={() => {}}
+                  onClick={() => setOpenOfferModal(true)}
                   icon={TagWhiteIcon}
                   direction="rtl"
                   borderColor="#ffffff"
@@ -386,15 +433,19 @@ const MainSection = props => {
                         }}
                       >
                         <table className="w-full table-auto">
-                          <thead>
-                            <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
-                              <th>Event</th>
-                              <th>Price</th>
-                              <th>From</th>
-                              <th>To</th>
-                              <th>Date</th>
-                            </tr>
-                          </thead>
+                          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                            <></>
+                          ) : (
+                            <thead>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                                <th>Event</th>
+                                <th>Price</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                          )}
                           <tbody>
                             {ActivityList.map((item, index) => (
                               <tr key={index} className={`${styles.tableText} gap-2`}>
@@ -417,32 +468,37 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div className="ml-2">
-                                      {item.price}
-                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? ' SOL' : ''}
+                                    <div className="ml-2">{item.price}</div>
+                                  </div>
+                                </td>
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <></>
+                                ) : (
+                                  <td>
+                                    <div className="flex items-center mx-2 gap-2">
+                                      {item.from !== undefined && item.from.slice(0, 4)}
+                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
+                                      {item.from !== undefined &&
+                                        item.from.slice(
+                                          viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
+                                        )}
                                     </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div className="flex items-center mx-2 gap-2">
-                                    {item.from !== undefined && item.from.slice(0, 4)}
-                                    {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                    {item.from !== undefined &&
-                                      item.from.slice(
-                                        viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
-                                      )}
-                                  </div>
-                                </td>
-                                <td>
-                                  <div className="flex items-center mx-2 gap-2">
-                                    {item.to !== undefined && item.to.slice(0, 4)}
-                                    {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                    {item.to !== undefined &&
-                                      item.to.slice(
-                                        viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
-                                      )}
-                                  </div>
-                                </td>
+                                  </td>
+                                )}
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <></>
+                                ) : (
+                                  <td>
+                                    <div className="flex items-center mx-2 gap-2">
+                                      {item.to !== undefined && item.to.slice(0, 4)}
+                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
+                                      {item.to !== undefined &&
+                                        item.to.slice(
+                                          viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
+                                        )}
+                                    </div>
+                                  </td>
+                                )}
                                 <td>
                                   <div className="flex items-center mx-2 gap-2">
                                     {item.date}
@@ -462,6 +518,31 @@ const MainSection = props => {
           </div>
         </div>
       </div>
+      {openProgressingModal && <ProgressingModal viewport={viewport} open={openProgressingModal} />}
+      {showAlert && (
+        <Alert
+          viewport={viewport}
+          open={showAlert}
+          close={() => {
+            setShowAlert(false)
+            setOpenProgressingModal(false)
+          }}
+          title="Successful Purchase!"
+          description="Navigate to My Dashboard to view your purchased NFT."
+          type="success"
+        />
+      )}
+      {openOfferModal && (
+        <MakeAnOfferModal
+          viewport={viewport}
+          open={openOfferModal}
+          close={() => setOpenOfferModal(false)}
+          onClick={() => {
+            setOpenOfferModal(false)
+            setOpenProgressingModal(true)
+          }}
+        />
+      )}
     </div>
   )
 }

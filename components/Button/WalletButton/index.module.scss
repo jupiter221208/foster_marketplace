@@ -52,3 +52,98 @@
     background: $brand-03-color;
   }
 }
+
+.menuItems {
+  width: 264px;
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  transform-origin: top right;
+  background-color: #121212;
+  box-shadow: 0px 13px 36px #061a1c;
+  border: 1px solid $text-gray-200-color;
+  backdrop-filter: blur(30px) brightness(115%);
+  -webkit-backdrop-filter: blur(30px) brightness(115%);
+  border-radius: 20px;
+  padding: 15px;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.grayText {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 12px;
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 0.48);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba($text-gray-200-color, 0.19);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.whiteText {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.grayCard {
+  width: auto;
+  height: 21px;
+  border-radius: 12px;
+  background-color: rgba($text-gray-200-color, 0.1);
+  padding-left: 5px;
+  padding-right: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardGrayText {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.cardWhiteText {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+
+.lightGreenText {
+  font-family: 'Muli-Bold';
+  font-size: 9px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $brand-06-color;
+}
+
+.walletCard {
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba(#1c4144, 35%));
+  padding: 13px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

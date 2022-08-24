@@ -1,0 +1,58 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: linear-gradient(
+    90deg,
+    rgba(#305856, 0.5) 0%,
+    rgba(#142021, 0.5) 50%,
+    rgba($background-dark-color, 0.5) 100%
+  );
+  // background-color: rgba($background-dark-color, 0.8);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 1616px;
+  height: 100%;
+  background-color: $text-gray-200-color;
+  border: 1px solid #41d0c6;
+  border-radius: 12px;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 24px;
+  color: $text-gray-800-color;
+  padding: 10px;
+  box-shadow: 0px 3px 6px rgba(black, 0.2);
+  display: flex;
+  justify-content: space-between;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 36px;
+    padding: 15px;
+  }
+}
+
+.description {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 36px;
+  color: $text-gray-800-color;
+  padding: 5px;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+    line-height: 36px;
+    padding: 15px;
+  }
+}

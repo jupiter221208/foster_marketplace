@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 // components
 import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -63,12 +64,11 @@ const OfferTable = props => {
               <div className="w-full flex justify-center">
                 {item.action === 'accept' && <GradientButton label="Accept" onClick={() => {}} height="48px" />}
                 {item.action === 'cancel' && (
-                  <GradientButton
+                  <OutlineButton
                     label="Cancel"
                     onClick={() => {}}
-                    backgroundColor01="#5E2028"
-                    backgroundColor02="#121212"
-                    color="#EFF0F6"
+                    color="#DEEFD0"
+                    borderColor="#DEEFD0"
                     height="48px"
                   />
                 )}

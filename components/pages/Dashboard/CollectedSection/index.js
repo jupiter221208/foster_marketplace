@@ -38,7 +38,7 @@ const CollectedSection = props => {
         ))}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />
+        <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} viewport={viewport} />
       </div>
     </section>
   )

@@ -10,16 +10,19 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const PriceInput = props => {
-  const { value, placeholder, onChange, fullWidth } = props
+  const { value, placeholder, onChange, fullWidth, width = '', height = '', fontSize = '' } = props
   return (
-    <div className={styles.container} style={{ width: fullWidth ? '100%' : '' }}>
+    <div className={styles.container} style={{ width: fullWidth ? '100%' : width, height }}>
       <input
         className={styles.inputArea}
         value={value}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
+        style={{ fontSize }}
       />
-      <Image src={SolanaLogoIcon} alt="" />
+      <div className="w-6 h-6">
+        <Image src={SolanaLogoIcon} alt="" />
+      </div>
     </div>
   )
 }

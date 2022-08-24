@@ -78,8 +78,10 @@ const HiddenSection = props => {
           ))}
       </div>
       <div className="w-full flex justify-end">
-        {active === 0 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />}
-        {active === 1 && <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />}
+        {active === 0 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} viewport={viewport} />}
+        {active === 1 && (
+          <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} viewport={viewport} />
+        )}
       </div>
     </section>
   )

@@ -115,6 +115,7 @@ const LiveAuctionSection = props => {
                 count={item.count}
                 endsIn={item.endsIn}
                 viewport={viewport}
+                onClick={() => router.push('/live-auction')}
                 key={index}
               />
             </SwiperSlide>

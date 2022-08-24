@@ -1,0 +1,52 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $background-dark-color;
+  border-radius: 12px;
+  border: 1px solid $brand-06-color;
+
+  padding: 8px 10px;
+  @media (min-width: 1024px) {
+    padding: 8px 50px;
+  }
+}
+
+.whiteText {
+  text-align: center;
+  font-family: 'Muli-Bold';
+
+  font-size: 12px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+  line-height: 36px;
+  color: $text-gray-200-color;
+}
+
+.greenText {
+  text-align: center;
+  font-family: 'Muli-Semibold';
+
+  font-size: 16px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+  }
+  line-height: 24px;
+  color: $brand-06-color;
+}
+
+.grayText {
+  text-align: center;
+  font-family: 'Muli-Regular';
+
+  font-size: 8px;
+  @media (min-width: 1024px) {
+    font-size: 12px;
+  }
+  line-height: 12px;
+  color: $brand-06-color;
+}
