@@ -29,12 +29,13 @@ import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.s
 // styles
 import styles from './index.module.scss'
 
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { WalletMultiButton, useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 const WalletButton = props => {
   const { onClick, fullWidth = false } = props
   const { connected, publicKey, disconnect } = useWallet()
+  const { setVisible } = useWalletModal()
   const base58 = useMemo(() => publicKey?.toBase58(), [publicKey])
   const address = useMemo(() => base58 && base58.slice(0, 4) + '..' + base58.slice(-4), [base58])
 
@@ -205,14 +206,14 @@ const WalletButton = props => {
       </Menu>
     </div>
   ) : (
-    <WalletMultiButton className={styles.container} style={{ width: fullWidth ? '100%' : '' }}>
-      <div>Connect Wallet</div>
-      <Image src={FosterLightGreenIcon} alt="" />
-    </WalletMultiButton>
-    // <button className={styles.container} onClick={() => onClick()} style={{ width: fullWidth ? '100%' : '' }}>
+    // <WalletMultiButton className={styles.container} style={{ width: fullWidth ? '100%' : '' }}>
     //   <div>Connect Wallet</div>
     //   <Image src={FosterLightGreenIcon} alt="" />
-    // </button>
+    // </WalletMultiButton>
+    <button className={styles.container} onClick={() => setVisible(true)} style={{ width: fullWidth ? '100%' : '' }}>
+      <div>Connect Wallet</div>
+      <Image src={FosterLightGreenIcon} alt="" />
+    </button>
   )
 }
 
