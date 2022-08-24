@@ -34,7 +34,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 const WalletButton = props => {
   const { onClick, fullWidth = false } = props
-  const { connected, publicKey } = useWallet()
+  const { connected, publicKey, disconnect } = useWallet()
   const base58 = useMemo(() => publicKey?.toBase58(), [publicKey])
   const address = useMemo(() => base58 && base58.slice(0, 4) + '..' + base58.slice(-4), [base58])
 
@@ -50,16 +50,14 @@ const WalletButton = props => {
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          {
-            /* <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-            cGtKb.frm
+          <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
+            {address}
             <Image src={WalletGrayIcon} alt="" />
-          </Menu.Button> */
-            <WalletMultiButton className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-              <div>{address}</div>
-              <Image src={WalletGrayIcon} alt="" />
-            </WalletMultiButton>
-          }
+          </Menu.Button>
+          {/* <WalletMultiButton className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
+            <div>{address}</div>
+            <Image src={WalletGrayIcon} alt="" />
+          </WalletMultiButton>*/}
         </div>
         <Transition
           as={Fragment}
@@ -94,7 +92,7 @@ const WalletButton = props => {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <div className="w-full flex items-center cursor-pointer hover:opacity-80">
+                  <div className="w-full flex items-center cursor-pointer hover:opacity-80" onClick={disconnect}>
                     <Image src={DisconnectWalletIcon} alt="" />
                     <div className={styles.whiteText}>Disconnect wallet</div>
                   </div>
