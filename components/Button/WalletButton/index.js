@@ -205,13 +205,17 @@ const WalletButton = props => {
       </Menu>
     </div>
   ) : (
-    <WalletMultiButton
-      className={connected ? styles.connectedContainer : styles.container}
-      style={{ width: fullWidth ? '100%' : '' }}
-    >
-      <div>{connected ? address : 'Connect Wallet'}</div>
-      <Image src={connected ? WalletGrayIcon : FosterLightGreenIcon} alt="" />
-    </WalletMultiButton>
+    // <WalletMultiButton
+    //   className={connected ? styles.connectedContainer : styles.container}
+    //   style={{ width: fullWidth ? '100%' : '' }}
+    // >
+    //   <div>{connected ? address : 'Connect Wallet'}</div>
+    //   <Image src={connected ? WalletGrayIcon : FosterLightGreenIcon} alt="" />
+    // </WalletMultiButton>
+    <button className={styles.container} onClick={() => onClick()} style={{ width: fullWidth ? '100%' : '' }}>
+      <div>Connect Wallet</div>
+      <Image src={FosterLightGreenIcon} alt="" />
+    </button>
   )
 }
 
