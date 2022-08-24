@@ -96,7 +96,7 @@ const PrimaryHeader = props => {
   }
 
   const { connected } = useWallet()
-
+  const connectWalletStatus = useSelector(state => state.connectWalletStatus)
   const openMobileMenu = useSelector(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector(state => state.openMobileSearchBox)
   const openConnectWallet = useSelector(state => state.openConnectWallet)
@@ -113,6 +113,19 @@ const PrimaryHeader = props => {
 
   const handleOpenMobileMenu = () => {
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
+  }
+
+  const handleOpenConnectWallet = () => {
+    switch (connectWalletStatus) {
+      case true:
+        dispatch({ type: 'set', connectWalletStatus: !connected })
+        break
+      case false:
+        dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
+        break
+      default:
+        break
+    }
   }
 
   const handleGotoHomepage = () => {
@@ -143,6 +156,7 @@ const PrimaryHeader = props => {
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
           <WalletButton />
+          {/* <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connected} /> */}
           <ProfileMenu
             avatar={AvatarImage}
             menuList={ProfileMenuList}
