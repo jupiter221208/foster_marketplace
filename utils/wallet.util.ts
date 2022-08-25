@@ -35,8 +35,6 @@ export async function getTokensByAccount(
     })
     .map(t => ({ pubkey: t.pubkey, mint: new PublicKey(t.account.data.parsed.info.mint) }))
 
-  //   console.log(`found ${nfts.length} tokens`)
-
   nfts = await Promise.all(nfts.map(async nft => ({ ...nft, metadata: await loadMetadata(nft.mint, connection) })))
 
   //   nfts = nfts.filter(nft => nft.metadata && nft.metadata.data.creators?.length)
