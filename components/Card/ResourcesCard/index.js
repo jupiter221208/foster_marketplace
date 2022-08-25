@@ -18,7 +18,7 @@ const ResourcesCard = props => {
       onClick={() => onClick(data.id)}
     >
       <div className="min-w-[35px]">
-        <Image src={data.icon} alt="" width={data.width} height={data.height} />
+        <Image src={data.icon01} alt="" width={data.width} height={data.height} />
       </div>
       <div className="block">
         <div className={styles.title}>{data.title}</div>

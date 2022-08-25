@@ -8,14 +8,16 @@ import Image from 'next/image'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 // custom components
-import SearchBox from 'components/Input/SearchBox'
+import ResourceSearchBox from 'components/Input/ResourceSearchBox'
 import ResourcesCard from 'components/Card/ResourcesCard'
+import ResourcesAccordion from 'components/Accordion/ResourcesAccordion'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
 // json
 import ResourcesCardList from 'assets/json/resources/resources-card-list.json'
+import QAList from 'assets/json/resources/qa-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -25,26 +27,37 @@ const Resources = props => {
 
   const [selectedCard, setSelectedCard] = useState(0)
   const [title, setTitle] = useState('')
+  const [searchList, setSearchList] = useState(QAList[0])
   const [searchKeyword, setSearchKeyword] = useState('')
 
   useEffect(() => {
     switch (selectedCard) {
       case 0:
         setTitle(ResourcesCardList[0].title)
+        setSearchList(QAList[0])
         break
       case 1:
         setTitle(ResourcesCardList[1].title)
+        setSearchList(QAList[1])
         break
       case 2:
         setTitle(ResourcesCardList[2].title)
+        setSearchList(QAList[2])
         break
       case 3:
         setTitle(ResourcesCardList[3].title)
+        setSearchList(QAList[3])
         break
       case 4:
         setTitle(ResourcesCardList[4].title)
+        setSearchList(QAList[4])
+        break
     }
   }, [selectedCard])
+
+  useEffect(() => {
+    console.log('searchList', searchList)
+  }, [searchList])
 
   return (
     <div className="g-container">
@@ -60,23 +73,44 @@ const Resources = props => {
         <div className="w-full flex flex-wrap z-10">
           <div className={`${styles.title} w-full text-center lg:text-start`}>{title}</div>
           <div className="w-full flex justify-end mt-[61px]">
-            {/* <SearchBox
+            <ResourceSearchBox
               value={searchKeyword}
               placeholder="Search by keywords"
               onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
               viewport={viewport}
-              onClick={() => handleSearch()}
-              onClose={() => handleClose()}
-            /> */}
+            />
           </div>
-          <div className="w-full flex gap-[20px]">
-            <div className="flex flex-wrap w-[366px] min-w-[366px] gap-[10px]">
+          <div className="w-full flex gap-[20px] mt-[31px]">
+            <div className="flex flex-wrap w-[366px] min-w-[366px] h-fit gap-[10px]">
               {ResourcesCardList.map((item, index) => (
                 <div key={index} className="w-full">
                   <ResourcesCard data={item} viewport={viewport} onClick={id => setSelectedCard(id)} />
                 </div>
               ))}
+            </div>
+            <div className="flex flex-1 h-fit">
+              <div className={styles.content}>
+                <div className="w-full flex justify-start gap-6">
+                  <Image
+                    src={ResourcesCardList[selectedCard].icon02}
+                    alt=""
+                    width={ResourcesCardList[selectedCard].width}
+                    height={ResourcesCardList[selectedCard].height}
+                  />
+                  <div className="block">
+                    <div className={styles.subTitle}>{ResourcesCardList[selectedCard].title}</div>
+                    <div className={styles.description}>{ResourcesCardList[selectedCard].description}</div>
+                  </div>
+                </div>
+                <div className="w-full flex flex-wrap gap-5">
+                  <ResourcesAccordion data={searchList.content} />
+                  {/* {searchList.content.map((item, index) => (
+                    <div key={index} className="w-full">
+                      {item.title}
+                    </div>
+                  ))} */}
+                </div>
+              </div>
             </div>
           </div>
         </div>

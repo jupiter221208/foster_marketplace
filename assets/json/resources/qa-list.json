@@ -1,0 +1,441 @@
+[
+  {
+    "id": 0,
+    "title": "General Inquiries",
+    "content": [
+      {
+        "id": 0,
+        "title": "What is a Non-Fungible Token (NFT)?",
+        "description": [
+          "Non-Fungible Tokens (also known as NFTs) can be anything digital such as music, photos, GIFs, video clips, etc. NFTs are best understood as a digital file accompanied by inherent proof of ownership and authenticity, like a deed. Information relating to an artwork such as its source, key details, delivery process and transaction history is digitized and stored using blockchain technology."
+        ]
+      },
+      {
+        "id": 1,
+        "title": "What is Foster Marketplace?",
+        "description": [
+          "Foster is a community-driven project that utilizes blockchain-based solutions, such as crypto, Web3, and NFTs, to build a peer-to-peer digital art platform, known as Foster Marketplace. The platform empowers artists to use technology as an alternative mode for creativity and income, and is designed with a framework that supports mass media consumption and user adoption."
+        ]
+      },
+      {
+        "id": 2,
+        "title": "What are the benefits of minting my art as an NFT?",
+        "description": [
+          "NFTs solve challenges that exist in the traditional art market, such as scarcity, authentication and provenance. The technology itself provides artists a way to securely store, manage and publish their unique collections of digital art. Minting art as an NFT on Foster Marketplace empowers creators to create financial value for their work and more easily engage with their community of fans.",
+          "NFT utility will continue to grow and transform how concepts and values are exchanged between blockchain and the real world."
+        ]
+      },
+      {
+        "id": 3,
+        "title": "How do I create an account on Foster Marketplace?",
+        "description": [
+          "In order to protect the privacy of the digital creators and members of Foster Marketplace, as well as maintain the integrity of a Web3 product, creating an account requires nothing more than an SPL wallet."
+        ]
+      },
+      {
+        "id": 4,
+        "title": "What is an SPL wallet and how can I create one?",
+        "description": [
+          "SPL, known as Solana Program Library, is a collection of on-chain programs maintained by the Solana team. SPL wallets act as a vault to store your Solana NFTs.",
+          "There are a number of SPL wallets that can be used, such as Phantom, Solflare, or Sollet. Phantom is one of the most popular SPL-compatible wallets and provides a web browser extension and mobile application making it a seamless process to connect to the platform"
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Why Solana?",
+        "description": [
+          "Solana is a leading blockchain platform and a growing rival to Ethereum. As a decentralized application (DApp) built on the Solana Blockchain, the gas fees and congestion issues that currently plague Ethereum’s network can be avoided. Solana is fast, secure, and censorship resistant, providing Foster Marketplace the open infrastructure required for global adoption."
+        ]
+      },
+      {
+        "id": 6,
+        "title": "How do I purchase Solana (SOL)?",
+        "description": [
+          "In order to buy the Solana token (SOL), you will need to open an account with a crypto exchange. Leading exchanges that allow users to buy and sell SOL with their local fiat currency include:",
+          "i. FTX or FTX.US",
+          "ii. Coinbase",
+          "iii. Kraken",
+          "iv. Binance or Binance.US",
+          "v. AscendEx",
+          "vi. KuCoin",
+          "vii. Crypto.com"
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Can I list an NFT that I bought or minted from another marketplace?",
+        "description": [
+          "When someone purchases or mints an NFT on any other Solana-based NFT marketplace, the NFT is securely stored in their SPL wallet. As long as the NFT is in a supported Solana wallet, it can be listed on Foster Marketplace."
+        ]
+      },
+      {
+        "id": 8,
+        "title": "What differentiates Foster from other NFT marketplaces?",
+        "description": [
+          "Foster Marketplace has many advantages and benefits that differentiate it from any other NFT marketplace including:",
+          "i. A community-driven and community-governed platform",
+          "ii. A space where digital artists can operate cohesively within the values of inclusivity, utility, and transparency.",
+          "iii. Scalability using Solana that allows digital artists and members to avoid high gas fees experienced on Ethereum based marketplaces.",
+          "iv. Flexibility to discover a broad array of digital art, while simultaneously supporting a wider pool of artists",
+          "v. The success of the platform directly benefits the digital artists and members responsible for the success of the platform.",
+          "vi. Cast your artworks using smart home integration features on Foster iOS, Apple TV and Android apps and enjoy a more vivifying and personalized digital art experience (upcoming product enhancement).",
+          "vii. Enjoy new creator tools that offer distributed reward and revenue sharing for artists contributing to the ledger (upcoming product enhancement).",
+          "viii. Stream all artworks on Foster for a fixed monthly price (upcoming product enhancement)."
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Who owns Foster Marketplace?",
+        "description": [
+          "In the initial implementation of Foster Marketplace, all decisions are taken by the core team; however, Foster Marketplace does not belong to any single entity. The development and governance of the marketplace is intended to grow far beyond the reaches of the core team driving its initial implementation.",
+          "By 2024, the Foster Protocol is estimated to be fully decentralized and governed by a robust DAO composed of artists, members, investors, developers and validators."
+        ]
+      },
+      {
+        "id": 10,
+        "title": "What is a DAO?",
+        "description": [
+          "A decentralized autonomous organization, also known as a DAO, is an entity structure in which token holders participate in the management and decision-making of an entity. There is no central authority of a DAO; instead, power is distributed across token holders who collectively cast votes. All votes and activity through the DAO are posted on a blockchain, making all actions of users publicly viewable."
+        ]
+      },
+      {
+        "id": 11,
+        "title": "How can I participate in the governance of Foster Marketplace?",
+        "description": [
+          "Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in Resources – LIFT Token and Resources - Turkey Circus"
+        ]
+      },
+      {
+        "id": 12,
+        "title": "What are the key terms to know in NFTs and Web3?",
+        "description": [
+          "You can find all the key terms of the space relating to NFTs, Web3 and crypto in The Foster Glossary."
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "Marketplace Features",
+    "content": [
+      {
+        "id": 0,
+        "title": "How do I mint an NFT on Foster Marketplace?",
+        "description": [
+          "If you are on a desktop, you can begin the NFT minting process by clicking the Create tab in the navigation bar and selecting Single NFT; if you are using a mobile device, select the hamburger in the top right corner, click Create and select Single NFT from the dropdown.",
+          "You&#39;ll be taken to the NFT item creation page, where you can upload your artwork, add a description, enter a royalty percentage…and that’s it!"
+        ]
+      },
+      {
+        "id": 1,
+        "title": "How do NFT royalties work?",
+        "description": [
+          "NFT royalties are automatic payments to the original NFT owner made on secondary sales of the owner/artist&#39;s creation (i.e., if you select 20% royalties during the minting process, you will receive 20% of the payment every time the NFT is sold)."
+        ]
+      },
+      {
+        "id": 2,
+        "title": "How do I sell an NFT on Foster Marketplace?",
+        "description": [
+          "If you would like to sell an NFT, you can do so by listing it for a fixed-price, or via auction to the highest bidder. This process can be started by going to your dashboard, finding the NFT you wish to sell under the My NFTs tab, and selecting your preferred sales method."
+        ]
+      },
+      {
+        "id": 3,
+        "title": "How do I buy an NFT on Foster Marketplace?",
+        "description": [
+          "To purchase an NFT on Foster Marketplace, simply click on the NFT and click Quick Buy on the details page. If you have not connected your wallet, you will need to do so first. If the user has not listed the NFT for sale, this button will be disabled."
+        ]
+      },
+      {
+        "id": 4,
+        "title": "How do I mint an NFT collection?",
+        "description": [
+          "If you are on a desktop, you can begin the NFT minting process by clicking the Create tab in the navigation bar and selecting Collection; if you are using a mobile device, select the hamburger in the top right corner, click Create and select Collection from the dropdown.",
+          "On the mint collection page, you will start by adding the collection name, description, cover image, and the category(s) of art. You are now ready to upload the artworks, each of their names and descriptions. Finally, you will enter in the royalty percentage (royalties will apply to each artwork individually) and a banner image. If everything looks good on the left-hand preview, you’re now ready to mint your NFT collection!"
+        ]
+      },
+      {
+        "id": 5,
+        "title": "When will the NFT streaming feature become available?",
+        "description": [
+          "Foster’s NFT streaming protocol will be introduced in phase 3 of the product roadmap, estimated to deploy in Q4 2023."
+        ]
+      },
+      {
+        "id": 6,
+        "title": "How do I start an auction?",
+        "description": [""]
+      },
+      {
+        "id": 7,
+        "title": "How do I hide items from my Foster Marketplace profile?",
+        "description": [""]
+      },
+      {
+        "id": 8,
+        "title": "Can I add an NFT to an existing collection?",
+        "description": [""]
+      },
+      {
+        "id": 9,
+        "title": "How do I search for NFTs?",
+        "description": [""]
+      },
+      {
+        "id": 10,
+        "title": "How do I cancel an offer I made on an NFT?",
+        "description": [
+          "If you would like to cancel an offer you made, simply go to the user dashboard, find the outgoing offer under the Offers tab and click cancel."
+        ]
+      },
+      {
+        "id": 11,
+        "title": "How do I make an offer on an NFT?",
+        "description": [
+          "The Make Offer function allows you to make an offer on an NFT that the owner has listed, as long as the offer is at least 50% of the listing price. You can place an offer on an NFT by going to the NFT details page and clicking the Make Offer button; the button will be disabled if the NFT is not listed."
+        ]
+      },
+      {
+        "id": 12,
+        "title": "How do I get to the user dashboard?",
+        "description": [""]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Turkey Circus",
+    "content": [
+      {
+        "id": 0,
+        "title": "What is the Turkey Circus?",
+        "description": [
+          "Turkey Circus is Foster’s flagship NFT collection. The collection includes 3200 Turkey Circus PFPs with"
+        ]
+      },
+      {
+        "id": 1,
+        "title": "What is the utility of Turkey Circus NFTs?",
+        "description": [""]
+      },
+      {
+        "id": 2,
+        "title": "Who is the artist behind Turkey Circus?",
+        "description": [
+          "Connor Gerber, also known as TheOak, is the digital artist behind the Turkey Circus collection. TheOak is a humble 3D artist based in South Africa. "
+        ]
+      },
+      {
+        "id": 3,
+        "title": "How can I get on the Turkey Circus Whitelist?",
+        "description": [""]
+      },
+      {
+        "id": 4,
+        "title": "What is the date for the Turkey Circus whitelist mint?",
+        "description": ["Thursday, November 24 – Thanksgiving 2022"]
+      },
+      {
+        "id": 5,
+        "title": "How can I purchase a Turkey Circus NFT if I did not get on the whitelist?",
+        "description": [""]
+      },
+      {
+        "id": 6,
+        "title": "Are there secondary sales royalties?",
+        "description": ["Yes, secondary royalties is 7.5%"]
+      },
+      {
+        "id": 7,
+        "title": "Who receives the royalties from secondary sales?",
+        "description": ["The artist, core team, and development team"]
+      },
+      {
+        "id": 8,
+        "title": "How are the funds from the Turkey Circus sale being allocated?",
+        "description": [""]
+      },
+      {
+        "id": 9,
+        "title": "When will the Turkey Circus DAO launch?",
+        "description": [""]
+      },
+      {
+        "id": 10,
+        "title": "What types of proposals will be governed by Turkey Circus holders?",
+        "description": [""]
+      },
+      {
+        "id": 11,
+        "title": "How can I participate in governance activities by the Turkey Circus DAO?",
+        "description": [""]
+      },
+      {
+        "id": 12,
+        "title": "What are the benefits of holding a Turkey Circus NFT?",
+        "description": [""]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "LIFT Token",
+    "content": [
+      {
+        "id": 0,
+        "title": "What is LIFT Token?",
+        "description": [
+          "The Foster community consists of digital artists, subscribers, NFT collectors and crypto investors. Foster Marketplace uses its native utility token LIFT to align the interests of the protocol, embracing a decentralized system for those that create, those that collect, and those that harvest.",
+          "Foster Marketplace and LIFT token will become a foundation for enabling further development with partners, its own platform, and the ecosystem as a whole."
+        ]
+      },
+      {
+        "id": 1,
+        "title": "What are SPL tokens?",
+        "description": [
+          "The SPL Token program is the token standard of the Solana blockchain. Similar to ERC20 tokens on the Ethereum network, SPL Tokens are designed for DeFi applications."
+        ]
+      },
+      {
+        "id": 2,
+        "title": "What is a utility token?",
+        "description": [
+          "Utility tokens offer the right to a service or product. Utility tokens can provide value to investors in different ways. Ethereum and Solana are two examples of utility tokens that offer developers and institutions around the world the ability to build decentralized applications (DApps). Due to this innovative utility, both SOL and ETH have seen an extraordinary increase in value since their inception."
+        ]
+      },
+      {
+        "id": 3,
+        "title": "What utility does LIFT token have in Foster Marketplace?",
+        "description": [
+          "The key advantage in the ownership of LIFT surrounds the right of governance. Our governed platform will be an integral part of bringing new and existing projects into the Foster Ecosystem with the possibility of introducing new use-cases to the NFT community."
+        ]
+      },
+      {
+        "id": 4,
+        "title": "When will LIFT token utility be enabled?",
+        "description": [""]
+      },
+      {
+        "id": 5,
+        "title": "How can I buy LIFT tokens?",
+        "description": [""]
+      },
+      {
+        "id": 6,
+        "title": "When will LIFT be listed on an exchange?",
+        "description": [
+          "Our team will undertake best efforts to have LIFT listed on a cryptocurrency exchange in 2023. Until a listing has been completed, token holders can dispose of tokens by way of selling them on a bilateral basis, or for utility purposes on the Foster Marketplace mobile application."
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Where can I find the tokenomics for LIFT token?",
+        "description": ["LIFT tokenomics can be found in the Foster Marketplace Whitepaper"]
+      },
+      {
+        "id": 8,
+        "title": "When will marketplace governance be enabled for LIFT token holders?",
+        "description": [""]
+      },
+      {
+        "id": 9,
+        "title": "What types of subjects will be governed by LIFT token holders?",
+        "description": [""]
+      },
+      {
+        "id": 10,
+        "title": "What&#39;s the difference between the LIFT DAO and ETC DAO?",
+        "description": [""]
+      },
+      {
+        "id": 11,
+        "title": "How does the LIFT revenue and reward share work?",
+        "description": [
+          "LIFT revenue and reward share provides financial incentive for digital artists and enthusiasts to publish their art and rewarding them when the digital assets are consumed by members of the marketplace."
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Where can I sell the LIFT token I earned from the revenue and reward share?",
+        "description": [""]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Support",
+    "content": [
+      {
+        "id": 0,
+        "title": "How can I contact the team?",
+        "description": ["You can contact us at admin@fostermarketplace.io"]
+      },
+      {
+        "id": 1,
+        "title": "How can I report a bug?",
+        "description": [""]
+      },
+      {
+        "id": 2,
+        "title": "How do I avoid transaction errors?",
+        "description": [
+          "Sometimes when we click Buy, Sell, Mint, etc... your wallet doesn&#39;t seem to do its job.  The most common problems are solved by making sure:",
+          "i. You have enough SOL to cover the transaction fees for what you are trying to do.  (At least 0.000005 SOL)",
+          "ii. You have the correct wallet address active in your wallet extension.",
+          "iii. Your wallet is actually connected to the website. (Phantom shows a green dot when connected)"
+        ]
+      },
+      {
+        "id": 3,
+        "title": "How can I request a product enhancement?",
+        "description": [""]
+      },
+      {
+        "id": 4,
+        "title": "What if my wallet is not connecting?",
+        "description": [""]
+      },
+      {
+        "id": 5,
+        "title": "How do I manage my settings?",
+        "description": ["You can manage your settings from the user dashboard."]
+      },
+      {
+        "id": 6,
+        "title": "How can I link my social accounts to my Foster Marketplace profile?",
+        "description": [""]
+      },
+      {
+        "id": 7,
+        "title": "How do I log out of my account or switch crypto wallets?",
+        "description": [""]
+      },
+      {
+        "id": 8,
+        "title": "Why can&#39;t I see my NFTs in my account?",
+        "description": [""]
+      },
+      {
+        "id": 9,
+        "title": "Where can I find my NFT sales records?",
+        "description": [""]
+      },
+      {
+        "id": 10,
+        "title": "What file formats can I use to make NFTs? Is there a maximum size?",
+        "description": [""]
+      },
+      {
+        "id": 11,
+        "title": "How can I report an NFT I suspect is fake?",
+        "description": [""]
+      },
+      {
+        "id": 12,
+        "title": "Why isn’t my collection appearing when I search it?",
+        "description": [""]
+      }
+    ]
+  }
+]

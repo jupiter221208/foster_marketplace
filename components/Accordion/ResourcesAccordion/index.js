@@ -1,0 +1,70 @@
+import React, { useRef } from 'react'
+
+// next components
+import Image from 'next/image'
+
+// third party components
+import { Disclosure } from '@headlessui/react'
+
+// images and icons
+import ArrowDownIcon from 'assets/icons/arrow-down-black.svg'
+import MinusBlackIcon from 'assets/icons/minus-black.svg'
+
+// styles
+import styles from './index.module.scss'
+
+const ResourcesAccordion = props => {
+  const { data } = props
+
+  const buttonRefs = useRef([])
+  const openedRef = useRef(null)
+  const clickRecent = index => {
+    const clickedButton = buttonRefs.current[index]
+    if (clickedButton === openedRef.current) {
+      openedRef.current = null
+      return
+    }
+    if (Boolean(openedRef.current?.getAttribute('data-value'))) {
+      openedRef.current?.click()
+    }
+    openedRef.current = clickedButton
+  }
+
+  return (
+    <div className="w-full flex flex-wrap gap-[10px]">
+      {data.map((item, index) => (
+        <div key={index} className="w-full">
+          <Disclosure>
+            {({ open }) => (
+              <>
+                <div className={styles.accordion}>
+                  <Disclosure.Button
+                    className={styles.button}
+                    data-value={open}
+                    ref={ref => {
+                      buttonRefs.current[index] = ref
+                    }}
+                    onClick={() => clickRecent(index)}
+                  >
+                    <div className={styles.title}>{item.title}</div>
+
+                    <div className={open ? styles.openButton : styles.closeButton}>
+                      <Image src={open ? ArrowDownIcon : MinusBlackIcon} alt="" />
+                    </div>
+                  </Disclosure.Button>
+                  <Disclosure.Panel className={styles.panel}>
+                    <div className={styles.firstRow}>
+                      <div className={styles.text}>{item.description}</div>
+                    </div>
+                  </Disclosure.Panel>
+                </div>
+              </>
+            )}
+          </Disclosure>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export default ResourcesAccordion

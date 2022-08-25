@@ -37,3 +37,28 @@
   }
   color: $text-gray-200-color;
 }
+
+.content {
+  width: 100%;
+  padding: 30px 26px 214px 53px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  gap: 25px;
+}
+
+.subTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  line-height: 28px;
+  color: $text-gray-200-color;
+}
+
+.description {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.8);
+}
