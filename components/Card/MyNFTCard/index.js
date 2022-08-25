@@ -19,14 +19,14 @@ const MyNFTCard = props => {
   return (
     <div className={styles.container}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={data.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
+        <img src={data.image} alt={data.name} className='w-full aspect-[321/378] object-cover' />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.nftName}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex items-center">
-          <div className={styles.artistName}>{data.artistName}</div>
+          <div className={styles.artistName}>{data.artist || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
           <GradientButton label="Start Auction" onClick={() => {}} height="40px" fontSize="14px" />
