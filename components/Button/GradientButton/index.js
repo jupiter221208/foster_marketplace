@@ -20,6 +20,7 @@ const GradientButton = props => {
     icon = '',
     fontSize = '',
     borderRadius = '',
+    disabled = false,
   } = props
 
   return (
@@ -27,6 +28,7 @@ const GradientButton = props => {
       type="button"
       onClick={() => onClick()}
       className={styles.container}
+      disabled={disabled}
       style={{
         width: fullWidth ? '100%' : width,
         color: color,
