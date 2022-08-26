@@ -5,17 +5,13 @@ import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import { Metadata, PROGRAM_ID } from '@metaplex-foundation/mpl-token-metadata'
 import { NFT } from 'config/types'
 
-async function loadMetadata(mint: PublicKey, connection: Connection): Promise<Metadata | undefined> {
-  try {
-    const [metadataPublicKey] = await PublicKey.findProgramAddress(
-      [anchor.utils.bytes.utf8.encode('metadata'), PROGRAM_ID.toBuffer(), mint.toBuffer()],
-      PROGRAM_ID
-    )
-    return await Metadata.fromAccountAddress(connection, metadataPublicKey)
-  } catch (e) {
-    console.log(e)
-    console.log(`failed to pull metadata for token ${mint}`)
-  }
+export async function loadMetadata(mint: PublicKey, connection: Connection): Promise<Metadata | undefined> {
+  const [metadataPublicKey] = await PublicKey.findProgramAddress(
+    [anchor.utils.bytes.utf8.encode('metadata'), PROGRAM_ID.toBuffer(), mint.toBuffer()],
+    PROGRAM_ID
+  )
+
+  return Metadata.fromAccountAddress(connection, metadataPublicKey)
 }
 
 export async function getTokensByAccount(
@@ -36,13 +32,35 @@ export async function getTokensByAccount(
     .map(t => ({ pubkey: t.pubkey, mint: new PublicKey(t.account.data.parsed.info.mint) }))
 
   nfts = (
-    await Promise.all(nfts.map(async nft => ({ ...nft, metadata: await loadMetadata(nft.mint, connection) })))
+    await Promise.all(
+      nfts.map(async nft => {
+        try {
+          nft.metadata = await loadMetadata(nft.mint, connection)
+        } catch (e) {
+          // console.log(e)
+          console.log(`failed to pull metadata for token ${nft.mint.toBase58()}`)
+        }
+
+        return nft
+      })
+    )
   ).filter(nft => nft.metadata)
 
   if (includeOffChainMetadata) {
-    nfts = await Promise.all(
-      nfts.map(async nft => ({ ...nft, offChainMetatata: await fetch(nft.metadata!.data.uri).then(r => r.json()) }))
-    )
+    nfts = (
+      await Promise.all(
+        nfts.map(async nft => {
+          try {
+            nft.offChainMetatata = await fetch(nft.metadata!.data.uri).then(r => r.json())
+          } catch (e) {
+            // console.log(e)
+            console.log(`failed to pull off chain metadata for token ${nft.mint.toBase58()}`)
+          }
+
+          return nft
+        })
+      )
+    ).filter(nft => nft.offChainMetatata)
   }
 
   return nfts.map(nft => ({
