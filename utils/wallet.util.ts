@@ -11,7 +11,7 @@ async function loadMetadata(mint: PublicKey, connection: Connection): Promise<Me
       [anchor.utils.bytes.utf8.encode('metadata'), PROGRAM_ID.toBuffer(), mint.toBuffer()],
       PROGRAM_ID
     )
-    return Metadata.fromAccountAddress(connection, metadataPublicKey)
+    return await Metadata.fromAccountAddress(connection, metadataPublicKey)
   } catch (e) {
     console.log(e)
     console.log(`failed to pull metadata for token ${mint}`)
@@ -35,9 +35,9 @@ export async function getTokensByAccount(
     })
     .map(t => ({ pubkey: t.pubkey, mint: new PublicKey(t.account.data.parsed.info.mint) }))
 
-  nfts = await Promise.all(nfts.map(async nft => ({ ...nft, metadata: await loadMetadata(nft.mint, connection) })))
-
-  //   nfts = nfts.filter(nft => nft.metadata && nft.metadata.data.creators?.length)
+  nfts = (
+    await Promise.all(nfts.map(async nft => ({ ...nft, metadata: await loadMetadata(nft.mint, connection) })))
+  ).filter(nft => nft.metadata)
 
   if (includeOffChainMetadata) {
     nfts = await Promise.all(
