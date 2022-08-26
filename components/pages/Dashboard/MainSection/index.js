@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -35,6 +35,7 @@ const MainSection = props => {
   const [userType, setUserType] = useState([])
 
   const { publicKey } = useWallet()
+  const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
   useEffect(() => {
     setUserType(['Abstract', 'Design Art', 'Collectible'])
@@ -63,7 +64,7 @@ const MainSection = props => {
             <DashboardArtistCard image={AvatarImage} artistName="Artist Name" viewport={viewport} />
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton
-                label={getShortAddress(publicKey)}
+                label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => {}}
@@ -97,7 +98,7 @@ const MainSection = props => {
           <div className="col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center lg:mt-[16px]">
               <AddressButton
-                label={'cGb.fRm'}
+                label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => {}}
