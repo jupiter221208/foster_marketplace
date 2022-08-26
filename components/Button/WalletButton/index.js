@@ -29,15 +29,15 @@ import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.s
 // styles
 import styles from './index.module.scss'
 
-import { WalletMultiButton, useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { getShortAddress } from 'utils/wallet.util'
 
 const WalletButton = props => {
   const { onClick, fullWidth = false } = props
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
-  const base58 = useMemo(() => publicKey?.toBase58(), [publicKey])
-  const address = useMemo(() => base58 && base58.slice(0, 4) + '..' + base58.slice(-4), [base58])
+  const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -52,13 +52,9 @@ const WalletButton = props => {
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-            {address}
+            {shortAddress}
             <Image src={WalletGrayIcon} alt="" />
           </Menu.Button>
-          {/* <WalletMultiButton className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-            <div>{address}</div>
-            <Image src={WalletGrayIcon} alt="" />
-          </WalletMultiButton>*/}
         </div>
         <Transition
           as={Fragment}
@@ -77,7 +73,7 @@ const WalletButton = props => {
                     <Avatar avatar={avatar} width={36} height={36} />
                     <div className="block whitespace-nowrap">
                       <div className={styles.title}>Foster Username</div>
-                      <div className={styles.grayText}>6A8rF .. Rf8p</div>
+                      <div className={styles.grayText}>{shortAddress}</div>
                     </div>
                   </div>
                 )}
@@ -104,7 +100,7 @@ const WalletButton = props => {
                 {({ active }) => (
                   <div
                     className="w-full flex justify-between items-center cursor-pointer hover:opacity-80"
-                    onClick={() => copyToClipboard('6A8rF .. Rf8p')}
+                    onClick={() => copyToClipboard(publicKey.toBase58())}
                   >
                     <div className="block">
                       <div className={styles.whiteText}>Main wallet</div>
@@ -116,7 +112,7 @@ const WalletButton = props => {
                     <div className="flex gap-2">
                       <Image src={CopyAltLightGreenIcon} alt="" />
                       <div className={styles.grayCard}>
-                        <div className={styles.lightGreenText}>6A8rF .. Rf8p</div>
+                        <div className={styles.lightGreenText}>{shortAddress}</div>
                       </div>
                     </div>
                   </div>

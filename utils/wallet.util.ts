@@ -52,3 +52,9 @@ export async function getTokensByAccount(
     image: nft.offChainMetatata?.image,
   }))
 }
+
+export function getShortAddress(publicKey: PublicKey) {
+  const base58 = publicKey?.toBase58()
+
+  return (base58 && base58.slice(0, 4) + '..' + base58.slice(-4)) || ''
+}
