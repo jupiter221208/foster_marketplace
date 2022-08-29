@@ -102,7 +102,7 @@
         "id": 11,
         "title": "How can I participate in the governance of Foster Marketplace?",
         "description": [
-          "Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in Resources – LIFT Token and Resources - Turkey Circus"
+          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <a href='http://resources.com' style={text-decoration: underline}>Resources – LIFT Token</a> and Resources - Turkey Circus</p>"
         ]
       },
       {
@@ -170,17 +170,23 @@
       {
         "id": 7,
         "title": "How do I hide items from my Foster Marketplace profile?",
-        "description": [""]
+        "description": [
+          "If you would like to hide an item you minted, simply go to the user dashboard, and select the Single NFT or Collection you wish to hide under the Hidden tab."
+        ]
       },
       {
         "id": 8,
         "title": "Can I add an NFT to an existing collection?",
-        "description": [""]
+        "description": [
+          "The add to existing collection feature will be rolled out in the beta release of Foster Marketplace."
+        ]
       },
       {
         "id": 9,
         "title": "How do I search for NFTs?",
-        "description": [""]
+        "description": [
+          "You can search by NFT, Collection, or Artist from the top navigation bar by typing the name in the search engine, or by clicking the Explore tab and selecting your search criteria in the dropdown."
+        ]
       },
       {
         "id": 10,
@@ -199,7 +205,9 @@
       {
         "id": 12,
         "title": "How do I get to the user dashboard?",
-        "description": [""]
+        "description": [
+          "If you’re on a desktop, once you’ve connected to the app with your Solana wallet, your dashboard can be accessed from the side panel navigation bar. If you’re on mobile, simply click the hamburger in the top right corner and select Dashboard."
+        ]
       }
     ]
   },
@@ -217,7 +225,9 @@
       {
         "id": 1,
         "title": "What is the utility of Turkey Circus NFTs?",
-        "description": [""]
+        "description": [
+          "Turkey Circus NFTs provides holders access to the Foster DAO. Turkey Circus holders will also get 5% revenue share from Foster Core Collections. The Turkey Circus NFT will also unlock access to exclusive features and value-added services both on the marketplace and IRL."
+        ]
       },
       {
         "id": 2,
@@ -229,7 +239,9 @@
       {
         "id": 3,
         "title": "How can I get on the Turkey Circus Whitelist?",
-        "description": [""]
+        "description": [
+          "Our core team will be providing various opportunities in the Foster Marketplace Discord to earn a Turkey Circus whitelist spot."
+        ]
       },
       {
         "id": 4,
@@ -264,7 +276,7 @@
       {
         "id": 10,
         "title": "What types of proposals will be governed by Turkey Circus holders?",
-        "description": [""]
+        "description": ["The Turkey Circus DAO governs Foster community initiatives."]
       },
       {
         "id": 11,
@@ -319,7 +331,7 @@
       {
         "id": 5,
         "title": "How can I buy LIFT tokens?",
-        "description": [""]
+        "description": ["LIFT tokens can be purchased once LIFT is listed on an exchange."]
       },
       {
         "id": 6,
@@ -374,7 +386,9 @@
       {
         "id": 1,
         "title": "How can I report a bug?",
-        "description": [""]
+        "description": [
+          "If you would like to report a product bug, you can do so by opening a ticket in the Foster Marketplace Discord"
+        ]
       },
       {
         "id": 2,
@@ -389,12 +403,18 @@
       {
         "id": 3,
         "title": "How can I request a product enhancement?",
-        "description": [""]
+        "description": [
+          "If you would like to request a product enhancement, you can do so by opening a ticket in the Foster Marketplace Discord"
+        ]
       },
       {
         "id": 4,
         "title": "What if my wallet is not connecting?",
-        "description": [""]
+        "description": [
+          "If you encounter an issue while connecting your Phantom wallet to Foster Marketplace, first try to go to your browser history and type ‘Foster Marketplace’. Then, select all the results and delete them.",
+          "If this doesn’t do the trick, copy and paste https://fostermarketplace.app/ directly into your phantom browser search engine and try again.",
+          "Still no dice? Open a ticket in the Foster Marketplace Discord and someone will be with you shortly."
+        ]
       },
       {
         "id": 5,
@@ -404,12 +424,14 @@
       {
         "id": 6,
         "title": "How can I link my social accounts to my Foster Marketplace profile?",
-        "description": [""]
+        "description": ["You can link your social media accounts from your profile settings in the user dashboard."]
       },
       {
         "id": 7,
         "title": "How do I log out of my account or switch crypto wallets?",
-        "description": [""]
+        "description": [
+          "If you would like to logout of your account, simply disconnect your wallet from the top navigation or click logout from the side panel."
+        ]
       },
       {
         "id": 8,
@@ -419,12 +441,12 @@
       {
         "id": 9,
         "title": "Where can I find my NFT sales records?",
-        "description": [""]
+        "description": ["You can view all your transaction activity from the user dashboard."]
       },
       {
         "id": 10,
         "title": "What file formats can I use to make NFTs? Is there a maximum size?",
-        "description": [""]
+        "description": ["The supported file formats include .png .jpeg .mp4 .mp3 and .gif", "Max File Size 30mb"]
       },
       {
         "id": 11,
