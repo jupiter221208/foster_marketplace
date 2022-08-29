@@ -102,14 +102,14 @@
         "id": 11,
         "title": "How can I participate in the governance of Foster Marketplace?",
         "description": [
-          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <a href='http://resources.com' style={text-decoration: underline}>Resources – LIFT Token</a> and Resources - Turkey Circus</p>"
+          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <u><a href='http://lift.token.com'>Resources – LIFT Token</a></u> and <u><a href='http://turkey.circus.com'>Resources - Turkey Circus</a></u></p>"
         ]
       },
       {
         "id": 12,
         "title": "What are the key terms to know in NFTs and Web3?",
         "description": [
-          "You can find all the key terms of the space relating to NFTs, Web3 and crypto in The Foster Glossary."
+          "You can find all the key terms of the space relating to NFTs, Web3 and crypto in <u><a href=''>The Foster Glossary</a></u>"
         ]
       }
     ]
@@ -240,7 +240,7 @@
         "id": 3,
         "title": "How can I get on the Turkey Circus Whitelist?",
         "description": [
-          "Our core team will be providing various opportunities in the Foster Marketplace Discord to earn a Turkey Circus whitelist spot."
+          "Our core team will be providing various opportunities in the <u><a>Foster Marketplace Discord</a></u> to earn a Turkey Circus whitelist spot."
         ]
       },
       {
@@ -343,7 +343,7 @@
       {
         "id": 7,
         "title": "Where can I find the tokenomics for LIFT token?",
-        "description": ["LIFT tokenomics can be found in the Foster Marketplace Whitepaper"]
+        "description": ["LIFT tokenomics can be found in the <u><a href=''>Foster Marketplace Whitepaper</a></u>"]
       },
       {
         "id": 8,
@@ -387,14 +387,14 @@
         "id": 1,
         "title": "How can I report a bug?",
         "description": [
-          "If you would like to report a product bug, you can do so by opening a ticket in the Foster Marketplace Discord"
+          "If you would like to report a product bug, you can do so by opening a ticket in the <u><a href=''>Foster Marketplace Discord</a></u>"
         ]
       },
       {
         "id": 2,
         "title": "How do I avoid transaction errors?",
         "description": [
-          "Sometimes when we click Buy, Sell, Mint, etc... your wallet doesn&#39;t seem to do its job.  The most common problems are solved by making sure:",
+          "Sometimes when we click Buy, Sell, Mint, etc... your wallet doesn't seem to do its job.  The most common problems are solved by making sure:",
           "i. You have enough SOL to cover the transaction fees for what you are trying to do.  (At least 0.000005 SOL)",
           "ii. You have the correct wallet address active in your wallet extension.",
           "iii. Your wallet is actually connected to the website. (Phantom shows a green dot when connected)"
@@ -412,8 +412,8 @@
         "title": "What if my wallet is not connecting?",
         "description": [
           "If you encounter an issue while connecting your Phantom wallet to Foster Marketplace, first try to go to your browser history and type ‘Foster Marketplace’. Then, select all the results and delete them.",
-          "If this doesn’t do the trick, copy and paste https://fostermarketplace.app/ directly into your phantom browser search engine and try again.",
-          "Still no dice? Open a ticket in the Foster Marketplace Discord and someone will be with you shortly."
+          "If this doesn’t do the trick, copy and paste <u>https://fostermarketplace.app/</u> directly into your phantom browser search engine and try again.",
+          "Still no dice? Open a ticket in the <u><a href=''>Foster Marketplace Discord</a></u> and someone will be with you shortly."
         ]
       },
       {
@@ -435,7 +435,7 @@
       },
       {
         "id": 8,
-        "title": "Why can&#39;t I see my NFTs in my account?",
+        "title": "Why can't I see my NFTs in my account?",
         "description": [""]
       },
       {
