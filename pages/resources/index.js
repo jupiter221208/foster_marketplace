@@ -59,7 +59,8 @@ const Resources = props => {
     let object = QAList[selectedCard]
     const searchResult = QAList[selectedCard].content.filter(
       element =>
-        element.title.includes(searchKeyword) || !!element.description.find(elem => elem.includes(searchKeyword))
+        element.title.toLowerCase().includes(searchKeyword) ||
+        !!element.description.find(elem => elem.toLowerCase().includes(searchKeyword))
     )
     object = { ...QAList[selectedCard], content: searchResult }
     setSearchList(object)
