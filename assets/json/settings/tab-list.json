@@ -1,0 +1,7 @@
+[
+  { "id": 0, "label": "PROFILE", "value": "PROFILE" },
+  { "id": 1, "label": "NOTIFICATIONS", "value": "NOTIFICATIONS" },
+  { "id": 2, "label": "PERMISSION & PRIVACY", "value": "PERMISSION & PRIVACY" },
+  { "id": 3, "label": "DISCOVERY", "value": "DISCOVERY" },
+  { "id": 4, "label": "SECURITY", "value": "SECURITY" }
+]

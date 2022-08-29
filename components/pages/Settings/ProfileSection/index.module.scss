@@ -1,0 +1,43 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 32px;
+  line-height: 44px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+  width: 100%;
+  text-align: start;
+}
+
+.content {
+  width: 100%;
+  max-width: 674px;
+}
+
+.avatarArea {
+  width: 269px;
+  height: 269px;
+  border-radius: 100%;
+  background: linear-gradient(300deg, $brand-01-color 50%, $background-dark-color 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+  width: 100%;
+  text-align: start;
+}

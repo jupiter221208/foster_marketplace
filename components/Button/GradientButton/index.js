@@ -21,6 +21,8 @@ const GradientButton = props => {
     fontSize = '',
     borderRadius = '',
     disabled = false,
+    paddingLeft = '',
+    paddingRight = '',
   } = props
 
   return (
@@ -36,6 +38,8 @@ const GradientButton = props => {
         height: height,
         fontSize: fontSize,
         borderRadius: borderRadius,
+        paddingLeft: paddingLeft,
+        paddingRight: paddingRight,
       }}
     >
       {direction === 'rtl' && icon !== '' && (

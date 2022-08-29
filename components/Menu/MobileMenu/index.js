@@ -20,6 +20,7 @@ import SpeedWhiteIcon from 'assets/icons/speed-white.svg'
 import CollectionWhiteIcon from 'assets/icons/collection-white.svg'
 import StatisticWhiteIcon from 'assets/icons/statistic-white.svg'
 import ResourceWhiteIcon from 'assets/icons/resource-white.svg'
+import SettingWhiteIcon from 'assets/icons/resource-white.svg'
 import LogoutWhiteIcon from 'assets/icons/logout-white.svg'
 
 // json data
@@ -86,6 +87,9 @@ const MobileMenu = () => {
             </div>
             <div className="my-[10px]">
               <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={SettingWhiteIcon} label="Settings" type="" data={[]} path="/settings" />
             </div>
           </div>
           <div className="w-full">

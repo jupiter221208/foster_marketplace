@@ -150,13 +150,13 @@ const Navbar = props => {
             </div>
             <div
               className={styles.navItemArea}
-              onMouseOver={() => setSelectedNavMenu('setting')}
+              onMouseOver={() => setSelectedNavMenu('settings')}
               onMouseLeave={() => setSelectedNavMenu('')}
-              onClick={() => router.push('/#setting')}
+              onClick={() => router.push('/settings')}
             >
               <Image
                 src={
-                  router.asPath === '/#setting' || selectedNavMenu === 'setting' ? SettingGreenIcon : SettingGrayIcon
+                  router.asPath === '/settings' || selectedNavMenu === 'settings' ? SettingGreenIcon : SettingGrayIcon
                 }
                 alt=""
               />
@@ -224,7 +224,7 @@ const Navbar = props => {
               className={`${
                 selectedNavMenu === 'setting' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[36px] h-[30px]'}`}
-              onClick={() => router.push('/#setting')}
+              onClick={() => router.push('/setting')}
             >
               Settings
             </div>
