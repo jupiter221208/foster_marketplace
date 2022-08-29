@@ -56,8 +56,14 @@ const Resources = props => {
   }, [selectedCard])
 
   useEffect(() => {
-    console.log('searchList', searchList)
-  }, [searchList])
+    let object = QAList[selectedCard]
+    const searchResult = QAList[selectedCard].content.filter(
+      element =>
+        element.title.includes(searchKeyword) || !!element.description.find(elem => elem.includes(searchKeyword))
+    )
+    object = { ...QAList[selectedCard], content: searchResult }
+    setSearchList(object)
+  }, [searchKeyword, selectedCard])
 
   return (
     <div className="g-container">

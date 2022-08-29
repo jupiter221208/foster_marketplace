@@ -85,7 +85,7 @@ const MobileMenu = () => {
               <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/" />
             </div>
             <div className="my-[10px]">
-              <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/" />
+              <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
             </div>
           </div>
           <div className="w-full">
