@@ -56,7 +56,14 @@ const Settings = props => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
-            <div className="w-full mt-[100px] mb-20">
+            <div className="w-full flex lg:hidden justify-center mt-8">
+              {selectedTab === 0 && <div className={styles.title}>Profile</div>}
+              {selectedTab === 1 && <div className={styles.title}>Notifications</div>}
+              {selectedTab === 2 && <div className={styles.title}>Permissions & Privacy</div>}
+              {selectedTab === 3 && <div className={styles.title}>Discovery</div>}
+              {selectedTab === 4 && <div className={styles.title}>Security</div>}
+            </div>
+            <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
             <div className="w-full">{selectedTab === 0 && <ProfileSection viewport={viewport} />}</div>

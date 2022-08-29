@@ -39,42 +39,52 @@ const ProfileSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Profile</div>
+      <div className="w-full hidden lg:flex justify-start">
+        <div className={styles.title}>Profile</div>
+      </div>
       <div className="w-full flex justify-center">
         <div className={styles.content}>
-          <div className="w-full flex justify-start mt-12 mb-[22px]">
+          <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
             <div className={styles.avatarArea}>
-              <Image src={Avatar} width={251} height={251} alt="" className="rounded-full" />
+              <Image
+                src={Avatar}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
+                alt=""
+                className="rounded-full"
+              />
             </div>
           </div>
-          <div className="w-[250px]">
-            <OutlineButton
-              label="Change Profile Picture"
-              icon={EditorGreenIcon}
-              onClick={() => {}}
-              direction="rtl"
-              fullWidth
-              height="64px"
-              fontSize="16px"
-              borderColor="#EFF0F6"
-            />
+          <div className="flex justify-center lg:justify-start">
+            <div className="w-[250px]">
+              <OutlineButton
+                label="Change Profile Picture"
+                icon={EditorGreenIcon}
+                onClick={() => {}}
+                direction="rtl"
+                fullWidth
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '41px' : '64px'}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                borderColor="#EFF0F6"
+              />
+            </div>
           </div>
-          <div className="mt-[101px]">
+          <div className="mt-[50px] lg:mt-[101px]">
             <div className={styles.subTitle}>Personal Info</div>
           </div>
-          <div className="mt-8">
+          <div className="mt-4 lg:mt-8">
             <Input placeholder="User name" />
           </div>
-          <div className="mt-[30px]">
-            <Textarea placeholder="Bio" />
+          <div className="mt-[10px] lg:mt-[30px] h-fit">
+            <Textarea placeholder="Bio" width="100%" height="100%" />
           </div>
-          <div className="mt-[30px]">
+          <div className="mt-[10px] lg:mt-[30px]">
             <Input placeholder="Email Address" />
           </div>
-          <div className="mt-[60px]">
+          <div className="mt-[45px] lg:mt-[60px]">
             <div className={styles.subTitle}>Social Connections & Links</div>
           </div>
-          <div className="mt-8 flex items-center gap-6">
+          <div className="mt-4 lg:mt-8 flex items-center gap-6">
             <IconButton
               icon={InstagramWhiteIcon}
               backgroundColor="transparent"
@@ -87,7 +97,7 @@ const ProfileSection = props => {
             />
             <Input placeholder="Add Your Account" />
           </div>
-          <div className="mt-[30px] flex items-center gap-6">
+          <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
               icon={DiscordWhiteIcon}
               backgroundColor="transparent"
@@ -100,7 +110,7 @@ const ProfileSection = props => {
             />
             <Input placeholder="Add Your Account" />
           </div>
-          <div className="mt-[30px] flex items-center gap-6">
+          <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
               icon={TwitterWhiteIcon}
               backgroundColor="transparent"
@@ -113,7 +123,7 @@ const ProfileSection = props => {
             />
             <Input placeholder="Add Your Account" />
           </div>
-          <div className="mt-[30px] flex items-center gap-6">
+          <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
               icon={TelegramWhiteIcon}
               backgroundColor="transparent"
@@ -126,10 +136,10 @@ const ProfileSection = props => {
             />
             <Input placeholder="Add Your Account" />
           </div>
-          <div className="mt-[60px]">
+          <div className="mt-[45px] lg:mt-[60px]">
             <div className={styles.subTitle}>Wallet</div>
           </div>
-          <div className="mt-8">
+          <div className="mt-4 lg:mt-8">
             <CopyWalletInput
               value={shortAddress}
               placeholder="Add Your Account"
@@ -137,25 +147,27 @@ const ProfileSection = props => {
               onClick={() => copyToClipboard(publicKey.toBase58())}
             />
           </div>
-          <div className="mt-[78px] mb-[158px] w-full flex justify-evenly items-center">
+          <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-evenly items-center gap-6">
             <OutlineButton
               label="Preview"
               icon={ViewGreenIcon}
               onClick={() => {}}
               direction="rtl"
+              fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
               fontSize="16px"
               borderColor="#EFF0F6"
-              paddingLeft="18px"
-              paddingRight="18px"
+              paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '18px'}
+              paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '18px'}
             />
             <GradientButton
               label="Save"
               onClick={() => {}}
+              fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-              paddingLeft="40px"
-              paddingRight="40px"
+              paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+              paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
             />
           </div>
         </div>

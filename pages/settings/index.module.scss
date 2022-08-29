@@ -11,3 +11,13 @@
   z-index: 0;
   opacity: 0.6;
 }
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 25px;
+  line-height: 31px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+  width: 100%;
+  text-align: center;
+}
