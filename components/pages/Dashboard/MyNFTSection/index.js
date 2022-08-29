@@ -15,21 +15,32 @@ import 'swiper/css/navigation'
 import MyNFTCard from 'components/Card/MyNFTCard'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 
-// json
-import MyNFTList from 'assets/json/dashboard/my-nft-list.json'
-
 // styles
 import styles from './index.module.scss'
+
+import { useEnvironment } from 'providers/EnvironmentProvider'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { getTokensByAccount } from 'utils/wallet.util'
 
 const MyNFTSection = props => {
   const { viewport } = props
   const router = useRouter()
+  const { connection } = useEnvironment()
+  const { publicKey } = useWallet()
 
   const [myNFTftList, setMyNFTList] = useState([])
 
   useEffect(() => {
-    setMyNFTList(MyNFTList)
-  }, [])
+    async function loadMyNFTs() {
+      if (!connection || !publicKey) {
+        setMyNFTList([])
+        return
+      }
+
+      setMyNFTList(await getTokensByAccount(publicKey, connection))
+    }
+    loadMyNFTs()
+  }, [connection, publicKey])
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
 

@@ -67,7 +67,7 @@ const MobileMenu = () => {
               <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
             </div>
             <div className="my-[10px]">
-              <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} path="/" />
+              <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
             </div>
             <div className="my-[10px]">
               <AccordionMenu icon={CollectionWhiteIcon} label="Collections" type="" data={[]} path="/" />
