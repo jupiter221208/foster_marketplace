@@ -71,8 +71,8 @@ const Resources = props => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="w-full flex flex-wrap z-10">
-          <div className={`${styles.title} w-full text-center lg:text-start`}>{title}</div>
-          <div className="w-full flex justify-end mt-[61px]">
+          <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>{title}</div>
+          <div className="w-full flex justify-end mt-[65px] lg:mt-[61px]">
             <ResourceSearchBox
               value={searchKeyword}
               placeholder="Search by keywords"
@@ -80,8 +80,8 @@ const Resources = props => {
               viewport={viewport}
             />
           </div>
-          <div className="w-full flex gap-[20px] mt-[31px]">
-            <div className="flex flex-wrap w-[366px] min-w-[366px] h-fit gap-[10px]">
+          <div className="w-full flex flex-wrap gap-[20px] mt-[31px]">
+            <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
               {ResourcesCardList.map((item, index) => (
                 <div key={index} className="w-full">
                   <ResourcesCard data={item} viewport={viewport} onClick={id => setSelectedCard(id)} />
@@ -90,7 +90,7 @@ const Resources = props => {
             </div>
             <div className="flex flex-1 h-fit">
               <div className={styles.content}>
-                <div className="w-full flex justify-start gap-6">
+                <div className="w-full hidden lg:flex justify-start gap-6">
                   <Image
                     src={ResourcesCardList[selectedCard].icon02}
                     alt=""
@@ -104,11 +104,6 @@ const Resources = props => {
                 </div>
                 <div className="w-full flex flex-wrap gap-5">
                   <ResourcesAccordion data={searchList.content} />
-                  {/* {searchList.content.map((item, index) => (
-                    <div key={index} className="w-full">
-                      {item.title}
-                    </div>
-                  ))} */}
                 </div>
               </div>
             </div>

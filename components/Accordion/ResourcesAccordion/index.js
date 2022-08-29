@@ -49,7 +49,7 @@ const ResourcesAccordion = props => {
                     <div className={styles.title}>{item.title}</div>
 
                     <div className={open ? styles.openButton : styles.closeButton}>
-                      <Image src={open ? ArrowDownIcon : MinusBlackIcon} alt="" />
+                      <Image src={open ? MinusBlackIcon : ArrowDownIcon} alt="" />
                     </div>
                   </Disclosure.Button>
                   <Disclosure.Panel className={styles.panel}>

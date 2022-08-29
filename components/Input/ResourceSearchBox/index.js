@@ -5,13 +5,12 @@ import Image from 'next/image'
 
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const ResourceSearchBox = props => {
-  const { value, placeholder, onChange, viewport = 'sm' } = props
+  const { value, placeholder, onChange } = props
   return (
     <div className={styles.container}>
       <input
@@ -20,11 +19,7 @@ const ResourceSearchBox = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
-      <Image
-        src={viewport === 'sm' || viewport === 'md' ? CloseWhiteIcon : SearchGrayIcon}
-        alt=""
-        className="cursor-pointer"
-      />
+      <Image src={SearchGrayIcon} alt="" />
     </div>
   )
 }

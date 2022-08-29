@@ -4,40 +4,68 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  border-bottom: 1px solid #707070;
+  @media (min-width: 1024px) {
+    border-bottom: 1px solid #707070;
+  }
 }
 
 .button {
   width: 100%;
-  height: 59px;
+  height: 73px;
+  @media (min-width: 1024px) {
+    height: 59px;
+  }
   background-color: transparent;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 32px;
 }
 
 .title {
   font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
   color: $text-gray-200-color;
   text-align: start;
 }
 
-.openButton {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
+.closeButton {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 14px;
+  }
   background-color: $brand-01-color;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.closeButton {
-  width: 36px;
-  height: 36px;
-  border-radius: 100%;
+.openButton {
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 14px;
+  }
   background-color: #aaaaae;
   display: flex;
   justify-content: center;
@@ -46,8 +74,12 @@
 
 .text {
   font-family: 'Muli-SemiBold';
-  font-size: 16x;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16x;
+    line-height: 24px;
+  }
   color: rgba($text-gray-200-color, 0.8);
   padding-bottom: 50px;
 }

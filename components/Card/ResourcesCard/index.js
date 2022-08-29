@@ -22,9 +22,7 @@ const ResourcesCard = props => {
       </div>
       <div className="block">
         <div className={styles.title}>{data.title}</div>
-        <div className={styles.description} style={{ width: data.id === 2 ? ' 200px' : '100%' }}>
-          {data.description}
-        </div>
+        <div className={styles.description}>{data.description}</div>
       </div>
     </div>
   )
