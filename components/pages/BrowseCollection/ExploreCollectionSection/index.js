@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import { useRouter } from 'next/router'
+
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -23,6 +26,7 @@ import styles from './index.module.scss'
 
 const ExploreCollectionSection = props => {
   const { viewport } = props
+  const router = useRouter()
 
   const [trendingList, setTrendingList] = useState([])
   useEffect(() => {
