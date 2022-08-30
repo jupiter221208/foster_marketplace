@@ -66,7 +66,7 @@ const Settings = props => {
               {selectedTab === 3 && <div className={styles.title}>Discovery</div>}
               {selectedTab === 4 && <div className={styles.title}>Security</div>}
             </div>
-            <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20">
+            <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20 overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
             <div className="w-full">{selectedTab === 0 && <ProfileSection viewport={viewport} />}</div>
