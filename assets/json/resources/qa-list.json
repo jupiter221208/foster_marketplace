@@ -123,14 +123,14 @@
         "title": "How do I mint an NFT on Foster Marketplace?",
         "description": [
           "If you are on a desktop, you can begin the NFT minting process by clicking the Create tab in the navigation bar and selecting Single NFT; if you are using a mobile device, select the hamburger in the top right corner, click Create and select Single NFT from the dropdown.",
-          "You&#39;ll be taken to the NFT item creation page, where you can upload your artwork, add a description, enter a royalty percentage…and that’s it!"
+          "You'll be taken to the NFT item creation page, where you can upload your artwork, add a description, enter a royalty percentage…and that’s it!"
         ]
       },
       {
         "id": 1,
         "title": "How do NFT royalties work?",
         "description": [
-          "NFT royalties are automatic payments to the original NFT owner made on secondary sales of the owner/artist&#39;s creation (i.e., if you select 20% royalties during the minting process, you will receive 20% of the payment every time the NFT is sold)."
+          "NFT royalties are automatic payments to the original NFT owner made on secondary sales of the owner/artist's creation (i.e., if you select 20% royalties during the minting process, you will receive 20% of the payment every time the NFT is sold)."
         ]
       },
       {
@@ -357,7 +357,7 @@
       },
       {
         "id": 10,
-        "title": "What&#39;s the difference between the LIFT DAO and ETC DAO?",
+        "title": "What's the difference between the LIFT DAO and ETC DAO?",
         "description": [""]
       },
       {

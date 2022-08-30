@@ -31,28 +31,8 @@ const Resources = props => {
   const [searchKeyword, setSearchKeyword] = useState('')
 
   useEffect(() => {
-    switch (selectedCard) {
-      case 0:
-        setTitle(ResourcesCardList[0].title)
-        setSearchList(QAList[0])
-        break
-      case 1:
-        setTitle(ResourcesCardList[1].title)
-        setSearchList(QAList[1])
-        break
-      case 2:
-        setTitle(ResourcesCardList[2].title)
-        setSearchList(QAList[2])
-        break
-      case 3:
-        setTitle(ResourcesCardList[3].title)
-        setSearchList(QAList[3])
-        break
-      case 4:
-        setTitle(ResourcesCardList[4].title)
-        setSearchList(QAList[4])
-        break
-    }
+    setTitle(ResourcesCardList[selectedCard].title)
+    setSearchList(QAList[selectedCard])
   }, [selectedCard])
 
   useEffect(() => {
