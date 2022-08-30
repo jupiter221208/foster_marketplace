@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -34,6 +35,7 @@ import Image from 'next/image'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const { connected } = useWallet()
   const openMyWallet = useSelector(state => state.openMyWallet)
@@ -45,6 +47,12 @@ const MobileMenu = () => {
 
   const handleOpenConnectWallet = () => {
     dispatch({ type: 'set', openMyWallet: true })
+  }
+
+  const onClickMenuItem = type => {
+    dispatch({ type: 'set', openMobileMenu: false })
+    if (type === 'dashboard') router.push('/dashboard')
+    else if (type === 'collection') router.push('/')
   }
 
   return (
@@ -66,11 +74,11 @@ const MobileMenu = () => {
             <div className="my-[10px]">
               <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
             </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
+            <div className="my-[10px]" onClick={() => onClickMenuItem('dashboard')}>
+              <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} />
             </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={CollectionWhiteIcon} label="Collections" type="" data={[]} path="/" />
+            <div className="my-[10px]" onClick={() => onClickMenuItem('collection')}>
+              <AccordionMenu icon={CollectionWhiteIcon} label="Collections" type="" data={[]} />
             </div>
 
             <div className="my-[10px]">

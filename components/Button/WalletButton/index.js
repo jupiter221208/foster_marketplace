@@ -45,7 +45,36 @@ const WalletButton = props => {
 
   const [showDeposit, setShowDeposit] = useState(false)
   const [status, setStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
-  const [price, setPrice] = useState(13.2)
+  const [price, setPrice] = useState(0)
+  const [mainBalance, setMainBalance] = useState(120)
+  const [biddingBalance, setBiddingBalance] = useState(12)
+  const [newMainWallet, setNewMainWallet] = useState(120)
+  const [newBiddingWallet, setNewBiddingWallet] = useState(0)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const onChangePrice = value => {
+    setErrorMessage('')
+    setPrice(value)
+    if (value.length === 0) {
+      setNewMainWallet(0)
+      setNewBiddingWallet(0)
+      return
+    }
+
+    let price = parseFloat(value)
+    if (price > mainBalance) {
+      setErrorMessage('Not enough balance in the wallet')
+      setNewMainWallet(0)
+    } else {
+      setNewMainWallet(mainBalance - price)
+    }
+    if (price + biddingBalance > mainBalance) {
+      setErrorMessage('Not enough balance in the wallet')
+      setNewBiddingWallet(0)
+    } else {
+      setNewBiddingWallet(price + biddingBalance)
+    }
+  }
 
   return connected ? (
     <div>
@@ -106,7 +135,7 @@ const WalletButton = props => {
                       <div className={styles.whiteText}>Main wallet</div>
                       <div className="flex items-center gap-1">
                         <Image src={SolanaLogoIcon} alt="" />
-                        <div className={styles.grayText}>12.00</div>
+                        <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
                       </div>
                     </div>
                     <div className="flex gap-2">
@@ -128,7 +157,7 @@ const WalletButton = props => {
                       <div className={styles.whiteText}>Bidding wallet</div>
                       <div className="flex items-center gap-1">
                         <Image src={SolanaLogoIcon} alt="" />
-                        <div className={styles.grayText}>12.00</div>
+                        <div className={styles.grayText}>{biddingBalance.toFixed(2)}</div>
                       </div>
                     </div>
                     <div className="flex gap-2">
@@ -176,17 +205,17 @@ const WalletButton = props => {
                   </div>
                   <div className="w-full flex justify-end gap-1">
                     <Image src={SolanaLogoIcon} alt="" />
-                    <div className={styles.cardWhiteText}>110.00</div>
+                    <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
                   </div>
                   <div className="w-full text-end">
                     <div className={styles.lightGreenText}>New bidding wallet balance</div>
                   </div>
                   <div className="w-full flex justify-end gap-1">
                     <Image src={SolanaLogoIcon} alt="" />
-                    <div className={styles.cardWhiteText}>25.00</div>
+                    <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
                   </div>
-                  <div className="w-full flex justify-between gap-2">
-                    <PriceInput value={price} onChange={value => setPrice(value)} height="30px" fontSize="12px" />
+                  <div className="w-full flex justify-between gap-2 mt-1">
+                    <PriceInput value={price} onChange={value => onChangePrice(value)} height="30px" fontSize="12px" />
                     <GradientButton
                       label={status === 'deposit' ? 'Deposit' : 'Withdraw'}
                       height="30px"
@@ -194,6 +223,7 @@ const WalletButton = props => {
                       onClick={() => {}}
                     />
                   </div>
+                  {errorMessage.length > 0 && <div className={styles.errorMessage}>{errorMessage}</div>}
                 </div>
               )}
             </div>

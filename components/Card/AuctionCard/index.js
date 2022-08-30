@@ -71,21 +71,21 @@ const AuctionCard = props => {
     <div className={styles.container}>
       <div className="block justify-center">
         <div className={styles.whiteText}>Starting Bid</div>
-        <div className="flex justify-center gap-1 mt-2 mb-1">
+        <div className="flex justify-center gap-1 mt-1 mb-1">
           <Image src={SolanaLogoIcon} alt="" />
           <div className={styles.greenText}>12</div>
         </div>
       </div>
       <div className="block justify-center">
         <div className={styles.whiteText}>Current Bid</div>
-        <div className="flex justify-center gap-1 mt-2 mb-1">
+        <div className="flex justify-center gap-1 mt-1 mb-1">
           <Image src={SolanaLogoIcon} alt="" />
           <div className={styles.greenText}>12</div>
         </div>
       </div>
       <div className="block justify-center">
         <div className={styles.whiteText}>Time Remaining</div>
-        <div className="flex justify-around gap-1 mt-0">
+        <div className="flex justify-around gap-1">
           <div className="block justify-center">
             <div className={styles.greenText}>
               {displayEndTime.hours[0]}

@@ -216,8 +216,10 @@ const MainSection = props => {
             <div className="w-full flex flex-wrap">
               <div className="w-full flex items-center mt-[77px] lg:mt-4">
                 <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
-                <div className={`${styles.whiteTitle} ml-[6px]`}>1.1</div>
+                <div className="w-[24px] h-[24px]">
+                  <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
+                </div>
+                <div className={`${styles.whiteTitle} ml-[6px]`}>189</div>
               </div>
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 <GradientButton

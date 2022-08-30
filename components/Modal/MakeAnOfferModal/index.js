@@ -13,11 +13,52 @@ import GradientButton from 'components/Button/GradientButton'
 const MakeAnOfferModal = props => {
   const { viewport, open, close, onClick } = props
 
+  const [listingPrice, setListingPrice] = useState(189)
   const [minimumOffer, setMinimumOffer] = useState(0)
+  const [newMainBalance, setNewMainBalance] = useState(0)
+  const [newBiddingBalance, setNewBiddingBalance] = useState(0)
+  const [minimumOffer50, setMinimumOffer50] = useState(94.5)
+  const [mainWalletBalance, setMainWalletBalance] = useState(100)
+  const [biddingWalletBalance, setBiddingWalletBalance] = useState(0)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [offerBtnDisabled, setOfferBtnDisabled] = useState(true)
+
+  const onChangeOfferValue = value => {
+    setMinimumOffer(value)
+    setNewMainBalance(mainWalletBalance - value)
+    let newBiddingValue = parseFloat(biddingWalletBalance) + parseFloat(value)
+    setNewBiddingBalance(newBiddingValue)
+    setErrorMessage('')
+
+    if (value === '') {
+      setErrorMessage("Price can't be empty.")
+      return
+    }
+
+    if (newBiddingValue < minimumOffer50) {
+      setErrorMessage('<div>Offer must be at least 50% of the listing price.</div>')
+      setOfferBtnDisabled(true)
+      return
+    }
+
+    if (value < 0) {
+      setErrorMessage('Offer must be bigger than 0 SOL.')
+      setOfferBtnDisabled(true)
+      return
+    }
+
+    if (value > listingPrice) {
+      setErrorMessage('<div>No enough balance in the wallet.<br/>Offer must be lower than the listing price.</div>')
+      setOfferBtnDisabled(true)
+      return
+    }
+
+    setOfferBtnDisabled(false)
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={() => {}}>
+      <Dialog as="div" className={styles.container} onClose={() => close()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -60,19 +101,30 @@ const MakeAnOfferModal = props => {
                 </div>
                 <div className="w-full flex justify-between gap-4 mt-10">
                   <div className={styles.inputArea}>
-                    <PriceInput value={minimumOffer} fullWidth onChange={value => setMinimumOffer(value)} />
+                    <PriceInput value={minimumOffer} fullWidth onChange={value => onChangeOfferValue(value)} />
                   </div>
                   <div className="w-full max-w-[126px] min-w-[126px]">
-                    <GradientButton
-                      label="Make Offer"
-                      fullWidth
-                      onClick={() => onClick()}
-                      height="50px"
-                      fontSize="16px"
-                    />
+                    <div style={{ opacity: offerBtnDisabled ? 0.7 : 1 }}>
+                      <GradientButton
+                        label="Make Offer"
+                        fullWidth
+                        disabled={offerBtnDisabled}
+                        onClick={() => onClick()}
+                        height="50px"
+                        fontSize="16px"
+                      />
+                    </div>
                   </div>
                 </div>
-                <div className="w-full mt-[103px]">
+                <div className="w-full flex mt-[20px]">
+                  <div
+                    className={styles.termText}
+                    dangerouslySetInnerHTML={{
+                      __html: errorMessage,
+                    }}
+                  ></div>
+                </div>
+                <div className="w-full mt-[33px]">
                   <div className={styles.cardTitle}>NFT Name</div>
                 </div>
                 <div className="w-full mt-2">
@@ -84,19 +136,19 @@ const MakeAnOfferModal = props => {
                 <div className="w-full flex flex-wrap gap-3">
                   <div className="w-full flex justify-between">
                     <div className={styles.grayText}>Buy now price</div>
-                    <div className={styles.grayText}>189.00 SOL</div>
+                    <div className={styles.grayText}>{listingPrice.toFixed(2)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>Minimum offer (50%)</div>
-                    <div className={styles.whiteText}>94.50 SOL</div>
+                    <div className={styles.whiteText}>{minimumOffer50.toFixed(2)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>Main Wallet Balance</div>
-                    <div className={styles.whiteText}>100.00 SOL</div>
+                    <div className={styles.whiteText}>{mainWalletBalance.toFixed(2)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>Bidding Wallet Balance</div>
-                    <div className={styles.whiteText}>0.00 SOL</div>
+                    <div className={styles.whiteText}>{biddingWalletBalance.toFixed(2)} SOL</div>
                   </div>
                 </div>
                 <div className="w-full mt-5 mb-[22px]">
@@ -105,11 +157,11 @@ const MakeAnOfferModal = props => {
                 <div className="w-full flex flex-wrap gap-3">
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>New Main Wallet Balance</div>
-                    <div className={styles.whiteText}>5.50 SOL</div>
+                    <div className={styles.whiteText}>{newMainBalance.toFixed(2)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>New Bidding Wallet Balance</div>
-                    <div className={styles.whiteText}>94.50 SOL</div>
+                    <div className={styles.whiteText}>{newBiddingBalance.toFixed(2)} SOL</div>
                   </div>
                 </div>
                 <div className="w-full flex justify-center text-center mt-[31px]">
