@@ -9,6 +9,8 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import Tab01 from 'components/Tab/Tab01'
 import ProfileSection from 'components/pages/Settings/ProfileSection'
 import NotificationSection from 'components/pages/Settings/NotificationSection'
+import PermissionAndPrivacySection from 'components/pages/Settings/PermissionAndPrivacySection'
+import DiscoverySection from 'components/pages/Settings/DiscoverySection'
 
 // json
 import TabList from 'assets/json/settings/tab-list.json'
@@ -68,6 +70,8 @@ const Settings = props => {
             </div>
             <div className="w-full">{selectedTab === 0 && <ProfileSection viewport={viewport} />}</div>
             <div className="w-full">{selectedTab === 1 && <NotificationSection viewport={viewport} />}</div>
+            <div className="w-full">{selectedTab === 2 && <PermissionAndPrivacySection viewport={viewport} />}</div>
+            <div className="w-full">{selectedTab === 3 && <DiscoverySection viewport={viewport} />}</div>
           </div>
         </div>
       </div>
