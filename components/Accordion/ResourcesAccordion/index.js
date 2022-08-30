@@ -55,12 +55,12 @@ const ResourcesAccordion = props => {
                   <Disclosure.Panel className={styles.panel}>
                     <div className={styles.firstRow}>
                       {item.description.map((desc, index) => (
-                        // <div className={styles.text}>{desc}</div>
                         <div
                           className={styles.text}
                           dangerouslySetInnerHTML={{
                             __html: desc,
                           }}
+                          key={index}
                         />
                       ))}
                     </div>
