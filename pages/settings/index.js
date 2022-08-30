@@ -11,6 +11,7 @@ import ProfileSection from 'components/pages/Settings/ProfileSection'
 import NotificationSection from 'components/pages/Settings/NotificationSection'
 import PermissionAndPrivacySection from 'components/pages/Settings/PermissionAndPrivacySection'
 import DiscoverySection from 'components/pages/Settings/DiscoverySection'
+import SecuritySection from 'components/pages/Settings/SecuritySection'
 
 // json
 import TabList from 'assets/json/settings/tab-list.json'
@@ -72,6 +73,7 @@ const Settings = props => {
             <div className="w-full">{selectedTab === 1 && <NotificationSection viewport={viewport} />}</div>
             <div className="w-full">{selectedTab === 2 && <PermissionAndPrivacySection viewport={viewport} />}</div>
             <div className="w-full">{selectedTab === 3 && <DiscoverySection viewport={viewport} />}</div>
+            <div className="w-full">{selectedTab === 4 && <SecuritySection viewport={viewport} />}</div>
           </div>
         </div>
       </div>
