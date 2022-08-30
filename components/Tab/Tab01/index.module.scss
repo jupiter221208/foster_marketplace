@@ -12,12 +12,12 @@
   &:focus {
     outline: none;
   }
-  font-size: 16px;
+  font-size: 12px;
   @media (min-width: 1280px) {
-    font-size: 20px;
+    font-size: 14px;
   }
   @media (min-width: 1536px) {
-    font-size: 24px;
+    font-size: 16px;
   }
 }
 

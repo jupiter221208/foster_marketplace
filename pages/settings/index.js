@@ -5,9 +5,10 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 // components
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
+import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import Tab01 from 'components/Tab/Tab01'
 import ProfileSection from 'components/pages/Settings/ProfileSection'
+import NotificationSection from 'components/pages/Settings/NotificationSection'
 
 // json
 import TabList from 'assets/json/settings/tab-list.json'
@@ -59,6 +60,7 @@ const Settings = props => {
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
             <div className="w-full">{selectedTab === 0 && <ProfileSection viewport={viewport} />}</div>
+            <div className="w-full">{selectedTab === 1 && <NotificationSection viewport={viewport} />}</div>
           </div>
         </div>
       </div>
@@ -69,5 +71,5 @@ const Settings = props => {
 export default Settings
 
 Settings.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <SecondaryLayout>{page}</SecondaryLayout>
 }

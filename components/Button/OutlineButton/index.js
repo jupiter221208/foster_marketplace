@@ -27,7 +27,7 @@ const OutlineButton = props => {
     <button
       type="button"
       onClick={() => onClick()}
-      className={`${styles.container} gap-2 xl:gap-4`}
+      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
       style={{
         color: color,
         borderWidth: borderWidth,
