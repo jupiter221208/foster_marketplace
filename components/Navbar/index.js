@@ -219,12 +219,12 @@ const Navbar = props => {
               Resources
             </div>
             <div
-              onMouseOver={() => setSelectedNavMenu('setting')}
+              onMouseOver={() => setSelectedNavMenu('settings')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'setting' ? styles.textGreenColor : styles.textGrayColor
+                selectedNavMenu === 'settings' ? styles.textGreenColor : styles.textGrayColor
               } ${'mt-[36px] h-[30px]'}`}
-              onClick={() => router.push('/setting')}
+              onClick={() => router.push('/settings')}
             >
               Settings
             </div>
