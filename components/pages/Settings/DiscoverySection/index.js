@@ -31,7 +31,7 @@ const DiscoverySection = props => {
           <div className="w-full mt-[30px] mb-12">
             <GreenLineCard content="Discovery settings allows you to choose how other users discover you, and how you discover NFTs, collections and artists" />
           </div>
-          <div className="w-full flex flex-wrap gap-12 mb-[94px]">
+          <div className="w-full flex flex-wrap gap-12 mb-[171px] lg:mb-[94px]">
             <Switch
               title="Bid Activity"
               description="When someone makes an offer on one of your items"

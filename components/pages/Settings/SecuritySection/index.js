@@ -31,7 +31,7 @@ const SecuritySection = props => {
           <div className="w-full mt-[30px] mb-12">
             <GreenLineCard content="Two-Factor authentication (2FA) is a good way to add an extra layer of security to your Foster account to make sure that only you have the ability to execute select transactions. Select which transactions you would like to enable 2FA." />
           </div>
-          <div className="w-full flex flex-wrap gap-12 mb-[94px]">
+          <div className="w-full flex flex-wrap gap-12 mb-[171px] lg:mb-[94px]">
             <Switch
               title="Quick Buy"
               description="Require 2FA before a quick purchase can be executed"
