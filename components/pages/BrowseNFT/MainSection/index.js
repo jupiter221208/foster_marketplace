@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 // third party components
-import Blur from 'react-blur'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
 
