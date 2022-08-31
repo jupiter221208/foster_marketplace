@@ -173,7 +173,7 @@ const Navbar = props => {
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
                 router.asPath === '/dashboard' || selectedNavMenu === 'dashboard'
-                  ? styles.textGreenColor
+                  ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/dashboard')}
@@ -185,7 +185,7 @@ const Navbar = props => {
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
                 router.asPath === '/#notification' || selectedNavMenu === 'notification'
-                  ? styles.textGreenColor
+                  ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/#notification')}
@@ -197,7 +197,7 @@ const Navbar = props => {
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
                 router.asPath === '/#statistic' || selectedNavMenu === 'statistic'
-                  ? styles.textGreenColor
+                  ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/#statistic')}
@@ -208,7 +208,7 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('dao')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                router.asPath === '/#dao' || selectedNavMenu === 'dao' ? styles.textGreenColor : styles.textGrayColor
+                router.asPath === '/#dao' || selectedNavMenu === 'dao' ? styles.textWhiteColor : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/#dao')}
             >
@@ -219,7 +219,7 @@ const Navbar = props => {
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
                 router.asPath === '/resources' || selectedNavMenu === 'resources'
-                  ? styles.textGreenColor
+                  ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/resources')}
@@ -231,7 +231,7 @@ const Navbar = props => {
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
                 router.asPath === '/settings' || selectedNavMenu === 'settings'
-                  ? styles.textGreenColor
+                  ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/settings')}
