@@ -125,23 +125,22 @@ const MainSection = props => {
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
         <div className="col-span-2 lg:col-span-1">
-          <div className={styles.blurBackground}>
-            {typeof Avatar.src !== Object && (
-              <Blur
-                img={Avatar.src}
-                blurRadius={50}
-                enableStyles
-                shouldResize
-                className="w-full flex justify-center items-center"
-              >
-                <div className={styles.blurBackground}>
-                  <div className={styles.imageArea}>
-                    <Image src={Avatar} alt="" objectFit="cover" />
-                  </div>
-                </div>
-              </Blur>
-            )}
-          </div>
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className={styles.mobileImageArea}>
+              <Image src={Avatar} alt="" objectFit="cover" />
+              <div className={styles.mobileImageBackground} />
+            </div>
+          ) : (
+            <div className={styles.blurBackground}>
+              <div className="absolute inset-0">
+                <Image src={Avatar} alt="" layout="fill" objectFit="cover" />
+              </div>
+              <div className={styles.blurImage} />
+              <div className={styles.imageArea}>
+                <Image src={Avatar} alt="" width={Avatar.width} height={Avatar.height} objectFit="contain" />
+              </div>
+            </div>
+          )}
         </div>
         <div className="col-span-2 lg:col-span-1 z-10">
           <div className={styles.nftDetailCard}>
@@ -403,18 +402,35 @@ const MainSection = props => {
                         }}
                       >
                         <table className="w-full table-auto">
-                          <thead>
-                            <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
-                              <th>Event</th>
-                              <th>Price</th>
-                              <th>From</th>
-                              <th>To</th>
-                              <th>Date</th>
-                            </tr>
-                          </thead>
+                          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                            <thead>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                                <th>Event</th>
+                                <th>Price</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                          ) : (
+                            <thead>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                                <th>Event</th>
+                                <th>Price</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                          )}
                           <tbody>
                             {ActivityList.map((item, index) => (
-                              <tr key={index} className={`${styles.tableText} gap-2`}>
+                              <tr
+                                key={index}
+                                className={`${styles.tableText} gap-2`}
+                                style={{
+                                  background:
+                                    index % 2 === 1 ? `linear-gradient(to bottom, #378287, #1C4144)` : 'transparent',
+                                }}
+                              >
                                 <td className="mx-2">
                                   <div className="flex items-center lg:ml-2">
                                     <Image

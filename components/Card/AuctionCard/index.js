@@ -10,6 +10,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const AuctionCard = props => {
+  const { viewport } = props
   const [now, setNow] = useState(0)
   const [displayEndTime, setDisplayEndTime] = useState({
     days: '',
@@ -69,21 +70,25 @@ const AuctionCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className="block justify-center">
+      <div className="block justify-center items-start">
         <div className={styles.whiteText}>Starting Bid</div>
-        <div className="flex justify-center gap-1 mt-1 mb-1">
-          <Image src={SolanaLogoIcon} alt="" />
+        <div className="flex justify-center gap-1 mt-1">
+          <div className="w-4 h-4 lg:w-6 lg:h-6">
+            <Image src={SolanaLogoIcon} alt="" />
+          </div>
           <div className={styles.greenText}>12</div>
         </div>
       </div>
-      <div className="block justify-center">
+      <div className="block justify-center items-start">
         <div className={styles.whiteText}>Current Bid</div>
-        <div className="flex justify-center gap-1 mt-1 mb-1">
-          <Image src={SolanaLogoIcon} alt="" />
+        <div className="flex justify-center gap-1 mt-1">
+          <div className="w-4 h-4 lg:w-6 lg:h-6">
+            <Image src={SolanaLogoIcon} alt="" />
+          </div>
           <div className={styles.greenText}>12</div>
         </div>
       </div>
-      <div className="block justify-center">
+      <div className="block justify-center items-start">
         <div className={styles.whiteText}>Time Remaining</div>
         <div className="flex justify-around gap-1">
           <div className="block justify-center">
