@@ -60,11 +60,11 @@ const Navbar = props => {
             <Image src={LogoIcon} alt="" />
           </div>
           <div className={styles.navmenuArea}>
-            <div className={styles.navItemArea}>
+            {/* <div className={styles.navItemArea}>
               <div className={styles.avatar}>
                 <Image src={AvatarIcon} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
               </div>
-            </div>
+            </div> */}
             {/* <div
             className={styles.navItemArea}
             onMouseOver={() => setSelectedNavMenu('speed')}
@@ -135,13 +135,13 @@ const Navbar = props => {
             </div>
             <div
               className={styles.navItemArea}
-              onMouseOver={() => setSelectedNavMenu('resource')}
+              onMouseOver={() => setSelectedNavMenu('resources')}
               onMouseLeave={() => setSelectedNavMenu('')}
               onClick={() => router.push('/resources')}
             >
               <Image
                 src={
-                  router.asPath === '/resources' || selectedNavMenu === 'resource'
+                  router.asPath === '/resources' || selectedNavMenu === 'resources'
                     ? ResourceGreenIcon
                     : ResourceGrayIcon
                 }
@@ -167,13 +167,15 @@ const Navbar = props => {
       </div>
       <div className={showMenu ? styles.menuShowBlur : styles.menuHide}>
         <div className={styles.menuContent}>
-          <div className={styles.menuText}>
+          <div className={styles.menuTextArea}>
             <div
               onMouseOver={() => setSelectedNavMenu('dashboard')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'dashboard' ? styles.textGreenColor : styles.textGrayColor
-              } ${'mt-[12px] h-[30px]'}`}
+                router.asPath === '/dashboard' || selectedNavMenu === 'dashboard'
+                  ? styles.textGreenColor
+                  : styles.textGrayColor
+              } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/dashboard')}
             >
               Dashboard
@@ -182,8 +184,10 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('notification')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'notification' ? styles.textGreenColor : styles.textGrayColor
-              } ${'mt-[40px] h-[30px]'}`}
+                router.asPath === '/#notification' || selectedNavMenu === 'notification'
+                  ? styles.textGreenColor
+                  : styles.textGrayColor
+              } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/#notification')}
             >
               Notifications
@@ -192,8 +196,10 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('statistic')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'statistic' ? styles.textGreenColor : styles.textGrayColor
-              } ${'mt-[32px] h-[30px]'}`}
+                router.asPath === '/#statistic' || selectedNavMenu === 'statistic'
+                  ? styles.textGreenColor
+                  : styles.textGrayColor
+              } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/#statistic')}
             >
               Stats
@@ -202,18 +208,20 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('dao')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'dao' ? styles.textGreenColor : styles.textGrayColor
-              } ${'mt-[32px] h-[30px]'}`}
+                router.asPath === '/#dao' || selectedNavMenu === 'dao' ? styles.textGreenColor : styles.textGrayColor
+              } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/#dao')}
             >
               DAO
             </div>
             <div
-              onMouseOver={() => setSelectedNavMenu('resource')}
+              onMouseOver={() => setSelectedNavMenu('resources')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'resource' ? styles.textGreenColor : styles.textGrayColor
-              } ${'mt-[36px] h-[30px]'}`}
+                router.asPath === '/resources' || selectedNavMenu === 'resources'
+                  ? styles.textGreenColor
+                  : styles.textGrayColor
+              } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/resources')}
             >
               Resources
@@ -222,8 +230,10 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('settings')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                selectedNavMenu === 'settings' ? styles.textGreenColor : styles.textGrayColor
-              } ${'mt-[36px] h-[30px]'}`}
+                router.asPath === '/settings' || selectedNavMenu === 'settings'
+                  ? styles.textGreenColor
+                  : styles.textGrayColor
+              } ${'h-[65px] flex items-center'}`}
               onClick={() => router.push('/settings')}
             >
               Settings
