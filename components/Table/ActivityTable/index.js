@@ -13,7 +13,7 @@ const ActivityTable = props => {
   const { data, viewport } = props
 
   return (
-    <table className="w-full table-auto">
+    <table id="ActivityTable" className="w-full table-auto">
       <thead>
         <tr>
           <th></th>
