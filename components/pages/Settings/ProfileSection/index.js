@@ -14,6 +14,7 @@ import Textarea from 'components/Input/Textarea'
 import IconButton from 'components/Button/IconButton'
 import CopyWalletInput from 'components/Input/CopyWalletInput'
 import GradientButton from 'components/Button/GradientButton'
+import Alert from 'components/Alert'
 
 // images and icons
 import Avatar from 'assets/images/dashboard-avatar.png'
@@ -33,8 +34,11 @@ const ProfileSection = props => {
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
+  const [showAlert, setShowAlert] = useState(false)
+
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
+    setShowAlert(true)
   }
 
   return (
@@ -172,6 +176,18 @@ const ProfileSection = props => {
           </div>
         </div>
       </div>
+      {showAlert && (
+        <Alert
+          viewport={viewport}
+          open={showAlert}
+          close={() => {
+            setShowAlert(false)
+          }}
+          title="Copied successfuly!"
+          description="Wallet address is copied successfully!"
+          type="success"
+        />
+      )}
     </div>
   )
 }
