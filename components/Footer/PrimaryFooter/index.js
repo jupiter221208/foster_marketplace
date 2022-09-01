@@ -118,7 +118,7 @@ const PrimaryFooter = props => {
                 About us
               </div>
               <div className={styles.linkText} onClick={() => router.push('/#')}>
-                Our Community
+                Community
               </div>
               <div className={styles.linkText} onClick={() => router.push('/#')}>
                 Careers
