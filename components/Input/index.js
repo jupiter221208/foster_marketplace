@@ -7,7 +7,8 @@ const Input = props => {
   const {
     value,
     placeholder,
-    label = '',
+    label01 = '',
+    label02 = '',
     onChange,
     color = '',
     fullWidth = false,
@@ -28,7 +29,12 @@ const Input = props => {
         onChange={event => onChange(event.target.value)}
         style={{ color, backgroundColor, borderColor, borderWidth, width: fullWidth ? '100%' : width, height }}
       />
-      {label !== '' && <div className={styles.label}>{label}</div>}
+      {label01 !== '' && (
+        <div className="w-full flex justify-between px-6 gap-6">
+          <div className={styles.label}>{label01}</div>
+          <div className={styles.label}>{label02}</div>
+        </div>
+      )}
     </div>
   )
 }

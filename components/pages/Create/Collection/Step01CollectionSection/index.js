@@ -316,8 +316,9 @@ const Step01CollectionSection = props => {
                     <Input
                       value={limit(collectionName, 20)}
                       placeholder="Give your art name"
-                      label="Max Characters 20"
-                      onChange={value => onChangeCollectionName(value)}
+                      label01="Max Characters 20"
+                      label02={20 - collectionName.length === 20 ? '' : `${20 - collectionName.length} Characters left`}
+                      onChange={value => onChangeCollectionName(limit(value, 20))}
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Description *</div>
@@ -461,8 +462,9 @@ const Step01CollectionSection = props => {
               <Input
                 value={limit(collectionName, 20)}
                 placeholder="Give your art name"
-                label="Max Characters 20"
-                onChange={value => onChangeCollectionName(value)}
+                label01="Max Characters 20"
+                label02={20 - collectionName.length === 20 ? '' : `${20 - collectionName.length} Characters left`}
+                onChange={value => onChangeCollectionName(limit(value, 20))}
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>Description *</div>

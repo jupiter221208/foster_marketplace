@@ -399,8 +399,9 @@ const SingleNft = props => {
                         <Input
                           value={limit(nftName, 20)}
                           placeholder="Give your art name"
-                          label="Max Characters 20"
-                          onChange={value => setNftName(value)}
+                          label01="Max Characters 20"
+                          label02={20 - nftName.length === 20 ? '' : `${20 - nftName.length} Characters left`}
+                          onChange={value => setNftName(limit(value, 20))}
                         />
                       </div>
                       <div className={`${styles.subTitle} mt-20`}>Description *</div>
@@ -646,8 +647,9 @@ const SingleNft = props => {
                 <Input
                   value={limit(nftName, 20)}
                   placeholder="Give your art name"
-                  label="Max Characters 20"
-                  onChange={value => setNftName(value)}
+                  label01="Max Characters 20"
+                  label02={20 - nftName.length === 20 ? '' : `${20 - nftName.length} Characters left`}
+                  onChange={value => setNftName(limit(value, 20))}
                 />
               </div>
               <div className={`${styles.subTitle} mt-5`}>Description *</div>
