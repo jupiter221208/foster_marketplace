@@ -231,14 +231,18 @@ const MainSection = props => {
                   onClick={() => setOpenOfferModal(true)}
                   icon={TagWhiteIcon}
                   direction="rtl"
-                  borderColor="#ffffff"
                   borderWidth={2}
+                  paddingLeft="13px"
+                  paddingRight="13px"
+                  gap="4px"
                 />
               </div>
               <div className="w-full flex content-none mt-[14px]">
                 <p className={styles.whiteDiscription}>
                   By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                  <span className={styles.greenDiscription}>Terms of Service</span>
+                  <a href="" className={styles.greenDiscription}>
+                    Terms of Service
+                  </a>
                 </p>
               </div>
               <div className="mx-auto w-full mt-4">

@@ -22,6 +22,7 @@ const OutlineButton = props => {
     width = '',
     paddingLeft = '',
     paddingRight = '',
+    gap = '',
   } = props
   return (
     <button
@@ -38,6 +39,7 @@ const OutlineButton = props => {
         width: fullWidth ? '100%' : width,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
+        gap: gap,
       }}
     >
       {direction === 'rtl' && icon !== '' && (
