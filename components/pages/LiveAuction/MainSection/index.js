@@ -273,48 +273,6 @@ const MainSection = props => {
                                   : '16px'
                               }
                             />
-                            <OutlineButton
-                              label="Degen Art"
-                              onClick={() => {}}
-                              color="#EFF0F6"
-                              borderColor="#EFF0F6"
-                              borderRadius="16px"
-                              height={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '25px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '28px'
-                                  : '32px'
-                              }
-                              fontSize={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '12px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '14px'
-                                  : '16px'
-                              }
-                            />
-                            <OutlineButton
-                              label="Environment"
-                              onClick={() => {}}
-                              color="#EFF0F6"
-                              borderColor="#EFF0F6"
-                              borderRadius="16px"
-                              height={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '25px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '28px'
-                                  : '32px'
-                              }
-                              fontSize={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '12px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '14px'
-                                  : '16px'
-                              }
-                            />
                           </div>
                         </div>
                       </Disclosure.Panel>
