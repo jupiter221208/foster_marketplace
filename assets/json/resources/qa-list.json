@@ -307,7 +307,9 @@
       {
         "id": 12,
         "title": "What is the Turkey Circus website?",
-        "description": ["You can learn more about Turkey Circus by visiting https://www.turkeycircus.io"]
+        "description": [
+          "You can learn more about Turkey Circus by visiting <u><a href='https://www.turkeycircus.io'>https://www.turkeycircus.io</a></u>"
+        ]
       }
     ]
   },
@@ -341,7 +343,14 @@
         "id": 3,
         "title": "What utility does LIFT token have in Foster Marketplace?",
         "description": [
-          "The key advantage in the ownership of LIFT surrounds the right of governance. Our governed platform will be an integral part of bringing new and existing projects into the Foster Ecosystem with the possibility of introducing new use-cases to the NFT community."
+          "The key advantage in the ownership of LIFT surrounds the right of governance. Our governed platform will be an integral part of bringing new and existing projects into the Foster Ecosystem with the possibility of introducing new use-cases to the NFT community.",
+          "LIFT token has various prongs of utility that exist to align governance and financial incentives. In an effort to create long term protocol value, Foster Marketplace will utilizes its native token for the following:",
+          "i. Rewards & Revenue Share",
+          "ii. Marketplace Governance",
+          "iii. Streaming Membership",
+          "iv. Decentralized Finance",
+          "v. Deflationary Tokenomics",
+          "vi. Future Expansion"
         ]
       },
       {
@@ -358,7 +367,7 @@
         "id": 6,
         "title": "When will LIFT be listed on an exchange?",
         "description": [
-          "Our team will undertake best efforts to have LIFT listed on a cryptocurrency exchange in 2023. Until a listing has been completed, token holders can dispose of tokens by way of selling them on a bilateral basis, or for utility purposes on the Foster Marketplace mobile application."
+          "Our team will undertake best efforts to have LIFT listed on a cryptocurrency exchange in 2023."
         ]
       },
       {
