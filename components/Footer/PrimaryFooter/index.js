@@ -11,11 +11,11 @@ import Subscriber from 'components/Input/Subscriber'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
-import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
-import DiscordGreenIcon from 'assets/icons/discord-green.svg'
-import TwitterGreenIcon from 'assets/icons/twitter-green.svg'
-import GithubWhiteIcon from 'assets/icons/github-white.svg'
-import MediumWhiteIcon from 'assets/icons/medium-white.svg'
+import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
+import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
+import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
+import GithubLightGreenIcon from 'assets/icons/github-light-green.svg'
+import MediumLightGreenIcon from 'assets/icons/medium-light-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -81,21 +81,33 @@ const PrimaryFooter = props => {
             <div className="flex flex-wrap mt-[62px] gap-5">
               <div>
                 <IconButton
-                  icon={InstagramWhiteIcon}
+                  icon={InstagramLightGreenIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
                 />
               </div>
               <div>
-                <IconButton icon={DiscordGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+                <IconButton
+                  icon={DiscordLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
+                />
               </div>
               <div>
-                <IconButton icon={TwitterGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+                <IconButton
+                  icon={TwitterLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
+                />
               </div>
               <div>
-                <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+                <IconButton
+                  icon={GithubLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
+                />
               </div>
               <div>
-                <IconButton icon={MediumWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)} />
+                <IconButton
+                  icon={MediumLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
+                />
               </div>
             </div>
           </div>
@@ -158,21 +170,33 @@ const PrimaryFooter = props => {
             <div className="flex flex-wrap mt-[44px] gap-[18px] justify-center">
               <div>
                 <IconButton
-                  icon={InstagramWhiteIcon}
+                  icon={InstagramLightGreenIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
                 />
               </div>
               <div>
-                <IconButton icon={DiscordGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)} />
+                <IconButton
+                  icon={DiscordLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
+                />
               </div>
               <div>
-                <IconButton icon={TwitterGreenIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)} />
+                <IconButton
+                  icon={TwitterLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
+                />
               </div>
               <div>
-                <IconButton icon={GithubWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+                <IconButton
+                  icon={GithubLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
+                />
               </div>
               <div>
-                <IconButton icon={MediumWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)} />
+                <IconButton
+                  icon={MediumLightGreenIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
+                />
               </div>
             </div>
           </div>
