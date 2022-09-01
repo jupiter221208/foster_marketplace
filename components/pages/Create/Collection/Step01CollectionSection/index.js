@@ -314,18 +314,18 @@ const Step01CollectionSection = props => {
                   <div className={`${styles.subTitle} mt-[75px]`}>Collection Name *</div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
-                      value={limit(collectionName, 100)}
+                      value={limit(collectionName, 20)}
                       placeholder="Give your art name"
-                      label="Max Characters 100"
+                      label="Max Characters 20"
                       onChange={value => onChangeCollectionName(value)}
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Description *</div>
                   <div className="w-full mt-5">
                     <Textarea
-                      value={limit(description, 300)}
+                      value={limit(description, 150)}
                       placeholder="Add a short description..."
-                      label="Max Characters 300"
+                      label="Max Characters 150"
                       onChange={value => onChangeDescription(value)}
                     />
                   </div>
@@ -458,18 +458,18 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
             <div className="max-w-[370px] w-full mt-4">
               <Input
-                value={limit(collectionName, 100)}
+                value={limit(collectionName, 20)}
                 placeholder="Give your art name"
-                label="Max Characters 100"
+                label="Max Characters 20"
                 onChange={value => onChangeCollectionName(value)}
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>Description *</div>
             <div className="w-full mt-5">
               <Textarea
-                value={limit(description, 300)}
+                value={limit(description, 150)}
                 placeholder="Add a short description..."
-                label="Max Characters 300"
+                label="Max Characters 150"
                 onChange={value => onChangeDescription(value)}
               />
             </div>

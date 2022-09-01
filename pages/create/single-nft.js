@@ -397,18 +397,18 @@ const SingleNft = props => {
                       <div className={`${styles.subTitle} mt-20`}>NFT Name *</div>
                       <div className="max-w-[370px] w-full mt-5">
                         <Input
-                          value={limit(nftName, 100)}
+                          value={limit(nftName, 20)}
                           placeholder="Give your art name"
-                          label="Max Characters 100"
+                          label="Max Characters 20"
                           onChange={value => setNftName(value)}
                         />
                       </div>
                       <div className={`${styles.subTitle} mt-20`}>Description *</div>
                       <div className="w-full mt-5">
                         <Textarea
-                          value={limit(description, 300)}
+                          value={limit(description, 150)}
                           placeholder="Add a short description..."
-                          label="Max Characters 300"
+                          label="Max Characters 150"
                           onChange={value => setDescription(value)}
                         />
                       </div>
@@ -641,18 +641,18 @@ const SingleNft = props => {
               <div className={`${styles.subTitle} mt-5`}>NFT Name *</div>
               <div className="max-w-[370px] w-full mt-4">
                 <Input
-                  value={limit(nftName, 100)}
+                  value={limit(nftName, 20)}
                   placeholder="Give your art name"
-                  label="Max Characters 100"
+                  label="Max Characters 20"
                   onChange={value => setNftName(value)}
                 />
               </div>
               <div className={`${styles.subTitle} mt-5`}>Description *</div>
               <div className="w-full mt-5">
                 <Textarea
-                  value={limit(description, 300)}
+                  value={limit(description, 150)}
                   placeholder="Add a short description..."
-                  label="Max Characters 300"
+                  label="Max Characters 150"
                   onChange={value => setDescription(value)}
                 />
               </div>
