@@ -325,7 +325,8 @@ const Step01CollectionSection = props => {
                     <Textarea
                       value={limit(description, 150)}
                       placeholder="Add a short description..."
-                      label="Max Characters 150"
+                      label01="Max Characters 150"
+                      label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
                       onChange={value => onChangeDescription(value)}
                     />
                   </div>
@@ -469,7 +470,8 @@ const Step01CollectionSection = props => {
               <Textarea
                 value={limit(description, 150)}
                 placeholder="Add a short description..."
-                label="Max Characters 150"
+                label01="Max Characters 150"
+                label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
                 onChange={value => onChangeDescription(value)}
               />
             </div>

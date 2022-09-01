@@ -355,7 +355,6 @@ const Step02CollectionSection = props => {
                             <Textarea
                               value={item.description}
                               placeholder="Add a short description..."
-                              label=""
                               fullWidth
                               onChange={value => onChangeCollectionDescription(item, value)}
                               height="90px"
@@ -453,7 +452,6 @@ const Step02CollectionSection = props => {
                             <Textarea
                               value={item.description}
                               placeholder="Add a short description..."
-                              label=""
                               fullWidth
                               onChange={value => onChangeCollectionDescription(item, value)}
                               height="90px"
@@ -671,7 +669,6 @@ const Step02CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
-                          label=""
                           fullWidth
                           onChange={value => onChangeCollectionDescription(item, value)}
                           height="90px"
@@ -770,7 +767,6 @@ const Step02CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
-                          label=""
                           fullWidth
                           onChange={value => onChangeCollectionDescription(item, value)}
                           height="90px"

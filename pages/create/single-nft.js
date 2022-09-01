@@ -408,8 +408,11 @@ const SingleNft = props => {
                         <Textarea
                           value={limit(description, 150)}
                           placeholder="Add a short description..."
-                          label="Max Characters 150"
-                          onChange={value => setDescription(value)}
+                          label01="Max Characters 150"
+                          label02={
+                            150 - description.length === 150 ? '' : `${150 - description.length} Characters left`
+                          }
+                          onChange={value => setDescription(limit(value, 150))}
                         />
                       </div>
                       <div className={`${styles.subTitle} mt-20`}>Categories (max. 3) *</div>
@@ -652,7 +655,8 @@ const SingleNft = props => {
                 <Textarea
                   value={limit(description, 150)}
                   placeholder="Add a short description..."
-                  label="Max Characters 150"
+                  label01="Max Characters 150"
+                  label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
                   onChange={value => setDescription(value)}
                 />
               </div>
