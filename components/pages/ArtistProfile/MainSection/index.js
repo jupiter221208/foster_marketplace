@@ -13,6 +13,10 @@ import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import YoutubeWhiteIcon from 'assets/icons/youtube-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import YoutubeHoverIcon from 'assets/icons/youtube-hover.svg'
+import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
+import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
+import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
 
 import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import GradientButton from 'components/Button/GradientButton'
@@ -64,21 +68,28 @@ const MainSection = props => {
               <div>
                 <SocialButton
                   icon={YoutubeWhiteIcon}
+                  iconHover={YoutubeHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
                 />
               </div>
               <div>
                 <SocialButton
                   icon={TwitterWhiteIcon}
+                  iconHover={TwitterHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
                 />
               </div>
               <div>
-                <SocialButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+                <SocialButton
+                  icon={DiscordWhiteIcon}
+                  iconHover={DiscordHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
+                />
               </div>
               <div>
                 <SocialButton
                   icon={FacebookWhiteIcon}
+                  iconHover={FacebookHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
                 />
               </div>
@@ -98,21 +109,28 @@ const MainSection = props => {
               <div>
                 <SocialButton
                   icon={YoutubeWhiteIcon}
+                  iconHover={YoutubeHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
                 />
               </div>
               <div>
                 <SocialButton
                   icon={TwitterWhiteIcon}
+                  iconHover={TwitterHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
                 />
               </div>
               <div>
-                <SocialButton icon={DiscordWhiteIcon} onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)} />
+                <SocialButton
+                  icon={DiscordWhiteIcon}
+                  iconHover={DiscordHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
+                />
               </div>
               <div>
                 <SocialButton
                   icon={FacebookWhiteIcon}
+                  iconHover={FacebookHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
                 />
               </div>
