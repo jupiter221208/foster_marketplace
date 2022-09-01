@@ -34,7 +34,7 @@ const MainSection = props => {
   const [userType, setUserType] = useState([])
 
   useEffect(() => {
-    setUserType(['Abstract', 'Design Art', 'Collectible'])
+    setUserType(['Abstract'])
   }, [])
 
   return (

@@ -42,7 +42,7 @@ const MainSection = props => {
   const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
   useEffect(() => {
-    setUserType(['Abstract', 'Design Art', 'Collectible'])
+    setUserType(['Abstract'])
   }, [])
 
   return (
