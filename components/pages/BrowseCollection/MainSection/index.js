@@ -4,10 +4,16 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+// custom components
+import BrowseArtistCard from 'components/Card/BrowseArtistCard'
+// import GradientButton from 'components/Button/GradientButton'
+import SocialButton from 'components/Button/SocialButton'
+import ArtistTypeCard from 'components/Card/ArtistTypeCard'
+
 // images and icons
 import HeaderImage from 'assets/images/browse-collection-header.png'
 import AvatarImage from 'assets/images/browse-collection-avatar.png'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
+// import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import FacebookWhiteIcon from 'assets/icons/facebook-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
@@ -17,11 +23,6 @@ import YoutubeHoverIcon from 'assets/icons/youtube-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
 import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
-
-import BrowseArtistCard from 'components/Card/BrowseArtistCard'
-import GradientButton from 'components/Button/GradientButton'
-import SocialButton from 'components/Button/SocialButton'
-import ArtistTypeCard from 'components/Card/ArtistTypeCard'
 
 // styles
 import styles from './index.module.scss'
@@ -44,13 +45,13 @@ const MainSection = props => {
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
-            <GradientButton
+            {/* <GradientButton
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
               label="Follow"
               direction={'rtl'}
               icon={AvatarFollowIcon}
-            />
+            /> */}
           </div>
           <div className="col-span-6">
             <BrowseArtistCard

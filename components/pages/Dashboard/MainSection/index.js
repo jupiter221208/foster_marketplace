@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 
 // custom components
 import DashboardArtistCard from 'components/Card/DashboardArtistCard'
-import GradientButton from 'components/Button/GradientButton'
+// import GradientButton from 'components/Button/GradientButton'
 import SocialButton from 'components/Button/SocialButton'
 import ArtistTypeCard from 'components/Card/ArtistTypeCard'
 import AddressButton from 'components/Button/AddressButton'
@@ -15,7 +15,7 @@ import AddressButton from 'components/Button/AddressButton'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import HeaderImage from 'assets/images/alexander-ant.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
+// import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import FacebookWhiteIcon from 'assets/icons/facebook-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
@@ -56,13 +56,13 @@ const MainSection = props => {
       <div className="w-full z-10">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
-            <GradientButton
+            {/* <GradientButton
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
               label="Follow"
               direction={'rtl'}
               icon={AvatarFollowIcon}
-            />
+            /> */}
           </div>
           <div className="col-span-6">
             <DashboardArtistCard image={AvatarImage} artistName="Artist Name" viewport={viewport} />
