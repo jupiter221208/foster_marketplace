@@ -165,7 +165,9 @@
       {
         "id": 6,
         "title": "How do I start an auction?",
-        "description": [""]
+        "description": [
+          "If you would like to start an auction, start by navigating to your dashboard, and finding the NFT you wish to auction under the My NFTs tab. Click on Start Auction and select the date and time you would like the auction to start. Next, enter in the number of days and hours you would like the auction to last. Finally, enter in the bid amount you would like the auction to start at and click publish auction."
+        ]
       },
       {
         "id": 7,
@@ -251,7 +253,9 @@
       {
         "id": 5,
         "title": "How can I purchase a Turkey Circus NFT if I did not get on the whitelist?",
-        "description": [""]
+        "description": [
+          "If you were not able to get a whitelist spot in time, you can purchase a Turkey Circus NFT from secondary sales on any NFT marketplace the NFT is listed."
+        ]
       },
       {
         "id": 6,
@@ -266,27 +270,44 @@
       {
         "id": 8,
         "title": "How are the funds from the Turkey Circus sale being allocated?",
-        "description": [""]
+        "description": [
+          "The proceeds of the Turkey Circus mint will be distributed to each entity (both the core team and community) contributing to its success, as well as the long-term initiative of the project. The allocation breakdown is as follows: ",
+          "i. 20% Foster Liquidity",
+          "ii. 10% Turkey DAO Treasury",
+          "iii. 25% Artist & Core Team",
+          "iv. 10% Development",
+          "v. 2.5 % Whitelist Management",
+          "vi. 2.5 % Discord Management",
+          "vii. 2.5 % Security & Testing",
+          "viii. 12.5% Marketing",
+          "ix. 7.5 % Operations",
+          "x. 2.5% Emissions",
+          "xi. 5 % Unexpected Expenses"
+        ]
       },
       {
         "id": 9,
         "title": "When will the Turkey Circus DAO launch?",
-        "description": [""]
+        "description": ["Turkey Circus governance will be enabled during the beta release of Foster Marketplace."]
       },
       {
         "id": 10,
         "title": "What types of proposals will be governed by Turkey Circus holders?",
-        "description": ["The Turkey Circus DAO governs Foster community initiatives."]
+        "description": [
+          "The Turkey Circus DAO governs Foster community initiatives as well as the curation of Foster House Art, and various marketplace product features."
+        ]
       },
       {
         "id": 11,
         "title": "How can I participate in governance activities by the Turkey Circus DAO?",
-        "description": [""]
+        "description": [
+          "Turkey Circus DAO activities can be accessed directly from the marketplace. The team will be deploying a DAO user-interface that can only be accessed by wallets holding Turkey Circus NFTs."
+        ]
       },
       {
         "id": 12,
-        "title": "What are the benefits of holding a Turkey Circus NFT?",
-        "description": [""]
+        "title": "What is the Turkey Circus website?",
+        "description": ["You can learn more about Turkey Circus by visiting https://www.turkeycircus.io"]
       }
     ]
   },

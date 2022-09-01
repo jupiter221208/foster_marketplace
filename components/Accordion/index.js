@@ -26,7 +26,7 @@ const Accordion = props => {
             )}
           </Disclosure.Button>
           {data.length !== 0 && (
-            <Disclosure.Panel className="absolute bottom-28 pt-4 pb-2 text-sm text-gray-500">
+            <Disclosure.Panel className="absolute top-9 pt-4 pb-2 text-sm text-gray-500">
               {({ close }) =>
                 data.map((item, index) => (
                   <div

@@ -6,11 +6,10 @@ import Image from 'next/image'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
-
-// custom components
 import ResourceSearchBox from 'components/Input/ResourceSearchBox'
 import ResourcesCard from 'components/Card/ResourcesCard'
 import ResourcesAccordion from 'components/Accordion/ResourcesAccordion'
+import Pagination from 'components/Button/Pagination'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -30,6 +29,8 @@ const Resources = props => {
   const [searchList, setSearchList] = useState(QAList[0])
   const [searchKeyword, setSearchKeyword] = useState('')
 
+  const [content, setContent] = useState([])
+
   useEffect(() => {
     setTitle(ResourcesCardList[selectedCard].title)
     setSearchList(QAList[selectedCard])
@@ -45,6 +46,15 @@ const Resources = props => {
     object = { ...QAList[selectedCard], content: searchResult }
     setSearchList(object)
   }, [searchKeyword, selectedCard])
+
+  useEffect(() => {
+    console.log('/////////')
+    setContent(searchList.content)
+  }, [searchList])
+
+  const handleGetCurrentData = data => {
+    setContent(data)
+  }
 
   return (
     <div className="g-container">
@@ -90,8 +100,13 @@ const Resources = props => {
                   </div>
                 </div>
                 <div className="w-full flex flex-wrap gap-5">
-                  <ResourcesAccordion data={searchList.content} />
+                  <ResourcesAccordion data={content} />
                 </div>
+                <Pagination
+                  data={searchList.content}
+                  getCurrentData={data => handleGetCurrentData(data)}
+                  viewport={viewport}
+                />
               </div>
             </div>
           </div>

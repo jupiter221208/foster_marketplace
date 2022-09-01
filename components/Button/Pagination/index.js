@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-// third party components
-import { useDispatch, useSelector } from 'react-redux'
-
 // custom components
 import IconButton from 'components/Button/IconButton'
 import Accordion from 'components/Accordion'
@@ -50,7 +47,7 @@ const Pagination = props => {
   return (
     <div className={styles.container}>
       <div>Rows per page:</div>
-      <div>
+      <div className="relative">
         <Accordion label={rowCount.toString()} data={RowCountList} onClick={item => setRowCount(item.value)} />
       </div>
       <div>
