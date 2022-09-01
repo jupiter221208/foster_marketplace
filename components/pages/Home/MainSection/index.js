@@ -72,7 +72,7 @@ const MainSection = props => {
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
               <GreenGradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
-              <OutlineButton label="Create" width={124} onClick={() => router.push('/create')} />
+              <OutlineButton label="Create" width={124} onClick={() => router.push('/create/single-nft')} />
             </div>
           ) : (
             <></>
@@ -92,7 +92,7 @@ const MainSection = props => {
             </div>
           </div>
         </div>
-        <div className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end">
+        <div className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end py-6">
           <div className="max-w-[550px] w-full">
             <Swiper
               slidesPerView={1}
@@ -133,7 +133,7 @@ const MainSection = props => {
                 label="Create"
                 borderWidth={2}
                 width={88}
-                onClick={() => router.push('/create')}
+                onClick={() => router.push('/create/single-nft')}
               />
             </div>
           </div>

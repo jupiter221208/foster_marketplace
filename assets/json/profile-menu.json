@@ -1,4 +1,4 @@
 [
-  { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "path": "/create-01" },
-  { "id": 1, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/create-02" }
+  { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "path": "/settings" },
+  { "id": 1, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/settings" }
 ]
