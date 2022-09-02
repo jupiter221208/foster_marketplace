@@ -153,7 +153,19 @@ const Step02CollectionSection = props => {
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {
-      setDisabledNextButton(false)
+      let count = 0
+      collectionFiles.map((item, index) => {
+        console.log(index, '====', item)
+        if (item.name === '' || item.description === '') {
+          count++
+        }
+      })
+
+      if (count === 0) {
+        setDisabledNextButton(false)
+      } else {
+        setDisabledNextButton(true)
+      }
     }
   }, [collectionFiles])
 
