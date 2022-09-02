@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -31,6 +31,9 @@ import styles from './index.module.scss'
 const ProfileSection = props => {
   const { viewport } = props
 
+  const inputFile = useRef(null)
+  const [avatar, setAvatar] = useState(Avatar)
+
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
@@ -39,6 +42,10 @@ const ProfileSection = props => {
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
     setShowAlert(true)
+  }
+
+  const handleChangeAvatar = event => {
+    setAvatar(URL.createObjectURL(event.target.files[0]))
   }
 
   return (
@@ -51,7 +58,7 @@ const ProfileSection = props => {
           <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
             <div className={styles.avatarArea}>
               <Image
-                src={Avatar}
+                src={avatar}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                 alt=""
@@ -64,12 +71,19 @@ const ProfileSection = props => {
               <OutlineButton
                 label="Change Profile Picture"
                 icon={EditorGreenIcon}
-                onClick={() => {}}
+                onClick={() => inputFile.current.click()}
                 direction="rtl"
                 fullWidth
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '41px' : '64px'}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 borderColor="#EFF0F6"
+              />
+              <input
+                type="file"
+                id="file"
+                ref={inputFile}
+                style={{ display: 'none' }}
+                onChange={event => handleChangeAvatar(event)}
               />
             </div>
           </div>
