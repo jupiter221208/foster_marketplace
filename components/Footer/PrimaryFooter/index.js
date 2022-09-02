@@ -39,38 +39,44 @@ const PrimaryFooter = props => {
           </div>
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>About</div>
-            <div className={`${styles.linkText} !mt-[49px]`} onClick={() => router.push('/#')}>
+            <div
+              className={`${styles.linkText} !mt-[49px]`}
+              onClick={() => router.push(process.env.NEXT_PUBLIC_ABOUT_US)}
+            >
               About us
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_COMMUNITY)}>
               Community
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_CAREERS)}>
               Careers
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE)}>
               Terms of Use
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRIVACY_POLICY)}>
               Private Policy
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>Resources</div>
-            <div className={`${styles.linkText} !mt-[49px]`} onClick={() => router.push('/#')}>
+            <div
+              className={`${styles.linkText} !mt-[49px]`}
+              onClick={() => router.push(process.env.NEXT_PUBLIC_WHITEPAPER)}
+            >
               Whitepaper
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
-              Brand Guide
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_BRAND_DESIGN)}>
+              Brand & Design
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
-              Design Library
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_DEVELOPMENT)}>
+              Development
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
+            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRESS_RELEASES)}>
               Press Releases
             </div>
-            <div className={styles.linkText} onClick={() => router.push('/#')}>
-              Contact Us
+            <div className={styles.linkText}>
+              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Contact Us</a>
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
@@ -126,19 +132,22 @@ const PrimaryFooter = props => {
           <div className="w-full flex justify-around">
             <div className="w-full block justify-center text-center mt-[44px]">
               <div className={styles.title}>About</div>
-              <div className={`${styles.linkText} !mt-[23px]`} onClick={() => router.push('/#')}>
+              <div
+                className={`${styles.linkText} !mt-[23px]`}
+                onClick={() => router.push(process.env.NEXT_PUBLIC_ABOUT_US)}
+              >
                 About us
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_COMMUNITY)}>
                 Community
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_CAREERS)}>
                 Careers
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE)}>
                 Terms of Use
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRIVACY_POLICY)}>
                 Private Policy
               </div>
             </div>
@@ -147,17 +156,17 @@ const PrimaryFooter = props => {
               <div className={`${styles.linkText} !mt-[23px]`} onClick={() => router.push('/#')}>
                 Whitepaper
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
-                Brand Guide
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_BRAND_DESIGN)}>
+                Brand & Design
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
-                Design Library
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_DEVELOPMENT)}>
+                Development
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
+              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRESS_RELEASES)}>
                 Press Releases
               </div>
-              <div className={styles.linkText} onClick={() => router.push('/#')}>
-                Contact Us
+              <div className={styles.linkText}>
+                <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Contact Us</a>
               </div>
             </div>
           </div>
