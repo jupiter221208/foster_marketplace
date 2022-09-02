@@ -390,25 +390,31 @@ const MainSection = props => {
                                 }}
                               >
                                 <td className="mx-2">
-                                  <div className="flex items-center lg:ml-2">
-                                    <Image
-                                      src={item.event === 'Sale' ? SaleWhiteIcon : TagWhiteIcon}
-                                      alt=""
-                                      width={viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32}
-                                      height={viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32}
-                                    />
+                                  <div className="flex items-center ml-2">
+                                    <div className="w-3 h-3 lg:w-5 lg:h-5 flex items-center">
+                                      <Image
+                                        src={item.event === 'Sale' ? SaleWhiteIcon : TagWhiteIcon}
+                                        alt=""
+                                        width={
+                                          viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                        }
+                                        height={
+                                          viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                        }
+                                      />
+                                    </div>
                                     <div className="ml-2">{item.event}</div>
                                   </div>
                                 </td>
                                 <td>
-                                  <div className="flex items-center mx-2 gap-2">
+                                  <div className="flex items-center mx-2 gap-1">
                                     <Image
                                       src={SolanaLogoIcon}
                                       alt=""
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div className="ml-2">{item.price}</div>
+                                    <div>{item.price}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -440,10 +446,7 @@ const MainSection = props => {
                                   </td>
                                 )}
                                 <td>
-                                  <div className="flex items-center mx-2 gap-2">
-                                    {item.date}
-                                    {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? ' ago' : ''}
-                                  </div>
+                                  <div className="w-full flex justify-end items-center ml-2 pr-4">{item.date} ago</div>
                                 </td>
                               </tr>
                             ))}

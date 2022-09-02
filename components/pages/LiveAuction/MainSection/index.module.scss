@@ -276,22 +276,14 @@
 
 .tableTitle {
   font-family: 'Muli-Bold';
-  font-size: 10px;
+  font-size: 12px;
   line-height: 24px;
-  @media (min-width: 1024px) {
-    font-size: 12px;
-    line-height: 24px;
-  }
   color: $text-gray-200-color;
 }
 
 .tableText {
   font-family: 'Muli-Bold';
-  font-size: 10px;
+  font-size: 14px;
   line-height: 24px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 24px;
-  }
   color: rgba($text-gray-200-color, 0.74);
 }
