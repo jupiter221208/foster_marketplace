@@ -198,6 +198,10 @@
   font-size: 14px;
   line-height: 24px;
   color: $brand-01-color;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .accordionButton {

@@ -240,9 +240,12 @@ const MainSection = props => {
               <div className="w-full flex content-none mt-[14px]">
                 <p className={styles.whiteDiscription}>
                   By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                  <a href="" className={styles.greenDiscription}>
+                  <span
+                    className={styles.greenDiscription}
+                    onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE)}
+                  >
                     Terms of Service
-                  </a>
+                  </span>
                 </p>
               </div>
               <div className="mx-auto w-full mt-4">
