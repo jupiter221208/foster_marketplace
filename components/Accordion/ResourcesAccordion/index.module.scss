@@ -72,14 +72,18 @@
   align-items: center;
 }
 
+.firstRow {
+  padding-bottom: 24px;
+}
+
 .text {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 16x;
+    font-size: 16px;
     line-height: 24px;
   }
   color: rgba($text-gray-200-color, 0.8);
-  padding-bottom: 24px;
+  padding-bottom: 6px;
 }
