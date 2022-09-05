@@ -31,7 +31,7 @@ const ResourcesAccordion = props => {
   }
 
   return (
-    <div className="w-full flex flex-wrap gap-[10px]">
+    <div className="w-full flex flex-wrap">
       {data.map((item, index) => (
         <div key={index} className="w-full">
           <Disclosure>
