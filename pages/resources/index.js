@@ -48,7 +48,6 @@ const Resources = props => {
   }, [searchKeyword, selectedCard])
 
   useEffect(() => {
-    console.log('/////////')
     setContent(searchList.content)
   }, [searchList])
 
@@ -102,11 +101,13 @@ const Resources = props => {
                 <div className="w-full flex flex-wrap gap-5">
                   <ResourcesAccordion data={content} />
                 </div>
-                <Pagination
-                  data={searchList.content}
-                  getCurrentData={data => handleGetCurrentData(data)}
-                  viewport={viewport}
-                />
+                <div className="w-full flex justify-end">
+                  <Pagination
+                    data={searchList.content}
+                    getCurrentData={data => handleGetCurrentData(data)}
+                    viewport={viewport}
+                  />
+                </div>
               </div>
             </div>
           </div>
