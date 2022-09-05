@@ -156,7 +156,7 @@ const MainSection = props => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-[16px]">
+        {/* <div className="flex justify-center mt-[16px]">
           <div className={`${styles.nftInfo} grid grid-cols-12`}>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
@@ -196,9 +196,8 @@ const MainSection = props => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
-      <div></div>
     </div>
   )
 }
