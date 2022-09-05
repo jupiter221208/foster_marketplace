@@ -77,160 +77,159 @@ const WalletButton = props => {
   }
 
   return connected ? (
-    <div>
-      <Menu as="div" className="relative inline-block text-left">
-        <div>
-          <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-            {shortAddress}
-            <Image src={WalletGrayIcon} alt="" />
-          </Menu.Button>
-        </div>
-        <Transition
-          as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
-        >
-          <Menu.Items className={styles.menuItems}>
-            <div className="px-1 py-1 ">
-              <Menu.Item>
-                {({ active }) => (
-                  <div className="w-full flex gap-3">
-                    <Avatar avatar={avatar} width={36} height={36} />
-                    <div className="block whitespace-nowrap">
-                      <div className={styles.title}>Foster Username</div>
-                      <div className={styles.grayText}>{shortAddress}</div>
+    <Menu as="div" className="relative inline-block text-left">
+      <div>
+        <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
+          {shortAddress}
+          <Image src={WalletGrayIcon} alt="" />
+        </Menu.Button>
+      </div>
+      <Transition
+        as="div"
+        className="relative"
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
+      >
+        <Menu.Items className={styles.menuBlur}>
+          <div className={styles.menuArea}>
+            <Menu.Item>
+              {({ active }) => (
+                <div className="w-full flex gap-3">
+                  <Avatar avatar={avatar} width={36} height={36} />
+                  <div className="block whitespace-nowrap">
+                    <div className={styles.title}>Foster Username</div>
+                    <div className={styles.grayText}>{shortAddress}</div>
+                  </div>
+                </div>
+              )}
+            </Menu.Item>
+            <div className={styles.divider}></div>
+            <Menu.Item>
+              {({ active }) => (
+                <div className="w-full flex items-center cursor-pointer hover:opacity-80">
+                  <Image src={ChangeWalletIcon} alt="" />
+                  <div className={styles.whiteText}>Change wallet</div>
+                </div>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <div className="w-full flex items-center cursor-pointer hover:opacity-80" onClick={disconnect}>
+                  <Image src={DisconnectWalletIcon} alt="" />
+                  <div className={styles.whiteText}>Disconnect wallet</div>
+                </div>
+              )}
+            </Menu.Item>
+            <div className={styles.divider}></div>
+            <Menu.Item>
+              {({ active }) => (
+                <div
+                  className="w-full flex justify-between items-center cursor-pointer hover:opacity-80"
+                  onClick={() => copyToClipboard(publicKey.toBase58())}
+                >
+                  <div className="block">
+                    <div className={styles.whiteText}>Main wallet</div>
+                    <div className="flex items-center gap-1">
+                      <Image src={SolanaLogoIcon} alt="" />
+                      <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
                     </div>
                   </div>
-                )}
-              </Menu.Item>
-              <div className={styles.divider}></div>
-              <Menu.Item>
-                {({ active }) => (
-                  <div className="w-full flex items-center cursor-pointer hover:opacity-80">
-                    <Image src={ChangeWalletIcon} alt="" />
-                    <div className={styles.whiteText}>Change wallet</div>
-                  </div>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <div className="w-full flex items-center cursor-pointer hover:opacity-80" onClick={disconnect}>
-                    <Image src={DisconnectWalletIcon} alt="" />
-                    <div className={styles.whiteText}>Disconnect wallet</div>
-                  </div>
-                )}
-              </Menu.Item>
-              <div className={styles.divider}></div>
-              <Menu.Item>
-                {({ active }) => (
-                  <div
-                    className="w-full flex justify-between items-center cursor-pointer hover:opacity-80"
-                    onClick={() => copyToClipboard(publicKey.toBase58())}
-                  >
-                    <div className="block">
-                      <div className={styles.whiteText}>Main wallet</div>
-                      <div className="flex items-center gap-1">
-                        <Image src={SolanaLogoIcon} alt="" />
-                        <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Image src={CopyAltLightGreenIcon} alt="" />
-                      <div className={styles.grayCard}>
-                        <div className={styles.lightGreenText}>{shortAddress}</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <div
-                    className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
-                    onClick={() => copyToClipboard('G2t2K..ff4m')}
-                  >
-                    <div className="block">
-                      <div className={styles.whiteText}>Bidding wallet</div>
-                      <div className="flex items-center gap-1">
-                        <Image src={SolanaLogoIcon} alt="" />
-                        <div className={styles.grayText}>{biddingBalance.toFixed(2)}</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Image src={CopyAltLightGreenIcon} alt="" />
-                      <div className={styles.grayCard}>
-                        <div className={styles.lightGreenText}>G2t2K..ff4m</div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </Menu.Item>
-              <div className="w-full flex justify-end items-center cursor-pointer mt-3">
-                <IconButton
-                  icon={EllipseGroupWhiteIcon}
-                  backgroundColor="transparent"
-                  onClick={() => setShowDeposit(!showDeposit)}
-                />
-              </div>
-              {showDeposit && (
-                <div className={styles.walletCard}>
-                  <div
-                    className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => setStatus('deposit')}
-                  >
-                    <Image src={status === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
-                    <div className={status === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Deposit from Main Wallet
-                    </div>
-                  </div>
-                  <div
-                    className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => setStatus('withdraw')}
-                  >
-                    <Image src={status === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon} alt="" />
-                    <div className={status === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
-                      Withdraw to Main Wallet
+                  <div className="flex gap-2">
+                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <div className={styles.grayCard}>
+                      <div className={styles.lightGreenText}>{shortAddress}</div>
                     </div>
                   </div>
                 </div>
               )}
-              {showDeposit && (status === 'deposit' || status === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                  <div className="w-full text-end">
-                    <div className={styles.lightGreenText}>New main wallet balance</div>
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <div
+                  className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
+                  onClick={() => copyToClipboard('G2t2K..ff4m')}
+                >
+                  <div className="block">
+                    <div className={styles.whiteText}>Bidding wallet</div>
+                    <div className="flex items-center gap-1">
+                      <Image src={SolanaLogoIcon} alt="" />
+                      <div className={styles.grayText}>{biddingBalance.toFixed(2)}</div>
+                    </div>
                   </div>
-                  <div className="w-full flex justify-end gap-1">
-                    <Image src={SolanaLogoIcon} alt="" />
-                    <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                  <div className="flex gap-2">
+                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <div className={styles.grayCard}>
+                      <div className={styles.lightGreenText}>G2t2K..ff4m</div>
+                    </div>
                   </div>
-                  <div className="w-full text-end">
-                    <div className={styles.lightGreenText}>New bidding wallet balance</div>
-                  </div>
-                  <div className="w-full flex justify-end gap-1">
-                    <Image src={SolanaLogoIcon} alt="" />
-                    <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
-                  </div>
-                  <div className="w-full flex justify-between gap-2 mt-1">
-                    <PriceInput value={price} onChange={value => onChangePrice(value)} height="30px" fontSize="12px" />
-                    <GradientButton
-                      label={status === 'deposit' ? 'Deposit' : 'Withdraw'}
-                      height="30px"
-                      fontSize="12px"
-                      onClick={() => {}}
-                    />
-                  </div>
-                  {errorMessage.length > 0 && <div className={styles.errorMessage}>{errorMessage}</div>}
                 </div>
               )}
+            </Menu.Item>
+            <div className="w-full flex justify-end items-center cursor-pointer mt-3">
+              <IconButton
+                icon={EllipseGroupWhiteIcon}
+                backgroundColor="transparent"
+                onClick={() => setShowDeposit(!showDeposit)}
+              />
             </div>
-          </Menu.Items>
-        </Transition>
-      </Menu>
-    </div>
+            {showDeposit && (
+              <div className={styles.walletCard}>
+                <div
+                  className="w-full flex justify-start items-center gap-2 cursor-pointer"
+                  onClick={() => setStatus('deposit')}
+                >
+                  <Image src={status === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                  <div className={status === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
+                    Deposit from Main Wallet
+                  </div>
+                </div>
+                <div
+                  className="w-full flex justify-start items-center gap-2 cursor-pointer"
+                  onClick={() => setStatus('withdraw')}
+                >
+                  <Image src={status === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon} alt="" />
+                  <div className={status === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
+                    Withdraw to Main Wallet
+                  </div>
+                </div>
+              </div>
+            )}
+            {showDeposit && (status === 'deposit' || status === 'withdraw') && (
+              <div className="w-full flex flex-wrap mt-[14px] gap-1">
+                <div className="w-full text-end">
+                  <div className={styles.lightGreenText}>New main wallet balance</div>
+                </div>
+                <div className="w-full flex justify-end gap-1">
+                  <Image src={SolanaLogoIcon} alt="" />
+                  <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                </div>
+                <div className="w-full text-end">
+                  <div className={styles.lightGreenText}>New bidding wallet balance</div>
+                </div>
+                <div className="w-full flex justify-end gap-1">
+                  <Image src={SolanaLogoIcon} alt="" />
+                  <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
+                </div>
+                <div className="w-full flex justify-between gap-2 mt-1">
+                  <PriceInput value={price} onChange={value => onChangePrice(value)} height="30px" fontSize="12px" />
+                  <GradientButton
+                    label={status === 'deposit' ? 'Deposit' : 'Withdraw'}
+                    height="30px"
+                    fontSize="12px"
+                    onClick={() => {}}
+                  />
+                </div>
+                {errorMessage.length > 0 && <div className={styles.errorMessage}>{errorMessage}</div>}
+              </div>
+            )}
+          </div>
+        </Menu.Items>
+      </Transition>
+    </Menu>
   ) : (
     // <WalletMultiButton className={styles.container} style={{ width: fullWidth ? '100%' : '' }}>
     //   <div>Connect Wallet</div>
