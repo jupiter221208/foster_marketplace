@@ -1,0 +1,13 @@
+@import 'assets/scss/variable.module.scss';
+
+.subTitle {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 21px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
