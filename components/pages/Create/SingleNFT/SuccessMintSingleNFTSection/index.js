@@ -22,7 +22,7 @@ import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.sv
 import styles from './index.module.scss'
 
 const SuccessMintSingleNFTSection = props => {
-  const { viewport, nftArt, artWidth, artHeight } = props
+  const { viewport, NFTType, nftArt, artWidth, artHeight } = props
 
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -43,18 +43,41 @@ const SuccessMintSingleNFTSection = props => {
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className="w-full flex justify-center items-center z-10">
-        <div className="max-w-[392px] rounded-[16px] overflow-hidden mt-[82px]">
-          <AvatarEditor
-            image={nftArt !== undefined && nftArt[0]}
-            width={artWidth - 32}
-            height={artHeight - 32}
-            border={16}
-            borderRadius={12}
-            color={[255, 255, 255, 0.5]} // RGBA
-            scale={1}
-            rotate={0}
-          />
-        </div>
+        {NFTType === 'image' && (
+          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+            {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+              <AvatarEditor
+                image={nftArt[0]}
+                width={artWidth - 32}
+                height={artHeight - 32}
+                border={16}
+                borderRadius={16}
+                color={[77, 92, 94, 1]} // RGBA
+                scale={1}
+                rotate={0}
+              />
+            ) : (
+              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+            )}
+          </div>
+        )}
+        {NFTType === 'video' && (
+          <div className="w-full max-w-[392px] h-full">
+            <video controls className="w-full">
+              <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        )}
+
+        {NFTType === 'audio' && (
+          <div className="w-full max-w-[392px] my-20">
+            <audio controls className="w-full">
+              <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+              Your browser does not support the video tag.
+            </audio>
+          </div>
+        )}
       </div>
       <div className="max-w-[568px] mt-[62px] mb-[130px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
@@ -91,19 +114,40 @@ const SuccessMintSingleNFTSection = props => {
       <div className="w-full flex justify-center items-center z-10 mt-10">
         <div className="max-w-[237px] z-10">
           <div className="w-full rounded-[16px] overflow-hidden">
-            {nftArt !== undefined ? (
-              <AvatarEditor
-                image={nftArt[0]}
-                width={225}
-                height={225}
-                border={6}
-                borderRadius={12}
-                color={[77, 92, 94, 1]} // RGBA
-                scale={1}
-                rotate={0}
-              />
-            ) : (
-              <div className={styles.artArea} />
+            {NFTType === 'image' && (
+              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                  <AvatarEditor
+                    image={nftArt[0]}
+                    width={artWidth - 32}
+                    height={artHeight - 32}
+                    border={16}
+                    borderRadius={16}
+                    color={[77, 92, 94, 1]} // RGBA
+                    scale={1}
+                    rotate={0}
+                  />
+                ) : (
+                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                )}
+              </div>
+            )}
+            {NFTType === 'video' && (
+              <div className="w-full h-full">
+                <video controls className="w-full">
+                  <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
+
+            {NFTType === 'audio' && (
+              <div className="w-full my-20">
+                <audio controls className="w-full">
+                  <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                  Your browser does not support the video tag.
+                </audio>
+              </div>
             )}
           </div>
         </div>

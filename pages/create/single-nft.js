@@ -63,6 +63,7 @@ const SingleNft = props => {
   }
   // step 1
   const [selectedDimension, setSelectedDimension] = useState(NFTDimensionList[0])
+  const [NFTType, setNFTType] = useState('image')
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
 
@@ -157,6 +158,7 @@ const SingleNft = props => {
 
   useEffect(() => {
     if (nftArt !== undefined) {
+      setNFTType(nftArt[0].type.split('/')[0])
       setDisabledNextButton(false)
     }
   }, [nftArt])
@@ -292,22 +294,42 @@ const SingleNft = props => {
                         />
                       )}
                     </FullScreen>
-                    <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                      {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                        <AvatarEditor
-                          image={nftArt[0]}
-                          width={artWidth - 32}
-                          height={artHeight - 32}
-                          border={16}
-                          borderRadius={16}
-                          color={[77, 92, 94, 1]} // RGBA
-                          scale={1}
-                          rotate={0}
-                        />
-                      ) : (
-                        <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
-                      )}
-                    </div>
+                    {NFTType === 'image' && (
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                        {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                          <AvatarEditor
+                            image={nftArt[0]}
+                            width={artWidth - 32}
+                            height={artHeight - 32}
+                            border={16}
+                            borderRadius={16}
+                            color={[77, 92, 94, 1]} // RGBA
+                            scale={1}
+                            rotate={0}
+                          />
+                        ) : (
+                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                        )}
+                      </div>
+                    )}
+                    {NFTType === 'video' && (
+                      <div className="w-full h-full">
+                        <video controls className="w-full">
+                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    )}
+
+                    {NFTType === 'audio' && (
+                      <div className="w-full my-20">
+                        <audio controls className="w-full">
+                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                          Your browser does not support the video tag.
+                        </audio>
+                      </div>
+                    )}
+
                     {nftArt !== undefined && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 ? (
@@ -315,13 +337,22 @@ const SingleNft = props => {
                         ) : (
                           <>&nbsp;</>
                         )}
-                        <IconButton
-                          icon={FullScreenGrayIcon}
-                          onClick={() => fullScreenToggler()}
-                          backgroundColor="transparent"
-                        />
+                        {NFTType === 'image' && (
+                          <IconButton
+                            icon={FullScreenGrayIcon}
+                            onClick={() => fullScreenToggler()}
+                            backgroundColor="transparent"
+                          />
+                        )}
                         {currentStep === 1 ? (
-                          <IconButton icon={TrashGrayIcon} onClick={() => setNftArt()} backgroundColor="transparent" />
+                          <IconButton
+                            icon={TrashGrayIcon}
+                            onClick={() => {
+                              setNftArt()
+                              setNFTType('image')
+                            }}
+                            backgroundColor="transparent"
+                          />
                         ) : (
                           <>&nbsp;</>
                         )}
@@ -453,22 +484,41 @@ const SingleNft = props => {
                     />
                   )}
                 </FullScreen>
-                <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                  {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                    <AvatarEditor
-                      image={nftArt[0]}
-                      width={artWidth - 16}
-                      height={artHeight - 16}
-                      border={8}
-                      borderRadius={8}
-                      color={[77, 92, 94, 1]} // RGBA
-                      scale={1}
-                      rotate={0}
-                    />
-                  ) : (
-                    <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
-                  )}
-                </div>
+                {NFTType === 'image' && (
+                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                    {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                      <AvatarEditor
+                        image={nftArt[0]}
+                        width={artWidth - 32}
+                        height={artHeight - 32}
+                        border={16}
+                        borderRadius={16}
+                        color={[77, 92, 94, 1]} // RGBA
+                        scale={1}
+                        rotate={0}
+                      />
+                    ) : (
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                    )}
+                  </div>
+                )}
+                {NFTType === 'video' && (
+                  <div className="w-full h-full">
+                    <video controls className="w-full">
+                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+
+                {NFTType === 'audio' && (
+                  <div className="w-full my-20">
+                    <audio controls className="w-full">
+                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                      Your browser does not support the video tag.
+                    </audio>
+                  </div>
+                )}
                 {nftArt !== undefined && (
                   <div className="w-full mt-4 flex justify-center">
                     <div className="flex justify-between" style={{ width: artWidth }}>
@@ -479,16 +529,21 @@ const SingleNft = props => {
                         width="32px"
                         height="32px"
                       />
-                      <IconButton
-                        icon={FullScreenGrayIcon}
-                        onClick={() => fullScreenToggler()}
-                        backgroundColor="transparent"
-                        width="32px"
-                        height="32px"
-                      />
+                      {NFTType === 'image' && (
+                        <IconButton
+                          icon={FullScreenGrayIcon}
+                          onClick={() => fullScreenToggler()}
+                          backgroundColor="transparent"
+                          width="32px"
+                          height="32px"
+                        />
+                      )}
                       <IconButton
                         icon={TrashGrayIcon}
-                        onClick={() => setNftArt()}
+                        onClick={() => {
+                          setNftArt()
+                          setNFTType('image')
+                        }}
                         backgroundColor="transparent"
                         width="32px"
                         height="32px"
@@ -607,7 +662,13 @@ const SingleNft = props => {
             </div>
           )}
       {currentStep === 4 && (
-        <SuccessMintSingleNFTSection viewport={viewport} nftArt={nftArt} artWidth={artWidth} artHeight={artHeight} />
+        <SuccessMintSingleNFTSection
+          viewport={viewport}
+          NFTType={NFTType}
+          nftArt={nftArt}
+          artWidth={artWidth}
+          artHeight={artHeight}
+        />
       )}
     </div>
   )
