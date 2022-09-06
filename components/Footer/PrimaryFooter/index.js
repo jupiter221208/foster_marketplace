@@ -39,41 +39,53 @@ const PrimaryFooter = props => {
           </div>
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>About</div>
-            <div
-              className={`${styles.linkText} !mt-[49px]`}
-              onClick={() => router.push(process.env.NEXT_PUBLIC_ABOUT_US)}
-            >
-              About us
+            <div className={`${styles.linkText} !mt-[49px]`}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+                About us
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_COMMUNITY)}>
-              Community
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                Community
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_CAREERS)}>
-              Careers
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_CAREERS} rel="noopener noreferrer">
+                Careers
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE)}>
-              Terms of Use
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                Terms of Use
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRIVACY_POLICY)}>
-              Private Policy
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+                Privacy Policy
+              </a>
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>Resources</div>
-            <div
-              className={`${styles.linkText} !mt-[49px]`}
-              onClick={() => router.push(process.env.NEXT_PUBLIC_WHITEPAPER)}
-            >
-              Whitepaper
+            <div className={`${styles.linkText} !mt-[49px]`}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
+                Whitepaper
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_BRAND_DESIGN)}>
-              Brand & Design
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
+                Brand & Design
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_DEVELOPMENT)}>
-              Development
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
+                Development
+              </a>
             </div>
-            <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRESS_RELEASES)}>
-              Press Releases
+            <div className={styles.linkText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_PRESS_RELEASES} rel="noopener noreferrer">
+                Press Releases
+              </a>
             </div>
             <div className={styles.linkText}>
               <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Contact Us</a>
@@ -86,34 +98,29 @@ const PrimaryFooter = props => {
             </div>
             <div className="flex flex-wrap mt-[62px] gap-5">
               <div>
-                <IconButton
-                  icon={InstagramLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
+                  <IconButton icon={InstagramLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={DiscordLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
+                  <IconButton icon={DiscordLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={TwitterLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
+                  <IconButton icon={TwitterLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={GithubLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
+                  <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={MediumLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
+                  <IconButton icon={MediumLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
             </div>
           </div>
@@ -132,38 +139,53 @@ const PrimaryFooter = props => {
           <div className="w-full flex justify-around">
             <div className="w-full block justify-center text-center mt-[44px]">
               <div className={styles.title}>About</div>
-              <div
-                className={`${styles.linkText} !mt-[23px]`}
-                onClick={() => router.push(process.env.NEXT_PUBLIC_ABOUT_US)}
-              >
-                About us
+              <div className={`${styles.linkText} !mt-[23px]`}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+                  About us
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_COMMUNITY)}>
-                Community
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                  Community
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_CAREERS)}>
-                Careers
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_CAREERS} rel="noopener noreferrer">
+                  Careers
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE)}>
-                Terms of Use
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                  Terms of Use
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRIVACY_POLICY)}>
-                Private Policy
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+                  Privacy Policy
+                </a>
               </div>
             </div>
             <div className="w-full block justify-center text-center mt-[44px]">
               <div className={styles.title}>Resources</div>
-              <div className={`${styles.linkText} !mt-[23px]`} onClick={() => router.push('/#')}>
-                Whitepaper
+              <div className={`${styles.linkText} !mt-[23px]`}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
+                  Whitepaper
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_BRAND_DESIGN)}>
-                Brand & Design
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
+                  Brand & Design
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_DEVELOPMENT)}>
-                Development
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
+                  Development
+                </a>
               </div>
-              <div className={styles.linkText} onClick={() => router.push(process.env.NEXT_PUBLIC_PRESS_RELEASES)}>
-                Press Releases
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_PRESS_RELEASES} rel="noopener noreferrer">
+                  Press Releases
+                </a>
               </div>
               <div className={styles.linkText}>
                 <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Contact Us</a>
@@ -178,34 +200,29 @@ const PrimaryFooter = props => {
             </div>
             <div className="flex flex-wrap mt-[44px] gap-[18px] justify-center">
               <div>
-                <IconButton
-                  icon={InstagramLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
+                  <IconButton icon={InstagramLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={DiscordLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
+                  <IconButton icon={DiscordLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={TwitterLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
+                  <IconButton icon={TwitterLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={GithubLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
+                  <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
               <div>
-                <IconButton
-                  icon={MediumLightGreenIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
-                />
+                <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
+                  <IconButton icon={MediumLightGreenIcon} onClick={() => {}} />
+                </a>
               </div>
             </div>
           </div>
