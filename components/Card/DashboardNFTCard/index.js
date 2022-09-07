@@ -34,10 +34,22 @@ const NFTCard = props => {
           <div>
             <GreenGradientButton
               label="View Items"
-              width={viewport === 'xs' ? 58 : 116}
-              height={viewport === 'xs' ? 26 : 40}
+              width={
+                viewport === 'xs'
+                  ? 58
+                  : viewport === 'sm'
+                  ? 88
+                  : viewport === 'md'
+                  ? 98
+                  : viewport === 'lg'
+                  ? 78
+                  : viewport === 'xl'
+                  ? 98
+                  : 116
+              }
+              height={viewport === 'xs' ? 26 : viewport === 'sm' ? 34 : 40}
               borderRadius={viewport === 'xs' ? 6 : 10}
-              fontSize={viewport === 'xs' ? 10 : 14}
+              fontSize={viewport === 'xs' ? 10 : viewport === 'sm' ? 12 : viewport === 'xl' ? 13 : 14}
               onClick={() => {}}
             />
           </div>
