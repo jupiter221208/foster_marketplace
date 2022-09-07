@@ -52,7 +52,7 @@ const ExploreCollectionSection = props => {
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
+          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
           loop
@@ -68,6 +68,7 @@ const ExploreCollectionSection = props => {
                 nftName={item.nftName}
                 category={item.category}
                 artistName={item.artistName}
+                mintAddress={item.mintAddress}
                 nfts={item.nfts}
                 icon={item.icon}
                 price={item.price}

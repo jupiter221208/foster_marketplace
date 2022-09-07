@@ -16,7 +16,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
 // json
 import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
-import CategoryList from 'assets/json/category-list.json'
+import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './collection.module.scss'

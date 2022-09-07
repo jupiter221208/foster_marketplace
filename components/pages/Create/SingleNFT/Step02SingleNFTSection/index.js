@@ -11,7 +11,7 @@ import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // json
-import CategoryList from 'assets/json/category-list.json'
+import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'

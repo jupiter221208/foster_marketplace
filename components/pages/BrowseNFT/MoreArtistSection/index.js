@@ -56,12 +56,13 @@ const MoreArtistSection = props => {
         >
           {MoreArtistList.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
                 <CollectionCard
                   image={item.image}
                   nftName={item.nftName}
                   category={item.category}
                   artistName={item.artistName}
+                  mintAddress={item.mintAddress}
                   nfts={item.nfts}
                   icon={item.icon}
                   price={item.price}

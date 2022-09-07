@@ -32,8 +32,28 @@ const MainSection = props => {
 
   const router = useRouter()
   const categoryList = [
-    { id: 1, label: 'Abstract', value: 'Abstract' },
-    { id: 4, label: 'Audiovisual', value: 'Audiovisual' },
+    {
+      id: 17,
+      image: '/images/hero.png',
+      banner: '/images/category-banner-surreal.png',
+      mobile: '/images/hero.png',
+      mobile_banner: '/images/category-banner-surreal.png',
+      name: 'Surreal',
+      type: 'image',
+      nfts: 2131,
+      collections: 287,
+    },
+    {
+      id: 18,
+      image: '/images/popular-category-audiovisual.webm',
+      banner: '/images/category-banner-audiovisual.webm',
+      mobile: '/images/popular-category-mobile-audiovisual.mp4',
+      mobile_banner: '/images/category-banner-mobile-audiovisual.mp4',
+      name: 'Audiovisual',
+      type: 'video',
+      nfts: 2131,
+      collections: 287,
+    },
   ]
 
   return (
@@ -180,7 +200,7 @@ const MainSection = props => {
           <div className={styles.categoryList}>
             {categoryList.map((item, index) => (
               <div key={index}>
-                <CategoryChip name={item.label} />
+                <CategoryChip data={item} />
               </div>
             ))}
           </div>

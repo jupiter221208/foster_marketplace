@@ -17,14 +17,15 @@ const MyCollectionSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
         {collectionList.map((item, index) => (
-          <div className="col-span-12 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+          <div className="col-span-6 lg:col-span-3" key={index}>
             <CollectionCard
               image={item.image}
               nftName={item.nftName}
               category={item.category}
               artistName={item.artistName}
+              mintAddress={item.mintAddress}
               nfts={item.nfts}
               icon={item.icon}
               price={item.price}

@@ -70,6 +70,7 @@ const CollectionSwiperSection = props => {
                     nftName={collectionItem.nftName}
                     category={collectionItem.category}
                     artistName={collectionItem.artistName}
+                    mintAddress={item.mintAddress}
                     nfts={collectionItem.nfts}
                     icon={collectionItem.icon}
                     price={collectionItem.price}

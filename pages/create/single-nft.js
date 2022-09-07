@@ -30,7 +30,7 @@ import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
-import CategoryList from 'assets/json/category-list.json'
+import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './single-nft.module.scss'
@@ -371,7 +371,7 @@ const SingleNft = props => {
                   {categoryList.length !== 0 && (
                     <div className="w-full flex flex-wrap justify-start items-center mt-[33px] gap-[10px]">
                       {categoryList.map(
-                        (item, index) => item.checked === true && <Chip label={item.label} key={index} />
+                        (item, index) => item.checked === true && <Chip label={item.name} key={index} />
                       )}
                     </div>
                   )}

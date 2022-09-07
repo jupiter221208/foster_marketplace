@@ -184,6 +184,7 @@ const Explore = props => {
                         nftName={item.nftName}
                         category={item.category}
                         artistName={item.artistName}
+                        mintAddress={item.mintAddress}
                         nfts={item.nfts}
                         icon={item.icon}
                         price={item.price}

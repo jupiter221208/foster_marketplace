@@ -20,7 +20,7 @@ import ArtistVerificationList from 'assets/json/explore/artist-verification.json
 import AvailabilityList from 'assets/json/explore/availability.json'
 import MarketList from 'assets/json/explore/market.json'
 import MediumList from 'assets/json/explore/medium.json'
-import CategoryList from 'assets/json/category-list.json'
+import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'

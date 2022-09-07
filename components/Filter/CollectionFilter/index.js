@@ -6,7 +6,7 @@ import Checkbox from 'components/Checkbox'
 
 // json
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
-import CategoryList from 'assets/json/category-list.json'
+import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'

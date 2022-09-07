@@ -18,7 +18,7 @@ const Checkbox = props => {
               onChange={() => onChange(index)}
             />
             <label className={styles.checkmark} onClick={() => onChange(index)}>
-              {item.label}
+              {item.name}
             </label>
           </div>
         ))}
@@ -26,7 +26,7 @@ const Checkbox = props => {
         categoryList.map((item, index) => (
           <div key={index} className="w-full flex items-center justify-between">
             <label className={styles.checkmark} onClick={() => onChange(index)}>
-              {item.label}
+              {item.name}
             </label>
             <input
               className={styles.checkbox}

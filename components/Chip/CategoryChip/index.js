@@ -1,11 +1,20 @@
 import React from 'react'
 
+// next components
+import { useRouter } from 'next/router'
+
 // styles
 import styles from './index.module.scss'
 
 const CategoryChip = props => {
-  const { name } = props
-  return <div className={styles.container}>{name}</div>
+  const { data } = props
+  const router = useRouter()
+
+  return (
+    <div className={styles.container} onClick={() => router.push(`/category/${data.id}`)}>
+      {data.name}
+    </div>
+  )
 }
 
 export default CategoryChip
