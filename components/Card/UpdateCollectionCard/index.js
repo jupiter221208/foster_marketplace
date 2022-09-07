@@ -69,7 +69,6 @@ const UpdateCollectionCard = props => {
       </div>
       {mouseOver && (
         <div className={styles.bgModal}>
-          <GradientButton label="Update" height="48px" fontSize="18px" onClick={() => onClick()} />
           <GradientButton
             label="Update"
             onClick={() => onClick()}
