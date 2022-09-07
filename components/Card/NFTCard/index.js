@@ -9,7 +9,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 
-const NFTCard = props => {
+const DashboardNFTCard = props => {
   const { viewport, image, nftName, artistName, price, showCount = true, onClick } = props
 
   return (
@@ -42,4 +42,4 @@ const NFTCard = props => {
   )
 }
 
-export default NFTCard
+export default DashboardNFTCard

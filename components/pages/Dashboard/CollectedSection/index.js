@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTCard from 'components/Card/NFTCard'
+import DashboardNFTCard from 'components/Card/DashboardNFTCard'
 import Pagination from 'components/Button/Pagination'
 
 // json
@@ -24,8 +24,8 @@ const CollectedSection = props => {
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {nftList.map((item, index) => (
-          <div className="col-span-12 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-            <NFTCard
+          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <DashboardNFTCard
               viewport={viewport}
               image={item.image}
               nftName={item.nftName}
