@@ -22,7 +22,7 @@ import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import GradientButton from 'components/Button/GradientButton'
 import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
-import ArtistTypeCard from 'components/Card/ArtistTypeCard'
+import CategoryChip from 'components/Chip/CategoryChip'
 
 // styles
 import styles from './index.module.scss'
@@ -31,11 +31,10 @@ const MainSection = props => {
   const { viewport } = props
 
   const router = useRouter()
-  const [userType, setUserType] = useState([])
-
-  useEffect(() => {
-    setUserType(['Abstract'])
-  }, [])
+  const categoryList = [
+    { id: 1, label: 'Abstract', value: 'Abstract' },
+    { id: 4, label: 'Audiovisual', value: 'Audiovisual' },
+  ]
 
   return (
     <div className={styles.container}>
@@ -178,10 +177,10 @@ const MainSection = props => {
           </div>
         </div>
         <div className="flex justify-center mt-[30px]">
-          <div className={styles.userType}>
-            {userType.map((item, index) => (
+          <div className={styles.categoryList}>
+            {categoryList.map((item, index) => (
               <div key={index}>
-                <ArtistTypeCard name={item} />
+                <CategoryChip name={item.label} />
               </div>
             ))}
           </div>

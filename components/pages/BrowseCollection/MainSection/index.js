@@ -6,14 +6,12 @@ import { useRouter } from 'next/router'
 
 // custom components
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
-// import GradientButton from 'components/Button/GradientButton'
 import SocialButton from 'components/Button/SocialButton'
-import ArtistTypeCard from 'components/Card/ArtistTypeCard'
+import CategoryChip from 'components/Chip/CategoryChip'
 
 // images and icons
 import HeaderImage from 'assets/images/browse-collection-header.png'
 import AvatarImage from 'assets/images/browse-collection-avatar.png'
-// import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import FacebookWhiteIcon from 'assets/icons/facebook-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
@@ -31,11 +29,11 @@ const MainSection = props => {
   const { viewport } = props
 
   const router = useRouter()
-  const [userType, setUserType] = useState([])
-
-  useEffect(() => {
-    setUserType(['Abstract'])
-  }, [])
+  const categoryList = [
+    { id: 1, label: 'Abstract', value: 'Abstract' },
+    { id: 4, label: 'Audiovisual', value: 'Audiovisual' },
+    { id: 11, label: 'Foster House', value: 'Foster House' },
+  ]
 
   return (
     <div className={styles.container}>
@@ -44,15 +42,7 @@ const MainSection = props => {
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
-          <div className="col-span-3">
-            {/* <GradientButton
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-              label="Follow"
-              direction={'rtl'}
-              icon={AvatarFollowIcon}
-            /> */}
-          </div>
+          <div className="col-span-3" />
           <div className="col-span-6">
             <BrowseArtistCard
               image={AvatarImage}
@@ -166,10 +156,10 @@ const MainSection = props => {
           </div>
         </div>
         <div className="flex justify-center mt-[30px]">
-          <div className={styles.userType}>
-            {userType.map((item, index) => (
+          <div className={styles.categoryList}>
+            {categoryList.map((item, index) => (
               <div key={index}>
-                <ArtistTypeCard name={item} />
+                <CategoryChip name={item.label} />
               </div>
             ))}
           </div>
