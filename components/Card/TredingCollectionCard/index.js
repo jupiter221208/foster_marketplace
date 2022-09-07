@@ -8,7 +8,7 @@ import styles from './index.module.scss'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const TredingCollectionCard = props => {
-  const { image, nftName, nftType, artistName, icon, nfts, price } = props
+  const { image, nftName, category, artistName, icon, nfts, price } = props
   return (
     <div className={styles.container}>
       <div className="relative w-full rounded-[24px] overflow-hidden">
@@ -27,7 +27,7 @@ const TredingCollectionCard = props => {
           <div className={styles.price}>{nfts}</div>
         </div>
         <div className="w-full mt-[4px] flex justify-between items-center">
-          <div className={styles.nftType}>{nftType} </div>
+          <div className={styles.category}>{category} </div>
           <div className="items-center">
             <div className={styles.priceName}>Floor Price</div>
             <div className="flex justify-end">

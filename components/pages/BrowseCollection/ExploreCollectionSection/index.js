@@ -68,7 +68,7 @@ const ExploreCollectionSection = props => {
               <TrendingCollectionCard
                 image={item.image}
                 nftName={item.nftName}
-                nftType={item.nftType}
+                category={item.category}
                 artistName={item.artistName}
                 nfts={item.nfts}
                 avatar={item.avatar}

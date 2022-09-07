@@ -6,10 +6,9 @@ import { useRouter } from 'next/router'
 
 // styles
 import styles from './index.module.scss'
-import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const TrendingCollectionCard = props => {
-  const { image, nftName, nftType, artistName, nfts, avatar, viewport } = props
+  const { image, nftName, artistName, nfts, avatar } = props
   const router = useRouter()
 
   return (
@@ -21,12 +20,6 @@ const TrendingCollectionCard = props => {
           <div className="ml-[15px] lg:ml-[28px]">
             <div className="flex justify-between items-center">
               <div className={styles.nftName}>{nftName}</div>
-              {/* <Image
-                src={CheckedGreenIcon}
-                alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 28}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 28}
-              /> */}
             </div>
             <div className="flex">
               <div className={styles.artistName}>{artistName}</div>

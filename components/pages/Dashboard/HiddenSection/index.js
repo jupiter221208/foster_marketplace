@@ -67,7 +67,7 @@ const HiddenSection = props => {
               <UpdateCollectionCard
                 image={item.image}
                 nftName={item.nftName}
-                nftType={item.nftType}
+                category={item.category}
                 artistName={item.artistName}
                 nfts={item.nfts}
                 icon={item.icon}

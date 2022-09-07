@@ -68,7 +68,7 @@ const CollectionSwiperSection = props => {
                   <CollectionCard
                     image={collectionItem.image}
                     nftName={collectionItem.nftName}
-                    nftType={collectionItem.nftType}
+                    category={collectionItem.category}
                     artistName={collectionItem.artistName}
                     nfts={collectionItem.nfts}
                     icon={collectionItem.icon}
