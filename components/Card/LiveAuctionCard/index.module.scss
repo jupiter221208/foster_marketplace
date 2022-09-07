@@ -37,6 +37,9 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bidName {
@@ -57,6 +60,9 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .endsIn {
@@ -90,6 +96,9 @@
   }
   letter-spacing: 0;
   color: $brand-03-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .priceName {
@@ -102,6 +111,9 @@
   }
   letter-spacing: 0;
   color: $brand-03-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bidCount {
@@ -144,6 +156,9 @@
   }
   letter-spacing: 0;
   color: $brand-06-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bidContainer {
@@ -171,4 +186,7 @@
     padding: 13px 19px;
   }
   background-color: rgba($brand-02-color, 0.15);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

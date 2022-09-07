@@ -25,7 +25,7 @@ const DashboardArtistCard = props => {
         </div>
       </div>
       <div className={styles.bottomSection}>
-        <div className={styles.collectionName}>{artistName}</div>
+        <div className={styles.artistName}>{artistName}</div>
       </div>
     </div>
   )

@@ -62,6 +62,7 @@ const HiddenSection = props => {
           ))}
 
         {active === 1 &&
+          collectionList.length !== 0 &&
           collectionList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <UpdateCollectionCard
@@ -69,8 +70,7 @@ const HiddenSection = props => {
                 nftName={item.nftName}
                 category={item.category}
                 artistName={item.artistName}
-                nfts={item.nfts}
-                icon={item.icon}
+                mintAddress={item.mintAddress}
                 price={item.price}
                 viewport={viewport}
               />

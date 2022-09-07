@@ -29,6 +29,9 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .artistName {
@@ -41,6 +44,9 @@
   }
   letter-spacing: 0;
   color: $brand-03-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price {
@@ -55,4 +61,7 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

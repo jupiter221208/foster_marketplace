@@ -71,6 +71,9 @@
     color: $text-gray-200-color;
   }
   letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .collectionName {
@@ -93,6 +96,9 @@
     color: $brand-03-color;
   }
   letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .avatar {
@@ -131,4 +137,7 @@
     font-size: 14px;
     line-height: 24px;
   }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

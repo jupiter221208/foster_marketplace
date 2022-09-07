@@ -51,6 +51,9 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dotStyle {
@@ -92,6 +95,9 @@
   }
   letter-spacing: 0;
   color: rgba($text-gray-200-color, 0.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .avatar {

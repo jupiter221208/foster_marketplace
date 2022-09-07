@@ -24,9 +24,9 @@ const HeroCard = props => {
       ) : (
         <div className={styles.bottomSection}>
           <div className="flex justify-between">
-            <div>
+            <div className="w-full block">
               <div className={styles.nftName}>{nftName}</div>
-              <div className={`hidden lg:flex ${styles.collectionName}`}>{collectionName}</div>
+              <div className={`w-full hidden lg:flex ${styles.collectionName}`}>{collectionName}</div>
             </div>
             <div className="flex justify-start items-center lg:mt-[10px]">
               <div className={styles.avatar}>

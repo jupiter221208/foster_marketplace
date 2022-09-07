@@ -49,6 +49,9 @@
   line-height: 36px;
   letter-spacing: 0px;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .bottomSection {

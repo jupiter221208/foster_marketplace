@@ -58,6 +58,9 @@
 
   letter-spacing: 0;
   color: $text-gray-200-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .category {
@@ -91,6 +94,9 @@
   border-color: $text-gray-200-color;
   padding: 5px 13px;
   background-color: rgba($brand-01-color, 0.1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .artistName {
@@ -120,35 +126,25 @@
 
   letter-spacing: 0;
   color: $brand-03-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .priceName {
   font-family: 'Muli-Regular';
-  font-size: 10px;
-  line-height: 10px;
-  @media (min-width: 640px) {
-    font-size: 12px;
-    line-height: 14px;
-  }
-  @media (min-width: 768px) {
-    font-size: 13px;
-    line-height: 15px;
-  }
+  font-size: 8px;
+  line-height: 8px;
   @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 18px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 15px;
-    line-height: 20px;
-  }
-  @media (min-width: 1536px) {
     font-size: 16px;
-    line-height: 24px;
+    line-height: 20px;
   }
 
   letter-spacing: 0;
-  color: $brand-03-color;
+  color: rgba($text-gray-200-color, 0.65);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .price {
