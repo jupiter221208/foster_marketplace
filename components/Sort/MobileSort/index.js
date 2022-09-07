@@ -33,8 +33,19 @@ const MobileSort = props => {
         <Radio data={data} selected={selectedSort} onChange={item => setSelectedSort(item)} direction="rtl" />
       </div>
       <div className={styles.bottomArea}>
-        <OutlineButton label="Cancel" onClick={() => onClose()} color="#EFF0F6" borderWidth={2} borderColor="#5AC3BA" />
-        <GradientButton label="Done" onClick={() => onClose()} color="#202427" />
+        <div className="w-[94px]">
+          <OutlineButton
+            label="Cancel"
+            onClick={() => onClose()}
+            color="#EFF0F6"
+            borderWidth={2}
+            borderColor="#5AC3BA"
+            fullWidth
+          />
+        </div>
+        <div className="w-[94px]">
+          <GradientButton label="Done" onClick={() => onClose()} color="#202427" fullWidth />
+        </div>
       </div>
     </div>
   )
