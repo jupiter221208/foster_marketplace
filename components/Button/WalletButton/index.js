@@ -163,7 +163,7 @@ const WalletButton = props => {
                   <div className="flex gap-2">
                     <Image src={CopyAltLightGreenIcon} alt="" />
                     <div className={styles.grayCard}>
-                      <div className={styles.lightGreenText}>{publicKey.toBase58()}</div>
+                      <div className={styles.lightGreenText}>{shortAddress}</div>
                     </div>
                   </div>
                 </div>

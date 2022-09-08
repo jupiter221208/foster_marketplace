@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-
 // next components
 import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
+import { getShortAddress } from 'utils/wallet.util'
 
 // components
 import IconButton from 'components/Button/IconButton'
@@ -98,7 +98,7 @@ const MyWalletSubMenu = props => {
             <div className={styles.menuItem}>
               <div
                 className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
-                onClick={() => copyToClipboard(publicKey.toBase58())}
+                onClick={() => copyToClipboard(getShortAddress(publicKey))}
               >
                 <div className="block">
                   <div className={styles.whiteText}>Bidding wallet</div>
@@ -110,7 +110,7 @@ const MyWalletSubMenu = props => {
                 <div className="flex gap-2">
                   <Image src={CopyAltLightGreenIcon} alt="" />
                   <div className={styles.grayCard}>
-                    <div className={styles.lightGreenText}>{publicKey.toBase58()}</div>
+                    <div className={styles.lightGreenText}>{getShortAddress(publicKey)}</div>
                   </div>
                 </div>
               </div>
