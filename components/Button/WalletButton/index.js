@@ -151,7 +151,7 @@ const WalletButton = props => {
               {({ active }) => (
                 <div
                   className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
-                  onClick={() => copyToClipboard('G2t2K..ff4m')}
+                  onClick={() => copyToClipboard(publicKey.toBase58())}
                 >
                   <div className="block">
                     <div className={styles.whiteText}>Bidding wallet</div>
@@ -163,7 +163,7 @@ const WalletButton = props => {
                   <div className="flex gap-2">
                     <Image src={CopyAltLightGreenIcon} alt="" />
                     <div className={styles.grayCard}>
-                      <div className={styles.lightGreenText}>G2t2K..ff4m</div>
+                      <div className={styles.lightGreenText}>{publicKey.toBase58()}</div>
                     </div>
                   </div>
                 </div>

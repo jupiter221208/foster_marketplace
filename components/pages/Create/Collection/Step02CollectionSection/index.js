@@ -155,7 +155,6 @@ const Step02CollectionSection = props => {
     if (collectionFiles.length !== 0) {
       let count = 0
       collectionFiles.map((item, index) => {
-        console.log(index, '====', item)
         if (item.name === '' || item.description === '') {
           count++
         }
