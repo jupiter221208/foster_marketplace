@@ -75,12 +75,18 @@ const MyNFTSection = props => {
           ))}
         </Swiper>
       </div>
-      <ListNFTModal
-        viewport={viewport}
-        data={selectedData}
-        open={showListNFTModal}
-        onClose={() => setShowListNFTModal(false)}
-      />
+      {selectedData && selectedData.length > 0 ? (
+        <ListNFTModal
+          viewport={viewport}
+          data={selectedData}
+          open={showListNFTModal}
+          onClose={() => setShowListNFTModal(false)}
+        />
+      ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        <div className="h-[400px]"></div>
+      ) : (
+        <></>
+      )}
     </section>
   )
 }
