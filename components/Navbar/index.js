@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { useWallet } from '@solana/wallet-adapter-react'
+
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -29,6 +31,7 @@ import styles from './index.module.scss'
 
 const Navbar = props => {
   const router = useRouter()
+  const { connected, publicKey, disconnect } = useWallet()
 
   const [selectedNavMenu, setSelectedNavMenu] = useState('')
   const [showMenu, setShowMenu] = useState(false)
@@ -248,7 +251,13 @@ const Navbar = props => {
         </div>
       </div>
 
-      <div className={showMenu ? styles.logoutShow : styles.logoutHide} onClick={() => router.push('/')}>
+      <div
+        className={showMenu ? styles.logoutShow : styles.logoutHide}
+        onClick={() => {
+          disconnect()
+          router.push('/')
+        }}
+      >
         <div className="ml-[60px]">
           <Image src={LogoutIcon} alt="" />
         </div>

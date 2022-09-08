@@ -38,7 +38,6 @@ const PrimaryHeader = props => {
   const router = useRouter()
 
   const [searchKeyword, setSearchKeyword] = useState('')
-
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
 
   useEffect(() => {
@@ -138,12 +137,14 @@ const PrimaryHeader = props => {
     <div className={styles.blurContainer}>
       <div className={styles.container}>
         <div className="g-container w-full h-full flex justify-between items-center gap-4">
-          <div
-            className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
-            onClick={() => handleGotoHomepage()}
-          >
-            <Image src={LogoTextIcon} alt="" />
-          </div>
+          {!connected && (
+            <div
+              className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
+              onClick={() => handleGotoHomepage()}
+            >
+              <Image src={LogoTextIcon} alt="" />
+            </div>
+          )}
           <SearchBox
             value={searchKeyword}
             placeholder="Search by NFT, Collection, or Artist"
@@ -153,6 +154,12 @@ const PrimaryHeader = props => {
             onClick={() => handleSearch()}
             onClose={() => handleClose()}
           />
+          {connected && (
+            <div
+              className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
+              onClick={() => handleGotoHomepage()}
+            ></div>
+          )}
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
           <WalletButton />
