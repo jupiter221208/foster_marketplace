@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+import OutlineButton from 'components/Button/OutlineButton'
+
 // images and icons
 import HeaderImage from 'assets/images/profile-header.png'
 import AvatarImage from 'assets/images/artist-avatar.png'
@@ -29,6 +31,7 @@ import styles from './index.module.scss'
 
 const MainSection = props => {
   const { viewport } = props
+  const [follow, setFollow] = useState(false)
 
   const router = useRouter()
   const categoryList = [
@@ -64,13 +67,24 @@ const MainSection = props => {
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
-            <GradientButton
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-              label="Connect"
-              direction={'rtl'}
-              icon={AvatarFollowIcon}
-            />
+            {follow ? (
+              <OutlineButton
+                label="Connected"
+                onClick={() => setFollow(false)}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
+              />
+            ) : (
+              <GradientButton
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                label="Connect"
+                direction={'rtl'}
+                icon={AvatarFollowIcon}
+                onClick={() => setFollow(true)}
+              />
+            )}
           </div>
           <div className="col-span-6">
             <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} viewport={viewport} />
