@@ -385,7 +385,9 @@
       {
         "id": 9,
         "title": "What types of subjects will be governed by LIFT token holders?",
-        "description": [""]
+        "description": [
+          "LIFT token holders will be an integral voice when it comes to bringing new and existing projects and use cases into the Foster Ecosystem."
+        ]
       },
       {
         "id": 10,
@@ -402,7 +404,7 @@
       {
         "id": 12,
         "title": "Where can I sell the LIFT token I earned from the revenue and reward share?",
-        "description": [""]
+        "description": ["LIFT token can be sold once LIFT is listed on an exchange."]
       }
     ]
   },
