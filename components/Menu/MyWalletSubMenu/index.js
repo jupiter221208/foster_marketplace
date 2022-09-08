@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 // next components
 import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
+import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -30,6 +31,9 @@ import styles from './index.module.scss'
 
 const MyWalletSubMenu = props => {
   const { icon, label, type = '', data, path = '' } = props
+
+  const { publicKey, disconnect } = useWallet()
+  const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -73,7 +77,10 @@ const MyWalletSubMenu = props => {
               </div>
             </div>
             <div className={styles.menuItem}>
-              <div className="w-full flex justify-start items-center cursor-pointer hover:opacity-80">
+              <div
+                className="w-full flex justify-start items-center cursor-pointer hover:opacity-80"
+                onClick={disconnect}
+              >
                 <Image src={DisconnectWalletIcon} alt="" width={50} height={50} />
                 <div>Disconnect Wallet</div>
               </div>
@@ -81,7 +88,7 @@ const MyWalletSubMenu = props => {
             <div className={styles.menuItem}>
               <div
                 className="w-full flex justify-between items-center cursor-pointer hover:opacity-80"
-                onClick={() => copyToClipboard('6A8rF .. Rf8p')}
+                onClick={() => copyToClipboard(publicKey.toBase58())}
               >
                 <div className="block">
                   <div className={styles.whiteText}>Main wallet</div>
@@ -93,7 +100,7 @@ const MyWalletSubMenu = props => {
                 <div className="flex gap-2">
                   <Image src={CopyAltLightGreenIcon} alt="" />
                   <div className={styles.grayCard}>
-                    <div className={styles.lightGreenText}>6A8rF .. Rf8p</div>
+                    <div className={styles.lightGreenText}>{shortAddress}</div>
                   </div>
                 </div>
               </div>
@@ -101,7 +108,7 @@ const MyWalletSubMenu = props => {
             <div className={styles.menuItem}>
               <div
                 className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
-                onClick={() => copyToClipboard(getShortAddress(publicKey))}
+                onClick={() => copyToClipboard(publicKey.toBase58())}
               >
                 <div className="block">
                   <div className={styles.whiteText}>Bidding wallet</div>
@@ -113,7 +120,7 @@ const MyWalletSubMenu = props => {
                 <div className="flex gap-2">
                   <Image src={CopyAltLightGreenIcon} alt="" />
                   <div className={styles.grayCard}>
-                    <div className={styles.lightGreenText}>{getShortAddress(publicKey)}</div>
+                    <div className={styles.lightGreenText}>{shortAddress}</div>
                   </div>
                 </div>
               </div>
