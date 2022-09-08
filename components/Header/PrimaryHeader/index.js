@@ -133,44 +133,67 @@ const PrimaryHeader = props => {
     router.push('/')
   }
 
+  const [offset, setOffset] = useState([0, 0])
+
+  useEffect(() => {
+    if (document.getElementById('walletButton') !== null) {
+      let offsets = document.getElementById('walletButton').getBoundingClientRect()
+      setOffset([offsets.top, offsets.left])
+    }
+  }, [connected])
+
+  useEffect(() => {
+    const resizeFunction = () => {
+      if (document.getElementById('walletButton') !== null) {
+        let offsets = document.getElementById('walletButton').getBoundingClientRect()
+        setOffset([offsets.top, offsets.left])
+      }
+    }
+    window.addEventListener('resize', resizeFunction)
+  }, [connected])
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-    <div className={styles.blurContainer}>
-      <div className={styles.container}>
-        <div className="g-container w-full h-full flex justify-between items-center gap-4">
-          {!connected && (
-            <div
-              className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
-              onClick={() => handleGotoHomepage()}
-            >
-              <Image src={LogoTextIcon} alt="" />
-            </div>
-          )}
-          <SearchBox
-            value={searchKeyword}
-            placeholder="Search by NFT, Collection, or Artist"
-            onChange={value => setSearchKeyword(value)}
-            searchList={searchList}
-            viewport={viewport}
-            onClick={() => handleSearch()}
-            onClose={() => handleClose()}
-          />
-          {connected && (
-            <div
-              className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
-              onClick={() => handleGotoHomepage()}
-            ></div>
-          )}
-          <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
-          <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
-          <WalletButton />
-          {/* <WalletButton onClick={() => handleOpenConnectWallet()} connectWalletStatus={connected} /> */}
-          <ProfileMenu
-            avatar={AvatarImage}
-            menuList={ProfileMenuList}
-            onSelect={item => router.push(item.path)}
-            connectWalletStatus={connected}
-          />
+    <div>
+      <div className={styles.blurContainer}>
+        <div className={styles.container}>
+          <div className="g-container w-full h-full flex justify-between items-center gap-4">
+            {!connected && (
+              <div
+                className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
+                onClick={() => handleGotoHomepage()}
+              >
+                <Image src={LogoTextIcon} alt="" />
+              </div>
+            )}
+            <SearchBox
+              value={searchKeyword}
+              placeholder="Search by NFT, Collection, or Artist"
+              onChange={value => setSearchKeyword(value)}
+              searchList={searchList}
+              viewport={viewport}
+              onClick={() => handleSearch()}
+              onClose={() => handleClose()}
+            />
+            {connected && (
+              <div
+                className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
+                onClick={() => handleGotoHomepage()}
+              ></div>
+            )}
+            <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
+            <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
+            <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
+            <ProfileMenu
+              avatar={AvatarImage}
+              menuList={ProfileMenuList}
+              onSelect={item => router.push(item.path)}
+              connectWalletStatus={connected}
+            />
+          </div>
         </div>
+      </div>
+      <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
+        <WalletButton />
       </div>
     </div>
   ) : (
