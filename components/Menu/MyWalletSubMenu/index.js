@@ -7,7 +7,6 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import IconButton from 'components/Button/IconButton'
@@ -42,8 +41,6 @@ const MyWalletSubMenu = props => {
   const [showDeposit, setShowDeposit] = useState(false)
   const [status, setStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
   const [price, setPrice] = useState(13.2)
-
-  const { publicKey } = useWallet()
 
   return (
     <Disclosure>
