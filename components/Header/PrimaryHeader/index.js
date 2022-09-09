@@ -192,9 +192,11 @@ const PrimaryHeader = props => {
           </div>
         </div>
       </div>
-      <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
-        <WalletButton />
-      </div>
+      {offset[1] !== 0 && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
+          <WalletButton />
+        </div>
+      )}
     </div>
   ) : (
     <div className={styles.mobileBlurContainer}>
