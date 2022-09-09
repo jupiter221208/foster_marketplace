@@ -14,11 +14,11 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const MyNFTCard = props => {
-  const { viewport, data, onClick } = props
+  const { viewport, data, onClickStartAuction, onClickListNFT } = props
 
   return (
     <div className={styles.container}>
-      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
+      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[290px]">
         <img src={data.image} alt={data.name} className="w-full aspect-[321/378] object-cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
@@ -29,14 +29,25 @@ const MyNFTCard = props => {
           <div className={styles.artistName}>{data.artist || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
-          <GradientButton label="Start Auction" onClick={() => {}} height="40px" fontSize="14px" />
-          <OutlineButton label="List NFT" onClick={() => onClick(data)} height="40px" fontSize="14px" />
+          <GradientButton
+            label="Start Auction"
+            onClick={() => onClickStartAuction(data)}
+            height="40px"
+            fontSize="14px"
+          />
+          <OutlineButton label="List NFT" onClick={() => onClickListNFT(data)} height="40px" fontSize="14px" />
         </div>
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
-          <OutlineButton label="Start Auction" onClick={() => {}} height="26px" fontSize="10px" borderRadius="6px" />
+          <OutlineButton
+            label="Start Auction"
+            onClick={() => onClickStartAuction(data)}
+            height="26px"
+            fontSize="10px"
+            borderRadius="6px"
+          />
           <GradientButton
             label="List NFT"
-            onClick={() => onClick(data)}
+            onClick={() => onClickListNFT(data)}
             height="26px"
             fontSize="10px"
             borderRadius="6px"

@@ -10,17 +10,19 @@ import { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import MyNFTCard from 'components/Card/MyNFTCard'
+import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
+
+// custom functions
+import { useEnvironment } from 'providers/EnvironmentProvider'
+import { getTokensByAccount } from 'utils/wallet.util'
 
 // styles
 import styles from './index.module.scss'
-
-import { useEnvironment } from 'providers/EnvironmentProvider'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { getTokensByAccount } from 'utils/wallet.util'
 
 const MyNFTSection = props => {
   const { viewport } = props
@@ -42,10 +44,17 @@ const MyNFTSection = props => {
     loadMyNFTs()
   }, [connection, publicKey])
 
+  const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
 
   const [selectedData, setSelectedData] = useState()
-  const handleSelectData = item => {
+
+  const handleStartAuction = item => {
+    setSelectedData(item)
+    setShowStartAuctionModal(true)
+  }
+
+  const handleListNFT = item => {
     setSelectedData(item)
     setShowListNFTModal(true)
   }
@@ -69,24 +78,29 @@ const MyNFTSection = props => {
           {myNFTftList.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                <MyNFTCard viewport={viewport} data={item} onClick={item => handleSelectData(item)} />
+                <MyNFTCard
+                  viewport={viewport}
+                  data={item}
+                  onClickStartAuction={item => handleStartAuction(item)}
+                  onClickListNFT={item => handleListNFT(item)}
+                />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      {selectedData && selectedData.length > 0 ? (
-        <ListNFTModal
-          viewport={viewport}
-          data={selectedData}
-          open={showListNFTModal}
-          onClose={() => setShowListNFTModal(false)}
-        />
-      ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-        <div className="h-[400px]"></div>
-      ) : (
-        <></>
-      )}
+      <StartAuctionModal
+        viewport={viewport}
+        data={selectedData}
+        open={showStartAuctionModal}
+        onClose={() => setShowStartAuctionModal(false)}
+      />
+      <ListNFTModal
+        viewport={viewport}
+        data={selectedData}
+        open={showListNFTModal}
+        onClose={() => setShowListNFTModal(false)}
+      />
     </section>
   )
 }

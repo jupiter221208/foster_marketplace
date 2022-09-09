@@ -7,6 +7,9 @@ const nextConfig = {
     BASE_CLUSTER: process.env.BASE_CLUSTER,
     MAINNET_PRIMARY: process.env.MAINNET_PRIMARY,
   },
+  images: {
+    domains: ['arweave.net', 'www.arweave.net'],
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
