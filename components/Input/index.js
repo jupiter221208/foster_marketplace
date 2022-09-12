@@ -14,7 +14,6 @@ const Input = props => {
     fullWidth = false,
     backgroundColor = '',
     borderColor = '',
-    borderWidth = 0,
     width = '',
     height = '',
     type = '',
@@ -27,7 +26,7 @@ const Input = props => {
         type={type}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
-        style={{ color, backgroundColor, borderColor, borderWidth, width: fullWidth ? '100%' : width, height }}
+        style={{ color, backgroundColor, borderColor, width: fullWidth ? '100%' : width, height }}
       />
       {label01 !== '' && (
         <div className="w-full flex justify-between px-6 gap-6">

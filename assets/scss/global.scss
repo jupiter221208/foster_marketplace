@@ -394,3 +394,159 @@ h6 {
   border-bottom-right-radius: 20px;
   border-right-style: solid;
 }
+
+.startAuctionDatePicker {
+  .react-datepicker {
+    background-color: $background-black-color;
+    border: 1px solid rgba($text-gray-200-color, 0.5);
+    border-radius: 9px;
+    width: 100%;
+    max-width: 432px;
+    height: auto;
+    font-family: 'Muli-Bold';
+    font-size: 16px;
+    .react-datepicker__month-container {
+      width: 100%;
+    }
+    padding: 20px 32px 26px 32px;
+    .react-datepicker__triangle {
+      display: none;
+    }
+    .react-datepicker__navigation {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        background-color: $brand-01-color;
+      }
+    }
+    .react-datepicker__navigation--previous {
+      left: auto;
+      top: 20px;
+      right: 98px;
+      align-items: center;
+      background-image: url('../../assets/icons/arrow-left-white-01.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      &:hover {
+        background-image: url('../../assets/icons/arrow-left-black-01.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .react-datepicker__navigation-icon::before {
+        border-width: 0px;
+        width: 15px;
+        height: 12px;
+        transform: rotate(0deg);
+      }
+    }
+    .react-datepicker__navigation--next {
+      left: auto;
+      top: 20px;
+      right: 31px;
+      background-image: url('../../assets/icons/arrow-right-white-01.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      &:hover {
+        background-image: url('../../assets/icons/arrow-right-black-01.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      .react-datepicker__navigation-icon::before {
+        border-width: 0px;
+        width: 15px;
+        height: 12px;
+        transform: rotate(0deg);
+      }
+    }
+  }
+  .react-datepicker__header {
+    background-color: $background-black-color;
+    border-bottom: none;
+    .react-datepicker__current-month {
+      color: $text-gray-200-color;
+      text-align: start;
+      font-size: 22px;
+      line-height: 1;
+    }
+    .react-datepicker__day-names {
+      color: $brand-06-color;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      .react-datepicker__day-name {
+        width: 45px;
+        justify-content: center;
+        color: $brand-06-color;
+      }
+    }
+  }
+  .react-datepicker__month {
+    margin: 0px;
+  }
+  .react-datepicker__week {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    gap: 8px;
+  }
+  .react-datepicker__day {
+    color: $text-gray-200-color;
+    width: 45px;
+    height: 45px;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    &:hover {
+      border-radius: 9px;
+      color: $background-dark-color;
+    }
+  }
+  .react-datepicker__day--selected {
+    background: linear-gradient(to bottom, rgba($brand-02-color, 50%), rgba(#1c4144, 35%));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      border-radius: 9px;
+      color: $background-dark-color;
+    }
+  }
+  .react-datepicker__day--keyboard-selected {
+    background: linear-gradient(to bottom, rgba($brand-02-color, 50%), rgba(#1c4144, 35%));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      border-radius: 9px;
+      color: $background-dark-color;
+    }
+  }
+  .react-datepicker__day--outside-month {
+    color: rgba($text-gray-200-color, 0.5);
+  }
+
+  .react-datepicker__input-time-container {
+    margin: 25px 0px 0px 0px;
+  }
+  .react-datepicker__input-time-container .react-datepicker-time__input-container {
+    width: 100%;
+  }
+  .react-datepicker-time__input {
+    width: 100%;
+    margin-left: 0px !important;
+    height: 40px;
+    border-radius: 9px;
+    border: 1px solid rgba($text-gray-200-color, 0.1);
+    input[type='time']::-webkit-calendar-picker-indicator {
+      cursor: pointer;
+      background: url('../../assets/icons/timer-gray.svg') no-repeat;
+      padding-right: 15px;
+    }
+  }
+}

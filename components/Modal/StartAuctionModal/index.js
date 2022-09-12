@@ -1,18 +1,23 @@
-import { Fragment, useState } from 'react'
-
-// third party components
-import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import Link from 'next/link'
+
+// third party components
+import { Dialog, Transition } from '@headlessui/react'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 // custom components
+import Input from 'components/Input'
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
 import Button from 'components/Button'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import HelpGrayIcon from 'assets/icons/help-gray.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -24,7 +29,51 @@ const StartAuctionModal = props => {
     onClose()
   }
 
-  const [price, setPrice] = useState(0)
+  const [startDate, setStartDate] = useState(new Date())
+  const [price, setPrice] = useState(null)
+
+  useEffect(() => {
+    const position = async () => {
+      await navigator.geolocation.getCurrentPosition(
+        position => {
+          displayLocation(position.coords.latitude, position.coords.longitude)
+        },
+        err => console.log('error', err)
+      )
+    }
+    position()
+  }, [startDate])
+
+  function displayLocation(latitude, longitude) {
+    var geocoder
+    geocoder = new window.google.maps.Geocoder()
+    var latlng = new google.maps.LatLng(latitude, longitude)
+
+    geocoder.geocode({ latLng: latlng }, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          var add = results[0].formatted_address
+          var value = add.split(',')
+          let count = value.length
+          let country = value[count - 1]
+          let state = value[count - 2]
+          let city = value[count - 3]
+        }
+      }
+    })
+  }
+
+  const CustomTimeInput = ({ date, value, onChange }) => {
+    return (
+      <input
+        type="time"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)' }}
+        className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
+      />
+    )
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -65,16 +114,67 @@ const StartAuctionModal = props => {
                   />
                 </div>
                 <div className={`${styles.nftName} mt-5`}>{data?.name}</div>
-                <div className="w-full mt-12">
+                <input className="w-0 h-9" />
+                <div className="mt-5 w-full startAuctionDatePicker">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={date => setStartDate(date)}
+                    dateFormat="MM/dd/yyyy h:mm aa"
+                    formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                    showTimeInput
+                    timeInputLabel=""
+                    className={styles.datePicker}
+                    customTimeInput={<CustomTimeInput />}
+                  />
+                  <div className="mt-2 w-full text-start">
+                    <div className={styles.label}>Schedule auction start date and time</div>
+                  </div>
+                </div>
+                <div className="mt-[38px] w-full grid grid-cols-2 gap-[57px]">
+                  <div className="col-span-1 flex justify-start items-end gap-[10px]">
+                    <Input placeholder="Days" height="40px" width="122px" />
+                    <div>Day(s)</div>
+                  </div>
+                  <div className="col-span-1 flex justify-start items-end gap-[10px]">
+                    <Input placeholder="Hours" height="40px" width="122px" />
+                    <div>Hour(s)</div>
+                  </div>
+                </div>
+                <div className="mt-2 w-full text-start">
+                  <div className={styles.label}>
+                    The auction is due to end <span className="font-bold text-white">Tuesday, 08/22/24</span> (in your
+                    local time)
+                  </div>
+                </div>
+                <div className="mt-[49px] w-full">
                   <PriceInput
                     value={price}
-                    placeholder="Enter price value"
+                    placeholder="Enter starting bid"
                     fullWidth
                     onChange={value => setPrice(value)}
                   />
                 </div>
-                <div className="w-full mt-[30px]">
-                  <GradientButton label="Publish Auction" fullWidth onClick={() => closeModal()} />
+                <div className="mt-2 w-full flex gap-2 items-center">
+                  <div className={styles.label}>Minimum bid increment: 0.05 SOL</div>
+                  <Image src={HelpGrayIcon} alt="" />
+                </div>
+                <div className="w-full mt-12">
+                  <GradientButton
+                    label="Publish Auction"
+                    fullWidth
+                    onClick={() => closeModal()}
+                    gradientDirection="bottom"
+                  />
+                </div>
+                <div className="mt-[10px] w-full">
+                  <p className={`${styles.label} !text-sm !text-center`}>
+                    By clicking "List", you agree to the&nbsp;
+                    <span className={styles.linkText}>
+                      <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                        Foster Marketplace Terms of Service
+                      </a>
+                    </span>
+                  </p>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
