@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
-import Link from 'next/link'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -23,7 +22,7 @@ import HelpGrayIcon from 'assets/icons/help-gray.svg'
 import styles from './index.module.scss'
 
 const StartAuctionModal = props => {
-  const { viewport, data, open, onClose } = props
+  const { viewport, data, open, onClick, onClose } = props
 
   const closeModal = () => {
     onClose()
@@ -32,36 +31,36 @@ const StartAuctionModal = props => {
   const [startDate, setStartDate] = useState(new Date())
   const [price, setPrice] = useState(null)
 
-  useEffect(() => {
-    const position = async () => {
-      await navigator.geolocation.getCurrentPosition(
-        position => {
-          displayLocation(position.coords.latitude, position.coords.longitude)
-        },
-        err => console.log('error', err)
-      )
-    }
-    position()
-  }, [startDate])
+  // useEffect(() => {
+  //   const position = async () => {
+  //     await navigator.geolocation.getCurrentPosition(
+  //       position => {
+  //         displayLocation(position.coords.latitude, position.coords.longitude)
+  //       },
+  //       err => console.log('error', err)
+  //     )
+  //   }
+  //   position()
+  // }, [startDate])
 
-  function displayLocation(latitude, longitude) {
-    var geocoder
-    geocoder = new window.google.maps.Geocoder()
-    var latlng = new google.maps.LatLng(latitude, longitude)
+  // function displayLocation(latitude, longitude) {
+  //   var geocoder
+  //   geocoder = new window.google.maps.Geocoder()
+  //   var latlng = new google.maps.LatLng(latitude, longitude)
 
-    geocoder.geocode({ latLng: latlng }, function (results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          var add = results[0].formatted_address
-          var value = add.split(',')
-          let count = value.length
-          let country = value[count - 1]
-          let state = value[count - 2]
-          let city = value[count - 3]
-        }
-      }
-    })
-  }
+  //   geocoder.geocode({ latLng: latlng }, function (results, status) {
+  //     if (status == google.maps.GeocoderStatus.OK) {
+  //       if (results[0]) {
+  //         var add = results[0].formatted_address
+  //         var value = add.split(',')
+  //         let count = value.length
+  //         let country = value[count - 1]
+  //         let state = value[count - 2]
+  //         let city = value[count - 3]
+  //       }
+  //     }
+  //   })
+  // }
 
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
@@ -162,7 +161,7 @@ const StartAuctionModal = props => {
                   <GradientButton
                     label="Publish Auction"
                     fullWidth
-                    onClick={() => closeModal()}
+                    onClick={() => onClick()}
                     gradientDirection="bottom"
                   />
                 </div>

@@ -16,6 +16,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import MyNFTCard from 'components/Card/MyNFTCard'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
+import ProgressingModal from 'components/Modal/ProgressingModal'
 
 // custom functions
 import { useEnvironment } from 'providers/EnvironmentProvider'
@@ -46,6 +47,7 @@ const MyNFTSection = props => {
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
+  const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
   const [selectedData, setSelectedData] = useState()
 
@@ -53,6 +55,19 @@ const MyNFTSection = props => {
     setSelectedData(item)
     setShowStartAuctionModal(true)
   }
+
+  const handleProgressAuction = () => {
+    setShowStartAuctionModal(false)
+    setOpenProgressingModal(true)
+  }
+
+  useEffect(() => {
+    if (openProgressingModal) {
+      setTimeout(() => {
+        setOpenProgressingModal(false)
+      }, 3000)
+    }
+  }, [openProgressingModal])
 
   const handleListNFT = item => {
     setSelectedData(item)
@@ -94,7 +109,9 @@ const MyNFTSection = props => {
         data={selectedData}
         open={showStartAuctionModal}
         onClose={() => setShowStartAuctionModal(false)}
+        onClick={() => handleProgressAuction()}
       />
+      {openProgressingModal && <ProgressingModal viewport={viewport} open={openProgressingModal} />}
       <ListNFTModal
         viewport={viewport}
         data={selectedData}
