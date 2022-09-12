@@ -478,7 +478,11 @@ h6 {
       display: flex;
       justify-content: space-between;
       .react-datepicker__day-name {
-        width: 45px;
+        margin: 0px;
+        width: 35px;
+        @media (min-width: 1024px) {
+          width: 45px;
+        }
         justify-content: center;
         color: $brand-06-color;
       }
@@ -490,13 +494,21 @@ h6 {
   .react-datepicker__week {
     display: flex;
     justify-content: space-between;
-    margin-top: 24px;
-    gap: 8px;
+    margin-top: 8px;
+    gap: 0px;
+    @media (min-width: 1024px) {
+      margin-top: 24px;
+      gap: 8px;
+    }
   }
   .react-datepicker__day {
     color: $text-gray-200-color;
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
+    @media (min-width: 1024px) {
+      width: 45px;
+      height: 45px;
+    }
     border-radius: 9px;
     display: flex;
     justify-content: center;

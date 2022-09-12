@@ -29,7 +29,7 @@ const StartAuctionModal = props => {
   }
 
   const [startDate, setStartDate] = useState(new Date())
-  const [price, setPrice] = useState(null)
+  const [price, setPrice] = useState(0)
 
   // useEffect(() => {
   //   const position = async () => {
@@ -105,7 +105,7 @@ const StartAuctionModal = props => {
                   <Image src={CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Start Auction</div>
-                <div className="w-full mt-10">
+                <div className="w-full mt-[30px] lg:mt-10">
                   <img
                     src={data?.image}
                     alt={data?.name}
@@ -114,7 +114,7 @@ const StartAuctionModal = props => {
                 </div>
                 <div className={`${styles.nftName} mt-5`}>{data?.name}</div>
                 <input className="w-0 h-9" />
-                <div className="mt-5 w-full startAuctionDatePicker">
+                <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">
                   <DatePicker
                     selected={startDate}
                     onChange={date => setStartDate(date)}
@@ -129,20 +129,32 @@ const StartAuctionModal = props => {
                     <div className={styles.label}>Schedule auction start date and time</div>
                   </div>
                 </div>
-                <div className="mt-[38px] w-full grid grid-cols-2 gap-[57px]">
+                <div className="mt-[38px] w-full grid grid-cols-2 gap-5 lg:gap-[57px]">
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
-                    <Input placeholder="Days" height="40px" width="122px" />
-                    <div>Day(s)</div>
+                    <Input
+                      placeholder="Days"
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                      fullWidth
+                      borderRadius="9px"
+                    />
+                    <div className="text-sm">Day(s)</div>
                   </div>
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
-                    <Input placeholder="Hours" height="40px" width="122px" />
-                    <div>Hour(s)</div>
+                    <Input
+                      placeholder="Hours"
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
+                      fullWidth
+                      borderRadius="9px"
+                    />
+                    <div className="text-sm">Hour(s)</div>
                   </div>
                 </div>
                 <div className="mt-2 w-full text-start">
                   <div className={styles.label}>
-                    The auction is due to end <span className="font-bold text-white">Tuesday, 08/22/24</span> (in your
-                    local time)
+                    The auction is due to end <span className="font-bold text-white">Tuesday, 08/22/24</span>
+                    {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
                   </div>
                 </div>
                 <div className="mt-[49px] w-full">
@@ -150,6 +162,7 @@ const StartAuctionModal = props => {
                     value={price}
                     placeholder="Enter starting bid"
                     fullWidth
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                     onChange={value => setPrice(value)}
                   />
                 </div>
