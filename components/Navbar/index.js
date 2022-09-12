@@ -117,14 +117,10 @@ const Navbar = props => {
               className={styles.navItemArea}
               onMouseOver={() => setSelectedNavMenu('statistic')}
               onMouseLeave={() => setSelectedNavMenu('')}
-              onClick={() => router.push('/#statistic')}
+              onClick={() => router.push('/stats')}
             >
               <Image
-                src={
-                  router.asPath === '/#statistic' || selectedNavMenu === 'statistic'
-                    ? StatisticGreenIcon
-                    : StatisticGrayIcon
-                }
+                src={router.asPath === '/stats' || selectedNavMenu === 'stats' ? StatisticGreenIcon : StatisticGrayIcon}
                 alt=""
               />
             </div>
@@ -199,11 +195,9 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('statistic')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                router.asPath === '/#statistic' || selectedNavMenu === 'statistic'
-                  ? styles.textWhiteColor
-                  : styles.textGrayColor
+                router.asPath === '/stats' || selectedNavMenu === 'stats' ? styles.textWhiteColor : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
-              onClick={() => router.push('/#statistic')}
+              onClick={() => router.push('/stats')}
             >
               Stats
             </div>

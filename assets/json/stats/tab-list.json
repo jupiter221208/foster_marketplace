@@ -1,0 +1,7 @@
+[
+  { "id": 0, "label": "Artworks", "value": "Artworks" },
+  { "id": 1, "label": "Collections", "value": "Collections" },
+  { "id": 2, "label": "Creators", "value": "Creators" },
+  { "id": 3, "label": "Collectors", "value": "Collectors" },
+  { "id": 4, "label": "Marketplace", "value": "Marketplace" }
+]

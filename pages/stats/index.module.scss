@@ -1,0 +1,23 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  padding-top: 106px;
+  padding-bottom: 106px;
+}
+
+.topLeftEllipse {
+  position: absolute;
+  top: -1000px;
+  left: -1060px;
+  z-index: 0;
+}
+
+.title {
+  font-family: 'KCDurhamBoxcar';
+  font-size: 82px;
+  line-height: 54px;
+  letter-spacing: 2px;
+  color: $text-gray-200-color;
+  text-shadow: 0px 3px 6px #5ac3ba5c;
+}
