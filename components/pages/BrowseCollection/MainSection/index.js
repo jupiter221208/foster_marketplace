@@ -153,13 +153,13 @@ const MainSection = props => {
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>03</div>
-                <div className={styles.nftInfoValue}>Collections</div>
+                <div className={styles.nftInfoValue}>Owners</div>
               </div>
             </div>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>1.2k</div>
-                <div className={styles.nftInfoValue}>Collections</div>
+                <div className={styles.nftInfoValue}>Floor Price</div>
               </div>
             </div>
             <div className="col-span-3 flex justify-center items-center">
