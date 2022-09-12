@@ -16,12 +16,15 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
+import DetailCollectedSection from '../DetailCollectedSection'
 
 const TabSection = props => {
   const { viewport } = props
 
   const [activeTab, setActiveTab] = useState(0)
   const [tabList, setTabList] = useState(TabList)
+  const [detailCollection, setDetailCollection] = useState(false)
+
   useEffect(() => {
     let array = []
     TabList.map(item => {
@@ -34,6 +37,7 @@ const TabSection = props => {
       array.push(object)
     })
     setTabList(array)
+    setDetailCollection(false)
   }, [activeTab])
 
   const handleSelectedTab = item => {
@@ -62,7 +66,23 @@ const TabSection = props => {
       )}
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
-          <CollectedSection viewport={viewport} />
+          {detailCollection ? (
+            <div className="w-full z-10">
+              <div className="w-full flex justify-end">
+                <div
+                  className={styles.return}
+                  onClick={() => {
+                    setDetailCollection(false)
+                  }}
+                >
+                  Return
+                </div>
+              </div>
+              <DetailCollectedSection viewport={viewport}></DetailCollectedSection>
+            </div>
+          ) : (
+            <CollectedSection viewport={viewport} onClickItem={() => setDetailCollection(true)} />
+          )}
         </div>
       )}
       {activeTab === 4 && (

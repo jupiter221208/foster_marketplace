@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 
-// next components
-import { useRouter } from 'next/router'
-
 // components
-import OutlineButton from 'components/Button/OutlineButton'
 import DashboardNFTCard from 'components/Card/DashboardNFTCard'
 import Pagination from 'components/Button/Pagination'
 
@@ -15,8 +11,7 @@ import NFTList from 'assets/json/artist-profile/nft-list.json'
 import styles from './index.module.scss'
 
 const CollectedSection = props => {
-  const { viewport } = props
-  const router = useRouter()
+  const { viewport, onClickItem } = props
 
   const [nftList, setNFTList] = useState([])
 
@@ -32,7 +27,7 @@ const CollectedSection = props => {
               artistName={item.artistName}
               price={item.price}
               showCount={false}
-              onClick={() => router.push('/browse-nft')}
+              onClick={onClickItem}
             />
           </div>
         ))}

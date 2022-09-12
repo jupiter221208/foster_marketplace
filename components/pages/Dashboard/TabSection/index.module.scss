@@ -1,3 +1,17 @@
+@import 'assets/scss/variable.module.scss';
+
 .container {
   z-index: 10;
+}
+
+.return {
+  border: 1px solid $background-light-color;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 24px;
+  &:hover {
+    cursor: pointer;
+  }
 }
