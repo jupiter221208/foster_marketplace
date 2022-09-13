@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import SearchSection from '../SearchSection'
+import CollectionSection from './CollectionSection'
 
 // json
 import ArtworksList from 'assets/json/stats/artworks-list.json'
 import PopularCategoryList from 'assets/json/popular-category.json'
+import ArtworksCollectionList from 'assets/json/stats/artworks-collection-list.json'
 
 // functions
 import { stringLengthValidate } from 'utils/strings'
@@ -58,6 +60,9 @@ const ArtworksSection = props => {
         list={allList}
         getList={list => setArtworksList(list)}
       />
+      <div className="mt-8 w-full">
+        <CollectionSection viewport={viewport} list={ArtworksCollectionList} />
+      </div>
     </div>
   )
 }

@@ -15,7 +15,7 @@ const TrendingCollectionCard = props => {
     <div className={styles.container} onClick={() => router.push('/browse-collection')}>
       <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
         <Image src={image} alt="" width={492} height={515} layout="responsive" objectFit="cover" />
-        <div className={styles.bottomMask}></div>
+        <div className={styles.bottomMask} />
         <div className="w-full h-[40px] lg:h-[54px] flex justify-between absolute lg:bottom-[28px] bottom-[15px] left-[0px] right-[0px] items-center">
           <div className="px-[15px] lg:px-[28px]">
             <div className={styles.nftName}>{nftName}</div>

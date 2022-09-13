@@ -189,7 +189,7 @@ h6 {
   }
 
   .swiper-pagination-bullet-active {
-    color: #fff;
+    color: $white-color;
     background: $brand-06-color;
     width: 35px;
     height: 8px;
@@ -352,7 +352,7 @@ h6 {
 }
 
 #ActivityTable td {
-  border: 1px solid rgba(#ffffff, 0.1);
+  border: 1px solid rgba($white-color, 0.1);
   border-style: solid none solid none;
   padding: 4px;
   height: 70px;

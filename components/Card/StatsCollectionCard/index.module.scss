@@ -1,0 +1,73 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  padding: 12px 14px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid rgba($white-color, 0.1);
+  border-radius: 7px;
+  // width: 287px;
+  height: 180px;
+}
+.imageArea {
+  position: absolute;
+  inset: 0;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.topMask {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 80px;
+  border-radius: 7px;
+  background: linear-gradient(to top, transparent, $black-color);
+}
+
+.bottomMask {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  border-radius: 7px;
+  background: linear-gradient(to bottom, transparent, $black-color);
+}
+
+.volume {
+  width: 100%;
+  text-align: end;
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 25px;
+  color: #47d437;
+  z-index: 10;
+}
+
+.collectionName {
+  font-family: 'Muli-Bold';
+  font-size: 15px;
+  line-height: 19px;
+  color: $white-color;
+}
+
+.artistName {
+  margin-top: 5px;
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba($white-color, 0.8);
+}
+
+.avatarArea {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: rgba($white-color, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
