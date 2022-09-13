@@ -23,7 +23,7 @@ const MarketplaceSection = props => {
   useEffect(() => {
     let array = [...ArtworksList]
     array.map(item => {
-      item.category = PopularCategoryList.filter(elem => elem.id === item.id)
+      item.category = PopularCategoryList.filter(elem => elem.id === item.categoryID)
     })
     setAllList(array)
     setArtworksList(array)

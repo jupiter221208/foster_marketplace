@@ -23,7 +23,7 @@ const ArtworksSection = props => {
   useEffect(() => {
     let array = [...ArtworksList]
     array.map(item => {
-      item.category = PopularCategoryList.filter(elem => elem.id === item.id)
+      item.category = PopularCategoryList.filter(elem => elem.id === item.categoryID)
     })
     setAllList(array)
     setArtworksList(array)
@@ -33,8 +33,14 @@ const ArtworksSection = props => {
   useEffect(() => {
     if (artWorksList.length !== 0 || stringLengthValidate(searchWord, 2)) {
       const results = artWorksList.filter(elem => {
-        return elem.category[0].name.toLowerCase().includes(searchWord)
+        return (
+          elem.artworkName01.toLowerCase().includes(searchWord) ||
+          elem.artworkName02.toLowerCase().includes(searchWord) ||
+          elem.rank.toLowerCase().includes(searchWord)
+        )
       })
+      console.log('searchWord', searchWord)
+      console.log('results', results)
       setList(results)
     }
   }, [artWorksList, searchWord])
@@ -48,7 +54,7 @@ const ArtworksSection = props => {
       <SearchSection
         viewport={viewport}
         searchWord={searchWord}
-        setSearchWord={value => setSearchWord(value)}
+        setSearchWord={value => setSearchWord(value.toString())}
         list={allList}
         getList={list => setArtworksList(list)}
       />

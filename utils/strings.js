@@ -7,6 +7,6 @@ export const getShortAddress = address => {
 }
 
 export const stringLengthValidate = (string = '', length = 2) => {
-  const regex = '^[a-zA-Z]{2,}$'
+  const regex = '^[a-zA-Z0-9]{2,}$'
   return string.match(regex)
 }
