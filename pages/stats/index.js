@@ -9,6 +9,12 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import Tab from 'components/Tab'
 import OutlineButton from 'components/Button/OutlineButton'
 
+import ArtworksSection from 'components/pages/Stats/ArtworksSection'
+import CollectionsSection from 'components/pages/Stats/CollectionsSection'
+import CreatorsSection from 'components/pages/Stats/CreatorsSection'
+import CollectorsSection from 'components/pages/Stats/CollectorsSection'
+import MarketplaceSection from 'components/pages/Stats/MarketplaceSection'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
@@ -19,8 +25,11 @@ import TabList from 'assets/json/stats/tab-list.json'
 import styles from './index.module.scss'
 
 const Stats = props => {
+  const { viewport } = props
+
   const [activeTab, setActiveTab] = useState(0)
   const [tabList, setTabList] = useState(TabList)
+
   useEffect(() => {
     let array = []
     TabList.map(item => {
@@ -51,10 +60,17 @@ const Stats = props => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="w-full flex flex-wrap">
-          <div className={styles.title}>House Stats</div>
+          <div className={`${styles.title} z-10`}>House Stats</div>
           <div className="mt-[84px] w-full flex justify-between z-10">
             <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
             <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
+          </div>
+          <div className="mt-16 w-full z-10">
+            {activeTab === 0 && <ArtworksSection viewport={viewport} />}
+            {activeTab === 1 && <CollectionsSection viewport={viewport} />}
+            {activeTab === 2 && <CreatorsSection viewport={viewport} />}
+            {activeTab === 3 && <CollectorsSection viewport={viewport} />}
+            {activeTab === 4 && <MarketplaceSection viewport={viewport} />}
           </div>
         </div>
       </div>
