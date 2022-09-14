@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 // functions
 import { getPercentValue } from 'utils/strings'
+
 // styles
 import styles from './index.module.scss'
 

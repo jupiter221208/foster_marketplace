@@ -1,0 +1,90 @@
+[
+  {
+    "id": 0,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 1,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": -9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 2,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 3,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 4,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": -9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 5,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 6,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 7,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 8,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 9,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  },
+  {
+    "id": 0,
+    "image": "/images/stats-collection.png",
+    "collectionName": "Collection Name",
+    "artistName": "Artist Name",
+    "volume": 9.72,
+    "avatar": "/images/paul-theodor-oja.png"
+  }
+]
