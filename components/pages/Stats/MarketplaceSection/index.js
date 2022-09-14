@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import SearchSection from '../SearchSection'
+import CollectionSection from './CollectionSection'
+import TableSections from './TableSection'
 
 // json
-import ArtworksList from 'assets/json/stats/marketplace-list.json'
+import MarketplacesList from 'assets/json/stats/marketplace-list.json'
 import PopularCategoryList from 'assets/json/popular-category.json'
+import MarketplaceCollectionList from 'assets/json/stats/artworks-collection-list.json'
 
 // functions
 import { stringLengthValidate } from 'utils/strings'
@@ -17,27 +20,31 @@ const MarketplaceSection = props => {
   const { viewport } = props
 
   const [searchWord, setSearchWord] = useState('')
-  const [artWorksList, setArtworksList] = useState([])
+  const [marketplacesList, setMarketplacesList] = useState([])
   const [allList, setAllList] = useState([])
   const [list, setList] = useState([])
   useEffect(() => {
-    let array = [...ArtworksList]
+    let array = [...MarketplacesList]
     array.map(item => {
       item.category = PopularCategoryList.filter(elem => elem.id === item.categoryID)
     })
     setAllList(array)
-    setArtworksList(array)
+    setMarketplacesList(array)
     setList(array)
   }, [])
 
   useEffect(() => {
-    if (artWorksList.length !== 0 || stringLengthValidate(searchWord, 2)) {
-      const results = artWorksList.filter(elem => {
-        return elem.category[0].name.toLowerCase().includes(searchWord)
+    if (marketplacesList.length !== 0 || stringLengthValidate(searchWord, 2)) {
+      const results = marketplacesList.filter(elem => {
+        if (elem.category.length > 0) {
+          return elem.category[0].name.toLowerCase().includes(searchWord)
+        } else return false
       })
+      console.log(results, '==========results=====')
+
       setList(results)
     }
-  }, [artWorksList, searchWord])
+  }, [marketplacesList, searchWord])
 
   return (
     <div className={styles.container}>
@@ -46,8 +53,14 @@ const MarketplaceSection = props => {
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value)}
         list={allList}
-        getList={list => setArtworksList(list)}
+        getList={list => setMarketplacesList(list)}
       />
+      <div className="mt-8 w-full">
+        <CollectionSection viewport={viewport} list={MarketplaceCollectionList} />
+      </div>
+      <div>
+        <TableSections viewport={viewport} data={list} />
+      </div>
     </div>
   )
 }
