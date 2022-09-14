@@ -50,7 +50,7 @@
   padding: 35px;
   background-color: $background-dark-color;
   border-radius: 15px;
-  border: 1px solid #22777b;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
 }
 
 .title {
@@ -65,4 +65,20 @@
   font-size: 18px;
   line-height: 24px;
   color: $text-gray-200-color;
+}
+
+// w-full flex justify-start items-center cursor-pointer p-2 rounded-lg
+.selection {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+
+  &:hover {
+    width: 100%;
+    background-color: rgba($brand-02-color, 0.3);
+    border: 1px solid $brand-01-color;
+    border-radius: 8px;
+  }
 }

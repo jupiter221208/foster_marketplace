@@ -31,11 +31,7 @@ const SearchBox = props => {
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[26px]`}>NFTs</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.nfts.map((item, index) => (
-              <div
-                key={index}
-                className="w-full flex justify-start items-center cursor-pointer hover:bg-slate-600 p-2 rounded-lg"
-                onClick={() => onClose()}
-              >
+              <div key={index} className={styles.selection} onClick={() => onClose()}>
                 <div className="w-[35px] h-[35px] mr-5">
                   <Image
                     src={item.image}
@@ -55,11 +51,7 @@ const SearchBox = props => {
           {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[26px]`}>Artists</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.artists.map((item, index) => (
-              <div
-                key={index}
-                className="w-full flex justify-start items-center cursor-pointer hover:bg-slate-600 p-2 rounded-lg"
-                onClick={() => onClose()}
-              >
+              <div key={index} className={styles.selection} onClick={() => onClose()}>
                 <div className="w-[35px] h-[35px] mr-5">
                   <Image
                     src={item.image}
@@ -81,11 +73,7 @@ const SearchBox = props => {
           {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[26px]`}>Collections</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.collections.map((item, index) => (
-              <div
-                key={index}
-                className="w-full flex justify-start items-center cursor-pointer hover:bg-slate-600 p-2 rounded-lg"
-                onClick={() => onClose()}
-              >
+              <div key={index} className={styles.selection} onClick={() => onClose()}>
                 <div className="w-[35px] h-[35px] mr-5">
                   <Image
                     src={item.image}
