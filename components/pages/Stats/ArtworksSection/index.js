@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 // components
 import SearchSection from '../SearchSection'
 import CollectionSection from './CollectionSection'
+import TableSections from './TableSection'
 
 // json
 import ArtworksList from 'assets/json/stats/artworks-list.json'
@@ -47,10 +48,6 @@ const ArtworksSection = props => {
     }
   }, [artWorksList, searchWord])
 
-  useEffect(() => {
-    console.log('list', list)
-  }, [list])
-
   return (
     <div className={styles.container}>
       <SearchSection
@@ -62,6 +59,9 @@ const ArtworksSection = props => {
       />
       <div className="mt-8 w-full">
         <CollectionSection viewport={viewport} list={ArtworksCollectionList} />
+      </div>
+      <div>
+        <TableSections viewport={viewport} data={list} />
       </div>
     </div>
   )

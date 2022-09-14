@@ -292,6 +292,9 @@ h6 {
   border-radius: 4px;
 }
 
+// ####################################################
+// ActivityTable
+
 #ActivityTable {
   border-collapse: separate;
   border-spacing: 0 2px;
@@ -390,6 +393,110 @@ h6 {
 }
 
 #ActivityTable tr td:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-right-style: solid;
+}
+
+// ####################################################
+// ArtworksTable
+#ArtworksTable {
+  border-collapse: separate;
+  border-spacing: 0 2px;
+}
+
+#ArtworksTable th {
+  border: 1px solid $brand-01-color;
+  border-style: solid none solid none;
+  padding: 4px;
+  background-color: $background-black-color;
+  height: 30px;
+
+  font-family: 'Muli-Bold';
+  font-size: 9px;
+  @media (min-width: 640px) {
+    font-size: 10px;
+  }
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+  @media (min-width: 1024px) {
+    height: 65px;
+
+    font-size: 14px;
+  }
+  @media (min-width: 1280px) {
+    height: 65px;
+
+    font-size: 15px;
+  }
+  @media (min-width: 1536px) {
+    height: 65px;
+
+    font-size: 16px;
+  }
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
+#ArtworksTable th:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-left-style: solid;
+}
+
+#ArtworksTable th:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-right-style: solid;
+}
+
+#ArtworksTable tbody:before {
+  content: '@';
+  display: block;
+  line-height: 7px;
+  text-indent: -99999px;
+}
+
+#ArtworksTable td {
+  border: 1px solid rgba($white-color, 0.1);
+  border-style: solid none solid none;
+  padding: 4px;
+  height: 70px;
+  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
+
+  font-family: 'Muli-Bold';
+  font-size: 9px;
+  @media (min-width: 640px) {
+    font-size: 10px;
+  }
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 15px;
+    height: 90px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 16px;
+    height: 90px;
+  }
+
+  line-height: 24px;
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+#ArtworksTable tr td:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-left-style: solid;
+}
+
+#ArtworksTable tr td:last-child {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-right-style: solid;
