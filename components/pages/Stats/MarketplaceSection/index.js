@@ -39,10 +39,6 @@ const MarketplaceSection = props => {
     }
   }, [artWorksList, searchWord])
 
-  useEffect(() => {
-    console.log('list', list)
-  }, [list])
-
   return (
     <div className={styles.container}>
       <SearchSection

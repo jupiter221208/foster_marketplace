@@ -42,8 +42,6 @@ const ArtworksSection = props => {
           elem.rank.toLowerCase().includes(searchWord)
         )
       })
-      console.log('searchWord', searchWord)
-      console.log('results', results)
       setList(results)
     }
   }, [artWorksList, searchWord])

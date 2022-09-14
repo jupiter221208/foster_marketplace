@@ -11,7 +11,6 @@ import styles from './index.module.scss'
 
 const ArtworksTable = props => {
   const { data, viewport } = props
-  console.log('data', data)
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
