@@ -533,11 +533,14 @@ h6 {
     .react-datepicker__navigation--previous {
       left: auto;
       top: 20px;
-      right: 98px;
+      right: 48px;
       align-items: center;
       background-image: url('../../assets/icons/arrow-left-white-01.svg');
       background-repeat: no-repeat;
       background-position: center;
+      @media (min-width: 1024px) {
+        right: 98px;
+      }
       &:hover {
         background-image: url('../../assets/icons/arrow-left-black-01.svg');
         background-repeat: no-repeat;
@@ -553,7 +556,10 @@ h6 {
     .react-datepicker__navigation--next {
       left: auto;
       top: 20px;
-      right: 31px;
+      right: 20px;
+      @media (min-width: 1024px) {
+        right: 31px;
+      }
       background-image: url('../../assets/icons/arrow-right-white-01.svg');
       background-repeat: no-repeat;
       background-position: center;
