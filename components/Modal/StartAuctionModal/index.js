@@ -180,7 +180,7 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="mt-[10px] w-full">
                   <p className={`${styles.label} !text-sm !text-center`}>
-                    By clicking "List", you agree to the&nbsp;
+                    By clicking &quot;List&quot;, you agree to the&nbsp;
                     <span className={styles.linkText}>
                       <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
                         Foster Marketplace Terms of Service
