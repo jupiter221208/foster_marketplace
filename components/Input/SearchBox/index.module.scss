@@ -67,10 +67,9 @@
   color: $text-gray-200-color;
 }
 
-// w-full flex justify-start items-center cursor-pointer p-2 rounded-lg
 .selection {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
   padding: 8px;
