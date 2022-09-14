@@ -40,7 +40,7 @@ const CollectionCard = props => {
             ))}
           </div>
           <div className="items-center">
-            <div className="flex justify-end items-center mt-[4px]">
+            <div className="flex justify-center items-center mt-[4px]">
               <Image
                 src={SolanaLogoIcon}
                 width={
@@ -51,7 +51,7 @@ const CollectionCard = props => {
                 }
                 alt=""
               />
-              <div className={`${styles.price} ml-1 lg:ml-3`}>{price}</div>
+              <div className={`${styles.price} ml-1 lg:ml-1`}>{price}</div>
             </div>
             <div className={styles.priceName}>Floor Price</div>
           </div>

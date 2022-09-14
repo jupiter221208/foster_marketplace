@@ -78,6 +78,10 @@
     font-size: 17px;
     line-height: 20px;
   }
+  @media (min-width: 1768px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
   letter-spacing: 0;
   color: $text-gray-200-color;
 }

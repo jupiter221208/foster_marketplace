@@ -42,33 +42,33 @@
   position: absolute;
   font-family: 'KCDurhamBoxcar';
   line-height: 100%;
-  font-size: 14px;
+  font-size: 25px;
   bottom: 8px;
   left: 14px;
   @media (min-width: 640px) {
     bottom: 12px;
     left: 20px;
-    font-size: 20px;
+    font-size: 25px;
   }
   @media (min-width: 768px) {
     bottom: 18px;
     left: 28px;
-    font-size: 30px;
+    font-size: 35px;
   }
   @media (min-width: 1024px) {
     bottom: 22px;
     left: 32px;
-    font-size: 40px;
+    font-size: 50px;
   }
   @media (min-width: 1280px) {
     bottom: 26px;
     left: 36px;
-    font-size: 50px;
+    font-size: 60px;
   }
   @media (min-width: 1536px) {
     bottom: 30px;
     left: 40px;
-    font-size: 60px;
+    font-size: 80px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
