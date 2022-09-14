@@ -29,7 +29,7 @@ const CollectionSection = props => {
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 50000000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
         >
