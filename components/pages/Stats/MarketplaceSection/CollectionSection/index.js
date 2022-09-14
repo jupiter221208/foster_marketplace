@@ -9,7 +9,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import StatsCollectionCard from 'components/Card/StatsCollectionCard'
+import StatsMarketplaceCard from 'components/Card/StatsMarketplaceCard'
 
 // styles
 import styles from './index.module.scss'
@@ -23,19 +23,21 @@ const CollectionSection = props => {
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : viewport === 'lg' ? 3 : 5}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
+          slidesPerView={
+            viewport === 'xs' ? 1.2 : viewport === 'sm' ? 2 : viewport === 'md' ? 1.8 : viewport === '2xl' ? 3 : 2
+          }
+          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 20 : 30}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 5000,
+            delay: 5000000,
             disableOnInteraction: false,
           }}
         >
           {list.map((item, index) => (
             <SwiperSlide key={index}>
-              <StatsCollectionCard data={item} viewport={viewport} />
+              <StatsMarketplaceCard data={item} viewport={viewport} />
             </SwiperSlide>
           ))}
         </Swiper>

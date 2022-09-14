@@ -8,7 +8,6 @@ import TableSections from './TableSection'
 // json
 import MarketplacesList from 'assets/json/stats/marketplace-list.json'
 import PopularCategoryList from 'assets/json/popular-category.json'
-import MarketplaceCollectionList from 'assets/json/stats/artworks-collection-list.json'
 
 // functions
 import { stringLengthValidate } from 'utils/strings'
@@ -21,6 +20,7 @@ const MarketplaceSection = props => {
 
   const [searchWord, setSearchWord] = useState('')
   const [marketplacesList, setMarketplacesList] = useState([])
+  const [categoryList, setCategoryList] = useState([])
   const [allList, setAllList] = useState([])
   const [list, setList] = useState([])
   useEffect(() => {
@@ -31,6 +31,7 @@ const MarketplaceSection = props => {
     setAllList(array)
     setMarketplacesList(array)
     setList(array)
+    setCategoryList([PopularCategoryList[6], PopularCategoryList[2], PopularCategoryList[4]])
   }, [])
 
   useEffect(() => {
@@ -40,8 +41,6 @@ const MarketplaceSection = props => {
           return elem.category[0].name.toLowerCase().includes(searchWord)
         } else return false
       })
-      console.log(results, '==========results=====')
-
       setList(results)
     }
   }, [marketplacesList, searchWord])
@@ -56,7 +55,7 @@ const MarketplaceSection = props => {
         getList={list => setMarketplacesList(list)}
       />
       <div className="mt-8 w-full">
-        <CollectionSection viewport={viewport} list={MarketplaceCollectionList} />
+        <CollectionSection viewport={viewport} list={categoryList} />
       </div>
       <div>
         <TableSections viewport={viewport} data={list} />
