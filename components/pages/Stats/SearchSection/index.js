@@ -44,13 +44,13 @@ const SearchSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex flex-wrap justify-between gap-[20px]">
         <StatsSearchBox
           value={searchWord}
           placeholder="Search by artwork name"
           onChange={value => setSearchWord(value)}
         />
-        <div className="flex justify-between gap-[50px]">
+        <div className="sm:w-auto xs:w-full flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
           <GradientButton
             label="24 hrs"
             onClick={() => handleChangeActive(0)}

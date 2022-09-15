@@ -1,5 +1,26 @@
 @import 'assets/scss/variable.module.scss';
 
+.scrollbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.mobileScrollbar {
+  position: absolute;
+  top: 0;
+  bottom: -17px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
+  overflow-x: auto;
+}
+
 .container {
   width: auto;
   height: 40px;

@@ -2,18 +2,37 @@
 
 .container {
   width: 100%;
-  max-width: 492px;
+  max-width: 400px;
   padding-left: 16px;
   padding-right: 25px;
   height: 50px;
+  background-color: #222222;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+
+  @media (min-width: 640px) {
+    max-width: 300px;
+    min-width: 200px;
+    padding-left: 20px;
+    padding-right: 15px;
+    background-color: #121212;
+  }
+
   @media (min-width: 1024px) {
+    max-width: 380px;
+    min-width: 200px;
+    padding-left: 20px;
+    padding-right: 15px;
+    background-color: #121212;
+  }
+
+  @media (min-width: 1280px) {
     max-width: 540px;
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
+    background-color: #121212;
   }
   border-radius: 12px;
-  background-color: #121212;
   display: flex;
   justify-content: center;
   align-items: center;

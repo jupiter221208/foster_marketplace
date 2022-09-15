@@ -2,8 +2,12 @@
 
 .container {
   position: relative;
-  padding-top: 106px;
-  padding-bottom: 106px;
+  padding-top: 40px;
+  padding-bottom: 30px;
+  @media (min-width: 1024px) {
+    padding-top: 106px;
+    padding-bottom: 106px;
+  }
 }
 
 .topLeftEllipse {
@@ -15,9 +19,20 @@
 
 .title {
   font-family: 'KCDurhamBoxcar';
-  font-size: 82px;
-  line-height: 54px;
+  font-size: 54px;
+  line-height: 73px;
   letter-spacing: 2px;
   color: $text-gray-200-color;
   text-shadow: 0px 3px 6px #5ac3ba5c;
+  width: 100%;
+  text-align: center;
+  @media (min-width: 640px) {
+    font-size: 62px;
+    line-height: 54px;
+    text-align: start;
+  }
+  @media (min-width: 1024px) {
+    font-size: 82px;
+    line-height: 54px;
+  }
 }

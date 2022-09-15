@@ -61,11 +61,13 @@ const Stats = props => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10`}>House Stats</div>
-          <div className="mt-[84px] w-full flex justify-between z-10">
-            <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-            <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
+          <div className="mt-[10px] lg:mt-[84px] w-full flex relative overflow-hidden justify-between z-10 h-[42px]">
+            <Tab tabList={tabList} viewport={viewport} onChange={item => handleSelectedTab(item)} />
+            {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && (
+              <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
+            )}
           </div>
-          <div className="mt-16 w-full z-10">
+          <div className="mt-8 lg:mt-16 w-full z-10">
             {activeTab === 0 && <ArtworksSection viewport={viewport} />}
             {activeTab === 1 && <CollectionsSection viewport={viewport} />}
             {activeTab === 2 && <CreatorsSection viewport={viewport} />}
