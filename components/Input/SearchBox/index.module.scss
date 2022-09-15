@@ -68,6 +68,7 @@
 }
 
 .selection {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -75,7 +76,6 @@
   padding: 8px;
 
   &:hover {
-    width: 100%;
     background-color: rgba($brand-02-color, 0.3);
     border: 1px solid $brand-01-color;
     border-radius: 8px;
