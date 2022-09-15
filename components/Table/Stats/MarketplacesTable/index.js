@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -16,6 +17,8 @@ import styles from './index.module.scss'
 const MarketplacesTable = props => {
   const { data, viewport } = props
 
+  const router = useRouter()
+
   const [hover, setHover] = useState(-1)
 
   const handleSetHover = index => {
@@ -23,7 +26,7 @@ const MarketplacesTable = props => {
   }
 
   const handleClick = item => {
-    console.log('item', item)
+    router.push(`/stats/view-chart?id=${item.id}`)
   }
 
   return (

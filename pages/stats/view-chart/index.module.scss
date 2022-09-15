@@ -1,0 +1,12 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+}
+
+.topLeftEllipse {
+  position: absolute;
+  top: -1160px;
+  left: -1160px;
+  z-index: 0;
+}
