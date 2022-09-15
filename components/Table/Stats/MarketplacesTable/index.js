@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import ThreeDotWhiteIcon from 'assets/icons/three-dot-white.svg'
+
+// functions
+import { getPercentValue } from 'utils/strings'
 
 // styles
 import styles from './index.module.scss'
 
 const MarketplacesTable = props => {
   const { data, viewport } = props
+
+  const [hover, setHover] = useState(-1)
+
+  const handleSetHover = index => {
+    setHover(index)
+  }
+
+  const handleClick = item => {
+    console.log('item', item)
+  }
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -47,7 +61,7 @@ const MarketplacesTable = props => {
               <td className="text-center">
                 <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                  {item.totalValue}
+                  {item.totalVolume}
                 </div>
               </td>
               <td>
@@ -60,7 +74,20 @@ const MarketplacesTable = props => {
               <td className="text-center">{item.collections}</td>
               <td className="text-center">{item.creators}</td>
               <td className="text-center">{item.collectors}</td>
-              <td className={`text-center ${styles.brand06Text}`}>{item.volume}</td>
+              <td className={`text-center ${styles.greenText}`} onMouseEnter={() => handleSetHover(index)}>
+                {hover === index ? (
+                  <button className={styles.button} onClick={() => handleClick(item)}>
+                    View Chart
+                  </button>
+                ) : (
+                  <div className="w-full flex justify-center items-center">
+                    <div className="w-[150px] h-[60px] flex justify-center items-center gap-8 cursor-pointer">
+                      <div className={styles.greenText}>{getPercentValue(item.volume)}</div>
+                      <Image src={ThreeDotWhiteIcon} alt="" />
+                    </div>
+                  </div>
+                )}
+              </td>
             </tr>
           )
         })}
