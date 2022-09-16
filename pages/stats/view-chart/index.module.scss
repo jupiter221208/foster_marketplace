@@ -10,3 +10,16 @@
   left: -1160px;
   z-index: 0;
 }
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 35px;
+  color: $text-gray-200-color;
+}
+
+.subTitle {
+  margin-top: 6px;
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  color: $brand-06-color;
+}

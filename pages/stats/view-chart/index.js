@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -6,11 +6,15 @@ import { useRouter } from 'next/router'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
+import OutlineButton from 'components/Button/OutlineButton'
+import GradientButton from 'components/Button/GradientButton'
 import Chart from 'components/Chart'
+import Radio from 'components/Radio'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
 import ChartTotalVolume from 'assets/json/stats/chart-total-volume.json'
+import ChartTypeList from 'assets/json/stats/chart-type.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -23,6 +27,22 @@ const ViewChart = props => {
 
   const router = useRouter()
   const id = router.query['id']
+  const [category, setCategory] = useState()
+
+  useEffect(() => {
+    if (id !== undefined) {
+      const result = CategoryList.filter(elem => elem.id === Number(id))
+      setCategory(result[0])
+    }
+  }, [id])
+
+  const [active, setActive] = useState(0)
+
+  const handleChangeActive = value => {
+    setActive(value)
+  }
+
+  const [selectedChartType, setSelectedChartType] = useState(ChartTypeList[0])
 
   return (
     <div className="g-container">
@@ -31,7 +51,62 @@ const ViewChart = props => {
           <Image src={EllipseGreen} alt="" objectFit="cover" />
         </div>
         <div className="w-full">
-          <Chart list={ChartTotalVolume} />
+          <div className="w-full flex justify-end mt-[50px] z-10">
+            <OutlineButton
+              label="Return"
+              onClick={() => router.back()}
+              borderColor="#EFF0F6"
+              borderWidth="2px"
+              height="48px"
+            />
+          </div>
+          <div className="w-full flex flex-wrap justify-between items-start mt-[50px]">
+            <div className="block z-10">
+              <div className={styles.title}>{category?.name}</div>
+              <div className={styles.subTitle}>(Total Volume)</div>
+            </div>
+            <div className="sm:w-auto xs:w-full flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
+              <GradientButton
+                label="24 hrs"
+                onClick={() => handleChangeActive(0)}
+                color={active === 0 ? '#202427' : '#979EA2'}
+                backgroundColor01={active === 0 ? '#5ac3ba' : 'transparent'}
+                backgroundColor02={active === 0 ? '#2D625D' : 'transparent'}
+                gradientDirection="bottom"
+              />
+              <GradientButton
+                label="7 days"
+                onClick={() => handleChangeActive(1)}
+                color={active === 1 ? '#202427' : '#979EA2'}
+                backgroundColor01={active === 1 ? '#5ac3ba' : 'transparent'}
+                backgroundColor02={active === 1 ? '#2D625D' : 'transparent'}
+                gradientDirection="bottom"
+              />
+              <GradientButton
+                label="30 days"
+                onClick={() => handleChangeActive(2)}
+                color={active === 2 ? '#202427' : '#979EA2'}
+                backgroundColor01={active === 2 ? '#5ac3ba' : 'transparent'}
+                backgroundColor02={active === 2 ? '#2D625D' : 'transparent'}
+                gradientDirection="bottom"
+              />
+              <GradientButton
+                label="All Time"
+                onClick={() => handleChangeActive(3)}
+                color={active === 3 ? '#202427' : '#979EA2'}
+                backgroundColor01={active === 3 ? '#5ac3ba' : 'transparent'}
+                backgroundColor02={active === 3 ? '#2D625D' : 'transparent'}
+                gradientDirection="bottom"
+              />
+            </div>
+          </div>
+
+          <div className="w-full z-10 mt-[66px]">
+            <Chart list={ChartTotalVolume} />
+          </div>
+          <div className="w-full flex justify-between px-10 mt-[140px] mb-[208px]">
+            <Radio data={ChartTypeList} selected={selectedChartType} onChange={item => setSelectedChartType(item)} />
+          </div>
         </div>
       </div>
     </div>

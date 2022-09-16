@@ -1,0 +1,9 @@
+[
+  { "id": "chart-type-0", "label": "Total Volume", "value": "Total Volume" },
+  { "id": "chart-type-1", "label": "Transactions", "value": "Transactions" },
+  { "id": "chart-type-2", "label": "Active Listings", "value": "Active Listings" },
+  { "id": "chart-type-3", "label": "Single Mints", "value": "Single Mints" },
+  { "id": "chart-type-4", "label": "Collections", "value": "Collections" },
+  { "id": "chart-type-5", "label": "Creators", "value": "Creators" },
+  { "id": "chart-type-6", "label": "Collectors", "value": "Collectors" }
+]
