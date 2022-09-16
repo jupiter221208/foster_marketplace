@@ -8,9 +8,9 @@
   },
   {
     "id": 1,
-    "title": "Mint your NFTs",
+    "title": "List your NFTs",
     "description": "Mint Solana NFTs by uploading your artwork directly to Foster Marketplace. Publish unique collections of digital art and showcase them for others to view.",
-    "linkText": "Create your Collection",
+    "linkText": "Mint your artwork",
     "link": "/"
   },
   {
