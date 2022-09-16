@@ -23,6 +23,7 @@ import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import OutlineButton from 'components/Button/OutlineButton'
+import Pagination from 'components/Button/Pagination'
 
 // json
 import TabList from 'assets/json/explore/tab-list.json'
@@ -49,6 +50,11 @@ const Explore = props => {
 
   const exploreTab = useSelector(state => state.exploreTab)
   const [tabList, setTabList] = useState(TabList)
+  const [nftList, setNftList] = useState([])
+  const [showNftList, setShowNFTList] = useState([])
+  const [showCollectionList, setShowCollectionList] = useState([])
+  const [showEcosystemList, setShowEcosystemList] = useState([])
+
   useEffect(() => {
     let array = []
     TabList.map(item => {
@@ -75,14 +81,17 @@ const Explore = props => {
       case 0:
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
+        setNftList(NFTExploreList)
         break
       case 1:
         setSortData(CollectionSortList)
         setSelectedSort(CollectionSortList[0])
+        setNftList(CollectionExploreList)
         break
       case 2:
         setSortData(EcosystemSortList)
         setSelectedSort(EcosystemSortList[0])
+        setNftList(EcosystemExploreList)
         break
       default:
         break
@@ -161,7 +170,7 @@ const Explore = props => {
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
-                  {NFTExploreList.map((item, index) => (
+                  {showNftList.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <NFTCard
                         viewport={viewport}
@@ -177,7 +186,7 @@ const Explore = props => {
               )}
               {exploreTab === 1 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {CollectionExploreList.map((item, index) => (
+                  {showCollectionList.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <CollectionCard
                         image={item.image}
@@ -196,22 +205,35 @@ const Explore = props => {
               )}
               {exploreTab === 2 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {EcosystemExploreList.map((item, index) => (
+                  {showEcosystemList.map((item, index) => (
                     <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
-                      <EcosystemCard
-                        image={item.image}
-                        avatar={item.avatar}
-                        artistName={item.artistName}
-                        nfts={item.nfts}
-                        followers={item.followers}
-                        collections={item.collections}
-                        floor={item.floor}
-                        viewport={viewport}
-                      />
+                      {item.avatar && (
+                        <EcosystemCard
+                          image={item.image}
+                          avatar={item.avatar}
+                          artistName={item.artistName}
+                          nfts={item.nfts}
+                          followers={item.followers}
+                          collections={item.collections}
+                          floor={item.floor}
+                          viewport={viewport}
+                        />
+                      )}
                     </div>
                   ))}
                 </div>
               )}
+              <div className="w-full flex justify-end">
+                <Pagination
+                  data={nftList}
+                  getCurrentData={data => {
+                    if (exploreTab === 0) setShowNFTList(data)
+                    else if (exploreTab === 1) setShowCollectionList(data)
+                    else setShowEcosystemList(data)
+                  }}
+                  viewport={viewport}
+                />
+              </div>
             </div>
           </div>
         </div>
