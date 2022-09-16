@@ -8,6 +8,7 @@ import Checkbox from 'components/Checkbox'
 // json
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import AvailabilityList from 'assets/json/explore/availability.json'
+import DimensionList from 'assets/json/explore/dimension.json'
 import MarketList from 'assets/json/explore/market.json'
 import MediumList from 'assets/json/explore/medium.json'
 import CategoryList from 'assets/json/popular-category.json'
@@ -18,6 +19,7 @@ import styles from './index.module.scss'
 const NFTFilter = props => {
   const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[0])
   const [selectedAvailability, setSelectedAvailability] = useState(AvailabilityList[0])
+  const [selectedDimension, setSelectedDimension] = useState(DimensionList[0])
   const [selectedMarket, setSelectedMarket] = useState(MarketList[0])
   const [selectedMedium, setSelectedMedium] = useState(MediumList[0])
   const [categoryList, setCategoryList] = useState([])
@@ -48,6 +50,8 @@ const NFTFilter = props => {
       />
       <div className={`${styles.title} mt-[52px]`}>AVAILABILITY</div>
       <Radio data={AvailabilityList} selected={selectedAvailability} onChange={item => setSelectedAvailability(item)} />
+      <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
+      <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} />
       <div className={`${styles.title} mt-[52px]`}>MARKET</div>
       <Radio data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />
       <div className={`${styles.title} mt-[52px]`}>MEDIUM</div>
