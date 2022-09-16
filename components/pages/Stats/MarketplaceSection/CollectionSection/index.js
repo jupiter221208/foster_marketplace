@@ -37,7 +37,7 @@ const CollectionSection = props => {
         >
           {list.map((item, index) => (
             <SwiperSlide key={index}>
-              <StatsMarketplaceCard data={item} viewport={viewport} />
+              <StatsMarketplaceCard index={index} data={item} viewport={viewport} />
             </SwiperSlide>
           ))}
         </Swiper>
