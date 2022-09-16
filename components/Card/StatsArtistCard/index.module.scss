@@ -23,11 +23,8 @@
 }
 
 .name {
-  width: 200px;
-
   @media (max-width: 640px) {
     margin-top: 8px;
-    width: 116px;
     font-size: 16px;
     font-family: 'Muli-SemiBold';
     line-height: 20px;
@@ -35,7 +32,6 @@
 
   @media (min-width: 1536px) {
     margin-top: 22px;
-    width: 226px;
   }
   text-align: center;
   font-family: 'Muli-Bold';

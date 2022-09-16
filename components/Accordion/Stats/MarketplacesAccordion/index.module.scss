@@ -43,7 +43,7 @@
 .imageArea {
   width: 54px;
   height: 54px;
-  border-radius: 4px;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +53,7 @@
   width: 54px;
   height: 54px;
   background-color: $brand-01-color;
-  border-radius: 4px;
+  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,4 +100,18 @@
   font-size: 14px;
   line-height: 18px;
   color: $brand-06-color;
+}
+
+.greenText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: #47d437;
+}
+
+.brand01Text {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: $brand-01-color;
+  text-decoration: underline;
 }

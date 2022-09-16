@@ -7,7 +7,7 @@ const Radio = props => {
   const { data, selected, onChange, direction = 'ltr' } = props
 
   return data.map((item, index) => (
-    <div key={index} className="w-full flex justify-between my-4 gap-4 z-10">
+    <div key={index} className="flex justify-between my-4 gap-4 z-10">
       {direction === 'ltr' && (
         <input
           className={styles.radio}

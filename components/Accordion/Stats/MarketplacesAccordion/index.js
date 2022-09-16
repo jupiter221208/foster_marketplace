@@ -2,19 +2,25 @@ import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
+
+// functions
+import { getPercentValue } from 'utils/strings'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
+import { Router } from 'next/router'
 
 const MarketplacesAccordion = props => {
   const { data } = props
+  const router = useRouter()
 
   const buttonRefs = useRef([])
   const openedRef = useRef(null)
@@ -49,14 +55,22 @@ const MarketplacesAccordion = props => {
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
                       <Image src={item.category[0].icon} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
-                    <div className="block">
+                    <div className="block text-left">
                       <div className={styles.subTitle}>{item.category[0].name}</div>
+                      <div className={`${styles.greenText} mt-1`}>{getPercentValue(item.volume)}</div>
                     </div>
                   </div>
-                  <ChevronUpIcon
-                    className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#5AC3BA' : '#378287' }}
-                  />
+                  {!open && (
+                    <ChevronUpIcon
+                      className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
+                      style={{ color: open ? '#5AC3BA' : '#378287' }}
+                    />
+                  )}
+                  {open && (
+                    <div className={styles.brand01Text} onClick={() => router.push(`/stats/view-chart?id=${item.id}`)}>
+                      View Chart
+                    </div>
+                  )}
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>

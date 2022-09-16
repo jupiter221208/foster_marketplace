@@ -26,7 +26,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import LogoGray from 'assets/icons/logo-gray.svg'
 
 const Chart = props => {
-  const { list } = props
+  const { viewport, list } = props
 
   const myChartRef = useRef()
 
@@ -54,7 +54,7 @@ const Chart = props => {
   }
 
   const lineOptions = {
-    responsive: true,
+    responsive: false,
     plugins: {
       legend: {
         display: false,

@@ -16,7 +16,7 @@ import FacebookWhiteIcon from 'assets/icons/facebook-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import YoutubeWhiteIcon from 'assets/icons/youtube-white.svg'
-import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import YoutubeHoverIcon from 'assets/icons/youtube-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
@@ -159,7 +159,7 @@ const MainSection = props => {
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className="flex items-center justify-center">
-                  <Image src={SolanaSolLogoIcon} alt="" />
+                  <Image src={SolanaLogoIcon} alt="" />
                   <div className={`${styles.nftInfoLabel} ml-[8px]`}>1.2k</div>
                 </div>
                 <div className={styles.nftInfoValue}>Floor Price</div>
@@ -168,7 +168,7 @@ const MainSection = props => {
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className="flex items-center justify-center">
-                  <Image src={SolanaSolLogoIcon} alt="" />
+                  <Image src={SolanaLogoIcon} alt="" />
                   <div className={`${styles.nftInfoLabel} ml-[8px]`}>62.3</div>
                 </div>
 
