@@ -11,6 +11,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 import Chart from 'components/Chart'
 import Radio from 'components/Radio'
+import ViewChartSortModal from 'components/Modal/ViewChartSortModal'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -45,6 +46,8 @@ const ViewChart = props => {
   }
 
   const [selectedChartType, setSelectedChartType] = useState(ChartTypeList[0])
+
+  const [showSortModal, setShowSortModal] = useState(false)
 
   return (
     <div className="g-container">
@@ -116,7 +119,7 @@ const ViewChart = props => {
             <div className="w-full z-10">
               <OutlineButton
                 label="Total Volume"
-                onClick={() => {}}
+                onClick={() => setShowSortModal(true)}
                 icon={SortGreenIcon}
                 fullWidth
                 direction="rtl"
@@ -167,6 +170,13 @@ const ViewChart = props => {
           </div>
         </div>
       </div>
+      <ViewChartSortModal
+        open={showSortModal}
+        data={ChartTypeList}
+        selected={selectedChartType}
+        onChange={item => setSelectedChartType(item)}
+        close={() => setShowSortModal(false)}
+      />
     </div>
   )
 }
