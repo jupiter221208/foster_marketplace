@@ -1,5 +1,6 @@
 [
   { "id": "medium-0", "label": "Image", "value": "Image" },
   { "id": "medium-1", "label": "Video", "value": "Video" },
-  { "id": "medium-2", "label": "All", "value": "All" }
+  { "id": "medium-2", "label": "Audio", "value": "Audio" },
+  { "id": "medium-3", "label": "All", "value": "All" }
 ]
