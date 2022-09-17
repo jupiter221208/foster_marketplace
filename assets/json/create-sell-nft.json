@@ -8,7 +8,7 @@
   },
   {
     "id": 1,
-    "title": "List your NFTs",
+    "title": "Mint your NFTs",
     "description": "Mint Solana NFTs by uploading your artwork directly to Foster Marketplace. Publish unique collections of digital art and showcase them for others to view.",
     "linkText": "Mint your artwork",
     "link": "/"
@@ -17,7 +17,7 @@
     "id": 2,
     "title": "Sell your NFTs",
     "description": "Sell your artwork as an NFT for a fixed-price, or via auction to the highest bidder, by using Foster's easy minting and marketplace tools.",
-    "linkText": "Mint Your NFTs",
+    "linkText": "List Your NFTs",
     "link": "/"
   }
 ]
