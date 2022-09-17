@@ -100,13 +100,13 @@ const Navbar = props => {
             </div>
             <div
               className={styles.navItemArea}
-              onMouseOver={() => setSelectedNavMenu('notification')}
+              onMouseOver={() => setSelectedNavMenu('notifications')}
               onMouseLeave={() => setSelectedNavMenu('')}
-              onClick={() => router.push('/#notification')}
+              onClick={() => router.push('/notifications')}
             >
               <Image
                 src={
-                  router.asPath === '/#notification' || selectedNavMenu === 'notification'
+                  router.asPath === '/notifications' || selectedNavMenu === 'notifications'
                     ? NotificationGreenIcon
                     : NotificationGrayIcon
                 }
@@ -180,19 +180,19 @@ const Navbar = props => {
               Dashboard
             </div>
             <div
-              onMouseOver={() => setSelectedNavMenu('notification')}
+              onMouseOver={() => setSelectedNavMenu('notifications')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                router.asPath === '/#notification' || selectedNavMenu === 'notification'
+                router.asPath === '/notifications' || selectedNavMenu === 'notifications'
                   ? styles.textWhiteColor
                   : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
-              onClick={() => router.push('/#notification')}
+              onClick={() => router.push('/notifications')}
             >
               Notifications
             </div>
             <div
-              onMouseOver={() => setSelectedNavMenu('statistic')}
+              onMouseOver={() => setSelectedNavMenu('stats')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
                 router.asPath === '/stats' || selectedNavMenu === 'stats' ? styles.textWhiteColor : styles.textGrayColor

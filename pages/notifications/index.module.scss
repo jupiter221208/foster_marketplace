@@ -1,0 +1,22 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  padding-top: 118px;
+  padding-bottom: 186px;
+  position: relative;
+}
+
+.topLeftEllipse {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 32px;
+  color: $text-gray-200-color;
+}

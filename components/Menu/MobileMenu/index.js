@@ -16,7 +16,8 @@ import AvatarIcon from 'assets/images/avatar.jpg'
 import ExploreWhiteIcon from 'assets/icons/explore-white.svg'
 import PlusWhiteIcon from 'assets/icons/plus-white.svg'
 import WalletWhiteIcon from 'assets/icons/wallet-white.svg'
-import SpeedWhiteIcon from 'assets/icons/speed-white.svg'
+import NotificationWhiteIcon from 'assets/icons/quick-buy-white.svg'
+import DaoWhiteIcon from 'assets/icons/dao-white.svg'
 import CollectionWhiteIcon from 'assets/icons/collection-white.svg'
 import StatisticWhiteIcon from 'assets/icons/statistic-white.svg'
 import ResourceWhiteIcon from 'assets/icons/resource-white.svg'
@@ -76,21 +77,30 @@ const MobileMenu = () => {
               <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
             </div>
             <div className="my-[10px]" onClick={() => onClickMenuItem('dashboard')}>
-              <AccordionMenu icon={SpeedWhiteIcon} label="Dashboard" type="" data={[]} />
+              <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
             </div>
-            <div className="my-[10px]" onClick={() => onClickMenuItem('collection')}>
-              <AccordionMenu icon={CollectionWhiteIcon} label="Collections" type="" data={[]} />
+            <div className="my-[10px]" onClick={() => onClickMenuItem('notifications')}>
+              <AccordionMenu
+                icon={NotificationWhiteIcon}
+                label="Notifications"
+                type=""
+                data={[]}
+                path="/notifications"
+              />
             </div>
 
             <div className="my-[10px]">
-              <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/" />
+              <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
+            </div>
+            <div className="my-[10px]">
+              <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
             </div>
             <div className="my-[10px]">
               <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
             </div>
-            <div className="my-[10px]">
+            {/* <div className="my-[10px]">
               <AccordionMenu icon={SettingWhiteIcon} label="Settings" type="" data={[]} path="/settings" />
-            </div>
+            </div> */}
           </div>
           <div className="w-full">
             <WalletDisconnectButton className={styles.logout}>
