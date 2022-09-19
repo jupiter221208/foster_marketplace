@@ -28,6 +28,10 @@
 }
 
 .dot {
+  display: none;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
   width: 8px;
   height: 8px;
   border-radius: 100%;
@@ -39,8 +43,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 52px;
-  height: 52px;
+  width: 41px;
+  height: 41px;
+  min-width: 41px;
+  min-height: 41px;
+  @media (min-width: 1024px) {
+    width: 52px;
+    height: 52px;
+  }
   border-radius: 100%;
   background: linear-gradient(
     110deg,

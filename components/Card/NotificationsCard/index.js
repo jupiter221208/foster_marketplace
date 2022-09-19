@@ -11,7 +11,8 @@ import OutlineButton from 'components/Button/OutlineButton'
 import styles from './index.module.scss'
 
 const NotificationsCard = props => {
-  const { data } = props
+  const { viewport, data } = props
+  console.log('viewport', viewport)
 
   return (
     <div className={styles.container}>
@@ -28,17 +29,17 @@ const NotificationsCard = props => {
                       <Image
                         src={elem.avatar}
                         alt=""
-                        width={50}
-                        height={50}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
                         cover="object-fit"
                         className="rounded-full"
                       />
                     </div>
                     <div className="block items-start">
-                      <div className="flex">
-                        <div className={styles.username}>{elem.username}</div>
-                        <div className={styles.description}>&nbsp;{elem.description}</div>
-                      </div>
+                      <p>
+                        <span className={styles.username}>{elem.username}</span>
+                        <span className={styles.description}>&nbsp;{elem.description}</span>
+                      </p>
                       {elem.viewDetails && <div className={styles.viewDetails}>View Details</div>}
                     </div>
                   </div>
