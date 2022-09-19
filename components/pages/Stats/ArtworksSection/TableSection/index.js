@@ -31,7 +31,7 @@ const TableSection = props => {
       }
     })
     if (tempItem.length > 0) newList.push(tempItem)
-    setList(newList)
+    setList(newList.reverse())
   }, [data])
 
   return (

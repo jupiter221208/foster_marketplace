@@ -4,6 +4,6 @@
   { "id": "chart-type-2", "label": "Active Listings", "value": "Active Listings" },
   { "id": "chart-type-3", "label": "Single Mints", "value": "Single Mints" },
   { "id": "chart-type-4", "label": "Collections", "value": "Collections" },
-  { "id": "chart-type-5", "label": "Creators", "value": "Creators" },
-  { "id": "chart-type-6", "label": "Collectors", "value": "Collectors" }
+  { "id": "chart-type-5", "label": "Primary", "value": "Primary" },
+  { "id": "chart-type-6", "label": "Secondary", "value": "Secondary" }
 ]
