@@ -41,8 +41,8 @@ const MarketplacesTable = props => {
           <th>Active Listings</th>
           <th>Single Mints</th>
           <th>Collections</th>
-          <th>Creators</th>
-          <th>Collectors</th>
+          <th>Primary</th>
+          <th>Secondary</th>
           <th>% Volume</th>
         </tr>
       </thead>

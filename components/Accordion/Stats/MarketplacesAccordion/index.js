@@ -99,11 +99,11 @@ const MarketplacesAccordion = props => {
                     <div className={styles.text}>{item.collections}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Creators</div>
+                    <div className={styles.title}>Primary</div>
                     <div className={styles.text}>{item.creators}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Collectors</div>
+                    <div className={styles.title}>Secondary</div>
                     <div className={styles.text}>{item.collectors}</div>
                   </div>
                 </Disclosure.Panel>
