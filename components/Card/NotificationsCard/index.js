@@ -22,7 +22,7 @@ const NotificationsCard = props => {
             <div className={styles.title}>{item.date}</div>
             <div className="mt-[25px] w-full flex flex-wrap gap-7">
               {item.data.map((elem, idx) => (
-                <div className="w-full flex justify-between items-center" key={idx}>
+                <div className="w-full flex justify-between items-center gap-4" key={idx}>
                   <div className="flex justify-start items-center">
                     <div className={styles.dot} />
                     <div className={styles.avatarArea}>
@@ -44,16 +44,18 @@ const NotificationsCard = props => {
                     </div>
                   </div>
                   <div>
-                    {elem.status === '' && (
-                      <Image
-                        src={elem.image}
-                        alt=""
-                        width={56}
-                        height={56}
-                        cover="object-fit"
-                        className="border-[15px]"
-                      />
-                    )}
+                    <div className="flex-1 min-w-[56px]">
+                      {elem.status === '' && (
+                        <Image
+                          src={elem.image}
+                          alt=""
+                          width={56}
+                          height={56}
+                          cover="object-fit"
+                          className="border-[15px]"
+                        />
+                      )}
+                    </div>
                     {elem.status === 'Follow' && <GradientButton label="Follow" onClick={() => {}} />}
                     {elem.status === 'Following' && <OutlineButton label="Following" onClick={() => {}} />}
                   </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next images
 import Head from 'next/head'
@@ -9,6 +9,8 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import NotificationsSearchBox from 'components/Input/NotificationsSearchBox'
 import NotificationsCard from 'components/Card/NotificationsCard'
 import NotificationsFilterCard from 'components/Card/NotificationsFilterCard'
+import OutlineButton from 'components/Button/OutlineButton'
+import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 
 // json
 import NotificationsList from 'assets/json/notifications/notifications-list.json'
@@ -16,12 +18,50 @@ import NotificationsFilterList from 'assets/json/notifications/filter-list.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import SortGreenIcon from 'assets/icons/sort-green.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const Notifications = props => {
   const { viewport } = props
+
+  const [showFilterModal, setShowFilterModal] = useState(false)
+  const [filterList, setFilterList] = useState([])
+
+  useEffect(() => {
+    let array = []
+    NotificationsFilterList.map(item => {
+      let object = item
+      object.checked = false
+      array.push(object)
+    })
+    setFilterList(array)
+  }, [])
+
+  const handleSelectFilter = index => {
+    let array = [...filterList]
+    let checkedCount = 0
+    array.map(item => {
+      if (item.checked === true) {
+        checkedCount++
+      }
+    })
+    array[index].checked = !array[index].checked
+    setFilterList(array)
+  }
+
+  const handleSelectAllFilters = status => {
+    let array = [...filterList]
+    array.map(item => {
+      if (status === 'Select All') {
+        item.checked = true
+      } else {
+        item.checked = false
+      }
+    })
+    setFilterList(array)
+  }
 
   return (
     <div className="g-container">
@@ -34,17 +74,35 @@ const Notifications = props => {
         <div className={styles.topLeftEllipse}>
           <Image src={EllipseGreen} alt="" objectFit="cover" />
         </div>
-        <div className="w-full z-10">
+        <div className="hidden lg:flex w-full z-10">
           <div className={styles.title}>Notifications</div>
         </div>
-        <div className="w-full flex flex-wrap justify-between mt-[38px]">
-          <div className="flex flex-wrap max-w-[670px] gap-[35px] z-10">
+        <div className="w-full flex justify-between mt-[51px] lg:mt-[38px] gap-8">
+          <div className="flex flex-1 flex-wrap max-w-[670px] gap-[35px] z-10">
             <NotificationsSearchBox placeholder="Search by keywords" />
+            <div className="lg:hidden w-full">
+              <OutlineButton
+                label="All Notifications"
+                onClick={() => setShowFilterModal(true)}
+                icon={SortGreenIcon}
+                fullWidth
+                direction="rtl"
+                height="48px"
+              />
+            </div>
             <NotificationsCard viewport={viewport} data={NotificationsList} />
           </div>
           <NotificationsFilterCard filterList={NotificationsFilterList} />
         </div>
       </div>
+      {showFilterModal && (
+        <NotificationsFilterModal
+          filterList={filterList}
+          onChange={index => handleSelectFilter(index)}
+          onClickSelectAll={status => handleSelectAllFilters(status)}
+          onClickApply={() => setShowFilterModal(false)}
+        />
+      )}
     </div>
   )
 }
