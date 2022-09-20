@@ -18,6 +18,7 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 // json
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import AvailabilityList from 'assets/json/explore/availability.json'
+import DimensionList from 'assets/json/explore/dimension.json'
 import MarketList from 'assets/json/explore/market.json'
 import MediumList from 'assets/json/explore/medium.json'
 import CategoryList from 'assets/json/popular-category.json'
@@ -33,6 +34,7 @@ const MobileNFTFilter = props => {
   const [selectedMarket, setSelectedMarket] = useState(MarketList[0])
   const [selectedMedium, setSelectedMedium] = useState(MediumList[0])
   const [categoryList, setCategoryList] = useState([])
+  const [selectedDimension, setSelectedDimension] = useState(DimensionList[0])
 
   useEffect(() => {
     let array = []
@@ -101,6 +103,29 @@ const MobileNFTFilter = props => {
             </>
           )}
         </Disclosure>
+
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="flex w-full justify-between items-center">
+                <div className={`${styles.subTitle} mt-[12px]`}>DIMENSIONS</div>
+                <ChevronUpIcon
+                  className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
+                  style={{ color: '#DEEFD0' }}
+                />
+              </Disclosure.Button>
+              <Disclosure.Panel>
+                <Radio
+                  data={DimensionList}
+                  selected={selectedDimension}
+                  onChange={item => setSelectedDimension(item)}
+                  direction="rtl"
+                />
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+
         <Disclosure>
           {({ open }) => (
             <>
