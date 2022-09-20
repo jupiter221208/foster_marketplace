@@ -131,7 +131,7 @@ const ViewChart = props => {
           <div className="w-full mt-[38px] md:mt-[66px] overflow-hidden z-10">
             <Chart list={ChartTotalVolume} viewport={viewport} />
           </div>
-          <div className="w-full hidden md:flex flex-wrap justify-start mt-[140px] mb-[208px] gap-x-8 px-10">
+          <div className="w-full hidden md:flex flex-wrap justify-center mt-[140px] mb-[208px] gap-x-8 px-10">
             <Radio data={ChartTypeList} selected={selectedChartType} onChange={item => setSelectedChartType(item)} />
           </div>
           <div className="flex md:hidden w-full justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] mt-[38px] mb-[200px] z-10">
