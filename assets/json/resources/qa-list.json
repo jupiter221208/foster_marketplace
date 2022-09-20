@@ -102,7 +102,7 @@
         "id": 11,
         "title": "How can I participate in the governance of Foster Marketplace?",
         "description": [
-          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <u><a href='http://lift.token.com'>Resources – LIFT Token</a></u> and <u><a href='http://turkey.circus.com'>Resources - Turkey Circus</a></u></p>"
+          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <u><a href='http://localhost:3000/resources'>Resources – LIFT Token</a></u> and <u><a href='http://turkey.circus.com'>Resources - Turkey Circus</a></u></p>"
         ]
       },
       {

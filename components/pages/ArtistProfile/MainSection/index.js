@@ -71,7 +71,7 @@ const MainSection = props => {
           <div className="col-span-3">
             {follow ? (
               <OutlineButton
-                label="Connected"
+                label="Following"
                 onClick={() => setFollow(false)}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
@@ -82,7 +82,7 @@ const MainSection = props => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
-                label="Connect"
+                label="Follow"
                 direction={'rtl'}
                 icon={AvatarFollowIcon}
                 onClick={() => setFollow(true)}
