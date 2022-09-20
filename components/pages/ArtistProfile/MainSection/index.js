@@ -15,6 +15,7 @@ import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import YoutubeWhiteIcon from 'assets/icons/youtube-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import EllipseGroupWhite from 'assets/icons/ellipse-group-white.svg'
 import YoutubeHoverIcon from 'assets/icons/youtube-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
@@ -32,6 +33,7 @@ import styles from './index.module.scss'
 const MainSection = props => {
   const { viewport } = props
   const [follow, setFollow] = useState(false)
+  const [showSocialIcon, setShowSocialIcon] = useState(false)
 
   const router = useRouter()
   const categoryList = [
@@ -65,7 +67,7 @@ const MainSection = props => {
         <Image src={HeaderImage} alt="" objectFit="cover" className="rounded-[20px]" />
       </div>
       <div className="w-full">
-        <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
+        <div className="grid grid-cols-12 items-center mt-[-80px] lg:mt-[-95px]">
           <div className="col-span-3">
             {follow ? (
               <OutlineButton
@@ -79,6 +81,7 @@ const MainSection = props => {
               <GradientButton
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
                 label="Connect"
                 direction={'rtl'}
                 icon={AvatarFollowIcon}
@@ -97,36 +100,46 @@ const MainSection = props => {
                 viewport={viewport}
               />
             </div>
-            <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
-              <div>
-                <SocialButton
-                  icon={YoutubeWhiteIcon}
-                  iconHover={YoutubeHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TwitterWhiteIcon}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={DiscordWhiteIcon}
-                  iconHover={DiscordHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={FacebookWhiteIcon}
-                  iconHover={FacebookHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
-                />
-              </div>
+            <div
+              className="flex lg:hidden w-full justify-center mt-[10px] mb-[10px] gap-[10px]"
+              onClick={() => setShowSocialIcon(!showSocialIcon)}
+            >
+              <Image src={EllipseGroupWhite} alt="" />
             </div>
+            {showSocialIcon ? (
+              <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
+                <div>
+                  <SocialButton
+                    icon={YoutubeWhiteIcon}
+                    iconHover={YoutubeHoverIcon}
+                    onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL)}
+                  />
+                </div>
+                <div>
+                  <SocialButton
+                    icon={TwitterWhiteIcon}
+                    iconHover={TwitterHoverIcon}
+                    onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL)}
+                  />
+                </div>
+                <div>
+                  <SocialButton
+                    icon={DiscordWhiteIcon}
+                    iconHover={DiscordHoverIcon}
+                    onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL)}
+                  />
+                </div>
+                <div>
+                  <SocialButton
+                    icon={FacebookWhiteIcon}
+                    iconHover={FacebookHoverIcon}
+                    onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL)}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="w-full h-[32px]"></div>
+            )}
           </div>
           <div className="col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center lg:mt-[16px]">
@@ -170,7 +183,7 @@ const MainSection = props => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center w-full mt-[32px]">
+        <div className={`flex justify-center w-full ${showSocialIcon ? 'mt-[12px]' : 'mt-[-32px]'}`}>
           <div className="max-w-[734px]">
             <div className={styles.description}>
               Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
@@ -195,7 +208,7 @@ const MainSection = props => {
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>1.2k</div>
-                <div className={styles.nftInfoValue}>Collections</div>
+                <div className={styles.nftInfoValue}>Collectors</div>
               </div>
             </div>
             <div className="col-span-3 flex justify-center items-center">

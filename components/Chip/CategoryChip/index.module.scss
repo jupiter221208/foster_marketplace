@@ -1,18 +1,19 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  background: rgba($text-gray-200-color, 0.1);
+  background: rgba($text-gray-800-color, 0.2);
   padding-left: 18px;
   padding-right: 18px;
   height: 28px;
   font-size: 14px;
+  color: rgba($brand-06-color, 0.8);
   @media (min-width: 1024px) {
     height: 32px;
     font-size: 16px;
   }
-  border: 1px solid $text-gray-200-color;
+  border: 1px solid rgba($text-gray-200-color, 0.4);
   border-radius: 16px;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Semi-BoldItalic';
   line-height: 28px;
   cursor: pointer;
 }
