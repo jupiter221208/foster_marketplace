@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -15,7 +15,23 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import styles from './index.module.scss'
 
 const NotificationsFilterModal = props => {
-  const { categoryList, onChange, onClickSelectAll, onClickApply } = props
+  const { filterList, onChange, onClickSelectAll, onClickApply } = props
+
+  const [status, setStatus] = useState('selectAll')
+
+  useEffect(() => {
+    let count = 0
+    filterList.map(item => {
+      if (item.checked === true) {
+        count++
+      }
+    })
+    if (count === filterList.length) {
+      setStatus('Unselect All')
+    } else {
+      setStatus('Select All')
+    }
+  }, [filterList])
 
   return (
     <div className={styles.container}>
@@ -24,13 +40,13 @@ const NotificationsFilterModal = props => {
           <div className={styles.title}>Filter</div>
           <Image src={CloseWhiteIcon} alt="" className="cursor-pointer" onClick={() => onClickApply()} />
         </div>
-        <Checkbox categoryList={categoryList} onChange={index => onChange(index)} direction="rtl" />
+        <Checkbox categoryList={filterList} onChange={index => onChange(index)} direction="rtl" />
       </div>
       <div className={styles.bottomArea}>
         <div className="w-[94px]">
           <OutlineButton
-            label="Sellect All"
-            onClick={() => onClickSelectAll()}
+            label={status}
+            onClick={() => onClickSelectAll(status)}
             color="#EFF0F6"
             borderWidth={2}
             borderColor="#5AC3BA"
