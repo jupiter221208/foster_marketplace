@@ -42,7 +42,7 @@ const MainSection = props => {
         <div className="col-span-12 lg:col-span-7 xl:col-span-7">
           <div className={styles.whiteTitle}>The Art of Blockchain</div>
           <div className={styles.heroTextContainer}>
-            <div className={styles.greenTitle}>Foster Your Flav</div>
+            <div className={styles.greenTitle}>Foster the Flav</div>
             <div className={styles.heroGreen}>
               <Image
                 src={HeroGreenIcon}
@@ -58,15 +58,9 @@ const MainSection = props => {
             <div className={styles.greenTitle}>r.</div>
           </div>
           {viewport === 'xs' || viewport === 'sm' ? (
-            <div className={styles.text}>
-              An Ecosystem of Digital Creators and Patrons on Solana. Create, Inspire, and Experience the Digital Drip.
-            </div>
+            <div className={styles.text}>A Circus of Digital Creators and Curators on Solana - See Everything.</div>
           ) : (
-            <div className={styles.text}>
-              An Ecosystem of Digital Creators and Patrons on Solana.
-              <br />
-              Create, Inspire, and Experience the Digital Drip.
-            </div>
+            <div className={styles.text}>A Circus of Digital Creators and Curators on Solana - See Everything.</div>
           )}
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (

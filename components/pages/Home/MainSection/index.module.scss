@@ -34,32 +34,34 @@
 }
 
 .whiteTitle {
-  font-family: 'Muli-SemiBold';
+  font-family: 'KCDurhamBoxcar';
   letter-spacing: 0;
-  color: $brand-06-color;
-  line-height: 120%;
-  font-size: 30px;
+  color: $background-black-color;
+  line-height: 111%;
+  font-size: 61px;
+  text-shadow: 0px 3px 6px #5ac3ba;
+
   @media (max-width: 640px) {
-    font-size: 30px;
+    font-size: 61px;
     text-align: center;
   }
   @media (min-width: 640px) {
-    font-size: 40px;
+    font-size: 76px;
     text-align: center;
   }
   @media (min-width: 768px) {
-    font-size: 48px;
+    font-size: 88px;
   }
   @media (min-width: 1024px) {
-    font-size: 50px;
+    font-size: 90px;
     text-align: left;
   }
   @media (min-width: 1280px) {
-    font-size: 64px;
+    font-size: 106px;
     text-align: left;
   }
   @media (min-width: 1536px) {
-    font-size: 72px;
+    font-size: 126px;
     text-align: left;
   }
 }
@@ -110,11 +112,11 @@
     text-align: left;
   }
   @media (min-width: 1280px) {
-    font-size: 64px;
+    font-size: 60px;
     text-align: left;
   }
   @media (min-width: 1536px) {
-    font-size: 72px;
+    font-size: 63px;
     text-align: left;
   }
   letter-spacing: 0;
