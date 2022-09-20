@@ -1,0 +1,43 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #0f1316;
+  z-index: 100;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 120;
+  overflow: hidden;
+}
+
+.content {
+  width: 100%;
+  min-height: calc(100vh - 80px - 96px);
+  padding-left: 31px;
+  padding-right: 44px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 22px;
+  color: $text-gray-200-color;
+}
+
+.bottomArea {
+  width: 100%;
+  height: 96px;
+  background-color: #2b2f32;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}

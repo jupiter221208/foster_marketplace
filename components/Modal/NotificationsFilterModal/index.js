@@ -1,0 +1,48 @@
+import React from 'react'
+
+// next components
+import Image from 'next/image'
+
+// custom components
+import Checkbox from 'components/Checkbox'
+import OutlineButton from 'components/Button/OutlineButton'
+import GradientButton from 'components/Button/GradientButton'
+
+// images and icons
+import CloseWhiteIcon from 'assets/icons/close-white.svg'
+
+// styles
+import styles from './index.module.scss'
+
+const NotificationsFilterModal = props => {
+  const { categoryList, onChange, onClickSelectAll, onClickApply } = props
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <div className="w-full h-[68px] flex justify-between items-center mb-[17px]">
+          <div className={styles.title}>Filter</div>
+          <Image src={CloseWhiteIcon} alt="" className="cursor-pointer" onClick={() => onClickApply()} />
+        </div>
+        <Checkbox categoryList={categoryList} onChange={index => onChange(index)} direction="rtl" />
+      </div>
+      <div className={styles.bottomArea}>
+        <div className="w-[94px]">
+          <OutlineButton
+            label="Sellect All"
+            onClick={() => onClickSelectAll()}
+            color="#EFF0F6"
+            borderWidth={2}
+            borderColor="#5AC3BA"
+            fullWidth
+          />
+        </div>
+        <div className="w-[94px]">
+          <GradientButton label="Apply" onClick={() => onClickApply()} color="#202427" fullWidth />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default NotificationsFilterModal
