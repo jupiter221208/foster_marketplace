@@ -2,16 +2,16 @@
 
 .container {
   width: 100%;
-  height: 80px;
-  background-color: #617979;
+  height: 50px;
   padding-left: 16px;
   padding-right: 25px;
+  border-radius: 12px;
+  background-color: $background-dark-color;
   @media (min-width: 1024px) {
     max-width: 540px;
     min-width: 200px;
-    height: 50px;
-    border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba($text-gray-200-color, 0.1);
+    background-color: #121212;
     padding-left: 20px;
     padding-right: 15px;
   }
