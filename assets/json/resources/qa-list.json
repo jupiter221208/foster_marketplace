@@ -102,7 +102,7 @@
         "id": 11,
         "title": "How can I participate in the governance of Foster Marketplace?",
         "description": [
-          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <u><a href='http://localhost:3000/resources'>Resources – LIFT Token</a></u> and <u><a href='http://turkey.circus.com'>Resources - Turkey Circus</a></u></p>"
+          "<p>Foster Marketplace will be governed by two DAOs, LIFT Token DAO and Turkey Circus DAO.  The governance protocol of each of these DAOs are elaborated on further in <u><span id='resource_lift'>Resources – LIFT Token</span></u> and <u><a href='http://turkey.circus.com'>Resources - Turkey Circus</a></u></p>"
         ]
       },
       {
@@ -221,7 +221,7 @@
         "id": 0,
         "title": "What is the Turkey Circus?",
         "description": [
-          "Turkey Circus is Foster’s flagship NFT collection. The collection includes 3200 Turkey Circus PFPs with"
+          "Turkey Circus is a Foster House collection providing access to the governance wing of Foster Marketplace. The collection includes 3200 Turkey Circus NFTs representing an ecosystem of digital creators, programmers, philanthropists and creative innovators."
         ]
       },
       {
@@ -242,7 +242,7 @@
         "id": 3,
         "title": "How can I get on the Turkey Circus Whitelist?",
         "description": [
-          "Our core team will be providing various opportunities in the <u><a>Foster Marketplace Discord</a></u> to earn a Turkey Circus whitelist spot."
+          "Our core team will be providing various opportunities in the <u><a href='https://discord.com/invite/fostermarketplace'>Foster Marketplace Discord</a></u> to earn a Turkey Circus whitelist spot."
         ]
       },
       {
@@ -272,17 +272,17 @@
         "title": "How are the funds from the Turkey Circus sale being allocated?",
         "description": [
           "The proceeds of the Turkey Circus mint will be distributed to each entity (both the core team and community) contributing to its success, as well as the long-term initiative of the project. The allocation breakdown is as follows: ",
-          "i. 20% Foster Liquidity",
-          "ii. 10% Turkey DAO Treasury",
-          "iii. 25% Artist & Core Team",
-          "iv. 10% Development",
-          "v. 2.5 % Whitelist Management",
-          "vi. 2.5 % Discord Management",
-          "vii. 2.5 % Security & Testing",
-          "viii. 12.5% Marketing",
-          "ix. 7.5 % Operations",
-          "x. 2.5% Emissions",
-          "xi. 5 % Unexpected Expenses"
+          "• 20% Foster Liquidity",
+          "• 10% Turkey DAO Treasury",
+          "• 25% Artist & Core Team",
+          "• 10% Development",
+          "• 2.5 % Whitelist Management",
+          "• 2.5 % Discord Management",
+          "• 2.5 % Security & Testing",
+          "• 12.5% Marketing",
+          "• 7.5 % Operations",
+          "• 2.5% Emissions",
+          "• 5 % Unexpected Expenses"
         ]
       },
       {
@@ -345,19 +345,19 @@
         "description": [
           "The key advantage in the ownership of LIFT surrounds the right of governance. Our governed platform will be an integral part of bringing new and existing projects into the Foster Ecosystem with the possibility of introducing new use-cases to the NFT community.",
           "LIFT token has various prongs of utility that exist to align governance and financial incentives. In an effort to create long term protocol value, Foster Marketplace will utilizes its native token for the following:",
-          "i. Rewards & Revenue Share",
-          "ii. Marketplace Governance",
-          "iii. Streaming Membership",
-          "iv. Decentralized Finance",
-          "v. Deflationary Tokenomics",
-          "vi. Future Expansion"
+          "• Rewards & Revenue Share",
+          "• Marketplace Governance",
+          "• Streaming Membership",
+          "• Decentralized Finance",
+          "• Deflationary Tokenomics",
+          "• Future Expansion"
         ]
       },
       {
         "id": 4,
         "title": "When will LIFT token utility be enabled?",
         "description": [
-          "LIFT token utility will be rolled out in phases as the product evolves. You can learn more about the various phases and their correlation with LIFT token in the <u><a href=''>Foster Marketplace Whitepaper</a></u>"
+          "LIFT token utility will be rolled out in phases as the product evolves. You can learn more about the various phases and their correlation with LIFT token in the <u><a href='https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603'>Foster Marketplace Whitepaper</a></u>"
         ]
       },
       {
@@ -375,7 +375,9 @@
       {
         "id": 7,
         "title": "Where can I find the tokenomics for LIFT token?",
-        "description": ["LIFT tokenomics can be found in the <u><a href=''>Foster Marketplace Whitepaper</a></u>"]
+        "description": [
+          "LIFT tokenomics can be found in the <u><a href='https://indd.adobe.com/view/a323ff9d-9b79-45ed-9f33-45ee566e9603 '>Foster Marketplace Whitepaper</a></u>"
+        ]
       },
       {
         "id": 8,
@@ -392,7 +394,9 @@
       {
         "id": 10,
         "title": "What's the difference between the LIFT DAO and ETC DAO?",
-        "description": [""]
+        "description": [
+          "LIFT token is a native utility and governance token for Foster’s flagship NFT streaming protocol. The Turkey Circus DAO is the governance wing of the NFT marketplace. DAO members  receive governance weight on a 1 turkey, 1 vote basis; this vote can be exercised in the DAO to shape the evolution of the marketplace and the use of DAO funds."
+        ]
       },
       {
         "id": 11,
@@ -421,17 +425,17 @@
         "id": 1,
         "title": "How can I report a bug?",
         "description": [
-          "If you would like to report a product bug, you can do so by opening a ticket in the <u><a href=''>Foster Marketplace Discord</a></u>"
+          "If you would like to report a product bug, you can do so by opening a ticket in the <u><a href='https://discord.com/invite/fostermarketplace'>Foster Marketplace Discord</a></u>"
         ]
       },
       {
         "id": 2,
         "title": "How do I avoid transaction errors?",
         "description": [
-          "Sometimes when we click Buy, Sell, Mint, etc... your wallet doesn't seem to do its job.  The most common problems are solved by making sure:",
-          "i. You have enough SOL to cover the transaction fees for what you are trying to do.  (At least 0.000005 SOL)",
-          "ii. You have the correct wallet address active in your wallet extension.",
-          "iii. Your wallet is actually connected to the website. (Phantom shows a green dot when connected)"
+          "Sometimes when we click Buy, Sell, Mint, etc... our wallet doesn't seem to do its job. The most common problems are solved by making sure:",
+          "• You have enough SOL to cover the transaction fees for what you are trying to do.",
+          "• You have the correct wallet address active in your wallet extension.",
+          "• Your wallet is actually connected to the website."
         ]
       },
       {
@@ -447,7 +451,7 @@
         "description": [
           "If you encounter an issue while connecting your Phantom wallet to Foster Marketplace, first try to go to your browser history and type ‘Foster Marketplace’. Then, select all the results and delete them.",
           "If this doesn’t do the trick, copy and paste <u>https://fostermarketplace.app/</u> directly into your phantom browser search engine and try again.",
-          "Still no dice? Open a ticket in the <u><a href=''>Foster Marketplace Discord</a></u> and someone will be with you shortly."
+          "Still no dice? Open a ticket in the <u><a href='https://discord.com/invite/fostermarketplace'>Foster Marketplace Discord</a></u> and someone will be with you shortly."
         ]
       },
       {
