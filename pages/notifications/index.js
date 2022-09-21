@@ -31,7 +31,7 @@ const Notifications = props => {
 
   useEffect(() => {
     let array = []
-    NotificationsFilterList.map(item => {
+    NotificationsFilterList.forEach(item => {
       let object = item
       object.checked = false
       array.push(object)
@@ -42,7 +42,7 @@ const Notifications = props => {
   const handleSelectFilter = index => {
     let array = [...filterList]
     let checkedCount = 0
-    array.map(item => {
+    array.forEach(item => {
       if (item.checked === true) {
         checkedCount++
       }
@@ -53,7 +53,7 @@ const Notifications = props => {
 
   const handleSelectAllFilters = status => {
     let array = [...filterList]
-    array.map(item => {
+    array.forEach(item => {
       if (status === 'Select All') {
         item.checked = true
       } else {

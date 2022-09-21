@@ -15,7 +15,7 @@ const NotificationsFilterCard = props => {
 
   useEffect(() => {
     let count = 0
-    filterList.map(item => {
+    filterList.forEach(item => {
       if (item.checked === true) {
         count++
       }
