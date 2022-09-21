@@ -1,8 +1,7 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletDisconnectButton } from '@solana/wallet-adapter-react-ui'
 
@@ -34,17 +33,8 @@ import MyWalletSubMenu from '../MyWalletSubMenu'
 import Image from 'next/image'
 
 const MobileMenu = () => {
-  const dispatch = useDispatch()
-  const router = useRouter()
-
   const { connected } = useWallet()
   const openMyWallet = useSelector(state => state.openMyWallet)
-
-  const onClickMenuItem = type => {
-    dispatch({ type: 'set', openMobileMenu: false })
-    if (type === 'dashboard') router.push('/dashboard')
-    else if (type === 'collection') router.push('/')
-  }
 
   return (
     <div className={styles.menu}>
@@ -65,10 +55,10 @@ const MobileMenu = () => {
             <div className="my-[10px]">
               <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
             </div>
-            <div className="my-[10px]" onClick={() => onClickMenuItem('dashboard')}>
+            <div className="my-[10px]">
               <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
             </div>
-            <div className="my-[10px]" onClick={() => onClickMenuItem('notifications')}>
+            <div className="my-[10px]">
               <AccordionMenu
                 icon={NotificationWhiteIcon}
                 label="Notifications"

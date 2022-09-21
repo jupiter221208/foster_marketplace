@@ -27,15 +27,15 @@ const AccordionMenu = props => {
     if (!data.length && path) {
       dispatch({ type: 'set', openMobileMenu: false })
       router.push(path)
-    } 
+    }
   }
 
   return (
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className={styles.container}>
-            <div className="flex items-center" onClick={() => handleSoloMenuItemClick()}>
+          <Disclosure.Button className={styles.container} onClick={() => handleSoloMenuItemClick()}>
+            <div className="flex items-center">
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : (
