@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -16,6 +16,7 @@ import 'swiper/css/pagination'
 import GreenGradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import HeroCard from 'components/Card/HeroCard'
+import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -29,6 +30,12 @@ import styles from './index.module.scss'
 const MainSection = props => {
   const { viewport } = props
   const router = useRouter()
+
+  const [showCreateNFTModal, setShowCreateNFTModal] = useState(false)
+
+  const handleCloseCreateNFTModal = () => {
+    setShowCreateNFTModal(false)
+  }
 
   return (
     <section id="main-section" className={styles.container}>
@@ -66,7 +73,7 @@ const MainSection = props => {
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
               <GreenGradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
-              <OutlineButton label="Create" width={124} onClick={() => router.push('/create/single-nft')} />
+              <OutlineButton label="Create" width={124} onClick={() => setShowCreateNFTModal(true)} />
             </div>
           ) : (
             <></>
@@ -127,7 +134,7 @@ const MainSection = props => {
                 label="Create"
                 borderWidth={2}
                 width={88}
-                onClick={() => router.push('/create/single-nft')}
+                onClick={() => setShowCreateNFTModal(true)}
               />
             </div>
           </div>
@@ -135,6 +142,7 @@ const MainSection = props => {
           <></>
         )}
       </div>
+      <CreateNFTModal viewport={viewport} open={showCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
   )
 }

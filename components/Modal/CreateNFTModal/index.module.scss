@@ -1,0 +1,83 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background-color: rgba($background-dark-color, 0.8);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  max-width: 474px;
+  background-color: #121212;
+  padding: 18px 38px 85px 38px;
+  border-top: 1px solid rgba($background-light-color, 0.1);
+  @media (min-width: 1024px) {
+    border: 1px solid rgba($background-light-color, 0.1);
+    padding: 58px 56px 42px 56px;
+    border-radius: 20px;
+  }
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba($text-gray-200-color, 0.2);
+  border-radius: 12px;
+  background-color: rgba($brand-02-color, 0.1);
+  padding: 22px 46px 38px 46px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  font-family: 'Muli-Bold';
+  letter-spacing: 0px;
+  color: $brand-06-color;
+  text-align: left;
+  font-size: 22px;
+  line-height: 28px;
+  @media (min-width: 1024px) {
+    color: $brand-01-color;
+    font-size: 32px;
+    line-height: 36px;
+    text-align: center;
+  }
+}
+
+.text {
+  margin-top: 56px;
+  letter-spacing: -1px;
+  @media (min-width: 1024px) {
+    margin-top: 13px;
+    letter-spacing: 0px;
+  }
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: $text-gray-200-color;
+}
