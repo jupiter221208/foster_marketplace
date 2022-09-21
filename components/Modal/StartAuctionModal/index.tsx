@@ -123,7 +123,7 @@ const StartAuctionModal = props => {
                     showTimeInput
                     timeInputLabel=""
                     className={styles.datePicker}
-                    customTimeInput={<CustomTimeInput />}
+                    customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
                   />
                   <div className="mt-2 w-full text-start">
                     <div className={styles.label}>Schedule auction start date and time</div>

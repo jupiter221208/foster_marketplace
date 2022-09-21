@@ -50,7 +50,6 @@ const NotificationsCard = props => {
                         alt=""
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                        cover="object-fit"
                         className="rounded-full"
                       />
                     </div>
@@ -70,7 +69,6 @@ const NotificationsCard = props => {
                           alt=""
                           width={56}
                           height={56}
-                          cover="object-fit"
                           className="border-[15px]"
                         />
                       )}

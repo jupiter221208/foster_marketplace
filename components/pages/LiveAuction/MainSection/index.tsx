@@ -223,8 +223,6 @@ const MainSection = props => {
                           borderBottomRightRadius: open ? '0px' : '12px',
                         }}
                         data-value={open}
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '36px' : '46px'}
                         ref={ref => {
                           buttonRefs.current[0] = ref
                         }}

@@ -32,7 +32,7 @@ const ProfileMenu = props => {
     }, [ref, handler])
   }
 
-  useOnClickOutside(closeRef, () => handleSetOpen())
+  useOnClickOutside(closeRef, () => handleSetOpen(closeRef))
 
   const handleSetOpen = bool => {
     setOpen(bool)
