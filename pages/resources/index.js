@@ -55,6 +55,19 @@ const Resources = props => {
     setContent(data)
   }
 
+  const handleClickAccordion = type => {
+    switch (type) {
+      case 'resource_lift':
+        setSelectedCard(3)
+        break
+      case 'resource_turkey':
+        setSelectedCard(2)
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -99,7 +112,7 @@ const Resources = props => {
                   </div>
                 </div>
                 <div className="w-full flex flex-wrap gap-5">
-                  <ResourcesAccordion data={content} />
+                  <ResourcesAccordion data={content} onClick={type => handleClickAccordion(type)} />
                 </div>
                 <div className="w-full flex justify-end">
                   <Pagination

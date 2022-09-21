@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -14,7 +14,7 @@ import MinusBlackIcon from 'assets/icons/minus-black.svg'
 import styles from './index.module.scss'
 
 const ResourcesAccordion = props => {
-  const { data } = props
+  const { data, onClick } = props
 
   const buttonRefs = useRef([])
   const openedRef = useRef(null)
@@ -30,6 +30,23 @@ const ResourcesAccordion = props => {
     openedRef.current = clickedButton
   }
 
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (document.getElementById('resource_lift') !== null) {
+        document.getElementById('resource_lift').onclick = function () {
+          onClick('resource_lift')
+          clearInterval(myInterval)
+        }
+      }
+      if (document.getElementById('resource_turkey') !== null) {
+        document.getElementById('resource_turkey').onclick = function () {
+          onClick('resource_turkey')
+          clearInterval(myInterval)
+        }
+      }
+    }, 500)
+  }, [])
+
   return (
     <div className="w-full flex flex-wrap">
       {data.map((item, index) => (
@@ -37,14 +54,16 @@ const ResourcesAccordion = props => {
           <Disclosure>
             {({ open }) => (
               <>
-                <div className={styles.accordion}>
+                <div className={styles.accordion} onClick={() => {}}>
                   <Disclosure.Button
                     className={styles.button}
                     data-value={open}
                     ref={ref => {
                       buttonRefs.current[index] = ref
                     }}
-                    onClick={() => clickRecent(index)}
+                    onClick={() => {
+                      clickRecent(index)
+                    }}
                   >
                     <div className={styles.title}>{item.title}</div>
 
