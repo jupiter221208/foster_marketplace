@@ -124,6 +124,7 @@ const ViewChart = props => {
                 fullWidth
                 direction="rtl"
                 height="48px"
+                justifyContent="flex-start"
               />
             </div>
           </div>

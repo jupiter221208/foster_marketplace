@@ -88,6 +88,7 @@ const Notifications = props => {
                 fullWidth
                 direction="rtl"
                 height="48px"
+                justifyContent="flex-start"
               />
             </div>
             <NotificationsCard viewport={viewport} data={NotificationsList} />

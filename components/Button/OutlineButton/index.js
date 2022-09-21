@@ -22,6 +22,7 @@ const OutlineButton = props => {
     width = '',
     paddingLeft = '',
     paddingRight = '',
+    justifyContent = 'center',
     gap = '',
   } = props
   return (
@@ -39,6 +40,7 @@ const OutlineButton = props => {
         width: fullWidth ? '100%' : width,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
+        justifyContent: justifyContent,
         gap: gap,
       }}
     >
