@@ -1,6 +1,6 @@
 import { ReactNode, useMemo } from 'react'
 import { Provider as StoreProvider } from 'react-redux'
-import store from 'store.js'
+import store from 'store'
 import { EnvironmentProvider } from './EnvironmentProvider'
 import { WalletProvider } from '@solana/wallet-adapter-react'
 import { WalletModalProvider } from '@solana/wallet-adapter-react-ui'

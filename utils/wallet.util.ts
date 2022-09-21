@@ -72,7 +72,7 @@ export async function getTokensByAccount(
 }
 
 export function getShortAddress(publicKey: PublicKey) {
-  const base58 = publicKey?.toBase58()
+  const base58 = publicKey!.toBase58(publicKey)
 
   return (base58 && base58.slice(0, 4) + '..' + base58.slice(-4)) || ''
 }

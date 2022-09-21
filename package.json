@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently --kill-others \"tsc --project tsconfig.json -w\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -52,6 +52,7 @@
     "@types/react": "^18.0.17",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
+    "concurrently": "^7.4.0",
     "eslint": "8.15.0",
     "eslint-config-next": "12.1.6",
     "postcss": "^8.4.14",
