@@ -43,7 +43,9 @@ const Menu = props => {
     <div className="relative">
       <div className={styles.container} onClick={() => setOpen(!open)}>
         <div className="mr-[9px]">{label}</div>
-        <Image src={ArrowDownGreenIcon} alt="" />
+        <div className="w-3 h-3 flex justify-center items-center mt-1">
+          <Image src={ArrowDownGreenIcon} alt="" />
+        </div>
       </div>
       {open && (
         <div className={styles.menuArea} ref={closeRef}>
