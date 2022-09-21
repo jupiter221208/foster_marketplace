@@ -384,7 +384,7 @@ const SingleNft = props => {
                     <div className="w-full">
                       <Stepper
                         currentStep={currentStep}
-                        onChange={step => handleChangeCurrentStep(step)}
+                        // onChange={step => handleChangeCurrentStep(step)}
                         viewport={viewport}
                       />
                     </div>
@@ -463,7 +463,7 @@ const SingleNft = props => {
               <div className="w-full">
                 <Stepper
                   currentStep={currentStep}
-                  onChange={step => handleChangeCurrentStep(step)}
+                  // onChange={step => handleChangeCurrentStep(step)}
                   viewport={viewport}
                 />
               </div>
