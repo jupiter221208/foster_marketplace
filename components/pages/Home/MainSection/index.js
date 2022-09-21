@@ -11,6 +11,7 @@ import { Autoplay, Pagination } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
+import { useDispatch, useSelector } from 'react-redux'
 
 // components
 import GreenGradientButton from 'components/Button/GradientButton'
@@ -30,11 +31,12 @@ import styles from './index.module.scss'
 const MainSection = props => {
   const { viewport } = props
   const router = useRouter()
+  const dispatch = useDispatch()
 
-  const [showCreateNFTModal, setShowCreateNFTModal] = useState(false)
+  const openCreateNFTModal = useSelector(state => state.openCreateNFTModal)
 
   const handleCloseCreateNFTModal = () => {
-    setShowCreateNFTModal(false)
+    dispatch({ type: 'set', openCreateNFTModal: false })
   }
 
   return (
@@ -73,7 +75,11 @@ const MainSection = props => {
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
               <GreenGradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
-              <OutlineButton label="Create" width={124} onClick={() => setShowCreateNFTModal(true)} />
+              <OutlineButton
+                label="Create"
+                width={124}
+                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
+              />
             </div>
           ) : (
             <></>
@@ -134,7 +140,7 @@ const MainSection = props => {
                 label="Create"
                 borderWidth={2}
                 width={88}
-                onClick={() => setShowCreateNFTModal(true)}
+                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
               />
             </div>
           </div>
@@ -142,7 +148,7 @@ const MainSection = props => {
           <></>
         )}
       </div>
-      <CreateNFTModal viewport={viewport} open={showCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
+      <CreateNFTModal viewport={viewport} open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
   )
 }

@@ -1,10 +1,11 @@
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
@@ -20,6 +21,7 @@ import styles from './index.module.scss'
 
 const CreateNFTModal = props => {
   const { viewport, open, close } = props
+  const router = useRouter()
 
   const closeModal = () => {
     close()
@@ -74,7 +76,10 @@ const CreateNFTModal = props => {
                         label="Single NFT"
                         fullWidth
                         icon={AddGrayIcon}
-                        onClick={() => closeModal()}
+                        onClick={() => {
+                          closeModal()
+                          router.push('/create/single-nft')
+                        }}
                         gradientDirection="bottom"
                         fontSize="22px"
                         height="63px"
@@ -85,7 +90,10 @@ const CreateNFTModal = props => {
                         label="NFT Collection"
                         fullWidth
                         icon={AddWhiteIcon}
-                        onClick={() => closeModal()}
+                        onClick={() => {
+                          closeModal()
+                          router.push('/create/collection')
+                        }}
                         backgroundColor="#202427"
                         color="#EFF0F6"
                         fontSize="22px"
@@ -116,7 +124,10 @@ const CreateNFTModal = props => {
                       <GradientButton
                         label="Single NFT"
                         fullWidth
-                        onClick={() => closeModal()}
+                        onClick={() => {
+                          closeModal()
+                          router.push('/create/single-nft')
+                        }}
                         gradientDirection="bottom"
                         fontSize="16px"
                         height="45px"
@@ -126,7 +137,10 @@ const CreateNFTModal = props => {
                       <OutlineButton
                         label="NFT Collection"
                         fullWidth
-                        onClick={() => closeModal()}
+                        onClick={() => {
+                          closeModal()
+                          router.push('/create/collection')
+                        }}
                         backgroundColor="#202427"
                         color="#EFF0F6"
                         fontSize="16px"

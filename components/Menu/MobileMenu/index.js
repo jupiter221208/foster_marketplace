@@ -8,7 +8,6 @@ import { WalletDisconnectButton } from '@solana/wallet-adapter-react-ui'
 
 // custom components
 import AccordionMenu from 'components/Menu/AccordionMenu'
-import OutlineButton from 'components/Button/OutlineButton'
 import WalletButton from 'components/Button/WalletButton'
 
 // images and icons
@@ -21,7 +20,6 @@ import DaoWhiteIcon from 'assets/icons/dao-white.svg'
 import CollectionWhiteIcon from 'assets/icons/collection-white.svg'
 import StatisticWhiteIcon from 'assets/icons/statistic-white.svg'
 import ResourceWhiteIcon from 'assets/icons/resource-white.svg'
-import SettingWhiteIcon from 'assets/icons/resource-white.svg'
 import LogoutWhiteIcon from 'assets/icons/logout-white.svg'
 
 // json data
@@ -41,15 +39,6 @@ const MobileMenu = () => {
 
   const { connected } = useWallet()
   const openMyWallet = useSelector(state => state.openMyWallet)
-
-  const handleDisconnectWallet = () => {
-    dispatch({ type: 'set', connectWalletStatus: false })
-    dispatch({ type: 'set', openMobileMenu: false })
-  }
-
-  const handleOpenConnectWallet = () => {
-    dispatch({ type: 'set', openMyWallet: true })
-  }
 
   const onClickMenuItem = type => {
     dispatch({ type: 'set', openMobileMenu: false })

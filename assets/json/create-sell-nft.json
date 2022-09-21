@@ -11,7 +11,7 @@
     "title": "Mint your artwork",
     "description": "Mint Solana NFTs by uploading your artwork directly to Foster Marketplace. Publish unique collections of digital art and showcase them for others to view.",
     "linkText": "Create your NFT collection",
-    "link": "/"
+    "link": "openCreateNFTModal"
   },
   {
     "id": 2,
