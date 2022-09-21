@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-// next components
-import { useRouter } from 'next/router'
-
 // third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import MyNFTCard from 'components/Card/MyNFTCard'
+import Pagination from 'components/Button/Pagination'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -27,7 +19,6 @@ import styles from './index.module.scss'
 
 const MyNFTSection = props => {
   const { viewport } = props
-  const router = useRouter()
   const { connection } = useEnvironment()
   const { publicKey } = useWallet()
 
@@ -44,6 +35,8 @@ const MyNFTSection = props => {
     }
     loadMyNFTs()
   }, [connection, publicKey])
+
+  const [nftList, setNFTList] = useState([])
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
@@ -76,33 +69,20 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {myNFTftList.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                <MyNFTCard
-                  viewport={viewport}
-                  data={item}
-                  onClickStartAuction={item => handleStartAuction(item)}
-                  onClickListNFT={item => handleListNFT(item)}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
+        {nftList.map((item, index) => (
+          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <MyNFTCard
+              viewport={viewport}
+              data={item}
+              onClickStartAuction={item => handleStartAuction(item)}
+              onClickListNFT={item => handleListNFT(item)}
+            />
+          </div>
+        ))}
+      </div>
+      <div className="w-full flex justify-end">
+        <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} viewport={viewport} />
       </div>
       <StartAuctionModal
         viewport={viewport}
