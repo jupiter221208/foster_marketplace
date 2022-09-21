@@ -68,6 +68,13 @@ const Resources = props => {
     }
   }
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [content])
+
   return (
     <div className="g-container">
       <Head>

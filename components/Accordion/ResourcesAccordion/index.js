@@ -31,7 +31,7 @@ const ResourcesAccordion = props => {
   }
 
   useEffect(() => {
-    let myInterval = setInterval(() => {
+    const myInterval = setInterval(() => {
       if (document.getElementById('resource_lift') !== null) {
         document.getElementById('resource_lift').onclick = function () {
           onClick('resource_lift')
@@ -45,7 +45,9 @@ const ResourcesAccordion = props => {
         }
       }
     }, 500)
-  }, [])
+
+    return () => clearInterval(myInterval)
+  }, [data])
 
   return (
     <div className="w-full flex flex-wrap">
