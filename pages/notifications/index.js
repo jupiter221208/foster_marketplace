@@ -92,7 +92,11 @@ const Notifications = props => {
             </div>
             <NotificationsCard viewport={viewport} data={NotificationsList} />
           </div>
-          <NotificationsFilterCard filterList={NotificationsFilterList} />
+          <NotificationsFilterCard
+            filterList={filterList}
+            onChange={index => handleSelectFilter(index)}
+            onClickSelectAll={status => handleSelectAllFilters(status)}
+          />
         </div>
       </div>
       {showFilterModal && (

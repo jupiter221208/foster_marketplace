@@ -12,7 +12,6 @@ import styles from './index.module.scss'
 
 const NotificationsCard = props => {
   const { viewport, data } = props
-  console.log('viewport', viewport)
 
   return (
     <div className={styles.container}>
