@@ -37,7 +37,7 @@ const PopularCategorySection = props => {
           <div className="hidden lg:flex">
             <OutlineButton
               label="See More"
-              onClick={() => router.push('/see-more')}
+              onClick={() => router.push('/explore')}
               borderColor="#ffffff"
               height="42px"
             />
@@ -83,7 +83,7 @@ const PopularCategorySection = props => {
               <OutlineButton
                 label="See More"
                 fullWidth
-                onClick={() => router.push('/see-more')}
+                onClick={() => router.push('/explore')}
                 borderColor="#ffffff"
                 height="40px"
               />
