@@ -21,7 +21,7 @@
     "time": "2 weeks ago",
     "amount": 1.5,
     "member": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "action": "accept"
+    "action": "cancel"
   },
   {
     "id": 2,
@@ -69,7 +69,7 @@
     "time": "2 weeks ago",
     "amount": 1.5,
     "member": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "action": "cancel"
+    "action": "accept"
   },
   {
     "id": 6,
@@ -117,7 +117,7 @@
     "time": "2 weeks ago",
     "amount": 1.5,
     "member": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "action": "accept"
+    "action": "cancel"
   },
   {
     "id": 10,

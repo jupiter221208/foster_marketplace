@@ -13,13 +13,19 @@ const OfferSection = props => {
 
   const [offerList, setOfferList] = useState([])
 
+  const updateDataAction = (index, action) => {
+    let newList = [...offerList]
+    newList[index].action = action
+    setOfferList(newList)
+  }
+
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
       <div className="w-full mt-[15px] lg:mt-[34px]">
         {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
           <OfferTable data={offerList} viewport={viewport} />
         ) : (
-          <OfferAccordion data={offerList} viewport={viewport} />
+          <OfferAccordion data={offerList} viewport={viewport} updateDataAction={updateDataAction} />
         )}
       </div>
       <div className="w-full flex justify-end">

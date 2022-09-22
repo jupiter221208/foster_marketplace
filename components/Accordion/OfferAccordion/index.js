@@ -1,7 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+
+// components
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -11,8 +15,7 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 import styles from './index.module.scss'
 
 const OfferAccordion = props => {
-  const { data } = props
-
+  const { data, updateDataAction } = props
   const buttonRefs = useRef([])
   const openedRef = useRef(null)
   const clickRecent = index => {
@@ -30,7 +33,7 @@ const OfferAccordion = props => {
   return (
     <div className="w-full flex flex-wrap gap-[10px]">
       {data.map((item, index) => (
-        <div key={index} className="w-full flex flex-wrap">
+        <div key={index} className="w-full relative">
           <Disclosure>
             {({ open }) => (
               <>
@@ -46,11 +49,13 @@ const OfferAccordion = props => {
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
                       <Image src={item.avatar} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
+
                     <div className="block">
                       <div className={styles.subTitle}>{item.name01}</div>
                       <div className={styles.subTitle}>{item.name02}</div>
                     </div>
                   </div>
+
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
                     style={{ color: open ? '#5AC3BA' : '#378287' }}
@@ -83,6 +88,30 @@ const OfferAccordion = props => {
               </>
             )}
           </Disclosure>
+          <div className="absolute top-[16px] right-[50px]">
+            {item.action === 'cancel' ? (
+              <OutlineButton
+                label="Cancel"
+                onClick={() => {
+                  console.log(index, '==========')
+                  updateDataAction(index, 'accept')
+                }}
+                color="#DEEFD0"
+                borderColor="#DEEFD0"
+                width="80px"
+                height="42px"
+              />
+            ) : (
+              <GradientButton
+                label="Accept"
+                onClick={() => {
+                  updateDataAction(index, 'cancel')
+                }}
+                width="80px"
+                height="42px"
+              />
+            )}
+          </div>
         </div>
       ))}
     </div>
