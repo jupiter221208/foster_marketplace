@@ -4,7 +4,7 @@
     "title": "Connect your wallet",
     "description": "Choose from any of the supported Solana wallets: Phantom, Solflare or Sollet. Connect your wallet and create a profile on Foster Marketplace that will be associated with it.",
     "linkText": "Connect your wallet",
-    "link": "/"
+    "link": "connectYourWallet"
   },
   {
     "id": 1,
@@ -18,6 +18,6 @@
     "title": "List your NFTs",
     "description": "Sell your artwork as an NFT for a fixed-price, or via auction to the highest bidder, by using Foster's easy minting and marketplace tools.",
     "linkText": "Sell your artwork",
-    "link": "/"
+    "link": "listYourNFTs"
   }
 ]
