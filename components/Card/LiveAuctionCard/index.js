@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
+
+import { calculateTimeLeft } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -12,6 +14,15 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const LiveAuctionCard = props => {
   const { image, nftName, artistName, count, endsIn, viewport, onClick } = props
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endsIn))
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft(endsIn))
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  })
 
   return (
     <div className={styles.container} onClick={() => onClick()}>
@@ -51,7 +62,7 @@ const LiveAuctionCard = props => {
 
           <div className="mt-[0px] lg:mt-[0px]">
             <div className={styles.endsIn}>Ends in</div>
-            <div className={styles.endTime}>{endsIn}</div>
+            <div className={styles.endTime}>{timeLeft}</div>
           </div>
         </div>
       </div>

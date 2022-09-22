@@ -42,10 +42,73 @@
   text-overflow: ellipsis;
 }
 
-.bidName {
+.artistName {
+  font-family: 'Muli-Bold';
+  font-size: 10px;
+  line-height: 10px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $brand-03-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.priceName {
+  font-family: 'Muli-Regular';
+  font-size: 10px;
+  line-height: 10px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $brand-03-color;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bidCount {
   font-family: 'Muli-SemiBold';
   font-size: 10px;
+  line-height: 9px;
+  margin-left: 5px;
+  @media (min-width: 414px) {
+    font-size: 11px;
+    line-height: 12px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 17px;
+    line-height: 24px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $brand-06-color;
+}
+
+.bidName {
+  font-family: 'Muli-SemiBold';
+  font-size: 9px;
   line-height: 12px;
+  @media (min-width: 414px) {
+    font-size: 10px;
+    line-height: 12px;
+  }
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 20px;
@@ -86,66 +149,19 @@
   color: $text-gray-200-color;
 }
 
-.artistName {
-  font-family: 'Muli-Bold';
-  font-size: 10px;
-  line-height: 10px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 20px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 18px;
-    line-height: 24px;
-  }
-  letter-spacing: 0;
-  color: $brand-03-color;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.priceName {
-  font-family: 'Muli-Regular';
-  font-size: 10px;
-  line-height: 10px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 24px;
-  }
-  letter-spacing: 0;
-  color: $brand-03-color;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.bidCount {
-  font-family: 'Muli-SemiBold';
-  font-size: 11px;
-  line-height: 11px;
-  margin-left: 5px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 18px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 17px;
-    line-height: 24px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 20px;
-    line-height: 24px;
-  }
-  letter-spacing: 0;
-  color: $brand-06-color;
-}
-
 .endTime {
   font-family: 'Muli-SemiBold';
-  font-size: 11px;
+  font-size: 9px;
   line-height: 11px;
   margin-top: 4px;
+  @media (min-width: 414px) {
+    font-size: 10px;
+    line-height: 11px;
+  }
+  @media (min-width: 480px) {
+    font-size: 11px;
+    line-height: 11px;
+  }
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 24px;
