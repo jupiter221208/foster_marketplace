@@ -11,7 +11,7 @@ import OfferList from 'assets/json/dashboard/offer-list.json'
 const OfferSection = props => {
   const { viewport } = props
 
-  const [offerList, setOfferList] = useState([])
+  const [offerList, setOfferList] = useState<any[]>([])
 
   const updateDataAction = (index, action) => {
     let newList = [...offerList]

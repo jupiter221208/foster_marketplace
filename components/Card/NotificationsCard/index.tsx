@@ -13,7 +13,7 @@ import styles from './index.module.scss'
 const NotificationsCard = props => {
   const { viewport, data } = props
 
-  const [list, setList] = useState([])
+  const [list, setList] = useState<any[]>([])
 
   useEffect(() => {
     setList(data)
@@ -21,7 +21,7 @@ const NotificationsCard = props => {
 
   const handleClickButton = (itemID, elemID, status) => {
     const array = [...list]
-    array.map((item, index) => {
+    array.map((item: any, index) => {
       if (item.id === itemID) {
         item.data.map((elem, idx) => {
           if (elem.id === elemID) {
@@ -36,7 +36,7 @@ const NotificationsCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        {list.map((item, index) => (
+        {list.map((item: any, index) => (
           <div className="" key={index}>
             <div className={styles.title}>{item.date}</div>
             <div className="mt-[25px] w-full flex flex-wrap gap-7">

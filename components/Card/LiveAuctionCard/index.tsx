@@ -62,7 +62,7 @@ const LiveAuctionCard = props => {
 
           <div className="mt-[0px] lg:mt-[0px]">
             <div className={styles.endsIn}>Ends in</div>
-            <div className={styles.endTime}>{timeLeft}</div>
+            <div className={styles.endTime}><>{timeLeft}</></div>
           </div>
         </div>
       </div>
