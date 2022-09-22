@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -13,10 +13,30 @@ import styles from './index.module.scss'
 const NotificationsCard = props => {
   const { viewport, data } = props
 
+  const [list, setList] = useState([])
+
+  useEffect(() => {
+    setList(data)
+  }, [data])
+
+  const handleClickButton = (itemID, elemID, status) => {
+    const array = [...list]
+    array.map((item, index) => {
+      if (item.id === itemID) {
+        item.data.map((elem, idx) => {
+          if (elem.id === elemID) {
+            array[index].data[idx].status = status
+          }
+        })
+      }
+    })
+    setList(array)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        {data.map((item, index) => (
+        {list.map((item, index) => (
           <div className="" key={index}>
             <div className={styles.title}>{item.date}</div>
             <div className="mt-[25px] w-full flex flex-wrap gap-7">
@@ -55,8 +75,12 @@ const NotificationsCard = props => {
                         />
                       )}
                     </div>
-                    {elem.status === 'Follow' && <GradientButton label="Follow" onClick={() => {}} />}
-                    {elem.status === 'Following' && <OutlineButton label="Following" onClick={() => {}} />}
+                    {elem.status === 'Follow' && (
+                      <GradientButton label="Follow" onClick={() => handleClickButton(item.id, elem.id, 'Following')} />
+                    )}
+                    {elem.status === 'Following' && (
+                      <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem.id, 'Follow')} />
+                    )}
                   </div>
                 </div>
               ))}
