@@ -163,7 +163,7 @@ const ProfileSection = props => {
               value={shortAddress}
               placeholder="Add Your Account"
               disabled
-              onClick={() => copyToClipboard(publicKey.toString() || '')}
+              onClick={() => copyToClipboard(publicKey?.toString() || '')}
             />
           </div>
           <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-evenly items-center gap-6">

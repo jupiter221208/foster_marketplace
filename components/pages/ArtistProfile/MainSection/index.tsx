@@ -109,7 +109,7 @@ const MainSection = props => {
                 label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey.toBase58() || '')}
+                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
                 viewport={viewport}
               />
             </div>
@@ -160,7 +160,7 @@ const MainSection = props => {
                 label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey.toBase58() || '')}
+                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
                 viewport={viewport}
               />
             </div>
