@@ -75,8 +75,18 @@ const MarketplacesTable = props => {
               <td className="text-center">{item.activeListings}</td>
               <td className="text-center">{item.singleMints}</td>
               <td className="text-center">{item.collections}</td>
-              <td className="text-center">{item.creators}</td>
-              <td className="text-center">{item.collectors}</td>
+              <td className="text-center">
+                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                  {item.primary}
+                </div>
+              </td>
+              <td className="text-center">
+                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                  {item.secondary}
+                </div>
+              </td>
               <td className={`text-center ${styles.greenText}`} onMouseEnter={() => handleSetHover(index)}>
                 {hover === index ? (
                   <button className={styles.button} onClick={() => handleClick(item)}>

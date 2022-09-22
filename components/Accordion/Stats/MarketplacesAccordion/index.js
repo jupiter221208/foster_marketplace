@@ -100,11 +100,21 @@ const MarketplacesAccordion = props => {
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Primary</div>
-                    <div className={styles.text}>{item.creators}</div>
+                    <div className={styles.text}>
+                      <div className="flex items-center gap-[10px]">
+                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                        {item.primary}
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Secondary</div>
-                    <div className={styles.text}>{item.collectors}</div>
+                    <div className={styles.text}>
+                      <div className="flex items-center gap-[10px]">
+                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                        {item.secondary}
+                      </div>
+                    </div>
                   </div>
                 </Disclosure.Panel>
               </>
