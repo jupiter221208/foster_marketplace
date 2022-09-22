@@ -152,7 +152,7 @@ const NFTSwiperSection = props => {
           <OutlineButton
             label="See More"
             fullWidth
-            onClick={() => router.push('/see-more')}
+            onClick={() => router.push('/explore')}
             borderColor="#ffffff"
             height="40px"
           />

@@ -39,12 +39,7 @@ const ExploreCollectionSection = props => {
           <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Other Collections by Artist</div>
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton
-            label="See More"
-            onClick={() => router.push('/see-more')}
-            borderColor="#ffffff"
-            height="42px"
-          />
+          <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
@@ -83,7 +78,7 @@ const ExploreCollectionSection = props => {
           <OutlineButton
             label="See More"
             fullWidth
-            onClick={() => router.push('/see-more')}
+            onClick={() => router.push('/explore')}
             borderColor="#ffffff"
             height="40px"
           />

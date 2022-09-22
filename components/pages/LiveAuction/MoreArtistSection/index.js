@@ -32,12 +32,7 @@ const MoreArtistSection = props => {
           <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Artist</div>
         </div>
         <div className="hidden lg:flex">
-          <OutlineButton
-            label="See More"
-            onClick={() => router.push('/see-more')}
-            borderColor="#ffffff"
-            height="42px"
-          />
+          <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px]">
@@ -78,7 +73,7 @@ const MoreArtistSection = props => {
           <OutlineButton
             label="See More"
             fullWidth
-            onClick={() => router.push('/see-more')}
+            onClick={() => router.push('/explore')}
             borderColor="#ffffff"
             height="40px"
           />
