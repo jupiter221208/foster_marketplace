@@ -183,7 +183,13 @@ const MainSection = props => {
             </div>
           </div>
         </div>
-        <div className={`flex justify-center w-full ${showSocialIcon ? 'mt-[12px]' : 'mt-[-32px]'}`}>
+        <div
+          className={`flex justify-center w-full ${
+            showSocialIcon === false && (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
+              ? 'mt-[-32px]'
+              : 'mt-[12px]'
+          }`}
+        >
           <div className="max-w-[734px]">
             <div className={styles.description}>
               Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
