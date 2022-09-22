@@ -38,7 +38,7 @@ export async function getTokensByAccount(
           nft.metadata = await loadMetadata(nft.mint, connection)
         } catch (e) {
           // console.log(e)
-          console.log(`failed to pull metadata for token ${nft.mint.toBase58()}`)
+          console.log(`failed to pull metadata for token ${nft.mint.toString()}`)
         }
 
         return nft
@@ -54,7 +54,7 @@ export async function getTokensByAccount(
             nft.offChainMetatata = await fetch(nft.metadata!.data.uri).then(r => r.json())
           } catch (e) {
             // console.log(e)
-            console.log(`failed to pull off chain metadata for token ${nft.mint.toBase58()}`)
+            console.log(`failed to pull off chain metadata for token ${nft.mint.toString()}`)
           }
 
           return nft
@@ -64,7 +64,7 @@ export async function getTokensByAccount(
   }
 
   return nfts.map(nft => ({
-    id: nft.mint.toBase58(),
+    id: nft.mint.toString(),
     mint: nft.mint,
     name: nft.offChainMetatata?.name || nft.metadata?.data.name || 'No Name',
     image: nft.offChainMetatata?.image,
@@ -72,7 +72,7 @@ export async function getTokensByAccount(
 }
 
 export function getShortAddress(publicKey: PublicKey) {
-  const base58 = publicKey!.toBase58(publicKey)
+  const base58 = publicKey!.toString()
 
   return (base58 && base58.slice(0, 4) + '..' + base58.slice(-4)) || ''
 }

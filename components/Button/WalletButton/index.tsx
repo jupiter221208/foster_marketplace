@@ -130,7 +130,7 @@ const WalletButton = props => {
               {({ active }) => (
                 <div
                   className="w-full flex justify-between items-center cursor-pointer hover:opacity-80"
-                  onClick={() => copyToClipboard(publicKey!.toBase58())}
+                  onClick={() => copyToClipboard(publicKey!.toString())}
                 >
                   <div className="block">
                     <div className={styles.whiteText}>Main wallet</div>
@@ -152,7 +152,7 @@ const WalletButton = props => {
               {({ active }) => (
                 <div
                   className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
-                  onClick={() => copyToClipboard(publicKey!.toBase58())}
+                  onClick={() => copyToClipboard(publicKey!.toString())}
                 >
                   <div className="block">
                     <div className={styles.whiteText}>Bidding wallet</div>
