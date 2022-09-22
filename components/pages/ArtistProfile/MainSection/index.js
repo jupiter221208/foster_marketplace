@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+// third party components
+import { useWallet } from '@solana/wallet-adapter-react'
+import { getShortAddress } from 'utils/wallet.util'
+
+// custom components
 import OutlineButton from 'components/Button/OutlineButton'
+import ProfileArtistCard from 'components/Card/ProfileArtistCard'
+import GradientButton from 'components/Button/GradientButton'
+import SocialButton from 'components/Button/SocialButton'
+import AddressButton from 'components/Button/AddressButton'
+import CategoryChip from 'components/Chip/CategoryChip'
 
 // images and icons
 import HeaderImage from 'assets/images/profile-header.png'
@@ -21,17 +31,15 @@ import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
 import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
 
-import ProfileArtistCard from 'components/Card/ProfileArtistCard'
-import GradientButton from 'components/Button/GradientButton'
-import SocialButton from 'components/Button/SocialButton'
-import AddressButton from 'components/Button/AddressButton'
-import CategoryChip from 'components/Chip/CategoryChip'
-
 // styles
 import styles from './index.module.scss'
 
 const MainSection = props => {
   const { viewport } = props
+
+  const { publicKey } = useWallet()
+  const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
+
   const [follow, setFollow] = useState(false)
   const [showSocialIcon, setShowSocialIcon] = useState(false)
 
@@ -60,6 +68,10 @@ const MainSection = props => {
       collections: 287,
     },
   ]
+
+  const copyToClipboard = value => {
+    navigator.clipboard.writeText(value)
+  }
 
   return (
     <div className={styles.container}>
@@ -93,10 +105,10 @@ const MainSection = props => {
             <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} viewport={viewport} />
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton
-                label={'cGtKb..3fRm'}
+                label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => {}}
+                onClick={() => copyToClipboard(publicKey.toBase58())}
                 viewport={viewport}
               />
             </div>
@@ -144,10 +156,10 @@ const MainSection = props => {
           <div className="col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center lg:mt-[16px]">
               <AddressButton
-                label={'cGb.fRm'}
+                label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => {}}
+                onClick={() => copyToClipboard(publicKey.toBase58())}
                 viewport={viewport}
               />
             </div>
