@@ -26,7 +26,7 @@ const PrimaryFooter = props => {
 
   const [email, setEmail] = useState('')
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="footer-container">
       {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
         <div className="g-container flex flex-wrap justify-between gap-4 z-10">
           <div className="max-w-[347px] block justify-start">
