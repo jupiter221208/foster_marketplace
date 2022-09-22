@@ -445,7 +445,7 @@ const MainSection = props => {
                                   </div>
                                 </td>
                                 <td>
-                                  <div className="flex items-center mx-2 gap-1">
+                                  <div className="flex items-center justify-center mx-2 gap-1 ">
                                     <Image
                                       src={SolanaLogoIcon}
                                       alt=""
@@ -459,7 +459,7 @@ const MainSection = props => {
                                   <></>
                                 ) : (
                                   <td>
-                                    <div className="flex items-center mx-2 gap-2">
+                                    <div className="flex items-center justify-center mx-2 gap-2">
                                       {item.from !== undefined && item.from.slice(0, 4)}
                                       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
                                       {item.from !== undefined &&
@@ -473,7 +473,7 @@ const MainSection = props => {
                                   <></>
                                 ) : (
                                   <td>
-                                    <div className="flex items-center mx-2 gap-2">
+                                    <div className="flex items-center justify-center mx-2 gap-2">
                                       {item.to !== undefined && item.to.slice(0, 4)}
                                       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
                                       {item.to !== undefined &&
@@ -484,7 +484,9 @@ const MainSection = props => {
                                   </td>
                                 )}
                                 <td>
-                                  <div className="w-full flex justify-end items-center ml-2 pr-4">{item.date} ago</div>
+                                  <div className="w-full flex justify-center items-center ml-2 pr-4">
+                                    {item.date} ago
+                                  </div>
                                 </td>
                               </tr>
                             ))}
