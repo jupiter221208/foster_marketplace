@@ -61,7 +61,7 @@ const CollectorsAccordion = props => {
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Creator Supported</div>
+                    <div className={styles.title}>Creators Supported</div>
                     <div className={styles.text}>{item.creatorSupported}</div>
                   </div>
                   <div className={styles.secondRow}>

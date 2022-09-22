@@ -18,7 +18,7 @@ const CollectorsTable = props => {
         <tr>
           <th>Rank</th>
           <th>Collector</th>
-          <th>Creator Supported</th>
+          <th>Creators Supported</th>
           <th>Total Spent</th>
           <th>Average Purchase</th>
           <th>Highest Purchase</th>
