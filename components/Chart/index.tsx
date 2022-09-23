@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -26,9 +26,15 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import LogoGray from 'assets/icons/logo-gray.svg'
 
 const Chart = props => {
-  const { list } = props
+  const { list, title } = props
 
   const myChartRef = useRef<any>()
+  const [type, setType] = useState(title)
+
+  useEffect(() => {
+    setType(title)
+    console.log(title, '==========title========')
+  }, [title])
 
   useEffect(() => {
     if (myChartRef.current !== undefined) {
@@ -149,7 +155,7 @@ const Chart = props => {
       titleDiv.style.color = '#ffffff'
       titleDiv.style.fontSize = '12px'
       titleDiv.style.fontFamily = 'Muli-SemiBold'
-      const title = document.createTextNode('Daily Volume')
+      const title = document.createTextNode(type)
       titleDiv.appendChild(title)
 
       th.appendChild(titleDiv)

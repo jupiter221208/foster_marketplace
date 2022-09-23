@@ -80,7 +80,7 @@ const ViewChart = () => {
           <div className="w-full flex flex-wrap justify-center md:justify-between text-center md:text-left items-start pt-[18px] md:pt-[50px]">
             <div className="block z-10">
               <div className={styles.title}>{category?.name}</div>
-              <div className={styles.subTitle}>(Total Volume)</div>
+              <div className={styles.subTitle}>({selectedChartType.label})</div>
             </div>
             <div className="hidden md:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
               <GradientButton
@@ -133,7 +133,7 @@ const ViewChart = () => {
           </div>
 
           <div className="w-full mt-[38px] md:mt-[66px] overflow-hidden z-10">
-            <Chart list={ChartTotalVolume} />
+            <Chart list={ChartTotalVolume} title={selectedChartType.label} />
           </div>
           <div className="w-full hidden md:flex flex-wrap justify-center mt-[140px] mb-[208px] gap-x-8 px-10">
             <Radio data={ChartTypeList} selected={selectedChartType} onChange={item => setSelectedChartType(item)} />
