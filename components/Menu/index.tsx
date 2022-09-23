@@ -33,7 +33,7 @@ const Menu = props => {
     }, [ref, handler])
   }
 
-  useOnClickOutside(closeRef, () => handleSetOpen(closeRef))
+  useOnClickOutside(closeRef, () => handleSetOpen(false))
 
   const handleSetOpen = bool => {
     setOpen(bool)
