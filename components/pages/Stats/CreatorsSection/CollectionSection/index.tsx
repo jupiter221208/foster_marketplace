@@ -17,7 +17,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
-const CollectionSection = () => {
+const CollectionSection = props => {
   const { list } = props
   const viewport = useViewport()
 

@@ -18,7 +18,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
-const TableSection = () => {
+const TableSection = props => {
   const { data } = props
   const viewport = useViewport()
 

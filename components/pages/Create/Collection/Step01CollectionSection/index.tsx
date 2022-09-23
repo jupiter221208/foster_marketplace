@@ -33,7 +33,7 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
-const Step01CollectionSection = () => {
+const Step01CollectionSection = props => {
   const {
     currentStep,
     onChangeCurrentStep,
