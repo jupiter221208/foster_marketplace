@@ -62,7 +62,7 @@ const MainSection = () => {
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className={styles.bannerImage}>
-        <Image src={bannerImage} alt="" width={1535} height={460} objectFit="cover" className="rounded-[30px]" />
+        <Image src={bannerImage} alt="" width={1620} height={460} objectFit="cover" className="rounded-[30px]" />
         <div className="absolute bottom-7 right-7 cursor-pointer z-20">
           <IconButton icon={CameraWhiteIcon} onClick={() => inputFile.current.click()} backgroundColor="transparent" />
           <input
