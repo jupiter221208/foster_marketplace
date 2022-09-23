@@ -17,7 +17,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const OfferTable = props => {
-  const { data } = props
+  const { data, updateDataAction } = props
   const viewport = useViewport()
 
   return (
@@ -66,11 +66,13 @@ const OfferTable = props => {
             </td>
             <td className="">
               <div className="w-full flex justify-center">
-                {item.action === 'accept' && <GradientButton label="Accept" onClick={() => {}} height="48px" />}
+                {item.action === 'accept' && (
+                  <GradientButton label="Accept" onClick={() => updateDataAction(index, 'cancel')} height="48px" />
+                )}
                 {item.action === 'cancel' && (
                   <OutlineButton
                     label="Cancel"
-                    onClick={() => {}}
+                    onClick={() => updateDataAction(index, 'accept')}
                     color="#DEEFD0"
                     borderColor="#DEEFD0"
                     height="48px"

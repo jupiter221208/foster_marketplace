@@ -93,7 +93,6 @@ const OfferAccordion = props => {
               <OutlineButton
                 label="Cancel"
                 onClick={() => {
-                  console.log(index, '==========')
                   updateDataAction(index, 'accept')
                 }}
                 color="#DEEFD0"

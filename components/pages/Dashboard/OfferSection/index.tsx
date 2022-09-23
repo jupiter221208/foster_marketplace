@@ -26,7 +26,7 @@ const OfferSection = () => {
     <section className="w-full mt-6 lg:mt-12 z-10">
       <div className="w-full mt-[15px] lg:mt-[34px]">
         {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-          <OfferTable data={offerList} />
+          <OfferTable data={offerList} updateDataAction={updateDataAction} />
         ) : (
           <OfferAccordion data={offerList} updateDataAction={updateDataAction} />
         )}
