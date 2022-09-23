@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 // third party components
 import { useSelector } from 'react-redux'
@@ -15,8 +15,13 @@ import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
 // styles
 import styles from './index.module.scss'
 
-const PrimaryLayout = ({ children }) => {
-  const { viewport } = children.props
+interface PrimaryLayoutProps {
+  children?: any
+}
+
+const PrimaryLayout: FC<PrimaryLayoutProps> = props => {
+  const { viewport } = props.children.props
+
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const { connected } = useWallet()
@@ -32,7 +37,9 @@ const PrimaryLayout = ({ children }) => {
           <MobileSearchBox viewport={viewport} />
         )}
 
-        <main className="w-full flex justify-center mt-[80px] lg:mt-[100px]">{children}</main>
+        <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
+          {props.children}
+        </main>
         <PrimaryFooter viewport={viewport} />
       </>
     </div>
