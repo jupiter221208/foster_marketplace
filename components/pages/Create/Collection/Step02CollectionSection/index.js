@@ -284,7 +284,7 @@ const Step02CollectionSection = props => {
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
-                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4 and .mov</p>
+                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .mov</p>
                             <p className={styles.greenText}>Max File Size 30mb</p>
                           </div>
                         </section>
