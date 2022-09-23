@@ -11,9 +11,7 @@ import TabSection from 'components/pages/Dashboard/TabSection'
 // styles
 import styles from './index.module.scss'
 
-const Dashbord = props => {
-  const { viewport } = props
-
+const Dashbord = () => {
   return (
     <div className="g-container">
       <Head>
@@ -22,8 +20,8 @@ const Dashbord = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <MainSection viewport={viewport} />
-        <TabSection viewport={viewport} />
+        <MainSection />
+        <TabSection />
       </div>
     </div>
   )

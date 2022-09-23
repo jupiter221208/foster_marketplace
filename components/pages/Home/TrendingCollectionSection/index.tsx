@@ -17,6 +17,9 @@ import OutlineButton from 'components/Button/OutlineButton'
 import Button from 'components/Button'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
@@ -26,8 +29,8 @@ import TrendingCollectionList from 'assets/json/trending-collection.json'
 // styles
 import styles from './index.module.scss'
 
-const TrendingCollectionSection = props => {
-  const { viewport } = props
+const TrendingCollectionSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [trendingList, setTrendingList] = useState<any[]>([])
@@ -126,7 +129,6 @@ const TrendingCollectionSection = props => {
                 nfts={item.nfts}
                 avatar={item.avatar}
                 price={item.price}
-                viewport={viewport}
               />
             </SwiperSlide>
           ))}

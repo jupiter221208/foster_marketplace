@@ -7,6 +7,9 @@ import Dropzone from 'react-dropzone'
 import Select from 'components/Select'
 import Radio from 'components/Radio'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 
@@ -14,7 +17,9 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import styles from './index.module.scss'
 
 const Step01SingleNFTSection = props => {
-  const { viewport, selectedDimension, setSelectedDimension, setNftArt } = props
+  const { selectedDimension, setSelectedDimension, setNftArt } = props
+
+  const viewport = useViewport()
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">

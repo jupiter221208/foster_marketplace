@@ -5,11 +5,16 @@ import Input from 'components/Input'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
 const Step03SingleNFTSection = props => {
-  const { viewport, royalties, setRoyalties, disabledNextButton, handleChangeCurrentStep } = props
+  const { royalties, setRoyalties, disabledNextButton, handleChangeCurrentStep } = props
+
+  const viewport = useViewport()
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">

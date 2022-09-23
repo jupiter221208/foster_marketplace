@@ -17,6 +17,9 @@ import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButton from 'components/Button/IconButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import LogoTextIcon from 'assets/icons/logo-text-01.svg'
 import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
@@ -33,8 +36,8 @@ import ProfileMenuList from 'assets/json/profile-menu.json'
 // styles
 import styles from './index.module.scss'
 
-const PrimaryHeader = props => {
-  const { viewport } = props
+const PrimaryHeader = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [searchKeyword, setSearchKeyword] = useState('')
@@ -170,7 +173,6 @@ const PrimaryHeader = props => {
               placeholder="Search by NFT, Collection, or Artist"
               onChange={value => setSearchKeyword(value)}
               searchList={searchList}
-              viewport={viewport}
               onClick={() => handleSearch()}
               onClose={() => handleClose()}
             />

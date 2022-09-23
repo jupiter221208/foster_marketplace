@@ -22,9 +22,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const Settings = props => {
-  const { viewport } = props
-
+const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
   const [tabList, setTabList] = useState(TabList)
 
@@ -69,11 +67,11 @@ const Settings = props => {
             <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20 overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
-            <div className="w-full">{selectedTab === 0 && <ProfileSection viewport={viewport} />}</div>
-            <div className="w-full">{selectedTab === 1 && <NotificationSection viewport={viewport} />}</div>
-            <div className="w-full">{selectedTab === 2 && <PermissionAndPrivacySection viewport={viewport} />}</div>
-            <div className="w-full">{selectedTab === 3 && <DiscoverySection viewport={viewport} />}</div>
-            <div className="w-full">{selectedTab === 4 && <SecuritySection viewport={viewport} />}</div>
+            <div className="w-full">{selectedTab === 0 && <ProfileSection />}</div>
+            <div className="w-full">{selectedTab === 1 && <NotificationSection />}</div>
+            <div className="w-full">{selectedTab === 2 && <PermissionAndPrivacySection />}</div>
+            <div className="w-full">{selectedTab === 3 && <DiscoverySection />}</div>
+            <div className="w-full">{selectedTab === 4 && <SecuritySection />}</div>
           </div>
         </div>
       </div>

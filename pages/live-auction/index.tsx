@@ -17,9 +17,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const LiveAuction = props => {
-  const { viewport } = props
-
+const LiveAuction = () => {
   return (
     <div className="g-container">
       <Head>
@@ -35,10 +33,10 @@ const LiveAuction = props => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="z-10">
-          <MainSection viewport={viewport} />
-          <MoreCollectionSection viewport={viewport} />
-          <MoreArtistSection viewport={viewport} />
-          <MoreCategorySection viewport={viewport} />
+          <MainSection />
+          <MoreCollectionSection />
+          <MoreArtistSection />
+          <MoreCategorySection />
         </div>
       </div>
     </div>

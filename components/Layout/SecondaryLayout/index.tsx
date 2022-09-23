@@ -11,6 +11,9 @@ import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
 import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
@@ -18,8 +21,8 @@ interface SecondaryLayoutProps {
   children?: any
 }
 
-const SecondaryLayout: FC<SecondaryLayoutProps> = props => {
-  const { viewport } = props.children.props
+const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
+  const viewport = useViewport()
 
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
@@ -28,17 +31,15 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = props => {
   return (
     <div className={styles.container}>
       <>
-        {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar viewport={viewport} />}
-        <PrimaryHeader viewport={viewport} />
-        <ConnectWalletModal viewport={viewport} />
+        {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />}
+        <PrimaryHeader />
+        <ConnectWalletModal />
         {/* <MobileMenu /> */}
         {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
-        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-          <MobileSearchBox viewport={viewport} />
-        )}
+        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
 
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
-          {props.children}
+          {children}
         </main>
       </>
     </div>

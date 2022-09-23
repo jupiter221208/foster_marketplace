@@ -11,11 +11,15 @@ import 'swiper/css/navigation'
 // components
 import StatsArtistCard from 'components/Card/StatsArtistCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
-const CollectionSection = props => {
-  const { viewport, list } = props
+const CollectionSection = () => {
+  const { list } = props
+  const viewport = useViewport()
 
   return (
     <section className={styles.container}>

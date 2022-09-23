@@ -16,6 +16,9 @@ import 'swiper/css/navigation'
 import OutlineButton from 'components/Button/OutlineButton'
 import CollectionCard from 'components/Card/CollectionCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import ExploreList from 'assets/json/explore/collection-explore-list.json'
 
@@ -25,8 +28,8 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const ExploreCollectionSection = props => {
-  const { viewport } = props
+const ExploreCollectionSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   return (
@@ -67,7 +70,6 @@ const ExploreCollectionSection = props => {
                 nfts={item.nfts}
                 icon={item.icon}
                 price={item.price}
-                viewport={viewport}
               />
             </SwiperSlide>
           ))}

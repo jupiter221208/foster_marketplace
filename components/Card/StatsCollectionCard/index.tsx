@@ -10,7 +10,7 @@ import { getPercentValue } from 'utils/strings'
 import styles from './index.module.scss'
 
 const StatsCollectionCard = props => {
-  const { viewport, data } = props
+  const { data } = props
 
   return (
     <div className={styles.container}>

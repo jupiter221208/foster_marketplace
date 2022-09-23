@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-// next components
-import { useRouter } from 'next/router'
-
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -12,12 +9,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
-import OutlineButton from 'components/Button/OutlineButton'
 import CollectionCard from 'components/Card/CollectionCard'
 
-// images and icons
-import FilterGreenIcon from 'assets/icons/filter-green.svg'
+// custom functions
+import { useViewport } from 'utils'
 
 // json
 import CollectionList from 'assets/json/artist-profile/collection-list.json'
@@ -25,9 +20,8 @@ import CollectionList from 'assets/json/artist-profile/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
-const CollectionSwiperSection = props => {
-  const { viewport } = props
-  const router = useRouter()
+const CollectionSwiperSection = () => {
+  const viewport = useViewport()
 
   const [collectionList, setCollectionList] = useState<any[]>([])
 
@@ -64,7 +58,7 @@ const CollectionSwiperSection = props => {
           {collectionList.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                {item.map((collectionItem: any, collectionIndex) => (
+                {item.map((collectionItem: any, collectionIndex: number) => (
                   <CollectionCard
                     image={collectionItem.image}
                     nftName={collectionItem.nftName}
@@ -74,7 +68,6 @@ const CollectionSwiperSection = props => {
                     nfts={collectionItem.nfts}
                     icon={collectionItem.icon}
                     price={collectionItem.price}
-                    viewport={viewport}
                     key={collectionIndex}
                   />
                 ))}

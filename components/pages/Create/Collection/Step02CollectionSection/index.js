@@ -16,6 +16,9 @@ import GradientButton from 'components/Button/GradientButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
@@ -27,7 +30,6 @@ import styles from './index.module.scss'
 
 const Step02CollectionSection = props => {
   const {
-    viewport,
     currentStep,
     onChangeCurrentStep,
     dimension,
@@ -37,6 +39,8 @@ const Step02CollectionSection = props => {
     onChangeCollectionName,
     onChangeCollectionDescription,
   } = props
+
+  const viewport = useViewport()
 
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenHeight, setScreenHeight] = useState(1080)
@@ -272,7 +276,6 @@ const Step02CollectionSection = props => {
                   <CollectionStepper
                     currentStep={currentStep}
                     // onChange={step => handleChangeCurrentStep(step)}
-                    viewport={viewport}
                   />
                 </div>
                 <div className="w-full">
@@ -516,7 +519,6 @@ const Step02CollectionSection = props => {
             <CollectionStepper
               currentStep={currentStep}
               // onChange={step => handleChangeCurrentStep(step)}
-              viewport={viewport}
             />
           </div>
           <div className={`${styles.title} w-full`}>Preview Art</div>

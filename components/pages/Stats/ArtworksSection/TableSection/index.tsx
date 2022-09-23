@@ -12,11 +12,15 @@ import 'swiper/css/navigation'
 import ArtworksTable from 'components/Table/Stats/ArtworksTable'
 import ArtworksAccordion from 'components/Accordion/Stats/ArtworksAccordion'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
-const TableSection = props => {
-  const { viewport, data } = props
+const TableSection = () => {
+  const { data } = props
+  const viewport = useViewport()
 
   const [list, setList] = useState<any[]>([])
 
@@ -49,7 +53,7 @@ const TableSection = props => {
           ? list.length !== 0 &&
             list.map((item, index) => (
               <SwiperSlide key={index}>
-                <ArtworksTable viewport={viewport} data={item} />
+                <ArtworksTable data={item} />
               </SwiperSlide>
             ))
           : list.length !== 0 &&

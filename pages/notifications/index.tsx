@@ -23,9 +23,7 @@ import SortGreenIcon from 'assets/icons/sort-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const Notifications = props => {
-  const { viewport } = props
-
+const Notifications = () => {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<any[]>([])
 
@@ -91,7 +89,7 @@ const Notifications = props => {
                 justifyContent="flex-start"
               />
             </div>
-            <NotificationsCard viewport={viewport} data={NotificationsList} />
+            <NotificationsCard data={NotificationsList} />
           </div>
           <NotificationsFilterCard
             filterList={filterList}

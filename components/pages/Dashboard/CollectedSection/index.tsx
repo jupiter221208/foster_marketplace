@@ -11,7 +11,7 @@ import NFTList from 'assets/json/artist-profile/nft-list.json'
 import styles from './index.module.scss'
 
 const CollectedSection = props => {
-  const { viewport, onClickItem } = props
+  const { onClickItem } = props
 
   const [nftList, setNFTList] = useState([])
 
@@ -21,7 +21,6 @@ const CollectedSection = props => {
         {nftList.map((item: any, index) => (
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <DashboardNFTCard
-              viewport={viewport}
               image={item.image}
               nftName={item.nftName}
               artistName={item.artistName}
@@ -33,7 +32,7 @@ const CollectedSection = props => {
         ))}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} viewport={viewport} />
+        <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />
       </div>
     </section>
   )

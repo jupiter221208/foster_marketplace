@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 
-// next components
-import { useRouter } from 'next/router'
-
 // components
 import Button from 'components/Button'
 import UpdateNFTCard from 'components/Card/UpdateNFTCard'
@@ -16,10 +13,7 @@ import CollectionList from 'assets/json/dashboard/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
-const HiddenSection = props => {
-  const { viewport } = props
-  const router = useRouter()
-
+const HiddenSection = () => {
   const [nftList, setNFTList] = useState([])
   const [collectionList, setCollectionList] = useState([])
 
@@ -50,7 +44,6 @@ const HiddenSection = props => {
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <UpdateNFTCard
-                viewport={viewport}
                 image={item.image}
                 nftName={item.nftName}
                 artistName={item.artistName}
@@ -72,16 +65,13 @@ const HiddenSection = props => {
                 artistName={item.artistName}
                 mintAddress={item.mintAddress}
                 price={item.price}
-                viewport={viewport}
               />
             </div>
           ))}
       </div>
       <div className="w-full flex justify-end">
-        {active === 0 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} viewport={viewport} />}
-        {active === 1 && (
-          <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} viewport={viewport} />
-        )}
+        {active === 0 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />}
+        {active === 1 && <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />}
       </div>
     </section>
   )

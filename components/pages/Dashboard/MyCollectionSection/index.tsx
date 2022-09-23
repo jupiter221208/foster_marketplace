@@ -10,9 +10,7 @@ import CollectionList from 'assets/json/dashboard/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
-const MyCollectionSection = props => {
-  const { viewport } = props
-
+const MyCollectionSection = () => {
   const [collectionList, setCollectionList] = useState([])
 
   return (
@@ -29,13 +27,12 @@ const MyCollectionSection = props => {
               nfts={item.nfts}
               icon={item.icon}
               price={item.price}
-              viewport={viewport}
             />
           </div>
         ))}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} viewport={viewport} />
+        <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />
       </div>
     </section>
   )

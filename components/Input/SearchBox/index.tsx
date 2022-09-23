@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
@@ -11,7 +14,9 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import styles from './index.module.scss'
 
 const SearchBox = props => {
-  const { value, placeholder, onChange, searchList, viewport = 'sm', onClick, onClose } = props
+  const { value, placeholder, onChange, searchList, onClick, onClose } = props
+  const viewport = useViewport()
+
   return (
     <div className={styles.container}>
       <input

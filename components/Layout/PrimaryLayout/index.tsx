@@ -4,6 +4,9 @@ import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // custom components
 import Navbar from 'components/Navbar'
 import MobileMenu from 'components/Menu/MobileMenu'
@@ -19,9 +22,8 @@ interface PrimaryLayoutProps {
   children?: any
 }
 
-const PrimaryLayout: FC<PrimaryLayoutProps> = props => {
-  const { viewport } = props.children.props
-
+const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
+  const viewport = useViewport()
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const { connected } = useWallet()
@@ -29,18 +31,16 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = props => {
   return (
     <div className={styles.container}>
       <>
-        {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar viewport={viewport} />}
-        <PrimaryHeader viewport={viewport} />
-        <ConnectWalletModal viewport={viewport} />
+        {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />}
+        <PrimaryHeader />
+        <ConnectWalletModal />
         {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
-        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && (
-          <MobileSearchBox viewport={viewport} />
-        )}
+        {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
 
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
-          {props.children}
+          {children}
         </main>
-        <PrimaryFooter viewport={viewport} />
+        <PrimaryFooter />
       </>
     </div>
   )

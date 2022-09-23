@@ -22,6 +22,9 @@ import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import IconButton from 'components/Button/IconButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
@@ -35,8 +38,9 @@ import CategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './single-nft.module.scss'
 
-const SingleNft = props => {
-  const { viewport } = props
+const SingleNft = () => {
+  const viewport = useViewport()
+
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenHeight, setScreenHeight] = useState(1080)
 
@@ -385,13 +389,11 @@ const SingleNft = props => {
                       <Stepper
                         currentStep={currentStep}
                         // onChange={step => handleChangeCurrentStep(step)}
-                        viewport={viewport}
                       />
                     </div>
                     {/* upload artwork part */}
                     {currentStep === 1 && (
                       <Step01SingleNFTSection
-                        viewport={viewport}
                         selectedDimension={selectedDimension}
                         setSelectedDimension={item => setSelectedDimension(item)}
                         setNftArt={item => setNftArt(item)}
@@ -399,7 +401,6 @@ const SingleNft = props => {
                     )}
                     {currentStep === 2 && (
                       <Step02SingleNFTSection
-                        viewport={viewport}
                         nftName={nftName}
                         setNftName={value => setNftName(value)}
                         description={description}
@@ -413,11 +414,12 @@ const SingleNft = props => {
                     )}
                     {currentStep === 3 && (
                       <Step03SingleNFTSection
-                        viewport={viewport}
                         royalties={royalties}
                         setRoyalties={value => setRoyalties(value)}
                         disabledNextButton={disabledNextButton}
-                        handleChangeCurrentStep={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
+                        handleChangeCurrentStep={() =>
+                          handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+                        }
                       />
                     )}
                     <div className="w-full h-32" />
@@ -464,7 +466,6 @@ const SingleNft = props => {
                 <Stepper
                   currentStep={currentStep}
                   // onChange={step => handleChangeCurrentStep(step)}
-                  viewport={viewport}
                 />
               </div>
               <div className={`${styles.title} w-full`}>Preview Art</div>
@@ -555,7 +556,6 @@ const SingleNft = props => {
               {/* upload artwork part */}
               {currentStep === 1 && (
                 <Step01SingleNFTSection
-                  viewport={viewport}
                   selectedDimension={selectedDimension}
                   setSelectedDimension={item => setSelectedDimension(item)}
                   setNftArt={item => setNftArt(item)}
@@ -564,7 +564,6 @@ const SingleNft = props => {
 
               {currentStep === 2 && (
                 <Step02SingleNFTSection
-                  viewport={viewport}
                   nftName={nftName}
                   setNftName={value => setNftName(value)}
                   description={description}
@@ -579,11 +578,12 @@ const SingleNft = props => {
 
               {currentStep === 3 && (
                 <Step03SingleNFTSection
-                  viewport={viewport}
                   royalties={royalties}
                   setRoyalties={value => setRoyalties(value)}
                   disabledNextButton={disabledNextButton}
-                  handleChangeCurrentStep={() => handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)}
+                  handleChangeCurrentStep={() =>
+                    handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+                  }
                 />
               )}
 
@@ -662,13 +662,7 @@ const SingleNft = props => {
             </div>
           )}
       {currentStep === 4 && (
-        <SuccessMintSingleNFTSection
-          viewport={viewport}
-          NFTType={NFTType}
-          nftArt={nftArt}
-          artWidth={artWidth}
-          artHeight={artHeight}
-        />
+        <SuccessMintSingleNFTSection NFTType={NFTType} nftArt={nftArt} artWidth={artWidth} artHeight={artHeight} />
       )}
     </div>
   )

@@ -8,9 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
-const SecuritySection = props => {
-  const { viewport } = props
-
+const SecuritySection = () => {
   const [quickBuy, setQuickBuy] = useState(false)
   const [makeAnOffer, setMakeAnOffer] = useState(true)
   const [cancelOffer, setCancelOffer] = useState(false)

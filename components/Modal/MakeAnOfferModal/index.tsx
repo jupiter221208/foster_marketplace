@@ -11,7 +11,7 @@ import GradientButton from 'components/Button/GradientButton'
 // json
 
 const MakeAnOfferModal = props => {
-  const { viewport, open, close, onClick } = props
+  const { open, close, onClick } = props
 
   const [listingPrice, setListingPrice] = useState<any>(189)
   const [minimumOffer, setMinimumOffer] = useState<any>(0)

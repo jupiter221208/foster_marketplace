@@ -9,7 +9,7 @@ import styles from './index.module.scss'
 // json
 
 const ProgressingModal = props => {
-  const { viewport, open } = props
+  const { open } = props
 
   return (
     <Transition appear show={open} as={Fragment}>

@@ -27,9 +27,7 @@ import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
 import styles from './index.module.scss'
 import { Url } from 'url'
 
-const MainSection = props => {
-  const { viewport } = props
-
+const MainSection = () => {
   const router = useRouter()
   const categoryList = [
     {
@@ -65,12 +63,7 @@ const MainSection = props => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
           <div className="col-span-6">
-            <BrowseArtistCard
-              image={AvatarImage}
-              collectionName="Collection Name"
-              artistName="Artist Name"
-              viewport={viewport}
-            />
+            <BrowseArtistCard image={AvatarImage} collectionName="Collection Name" artistName="Artist Name" />
 
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>

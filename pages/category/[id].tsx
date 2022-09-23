@@ -14,8 +14,8 @@ import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseS
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import FreshMintSection from 'components/pages/Home/FreshMintSection'
 
-// images and icons
-import CategoryImage from 'assets/images/category.png'
+// custom functions
+import { useViewport } from 'utils'
 
 // json
 import PopularCategoryList from 'assets/json/popular-category.json'
@@ -24,8 +24,8 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 
-const Category = props => {
-  const { viewport } = props
+const Category = () => {
+  const viewport = useViewport()
   const router = useRouter()
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
@@ -75,12 +75,12 @@ const Category = props => {
 
           <div className={styles.title}>{categoryInfo.name}</div>
         </div>
-        <TrendingCollectionSection viewport={viewport} />
-        <MostPopularSection viewport={viewport} />
-        <MarketplaceReleaseSection viewport={viewport} />
-        <LiveAuctionSection viewport={viewport} />
-        <FreshMintSection viewport={viewport} />
-        <PopularCategorySection viewport={viewport} type="category" />
+        <TrendingCollectionSection />
+        <MostPopularSection />
+        <MarketplaceReleaseSection />
+        <LiveAuctionSection />
+        <FreshMintSection />
+        <PopularCategorySection type="category" />
       </div>
     </div>
   )

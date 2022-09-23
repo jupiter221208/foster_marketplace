@@ -26,7 +26,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import LogoGray from 'assets/icons/logo-gray.svg'
 
 const Chart = props => {
-  const { viewport, list } = props
+  const { list } = props
 
   const myChartRef = useRef<any>()
 
@@ -115,7 +115,14 @@ const Chart = props => {
 
   return (
     <div className="w-full flex relative">
-      <Line ref={myChartRef} options={(lineOptions as any)} data={(data as any)} height="350px" width="1500px" className="z-10" />
+      <Line
+        ref={myChartRef}
+        options={lineOptions as any}
+        data={data as any}
+        height="350px"
+        width="1500px"
+        className="z-10"
+      />
       <div className="absolute inset-1/2 -mt-[130px] -ml-[112px] w-[224px] h-[258px] z-0">
         <Image src={LogoGray} alt="" width={224} height={258} />
       </div>

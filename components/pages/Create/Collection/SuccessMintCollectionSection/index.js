@@ -13,6 +13,9 @@ import LinkTextButton from 'components/Button/LinkTextButton'
 import TweetMintButton from 'components/Button/TweetMintButton'
 import MintOutlineButton from 'components/Button/MintOutlineButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
@@ -21,7 +24,10 @@ import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.sv
 import styles from './index.module.scss'
 
 const SuccessMintCollectionSection = props => {
-  const { viewport, collectionArt, coverImage, banner } = props
+  const { collectionArt, coverImage, banner } = props
+
+  const viewport = useViewport()
+
   const [screenWidth, setScreenWidth] = useState(1920)
 
   useEffect(() => {

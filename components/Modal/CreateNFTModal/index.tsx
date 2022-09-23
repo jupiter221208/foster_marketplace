@@ -11,6 +11,9 @@ import { useRouter } from 'next/router'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
 import AddGrayIcon from 'assets/icons/add-gray.svg'
@@ -20,7 +23,8 @@ import AddWhiteIcon from 'assets/icons/add-white.svg'
 import styles from './index.module.scss'
 
 const CreateNFTModal = props => {
-  const { viewport, open, close } = props
+  const { open, close } = props
+  const viewport = useViewport()
   const router = useRouter()
 
   const closeModal = () => {

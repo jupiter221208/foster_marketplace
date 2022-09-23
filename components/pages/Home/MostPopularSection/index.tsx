@@ -17,6 +17,9 @@ import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
@@ -26,8 +29,8 @@ import MostPopularList from 'assets/json/most-popular.json'
 // styles
 import styles from './index.module.scss'
 
-const MostPopularSection = props => {
-  const { viewport } = props
+const MostPopularSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [mostPopularList, setMostPopularList] = useState<any[]>([])
@@ -107,7 +110,6 @@ const MostPopularSection = props => {
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 <NFTCard
-                  viewport={viewport}
                   image={item.image}
                   nftName={item.nftName}
                   artistName={item.artistName}

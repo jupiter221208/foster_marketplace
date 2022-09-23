@@ -3,11 +3,15 @@ import React, { Fragment } from 'react'
 // third party component
 import { Tab as HTab } from '@headlessui/react'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
 const Tab = props => {
-  const { tabList, onChange, viewport } = props
+  const { tabList, onChange } = props
+  const viewport = useViewport()
 
   return (
     <HTab.Group>

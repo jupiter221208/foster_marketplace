@@ -6,17 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 // custom components
 import SearchBox from 'components/Input/SearchBox'
 
-// images and icons
-
 // json
 import SearchList from 'assets/json/search-list.json'
 
 // styles
 import styles from './index.module.scss'
 
-const MobileSearchBox = props => {
-  const { viewport } = props
-
+const MobileSearchBox = () => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const dispatch = useDispatch()
 
@@ -65,7 +61,6 @@ const MobileSearchBox = props => {
         placeholder="Search by NFT, Collection, or Artist"
         onChange={value => setSearchKeyword(value)}
         searchList={searchList}
-        viewport={viewport}
         onClick={() => handleClick()}
         onClose={() => handleClose()}
       />

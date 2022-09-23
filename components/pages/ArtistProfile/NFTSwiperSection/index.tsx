@@ -16,6 +16,9 @@ import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import FilterGreenIcon from 'assets/icons/filter-green.svg'
 
@@ -25,8 +28,8 @@ import NFTList from 'assets/json/artist-profile/nft-list.json'
 // styles
 import styles from './index.module.scss'
 
-const NFTSwiperSection = props => {
-  const { viewport } = props
+const NFTSwiperSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [nftList, setNFTList] = useState<any[]>([])
@@ -142,7 +145,6 @@ const NFTSwiperSection = props => {
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 {item.map((nftItem: any, nftIndex) => (
                   <NFTCard
-                    viewport={viewport}
                     image={nftItem.image}
                     nftName={nftItem.nftName}
                     artistName={nftItem.artistName}

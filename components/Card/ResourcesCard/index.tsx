@@ -7,7 +7,7 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 
 const ResourcesCard = props => {
-  const { viewport, data, onClick } = props
+  const { data, onClick } = props
 
   return (
     <div

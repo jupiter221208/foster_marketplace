@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react'
 import IconButton from 'components/Button/IconButton'
 import Accordion from 'components/Accordion'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import ArrowLeftIcon from 'assets/icons/arrow-left-white.svg'
 import ArrowRightIcon from 'assets/icons/arrow-right-white.svg'
@@ -15,7 +18,8 @@ import RowCountList from 'assets/json/dashboard/row-count-list.json'
 import styles from './index.module.scss'
 
 const Pagination = props => {
-  const { data, getCurrentData, viewport } = props
+  const { data, getCurrentData } = props
+  const viewport = useViewport()
 
   const [rowCount, setRowCount] = useState(12)
   const [totalCount, setTotalCount] = useState(0)

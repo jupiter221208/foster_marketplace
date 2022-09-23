@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
 import { calculateTimeLeft } from 'utils/helpers'
 
 // images and icons
@@ -13,7 +15,8 @@ import styles from './index.module.scss'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const LiveAuctionCard = props => {
-  const { image, nftName, artistName, count, endsIn, viewport, onClick } = props
+  const { image, nftName, artistName, count, endsIn, onClick } = props
+  const viewport = useViewport()
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endsIn))
 
   useEffect(() => {
@@ -62,7 +65,9 @@ const LiveAuctionCard = props => {
 
           <div className="mt-[0px] lg:mt-[0px]">
             <div className={styles.endsIn}>Ends in</div>
-            <div className={styles.endTime}><>{timeLeft}</></div>
+            <div className={styles.endTime}>
+              <>{timeLeft}</>
+            </div>
           </div>
         </div>
       </div>

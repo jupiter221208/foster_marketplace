@@ -15,14 +15,17 @@ import 'swiper/css/navigation'
 import OutlineButton from 'components/Button/OutlineButton'
 import CollectionCard from 'components/Card/CollectionCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import MoreArtistList from 'assets/json/explore/collection-explore-list.json'
 
 // styles
 import styles from './index.module.scss'
 
-const MoreArtistSection = props => {
-  const { viewport } = props
+const MoreArtistSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   return (
@@ -61,7 +64,6 @@ const MoreArtistSection = props => {
                   nfts={item.nfts}
                   icon={item.icon}
                   price={item.price}
-                  viewport={viewport}
                 />
               </div>
             </SwiperSlide>

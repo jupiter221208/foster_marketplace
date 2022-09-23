@@ -8,8 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 import styles from './index.module.scss'
 
 const SearchSection = props => {
-  const { viewport, searchWord, setSearchWord, list, getList } = props
-  // const [searchWord, setSearchWord] = useState('')
+  const { searchWord, setSearchWord, list, getList } = props
 
   const [searchList, setSearchList] = useState(list)
 

@@ -12,11 +12,15 @@ import 'swiper/css/navigation'
 import CreatorsTable from 'components/Table/Stats/CreatorsTable'
 import CreatorsAccordion from 'components/Accordion/Stats/CreatorsAccordion'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
 const TableSection = props => {
-  const { viewport, data } = props
+  const { data } = props
+  const viewport = useViewport()
 
   const [list, setList] = useState<any[]>([])
 
@@ -49,7 +53,7 @@ const TableSection = props => {
           ? list.length !== 0 &&
             list.map((item, index) => (
               <SwiperSlide key={index}>
-                <CreatorsTable viewport={viewport} data={item} />
+                <CreatorsTable data={item} />
               </SwiperSlide>
             ))
           : list.length !== 0 &&

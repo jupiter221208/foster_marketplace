@@ -12,7 +12,7 @@ import TrendingIcon from 'assets/icons/stats-trending.svg'
 import styles from './index.module.scss'
 
 const StatsMarketplaceCard = props => {
-  const { viewport, data, index } = props
+  const { data, index } = props
 
   return (
     <div className={styles.container}>

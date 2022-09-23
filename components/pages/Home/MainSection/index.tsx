@@ -19,6 +19,9 @@ import OutlineButton from 'components/Button/OutlineButton'
 import HeroCard from 'components/Card/HeroCard'
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import HeroGreenIcon from 'assets/icons/hero-green.svg'
@@ -28,8 +31,8 @@ import HeroList from 'assets/json/hero.json'
 // styles
 import styles from './index.module.scss'
 
-const MainSection = props => {
-  const { viewport } = props
+const MainSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -123,7 +126,6 @@ const MainSection = props => {
                     collectionName={item.collectionName}
                     avatar={item.avatar}
                     artistName={item.artistName}
-                    viewport={viewport}
                   />
                 </SwiperSlide>
               ))}
@@ -148,7 +150,7 @@ const MainSection = props => {
           <></>
         )}
       </div>
-      <CreateNFTModal viewport={viewport} open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
+      <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
   )
 }

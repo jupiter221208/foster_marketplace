@@ -18,9 +18,7 @@ import TabList from 'assets/json/dashboard/tab-list.json'
 import styles from './index.module.scss'
 import DetailCollectedSection from '../DetailCollectedSection'
 
-const TabSection = props => {
-  const { viewport } = props
-
+const TabSection = () => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [detailCollection, setDetailCollection] = useState<boolean>(false)
@@ -47,21 +45,21 @@ const TabSection = props => {
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-center z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-auto">
-        <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} viewport={viewport} />
+        <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <MyNFTSection viewport={viewport} />
+          <MyNFTSection />
         </div>
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
-          <ListedNFTSection viewport={viewport} />
+          <ListedNFTSection />
         </div>
       )}
       {activeTab === 2 && (
         <div className="w-full flex flex-wrap">
-          <ActivitySection viewport={viewport} />
+          <ActivitySection />
         </div>
       )}
       {activeTab === 3 && (
@@ -78,31 +76,31 @@ const TabSection = props => {
                   Return
                 </div>
               </div>
-              <DetailCollectedSection viewport={viewport}></DetailCollectedSection>
+              <DetailCollectedSection></DetailCollectedSection>
             </div>
           ) : (
-            <CollectedSection viewport={viewport} onClickItem={() => setDetailCollection(true)} />
+            <CollectedSection onClickItem={() => setDetailCollection(true)} />
           )}
         </div>
       )}
       {activeTab === 4 && (
         <div className="w-full flex flex-wrap">
-          <MyCollectionSection viewport={viewport} />
+          <MyCollectionSection />
         </div>
       )}
       {activeTab === 5 && (
         <div className="w-full flex flex-wrap">
-          <FavoriteSection viewport={viewport} />
+          <FavoriteSection />
         </div>
       )}
       {activeTab === 6 && (
         <div className="w-full flex flex-wrap">
-          <HiddenSection viewport={viewport} />
+          <HiddenSection />
         </div>
       )}
       {activeTab === 7 && (
         <div className="w-full flex flex-wrap">
-          <OfferSection viewport={viewport} />
+          <OfferSection />
         </div>
       )}
     </div>

@@ -15,11 +15,14 @@ import 'swiper/css/navigation'
 import ActivityTable from 'components/Table/ActivityTable'
 import ActivityAccordion from 'components/Accordion/ActivityAccordion'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import ActivityList from 'assets/json/browse-collection/activity-list.json'
 
-const ActivitySection = props => {
-  const { viewport } = props
+const ActivitySection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [activityList, setActivityList] = useState<any[]>([])
@@ -54,13 +57,13 @@ const ActivitySection = props => {
             ? activityList.length !== 0 &&
               activityList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <ActivityTable data={item} viewport={viewport} />
+                  <ActivityTable data={item} />
                 </SwiperSlide>
               ))
             : activityList.length !== 0 &&
               activityList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <ActivityAccordion data={item} viewport={viewport} />
+                  <ActivityAccordion data={item} />
                 </SwiperSlide>
               ))}
         </Swiper>

@@ -6,6 +6,9 @@ import Image from 'next/image'
 // custom components
 import GradientButton from 'components/Button/GradientButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
@@ -13,7 +16,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const UpdateNFTCard = props => {
-  const { viewport, image, nftName, artistName, price, showCount = true, onClick } = props
+  const { image, nftName, artistName, price, showCount = true, onClick } = props
+  const viewport = useViewport()
 
   const [mouseOver, setMouseOver] = useState(false)
 

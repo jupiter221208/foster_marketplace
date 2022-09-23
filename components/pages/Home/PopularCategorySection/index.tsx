@@ -15,6 +15,9 @@ import 'swiper/css/navigation'
 import OutlineButton from 'components/Button/OutlineButton'
 import CategoryCard from 'components/Card/CategoryCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import PopularCategoryList from 'assets/json/popular-category.json'
 
@@ -22,7 +25,8 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const PopularCategorySection = props => {
-  const { type, viewport } = props
+  const { type } = props
+  const viewport = useViewport()
   const router = useRouter()
   const [categoryList, setCategoryList] = useState<any[]>([])
 
@@ -62,7 +66,6 @@ const PopularCategorySection = props => {
           {categoryList.map((item: any, index) => (
             <SwiperSlide key={index}>
               <CategoryCard
-                viewport={viewport}
                 image={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? item.mobile : item.image}
                 name={item.name}
                 type={item.type}

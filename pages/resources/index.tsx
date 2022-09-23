@@ -21,9 +21,7 @@ import QAList from 'assets/json/resources/qa-list.json'
 // styles
 import styles from './index.module.scss'
 
-const Resources = props => {
-  const { viewport } = props
-
+const Resources = () => {
   const [selectedCard, setSelectedCard] = useState(0)
   const [title, setTitle] = useState('')
   const [searchList, setSearchList] = useState(QAList[0])
@@ -93,14 +91,13 @@ const Resources = props => {
               value={searchKeyword}
               placeholder="Search by keywords"
               onChange={value => setSearchKeyword(value)}
-              viewport={viewport}
             />
           </div>
           <div className="w-full flex flex-wrap gap-[20px] mt-[31px]">
             <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
               {ResourcesCardList.map((item, index) => (
                 <div key={index} className="w-full">
-                  <ResourcesCard data={item} viewport={viewport} onClick={id => setSelectedCard(id)} />
+                  <ResourcesCard data={item} onClick={id => setSelectedCard(id)} />
                 </div>
               ))}
             </div>
@@ -122,11 +119,7 @@ const Resources = props => {
                   <ResourcesAccordion data={content} onClick={type => handleClickAccordion(type)} />
                 </div>
                 <div className="w-full flex justify-end">
-                  <Pagination
-                    data={searchList.content}
-                    getCurrentData={data => handleGetCurrentData(data)}
-                    viewport={viewport}
-                  />
+                  <Pagination data={searchList.content} getCurrentData={data => handleGetCurrentData(data)} />
                 </div>
               </div>
             </div>

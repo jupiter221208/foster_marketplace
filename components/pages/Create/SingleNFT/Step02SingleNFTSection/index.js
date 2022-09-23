@@ -10,6 +10,9 @@ import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import CategoryList from 'assets/json/popular-category.json'
 
@@ -18,7 +21,6 @@ import styles from './index.module.scss'
 
 const Step02SingleNFTSection = props => {
   const {
-    viewport,
     nftName,
     setNftName,
     description,
@@ -29,6 +31,8 @@ const Step02SingleNFTSection = props => {
     handleSelectCategory,
     handleCancelCategory,
   } = props
+
+  const viewport = useViewport()
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">

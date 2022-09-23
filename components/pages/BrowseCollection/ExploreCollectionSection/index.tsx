@@ -68,7 +68,6 @@ const ExploreCollectionSection = props => {
                 nfts={item.nfts}
                 avatar={item.avatar}
                 price={item.price}
-                viewport={viewport}
               />
             </SwiperSlide>
           ))}

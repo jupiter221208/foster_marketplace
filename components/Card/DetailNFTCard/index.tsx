@@ -7,7 +7,7 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 
 const DetailNFTCard = props => {
-  const { viewport, image, nftName, artistName, onClick } = props
+  const { image, nftName, artistName, onClick } = props
 
   return (
     <div className={styles.container} onClick={() => onClick()}>

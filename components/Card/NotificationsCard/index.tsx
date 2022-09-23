@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // components
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
@@ -11,7 +14,8 @@ import OutlineButton from 'components/Button/OutlineButton'
 import styles from './index.module.scss'
 
 const NotificationsCard = props => {
-  const { viewport, data } = props
+  const { data } = props
+  const viewport = useViewport()
 
   const [list, setList] = useState<any[]>([])
 
@@ -64,13 +68,7 @@ const NotificationsCard = props => {
                   <div>
                     <div className="flex-1 min-w-[56px]">
                       {elem.status === '' && (
-                        <Image
-                          src={elem.image}
-                          alt=""
-                          width={56}
-                          height={56}
-                          className="border-[15px]"
-                        />
+                        <Image src={elem.image} alt="" width={56} height={56} className="border-[15px]" />
                       )}
                     </div>
                     {elem.status === 'Follow' && (

@@ -17,8 +17,7 @@ import { getTokensByAccount } from 'utils/wallet.util'
 // styles
 import styles from './index.module.scss'
 
-const MyNFTSection = props => {
-  const { viewport } = props
+const MyNFTSection = () => {
   const { connection } = useEnvironment()
   const { publicKey } = useWallet()
 
@@ -73,7 +72,6 @@ const MyNFTSection = props => {
         {nftList.map((item, index) => (
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <MyNFTCard
-              viewport={viewport}
               data={item}
               onClickStartAuction={item => handleStartAuction(item)}
               onClickListNFT={item => handleListNFT(item)}
@@ -82,22 +80,16 @@ const MyNFTSection = props => {
         ))}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} viewport={viewport} />
+        <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} />
       </div>
       <StartAuctionModal
-        viewport={viewport}
         data={selectedData}
         open={showStartAuctionModal}
         onClose={() => setShowStartAuctionModal(false)}
         onClick={() => handleProgressAuction()}
       />
-      {openProgressingModal && <ProgressingModal viewport={viewport} open={openProgressingModal} />}
-      <ListNFTModal
-        viewport={viewport}
-        data={selectedData}
-        open={showListNFTModal}
-        onClose={() => setShowListNFTModal(false)}
-      />
+      {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
+      <ListNFTModal data={selectedData} open={showListNFTModal} onClose={() => setShowListNFTModal(false)} />
     </section>
   )
 }

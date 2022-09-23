@@ -12,12 +12,11 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
-// images and icons
-import FilterGreenIcon from 'assets/icons/filter-green.svg'
+// custom functions
+import { useViewport } from 'utils'
 
 // json
 import NFTList from 'assets/json/browse-collection/nft-list.json'
@@ -25,13 +24,11 @@ import NFTList from 'assets/json/browse-collection/nft-list.json'
 // styles
 import styles from './index.module.scss'
 
-const NFTSwiperSection = props => {
-  const { viewport } = props
+const NFTSwiperSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [nftList, setNFTList] = useState<any[]>([])
-
-  const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
     let newList: any[] = []
@@ -46,36 +43,6 @@ const NFTSwiperSection = props => {
     if (tempItem.length > 0) newList.push(tempItem)
     setNFTList(newList)
   }, [])
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    let newList: any[] = []
-    let tempItem: any[] = []
-    NFTList.map((item, index) => {
-      tempItem.push(item)
-      if (index % 2 === 1) {
-        newList.push(tempItem)
-        tempItem = []
-      }
-    })
-    if (tempItem.length > 0) newList.push(tempItem)
-
-    switch (value) {
-      case 0:
-        setNFTList(newList.slice(0, 4))
-        break
-      case 1:
-        setNFTList(newList.slice(0, 5))
-        break
-      case 2:
-        setNFTList(newList.slice(0, 6))
-        break
-      default:
-        setNFTList(newList)
-        break
-    }
-  }
 
   return (
     <section className={styles.container}>
@@ -98,7 +65,6 @@ const NFTSwiperSection = props => {
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 {item.map((nftItem, nftIndex) => (
                   <NFTCard
-                    viewport={viewport}
                     image={nftItem.image}
                     nftName={nftItem.nftName}
                     artistName={nftItem.artistName}

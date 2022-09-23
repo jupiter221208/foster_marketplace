@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -11,7 +14,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const EcosystemCard = props => {
-  const { image, avatar, artistName, nfts, followers, collections, floor, viewport } = props
+  const { image, avatar, artistName, nfts, followers, collections, floor } = props
+  const viewport = useViewport()
 
   return (
     <div className={styles.container}>

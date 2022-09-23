@@ -1,8 +1,5 @@
 import Head from 'next/head'
 
-// third party components
-import { useDispatch } from 'react-redux'
-
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/Home/MainSection'
@@ -15,11 +12,7 @@ import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionS
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
 
-const Home = props => {
-  const { viewport } = props
-  const dispatch = useDispatch()
-  dispatch({ type: 'set', viewport: viewport })
-
+const Home = () => {
   return (
     <div className="g-container">
       <Head>
@@ -28,15 +21,15 @@ const Home = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
 
-      <MainSection viewport={viewport} />
-      <PopularCategorySection viewport={viewport} type="home" />
-      <TrendingArtistSection viewport={viewport} />
-      <TrendingCollectionSection viewport={viewport} />
-      <MostPopularSection viewport={viewport} />
-      <MarketplaceReleaseSection viewport={viewport} />
-      <FreshMintSection viewport={viewport} />
-      <LiveAuctionSection viewport={viewport} />
-      <CreateSellNFTSection viewport={viewport} />
+      <MainSection />
+      <PopularCategorySection type="home" />
+      <TrendingArtistSection />
+      <TrendingCollectionSection />
+      <MostPopularSection />
+      <MarketplaceReleaseSection />
+      <FreshMintSection />
+      <LiveAuctionSection />
+      <CreateSellNFTSection />
     </div>
   )
 }

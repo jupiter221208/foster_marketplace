@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
@@ -10,7 +13,8 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import styles from './index.module.scss'
 
 const ProfileArtistCard = props => {
-  const { image, name, viewport } = props
+  const { image, name } = props
+  const viewport = useViewport()
 
   return (
     <div className={styles.container}>

@@ -17,8 +17,8 @@ import OutlineButton from 'components/Button/OutlineButton'
 import Button from 'components/Button'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
+// custom functions
+import { useViewport } from 'utils'
 
 // json
 import LiveAuctionList from 'assets/json/live-auction.json'
@@ -26,8 +26,8 @@ import LiveAuctionList from 'assets/json/live-auction.json'
 // styles
 import styles from './index.module.scss'
 
-const LiveAuctionSection = props => {
-  const { viewport } = props
+const LiveAuctionSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
@@ -109,7 +109,6 @@ const LiveAuctionSection = props => {
                 artistName={item.artistName}
                 count={item.count}
                 endsIn={item.endsIn}
-                viewport={viewport}
                 onClick={() => router.push('/live-auction')}
                 key={index}
               />

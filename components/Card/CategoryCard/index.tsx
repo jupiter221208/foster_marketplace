@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
@@ -10,7 +13,9 @@ import styles from './index.module.scss'
 import LogoGrayIcon from 'assets/icons/logo-gray.svg'
 
 const CategoryCard = props => {
-  const { viewport, image, name, type = 'image', nfts, collections, onClick } = props
+  const { image, name, type = 'image', nfts, collections, onClick } = props
+  const viewport = useViewport()
+
   return (
     <div className={styles.container} onClick={() => onClick()}>
       {type === 'image' ? (

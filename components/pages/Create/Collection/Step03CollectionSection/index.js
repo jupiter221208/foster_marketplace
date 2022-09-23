@@ -14,6 +14,9 @@ import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 import CollectionFilesModal from 'components/Modal/CollectionFilesModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
@@ -24,7 +27,6 @@ import styles from './index.module.scss'
 
 const Step03CollectionSection = props => {
   const {
-    viewport,
     currentStep,
     onChangeCurrentStep,
     coverImage,
@@ -34,6 +36,7 @@ const Step03CollectionSection = props => {
     royalties,
     onChangeRoyalties,
   } = props
+  const viewport = useViewport()
 
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -183,7 +186,6 @@ const Step03CollectionSection = props => {
                   <CollectionStepper
                     currentStep={currentStep}
                     // onChange={step => handleChangeCurrentStep(step)}
-                    viewport={viewport}
                   />
                 </div>
                 <div className="w-full">
@@ -255,7 +257,6 @@ const Step03CollectionSection = props => {
             <CollectionStepper
               currentStep={currentStep}
               // onChange={step => handleChangeCurrentStep(step)}
-              viewport={viewport}
             />
           </div>
           <div className={`${styles.title} w-full`}>Preview Collection</div>

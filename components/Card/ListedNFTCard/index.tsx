@@ -6,6 +6,9 @@ import Image from 'next/image'
 // custom components
 import GradientButton from 'components/Button/GradientButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
@@ -13,7 +16,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const ListedNFTCard = props => {
-  const { viewport, data, onClick } = props
+  const { data, onClick } = props
+  const viewport = useViewport()
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>

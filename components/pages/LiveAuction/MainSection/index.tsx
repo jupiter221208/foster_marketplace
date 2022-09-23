@@ -32,6 +32,9 @@ import OutlineButton from 'components/Button/OutlineButton'
 import AuctionCard from 'components/Card/AuctionCard'
 import PlaceBidModal from 'components/Modal/PlaceBidModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import Avatar from 'assets/images/live-auction.png'
 import SolanaAuctionIcon from 'assets/icons/solana-auction.svg'
@@ -56,8 +59,8 @@ import ActivityList from 'assets/json/browse-nft/activity-list.json'
 import styles from './index.module.scss'
 import Select from 'components/Select'
 
-const MainSection = props => {
-  const { viewport } = props
+const MainSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const buttonRefs = useRef<any>([])
@@ -315,7 +318,7 @@ const MainSection = props => {
                             <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
                           </div>
                           <div className="flex flex-1">
-                            <Line options={(options as any)} data={data} height="100px" width="150px" />
+                            <Line options={options as any} data={data} height="100px" width="150px" />
                           </div>
                         </div>
                       </Disclosure.Panel>
@@ -459,7 +462,7 @@ const MainSection = props => {
           </div>
         </div>
       </div>
-      <PlaceBidModal viewport={viewport} open={showPlaceBidModal} onClose={() => setShowPlaceBidModal(false)} />
+      <PlaceBidModal open={showPlaceBidModal} onClose={() => setShowPlaceBidModal(false)} />
     </div>
   )
 }

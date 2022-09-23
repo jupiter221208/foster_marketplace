@@ -18,7 +18,7 @@ import CloseIcon from 'assets/icons/close-wallet.svg'
 import styles from './index.module.scss'
 
 const UpdateNFTModal = props => {
-  const { viewport, data, open, onClose } = props
+  const { data, open, onClose } = props
 
   const closeModal = () => {
     onClose()

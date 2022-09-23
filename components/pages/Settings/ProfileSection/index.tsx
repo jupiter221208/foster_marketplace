@@ -16,6 +16,9 @@ import CopyWalletInput from 'components/Input/CopyWalletInput'
 import GradientButton from 'components/Button/GradientButton'
 import Alert from 'components/Alert'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import Avatar from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
@@ -29,14 +32,14 @@ import ViewGreenIcon from 'assets/icons/view-green.svg'
 import styles from './index.module.scss'
 import { PublicKey } from '@solana/web3.js'
 
-const ProfileSection = props => {
-  const { viewport } = props
+const ProfileSection = () => {
+  const viewport = useViewport()
 
   const inputFile = useRef<any>(null)
   const [avatar, setAvatar] = useState<any>(Avatar)
 
   const { publicKey } = useWallet()
-  const shortAddress = useMemo(() => getShortAddress(publicKey || '' as unknown as PublicKey), [publicKey])
+  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
@@ -193,7 +196,6 @@ const ProfileSection = props => {
       </div>
       {showAlert && (
         <Alert
-          viewport={viewport}
           open={showAlert}
           close={() => {
             setShowAlert(false)

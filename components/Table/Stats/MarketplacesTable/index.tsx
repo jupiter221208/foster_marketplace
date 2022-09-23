@@ -4,6 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import ThreeDotWhiteIcon from 'assets/icons/three-dot-white.svg'
@@ -15,7 +18,8 @@ import { getPercentValue } from 'utils/strings'
 import styles from './index.module.scss'
 
 const MarketplacesTable = props => {
-  const { data, viewport } = props
+  const { data } = props
+  const viewport = useViewport()
 
   const router = useRouter()
 

@@ -3,11 +3,14 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import CompleteStepGreenIcon from 'assets/icons/complete-step-green.svg'
 
-const CompleteStepCirce = props => {
-  const { viewport } = props
+const CompleteStepCirce = () => {
+  const viewport = useViewport()
 
   return (
     <Image

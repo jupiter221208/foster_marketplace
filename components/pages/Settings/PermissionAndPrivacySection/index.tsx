@@ -8,9 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
-const PermissionAndPrivacySection = props => {
-  const { viewport } = props
-
+const PermissionAndPrivacySection = () => {
   const [userInteractionVisibility, setUserInteractionVisibility] = useState(false)
   const [viewPermissions, setViewPermissions] = useState(true)
   const [unlistedNFTPermissions, setUnlishtedNFTPermissions] = useState(false)

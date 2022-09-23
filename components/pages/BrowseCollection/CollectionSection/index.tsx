@@ -13,9 +13,7 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 // styles
 import styles from './index.module.scss'
 
-const CollectionSection = props => {
-  const { viewport } = props
-
+const CollectionSection = () => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   useEffect(() => {
@@ -43,17 +41,17 @@ const CollectionSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <NFTSwiperSection viewport={viewport} />
+          <NFTSwiperSection />
         </div>
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
-          <ActivitySection viewport={viewport} />
+          <ActivitySection />
         </div>
       )}
       {/* <div className="w-full flex z-0"> */}
-      <OtherCollectionSection viewport={viewport} />
-      <ExploreCollectionSection viewport={viewport} />
+      <OtherCollectionSection />
+      <ExploreCollectionSection />
       {/* </div> */}
     </div>
   )

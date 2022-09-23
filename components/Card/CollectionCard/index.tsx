@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 // custom functions
 import { getShortAddress } from 'utils/strings'
+import { useViewport } from 'utils'
 
 // custom components
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
@@ -16,7 +17,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, mintAddress = '', price, viewport } = props
+  const { image, nftName, category, artistName, mintAddress = '', price } = props
+  const viewport = useViewport()
 
   return (
     <div className={styles.container}>

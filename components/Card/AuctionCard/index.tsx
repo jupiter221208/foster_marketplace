@@ -9,8 +9,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 
-const AuctionCard = props => {
-  const { viewport } = props
+const AuctionCard = () => {
   const [now, setNow] = useState(0)
   const [displayEndTime, setDisplayEndTime] = useState({
     days: '',
@@ -26,7 +25,7 @@ const AuctionCard = props => {
   useEffect(() => {
     let count = 0
     const auctionEndTime = new Date('2022-10-10')
-    if (auctionEndTime !== 0 as unknown as Date && now !== 0) {
+    if (auctionEndTime !== (0 as unknown as Date) && now !== 0) {
       setInterval(() => {
         let obj: any = {}
         var delta = Math.abs(auctionEndTime.getTime() - now - count * 1000) / 1000

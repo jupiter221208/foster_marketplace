@@ -11,11 +11,15 @@ import 'swiper/css/navigation'
 // components
 import StatsMarketplaceCard from 'components/Card/StatsMarketplaceCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
 const CollectionSection = props => {
-  const { viewport, list } = props
+  const { list } = props
+  const viewport = useViewport()
 
   return (
     <section className={styles.container}>
@@ -37,7 +41,7 @@ const CollectionSection = props => {
         >
           {list.map((item, index) => (
             <SwiperSlide key={index}>
-              <StatsMarketplaceCard index={index} data={item} viewport={viewport} />
+              <StatsMarketplaceCard index={index} data={item} />
             </SwiperSlide>
           ))}
         </Swiper>

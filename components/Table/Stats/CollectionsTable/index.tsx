@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 // functions
 import { getPercentValue } from 'utils/strings'
+import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -13,7 +14,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const CollectionsTable = props => {
-  const { data, viewport } = props
+  const { data } = props
+  const viewport = useViewport()
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">

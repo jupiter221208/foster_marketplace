@@ -1,7 +1,6 @@
 import { createStore } from 'redux'
 
 const initialState = {
-  viewport: 'lg',
   expired: false,
   openMobileMenu: false,
   openMobileSearchBox: false,

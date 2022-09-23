@@ -8,6 +8,9 @@ import { useRouter } from 'next/router'
 import IconButton from 'components/Button/IconButton'
 import Subscriber from 'components/Input/Subscriber'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
@@ -20,8 +23,8 @@ import MediumLightGreenIcon from 'assets/icons/medium-light-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const PrimaryFooter = props => {
-  const { viewport } = props
+const PrimaryFooter = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [email, setEmail] = useState('')

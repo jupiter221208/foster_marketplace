@@ -18,8 +18,7 @@ import CollectionList from 'assets/json/dashboard/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
-const FavoriteSection = props => {
-  const { viewport } = props
+const FavoriteSection = () => {
   const router = useRouter()
 
   const [artistList, setArtistList] = useState([])
@@ -66,7 +65,6 @@ const FavoriteSection = props => {
                 followers={item.followers}
                 collections={item.collections}
                 floor={item.floor}
-                viewport={viewport}
               />
             </div>
           ))}
@@ -74,7 +72,6 @@ const FavoriteSection = props => {
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <NFTCard
-                viewport={viewport}
                 image={item.image}
                 nftName={item.nftName}
                 artistName={item.artistName}
@@ -97,19 +94,14 @@ const FavoriteSection = props => {
                 nfts={item.nfts}
                 icon={item.icon}
                 price={item.price}
-                viewport={viewport}
               />
             </div>
           ))}
       </div>
       <div className="w-full flex justify-end">
-        {active === 0 && (
-          <Pagination data={ArtistList} getCurrentData={data => setArtistList(data)} viewport={viewport} />
-        )}
-        {active === 1 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} viewport={viewport} />}
-        {active === 2 && (
-          <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} viewport={viewport} />
-        )}
+        {active === 0 && <Pagination data={ArtistList} getCurrentData={data => setArtistList(data)} />}
+        {active === 1 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />}
+        {active === 2 && <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />}
       </div>
     </section>
   )

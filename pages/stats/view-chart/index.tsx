@@ -13,6 +13,9 @@ import Chart from 'components/Chart'
 import Radio from 'components/Radio'
 import ViewChartSortModal from 'components/Modal/ViewChartSortModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import CategoryList from 'assets/json/popular-category.json'
 import ChartTotalVolume from 'assets/json/stats/chart-total-volume.json'
@@ -25,8 +28,8 @@ import SortGreenIcon from 'assets/icons/sort-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const ViewChart = props => {
-  const { viewport } = props
+const ViewChart = () => {
+  const viewport = useViewport()
 
   const router = useRouter()
   const id = router.query['id']
@@ -130,7 +133,7 @@ const ViewChart = props => {
           </div>
 
           <div className="w-full mt-[38px] md:mt-[66px] overflow-hidden z-10">
-            <Chart list={ChartTotalVolume} viewport={viewport} />
+            <Chart list={ChartTotalVolume} />
           </div>
           <div className="w-full hidden md:flex flex-wrap justify-center mt-[140px] mb-[208px] gap-x-8 px-10">
             <Radio data={ChartTypeList} selected={selectedChartType} onChange={item => setSelectedChartType(item)} />

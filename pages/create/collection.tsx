@@ -21,9 +21,7 @@ import CategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './collection.module.scss'
 
-const Collection = props => {
-  const { viewport } = props
-
+const Collection = () => {
   // variables
   const [currentStep, setCurrentStep] = useState(1)
   // step 1
@@ -106,7 +104,6 @@ const Collection = props => {
       <div className="w-full">
         {currentStep === 1 && (
           <Step01CollectionSection
-            viewport={viewport}
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             collectionName={collectionName}
@@ -123,7 +120,6 @@ const Collection = props => {
         )}
         {currentStep === 2 && (
           <Step02CollectionSection
-            viewport={viewport}
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             dimension={dimension}
@@ -136,7 +132,6 @@ const Collection = props => {
         )}
         {currentStep === 3 && (
           <Step03CollectionSection
-            viewport={viewport}
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverImage={coverImage}
@@ -147,9 +142,7 @@ const Collection = props => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
           />
         )}
-        {currentStep === 4 && (
-          <SuccessMintCollectionSection viewport={viewport} coverImage={coverImage} banner={banner} />
-        )}
+        {currentStep === 4 && <SuccessMintCollectionSection coverImage={coverImage} banner={banner} />}
       </div>
     </div>
   )

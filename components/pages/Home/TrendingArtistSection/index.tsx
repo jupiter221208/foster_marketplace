@@ -18,8 +18,8 @@ import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import TrendingArtistCard from 'components/Card/TrendingArtistCard'
 
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
+// custom functions
+import { useViewport } from 'utils'
 
 // json
 import TrendingArtistList from 'assets/json/trending-artist.json'
@@ -27,8 +27,8 @@ import TrendingArtistList from 'assets/json/trending-artist.json'
 // styles
 import styles from './index.module.scss'
 
-const TrendingArtistSection = props => {
-  const { viewport } = props
+const TrendingArtistSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const [trendingList, setTrendingList] = useState<any[]>([])

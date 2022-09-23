@@ -43,8 +43,7 @@ import SortGrayIcon from 'assets/icons/sort-gray.svg'
 // styles
 import styles from './index.module.scss'
 
-const Explore = props => {
-  const { viewport } = props
+const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -173,7 +172,6 @@ const Explore = props => {
                   {showNftList.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <NFTCard
-                        viewport={viewport}
                         image={item.image}
                         nftName={item.nftName}
                         artistName={item.artistName}
@@ -197,7 +195,6 @@ const Explore = props => {
                         nfts={item.nfts}
                         icon={item.icon}
                         price={item.price}
-                        viewport={viewport}
                       />
                     </div>
                   ))}
@@ -216,7 +213,6 @@ const Explore = props => {
                           followers={item.followers}
                           collections={item.collections}
                           floor={item.floor}
-                          viewport={viewport}
                         />
                       )}
                     </div>
@@ -231,7 +227,6 @@ const Explore = props => {
                     else if (exploreTab === 1) setShowCollectionList(data)
                     else setShowEcosystemList(data)
                   }}
-                  viewport={viewport}
                 />
               </div>
             </div>

@@ -8,6 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
 // custom functions
+import { useViewport } from 'utils'
 import { getShortAddress } from 'utils/strings'
 
 // images and icons
@@ -17,7 +18,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const UpdateCollectionCard = props => {
-  const { image, nftName, category, artistName, mintAddress = '', price, viewport } = props
+  const { image, nftName, category, artistName, mintAddress = '', price } = props
+  const viewport = useViewport()
 
   const [mouseOver, setMouseOver] = useState<boolean>(false)
   let onClick = () => {} // TODO: Remove

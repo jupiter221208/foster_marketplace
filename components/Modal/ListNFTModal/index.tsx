@@ -17,7 +17,7 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
 const ListNFTModal = props => {
-  const { viewport, data, open, onClose } = props
+  const { data, open, onClose } = props
 
   const closeModal = () => {
     onClose()
@@ -89,7 +89,7 @@ const ListNFTModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className="w-full">
-                  <img
+                    <img
                       src={data?.image}
                       alt={data?.name}
                       className="w-full aspect-[321/378] object-cover rounded-[20px]"

@@ -15,9 +15,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const ArtistProfile = props => {
-  const { viewport } = props
-
+const ArtistProfile = () => {
   return (
     <div className="g-container">
       <Head>
@@ -29,8 +27,8 @@ const ArtistProfile = props => {
         <div className={styles.bottomLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <MainSection viewport={viewport} />
-        <NFTSection viewport={viewport} />
+        <MainSection />
+        <NFTSection />
       </div>
     </div>
   )

@@ -17,6 +17,8 @@ import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import Radio from 'components/Radio'
 import CategoryListModal from 'components/Modal/CategoryListModal'
+// custom functions
+import { useViewport } from 'utils'
 
 // images and icons
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
@@ -31,9 +33,8 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
-const Step01CollectionSection = props => {
+const Step01CollectionSection = () => {
   const {
-    viewport,
     currentStep,
     onChangeCurrentStep,
     collectionName,
@@ -47,6 +48,7 @@ const Step01CollectionSection = props => {
     categoryList,
     onChangeCategoryList,
   } = props
+  const viewport = useViewport()
 
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenHeight, setScreenHeight] = useState(1080)
@@ -306,7 +308,6 @@ const Step01CollectionSection = props => {
                   <CollectionStepper
                     currentStep={currentStep}
                     // onChange={step => handleChangeCurrentStep(step)}
-                    viewport={viewport}
                   />
                 </div>
                 {/* upload artwork part */}
@@ -391,7 +392,6 @@ const Step01CollectionSection = props => {
             <CollectionStepper
               currentStep={currentStep}
               // onChange={step => handleChangeCurrentStep(step)}
-              viewport={viewport}
             />
           </div>
           <div className={`${styles.title} w-full`}>Preview Collection Cover</div>

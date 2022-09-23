@@ -45,7 +45,7 @@ const MyApp = ({ Component, pageProps, cluster }) => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
-  return <Providers cluster={cluster}>{getLayout(<Component {...pageProps} viewport={viewport} />)}</Providers>
+  return <Providers cluster={cluster}>{getLayout(<Component {...pageProps} />)}</Providers>
 }
 
 export default MyApp

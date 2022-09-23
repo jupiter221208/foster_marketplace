@@ -16,6 +16,9 @@ import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
 import IconButton from 'components/Button/IconButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import BannerImage from 'assets/images/alexander-ant.png'
@@ -35,13 +38,12 @@ import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
 // styles
 import styles from './index.module.scss'
 
-const MainSection = props => {
-  const { viewport } = props
-
+const MainSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const { publicKey } = useWallet()
-  const shortAddress = useMemo(() => getShortAddress(publicKey || '' as unknown as PublicKey), [publicKey])
+  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const inputFile = useRef<any>(null)
   const [bannerImage, setBannerImage] = useState<any>(BannerImage)
@@ -76,14 +78,13 @@ const MainSection = props => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
           <div className="col-span-6">
-            <DashboardArtistCard image={AvatarImage} artistName="Artist Name" viewport={viewport} />
+            <DashboardArtistCard image={AvatarImage} artistName="Artist Name" />
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton
                 label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-                viewport={viewport}
               />
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
@@ -131,7 +132,6 @@ const MainSection = props => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-                viewport={viewport}
               />
             </div>
             <div className="hidden lg:flex gap-[10px]">

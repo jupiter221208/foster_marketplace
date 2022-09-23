@@ -12,9 +12,7 @@ import CreateSellNFTList from 'assets/json/create-sell-nft.json'
 // styles
 import styles from './index.module.scss'
 
-const CreateSellNFTSection = props => {
-  const { viewport } = props
-
+const CreateSellNFTSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-center lg:justify-between items-center z-10">

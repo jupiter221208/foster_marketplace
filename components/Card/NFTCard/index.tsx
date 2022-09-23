@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
@@ -10,7 +13,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const DashboardNFTCard = props => {
-  const { viewport, image, nftName, artistName, price, showCount = true, onClick } = props
+  const { image, nftName, artistName, price, showCount = true, onClick } = props
+  const viewport = useViewport()
 
   return (
     <div className={styles.container} onClick={() => onClick()}>

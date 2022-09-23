@@ -16,6 +16,9 @@ import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
 import CategoryChip from 'components/Chip/CategoryChip'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import HeaderImage from 'assets/images/profile-header.png'
 import AvatarImage from 'assets/images/artist-avatar.png'
@@ -35,8 +38,8 @@ import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
 import styles from './index.module.scss'
 import { Url } from 'url'
 
-const MainSection = props => {
-  const { viewport } = props
+const MainSection = () => {
+  const viewport = useViewport()
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
@@ -103,14 +106,13 @@ const MainSection = props => {
             )}
           </div>
           <div className="col-span-6">
-            <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} viewport={viewport} />
+            <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} />
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton
                 label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-                viewport={viewport}
               />
             </div>
             <div
@@ -161,7 +163,6 @@ const MainSection = props => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-                viewport={viewport}
               />
             </div>
             <div className="hidden lg:flex gap-[10px]">

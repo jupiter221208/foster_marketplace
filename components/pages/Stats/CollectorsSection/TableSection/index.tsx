@@ -12,11 +12,15 @@ import 'swiper/css/navigation'
 import CollectorsTable from 'components/Table/Stats/CollectorsTable'
 import CollectorsAccordion from 'components/Accordion/Stats/CollectorsAccordion'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
 const TableSection = props => {
-  const { viewport, data } = props
+  const { data } = props
+  const viewport = useViewport()
 
   const [list, setList] = useState<any>([])
 
@@ -49,7 +53,7 @@ const TableSection = props => {
           ? list.length !== 0 &&
             list.map((item, index) => (
               <SwiperSlide key={index}>
-                <CollectorsTable viewport={viewport} data={item} />
+                <CollectorsTable data={item} />
               </SwiperSlide>
             ))
           : list.length !== 0 &&

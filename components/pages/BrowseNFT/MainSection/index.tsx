@@ -32,6 +32,9 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import Avatar from 'assets/images/live-auction.png'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -57,8 +60,8 @@ import styles from './index.module.scss'
 import Select from 'components/Select'
 import { Url } from 'url'
 
-const MainSection = props => {
-  const { viewport } = props
+const MainSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   const buttonRefs = useRef<any[]>([])
@@ -354,7 +357,7 @@ const MainSection = props => {
                             <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
                           </div>
                           <div className="flex flex-1">
-                            <Line options={(options as any)} data={data} height="100px" width="150px" />
+                            <Line options={options as any} data={data} height="100px" width="150px" />
                           </div>
                         </div>
                       </Disclosure.Panel>
@@ -500,10 +503,9 @@ const MainSection = props => {
           </div>
         </div>
       </div>
-      {openProgressingModal && <ProgressingModal viewport={viewport} open={openProgressingModal} />}
+      {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
       {showAlert && (
         <Alert
-          viewport={viewport}
           open={showAlert}
           close={() => {
             setShowAlert(false)
@@ -516,7 +518,6 @@ const MainSection = props => {
       )}
       {openOfferModal && (
         <MakeAnOfferModal
-          viewport={viewport}
           open={openOfferModal}
           close={() => setOpenOfferModal(false)}
           onClick={() => {

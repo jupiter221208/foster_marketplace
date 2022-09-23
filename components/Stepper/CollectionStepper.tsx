@@ -9,15 +9,14 @@ import NextStepCircle from './NextStepCircle'
 import styles from './index.module.scss'
 
 const CollectionStepper = props => {
-  // const { currentStep, onChange, viewport } = props
-  const { currentStep, viewport } = props
+  const { currentStep } = props
 
   return (
     <div className="w-full flex h-[66px] lg:h-[95px] flex-col justify-between">
       <div className={styles.container}>
         {/* <div className="cursor-pointer relative h-[40px] lg:h-[60px] flex items-center" onClick={() => onChange(1)}> */}
         <div className="relative h-[40px] lg:h-[60px] flex items-center">
-          {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce viewport={viewport} />}
+          {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />}
           <div className={`${styles.greenText} absolute top-[52px] lg:top-20 -left-16 -right-16`}>Add Description</div>
         </div>
 
@@ -30,7 +29,7 @@ const CollectionStepper = props => {
           ) : currentStep === 2 ? (
             <CurrentStepCircle step={2} />
           ) : (
-            <CompleteStepCirce viewport={viewport} />
+            <CompleteStepCirce />
           )}
           <div
             className={`${
@@ -50,7 +49,7 @@ const CollectionStepper = props => {
           ) : currentStep === 3 ? (
             <CurrentStepCircle step={3} />
           ) : (
-            <CompleteStepCirce viewport={viewport} />
+            <CompleteStepCirce />
           )}
           <div
             className={`${

@@ -11,9 +11,7 @@ import CollectionSection from 'components/pages/BrowseCollection/CollectionSecti
 // styles
 import styles from './index.module.scss'
 
-const BrowseCollection = props => {
-  const { viewport } = props
-
+const BrowseCollection = () => {
   return (
     <div className="g-container">
       <Head>
@@ -22,8 +20,8 @@ const BrowseCollection = props => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <MainSection viewport={viewport} />
-        <CollectionSection viewport={viewport} />
+        <MainSection />
+        <CollectionSection />
       </div>
     </div>
   )

@@ -14,6 +14,9 @@ import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
 import Button from 'components/Button'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
 import HelpGrayIcon from 'assets/icons/help-gray.svg'
@@ -22,7 +25,8 @@ import HelpGrayIcon from 'assets/icons/help-gray.svg'
 import styles from './index.module.scss'
 
 const StartAuctionModal = props => {
-  const { viewport, data, open, onClick, onClose } = props
+  const { data, open, onClick, onClose } = props
+  const viewport = useViewport()
 
   const closeModal = () => {
     onClose()

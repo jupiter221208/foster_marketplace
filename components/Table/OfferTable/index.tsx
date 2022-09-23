@@ -7,6 +7,9 @@ import Image from 'next/image'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
@@ -14,7 +17,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const OfferTable = props => {
-  const { data, viewport } = props
+  const { data } = props
+  const viewport = useViewport()
 
   return (
     <table id="ActivityTable" className="w-full table-auto">

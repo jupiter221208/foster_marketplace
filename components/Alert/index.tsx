@@ -15,7 +15,7 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import styles from './index.module.scss'
 
 const Alert = props => {
-  const { viewport, open, close, type, title, description } = props
+  const { open, close, type, title, description } = props
 
   return (
     <Transition appear show={open} as={Fragment}>

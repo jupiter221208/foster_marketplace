@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-// next components
-import { useRouter } from 'next/router'
-
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -15,15 +12,17 @@ import 'swiper/css/navigation'
 import ListedNFTCard from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import MyNFTList from 'assets/json/dashboard/my-nft-list.json'
 
 // styles
 import styles from './index.module.scss'
 
-const ListedNFTSection = props => {
-  const { viewport } = props
-  const router = useRouter()
+const ListedNFTSection = () => {
+  const viewport = useViewport()
 
   const [myNFTftList, setMyNFTList] = useState<any[]>([])
 
@@ -58,18 +57,13 @@ const ListedNFTSection = props => {
           {myNFTftList.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                <ListedNFTCard viewport={viewport} data={item} onClick={item => handleSelectData(item)} />
+                <ListedNFTCard data={item} onClick={item => handleSelectData(item)} />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <UpdateNFTModal
-        viewport={viewport}
-        data={selectedData}
-        open={showListNFTModal}
-        onClose={() => setShowListNFTModal(false)}
-      />
+      <UpdateNFTModal data={selectedData} open={showListNFTModal} onClose={() => setShowListNFTModal(false)} />
     </section>
   )
 }

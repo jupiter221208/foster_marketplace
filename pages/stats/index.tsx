@@ -15,6 +15,9 @@ import CreatorsSection from 'components/pages/Stats/CreatorsSection'
 import CollectorsSection from 'components/pages/Stats/CollectorsSection'
 import MarketplaceSection from 'components/pages/Stats/MarketplaceSection'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
@@ -24,8 +27,8 @@ import TabList from 'assets/json/stats/tab-list.json'
 // styles
 import styles from './index.module.scss'
 
-const Stats = props => {
-  const { viewport } = props
+const Stats = () => {
+  const viewport = useViewport()
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -62,17 +65,17 @@ const Stats = props => {
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10`}>House Stats</div>
           <div className="mt-[10px] lg:mt-[84px] w-full flex relative overflow-hidden justify-between z-10 h-[42px]">
-            <Tab tabList={tabList} viewport={viewport} onChange={item => handleSelectedTab(item)} />
+            <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
             {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && (
               <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
             )}
           </div>
           <div className="mt-8 lg:mt-16 w-full z-10">
-            {activeTab === 0 && <ArtworksSection viewport={viewport} />}
-            {activeTab === 1 && <CollectionsSection viewport={viewport} />}
-            {activeTab === 2 && <CreatorsSection viewport={viewport} />}
-            {activeTab === 3 && <CollectorsSection viewport={viewport} />}
-            {activeTab === 4 && <MarketplaceSection viewport={viewport} />}
+            {activeTab === 0 && <ArtworksSection />}
+            {activeTab === 1 && <CollectionsSection />}
+            {activeTab === 2 && <CreatorsSection />}
+            {activeTab === 3 && <CollectorsSection />}
+            {activeTab === 4 && <MarketplaceSection />}
           </div>
         </div>
       </div>

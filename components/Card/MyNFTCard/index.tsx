@@ -11,7 +11,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import styles from './index.module.scss'
 
 const MyNFTCard = props => {
-  const { viewport, data, onClickStartAuction, onClickListNFT } = props
+  const { data, onClickStartAuction, onClickListNFT } = props
 
   return (
     <div className={styles.container}>

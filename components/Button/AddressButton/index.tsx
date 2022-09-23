@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import FileCopyIcon from 'assets/icons/file-copy.svg'
 
@@ -10,7 +13,9 @@ import FileCopyIcon from 'assets/icons/file-copy.svg'
 import styles from './index.module.scss'
 
 const AddressButton = props => {
-  const { label, onClick, width, height, viewport } = props
+  const { label, onClick, width, height } = props
+  const viewport = useViewport()
+
   return (
     <button
       type="button"

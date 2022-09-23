@@ -23,9 +23,7 @@ import styles from './index.module.scss'
 // json
 import WalletItemList from 'assets/json/wallet-item.json'
 
-const ConnectWalletModal = props => {
-  const { viewport } = props
-
+const ConnectWalletModal = () => {
   const openConnectWallet: boolean = useSelector((state: any) => state.openConnectWallet)
   const dispatch = useDispatch()
 

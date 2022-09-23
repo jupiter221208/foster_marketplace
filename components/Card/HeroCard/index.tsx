@@ -3,11 +3,16 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // styles
 import styles from './index.module.scss'
 
 const HeroCard = props => {
-  const { image, nftName, collectionName, avatar, artistName, viewport } = props
+  const { image, nftName, collectionName, avatar, artistName } = props
+  const viewport = useViewport()
+
   return (
     <div className={styles.container}>
       <Image

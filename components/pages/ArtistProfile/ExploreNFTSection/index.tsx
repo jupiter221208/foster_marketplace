@@ -15,14 +15,17 @@ import 'swiper/css/navigation'
 import OutlineButton from 'components/Button/OutlineButton'
 import EcosystemCard from 'components/Card/EcosystemCard'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // json
 import ExploreList from 'assets/json/explore/ecosystem-explore-list.json'
 
 // styles
 import styles from './index.module.scss'
 
-const ExploreNFTSection = props => {
-  const { viewport } = props
+const ExploreNFTSection = () => {
+  const viewport = useViewport()
   const router = useRouter()
 
   return (
@@ -60,7 +63,6 @@ const ExploreNFTSection = props => {
                 followers={item.followers}
                 collections={item.collections}
                 floor={item.floor}
-                viewport={viewport}
               />
             </SwiperSlide>
           ))}

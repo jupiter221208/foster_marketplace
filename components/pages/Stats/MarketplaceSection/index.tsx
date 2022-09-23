@@ -15,9 +15,7 @@ import { stringLengthValidate } from 'utils/strings'
 // styles
 import styles from './index.module.scss'
 
-const MarketplaceSection = props => {
-  const { viewport } = props
-
+const MarketplaceSection = () => {
   const [searchWord, setSearchWord] = useState<any>('')
   const [marketplacesList, setMarketplacesList] = useState<any[]>([])
   const [categoryList, setCategoryList] = useState<any[]>([])
@@ -48,17 +46,16 @@ const MarketplaceSection = props => {
   return (
     <div className={styles.container}>
       <SearchSection
-        viewport={viewport}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value)}
         list={allList}
         getList={list => setMarketplacesList(list)}
       />
       <div className="mt-8 w-full">
-        <CollectionSection viewport={viewport} list={categoryList} />
+        <CollectionSection list={categoryList} />
       </div>
       <div>
-        <TableSections viewport={viewport} data={list} />
+        <TableSections data={list} />
       </div>
     </div>
   )

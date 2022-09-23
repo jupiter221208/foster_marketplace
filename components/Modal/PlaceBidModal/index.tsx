@@ -19,7 +19,7 @@ import LiveAuctionImage from 'assets/images/live-auction.png'
 import styles from './index.module.scss'
 
 const PlaceBidModal = props => {
-  const { viewport, open, onClose } = props
+  const { open, onClose } = props
 
   const closeModal = () => {
     onClose()
