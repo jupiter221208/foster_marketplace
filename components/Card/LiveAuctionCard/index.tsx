@@ -56,8 +56,8 @@ const LiveAuctionCard = props => {
               <Image
                 src={SolanaLogoIcon}
                 alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 23}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 23}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : viewport === 'xl' ? 18 : 23}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : viewport === 'xl' ? 18 : 23}
               />
               <div className={styles.bidCount}>{count}</div>
             </div>
