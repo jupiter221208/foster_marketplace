@@ -26,15 +26,9 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import LogoGray from 'assets/icons/logo-gray.svg'
 
 const Chart = props => {
-  const { list, title } = props
+  const { list, chartType } = props
 
   const myChartRef = useRef<any>()
-  const [type, setType] = useState(title)
-
-  useEffect(() => {
-    setType(title)
-    console.log(title, '==========title========')
-  }, [title])
 
   useEffect(() => {
     if (myChartRef.current !== undefined) {
@@ -155,7 +149,7 @@ const Chart = props => {
       titleDiv.style.color = '#ffffff'
       titleDiv.style.fontSize = '12px'
       titleDiv.style.fontFamily = 'Muli-SemiBold'
-      const title = document.createTextNode(type)
+      const title = document.createTextNode(chartType.label)
       titleDiv.appendChild(title)
 
       th.appendChild(titleDiv)
@@ -184,16 +178,21 @@ const Chart = props => {
         dateDiv.style.color = '#B7B9B9'
         dateDiv.style.fontSize = '14px'
         dateDiv.style.fontFamily = 'Muli-Regular'
+        dateDiv.style.marginRight = '32px'
 
         const date = document.createTextNode(convertDate(new Date(titleLines[0])))
         dateDiv.appendChild(date)
-        const solanaIcon = document.createElement('img')
-        solanaIcon.src = '/icons/solana-logo.svg'
-        solanaIcon.alt = 'solana-logo'
-        solanaIcon.width = 15
-        solanaIcon.height = 15
-        solanaIcon.style.marginLeft = '14px'
-        solanaIcon.style.marginRight = '4px'
+        td.appendChild(dateDiv)
+
+        if (chartType.id === 0 || chartType.id === 5 || chartType.id === 6) {
+          const solanaIcon = document.createElement('img')
+          solanaIcon.src = '/icons/solana-logo.svg'
+          solanaIcon.alt = 'solana-logo'
+          solanaIcon.width = 15
+          solanaIcon.height = 15
+          solanaIcon.style.marginRight = '4px'
+          td.appendChild(solanaIcon)
+        }
 
         const volumeDiv = document.createElement('div')
         volumeDiv.style.color = '#5AC3BA'
@@ -203,8 +202,6 @@ const Chart = props => {
         const volume = document.createTextNode(body)
         volumeDiv.appendChild(volume)
 
-        td.appendChild(dateDiv)
-        td.appendChild(solanaIcon)
         td.appendChild(volumeDiv)
         tr.appendChild(td)
         tableBody.appendChild(tr)

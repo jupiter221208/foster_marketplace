@@ -133,7 +133,7 @@ const ViewChart = () => {
           </div>
 
           <div className="w-full mt-[38px] md:mt-[66px] overflow-hidden z-10">
-            <Chart list={ChartTotalVolume} title={selectedChartType.label} />
+            <Chart list={ChartTotalVolume} chartType={selectedChartType} />
           </div>
           <div className="w-full hidden md:flex flex-wrap justify-center mt-[140px] mb-[208px] gap-x-8 px-10">
             <Radio data={ChartTypeList} selected={selectedChartType} onChange={item => setSelectedChartType(item)} />
