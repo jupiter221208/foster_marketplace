@@ -66,6 +66,7 @@ const ProfileSection = () => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                 alt=""
+                objectFit="cover"
                 className="rounded-full"
               />
             </div>
