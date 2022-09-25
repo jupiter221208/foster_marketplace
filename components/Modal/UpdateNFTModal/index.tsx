@@ -57,15 +57,10 @@ const UpdateNFTModal = props => {
                   <Image src={CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Update NFT</div>
-                <div className="w-full mt-10">
-                  <Image
-                    src={data?.image}
-                    alt=""
-                    width={321}
-                    height={378}
-                    objectFit="cover"
-                    className="rounded-[20px]"
-                  />
+                <div className="w-full max-w-[321px] mt-10">
+                  <div className={styles.image}>
+                    <img src={data?.image} alt={data?.name} />
+                  </div>
                 </div>
                 <div className={`${styles.nftName} mt-5`}>{data?.nftName}</div>
                 <div className="w-full mt-12">

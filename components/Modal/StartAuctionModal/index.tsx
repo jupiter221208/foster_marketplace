@@ -109,12 +109,10 @@ const StartAuctionModal = props => {
                   <Image src={CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Start Auction</div>
-                <div className="w-full mt-[30px] lg:mt-10">
-                  <img
-                    src={data?.image}
-                    alt={data?.name}
-                    className="w-full aspect-[321/378] object-cover rounded-[20px]"
-                  />
+                <div className="w-full max-w-[321px] mt-[30px] lg:mt-10">
+                  <div className={styles.image}>
+                    <img src={data?.image} alt={data?.name} />
+                  </div>
                 </div>
                 <div className={`${styles.nftName} mt-5`}>{data?.name}</div>
                 <input className="w-0 h-9" />

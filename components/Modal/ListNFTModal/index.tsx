@@ -58,12 +58,10 @@ const ListNFTModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className={styles.title}>List NFT</div>
-                  <div className="w-full mt-10">
-                    <img
-                      src={data?.image}
-                      alt={data?.name}
-                      className="w-full aspect-[321/378] object-cover rounded-[20px]"
-                    />
+                  <div className="w-full max-w-[321px] mt-10 flex justify-center">
+                    <div className={styles.image}>
+                      <img src={data?.image} alt={data?.name} />
+                    </div>
                   </div>
                   <div className={`${styles.nftName} mt-5`}>{data?.name}</div>
                   <div className="w-full mt-12">
@@ -89,11 +87,9 @@ const ListNFTModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className="w-full">
-                    <img
-                      src={data?.image}
-                      alt={data?.name}
-                      className="w-full aspect-[321/378] object-cover rounded-[20px]"
-                    />
+                    <div className={styles.image}>
+                      <img src={data?.image} alt={data?.name} />
+                    </div>
                   </div>
                   <div className="mt-5">
                     <div className={styles.title}>NFT has been listed!</div>

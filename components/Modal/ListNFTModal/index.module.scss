@@ -34,6 +34,20 @@
   cursor: pointer;
 }
 
+.image {
+  position: relative;
+  border-radius: 20px;
+  box-shadow: inset 0px 3px 6px #000000cc;
+  overflow: hidden;
+  img {
+    position: relative;
+    z-index: -1;
+    display: block;
+    object-fit: stretch;
+    background-size: cover;
+  }
+}
+
 .title {
   font-family: 'Muli-Bold';
   font-size: 32px;
