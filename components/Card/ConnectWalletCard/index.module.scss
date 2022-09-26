@@ -1,0 +1,31 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 430px;
+  height: 529px;
+  padding: 82px 68px 34px 68px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  animation-name: example;
+  animation-duration: 4s;
+  background-image: url('../../../assets/icons/connect-wallet-background.svg');
+  &:hover {
+    background-image: url('../../../assets/icons/connect-wallet-background-hover.svg');
+  }
+  transition: background-image 0.2s;
+  transition-timing-function: ease-in-out;
+}
+
+.card {
+  width: 295px;
+  height: 295px;
+  background-color: $background-dark-color;
+  border-radius: 28px;
+  border: 1px solid $brand-01-color;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

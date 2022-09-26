@@ -128,9 +128,9 @@ const Navbar = props => {
               className={styles.navItemArea}
               onMouseOver={() => setSelectedNavMenu('dao')}
               onMouseLeave={() => setSelectedNavMenu('')}
-              onClick={() => router.push('/#dao')}
+              onClick={() => router.push('/dao')}
             >
-              <Image src={router.asPath === '/#dao' || selectedNavMenu === 'dao' ? DaoGreenIcon : DaoGrayIcon} alt="" />
+              <Image src={router.asPath === '/dao' || selectedNavMenu === 'dao' ? DaoGreenIcon : DaoGrayIcon} alt="" />
             </div>
             <div
               className={styles.navItemArea}
@@ -205,9 +205,9 @@ const Navbar = props => {
               onMouseOver={() => setSelectedNavMenu('dao')}
               onMouseLeave={() => setSelectedNavMenu('')}
               className={`${
-                router.asPath === '/#dao' || selectedNavMenu === 'dao' ? styles.textWhiteColor : styles.textGrayColor
+                router.asPath === '/dao' || selectedNavMenu === 'dao' ? styles.textWhiteColor : styles.textGrayColor
               } ${'h-[65px] flex items-center'}`}
-              onClick={() => router.push('/#dao')}
+              onClick={() => router.push('/dao')}
             >
               DAO
             </div>
