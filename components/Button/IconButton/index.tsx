@@ -16,6 +16,8 @@ const IconButton = props => {
     backgroundColor,
     width = '',
     height = '',
+    iconWidth,
+    iconHeight,
     borderRadius,
     borderColor,
     borderWidth,
@@ -36,7 +38,7 @@ const IconButton = props => {
       }}
     >
       <div className={styles.image}>
-        <Image src={icon} alt="" />
+        <Image src={icon} width={iconWidth} height={iconHeight} alt="" />
       </div>
       {label}
     </button>

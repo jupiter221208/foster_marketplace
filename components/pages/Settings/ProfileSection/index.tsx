@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -51,6 +51,19 @@ const ProfileSection = () => {
   const handleChangeAvatar = event => {
     setAvatar(URL.createObjectURL(event.target.files[0]))
   }
+
+  const [data, setData] = useState<any[]>([])
+
+  useEffect(() => {
+    setData([
+      {
+        id: 0,
+        title: 'Copied successfully!',
+        description: 'Wallet address is copied successfully!',
+        type: 'success',
+      },
+    ])
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -195,17 +208,13 @@ const ProfileSection = () => {
           </div>
         </div>
       </div>
-      {showAlert && (
-        <Alert
-          open={showAlert}
-          close={() => {
-            setShowAlert(false)
-          }}
-          title="Copied successfuly!"
-          description="Wallet address is copied successfully!"
-          type="success"
-        />
-      )}
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={data}
+      />
     </div>
   )
 }

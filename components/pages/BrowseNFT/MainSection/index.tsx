@@ -138,6 +138,19 @@ const MainSection = () => {
 
   const [openOfferModal, setOpenOfferModal] = useState(false)
 
+  const [alertData, setAlertData] = useState<any[]>([])
+
+  useEffect(() => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Successful Purchase!',
+        description: 'Navigate to My Dashboard to view your purchased NFT.',
+        type: 'success',
+      },
+    ])
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -504,18 +517,13 @@ const MainSection = () => {
         </div>
       </div>
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
-      {showAlert && (
-        <Alert
-          open={showAlert}
-          close={() => {
-            setShowAlert(false)
-            setOpenProgressingModal(false)
-          }}
-          title="Successful Purchase!"
-          description="Navigate to My Dashboard to view your purchased NFT."
-          type="success"
-        />
-      )}
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
       {openOfferModal && (
         <MakeAnOfferModal
           open={openOfferModal}

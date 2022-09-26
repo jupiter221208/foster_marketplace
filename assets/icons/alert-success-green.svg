@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Graphics_Check-big" data-name="Graphics/Check-big" transform="translate(0.5 0.5)">
+    <circle id="Oval_Copy_2" data-name="Oval Copy 2" cx="24.5" cy="24.5" r="24.5" fill="none" stroke="rgba(90,195,186,0.2)" stroke-miterlimit="10" stroke-width="1"/>
+    <circle id="Oval_Copy" data-name="Oval Copy" cx="19.5" cy="19.5" r="19.5" transform="translate(5 5)" fill="none" stroke="rgba(90,195,186,0.5)" stroke-miterlimit="10" stroke-width="1"/>
+    <circle id="Oval" cx="14.5" cy="14.5" r="14.5" transform="translate(10 10)" fill="none" stroke="#5ac3ba" stroke-miterlimit="10" stroke-width="1"/>
+    <path id="Path" d="M4.28,8.216l-3.2-3.237L0,6.078l4.28,4.335,9.2-9.314L12.391,0Z" transform="translate(17.763 19.6)" fill="#5ac3ba"/>
+  </g>
+</svg>
