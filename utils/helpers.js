@@ -26,8 +26,7 @@ export const calculateTimeLeft = endDate => {
     if (hours > 0) {
       timeLeft = (hours < 10 && '0') + hours + 'h' + ' ' + timeLeft
     } else {
-      f(days > 0)
-      timeLeft = '00h ' + timeLeft
+      if (days > 0) timeLeft = '00h ' + timeLeft
     }
     if (days > 0) {
       timeLeft = (days < 10 && '0') + days + 'd' + ' ' + timeLeft
