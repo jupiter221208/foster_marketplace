@@ -72,16 +72,26 @@ const UpdateNFTModal = props => {
                   />
                 </div>
                 <div className="w-full mt-[30px]">
-                  <GradientButton label="Change Price" fullWidth onClick={() => closeModal()} />
+                  <GradientButton label="Update Price" fullWidth onClick={() => closeModal()} />
                 </div>
                 <div className="w-full mt-[30px]">
                   <Button
-                    label="Unlist"
+                    label="Cancel Listing"
                     fullWidth
                     onClick={() => closeModal()}
                     backgroundColor="#202427"
                     color="#EFF0F6"
                   />
+                </div>
+                <div className={styles.text}>
+                  <p>
+                    By clicking &quot;Cancel Listing&quot;, you agree to the&nbsp;
+                    <span className={styles.greenText}>
+                      <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                        Foster Marketplace Terms of Service
+                      </a>
+                    </span>
+                  </p>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
