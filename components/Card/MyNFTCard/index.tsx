@@ -15,14 +15,9 @@ const MyNFTCard = props => {
 
   return (
     <div className={styles.container}>
-      <Image
-        src={data.image}
-        alt={data.name}
-        width={400}
-        height={400}
-        objectFit="cover"
-        className="rounded-[10px] lg:rounded-[24px]"
-      />
+      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]">
+        <img src={data.image} alt={data.name} className="w-full aspect-[321/321] object-cover" />
+      </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
           <div className={styles.nftName}>{data.name}</div>
