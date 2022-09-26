@@ -36,8 +36,8 @@ const NFTSection = () => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className="w-full flex justify-center">
+    <div>
+      <div className={styles.tabContainer}>
         <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       {activeTab === 0 && (

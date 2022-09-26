@@ -1,0 +1,13 @@
+// w-full flex relative justify-center mb-[40px]
+@import 'assets/scss/variable.module.scss';
+
+.tabContainer {
+  display: flex;
+  position: relative;
+  height: 50px;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    height: 30px;
+    justify-content: center;
+  }
+}

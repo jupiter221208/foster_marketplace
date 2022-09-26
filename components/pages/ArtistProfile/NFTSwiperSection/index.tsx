@@ -110,7 +110,7 @@ const NFTSwiperSection = () => {
             </div>
           </div>
         ) : (
-          <div className="w-full h-[42px]"></div>
+          <div className="h-[42px]"></div>
         )}
         <div className="flex z-10">
           <OutlineButton
