@@ -96,13 +96,13 @@ const ProfileSection = () => {
             <div className={styles.subTitle}>Personal Info</div>
           </div>
           <div className="mt-4 lg:mt-8">
-            <Input placeholder="User name" />
+            <Input placeholder="User name" onChange={() => {}} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] h-fit">
-            <Textarea placeholder="Bio" width="100%" height="100%" />
+            <Textarea placeholder="Bio" width="100%" height="100%" onChange={() => {}} />
           </div>
           <div className="mt-[10px] lg:mt-[30px]">
-            <Input placeholder="Email Address" />
+            <Input placeholder="Email Address" onChange={() => {}} />
           </div>
           <div className="mt-[45px] lg:mt-[60px]">
             <div className={styles.subTitle}>Social Connections & Links</div>
@@ -118,7 +118,7 @@ const ProfileSection = () => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" />
+            <Input placeholder="Add Your Account" onChange={() => {}} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -131,7 +131,7 @@ const ProfileSection = () => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" />
+            <Input placeholder="Add Your Account" onChange={() => {}} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -144,7 +144,7 @@ const ProfileSection = () => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" />
+            <Input placeholder="Add Your Account" onChange={() => {}} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -157,7 +157,7 @@ const ProfileSection = () => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" />
+            <Input placeholder="Add Your Account" onChange={() => {}} />
           </div>
           <div className="mt-[45px] lg:mt-[60px]">
             <div className={styles.subTitle}>Wallet</div>
