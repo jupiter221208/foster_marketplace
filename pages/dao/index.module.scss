@@ -1,5 +1,13 @@
 @import 'assets/scss/variable.module.scss';
 
+.topLeftEllipse {
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  opacity: 0.4;
+  z-index: 0;
+}
+
 .container {
   width: 100%;
   max-width: 964px;
@@ -12,6 +20,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  z-index: 10;
 }
 
 .title {
