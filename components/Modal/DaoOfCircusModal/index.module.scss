@@ -1,0 +1,72 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  position: relative;
+  width: 960px;
+  height: 646px;
+  box-shadow: 0px 13px 36px #061a1c;
+  overflow: hidden;
+  padding: 35px 25px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.title {
+  height: 135px;
+  font-family: 'KCDurhamboxcar';
+  font-size: 144px;
+  line-height: 158px;
+  color: $brand-01-color;
+  text-align: center;
+  text-shadow: 0px 3px 6px rgba(#5e2028, 0.5);
+}
+
+.redTitle {
+  color: #5e2028;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 23px;
+  line-height: 36px;
+  color: rgba($text-gray-200-color, 0.8);
+  text-align: start;
+}
+
+.logoCard {
+  width: 110px;
+  height: 96px;
+  border-radius: 16px;
+  background: linear-gradient(225deg, rgba($brand-01-color, 100%) 0%, rgba($background-light-color, 100%) 100%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.linkText {
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  line-height: 36px;
+  color: $text-gray-800-color;
+  cursor: pointer;
+  margin-left: 12px;
+  &:hover {
+    color: rgba($text-gray-800-color, 0.6);
+  }
+
+  transition: color 0.2s;
+  transition-timing-function: ease-in-out;
+}

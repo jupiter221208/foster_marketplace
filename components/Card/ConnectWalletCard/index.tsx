@@ -16,7 +16,7 @@ import LogoDarkGreenIcon from 'assets/icons/logo-dark-green.svg'
 import styles from './index.module.scss'
 
 const ConnectWalletCard = props => {
-  const { icon } = props
+  const { icon, type, onClick } = props
   const viewport = useViewport()
 
   return (
@@ -41,7 +41,7 @@ const ConnectWalletCard = props => {
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '51px'}
           icon={LogoDarkGreenIcon}
           label="COMING SOON"
-          onClick={() => {}}
+          onClick={() => onClick(type)}
         />
       </div>
     </div>

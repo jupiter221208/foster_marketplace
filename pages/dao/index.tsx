@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next images
 import Head from 'next/head'
@@ -7,6 +7,8 @@ import Image from 'next/image'
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ConnectWalletCard from 'components/Card/ConnectWalletCard'
+import DaoOfCircusModal from 'components/Modal/DaoOfCircusModal'
+import DaoOfLiftModal from 'components/Modal/DaoOfLiftModal'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -17,6 +19,22 @@ import Logo02Image from 'assets/images/logo-02.png'
 import styles from './index.module.scss'
 
 const Dao = () => {
+  const [showCircus, setShowCircus] = useState(false)
+  const [showLift, setShowLift] = useState(false)
+
+  const handleClickEvent = (type: string) => {
+    switch (type) {
+      case 'circus':
+        setShowCircus(!showCircus)
+        break
+      case 'lift':
+        setShowLift(!showLift)
+        break
+      default:
+        break
+    }
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -35,17 +53,19 @@ const Dao = () => {
               <div className="w-full flex justify-center mb-6">
                 <div className={styles.subTitle}>TURKEY CIRCUS</div>
               </div>
-              <ConnectWalletCard icon={Logo01Image} />
+              <ConnectWalletCard icon={Logo01Image} type="circus" onClick={(type: string) => handleClickEvent(type)} />
             </div>
             <div className="col-span-2 lg:col-span-1">
               <div className="w-full flex justify-center mb-6">
                 <div className={styles.subTitle}>LIFT TOKEN</div>
               </div>
-              <ConnectWalletCard icon={Logo02Image} />
+              <ConnectWalletCard icon={Logo02Image} type="lift" onClick={(type: string) => handleClickEvent(type)} />
             </div>
           </div>
         </div>
       </div>
+      <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
+      <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />
     </div>
   )
 }
