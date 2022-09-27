@@ -16,14 +16,22 @@
 
 .title {
   font-family: 'KCDurhamboxcar';
-  font-size: 172px;
-  line-height: 113px;
+  font-size: 80px;
+  line-height: 53px;
+  @media (min-width: 1024px) {
+    font-size: 172px;
+    line-height: 113px;
+  }
   color: $brand-06-color;
 }
 
 .subTitle {
   font-family: 'KCDurhamboxcar';
-  font-size: 49px;
-  line-height: 32px;
+  font-size: 32px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 49px;
+    line-height: 32px;
+  }
   color: $text-gray-200-color;
 }

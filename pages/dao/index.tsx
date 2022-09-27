@@ -25,14 +25,14 @@ const Dao = () => {
       <div className="w-full flex justify-center">
         <div className={styles.container}>
           <div className={styles.title}>CONNECT TO DAO</div>
-          <div className="w-full flex justify-between gap-[104px] mt-12">
-            <div className="w-full block">
+          <div className="w-full grid grid-cols-2 gap-[104px] mt-12">
+            <div className="col-span-2 lg:col-span-1">
               <div className="w-full flex justify-center mb-6">
                 <div className={styles.subTitle}>TURKEY CIRCUS</div>
               </div>
               <ConnectWalletCard icon={Logo01Image} />
             </div>
-            <div className="w-full block">
+            <div className="col-span-2 lg:col-span-1">
               <div className="w-full flex justify-center mb-6">
                 <div className={styles.subTitle}>LIFT TOKEN</div>
               </div>

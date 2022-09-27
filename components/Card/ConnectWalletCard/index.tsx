@@ -16,24 +16,32 @@ import LogoDarkGreenIcon from 'assets/icons/logo-dark-green.svg'
 import styles from './index.module.scss'
 
 const ConnectWalletCard = props => {
-  const { icon, type } = props
+  const { icon } = props
   const viewport = useViewport()
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <Image src={icon} alt="" />
+        <Image
+          src={icon}
+          alt=""
+          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '160px' : '244px'}
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '160px' : '244px'}
+        />
       </div>
-      <div className="w-full max-w-[234px]">
+      <div className="w-full max-w-[152px] lg:max-w-[234px]">
         <GradientButton
-          label="CONNECT WALLET"
-          icon={LogoDarkGreenIcon}
-          onClick={() => {}}
-          gradientDirection="top"
+          backgroundColor01="#315251"
+          backgroundColor02="#53AEA7"
+          direction="both"
           fontFamily="KCDurhamboxcar"
-          fontSize="30px"
+          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '21px' : '30px'}
           fullWidth
-          height="66px"
+          gradientDirection="bottom"
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '51px'}
+          icon={LogoDarkGreenIcon}
+          label="COMING SOON"
+          onClick={() => {}}
         />
       </div>
     </div>
