@@ -5,9 +5,10 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 
 // third party components
-import Blur from 'react-blur'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
+
+import Alert from 'components/Alert'
 
 import {
   Chart as ChartJS,
@@ -68,6 +69,8 @@ const MainSection = () => {
   const [like, setLike] = useState<boolean>(false)
   const [share, setShare] = useState<boolean>(false)
   const [favorite, setFavorite] = useState<boolean>(false)
+  const [showAlert, setShowAlert] = useState<boolean>(false)
+
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -121,6 +124,15 @@ const MainSection = () => {
       },
     ],
   }
+
+  const alertData = [
+    {
+      id: 0,
+      title: 'Successful bid!',
+      description: `You've successfully placed a bid on The Glass Banana #6921`,
+      type: 'success',
+    },
+  ]
 
   const [showPlaceBidModal, setShowPlaceBidModal] = useState(false)
 
@@ -462,7 +474,22 @@ const MainSection = () => {
           </div>
         </div>
       </div>
-      <PlaceBidModal open={showPlaceBidModal} onClose={() => setShowPlaceBidModal(false)} />
+      <PlaceBidModal
+        open={showPlaceBidModal}
+        onClose={() => {
+          setShowPlaceBidModal(false)
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 500)
+        }}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

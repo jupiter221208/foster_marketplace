@@ -8,7 +8,9 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
-const PermissionAndPrivacySection = () => {
+const PermissionAndPrivacySection = prop => {
+  const { success } = prop
+
   const [userInteractionVisibility, setUserInteractionVisibility] = useState(false)
   const [viewPermissions, setViewPermissions] = useState(true)
   const [unlistedNFTPermissions, setUnlishtedNFTPermissions] = useState(false)
@@ -88,7 +90,9 @@ const PermissionAndPrivacySection = () => {
           <div className="w-full flex justify-center mb-20">
             <GradientButton
               label="Save"
-              onClick={() => {}}
+              onClick={() => {
+                success()
+              }}
               height="53px"
               paddingLeft="41px"
               paddingRight="41px"

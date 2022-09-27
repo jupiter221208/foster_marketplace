@@ -32,7 +32,8 @@ import ViewGreenIcon from 'assets/icons/view-green.svg'
 import styles from './index.module.scss'
 import { PublicKey } from '@solana/web3.js'
 
-const ProfileSection = () => {
+const ProfileSection = prop => {
+  const { success } = prop
   const viewport = useViewport()
 
   const inputFile = useRef<any>(null)
@@ -198,7 +199,9 @@ const ProfileSection = () => {
             />
             <GradientButton
               label="Save"
-              onClick={() => {}}
+              onClick={() => {
+                success()
+              }}
               fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}

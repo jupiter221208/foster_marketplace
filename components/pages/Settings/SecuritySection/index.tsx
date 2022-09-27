@@ -8,7 +8,9 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
-const SecuritySection = () => {
+const SecuritySection = prop => {
+  const { success } = prop
+
   const [quickBuy, setQuickBuy] = useState(false)
   const [makeAnOffer, setMakeAnOffer] = useState(true)
   const [cancelOffer, setCancelOffer] = useState(false)
@@ -88,7 +90,9 @@ const SecuritySection = () => {
           <div className="w-full flex justify-center mb-20">
             <GradientButton
               label="Save"
-              onClick={() => {}}
+              onClick={() => {
+                success()
+              }}
               height="53px"
               paddingLeft="41px"
               paddingRight="41px"

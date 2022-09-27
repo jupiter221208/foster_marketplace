@@ -12,6 +12,7 @@ import NotificationSection from 'components/pages/Settings/NotificationSection'
 import PermissionAndPrivacySection from 'components/pages/Settings/PermissionAndPrivacySection'
 import DiscoverySection from 'components/pages/Settings/DiscoverySection'
 import SecuritySection from 'components/pages/Settings/SecuritySection'
+import Alert from 'components/Alert'
 
 // json
 import TabList from 'assets/json/settings/tab-list.json'
@@ -25,6 +26,7 @@ import styles from './index.module.scss'
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
   const [tabList, setTabList] = useState(TabList)
+  const [showAlert, setShowAlert] = useState<boolean>(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -43,6 +45,15 @@ const Settings = () => {
   const handleSelectedTab = item => {
     setSelectedTab(item.id)
   }
+
+  const alertData = [
+    {
+      id: 0,
+      title: 'Settings Updated!',
+      description: `Your profile settings have been updated successfully`,
+      type: 'success',
+    },
+  ]
 
   return (
     <div className="g-container">
@@ -67,14 +78,61 @@ const Settings = () => {
             <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20 overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
-            <div className="w-full">{selectedTab === 0 && <ProfileSection />}</div>
-            <div className="w-full">{selectedTab === 1 && <NotificationSection />}</div>
-            <div className="w-full">{selectedTab === 2 && <PermissionAndPrivacySection />}</div>
-            <div className="w-full">{selectedTab === 3 && <DiscoverySection />}</div>
-            <div className="w-full">{selectedTab === 4 && <SecuritySection />}</div>
+            <div className="w-full">
+              {selectedTab === 0 && (
+                <ProfileSection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div>
+            <div className="w-full">
+              {selectedTab === 1 && (
+                <NotificationSection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div>
+            <div className="w-full">
+              {selectedTab === 2 && (
+                <PermissionAndPrivacySection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div>
+            <div className="w-full">
+              {selectedTab === 3 && (
+                <DiscoverySection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div>
+            <div className="w-full">
+              {selectedTab === 4 && (
+                <SecuritySection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }
