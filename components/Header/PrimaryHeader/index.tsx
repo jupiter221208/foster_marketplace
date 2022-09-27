@@ -20,6 +20,8 @@ import IconButton from 'components/Button/IconButton'
 // custom functions
 import { useViewport } from 'utils'
 
+import Alert from 'components/Alert'
+
 // images and icons
 import LogoTextIcon from 'assets/icons/logo-text-01.svg'
 import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
@@ -42,6 +44,7 @@ const PrimaryHeader = () => {
 
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
+  const [showAlert, setShowAlert] = useState(false)
 
   useEffect(() => {
     if (searchKeyword !== '') {
@@ -138,10 +141,33 @@ const PrimaryHeader = () => {
 
   const [offset, setOffset] = useState([0, 0])
 
+  const [alertData, setAlertData] = useState<any[]>([])
+
   useEffect(() => {
     if (document.getElementById('walletButton') !== null) {
       let offsets = document?.getElementById('walletButton')?.getBoundingClientRect() || { top: 0, left: 0 }
       setOffset([offsets.top, offsets.left])
+    }
+    if (connected) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Connected!',
+          description: `You've successfully connected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Disconnected!',
+          description: `You've successfully disconnected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
     }
   }, [connected])
 
@@ -199,6 +225,13 @@ const PrimaryHeader = () => {
           <WalletButton />
         </div>
       )}
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   ) : (
     <div className={styles.mobileBlurContainer}>
@@ -223,6 +256,13 @@ const PrimaryHeader = () => {
           </div>
         </div>
       </div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }
