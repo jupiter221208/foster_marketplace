@@ -1,0 +1,26 @@
+# Default reviewer.
+# Unless a later match takes precedence,
+# @DrewBurkhart will be requested for
+# review when someone opens a pull request.
+*       @DrewBurkhart
+
+# All changes to TypeScript and SCSS code
+# will automatically request reviews from
+# CoinBest and halotony. These reviews will
+# not block marging, but are recommended
+# to ensure we do not affect any of the FE
+# work.
+*.tsx   @DrewBurkhart @nicholas716 @nshunt639
+*.ts    @DrewBurkhart @nicholas716 @nshunt639
+*.js    @DrewBurkhart @nicholas716 @nshunt639
+*.scss  @DrewBurkhart @nicholas716 @nshunt639
+
+# All Rust code will be reviewed by
+# @DrewBurkhart
+*.toml  @DrewBurkhart
+*.rs    @DrewBurkhart
+
+# All Docker code will be reviewed by
+# @DrewBurkhart
+Dockerfile          @DrewBurkhart
+docker-compose.yml  @DrewBurkhart
