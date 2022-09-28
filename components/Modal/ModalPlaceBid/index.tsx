@@ -18,7 +18,7 @@ import LiveAuctionImage from 'assets/images/live-auction.png'
 // styles
 import styles from './index.module.scss'
 
-const PlaceBidModal = props => {
+const ModalPlaceBid = props => {
   const { open, onClose } = props
 
   const closeModal = () => {
@@ -59,14 +59,9 @@ const PlaceBidModal = props => {
                 </div>
                 <div className={styles.title}>Place Bid</div>
                 <div className="w-full mt-10">
-                  <Image
-                    src={LiveAuctionImage}
-                    alt=""
-                    width={321}
-                    height={378}
-                    objectFit="cover"
-                    className="rounded-[20px]"
-                  />
+                  <div className={styles.image}>
+                    <img src={LiveAuctionImage.src} alt="" />
+                  </div>
                 </div>
                 <div className={`${styles.nftName} mt-5`}>The Glass Banana</div>
                 <div className="w-full mt-12">
@@ -92,4 +87,4 @@ const PlaceBidModal = props => {
   )
 }
 
-export default PlaceBidModal
+export default ModalPlaceBid

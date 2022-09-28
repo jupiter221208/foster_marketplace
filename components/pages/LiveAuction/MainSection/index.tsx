@@ -31,7 +31,7 @@ import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import AuctionCard from 'components/Card/AuctionCard'
-import PlaceBidModal from 'components/Modal/PlaceBidModal'
+import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -134,7 +134,7 @@ const MainSection = () => {
     },
   ]
 
-  const [showPlaceBidModal, setShowPlaceBidModal] = useState(false)
+  const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -208,7 +208,7 @@ const MainSection = () => {
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 <GradientButton
                   label="Place Bid"
-                  onClick={() => setShowPlaceBidModal(true)}
+                  onClick={() => setShowModalPlaceBid(true)}
                   icon={SolanaAuctionIcon}
                   direction="rtl"
                 />
@@ -465,10 +465,10 @@ const MainSection = () => {
           </div>
         </div>
       </div>
-      <PlaceBidModal
-        open={showPlaceBidModal}
+      <ModalPlaceBid
+        open={showModalPlaceBid}
         onClose={() => {
-          setShowPlaceBidModal(false)
+          setShowModalPlaceBid(false)
           setTimeout(() => {
             setShowAlert(true)
           }, 500)
