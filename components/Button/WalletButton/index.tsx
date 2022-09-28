@@ -1,10 +1,12 @@
-import React, { Fragment, useMemo, useState } from 'react'
+import React, { Fragment, useMemo, useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
+
+import Alert from 'components/Alert'
 
 // components
 import Avatar from 'components/Avatar'
@@ -38,7 +40,7 @@ const WalletButton = props => {
   const { onClick, fullWidth = false } = props
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
-  const shortAddress = useMemo(() => getShortAddress(publicKey || "" as unknown as PublicKey), [publicKey])
+  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -76,6 +78,40 @@ const WalletButton = props => {
       setNewBiddingWallet(price + biddingBalance)
     }
   }
+
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [buttonClicked, setButtonClicked] = useState(false)
+
+  useEffect(() => {
+    if (!buttonClicked) {
+      return
+    }
+
+    setButtonClicked(true)
+
+    if (connected) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Connected!',
+          description: `You've successfully connected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Disconnected!',
+          description: `You've successfully disconnected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    }
+  }, [connected])
 
   return connected ? (
     <Menu as="div" className="relative inline-block text-left">
@@ -119,7 +155,13 @@ const WalletButton = props => {
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <div className="w-full flex items-center cursor-pointer hover:opacity-80" onClick={disconnect}>
+                <div
+                  className="w-full flex items-center cursor-pointer hover:opacity-80"
+                  onClick={() => {
+                    setButtonClicked(true)
+                    disconnect()
+                  }}
+                >
                   <Image src={DisconnectWalletIcon} alt="" />
                   <div className={styles.whiteText}>Disconnect wallet</div>
                 </div>
@@ -230,16 +272,39 @@ const WalletButton = props => {
           </div>
         </Menu.Items>
       </Transition>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </Menu>
   ) : (
     // <WalletMultiButton className={styles.container} style={{ width: fullWidth ? '100%' : '' }}>
     //   <div>Connect Wallet</div>
     //   <Image src={FosterLightGreenIcon} alt="" />
     // </WalletMultiButton>
-    <button className={styles.container} onClick={() => setVisible(true)} style={{ width: fullWidth ? '100%' : '' }}>
-      <div>Connect Wallet</div>
-      <Image src={FosterLightGreenIcon} alt="" />
-    </button>
+    <div>
+      <button
+        className={styles.container}
+        onClick={() => {
+          setButtonClicked(true)
+          setVisible(true)
+        }}
+        style={{ width: fullWidth ? '100%' : '' }}
+      >
+        <div>Connect Wallet</div>
+        <Image src={FosterLightGreenIcon} alt="" />
+      </button>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
+    </div>
   )
 }
 
