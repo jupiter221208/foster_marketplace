@@ -14,6 +14,7 @@ import { useViewport } from 'utils'
 
 // images
 import DaoModalBackground from 'assets/icons/dao-modal-background.svg'
+import DaoModalMobileBackground from 'assets/icons/dao-modal-mobile-background.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import LogoGray from 'assets/icons/logo-gray.svg'
 import DaoModalCard from 'assets/icons/dao-modal-card.svg'
@@ -27,7 +28,7 @@ const DaoOfLiftModal = props => {
 
   const viewport = useViewport()
 
-  return viewport === 'md' || viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={() => close()}>
         <Transition.Child
@@ -43,7 +44,7 @@ const DaoOfLiftModal = props => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-end lg:items-center justify-center text-center p-4">
+          <div className="flex min-h-full items-center justify-center text-center p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -116,11 +117,11 @@ const DaoOfLiftModal = props => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className={styles.bgView} />
+          <div className={styles.mobileBgView} />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+          <div className="flex items-start justify-center text-center pt-[140px]">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -130,8 +131,48 @@ const DaoOfLiftModal = props => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className={styles.mobileView}>
-                <div className="relative w-full h-full flex flex-wrap flex-col justify-between">mobile part</div>
+              <Dialog.Panel className={styles.mobileModalView}>
+                <div className="absolute top-3 right-3 z-20">
+                  <IconButton
+                    icon={CloseWhiteIcon}
+                    onClick={() => close()}
+                    backgroundColor="#495255"
+                    width="30px"
+                    height="30px"
+                    borderRadius="15px"
+                    iconWidth="12px"
+                    iconHeight="12px"
+                  />
+                </div>
+                <div className="absolute inset-0 z-0">
+                  <Image src={DaoModalMobileBackground} alt="" />
+                </div>
+
+                <div className="w-full flex justify-start z-10">
+                  <p className={styles.mobileTitle}>
+                    No Ceilings <span className={styles.mobileRedTitle}>Just Lift</span>
+                  </p>
+                </div>
+                <div className="w-full mt-3 z-10">
+                  <div className={styles.mobileText}>
+                    LIFT token custodians can vote on protocol provisions and the allocation of funds and resources.
+                    Stakeholders automatically receive governance weight on a 1 token, 1 vote basis.
+                  </div>
+                </div>
+                <div className="w-full h-[150px] relative z-10">
+                  <div className="absolute top-0 left-[100px]">
+                    <Image src={Logo02} alt="" width={90} height={90} />
+                  </div>
+                  <div className="absolute top-[60px] left-[180px]">
+                    <Image src={Logo02} alt="" width={60} height={60} />
+                  </div>
+                </div>
+                <div className="w-full flex items-center -mt-12 -ml-4 z-10">
+                  <div className={styles.logoCard}>
+                    <Image src={Logo02} alt="" width={52} height={52} />
+                  </div>
+                  <div className={styles.linkText}>Visit Foster Home</div>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>

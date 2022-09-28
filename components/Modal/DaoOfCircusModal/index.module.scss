@@ -2,7 +2,7 @@
 
 .container {
   position: relative;
-  z-index: 10002;
+  z-index: 100;
 }
 
 .bgView {
@@ -46,8 +46,12 @@
 }
 
 .logoCard {
-  width: 110px;
-  height: 96px;
+  width: 63px;
+  height: 55px;
+  @media (min-width: 1024px) {
+    width: 110px;
+    height: 96px;
+  }
   border-radius: 16px;
   background: linear-gradient(225deg, rgba($brand-01-color, 100%) 0%, rgba($background-light-color, 100%) 100%);
 
@@ -58,7 +62,10 @@
 
 .linkText {
   font-family: 'Muli-SemiBold';
-  font-size: 24px;
+  font-size: 18px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+  }
   line-height: 36px;
   color: $text-gray-800-color;
   cursor: pointer;
@@ -69,4 +76,54 @@
 
   transition: color 0.2s;
   transition-timing-function: ease-in-out;
+}
+
+// mobile part
+.mobileBgView {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background: linear-gradient(
+    90deg,
+    rgba(#305856, 0.5) 0%,
+    rgba(#142021, 0.5) 50%,
+    rgba($background-dark-color, 0.5) 100%
+  );
+  position: fixed;
+  inset: 0;
+}
+
+.mobileModalView {
+  position: relative;
+  width: 344px;
+  height: 454px;
+  box-shadow: 0px 13px 36px #061a1c;
+  overflow: hidden;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 40px 34px 15px 34px;
+}
+
+.mobileTitle {
+  height: 53px;
+  font-family: 'KCDurhamboxcar';
+  font-size: 56px;
+  line-height: 69px;
+  color: $brand-01-color;
+  text-align: center;
+  text-shadow: 0px 3px 6px rgba(#5e2028, 0.5);
+}
+
+.mobileRedTitle {
+  color: #5e2028;
+  text-shadow: 0px 3px 6px rgba(#5ac3ba, 0.6);
+}
+
+.mobileText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.8);
+  text-align: start;
 }

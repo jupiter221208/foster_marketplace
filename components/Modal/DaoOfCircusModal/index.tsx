@@ -14,6 +14,7 @@ import { useViewport } from 'utils'
 
 // images
 import DaoModalBackground from 'assets/icons/dao-modal-background.svg'
+import DaoModalMobileBackground from 'assets/icons/dao-modal-mobile-background.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import LogoGray from 'assets/icons/logo-gray.svg'
 import DaoModalCard from 'assets/icons/dao-modal-card.svg'
@@ -28,7 +29,7 @@ const DaoOfCircusModal = props => {
 
   const viewport = useViewport()
 
-  return viewport === 'md' || viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <Transition appear show={open} as={Fragment}>
       <Dialog as="div" className={styles.container} onClose={() => close()}>
         <Transition.Child
@@ -44,7 +45,7 @@ const DaoOfCircusModal = props => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-end lg:items-center justify-center text-center p-4">
+          <div className="flex min-h-full items-center justify-center text-center p-4">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -114,11 +115,11 @@ const DaoOfCircusModal = props => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className={styles.bgView} />
+          <div className={styles.mobileBgView} />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center text-center">
+          <div className="flex items-start justify-center text-center pt-[140px]">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -128,8 +129,43 @@ const DaoOfCircusModal = props => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className={styles.mobileView}>
-                <div className="relative w-full h-full flex flex-wrap flex-col justify-between">mobile part</div>
+              <Dialog.Panel className={styles.mobileModalView}>
+                <div className="absolute top-3 right-3 z-20">
+                  <IconButton
+                    icon={CloseWhiteIcon}
+                    onClick={() => close()}
+                    backgroundColor="#495255"
+                    width="30px"
+                    height="30px"
+                    borderRadius="15px"
+                    iconWidth="12px"
+                    iconHeight="12px"
+                  />
+                </div>
+                <div className="absolute inset-0 z-0">
+                  <Image src={DaoModalMobileBackground} alt="" />
+                </div>
+
+                <div className="w-full flex justify-start z-10">
+                  <p className={styles.mobileTitle}>
+                    Join the Dao <span className={styles.mobileRedTitle}>of circus</span>
+                  </p>
+                </div>
+                <div className="w-full mt-3 z-10">
+                  <div className={styles.mobileText}>
+                    Holders of Turkey Circus DAO NFT inherit a 5% revenue share of Foster House Collections and an
+                    autonomous vote in the DAO governing Foster Protocol provisions.
+                  </div>
+                </div>
+                <div className="-mt-8 z-10">
+                  <Image src={DaoBg01} alt="" />
+                </div>
+                <div className="w-full flex items-center -mt-12 -ml-4 z-10">
+                  <div className={styles.logoCard}>
+                    <Image src={Logo01} alt="" width={52} height={52} />
+                  </div>
+                  <div className={styles.linkText}>Visit Turkey Circus</div>
+                </div>
               </Dialog.Panel>
             </Transition.Child>
           </div>
