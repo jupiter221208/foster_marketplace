@@ -27,7 +27,7 @@ import faker from 'faker'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
 // components
-import IconButton from 'components/Button/IconButton'
+import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import AuctionCard from 'components/Card/AuctionCard'
@@ -45,12 +45,12 @@ import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
 import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
 import SaleWhiteIcon from 'assets/icons/sale-white.svg'
-import BloodDropIcon from 'assets/icons/blood-drop.svg'
-import HandsIcon from 'assets/icons/hands.svg'
-import AirBallonIcon from 'assets/icons/air-ballon.svg'
-import BloodDropToggleIcon from 'assets/icons/blood-drop-toggle.svg'
-import HandsToggleIcon from 'assets/icons/hands-toggle.svg'
-import AirBallonToggleIcon from 'assets/icons/air-ballon-toggle.svg'
+import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
+import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
+import EmailWhiteIcon from 'assets/icons/email-white-46x46.svg'
+import EmailGreenIcon from 'assets/icons/email-green-46x46.svg'
+import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
+import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -163,36 +163,27 @@ const MainSection = () => {
               <div className="w-full flex justify-between items-center">
                 <div className={styles.greenTitle}>The GB Series</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex flex-wrap items-center">
-                    <IconButton
-                      icon={like ? BloodDropToggleIcon : BloodDropIcon}
-                      backgroundColor="transparent"
-                      onClick={() => setLike(!like)}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
-                    />
-                    <div className={styles.likeTitle}>{like ? 255 : 254}</div>
-                  </div>
-                  <div className="flex flex-wrap items-center">
-                    <IconButton
-                      icon={share ? HandsToggleIcon : HandsIcon}
-                      backgroundColor="transparent"
-                      onClick={() => setShare(!share)}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
-                    />
-                    <div className={styles.likeTitle}>{share ? 255 : 254}</div>
-                  </div>
-                  <div className="flex flex-wrap items-center">
-                    <IconButton
-                      icon={favorite ? AirBallonToggleIcon : AirBallonIcon}
-                      backgroundColor="transparent"
-                      onClick={() => setFavorite(!favorite)}
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '30px' : '36px'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '24px' : '24px'}
-                    />
-                    <div className={styles.likeTitle}>{favorite ? 255 : 254}</div>
-                  </div>
+                  <MenuSocialShare
+                    icon01={HeartFilledWhiteIcon}
+                    icon02={HeartFilledRedIcon}
+                    vote={like}
+                    voteCount={like ? 255 : 254}
+                    onClick={() => setLike(!like)}
+                  />
+                  <MenuSocialShare
+                    icon01={EmailWhiteIcon}
+                    icon02={EmailGreenIcon}
+                    vote={share}
+                    voteCount={share ? 255 : 254}
+                    onClick={() => setShare(!share)}
+                  />
+                  <MenuSocialShare
+                    icon01={TicketWhiteIcon}
+                    icon02={TicketGreenIcon}
+                    vote={favorite}
+                    voteCount={favorite ? 255 : 254}
+                    onClick={() => setFavorite(!favorite)}
+                  />
                 </div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
