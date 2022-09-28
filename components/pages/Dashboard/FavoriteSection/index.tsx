@@ -57,15 +57,7 @@ const FavoriteSection = () => {
         {active === 0 &&
           artistList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <EcosystemCard
-                image={item.image}
-                avatar={item.avatar}
-                artistName={item.artistName}
-                nfts={item.nfts}
-                followers={item.followers}
-                collections={item.collections}
-                floor={item.floor}
-              />
+              <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
             </div>
           ))}
         {active === 1 &&

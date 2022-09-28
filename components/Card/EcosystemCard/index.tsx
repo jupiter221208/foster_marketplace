@@ -14,18 +14,18 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const EcosystemCard = props => {
-  const { image, avatar, artistName, nfts, followers, collections, floor } = props
+  const { data, onClick } = props
   const viewport = useViewport()
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick()}>
       <div className="relative flex justify-center">
         <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-          <Image src={image} alt="" width={321} height={321} layout="responsive" objectFit="cover" />
+          <Image src={data.image} alt="" width={321} height={321} layout="responsive" objectFit="cover" />
         </div>
         <div className={styles.avatarArea}>
           <Image
-            src={avatar}
+            src={data.avatar}
             width={viewport === 'xs' ? 32 : 70}
             height={viewport === 'xs' ? 32 : 70}
             className="rounded-full"
@@ -35,7 +35,7 @@ const EcosystemCard = props => {
       </div>
       <div className="w-full sm:mt-[50px] xs:mt-[26px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-center items-center">
-          <div className={styles.artistName}>{artistName}</div>
+          <div className={styles.artistName}>{data.artistName}</div>
           <div className="flex justify-center items-center ml-[4px] lg:ml-[10px]">
             <Image
               src={CheckedGreenIcon}
@@ -50,17 +50,17 @@ const EcosystemCard = props => {
         <div className="w-full flex flex-wrap justify-between">
           <div className="flex">
             <div className={styles.title}>NFTs :</div>
-            <div className={styles.text}>{nfts}</div>
+            <div className={styles.text}>{data.nfts}</div>
           </div>
           <div className="flex">
             <div className={styles.title}>Followers :</div>
-            <div className={styles.text}>{followers}</div>
+            <div className={styles.text}>{data.followers}</div>
           </div>
         </div>
         <div className="w-full flex flex-wrap justify-between">
           <div className="flex">
             <div className={styles.title}>Collections :</div>
-            <div className={styles.text}>{collections}</div>
+            <div className={styles.text}>{data.collections}</div>
           </div>
           <div className="flex">
             <div className={styles.title}>Floor :</div>
@@ -70,7 +70,7 @@ const EcosystemCard = props => {
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : 21}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : 21}
             />
-            <div className={styles.text}>{floor}</div>
+            <div className={styles.text}>{data.floor}</div>
           </div>
         </div>
       </div>

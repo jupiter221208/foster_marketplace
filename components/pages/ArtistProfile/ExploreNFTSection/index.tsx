@@ -55,15 +55,7 @@ const ExploreNFTSection = () => {
         >
           {ExploreList.map((item, index) => (
             <SwiperSlide key={index}>
-              <EcosystemCard
-                image={item.image}
-                avatar={item.avatar}
-                artistName={item.artistName}
-                nfts={item.nfts}
-                followers={item.followers}
-                collections={item.collections}
-                floor={item.floor}
-              />
+              <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
             </SwiperSlide>
           ))}
         </Swiper>
