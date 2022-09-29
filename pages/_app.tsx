@@ -6,6 +6,8 @@ import 'assets/scss/global.scss'
 
 import Providers from 'providers'
 
+import { ContextProvider } from 'contexts/ContextProvider'
+
 const MyApp = ({ Component, pageProps, cluster }) => {
   const getLayout = Component.getLayout || (page => page)
   const [viewport, setViewport] = useState('lg') // xs, sm, md, lg, xl, 2xl
@@ -45,7 +47,11 @@ const MyApp = ({ Component, pageProps, cluster }) => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
-  return <Providers cluster={cluster}>{getLayout(<Component {...pageProps} />)}</Providers>
+  return (
+    <ContextProvider>
+      <Providers>{getLayout(<Component {...pageProps} />)}</Providers>
+    </ContextProvider>
+  )
 }
 
 export default MyApp

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // third party components
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 
 // components
 import MyNFTCard from 'components/Card/MyNFTCard'
@@ -11,14 +11,13 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 
 // custom functions
-import { useEnvironment } from 'providers/EnvironmentProvider'
 import { getTokensByAccount } from 'utils/wallet.util'
 
 // styles
 import styles from './index.module.scss'
 
 const MyNFTSection = () => {
-  const { connection } = useEnvironment()
+  const { connection } = useConnection()
   const { publicKey } = useWallet()
 
   const [myNFTftList, setMyNFTList] = useState<any[]>([])

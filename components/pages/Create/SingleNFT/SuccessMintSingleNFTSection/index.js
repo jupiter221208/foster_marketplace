@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -24,8 +24,12 @@ import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.sv
 // styles
 import styles from './index.module.scss'
 
+//explorer
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
+
 const SuccessMintSingleNFTSection = props => {
-  const { NFTType, nftArt, artWidth, artHeight } = props
+  const { NFTType, nftArt, artWidth, nftAddress, artHeight, reset } = props
   const viewport = useViewport()
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -40,6 +44,9 @@ const SuccessMintSingleNFTSection = props => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
+  const { connection } = useConnection()
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, nftAddress), [nftAddress, connection])
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
       <div className={styles.topLeftEllipse}>
@@ -48,7 +55,7 @@ const SuccessMintSingleNFTSection = props => {
       <div className="w-full flex justify-center items-center z-10">
         {NFTType === 'image' && (
           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-            {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+            {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
               <AvatarEditor
                 image={nftArt[0]}
                 width={artWidth - 32}
@@ -102,13 +109,13 @@ const SuccessMintSingleNFTSection = props => {
               fullWidth
               label="Mint another NFT"
               backgroundColor="#63D6CD"
-              onClick={() => setCurrentStep(1)}
+              onClick={reset}
               borderColor="#5AC3BA"
             />
           </div>
         </div>
         <div className="mt-[44px]">
-          <LinkTextButton label="View on Solscan" link="/" />
+          <LinkTextButton label="View on Solscan" link={explorerURL} />
         </div>
       </div>
     </div>
@@ -119,7 +126,7 @@ const SuccessMintSingleNFTSection = props => {
           <div className="w-full rounded-[16px] overflow-hidden">
             {NFTType === 'image' && (
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                   <AvatarEditor
                     image={nftArt[0]}
                     width={artWidth - 32}
@@ -177,13 +184,13 @@ const SuccessMintSingleNFTSection = props => {
               label="Mint another NFT"
               backgroundColor="#63D6CD"
               height="45px"
-              onClick={() => setCurrentStep(1)}
+              onClick={reset}
               borderColor="#5AC3BA"
             />
           </div>
         </div>
         <div className="mt-[33px]">
-          <LinkTextButton label="View on Solscan" link="/" />
+          <LinkTextButton label="View on Solscan" link={explorerURL} />
         </div>
       </div>
     </div>

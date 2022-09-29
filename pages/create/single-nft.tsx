@@ -11,6 +11,11 @@ import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
+// solana components
+import { toMetaplexFile } from '@metaplex-foundation/js'
+
+import { useMetaplex } from 'hooks/useMetaplex'
+
 import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01SingleNFTSection'
 import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02SingleNFTSection'
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
@@ -161,7 +166,7 @@ const SingleNft = () => {
   const [nftArt, setNftArt] = useState<any>()
 
   useEffect(() => {
-    if (nftArt !== undefined) {
+    if (nftArt !== null && nftArt !== undefined) {
       setNFTType(nftArt[0].type.split('/')[0])
       setDisabledNextButton(false)
     }
@@ -234,13 +239,13 @@ const SingleNft = () => {
   }, [nftName, description, categoryList])
 
   // step 3
-  const [royalties, setRoyalties] = useState('')
+  const [royalties, setRoyalties] = useState(0)
 
   // form validate
   const handleFormValidate = step => {
     switch (step) {
       case 1:
-        if (nftArt !== undefined) {
+        if (nftArt !== null && nftArt !== undefined) {
           setDisabledNextButton(false)
         } else {
           setDisabledNextButton(true)
@@ -266,6 +271,62 @@ const SingleNft = () => {
     }
   }
 
+  // solana
+  const { metaplex: mx } = useMetaplex()
+  const [nftAddress, setNFTAddress] = useState('')
+
+  const createNft = async () => {
+    try {
+      var reader = new FileReader()
+      const fileData = new Blob([nftArt[0]])
+      reader.readAsArrayBuffer(fileData)
+      reader.onload = async function (event) {
+        const arrayBuffer = reader.result as ArrayBuffer
+
+        const { uri, metadata } = await mx
+          .nfts()
+          .uploadMetadata({
+            name: nftName,
+            description: description,
+            image: toMetaplexFile(arrayBuffer, 'metaplex.png'),
+          })
+          .run()
+
+        const { nft } = await mx
+          .nfts()
+          .create({
+            uri,
+            name: nftName,
+            sellerFeeBasisPoints: royalties,
+          })
+          .run()
+
+        if (nft) {
+          const address = nft.address.toBase58()
+          setNFTAddress(address)
+          handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+        }
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const reset = () => {
+    setCurrentStep(1)
+    setNftArt(null)
+    setNftName('')
+    setDescription('')
+    const categories = categoryList.map(item => {
+      item.checked = false
+      return item
+    })
+    setCategoryList(categories);
+    setShowCategoryList(false)
+    setRoyalties(0)
+    setNFTAddress('')
+  }
+
   return (
     <div className="w-full flex justify-center">
       <Head>
@@ -287,7 +348,7 @@ const SingleNft = () => {
                     <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
                       {fullScreenMode && (
                         <AvatarEditor
-                          image={nftArt !== undefined && nftArt[0]}
+                          image={nftArt !== null && nftArt !== undefined && nftArt[0]}
                           width={screenHeight - 36}
                           height={screenHeight - 36}
                           border={16}
@@ -300,7 +361,7 @@ const SingleNft = () => {
                     </FullScreen>
                     {NFTType === 'image' && (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                        {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                        {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                           <AvatarEditor
                             image={nftArt[0]}
                             width={artWidth - 32}
@@ -334,7 +395,7 @@ const SingleNft = () => {
                       </div>
                     )}
 
-                    {nftArt !== undefined && (
+                    {nftArt !== null && nftArt !== undefined && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 ? (
                           <IconButton icon={EditorGrayIcon} onClick={() => {}} backgroundColor="transparent" />
@@ -417,9 +478,7 @@ const SingleNft = () => {
                         royalties={royalties}
                         setRoyalties={value => setRoyalties(value)}
                         disabledNextButton={disabledNextButton}
-                        handleChangeCurrentStep={() =>
-                          handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
-                        }
+                        createNft={createNft}
                       />
                     )}
                     <div className="w-full h-32" />
@@ -474,7 +533,7 @@ const SingleNft = () => {
                 <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
                   {fullScreenMode && (
                     <AvatarEditor
-                      image={nftArt !== undefined && nftArt[0]}
+                      image={nftArt !== null && nftArt !== undefined && nftArt[0]}
                       width={screenHeight - 36}
                       height={screenHeight - 36}
                       border={6}
@@ -487,7 +546,7 @@ const SingleNft = () => {
                 </FullScreen>
                 {NFTType === 'image' && (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                    {nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                    {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                       <AvatarEditor
                         image={nftArt[0]}
                         width={artWidth - 32}
@@ -520,7 +579,7 @@ const SingleNft = () => {
                     </audio>
                   </div>
                 )}
-                {nftArt !== undefined && (
+                {nftArt !== null && nftArt !== undefined && (
                   <div className="w-full mt-4 flex justify-center">
                     <div className="flex justify-between" style={{ width: artWidth }}>
                       <IconButton
@@ -662,7 +721,14 @@ const SingleNft = () => {
             </div>
           )}
       {currentStep === 4 && (
-        <SuccessMintSingleNFTSection NFTType={NFTType} nftArt={nftArt} artWidth={artWidth} artHeight={artHeight} />
+        <SuccessMintSingleNFTSection
+          NFTType={NFTType}
+          reset={reset}
+          nftArt={nftArt}
+          artWidth={artWidth}
+          nftAddress={nftAddress}
+          artHeight={artHeight}
+        />
       )}
     </div>
   )

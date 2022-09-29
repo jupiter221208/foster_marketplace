@@ -12,7 +12,7 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const Step03SingleNFTSection = props => {
-  const { royalties, setRoyalties, disabledNextButton, handleChangeCurrentStep } = props
+  const { royalties, setRoyalties, disabledNextButton, createNft } = props
 
   const viewport = useViewport()
 
@@ -41,7 +41,7 @@ const Step03SingleNFTSection = props => {
           <GradientButton
             width={viewport === '2xl' ? 124 : 117}
             label="Mint NFT"
-            onClick={() => handleChangeCurrentStep()}
+            onClick={createNft}
           />
         )}
       </div>
@@ -62,7 +62,7 @@ const Step03SingleNFTSection = props => {
         {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
           <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
         ) : (
-          <GradientButton label="Mint NFT" onClick={() => handleChangeCurrentStep()} fullWidth />
+          <GradientButton label="Mint NFT" onClick={createNft} fullWidth />
         )}
       </div>
     </div>

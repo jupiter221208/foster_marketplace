@@ -4,8 +4,7 @@ const path = require('path')
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    BASE_CLUSTER: process.env.BASE_CLUSTER,
-    MAINNET_PRIMARY: process.env.MAINNET_PRIMARY,
+    WALLET_ADAPTER_NETWORK: process.env.WALLET_ADAPTER_NETWORK,
   },
   images: {
     domains: ['arweave.net', 'www.arweave.net'],
