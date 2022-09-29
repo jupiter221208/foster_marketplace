@@ -2,6 +2,7 @@ import React from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // custom functions
 import { getShortAddress } from 'utils/strings'
@@ -19,9 +20,15 @@ import styles from './index.module.scss'
 const CollectionCard = props => {
   const { image, nftName, category, artistName, mintAddress = '', price } = props
   const viewport = useViewport()
+  const router = useRouter()
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        router.push('/browse-collection')
+      }}
+    >
       <div className="relative w-full rounded-[10px] lg:rounded-[20px] overflow-hidden">
         <Image src={image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
         <div className="absolute bottom-[14px] right-[8px]"></div>

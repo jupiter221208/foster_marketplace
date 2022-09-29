@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useDispatch } from 'react-redux'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -32,6 +34,7 @@ import styles from './index.module.scss'
 const MarketplaceReleaseSection = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
 
@@ -89,7 +92,15 @@ const MarketplaceReleaseSection = () => {
           </div>
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
+          <OutlineButton
+            label="See More"
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              router.push('/explore')
+            }}
+            borderColor="#ffffff"
+            height="42px"
+          />
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">

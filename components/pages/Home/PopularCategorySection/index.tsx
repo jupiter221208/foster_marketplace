@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useDispatch } from 'react-redux'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -28,6 +30,8 @@ const PopularCategorySection = props => {
   const { type } = props
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
+
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -41,7 +45,10 @@ const PopularCategorySection = props => {
           <div className="hidden lg:flex">
             <OutlineButton
               label="See More"
-              onClick={() => router.push('/explore')}
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                router.push('/explore')
+              }}
               borderColor="#ffffff"
               height="42px"
             />
