@@ -2,6 +2,7 @@ import React from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // icons
 import MostPopularIcon from 'assets/icons/stats-most-popular.svg'
@@ -13,9 +14,15 @@ import styles from './index.module.scss'
 
 const StatsMarketplaceCard = props => {
   const { data, index } = props
+  const router = useRouter()
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        router.push(`/category/${data.id}`)
+      }}
+    >
       <div className={styles.imageArea}>
         <Image src={data.image} width={489} height={213} alt="" layout="fill" objectFit="cover" />
       </div>

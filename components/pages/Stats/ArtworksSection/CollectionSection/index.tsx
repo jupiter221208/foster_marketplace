@@ -39,7 +39,7 @@ const CollectionSection = props => {
         >
           {list.map((item, index) => (
             <SwiperSlide key={index}>
-              <StatsCollectionCard data={item} />
+              <StatsCollectionCard data={item} type="artworks" />
             </SwiperSlide>
           ))}
         </Swiper>

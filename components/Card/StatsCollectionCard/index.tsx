@@ -2,6 +2,7 @@ import React from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // functions
 import { getPercentValue } from 'utils/strings'
@@ -10,10 +11,20 @@ import { getPercentValue } from 'utils/strings'
 import styles from './index.module.scss'
 
 const StatsCollectionCard = props => {
-  const { data } = props
+  const { data, type } = props
+  const router = useRouter()
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        if (type === 'artworks') {
+          router.push('/browse-nft')
+        } else {
+          router.push('/browse-collection')
+        }
+      }}
+    >
       <div className={styles.imageArea}>
         <Image src={data.image} width={287} height={180} alt="" layout="fill" objectFit="cover" />
       </div>
