@@ -36,7 +36,11 @@ import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import { useViewport } from 'utils'
 
 // images and icons
-import Avatar from 'assets/images/live-auction.png'
+import Avatar01 from 'assets/images/live-auction.png' // 1080 x 1080
+import Avatar02 from 'assets/images/1920x1080.png'
+import Avatar03 from 'assets/images/1920x1440.png'
+import Avatar04 from 'assets/images/NFT-Display-Group.png' //1080 x 1920
+import Avatar05 from 'assets/images/1440x1920.png'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -151,23 +155,53 @@ const MainSection = () => {
     ])
   }, [])
 
+  const [ratio, setRatio] = useState(1)
+  const [nftArt, setNftArt] = useState({ src: '', width: 1080, height: 1080 })
+
+  useEffect(() => {
+    const nftArtId: any = router.query.id
+    switch (nftArtId) {
+      case '1':
+        setNftArt(Avatar01)
+        break
+      case '2':
+        setNftArt(Avatar02)
+        break
+      case '3':
+        setNftArt(Avatar03)
+        break
+      case '4':
+        setNftArt(Avatar04)
+        break
+      case '5':
+        setNftArt(Avatar05)
+        break
+      default:
+        break
+    }
+  }, [router])
+
+  useEffect(() => {
+    setRatio(nftArt.height / nftArt.width)
+  }, [nftArt])
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
         <div className="col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className={styles.mobileImageArea}>
-              <Image src={Avatar} alt="" objectFit="cover" />
+              <img src={nftArt.src} alt="" />
               <div className={styles.mobileImageBackground} />
             </div>
           ) : (
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
-                <Image src={Avatar} alt="" layout="fill" objectFit="cover" />
+                <img src={nftArt.src} alt="" className="min-w-full min-h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
-              <div className={styles.imageArea}>
-                <Image src={Avatar} alt="" width={Avatar.width} height={Avatar.height} objectFit="contain" />
+              <div className={ratio > 1.7 ? `${styles.imageArea} h-full` : styles.imageArea}>
+                <img src={nftArt.src} alt="" className="h-full" />
               </div>
             </div>
           )}

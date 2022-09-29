@@ -19,7 +19,7 @@ const StatsCollectionCard = props => {
       className={styles.container}
       onClick={() => {
         if (type === 'artworks') {
-          router.push('/browse-nft')
+          router.push(`/browse-nft?id=${data.id}`)
         } else {
           router.push('/browse-collection')
         }

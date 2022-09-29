@@ -115,7 +115,7 @@ const FreshMintSection = () => {
                   artistName={item.artistName}
                   price={item.price}
                   showCount={false}
-                  onClick={() => router.push('/browse-nft')}
+                  onClick={() => router.push(`/browse-nft?id=${item.id}`)}
                 />
               </div>
             </SwiperSlide>

@@ -175,7 +175,7 @@ const Explore = () => {
                         image={item.image}
                         nftName={item.nftName}
                         artistName={item.artistName}
-                        onClick={() => router.push('/browse-nft')}
+                        onClick={() => router.push(`/browse-nft?id=${item.id}`)}
                         price={item.price}
                       />
                     </div>

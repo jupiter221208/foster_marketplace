@@ -60,7 +60,7 @@ const MoreCollectionSection = () => {
                   nftName={item.nftName}
                   artistName={item.artistName}
                   price={item.price}
-                  onClick={() => router.push('/browse-nft')}
+                  onClick={() => router.push(`/browse-nft?id=${item.id}`)}
                 />
               </div>
             </SwiperSlide>
