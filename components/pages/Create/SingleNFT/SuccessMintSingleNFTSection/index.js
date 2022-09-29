@@ -3,9 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react'
 // next components
 import Image from 'next/image'
 
-// third party components
-import AvatarEditor from 'react-avatar-editor'
-
 // components
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'

@@ -1,0 +1,32 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 100;
+}
+
+.bgView {
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  position: relative;
+  width: 960px;
+  height: 646px;
+  background-color: #061a1c;
+  box-shadow: 0px 13px 36px #061a1c;
+  overflow: hidden;
+  padding: 35px 25px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.cropContainer {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: #333;
+}
