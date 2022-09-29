@@ -112,6 +112,14 @@
     line-height: 28px;
   }
   color: $brand-01-color;
+  white-space: nowrap;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: $text-gray-200-color;
 }
 
 .likeTitle {

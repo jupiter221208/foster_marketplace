@@ -209,16 +209,13 @@ const MainSection = () => {
         <div className="col-span-2 lg:col-span-1 z-10">
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
-              <div className="w-full flex justify-between items-center">
-                <div className={styles.greenTitle}>The GB Series</div>
+              <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
+                <div className={`${styles.greenTitle} hidden lg:flex`}>The GB Series</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <MenuSocialShare
-                    icon01={HeartFilledWhiteIcon}
-                    icon02={HeartFilledRedIcon}
-                    vote={like}
-                    voteCount={like ? 255 : 254}
-                    onClick={() => setLike(!like)}
-                  />
+                  <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
+                    <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                    <div className={styles.text}>{like ? 255 : 254}</div>
+                  </div>
                   <MenuSocialShare
                     icon01={EmailWhiteIcon}
                     icon02={EmailGreenIcon}
@@ -226,14 +223,12 @@ const MainSection = () => {
                     voteCount={share ? 255 : 254}
                     onClick={() => setShare(!share)}
                   />
-                  <MenuSocialShare
-                    icon01={TicketWhiteIcon}
-                    icon02={TicketGreenIcon}
-                    vote={favorite}
-                    voteCount={favorite ? 255 : 254}
-                    onClick={() => setFavorite(!favorite)}
-                  />
+                  <div className="flex items-center cursor-pointer" onClick={() => setFavorite(!favorite)}>
+                    <Image src={favorite ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                    <div className={styles.text}>{like ? 255 : 254}</div>
+                  </div>
                 </div>
+                <div className={`${styles.greenTitle} w-full flex lg:hidden`}>The GB Series</div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
                 <div className={styles.title}>The Glass Banana</div>
