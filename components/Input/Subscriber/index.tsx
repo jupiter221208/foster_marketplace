@@ -13,13 +13,30 @@ const Subscriber = props => {
   const { value, placeholder, onChange, onClick } = props
   return (
     <div className={styles.container}>
-      <input
-        className={styles.inputArea}
-        value={value}
-        placeholder={placeholder}
-        onChange={event => onChange(event.target.value)}
-      />
-      <Image src={FosterGreenIcon} alt="" className="cursor-pointer" onClick={() => onClick()} />
+      <div id="mc_embed_signup" className="w-[90%]">
+        <form
+          action="https://fostermarketplace.us13.list-manage.com/subscribe/post?u=cb2dcc0a1840febd16c695c90&amp;id=8171ec708a"
+          method="post"
+          id="mc-embedded-subscribe-form"
+          name="mc-embedded-subscribe-form"
+          target="_blank"
+        >
+          <div className="w-full flex">
+            <input
+              type="email"
+              className={styles.inputArea}
+              value={value}
+              placeholder="Email"
+              name="EMAIL"
+              id="mce-EMAIL"
+              onChange={event => onChange(event.target.value)}
+            />
+            <button type="submit" name="subscribe" id="mc-embedded-subscribe">
+              <Image src={FosterGreenIcon} alt="" className="cursor-pointer" onClick={() => onClick()} />
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
