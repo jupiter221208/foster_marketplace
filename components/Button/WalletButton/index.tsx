@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
-
+import { useDispatch, useSelector } from 'react-redux'
 import Alert from 'components/Alert'
 
 // components
@@ -38,6 +38,9 @@ import { PublicKey } from '@solana/web3.js'
 
 const WalletButton = props => {
   const { onClick, fullWidth = false } = props
+
+  const dispatch = useDispatch()
+
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
@@ -276,15 +279,12 @@ const WalletButton = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          dispatch({ type: 'set', profileSetup: true })
         }}
         data={alertData}
       />
     </Menu>
   ) : (
-    // <WalletMultiButton className={styles.container} style={{ width: fullWidth ? '100%' : '' }}>
-    //   <div>Connect Wallet</div>
-    //   <Image src={FosterLightGreenIcon} alt="" />
-    // </WalletMultiButton>
     <div>
       <button
         className={styles.container}

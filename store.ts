@@ -9,6 +9,7 @@ const initialState = {
   connectWalletStatus: false,
   openMyWallet: false,
   openCreateNFTModal: false,
+  profileSetup: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

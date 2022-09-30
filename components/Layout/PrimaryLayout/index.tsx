@@ -14,6 +14,7 @@ import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
 import PrimaryFooter from 'components/Footer/PrimaryFooter'
 import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
+import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
 
 // styles
 import styles from './index.module.scss'
@@ -26,6 +27,7 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const viewport = useViewport()
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
+  const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
 
   return (
@@ -41,6 +43,7 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
           {children}
         </main>
         <PrimaryFooter />
+        {connected && profileSetup && <ProfileSetupModal />}
       </>
     </div>
   )

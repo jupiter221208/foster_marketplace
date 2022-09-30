@@ -10,6 +10,7 @@ import MobileMenu from 'components/Menu/MobileMenu'
 import MobileSearchBox from 'components/MobileSearchBox'
 import PrimaryHeader from 'components/Header/PrimaryHeader'
 import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
+import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -26,6 +27,7 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
 
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
+  const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
 
   return (
@@ -41,6 +43,7 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
           {children}
         </main>
+        {connected && profileSetup && <ProfileSetupModal />}
       </>
     </div>
   )
