@@ -18,12 +18,21 @@ const WALLET_ADAPTER_NETWORK = process.env.WALLET_ADAPTER_NETWORK
 
 const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { autoConnect } = useAutoConnect()
-  const network =
-    WALLET_ADAPTER_NETWORK === 'devnet'
-      ? WalletAdapterNetwork.Devnet
-      : WALLET_ADAPTER_NETWORK === 'testnet'
-      ? WalletAdapterNetwork.Testnet
-      : WalletAdapterNetwork.Mainnet
+  
+  let network = WalletAdapterNetwork.Mainnet
+
+  switch(WALLET_ADAPTER_NETWORK) {
+    case 'devnet':
+      network = WalletAdapterNetwork.Devnet
+      break
+    case 'testnet':
+      network = WalletAdapterNetwork.Testnet
+      break
+    default:
+      network = WalletAdapterNetwork.Mainnet
+      break
+  }
+
   const endpoint = useMemo(() => clusterApiUrl(network), [network])
 
   const wallets = useMemo(

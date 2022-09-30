@@ -15,8 +15,8 @@ export const useMetaplex = () => {
       .use(walletAdapterIdentity(wallet))
       .use(
         bundlrStorage({
-          address: "https://devnet.bundlr.network",
-          providerUrl: "https://api.devnet.solana.com",
+          address: process.env.BUNDLR_ADDRESS || '',
+          providerUrl: process.env.PROVIDER_URL || '',
           timeout: 60000,
         })
       );
