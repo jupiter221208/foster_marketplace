@@ -21,6 +21,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "noImplicitAny": false,
+    "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo"
   },
   "include": [
     ".",
