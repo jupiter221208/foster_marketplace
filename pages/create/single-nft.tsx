@@ -289,11 +289,11 @@ const SingleNft = () => {
           return { trait_type: 'category', value: category.name }
         })
 
-        const metadata = {
+        const metadata: JsonMetadata<MetaplexFile> = {
           name: nftName,
           description: description,
           attributes: attributes,
-        } as JsonMetadata<MetaplexFile>
+        }
 
         if (NFTType === 'image') {
           metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
