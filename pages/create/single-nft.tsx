@@ -12,7 +12,7 @@ import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 // solana components
-import { toMetaplexFile } from '@metaplex-foundation/js'
+import { toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 
@@ -283,14 +283,50 @@ const SingleNft = () => {
       reader.onload = async function (event) {
         const arrayBuffer = reader.result as ArrayBuffer
 
-        const { uri, metadata } = await mx
-          .nfts()
-          .uploadMetadata({
-            name: nftName,
-            description: description,
-            image: toMetaplexFile(arrayBuffer, 'metaplex.png'),
-          })
-          .run()
+        const categories = categoryList.filter(item => item.checked)
+
+        const attributes = categories.map(category => {
+          return { trait_type: 'category', value: category.name }
+        })
+
+        const metadata = {
+          name: nftName,
+          description: description,
+          attributes: attributes,
+        } as JsonMetadata<MetaplexFile>
+
+        if (NFTType === 'image') {
+          metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
+          metadata.category = 'image'
+        } else if (NFTType === 'video') {
+          const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
+
+          metadata.animation_url = customURL
+          metadata.category = 'video'
+          metadata.properties = {
+            files: [
+              {
+                type: 'video/mp4',
+                url: customURL,
+              },
+            ],
+          }
+        } else if (NFTType === 'audio') {
+          const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
+
+          metadata.external_url = customURL
+          metadata.category = 'audio'
+          metadata.properties = {
+            files: [
+              {
+                type: 'audio/mp3',
+                url: customURL,
+              },
+            ],
+          }
+        }
+
+        const { uri } = await mx.nfts().uploadMetadata(metadata).run()
 
         const { nft } = await mx
           .nfts()
@@ -321,7 +357,7 @@ const SingleNft = () => {
       item.checked = false
       return item
     })
-    setCategoryList(categories);
+    setCategoryList(categories)
     setShowCategoryList(false)
     setRoyalties(0)
     setNFTAddress('')
@@ -637,6 +673,7 @@ const SingleNft = () => {
 
               {currentStep === 3 && (
                 <Step03SingleNFTSection
+                  createNft={createNft}
                   royalties={royalties}
                   setRoyalties={value => setRoyalties(value)}
                   disabledNextButton={disabledNextButton}
