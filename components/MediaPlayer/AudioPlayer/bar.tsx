@@ -3,7 +3,6 @@ import React from 'react'
 // third party components
 import * as moment from 'moment'
 import momentDurationFormatSetup from 'moment-duration-format'
-// momentDurationFormatSetup(moment)
 
 import styles from './bar.module.scss'
 
@@ -13,13 +12,13 @@ const Bar = props => {
   const curPercentage = (curTime / duration) * 100
 
   const formatDuration = (duration: number) => {
-    // return moment.duration(duration, 'seconds').format('mm:ss', { trim: false })
-    return moment.duration(duration).format('mm:ss', { trim: false })
+    momentDurationFormatSetup(moment)
+    return moment.duration(duration, 'seconds').format('mm:ss', { trim: false })
   }
 
   const calcClickedTime = (e: any) => {
     const clickPositionInPage = e.pageX
-    const bar = document.querySelector<HTMLElement>('.bar__progress')!
+    const bar = document.getElementById('bar__progress')!
     const barStart = (bar.getBoundingClientRect().left || 0) + window.scrollX
     const barWidth = bar.offsetWidth
     const clickPositionInBar = clickPositionInPage - barStart
@@ -42,18 +41,19 @@ const Bar = props => {
   }
 
   return (
-    <div className="bar">
-      <span className="bar__time">{formatDuration(curTime)}</span>
+    <div className={styles.bar}>
+      <span className={styles.bar__time}>{formatDuration(curTime)}</span>
       <div
+        id="bar__progress"
         className={styles.bar__progress}
         style={{
-          background: `linear-gradient(to right, orange ${curPercentage}%, white 0)`,
+          background: `linear-gradient(to right, #173639 ${curPercentage}%, #495463 0)`,
         }}
         onMouseDown={e => handleTimeDrag(e)}
       >
-        <span className="bar__progress__knob" style={{ left: `${curPercentage - 2}%` }} />
+        <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%` }} />
       </div>
-      <span className="bar__time">{formatDuration(duration)}</span>
+      <span className={styles.bar__time}>{formatDuration(duration)}</span>
     </div>
   )
 }

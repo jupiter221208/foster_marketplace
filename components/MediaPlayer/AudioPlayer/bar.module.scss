@@ -1,0 +1,33 @@
+@import 'assets/scss/variable.module.scss';
+
+.bar {
+  user-select: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  .bar__time {
+    color: $text-gray-200-color;
+    font-family: 'Muli-Regular';
+    font-size: 18px;
+  }
+
+  .bar__progress {
+    flex: 1;
+    border-radius: 5px;
+    margin: 0 20px;
+    height: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .bar__progress__knob {
+      position: relative;
+      height: 16px;
+      width: 16px;
+      border: 2px solid $background-dark-color;
+      border-radius: 50%;
+      background-color: #378287;
+    }
+  }
+}

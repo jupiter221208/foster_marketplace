@@ -6,13 +6,14 @@ import Image from 'next/image'
 // components
 import IconButton from 'components/Button/IconButton'
 import useAudioPlayer from './useAudioPlayer'
-import Play from './Play'
-import Pause from './Pause'
 import Bar from './bar'
 
 // images and icons
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 import PlayWhiteIcon from 'assets/icons/play-white.svg'
+import PauseWhiteIcon from 'assets/icons/pause-white.svg'
+import BackwardWhiteIcon from 'assets/icons/backward-white.svg'
+import ForwardWhiteIcon from 'assets/icons/forward-white.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -26,15 +27,27 @@ const AudioPlayer = props => {
       <div className="absolute bottom-[45px] left-9 right-9 z-10">
         <div className={styles.contentArea}>
           <audio id="audio">
-            <source src="./song.mp3" />
+            <source src={src} />
             Your browser does not support the <code>audio</code> element.
           </audio>
-          {playing ? (
-            <IconButton icon={PlayWhiteIcon} handleClick={() => setPlaying(false)} />
-          ) : (
-            <IconButton icon={PlayWhiteIcon} handleClick={() => setPlaying(true)} />
-          )}
-          {/* <Bar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} /> */}
+          <div className="flex">
+            <IconButton
+              icon={BackwardWhiteIcon}
+              onClick={() => setClickedTime(curTime - 15)}
+              backgroundColor="transparent"
+            />
+            <IconButton
+              icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
+              onClick={() => setPlaying(!playing)}
+              backgroundColor="transparent"
+            />
+            <IconButton
+              icon={ForwardWhiteIcon}
+              onClick={() => setClickedTime(curTime + 15)}
+              backgroundColor="transparent"
+            />
+          </div>
+          <Bar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
         </div>
       </div>
     </div>
