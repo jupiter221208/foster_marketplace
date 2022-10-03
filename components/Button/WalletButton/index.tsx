@@ -36,6 +36,9 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
 import { PublicKey } from '@solana/web3.js'
 
+// call api
+import authAPI from 'apis/auth'
+
 const WalletButton = props => {
   const { onClick, fullWidth = false } = props
 
@@ -115,6 +118,20 @@ const WalletButton = props => {
       setShowAlert(true)
     }
   }, [connected])
+
+  // handle login
+  const handleLogin = () => {
+    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+      response => {
+        if (response.user.username === null) {
+          dispatch({ type: 'set', profileSetup: true })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 
   return connected ? (
     <Menu as="div" className="relative inline-block text-left">
@@ -279,9 +296,7 @@ const WalletButton = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          setTimeout(() => {
-            dispatch({ type: 'set', profileSetup: true })
-          }, 500)
+          handleLogin()
         }}
         data={alertData}
       />

@@ -6,7 +6,8 @@ const nextConfig = {
   env: {
     WALLET_ADAPTER_NETWORK: process.env.WALLET_ADAPTER_NETWORK,
     BUNDLR_ADDRESS: process.env.BUNDLR_ADDRESS,
-    PROVIDER_URL: process.env.PROVIDER_URL
+    PROVIDER_URL: process.env.PROVIDER_URL,
+    BACKEND_URL: process.env.BACKEND_URL,
   },
   images: {
     domains: ['arweave.net', 'www.arweave.net'],
