@@ -25,4 +25,7 @@
   &:hover {
     color: $brand-01-color;
   }
+
+  transition: color 0.2s;
+  transition-timing-function: ease-in-out;
 }

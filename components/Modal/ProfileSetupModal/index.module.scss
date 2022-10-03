@@ -13,21 +13,21 @@
 
 .modalView {
   width: 960px;
-  height: 640px;
+  height: 650px;
   background: linear-gradient(to bottom, rgba($text-gray-800-color, 1), rgba($brand-01-color, 1));
-  // background-origin: border-box;
+  background-origin: border-box;
   border: 1px solid rgba($background-light-color, 0.25);
   border-radius: 30px;
   box-shadow: 0px 13px 36px #061a1c;
-  padding: 35px 25px;
 }
 
 .leftPanel {
-  width: 100%;
-  height: 100%;
-  padding: 30px 30px 0px 30px;
-  text-align: left;
-  background-color: $text-gray-800-color;
+  margin: 35px 25px;
+  width: calc(100% - 25px);
+  height: calc(100% - 70px);
+  padding: 30px 70px;
+  text-align: center;
+  background-color: #121212;
   border-radius: 21px;
   border: 1px solid #41d0c6;
   box-shadow: 0px 13px 36px rgba(#061a1c, 0.5);
@@ -35,22 +35,30 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 32px;
+  font-size: 24px;
   line-height: 44px;
-  // margin-top: 36px;
 }
 
-.content {
+.text {
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
-  margin-top: 25px;
+  margin-top: 10px;
 }
 
-.contentBold {
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 24px;
+.avatarArea {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  @media (min-width: 1024px) {
+    width: 170px;
+    height: 170px;
+  }
+  border-radius: 100%;
+  background: linear-gradient(300deg, $brand-01-color 50%, $background-dark-color 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rightBack {

@@ -279,7 +279,9 @@ const WalletButton = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          dispatch({ type: 'set', profileSetup: true })
+          setTimeout(() => {
+            dispatch({ type: 'set', profileSetup: true })
+          }, 500)
         }}
         data={alertData}
       />
