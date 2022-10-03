@@ -21,7 +21,12 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "noImplicitAny": false,
-    "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo",
+    "strictNullChecks" : false,
+    "types": [
+      "@types/moment-duration-format",
+      "@types/jest"
+    ]
   },
   "include": [
     ".",

@@ -41,7 +41,7 @@
   margin: 11px;
   border-radius: 12px;
   padding: 8px;
-  background: linear-gradient(to bottom, rgba($text-gray-800-color, 0.4), rgba($text-gray-200-color, 0.4));
+  background: linear-gradient(to bottom, rgba($background-dark-color, 0.4), rgba($background-light-color, 0.4));
   overflow: hidden;
   max-width: calc(100% - 32px);
   max-height: calc(100% - 32px);
@@ -49,6 +49,19 @@
   justify-content: center;
   align-items: center;
   z-index: 11;
+}
+
+.audioArea {
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+  }
+  background: linear-gradient(to bottom, rgba($background-dark-color, 0.4), rgba($background-light-color, 0.4));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  padding: 20px;
 }
 
 .mobileImageArea {

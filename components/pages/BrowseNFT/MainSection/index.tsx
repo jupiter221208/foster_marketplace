@@ -25,6 +25,7 @@ import faker from 'faker'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
 // components
+import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
@@ -41,6 +42,8 @@ import Avatar02 from 'assets/images/1920x1080.png'
 import Avatar03 from 'assets/images/1920x1440.png'
 import Avatar04 from 'assets/images/NFT-Display-Group.png' //1080 x 1920
 import Avatar05 from 'assets/images/1440x1920.png'
+
+import Audio01 from 'assets/audios/audio-01.mp3'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -157,6 +160,7 @@ const MainSection = () => {
 
   const [ratio, setRatio] = useState(1)
   const [nftArt, setNftArt] = useState({ src: '', width: 1080, height: 1080 })
+  const [nftType, setNftType] = useState('image')
 
   useEffect(() => {
     const nftArtId: any = router.query.id
@@ -176,6 +180,10 @@ const MainSection = () => {
       case '5':
         setNftArt(Avatar05)
         break
+      case '6':
+        // setNftArt(Audio01)
+        setNftType('audio')
+        break
       default:
         break
     }
@@ -190,11 +198,21 @@ const MainSection = () => {
       <div className="w-full grid grid-cols-2 gap-10">
         <div className="col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className={styles.mobileImageArea}>
-              <img src={nftArt.src} alt="" />
-              <div className={styles.mobileImageBackground} />
-            </div>
-          ) : (
+            nftType === 'image' ? (
+              <div className={styles.mobileImageArea}>
+                <img src={nftArt.src} alt="" />
+                <div className={styles.mobileImageBackground} />
+              </div>
+            ) : nftType === 'audio' ? (
+              <AudioPlayer src="/audios/audio-01.mp3" />
+            ) : nftType === 'video' ? (
+              <video autoPlay loop muted>
+                <source type="video/mp4" src="/images/Page-Animation.webm" />
+              </video>
+            ) : (
+              <></>
+            )
+          ) : nftType === 'image' ? (
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
                 <img src={nftArt.src} alt="" className="min-w-full min-h-full object-cover" />
@@ -204,6 +222,16 @@ const MainSection = () => {
                 <img src={nftArt.src} alt="" className="h-full" />
               </div>
             </div>
+          ) : nftType === 'audio' ? (
+            <div className={styles.audioArea}>
+              <AudioPlayer src="/audios/audio-01.mp3" />
+            </div>
+          ) : nftType === 'video' ? (
+            <video autoPlay loop muted>
+              <source type="video/mp4" src="/images/Page-Animation.webm" />
+            </video>
+          ) : (
+            <></>
           )}
         </div>
         <div className="col-span-2 lg:col-span-1 z-10">

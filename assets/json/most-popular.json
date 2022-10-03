@@ -40,5 +40,12 @@
     "nftName": "Lemon Pound 06",
     "artistName": "Lane Rudd",
     "price": 15
+  },
+  {
+    "id": 6,
+    "image": "/images/most-popular-2.png",
+    "nftName": "Audio 06",
+    "artistName": "Lane Rudd",
+    "price": 15
   }
 ]
