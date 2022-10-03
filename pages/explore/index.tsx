@@ -122,7 +122,7 @@ const Explore = () => {
           {/* content part */}
           <div className="flex-1 flex-wrap">
             <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-6 lg:mb-[88px] z-10">
-              <div className="ml-0 xl:ml-[30px] 2xl:ml-[64px] z-20">
+              <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
               <div className="hidden lg:flex max-w-[260px] min-w-[260px] w-full z-20">
