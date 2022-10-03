@@ -68,6 +68,8 @@ export async function getTokensByAccount(
     mint: nft.mint,
     name: nft.offChainMetatata?.name || nft.metadata?.data.name || 'No Name',
     image: nft.offChainMetatata?.image,
+    category: nft.offChainMetatata?.category,
+    properties: nft.offChainMetatata?.properties,
   }))
 }
 

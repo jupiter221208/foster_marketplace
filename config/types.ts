@@ -4,6 +4,8 @@ import { Metadata } from '@metaplex-foundation/mpl-token-metadata'
 export interface OffChainMetatata {
   name: string
   image: string
+  category: string
+  properties: any
 }
 
 export interface NFT {
