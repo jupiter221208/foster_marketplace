@@ -30,11 +30,13 @@ const AudioPlayer = props => {
             <source src={src} />
             Your browser does not support the <code>audio</code> element.
           </audio>
-          <div className="flex">
+          <div className="flex items-center gap-1">
             <IconButton
               icon={BackwardWhiteIcon}
               onClick={() => setClickedTime(curTime - 15)}
               backgroundColor="transparent"
+              width="36px"
+              height="36px"
             />
             <IconButton
               icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
@@ -45,6 +47,8 @@ const AudioPlayer = props => {
               icon={ForwardWhiteIcon}
               onClick={() => setClickedTime(curTime + 15)}
               backgroundColor="transparent"
+              width="36px"
+              height="36px"
             />
           </div>
           <Bar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
