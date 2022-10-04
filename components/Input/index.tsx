@@ -38,7 +38,7 @@ const Input = props => {
           <div className={styles.bottomLabel}>{label02}</div>
         </div>
       )}
-      {error !== '' ? <div className={styles.error}>{error}</div> : <div className="w-full h-[26px]"></div>}
+      {error !== '' ? <div className={styles.error}>{error}</div> : <div></div>}
     </div>
   )
 }

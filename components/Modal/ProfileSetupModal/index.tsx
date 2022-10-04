@@ -67,7 +67,7 @@ const ProfileSetupModal = props => {
     userAPI.update({ wallet_id: publicKey?.toBase58() || '', username: displayName }).then(
       response => {
         if (response !== null) {
-          dispatch({ type: 'user', profileSetup: response })
+          dispatch({ type: 'set', profileInfo: response })
         }
         closeModal()
       },

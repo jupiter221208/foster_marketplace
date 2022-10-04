@@ -6,6 +6,7 @@ import Image from 'next/image'
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
+import { useSelector, useDispatch } from 'react-redux'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -32,15 +33,27 @@ import ViewGreenIcon from 'assets/icons/view-green.svg'
 import styles from './index.module.scss'
 import { PublicKey } from '@solana/web3.js'
 
+// call api
+import userAPI from 'apis/user'
+import authAPI from 'apis/auth'
+
 const ProfileSection = prop => {
   const { success } = prop
   const viewport = useViewport()
+  const dispatch = useDispatch()
+
+  const profileInfo: any = useSelector<any>(state => state.profileInfo)
+  const { publicKey } = useWallet()
+  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const inputFile = useRef<any>(null)
   const [avatar, setAvatar] = useState<any>(Avatar)
-
-  const { publicKey } = useWallet()
-  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
+  const [userName, setUsername] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [igUrl, setIgUrl] = useState('')
+  const [discordUrl, setDiscordUrl] = useState('')
+  const [twitterUrl, setTwitterUrl] = useState('')
+  const [telegramUrl, setTelegramUrl] = useState('')
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
@@ -51,6 +64,29 @@ const ProfileSection = prop => {
 
   const handleChangeAvatar = event => {
     setAvatar(URL.createObjectURL(event.target.files[0]))
+  }
+
+  const handleSaveUsermame = () => {
+    userAPI
+      .update({
+        wallet_id: publicKey?.toBase58() || '',
+        username: userName,
+        email: userEmail,
+        ig_url: igUrl,
+        twitter_url: twitterUrl,
+        discord_url: discordUrl,
+      })
+      .then(
+        response => {
+          if (response !== null) {
+            dispatch({ type: 'set', profileInfo: response })
+          }
+          success()
+        },
+        error => {
+          console.log(error)
+        }
+      )
   }
 
   const [data, setData] = useState<any[]>([])
@@ -64,6 +100,26 @@ const ProfileSection = prop => {
         type: 'success',
       },
     ])
+
+    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+      response => {
+        if (response.user !== null) {
+          const userInfo = response.user
+          console.log(userInfo, '==========+++++++++++------------')
+
+          setUsername(userInfo.username)
+          setUserEmail(userInfo.email)
+          setIgUrl(userInfo.ig_url)
+          setTwitterUrl(userInfo.twitter_url)
+          setDiscordUrl(userInfo.discord_url)
+          setTelegramUrl(userInfo.telegram_url)
+          dispatch({ type: 'set', profileInfo: userInfo })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }, [])
 
   return (
@@ -110,13 +166,13 @@ const ProfileSection = prop => {
             <div className={styles.subTitle}>Personal Info</div>
           </div>
           <div className="mt-4 lg:mt-8">
-            <Input placeholder="User name" onChange={() => {}} />
+            <Input value={userName} placeholder="User name" onChange={value => setUsername(value)} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] h-fit">
             <Textarea placeholder="Bio" width="100%" height="100%" onChange={() => {}} />
           </div>
           <div className="mt-[10px] lg:mt-[30px]">
-            <Input placeholder="Email Address" onChange={() => {}} />
+            <Input value={userEmail} placeholder="Email Address" onChange={value => setUserEmail(value)} />
           </div>
           <div className="mt-[45px] lg:mt-[60px]">
             <div className={styles.subTitle}>Social Connections & Links</div>
@@ -132,7 +188,7 @@ const ProfileSection = prop => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" onChange={() => {}} />
+            <Input value={igUrl} placeholder="Add Your Account" onChange={value => setIgUrl(value)} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -145,7 +201,7 @@ const ProfileSection = prop => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" onChange={() => {}} />
+            <Input value={discordUrl} placeholder="Add Your Account" onChange={value => setDiscordUrl(value)} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -158,7 +214,7 @@ const ProfileSection = prop => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" onChange={() => {}} />
+            <Input value={twitterUrl} placeholder="Add Your Account" onChange={value => setTwitterUrl(value)} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -171,7 +227,7 @@ const ProfileSection = prop => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input placeholder="Add Your Account" onChange={() => {}} />
+            <Input value={telegramUrl} placeholder="Add Your Account" onChange={value => setTelegramUrl(value)} />
           </div>
           <div className="mt-[45px] lg:mt-[60px]">
             <div className={styles.subTitle}>Wallet</div>
@@ -200,7 +256,7 @@ const ProfileSection = prop => {
             <GradientButton
               label="Save"
               onClick={() => {
-                success()
+                handleSaveUsermame()
               }}
               fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
