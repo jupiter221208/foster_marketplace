@@ -1,6 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
+  isLoading: false,
   expired: false,
   openMobileMenu: false,
   openMobileSearchBox: false,

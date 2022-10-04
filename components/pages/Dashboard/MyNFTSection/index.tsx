@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
+import { useSelector, useDispatch } from 'react-redux'
 
 // third party components
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
@@ -21,6 +22,7 @@ import styles from './index.module.scss'
 
 const MyNFTSection = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const { connection } = useConnection()
   const { publicKey } = useWallet()
 
@@ -32,8 +34,9 @@ const MyNFTSection = () => {
         setMyNFTList([])
         return
       }
-
+      dispatch({ type: 'set', isLoading: true })
       setMyNFTList(await getTokensByAccount(publicKey, connection))
+      dispatch({ type: 'set', isLoading: false })
     }
     loadMyNFTs()
   }, [connection, publicKey])
