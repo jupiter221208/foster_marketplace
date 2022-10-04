@@ -25,6 +25,7 @@ const GradientButton = props => {
     disabled = false,
     paddingLeft = '',
     paddingRight = '',
+    opacity = 1,
   } = props
 
   return (
@@ -43,6 +44,7 @@ const GradientButton = props => {
         borderRadius: borderRadius,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
+        opacity: opacity,
       }}
     >
       {(direction === 'both' || direction === 'rtl') && icon !== '' && (

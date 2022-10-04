@@ -54,6 +54,8 @@ const ProfileSection = prop => {
   const [discordUrl, setDiscordUrl] = useState('')
   const [twitterUrl, setTwitterUrl] = useState('')
   const [telegramUrl, setTelegramUrl] = useState('')
+  const [orgUserInfo, setOrgUserInfo] = useState<any>(null)
+  const [enableSave, setEnableSave] = useState(false)
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
@@ -66,7 +68,45 @@ const ProfileSection = prop => {
     setAvatar(URL.createObjectURL(event.target.files[0]))
   }
 
-  const handleSaveUsermame = () => {
+  const checkEnableSave = () => {
+    if (
+      orgUserInfo === null ||
+      userName === null ||
+      userEmail === null ||
+      igUrl === null ||
+      twitterUrl === null ||
+      discordUrl === null
+    )
+      return
+
+    if (userName !== orgUserInfo.username) {
+      setEnableSave(true)
+      return
+    }
+    if (userEmail !== orgUserInfo.email) {
+      setEnableSave(true)
+      return
+    }
+    if (igUrl !== orgUserInfo.ig_url) {
+      setEnableSave(true)
+      return
+    }
+    if (twitterUrl !== orgUserInfo.twitter_url) {
+      setEnableSave(true)
+      return
+    }
+    if (discordUrl !== orgUserInfo.discord_url) {
+      setEnableSave(true)
+      return
+    }
+    setEnableSave(false)
+    return
+    // if (telegramUrl !== orgUserInfo.telegram_url) {
+    //   return true
+    // }
+  }
+
+  const handleSaveUserInfo = () => {
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
@@ -80,8 +120,10 @@ const ProfileSection = prop => {
         response => {
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
+            setOrgUserInfo(response)
+            setEnableSave(false)
+            success()
           }
-          success()
         },
         error => {
           console.log(error)
@@ -100,27 +142,32 @@ const ProfileSection = prop => {
         type: 'success',
       },
     ])
+  }, [])
 
+  useEffect(() => {
+    if (publicKey === null) return
     authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
       response => {
         if (response.user !== null) {
           const userInfo = response.user
-          console.log(userInfo, '==========+++++++++++------------')
-
           setUsername(userInfo.username)
           setUserEmail(userInfo.email)
           setIgUrl(userInfo.ig_url)
           setTwitterUrl(userInfo.twitter_url)
           setDiscordUrl(userInfo.discord_url)
           setTelegramUrl(userInfo.telegram_url)
-          dispatch({ type: 'set', profileInfo: userInfo })
+          setOrgUserInfo(userInfo)
         }
       },
       error => {
         console.log(error)
       }
     )
-  }, [])
+  }, [publicKey])
+
+  useEffect(() => {
+    checkEnableSave()
+  }, [userName, userEmail, igUrl, discordUrl, twitterUrl])
 
   return (
     <div className={styles.container}>
@@ -188,7 +235,13 @@ const ProfileSection = prop => {
               borderWidth="2px"
               onClick={() => {}}
             />
-            <Input value={igUrl} placeholder="Add Your Account" onChange={value => setIgUrl(value)} />
+            <Input
+              value={igUrl}
+              placeholder="Add Your Account"
+              onChange={value => {
+                setIgUrl(value)
+              }}
+            />
           </div>
           <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
             <IconButton
@@ -253,17 +306,31 @@ const ProfileSection = prop => {
               paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '18px'}
               paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '18px'}
             />
-            <GradientButton
-              label="Save"
-              onClick={() => {
-                handleSaveUsermame()
-              }}
-              fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
-              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-              paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-              paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-            />
+            {enableSave ? (
+              <GradientButton
+                label="Save"
+                onClick={() => {
+                  handleSaveUserInfo()
+                }}
+                fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                opacity={1}
+              />
+            ) : (
+              <GradientButton
+                label="Save"
+                onClick={() => {}}
+                fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                opacity={0.7}
+              />
+            )}
           </div>
         </div>
       </div>
