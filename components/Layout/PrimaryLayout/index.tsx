@@ -15,7 +15,6 @@ import PrimaryHeader from 'components/Header/PrimaryHeader'
 import PrimaryFooter from 'components/Footer/PrimaryFooter'
 import ConnectWalletModal from 'components/Modal/ConnectWalletModal'
 import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
-import LoadingModal from 'components/Modal/LoadingModal'
 
 // styles
 import styles from './index.module.scss'
@@ -26,7 +25,6 @@ interface PrimaryLayoutProps {
 
 const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const viewport = useViewport()
-  const isLoading = useSelector<any>(state => state.isLoading)
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
@@ -43,7 +41,6 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
 
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
           {children}
-          <LoadingModal open={isLoading} />
         </main>
         <PrimaryFooter />
         {connected && profileSetup && <ProfileSetupModal />}

@@ -1,28 +1,5 @@
 @import 'assets/scss/variable.module.scss';
 
-.container {
-  position: relative;
-  z-index: 10002;
-}
-
-.bgView {
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
-  );
-  position: fixed;
-  inset: 0;
-}
-
-.modalView {
-  width: 100%;
-  height: 100%;
-}
-
 .ringLoader {
   display: flex;
   justify-content: center;
