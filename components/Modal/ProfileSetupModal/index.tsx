@@ -26,6 +26,12 @@ import CameraIcon from 'assets/icons/camera-white.svg'
 import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
+import { useWallet } from '@solana/wallet-adapter-react'
+import { PublicKey } from '@solana/web3.js'
+
+// call api
+import userAPI from 'apis/user'
+
 const ProfileSetupModal = props => {
   // const {open} =props
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
@@ -35,6 +41,8 @@ const ProfileSetupModal = props => {
 
   const [displayName, setDisplayName] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+
+  const { publicKey } = useWallet()
 
   useEffect(() => {
     if (displayName === '') {
@@ -53,6 +61,20 @@ const ProfileSetupModal = props => {
 
   const closeModal = () => {
     dispatch({ type: 'set', profileSetup: !profileSetup })
+  }
+
+  const handleSaveUsermame = () => {
+    userAPI.update({ wallet_id: publicKey?.toBase58() || '', username: displayName }).then(
+      response => {
+        if (response !== null) {
+          dispatch({ type: 'user', profileSetup: response })
+        }
+        closeModal()
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   return (
@@ -132,7 +154,7 @@ const ProfileSetupModal = props => {
                           <GradientButton
                             label="Save"
                             fullWidth
-                            onClick={() => closeModal()}
+                            onClick={() => handleSaveUsermame()}
                             gradientDirection="bottom"
                           />
                         </div>
