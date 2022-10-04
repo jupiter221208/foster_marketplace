@@ -11,10 +11,10 @@ import OutlineButton from 'components/Button/OutlineButton'
 import styles from './index.module.scss'
 
 const MyNFTCard = props => {
-  const { data, onClickStartAuction, onClickListNFT } = props
+  const { data, onClick, onClickStartAuction, onClickListNFT } = props
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={() => onClick(data)}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]">
         <img src={data.image} alt={data.name} className="w-full aspect-[321/321] object-cover" />
       </div>

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import { useRouter } from 'next/router'
+
 // third party components
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 
@@ -17,6 +20,7 @@ import { getTokensByAccount } from 'utils/wallet.util'
 import styles from './index.module.scss'
 
 const MyNFTSection = () => {
+  const router = useRouter()
   const { connection } = useConnection()
   const { publicKey } = useWallet()
 
@@ -41,6 +45,11 @@ const MyNFTSection = () => {
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
   const [selectedData, setSelectedData] = useState()
+
+  const handleGotoDetailPage = (data: any) => {
+    localStorage.setItem('selectedNFT', JSON.stringify(data))
+    router.push('/browse-nft')
+  }
 
   const handleStartAuction = item => {
     setSelectedData(item)
@@ -72,6 +81,7 @@ const MyNFTSection = () => {
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <MyNFTCard
               data={item}
+              onClick={(data: any) => handleGotoDetailPage(data)}
               onClickStartAuction={item => handleStartAuction(item)}
               onClickListNFT={item => handleListNFT(item)}
             />

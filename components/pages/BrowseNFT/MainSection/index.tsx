@@ -161,30 +161,44 @@ const MainSection = () => {
   const [ratio, setRatio] = useState(1)
   const [nftArt, setNftArt] = useState({ src: '', width: 1080, height: 1080 })
   const [nftType, setNftType] = useState('image')
+  const [nftUrl, setNftUrl] = useState('')
 
   useEffect(() => {
     const nftArtId: any = router.query.id
     switch (nftArtId) {
       case '1':
-        setNftArt(Avatar01)
+        setNftUrl(Avatar01.src)
         break
       case '2':
-        setNftArt(Avatar02)
+        setNftUrl(Avatar02.src)
         break
       case '3':
-        setNftArt(Avatar03)
+        setNftUrl(Avatar03.src)
         break
       case '4':
-        setNftArt(Avatar04)
+        setNftUrl(Avatar04.src)
         break
       case '5':
-        setNftArt(Avatar05)
+        setNftUrl(Avatar05.src)
         break
       case '6':
-        // setNftArt(Audio01)
         setNftType('audio')
         break
       default:
+        setNftType(JSON.parse(localStorage.getItem('selectedNFT')).category)
+        switch (JSON.parse(localStorage.getItem('selectedNFT')).category) {
+          case 'image':
+            setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).image)
+            break
+          case 'audio':
+            setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
+            break
+          case 'video':
+            setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
+            break
+          default:
+            break
+        }
         break
     }
   }, [router])
@@ -200,36 +214,43 @@ const MainSection = () => {
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             nftType === 'image' ? (
               <div className={styles.mobileImageArea}>
-                <img src={nftArt.src} alt="" />
+                <img src={nftUrl} alt="" />
                 <div className={styles.mobileImageBackground} />
               </div>
             ) : nftType === 'audio' ? (
-              <AudioPlayer src="/audios/audio-01.mp3" />
+              <div className={styles.audioArea}>
+                <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} />
+              </div>
             ) : nftType === 'video' ? (
-              <video autoPlay loop muted>
-                <source type="video/mp4" src="/images/Page-Animation.webm" />
-              </video>
+              <div className={styles.audioArea}>
+                <video controls muted>
+                  <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+                </video>
+              </div>
             ) : (
               <></>
             )
           ) : nftType === 'image' ? (
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
-                <img src={nftArt.src} alt="" className="min-w-full min-h-full object-cover" />
+                <img src={nftUrl} alt="" className="min-w-full min-h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
               <div className={ratio > 1.7 ? `${styles.imageArea} h-full` : styles.imageArea}>
-                <img src={nftArt.src} alt="" className="h-full" />
+                <img src={nftUrl} alt="" className="h-full" />
               </div>
             </div>
           ) : nftType === 'audio' ? (
             <div className={styles.audioArea}>
-              <AudioPlayer src="/audios/audio-01.mp3" />
+              <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} />
             </div>
           ) : nftType === 'video' ? (
-            <video autoPlay loop muted>
-              <source type="video/mp4" src="/images/Page-Animation.webm" />
-            </video>
+            <div className={styles.audioArea}>
+              <video controls muted>
+                <div>{nftUrl}</div>
+                <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+              </video>
+            </div>
           ) : (
             <></>
           )}
