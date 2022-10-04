@@ -85,7 +85,7 @@ const Step03CollectionSection = props => {
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
-    handleFormValidate(step)
+    handleFormValidate()
     onChangeCurrentStep(step)
   }
 

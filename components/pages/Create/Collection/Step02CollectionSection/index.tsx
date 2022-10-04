@@ -186,9 +186,9 @@ const Step02CollectionSection = props => {
   }
 
   const [showMore, setShowMore] = useState(false)
-  const [subCollectionFiles, setSubCollectionFiles] = useState()
+  const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
 
-  const [selectedCollectionFile, setSelectedCollectionFile] = useState()
+  const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
     if (collectionFiles.length !== 0) {
