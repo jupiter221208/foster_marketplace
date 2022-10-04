@@ -274,7 +274,7 @@ const MainSection = () => {
                   />
                   <div className="flex items-center cursor-pointer" onClick={() => setFavorite(!favorite)}>
                     <Image src={favorite ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{like ? 255 : 254}</div>
+                    <div className={styles.text}>{favorite ? 255 : 254}</div>
                   </div>
                 </div>
                 <div className={`${styles.greenTitle} w-full flex lg:hidden`}>The GB Series</div>
