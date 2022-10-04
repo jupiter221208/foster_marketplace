@@ -13,6 +13,7 @@ import Pagination from 'components/Button/Pagination'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // custom functions
 import { getTokensByAccount } from 'utils/wallet.util'
@@ -23,6 +24,7 @@ import styles from './index.module.scss'
 const MyNFTSection = () => {
   const router = useRouter()
   const dispatch = useDispatch()
+  const isLoading = useSelector<any>(state => state.isLoading)
   const { connection } = useConnection()
   const { publicKey } = useWallet()
 
@@ -90,6 +92,9 @@ const MyNFTSection = () => {
             />
           </div>
         ))}
+        <div className="col-span-12">
+          <LoadingModal open={isLoading} />
+        </div>
       </div>
       <div className="w-full flex justify-end">
         <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} />
