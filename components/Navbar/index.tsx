@@ -115,7 +115,7 @@ const Navbar = props => {
             </div>
             <div
               className={styles.navItemArea}
-              onMouseOver={() => setSelectedNavMenu('statistic')}
+              onMouseOver={() => setSelectedNavMenu('stats')}
               onMouseLeave={() => setSelectedNavMenu('')}
               onClick={() => router.push('/stats')}
             >
