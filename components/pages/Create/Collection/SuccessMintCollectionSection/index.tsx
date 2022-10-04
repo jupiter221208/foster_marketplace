@@ -24,7 +24,7 @@ import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.sv
 import styles from './index.module.scss'
 
 const SuccessMintCollectionSection = props => {
-  const { collectionArt, coverImage, banner } = props
+  const { collectionArt, coverImage, banner, reset } = props
 
   const viewport = useViewport()
 
@@ -62,7 +62,7 @@ const SuccessMintCollectionSection = props => {
                   className="rounded-[20px]"
                 />
               ) : (
-                <div style={{ width: artWidth, height: artHeight }} />
+                <div />
               )}
               <div className="absolute left-0 -bottom-[100px] w-full flex justify-center">
                 <div className={styles.coverImageArea}>
@@ -100,7 +100,7 @@ const SuccessMintCollectionSection = props => {
                   label="Mint another Collection"
                   backgroundColor="#63D6CD"
                   height="68px"
-                  onClick={() => setCurrentStep(1)}
+                  onClick={() => reset()}
                   borderColor="#5AC3BA"
                 />
               </div>
@@ -127,7 +127,7 @@ const SuccessMintCollectionSection = props => {
                     className="rounded-[20px]"
                   />
                 ) : (
-                  <div style={{ width: artWidth, height: artHeight }} />
+                  <div />
                 )}
                 <div className="absolute left-0 -bottom-[50px] w-full flex justify-center">
                   <div className={styles.coverImageArea}>
@@ -166,7 +166,7 @@ const SuccessMintCollectionSection = props => {
                   fullWidth
                   label="Mint another NFT"
                   backgroundColor="#63D6CD"
-                  onClick={() => setCurrentStep(1)}
+                  onClick={() => reset()}
                   borderColor="#5AC3BA"
                 />
               </div>

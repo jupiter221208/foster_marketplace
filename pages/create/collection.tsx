@@ -88,6 +88,20 @@ const Collection = () => {
   const [banner, setBanner] = useState()
   const [royalties, setRoyalties] = useState('')
 
+  const reset = () => {
+    setCurrentStep(1)
+    setCollectionName('')
+    setDescription('')
+    const categories = categoryList.map(item => {
+      item.checked = false
+      return item
+    })
+    setCategoryList(categories)
+    setDimension(CollectionDimensionList[0])
+    setRoyalties('')
+    setCollectionFiles([])
+  }
+
   return (
     <div className="w-full">
       <Head>
@@ -142,7 +156,7 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
           />
         )}
-        {currentStep === 4 && <SuccessMintCollectionSection coverImage={coverImage} banner={banner} />}
+        {currentStep === 4 && <SuccessMintCollectionSection coverImage={coverImage} banner={banner} reset={reset} />}
       </div>
     </div>
   )
