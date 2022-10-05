@@ -13,7 +13,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, namePublicFile } from 'utils'
 
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
@@ -31,6 +31,7 @@ import { PublicKey } from '@solana/web3.js'
 
 // call api
 import userAPI from 'apis/user'
+import uploadFileToS3 from 'apis/aws'
 
 const ProfileSetupModal = props => {
   // const {open} =props
@@ -56,8 +57,17 @@ const ProfileSetupModal = props => {
   const [avatar, setAvatar] = useState<any>(Avatar)
 
   const handleChangeAvatar = event => {
-    setAvatar(URL.createObjectURL(event.target.files[0]))
+    const file = event.target.files[0]
+    setAvatar(URL.createObjectURL(file))
+    if (file) {
+      const filename = namePublicFile(file.name)
+      uploadFile(file, filename)
+    }
   }
+
+  const uploadFile = async (file: any, filename: string) => {
+    const { data, url } = await uploadFileToS3(file, filename)
+  };
 
   const closeModal = () => {
     dispatch({ type: 'set', profileSetup: !profileSetup })

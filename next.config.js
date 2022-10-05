@@ -10,7 +10,12 @@ const nextConfig = {
     BACKEND_URL: process.env.BACKEND_URL,
   },
   images: {
-    domains: ['arweave.net', 'www.arweave.net'],
+    domains: [
+      'arweave.net',
+      'www.arweave.net',
+      'foster-marketplace-dev.s3.us-east-2.amazonaws.com',
+      'foster-marketplace.s3.us-east-2.amazonaws.com'
+    ],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],

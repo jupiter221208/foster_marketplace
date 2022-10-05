@@ -18,7 +18,7 @@ import GradientButton from 'components/Button/GradientButton'
 import Alert from 'components/Alert'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import Avatar from 'assets/images/dashboard-avatar.png'
@@ -36,6 +36,7 @@ import { PublicKey } from '@solana/web3.js'
 // call api
 import userAPI from 'apis/user'
 import authAPI from 'apis/auth'
+import uploadFileToS3 from 'apis/aws'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -50,6 +51,7 @@ const ProfileSection = prop => {
   const [avatar, setAvatar] = useState<any>(Avatar)
   const [userName, setUsername] = useState('')
   const [userEmail, setUserEmail] = useState('')
+  const [profilePictureUrl, setProfilePictureUrl] = useState('')
   const [igUrl, setIgUrl] = useState('')
   const [discordUrl, setDiscordUrl] = useState('')
   const [twitterUrl, setTwitterUrl] = useState('')
@@ -65,8 +67,18 @@ const ProfileSection = prop => {
   }
 
   const handleChangeAvatar = event => {
-    setAvatar(URL.createObjectURL(event.target.files[0]))
+    const file = event.target.files[0]
+    setAvatar(URL.createObjectURL(file))
+    if (file) {
+      const filename = namePublicFile(file.name)
+      uploadFile(file, filename)
+    }
   }
+
+  const uploadFile = async (file: any, filename: string) => {
+    const { data, url } = await uploadFileToS3(file, filename)
+    setProfilePictureUrl(url + filename);
+  };
 
   const checkEnableSave = () => {
     if (
@@ -75,9 +87,11 @@ const ProfileSection = prop => {
       userEmail === null ||
       igUrl === null ||
       twitterUrl === null ||
-      discordUrl === null
-    )
+      discordUrl === null ||
+      profilePictureUrl === null
+    ) {
       return
+    }
 
     if (userName !== orgUserInfo.username) {
       setEnableSave(true)
@@ -99,6 +113,10 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
+    if (profilePictureUrl !== orgUserInfo.profilePictureUrl && profilePictureUrl !== '') {
+      setEnableSave(true)
+      return
+    }
     setEnableSave(false)
     return
     // if (telegramUrl !== orgUserInfo.telegram_url) {
@@ -115,6 +133,7 @@ const ProfileSection = prop => {
         ig_url: igUrl,
         twitter_url: twitterUrl,
         discord_url: discordUrl,
+        profile_picture: profilePictureUrl,
       })
       .then(
         response => {
@@ -150,6 +169,7 @@ const ProfileSection = prop => {
       response => {
         if (response.user !== null) {
           const userInfo = response.user
+          if (userInfo.profile_picture) { setAvatar(userInfo.profile_picture) }
           setUsername(userInfo.username)
           setUserEmail(userInfo.email)
           setIgUrl(userInfo.ig_url)
@@ -167,7 +187,7 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, userEmail, igUrl, discordUrl, twitterUrl])
+  }, [userName, userEmail, igUrl, discordUrl, twitterUrl, profilePictureUrl])
 
   return (
     <div className={styles.container}>
@@ -322,7 +342,7 @@ const ProfileSection = prop => {
             ) : (
               <GradientButton
                 label="Save"
-                onClick={() => {}}
+                onClick={() => handleSaveUserInfo()}
                 fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
