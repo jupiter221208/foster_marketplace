@@ -187,11 +187,11 @@ const MainSection = () => {
         break
       default:
         let nftInfo = JSON.parse(localStorage.getItem('selectedNFT'))
-        if (nftInfo.type === 'image') {
+        if (nftInfo.category === 'image') {
           setNftType('image')
           setNftUrl(nftInfo.image)
-        } else if (nftInfo.type === 'audio' || nftInfo.type === 'video') {
-          setNftType('audio')
+        } else if (nftInfo.category === 'audio' || nftInfo.category === 'video') {
+          setNftType(nftInfo.category)
           setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
         } else {
           setNftType('image')
