@@ -5,6 +5,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 
 // third party components
+import { useSelector, useDispatch } from 'react-redux'
+import Lottie from 'lottie-react'
 import AvatarEditor from 'react-avatar-editor'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 
@@ -37,6 +39,7 @@ import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
 // json
+import MonoLoader2 from 'assets/lottery/mono-loader-2.json'
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
@@ -45,6 +48,8 @@ import styles from './single-nft.module.scss'
 
 const SingleNft = () => {
   const viewport = useViewport()
+  const dispatch = useDispatch()
+  const isLoading = useSelector<any>(state => state.isLoading)
 
   const [screenWidth, setScreenWidth] = useState(1920)
   const [screenHeight, setScreenHeight] = useState(1080)
@@ -281,6 +286,7 @@ const SingleNft = () => {
       const fileData = new Blob([nftArt[0]])
       reader.readAsArrayBuffer(fileData)
       reader.onload = async function (event) {
+        dispatch({ type: 'set', isLoading: true })
         const arrayBuffer = reader.result as ArrayBuffer
 
         const categories = categoryList.filter(item => item.checked)
@@ -342,9 +348,10 @@ const SingleNft = () => {
           setNFTAddress(address)
           handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
         }
+        dispatch({ type: 'set', isLoading: false })
       }
     } catch (error) {
-      console.error(error)
+      dispatch({ type: 'set', isLoading: false })
     }
   }
 
@@ -372,7 +379,13 @@ const SingleNft = () => {
       </Head>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
         ? currentStep !== 4 && (
-            <div className="w-full grid grid-cols-12 gap-0">
+            <div className="relative w-full grid grid-cols-12 gap-0">
+              {isLoading && (
+                <div className="fixed top-[100px] left-0 right-0 z-[10000]">
+                  <Lottie animationData={MonoLoader2} loop={true} />
+                </div>
+              )}
+
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
                 <div className={styles.topLeftEllipse}>
