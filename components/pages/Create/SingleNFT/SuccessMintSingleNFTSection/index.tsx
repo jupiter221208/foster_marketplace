@@ -53,7 +53,7 @@ const SuccessMintSingleNFTSection = props => {
       <div className={styles.topLeftEllipse}>
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
-      <div className="w-full flex flex-wrap justify-center items-center z-10">
+      <div className="w-full flex flex-wrap justify-center items-center mt-10 lg:mt-20 z-10">
         {nftType === 'image' ? (
           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
             {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
