@@ -53,7 +53,20 @@
   text-align: center;
 }
 
-.audioDropzone {
+.dropzone {
+  width: 100%;
+  height: 141px;
+  padding: 24px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    padding: 24px;
+    height: 128px;
+  }
+  border-radius: 12px;
+  border: 2px dashed rgba($text-gray-200-color, 0.6);
+}
+
+.mediaDropzone {
   width: 100%;
   height: 141px;
   padding: 24px;
@@ -67,19 +80,6 @@
   background-image: url('../../../../../assets/images/art-bg-gray.svg');
   background-color: #1d1d1d;
   background-position: top 5px left 10px;
-}
-
-.dropzone {
-  width: 100%;
-  height: 141px;
-  padding: 24px;
-  text-align: center;
-  @media (min-width: 1024px) {
-    padding: 24px;
-    height: 128px;
-  }
-  border-radius: 12px;
-  border: 2px dashed rgba($text-gray-200-color, 0.6);
 }
 
 .selectArea {
