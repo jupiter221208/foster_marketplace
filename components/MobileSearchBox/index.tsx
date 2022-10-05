@@ -45,23 +45,23 @@ const MobileSearchBox = () => {
     }
   }, [searchKeyword])
 
-  const handleClick = () => {
-    dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
+  const handleClear = () => {
+    setSearchKeyword('')
   }
 
   const handleClose = () => {
+    dispatch({ type: 'set', openMobileSearchBox: !openMobileSearchBox })
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
   return (
-    // <div className={openMobileSearchBox ? styles.menuOpen : !openMobileSearchBox ? styles.menuClose : styles.menu}>
     <div className={styles.menu}>
       <SearchBox
         value={searchKeyword}
         placeholder="Search by NFT, Collection, or Artist"
         onChange={value => setSearchKeyword(value)}
         searchList={searchList}
-        onClick={() => handleClick()}
+        onClick={() => handleClear()}
         onClose={() => handleClose()}
       />
     </div>

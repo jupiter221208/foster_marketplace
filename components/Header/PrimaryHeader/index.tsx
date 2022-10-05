@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { useWallet } from '@solana/wallet-adapter-react'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 
 // next components
 import Image from 'next/image'
@@ -68,29 +67,8 @@ const PrimaryHeader = () => {
     }
   }, [searchKeyword])
 
-  const handleSearch = () => {
-    if (searchKeyword !== '') {
-      const getRandom = (arr, n) => {
-        var result = new Array(n),
-          len = arr.length,
-          taken = new Array(len)
-        if (n > len) throw new RangeError('getRandom: more elements taken than available')
-        while (n--) {
-          var x = Math.floor(Math.random() * len)
-          result[n] = arr[x in taken ? taken[x] : x]
-          taken[x] = --len in taken ? taken[len] : len
-        }
-        return result
-      }
-
-      let object: any = {}
-      object.nfts = getRandom(SearchList.nfts, Math.floor(Math.random() * 5))
-      object.artists = getRandom(SearchList.artists, Math.floor(Math.random() * 5))
-      object.collections = getRandom(SearchList.collections, Math.floor(Math.random() * 5))
-      setSearchList(object)
-    } else {
-      setSearchList({ nfts: [], artists: [], collections: [] })
-    }
+  const handleClear = () => {
+    setSearchKeyword('')
   }
 
   const handleClose = () => {
@@ -173,7 +151,7 @@ const PrimaryHeader = () => {
               placeholder="Search by NFT, Collection, or Artist"
               onChange={value => setSearchKeyword(value)}
               searchList={searchList}
-              onClick={() => handleSearch()}
+              onClick={() => handleClear()}
               onClose={() => handleClose()}
             />
             {connected && (

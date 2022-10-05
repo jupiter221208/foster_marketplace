@@ -3,12 +3,15 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 
+// custom components
+import OutlineButton from 'components/Button/OutlineButton'
+
 // custom functions
 import { useViewport } from 'utils'
 
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import CloseGrayIcon from 'assets/icons/close-gray.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -25,12 +28,28 @@ const SearchBox = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
-      <Image
-        src={viewport === 'sm' || viewport === 'md' ? CloseWhiteIcon : SearchGrayIcon}
-        alt=""
-        className="cursor-pointer"
-        onClick={() => onClick()}
-      />
+      <div className={styles.iconArea}>
+        <Image
+          src={value !== '' ? CloseGrayIcon : SearchGrayIcon}
+          alt=""
+          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+          className="cursor-pointer"
+          onClick={() => onClick()}
+        />
+      </div>
+      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        <div>
+          <OutlineButton
+            label="Cancel"
+            onClick={() => onClose()}
+            backgroundColor="transparent"
+            borderColor="transparent"
+          />
+        </div>
+      ) : (
+        <></>
+      )}
       {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
         <div className={styles.contentArea}>
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[26px]`}>NFTs</div>}
