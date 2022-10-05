@@ -162,6 +162,7 @@ const MainSection = () => {
   const [nftArt, setNftArt] = useState({ src: '', width: 1080, height: 1080 })
   const [nftType, setNftType] = useState('image')
   const [nftUrl, setNftUrl] = useState('')
+  const [nftName, setNftName] = useState('')
 
   useEffect(() => {
     const nftArtId: any = router.query.id
@@ -185,20 +186,18 @@ const MainSection = () => {
         setNftType('audio')
         break
       default:
-        setNftType(JSON.parse(localStorage.getItem('selectedNFT')).category)
-        switch (JSON.parse(localStorage.getItem('selectedNFT')).category) {
-          case 'image':
-            setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).image)
-            break
-          case 'audio':
-            setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
-            break
-          case 'video':
-            setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
-            break
-          default:
-            break
+        let nftInfo = JSON.parse(localStorage.getItem('selectedNFT'))
+        if (nftInfo.type === 'image') {
+          setNftType('image')
+          setNftUrl(nftInfo.image)
+        } else if (nftInfo.type === 'audio' || nftInfo.type === 'video') {
+          setNftType('audio')
+          setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
+        } else {
+          setNftType('image')
+          setNftUrl(nftInfo.image)
         }
+        setNftName(nftInfo.name)
         break
     }
   }, [router])
@@ -259,7 +258,7 @@ const MainSection = () => {
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
-                <div className={`${styles.greenTitle} hidden lg:flex`}>The GB Series</div>
+                <div className={`${styles.greenTitle} hidden lg:flex`}>{nftName}</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                   <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
@@ -280,7 +279,7 @@ const MainSection = () => {
                 <div className={`${styles.greenTitle} w-full flex lg:hidden`}>The GB Series</div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
-                <div className={styles.title}>The Glass Banana</div>
+                <div className={styles.title}>{nftName}</div>
               </div>
               <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7">
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>

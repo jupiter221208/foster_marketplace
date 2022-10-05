@@ -123,7 +123,7 @@ const WalletButton = props => {
   const handleLogin = () => {
     authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
       response => {
-        if (response.user.username === null) {
+        if (response.user.username === null || response.user.username === '') {
           dispatch({ type: 'set', profileSetup: true })
         }
         dispatch({ type: 'set', profileInfo: response.user })

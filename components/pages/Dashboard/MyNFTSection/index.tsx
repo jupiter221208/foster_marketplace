@@ -37,7 +37,8 @@ const MyNFTSection = () => {
         return
       }
       dispatch({ type: 'set', isLoading: true })
-      setMyNFTList(await getTokensByAccount(publicKey, connection))
+      let nfts = await getTokensByAccount(publicKey, connection)
+      setMyNFTList(nfts)
       dispatch({ type: 'set', isLoading: false })
     }
     loadMyNFTs()
