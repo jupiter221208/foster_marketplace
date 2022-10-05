@@ -3,15 +3,15 @@ import { S3 } from "aws-sdk"
 import axios from 'axios'
 
 const s3 = new S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    secretAccessKey: process.env.AWS_SECRET_KEY,
+    accessKeyId: process.env.S3_ACCESS_KEY,
+    secretAccessKey: process.env.S3_SECRET_KEY,
     region: 'us-east-2',
 })
 
 const getSignedUrl = async (name: any, type: any) => {
     try {
         const fileParams = {
-            Bucket: process.env.AWS_BUCKET_NAME,
+            Bucket: process.env.S3_BUCKET_NAME,
             Key: name,
             Expires: 600,
             ContentType: type,
