@@ -14,7 +14,6 @@ const Stepper = props => {
   return (
     <div className="w-full flex h-[66px] lg:h-[95px] flex-col justify-between">
       <div className={styles.container}>
-        {/* <div className="cursor-pointer relative h-[40px] lg:h-[60px] flex items-center" onClick={() => onChange(1)}> */}
         <div className="relative h-[40px] lg:h-[60px] flex items-center">
           {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />}
           <div className={`${styles.greenText} absolute top-[52px] lg:top-20 -left-16 -right-16`}>Upload Artwork</div>
@@ -22,7 +21,6 @@ const Stepper = props => {
 
         <div className={currentStep === 1 ? styles.grayLine : styles.greenLine} />
 
-        {/* <div className="cursor-pointer relative h-[40px] lg:h-[60px] flex items-center" onClick={() => onChange(2)}> */}
         <div className="relative h-[40px] lg:h-[60px] flex items-center">
           {currentStep === 1 ? (
             <NextStepCircle step={2} />
@@ -42,7 +40,6 @@ const Stepper = props => {
 
         <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />
 
-        {/* <div className="cursor-pointer relative h-[40px] lg:h-[60px] flex items-center" onClick={() => onChange(3)}> */}
         <div className="relative h-[40px] lg:h-[60px] flex items-center">
           {currentStep === 1 || currentStep === 2 ? (
             <NextStepCircle step={3} />

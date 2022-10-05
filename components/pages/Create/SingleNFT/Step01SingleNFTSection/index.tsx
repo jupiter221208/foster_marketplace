@@ -17,7 +17,7 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import styles from './index.module.scss'
 
 const Step01SingleNFTSection = props => {
-  const { selectedDimension, setSelectedDimension, setNftArt } = props
+  const { selectedDimension, setSelectedDimension, nftType, setNftArt, setNftCover } = props
 
   const viewport = useViewport()
 
@@ -31,7 +31,7 @@ const Step01SingleNFTSection = props => {
       <div className="mt-5">
         <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
           {({ getRootProps, getInputProps }) => (
-            <section className={styles.dropzone}>
+            <section className={styles.artDropzone}>
               <div {...getRootProps()} className={styles.selectArea}>
                 <input {...getInputProps()} />
                 <p className={styles.subTitle}>Upload Here</p>
@@ -42,6 +42,25 @@ const Step01SingleNFTSection = props => {
           )}
         </Dropzone>
       </div>
+      {nftType !== 'image' && (
+        <>
+          <div className={`${styles.subTitle} mt-10`}>Cover *</div>
+          <div className="mt-5">
+            <Dropzone onDrop={acceptedFiles => setNftCover(acceptedFiles)} maxFiles={1}>
+              {({ getRootProps, getInputProps }) => (
+                <section className={styles.coverDropzone}>
+                  <div {...getRootProps()} className={styles.selectArea}>
+                    <input {...getInputProps()} />
+                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .gif</p>
+                    <p className={styles.greenText}>Max File Size 30mb</p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
+        </>
+      )}
     </div>
   ) : (
     <div className="w-full">
@@ -58,7 +77,7 @@ const Step01SingleNFTSection = props => {
       <div className="mt-5">
         <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
           {({ getRootProps, getInputProps }) => (
-            <section className={styles.dropzone}>
+            <section className={styles.artDropzone}>
               <div {...getRootProps()} className={styles.selectArea}>
                 <input {...getInputProps()} />
                 <p className={styles.subTitle}>Upload Here</p>
@@ -73,6 +92,25 @@ const Step01SingleNFTSection = props => {
           )}
         </Dropzone>
       </div>
+      {nftType !== 'image' && (
+        <>
+          <div className={`${styles.subTitle} mt-10`}>Cover *</div>
+          <div className="mt-5">
+            <Dropzone onDrop={acceptedFiles => setNftCover(acceptedFiles)} maxFiles={1}>
+              {({ getRootProps, getInputProps }) => (
+                <section className={styles.coverDropzone}>
+                  <div {...getRootProps()} className={styles.selectArea}>
+                    <input {...getInputProps()} />
+                    <p className={styles.subTitle}>Upload Here</p>
+                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .gif</p>
+                    <p className={styles.greenText}>Max File Size 30mb</p>
+                  </div>
+                </section>
+              )}
+            </Dropzone>
+          </div>
+        </>
+      )}
     </div>
   )
 }

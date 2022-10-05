@@ -29,7 +29,7 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const SuccessMintSingleNFTSection = props => {
-  const { NFTType, nftArt, artWidth, nftAddress, artHeight, reset } = props
+  const { nftType, nftArt, artWidth, nftAddress, artHeight, reset } = props
   const viewport = useViewport()
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -53,7 +53,7 @@ const SuccessMintSingleNFTSection = props => {
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className="w-full flex justify-center items-center z-10">
-        {NFTType === 'image' && (
+        {nftType === 'image' && (
           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
             {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
               <AvatarEditor
@@ -71,7 +71,7 @@ const SuccessMintSingleNFTSection = props => {
             )}
           </div>
         )}
-        {NFTType === 'video' && (
+        {nftType === 'video' && (
           <div className="w-full max-w-[392px] h-full">
             <video controls className="w-full">
               <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -80,7 +80,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
         )}
 
-        {NFTType === 'audio' && (
+        {nftType === 'audio' && (
           <div className="w-full max-w-[392px] my-20">
             <audio controls className="w-full">
               <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -124,7 +124,7 @@ const SuccessMintSingleNFTSection = props => {
       <div className="w-full flex justify-center items-center z-10 mt-10">
         <div className="max-w-[237px] z-10">
           <div className="w-full rounded-[16px] overflow-hidden">
-            {NFTType === 'image' && (
+            {nftType === 'image' && (
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
                 {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                   <AvatarEditor
@@ -142,7 +142,7 @@ const SuccessMintSingleNFTSection = props => {
                 )}
               </div>
             )}
-            {NFTType === 'video' && (
+            {nftType === 'video' && (
               <div className="w-full h-full">
                 <video controls className="w-full">
                   <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -151,7 +151,7 @@ const SuccessMintSingleNFTSection = props => {
               </div>
             )}
 
-            {NFTType === 'audio' && (
+            {nftType === 'audio' && (
               <div className="w-full my-20">
                 <audio controls className="w-full">
                   <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />

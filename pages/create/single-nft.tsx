@@ -72,7 +72,9 @@ const SingleNft = () => {
   }
   // step 1
   const [selectedDimension, setSelectedDimension] = useState(NFTDimensionList[0])
-  const [NFTType, setNFTType] = useState('image')
+  const [nftArt, setNftArt] = useState<any>()
+  const [nftCover, setNftCover] = useState<any>()
+  const [nftType, setNftType] = useState('image')
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
 
@@ -163,11 +165,9 @@ const SingleNft = () => {
     }
   }, [viewport, selectedDimension, screenWidth])
 
-  const [nftArt, setNftArt] = useState<any>()
-
   useEffect(() => {
     if (nftArt !== null && nftArt !== undefined) {
-      setNFTType(nftArt[0].type.split('/')[0])
+      setNftType(nftArt[0].type.split('/')[0])
       setDisabledNextButton(false)
     }
   }, [nftArt])
@@ -295,10 +295,10 @@ const SingleNft = () => {
           attributes: attributes,
         }
 
-        if (NFTType === 'image') {
+        if (nftType === 'image') {
           metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
           metadata.category = 'image'
-        } else if (NFTType === 'video') {
+        } else if (nftType === 'video') {
           const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
 
           metadata.animation_url = customURL
@@ -311,7 +311,7 @@ const SingleNft = () => {
               },
             ],
           }
-        } else if (NFTType === 'audio') {
+        } else if (nftType === 'audio') {
           const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
 
           metadata.external_url = customURL
@@ -395,7 +395,7 @@ const SingleNft = () => {
                         />
                       )}
                     </FullScreen>
-                    {NFTType === 'image' && (
+                    {nftType === 'image' ? (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
                         {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                           <AvatarEditor
@@ -412,22 +412,22 @@ const SingleNft = () => {
                           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
                         )}
                       </div>
-                    )}
-                    {NFTType === 'video' && (
-                      <div className="w-full h-full">
-                        <video controls className="w-full">
-                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                          Your browser does not support the video tag.
-                        </video>
-                      </div>
-                    )}
-
-                    {NFTType === 'audio' && (
-                      <div className="w-full my-20">
-                        <audio controls className="w-full">
-                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                          Your browser does not support the video tag.
-                        </audio>
+                    ) : (
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                        {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                          <AvatarEditor
+                            image={nftCover[0]}
+                            width={artWidth - 32}
+                            height={artHeight - 32}
+                            border={16}
+                            borderRadius={16}
+                            color={[77, 92, 94, 1]} // RGBA
+                            scale={1}
+                            rotate={0}
+                          />
+                        ) : (
+                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                        )}
                       </div>
                     )}
 
@@ -438,25 +438,41 @@ const SingleNft = () => {
                         ) : (
                           <>&nbsp;</>
                         )}
-                        {NFTType === 'image' && (
-                          <IconButton
-                            icon={FullScreenGrayIcon}
-                            onClick={() => fullScreenToggler()}
-                            backgroundColor="transparent"
-                          />
-                        )}
+                        <IconButton
+                          icon={FullScreenGrayIcon}
+                          onClick={() => fullScreenToggler()}
+                          backgroundColor="transparent"
+                        />
                         {currentStep === 1 ? (
                           <IconButton
                             icon={TrashGrayIcon}
                             onClick={() => {
                               setNftArt(null)
-                              setNFTType('image')
+                              setNftType('image')
                             }}
                             backgroundColor="transparent"
                           />
                         ) : (
                           <>&nbsp;</>
                         )}
+                      </div>
+                    )}
+
+                    {nftType === 'video' && (
+                      <div className="w-full h-full my-10">
+                        <video controls className="w-full">
+                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    )}
+
+                    {nftType === 'audio' && (
+                      <div className="w-full my-10">
+                        <audio controls className="w-full">
+                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                          Your browser does not support the video tag.
+                        </audio>
                       </div>
                     )}
                   </div>
@@ -483,17 +499,16 @@ const SingleNft = () => {
                 <div className={styles.rightContainer}>
                   <div className="w-full relative">
                     <div className="w-full">
-                      <Stepper
-                        currentStep={currentStep}
-                        // onChange={step => handleChangeCurrentStep(step)}
-                      />
+                      <Stepper currentStep={currentStep} />
                     </div>
                     {/* upload artwork part */}
                     {currentStep === 1 && (
                       <Step01SingleNFTSection
                         selectedDimension={selectedDimension}
                         setSelectedDimension={item => setSelectedDimension(item)}
+                        nftType={nftType}
                         setNftArt={item => setNftArt(item)}
+                        setNftCover={item => setNftCover(item)}
                       />
                     )}
                     {currentStep === 2 && (
@@ -558,10 +573,7 @@ const SingleNft = () => {
             <div className="g-container mt-[26px] mb-[47px]">
               {/* stepper part */}
               <div className="w-full">
-                <Stepper
-                  currentStep={currentStep}
-                  // onChange={step => handleChangeCurrentStep(step)}
-                />
+                <Stepper currentStep={currentStep} />
               </div>
               <div className={`${styles.title} w-full`}>Preview Art</div>
 
@@ -580,7 +592,7 @@ const SingleNft = () => {
                     />
                   )}
                 </FullScreen>
-                {NFTType === 'image' && (
+                {nftType === 'image' ? (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
                     {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                       <AvatarEditor
@@ -597,24 +609,25 @@ const SingleNft = () => {
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
                     )}
                   </div>
-                )}
-                {NFTType === 'video' && (
-                  <div className="w-full h-full">
-                    <video controls className="w-full">
-                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                      Your browser does not support the video tag.
-                    </video>
+                ) : (
+                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                    {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                      <AvatarEditor
+                        image={nftCover[0]}
+                        width={artWidth - 32}
+                        height={artHeight - 32}
+                        border={16}
+                        borderRadius={16}
+                        color={[77, 92, 94, 1]} // RGBA
+                        scale={1}
+                        rotate={0}
+                      />
+                    ) : (
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                    )}
                   </div>
                 )}
 
-                {NFTType === 'audio' && (
-                  <div className="w-full my-20">
-                    <audio controls className="w-full">
-                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                      Your browser does not support the video tag.
-                    </audio>
-                  </div>
-                )}
                 {nftArt !== null && nftArt !== undefined && (
                   <div className="w-full mt-4 flex justify-center">
                     <div className="flex justify-between" style={{ width: artWidth }}>
@@ -625,7 +638,7 @@ const SingleNft = () => {
                         width="32px"
                         height="32px"
                       />
-                      {NFTType === 'image' && (
+                      {nftType === 'image' && (
                         <IconButton
                           icon={FullScreenGrayIcon}
                           onClick={() => fullScreenToggler()}
@@ -638,7 +651,7 @@ const SingleNft = () => {
                         icon={TrashGrayIcon}
                         onClick={() => {
                           setNftArt(null)
-                          setNFTType('image')
+                          setNftType('image')
                         }}
                         backgroundColor="transparent"
                         width="32px"
@@ -647,13 +660,33 @@ const SingleNft = () => {
                     </div>
                   </div>
                 )}
+
+                {nftType === 'video' && (
+                  <div className="w-full h-full">
+                    <video controls className="w-full">
+                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+
+                {nftType === 'audio' && (
+                  <div className="w-full mt-[14px]">
+                    <audio controls className="w-full">
+                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                      Your browser does not support the video tag.
+                    </audio>
+                  </div>
+                )}
               </div>
               {/* upload artwork part */}
               {currentStep === 1 && (
                 <Step01SingleNFTSection
                   selectedDimension={selectedDimension}
                   setSelectedDimension={item => setSelectedDimension(item)}
+                  nftType={nftType}
                   setNftArt={item => setNftArt(item)}
+                  setNftCover={item => setNftCover(item)}
                 />
               )}
 
@@ -759,9 +792,10 @@ const SingleNft = () => {
           )}
       {currentStep === 4 && (
         <SuccessMintSingleNFTSection
-          NFTType={NFTType}
+          nftType={nftType}
           reset={reset}
           nftArt={nftArt}
+          nftCover={nftCover}
           artWidth={artWidth}
           nftAddress={nftAddress}
           artHeight={artHeight}
