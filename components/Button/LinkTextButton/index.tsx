@@ -11,9 +11,9 @@ const LinkTextButton = props => {
   const router = useRouter()
 
   return (
-    <div className={styles.container} onClick={() => router.push(link)}>
+    <a target="_blank" href={link} rel="noopener noreferrer" className={styles.container}>
       {label}
-    </div>
+    </a>
   )
 }
 
