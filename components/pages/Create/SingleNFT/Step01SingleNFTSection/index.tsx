@@ -31,7 +31,7 @@ const Step01SingleNFTSection = props => {
       <div className="mt-5">
         <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
           {({ getRootProps, getInputProps }) => (
-            <section className={styles.artDropzone}>
+            <section className={nftType === 'audio' ? styles.audioDropzone : styles.dropzone}>
               <div {...getRootProps()} className={styles.selectArea}>
                 <input {...getInputProps()} />
                 <p className={styles.subTitle}>Upload Here</p>
@@ -48,7 +48,7 @@ const Step01SingleNFTSection = props => {
           <div className="mt-5">
             <Dropzone onDrop={acceptedFiles => setNftCover(acceptedFiles)} maxFiles={1}>
               {({ getRootProps, getInputProps }) => (
-                <section className={styles.coverDropzone}>
+                <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <p className={styles.subTitle}>Upload Here</p>
@@ -77,7 +77,7 @@ const Step01SingleNFTSection = props => {
       <div className="mt-5">
         <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
           {({ getRootProps, getInputProps }) => (
-            <section className={styles.artDropzone}>
+            <section className={nftType === 'audio' ? styles.audioDropzone : styles.dropzone}>
               <div {...getRootProps()} className={styles.selectArea}>
                 <input {...getInputProps()} />
                 <p className={styles.subTitle}>Upload Here</p>
@@ -98,7 +98,7 @@ const Step01SingleNFTSection = props => {
           <div className="mt-5">
             <Dropzone onDrop={acceptedFiles => setNftCover(acceptedFiles)} maxFiles={1}>
               {({ getRootProps, getInputProps }) => (
-                <section className={styles.coverDropzone}>
+                <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <p className={styles.subTitle}>Upload Here</p>
