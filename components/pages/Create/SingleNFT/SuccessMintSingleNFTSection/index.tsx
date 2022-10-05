@@ -29,7 +29,8 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const SuccessMintSingleNFTSection = props => {
-  const { nftType, nftArt, artWidth, nftAddress, artHeight, reset } = props
+  const { nftType, nftArt, nftCover, artWidth, nftAddress, artHeight, reset } = props
+
   const viewport = useViewport()
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -52,8 +53,8 @@ const SuccessMintSingleNFTSection = props => {
       <div className={styles.topLeftEllipse}>
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
-      <div className="w-full flex justify-center items-center z-10">
-        {nftType === 'image' && (
+      <div className="w-full flex flex-wrap justify-center items-center z-10">
+        {nftType === 'image' ? (
           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
             {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
               <AvatarEditor
@@ -70,9 +71,28 @@ const SuccessMintSingleNFTSection = props => {
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
             )}
           </div>
+        ) : (
+          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+            {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+              <AvatarEditor
+                image={nftCover[0]}
+                width={artWidth - 32}
+                height={artHeight - 32}
+                border={16}
+                borderRadius={16}
+                color={[77, 92, 94, 1]} // RGBA
+                scale={1}
+                rotate={0}
+              />
+            ) : (
+              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+            )}
+          </div>
         )}
+      </div>
+      <div className="w-full flex justify-center">
         {nftType === 'video' && (
-          <div className="w-full max-w-[392px] h-full">
+          <div className="w-full max-w-[392px] h-full mt-4">
             <video controls className="w-full">
               <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
               Your browser does not support the video tag.
@@ -81,7 +101,7 @@ const SuccessMintSingleNFTSection = props => {
         )}
 
         {nftType === 'audio' && (
-          <div className="w-full max-w-[392px] my-20">
+          <div className="w-full max-w-[392px] mt-4">
             <audio controls className="w-full">
               <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
               Your browser does not support the video tag.
@@ -89,7 +109,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
         )}
       </div>
-      <div className="max-w-[568px] mt-[62px] mb-[130px] flex flex-wrap justify-center z-10">
+      <div className="max-w-[568px] mt-6 mb-[130px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
         <div className={styles.mintText}>Your NFT has been minted successfully!</div>
         <div className="w-full flex justify-between gap-[30px] mt-[60px]">
@@ -124,7 +144,7 @@ const SuccessMintSingleNFTSection = props => {
       <div className="w-full flex justify-center items-center z-10 mt-10">
         <div className="max-w-[237px] z-10">
           <div className="w-full rounded-[16px] overflow-hidden">
-            {nftType === 'image' && (
+            {nftType === 'image' ? (
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
                 {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                   <AvatarEditor
@@ -141,9 +161,26 @@ const SuccessMintSingleNFTSection = props => {
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
                 )}
               </div>
+            ) : (
+              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
+                  <AvatarEditor
+                    image={nftCover[0]}
+                    width={artWidth - 32}
+                    height={artHeight - 32}
+                    border={16}
+                    borderRadius={16}
+                    color={[77, 92, 94, 1]} // RGBA
+                    scale={1}
+                    rotate={0}
+                  />
+                ) : (
+                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                )}
+              </div>
             )}
             {nftType === 'video' && (
-              <div className="w-full h-full">
+              <div className="w-full h-full mt-4">
                 <video controls className="w-full">
                   <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                   Your browser does not support the video tag.
@@ -152,7 +189,7 @@ const SuccessMintSingleNFTSection = props => {
             )}
 
             {nftType === 'audio' && (
-              <div className="w-full my-20">
+              <div className="w-full mt-4">
                 <audio controls className="w-full">
                   <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                   Your browser does not support the video tag.
@@ -162,7 +199,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
         </div>
       </div>
-      <div className="w-full mt-[60px] mb-[90px] flex flex-wrap justify-center z-10">
+      <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
         <div className={styles.mintText}>Your NFT has been minted successfully!</div>
         <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
