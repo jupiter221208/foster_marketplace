@@ -22,16 +22,16 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 // styles
 import styles from './index.module.scss'
 
-const NFTArtEditorModal = props => {
-  const { open, close, nftArt, getCroppedImage } = props
+const NftImageEditorModal = props => {
+  const { open, close, nftImage, getCroppedImage, dimension } = props
 
   const [image, setImage] = useState('')
 
   useEffect(() => {
-    if (nftArt !== undefined && nftArt !== null) {
-      setImage(URL.createObjectURL(nftArt[0]))
+    if (nftImage !== undefined && nftImage !== null) {
+      setImage(URL.createObjectURL(nftImage[0]))
     }
-  }, [nftArt])
+  }, [nftImage])
 
   const viewport = useViewport()
 
@@ -45,7 +45,7 @@ const NFTArtEditorModal = props => {
 
   const showCroppedImage = useCallback(async () => {
     try {
-      const croppedImage: any = await getCroppedImg(nftArt, croppedAreaPixels, 0)
+      const croppedImage: any = await getCroppedImg(image, croppedAreaPixels, 0)
       getCroppedImage(croppedImage)
     } catch (e) {
       console.error(e)
@@ -92,23 +92,25 @@ const NFTArtEditorModal = props => {
                   />
                 </div>
                 <div className={styles.cropContainer}>
-                  {nftArt !== undefined && (
+                  {nftImage !== undefined && (
                     <Cropper
                       image={image}
                       crop={crop}
                       zoom={zoom}
-                      aspect={4 / 3}
+                      aspect={dimension.value[0] / dimension.value[1]}
                       onCropChange={setCrop}
                       onCropComplete={onCropComplete}
                       onZoomChange={setZoom}
                     />
                   )}
                 </div>
-                <div className="w-full flex justify-between">
-                  <div>Zoom</div>
-                  <Range min={1} max={3} step={0.1} value={zoom} onChange={(value: number) => setZoom(value)} />
-                  <div>
-                    <GradientButton label="Crop Image" onClick={() => showCroppedImage()} />
+                <div className="w-full flex flex-wrap justify-between items-center gap-8">
+                  <div className="flex flex-1 justify-between items-center gap-8">
+                    <div className={styles.text}>Zoom</div>
+                    <Range min={1} max={3} step={0.1} value={zoom} onChange={(value: number) => setZoom(value)} />
+                  </div>
+                  <div className="w-full lg:max-w-[140px]">
+                    <GradientButton label="Crop Image" fullWidth onClick={() => showCroppedImage()} />
                   </div>
                 </div>
               </Dialog.Panel>
@@ -120,4 +122,4 @@ const NFTArtEditorModal = props => {
   )
 }
 
-export default NFTArtEditorModal
+export default NftImageEditorModal

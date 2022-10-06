@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
 
 export const useViewport = () => {
   const [viewport, setViewport] = useState('lg')
@@ -41,8 +41,8 @@ export const useViewport = () => {
   return viewport
 }
 
-export const namePublicFile = (name) => {
-  var re = /(?:\.([^.]+))?$/;
-  var ext = re.exec(name)[1];
+export const namePublicFile = name => {
+  var re = /(?:\.([^.]+))?$/
+  var ext = re.exec(name)[1]
   return `${uuidv4()}.${ext}`
 }

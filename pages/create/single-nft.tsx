@@ -22,6 +22,7 @@ import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01Sing
 import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02SingleNFTSection'
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -82,6 +83,8 @@ const SingleNft = () => {
   const [nftType, setNftType] = useState('image')
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
+  const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
+  const [nftImage, setNftImage] = useState('')
 
   useEffect(() => {
     let width = 0
@@ -174,8 +177,21 @@ const SingleNft = () => {
     if (nftArt !== null && nftArt !== undefined) {
       setNftType(nftArt[0].type.split('/')[0])
       setDisabledNextButton(false)
+      if (nftArt[0].type.split('/')[0] === 'image') {
+        setOpenNftImageEditorModal(true)
+      }
     }
   }, [nftArt])
+
+  useEffect(() => {
+    if (nftCover !== null && nftCover !== undefined) {
+      setNftType(nftCover[0].type.split('/')[0])
+      setDisabledNextButton(false)
+      if (nftCover[0].type.split('/')[0] === 'image') {
+        setOpenNftImageEditorModal(true)
+      }
+    }
+  }, [nftCover])
 
   const handleFullScreen = useFullScreenHandle()
   const [fullScreenMode, setFullScreenMode] = useState(false)
@@ -408,39 +424,32 @@ const SingleNft = () => {
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Preview Art</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
-                    <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
-                      {fullScreenMode && (
-                        <AvatarEditor
-                          image={nftArt !== null && nftArt !== undefined && nftArt[0]}
-                          width={screenHeight - 36}
-                          height={screenHeight - 36}
-                          border={16}
-                          borderRadius={12}
-                          color={[77, 92, 94, 1]} // RGBA
-                          scale={1}
-                          rotate={0}
-                        />
-                      )}
+                    <FullScreen
+                      onChange={onFullScreenChange}
+                      handle={handleFullScreen}
+                      className="flex justify-center items-center"
+                    >
+                      {fullScreenMode && <img src={nftImage} alt="" className="w-full h-full object-contain" />}
                     </FullScreen>
                     {nftType === 'image' ? (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                        {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                          <AvatarEditor
-                            image={nftArt[0]}
-                            width={artWidth - 32}
-                            height={artHeight - 32}
-                            border={16}
-                            borderRadius={16}
-                            color={[77, 92, 94, 1]} // RGBA
-                            scale={1}
-                            rotate={0}
-                          />
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+                      >
+                        {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                          <img src={nftImage} alt="" className="w-full h-full object-contain" />
                         ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                          <div
+                            className={`${styles.artArea}`}
+                            style={{ width: artWidth + 24, height: artHeight + 24, padding: '!2px' }}
+                          />
                         )}
                       </div>
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+                      >
                         {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                           <AvatarEditor
                             image={nftCover[0]}
@@ -453,7 +462,10 @@ const SingleNft = () => {
                             rotate={0}
                           />
                         ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                          <div
+                            className={`${styles.artArea}`}
+                            style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+                          />
                         )}
                       </div>
                     )}
@@ -461,7 +473,11 @@ const SingleNft = () => {
                     {nftArt !== null && nftArt !== undefined && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 ? (
-                          <IconButton icon={EditorGrayIcon} onClick={() => {}} backgroundColor="transparent" />
+                          <IconButton
+                            icon={EditorGrayIcon}
+                            onClick={() => setOpenNftImageEditorModal(true)}
+                            backgroundColor="transparent"
+                          />
                         ) : (
                           <>&nbsp;</>
                         )}
@@ -606,38 +622,27 @@ const SingleNft = () => {
 
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
-                  {fullScreenMode && (
-                    <AvatarEditor
-                      image={nftArt !== null && nftArt !== undefined && nftArt[0]}
-                      width={screenHeight - 36}
-                      height={screenHeight - 36}
-                      border={6}
-                      borderRadius={12}
-                      color={[77, 92, 94, 1]} // RGBA
-                      scale={1}
-                      rotate={0}
-                    />
-                  )}
+                  {fullScreenMode && <img src={nftImage} alt="" className="w-full h-full object-contain" />}
                 </FullScreen>
                 {nftType === 'image' ? (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                    {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                      <AvatarEditor
-                        image={nftArt[0]}
-                        width={artWidth - 32}
-                        height={artHeight - 32}
-                        border={16}
-                        borderRadius={16}
-                        color={[77, 92, 94, 1]} // RGBA
-                        scale={1}
-                        rotate={0}
-                      />
+                  <div
+                    className={`${styles.artArea}`}
+                    style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                  >
+                    {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                      <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                      />
                     )}
                   </div>
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                  <div
+                    className={`${styles.artArea}`}
+                    style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                  >
                     {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                       <AvatarEditor
                         image={nftCover[0]}
@@ -650,7 +655,10 @@ const SingleNft = () => {
                         rotate={0}
                       />
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                      />
                     )}
                   </div>
                 )}
@@ -660,7 +668,7 @@ const SingleNft = () => {
                     <div className="flex justify-between" style={{ width: artWidth }}>
                       <IconButton
                         icon={EditorGrayIcon}
-                        onClick={() => {}}
+                        onClick={() => setOpenNftImageEditorModal(true)}
                         backgroundColor="transparent"
                         width="32px"
                         height="32px"
@@ -828,6 +836,16 @@ const SingleNft = () => {
           artHeight={artHeight}
         />
       )}
+      <NftImageEditorModal
+        open={openNftImageEditorModal}
+        close={() => setOpenNftImageEditorModal(false)}
+        nftImage={nftArt}
+        getCroppedImage={croppedImage => {
+          setNftImage(croppedImage)
+          setOpenNftImageEditorModal(false)
+        }}
+        dimension={selectedDimension}
+      />
     </div>
   )
 }

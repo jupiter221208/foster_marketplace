@@ -24,15 +24,11 @@
 }
 
 .artArea {
-  width: 237px;
-  height: 237px;
-  border-radius: 8px;
-  @media (min-width: 1024px) {
-    width: 392px;
-    height: 392px;
-    border-radius: 16px;
-  }
+  border-radius: 12px;
   background-color: #4f6062;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 

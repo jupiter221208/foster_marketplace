@@ -30,3 +30,11 @@
   height: 400px;
   background: #333;
 }
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+}

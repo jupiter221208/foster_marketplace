@@ -21,7 +21,7 @@ import Stepper from 'components/Stepper'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import IconButton from 'components/Button/IconButton'
-import NFTArtEditorModal from 'components/Modal/NFTArtEditorModal'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -62,7 +62,7 @@ const SingleNft = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
-  const [openNFTArtEditorModal, setOpenNFTArtEditorModal] = useState(false)
+  const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   // Range
   const [zoom, setZoom] = useState([1])
 
@@ -182,7 +182,7 @@ const SingleNft = () => {
     if (nftArt !== undefined) {
       setNFTType(nftArt[0].type.split('/')[0])
       setDisabledNextButton(false)
-      setOpenNFTArtEditorModal(true)
+      setOpenNftImageEditorModal(true)
     }
   }, [nftArt])
 
@@ -697,7 +697,11 @@ const SingleNft = () => {
           artHeight={artHeight}
         />
       )}
-      <NFTArtEditorModal open={openNFTArtEditorModal} close={() => setOpenNFTArtEditorModal(false)} nftArt={nftArt} />
+      <NftImageEditorModal
+        open={openNftImageEditorModal}
+        close={() => setOpenNftImageEditorModal(false)}
+        nftImage={nftArt}
+      />
     </div>
   )
 }

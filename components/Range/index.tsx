@@ -17,7 +17,7 @@ interface RangeProps {
 const Range: React.FC<RangeProps> = props => {
   const { min, max, step, value, onChange } = props
 
-  const [values, setValues] = useState<number[]>([])
+  const [values, setValues] = useState<number[]>([1])
 
   useEffect(() => {
     let array: number[] = []
