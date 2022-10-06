@@ -1,32 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { S3 } from "aws-sdk"
 import axios from 'axios'
 
-const s3 = new S3({
-    accessKeyId: process.env.S3_ACCESS_KEY,
-    secretAccessKey: process.env.S3_SECRET_KEY,
-    region: 'us-east-2',
-})
-
-const getSignedUrl = async (name: any, type: any) => {
-    try {
-        const fileParams = {
-            Bucket: process.env.S3_BUCKET_NAME,
-            Key: name,
-            Expires: 600,
-            ContentType: type,
-        }
-
-        const url = await s3.getSignedUrlPromise("putObject", fileParams)
-        return { url }
-    } catch (err) {
-        console.error({ err })
-        return { err }
-    }
-}
-
 const uploadFileToS3 = async (file: any, filename: string) => {
-    const { url } = await getSignedUrl(filename, file.type)
+    let { data } = await axios.post("/api/awsS3", {
+        name: filename,
+        type: file.type,
+    });
+    const url = data.url
     try {
         const { data } = await axios.put(url, file, {
             headers: {

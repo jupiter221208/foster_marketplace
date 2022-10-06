@@ -60,6 +60,7 @@ const ProfileSection = prop => {
   const [enableSave, setEnableSave] = useState(false)
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [uploadingToS3, setUploadingToS3] = useState<boolean>(false)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -76,8 +77,10 @@ const ProfileSection = prop => {
   }
 
   const uploadFile = async (file: any, filename: string) => {
+    setUploadingToS3(true)
     const { data, url } = await uploadFileToS3(file, filename)
     setProfilePictureUrl(url + filename);
+    setUploadingToS3(false)
   };
 
   const checkEnableSave = () => {
@@ -349,6 +352,7 @@ const ProfileSection = prop => {
                 paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                 paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                 opacity={0.7}
+                disabled={uploadingToS3}
               />
             )}
           </div>
