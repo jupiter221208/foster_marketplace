@@ -4,7 +4,7 @@ const uploadFileToS3 = async (file: any, filename: string) => {
     let { data } = await axios.post("/api/awsS3", {
         name: filename,
         type: file.type,
-    });
+    })
     const url = data.url
     try {
         const { data } = await axios.put(url, file, {
