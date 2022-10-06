@@ -7,7 +7,6 @@ import Image from 'next/image'
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
 import Lottie from 'lottie-react'
-import AvatarEditor from 'react-avatar-editor'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 
 // components
@@ -185,8 +184,8 @@ const SingleNft = () => {
 
   useEffect(() => {
     if (nftCover !== null && nftCover !== undefined) {
-      setNftType(nftCover[0].type.split('/')[0])
-      setDisabledNextButton(false)
+      // setNftType(nftCover[0].type.split('/')[0])
+      // setDisabledNextButton(false)
       if (nftCover[0].type.split('/')[0] === 'image') {
         setOpenNftImageEditorModal(true)
       }
@@ -267,7 +266,11 @@ const SingleNft = () => {
     switch (step) {
       case 1:
         if (nftArt !== null && nftArt !== undefined) {
-          setDisabledNextButton(false)
+          if (nftType === 'image' && nftImage !== '') {
+            setDisabledNextButton(false)
+          } else {
+            setDisabledNextButton(true)
+          }
         } else {
           setDisabledNextButton(true)
         }
@@ -318,7 +321,7 @@ const SingleNft = () => {
         }
 
         if (nftType === 'image') {
-          metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
+          metadata.image = toMetaplexFile(nftImage, 'metaplex.png')
           metadata.category = 'image'
           await uploadNft(metadata)
         } else {
@@ -450,21 +453,12 @@ const SingleNft = () => {
                         className={`${styles.artArea}`}
                         style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
                       >
-                        {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                          <AvatarEditor
-                            image={nftCover[0]}
-                            width={artWidth - 32}
-                            height={artHeight - 32}
-                            border={16}
-                            borderRadius={16}
-                            color={[77, 92, 94, 1]} // RGBA
-                            scale={1}
-                            rotate={0}
-                          />
+                        {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                          <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                         ) : (
                           <div
                             className={`${styles.artArea}`}
-                            style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+                            style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                           />
                         )}
                       </div>
@@ -643,17 +637,8 @@ const SingleNft = () => {
                     className={`${styles.artArea}`}
                     style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                   >
-                    {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                      <AvatarEditor
-                        image={nftCover[0]}
-                        width={artWidth - 32}
-                        height={artHeight - 32}
-                        border={16}
-                        borderRadius={16}
-                        color={[77, 92, 94, 1]} // RGBA
-                        scale={1}
-                        rotate={0}
-                      />
+                    {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                      <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
                       <div
                         className={`${styles.artArea}`}
@@ -830,7 +815,7 @@ const SingleNft = () => {
           nftType={nftType}
           reset={reset}
           nftArt={nftArt}
-          nftCover={nftCover}
+          nftImage={nftImage}
           artWidth={artWidth}
           nftAddress={nftAddress}
           artHeight={artHeight}
@@ -839,7 +824,7 @@ const SingleNft = () => {
       <NftImageEditorModal
         open={openNftImageEditorModal}
         close={() => setOpenNftImageEditorModal(false)}
-        nftImage={nftArt}
+        nftImage={nftType === 'image' ? nftArt : nftCover}
         getCroppedImage={croppedImage => {
           setNftImage(croppedImage)
           setOpenNftImageEditorModal(false)

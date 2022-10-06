@@ -1,10 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
-
-// third party components
-import AvatarEditor from 'react-avatar-editor'
 
 // components
 import GradientButton from 'components/Button/GradientButton'
@@ -29,21 +26,9 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const SuccessMintSingleNFTSection = props => {
-  const { nftType, nftArt, nftCover, artWidth, nftAddress, artHeight, reset } = props
+  const { nftType, nftArt, nftImage, artWidth, nftAddress, artHeight, reset } = props
 
   const viewport = useViewport()
-  const [screenWidth, setScreenWidth] = useState(1920)
-
-  useEffect(() => {
-    setScreenWidth(window.innerWidth)
-  }, [])
-
-  useEffect(() => {
-    const resizeFunction = () => {
-      setScreenWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
 
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, nftAddress), [nftAddress, connection])
@@ -55,37 +40,31 @@ const SuccessMintSingleNFTSection = props => {
       </div>
       <div className="w-full flex flex-wrap justify-center items-center mt-10 lg:mt-20 z-10">
         {nftType === 'image' ? (
-          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-            {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-              <AvatarEditor
-                image={nftArt[0]}
-                width={artWidth - 32}
-                height={artHeight - 32}
-                border={16}
-                borderRadius={16}
-                color={[77, 92, 94, 1]} // RGBA
-                scale={1}
-                rotate={0}
-              />
+          <div
+            className={`${styles.artArea}`}
+            style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+          >
+            {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+              <img src={nftImage} alt="" className="w-full h-full object-contain" />
             ) : (
-              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+              <div
+                className={`${styles.artArea}`}
+                style={{ width: artWidth + 24, height: artHeight + 24, padding: '!2px' }}
+              />
             )}
           </div>
         ) : (
-          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-            {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-              <AvatarEditor
-                image={nftCover[0]}
-                width={artWidth - 32}
-                height={artHeight - 32}
-                border={16}
-                borderRadius={16}
-                color={[77, 92, 94, 1]} // RGBA
-                scale={1}
-                rotate={0}
-              />
+          <div
+            className={`${styles.artArea}`}
+            style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+          >
+            {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+              <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
             ) : (
-              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+              <div
+                className={`${styles.artArea}`}
+                style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+              />
             )}
           </div>
         )}
@@ -145,37 +124,31 @@ const SuccessMintSingleNFTSection = props => {
         <div className="max-w-[237px] z-10">
           <div className="w-full rounded-[16px] overflow-hidden">
             {nftType === 'image' ? (
-              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                {nftArt !== null && nftArt !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                  <AvatarEditor
-                    image={nftArt[0]}
-                    width={artWidth - 32}
-                    height={artHeight - 32}
-                    border={16}
-                    borderRadius={16}
-                    color={[77, 92, 94, 1]} // RGBA
-                    scale={1}
-                    rotate={0}
-                  />
+              <div
+                className={`${styles.artArea}`}
+                style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+              >
+                {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                  <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                  <div
+                    className={`${styles.artArea}`}
+                    style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                  />
                 )}
               </div>
             ) : (
-              <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                {nftCover !== null && nftCover !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                  <AvatarEditor
-                    image={nftCover[0]}
-                    width={artWidth - 32}
-                    height={artHeight - 32}
-                    border={16}
-                    borderRadius={16}
-                    color={[77, 92, 94, 1]} // RGBA
-                    scale={1}
-                    rotate={0}
-                  />
+              <div
+                className={`${styles.artArea}`}
+                style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+              >
+                {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                  <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                  <div
+                    className={`${styles.artArea}`}
+                    style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                  />
                 )}
               </div>
             )}
