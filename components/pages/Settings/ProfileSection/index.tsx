@@ -50,6 +50,7 @@ const ProfileSection = prop => {
   const inputFile = useRef<any>(null)
   const [avatar, setAvatar] = useState<any>(Avatar)
   const [userName, setUsername] = useState('')
+  const [bio, setBio] = useState('')
   const [userEmail, setUserEmail] = useState('')
   const [profilePictureUrl, setProfilePictureUrl] = useState('')
   const [igUrl, setIgUrl] = useState('')
@@ -87,6 +88,7 @@ const ProfileSection = prop => {
     if (
       orgUserInfo === null ||
       userName === null ||
+      bio === null ||
       userEmail === null ||
       igUrl === null ||
       twitterUrl === null ||
@@ -97,6 +99,10 @@ const ProfileSection = prop => {
     }
 
     if (userName !== orgUserInfo.username) {
+      setEnableSave(true)
+      return
+    }
+    if (bio !== orgUserInfo.bio) {
       setEnableSave(true)
       return
     }
@@ -116,15 +122,16 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
+    if (telegramUrl !== orgUserInfo.telegram_url) {
+      setEnableSave(true)
+      return
+    }
     if (profilePictureUrl !== orgUserInfo.profilePictureUrl && profilePictureUrl !== '') {
       setEnableSave(true)
       return
     }
     setEnableSave(false)
     return
-    // if (telegramUrl !== orgUserInfo.telegram_url) {
-    //   return true
-    // }
   }
 
   const handleSaveUserInfo = () => {
@@ -132,6 +139,7 @@ const ProfileSection = prop => {
       .update({
         wallet_id: publicKey?.toBase58() || '',
         username: userName,
+        bio: bio,
         email: userEmail,
         ig_url: igUrl,
         twitter_url: twitterUrl,
@@ -174,6 +182,7 @@ const ProfileSection = prop => {
           const userInfo = response.user
           if (userInfo.profile_picture) { setAvatar(userInfo.profile_picture) }
           setUsername(userInfo.username)
+          setBio(userInfo.bio)
           setUserEmail(userInfo.email)
           setIgUrl(userInfo.ig_url)
           setTwitterUrl(userInfo.twitter_url)
@@ -190,7 +199,7 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, userEmail, igUrl, discordUrl, twitterUrl, profilePictureUrl])
+  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, profilePictureUrl])
 
   return (
     <div className={styles.container}>
@@ -239,7 +248,7 @@ const ProfileSection = prop => {
             <Input value={userName} placeholder="User name" onChange={value => setUsername(value)} />
           </div>
           <div className="mt-[10px] lg:mt-[30px] h-fit">
-            <Textarea placeholder="Bio" width="100%" height="100%" onChange={() => {}} />
+            <Textarea value={bio} placeholder="Bio" width="100%" height="100%" onChange={value => setBio(value)} />
           </div>
           <div className="mt-[10px] lg:mt-[30px]">
             <Input value={userEmail} placeholder="Email Address" onChange={value => setUserEmail(value)} />
