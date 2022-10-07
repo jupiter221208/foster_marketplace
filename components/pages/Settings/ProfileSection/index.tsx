@@ -16,12 +16,13 @@ import IconButton from 'components/Button/IconButton'
 import CopyWalletInput from 'components/Input/CopyWalletInput'
 import GradientButton from 'components/Button/GradientButton'
 import Alert from 'components/Alert'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
-import Avatar from 'assets/images/dashboard-avatar.png'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
@@ -43,12 +44,12 @@ const ProfileSection = prop => {
   const viewport = useViewport()
   const dispatch = useDispatch()
 
-  const profileInfo: any = useSelector<any>(state => state.profileInfo)
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const inputFile = useRef<any>(null)
-  const [avatar, setAvatar] = useState<any>(Avatar)
+  const [avatar, setAvatar] = useState<any>()
+  const [croppedAvatar, setCroppedAvatar] = useState('')
   const [userName, setUsername] = useState('')
   const [bio, setBio] = useState('')
   const [userEmail, setUserEmail] = useState('')
@@ -61,6 +62,8 @@ const ProfileSection = prop => {
   const [enableSave, setEnableSave] = useState(false)
 
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
+
   const [uploadingToS3, setUploadingToS3] = useState<boolean>(false)
 
   const copyToClipboard = value => {
@@ -69,20 +72,27 @@ const ProfileSection = prop => {
   }
 
   const handleChangeAvatar = event => {
-    const file = event.target.files[0]
-    setAvatar(URL.createObjectURL(file))
-    if (file) {
+    const file = event.target.files
+    setAvatar(file)
+    setOpenNftImageEditorModal(true)
+  }
+
+  useEffect(() => {
+    if (croppedAvatar !== '') {
+      var file = new File([croppedAvatar], 'avatar.png', {
+        type: 'image/jpeg',
+      })
       const filename = namePublicFile(file.name)
       uploadFile(file, filename)
     }
-  }
+  }, [croppedAvatar])
 
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
     const { data, url } = await uploadFileToS3(file, filename)
-    setProfilePictureUrl(url + filename);
+    setProfilePictureUrl(url + filename)
     setUploadingToS3(false)
-  };
+  }
 
   const checkEnableSave = () => {
     if (
@@ -182,7 +192,9 @@ const ProfileSection = prop => {
       response => {
         if (response.user !== null) {
           const userInfo = response.user
-          if (userInfo.profile_picture) { setAvatar(userInfo.profile_picture) }
+          if (userInfo.profile_picture) {
+            setAvatar(userInfo.profile_picture)
+          }
           setUsername(userInfo.username)
           setBio(userInfo.bio)
           setUserEmail(userInfo.email)
@@ -213,7 +225,7 @@ const ProfileSection = prop => {
           <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
             <div className={styles.avatarArea}>
               <Image
-                src={avatar}
+                src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                 alt=""
@@ -227,7 +239,9 @@ const ProfileSection = prop => {
               <OutlineButton
                 label="Change Profile Picture"
                 icon={EditorGreenIcon}
-                onClick={() => inputFile?.current?.click()}
+                onClick={() => {
+                  inputFile.current.click()
+                }}
                 direction="rtl"
                 fullWidth
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '41px' : '64px'}
@@ -375,6 +389,17 @@ const ProfileSection = prop => {
           setShowAlert(false)
         }}
         data={data}
+      />
+      <NftImageEditorModal
+        open={openNftImageEditorModal}
+        close={() => setOpenNftImageEditorModal(false)}
+        nftImage={avatar}
+        getCroppedImage={croppedImage => {
+          console.log('croppedImage', croppedImage)
+          setCroppedAvatar(croppedImage)
+          setOpenNftImageEditorModal(false)
+        }}
+        dimension={{ value: [1080, 1080] }}
       />
     </div>
   )

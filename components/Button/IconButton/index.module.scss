@@ -20,6 +20,9 @@
   color: $text-gray-800-color;
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
+  &:focus {
+    outline: none;
+  }
 }
 
 .image {
