@@ -92,6 +92,7 @@ const ProfileSection = prop => {
       userEmail === null ||
       igUrl === null ||
       twitterUrl === null ||
+      telegramUrl === null ||
       discordUrl === null ||
       profilePictureUrl === null
     ) {
@@ -143,6 +144,7 @@ const ProfileSection = prop => {
         email: userEmail,
         ig_url: igUrl,
         twitter_url: twitterUrl,
+        telegram_url: telegramUrl,
         discord_url: discordUrl,
         profile_picture: profilePictureUrl,
       })
@@ -199,7 +201,7 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, profilePictureUrl])
+  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, profilePictureUrl])
 
   return (
     <div className={styles.container}>
