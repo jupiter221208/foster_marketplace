@@ -36,7 +36,7 @@ const CollectionStepper = props => {
               currentStep < 2 ? styles.grayText : styles.greenText
             } absolute top-[52px] lg:top-20 -left-16 -right-16`}
           >
-            Upload Artworks
+            Mint Collection
           </div>
         </div>
 
@@ -56,7 +56,7 @@ const CollectionStepper = props => {
               currentStep < 3 ? styles.grayText : styles.greenText
             } absolute top-[52px] lg:top-20 -left-16 -right-16`}
           >
-            Mint Collection
+            Upload Artworks
           </div>
         </div>
       </div>

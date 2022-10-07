@@ -23,6 +23,19 @@
   z-index: 100;
 }
 
+.artArea {
+  width: 237px;
+  height: 237px;
+  border-radius: 8px;
+  @media (min-width: 1024px) {
+    width: 392px;
+    height: 392px;
+    border-radius: 16px;
+  }
+  background-color: #4f6062;
+  overflow: hidden;
+}
+
 .title {
   width: 100%;
   margin-top: 26px;
@@ -63,6 +76,15 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
+}
+
+.collectionName {
+  font-family: 'Muli-Bold';
+  font-size: 22px;
+  line-height: 36px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+  text-align: center;
 }
 
 // right part
@@ -115,6 +137,26 @@
   color: $brand-03-color;
 }
 
+.selectedImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  background-color: #5ee1ea;
+  border-radius: 8px;
+}
+
+.nonSelectedImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 68px;
+  // background-color: #5ee1ea;
+  border-radius: 8px;
+}
+
 .bannerImageArea {
   position: relative;
   max-width: 758px;
@@ -135,6 +177,18 @@
   border-radius: 10px;
   background-color: rgba($background-light-color, 0.5);
   padding: 5px;
+}
+
+.subTitle {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 21px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $text-gray-200-color;
 }
 
 .uploadedImageArea {

@@ -18,7 +18,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, mintAddress = '', price } = props
+  const { image, nftName, category, artistName, mintAddress = '', price} = props
   const viewport = useViewport()
   const router = useRouter()
 
@@ -26,7 +26,7 @@ const CollectionCard = props => {
     <div
       className={styles.container}
       onClick={() => {
-        router.push('/browse-collection')
+        router.push(`/browse-collection/${mintAddress}`)
       }}
     >
       <div className="relative w-full rounded-[10px] lg:rounded-[20px] overflow-hidden">
@@ -39,7 +39,7 @@ const CollectionCard = props => {
         </div>
         <div className="w-full flex justify-start items-center">
           <div className={styles.artistName}>
-            {artistName} / {getShortAddress(mintAddress)}
+            {getShortAddress(artistName)} / {getShortAddress(mintAddress)}
           </div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">

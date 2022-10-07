@@ -24,25 +24,27 @@ import NFTList from 'assets/json/browse-collection/nft-list.json'
 // styles
 import styles from './index.module.scss'
 
-const NFTSwiperSection = () => {
+const NFTSwiperSection = ({ nfts }) => {
   const viewport = useViewport()
   const router = useRouter()
 
   const [nftList, setNFTList] = useState<any[]>([])
 
   useEffect(() => {
-    let newList: any[] = []
-    let tempItem: any[] = []
-    NFTList.map((item, index) => {
-      tempItem.push(item)
-      if (index % 2 === 1) {
-        newList.push(tempItem)
-        tempItem = []
-      }
-    })
-    if (tempItem.length > 0) newList.push(tempItem)
-    setNFTList(newList)
-  }, [])
+    if(nfts) {
+      let newList: any[] = []
+      let tempItem: any[] = []
+      nfts.map((item, index) => {
+        tempItem.push(item)
+        if (index % 2 === 1) {
+          newList.push(tempItem)
+          tempItem = []
+        }
+      })
+      if (tempItem.length > 0) newList.push(tempItem)
+      setNFTList(newList)
+    }
+  }, [nfts])
 
   return (
     <section className={styles.container}>
@@ -65,11 +67,10 @@ const NFTSwiperSection = () => {
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 {item.map((nftItem, nftIndex) => (
                   <NFTCard
-                    image={nftItem.image}
-                    nftName={nftItem.nftName}
-                    artistName={nftItem.artistName}
-                    icon={nftItem.icon}
-                    price={nftItem.price}
+                    image={nftItem.offchainMetadata.image}
+                    nftName={nftItem.offchainMetadata.name}
+                    artistName={"nftItem.creators[0].address"}
+                    price={10}
                     onClick={() => router.push(`/browse-nft?id=${item.id}`)}
                     key={nftIndex}
                   />

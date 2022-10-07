@@ -21,7 +21,15 @@ import CategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './collection.module.scss'
 
+// solana
+import { useMetaplex } from 'hooks/useMetaplex'
+import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@metaplex-foundation/js'
+
 const Collection = () => {
+
+  // solana
+  const { metaplex: mx } = useMetaplex()
+
   // variables
   const [currentStep, setCurrentStep] = useState(1)
   // step 1
@@ -42,6 +50,45 @@ const Collection = () => {
   }, [])
 
   // step 2
+  const [banner, setBanner] = useState()
+  const [royalties, setRoyalties] = useState(0)
+  const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
+
+  const mintCollection = async () => {
+      var reader = new FileReader()
+      const fileData = new Blob([coverImage[0]])
+      reader.readAsArrayBuffer(fileData)
+      reader.onload = async function (event) {
+        const arrayBuffer = reader.result as ArrayBuffer
+
+        const categories = categoryList.filter(item => item.checked)
+
+        const attributes = categories.map(category => {
+          return { trait_type: 'category', value: category.name }
+        })
+
+        const { uri } = await mx.nfts().uploadMetadata({
+          name: collectionName,
+          description: description,
+          attributes: attributes,
+          image: toMetaplexFile(arrayBuffer, 'metaplex.png')
+        }).run()
+
+        const collectionNft = await mx.nfts().create({
+          isCollection: true,
+          name: collectionName,
+          uri: uri,
+          sellerFeeBasisPoints: royalties
+        }).run()
+
+        if(collectionNft) {
+          setCollectionNft(collectionNft)
+          setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+        }
+      }
+  }
+
+  // step 3
   const [collectionFiles, setCollectionFiles] = useState<any[]>([])
 
   const onChangeCollectionFiles = files => {
@@ -84,9 +131,60 @@ const Collection = () => {
     setCollectionFiles(array)
   }
 
-  // step 3
-  const [banner, setBanner] = useState()
-  const [royalties, setRoyalties] = useState('')
+  const [artworks, setArtworks] = useState<any[]>([])
+
+  const readFilesAndUplaod = async () => {
+    var readCount = 0;
+    collectionFiles.forEach(item => {
+      var reader = new FileReader()
+      const fileData = new Blob([item.file])
+      reader.readAsArrayBuffer(fileData)
+      reader.onload = async function (event) {
+        const arrayBuffer = reader.result as ArrayBuffer
+        const temp = artworks
+        temp.push({ id: item.id, file: arrayBuffer, name: item.name, description: item.description })
+        setArtworks(temp)
+        readCount++
+        if (readCount === collectionFiles.length) {
+          uploadArtworks()
+        }
+      }
+    })
+  }
+
+  const uploadArtworks = async () => {
+    const categories = categoryList.filter(item => item.checked)
+
+    const attributes = categories.map(category => {
+      return { trait_type: 'category', value: category.name }
+    })
+
+    if (collectionNft) {
+      for(var i in artworks) {
+        const { uri } = await mx.nfts().uploadMetadata({
+          name: artworks[i].name,
+          description: artworks[i].description,
+          attributes: attributes,
+          image: toMetaplexFile(artworks[i].file, 'metaplex.png')
+        }).run()
+
+        const nft = await mx.nfts().create({
+          uri: uri,
+          name: artworks[i].name,
+          sellerFeeBasisPoints: royalties,
+          collection: collectionNft?.mintAddress
+        }).run()
+
+        await mx.nfts().verifyCollection({
+          mintAddress: nft.mintAddress,
+          collectionMintAddress: collectionNft?.mintAddress,
+          isSizedCollection: true
+        }).run()
+      }
+    }
+
+    setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+  }
 
   const reset = () => {
     setCurrentStep(1)
@@ -98,8 +196,9 @@ const Collection = () => {
     })
     setCategoryList(categories)
     setDimension(CollectionDimensionList[0])
-    setRoyalties('')
+    setRoyalties(0)
     setCollectionFiles([])
+    setCollectionNft(undefined)
   }
 
   return (
@@ -136,24 +235,27 @@ const Collection = () => {
           <Step02CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
-            dimension={dimension}
-            collectionFiles={collectionFiles}
-            onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
-            onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
-            onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
-            onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            coverImage={coverImage}
+            banner={banner}
+            onChangeBanner={banner => setBanner(banner)}
+            royalties={royalties}
+            onChangeRoyalties={royalties => setRoyalties(royalties)}
+            mintCollection={mintCollection}
           />
         )}
         {currentStep === 3 && (
           <Step03CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
+            dimension={dimension}
             coverImage={coverImage}
             collectionFiles={collectionFiles}
             banner={banner}
-            onChangeBanner={banner => setBanner(banner)}
-            royalties={royalties}
-            onChangeRoyalties={royalties => setRoyalties(royalties)}
+            onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
+            onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
+            onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
+            onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            readFilesAndUplaod={readFilesAndUplaod}
           />
         )}
         {currentStep === 4 && <SuccessMintCollectionSection coverImage={coverImage} banner={banner} reset={reset} />}

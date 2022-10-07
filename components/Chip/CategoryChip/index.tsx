@@ -11,8 +11,8 @@ const CategoryChip = props => {
   const router = useRouter()
 
   return (
-    <div className={styles.container} onClick={() => router.push(`/category/${data.id}`)}>
-      {data.name}
+    <div className={styles.container} onClick={/*() => router.push(`/category/${data.id}`)*/ () => {}}>
+      {data.value}
     </div>
   )
 }

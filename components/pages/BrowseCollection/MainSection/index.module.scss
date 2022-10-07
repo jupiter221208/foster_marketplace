@@ -16,7 +16,15 @@
 
 .headerImage {
   width: 100%;
+  min-height: 350px;
+  position: relative;
+}
+
+.headerLoading {
+  width: 100%;
+  min-height: 350px;
   border-radius: 20px;
+  background: linear-gradient(110deg, $brand-01-color 50%, $background-dark-color 100%);
   position: relative;
 }
 

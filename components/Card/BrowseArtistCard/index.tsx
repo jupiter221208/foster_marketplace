@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // custom functions
+import { getShortAddress } from 'utils/strings'
 import { useViewport } from 'utils'
 
 // styles
@@ -18,7 +19,7 @@ const BrowseArtistCard = props => {
     <div className={styles.container}>
       <div className={styles.avatarArea}>
         <div className={styles.avatar}>
-          <Image
+          {image && <Image
             src={image}
             alt=""
             width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
@@ -26,14 +27,14 @@ const BrowseArtistCard = props => {
             layout="responsive"
             objectFit="cover"
             className="rounded-full"
-          />
+          />}
         </div>
       </div>
       <div className={styles.bottomSection}>
         <div className={styles.collectionName}>{collectionName}</div>
-        <div className={styles.artistName}>
-          Created by <span className={styles.greenText}>{artistName}</span>
-        </div>
+        {artistName && <div className={styles.artistName}>
+          Created by <span className={styles.greenText}>{getShortAddress(artistName[0].address.toBase58())}</span>
+        </div>}
       </div>
     </div>
   )

@@ -304,55 +304,69 @@ const SingleNft = () => {
         if (nftType === 'image') {
           metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
           metadata.category = 'image'
-        } else if (nftType === 'video') {
-          const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
-
-          metadata.animation_url = customURL
-          metadata.category = 'video'
-          metadata.properties = {
-            files: [
-              {
-                type: 'video/mp4',
-                url: customURL,
-              },
-            ],
-          }
-        } else if (nftType === 'audio') {
-          const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
-
-          metadata.external_url = customURL
-          metadata.category = 'audio'
-          metadata.properties = {
-            files: [
-              {
-                type: 'audio/mp3',
-                url: customURL,
-              },
-            ],
+          await uploadNft(metadata)
+        } else {
+          var coverReader = new FileReader()
+          const coverFileData = new Blob([nftCover[0]])
+          coverReader.readAsArrayBuffer(coverFileData)
+          coverReader.onload = async function (event) {
+            const coverArrayBuffer = coverReader.result as ArrayBuffer
+            metadata.image = toMetaplexFile(coverArrayBuffer, 'metaplex.png')
+            if (nftType === 'video') {
+              const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
+    
+              metadata.animation_url = customURL
+              metadata.category = 'video'
+              metadata.properties = {
+                files: [
+                  {
+                    type: 'video/mp4',
+                    url: customURL,
+                  },
+                ],
+              }
+            } else if (nftType === 'audio') {
+              const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
+    
+              metadata.external_url = customURL
+              metadata.category = 'audio'
+              metadata.properties = {
+                files: [
+                  {
+                    type: 'audio/mp3',
+                    url: customURL,
+                  },
+                ],
+              }
+            }
+            await uploadNft(metadata)
           }
         }
-
-        const { uri } = await mx.nfts().uploadMetadata(metadata).run()
-
-        const { nft } = await mx
-          .nfts()
-          .create({
-            uri,
-            name: nftName,
-            sellerFeeBasisPoints: royalties,
-          })
-          .run()
-
-        if (nft) {
-          const address = nft.address.toBase58()
-          setNFTAddress(address)
-          handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
-        }
-        dispatch({ type: 'set', isLoading: false })
       }
     } catch (error) {
       dispatch({ type: 'set', isLoading: false })
     }
+  }
+
+  const uploadNft= async (metadata) => {
+    const { uri } = await mx.nfts().uploadMetadata(metadata).run()
+
+    const { nft } = await mx
+      .nfts()
+      .create({
+        uri,
+        name: nftName,
+        sellerFeeBasisPoints: royalties,
+      })
+      .run()
+
+    if (nft) {
+      const address = nft.address.toBase58()
+      setNFTAddress(address)
+      handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
+    }
+
+    dispatch({ type: 'set', isLoading: false })
   }
 
   const reset = () => {
