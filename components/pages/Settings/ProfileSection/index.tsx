@@ -79,11 +79,16 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     if (croppedAvatar !== '') {
-      var file = new File([croppedAvatar], 'avatar.png', {
-        type: 'image/jpeg',
-      })
-      const filename = namePublicFile(file.name)
-      uploadFile(file, filename)
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'avatar.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('avatar.jpg')
+        uploadFile(file, filename)
+      }
+      fetchData(croppedAvatar)
     }
   }, [croppedAvatar])
 
@@ -193,7 +198,7 @@ const ProfileSection = prop => {
         if (response.user !== null) {
           const userInfo = response.user
           if (userInfo.profile_picture) {
-            setAvatar(userInfo.profile_picture)
+            setCroppedAvatar(userInfo.profile_picture)
           }
           setUsername(userInfo.username)
           setBio(userInfo.bio)
@@ -395,7 +400,6 @@ const ProfileSection = prop => {
         close={() => setOpenNftImageEditorModal(false)}
         nftImage={avatar}
         getCroppedImage={croppedImage => {
-          console.log('croppedImage', croppedImage)
           setCroppedAvatar(croppedImage)
           setOpenNftImageEditorModal(false)
         }}
