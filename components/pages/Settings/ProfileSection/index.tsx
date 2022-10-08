@@ -61,6 +61,7 @@ const ProfileSection = prop => {
   const [orgUserInfo, setOrgUserInfo] = useState<any>(null)
   const [enableSave, setEnableSave] = useState(false)
 
+  const [updateImage, setUpdateImage] = useState(false)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
 
@@ -78,7 +79,7 @@ const ProfileSection = prop => {
   }
 
   useEffect(() => {
-    if (croppedAvatar !== '') {
+    if (croppedAvatar !== '' && updateImage) {
       const fetchData = async url => {
         let response = await fetch(url)
         let blob = await response.blob()
@@ -89,8 +90,9 @@ const ProfileSection = prop => {
         uploadFile(file, filename)
       }
       fetchData(croppedAvatar)
+      setUpdateImage(false)
     }
-  }, [croppedAvatar])
+  }, [updateImage])
 
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
@@ -100,49 +102,41 @@ const ProfileSection = prop => {
   }
 
   const checkEnableSave = () => {
-    if (
-      orgUserInfo === null ||
-      userName === null ||
-      bio === null ||
-      userEmail === null ||
-      igUrl === null ||
-      twitterUrl === null ||
-      telegramUrl === null ||
-      discordUrl === null ||
-      profilePictureUrl === null
-    ) {
+    if (orgUserInfo === null) {
       return
     }
 
-    if (userName !== orgUserInfo.username) {
+    if (userName && userName !== orgUserInfo.username) {
       setEnableSave(true)
       return
     }
-    if (bio !== orgUserInfo.bio) {
+    if (bio && bio !== orgUserInfo.bio) {
       setEnableSave(true)
       return
     }
-    if (userEmail !== orgUserInfo.email) {
+    if (userEmail && userEmail !== orgUserInfo.email) {
       setEnableSave(true)
       return
     }
-    if (igUrl !== orgUserInfo.ig_url) {
+    if (igUrl && igUrl !== orgUserInfo.ig_url) {
       setEnableSave(true)
       return
     }
-    if (twitterUrl !== orgUserInfo.twitter_url) {
+    if (twitterUrl && twitterUrl !== orgUserInfo.twitter_url) {
       setEnableSave(true)
       return
     }
-    if (discordUrl !== orgUserInfo.discord_url) {
+    if (discordUrl && discordUrl !== orgUserInfo.discord_url) {
       setEnableSave(true)
       return
     }
-    if (telegramUrl !== orgUserInfo.telegram_url) {
+    if (telegramUrl && telegramUrl !== orgUserInfo.telegram_url) {
       setEnableSave(true)
       return
     }
-    if (profilePictureUrl !== orgUserInfo.profilePictureUrl && profilePictureUrl !== '') {
+    if (profilePictureUrl && profilePictureUrl !== orgUserInfo.profile_picture && profilePictureUrl !== '') {
+      console.log(profilePictureUrl, '----------profilePictureUrl1--------')
+      console.log(orgUserInfo.profile_picture, '----------profilePictureUrl2--------')
       setEnableSave(true)
       return
     }
@@ -159,8 +153,8 @@ const ProfileSection = prop => {
         email: userEmail,
         ig_url: igUrl,
         twitter_url: twitterUrl,
-        telegram_url: telegramUrl,
         discord_url: discordUrl,
+        telegram_url: telegramUrl,
         profile_picture: profilePictureUrl,
       })
       .then(
@@ -199,6 +193,7 @@ const ProfileSection = prop => {
           const userInfo = response.user
           if (userInfo.profile_picture) {
             setCroppedAvatar(userInfo.profile_picture)
+            setProfilePictureUrl(userInfo.profile_picture)
           }
           setUsername(userInfo.username)
           setBio(userInfo.bio)
@@ -227,164 +222,154 @@ const ProfileSection = prop => {
       </div>
       <div className="w-full flex justify-center">
         <div className={styles.content}>
-          <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
-            <div className={styles.avatarArea}>
-              <Image
-                src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
-                alt=""
-                objectFit="cover"
-                className="rounded-full"
-              />
+          <div className={styles.innercontent}>
+            <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
+              <div className={styles.avatarArea}>
+                <Image
+                  src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
+                  alt=""
+                  objectFit="cover"
+                  className="rounded-full"
+                />
+              </div>
             </div>
-          </div>
-          <div className="flex justify-center lg:justify-start">
-            <div className="w-[250px]">
-              <OutlineButton
-                label="Change Profile Picture"
-                icon={EditorGreenIcon}
-                onClick={() => {
-                  inputFile.current.click()
-                }}
-                direction="rtl"
-                fullWidth
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '41px' : '64px'}
-                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+            <div className="flex justify-center lg:justify-start">
+              <div className="w-[250px]">
+                <OutlineButton
+                  label="Change Profile Picture"
+                  icon={EditorGreenIcon}
+                  onClick={() => {
+                    inputFile.current.click()
+                  }}
+                  direction="rtl"
+                  fullWidth
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '41px' : '64px'}
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  borderColor="#EFF0F6"
+                />
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  style={{ display: 'none' }}
+                  onChange={event => handleChangeAvatar(event)}
+                />
+              </div>
+            </div>
+            <div className="mt-[50px] lg:mt-[101px]">
+              <div className={styles.subTitle}>Personal Info</div>
+            </div>
+            <div className="mt-4 lg:mt-8">
+              <Input value={userName} placeholder="User name" onChange={value => setUsername(value)} />
+            </div>
+            <div className="mt-[10px] lg:mt-[30px] h-fit">
+              <Textarea value={bio} placeholder="Bio" width="100%" height="100%" onChange={value => setBio(value)} />
+            </div>
+            <div className="mt-[10px] lg:mt-[30px]">
+              <Input value={userEmail} placeholder="Email Address" onChange={value => setUserEmail(value)} />
+            </div>
+            <div className="mt-[45px] lg:mt-[60px]">
+              <div className={styles.subTitle}>Social Connections & Links</div>
+            </div>
+            <div className="mt-4 lg:mt-8 flex items-center gap-6">
+              <IconButton
+                icon={InstagramWhiteIcon}
+                backgroundColor="transparent"
                 borderColor="#EFF0F6"
+                width="46px"
+                height="46px"
+                borderRadius="12px"
+                borderWidth="2px"
+                onClick={() => {}}
               />
-              <input
-                type="file"
-                id="file"
-                ref={inputFile}
-                style={{ display: 'none' }}
-                onChange={event => handleChangeAvatar(event)}
+              <Input
+                value={igUrl}
+                placeholder="Add Your Account"
+                onChange={value => {
+                  setIgUrl(value)
+                }}
               />
             </div>
-          </div>
-          <div className="mt-[50px] lg:mt-[101px]">
-            <div className={styles.subTitle}>Personal Info</div>
-          </div>
-          <div className="mt-4 lg:mt-8">
-            <Input value={userName} placeholder="User name" onChange={value => setUsername(value)} />
-          </div>
-          <div className="mt-[10px] lg:mt-[30px] h-fit">
-            <Textarea value={bio} placeholder="Bio" width="100%" height="100%" onChange={value => setBio(value)} />
-          </div>
-          <div className="mt-[10px] lg:mt-[30px]">
-            <Input value={userEmail} placeholder="Email Address" onChange={value => setUserEmail(value)} />
-          </div>
-          <div className="mt-[45px] lg:mt-[60px]">
-            <div className={styles.subTitle}>Social Connections & Links</div>
-          </div>
-          <div className="mt-4 lg:mt-8 flex items-center gap-6">
-            <IconButton
-              icon={InstagramWhiteIcon}
-              backgroundColor="transparent"
-              borderColor="#EFF0F6"
-              width="46px"
-              height="46px"
-              borderRadius="12px"
-              borderWidth="2px"
-              onClick={() => {}}
-            />
-            <Input
-              value={igUrl}
-              placeholder="Add Your Account"
-              onChange={value => {
-                setIgUrl(value)
-              }}
-            />
-          </div>
-          <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
-            <IconButton
-              icon={DiscordWhiteIcon}
-              backgroundColor="transparent"
-              borderColor="#EFF0F6"
-              width="46px"
-              height="46px"
-              borderRadius="12px"
-              borderWidth="2px"
-              onClick={() => {}}
-            />
-            <Input value={discordUrl} placeholder="Add Your Account" onChange={value => setDiscordUrl(value)} />
-          </div>
-          <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
-            <IconButton
-              icon={TwitterWhiteIcon}
-              backgroundColor="transparent"
-              borderColor="#EFF0F6"
-              width="46px"
-              height="46px"
-              borderRadius="12px"
-              borderWidth="2px"
-              onClick={() => {}}
-            />
-            <Input value={twitterUrl} placeholder="Add Your Account" onChange={value => setTwitterUrl(value)} />
-          </div>
-          <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
-            <IconButton
-              icon={TelegramWhiteIcon}
-              backgroundColor="transparent"
-              borderColor="#EFF0F6"
-              width="46px"
-              height="46px"
-              borderRadius="12px"
-              borderWidth="2px"
-              onClick={() => {}}
-            />
-            <Input value={telegramUrl} placeholder="Add Your Account" onChange={value => setTelegramUrl(value)} />
-          </div>
-          <div className="mt-[45px] lg:mt-[60px]">
-            <div className={styles.subTitle}>Wallet</div>
-          </div>
-          <div className="mt-4 lg:mt-8">
-            <CopyWalletInput
-              value={shortAddress}
-              placeholder="Add Your Account"
-              disabled
-              onClick={() => copyToClipboard(publicKey?.toString() || '')}
-            />
-          </div>
-          <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-evenly items-center gap-6">
-            <OutlineButton
-              label="Preview"
-              icon={ViewGreenIcon}
-              onClick={() => {}}
-              direction="rtl"
-              fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
-              fontSize="16px"
-              borderColor="#EFF0F6"
-              paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '18px'}
-              paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '18px'}
-            />
-            {enableSave ? (
-              <GradientButton
-                label="Save"
-                onClick={() => {
-                  handleSaveUserInfo()
-                }}
-                fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
-                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-                paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                opacity={1}
+            <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
+              <IconButton
+                icon={DiscordWhiteIcon}
+                backgroundColor="transparent"
+                borderColor="#EFF0F6"
+                width="46px"
+                height="46px"
+                borderRadius="12px"
+                borderWidth="2px"
+                onClick={() => {}}
               />
-            ) : (
-              <GradientButton
-                label="Save"
-                onClick={() => handleSaveUserInfo()}
-                fullWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
-                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
-                paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                opacity={0.7}
-                disabled={uploadingToS3}
+              <Input value={discordUrl} placeholder="Add Your Account" onChange={value => setDiscordUrl(value)} />
+            </div>
+            <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
+              <IconButton
+                icon={TwitterWhiteIcon}
+                backgroundColor="transparent"
+                borderColor="#EFF0F6"
+                width="46px"
+                height="46px"
+                borderRadius="12px"
+                borderWidth="2px"
+                onClick={() => {}}
               />
-            )}
+              <Input value={twitterUrl} placeholder="Add Your Account" onChange={value => setTwitterUrl(value)} />
+            </div>
+            <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
+              <IconButton
+                icon={TelegramWhiteIcon}
+                backgroundColor="transparent"
+                borderColor="#EFF0F6"
+                width="46px"
+                height="46px"
+                borderRadius="12px"
+                borderWidth="2px"
+                onClick={() => {}}
+              />
+              <Input value={telegramUrl} placeholder="Add Your Account" onChange={value => setTelegramUrl(value)} />
+            </div>
+            <div className="mt-[45px] lg:mt-[60px]">
+              <div className={styles.subTitle}>Wallet</div>
+            </div>
+            <div className="mt-4 lg:mt-8">
+              <CopyWalletInput
+                value={shortAddress}
+                placeholder="Add Your Account"
+                disabled
+                onClick={() => copyToClipboard(publicKey?.toString() || '')}
+              />
+            </div>
+            <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
+              {enableSave ? (
+                <GradientButton
+                  label="Save"
+                  onClick={() => {
+                    handleSaveUserInfo()
+                  }}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                  paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                  paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                  opacity={1}
+                />
+              ) : (
+                <GradientButton
+                  label="Save"
+                  onClick={() => handleSaveUserInfo()}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
+                  paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                  paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
+                  opacity={0.7}
+                  disabled={uploadingToS3}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -400,6 +385,7 @@ const ProfileSection = prop => {
         close={() => setOpenNftImageEditorModal(false)}
         nftImage={avatar}
         getCroppedImage={croppedImage => {
+          setUpdateImage(true)
           setCroppedAvatar(croppedImage)
           setOpenNftImageEditorModal(false)
         }}
