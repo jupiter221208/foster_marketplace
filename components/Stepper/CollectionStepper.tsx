@@ -17,7 +17,9 @@ const CollectionStepper = props => {
         {/* <div className="cursor-pointer relative h-[40px] lg:h-[60px] flex items-center" onClick={() => onChange(1)}> */}
         <div className="relative h-[40px] lg:h-[60px] flex items-center">
           {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />}
-          <div className={`${styles.greenText} absolute top-[52px] lg:top-20 -left-16 -right-16`}>Add Description</div>
+          <div className={`${styles.greenText} absolute top-[52px] lg:top-20 -left-16 -right-16`}>
+            Create Collection
+          </div>
         </div>
 
         <div className={currentStep === 1 ? styles.grayLine : styles.greenLine} />
@@ -36,7 +38,7 @@ const CollectionStepper = props => {
               currentStep < 2 ? styles.grayText : styles.greenText
             } absolute top-[52px] lg:top-20 -left-16 -right-16`}
           >
-            Mint Collection
+            Upload Artworks
           </div>
         </div>
 
@@ -56,7 +58,7 @@ const CollectionStepper = props => {
               currentStep < 3 ? styles.grayText : styles.greenText
             } absolute top-[52px] lg:top-20 -left-16 -right-16`}
           >
-            Upload Artworks
+            Mint Collection
           </div>
         </div>
       </div>
