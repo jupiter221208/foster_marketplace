@@ -48,7 +48,7 @@ const SuccessMintCollectionSection = props => {
           <div className={styles.topLeftEllipse}>
             <Image src={EllipseGreen} alt="" objectFit="cover" />
           </div>
-          <div className="w-full flex flex-wrap justify-center z-10 mt-[107px] z-10">
+          <div className="w-full flex flex-wrap justify-center mt-[107px] z-10">
             {/* banner image */}
             <div className={styles.bannerImageArea}>
               {banner !== undefined ? (
@@ -113,7 +113,7 @@ const SuccessMintCollectionSection = props => {
       ) : (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
           <div className="w-full flex justify-center items-center z-10">
-            <div className="w-full flex flex-wrap justify-center z-10 mt-[40px] z-10">
+            <div className="w-full flex flex-wrap justify-center mt-[40px] z-10">
               {/* banner image */}
               <div className={styles.bannerImageArea}>
                 {banner !== undefined ? (
