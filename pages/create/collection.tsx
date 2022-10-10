@@ -26,7 +26,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@metaplex-foundation/js'
 
 const Collection = () => {
-
   // solana
   const { metaplex: mx } = useMetaplex()
 
@@ -55,37 +54,43 @@ const Collection = () => {
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
 
   const mintCollection = async () => {
-      var reader = new FileReader()
-      const fileData = new Blob([coverImage[0]])
-      reader.readAsArrayBuffer(fileData)
-      reader.onload = async function (event) {
-        const arrayBuffer = reader.result as ArrayBuffer
+    var reader = new FileReader()
+    const fileData = new Blob([coverImage[0]])
+    reader.readAsArrayBuffer(fileData)
+    reader.onload = async function (event) {
+      const arrayBuffer = reader.result as ArrayBuffer
 
-        const categories = categoryList.filter(item => item.checked)
+      const categories = categoryList.filter(item => item.checked)
 
-        const attributes = categories.map(category => {
-          return { trait_type: 'category', value: category.name }
-        })
+      const attributes = categories.map(category => {
+        return { trait_type: 'category', value: category.name }
+      })
 
-        const { uri } = await mx.nfts().uploadMetadata({
+      const { uri } = await mx
+        .nfts()
+        .uploadMetadata({
           name: collectionName,
           description: description,
           attributes: attributes,
-          image: toMetaplexFile(arrayBuffer, 'metaplex.png')
-        }).run()
+          image: toMetaplexFile(arrayBuffer, 'metaplex.png'),
+        })
+        .run()
 
-        const collectionNft = await mx.nfts().create({
+      const collectionNft = await mx
+        .nfts()
+        .create({
           isCollection: true,
           name: collectionName,
           uri: uri,
-          sellerFeeBasisPoints: royalties
-        }).run()
+          sellerFeeBasisPoints: royalties,
+        })
+        .run()
 
-        if(collectionNft) {
-          setCollectionNft(collectionNft)
-          setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
-        }
+      if (collectionNft) {
+        setCollectionNft(collectionNft)
+        setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
       }
+    }
   }
 
   // step 3
@@ -134,7 +139,7 @@ const Collection = () => {
   const [artworks, setArtworks] = useState<any[]>([])
 
   const readFilesAndUplaod = async () => {
-    var readCount = 0;
+    var readCount = 0
     collectionFiles.forEach(item => {
       var reader = new FileReader()
       const fileData = new Blob([item.file])
@@ -160,26 +165,35 @@ const Collection = () => {
     })
 
     if (collectionNft) {
-      for(var i in artworks) {
-        const { uri } = await mx.nfts().uploadMetadata({
-          name: artworks[i].name,
-          description: artworks[i].description,
-          attributes: attributes,
-          image: toMetaplexFile(artworks[i].file, 'metaplex.png')
-        }).run()
+      for (var i in artworks) {
+        const { uri } = await mx
+          .nfts()
+          .uploadMetadata({
+            name: artworks[i].name,
+            description: artworks[i].description,
+            attributes: attributes,
+            image: toMetaplexFile(artworks[i].file, 'metaplex.png'),
+          })
+          .run()
 
-        const nft = await mx.nfts().create({
-          uri: uri,
-          name: artworks[i].name,
-          sellerFeeBasisPoints: royalties,
-          collection: collectionNft?.mintAddress
-        }).run()
+        const nft = await mx
+          .nfts()
+          .create({
+            uri: uri,
+            name: artworks[i].name,
+            sellerFeeBasisPoints: royalties,
+            collection: collectionNft?.mintAddress,
+          })
+          .run()
 
-        await mx.nfts().verifyCollection({
-          mintAddress: nft.mintAddress,
-          collectionMintAddress: collectionNft?.mintAddress,
-          isSizedCollection: true
-        }).run()
+        await mx
+          .nfts()
+          .verifyCollection({
+            mintAddress: nft.mintAddress,
+            collectionMintAddress: collectionNft?.mintAddress,
+            isSizedCollection: true,
+          })
+          .run()
       }
     }
 

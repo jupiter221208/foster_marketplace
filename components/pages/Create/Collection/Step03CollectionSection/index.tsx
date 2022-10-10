@@ -23,7 +23,6 @@ import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
-
 // styles
 import styles from './index.module.scss'
 
@@ -553,22 +552,22 @@ const Step03CollectionSection = props => {
 
           <div className="w-full">
             <div className={`${styles.subTitle} mt-20`}>Collection Files *</div>
-              <div className="w-full grid grid-cols-2 mt-4">
-                <div className="col-span-1">
-                  <GradientButton
-                    fullWidth
-                    label="See All Files"
-                    onClick={() => setShowCollectionFiles(true)}
-                    height="45px"
-                  />
-                </div>
-              </div>
-              {showCollectionFiles && (
-                <CollectionFilesModal
-                  data={collectionFiles}
-                  onClick={() => setShowCollectionFiles(!showCollectionFiles)}
+            <div className="w-full grid grid-cols-2 mt-4">
+              <div className="col-span-1">
+                <GradientButton
+                  fullWidth
+                  label="See All Files"
+                  onClick={() => setShowCollectionFiles(true)}
+                  height="45px"
                 />
-              )}
+              </div>
+            </div>
+            {showCollectionFiles && (
+              <CollectionFilesModal
+                data={collectionFiles}
+                onClick={() => setShowCollectionFiles(!showCollectionFiles)}
+              />
+            )}
             <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
             <div className="mt-5">
               <Dropzone onDrop={acceptedFiles => onChangeCollectionFiles(acceptedFiles)} maxFiles={25}>
@@ -803,12 +802,7 @@ const Step03CollectionSection = props => {
                   </div>
                 ) : (
                   <div className="w-full">
-                    <GradientButton
-                      fullWidth
-                      label="Upload"
-                      onClick={() => readFilesAndUplaod()}
-                      height="45px"
-                    />
+                    <GradientButton fullWidth label="Upload" onClick={() => readFilesAndUplaod()} height="45px" />
                   </div>
                 )}
               </div>

@@ -315,12 +315,7 @@ const Step02CollectionSection = props => {
                   height="45px"
                 />
               ) : (
-                <GradientButton
-                  label="Mint Collection"
-                  onClick={() => mintCollection()}
-                  fullWidth
-                  height="45px"
-                />
+                <GradientButton label="Mint Collection" onClick={() => mintCollection()} fullWidth height="45px" />
               )}
             </div>
           </div>
