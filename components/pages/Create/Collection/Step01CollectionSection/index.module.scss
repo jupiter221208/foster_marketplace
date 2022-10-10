@@ -36,17 +36,37 @@
   overflow: hidden;
 }
 
+.bannerImageArea {
+  width: 100%;
+  max-width: 758px;
+  height: 100%;
+  max-height: 194px;
+  position: relative;
+  // background-image: url('../../../../../assets/images/banner-image.svg');
+  // background-repeat: no-repeat;
+  // background-size: contain;
+}
+
+.coverImageArea {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  // background-image: url('../../../../../assets/images/cover-image.svg');
+  // background-repeat: no-repeat;
+  // background-size: contain;
+}
+
 .title {
   width: 100%;
   margin-top: 26px;
 
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 21px;
+  font-family: 'KCDurhamboxcar';
+  font-size: 31px;
+  line-height: 41px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 74px;
+    line-height: 158px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
@@ -64,9 +84,7 @@
   }
   border-radius: 12px;
   border: 2px dashed rgba($text-gray-200-color, 0.6);
-  background-image: url('../../../../../assets/images/art-bg-gray.svg');
-  background-color: #1d1d1d;
-  background-position: top 5px left 10px;
+  background-color: rgba($white-color, 0.05);
 }
 
 .selectArea {

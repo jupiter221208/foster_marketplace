@@ -8,7 +8,9 @@ import Dropzone from 'react-dropzone'
 
 // components
 import CollectionStepper from 'components/Stepper/CollectionStepper'
-import Input from 'components/Input'
+import Select from 'components/Select'
+import Radio from 'components/Radio'
+// import Input from 'components/Input'
 import Button from 'components/Button'
 import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
@@ -21,6 +23,9 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
+// json
+import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
+
 // styles
 import styles from './index.module.scss'
 
@@ -31,8 +36,10 @@ const Step02CollectionSection = props => {
     coverImage,
     banner,
     onChangeBanner,
-    royalties,
-    onChangeRoyalties,
+    dimension,
+    onChangeDimension,
+    // royalties,
+    // onChangeRoyalties,
     mintCollection,
   } = props
   const viewport = useViewport()
@@ -88,11 +95,11 @@ const Step02CollectionSection = props => {
     onChangeCurrentStep(step)
   }
 
-  useEffect(() => {
-    if (banner !== undefined && royalties !== '') {
-      setDisabledNextButton(false)
-    }
-  }, [banner, royalties])
+  // useEffect(() => {
+  //   if (banner !== undefined && royalties !== '') {
+  //     setDisabledNextButton(false)
+  //   }
+  // }, [banner, royalties])
 
   // form validate
   const handleFormValidate = () => {}
@@ -168,6 +175,14 @@ const Step02CollectionSection = props => {
                   />
                 </div>
                 <div className="w-full">
+                  <div className={`${styles.subTitle} mt-10`}>Collection Dimensions *</div>
+                  <div className="max-w-[370px] w-full mt-5">
+                    <Select
+                      data={CollectionDimensionList}
+                      selected={dimension}
+                      onChange={item => onChangeDimension(item)}
+                    />
+                  </div>
                   <div className={`${styles.subTitle} mt-10`}>Banner *</div>
                   <div className="mt-5">
                     <Dropzone onDrop={acceptedFiles => onChangeBanner(acceptedFiles)} maxFiles={1}>
@@ -183,7 +198,7 @@ const Step02CollectionSection = props => {
                       )}
                     </Dropzone>
                   </div>
-                  <div className={`${styles.subTitle} mt-20`}>Royalties * &#8505;</div>
+                  {/* <div className={`${styles.subTitle} mt-20`}>Royalties * &#8505;</div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
                       value={royalties}
@@ -192,8 +207,8 @@ const Step02CollectionSection = props => {
                       type="number"
                       onChange={value => onChangeRoyalties(value)}
                     />
-                  </div>
-                  <div className="w-full mt-16">
+                  </div> */}
+                  {/* <div className="w-full mt-16">
                     {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 || banner === undefined ? (
                       <Button
                         label="Mint Collection"
@@ -211,7 +226,7 @@ const Step02CollectionSection = props => {
                         height={viewport === '2xl' ? 53 : 46}
                       />
                     )}
-                  </div>
+                  </div> */}
                 </div>
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-between">
@@ -295,7 +310,16 @@ const Step02CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Royalties *</div>
+            <div className={`${styles.subTitle} mt-8`}>Collection Dimensions *</div>
+            <div className="max-w-[370px] w-full mt-5 pl-6">
+              <Radio
+                data={CollectionDimensionList}
+                selected={dimension}
+                onChange={item => onChangeDimension(item)}
+                direction="rtl"
+              />
+            </div>
+            {/* <div className={`${styles.subTitle} mt-5`}>Royalties *</div>
             <div className="max-w-[370px] w-full mt-4">
               <Input
                 value={royalties}
@@ -304,8 +328,8 @@ const Step02CollectionSection = props => {
                 type="number"
                 onChange={value => onChangeRoyalties(value)}
               />
-            </div>
-            <div className="w-full mt-10">
+            </div> */}
+            {/* <div className="w-full mt-10">
               {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
                 <Button
                   label="Mint Collection"
@@ -317,7 +341,7 @@ const Step02CollectionSection = props => {
               ) : (
                 <GradientButton label="Mint Collection" onClick={() => mintCollection()} fullWidth height="45px" />
               )}
-            </div>
+            </div> */}
           </div>
 
           <div className="w-full flex justify-between my-10">

@@ -35,6 +35,7 @@ const Collection = () => {
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')
   const [coverImage, setCoverImage] = useState<any>()
+  const [bannerImage, setBannerImage] = useState<any>()
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [dimension, setDimension] = useState<any>(CollectionDimensionList[0])
 
@@ -237,10 +238,12 @@ const Collection = () => {
             onChangeCollectionName={collectionName => setCollectionName(collectionName)}
             description={description}
             onChangeDescription={description => setDescription(description)}
-            dimension={dimension}
-            onChangeDimension={dimension => setDimension(dimension)}
             coverImage={coverImage}
             onChangeCoverImage={coverImage => setCoverImage(coverImage)}
+            bannerImage={bannerImage}
+            onChangeBannerImage={bannerImage => setBannerImage(bannerImage)}
+            royalties={royalties}
+            onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
           />
@@ -251,6 +254,8 @@ const Collection = () => {
             onChangeCurrentStep={step => setCurrentStep(step)}
             coverImage={coverImage}
             banner={banner}
+            dimension={dimension}
+            onChangeDimension={dimension => setDimension(dimension)}
             onChangeBanner={banner => setBanner(banner)}
             royalties={royalties}
             onChangeRoyalties={royalties => setRoyalties(royalties)}

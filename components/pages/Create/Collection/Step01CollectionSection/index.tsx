@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import Image from 'next/image'
+
 // third party components
 import AvatarEditor from 'react-avatar-editor'
 import Dropzone from 'react-dropzone'
-import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 import { limit } from 'utils/strings'
 
 // components
+import IconButton from 'components/Button/IconButton'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Chip from 'components/Chip'
 import CollectionStepper from 'components/Stepper/CollectionStepper'
-import Select from 'components/Select'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
-import Radio from 'components/Radio'
 import CategoryListModal from 'components/Modal/CategoryListModal'
+
 // custom functions
 import { useViewport } from 'utils'
 
 // images and icons
-import EditorGrayIcon from 'assets/icons/editor-gray.svg'
-import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
-import TrashGrayIcon from 'assets/icons/trash-gray.svg'
+import BannerImage from 'assets/images/banner-image.svg'
+import CoverImage from 'assets/images/cover-image.svg'
+import EditorGreenIcon from 'assets/icons/editor-green.svg'
+import AddChangeWhiteIcon from 'assets/icons/add-change-white-46x46.svg'
+import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
 
 // json
-import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
-import IconButton from 'components/Button/IconButton'
 
 const Step01CollectionSection = props => {
   const {
@@ -41,32 +44,20 @@ const Step01CollectionSection = props => {
     onChangeCollectionName,
     description,
     onChangeDescription,
-    dimension,
-    onChangeDimension,
     coverImage,
     onChangeCoverImage,
+    bannerImage,
+    onChangeBannerImage,
+    royalties,
+    onChangeRoyalties,
     categoryList,
     onChangeCategoryList,
   } = props
   const viewport = useViewport()
 
-  const [screenWidth, setScreenWidth] = useState(1920)
-  const [screenHeight, setScreenHeight] = useState(1080)
-
-  useEffect(() => {
-    setScreenWidth(window.innerWidth)
-    setScreenHeight(window.innerHeight)
-  }, [])
-
-  useEffect(() => {
-    const resizeFunction = () => {
-      setScreenWidth(window.innerWidth)
-      setScreenHeight(window.innerHeight)
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
-
   // variables
+  const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
+  const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
@@ -76,105 +67,92 @@ const Step01CollectionSection = props => {
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
 
-  useEffect(() => {
-    let width = 0
-    let ratio = 1920 / 1920
-    switch (viewport) {
-      case '2xl':
-        width = screenWidth / 2 - 150 - 80 - 32
-        break
-      case 'xl':
-        width = screenWidth / 2 - 120 - 80 - 32
-        break
-      case 'lg':
-        width = screenWidth / 2 - 100 - 50 - 32
-        break
-      default:
-        switch (dimension.id) {
-          case 0:
-            width = screenWidth - 140
-            break
-          case 1:
-            width = screenWidth - 60
-            break
-          case 2:
-            width = screenWidth - 80
-            break
-          case 3:
-            width = screenWidth - 225
-            break
-          case 4:
-            width = screenWidth - 180
-            break
-        }
-        break
-    }
-    switch (dimension.id) {
-      case 0:
-        ratio = 1920 / 1920
-        if (width > 672) {
-          setArtWidth(672)
-          setArtHeight(672 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 1:
-        ratio = 1080 / 1920
-        if (width > 636) {
-          setArtWidth(636)
-          setArtHeight(636 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 2:
-        ratio = 1440 / 1920
-        if (width > 636) {
-          setArtWidth(636)
-          setArtHeight(636 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 3:
-        ratio = 1920 / 1080
-        if (width > 366) {
-          setArtWidth(366)
-          setArtHeight(366 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 4:
-        ratio = 1920 / 1440
-        if (width > 487) {
-          setArtWidth(487)
-          setArtHeight(487 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-    }
-  }, [viewport, dimension, screenWidth])
-
-  const handleFullScreen = useFullScreenHandle()
-  const [fullScreenMode, setFullScreenMode] = useState(false)
-
-  const fullScreenToggler = () => {
-    if (!fullScreenMode) {
-      handleFullScreen.enter()
-    }
-  }
-
-  const onFullScreenChange = (state, handle) => {
-    setFullScreenMode(state)
-  }
+  // useEffect(() => {
+  //   let width = 0
+  //   let ratio = 1920 / 1920
+  //   switch (viewport) {
+  //     case '2xl':
+  //       width = screenWidth / 2 - 150 - 80 - 32
+  //       break
+  //     case 'xl':
+  //       width = screenWidth / 2 - 120 - 80 - 32
+  //       break
+  //     case 'lg':
+  //       width = screenWidth / 2 - 100 - 50 - 32
+  //       break
+  //     default:
+  //       switch (dimension.id) {
+  //         case 0:
+  //           width = screenWidth - 140
+  //           break
+  //         case 1:
+  //           width = screenWidth - 60
+  //           break
+  //         case 2:
+  //           width = screenWidth - 80
+  //           break
+  //         case 3:
+  //           width = screenWidth - 225
+  //           break
+  //         case 4:
+  //           width = screenWidth - 180
+  //           break
+  //       }
+  //       break
+  //   }
+  //   switch (dimension.id) {
+  //     case 0:
+  //       ratio = 1920 / 1920
+  //       if (width > 672) {
+  //         setArtWidth(672)
+  //         setArtHeight(672 * ratio)
+  //       } else {
+  //         setArtWidth(width)
+  //         setArtHeight(width * ratio)
+  //       }
+  //       break
+  //     case 1:
+  //       ratio = 1080 / 1920
+  //       if (width > 636) {
+  //         setArtWidth(636)
+  //         setArtHeight(636 * ratio)
+  //       } else {
+  //         setArtWidth(width)
+  //         setArtHeight(width * ratio)
+  //       }
+  //       break
+  //     case 2:
+  //       ratio = 1440 / 1920
+  //       if (width > 636) {
+  //         setArtWidth(636)
+  //         setArtHeight(636 * ratio)
+  //       } else {
+  //         setArtWidth(width)
+  //         setArtHeight(width * ratio)
+  //       }
+  //       break
+  //     case 3:
+  //       ratio = 1920 / 1080
+  //       if (width > 366) {
+  //         setArtWidth(366)
+  //         setArtHeight(366 * ratio)
+  //       } else {
+  //         setArtWidth(width)
+  //         setArtHeight(width * ratio)
+  //       }
+  //       break
+  //     case 4:
+  //       ratio = 1920 / 1440
+  //       if (width > 487) {
+  //         setArtWidth(487)
+  //         setArtHeight(487 * ratio)
+  //       } else {
+  //         setArtWidth(width)
+  //         setArtHeight(width * ratio)
+  //       }
+  //       break
+  //   }
+  // }, [viewport, dimension, screenWidth])
 
   const [showCategoryList, setShowCategoryList] = useState(false)
 
@@ -234,53 +212,50 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Preview Collection Cover</div>
-              <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
-                <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
-                  {fullScreenMode && coverImage !== undefined && (
-                    <AvatarEditor
-                      image={coverImage[0]}
-                      width={screenHeight - 36}
-                      height={screenHeight - 36}
-                      border={16}
-                      borderRadius={12}
-                      color={[77, 92, 94, 1]} // RGBA
-                      scale={1}
-                      rotate={0}
+              <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
+              <div className="w-full flex flex-wrap justify-center mt-[22px]">
+                <div className="w-full">
+                  <div className={styles.bannerImageArea}>
+                    <Image
+                      src={bannerImage !== undefined ? URL.createObjectURL(bannerImage[0]) : BannerImage}
+                      width={758}
+                      height={194}
+                      alt=""
+                      objectFit="cover"
+                      className="rounded-[20px]"
                     />
-                  )}
-                </FullScreen>
-                <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                  {coverImage !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                    <AvatarEditor
-                      image={coverImage[0]}
-                      width={artWidth - 32}
-                      height={artHeight - 32}
-                      border={16}
-                      borderRadius={16}
-                      color={[77, 92, 94, 1]} // RGBA
-                      scale={1}
-                      rotate={0}
-                    />
-                  ) : (
-                    <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
-                  )}
-                </div>
-                {coverImage !== undefined && (
-                  <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
-                    <IconButton icon={EditorGrayIcon} onClick={() => {}} backgroundColor="transparent" />
-                    <IconButton
-                      icon={FullScreenGrayIcon}
-                      onClick={() => fullScreenToggler()}
-                      backgroundColor="transparent"
-                    />
-                    <IconButton
-                      icon={TrashGrayIcon}
-                      onClick={() => onChangeCoverImage()}
-                      backgroundColor="transparent"
-                    />
+                    <div className="absolute top-2 right-[10px]">
+                      <IconButton
+                        icon={bannerImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                        onClick={() => {}}
+                        backgroundColor="rgba(55, 130, 135, 0)"
+                        borderColor="transparent"
+                        borderRadius="100%"
+                      />
+                    </div>
                   </div>
-                )}
+                </div>
+                <div className="w-full flex justify-center -mt-16">
+                  <div className={styles.coverImageArea}>
+                    <Image
+                      src={coverImage !== undefined ? URL.createObjectURL(coverImage[0]) : CoverImage}
+                      width={160}
+                      height={160}
+                      alt=""
+                      objectFit="cover"
+                      className="rounded-[20px]"
+                    />
+                    <div className="absolute top-2 right-[10px]">
+                      <IconButton
+                        icon={coverImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                        onClick={() => {}}
+                        backgroundColor="rgba(55, 130, 135, 0.1)"
+                        borderColor="transparent"
+                        borderRadius="100%"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className={`w-full flex break-all justify-center items-center mt-[35px] ${styles.collectionName}`}>
                 {collectionName}
@@ -305,10 +280,7 @@ const Step01CollectionSection = props => {
             <div className={styles.rightContainer}>
               <div className="w-full relative">
                 <div className="w-full">
-                  <CollectionStepper
-                    currentStep={currentStep}
-                    // onChange={step => handleChangeCurrentStep(step)}
-                  />
+                  <CollectionStepper currentStep={currentStep} />
                 </div>
                 {/* upload artwork part */}
                 <div className="w-full">
@@ -332,28 +304,59 @@ const Step01CollectionSection = props => {
                       onChange={value => onChangeDescription(value)}
                     />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Collection Dimensions *</div>
-                  <div className="max-w-[370px] w-full mt-5">
-                    <Select
-                      data={CollectionDimensionList}
-                      selected={dimension}
-                      onChange={item => onChangeDimension(item)}
-                    />
+                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                    Cover Image * <Image src={InfoCircleLightGreenIcon} alt="" />
                   </div>
-                  <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
                   <div className="mt-5">
-                    <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)} maxFiles={1}>
+                    <Dropzone
+                      onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
+                      maxFiles={1}
+                      accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+                    >
                       {({ getRootProps, getInputProps }) => (
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
-                            <p className={styles.text}>Supported File Formats .png .jpeg .mp4, .mp3 and .gif</p>
+                            <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
                             <p className={styles.greenText}>Max File Size 30mb</p>
                           </div>
                         </section>
                       )}
                     </Dropzone>
+                  </div>
+                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                    Banner Image * <Image src={InfoCircleLightGreenIcon} alt="" />
+                  </div>
+                  <div className="mt-5">
+                    <Dropzone
+                      onDrop={acceptedFiles => onChangeBannerImage(acceptedFiles)}
+                      maxFiles={1}
+                      accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+                    >
+                      {({ getRootProps, getInputProps }) => (
+                        <section className={styles.dropzone}>
+                          <div {...getRootProps()} className={styles.selectArea}>
+                            <input {...getInputProps()} />
+                            <p className={styles.subTitle}>Upload Here</p>
+                            <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
+                            <p className={styles.greenText}>Max File Size 30mb</p>
+                          </div>
+                        </section>
+                      )}
+                    </Dropzone>
+                  </div>
+                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+                    Royalties * <Image src={InfoCircleLightGreenIcon} alt="" />
+                  </div>
+                  <div className="max-w-[370px] w-full mt-5">
+                    <Input
+                      value={royalties}
+                      placeholder="Insert a royalty percentage"
+                      label="From 1 to 20%"
+                      type="number"
+                      onChange={value => onChangeRoyalties(value)}
+                    />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Categories (max. 3) *</div>
                   <div className="w-full mt-5">
@@ -389,28 +392,11 @@ const Step01CollectionSection = props => {
         <div className="g-container mt-[26px] mb-[47px]">
           {/* CollectionStepper part */}
           <div className="w-full">
-            <CollectionStepper
-              currentStep={currentStep}
-              // onChange={step => handleChangeCurrentStep(step)}
-            />
+            <CollectionStepper currentStep={currentStep} />
           </div>
           <div className={`${styles.title} w-full`}>Preview Collection Cover</div>
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
-              {fullScreenMode && (
-                <AvatarEditor
-                  image={coverImage !== undefined && coverImage[0]}
-                  width={screenHeight - 36}
-                  height={screenHeight - 36}
-                  border={6}
-                  borderRadius={12}
-                  color={[77, 92, 94, 1]} // RGBA
-                  scale={1}
-                  rotate={0}
-                />
-              )}
-            </FullScreen>
             <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
               {coverImage !== undefined && artWidth !== 0 && artHeight !== 0 ? (
                 <AvatarEditor
@@ -424,41 +410,14 @@ const Step01CollectionSection = props => {
                   rotate={0}
                 />
               ) : (
-                <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                <div className={`${styles.artArea}`} />
               )}
             </div>
-            {coverImage !== undefined && (
-              <div className="w-full mt-4 flex justify-center">
-                <div className="flex justify-between" style={{ width: artWidth }}>
-                  <IconButton
-                    icon={EditorGrayIcon}
-                    onClick={() => {}}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
-                  <IconButton
-                    icon={FullScreenGrayIcon}
-                    onClick={() => fullScreenToggler()}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
-                  <IconButton
-                    icon={TrashGrayIcon}
-                    onClick={() => onChangeCoverImage()}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
-                </div>
-              </div>
-            )}
           </div>
           {/* upload artwork part */}
           <div className="w-full">
             <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
-            <div className="max-w-[370px] w-full mt-4">
+            <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
                 value={limit(collectionName, 20)}
                 placeholder="Give your art name"
@@ -477,18 +436,13 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-8`}>Collection Dimensions *</div>
-            <div className="max-w-[370px] w-full mt-5 pl-6">
-              <Radio
-                data={CollectionDimensionList}
-                selected={dimension}
-                onChange={item => onChangeDimension(item)}
-                direction="rtl"
-              />
-            </div>
-            <div className={`${styles.subTitle} mt-10`}>Art *</div>
+            <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)} maxFiles={1}>
+              <Dropzone
+                onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
+                maxFiles={1}
+                accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+              >
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>
@@ -497,13 +451,48 @@ const Step01CollectionSection = props => {
                       <p className={styles.text}>
                         Supported File Formats
                         <br />
-                        .png .jpeg .mp4 and .gif
+                        .png .jpeg and .gif
                       </p>
                       <p className={styles.greenText}>Max File Size 30mb</p>
                     </div>
                   </section>
                 )}
               </Dropzone>
+            </div>
+            <div className={`${styles.subTitle} mt-10`}>Banner Image *</div>
+            <div className="mt-5">
+              <Dropzone
+                onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
+                maxFiles={1}
+                accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <section className={styles.dropzone}>
+                    <div {...getRootProps()} className={styles.selectArea}>
+                      <input {...getInputProps()} />
+                      <p className={styles.subTitle}>Upload Here</p>
+                      <p className={styles.text}>
+                        Supported File Formats
+                        <br />
+                        .png .jpeg and .gif
+                      </p>
+                      <p className={styles.greenText}>Max File Size 30mb</p>
+                    </div>
+                  </section>
+                )}
+              </Dropzone>
+            </div>
+            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+              Royalties * <Image src={InfoCircleLightGreenIcon} alt="" />
+            </div>
+            <div className="max-w-[370px] w-full mt-5">
+              <Input
+                value={royalties}
+                placeholder="Insert a royalty percentage"
+                label="From 1 to 20%"
+                type="number"
+                onChange={value => onChangeRoyalties(value)}
+              />
             </div>
             <div className={`${styles.subTitle} mt-5`}>Categories *</div>
             <div className="w-full mt-4">
@@ -554,6 +543,27 @@ const Step01CollectionSection = props => {
           </div>
         </div>
       )}
+
+      <NftImageEditorModal
+        open={openCoverImageEditorModal}
+        close={() => setOpenCoverImageEditorModal(false)}
+        nftImage={coverImage}
+        getCroppedImage={croppedImage => {
+          console.log(croppedImage)
+          setOpenCoverImageEditorModal(false)
+        }}
+        dimension={{ value: [1080, 1080] }}
+      />
+      <NftImageEditorModal
+        open={openBannerImageEditorModal}
+        close={() => setOpenBannerImageEditorModal(false)}
+        nftImage={bannerImage}
+        getCroppedImage={croppedImage => {
+          console.log(croppedImage)
+          setOpenBannerImageEditorModal(false)
+        }}
+        dimension={{ value: [758, 194] }}
+      />
     </div>
   )
 }
