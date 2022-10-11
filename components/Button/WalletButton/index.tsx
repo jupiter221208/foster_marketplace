@@ -142,7 +142,6 @@ const WalletButton = props => {
           dispatch({ type: 'set', profileSetup: true })
         }
         dispatch({ type: 'set', profileInfo: response.user })
-        console.log(response.user, '==========response.user=========')
         setProfileImage(response.user.profile_picture)
         setProfileName(response.user.username)
       },

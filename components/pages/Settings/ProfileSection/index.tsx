@@ -130,8 +130,6 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
-    console.log(telegramUrl, '============telegramUrl============')
-    console.log(orgUserInfo.telegram_url, '============orgUserInfo.telegram_url============')
     if (telegramUrl && telegramUrl !== orgUserInfo.telegram_url) {
       setEnableSave(true)
       return
