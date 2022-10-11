@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 // third party components
-import AvatarEditor from 'react-avatar-editor'
 import Dropzone from 'react-dropzone'
 import { limit } from 'utils/strings'
 
@@ -85,95 +84,6 @@ const Step01CollectionSection = props => {
     handleFormValidate()
     onChangeCurrentStep(step)
   }
-  const [artWidth, setArtWidth] = useState(0)
-  const [artHeight, setArtHeight] = useState(0)
-
-  // useEffect(() => {
-  //   let width = 0
-  //   let ratio = 1920 / 1920
-  //   switch (viewport) {
-  //     case '2xl':
-  //       width = screenWidth / 2 - 150 - 80 - 32
-  //       break
-  //     case 'xl':
-  //       width = screenWidth / 2 - 120 - 80 - 32
-  //       break
-  //     case 'lg':
-  //       width = screenWidth / 2 - 100 - 50 - 32
-  //       break
-  //     default:
-  //       switch (dimension.id) {
-  //         case 0:
-  //           width = screenWidth - 140
-  //           break
-  //         case 1:
-  //           width = screenWidth - 60
-  //           break
-  //         case 2:
-  //           width = screenWidth - 80
-  //           break
-  //         case 3:
-  //           width = screenWidth - 225
-  //           break
-  //         case 4:
-  //           width = screenWidth - 180
-  //           break
-  //       }
-  //       break
-  //   }
-  //   switch (dimension.id) {
-  //     case 0:
-  //       ratio = 1920 / 1920
-  //       if (width > 672) {
-  //         setArtWidth(672)
-  //         setArtHeight(672 * ratio)
-  //       } else {
-  //         setArtWidth(width)
-  //         setArtHeight(width * ratio)
-  //       }
-  //       break
-  //     case 1:
-  //       ratio = 1080 / 1920
-  //       if (width > 636) {
-  //         setArtWidth(636)
-  //         setArtHeight(636 * ratio)
-  //       } else {
-  //         setArtWidth(width)
-  //         setArtHeight(width * ratio)
-  //       }
-  //       break
-  //     case 2:
-  //       ratio = 1440 / 1920
-  //       if (width > 636) {
-  //         setArtWidth(636)
-  //         setArtHeight(636 * ratio)
-  //       } else {
-  //         setArtWidth(width)
-  //         setArtHeight(width * ratio)
-  //       }
-  //       break
-  //     case 3:
-  //       ratio = 1920 / 1080
-  //       if (width > 366) {
-  //         setArtWidth(366)
-  //         setArtHeight(366 * ratio)
-  //       } else {
-  //         setArtWidth(width)
-  //         setArtHeight(width * ratio)
-  //       }
-  //       break
-  //     case 4:
-  //       ratio = 1920 / 1440
-  //       if (width > 487) {
-  //         setArtWidth(487)
-  //         setArtHeight(487 * ratio)
-  //       } else {
-  //         setArtWidth(width)
-  //         setArtHeight(width * ratio)
-  //       }
-  //       break
-  //   }
-  // }, [viewport, dimension, screenWidth])
 
   const [showCategoryList, setShowCategoryList] = useState(false)
 

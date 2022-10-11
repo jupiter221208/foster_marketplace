@@ -246,14 +246,14 @@ const Collection = () => {
           <Step02CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
-            coverImage={coverImage}
-            banner={banner}
             dimension={dimension}
             onChangeDimension={dimension => setDimension(dimension)}
-            onChangeBanner={banner => setBanner(banner)}
-            royalties={royalties}
-            onChangeRoyalties={royalties => setRoyalties(royalties)}
-            mintCollection={mintCollection}
+            collectionFiles={collectionFiles}
+            onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
+            onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
+            onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
+            onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            readFilesAndUplaod={readFilesAndUplaod}
           />
         )}
         {currentStep === 3 && (

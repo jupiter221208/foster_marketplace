@@ -27,17 +27,44 @@
   width: 100%;
   margin-top: 26px;
 
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 21px;
+  font-family: 'KCDurhamboxcar';
+  font-size: 31px;
+  line-height: 41px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 74px;
+    line-height: 158px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
   text-align: center;
+}
+
+.imageArea {
+  width: 86px;
+  height: 86px;
+  @media (min-width: 1024px) {
+    width: 160px;
+    height: 160px;
+  }
+  border-radius: 10px;
+  background-color: rgba($background-light-color, 0.25);
+  padding: 5px;
+  overflow: hidden;
+}
+
+// right part
+.rightContainer {
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  padding: 16px 0px 16px 16px;
+  @media (min-width: 1024px) {
+    padding: 50px 0px 80px 50px;
+  }
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  z-index: 100;
 }
 
 .dropzone {
@@ -63,20 +90,6 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-}
-
-// right part
-.rightContainer {
-  width: 100%;
-  min-height: calc(100vh - 100px);
-  padding: 16px 0px 16px 16px;
-  @media (min-width: 1024px) {
-    padding: 50px 0px 80px 50px;
-  }
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  z-index: 100;
 }
 
 .subTitle {
@@ -123,18 +136,6 @@
   height: 100%;
   border-radius: 20px;
   background-color: rgba($white-color, 0.1);
-}
-
-.coverImageArea {
-  width: 86px;
-  height: 86px;
-  @media (min-width: 1024px) {
-    width: 160px;
-    height: 160px;
-  }
-  border-radius: 10px;
-  background-color: rgba($background-light-color, 0.5);
-  padding: 5px;
 }
 
 .uploadedImageArea {
