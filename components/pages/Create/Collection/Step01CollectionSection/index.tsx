@@ -206,12 +206,19 @@ const Step01CollectionSection = props => {
       if (item.checked === true) count++
     })
 
-    if (collectionName !== '' && description !== '' && count > 0 && count <= 3 && coverImage !== undefined) {
+    if (
+      collectionName !== '' &&
+      description !== '' &&
+      count > 0 &&
+      count <= 3 &&
+      coverCroppedImage !== undefined &&
+      bannerCroppedImage !== undefined
+    ) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
     }
-  }, [collectionName, description, coverImage, categoryList])
+  }, [collectionName, description, coverCroppedImage, bannerCroppedImage, categoryList])
 
   // form validate
   const handleFormValidate = () => {
@@ -602,7 +609,6 @@ const Step01CollectionSection = props => {
         close={() => setOpenCoverImageEditorModal(false)}
         nftImage={coverImage}
         getCroppedImage={croppedImage => {
-          console.log(croppedImage)
           setCoverCroppedImage(croppedImage)
           setOpenCoverImageEditorModal(false)
         }}
@@ -613,7 +619,6 @@ const Step01CollectionSection = props => {
         close={() => setOpenBannerImageEditorModal(false)}
         nftImage={bannerImage}
         getCroppedImage={croppedImage => {
-          console.log(croppedImage)
           setBannerCroppedImage(croppedImage)
           setOpenBannerImageEditorModal(false)
         }}
