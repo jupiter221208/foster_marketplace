@@ -22,7 +22,7 @@ import { useViewport } from 'utils'
 // images and icons
 import LogoTextIcon from 'assets/icons/logo-text-01.svg'
 import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
-import AvatarImage from 'assets/images/avatar.jpg'
+import AvatarImage from 'assets/icons/profile-thumb.svg'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
 
@@ -35,12 +35,16 @@ import ProfileMenuList from 'assets/json/profile-menu.json'
 // styles
 import styles from './index.module.scss'
 
+// call api
+import authAPI from 'apis/auth'
+
 const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
 
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
+  const [profileImage, setProfileImage] = useState('')
 
   useEffect(() => {
     if (searchKeyword !== '') {
@@ -75,11 +79,19 @@ const PrimaryHeader = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const { connected } = useWallet()
+  const { connected, publicKey } = useWallet()
   const connectWalletStatus = useSelector(state => (state as any).connectWalletStatus)
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const openConnectWallet = useSelector(state => (state as any).openConnectWallet)
+  const profileInfo = useSelector(state => (state as any).profileInfo)
+
+  useEffect(() => {
+    if (profileInfo && profileInfo.profile_picture) {
+      setProfileImage(profileInfo.profile_picture)
+    }
+  }, [profileInfo])
+
   const dispatch = useDispatch()
 
   const handleExploreMenu = item => {
@@ -133,6 +145,21 @@ const PrimaryHeader = () => {
     window.addEventListener('resize', resizeFunction)
   }, [connected])
 
+  useEffect(() => {
+    if (connected) {
+      if (!profileInfo) {
+        authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+          response => {
+            dispatch({ type: 'set', profileInfo: response.user })
+          },
+          error => {
+            console.log(error)
+          }
+        )
+      }
+    }
+  }, [connected])
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div>
       <div className={styles.blurContainer}>
@@ -164,7 +191,7 @@ const PrimaryHeader = () => {
             <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
             <ProfileMenu
-              avatar={AvatarImage}
+              avatar={profileImage.length > 0 ? profileImage : AvatarImage}
               menuList={ProfileMenuList}
               onSelect={item => router.push(item.path)}
               connectWalletStatus={connected}

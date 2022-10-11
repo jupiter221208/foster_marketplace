@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // styles
 import styles from './index.module.scss'
@@ -57,7 +58,7 @@ const AccordionMenu = props => {
                   {item.id === 0 ? (
                     <div className="w-10 h-10 flex justify-center items-center">
                       <div className={styles.imageArea}>
-                        <Image src={item.icon} alt="" width={24} height={24} className="rounded-full" />
+                        <Image src={icon} alt="" width={24} height={24} className="rounded-full" />
                       </div>
                     </div>
                   ) : (

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // third party components
 import { useSelector } from 'react-redux'
@@ -10,7 +10,7 @@ import AccordionMenu from 'components/Menu/AccordionMenu'
 import WalletButton from 'components/Button/WalletButton'
 
 // images and icons
-import AvatarIcon from 'assets/images/avatar.jpg'
+import AvatarIcon from 'assets/icons/profile-thumb.svg'
 import ExploreWhiteIcon from 'assets/icons/explore-white.svg'
 import PlusWhiteIcon from 'assets/icons/plus-white.svg'
 import WalletWhiteIcon from 'assets/icons/wallet-white.svg'
@@ -35,6 +35,16 @@ import Image from 'next/image'
 const MobileMenu = () => {
   const { connected } = useWallet()
   const openMyWallet = useSelector((state: any) => state.openMyWallet)
+  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const [profileImage, setProfileImage] = useState('')
+  const [profileName, setProfileName] = useState('')
+
+  useEffect(() => {
+    if (profileInfo && profileInfo.profile_picture) {
+      setProfileImage(profileInfo.profile_picture)
+      setProfileName(profileInfo.username)
+    }
+  }, [profileInfo])
 
   return (
     <div className={styles.menu}>
@@ -44,7 +54,12 @@ const MobileMenu = () => {
         <div className={styles.container}>
           <div className="w-full">
             <div className="my-[10px]">
-              <AccordionMenu icon={AvatarIcon} label="Lesile Alexander" type="avatar" data={ProfileMenuList} />
+              <AccordionMenu
+                icon={profileImage.length > 0 ? profileImage : AvatarIcon}
+                label={profileName.length > 0 ? profileName : 'Anonymous'}
+                type="avatar"
+                data={ProfileMenuList}
+              />
             </div>
             <div className="my-[10px]">
               <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
