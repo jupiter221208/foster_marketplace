@@ -17,6 +17,10 @@
   font-family: 'Muli-Regular';
   letter-spacing: 0;
   color: $text-gray-200-color;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .label {

@@ -101,6 +101,7 @@ const Collection = () => {
       object.file = item
       object.name = ''
       object.description = ''
+      object.croppedImage = ''
       array.push(object)
     })
     setCollectionFiles(array)
@@ -112,6 +113,7 @@ const Collection = () => {
     if (index !== -1) {
       array.splice(index, 1)
     }
+    console.log('============', array)
     setCollectionFiles(array)
   }
 
@@ -130,6 +132,17 @@ const Collection = () => {
     if (index !== -1) {
       array[index].description = value
     }
+    setCollectionFiles(array)
+  }
+
+  const handleChangeCroppedImage = (croppedImage, id) => {
+    let array = [...collectionFiles]
+    array.map((item, index) => {
+      if (item.id === id) {
+        item.croppedImage = croppedImage
+      }
+    })
+    console.log(array)
     setCollectionFiles(array)
   }
 
@@ -253,6 +266,7 @@ const Collection = () => {
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
+            onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
             readFilesAndUplaod={readFilesAndUplaod}
           />
         )}
