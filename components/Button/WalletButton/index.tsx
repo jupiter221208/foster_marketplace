@@ -17,7 +17,7 @@ import GradientButton from 'components/Button/GradientButton'
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
-import avatar from 'assets/images/avatar.jpg'
+import avatar from 'assets/icons/profile-thumb.svg'
 import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
 import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -89,6 +89,10 @@ const WalletButton = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [buttonClicked, setButtonClicked] = useState(false)
 
+  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const [profileName, setProfileName] = useState('')
+  const [profileImage, setProfileImage] = useState('')
+
   useEffect(() => {
     if (!buttonClicked) {
       return
@@ -119,6 +123,17 @@ const WalletButton = props => {
     }
   }, [connected])
 
+  useEffect(() => {
+    if (profileInfo) {
+      if (profileInfo.username) {
+        setProfileName(profileInfo.username)
+      }
+      if (profileInfo.profile_picture) {
+        setProfileImage(profileInfo.profile_picture)
+      }
+    }
+  }, [profileInfo])
+
   // handle login
   const handleLogin = () => {
     authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
@@ -127,6 +142,9 @@ const WalletButton = props => {
           dispatch({ type: 'set', profileSetup: true })
         }
         dispatch({ type: 'set', profileInfo: response.user })
+        console.log(response.user, '==========response.user=========')
+        setProfileImage(response.user.profile_picture)
+        setProfileName(response.user.username)
       },
       error => {
         console.log(error)
@@ -157,9 +175,9 @@ const WalletButton = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className="w-full flex gap-3">
-                  <Avatar avatar={avatar} width={36} height={36} />
+                  <Avatar avatar={profileImage.length > 0 ? profileImage : avatar} width={36} height={36} />
                   <div className="block whitespace-nowrap">
-                    <div className={styles.title}>Foster Username</div>
+                    <div className={styles.title}>{profileName.length > 0 ? profileName : 'Username'}</div>
                     <div className={styles.grayText}>{shortAddress}</div>
                   </div>
                 </div>
