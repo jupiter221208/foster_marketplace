@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -16,9 +16,10 @@ import DashboardArtistCard from 'components/Card/DashboardArtistCard'
 import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
 import IconButton from 'components/Button/IconButton'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -39,36 +40,89 @@ import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
 // styles
 import styles from './index.module.scss'
 
+// call api
+import userAPI from 'apis/user'
+import uploadFileToS3 from 'apis/aws'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
   const profileInfo = useSelector(state => (state as any).profileInfo)
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
+  const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
+  const [updateImage, setUpdateImage] = useState(false)
+  const [uploadingToS3, setUploadingToS3] = useState<boolean>(false)
 
   const inputFile = useRef<any>(null)
-  const [bannerImage, setBannerImage] = useState<any>(BannerImage)
-  const [profileImage, setProfileImage] = useState('')
-  const [profileName, setProfileName] = useState('')
+  const [banner, setBanner] = useState<any>()
+  const [croppedBanner, setCroppedBanner] = useState(profileInfo.banner_picture ? profileInfo.banner_picture : '')
 
-  useEffect(() => {
-    if (profileInfo) {
-      if (profileInfo.profile_picture) {
-        setProfileImage(profileInfo.profile_picture)
-      }
-      if (profileInfo.username) {
-        setProfileName(profileInfo.username)
-      }
-    }
-  }, [profileInfo])
+  const profileImage = profileInfo.profile_picture ? profileInfo.profile_picture : ''
+  const profileName = profileInfo.username ? profileInfo.username : ''
+  const [bannerPictureUrl, setBannerPictureUrl] = useState('')
+
+  // useEffect(() => {
+  //   if (profileInfo) {
+  //     if (profileInfo.profile_picture) {
+  //       setProfileImage(profileInfo.profile_picture)
+  //     }
+  //     if (profileInfo.username) {
+  //       setProfileName(profileInfo.username)
+  //     }
+  //     if (profileInfo.banner_picture) {
+  //       setCroppedBanner(profileInfo.banner_picture)
+  //     }
+  //   }
+  // }, [profileInfo])
 
   const handleChangeBannerImage = event => {
-    setBannerImage(URL.createObjectURL(event.target.files[0]))
+    const file = event.target.files
+    setBanner(file)
+    setOpenNftImageEditorModal(true)
   }
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
+  }
+
+  useEffect(() => {
+    if (croppedBanner !== '' && updateImage) {
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'banner.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('banner.jpg')
+        uploadFile(file, filename)
+      }
+      fetchData(croppedBanner)
+      setUpdateImage(false)
+    }
+  }, [updateImage])
+
+  useEffect(() => {
+    if (bannerPictureUrl.length === 0) return
+    userAPI.update({ wallet_id: publicKey?.toBase58() || '', banner_picture: bannerPictureUrl }).then(
+      response => {
+        if (response !== null) {
+          dispatch({ type: 'set', profileInfo: response })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [bannerPictureUrl])
+
+  const uploadFile = async (file: any, filename: string) => {
+    setUploadingToS3(true)
+    const { data, url } = await uploadFileToS3(file, filename)
+    setBannerPictureUrl(url + filename)
+    setUploadingToS3(false)
   }
 
   return (
@@ -77,7 +131,14 @@ const MainSection = () => {
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className={styles.bannerImage}>
-        <Image src={bannerImage} alt="" width={1620} height={460} objectFit="cover" className="rounded-[30px]" />
+        <Image
+          src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage}
+          alt=""
+          width={1620}
+          height={460}
+          objectFit="cover"
+          className="rounded-[30px]"
+        />
         <div className="absolute bottom-7 right-7 cursor-pointer z-20">
           <IconButton icon={CameraWhiteIcon} onClick={() => inputFile.current.click()} backgroundColor="transparent" />
           <input
@@ -200,6 +261,17 @@ const MainSection = () => {
           </div>
         </div>
       </div>
+      <NftImageEditorModal
+        open={openNftImageEditorModal}
+        close={() => setOpenNftImageEditorModal(false)}
+        nftImage={banner}
+        getCroppedImage={croppedImage => {
+          setUpdateImage(true)
+          setCroppedBanner(croppedImage)
+          setOpenNftImageEditorModal(false)
+        }}
+        dimension={{ value: [1080, 320] }}
+      />
     </div>
   )
 }

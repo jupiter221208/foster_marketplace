@@ -36,7 +36,6 @@ import { PublicKey } from '@solana/web3.js'
 
 // call api
 import userAPI from 'apis/user'
-import authAPI from 'apis/auth'
 import uploadFileToS3 from 'apis/aws'
 
 const ProfileSection = prop => {
@@ -185,10 +184,10 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     if (publicKey === null) return
-    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+    userAPI.get(publicKey?.toBase58() || '').then(
       response => {
-        if (response.user !== null) {
-          const userInfo = response.user
+        if (response !== null) {
+          const userInfo = response
           if (userInfo.profile_picture) {
             setCroppedAvatar(userInfo.profile_picture)
             setProfilePictureUrl(userInfo.profile_picture)
@@ -357,7 +356,7 @@ const ProfileSection = prop => {
               ) : (
                 <GradientButton
                   label="Save"
-                  onClick={() => handleSaveUserInfo()}
+                  onClick={() => {}}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
