@@ -1,4 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react'
+import React, { useMemo, useRef, useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -41,12 +42,26 @@ import styles from './index.module.scss'
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const profileInfo = useSelector(state => (state as any).profileInfo)
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const inputFile = useRef<any>(null)
   const [bannerImage, setBannerImage] = useState<any>(BannerImage)
+  const [profileImage, setProfileImage] = useState('')
+  const [profileName, setProfileName] = useState('')
+
+  useEffect(() => {
+    if (profileInfo) {
+      if (profileInfo.profile_picture) {
+        setProfileImage(profileInfo.profile_picture)
+      }
+      if (profileInfo.username) {
+        setProfileName(profileInfo.username)
+      }
+    }
+  }, [profileInfo])
 
   const handleChangeBannerImage = event => {
     setBannerImage(URL.createObjectURL(event.target.files[0]))
@@ -78,7 +93,10 @@ const MainSection = () => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
           <div className="col-span-6">
-            <DashboardArtistCard image={AvatarImage} artistName="Artist Name" />
+            <DashboardArtistCard
+              image={profileImage.length > 0 ? profileImage : AvatarImage}
+              artistName={profileName.length > 0 ? profileName : 'Username'}
+            />
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton
                 label={shortAddress}
