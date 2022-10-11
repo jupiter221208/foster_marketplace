@@ -42,18 +42,16 @@
   height: 100%;
   max-height: 194px;
   position: relative;
-  // background-image: url('../../../../../assets/images/banner-image.svg');
-  // background-repeat: no-repeat;
-  // background-size: contain;
 }
 
 .coverImageArea {
-  width: 160px;
-  height: 160px;
+  width: 98px;
+  height: 98px;
+  @media (min-width: 1024px) {
+    width: 160px;
+    height: 160px;
+  }
   position: relative;
-  // background-image: url('../../../../../assets/images/cover-image.svg');
-  // background-repeat: no-repeat;
-  // background-size: contain;
 }
 
 .title {

@@ -24,6 +24,7 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 import { useViewport } from 'utils'
 
 // images and icons
+import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import BannerImage from 'assets/images/banner-image.svg'
 import CoverImage from 'assets/images/cover-image.svg'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
@@ -46,8 +47,12 @@ const Step01CollectionSection = props => {
     onChangeDescription,
     coverImage,
     onChangeCoverImage,
+    coverCroppedImage,
+    setCoverCroppedImage,
     bannerImage,
     onChangeBannerImage,
+    bannerCroppedImage,
+    setBannerCroppedImage,
     royalties,
     onChangeRoyalties,
     categoryList,
@@ -59,6 +64,22 @@ const Step01CollectionSection = props => {
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
+
+  useEffect(() => {
+    if (coverImage !== null && coverImage !== undefined) {
+      if (coverImage[0].type.split('/')[0] === 'image') {
+        setOpenCoverImageEditorModal(true)
+      }
+    }
+  }, [coverImage])
+
+  useEffect(() => {
+    if (bannerImage !== null && bannerImage !== undefined) {
+      if (bannerImage[0].type.split('/')[0] === 'image') {
+        setOpenBannerImageEditorModal(true)
+      }
+    }
+  }, [bannerImage])
 
   const handleChangeCurrentStep = step => {
     handleFormValidate()
@@ -211,13 +232,16 @@ const Step01CollectionSection = props => {
         <div className="w-full grid grid-cols-12 gap-0">
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
+            <div className={styles.topLeftEllipse}>
+              <Image src={EllipseGreen} alt="" objectFit="cover" />
+            </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
                     <Image
-                      src={bannerImage !== undefined ? URL.createObjectURL(bannerImage[0]) : BannerImage}
+                      src={bannerCroppedImage !== undefined ? bannerCroppedImage : BannerImage}
                       width={758}
                       height={194}
                       alt=""
@@ -226,9 +250,9 @@ const Step01CollectionSection = props => {
                     />
                     <div className="absolute top-2 right-[10px]">
                       <IconButton
-                        icon={bannerImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                        onClick={() => {}}
-                        backgroundColor="rgba(55, 130, 135, 0)"
+                        icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                        onClick={() => setOpenBannerImageEditorModal(true)}
+                        backgroundColor="rgba(130, 130, 130, 0.2)"
                         borderColor="transparent"
                         borderRadius="100%"
                       />
@@ -238,7 +262,7 @@ const Step01CollectionSection = props => {
                 <div className="w-full flex justify-center -mt-16">
                   <div className={styles.coverImageArea}>
                     <Image
-                      src={coverImage !== undefined ? URL.createObjectURL(coverImage[0]) : CoverImage}
+                      src={coverCroppedImage !== undefined ? coverCroppedImage : CoverImage}
                       width={160}
                       height={160}
                       alt=""
@@ -247,9 +271,9 @@ const Step01CollectionSection = props => {
                     />
                     <div className="absolute top-2 right-[10px]">
                       <IconButton
-                        icon={coverImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                        onClick={() => {}}
-                        backgroundColor="rgba(55, 130, 135, 0.1)"
+                        icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                        onClick={() => setOpenCoverImageEditorModal(true)}
+                        backgroundColor="rgba(130, 130, 130, 0.2)"
                         borderColor="transparent"
                         borderRadius="100%"
                       />
@@ -394,24 +418,53 @@ const Step01CollectionSection = props => {
           <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
           </div>
-          <div className={`${styles.title} w-full`}>Preview Collection Cover</div>
-
+          <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
-            <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-              {coverImage !== undefined && artWidth !== 0 && artHeight !== 0 ? (
-                <AvatarEditor
-                  image={coverImage[0]}
-                  width={artWidth - 16}
-                  height={artHeight - 16}
-                  border={8}
-                  borderRadius={8}
-                  color={[77, 92, 94, 1]} // RGBA
-                  scale={1}
-                  rotate={0}
+            <div className="w-full">
+              <div className={styles.bannerImageArea}>
+                <Image
+                  src={bannerCroppedImage !== undefined ? bannerCroppedImage : BannerImage}
+                  width={758}
+                  height={194}
+                  alt=""
+                  objectFit="cover"
+                  className="rounded-[20px]"
                 />
-              ) : (
-                <div className={`${styles.artArea}`} />
-              )}
+                <div className="absolute top-2 right-[10px]">
+                  <IconButton
+                    icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                    onClick={() => setOpenBannerImageEditorModal(true)}
+                    backgroundColor="rgba(130, 130, 130, 0.2)"
+                    borderColor="transparent"
+                    borderRadius="100%"
+                    width="32px"
+                    height="32px"
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="w-full flex justify-center -mt-16">
+              <div className={styles.coverImageArea}>
+                <Image
+                  src={coverCroppedImage !== undefined ? coverCroppedImage : CoverImage}
+                  width={98}
+                  height={98}
+                  alt=""
+                  objectFit="cover"
+                  className="rounded-[20px]"
+                />
+                <div className="absolute top-2 right-[10px]">
+                  <IconButton
+                    icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                    onClick={() => setOpenCoverImageEditorModal(true)}
+                    backgroundColor="rgba(130, 130, 130, 0.2)"
+                    borderColor="transparent"
+                    borderRadius="100%"
+                    width="32px"
+                    height="32px"
+                  />
+                </div>
+              </div>
             </div>
           </div>
           {/* upload artwork part */}
@@ -462,7 +515,7 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-10`}>Banner Image *</div>
             <div className="mt-5">
               <Dropzone
-                onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
+                onDrop={acceptedFiles => onChangeBannerImage(acceptedFiles)}
                 maxFiles={1}
                 accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
               >
@@ -550,6 +603,7 @@ const Step01CollectionSection = props => {
         nftImage={coverImage}
         getCroppedImage={croppedImage => {
           console.log(croppedImage)
+          setCoverCroppedImage(croppedImage)
           setOpenCoverImageEditorModal(false)
         }}
         dimension={{ value: [1080, 1080] }}
@@ -560,6 +614,7 @@ const Step01CollectionSection = props => {
         nftImage={bannerImage}
         getCroppedImage={croppedImage => {
           console.log(croppedImage)
+          setBannerCroppedImage(croppedImage)
           setOpenBannerImageEditorModal(false)
         }}
         dimension={{ value: [758, 194] }}
