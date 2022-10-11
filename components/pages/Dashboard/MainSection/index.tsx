@@ -58,25 +58,11 @@ const MainSection = () => {
 
   const inputFile = useRef<any>(null)
   const [banner, setBanner] = useState<any>()
-  const [croppedBanner, setCroppedBanner] = useState(profileInfo.banner_picture ? profileInfo.banner_picture : '')
+  const [croppedBanner, setCroppedBanner] = useState(profileInfo?.banner_picture ? profileInfo?.banner_picture : '')
 
-  const profileImage = profileInfo.profile_picture ? profileInfo.profile_picture : ''
-  const profileName = profileInfo.username ? profileInfo.username : ''
+  const profileImage = profileInfo?.profile_picture ? profileInfo?.profile_picture : ''
+  const profileName = profileInfo?.username ? profileInfo?.username : ''
   const [bannerPictureUrl, setBannerPictureUrl] = useState('')
-
-  // useEffect(() => {
-  //   if (profileInfo) {
-  //     if (profileInfo.profile_picture) {
-  //       setProfileImage(profileInfo.profile_picture)
-  //     }
-  //     if (profileInfo.username) {
-  //       setProfileName(profileInfo.username)
-  //     }
-  //     if (profileInfo.banner_picture) {
-  //       setCroppedBanner(profileInfo.banner_picture)
-  //     }
-  //   }
-  // }, [profileInfo])
 
   const handleChangeBannerImage = event => {
     const file = event.target.files
