@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -58,6 +58,9 @@ const Step01CollectionSection = props => {
     onChangeCategoryList,
   } = props
   const viewport = useViewport()
+
+  const dropzoneBannerEl = useRef(null)
+  const dropzoneCoverEl = useRef(null)
 
   // variables
   const [init, setInit] = useState(true)
@@ -189,7 +192,7 @@ const Step01CollectionSection = props => {
                     <div className="absolute top-2 right-[10px]">
                       <IconButton
                         icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                        onClick={() => setOpenBannerImageEditorModal(true)}
+                        onClick={() => dropzoneBannerEl.current.click()}
                         backgroundColor="rgba(130, 130, 130, 0.2)"
                         borderColor="transparent"
                         borderRadius="100%"
@@ -210,7 +213,7 @@ const Step01CollectionSection = props => {
                     <div className="absolute top-2 right-[10px]">
                       <IconButton
                         icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                        onClick={() => setOpenCoverImageEditorModal(true)}
+                        onClick={() => dropzoneCoverEl.current.click()}
                         backgroundColor="rgba(130, 130, 130, 0.2)"
                         borderColor="transparent"
                         borderRadius="100%"
@@ -275,8 +278,11 @@ const Step01CollectionSection = props => {
                       maxFiles={1}
                       accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
                     >
-                      {({ getRootProps, getInputProps }) => (
+                      {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
+                          <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
+                            open
+                          </button>
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
@@ -296,8 +302,11 @@ const Step01CollectionSection = props => {
                       maxFiles={1}
                       accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
                     >
-                      {({ getRootProps, getInputProps }) => (
+                      {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
+                          <button onClick={open} ref={dropzoneBannerEl} style={{ display: 'none' }}>
+                            open
+                          </button>
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
@@ -374,7 +383,7 @@ const Step01CollectionSection = props => {
                 <div className="absolute top-2 right-[10px]">
                   <IconButton
                     icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                    onClick={() => setOpenBannerImageEditorModal(true)}
+                    onClick={() => dropzoneBannerEl.current.click()}
                     backgroundColor="rgba(130, 130, 130, 0.2)"
                     borderColor="transparent"
                     borderRadius="100%"
@@ -397,7 +406,7 @@ const Step01CollectionSection = props => {
                 <div className="absolute top-2 right-[10px]">
                   <IconButton
                     icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                    onClick={() => setOpenCoverImageEditorModal(true)}
+                    onClick={() => dropzoneCoverEl.current.click()}
                     backgroundColor="rgba(130, 130, 130, 0.2)"
                     borderColor="transparent"
                     borderRadius="100%"
@@ -437,8 +446,11 @@ const Step01CollectionSection = props => {
                 maxFiles={1}
                 accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
               >
-                {({ getRootProps, getInputProps }) => (
+                {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
+                    <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
+                      open
+                    </button>
                     <div {...getRootProps()} className={styles.selectArea}>
                       <input {...getInputProps()} />
                       <p className={styles.subTitle}>Upload Here</p>
@@ -460,8 +472,11 @@ const Step01CollectionSection = props => {
                 maxFiles={1}
                 accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
               >
-                {({ getRootProps, getInputProps }) => (
+                {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
+                    <button onClick={open} ref={dropzoneBannerEl} style={{ display: 'none' }}>
+                      open
+                    </button>
                     <div {...getRootProps()} className={styles.selectArea}>
                       <input {...getInputProps()} />
                       <p className={styles.subTitle}>Upload Here</p>
