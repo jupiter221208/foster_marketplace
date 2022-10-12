@@ -121,7 +121,7 @@ const Step03CollectionSection = props => {
                 </div>
               </div>
               <div className={`w-full flex justify-center items-center mt-[195px] mb-5 ${styles.subTitle}`}>
-                {collectionFiles.length} uploaded files
+                Collection Artworks
               </div>
               <div className={styles.uploadedImageArea}>
                 {collectionFiles.map((item, index) => (
@@ -137,6 +137,9 @@ const Step03CollectionSection = props => {
                     />
                   </div>
                 ))}
+              </div>
+              <div className={`w-full flex justify-start items-center my-2 z-10 ${styles.grayText}`}>
+                Files Uploaded: {collectionFiles.length}
               </div>
             </div>
           </div>
@@ -235,8 +238,8 @@ const Step03CollectionSection = props => {
                         icon={ArrowDownGreenIcon}
                         onClick={() => setShowMore(true)}
                         backgroundColor="transparent"
-                        width="32px"
-                        height="32px"
+                        iconWidth="32px"
+                        iconHeight="32px"
                       />
                     </div>
                   )}
@@ -334,17 +337,18 @@ const Step03CollectionSection = props => {
                   />
                   {disabledNextButton ? (
                     <Button
-                      width={viewport === '2xl' ? 124 : 117}
+                      width={viewport === '2xl' ? 208 : 161}
                       height={viewport === '2xl' ? 53 : 46}
-                      label="Upload"
+                      label="Mint Collection"
                       disabled={disabledNextButton}
                       backgroundColor="#888A8E"
                     />
                   ) : (
                     <GradientButton
-                      width={viewport === '2xl' ? 124 : 117}
+                      width={viewport === '2xl' ? 208 : 161}
                       height={viewport === '2xl' ? 53 : 46}
-                      label="Upload"
+                      label="Mint Collection"
+                      gradientDirection="bottom"
                       onClick={() => readFilesAndUplaod()}
                     />
                   )}
@@ -396,7 +400,10 @@ const Step03CollectionSection = props => {
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-20`}>Collection Files *</div>
+            <div className={`${styles.subTitle} w-full flex justify-center mt-20`}>Collection Artworks</div>
+            <div className={`${styles.grayText} w-full flex justify-center my-2`}>
+              Files Uploaded: {collectionFiles.length}
+            </div>
             <div className="w-full mt-[70px]">
               {!showMore &&
                 subCollectionFiles !== undefined &&
@@ -407,16 +414,7 @@ const Step03CollectionSection = props => {
                     key={index}
                     onClick={() => setSelectedCollectionFile(item)}
                   >
-                    <div className="w-full flex justify-between items-center">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        {index + 1}
-                      </div>
+                    <div className="w-full flex justify-start items-center">
                       <div
                         className={
                           selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -487,8 +485,8 @@ const Step03CollectionSection = props => {
                     icon={ArrowDownGreenIcon}
                     onClick={() => setShowMore(true)}
                     backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
+                    iconWidth="32px"
+                    iconHeight="32px"
                   />
                 </div>
               )}
@@ -500,16 +498,7 @@ const Step03CollectionSection = props => {
                     key={index}
                     onClick={() => setSelectedCollectionFile(item)}
                   >
-                    <div className="w-full flex justify-between items-center">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        {index + 1}
-                      </div>
+                    <div className="w-full flex justify-start items-center">
                       <div
                         className={
                           selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -594,7 +583,7 @@ const Step03CollectionSection = props => {
                   <div className="w-full">
                     <Button
                       fullWidth
-                      label="Upload"
+                      label="Mint Collection"
                       disabled={disabledNextButton}
                       backgroundColor="#888A8E"
                       height="45px"
@@ -602,7 +591,13 @@ const Step03CollectionSection = props => {
                   </div>
                 ) : (
                   <div className="w-full">
-                    <GradientButton fullWidth label="Upload" onClick={() => readFilesAndUplaod()} height="45px" />
+                    <GradientButton
+                      fullWidth
+                      label="Mint Collection"
+                      gradientDirection="bottom"
+                      onClick={() => readFilesAndUplaod()}
+                      height="45px"
+                    />
                   </div>
                 )}
               </div>

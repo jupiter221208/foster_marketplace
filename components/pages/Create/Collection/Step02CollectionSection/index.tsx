@@ -252,6 +252,12 @@ const Step02CollectionSection = props => {
                   />
                 </div>
               )}
+              <div className="w-full flex justify-center mt-[90px]">
+                <div className={styles.grayText}>
+                  {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}{' '}
+                  uploaded files
+                </div>
+              </div>
             </div>
           </div>
           {/* right part */}

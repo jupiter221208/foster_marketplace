@@ -56,8 +56,8 @@ const SuccessMintCollectionSection = props => {
                   <Image
                     src={coverCroppedImage}
                     alt=""
-                    width={150}
-                    height={150}
+                    width={160}
+                    height={160}
                     layout="responsive"
                     objectFit="cover"
                     className="rounded-[6px]"
