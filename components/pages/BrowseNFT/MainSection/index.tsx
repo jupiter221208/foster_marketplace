@@ -160,8 +160,9 @@ const MainSection = () => {
 
   const [ratio, setRatio] = useState(1)
   const [nftArt, setNftArt] = useState({ src: '', width: 1080, height: 1080 })
-  const [nftType, setNftType] = useState('image')
+  const [nftType, setNftType] = useState('')
   const [nftUrl, setNftUrl] = useState('')
+  const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [nftName, setNftName] = useState('')
 
   useEffect(() => {
@@ -193,6 +194,7 @@ const MainSection = () => {
         } else if (nftInfo.category === 'audio' || nftInfo.category === 'video') {
           setNftType(nftInfo.category)
           setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
+          setNftCoverUrl(nftInfo.image ? nftInfo.image : '')
         } else {
           setNftType('image')
           setNftUrl(nftInfo.image)
@@ -218,7 +220,7 @@ const MainSection = () => {
               </div>
             ) : nftType === 'audio' ? (
               <div className={styles.audioArea}>
-                <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} />
+                <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
               </div>
             ) : nftType === 'video' ? (
               <div className={styles.audioArea}>
@@ -241,7 +243,7 @@ const MainSection = () => {
             </div>
           ) : nftType === 'audio' ? (
             <div className={styles.audioArea}>
-              <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} />
+              <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
             </div>
           ) : nftType === 'video' ? (
             <div className={styles.audioArea}>

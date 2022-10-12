@@ -17,5 +17,8 @@
 .contentArea {
   display: flex;
   justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 10px;
   gap: 28px;
+  border-radius: 12px;
 }

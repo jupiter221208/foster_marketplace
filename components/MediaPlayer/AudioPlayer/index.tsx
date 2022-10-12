@@ -19,11 +19,13 @@ import ForwardWhiteIcon from 'assets/icons/forward-white.svg'
 import styles from './index.module.scss'
 
 const AudioPlayer = props => {
-  const { src } = props
+  const { src, cover } = props
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer()
+
   return (
     <div className={styles.container}>
-      <Image src={AudioPlayerBackground} alt="" />
+      {cover.length > 0 ? <img src={cover} width="100%" alt="" /> : <Image src={AudioPlayerBackground} alt="" />}
+
       <div className="absolute bottom-[45px] left-9 right-9 z-10">
         <div className={styles.contentArea}>
           <audio id="audio">
