@@ -60,6 +60,10 @@ const Step01CollectionSection = props => {
   const viewport = useViewport()
 
   // variables
+  const [init, setInit] = useState(true)
+  useEffect(() => {
+    setInit(false)
+  }, [])
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
@@ -72,7 +76,9 @@ const Step01CollectionSection = props => {
   useEffect(() => {
     if (coverImage !== null && coverImage !== undefined) {
       if (coverImage[0].type.split('/')[0] === 'image') {
-        setOpenCoverImageEditorModal(true)
+        if (init === false) {
+          setOpenCoverImageEditorModal(true)
+        }
       }
     }
   }, [coverImage])
@@ -80,7 +86,9 @@ const Step01CollectionSection = props => {
   useEffect(() => {
     if (bannerImage !== null && bannerImage !== undefined) {
       if (bannerImage[0].type.split('/')[0] === 'image') {
-        setOpenBannerImageEditorModal(true)
+        if (init === false) {
+          setOpenBannerImageEditorModal(true)
+        }
       }
     }
   }, [bannerImage])
