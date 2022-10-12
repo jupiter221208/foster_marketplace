@@ -382,8 +382,8 @@ const Step02CollectionSection = props => {
                         icon={ArrowDownGreenIcon}
                         onClick={() => setShowMore(true)}
                         backgroundColor="transparent"
-                        width="32px"
-                        height="32px"
+                        iconWidth="64px"
+                        iconHeight="64px"
                       />
                     </div>
                   )}
@@ -676,8 +676,8 @@ const Step02CollectionSection = props => {
                   icon={ArrowDownGreenIcon}
                   onClick={() => setShowMore(true)}
                   backgroundColor="transparent"
-                  width="32px"
-                  height="32px"
+                  iconWidth="32px"
+                  iconHeight="32px"
                 />
               </div>
             )}
