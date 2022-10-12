@@ -90,9 +90,6 @@ const Collection = () => {
     }
   }
 
-  // step 3
-  const [collectionFiles, setCollectionFiles] = useState<any[]>([])
-
   const onChangeCollectionFiles = files => {
     const array: any[] = []
     files.map((item, index) => {
@@ -101,7 +98,7 @@ const Collection = () => {
       object.file = item
       object.name = ''
       object.description = ''
-      object.croppedImage = ''
+      object.croppedImage = URL.createObjectURL(item)
       array.push(object)
     })
     setCollectionFiles(array)
@@ -113,7 +110,6 @@ const Collection = () => {
     if (index !== -1) {
       array.splice(index, 1)
     }
-    console.log('============', array)
     setCollectionFiles(array)
   }
 
@@ -142,9 +138,11 @@ const Collection = () => {
         item.croppedImage = croppedImage
       }
     })
-    console.log(array)
     setCollectionFiles(array)
   }
+
+  // step 3
+  const [collectionFiles, setCollectionFiles] = useState<any[]>([])
 
   const [artworks, setArtworks] = useState<any[]>([])
 

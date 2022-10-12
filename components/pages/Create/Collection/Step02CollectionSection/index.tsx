@@ -213,29 +213,31 @@ const Step02CollectionSection = props => {
                   </div>
                 </div>
               </div>
-              <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                <IconButton
-                  icon={EditorGrayIcon}
-                  onClick={() => setOpenImageEditorModal(true)}
-                  backgroundColor="transparent"
-                  width="32px"
-                  height="32px"
-                />
-                <IconButton
-                  icon={FullScreenGrayIcon}
-                  onClick={() => {}}
-                  backgroundColor="transparent"
-                  width="32px"
-                  height="32px"
-                />
-                <IconButton
-                  icon={TrashGrayIcon}
-                  onClick={() => {}}
-                  backgroundColor="transparent"
-                  width="32px"
-                  height="32px"
-                />
-              </div>
+              {collectionFiles.length !== 0 && (
+                <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
+                  <IconButton
+                    icon={EditorGrayIcon}
+                    onClick={() => setOpenImageEditorModal(true)}
+                    backgroundColor="transparent"
+                    width="32px"
+                    height="32px"
+                  />
+                  <IconButton
+                    icon={FullScreenGrayIcon}
+                    onClick={() => {}}
+                    backgroundColor="transparent"
+                    width="32px"
+                    height="32px"
+                  />
+                  <IconButton
+                    icon={TrashGrayIcon}
+                    onClick={() => {}}
+                    backgroundColor="transparent"
+                    iconWidth="24px"
+                    iconHeight="24px"
+                  />
+                </div>
+              )}
             </div>
           </div>
           {/* right part */}
@@ -454,6 +456,8 @@ const Step02CollectionSection = props => {
                           icon={TrashGrayIcon}
                           onClick={() => onRemoveCollectionFile(item)}
                           backgroundColor="transparent"
+                          iconWidth="24px"
+                          iconHeight="24px"
                         />
                       </div>
                     ))}
@@ -504,13 +508,38 @@ const Step02CollectionSection = props => {
                   )}
                 </div>
               </div>
+              {collectionFiles.length !== 0 && (
+                <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
+                  <IconButton
+                    icon={EditorGrayIcon}
+                    onClick={() => setOpenImageEditorModal(true)}
+                    backgroundColor="transparent"
+                    width="32px"
+                    height="32px"
+                  />
+                  <IconButton
+                    icon={FullScreenGrayIcon}
+                    onClick={() => {}}
+                    backgroundColor="transparent"
+                    width="32px"
+                    height="32px"
+                  />
+                  <IconButton
+                    icon={TrashGrayIcon}
+                    onClick={() => {}}
+                    backgroundColor="transparent"
+                    iconWidth="24px"
+                    iconHeight="24px"
+                  />
+                </div>
+              )}
             </div>
           </div>
 
           <div className="w-full">
             <div className={`${styles.subTitle} mt-8`}>Banner *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => onChangeCollectionFiles(acceptedFiles)} maxFiles={1}>
+              <Dropzone onDrop={acceptedFiles => onChangeCollectionFiles(acceptedFiles)} maxFiles={25}>
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>
@@ -539,25 +568,18 @@ const Step02CollectionSection = props => {
                 direction="rtl"
               />
             </div>
-            <div className="w-full">
-              {!showMore &&
-                subCollectionFiles !== undefined &&
-                subCollectionFiles.length !== 0 &&
-                subCollectionFiles.map((item, index) => (
-                  <div
-                    className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                    key={index}
-                    onClick={() => setSelectedCollectionFile(item)}
-                  >
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.greenText
-                          : styles.text
-                      }
-                    >
-                      {index + 1}
-                    </div>
+          </div>
+          <div className="w-full">
+            {!showMore &&
+              subCollectionFiles !== undefined &&
+              subCollectionFiles.length !== 0 &&
+              subCollectionFiles.map((item, index) => (
+                <div
+                  className="w-full flex flex-wrap gap-4 mt-10 cursor-pointer"
+                  key={index}
+                  onClick={() => setSelectedCollectionFile(item)}
+                >
+                  <div className="w-full flex justify-between items-center">
                     <div
                       className={
                         selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -573,47 +595,6 @@ const Step02CollectionSection = props => {
                         objectFit="cover"
                         className="rounded-lg"
                       />
-                    </div>
-                    <div className="flex-1 block h-[120px]">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        NFT Name *
-                      </div>
-                      <div>
-                        <Input
-                          value={item.name}
-                          placeholder="Give your art name"
-                          label=""
-                          fullWidth
-                          onChange={value => onChangeCollectionName(item, value)}
-                          height="46px"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-1 block h-[120px]">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        Description *
-                      </div>
-                      <div>
-                        <Textarea
-                          value={item.description}
-                          placeholder="Add a short description..."
-                          fullWidth
-                          onChange={value => onChangeCollectionDescription(item, value)}
-                          height="90px"
-                        />
-                      </div>
                     </div>
                     <IconButton
                       icon={TrashGrayIcon}
@@ -623,27 +604,7 @@ const Step02CollectionSection = props => {
                       iconHeight="24px"
                     />
                   </div>
-                ))}
-              {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
-                <div className="w-full flex justify-center">
-                  <IconButton
-                    icon={ArrowDownGreenIcon}
-                    onClick={() => setShowMore(true)}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
-                </div>
-              )}
-
-              {showMore &&
-                collectionFiles.length !== 0 &&
-                collectionFiles.map((item, index) => (
-                  <div
-                    className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
-                    key={index}
-                    onClick={() => setSelectedCollectionFile(item)}
-                  >
+                  <div className="w-full block">
                     <div
                       className={
                         selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -651,8 +612,62 @@ const Step02CollectionSection = props => {
                           : styles.text
                       }
                     >
-                      {index + 1}
+                      NFT Name *
                     </div>
+                    <div>
+                      <Input
+                        value={item.name}
+                        placeholder="Give your art name"
+                        label=""
+                        fullWidth
+                        onChange={value => onChangeCollectionName(item, value)}
+                        height="46px"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full block h-[120px]">
+                    <div
+                      className={
+                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                          ? styles.greenText
+                          : styles.text
+                      }
+                    >
+                      Description *
+                    </div>
+                    <div>
+                      <Textarea
+                        value={item.description}
+                        placeholder="Add a short description..."
+                        fullWidth
+                        onChange={value => onChangeCollectionDescription(item, value)}
+                        height="90px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
+              <div className="w-full flex justify-center">
+                <IconButton
+                  icon={ArrowDownGreenIcon}
+                  onClick={() => setShowMore(true)}
+                  backgroundColor="transparent"
+                  width="32px"
+                  height="32px"
+                />
+              </div>
+            )}
+
+            {showMore &&
+              collectionFiles.length !== 0 &&
+              collectionFiles.map((item, index) => (
+                <div
+                  className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
+                  key={index}
+                  onClick={() => setSelectedCollectionFile(item)}
+                >
+                  <div className="w-full flex justify-between items-center">
                     <div
                       className={
                         selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -669,55 +684,58 @@ const Step02CollectionSection = props => {
                         className="rounded-lg"
                       />
                     </div>
-                    <div className="flex-1 block h-[120px]">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        NFT Name *
-                      </div>
-                      <div>
-                        <Input
-                          value={item.name}
-                          placeholder="Give your art name"
-                          label=""
-                          fullWidth
-                          onChange={value => onChangeCollectionName(item, value)}
-                          height="46px"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-1 block h-[120px]">
-                      <div
-                        className={
-                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                            ? styles.greenText
-                            : styles.text
-                        }
-                      >
-                        Description *
-                      </div>
-                      <div>
-                        <Textarea
-                          value={item.description}
-                          placeholder="Add a short description..."
-                          fullWidth
-                          onChange={value => onChangeCollectionDescription(item, value)}
-                          height="90px"
-                        />
-                      </div>
-                    </div>
                     <IconButton
                       icon={TrashGrayIcon}
                       onClick={() => onRemoveCollectionFile(item)}
                       backgroundColor="transparent"
+                      iconWidth="24px"
+                      iconHeight="24px"
                     />
                   </div>
-                ))}
-            </div>
+
+                  <div className="w-full block">
+                    <div
+                      className={
+                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                          ? styles.greenText
+                          : styles.text
+                      }
+                    >
+                      NFT Name *
+                    </div>
+                    <div>
+                      <Input
+                        value={item.name}
+                        placeholder="Give your art name"
+                        label=""
+                        fullWidth
+                        onChange={value => onChangeCollectionName(item, value)}
+                        height="46px"
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full block h-[120px]">
+                    <div
+                      className={
+                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                          ? styles.greenText
+                          : styles.text
+                      }
+                    >
+                      Description *
+                    </div>
+                    <div>
+                      <Textarea
+                        value={item.description}
+                        placeholder="Add a short description..."
+                        fullWidth
+                        onChange={value => onChangeCollectionDescription(item, value)}
+                        height="90px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
           </div>
 
           <div className="w-full flex justify-between my-10">
