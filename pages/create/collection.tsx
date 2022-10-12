@@ -46,7 +46,6 @@ const Collection = () => {
   }, [])
 
   // step 2
-  const [banner, setBanner] = useState()
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
 
@@ -278,7 +277,9 @@ const Collection = () => {
             readFilesAndUplaod={readFilesAndUplaod}
           />
         )}
-        {currentStep === 4 && <SuccessMintCollectionSection coverImage={coverImage} banner={banner} reset={reset} />}
+        {currentStep === 4 && (
+          <SuccessMintCollectionSection coverCroppedImage={coverCroppedImage} bannerCroppedImage={bannerCroppedImage} />
+        )}
       </div>
     </div>
   )

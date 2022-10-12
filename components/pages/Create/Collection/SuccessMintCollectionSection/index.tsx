@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // next components
 import Image from 'next/image'
-
-// third party components
-import AvatarEditor from 'react-avatar-editor'
+import { useRouter } from 'next/router'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -24,22 +22,11 @@ import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.sv
 import styles from './index.module.scss'
 
 const SuccessMintCollectionSection = props => {
-  const { collectionArt, coverImage, banner, reset } = props
+  const { coverCroppedImage, bannerCroppedImage } = props
+
+  const router = useRouter()
 
   const viewport = useViewport()
-
-  const [screenWidth, setScreenWidth] = useState(1920)
-
-  useEffect(() => {
-    setScreenWidth(window.innerWidth)
-  }, [])
-
-  useEffect(() => {
-    const resizeFunction = () => {
-      setScreenWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
 
   return (
     <div className="w-full">
@@ -51,9 +38,9 @@ const SuccessMintCollectionSection = props => {
           <div className="w-full flex flex-wrap justify-center mt-[107px] z-10">
             {/* banner image */}
             <div className={styles.bannerImageArea}>
-              {banner !== undefined ? (
+              {bannerCroppedImage !== undefined ? (
                 <Image
-                  src={URL.createObjectURL(banner[0])}
+                  src={bannerCroppedImage}
                   alt=""
                   width={758}
                   height={194}
@@ -67,7 +54,7 @@ const SuccessMintCollectionSection = props => {
               <div className="absolute left-0 -bottom-[100px] w-full flex justify-center">
                 <div className={styles.coverImageArea}>
                   <Image
-                    src={URL.createObjectURL(coverImage[0])}
+                    src={coverCroppedImage}
                     alt=""
                     width={150}
                     height={150}
@@ -80,8 +67,8 @@ const SuccessMintCollectionSection = props => {
             </div>
           </div>
           <div className="max-w-[568px] mt-[142px] mb-[130px] flex flex-wrap justify-center z-10">
-            <div className={styles.mintTitle}>Congratulations!</div>
-            <div className={styles.mintText}>Your NFT collection has been minted successfully!</div>
+            <div className={styles.title}>Congratulations!</div>
+            <div className={styles.text}>Your NFT collection has been minted successfully!</div>
             <div className="w-full flex justify-between gap-[30px] mt-[60px]">
               <div className="w-full">
                 <TweetMintButton
@@ -97,10 +84,10 @@ const SuccessMintCollectionSection = props => {
               <div className="w-full">
                 <OutlineButton
                   fullWidth
-                  label="Mint another Collection"
+                  label="View Dashboard"
                   backgroundColor="#63D6CD"
                   height="68px"
-                  onClick={() => reset()}
+                  onClick={() => router.push('/dashboard')}
                   borderColor="#5AC3BA"
                 />
               </div>
@@ -116,9 +103,9 @@ const SuccessMintCollectionSection = props => {
             <div className="w-full flex flex-wrap justify-center mt-[40px] z-10">
               {/* banner image */}
               <div className={styles.bannerImageArea}>
-                {banner !== undefined ? (
+                {bannerCroppedImage !== undefined ? (
                   <Image
-                    src={URL.createObjectURL(banner[0])}
+                    src={bannerCroppedImage}
                     alt=""
                     width={758}
                     height={194}
@@ -132,7 +119,7 @@ const SuccessMintCollectionSection = props => {
                 <div className="absolute left-0 -bottom-[50px] w-full flex justify-center">
                   <div className={styles.coverImageArea}>
                     <Image
-                      src={URL.createObjectURL(coverImage[0])}
+                      src={coverCroppedImage}
                       alt=""
                       width={86}
                       height={86}
@@ -146,8 +133,8 @@ const SuccessMintCollectionSection = props => {
             </div>
           </div>
           <div className="w-full mt-[60px] mb-[90px] flex flex-wrap justify-center z-10">
-            <div className={styles.mintTitle}>Congratulations!</div>
-            <div className={styles.mintText}>Your NFT collection has been minted successfully!</div>
+            <div className={styles.title}>Congratulations!</div>
+            <div className={styles.text}>Your NFT collection has been minted successfully!</div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
                 <GradientButton
@@ -164,9 +151,9 @@ const SuccessMintCollectionSection = props => {
               <div className="w-[221px]">
                 <MintOutlineButton
                   fullWidth
-                  label="Mint another NFT"
+                  label="View Dashboard"
                   backgroundColor="#63D6CD"
-                  onClick={() => reset()}
+                  onClick={() => router.push('/dashboard')}
                   borderColor="#5AC3BA"
                 />
               </div>
