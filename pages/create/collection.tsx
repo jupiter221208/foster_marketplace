@@ -272,14 +272,9 @@ const Collection = () => {
           <Step03CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
-            dimension={dimension}
-            coverImage={coverImage}
+            coverCroppedImage={coverCroppedImage}
+            bannerCroppedImage={bannerCroppedImage}
             collectionFiles={collectionFiles}
-            banner={banner}
-            onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
-            onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
-            onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
-            onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
             readFilesAndUplaod={readFilesAndUplaod}
           />
         )}

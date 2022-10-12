@@ -5,6 +5,7 @@
   top: -1160px;
   left: -1160px;
   z-index: 0;
+  opacity: 0.4;
 }
 
 .leftContainer {
@@ -40,48 +41,14 @@
   width: 100%;
   margin-top: 26px;
 
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 21px;
+  font-family: 'KCDurhamboxcar';
+  font-size: 31px;
+  line-height: 41px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 74px;
+    line-height: 158px;
   }
-  letter-spacing: 0;
-  color: $text-gray-200-color;
-  text-align: center;
-}
-
-.dropzone {
-  width: 100%;
-  height: 141px;
-  padding: 24px;
-  text-align: center;
-  @media (min-width: 1024px) {
-    padding: 24px;
-    height: 128px;
-  }
-  border-radius: 12px;
-  border: 2px dashed rgba($text-gray-200-color, 0.6);
-}
-
-.selectArea {
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-}
-
-.collectionName {
-  font-family: 'Muli-Bold';
-  font-size: 22px;
-  line-height: 36px;
   letter-spacing: 0;
   color: $text-gray-200-color;
   text-align: center;
@@ -153,7 +120,6 @@
   align-items: center;
   width: 68px;
   height: 68px;
-  // background-color: #5ee1ea;
   border-radius: 8px;
 }
 
@@ -175,7 +141,6 @@
     height: 160px;
   }
   border-radius: 10px;
-  background-color: rgba($background-light-color, 0.5);
   padding: 5px;
 }
 
@@ -199,7 +164,7 @@
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   gap: 16px;
   background-color: rgba($text-gray-200-color, 0.075);
