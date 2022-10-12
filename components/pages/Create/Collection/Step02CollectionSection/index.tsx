@@ -178,6 +178,20 @@ const Step02CollectionSection = props => {
     onChangeCurrentStep(step)
   }
 
+  useEffect(() => {
+    let count = 0
+    collectionFiles.forEach((item, index) => {
+      if (item.croppedImage !== '' && item.name !== '' && item.description !== '') {
+        count++
+      }
+    })
+    if (count === collectionFiles.length) {
+      setDisabledNextButton(false)
+    } else {
+      setDisabledNextButton(true)
+    }
+  }, [collectionFiles])
+
   // form validate
   const handleFormValidate = () => {}
 
@@ -472,6 +486,15 @@ const Step02CollectionSection = props => {
                     backgroundColor="#378287"
                     color="#EFF0F6"
                   />
+                  <GradientButton
+                    width={viewport === '2xl' ? 124 : 117}
+                    height={viewport === '2xl' ? 53 : 46}
+                    label="Next Step"
+                    disabled={disabledNextButton}
+                    gradientDirection="bottom"
+                    color="#202427"
+                    onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                  />
                 </div>
               </div>
             </div>
@@ -747,6 +770,18 @@ const Step02CollectionSection = props => {
                 height="45px"
                 backgroundColor="#378287"
                 color="#EFF0F6"
+              />
+            </div>
+            <div className="w-[161px]">
+              <GradientButton
+                width={viewport === '2xl' ? 124 : 117}
+                height={viewport === '2xl' ? 53 : 46}
+                label="Next Step"
+                fullWidth
+                disabled={disabledNextButton}
+                gradientDirection="bottom"
+                color="#202427"
+                onClick={() => handleChangeCurrentStep(currentStep + 1)}
               />
             </div>
           </div>
