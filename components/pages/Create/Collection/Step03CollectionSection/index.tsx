@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 // next components
 import Image from 'next/image'
 
+// third party components
+import Lottie from 'lottie-react'
+
 // components
 import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Button from 'components/Button'
@@ -17,6 +20,10 @@ import { useViewport } from 'utils'
 // images and icons
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+
+// json
+import CheckLottery from 'assets/lottery/check.json'
+import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
@@ -156,7 +163,7 @@ const Step03CollectionSection = props => {
                     subCollectionFiles.length !== 0 &&
                     subCollectionFiles.map((item, index) => (
                       <div
-                        className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
+                        className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
                         key={index}
                         onClick={() => setSelectedCollectionFile(item)}
                       >
@@ -229,6 +236,13 @@ const Step03CollectionSection = props => {
                               height="90px"
                             />
                           </div>
+                        </div>
+                        <div className="absolute -right-20 top-10 w-10 h-10">
+                          {index < 2 ? (
+                            <Lottie animationData={CheckLottery} loop={true} />
+                          ) : (
+                            <Lottie animationData={LoaderLottery} loop={true} />
+                          )}
                         </div>
                       </div>
                     ))}
@@ -248,7 +262,7 @@ const Step03CollectionSection = props => {
                     collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
                       <div
-                        className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
+                        className="relative w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
                         key={index}
                         onClick={() => setSelectedCollectionFile(item)}
                       >
@@ -321,6 +335,13 @@ const Step03CollectionSection = props => {
                               height="90px"
                             />
                           </div>
+                        </div>
+                        <div className="absolute -right-20 top-10 w-10 h-10">
+                          {index < 2 ? (
+                            <Lottie animationData={CheckLottery} loop={true} />
+                          ) : (
+                            <Lottie animationData={LoaderLottery} loop={true} />
+                          )}
                         </div>
                       </div>
                     ))}
@@ -414,7 +435,7 @@ const Step03CollectionSection = props => {
                     key={index}
                     onClick={() => setSelectedCollectionFile(item)}
                   >
-                    <div className="w-full flex justify-start items-center">
+                    <div className="w-full flex justify-between items-center">
                       <div
                         className={
                           selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -434,6 +455,13 @@ const Step03CollectionSection = props => {
                           objectFit="cover"
                           className="rounded-lg"
                         />
+                      </div>
+                      <div className="w-10 h-10">
+                        {index < 2 ? (
+                          <Lottie animationData={CheckLottery} loop={true} />
+                        ) : (
+                          <Lottie animationData={LoaderLottery} loop={true} />
+                        )}
                       </div>
                     </div>
                     <div className="w-full">
@@ -498,7 +526,7 @@ const Step03CollectionSection = props => {
                     key={index}
                     onClick={() => setSelectedCollectionFile(item)}
                   >
-                    <div className="w-full flex justify-start items-center">
+                    <div className="w-full flex justify-between items-center">
                       <div
                         className={
                           selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
@@ -518,6 +546,13 @@ const Step03CollectionSection = props => {
                           objectFit="cover"
                           className="rounded-lg"
                         />
+                      </div>
+                      <div className="w-10 h-10">
+                        {index < 2 ? (
+                          <Lottie animationData={CheckLottery} loop={true} />
+                        ) : (
+                          <Lottie animationData={LoaderLottery} loop={true} />
+                        )}
                       </div>
                     </div>
                     <div className="w-full">
