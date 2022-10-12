@@ -65,6 +65,11 @@ const Step01CollectionSection = props => {
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   useEffect(() => {
+    setOpenCoverImageEditorModal(false)
+    setOpenBannerImageEditorModal(false)
+  }, [])
+
+  useEffect(() => {
     if (coverImage !== null && coverImage !== undefined) {
       if (coverImage[0].type.split('/')[0] === 'image') {
         setOpenCoverImageEditorModal(true)
@@ -81,7 +86,6 @@ const Step01CollectionSection = props => {
   }, [bannerImage])
 
   const handleChangeCurrentStep = step => {
-    handleFormValidate()
     onChangeCurrentStep(step)
   }
 
@@ -131,17 +135,26 @@ const Step01CollectionSection = props => {
   }, [collectionName, description, coverCroppedImage, bannerCroppedImage, categoryList])
 
   // form validate
-  const handleFormValidate = () => {
+  useEffect(() => {
     let count = 0
     categoryList.map(item => {
       if (item.checked === true) count++
     })
-    if (collectionName !== '' && description !== '' && count > 0 && count <= 3 && coverImage !== undefined) {
+    if (
+      collectionName !== '' &&
+      description !== '' &&
+      count > 0 &&
+      count <= 3 &&
+      bannerImage !== undefined &&
+      coverImage !== undefined &&
+      royalties > 0 &&
+      royalties <= 20
+    ) {
       setDisabledNextButton(false)
     } else {
       setDisabledNextButton(true)
     }
-  }
+  }, [collectionName, description, categoryList, coverImage, bannerImage, royalties])
 
   return (
     <div className="w-full">
@@ -320,7 +333,10 @@ const Step01CollectionSection = props => {
                       width={viewport === '2xl' ? 124 : 117}
                       height={viewport === '2xl' ? 53 : 46}
                       label="Next Step"
-                      onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                      disabled={disabledNextButton}
+                      onClick={() => {
+                        handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+                      }}
                     />
                   )}
                 </div>
@@ -505,7 +521,10 @@ const Step01CollectionSection = props => {
                 <GradientButton
                   fullWidth
                   label="Next Step"
-                  onClick={() => handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)}
+                  disabled={disabledNextButton}
+                  onClick={() => {
+                    handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+                  }}
                   height="45px"
                 />
               </div>
