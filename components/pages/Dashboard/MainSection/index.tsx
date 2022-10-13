@@ -62,7 +62,19 @@ const MainSection = () => {
 
   const profileImage = profileInfo?.profile_picture ? profileInfo?.profile_picture : ''
   const profileName = profileInfo?.username ? profileInfo?.username : ''
+  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
+  const discordUrl = profileInfo?.discord_url ? getPrefixUrl(profileInfo?.discord_url) : ''
+  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
+  const telegramUrl = profileInfo?.telegram_url ? getPrefixUrl(profileInfo?.telegram_url) : ''
   const [bannerPictureUrl, setBannerPictureUrl] = useState('')
+
+  function getPrefixUrl(url: string) {
+    var prefix = 'http'
+    if (url.substring(0, prefix.length) !== prefix) {
+      url = prefix + '://' + url
+    }
+    return url
+  }
 
   const handleChangeBannerImage = event => {
     const file = event.target.files
@@ -154,31 +166,27 @@ const MainSection = () => {
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>
-                <SocialButton
-                  icon={IGWhiteIcon}
-                  iconHover={IGHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                />
+                <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
               </div>
               <div>
                 <SocialButton
                   icon={DiscordWhiteIcon}
                   iconHover={DiscordHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
+                  onClick={() => window.open(discordUrl)}
                 />
               </div>
               <div>
                 <SocialButton
                   icon={TwitterWhiteIcon}
                   iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
+                  onClick={() => window.open(twitterUrl)}
                 />
               </div>
               <div>
                 <SocialButton
                   icon={TelegramWhiteIcon}
                   iconHover={TelegramHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
+                  onClick={() => window.open(telegramUrl)}
                 />
               </div>
               <div>
@@ -201,31 +209,30 @@ const MainSection = () => {
             </div>
             <div className="hidden lg:flex gap-[10px]">
               <div>
-                <SocialButton
-                  icon={IGWhiteIcon}
-                  iconHover={IGHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                />
+                <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
               </div>
+
               <div>
                 <SocialButton
                   icon={DiscordWhiteIcon}
                   iconHover={DiscordHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
+                  onClick={() => {
+                    window.open(discordUrl)
+                  }}
                 />
               </div>
               <div>
                 <SocialButton
                   icon={TwitterWhiteIcon}
                   iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
+                  onClick={() => window.open(twitterUrl)}
                 />
               </div>
               <div>
                 <SocialButton
                   icon={TelegramWhiteIcon}
                   iconHover={TelegramHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
+                  onClick={() => window.open(telegramUrl)}
                 />
               </div>
               <div>
