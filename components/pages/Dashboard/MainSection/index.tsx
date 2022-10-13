@@ -26,15 +26,15 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import BannerImage from 'assets/images/alexander-ant.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
-import FacebookWhiteIcon from 'assets/icons/facebook-white.svg'
+import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
-import YoutubeWhiteIcon from 'assets/icons/youtube-white.svg'
+import IGWhiteIcon from 'assets/icons/instagram-white.svg'
 import SettingWhiteIcon from 'assets/icons/setting-white.svg'
-import YoutubeHoverIcon from 'assets/icons/youtube-hover.svg'
+import IGHoverIcon from 'assets/icons/instagram-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
-import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
+import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
 
 // styles
@@ -155,16 +155,9 @@ const MainSection = () => {
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>
                 <SocialButton
-                  icon={YoutubeWhiteIcon}
-                  iconHover={YoutubeHoverIcon}
+                  icon={IGWhiteIcon}
+                  iconHover={IGHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TwitterWhiteIcon}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
                 />
               </div>
               <div>
@@ -176,8 +169,15 @@ const MainSection = () => {
               </div>
               <div>
                 <SocialButton
-                  icon={FacebookWhiteIcon}
-                  iconHover={FacebookHoverIcon}
+                  icon={TwitterWhiteIcon}
+                  iconHover={TwitterHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
+                />
+              </div>
+              <div>
+                <SocialButton
+                  icon={TelegramWhiteIcon}
+                  iconHover={TelegramHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
                 />
               </div>
@@ -202,16 +202,9 @@ const MainSection = () => {
             <div className="hidden lg:flex gap-[10px]">
               <div>
                 <SocialButton
-                  icon={YoutubeWhiteIcon}
-                  iconHover={YoutubeHoverIcon}
+                  icon={IGWhiteIcon}
+                  iconHover={IGHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TwitterWhiteIcon}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
                 />
               </div>
               <div>
@@ -223,8 +216,15 @@ const MainSection = () => {
               </div>
               <div>
                 <SocialButton
-                  icon={FacebookWhiteIcon}
-                  iconHover={FacebookHoverIcon}
+                  icon={TwitterWhiteIcon}
+                  iconHover={TwitterHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
+                />
+              </div>
+              <div>
+                <SocialButton
+                  icon={TelegramWhiteIcon}
+                  iconHover={TelegramHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
                 />
               </div>
