@@ -38,11 +38,7 @@ const Step03SingleNFTSection = props => {
             backgroundColor="#888A8E"
           />
         ) : (
-          <GradientButton
-            width={viewport === '2xl' ? 124 : 117}
-            label="Mint NFT"
-            onClick={createNft}
-          />
+          <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint NFT" onClick={createNft} />
         )}
       </div>
     </div>

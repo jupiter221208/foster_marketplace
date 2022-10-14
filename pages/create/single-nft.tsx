@@ -43,6 +43,9 @@ import MonoLoader2 from 'assets/lottery/mono-loader-2.json'
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
+// call api
+import nftAPI from 'apis/nft'
+
 // styles
 import styles from './single-nft.module.scss'
 
@@ -333,7 +336,7 @@ const SingleNft = () => {
             metadata.image = toMetaplexFile(coverArrayBuffer, 'metaplex.png')
             if (nftType === 'video') {
               const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
-    
+
               metadata.animation_url = customURL
               metadata.category = 'video'
               metadata.properties = {
@@ -346,7 +349,7 @@ const SingleNft = () => {
               }
             } else if (nftType === 'audio') {
               const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
-    
+
               metadata.external_url = customURL
               metadata.category = 'audio'
               metadata.properties = {
@@ -367,7 +370,7 @@ const SingleNft = () => {
     }
   }
 
-  const uploadNft= async (metadata) => {
+  const uploadNft = async metadata => {
     const { uri } = await mx.nfts().uploadMetadata(metadata).run()
 
     const { nft } = await mx
@@ -382,6 +385,20 @@ const SingleNft = () => {
     if (nft) {
       const address = nft.address.toBase58()
       setNFTAddress(address)
+
+      const result = categoryList.filter(item => item.checked)
+      let category = ''
+      result.forEach(item => {
+        category += item.name + ','
+      })
+      nftAPI.post({ token_id: address, nft_name: nft.name, categories: category.slice(0, -1) }).then(
+        response => {
+          console.log(response)
+        },
+        error => {
+          console.log(error)
+        }
+      )
       handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
     }
 
