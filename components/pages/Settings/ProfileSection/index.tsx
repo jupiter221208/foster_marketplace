@@ -222,13 +222,12 @@ const ProfileSection = prop => {
           <div className={styles.innercontent}>
             <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
               <div className={styles.avatarArea}>
-                <Image
+                <img
                   src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                   alt=""
-                  objectFit="cover"
-                  className="rounded-full"
+                  className="rounded-full object-cover"
                 />
               </div>
             </div>
