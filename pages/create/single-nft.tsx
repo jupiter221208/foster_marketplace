@@ -44,7 +44,7 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // call api
-import nftAPI from 'apis/nft'
+import nftsAPI from 'apis/nfts'
 
 // styles
 import styles from './single-nft.module.scss'
@@ -391,7 +391,7 @@ const SingleNft = () => {
       result.forEach(item => {
         category += item.name + ','
       })
-      nftAPI.post({ token_id: address, nft_name: nft.name, categories: category.slice(0, -1) }).then(
+      nftsAPI.create({ token_id: address, nft_name: nft.name, categories: category.slice(0, -1) }).then(
         response => {
           console.log(response)
         },
