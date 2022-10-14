@@ -86,8 +86,10 @@ const MyNFTSection = () => {
         {nftList.map((item, index) => (
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <MyNFTCard
-              data={item}
+              // data={item}
               onClick={/*(data: any) => handleGotoDetailPage(data)*/ () => {}}
+              data={item.offChainMetatata}
+              // onClick={(data: any) => handleGotoDetailPage(data)}
               onClickStartAuction={item => handleStartAuction(item)}
               onClickListNFT={item => handleListNFT(item)}
             />

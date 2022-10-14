@@ -1,4 +1,3 @@
-import { TokenData } from './../config/types'
 import { Connection, PublicKey } from '@solana/web3.js'
 import * as anchor from '@project-serum/anchor'
 import { TOKEN_PROGRAM_ID } from '@solana/spl-token'
@@ -14,11 +13,7 @@ export async function loadMetadata(mint: PublicKey, connection: Connection): Pro
   return Metadata.fromAccountAddress(connection, metadataPublicKey)
 }
 
-export async function getTokensByAccount(
-  account: PublicKey,
-  connection: Connection,
-  includeOffChainMetadata = true
-): Promise<TokenData[]> {
+export async function getTokensByAccount(account: PublicKey, connection: Connection, includeOffChainMetadata = true) {
   const tokens = await connection.getParsedTokenAccountsByOwner(account, {
     programId: TOKEN_PROGRAM_ID,
   })
@@ -63,14 +58,7 @@ export async function getTokensByAccount(
     ).filter(nft => nft.offChainMetatata)
   }
 
-  return nfts.map(nft => ({
-    id: nft.mint.toString(),
-    mint: nft.mint,
-    name: nft.offChainMetatata?.name || nft.metadata?.data.name || 'No Name',
-    image: nft.offChainMetatata?.image,
-    category: nft.offChainMetatata?.category,
-    properties: nft.offChainMetatata?.properties,
-  }))
+  return nfts
 }
 
 export function getShortAddress(publicKey: PublicKey | null) {
