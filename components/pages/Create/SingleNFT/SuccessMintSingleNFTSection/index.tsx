@@ -121,7 +121,7 @@ const SuccessMintSingleNFTSection = props => {
   ) : (
     <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
       <div className="w-full flex justify-center items-center z-10 mt-10">
-        <div className="max-w-[237px] z-10">
+        <div className="z-10">
           <div className="w-full rounded-[16px] overflow-hidden">
             {nftType === 'image' ? (
               <div
