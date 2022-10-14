@@ -236,7 +236,7 @@ const Step01CollectionSection = props => {
               )}
               {categoryList.length !== 0 && (
                 <div className="w-full flex flex-wrap justify-start items-center mt-[33px] gap-[10px]">
-                  {categoryList.map((item, index) => item.checked === true && <Chip label={item.name} key={index} />)}
+                  {categoryList.map((item, index) => item.checked === true && <Chip data={item} key={index} />)}
                 </div>
               )}
             </div>

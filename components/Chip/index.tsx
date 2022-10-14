@@ -4,8 +4,8 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const Chip = props => {
-  const { label } = props
-  return <div className={styles.container}>{label}</div>
+  const { data } = props
+  return <div className={styles.container}>{data.name}</div>
 }
 
 export default Chip

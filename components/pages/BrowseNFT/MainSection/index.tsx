@@ -32,6 +32,9 @@ import OutlineButton from 'components/Button/OutlineButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
+import Chip from 'components/Chip'
+import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
+import CategoryChip from 'components/Chip/CategoryChip'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -43,7 +46,6 @@ import Avatar03 from 'assets/images/1920x1440.png'
 import Avatar04 from 'assets/images/NFT-Display-Group.png' //1080 x 1920
 import Avatar05 from 'assets/images/1440x1920.png'
 
-import Audio01 from 'assets/audios/audio-01.mp3'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -163,8 +165,6 @@ const MainSection = () => {
     ])
   }, [])
 
-  const [ratio, setRatio] = useState(1)
-  const [nftArt, setNftArt] = useState({ src: '', width: 1080, height: 1080 })
   const [nftType, setNftType] = useState('')
   const [nftUrl, setNftUrl] = useState('')
   const [nftCoverUrl, setNftCoverUrl] = useState('')
@@ -206,6 +206,48 @@ const MainSection = () => {
     setMintAddress(nft.asset.address.toBase58())
     setTradeStateAddress(nft.tradeStateAddress.toBase58())
   }
+  const [nftCategories, setNftCategories] = useState([])
+
+  // useEffect(() => {
+  //   const nftArtId: any = router.query.id
+  //   switch (nftArtId) {
+  //     case '1':
+  //       setNftUrl(Avatar01.src)
+  //       break
+  //     case '2':
+  //       setNftUrl(Avatar02.src)
+  //       break
+  //     case '3':
+  //       setNftUrl(Avatar03.src)
+  //       break
+  //     case '4':
+  //       setNftUrl(Avatar04.src)
+  //       break
+  //     case '5':
+  //       setNftUrl(Avatar05.src)
+  //       break
+  //     case '6':
+  //       setNftType('audio')
+  //       break
+  //     default:
+  //       let nftInfo = JSON.parse(localStorage.getItem('selectedNFT'))
+  //       if (nftInfo.category === 'image') {
+  //         setNftType('image')
+  //         setNftUrl(nftInfo.image)
+  //       } else if (nftInfo.category === 'audio' || nftInfo.category === 'video') {
+  //         setNftType(nftInfo.category)
+  //         setNftUrl(nftInfo.properties.files[0].url)
+  //         setNftCoverUrl(nftInfo.image ? nftInfo.image : '')
+  //       } else {
+  //         setNftType('image')
+  //         setNftUrl(nftInfo.image)
+  //       }
+  //       setNftName(nftInfo.name)
+  //       setNftDescription(nftInfo.description)
+  //       setNftCategories(nftInfo.attributes)
+  //       break
+    
+    
 
   useEffect(() => {
     if(mx && id) setListedNFT(mx, id)
@@ -249,7 +291,7 @@ const MainSection = () => {
                 <img src={nftUrl} alt="" className="min-w-full min-h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
-              <div className={ratio > 1.7 ? `${styles.imageArea} h-full` : styles.imageArea}>
+              <div className={styles.imageArea}>
                 <img src={nftUrl} alt="" className="h-full" />
               </div>
             </div>
@@ -407,6 +449,12 @@ const MainSection = () => {
                                   : '16px'
                               }
                             />
+                          </div>
+                          <div className={styles.whiteDiscription}>{nftDescription}</div>
+                          <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-4">
+                            {nftCategories.map((item, index) => (
+                              <SmallCategoryChip data={item} key={index} />
+                            ))}
                           </div>
                         </div>
                       </Disclosure.Panel>
