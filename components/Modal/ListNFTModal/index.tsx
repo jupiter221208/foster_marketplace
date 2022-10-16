@@ -16,6 +16,10 @@ import CloseIcon from 'assets/icons/close-wallet.svg'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
+// solana
+import { listNFT } from 'utils/auction.util'
+import { useMetaplex } from 'hooks/useMetaplex'
+
 const ListNFTModal = props => {
   const { data, open, onClose } = props
 
@@ -25,6 +29,13 @@ const ListNFTModal = props => {
 
   const [price, setPrice] = useState(0)
   const [listStatus, setListStatus] = useState(false)
+
+  const { metaplex: mx } = useMetaplex();
+
+  const handleListNFTClick = async () => {
+    const result = await listNFT(mx, data.mint, price);
+    if(result) setListStatus(true);
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -73,7 +84,7 @@ const ListNFTModal = props => {
                     />
                   </div>
                   <div className="w-full mt-[30px]">
-                    <GradientButton label="List" fullWidth onClick={() => setListStatus(true)} />
+                    <GradientButton label="List" fullWidth onClick={() => handleListNFTClick()} />
                   </div>
                   <div className="w-full mt-[30px]">
                     <div className={styles.text}>

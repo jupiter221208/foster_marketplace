@@ -36,15 +36,22 @@ const Step03CollectionSection = props => {
     collectionFiles,
     bannerCroppedImage,
     readFilesAndUplaod,
+    uploadedCount
   } = props
 
   const viewport = useViewport()
 
   // variables
   const [disabledNextButton, setDisabledNextButton] = useState(true)
+  const [startUpload, setStartUpload] = useState(false)
 
   const handleChangeCurrentStep = step => {
     onChangeCurrentStep(step)
+  }
+
+  const uploadArtworks = () => {
+    setStartUpload(true)
+    readFilesAndUplaod()
   }
 
   useEffect(() => {
@@ -237,13 +244,13 @@ const Step03CollectionSection = props => {
                             />
                           </div>
                         </div>
-                        <div className="absolute -right-20 top-10 w-10 h-10">
-                          {index < 2 ? (
+                        {startUpload && <div className="absolute -right-20 top-10 w-10 h-10">
+                          {index < uploadedCount ? (
                             <Lottie animationData={CheckLottery} loop={true} />
                           ) : (
                             <Lottie animationData={LoaderLottery} loop={true} />
                           )}
-                        </div>
+                        </div>}
                       </div>
                     ))}
                   {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
@@ -370,7 +377,7 @@ const Step03CollectionSection = props => {
                       height={viewport === '2xl' ? 53 : 46}
                       label="Mint Collection"
                       gradientDirection="bottom"
-                      onClick={() => readFilesAndUplaod()}
+                      onClick={() => uploadArtworks()}
                     />
                   )}
                 </div>
@@ -630,7 +637,7 @@ const Step03CollectionSection = props => {
                       fullWidth
                       label="Mint Collection"
                       gradientDirection="bottom"
-                      onClick={() => readFilesAndUplaod()}
+                      onClick={() => uploadArtworks()}
                       height="45px"
                     />
                   </div>

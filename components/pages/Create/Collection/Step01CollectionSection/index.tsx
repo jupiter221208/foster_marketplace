@@ -56,6 +56,7 @@ const Step01CollectionSection = props => {
     onChangeRoyalties,
     categoryList,
     onChangeCategoryList,
+    mintCollection,
   } = props
   const viewport = useViewport()
 
@@ -351,9 +352,7 @@ const Step01CollectionSection = props => {
                       height={viewport === '2xl' ? 53 : 46}
                       label="Next Step"
                       disabled={disabledNextButton}
-                      onClick={() => {
-                        handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
-                      }}
+                      onClick={() => mintCollection()}
                     />
                   )}
                 </div>
@@ -545,9 +544,7 @@ const Step01CollectionSection = props => {
                   fullWidth
                   label="Next Step"
                   disabled={disabledNextButton}
-                  onClick={() => {
-                    handleChangeCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
-                  }}
+                  onClick={() => mintCollection()}
                   height="45px"
                 />
               </div>

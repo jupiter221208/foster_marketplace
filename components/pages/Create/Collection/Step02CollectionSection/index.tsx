@@ -46,7 +46,6 @@ const Step02CollectionSection = props => {
     onChangeCollectionName,
     onChangeCollectionDescription,
     onChangeCroppedImage,
-    readFilesAndUplaod,
   } = props
 
   const viewport = useViewport()

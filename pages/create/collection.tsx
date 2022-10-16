@@ -145,6 +145,8 @@ const Collection = () => {
 
   const [artworks, setArtworks] = useState<any[]>([])
 
+  const [uploadedCount, setUploadedCount] = useState(0);
+
   const readFilesAndUplaod = async () => {
     var readCount = 0
     collectionFiles.forEach(item => {
@@ -172,7 +174,7 @@ const Collection = () => {
     })
 
     if (collectionNft) {
-      for (var i in artworks) {
+      for (var i = 0; i < artworks.length; i++) {
         const { uri } = await mx
           .nfts()
           .uploadMetadata({
@@ -201,6 +203,8 @@ const Collection = () => {
             isSizedCollection: true,
           })
           .run()
+
+        setUploadedCount(i + 1)
       }
     }
 
@@ -220,6 +224,7 @@ const Collection = () => {
     setRoyalties(0)
     setCollectionFiles([])
     setCollectionNft(undefined)
+    setUploadedCount(0)
   }
 
   return (
@@ -250,6 +255,7 @@ const Collection = () => {
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
+            mintCollection={mintCollection}
           />
         )}
         {currentStep === 2 && (
@@ -264,7 +270,6 @@ const Collection = () => {
             onChangeCollectionName={(item, value) => handleChangeCollectionName(item, value)}
             onChangeCollectionDescription={(item, value) => handleChangeCollectionDescription(item, value)}
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
-            readFilesAndUplaod={readFilesAndUplaod}
           />
         )}
         {currentStep === 3 && (
@@ -275,10 +280,16 @@ const Collection = () => {
             bannerCroppedImage={bannerCroppedImage}
             collectionFiles={collectionFiles}
             readFilesAndUplaod={readFilesAndUplaod}
+            uploadedCount={uploadedCount}
           />
         )}
         {currentStep === 4 && (
-          <SuccessMintCollectionSection coverCroppedImage={coverCroppedImage} bannerCroppedImage={bannerCroppedImage} />
+          <SuccessMintCollectionSection 
+            coverCroppedImage={coverCroppedImage} 
+            bannerCroppedImage={bannerCroppedImage}
+            collectionNft={collectionNft} 
+            reset={reset}
+          />
         )}
       </div>
     </div>

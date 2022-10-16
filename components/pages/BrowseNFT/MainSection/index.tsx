@@ -67,6 +67,11 @@ import styles from './index.module.scss'
 import Select from 'components/Select'
 import { Url } from 'url'
 
+// solana
+import { getListedNFTByAddresss, buyNFT } from 'utils/auction.util'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { getShortAddress } from 'utils/strings'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
@@ -164,49 +169,56 @@ const MainSection = () => {
   const [nftUrl, setNftUrl] = useState('')
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [nftName, setNftName] = useState('')
+  const [nftDescription, setNftDescription] = useState('')
+  const [nftPrice, setNftPrice] = useState(0)
+  const [nftCreator, setNftCreator] = useState('')
+  const [nftSeller, setNftSeller] = useState('')
+  const [mintAddress, setMintAddress] = useState('')
+  const [tradeStateAddress, setTradeStateAddress] = useState('')
 
-  useEffect(() => {
-    const nftArtId: any = router.query.id
-    switch (nftArtId) {
-      case '1':
-        setNftUrl(Avatar01.src)
-        break
-      case '2':
-        setNftUrl(Avatar02.src)
-        break
-      case '3':
-        setNftUrl(Avatar03.src)
-        break
-      case '4':
-        setNftUrl(Avatar04.src)
-        break
-      case '5':
-        setNftUrl(Avatar05.src)
-        break
-      case '6':
-        setNftType('audio')
-        break
-      default:
-        let nftInfo = JSON.parse(localStorage.getItem('selectedNFT'))
-        if (nftInfo.category === 'image') {
-          setNftType('image')
-          setNftUrl(nftInfo.image)
-        } else if (nftInfo.category === 'audio' || nftInfo.category === 'video') {
-          setNftType(nftInfo.category)
-          setNftUrl(JSON.parse(localStorage.getItem('selectedNFT')).properties.files[0].url)
-          setNftCoverUrl(nftInfo.image ? nftInfo.image : '')
-        } else {
-          setNftType('image')
-          setNftUrl(nftInfo.image)
-        }
-        setNftName(nftInfo.name)
-        break
+  const { id } = router.query
+
+  const { metaplex: mx } = useMetaplex()
+
+  const setListedNFT = async (mx, id) => {
+    const nft = await getListedNFTByAddresss(mx, id.toString())
+    
+    if (nft.asset.json.category === 'image') {
+      setNftType('image')
+      setNftUrl(nft.asset.json.image)
+    } else if (nft.asset.json.category === 'audio') {
+      setNftType(nft.asset.json.category)
+      setNftUrl(nft.asset.json.properties?.files.filter(file => file.type.split('/')[0] === "audio").map(file => file.url)[0].toString())
+      setNftCoverUrl(nft.asset.json.image ? nft.asset.json.image : '')
+    } else if (nft.asset.json.category === 'video') {
+      setNftType(nft.asset.json.category)
+      setNftUrl(nft.asset.json.properties?.files.filter(file => file.type.split('/')[0] === "audio").map(file => file.url)[0].toString())
+      setNftCoverUrl(nft.asset.json.image ? nft.asset.json.image : '')
+    } else {
+      setNftType('image')
+      setNftUrl(nft.asset.json.image)
     }
-  }, [router])
+    setNftName(nft.asset.json.name)
+    setNftDescription(nft.asset.json.description)
+    setNftPrice((nft.price.basisPoints.toNumber() * 0.000000001))
+    setNftCreator(getShortAddress(nft.asset.creators[0].address.toBase58()))
+    setNftSeller(getShortAddress(nft.sellerAddress.toBase58()))
+    setMintAddress(nft.asset.address.toBase58())
+    setTradeStateAddress(nft.tradeStateAddress.toBase58())
+  }
 
   useEffect(() => {
-    setRatio(nftArt.height / nftArt.width)
-  }, [nftArt])
+    if(mx && id) setListedNFT(mx, id)
+  }, [mx, id])
+
+  const quickBuy = async () => {
+    setOpenProgressingModal(true)
+    const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
+    if(result) {
+      setOpenProgressingModal(false)
+      setShowAlert(true)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -289,11 +301,11 @@ const MainSection = () => {
                   className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
                   onClick={() => router.push('/artist-profile')}
                 >
-                  BillBudz
+                  {nftSeller}
                 </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
                 <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
-                  Plumpadoodle
+                  {nftCreator}
                 </div>
               </div>
             </div>
@@ -304,12 +316,12 @@ const MainSection = () => {
                 <div className="w-[24px] h-[24px]">
                   <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
                 </div>
-                <div className={`${styles.whiteTitle} ml-[6px]`}>189</div>
+                <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
               </div>
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 <GradientButton
                   label="Quick Buy"
-                  onClick={() => setOpenProgressingModal(true)}
+                  onClick={() => quickBuy()}
                   icon={QuickBuyBlackIcon}
                   direction="rtl"
                 />
@@ -371,8 +383,7 @@ const MainSection = () => {
                       >
                         <div className="w-full flex flex-wrap flex-column space-between">
                           <div className={styles.whiteDiscription}>
-                            Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem
-                            lacus, ornare non ante sed.
+                            {nftDescription}
                           </div>
                           <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-5">
                             <OutlineButton

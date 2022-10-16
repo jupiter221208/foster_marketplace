@@ -12,6 +12,8 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 
+import { getShortAddress } from 'utils/strings'
+
 const DashboardNFTCard = props => {
   const { image, nftName, artistName, price, showCount = true, onClick } = props
   const viewport = useViewport()
@@ -26,7 +28,7 @@ const DashboardNFTCard = props => {
           <div className={styles.nftName}>{nftName}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{artistName}</div>
+          <div className={styles.artistName}>{getShortAddress(artistName)}</div>
           {showCount ? (
             <div className="flex justify-center items-center">
               <Image

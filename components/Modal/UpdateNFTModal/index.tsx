@@ -18,7 +18,7 @@ import CloseIcon from 'assets/icons/close-wallet.svg'
 import styles from './index.module.scss'
 
 const UpdateNFTModal = props => {
-  const { data, open, onClose } = props
+  const { data, open, onClose, onCancelList } = props
 
   const closeModal = () => {
     onClose()
@@ -59,10 +59,10 @@ const UpdateNFTModal = props => {
                 <div className={styles.title}>Update NFT</div>
                 <div className="w-full max-w-[321px] mt-10">
                   <div className={styles.image}>
-                    <img src={data?.image} alt={data?.name} />
+                    <img src={data?.asset.json.image} alt={data?.asset.json.name} />
                   </div>
                 </div>
-                <div className={`${styles.nftName} mt-5`}>{data?.nftName}</div>
+                <div className={`${styles.nftName} mt-5`}>{data?.asset.json.name}</div>
                 <div className="w-full mt-12">
                   <PriceInput
                     value={price}
@@ -78,7 +78,7 @@ const UpdateNFTModal = props => {
                   <Button
                     label="Cancel Listing"
                     fullWidth
-                    onClick={() => closeModal()}
+                    onClick={() => onCancelList(data?.tradeStateAddress.toString())}
                     backgroundColor="#202427"
                     color="#EFF0F6"
                   />

@@ -8,6 +8,8 @@ const nextConfig = {
     BUNDLR_ADDRESS: process.env.BUNDLR_ADDRESS,
     PROVIDER_URL: process.env.PROVIDER_URL,
     BACKEND_URL: process.env.BACKEND_URL,
+    AUCTION_HOUSE_ADDRESS: process.env.AUCTION_HOUSE_ADDRESS,
+    AUCTION_HOUSE_PUBLIC_KEY: process.env.AUCTION_HOUSE_PUBLIC_KEY
   },
   images: {
     domains: [

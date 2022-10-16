@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -21,12 +21,19 @@ import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.sv
 // styles
 import styles from './index.module.scss'
 
+// solana
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
+
 const SuccessMintCollectionSection = props => {
-  const { coverCroppedImage, bannerCroppedImage } = props
+  const { coverCroppedImage, bannerCroppedImage, collectionNft, reset } = props
 
   const router = useRouter()
 
   const viewport = useViewport()
+
+  const { connection } = useConnection()
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, collectionNft.mintAddress.toBase58()), [collectionNft, connection])
 
   return (
     <div className="w-full">
@@ -93,7 +100,7 @@ const SuccessMintCollectionSection = props => {
               </div>
             </div>
             <div className="mt-[44px]">
-              <LinkTextButton label="View on Solscan" link="/" />
+              <LinkTextButton label="View on Solscan" link={explorerURL}/>
             </div>
           </div>
         </div>
@@ -159,7 +166,7 @@ const SuccessMintCollectionSection = props => {
               </div>
             </div>
             <div className="mt-[33px]">
-              <LinkTextButton label="View on Solscan" link="/" />
+              <LinkTextButton label="View on Solscan" link={explorerURL} />
             </div>
           </div>
         </div>

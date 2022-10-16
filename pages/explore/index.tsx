@@ -24,6 +24,7 @@ import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import Pagination from 'components/Button/Pagination'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // json
 import TabList from 'assets/json/explore/tab-list.json'
@@ -43,9 +44,15 @@ import SortGrayIcon from 'assets/icons/sort-gray.svg'
 // styles
 import styles from './index.module.scss'
 
+// solana
+import { getListedNFTs } from 'utils/auction.util'
+import { useMetaplex } from 'hooks/useMetaplex'
+
 const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
+
+  const isLoading = useSelector<any>(state => state.isLoading)
 
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
@@ -80,7 +87,7 @@ const Explore = () => {
       case 0:
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
-        setNftList(NFTExploreList)
+        setListedNFTs()
         break
       case 1:
         setSortData(CollectionSortList)
@@ -99,6 +106,15 @@ const Explore = () => {
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
+
+  const { metaplex: mx } = useMetaplex()
+
+  const setListedNFTs = async () => {
+    dispatch({ type: 'set', isLoading: true })
+    const nfts = await getListedNFTs(mx)
+    setNftList(nfts)
+    dispatch({ type: 'set', isLoading: false })
+  }
 
   return (
     <div className="g-container">
@@ -169,14 +185,17 @@ const Explore = () => {
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
+                  <div className="col-span-12">
+                    <LoadingModal open={isLoading} />
+                  </div>
                   {showNftList.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <NFTCard
-                        image={item.image}
-                        nftName={item.nftName}
-                        artistName={item.artistName}
-                        onClick={() => router.push(`/browse-nft?id=${item.id}`)}
-                        price={item.price}
+                        image={item.asset.json.image}
+                        nftName={item.asset.json.name}
+                        artistName={item.asset.creators[0].address.toString()}
+                        onClick={() => router.push(`/browse-nft?id=${item.tradeStateAddress.toString()}`)}
+                        price={(item.price.basisPoints.toNumber() * 0.000000001).toFixed(2)}
                       />
                     </div>
                   ))}
