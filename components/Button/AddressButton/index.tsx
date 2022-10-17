@@ -28,7 +28,7 @@ const AddressButton = props => {
           <Image src={FileCopyIcon} alt="" width={12} height={12} />
         </div>
       )}
-      <div>{label}</div>
+      <div className={styles.label}>{label}</div>
       {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
         <div className="flex items-center ml-[20px]">
           <Image src={FileCopyIcon} alt="" width={20} height={20} />

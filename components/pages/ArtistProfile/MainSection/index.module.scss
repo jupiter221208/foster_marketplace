@@ -6,6 +6,7 @@
   flex-wrap: wrap;
   width: 100%;
   justify-content: space-between;
+  background-color: #091010;
   margin-top: 16px;
   margin-bottom: 28px;
   @media (min-width: 1024px) {
@@ -53,7 +54,7 @@
   @media (min-width: 1024px) {
     font-size: 22px;
   }
-  color: $brand-06-color;
+  color: $brand-01-color;
 }
 
 .nftInfoValue {

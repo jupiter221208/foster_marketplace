@@ -56,6 +56,7 @@ const MainSection = () => {
       mobile: '/images/hero.png',
       mobile_banner: '/images/category-banner-surreal.png',
       name: 'Surreal',
+      value: 'Surreal',
       type: 'image',
       nfts: 2131,
       collections: 287,
@@ -67,6 +68,7 @@ const MainSection = () => {
       mobile: '/images/popular-category-mobile-audiovisual.mp4',
       mobile_banner: '/images/category-banner-mobile-audiovisual.mp4',
       name: 'Audiovisual',
+      value: 'Audiovisual',
       type: 'video',
       nfts: 2131,
       collections: 287,
@@ -115,6 +117,19 @@ const MainSection = () => {
                 onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
               />
             </div>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <></>
+            ) : (
+              <div className="flex justify-center mt-[30px]">
+                <div className={styles.categoryList}>
+                  {categoryList.map((item, index) => (
+                    <div key={index}>
+                      <CategoryChip data={item} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             <div
               className="flex lg:hidden w-full justify-center mt-[10px] mb-[10px] gap-[10px]"
               onClick={() => setShowSocialIcon(!showSocialIcon)}
@@ -241,15 +256,6 @@ const MainSection = () => {
                 <div className={styles.nftInfoValue}>Total Volume</div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="flex justify-center mt-[30px]">
-          <div className={styles.categoryList}>
-            {categoryList.map((item, index) => (
-              <div key={index}>
-                <CategoryChip data={item} />
-              </div>
-            ))}
           </div>
         </div>
       </div>
