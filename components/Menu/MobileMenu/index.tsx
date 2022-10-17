@@ -28,13 +28,11 @@ import CreateMenuList from 'assets/json/create-menu.json'
 
 // styles
 import styles from './index.module.scss'
-import MyWalletMenu from '../MyWalletMenu'
 import MyWalletSubMenu from '../MyWalletSubMenu'
 import Image from 'next/image'
 
 const MobileMenu = () => {
   const { connected } = useWallet()
-  const openMyWallet = useSelector((state: any) => state.openMyWallet)
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const [profileImage, setProfileImage] = useState('')
   const [profileName, setProfileName] = useState('')
@@ -48,9 +46,7 @@ const MobileMenu = () => {
 
   return (
     <div className={styles.menu}>
-      {openMyWallet ? (
-        <MyWalletMenu />
-      ) : connected ? (
+      {connected ? (
         <div className={styles.container}>
           <div className="w-full">
             <div className="my-[10px]">
@@ -92,9 +88,6 @@ const MobileMenu = () => {
             <div className="my-[10px]">
               <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
             </div>
-            {/* <div className="my-[10px]">
-              <AccordionMenu icon={SettingWhiteIcon} label="Settings" type="" data={[]} path="/settings" />
-            </div> */}
           </div>
           <div className="w-full">
             <WalletDisconnectButton className={styles.logout}>

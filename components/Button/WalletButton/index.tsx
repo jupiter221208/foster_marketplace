@@ -311,6 +311,7 @@ const WalletButton = props => {
           </div>
         </Menu.Items>
       </Transition>
+      {/* connect wallet alert */}
       <Alert
         open={showAlert}
         close={() => {
@@ -333,13 +334,14 @@ const WalletButton = props => {
         <div>Connect Wallet</div>
         <Image src={FosterLightGreenIcon} alt="" />
       </button>
-      {/* <Alert
+      {/* disconnect wallet alert */}
+      <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
         }}
         data={alertData}
-      /> */}
+      />
     </div>
   )
 }

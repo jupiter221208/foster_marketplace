@@ -8,7 +8,6 @@ const initialState = {
   openConnectWallet: false,
   exploreTab: 0,
   connectWalletStatus: false,
-  openMyWallet: false,
   openCreateNFTModal: false,
   profileSetup: false,
 }
