@@ -32,9 +32,8 @@ import OutlineButton from 'components/Button/OutlineButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
-import Chip from 'components/Chip'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
-import CategoryChip from 'components/Chip/CategoryChip'
+import Select from 'components/Select'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -64,9 +63,11 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import TimeList from 'assets/json/browse-nft/time-list.json'
 import ActivityList from 'assets/json/browse-nft/activity-list.json'
 
+// call api
+import nftsAPI from 'apis/nfts'
+
 // styles
 import styles from './index.module.scss'
-import Select from 'components/Select'
 import { Url } from 'url'
 
 // solana
@@ -81,6 +82,7 @@ const MainSection = () => {
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [like, setLike] = useState<boolean>(false)
+  const [likeCount, setLikeCount] = useState(0)
   const [share, setShare] = useState<boolean>(false)
   const [favorite, setFavorite] = useState<boolean>(false)
 
@@ -165,6 +167,7 @@ const MainSection = () => {
     ])
   }, [])
 
+  const [tokenAddresss, setTokenAddress] = useState('')
   const [nftType, setNftType] = useState('')
   const [nftUrl, setNftUrl] = useState('')
   const [nftCoverUrl, setNftCoverUrl] = useState('')
@@ -262,6 +265,36 @@ const MainSection = () => {
     }
   }
 
+  useEffect(() => {
+    if (tokenAddresss !== '') {
+      nftsAPI.get(tokenAddresss).then(
+        response => {
+          if (response !== null) {
+            setLikeCount(response.likes)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }, [tokenAddresss])
+
+  useEffect(() => {
+    if (like) {
+      nftsAPI.likeNft(tokenAddresss).then(
+        response => {
+          if (response !== null) {
+            console.log(response)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }, [like])
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -316,9 +349,9 @@ const MainSection = () => {
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
                 <div className={`${styles.greenTitle} hidden lg:flex`}>{nftName}</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
+                  <div className="flex items-center cursor-pointer" onClick={() => setLike(true)}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{like ? 255 : 254}</div>
+                    <div className={styles.text}>{likeCount}</div>
                   </div>
                   <MenuSocialShare
                     icon01={EmailWhiteIcon}
