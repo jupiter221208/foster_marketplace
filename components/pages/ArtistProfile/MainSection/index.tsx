@@ -45,7 +45,6 @@ const MainSection = () => {
   const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
 
   const [follow, setFollow] = useState(false)
-  const [showSocialIcon, setShowSocialIcon] = useState(false)
 
   const router = useRouter()
   const categoryList = [
@@ -85,8 +84,8 @@ const MainSection = () => {
         <Image src={HeaderImage} alt="" objectFit="cover" className="rounded-[20px]" />
       </div>
       <div className="w-full">
-        <div className="grid grid-cols-12 items-center mt-[-80px] lg:mt-[-95px]">
-          <div className="col-span-3">
+        <div className="grid grid-cols-12 items-center mt-[-60px] lg:mt-[-95px]">
+          <div className="col-span-3 mt-[-70px]">
             {follow ? (
               <OutlineButton
                 label="Following"
@@ -109,7 +108,7 @@ const MainSection = () => {
           </div>
           <div className="col-span-6">
             <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} />
-            <div className="hidden lg:flex justify-center mt-[16px]">
+            <div className="flex justify-center mt-[9px] lg:mt-[16px]">
               <AddressButton
                 label={shortAddress}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
@@ -120,7 +119,7 @@ const MainSection = () => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <></>
             ) : (
-              <div className="flex justify-center mt-[30px]">
+              <div className="flex justify-center mt-[20px] mb-[10px]">
                 <div className={styles.categoryList}>
                   {categoryList.map((item, index) => (
                     <div key={index}>
@@ -130,56 +129,39 @@ const MainSection = () => {
                 </div>
               </div>
             )}
-            <div
-              className="flex lg:hidden w-full justify-center mt-[10px] mb-[10px] gap-[10px]"
-              onClick={() => setShowSocialIcon(!showSocialIcon)}
-            >
-              <Image src={EllipseGroupWhite} alt="" />
-            </div>
-            {showSocialIcon ? (
-              <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
-                <div>
-                  <SocialButton
-                    icon={IGWhiteIcon}
-                    iconHover={IGHoverIcon}
-                    onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                  />
-                </div>
-                <div>
-                  <SocialButton
-                    icon={DiscordWhiteIcon}
-                    iconHover={DiscordHoverIcon}
-                    onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
-                  />
-                </div>
-                <div>
-                  <SocialButton
-                    icon={TwitterWhiteIcon}
-                    iconHover={TwitterHoverIcon}
-                    onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
-                  />
-                </div>
-                <div>
-                  <SocialButton
-                    icon={TelegramWhiteIcon}
-                    iconHover={TelegramHoverIcon}
-                    onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
-                  />
-                </div>
+
+            <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
+              <div>
+                <SocialButton
+                  icon={IGWhiteIcon}
+                  iconHover={IGHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
+                />
               </div>
-            ) : (
-              <div className="w-full h-[32px]"></div>
-            )}
-          </div>
-          <div className="col-span-3 flex justify-end">
-            <div className="flex lg:hidden justify-center lg:mt-[16px]">
-              <AddressButton
-                label={shortAddress}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-              />
+              <div>
+                <SocialButton
+                  icon={DiscordWhiteIcon}
+                  iconHover={DiscordHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
+                />
+              </div>
+              <div>
+                <SocialButton
+                  icon={TwitterWhiteIcon}
+                  iconHover={TwitterHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
+                />
+              </div>
+              <div>
+                <SocialButton
+                  icon={TelegramWhiteIcon}
+                  iconHover={TelegramHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
+                />
+              </div>
             </div>
+          </div>
+          <div className="col-span-3 flex justify-end mt-[-80px]">
             <div className="hidden lg:flex gap-[10px]">
               <div>
                 <SocialButton
@@ -214,9 +196,7 @@ const MainSection = () => {
         </div>
         <div
           className={`flex justify-center w-full ${
-            showSocialIcon === false && (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
-              ? 'mt-[-32px]'
-              : 'mt-[12px]'
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'mt-[12px]' : 'mt-[12px]'
           }`}
         >
           <div className="max-w-[734px]">
