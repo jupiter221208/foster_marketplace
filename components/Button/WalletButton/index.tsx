@@ -138,7 +138,8 @@ const WalletButton = props => {
   const handleLogin = () => {
     authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
       response => {
-        if (response.new_user === true) {
+        if (response.new_user !== true) {
+          console.log('................')
           dispatch({ type: 'set', profileSetup: true })
         }
         dispatch({ type: 'set', profileInfo: response.user })
@@ -320,7 +321,7 @@ const WalletButton = props => {
       />
     </Menu>
   ) : (
-    <div>
+    <div className="w-full">
       <button
         className={styles.container}
         onClick={() => {
@@ -332,13 +333,13 @@ const WalletButton = props => {
         <div>Connect Wallet</div>
         <Image src={FosterLightGreenIcon} alt="" />
       </button>
-      <Alert
+      {/* <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
         }}
         data={alertData}
-      />
+      /> */}
     </div>
   )
 }

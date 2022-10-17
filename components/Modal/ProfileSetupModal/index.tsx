@@ -155,8 +155,11 @@ const ProfileSetupModal = props => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className={styles.modalView}>
+                    <div className={styles.close} onClick={() => closeModal()}>
+                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                    </div>
                     <div className="w-full h-full grid grid-cols-12">
-                      <div className="col-span-7">
+                      <div className="col-span-12 lg:col-span-7">
                         <div className={styles.leftPanel}>
                           <div className={styles.title}>Welcome to Foster Marketplace!</div>
                           <p className={styles.text}>
@@ -201,8 +204,8 @@ const ProfileSetupModal = props => {
                               </div>
                             </div>
                           </div>
-                          <div className="w-full flex justify-center mt-[37px]">
-                            <div className="w-full max-w-[351px] flex justify-between gap-[96px]">
+                          <div className="w-full flex justify-center mt-[37px] px-7 lg:px-0 pb-6 lg:pb-9">
+                            <div className="w-full max-w-[351px] flex justify-between gap-10 lg:gap-[96px]">
                               <OutlineButton label="Skip" fullWidth onClick={() => closeModal()} />
                               <GradientButton
                                 label="Save"
@@ -214,12 +217,9 @@ const ProfileSetupModal = props => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-span-5 relative overflow-hidden rounded-[24px]">
+                      <div className="col-span-0 lg:col-span-5 relative overflow-hidden rounded-[24px]">
                         <div className={styles.rightBack}>
                           <Image src={LogoBigIcon} alt="" width={566} height={657} />
-                        </div>
-                        <div className={styles.close} onClick={() => closeModal()}>
-                          <Image src={CloseIcon} alt="" width={30} height={30} />
                         </div>
                         <div className={styles.rightPanel}>
                           <div className="flex justify-center">
