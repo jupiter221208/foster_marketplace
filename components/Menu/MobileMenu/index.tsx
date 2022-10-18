@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import Image from 'next/image'
+
 // third party components
-import { useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { WalletDisconnectButton } from '@solana/wallet-adapter-react-ui'
+import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
+import Alert from 'components/Alert'
 import AccordionMenu from 'components/Menu/AccordionMenu'
 import WalletButton from 'components/Button/WalletButton'
+import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
 import AvatarIcon from 'assets/icons/profile-thumb.svg'
@@ -28,21 +32,79 @@ import CreateMenuList from 'assets/json/create-menu.json'
 
 // styles
 import styles from './index.module.scss'
-import MyWalletSubMenu from '../MyWalletSubMenu'
-import Image from 'next/image'
+
+// call api
+import authAPI from 'apis/auth'
 
 const MobileMenu = () => {
-  const { connected } = useWallet()
+  const dispatch = useDispatch()
+  const { connected, publicKey, disconnect } = useWallet()
+
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [buttonClicked, setButtonClicked] = useState(false)
+
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const [profileImage, setProfileImage] = useState('')
   const [profileName, setProfileName] = useState('')
 
   useEffect(() => {
-    if (profileInfo && profileInfo.profile_picture) {
-      setProfileImage(profileInfo.profile_picture)
-      setProfileName(profileInfo.username)
+    if (!buttonClicked) {
+      return
+    }
+
+    setButtonClicked(true)
+
+    if (connected) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Connected!',
+          description: `You've successfully connected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Disconnected!',
+          description: `You've successfully disconnected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    }
+  }, [connected])
+
+  useEffect(() => {
+    if (profileInfo) {
+      if (profileInfo.username) {
+        setProfileName(profileInfo.username)
+      }
+      if (profileInfo.profile_picture) {
+        setProfileImage(profileInfo.profile_picture)
+      }
     }
   }, [profileInfo])
+
+  // handle login
+  const handleLogin = () => {
+    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+      response => {
+        if (response.new_user === true) {
+          dispatch({ type: 'set', profileSetup: true })
+        }
+        dispatch({ type: 'set', profileInfo: response.user })
+        setProfileImage(response.user.profile_picture)
+        setProfileName(response.user.username)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 
   return (
     <div className={styles.menu}>
@@ -90,13 +152,28 @@ const MobileMenu = () => {
             </div>
           </div>
           <div className="w-full">
-            <WalletDisconnectButton className={styles.logout}>
+            <div
+              className={styles.logout}
+              onClick={() => {
+                setButtonClicked(true)
+                disconnect()
+              }}
+            >
               <div>Logout part</div>
               <div className="flex items-center ml-2">
                 <Image src={LogoutWhiteIcon} alt="" />
               </div>
-            </WalletDisconnectButton>
+            </div>
           </div>
+          {/* connect wallet alert */}
+          <Alert
+            open={showAlert}
+            close={() => {
+              setShowAlert(false)
+              handleLogin()
+            }}
+            data={alertData}
+          />
         </div>
       ) : (
         <div className={styles.container}>
@@ -107,6 +184,14 @@ const MobileMenu = () => {
           <div className="w-full flex items-end">
             <WalletButton fullWidth />
           </div>
+          {/* disconnect wallet alert */}
+          <Alert
+            open={showAlert}
+            close={() => {
+              setShowAlert(false)
+            }}
+            data={alertData}
+          />
         </div>
       )}
     </div>

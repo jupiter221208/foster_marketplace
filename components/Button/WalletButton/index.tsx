@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -6,9 +6,13 @@ import Image from 'next/image'
 // third party components
 import { Menu, Transition } from '@headlessui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import Alert from 'components/Alert'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { getShortAddress } from 'utils/wallet.util'
+import { PublicKey } from '@solana/web3.js'
 
 // components
+import Alert from 'components/Alert'
 import Avatar from 'components/Avatar'
 import IconButton from 'components/Button/IconButton'
 import PriceInput from 'components/Input/PriceInput'
@@ -31,16 +35,11 @@ import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.s
 // styles
 import styles from './index.module.scss'
 
-import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { getShortAddress } from 'utils/wallet.util'
-import { PublicKey } from '@solana/web3.js'
-
 // call api
 import authAPI from 'apis/auth'
 
 const WalletButton = props => {
-  const { onClick, fullWidth = false } = props
+  const { fullWidth = false } = props
 
   const dispatch = useDispatch()
 
