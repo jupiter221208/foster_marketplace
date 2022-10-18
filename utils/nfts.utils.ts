@@ -30,9 +30,6 @@ export async function getMyNFTs(mx: Metaplex) {
     )
   ).filter(nft => nft.offchainMetadata)
 
-  console.log("myNFTs")
-  console.log(myNFTs)
-
   return myNFTs
 }
 
