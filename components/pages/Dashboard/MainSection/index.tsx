@@ -116,6 +116,8 @@ const MainSection = () => {
     )
   }, [bannerPictureUrl])
 
+  useEffect(() => {}, [])
+
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
     const { data, url } = await uploadFileToS3(file, filename)
@@ -247,10 +249,7 @@ const MainSection = () => {
         </div>
         <div className="flex justify-center w-full mt-[32px]">
           <div className="max-w-[734px]">
-            <div className={styles.description}>
-              Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
-              non ante sed.
-            </div>
+            <div className={styles.description}>{profileInfo?.bio}</div>
           </div>
         </div>
       </div>
