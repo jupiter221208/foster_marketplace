@@ -13,16 +13,18 @@
 
 .modalView {
   position: relative;
+  overflow: hidden;
   width: 960px;
   height: 100%;
-  @media (min-width: 1024px) {
-    height: 650px;
-  }
   background: linear-gradient(to bottom, rgba($text-gray-800-color, 1), rgba($brand-01-color, 1));
   background-origin: border-box;
   border: 1px solid rgba($background-light-color, 0.25);
   border-radius: 30px;
   box-shadow: 0px 13px 36px #061a1c;
+  padding: 12px;
+  @media (min-width: 1024px) {
+    padding: 35px 25px;
+  }
 }
 
 .close {
@@ -37,14 +39,10 @@
 }
 
 .leftPanel {
-  margin: 12px;
-  width: calc(100% - 24px);
-  height: calc(100% - 24px);
+  width: 100%;
+  height: 100%;
   padding: 13px;
   @media (min-width: 1024px) {
-    margin: 35px 25px;
-    width: calc(100% - 25px);
-    height: calc(100% - 70px);
     padding: 30px 70px;
   }
   text-align: center;
@@ -92,6 +90,7 @@
   position: absolute;
   bottom: -180px;
   right: -126px;
+  z-index: 0;
 }
 
 .rightPanel {
