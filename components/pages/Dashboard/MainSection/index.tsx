@@ -25,6 +25,7 @@ import { useViewport, namePublicFile } from 'utils'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import BannerImage from 'assets/images/alexander-ant.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
+import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
@@ -137,10 +138,19 @@ const MainSection = () => {
           width={1620}
           height={460}
           objectFit="cover"
-          className="rounded-[30px]"
+          className="rounded-[15px] lg:rounded-[30px]"
         />
-        <div className="absolute bottom-7 right-7 cursor-pointer z-20">
-          <IconButton icon={CameraWhiteIcon} onClick={() => inputFile.current.click()} backgroundColor="transparent" />
+        <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
+          <IconButton
+            icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
+            onClick={() => inputFile.current.click()}
+            backgroundColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#378287' : 'transparent'}
+            borderRadius="100%"
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+            iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+            iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+          />
           <input
             type="file"
             id="file"
@@ -158,6 +168,14 @@ const MainSection = () => {
               image={profileImage.length > 0 ? profileImage : AvatarImage}
               artistName={profileName.length > 0 ? profileName : 'Username'}
             />
+            <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
+              <AddressButton
+                label={shortAddress}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
+              />
+            </div>
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton
                 label={shortAddress}
@@ -191,23 +209,22 @@ const MainSection = () => {
                   onClick={() => window.open(telegramUrl)}
                 />
               </div>
-              <div>
-                <SocialButton
-                  icon={SettingWhiteIcon}
-                  iconHover={SettingGreenIcon}
-                  onClick={() => router.push('/settings')}
-                />
-              </div>
             </div>
           </div>
           <div className="col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center lg:mt-[16px]">
-              <AddressButton
-                label={shortAddress}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-              />
+              <div>
+                <IconButton
+                  icon={SettingWhiteIcon}
+                  iconHover={SettingGreenIcon}
+                  onClick={() => router.push('/settings')}
+                  backgroundColor="transparent"
+                  borderColor="#ECEEF4"
+                  width="32px"
+                  height="32px"
+                  borderRadius="6px"
+                />
+              </div>
             </div>
             <div className="hidden lg:flex gap-[10px]">
               <div>
@@ -238,10 +255,12 @@ const MainSection = () => {
                 />
               </div>
               <div>
-                <SocialButton
+                <IconButton
                   icon={SettingWhiteIcon}
                   iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
+                  backgroundColor="transparent"
+                  borderColor="#ECEEF4"
                 />
               </div>
             </div>
