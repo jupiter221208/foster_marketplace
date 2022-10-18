@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-// third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
+// next components
+import { useRouter } from 'next/router'
 
 // components
 import Pagination from 'components/Button/Pagination'
@@ -17,9 +12,6 @@ import LoadingModal from 'components/Modal/LoadingModal'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import MyNFTList from 'assets/json/dashboard/my-nft-list.json'
-
 // styles
 import styles from './index.module.scss'
 
@@ -29,6 +21,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const ListedNFTSection = () => {
   const viewport = useViewport()
+
+  const router = useRouter()
 
   const [myNFTftList, setMyNFTList] = useState<any[]>([])
 
@@ -66,17 +60,26 @@ const ListedNFTSection = () => {
     }
   }
 
+  const handleGotoDetailPage = (data: any) => {
+    localStorage.setItem('selectedNFT', JSON.stringify(data))
+    router.push('/browse-nft')
+  }
+
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
+        {nftList.map((item, index) => (
+          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <ListedNFTCard
+              data={item}
+              onClick={(data: any) => handleGotoDetailPage(data)}
+              onUpdateClick={item => handleSelectData(item)}
+            />
+          </div>
+        ))}
         <div className="col-span-12">
           <LoadingModal open={isLoading} />
         </div>
-        {nftList.map((item, index) => (
-          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-            <ListedNFTCard data={item} onClick={item => handleSelectData(item)} />
-          </div>
-        ))}
       </div>
       <div className="w-full flex justify-end">
         <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} />

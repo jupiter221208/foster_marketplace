@@ -87,7 +87,7 @@ const MyNFTSection = () => {
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <MyNFTCard
               data={item}
-              onClick={/*(data: any) => handleGotoDetailPage(data)*/ () => {}}
+              onClick={(data: any) => handleGotoDetailPage(data)}
               onClickStartAuction={item => handleStartAuction(item)}
               onClickListNFT={item => handleListNFT(item)}
             />
