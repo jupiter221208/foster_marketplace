@@ -71,7 +71,8 @@ import styles from './index.module.scss'
 import { Url } from 'url'
 
 // solana
-import { getListedNFTByAddresss, buyNFT } from 'utils/auction.util'
+import { buyNFT } from 'utils/auction.util'
+import { getNFTDetailsByAddress } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getShortAddress } from 'utils/strings'
 
@@ -143,15 +144,6 @@ const MainSection = () => {
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
 
-  useEffect(() => {
-    if (openProgressingModal) {
-      setTimeout(() => {
-        setOpenProgressingModal(false)
-        setShowAlert(true)
-      }, 5000)
-    }
-  }, [openProgressingModal])
-
   const [openOfferModal, setOpenOfferModal] = useState(false)
 
   const [alertData, setAlertData] = useState<any[]>([])
@@ -184,8 +176,7 @@ const MainSection = () => {
   const { metaplex: mx } = useMetaplex()
 
   const setListedNFT = async (mx, id) => {
-    const nft = await getListedNFTByAddresss(mx, id.toString())
-    
+    const nft = await getNFTDetailsByAddress(mx, id.toString())
     if (nft.asset.json.category === 'image') {
       setNftType('image')
       setNftUrl(nft.asset.json.image)
@@ -203,11 +194,17 @@ const MainSection = () => {
     }
     setNftName(nft.asset.json.name)
     setNftDescription(nft.asset.json.description)
-    setNftPrice((nft.price.basisPoints.toNumber() * 0.000000001))
+    if(nft.price) {
+      setNftPrice(nft.price?.basisPoints.toNumber() * 0.000000001)
+    }
     setNftCreator(getShortAddress(nft.asset.creators[0].address.toBase58()))
-    setNftSeller(getShortAddress(nft.sellerAddress.toBase58()))
+    if(nft.sellerAddress) {
+      setNftSeller(getShortAddress(nft.sellerAddress?.toBase58()))
+    }
     setMintAddress(nft.asset.address.toBase58())
-    setTradeStateAddress(nft.tradeStateAddress.toBase58())
+    if(nft.tradeStateAddress) {
+      setTradeStateAddress(nft.tradeStateAddress?.toBase58())
+    }
   }
   const [nftCategories, setNftCategories] = useState([])
 

@@ -33,7 +33,7 @@ const ListNFTModal = props => {
   const { metaplex: mx } = useMetaplex();
 
   const handleListNFTClick = async () => {
-    const result = await listNFT(mx, data.mint, price);
+    const result = await listNFT(mx, data.mintAddress, price);
     if(result) setListStatus(true);
   }
 
@@ -71,10 +71,10 @@ const ListNFTModal = props => {
                   <div className={styles.title}>List NFT</div>
                   <div className="w-full max-w-[321px] mt-10 flex justify-center">
                     <div className={styles.image}>
-                      <img src={data?.image} alt={data?.name} />
+                      <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name || data?.name} />
                     </div>
                   </div>
-                  <div className={`${styles.nftName} mt-5`}>{data?.name}</div>
+                  <div className={`${styles.nftName} mt-5`}>{data?.offchainMetadata.name || data?.name}</div>
                   <div className="w-full mt-12">
                     <PriceInput
                       value={price}
@@ -99,7 +99,7 @@ const ListNFTModal = props => {
                   </div>
                   <div className="w-full">
                     <div className={styles.image}>
-                      <img src={data?.image} alt={data?.name} />
+                      <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name || data?.name} />
                     </div>
                   </div>
                   <div className="mt-5">

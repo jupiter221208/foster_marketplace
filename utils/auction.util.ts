@@ -146,18 +146,6 @@ export async function getMyListedNFTs(mx: Metaplex) {
   }
 }
 
-export async function getListedNFTByAddresss(mx: Metaplex, id: string) {
-  const auctionHouse = await getAuctionHouse(mx)
-
-  const nft = await mx
-    .auctions()
-    .for(auctionHouse)
-    .findListingByAddress(new PublicKey(id))
-    .run();
-
-  return nft
-}
-
 export async function cancelList(mx: Metaplex, id: string) {
   try {
     const auctionHouse = await getAuctionHouse(mx)

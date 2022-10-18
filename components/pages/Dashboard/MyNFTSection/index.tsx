@@ -20,6 +20,8 @@ import { getTokensByAccount } from 'utils/wallet.util'
 
 // styles
 import styles from './index.module.scss'
+import { getMyNFTs } from 'utils/nfts.utils'
+import { useMetaplex } from 'hooks/useMetaplex'
 
 const MyNFTSection = () => {
   const router = useRouter()
@@ -30,19 +32,18 @@ const MyNFTSection = () => {
 
   const [myNFTftList, setMyNFTList] = useState<any[]>([])
 
+  const { metaplex: mx } = useMetaplex();
+
+  const loadMyNFTs = async () => {
+    dispatch({ type: 'set', isLoading: true })
+    let nfts = await getMyNFTs(mx)
+    setMyNFTList(nfts)
+    dispatch({ type: 'set', isLoading: false })
+  }
+
   useEffect(() => {
-    async function loadMyNFTs() {
-      if (!connection || !publicKey) {
-        setMyNFTList([])
-        return
-      }
-      dispatch({ type: 'set', isLoading: true })
-      let nfts = await getTokensByAccount(publicKey, connection)
-      setMyNFTList(nfts)
-      dispatch({ type: 'set', isLoading: false })
-    }
-    loadMyNFTs()
-  }, [connection, publicKey])
+    if(mx && connection && publicKey) loadMyNFTs()
+  }, [mx, connection, publicKey])
 
   const [nftList, setNFTList] = useState([])
 
@@ -107,7 +108,10 @@ const MyNFTSection = () => {
         onClick={() => handleProgressAuction()}
       />
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
-      <ListNFTModal data={selectedData} open={showListNFTModal} onClose={() => setShowListNFTModal(false)} />
+      <ListNFTModal data={selectedData} open={showListNFTModal} onClose={() => {
+        setShowListNFTModal(false)
+        loadMyNFTs()
+      }} />
     </section>
   )
 }

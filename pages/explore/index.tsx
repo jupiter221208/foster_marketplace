@@ -195,7 +195,7 @@ const Explore = () => {
                         image={item.asset.json.image}
                         nftName={item.asset.json.name}
                         artistName={item.asset.creators[0].address.toString()}
-                        onClick={() => router.push(`/browse-nft?id=${item.tradeStateAddress.toString()}`)}
+                        onClick={() => router.push(`/browse-nft?id=${item.asset.address.toString()}`)}
                         price={getPriceValue(item.price.basisPoints)}
                       />
                     </div>

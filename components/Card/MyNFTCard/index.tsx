@@ -12,6 +12,7 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
+import { getShortAddress } from 'utils/strings'
 
 const MyNFTCard = props => {
   const { data, onClick, onClickStartAuction, onClickListNFT } = props
@@ -20,17 +21,17 @@ const MyNFTCard = props => {
     <div className={styles.container} onClick={() => onClick(data)}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]">
         <img
-          src={data.image === undefined || data.image === null ? AudioPlayerBackground.src : data.image}
-          alt={data.name}
+          src={data.offchainMetadata.image === undefined || data.offchainMetadata.image === null ? AudioPlayerBackground.src : data.offchainMetadata.image}
+          alt={data.offchainMetadata.name || data.name}
           className="w-full aspect-[321/321] object-cover"
         />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.name}</div>
+          <div className={styles.nftName}>{data.offchainMetadata.name || data.name}</div>
         </div>
         <div className="w-full flex items-center">
-          <div className={styles.artistName}>{data.artist || 'No Artist'}</div>
+          <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
           <GradientButton
