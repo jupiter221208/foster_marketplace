@@ -20,3 +20,7 @@ export const getPercentValue = value => {
 
   return string
 }
+
+export const getPriceValue = price => {
+  return (price.toNumber() * 0.000000001).toFixed(2)
+}

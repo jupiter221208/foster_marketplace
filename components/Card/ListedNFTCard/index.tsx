@@ -14,7 +14,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
-import { getShortAddress } from 'utils/strings'
+import { getShortAddress, getPriceValue } from 'utils/strings'
 
 const ListedNFTCard = props => {
   const { data, onClick } = props
@@ -33,7 +33,7 @@ const ListedNFTCard = props => {
           <div className={styles.artistName}>{getShortAddress(data.asset.creators[0].address.toString())}</div>
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{(data.price.basisPoints.toNumber() * 0.000000001).toFixed(2)}</div>
+            <div className={styles.nftName}>{getPriceValue(data.price.basisPoints)}</div>
           </div>
         </div>
         <div className="mt-[7px] w-full">
@@ -74,7 +74,7 @@ const ListedNFTCard = props => {
           />
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{(data.price.basisPoints.toNumber() * 0.000000001).toFixed(2)}</div>
+            <div className={styles.nftName}>{getPriceValue(data.price.basisPoints)}</div>
           </div>
         </div>
       </div>

@@ -30,7 +30,6 @@ const ListingReceiptPosition = {
   Metadata: 8 + 32 + 32 + 32 + 32,
 };
 
-//@ts-ignore
 const filters: any = [
   {
     memcmp: {
@@ -97,7 +96,7 @@ export async function getListedNFTsFromAccounts(
 
   for (let i = 0; i < accounts.length; i++) {
     const tradeState = new PublicKey(
-      /*@ts-ignore*/
+      /*@ts-ignore to use slice function in Buffer*/
       accounts[i].account.data.slice(ListingReceiptPosition.TradeState, ListingReceiptPosition.BookKeeper)
     );
     try {
@@ -135,7 +134,7 @@ export async function getListedNFTs(mx: Metaplex) {
 export async function getMyListedNFTs(mx: Metaplex) {
   try {
     const accounts = await (await getProgramAccounts(mx)).filter(account => {
-      /*@ts-ignore*/
+      /*@ts-ignore to use slice function in Buffer*/
       const seller = new PublicKey(account.account.data.slice(ListingReceiptPosition.Seller, ListingReceiptPosition.Metadata))
       return seller.toBase58() === mx.identity().publicKey.toBase58()
     })
@@ -183,8 +182,6 @@ export async function cancelList(mx: Metaplex, id: string) {
 }
 
 export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddress: string, price: number) {
-
-  console.log(mintAddress, price, "mintaddress price");
   const auctionHouse = await mx
     .auctions()
     .findAuctionHouseByAddress(new PublicKey(AUCTION_HOUSE_PUBLIC_KEY))
@@ -199,7 +196,7 @@ export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddres
       )
       .run()
 
-    const { bid, buyerTradeState, receipt } = await mx
+    const { bid } = await mx
       .auctions()
       .for(auctionHouse)
       .bid({
@@ -219,7 +216,7 @@ export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddres
         .for(auctionHouse)
         .executeSale({ bid, listing })
         .run();
-      console.log(tx, "purchase txsig");
+
       return true
     }
   } catch (error) {

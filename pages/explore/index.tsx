@@ -47,6 +47,7 @@ import styles from './index.module.scss'
 // solana
 import { getListedNFTs } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
+import { getPriceValue } from 'utils/strings'
 
 const Explore = () => {
   const router = useRouter()
@@ -195,7 +196,7 @@ const Explore = () => {
                         nftName={item.asset.json.name}
                         artistName={item.asset.creators[0].address.toString()}
                         onClick={() => router.push(`/browse-nft?id=${item.tradeStateAddress.toString()}`)}
-                        price={(item.price.basisPoints.toNumber() * 0.000000001).toFixed(2)}
+                        price={getPriceValue(item.price.basisPoints)}
                       />
                     </div>
                   ))}
