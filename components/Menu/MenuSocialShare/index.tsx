@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react'
-
+import {
+  FacebookShareButton,
+  FacebookShareCount
+} from "react-share";
 // next components
 import Image from 'next/image'
 
@@ -52,12 +55,24 @@ const MenuSocialShare = props => {
                 </div>
               )}
             </Menu.Item>
+
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => onClick()}>
-                  <Image src={FacebookWhiteIcon} alt="" />
-                  Share on Facebook
-                </div>
+                <FacebookShareButton
+                  url={"http://github.com"}
+                  quote={"Share foster NFT"}
+                  beforeOnClick={() => {
+                    console.log('=========before click==========')
+                  }}
+                  onShareWindowClose={() => {
+                    console.log('=========share==========')
+                  }}
+                  >
+                  <div className={styles.menuItem} onClick={() => onClick()}>
+                    <Image src={FacebookWhiteIcon} alt="" />
+                    Share on Facebook
+                  </div>
+                </FacebookShareButton>
               )}
             </Menu.Item>
             <Menu.Item>
