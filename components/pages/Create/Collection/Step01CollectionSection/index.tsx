@@ -340,9 +340,9 @@ const Step01CollectionSection = props => {
                   <div />
                   {disabledNextButton ? (
                     <Button
-                      width={viewport === '2xl' ? 124 : 117}
+                      width={viewport === '2xl' ? 184 : 175}
                       height={viewport === '2xl' ? 53 : 46}
-                      label="Next Step"
+                      label="Create Collection"
                       disabled={disabledNextButton}
                       backgroundColor="#888A8E"
                     />
