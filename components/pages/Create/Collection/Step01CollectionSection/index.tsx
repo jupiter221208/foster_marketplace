@@ -159,8 +159,8 @@ const Step01CollectionSection = props => {
       count <= 3 &&
       bannerImage !== undefined &&
       coverImage !== undefined &&
-      royalties > 0 &&
-      royalties <= 20
+      royalties >= 0 &&
+      royalties <= 10
     ) {
       setDisabledNextButton(false)
     } else {
@@ -325,7 +325,7 @@ const Step01CollectionSection = props => {
                     <Input
                       value={royalties}
                       placeholder="Insert a royalty percentage"
-                      label="From 1 to 20%"
+                      label="From 0 to 10%"
                       type="number"
                       onChange={value => onChangeRoyalties(value)}
                     />
@@ -497,7 +497,7 @@ const Step01CollectionSection = props => {
               <Input
                 value={royalties}
                 placeholder="Insert a royalty percentage"
-                label="From 1 to 20%"
+                label="From 0 to 10%"
                 type="number"
                 onChange={value => onChangeRoyalties(value)}
               />

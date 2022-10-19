@@ -23,13 +23,13 @@ const Step03SingleNFTSection = props => {
         <Input
           value={royalties}
           placeholder="Insert a royalty percentage"
-          label="From 1 to 20%"
+          label="From 0 to 10%"
           type="number"
           onChange={value => setRoyalties(value)}
         />
       </div>
       <div className="w-full mt-16">
-        {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
+        {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
           <Button
             width={viewport === '2xl' ? 124 : 117}
             height={viewport === '2xl' ? 53 : 46}
@@ -49,13 +49,13 @@ const Step03SingleNFTSection = props => {
         <Input
           value={royalties}
           placeholder="Insert a royalty percentage"
-          label="From 1 to 20%"
+          label="From 0 to 10%"
           type="number"
           onChange={value => setRoyalties(value)}
         />
       </div>
       <div className="w-full mt-10">
-        {royalties === '' || parseInt(royalties) < 1 || parseInt(royalties) > 20 ? (
+        {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
           <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
         ) : (
           <GradientButton label="Mint NFT" onClick={createNft} fullWidth />
