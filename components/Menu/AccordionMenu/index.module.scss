@@ -10,7 +10,8 @@
   padding-left: 25px;
   padding-right: 25px;
   background-color: $background-dark-color;
-
+  border-color: rgba($background-light-color, 0.1);
+  border-width: 1px;
   &:hover {
     background-color: $brand-02-color;
   }

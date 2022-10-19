@@ -15,14 +15,14 @@ import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
 import AvatarIcon from 'assets/icons/profile-thumb.svg'
-import ExploreWhiteIcon from 'assets/icons/explore-white.svg'
-import PlusWhiteIcon from 'assets/icons/plus-white.svg'
-import WalletWhiteIcon from 'assets/icons/wallet-white.svg'
-import NotificationWhiteIcon from 'assets/icons/quick-buy-white.svg'
-import DaoWhiteIcon from 'assets/icons/dao-white.svg'
-import CollectionWhiteIcon from 'assets/icons/collection-white.svg'
-import StatisticWhiteIcon from 'assets/icons/statistic-white.svg'
-import ResourceWhiteIcon from 'assets/icons/resource-white.svg'
+import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
+import PlusWhiteIcon from 'assets/icons/plus-green.svg'
+import WalletWhiteIcon from 'assets/icons/wallet-green.svg'
+import NotificationWhiteIcon from 'assets/icons/quick-buy-green.svg'
+import DaoWhiteIcon from 'assets/icons/dao-green-menu.svg'
+import CollectionWhiteIcon from 'assets/icons/dashboard-green-menu.svg'
+import StatisticWhiteIcon from 'assets/icons/statistic-green-menu.svg'
+import ResourceWhiteIcon from 'assets/icons/resource-green-menu.svg'
 import LogoutDarkRedIcon from 'assets/icons/logout-dark-red.svg'
 
 // json data

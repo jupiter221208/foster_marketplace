@@ -483,14 +483,6 @@ const Step02CollectionSection = props => {
                 </div>
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-end">
-                  {/* <Button
-                    width={viewport === '2xl' ? 124 : 117}
-                    height={viewport === '2xl' ? 53 : 46}
-                    label="Back"
-                    onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                    backgroundColor="#378287"
-                    color="#EFF0F6"
-                  /> */}
                   <GradientButton
                     width={viewport === '2xl' ? 124 : 117}
                     height={viewport === '2xl' ? 53 : 46}
