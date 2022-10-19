@@ -6,6 +6,7 @@ import Image from 'next/image'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 import Cropper from 'react-easy-crop'
+import { Point, Area } from 'react-easy-crop/types'
 
 // custom components
 import IconButton from 'components/Button/IconButton'
@@ -29,23 +30,25 @@ const NftImageEditorModal = props => {
 
   useEffect(() => {
     if (nftImage !== undefined && nftImage !== null) {
-      setImage(URL.createObjectURL(nftImage[0]))
+      setTimeout(() => {
+        setImage(URL.createObjectURL(nftImage[0]))
+      }, 400)
     }
   }, [nftImage])
 
   const viewport = useViewport()
 
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
 
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  const onCropComplete = useCallback((croppedArea: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
   }, [])
 
   const showCroppedImage = useCallback(async () => {
     try {
-      const croppedImage: any = await getCroppedImg(image, croppedAreaPixels, 0)
+      const croppedImage: any = await getCroppedImg(image, croppedAreaPixels)
       getCroppedImage(croppedImage)
     } catch (e) {
       console.error(e)
@@ -92,7 +95,7 @@ const NftImageEditorModal = props => {
                   />
                 </div>
                 <div className={styles.cropContainer}>
-                  {nftImage !== undefined && (
+                  {image !== '' && (
                     <Cropper
                       image={image}
                       crop={crop}
