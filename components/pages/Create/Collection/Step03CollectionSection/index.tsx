@@ -27,6 +27,7 @@ import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const Step03CollectionSection = props => {
   const {
@@ -36,7 +37,7 @@ const Step03CollectionSection = props => {
     collectionFiles,
     bannerCroppedImage,
     readFilesAndUplaod,
-    uploadedCount
+    uploadedCount,
   } = props
 
   const viewport = useViewport()
@@ -244,13 +245,15 @@ const Step03CollectionSection = props => {
                             />
                           </div>
                         </div>
-                        {startUpload && <div className="absolute -right-20 top-10 w-10 h-10">
-                          {index < uploadedCount ? (
-                            <Lottie animationData={CheckLottery} loop={true} />
-                          ) : (
-                            <Lottie animationData={LoaderLottery} loop={true} />
-                          )}
-                        </div>}
+                        {startUpload && (
+                          <div className="absolute -right-20 top-10 w-10 h-10">
+                            {index < uploadedCount ? (
+                              <Lottie animationData={CheckLottery} loop={true} />
+                            ) : (
+                              <Lottie animationData={LoaderLottery} loop={true} />
+                            )}
+                          </div>
+                        )}
                       </div>
                     ))}
                   {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
@@ -355,13 +358,14 @@ const Step03CollectionSection = props => {
                 </div>
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-between">
-                  <Button
+                  <OutlineButton
                     label="Back"
                     onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                    backgroundColor="#378287"
-                    color="#EFF0F6"
                     width={viewport === '2xl' ? 124 : 117}
                     height={viewport === '2xl' ? 53 : 46}
+                    color="#EFF0F6"
+                    borderWidth={2}
+                    borderColor="#5AC3BA"
                   />
                   {disabledNextButton ? (
                     <Button
@@ -611,13 +615,14 @@ const Step03CollectionSection = props => {
             {/* button group part */}
             <div className="w-full grid grid-cols-2 gap-5">
               <div className="col-span-1">
-                <Button
+                <OutlineButton
                   label="Back"
                   onClick={() => handleChangeCurrentStep(currentStep - 1)}
                   fullWidth
                   height="45px"
-                  backgroundColor="#378287"
                   color="#EFF0F6"
+                  borderWidth={2}
+                  borderColor="#5AC3BA"
                 />
               </div>
               <div className="col-span-1">
