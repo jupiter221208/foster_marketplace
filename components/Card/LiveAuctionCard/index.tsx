@@ -52,7 +52,7 @@ const LiveAuctionCard = props => {
         <div className="w-full flex flex-wrap justify-between">
           <div>
             <div className={styles.bidName}>Current Bid</div>
-            <div className="flex justify-start mt-[4px] lg:mt-[6px]">
+            <div className={styles.bidCountContainer}>
               <Image
                 src={SolanaLogoIcon}
                 alt=""
@@ -61,12 +61,36 @@ const LiveAuctionCard = props => {
               />
               <div className={styles.bidCount}>{count}</div>
             </div>
+            <div className={styles.bidDesc}>Reserve Met</div>
           </div>
 
-          <div className="mt-[0px] lg:mt-[0px]">
-            <div className={styles.endsIn}>Ends in</div>
-            <div className={styles.endTime}>
-              <>{timeLeft}</>
+          <div>
+            <div className={styles.endsIn}>Time Remaining</div>
+            <div className="flex justify-center mt-[2px]">
+              <div>
+                <div className={styles.endTime}>
+                  <>{timeLeft['days']}</>
+                </div>
+                <div className={styles.bidDesc}>Day</div>
+              </div>
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  <>{timeLeft['hours']}</>
+                </div>
+                <div className={styles.bidDesc}>Hour</div>
+              </div>
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  <>{timeLeft['minutes']}</>
+                </div>
+                <div className={styles.bidDesc}>Min</div>
+              </div>
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  <>{timeLeft['seconds']}</>
+                </div>
+                <div className={styles.bidDesc}>Sec</div>
+              </div>
             </div>
           </div>
         </div>
