@@ -16,8 +16,8 @@ import IconButton from 'components/Button/IconButton'
 import AlertSuccessGreenIcon from 'assets/icons/alert-success-green.svg'
 import CloseBlackRedIcon from 'assets/icons/close-black-red.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
-import AlertMobileBackground from 'assets/icons/alert-mobile-background.svg'
 import LogoText from 'assets/icons/logo-text-01.svg'
 
 // styles
@@ -139,6 +139,21 @@ const Alert = props => {
                           {item.type.slice(1)}
                         </div>
                         <div className={styles.mobileDescription}>{item.description}</div>
+                        {item.item && (
+                          <div className="w-full flex justify-between">
+                            <div className={styles.mobileGreenText}>Item:</div>
+                            <div className={`${styles.mobileDescription} opacity-80`}>{item.item}</div>
+                          </div>
+                        )}
+                        {item.amount && (
+                          <div className="w-full flex justify-between">
+                            <div className={styles.mobileGreenText}>Amount:</div>
+                            <div className={`${styles.mobileDescription} flex gap-[10px] items-center opacity-80`}>
+                              <Image src={SolanaLogoIcon} alt="" />
+                              {item.amount}
+                            </div>
+                          </div>
+                        )}
                       </div>
                       <div className="w-full h-[66px] flex flex-wrap justify-center">
                         <div className={styles.mobileDivier} />
