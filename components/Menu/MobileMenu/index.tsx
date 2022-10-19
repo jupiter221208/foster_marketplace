@@ -23,7 +23,7 @@ import DaoWhiteIcon from 'assets/icons/dao-white.svg'
 import CollectionWhiteIcon from 'assets/icons/collection-white.svg'
 import StatisticWhiteIcon from 'assets/icons/statistic-white.svg'
 import ResourceWhiteIcon from 'assets/icons/resource-white.svg'
-import LogoutWhiteIcon from 'assets/icons/logout-white.svg'
+import LogoutDarkRedIcon from 'assets/icons/logout-dark-red.svg'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu.json'
@@ -161,7 +161,7 @@ const MobileMenu = () => {
             >
               <div>Logout part</div>
               <div className="flex items-center ml-2">
-                <Image src={LogoutWhiteIcon} alt="" />
+                <Image src={LogoutDarkRedIcon} alt="" />
               </div>
             </div>
           </div>
