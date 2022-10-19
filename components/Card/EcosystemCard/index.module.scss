@@ -67,7 +67,7 @@
 .contentCard {
   margin-top: 12px;
   width: 100%;
-  background-color: rgba($brand-02-color, 0.15);
+  background-color: rgba($background-dark-color, 0.8);
   border-radius: 10px;
   padding: 6px 9px;
   @media (min-width: 640px) {
@@ -172,5 +172,5 @@
   }
 
   letter-spacing: 0;
-  color: $brand-06-color;
+  color: $brand-01-color;
 }
