@@ -24,8 +24,9 @@ const OfferTable = props => {
     <table id="ActivityTable" className="w-full table-auto">
       <thead>
         <tr>
-          <th></th>
-          <th>Name</th>
+          <th>
+            <div className="text-start pl-[35px]">Name</div>
+          </th>
           <th>Offer</th>
           <th>Listing</th>
           <th>Time</th>
@@ -37,16 +38,16 @@ const OfferTable = props => {
       <tbody>
         {data.map((item, index) => (
           <tr key={index}>
-            <td className="h-[90px] flex justify-center items-center">
-              <Image
-                src={item.avatar}
-                alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                className="rounded-[15px]"
-              />
-            </td>
-            <td>
+            <td className="h-[90px] flex justify-start items-center gap-[25px]">
+              <div className="ml-[10px]">
+                <Image
+                  src={item.avatar}
+                  alt=""
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+                  className="rounded-[15px]"
+                />
+              </div>
               <div className="block">
                 <div className="flex justify-center">{item.name01}</div>
                 <div className="flex justify-center">{item.name02}</div>
