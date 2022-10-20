@@ -150,8 +150,7 @@ const TopRatedArtistsSection = () => {
                   image={item.profile_picture !== null ? item.profile_picture : Artist.src}
                   username={item.username}
                   onClick={() => {
-                    localStorage.setItem('selectedArtist', JSON.stringify(item))
-                    router.push('/artist-profile')
+                    router.push('/artist-profile?id=' + item.wallet_id)
                   }}
                   key={index}
                 />

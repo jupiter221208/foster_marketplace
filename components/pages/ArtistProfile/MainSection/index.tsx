@@ -74,18 +74,21 @@ const MainSection = () => {
   ]
 
   useEffect(() => {
-    if (localStorage.getItem('selectedArtist') !== undefined && localStorage.getItem('selectedArtist') !== null) {
-      let wallet_id = JSON.parse(localStorage.getItem('selectedArtist')).wallet_id
-      artistsAPI.getArtist(wallet_id).then(response => {
-        setArtistInfo(response)
-      }),
+    if (router.query.id !== undefined && router.query.id !== null) {
+      artistsAPI.getArtist(router.query.id).then(
+        response => {
+          if (response !== undefined && response !== null) {
+            setArtistInfo(response)
+          }
+        },
         error => {
           console.log(error)
         }
+      )
     } else {
       router.push('/')
     }
-  }, [])
+  }, [router.query])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
