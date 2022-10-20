@@ -95,7 +95,11 @@ const MainSection = () => {
     <div className={styles.container}>
       <div className={styles.headerImage}>
         <img
-          src={artistInfo.banner_picture !== undefined ? artistInfo.banner_picture : HeaderImage.src}
+          src={
+            artistInfo.banner_picture !== undefined && artistInfo.banner_picture !== null
+              ? artistInfo.banner_picture
+              : HeaderImage.src
+          }
           alt=""
           className="rounded-[20px]"
         />
@@ -125,7 +129,11 @@ const MainSection = () => {
           </div>
           <div className="col-span-6">
             <ProfileArtistCard
-              image={artistInfo.profile_picture !== undefined ? artistInfo.profile_picture : AvatarImage.src}
+              image={
+                artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
+                  ? artistInfo.profile_picture
+                  : AvatarImage.src
+              }
               name={artistInfo.username}
             />
             <div className="flex justify-center mt-[9px] lg:mt-[16px]">
@@ -150,7 +158,7 @@ const MainSection = () => {
               </div>
             )}
 
-            <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
+            <div className="flex lg:hidden w-full h-8 justify-center mt-[15px] gap-[10px]">
               {artistInfo.ig_url !== null && (
                 <div>
                   <SocialButton
@@ -190,7 +198,7 @@ const MainSection = () => {
             </div>
           </div>
           <div className="col-span-3 flex justify-end mt-[-80px]">
-            <div className="hidden lg:flex gap-[10px]">
+            <div className="hidden lg:flex gap-[10px] h-[46px]">
               {artistInfo.ig_url !== null && (
                 <div>
                   <SocialButton
