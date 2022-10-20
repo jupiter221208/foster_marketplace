@@ -28,8 +28,7 @@ const MenuSocialShare = props => {
   const router = useRouter()
   const { id } = router.query
   const { connection } = useConnection()
-  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id), [id, connection])
-  const [open, setOpen] = useState<boolean>(false)
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id.toString()), [id, connection])
 
   function shareNFTSocial(type) {
     nftsAPI.shareNft(type, id).then(
