@@ -32,7 +32,7 @@ const MyNFTSection = () => {
 
   const [myNFTftList, setMyNFTList] = useState<any[]>([])
 
-  const { metaplex: mx } = useMetaplex();
+  const { metaplex: mx } = useMetaplex()
 
   const loadMyNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
@@ -42,7 +42,7 @@ const MyNFTSection = () => {
   }
 
   useEffect(() => {
-    if(mx && connection && publicKey) loadMyNFTs()
+    if (mx && connection && publicKey) loadMyNFTs()
   }, [mx, connection, publicKey])
 
   const [nftList, setNFTList] = useState([])
@@ -54,7 +54,7 @@ const MyNFTSection = () => {
   const [selectedData, setSelectedData] = useState()
 
   const handleGotoDetailPage = (data: any) => {
-    router.push(`/browse-nft?id=${data.mintAddress.toString()}`)
+    router.push(`/browse-nft?id=${data.mintAddress.toString()}&type=general`)
   }
 
   const handleStartAuction = item => {
@@ -107,10 +107,14 @@ const MyNFTSection = () => {
         onClick={() => handleProgressAuction()}
       />
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
-      <ListNFTModal data={selectedData} open={showListNFTModal} onClose={() => {
-        setShowListNFTModal(false)
-        loadMyNFTs()
-      }} />
+      <ListNFTModal
+        data={selectedData}
+        open={showListNFTModal}
+        onClose={() => {
+          setShowListNFTModal(false)
+          loadMyNFTs()
+        }}
+      />
     </section>
   )
 }

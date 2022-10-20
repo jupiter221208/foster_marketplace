@@ -72,7 +72,7 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT } from 'utils/auction.util'
-import { getNFTDetailsByAddress } from 'utils/nfts.utils'
+import { getNFTDetailsByAddress, getGeneralNFTDetails } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getShortAddress } from 'utils/strings'
 
@@ -176,12 +176,15 @@ const MainSection = () => {
   const [nftCategories, setNftCategories] = useState([])
 
   let isRunning = false
-  const { id } = router.query
+  const { id, type } = router.query
 
   const { metaplex: mx } = useMetaplex()
 
   const setListedNFT = async (mx, id) => {
-    const nft = await getNFTDetailsByAddress(mx, id.toString())
+    let nft: any
+    if (type && type === 'general') nft = await getGeneralNFTDetails(mx, id.toString())
+    else nft = await getNFTDetailsByAddress(mx, id.toString())
+
     if (nft.asset.json.category === 'image') {
       setNftType('image')
       setNftUrl(nft.asset.json.image)

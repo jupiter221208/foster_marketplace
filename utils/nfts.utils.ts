@@ -35,9 +35,23 @@ export async function getMyNFTs(mx: Metaplex) {
 }
 
 export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
-  // const listedNFTs = await (await getListedNFTs(mx)).filter(nft => nft.asset.address.toString() === id)
+  const listedNFTs = await (await getListedNFTs(mx)).filter(nft => nft.asset.address.toString() === id)
 
-  // if(listedNFTs.length <= 0) {
+  if (listedNFTs.length <= 0) {
+    const nft = await mx
+      .nfts()
+      .findByMint({ mintAddress: new PublicKey(id) })
+      .run()
+
+    return {
+      asset: nft,
+    }
+  }
+
+  return listedNFTs[0]
+}
+
+export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
   const nft = await mx
     .nfts()
     .findByMint({ mintAddress: new PublicKey(id) })
@@ -46,7 +60,4 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
   return {
     asset: nft,
   }
-  // }
-
-  // return listedNFTs[0]
 }
