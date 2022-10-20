@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
-
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -17,28 +15,42 @@ import 'swiper/css/navigation'
 // components
 import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
-import TrendingArtistCard from 'components/Card/TrendingArtistCard'
+import ArtistCard from 'components/Card/ArtistCard'
 
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import TrendingArtistList from 'assets/json/trending-artist.json'
+// images and icons
+import Artist from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
+
+// call api
+import dashboardAPI from 'apis/dashboard'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [trendingList, setTrendingList] = useState<any[]>([])
+  const [allArtistsList, setAllArtistsList] = useState<any[]>([])
+  const [artistsList, setArtistsList] = useState<any[]>([])
 
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    setTrendingList(TrendingArtistList)
+    dashboardAPI.getTopRatedArtists().then(
+      response => {
+        if (response !== undefined && response !== null) {
+          setAllArtistsList(response)
+          setArtistsList(response)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }, [])
 
   const handleChangeActive = value => {
@@ -46,16 +58,16 @@ const TopRatedArtistsSection = () => {
 
     switch (value) {
       case 0:
-        setTrendingList(TrendingArtistList.slice(0, 5))
+        setArtistsList(allArtistsList.slice(0, 5))
         break
       case 1:
-        setTrendingList(TrendingArtistList.slice(0, 10))
+        setArtistsList(allArtistsList.slice(0, 10))
         break
       case 2:
-        setTrendingList(TrendingArtistList.slice(0, 15))
+        setArtistsList(allArtistsList.slice(0, 15))
         break
       default:
-        setTrendingList(TrendingArtistList)
+        setArtistsList(allArtistsList)
         break
     }
   }
@@ -131,14 +143,12 @@ const TopRatedArtistsSection = () => {
             disableOnInteraction: false,
           }}
         >
-          {trendingList.length !== 0 &&
-            trendingList.map((item: any, index) => (
+          {artistsList.length !== 0 &&
+            artistsList.map((item: any, index) => (
               <SwiperSlide key={index}>
-                <TrendingArtistCard
-                  image={item.image}
-                  name={item.name}
-                  nfts={item.nfts}
-                  collections={item.collections}
+                <ArtistCard
+                  image={item.profile_picture !== null ? item.profile_picture : Artist.src}
+                  username={item.username}
                   onClick={() => router.push('/artist-profile')}
                   key={index}
                 />
