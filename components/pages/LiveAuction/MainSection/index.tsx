@@ -168,6 +168,7 @@ const MainSection = () => {
                     <div className={styles.text}>{like ? 255 : 254}</div>
                   </div>
                   <MenuSocialShare
+                    address=""
                     icon01={EmailWhiteIcon}
                     icon02={EmailGreenIcon}
                     vote={share}

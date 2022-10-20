@@ -391,6 +391,7 @@ const MainSection = () => {
                     <div className={styles.text}>{likeCount}</div>
                   </div>
                   <MenuSocialShare
+                    address={id}
                     icon01={EmailWhiteIcon}
                     icon02={EmailGreenIcon}
                     vote={share}

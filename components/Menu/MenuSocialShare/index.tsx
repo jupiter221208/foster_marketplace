@@ -24,11 +24,11 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const MenuSocialShare = props => {
-  const { icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
+  const { address, icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
   const router = useRouter()
   const { id } = router.query
   const { connection } = useConnection()
-  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id.toString()), [id, connection])
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
 
   function shareNFTSocial(type) {
     nftsAPI.shareNft(type, id).then(
