@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
 
 // custom components
@@ -28,7 +27,6 @@ import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import IGWhiteIcon from 'assets/icons/instagram-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import EllipseGroupWhite from 'assets/icons/ellipse-group-white.svg'
 import IGHoverIcon from 'assets/icons/instagram-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
@@ -38,13 +36,14 @@ import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 import styles from './index.module.scss'
 import { Url } from 'url'
 
+// call api
+import artistsAPI from 'apis/artists'
+
 const MainSection = () => {
   const viewport = useViewport()
 
-  const { publicKey } = useWallet()
-  const shortAddress = useMemo(() => getShortAddress(publicKey), [publicKey])
-
   const [follow, setFollow] = useState(false)
+  const [artistInfo, setArtistInfo] = useState<any>({})
 
   const router = useRouter()
   const categoryList = [
@@ -74,6 +73,20 @@ const MainSection = () => {
     },
   ]
 
+  useEffect(() => {
+    if (localStorage.getItem('selectedArtist') !== undefined && localStorage.getItem('selectedArtist') !== null) {
+      let wallet_id = JSON.parse(localStorage.getItem('selectedArtist')).wallet_id
+      artistsAPI.getArtist(wallet_id).then(response => {
+        setArtistInfo(response)
+      }),
+        error => {
+          console.log(error)
+        }
+    } else {
+      router.push('/')
+    }
+  }, [])
+
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
   }
@@ -81,7 +94,11 @@ const MainSection = () => {
   return (
     <div className={styles.container}>
       <div className={styles.headerImage}>
-        <Image src={HeaderImage} alt="" objectFit="cover" className="rounded-[20px]" />
+        <img
+          src={artistInfo.banner_picture !== undefined ? artistInfo.banner_picture : HeaderImage.src}
+          alt=""
+          className="rounded-[20px]"
+        />
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-60px] lg:mt-[-95px]">
@@ -107,13 +124,16 @@ const MainSection = () => {
             )}
           </div>
           <div className="col-span-6">
-            <ProfileArtistCard image={AvatarImage} name={'The Stars Collector'} />
+            <ProfileArtistCard
+              image={artistInfo.profile_picture !== undefined ? artistInfo.profile_picture : AvatarImage.src}
+              name={artistInfo.username}
+            />
             <div className="flex justify-center mt-[9px] lg:mt-[16px]">
               <AddressButton
-                label={shortAddress}
+                label={getShortAddress(artistInfo.wallet_id)}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
+                onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
               />
             </div>
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -131,66 +151,82 @@ const MainSection = () => {
             )}
 
             <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
-              <div>
-                <SocialButton
-                  icon={IGWhiteIcon}
-                  iconHover={IGHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={DiscordWhiteIcon}
-                  iconHover={DiscordHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TwitterWhiteIcon}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TelegramWhiteIcon}
-                  iconHover={TelegramHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
-                />
-              </div>
+              {artistInfo.ig_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={IGWhiteIcon}
+                    iconHover={IGHoverIcon}
+                    onClick={() => router.push(artistInfo.ig_url)}
+                  />
+                </div>
+              )}
+              {artistInfo.discord_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={DiscordWhiteIcon}
+                    iconHover={DiscordHoverIcon}
+                    onClick={() => router.push(artistInfo.discord_url)}
+                  />
+                </div>
+              )}
+              {artistInfo.twitter_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={TwitterWhiteIcon}
+                    iconHover={TwitterHoverIcon}
+                    onClick={() => router.push(artistInfo.twitter_url)}
+                  />
+                </div>
+              )}
+              {artistInfo.telegram_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={TelegramWhiteIcon}
+                    iconHover={TelegramHoverIcon}
+                    onClick={() => router.push(artistInfo.telegram_url)}
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="col-span-3 flex justify-end mt-[-80px]">
             <div className="hidden lg:flex gap-[10px]">
-              <div>
-                <SocialButton
-                  icon={IGWhiteIcon}
-                  iconHover={IGHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={DiscordWhiteIcon}
-                  iconHover={DiscordHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TwitterWhiteIcon}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_TWITTER_URL as unknown as Url)}
-                />
-              </div>
-              <div>
-                <SocialButton
-                  icon={TelegramWhiteIcon}
-                  iconHover={TelegramHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
-                />
-              </div>
+              {artistInfo.ig_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={IGWhiteIcon}
+                    iconHover={IGHoverIcon}
+                    onClick={() => router.push(artistInfo.ig_url)}
+                  />
+                </div>
+              )}
+              {artistInfo.discord_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={DiscordWhiteIcon}
+                    iconHover={DiscordHoverIcon}
+                    onClick={() => router.push(artistInfo.discord_url)}
+                  />
+                </div>
+              )}
+              {artistInfo.twitter_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={TwitterWhiteIcon}
+                    iconHover={TwitterHoverIcon}
+                    onClick={() => router.push(artistInfo.twitter_url)}
+                  />
+                </div>
+              )}
+              {artistInfo.telegram_url !== null && (
+                <div>
+                  <SocialButton
+                    icon={TelegramWhiteIcon}
+                    iconHover={TelegramHoverIcon}
+                    onClick={() => router.push(artistInfo.telegram_url)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -200,10 +236,7 @@ const MainSection = () => {
           }`}
         >
           <div className="max-w-[734px]">
-            <div className={styles.description}>
-              Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem lacus, ornare
-              non ante sed.
-            </div>
+            <div className={styles.description}>{artistInfo.bio}</div>
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">

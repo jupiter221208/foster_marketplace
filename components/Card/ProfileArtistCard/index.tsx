@@ -20,13 +20,11 @@ const ProfileArtistCard = props => {
     <div className={styles.container}>
       <div className={styles.avatarArea}>
         <div className={styles.avatar}>
-          <Image
+          <img
             src={image}
             alt=""
             width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
             height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            layout="responsive"
-            objectFit="cover"
             className="rounded-full"
           />
         </div>

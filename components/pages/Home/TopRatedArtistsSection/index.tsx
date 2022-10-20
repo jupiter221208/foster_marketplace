@@ -149,7 +149,10 @@ const TopRatedArtistsSection = () => {
                 <ArtistCard
                   image={item.profile_picture !== null ? item.profile_picture : Artist.src}
                   username={item.username}
-                  onClick={() => router.push('/artist-profile')}
+                  onClick={() => {
+                    localStorage.setItem('selectedArtist', JSON.stringify(item))
+                    router.push('/artist-profile')
+                  }}
                   key={index}
                 />
               </SwiperSlide>
