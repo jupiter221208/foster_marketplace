@@ -28,7 +28,7 @@ import TrendingArtistList from 'assets/json/trending-artist.json'
 // styles
 import styles from './index.module.scss'
 
-const TrendingArtistSection = () => {
+const TopRatedArtistsSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -161,4 +161,4 @@ const TrendingArtistSection = () => {
   )
 }
 
-export default TrendingArtistSection
+export default TopRatedArtistsSection

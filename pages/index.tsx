@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/Home/MainSection'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
-import TrendingArtistSection from 'components/pages/Home/TrendingArtistSection'
+import TopRatedArtistsSection from 'components/pages/Home/TopRatedArtistsSection'
 import MostPopularSection from 'components/pages/Home/MostPopularSection'
 import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
 import FreshMintSection from 'components/pages/Home/FreshMintSection'
@@ -23,7 +23,7 @@ const Home = () => {
 
       <MainSection />
       <PopularCategorySection type="home" />
-      <TrendingArtistSection />
+      <TopRatedArtistsSection />
       <TrendingCollectionSection />
       <MostPopularSection />
       <MarketplaceReleaseSection />
