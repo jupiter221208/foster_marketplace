@@ -7,9 +7,9 @@ export async function getMyNFTs(mx: Metaplex) {
 
   const listedNFTs = await getMyListedNFTs(mx)
 
-  /* @ts-ignore to get mintAddress*/
   nfts = nfts.filter(
     nft =>
+      /* @ts-ignore to get mintAddress*/
       !listedNFTs.some(listedNFT => listedNFT.asset.address.toString() === nft.mintAddress.toString()) &&
       !nft.collectionDetails
   )
