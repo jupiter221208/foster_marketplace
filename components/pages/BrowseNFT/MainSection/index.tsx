@@ -82,6 +82,7 @@ const MainSection = () => {
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
+  const [openSocial, setOpenSocial] = useState<boolean>(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
   const [share, setShare] = useState<boolean>(false)
@@ -174,6 +175,7 @@ const MainSection = () => {
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [nftCategories, setNftCategories] = useState([])
 
+  let isRunning = false
   const { id } = router.query
 
   const { metaplex: mx } = useMetaplex()
@@ -238,9 +240,14 @@ const MainSection = () => {
       nftsAPI.get(id).then(
         response => {
           if (response !== null) {
-            setLikeCount(response.likes)
-            setShareCount(response.shares)
-            setSaveCount(response.saves)
+            setLikeCount(response.likes >= 0 ? response.likes : 0)
+            setShareCount(response.shares >= 0 ? response.shares : 0)
+            setSaveCount(response.saves >= 0 ? response.saves : 0)
+            setLike(response.liked)
+            setSave(response.saved)
+            let shared = response.shared
+            if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
+            else setShare(false)
           }
         },
         error => {
@@ -250,16 +257,23 @@ const MainSection = () => {
     }
   }, [id])
 
-  useEffect(() => {
-    if (like) {
+  function changeLikeStatus() {
+    if (isRunning) return
+
+    let newStatus = !like
+    isRunning = true
+
+    if (newStatus) {
       nftsAPI.likeNft(id).then(
         response => {
           if (response !== null) {
             setLikeCount(likeCount + 1)
+            setLike(newStatus)
           }
+          isRunning = false
         },
         error => {
-          console.log(error)
+          isRunning = false
         }
       )
     } else {
@@ -268,25 +282,34 @@ const MainSection = () => {
           console.log(response)
           if (response !== null) {
             setLikeCount(likeCount - 1)
+            setLike(newStatus)
           }
+          isRunning = false
         },
         error => {
-          console.log(error)
+          isRunning = false
         }
       )
     }
-  }, [like])
+  }
 
-  useEffect(() => {
-    if (save) {
+  function changeSaveStatus() {
+    if (isRunning) return
+
+    let newStatus = !save
+    isRunning = true
+
+    if (newStatus) {
       nftsAPI.saveNft(id).then(
         response => {
           if (response !== null) {
             setSaveCount(saveCount + 1)
+            setSave(newStatus)
           }
+          isRunning = false
         },
         error => {
-          console.log(error)
+          isRunning = true
         }
       )
     } else {
@@ -295,14 +318,16 @@ const MainSection = () => {
           console.log(response)
           if (response !== null) {
             setSaveCount(saveCount - 1)
+            setSave(newStatus)
           }
+          isRunning = false
         },
         error => {
-          console.log(error)
+          isRunning = true
         }
       )
     }
-  }, [save])
+  }
 
   return (
     <div className={styles.container}>
@@ -358,7 +383,7 @@ const MainSection = () => {
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
                 <div className={`${styles.greenTitle} hidden lg:flex`}>{nftName}</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
+                  <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                     <div className={styles.text}>{likeCount}</div>
                   </div>
@@ -366,10 +391,12 @@ const MainSection = () => {
                     icon01={EmailWhiteIcon}
                     icon02={EmailGreenIcon}
                     vote={share}
+                    setVote={setShare}
                     voteCount={shareCount}
-                    onClick={() => setShare(!share)}
+                    setVoteCount={setShareCount}
+                    onClick={() => {}}
                   />
-                  <div className="flex items-center cursor-pointer" onClick={() => setSave(!save)}>
+                  <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
                     <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                     <div className={styles.text}>{saveCount}</div>
                   </div>

@@ -34,7 +34,7 @@ class Nfts {
     })
   }
   shareNft(social_site, token_id) {
-    return client.post(API_URL + 'v1/nfts/save/' + social_site + '/' + token_id).then(response => {
+    return client.post(API_URL + 'v1/nfts/share/' + social_site + '/' + token_id).then(response => {
       return response.data
     })
   }

@@ -1,8 +1,6 @@
-import React, { Fragment } from 'react'
-import {
-  FacebookShareButton,
-  FacebookShareCount
-} from "react-share";
+import React, { Fragment, useMemo, useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { FacebookShareButton, TwitterShareButton, TelegramShareButton } from 'react-share'
 // next components
 import Image from 'next/image'
 
@@ -18,8 +16,34 @@ import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg'
 // styles
 import styles from './index.module.scss'
 
+// call api
+import nftsAPI from 'apis/nfts'
+
+// solana
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
+
 const MenuSocialShare = props => {
-  const { icon01, icon02, vote, voteCount, onClick } = props
+  const { icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
+  const router = useRouter()
+  const { id } = router.query
+  const { connection } = useConnection()
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id), [id, connection])
+  const [open, setOpen] = useState<boolean>(false)
+
+  function shareNFTSocial(type) {
+    nftsAPI.shareNft(type, id).then(
+      response => {
+        if (response !== null) {
+          setVoteCount(voteCount + 1)
+          setVote(true)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
   return (
     <div className="relative">
       <Menu>
@@ -29,6 +53,7 @@ const MenuSocialShare = props => {
             <div className={styles.text}>{voteCount}</div>
           </div>
         </Menu.Button>
+
         <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
@@ -41,7 +66,7 @@ const MenuSocialShare = props => {
           <Menu.Items className={styles.menuArea}>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => onClick()}>
+                <div className={styles.menuItem}>
                   <Image src={FileCopyIcon} alt="" />
                   Copy to Clipboard
                 </div>
@@ -49,26 +74,33 @@ const MenuSocialShare = props => {
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => onClick()}>
-                  <Image src={TwitterUnfilledWhiteIcon} alt="" />
-                  Share on Twitter
-                </div>
+                <TwitterShareButton
+                  url={explorerURL}
+                  title={'Share foster NFT'}
+                  beforeOnClick={() => {}}
+                  onShareWindowClose={() => {
+                    shareNFTSocial('twitter')
+                  }}
+                >
+                  <div className={styles.menuItem}>
+                    <Image src={TwitterUnfilledWhiteIcon} alt="" />
+                    Share on Twitter
+                  </div>
+                </TwitterShareButton>
               )}
             </Menu.Item>
 
             <Menu.Item>
               {({ active }) => (
                 <FacebookShareButton
-                  url={"http://github.com"}
-                  quote={"Share foster NFT"}
-                  beforeOnClick={() => {
-                    console.log('=========before click==========')
-                  }}
+                  url={explorerURL}
+                  quote={'Share foster NFT'}
+                  beforeOnClick={() => {}}
                   onShareWindowClose={() => {
-                    console.log('=========share==========')
+                    shareNFTSocial('facebook')
                   }}
-                  >
-                  <div className={styles.menuItem} onClick={() => onClick()}>
+                >
+                  <div className={styles.menuItem}>
                     <Image src={FacebookWhiteIcon} alt="" />
                     Share on Facebook
                   </div>
@@ -77,10 +109,19 @@ const MenuSocialShare = props => {
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => onClick()}>
-                  <Image src={TelegramWhiteIcon} alt="" />
-                  Share on Telegram
-                </div>
+                <TelegramShareButton
+                  url={explorerURL}
+                  title={'Share foster NFT'}
+                  beforeOnClick={() => {}}
+                  onShareWindowClose={() => {
+                    shareNFTSocial('telegram')
+                  }}
+                >
+                  <div className={styles.menuItem}>
+                    <Image src={TelegramWhiteIcon} alt="" />
+                    Share on Telegram
+                  </div>
+                </TelegramShareButton>
               )}
             </Menu.Item>
           </Menu.Items>

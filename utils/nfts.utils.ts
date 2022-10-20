@@ -1,17 +1,18 @@
-import { Metaplex, sol } from "@metaplex-foundation/js";
-import { PublicKey } from "@solana/web3.js";
-import { getListedNFTs, getMyListedNFTs } from "./auction.util";
+import { Metaplex, sol } from '@metaplex-foundation/js'
+import { PublicKey } from '@solana/web3.js'
+import { getListedNFTs, getMyListedNFTs } from './auction.util'
 
 export async function getMyNFTs(mx: Metaplex) {
-  var nfts = await mx
-    .nfts()
-    .findAllByOwner({ owner: mx.identity().publicKey })
-    .run()
-  
-  const listedNFTs = await getMyListedNFTs(mx);
+  var nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
+
+  const listedNFTs = await getMyListedNFTs(mx)
 
   /* @ts-ignore to get mintAddress*/
-  nfts = nfts.filter(nft => !listedNFTs.some(listedNFT => listedNFT.asset.address.toString() === nft.mintAddress.toString()) && !nft.collectionDetails)
+  nfts = nfts.filter(
+    nft =>
+      !listedNFTs.some(listedNFT => listedNFT.asset.address.toString() === nft.mintAddress.toString()) &&
+      !nft.collectionDetails
+  )
 
   const myNFTs = (
     await Promise.all(
@@ -21,7 +22,7 @@ export async function getMyNFTs(mx: Metaplex) {
         try {
           item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
         } catch (e) {
-          console.log("failed to pull off chain metadata for collection")
+          console.log('failed to pull off chain metadata for collection')
           console.log(e)
         }
 
@@ -34,18 +35,18 @@ export async function getMyNFTs(mx: Metaplex) {
 }
 
 export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
-  const listedNFTs = await (await getListedNFTs(mx)).filter(nft => nft.asset.address.toString() === id)
+  // const listedNFTs = await (await getListedNFTs(mx)).filter(nft => nft.asset.address.toString() === id)
 
-  if(listedNFTs.length <= 0) {
-    const nft = await mx
-      .nfts()
-      .findByMint({ mintAddress: new PublicKey(id) })
-      .run()
+  // if(listedNFTs.length <= 0) {
+  const nft = await mx
+    .nfts()
+    .findByMint({ mintAddress: new PublicKey(id) })
+    .run()
 
-    return {
-      asset: nft
-    }
+  return {
+    asset: nft,
   }
+  // }
 
-  return listedNFTs[0]
+  // return listedNFTs[0]
 }
