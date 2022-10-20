@@ -85,7 +85,9 @@ const MainSection = () => {
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
   const [share, setShare] = useState<boolean>(false)
-  const [favorite, setFavorite] = useState<boolean>(false)
+  const [shareCount, setShareCount] = useState(0)
+  const [save, setSave] = useState<boolean>(false)
+  const [saveCount, setSaveCount] = useState(0)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -170,6 +172,7 @@ const MainSection = () => {
   const [nftSeller, setNftSeller] = useState('')
   const [mintAddress, setMintAddress] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
+  const [nftCategories, setNftCategories] = useState([])
 
   const { id } = router.query
 
@@ -182,11 +185,21 @@ const MainSection = () => {
       setNftUrl(nft.asset.json.image)
     } else if (nft.asset.json.category === 'audio') {
       setNftType(nft.asset.json.category)
-      setNftUrl(nft.asset.json.properties?.files.filter(file => file.type.split('/')[0] === "audio").map(file => file.url)[0].toString())
+      setNftUrl(
+        nft.asset.json.properties?.files
+          .filter(file => file.type.split('/')[0] === 'audio')
+          .map(file => file.url)[0]
+          .toString()
+      )
       setNftCoverUrl(nft.asset.json.image ? nft.asset.json.image : '')
     } else if (nft.asset.json.category === 'video') {
       setNftType(nft.asset.json.category)
-      setNftUrl(nft.asset.json.properties?.files.filter(file => file.type.split('/')[0] === "audio").map(file => file.url)[0].toString())
+      setNftUrl(
+        nft.asset.json.properties?.files
+          .filter(file => file.type.split('/')[0] === 'audio')
+          .map(file => file.url)[0]
+          .toString()
+      )
       setNftCoverUrl(nft.asset.json.image ? nft.asset.json.image : '')
     } else {
       setNftType('image')
@@ -194,80 +207,40 @@ const MainSection = () => {
     }
     setNftName(nft.asset.json.name)
     setNftDescription(nft.asset.json.description)
-    if(nft.price) {
+    if (nft.price) {
       setNftPrice(nft.price?.basisPoints.toNumber() * 0.000000001)
     }
     setNftCreator(getShortAddress(nft.asset.creators[0].address.toBase58()))
-    if(nft.sellerAddress) {
+    if (nft.sellerAddress) {
       setNftSeller(getShortAddress(nft.sellerAddress?.toBase58()))
     }
     setMintAddress(nft.asset.address.toBase58())
-    if(nft.tradeStateAddress) {
+    if (nft.tradeStateAddress) {
       setTradeStateAddress(nft.tradeStateAddress?.toBase58())
     }
   }
-  const [nftCategories, setNftCategories] = useState([])
-
-  // useEffect(() => {
-  //   const nftArtId: any = router.query.id
-  //   switch (nftArtId) {
-  //     case '1':
-  //       setNftUrl(Avatar01.src)
-  //       break
-  //     case '2':
-  //       setNftUrl(Avatar02.src)
-  //       break
-  //     case '3':
-  //       setNftUrl(Avatar03.src)
-  //       break
-  //     case '4':
-  //       setNftUrl(Avatar04.src)
-  //       break
-  //     case '5':
-  //       setNftUrl(Avatar05.src)
-  //       break
-  //     case '6':
-  //       setNftType('audio')
-  //       break
-  //     default:
-  //       let nftInfo = JSON.parse(localStorage.getItem('selectedNFT'))
-  //       if (nftInfo.category === 'image') {
-  //         setNftType('image')
-  //         setNftUrl(nftInfo.image)
-  //       } else if (nftInfo.category === 'audio' || nftInfo.category === 'video') {
-  //         setNftType(nftInfo.category)
-  //         setNftUrl(nftInfo.properties.files[0].url)
-  //         setNftCoverUrl(nftInfo.image ? nftInfo.image : '')
-  //       } else {
-  //         setNftType('image')
-  //         setNftUrl(nftInfo.image)
-  //       }
-  //       setNftName(nftInfo.name)
-  //       setNftDescription(nftInfo.description)
-  //       setNftCategories(nftInfo.attributes)
-  //       break
-    
-    
 
   useEffect(() => {
-    if(mx && id) setListedNFT(mx, id)
+    if (mx && id) setListedNFT(mx, id)
   }, [mx, id])
 
   const quickBuy = async () => {
     setOpenProgressingModal(true)
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
-    if(result) {
+    if (result) {
       setOpenProgressingModal(false)
       setShowAlert(true)
     }
   }
 
   useEffect(() => {
-    if (tokenAddresss !== '') {
-      nftsAPI.get(tokenAddresss).then(
+    if (id !== '') {
+      nftsAPI.get(id).then(
         response => {
           if (response !== null) {
             setLikeCount(response.likes)
+            setShareCount(response.shares)
+            setSaveCount(response.saves)
           }
         },
         error => {
@@ -275,14 +248,26 @@ const MainSection = () => {
         }
       )
     }
-  }, [tokenAddresss])
+  }, [id])
 
   useEffect(() => {
     if (like) {
-      nftsAPI.likeNft(tokenAddresss).then(
+      nftsAPI.likeNft(id).then(
         response => {
           if (response !== null) {
-            console.log(response)
+            setLikeCount(likeCount + 1)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    } else {
+      nftsAPI.unlikeNft(id).then(
+        response => {
+          console.log(response)
+          if (response !== null) {
+            setLikeCount(likeCount - 1)
           }
         },
         error => {
@@ -291,6 +276,33 @@ const MainSection = () => {
       )
     }
   }, [like])
+
+  useEffect(() => {
+    if (save) {
+      nftsAPI.saveNft(id).then(
+        response => {
+          if (response !== null) {
+            setSaveCount(saveCount + 1)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    } else {
+      nftsAPI.unsaveNft(id).then(
+        response => {
+          console.log(response)
+          if (response !== null) {
+            setSaveCount(saveCount - 1)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }, [save])
 
   return (
     <div className={styles.container}>
@@ -346,7 +358,7 @@ const MainSection = () => {
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
                 <div className={`${styles.greenTitle} hidden lg:flex`}>{nftName}</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex items-center cursor-pointer" onClick={() => setLike(true)}>
+                  <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                     <div className={styles.text}>{likeCount}</div>
                   </div>
@@ -354,12 +366,12 @@ const MainSection = () => {
                     icon01={EmailWhiteIcon}
                     icon02={EmailGreenIcon}
                     vote={share}
-                    voteCount={share ? 255 : 254}
+                    voteCount={shareCount}
                     onClick={() => setShare(!share)}
                   />
-                  <div className="flex items-center cursor-pointer" onClick={() => setFavorite(!favorite)}>
-                    <Image src={favorite ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{favorite ? 255 : 254}</div>
+                  <div className="flex items-center cursor-pointer" onClick={() => setSave(!save)}>
+                    <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                    <div className={styles.text}>{saveCount}</div>
                   </div>
                 </div>
                 <div className={`${styles.greenTitle} w-full flex lg:hidden`}>The GB Series</div>
@@ -391,12 +403,7 @@ const MainSection = () => {
                 <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
               </div>
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                <GradientButton
-                  label="Quick Buy"
-                  onClick={() => quickBuy()}
-                  icon={QuickBuyBlackIcon}
-                  direction="rtl"
-                />
+                <GradientButton label="Quick Buy" onClick={() => quickBuy()} icon={QuickBuyBlackIcon} direction="rtl" />
                 <OutlineButton
                   label="Make Offer"
                   onClick={() => setOpenOfferModal(true)}
@@ -454,9 +461,7 @@ const MainSection = () => {
                         }}
                       >
                         <div className="w-full flex flex-wrap flex-column space-between">
-                          <div className={styles.whiteDiscription}>
-                            {nftDescription}
-                          </div>
+                          <div className={styles.whiteDiscription}>{nftDescription}</div>
                           <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-5">
                             <OutlineButton
                               label="Abstract"
