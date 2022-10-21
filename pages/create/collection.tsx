@@ -238,9 +238,7 @@ const Collection = () => {
       nfts: array,
     }
     collectionsApi.mintCollection(collectionInfo).then(
-      response => {
-        console.log(response)
-      },
+      response => {},
       error => {
         console.log(error)
       }
