@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // custom components
 import GreenLineCard from 'components/Card/GreenLineCard'
@@ -8,11 +8,16 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
+// call api
+import notificationAPI from 'apis/notification'
+
 const NotificationSection = prop => {
   const { success } = prop
 
+  const [oldSettings, setOldSettings] = useState({})
+  const [enableSave, setEnableSavle] = useState(false)
   const [bidActivity, setBidActivity] = useState(false)
-  const [bidAccepted, setBidAccepted] = useState(true)
+  const [bidAccepted, setBidAccepted] = useState(false)
   const [successfulSale, setSuccessfulSale] = useState(false)
   const [successfulPurchase, setSuccessfulPurchase] = useState(false)
   const [auctionOutbid, setAuctionOutbid] = useState(true)
@@ -20,6 +25,62 @@ const NotificationSection = prop => {
   const [auctionBid, setAuctionBid] = useState(false)
   const [auctionExpiration, setAuctionExpiration] = useState(false)
   const [fosterNewsletter, setFosterNewsletter] = useState(false)
+
+  useEffect(() => {
+    notificationAPI.getNotifications().then(
+      response => {
+        if (response !== null) {
+          const settings = response.notification_settings
+          setBidActivity(settings.notify_on_offer)
+          setBidAccepted(settings.notify_on_bid)
+          setSuccessfulSale(settings.notify_on_sale)
+          setSuccessfulPurchase(settings.notify_on_purchase)
+          setOldSettings(settings)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    if (!oldSettings) return
+    if (
+      oldSettings['notify_on_offer'] !== bidActivity ||
+      oldSettings['notify_on_bid'] !== bidAccepted ||
+      oldSettings['notify_on_sale'] !== successfulSale ||
+      oldSettings['notify_on_purchase'] !== successfulPurchase
+    ) {
+      setEnableSavle(true)
+      return
+    }
+
+    setEnableSavle(false)
+  }, [bidActivity, bidAccepted, successfulSale, successfulPurchase])
+
+  const handleSaveNotification = () => {
+    if (!oldSettings) return
+
+    const newSettings = { ...oldSettings }
+    newSettings['notify_on_offer'] = bidActivity
+    newSettings['notify_on_bid'] = bidAccepted
+    newSettings['notify_on_sale'] = successfulSale
+    newSettings['notify_on_purchase'] = successfulPurchase
+
+    notificationAPI.updateNotificationSettings(newSettings).then(
+      response => {
+        if (response !== null) {
+          setOldSettings({ ...newSettings })
+          success()
+          setEnableSavle(false)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 
   return (
     <div className={styles.container}>
@@ -94,12 +155,15 @@ const NotificationSection = prop => {
             <GradientButton
               label="Save"
               onClick={() => {
-                success()
+                if (enableSave) {
+                  handleSaveNotification()
+                }
               }}
               height="53px"
               paddingLeft="41px"
               paddingRight="41px"
               fontSize="18px"
+              opacity={enableSave ? 1.0 : 0.7}
             />
           </div>
         </div>
