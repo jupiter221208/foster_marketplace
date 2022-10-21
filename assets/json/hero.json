@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "image": "/images/hero.png",
+    "image": "/images/banner.png",
     "title": "Foster the Flavor",
     "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 1",
@@ -11,7 +11,7 @@
   },
   {
     "id": 1,
-    "image": "/images/hero.png",
+    "image": "/images/banner.png",
     "title": "Foster the Flavor",
     "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 2",
@@ -21,7 +21,7 @@
   },
   {
     "id": 2,
-    "image": "/images/hero.png",
+    "image": "/images/banner.png",
     "title": "Foster the Flavor",
     "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 3",
@@ -31,7 +31,7 @@
   },
   {
     "id": 3,
-    "image": "/images/hero.png",
+    "image": "/images/banner.png",
     "title": "Foster the Flavor",
     "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 4",
@@ -41,7 +41,7 @@
   },
   {
     "id": 4,
-    "image": "/images/hero.png",
+    "image": "/images/banner.png",
     "title": "Foster the Flavor",
     "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 5",
