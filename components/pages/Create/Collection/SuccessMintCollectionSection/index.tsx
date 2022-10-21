@@ -26,14 +26,17 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const SuccessMintCollectionSection = props => {
-  const { coverCroppedImage, bannerCroppedImage, collectionNft, reset } = props
+  const { coverCroppedImage, bannerCroppedImage, collectionNft } = props
 
   const router = useRouter()
 
   const viewport = useViewport()
 
   const { connection } = useConnection()
-  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, collectionNft.mintAddress.toBase58()), [collectionNft, connection])
+  const explorerURL = useMemo(
+    () => getExplorerUrl(connection.rpcEndpoint, collectionNft.mintAddress.toBase58()),
+    [collectionNft, connection]
+  )
 
   return (
     <div className="w-full">
@@ -100,7 +103,7 @@ const SuccessMintCollectionSection = props => {
               </div>
             </div>
             <div className="mt-[44px]">
-              <LinkTextButton label="View on Solscan" link={explorerURL}/>
+              <LinkTextButton label="View on Solscan" link={explorerURL} />
             </div>
           </div>
         </div>

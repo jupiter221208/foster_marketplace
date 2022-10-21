@@ -145,7 +145,7 @@ const Collection = () => {
 
   const [artworks, setArtworks] = useState<any[]>([])
 
-  const [uploadedCount, setUploadedCount] = useState(0);
+  const [uploadedCount, setUploadedCount] = useState(0)
 
   const readFilesAndUplaod = async () => {
     var readCount = 0
@@ -211,22 +211,6 @@ const Collection = () => {
     setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
   }
 
-  const reset = () => {
-    setCurrentStep(1)
-    setCollectionName('')
-    setDescription('')
-    const categories = categoryList.map(item => {
-      item.checked = false
-      return item
-    })
-    setCategoryList(categories)
-    setDimension(CollectionDimensionList[0])
-    setRoyalties(0)
-    setCollectionFiles([])
-    setCollectionNft(undefined)
-    setUploadedCount(0)
-  }
-
   return (
     <div className="w-full">
       <Head>
@@ -284,11 +268,10 @@ const Collection = () => {
           />
         )}
         {currentStep === 4 && (
-          <SuccessMintCollectionSection 
-            coverCroppedImage={coverCroppedImage} 
+          <SuccessMintCollectionSection
+            coverCroppedImage={coverCroppedImage}
             bannerCroppedImage={bannerCroppedImage}
-            collectionNft={collectionNft} 
-            reset={reset}
+            collectionNft={collectionNft}
           />
         )}
       </div>
