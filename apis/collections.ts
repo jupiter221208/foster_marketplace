@@ -3,8 +3,20 @@ import client from './client'
 const API_URL = process.env.BACKEND_URL
 
 class Collections {
-  create(collectionInfo) {
+  mintCollection(collectionInfo) {
     return client.post(API_URL + 'v1/collections', collectionInfo).then(response => {
+      return response.data
+    })
+  }
+
+  getCollection(collection_id) {
+    return client.get(API_URL + 'v1/collections/' + collection_id).then(response => {
+      return response.data
+    })
+  }
+
+  likeCollection(collection_id) {
+    return client.post(API_URL + 'v1/collections/like/' + collection_id).then(response => {
       return response.data
     })
   }
