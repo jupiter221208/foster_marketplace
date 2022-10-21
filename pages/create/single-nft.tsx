@@ -324,7 +324,7 @@ const SingleNft = () => {
         }
 
         if (nftType === 'image') {
-          metadata.image = toMetaplexFile(nftImage, 'metaplex.png')
+          metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
           metadata.category = 'image'
           await uploadNft(metadata)
         } else {
