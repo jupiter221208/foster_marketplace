@@ -18,6 +18,10 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@metaplex-foundation/js'
 
+// call apis
+import axios from 'axios'
+import collectionsApi from 'apis/collections'
+
 const Collection = () => {
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -28,12 +32,13 @@ const Collection = () => {
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')
   const [coverImage, setCoverImage] = useState<any>()
+  const [coverCroppedImage, setCoverCroppedImage] = useState<any>()
+  const [coverImageURL, setCoverImageURL] = useState('')
   const [bannerImage, setBannerImage] = useState<any>()
+  const [bannerCroppedImage, setBannerCroppedImage] = useState<any>()
+  const [bannerImageURL, setBannerImageURL] = useState('')
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [dimension, setDimension] = useState<any>(CollectionDimensionList[0])
-
-  const [coverCroppedImage, setCoverCroppedImage] = useState<any>()
-  const [bannerCroppedImage, setBannerCroppedImage] = useState<any>()
 
   useEffect(() => {
     let array: any[] = []
@@ -51,6 +56,8 @@ const Collection = () => {
 
   const mintCollection = async () => {
     var reader = new FileReader()
+    // it should be coverCroppedImage instead of coverImage
+    // banner image should be uploaded
     const fileData = new Blob([coverImage[0]])
     reader.readAsArrayBuffer(fileData)
     reader.onload = async function (event) {
@@ -71,6 +78,13 @@ const Collection = () => {
           image: toMetaplexFile(arrayBuffer, 'metaplex.png'),
         })
         .run()
+
+      const result = await axios.get(uri).then(response => {
+        return response.data
+      })
+      setCoverImageURL(result.image)
+      // Please update banner image url
+      setBannerImageURL(result.image)
 
       const collectionNft = await mx
         .nfts()
@@ -172,6 +186,12 @@ const Collection = () => {
     const attributes = categories.map(category => {
       return { trait_type: 'category', value: category.name }
     })
+    let array = []
+
+    let category = ''
+    categories.forEach(item => {
+      category += item.name + ','
+    })
 
     if (collectionNft) {
       for (var i = 0; i < artworks.length; i++) {
@@ -204,10 +224,27 @@ const Collection = () => {
           })
           .run()
 
+        array.push({ token_id: nft.mintAddress.toString(), nft_name: nft.nft.name, categories: category.slice(0, -1) })
         setUploadedCount(i + 1)
       }
     }
 
+    let collectionInfo = {
+      collection_id: collectionNft.mintAddress.toString(),
+      collection_name: collectionName,
+      banner_image: bannerImageURL,
+      cover_image: coverImageURL,
+      categories: category.slice(0, -1),
+      nfts: array,
+    }
+    collectionsApi.mintCollection(collectionInfo).then(
+      response => {
+        console.log(response)
+      },
+      error => {
+        console.log(error)
+      }
+    )
     setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
   }
 
