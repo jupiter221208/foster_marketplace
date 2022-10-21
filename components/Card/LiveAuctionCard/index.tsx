@@ -22,7 +22,7 @@ const LiveAuctionCard = props => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft(endsIn))
-    }, 1000)
+    }, 60000)
 
     return () => clearTimeout(timer)
   })
@@ -65,7 +65,7 @@ const LiveAuctionCard = props => {
           </div>
 
           <div>
-            <div className={styles.endsIn}>Time Remaining</div>
+            <div className={styles.endsIn}>Ends In</div>
             <div className="flex justify-center mt-[2px]">
               <div>
                 <div className={styles.endTime}>
@@ -84,12 +84,6 @@ const LiveAuctionCard = props => {
                   <>{timeLeft['minutes']}</>
                 </div>
                 <div className={styles.bidDesc}>Min</div>
-              </div>
-              <div className={styles.endTimeContainer}>
-                <div className={styles.endTime}>
-                  <>{timeLeft['seconds']}</>
-                </div>
-                <div className={styles.bidDesc}>Sec</div>
               </div>
             </div>
           </div>

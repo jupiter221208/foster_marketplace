@@ -88,7 +88,7 @@ const AuctionCard = () => {
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.whiteText}>Time Remaining</div>
+        <div className={styles.whiteText}>Ends In</div>
         <div className="flex justify-around gap-1">
           <div className="block justify-center">
             <div className={styles.greenText}>
