@@ -51,7 +51,7 @@ const MainSection = () => {
         <Image src={EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
       </div>
       <div className="w-full grid grid-cols-12 z-10 gap-8 items-center">
-        <div className="col-span-12 lg:col-span-7 xl:col-span-7">
+        <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
           <div className={styles.whiteTitle}>The Art of Blockchain</div>
           <div className={styles.heroTextContainer}>
             <div className={styles.greenTitle}>Foster the Flav</div>
@@ -120,13 +120,7 @@ const MainSection = () => {
             >
               {HeroList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <HeroCard
-                    image={item.image}
-                    nftName={item.nftName}
-                    collectionName={item.collectionName}
-                    avatar={item.avatar}
-                    artistName={item.artistName}
-                  />
+                  <HeroCard data={item} />
                 </SwiperSlide>
               ))}
             </Swiper>

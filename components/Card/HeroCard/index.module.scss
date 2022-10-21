@@ -4,26 +4,66 @@
   max-width: 550px;
   width: 100%;
   max-height: 772px;
-  height: 120px;
+  height: 304px;
   border-radius: 10px;
   @media (min-width: 640px) {
-    height: 160px;
+    height: 400px;
     border-radius: 10px;
   }
   @media (min-width: 768px) {
-    height: 200px;
+    height: 500px;
     border-radius: 10px;
   }
   @media (min-width: 1024px) {
     height: 100%;
     border-radius: 30px;
   }
-  background-color: $background-dark-color;
   position: relative;
   overflow: hidden;
 }
 
-.bottomSection {
+.topMask {
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 7px;
+  background: linear-gradient(to bottom, rgba(#121212, 35%), rgba(#121212, 0%));
+}
+
+.contentArea {
+  z-index: 2;
+  position: absolute;
+  top: 26px;
+  @media (min-width: 640px) {
+    top: 50px;
+  }
+  @media (min-width: 768px) {
+    top: 80px;
+  }
+  left: 0;
+  right: 0;
+  display: block;
+  text-align: center;
+}
+
+.title {
+  font-family: 'KCDurhamBoxcar';
+  font-size: 61px;
+  line-height: 62px;
+  color: $text-gray-200-color;
+}
+
+.text {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.cardArea {
   position: absolute;
   bottom: 8px;
   left: 12px;
@@ -120,7 +160,6 @@
     height: 60px;
     border-radius: 30px;
   }
-  border: 1px solid $text-gray-200-color;
 }
 
 .artistName {

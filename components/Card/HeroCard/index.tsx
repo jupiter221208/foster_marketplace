@@ -10,52 +10,68 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const HeroCard = props => {
-  const { image, nftName, collectionName, avatar, artistName } = props
+  const { data } = props
   const viewport = useViewport()
 
   return (
     <div className={styles.container}>
+      <div className={styles.topMask} />
       <Image
-        src={image}
+        src={data.image}
         alt=""
-        width={viewport === 'sm' ? 343 : viewport === 'md' ? 400 : 550}
-        height={viewport === 'sm' ? 120 : viewport === 'md' ? 200 : 772}
+        width={550}
+        height={772}
         layout="responsive"
         objectFit="cover"
         className="rounded-[10px] lg:rounded-[30px]"
       />
       {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
-        <></>
-      ) : (
-        <div className={styles.bottomSection}>
-          <div className="flex justify-between">
-            <div className="w-full block">
-              <div className={styles.nftName}>{nftName}</div>
-              <div className={`w-full hidden lg:flex ${styles.collectionName}`}>{collectionName}</div>
+        <div className={styles.contentArea}>
+          <div className={styles.title}>{data.title}</div>
+          {data.text.map((item, index) => (
+            <div className={styles.text} key={index}>
+              {item}
             </div>
-            <div className="flex justify-start items-center lg:mt-[10px]">
-              <div className={styles.avatar}>
-                <Image
-                  src={avatar}
-                  alt=""
-                  width={viewport === 'lg' ? 40 : 60}
-                  height={viewport === 'lg' ? 40 : 60}
-                  layout="responsive"
-                  objectFit="cover"
-                  className="rounded-full"
-                />
-              </div>
-              {viewport === 'lg' ? (
-                <></>
-              ) : (
-                <div className="block ml-4">
-                  <div className={styles.artistName}>{artistName}</div>
-                </div>
-              )}
+          ))}
+        </div>
+      ) : (
+        <></>
+      )}
+      <div className={styles.cardArea}>
+        <div className="flex justify-between gap-[6px]">
+          <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">
+            <div className={styles.avatar}>
+              <Image
+                src={data.avatar}
+                alt=""
+                width={viewport === 'lg' ? 40 : 60}
+                height={viewport === 'lg' ? 40 : 60}
+                layout="responsive"
+                objectFit="cover"
+                className="rounded-full"
+              />
+            </div>
+          </div>
+          <div className="w-full block">
+            <div className={styles.nftName}>{data.nftName}</div>
+            <div className={`w-full hidden lg:flex ${styles.collectionName}`}>{data.collectionName}</div>
+            <div className={`flex lg:hidden ${styles.artistName}`}>{data.artistName}</div>
+          </div>
+          <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
+            <div className={styles.avatar}>
+              <Image
+                src={data.avatar}
+                alt=""
+                width={viewport === 'lg' ? 40 : 60}
+                height={viewport === 'lg' ? 40 : 60}
+                layout="responsive"
+                objectFit="cover"
+                className="rounded-full"
+              />
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
