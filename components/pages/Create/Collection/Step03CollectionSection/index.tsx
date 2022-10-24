@@ -346,13 +346,15 @@ const Step03CollectionSection = props => {
                             />
                           </div>
                         </div>
-                        <div className="absolute -right-20 top-10 w-10 h-10">
-                          {index < 2 ? (
-                            <Lottie animationData={CheckLottery} loop={true} />
-                          ) : (
-                            <Lottie animationData={LoaderLottery} loop={true} />
-                          )}
-                        </div>
+                        {startUpload && (
+                          <div className="absolute -right-20 top-10 w-10 h-10">
+                            {index < uploadedCount ? (
+                              <Lottie animationData={CheckLottery} loop={true} />
+                            ) : (
+                              <Lottie animationData={LoaderLottery} loop={true} />
+                            )}
+                          </div>
+                        )}
                       </div>
                     ))}
                 </div>
@@ -468,7 +470,7 @@ const Step03CollectionSection = props => {
                         />
                       </div>
                       <div className="w-10 h-10">
-                        {index < 2 ? (
+                        {startUpload && index < uploadedCount ? (
                           <Lottie animationData={CheckLottery} loop={true} />
                         ) : (
                           <Lottie animationData={LoaderLottery} loop={true} />
@@ -559,7 +561,7 @@ const Step03CollectionSection = props => {
                         />
                       </div>
                       <div className="w-10 h-10">
-                        {index < 2 ? (
+                        {startUpload && index < uploadedCount ? (
                           <Lottie animationData={CheckLottery} loop={true} />
                         ) : (
                           <Lottie animationData={LoaderLottery} loop={true} />
