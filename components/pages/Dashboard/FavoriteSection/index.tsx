@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -18,6 +18,9 @@ import CollectionList from 'assets/json/dashboard/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
+// call api
+import getMyFavoritesAPI from 'apis/nfts'
+
 const FavoriteSection = () => {
   const router = useRouter()
 
@@ -30,6 +33,17 @@ const FavoriteSection = () => {
   const handleChangeActive = value => {
     setActive(value)
   }
+
+  useEffect(() => {
+    getMyFavoritesAPI.getMyFavorites().then(
+      response => {
+        console.log(response)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
 
   return (
     <section className={styles.container}>
