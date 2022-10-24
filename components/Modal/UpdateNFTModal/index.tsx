@@ -18,7 +18,7 @@ import CloseIcon from 'assets/icons/close-wallet.svg'
 import styles from './index.module.scss'
 
 const UpdateNFTModal = props => {
-  const { data, open, onClose, onCancelList } = props
+  const { data, open, onClose, onCancelList, onUpdatePrice } = props
 
   const closeModal = () => {
     onClose()
@@ -72,13 +72,13 @@ const UpdateNFTModal = props => {
                   />
                 </div>
                 <div className="w-full mt-[30px]">
-                  <GradientButton label="Update Price" fullWidth onClick={() => closeModal()} />
+                  <GradientButton label="Update Price" fullWidth onClick={() => onUpdatePrice(data?.asset.mint.address, data?.tradeStateAddress, price)} />
                 </div>
                 <div className="w-full mt-[30px]">
                   <Button
                     label="Cancel Listing"
                     fullWidth
-                    onClick={() => onCancelList(data?.tradeStateAddress.toString())}
+                    onClick={() => onCancelList(data?.tradeStateAddress)}
                     backgroundColor="#202427"
                     color="#EFF0F6"
                   />

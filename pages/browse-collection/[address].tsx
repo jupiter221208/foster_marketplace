@@ -15,7 +15,7 @@ import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 
 // solana
-import { PublicKey } from '@solana/web3.js'
+import { getCollectionByAddress } from 'utils/collection.util'
 
 // redux
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -35,36 +35,12 @@ const BrowseCollection = () => {
   useEffect(() => {
     const getCollection = async () => {
       dispatch({ type: 'set', isLoading: true })
-      try {
-        const nft = await mx.nfts().findByMint({
-          mintAddress: new PublicKey(address)
-        }).run()
-        const offchainMetadata = await fetch(nft.uri).then(r => r.json())
-        var collection = { ...nft, offchainMetadata, nfts: [] }
-  
-        const nfts = (await mx.nfts().findAllByCreator({
-          creator: collection.creators[0].address
-        }).run()).filter(nft => nft.collection?.verified && nft.collection?.address.toBase58() === address)
-    
-        collection.nfts = (
-          await Promise.all(
-            nfts.map(async nft => {
-              var item = { ...nft, offchainMetadata: null }
-              item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
-              return item
-            })
-          )
-        ).filter(nft => nft.offchainMetadata)
-  
-        setCollection(collection)
-      } catch(e) {
-        console.log('failed to get collection')
-        console.log(e)
-      }
+      const collection = await getCollectionByAddress(mx, address.toString())
+      setCollection(collection)
       dispatch({ type: 'set', isLoading: false })
     }
-    if (address) getCollection()
-  }, [address])
+    if (mx && address) getCollection()
+  }, [mx, address])
   
   return (
     <div className="g-container">

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -13,9 +13,11 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // styles
 import styles from './index.module.scss'
+import { getShortAddress } from 'utils/wallet.util'
+import { getPriceValue, timeSince } from 'utils/strings'
 
 const OfferAccordion = props => {
-  const { data, updateDataAction } = props
+  const { data, onCancel, onAccept } = props
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const clickRecent = index => {
@@ -47,12 +49,12 @@ const OfferAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.avatar} alt="" width={52} height={52} className="rounded-[4px]" />
+                      <Image src={item.asset.json.image} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
 
                     <div className="block">
-                      <div className={styles.subTitle}>{item.name01}</div>
-                      <div className={styles.subTitle}>{item.name02}</div>
+                      <div className={styles.subTitle}>{item.asset.json.name}</div>
+                      <div className={styles.subTitle}>{getShortAddress(item.asset.mint.address.toString())}</div>
                     </div>
                   </div>
 
@@ -62,39 +64,45 @@ const OfferAccordion = props => {
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
+                  {item.isIncoming && 
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Offer</div>
-                    <div className={styles.text}>{item.offer}</div>
-                  </div>
+                    {item.isOutgoing ? 
+                      <div className={styles.text}>Outgoing</div> : 
+                      <div className={styles.text}>Incoming</div>
+                    }
+                  </div>}
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Listing</div>
-                    <div className={styles.text}>{item.listing}</div>
+                    {item.isListed ? 
+                      <div className={styles.text}>Listed</div> :
+                      <div className={styles.text}>Unlisted</div>
+                    }
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Time</div>
-                    <div className={styles.text}>{item.time}</div>
+                    <div className={styles.text}>{timeSince(item.createdAt.toNumber())}</div>                  
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
-                    <div className={styles.text}>{item.amount}</div>
+                    <div className={styles.text}>{getPriceValue(item.price.basisPoints.toNumber())}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Member</div>
-                    <div className={styles.text}>
-                      {item.member.length > 11 ? item.member.slice(0, 5) + '...' + item.member.slice(-3) : item.member}
-                    </div>
+                    {item.isOutgoing ? 
+                      <div className={styles.text}>{getShortAddress(item.owner)}</div> : 
+                      <div className={styles.text}>{getShortAddress(item.buyer)}</div>
+                    }
                   </div>
                 </Disclosure.Panel>
               </>
             )}
           </Disclosure>
           <div className="absolute top-[16px] right-[50px]">
-            {item.action === 'cancel' ? (
+            {item.isOutgoing ? (
               <OutlineButton
                 label="Cancel"
-                onClick={() => {
-                  updateDataAction(index, 'accept')
-                }}
+                onClick={() => onCancel(item.tradeStateAddress)}
                 color="#DEEFD0"
                 borderColor="#DEEFD0"
                 width="80px"
@@ -103,9 +111,7 @@ const OfferAccordion = props => {
             ) : (
               <GradientButton
                 label="Accept"
-                onClick={() => {
-                  updateDataAction(index, 'cancel')
-                }}
+                onClick={onAccept(item.tradeStateAddress, item.listingTradeStateAddress)}
                 width="80px"
                 height="42px"
               />

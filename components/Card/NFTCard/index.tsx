@@ -12,10 +12,10 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 
-import { getShortAddress } from 'utils/strings'
+import { getPriceValue, getShortAddress } from 'utils/strings'
 
 const DashboardNFTCard = props => {
-  const { image, nftName, artistName, price, showCount = true, onClick } = props
+  const { image, nftName, artistName, price, onClick } = props
   const viewport = useViewport()
 
   return (
@@ -29,7 +29,7 @@ const DashboardNFTCard = props => {
         </div>
         <div className="w-full flex justify-between items-center">
           <div className={styles.artistName}>{getShortAddress(artistName)}</div>
-          {showCount ? (
+          {price &&
             <div className="flex justify-center items-center">
               <Image
                 src={SolanaLogoIcon}
@@ -37,11 +37,9 @@ const DashboardNFTCard = props => {
                 width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                 height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
               />
-              <div className={styles.price}>{price}</div>
+              <div className={styles.price}>{getPriceValue(price)}</div>
             </div>
-          ) : (
-            <></>
-          )}
+          }
         </div>
       </div>
     </div>

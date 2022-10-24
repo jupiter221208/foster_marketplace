@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -11,17 +11,20 @@ import GradientButton from 'components/Button/GradientButton'
 // json
 
 const MakeAnOfferModal = props => {
-  const { open, close, onClick } = props
+  const { open, close, onClick, listingPrice, mainWalletBalance } = props
 
-  const [listingPrice, setListingPrice] = useState<any>(189)
   const [minimumOffer, setMinimumOffer] = useState<any>(0)
   const [newMainBalance, setNewMainBalance] = useState<any>(0)
   const [newBiddingBalance, setNewBiddingBalance] = useState<any>(0)
   const [minimumOffer50, setMinimumOffer50] = useState<any>(94.5)
-  const [mainWalletBalance, setMainWalletBalance] = useState<any>(100)
   const [biddingWalletBalance, setBiddingWalletBalance] = useState<any>(0)
   const [errorMessage, setErrorMessage] = useState<any>('')
   const [offerBtnDisabled, setOfferBtnDisabled] = useState<any>(true)
+
+  useEffect(() => {
+    setMinimumOffer50(listingPrice / 2)
+    setNewMainBalance(mainWalletBalance)
+  }, [listingPrice, mainWalletBalance])
 
   const onChangeOfferValue = value => {
     setMinimumOffer(value)
@@ -109,7 +112,7 @@ const MakeAnOfferModal = props => {
                         label="Make Offer"
                         fullWidth
                         disabled={offerBtnDisabled}
-                        onClick={() => onClick()}
+                        onClick={() => onClick(minimumOffer)}
                         height="50px"
                         fontSize="16px"
                       />

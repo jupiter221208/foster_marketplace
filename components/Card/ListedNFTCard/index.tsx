@@ -22,7 +22,7 @@ const ListedNFTCard = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
-      <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick()}>
+      <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data)}>
         <Image src={data.asset.json.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">

@@ -2,6 +2,17 @@ import { Metaplex, sol } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
 
+export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
+  /* @ts-ignore to get mintAddress*/
+  const largestAccounts = await mx.connection.getTokenLargestAccounts(new PublicKey(mintAddress))
+  const largestAccountInfo = await mx.connection.getParsedAccountInfo(
+    largestAccounts.value[0].address
+  );
+
+  /* @ts-ignore to get Parsed Account Info*/
+ return largestAccountInfo.value.data.parsed.info.owner
+}
+
 export async function getMyNFTs(mx: Metaplex) {
   var nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
 
@@ -37,6 +48,8 @@ export async function getMyNFTs(mx: Metaplex) {
 export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
   const listedNFTs = await (await getListedNFTs(mx)).filter(nft => nft.asset.address.toString() === id)
 
+  const owner = await getNFTOwner(mx, id)
+
   if (listedNFTs.length <= 0) {
     const nft = await mx
       .nfts()
@@ -44,11 +57,20 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
       .run()
 
     return {
-      asset: nft,
+      asset: {
+        ...nft,
+        owner
+      },
     }
   }
 
-  return listedNFTs[0]
+  return {
+    ...listedNFTs[0],
+    asset: {
+      ...listedNFTs[0].asset,
+      owner
+    }
+  }
 }
 
 export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
@@ -56,8 +78,11 @@ export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
     .nfts()
     .findByMint({ mintAddress: new PublicKey(id) })
     .run()
-
+  const owner = await getNFTOwner(mx, id)
   return {
-    asset: nft,
+    asset: {
+      ...nft,
+      owner
+    },
   }
 }

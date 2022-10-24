@@ -15,7 +15,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
-import { getMyListedNFTs, cancelList } from 'utils/auction.util'
+import { getMyListedNFTs, cancelList, updateList } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -52,8 +52,16 @@ const ListedNFTSection = () => {
     if (mx) setMyListedNFTs()
   }, [mx])
 
-  const onCancelList = async id => {
-    const result = await cancelList(mx, id)
+  const onCancelList = async tradeStateAddress => {
+    const result = await cancelList(mx, tradeStateAddress)
+    if (result) {
+      setShowListNFTModal(false)
+      setMyListedNFTs()
+    }
+  }
+
+  const onUpdatePrice = async (nftAddress, tradeStateAddress, price) => {
+    const result = await updateList(mx, nftAddress, tradeStateAddress, price)
     if (result) {
       setShowListNFTModal(false)
       setMyListedNFTs()
@@ -61,14 +69,13 @@ const ListedNFTSection = () => {
   }
 
   const handleGotoDetailPage = (data: any) => {
-    localStorage.setItem('selectedNFT', JSON.stringify(data))
-    router.push('/browse-nft')
+    router.push(`/browse-nft?id=${data.asset.mint.address.toString()}`)
   }
 
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
-        {nftList.map((item, index) => (
+        {!isLoading && nftList.map((item, index) => (
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <ListedNFTCard
               data={item}
@@ -88,7 +95,8 @@ const ListedNFTSection = () => {
         data={selectedData}
         open={showListNFTModal}
         onClose={() => setShowListNFTModal(false)}
-        onCancelList={id => onCancelList(id)}
+        onCancelList={tradeStateAddress => onCancelList(tradeStateAddress)}
+        onUpdatePrice={(nftAddress, tradeStateAddress, price) => onUpdatePrice(nftAddress, tradeStateAddress, price)}
       />
     </section>
   )

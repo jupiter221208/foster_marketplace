@@ -15,9 +15,10 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
+import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 
 const OfferTable = props => {
-  const { data, updateDataAction } = props
+  const { data, onCancel, onAccept } = props
   const viewport = useViewport()
 
   return (
@@ -41,7 +42,7 @@ const OfferTable = props => {
             <td className="h-[90px] flex justify-start items-center gap-[25px]">
               <div className="ml-[10px]">
                 <Image
-                  src={item.avatar}
+                  src={item.asset.json.image}
                   alt=""
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
@@ -49,36 +50,44 @@ const OfferTable = props => {
                 />
               </div>
               <div className="block">
-                <div className="flex justify-center">{item.name01}</div>
-                <div className="flex justify-center">{item.name02}</div>
+                <div className="flex justify-center">{item.asset.json.name}</div>
+                <div className="flex justify-center">{getShortAddress(item.asset.mint.address.toString())}</div>
               </div>
             </td>
-            <td className="text-center">{item.offer}</td>
-            <td className="text-center">{item.listing}</td>
-            <td className="text-center">{item.time}</td>
+            {item.isOutgoing ? 
+              <td className="text-center">Outgoing</td> : 
+              <td className="text-center">Incoming</td>
+            }
+            {item.isListed ? 
+              <td className="text-center">Listed</td> :
+              <td className="text-center">Unlisted</td>
+            }
+            <td className="text-center">{timeSince(item.createdAt.toNumber())}</td>
             <td className="text-center">
               <div className="flex justify-center gap-[5px]">
                 <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                {item.amount}
+                {getPriceValue(item.price.basisPoints.toNumber())}
               </div>
             </td>
-            <td className="text-center">
-              {item.member.length > 11 ? item.member.slice(0, 5) + '...' + item.member.slice(-3) : item.member}
-            </td>
+            {item.isOutgoing ? 
+              <td className="text-center">{getShortAddress(item.owner)}</td> : 
+              <td className="text-center">{getShortAddress(item.buyer)}</td>
+            }
             <td className="">
               <div className="w-full flex justify-center">
-                {item.action === 'accept' && (
-                  <GradientButton label="Accept" onClick={() => updateDataAction(index, 'cancel')} height="48px" />
-                )}
-                {item.action === 'cancel' && (
+                {item.isOutgoing ?
                   <OutlineButton
                     label="Cancel"
-                    onClick={() => updateDataAction(index, 'accept')}
+                    onClick={() => onCancel(item.tradeStateAddress)}
                     color="#DEEFD0"
                     borderColor="#DEEFD0"
                     height="48px"
+                  /> : 
+                  <GradientButton 
+                    label="Accept" 
+                    onClick={() => onAccept(item.tradeStateAddress, item.listingTradeStateAddress)} height="48px" 
                   />
-                )}
+                }
               </div>
             </td>
           </tr>

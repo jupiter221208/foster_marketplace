@@ -22,5 +22,35 @@ export const getPercentValue = value => {
 }
 
 export const getPriceValue = price => {
+  if(typeof price === 'number') return (price * 0.000000001).toFixed(2)
   return (price.toNumber() * 0.000000001).toFixed(2)
+}
+
+export const timeSince = (date: number) => {
+
+  const now = new Date()
+  var seconds = Math.floor((now.getTime() - date * 1000) / 1000);
+
+  var interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + " years";
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " months ago";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + " days ago";
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return Math.floor(interval) + " hours ago";
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes ago";
+  }
+  return Math.floor(seconds) + " seconds ago";
 }

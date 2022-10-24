@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -29,12 +29,46 @@ import { Url } from 'url'
 import { useSelector } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
 
+import { getPriceValue } from 'utils/strings'
+
 const MainSection = ({ collection }) => {
-  const { creators, offchainMetadata, nfts } = collection
+  const { creators, json, nfts } = collection
 
   const router = useRouter()
 
   const isLoading = useSelector<any>(state => state.isLoading)
+
+  const items = useMemo(() => nfts?.length || 0, nfts)
+  
+  const owners = useMemo(() => {
+    var owners = [];
+    if(nfts)
+      nfts.forEach(nft => {
+        if(owners[nft.owner] === undefined) {
+          owners.push(nft.owner)
+        }
+      });
+    return owners.length
+  }, nfts)
+
+  const floorPrice = useMemo(() => {
+    var prices = [];
+    if(nfts)
+      nfts.forEach(nft => {
+        if(nft.price) prices.push(nft.price)
+      });
+    if(prices.length === 0) return 0
+    return Math.min.apply(Math, prices)
+  }, nfts)
+
+  const totalVolum = useMemo(() => {
+    var totalVolum = 0;
+    if(nfts)
+      nfts.forEach(nft => {
+        if(nft.price) totalVolum += nft.price
+      });
+    return totalVolum
+  }, nfts)
 
   return (
     <div className={styles.container}>
@@ -46,7 +80,7 @@ const MainSection = ({ collection }) => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
           <div className="col-span-6">
-            <BrowseArtistCard image={offchainMetadata?.image} collectionName={offchainMetadata?.name} artistName={creators} />
+            <BrowseArtistCard image={json?.image} collectionName={json?.name} artistName={creators} />
             <div className="col-span-12">
               <LoadingModal open={isLoading} />
             </div>
@@ -117,7 +151,7 @@ const MainSection = ({ collection }) => {
         <div className="flex justify-center w-full mt-[32px]">
           <div className="max-w-[734px]">
             <div className={styles.description}>
-              {offchainMetadata?.description}
+              {json?.description}
             </div>
           </div>
         </div>
@@ -126,13 +160,13 @@ const MainSection = ({ collection }) => {
             {!isLoading && <>
               <div className="col-span-3 flex justify-center items-center">
                 <div className="text-center">
-                  <div className={styles.nftInfoLabel}>{nfts?.length}</div>
+                  <div className={styles.nftInfoLabel}>{items}</div>
                   <div className={styles.nftInfoValue}>Items</div>
                 </div>
               </div>
               <div className="col-span-3 flex justify-center items-center">
                 <div className="text-center">
-                  <div className={styles.nftInfoLabel}>03</div>
+                  <div className={styles.nftInfoLabel}>{owners}</div>
                   <div className={styles.nftInfoValue}>Owners</div>
                 </div>
               </div>
@@ -140,7 +174,7 @@ const MainSection = ({ collection }) => {
                 <div className="text-center">
                   <div className="flex items-center justify-center">
                     <Image src={SolanaLogoIcon} alt="" />
-                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>8.6</div>
+                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(floorPrice)}</div>
                   </div>
                   <div className={styles.nftInfoValue}>Floor Price</div>
                 </div>
@@ -149,7 +183,7 @@ const MainSection = ({ collection }) => {
                 <div className="text-center">
                   <div className="flex items-center justify-center">
                     <Image src={SolanaSolLogoIcon} alt="" />
-                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>62.3</div>
+                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(totalVolum)}</div>
                   </div>
 
                   <div className={styles.nftInfoValue}>Total Volume</div>
@@ -160,7 +194,7 @@ const MainSection = ({ collection }) => {
         </div>
         <div className="flex justify-center mt-[30px]">
           <div className={styles.categoryList}>
-            {offchainMetadata?.attributes && offchainMetadata?.attributes.map((item, index) => (
+            {json?.attributes && json?.attributes.map((item, index) => (
               <div key={index}>
                   <CategoryChip data={item} />
               </div>

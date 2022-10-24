@@ -71,10 +71,11 @@ import styles from './index.module.scss'
 import { Url } from 'url'
 
 // solana
-import { buyNFT } from 'utils/auction.util'
+import { buyNFT, offerNFT } from 'utils/auction.util'
 import { getNFTDetailsByAddress, getGeneralNFTDetails } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { getShortAddress } from 'utils/strings'
+import { getPriceValue, getShortAddress } from 'utils/strings'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -170,15 +171,26 @@ const MainSection = () => {
   const [nftDescription, setNftDescription] = useState('')
   const [nftPrice, setNftPrice] = useState(0)
   const [nftCreator, setNftCreator] = useState('')
-  const [nftSeller, setNftSeller] = useState('')
+  const [nftOwner, setNftOwner] = useState('')
   const [mintAddress, setMintAddress] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [nftCategories, setNftCategories] = useState([])
+  const [mainWalletBalance, setMainWalletBalance] = useState(0)
 
   let isRunning = false
   const { id, type } = router.query
 
   const { metaplex: mx } = useMetaplex()
+
+  const { connected } = useWallet()
+
+  useEffect(() => {
+    const getSolBalance = async () => {
+      const solBalance = await mx.connection.getBalance(mx.identity().publicKey)
+      setMainWalletBalance(Number(getPriceValue(solBalance)))
+    }
+    if(mx && connected) getSolBalance()
+  }, [mx, connected])
 
   const setListedNFT = async (mx, id) => {
     let nft: any
@@ -211,14 +223,12 @@ const MainSection = () => {
       setNftUrl(nft.asset.json.image)
     }
     setNftName(nft.asset.json.name)
+    setNftOwner(getShortAddress(nft.asset.owner))
     setNftDescription(nft.asset.json.description)
     if (nft.price) {
       setNftPrice(nft.price?.basisPoints.toNumber() * 0.000000001)
     }
     setNftCreator(getShortAddress(nft.asset.creators[0].address.toBase58()))
-    if (nft.sellerAddress) {
-      setNftSeller(getShortAddress(nft.sellerAddress?.toBase58()))
-    }
     setMintAddress(nft.asset.address.toBase58())
     if (nft.tradeStateAddress) {
       setTradeStateAddress(nft.tradeStateAddress?.toBase58())
@@ -235,6 +245,15 @@ const MainSection = () => {
     if (result) {
       setOpenProgressingModal(false)
       setShowAlert(true)
+    }
+  }
+
+  const makeOffer = async (price) => {
+    setOpenProgressingModal(true)
+    const result = await offerNFT(mx, mintAddress, price)
+    if (result) {
+      setOpenProgressingModal(false)
+      setOpenOfferModal(false)
     }
   }
 
@@ -416,7 +435,7 @@ const MainSection = () => {
                   className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
                   onClick={() => router.push('/artist-profile')}
                 >
-                  {nftSeller}
+                  {nftOwner}
                 </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
                 <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
@@ -426,37 +445,39 @@ const MainSection = () => {
             </div>
 
             <div className="w-full flex flex-wrap">
-              <div className="w-full flex items-center mt-[77px] lg:mt-4">
-                <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                <div className="w-[24px] h-[24px]">
-                  <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
+              {nftPrice > 0 && <>
+                <div className="w-full flex items-center mt-[77px] lg:mt-4">
+                  <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
+                  <div className="w-[24px] h-[24px]">
+                    <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
+                  </div>
+                  <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                 </div>
-                <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
-              </div>
-              <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                <GradientButton label="Quick Buy" onClick={() => quickBuy()} icon={QuickBuyBlackIcon} direction="rtl" />
-                <OutlineButton
-                  label="Make Offer"
-                  onClick={() => setOpenOfferModal(true)}
-                  icon={TagWhiteIcon}
-                  direction="rtl"
-                  borderWidth={2}
-                  paddingLeft="13px"
-                  paddingRight="13px"
-                  gap="4px"
-                />
-              </div>
-              <div className="w-full flex content-none mt-[14px]">
-                <p className={styles.whiteDiscription}>
-                  By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                  <span
-                    className={styles.greenDiscription}
-                    onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
-                  >
-                    Terms of Service
-                  </span>
-                </p>
-              </div>
+                <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+                  <GradientButton label="Quick Buy" onClick={() => quickBuy()} icon={QuickBuyBlackIcon} direction="rtl" />
+                  <OutlineButton
+                    label="Make Offer"
+                    onClick={() => setOpenOfferModal(true)}
+                    icon={TagWhiteIcon}
+                    direction="rtl"
+                    borderWidth={2}
+                    paddingLeft="13px"
+                    paddingRight="13px"
+                    gap="4px"
+                  />
+                </div>
+                <div className="w-full flex content-none mt-[14px]">
+                  <p className={styles.whiteDiscription}>
+                    By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
+                    <span
+                      className={styles.greenDiscription}
+                      onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
+                    >
+                      Terms of Service
+                    </span>
+                  </p>
+                </div>
+              </>}
               <div className="mx-auto w-full mt-4">
                 <Disclosure>
                   {({ open }) => (
@@ -723,10 +744,9 @@ const MainSection = () => {
         <MakeAnOfferModal
           open={openOfferModal}
           close={() => setOpenOfferModal(false)}
-          onClick={() => {
-            setOpenOfferModal(false)
-            setOpenProgressingModal(true)
-          }}
+          onClick={(price) => makeOffer(price)}
+          listingPrice={nftPrice}
+          mainWalletBalance={mainWalletBalance}
         />
       )}
     </div>
