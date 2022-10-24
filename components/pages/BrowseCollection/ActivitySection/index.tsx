@@ -46,7 +46,6 @@ const ActivitySection = () => {
       <div className="w-full z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
           slidesPerView={1}
           spaceBetween={4}
           modules={[Autoplay, Lazy, Navigation]}

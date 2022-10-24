@@ -31,7 +31,7 @@ const NFTSwiperSection = ({ nfts }) => {
   const [nftList, setNFTList] = useState<any[]>([])
 
   useEffect(() => {
-    if(nfts) {
+    if (nfts) {
       let newList: any[] = []
       let tempItem: any[] = []
       nfts.map((item, index) => {
@@ -51,7 +51,6 @@ const NFTSwiperSection = ({ nfts }) => {
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
@@ -69,9 +68,9 @@ const NFTSwiperSection = ({ nfts }) => {
                   <NFTCard
                     image={nftItem.offchainMetadata.image}
                     nftName={nftItem.offchainMetadata.name}
-                    artistName={nftItem.creators[0].address.toString()}
-                    price={nftItem.price}
-                    onClick={() => router.push(`/browse-nft?id=${nftItem.mintAddress.toString()}`)}
+                    artistName={'nftItem.creators[0].address'}
+                    price={10}
+                    onClick={() => router.push(`/browse-nft?id=${item.id}`)}
                     key={nftIndex}
                   />
                 ))}

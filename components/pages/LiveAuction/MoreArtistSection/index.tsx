@@ -41,7 +41,6 @@ const MoreArtistSection = () => {
       <div className="w-full mt-[15px] lg:mt-[34px]">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}

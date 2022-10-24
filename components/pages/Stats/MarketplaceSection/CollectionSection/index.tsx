@@ -26,7 +26,6 @@ const CollectionSection = props => {
       <div className="w-full z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          centeredSlides={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? true : false}
           slidesPerView={
             viewport === 'xs' ? 1.2 : viewport === 'sm' ? 2 : viewport === 'md' ? 1.8 : viewport === '2xl' ? 3 : 2
           }
