@@ -50,7 +50,7 @@ const MainSection = () => {
       <div className={styles.topRightEllipse}>
         <Image src={EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
       </div>
-      <div className="w-full grid grid-cols-12 z-10 gap-8 items-center">
+      <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
           <div className={styles.whiteTitle}>The Art of Blockchain</div>
           <div className={styles.heroTextContainer}>
@@ -106,6 +106,7 @@ const MainSection = () => {
           <div className="relative max-w-[550px] w-full">
             <Swiper
               slidesPerView={1}
+              spaceBetween={30}
               pagination={{
                 clickable: true,
               }}
