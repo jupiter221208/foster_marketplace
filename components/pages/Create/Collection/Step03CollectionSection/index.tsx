@@ -469,13 +469,15 @@ const Step03CollectionSection = props => {
                           className="rounded-lg"
                         />
                       </div>
-                      <div className="w-10 h-10">
-                        {startUpload && index < uploadedCount ? (
-                          <Lottie animationData={CheckLottery} loop={true} />
-                        ) : (
-                          <Lottie animationData={LoaderLottery} loop={true} />
-                        )}
-                      </div>
+                      {startUpload && (
+                        <div className="w-10 h-10">
+                          {index < uploadedCount ? (
+                            <Lottie animationData={CheckLottery} loop={true} />
+                          ) : (
+                            <Lottie animationData={LoaderLottery} loop={true} />
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div className="w-full">
                       <div
@@ -560,13 +562,15 @@ const Step03CollectionSection = props => {
                           className="rounded-lg"
                         />
                       </div>
-                      <div className="w-10 h-10">
-                        {startUpload && index < uploadedCount ? (
-                          <Lottie animationData={CheckLottery} loop={true} />
-                        ) : (
-                          <Lottie animationData={LoaderLottery} loop={true} />
-                        )}
-                      </div>
+                      {startUpload && (
+                        <div className="w-10 h-10">
+                          {index < uploadedCount ? (
+                            <Lottie animationData={CheckLottery} loop={true} />
+                          ) : (
+                            <Lottie animationData={LoaderLottery} loop={true} />
+                          )}
+                        </div>
+                      )}
                     </div>
                     <div className="w-full">
                       <div
