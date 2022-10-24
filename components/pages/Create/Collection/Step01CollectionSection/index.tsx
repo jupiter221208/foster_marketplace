@@ -64,10 +64,6 @@ const Step01CollectionSection = props => {
   const dropzoneCoverEl = useRef(null)
 
   // variables
-  const [init, setInit] = useState(true)
-  useEffect(() => {
-    setInit(false)
-  }, [])
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
@@ -80,9 +76,7 @@ const Step01CollectionSection = props => {
   useEffect(() => {
     if (coverImage !== null && coverImage !== undefined) {
       if (coverImage[0].type.split('/')[0] === 'image') {
-        if (init === false) {
-          setOpenCoverImageEditorModal(true)
-        }
+        setOpenCoverImageEditorModal(true)
       }
     }
   }, [coverImage])
@@ -90,9 +84,7 @@ const Step01CollectionSection = props => {
   useEffect(() => {
     if (bannerImage !== null && bannerImage !== undefined) {
       if (bannerImage[0].type.split('/')[0] === 'image') {
-        if (init === false) {
-          setOpenBannerImageEditorModal(true)
-        }
+        setOpenBannerImageEditorModal(true)
       }
     }
   }, [bannerImage])
