@@ -30,37 +30,7 @@
   width: 100%;
   height: 100%;
   border-radius: 7px;
-  background: linear-gradient(to bottom, rgba(#121212, 35%), rgba(#121212, 0%));
-}
-
-.contentArea {
-  z-index: 2;
-  position: absolute;
-  top: 26px;
-  @media (min-width: 640px) {
-    top: 50px;
-  }
-  @media (min-width: 768px) {
-    top: 80px;
-  }
-  left: 0;
-  right: 0;
-  display: block;
-  text-align: center;
-}
-
-.title {
-  font-family: 'KCDurhamBoxcar';
-  font-size: 61px;
-  line-height: 62px;
-  color: $text-gray-200-color;
-}
-
-.text {
-  font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 20px;
-  color: rgba($text-gray-200-color, 0.8);
+  background: linear-gradient(to bottom, rgba(#121212, 100%), rgba(#121212, 0%));
 }
 
 .cardArea {

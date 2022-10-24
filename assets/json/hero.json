@@ -2,8 +2,6 @@
   {
     "id": 0,
     "image": "/images/banner.png",
-    "title": "Foster the Flavor",
-    "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 1",
     "collectionName": "Dreams Collection 1",
     "avatar": "/images/avatar.png",
@@ -12,8 +10,6 @@
   {
     "id": 1,
     "image": "/images/banner.png",
-    "title": "Foster the Flavor",
-    "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 2",
     "collectionName": "Dreams Collection 2",
     "avatar": "/images/avatar.png",
@@ -22,8 +18,6 @@
   {
     "id": 2,
     "image": "/images/banner.png",
-    "title": "Foster the Flavor",
-    "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 3",
     "collectionName": "Dreams Collection 3",
     "avatar": "/images/avatar.png",
@@ -32,8 +26,6 @@
   {
     "id": 3,
     "image": "/images/banner.png",
-    "title": "Foster the Flavor",
-    "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 4",
     "collectionName": "Dreams Collection 4",
     "avatar": "/images/avatar.png",
@@ -42,8 +34,6 @@
   {
     "id": 4,
     "image": "/images/banner.png",
-    "title": "Foster the Flavor",
-    "text": ["A Circus of Digital Creators & Curators.", "See Everything."],
     "nftName": "Way Home 5",
     "collectionName": "Dreams Collection 5",
     "avatar": "/images/avatar.png",

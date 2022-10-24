@@ -25,18 +25,6 @@ const HeroCard = props => {
         objectFit="cover"
         className="rounded-[10px] lg:rounded-[30px]"
       />
-      {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
-        <div className={styles.contentArea}>
-          <div className={styles.title}>{data.title}</div>
-          {data.text.map((item, index) => (
-            <div className={styles.text} key={index}>
-              {item}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <></>
-      )}
       <div className={styles.cardArea}>
         <div className="flex justify-between gap-[6px]">
           <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">

@@ -202,3 +202,33 @@
   color: $text-gray-200-color;
   opacity: 0.7;
 }
+
+.contentArea {
+  z-index: 2;
+  position: absolute;
+  top: 26px;
+  @media (min-width: 640px) {
+    top: 50px;
+  }
+  @media (min-width: 768px) {
+    top: 80px;
+  }
+  left: 0;
+  right: 0;
+  display: block;
+  text-align: center;
+}
+
+.cardTitle {
+  font-family: 'KCDurhamBoxcar';
+  font-size: 61px;
+  line-height: 62px;
+  color: $text-gray-200-color;
+}
+
+.cardText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba($text-gray-200-color, 0.8);
+}

@@ -103,10 +103,9 @@ const MainSection = () => {
           </div>
         </div>
         <div className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end py-6">
-          <div className="max-w-[550px] w-full">
+          <div className="relative max-w-[550px] w-full">
             <Swiper
               slidesPerView={1}
-              spaceBetween={30}
               pagination={{
                 clickable: true,
               }}
@@ -124,6 +123,15 @@ const MainSection = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
+            {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
+              <div className={styles.contentArea}>
+                <div className={styles.cardTitle}>Foster the Flavor</div>
+                <div className={styles.cardText}>A Circus of Digital Creators & Curators.</div>
+                <div className={styles.cardText}>See Everything.</div>
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
 
