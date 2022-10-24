@@ -269,7 +269,7 @@ const Step01CollectionSection = props => {
                     <Dropzone
                       onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
                       maxFiles={1}
-                      accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+                      accept={{ 'image/jpeg': [], 'image/png': [] }}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -293,7 +293,7 @@ const Step01CollectionSection = props => {
                     <Dropzone
                       onDrop={acceptedFiles => onChangeBannerImage(acceptedFiles)}
                       maxFiles={1}
-                      accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+                      accept={{ 'image/jpeg': [], 'image/png': [] }}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -435,7 +435,7 @@ const Step01CollectionSection = props => {
               <Dropzone
                 onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
                 maxFiles={1}
-                accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+                accept={{ 'image/jpeg': [], 'image/png': [] }}
               >
                 {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
@@ -461,7 +461,7 @@ const Step01CollectionSection = props => {
               <Dropzone
                 onDrop={acceptedFiles => onChangeBannerImage(acceptedFiles)}
                 maxFiles={1}
-                accept={{ 'image/png': ['.png', '.jpg', '.gif'] }}
+                accept={{ 'image/jpeg': [], 'image/png': [] }}
               >
                 {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
