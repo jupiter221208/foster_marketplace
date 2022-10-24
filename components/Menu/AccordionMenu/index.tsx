@@ -15,13 +15,19 @@ import styles from './index.module.scss'
 
 const AccordionMenu = props => {
   const { icon, label, type = '', data, path = '' } = props
+
+  const { publicKey } = useWallet()
   const router = useRouter()
   const dispatch = useDispatch()
 
   const handleClick = item => {
-    dispatch({ type: 'set', exploreTab: item.id })
     dispatch({ type: 'set', openMobileMenu: false })
-    router.push(item.path)
+    if (item.label === 'Profile') {
+      console.log('====', publicKey.toString())
+      router.push(item.path + publicKey.toString())
+    } else {
+      router.push(item.path)
+    }
   }
 
   const handleSoloMenuItemClick = () => {
