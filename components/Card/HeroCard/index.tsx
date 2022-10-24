@@ -23,7 +23,7 @@ const HeroCard = props => {
         height={772}
         layout="responsive"
         objectFit="cover"
-        className="rounded-[10px] lg:rounded-[30px]"
+        className="md:rounded-[10px] lg:rounded-[30px]"
       />
       <div className={styles.cardArea}>
         <div className="flex justify-between gap-[6px]">

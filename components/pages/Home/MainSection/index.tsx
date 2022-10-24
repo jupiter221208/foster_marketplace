@@ -102,7 +102,13 @@ const MainSection = () => {
             </div>
           </div>
         </div>
-        <div className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end py-6">
+        <div
+          className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end py-6"
+          style={{
+            width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px' : '100%',
+            marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
+          }}
+        >
           <div className="relative max-w-[550px] w-full">
             <Swiper
               slidesPerView={1}
@@ -114,7 +120,7 @@ const MainSection = () => {
               className="heroSwiper"
               loop
               autoplay={{
-                delay: 5000,
+                delay: 500000,
                 disableOnInteraction: false,
               }}
             >
