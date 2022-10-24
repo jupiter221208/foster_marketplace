@@ -61,13 +61,13 @@ const MainSection = ({ collection }) => {
     return Math.min.apply(Math, prices)
   }, nfts)
 
-  const totalVolum = useMemo(() => {
-    var totalVolum = 0;
+  const totalVolume = useMemo(() => {
+    var totalVolume = 0;
     if(nfts)
       nfts.forEach(nft => {
-        if(nft.price) totalVolum += nft.price
+        if(nft.price) totalVolume += nft.price
       });
-    return totalVolum
+    return totalVolume
   }, nfts)
 
   return (
@@ -183,7 +183,7 @@ const MainSection = ({ collection }) => {
                 <div className="text-center">
                   <div className="flex items-center justify-center">
                     <Image src={SolanaSolLogoIcon} alt="" />
-                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(totalVolum)}</div>
+                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(totalVolume)}</div>
                   </div>
 
                   <div className={styles.nftInfoValue}>Total Volume</div>

@@ -46,8 +46,7 @@ export async function getCollectionByAddress(mx: Metaplex, address: string) {
     return collection
 
   } catch(e) {
-    console.log('failed to get collection')
-    console.log(e)
+    console.log('failed to get collection', e)
   }
 
   return []
@@ -81,8 +80,7 @@ export async function getMyCollections(mx: Metaplex) {
           try {
             item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
           } catch (e) {
-            console.log("failed to pull off chain metadata for collection")
-            console.log(e)
+            console.log("failed to pull off chain metadata for collection", e)
           }
 
           return item
@@ -92,8 +90,7 @@ export async function getMyCollections(mx: Metaplex) {
     
     return collections
   } catch(e) {
-    console.log('failed to get collections')
-    console.log(e)
+    console.log('failed to get collections', e)
   }
 
   return []
