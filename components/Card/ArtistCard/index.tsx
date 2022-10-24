@@ -7,10 +7,8 @@ const ArtistCard = props => {
   const { image, username, onClick } = props
   return (
     <div className={styles.container} onClick={() => onClick()}>
-      <div className={styles.avatarArea}>
-        <div className={styles.avatar}>
-          <img src={image} alt="" width={206} height={206} className="rounded-full" />
-        </div>
+      <div className={styles.avatar}>
+        <img src={image} alt="" width={226} height={226} className="rounded-full" />
       </div>
 
       <div className={styles.name}>{username}</div>

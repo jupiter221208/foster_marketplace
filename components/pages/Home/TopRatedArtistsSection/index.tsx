@@ -117,14 +117,14 @@ const TopRatedArtistsSection = () => {
             viewport === 'xs'
               ? 2
               : viewport === 'sm'
-              ? 2.8
+              ? 2.5
               : viewport === 'md'
               ? 3
               : viewport === 'lg'
-              ? 4
+              ? 3
               : viewport === 'xl'
-              ? 5
-              : 6
+              ? 4
+              : 5
           }
           spaceBetween={
             viewport === 'xs' || viewport === 'sm' || viewport === 'md'
@@ -133,7 +133,7 @@ const TopRatedArtistsSection = () => {
               ? 20
               : viewport === 'xl'
               ? 24
-              : 30
+              : 24
           }
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"

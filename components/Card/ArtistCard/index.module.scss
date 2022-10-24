@@ -3,27 +3,42 @@
 .container {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
-  padding: 10px 12px;
-  justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 
-.avatarArea {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 200px;
+.avatar {
   border-radius: 100%;
+  overflow: hidden;
+  padding: 4px;
 
-  @media (max-width: 640px) {
+  width: 110px;
+  height: 110px;
+  @media (min-width: 640px) {
+    padding: 5px;
     width: 116px;
     height: 116px;
   }
-
+  @media (min-width: 768px) {
+    padding: 6px;
+    width: 160px;
+    height: 160px;
+  }
+  @media (min-width: 1024px) {
+    padding: 8px;
+    width: 200px;
+    height: 200px;
+  }
+  @media (min-width: 1280px) {
+    padding: 8px;
+    width: 200px;
+    height: 200px;
+  }
   @media (min-width: 1536px) {
+    padding: 8px;
     width: 226px;
     height: 226px;
   }
@@ -31,41 +46,40 @@
   background: linear-gradient(110deg, $brand-01-color 50%, $background-dark-color 100%);
 }
 
-.avatar {
-  width: 188px;
-  height: 188px;
-
-  @media (max-width: 640px) {
-    width: 106px;
-    height: 106px;
-  }
-
-  @media (min-width: 1536px) {
-    width: 214px;
-    height: 214px;
-  }
-}
-
 .name {
-  width: 200px;
-
-  @media (max-width: 640px) {
-    margin-top: 8px;
-    width: 116px;
-    font-size: 16px;
-    font-family: 'Muli-SemiBold';
-    line-height: 20px;
-  }
-
-  @media (min-width: 1536px) {
-    margin-top: 22px;
-    width: 226px;
-  }
+  width: 100%;
   text-align: center;
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 36px;
   letter-spacing: 0px;
   color: $text-gray-200-color;
-  margin-top: 16px;
+
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 20px;
+
+  @media (min-width: 640px) {
+    margin-top: 10px;
+    font-size: 17px;
+    line-height: 22px;
+  }
+  @media (min-width: 768px) {
+    margin-top: 14px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  @media (min-width: 1024px) {
+    margin-top: 18px;
+    font-size: 19px;
+    line-height: 28px;
+  }
+  @media (min-width: 1280px) {
+    margin-top: 20px;
+    font-size: 20px;
+    line-height: 32px;
+  }
+  @media (min-width: 1536px) {
+    margin-top: 22px;
+    font-size: 24px;
+    line-height: 36px;
+  }
 }
