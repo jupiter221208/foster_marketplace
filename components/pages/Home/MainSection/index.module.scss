@@ -221,14 +221,40 @@
 
 .cardTitle {
   font-family: 'KCDurhamBoxcar';
-  font-size: 61px;
-  line-height: 62px;
+  font-size: 36px;
+  line-height: 38px;
   color: $text-gray-200-color;
+  text-shadow: 2px 2px 2px rgba(black, 1);
+}
+.cardGreenTitle {
+  font-family: 'KCDurhamBoxcar';
+  font-size: 36px;
+  line-height: 38px;
+  color: $brand-01-color;
+  text-shadow: 2px 2px 2px rgba(black, 1);
 }
 
 .cardText {
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 20px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: $text-gray-200-color;
+  text-shadow: 2px 2px 2px rgba(black, 1);
+  text-shadow: 2px 2px 2px rgba(black, 1);
+}
+
+.cardGreenText {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 20px;
+  color: $brand-01-color;
+  text-shadow: 2px 2px 2px rgba(black, 1);
+}
+
+.cardBottomText {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 20px;
+  color: $text-gray-200-color;
+  text-shadow: 2px 2px 2px rgba(black, 1);
 }

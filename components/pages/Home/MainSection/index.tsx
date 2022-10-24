@@ -120,7 +120,7 @@ const MainSection = () => {
               className="heroSwiper"
               loop
               autoplay={{
-                delay: 500000,
+                delay: 5000,
                 disableOnInteraction: false,
               }}
             >
@@ -132,9 +132,18 @@ const MainSection = () => {
             </Swiper>
             {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
               <div className={styles.contentArea}>
-                <div className={styles.cardTitle}>Foster the Flavor</div>
-                <div className={styles.cardText}>A Circus of Digital Creators & Curators.</div>
-                <div className={styles.cardText}>See Everything.</div>
+                <div className="flex justify-center">
+                  <div className={styles.cardTitle}>THE&nbsp;</div>
+                  <div className={styles.cardGreenTitle}>HOUSE OF ART</div>
+                  <div className={styles.cardTitle}>, SOLANA DESERVES</div>
+                </div>
+                <div className="flex justify-center">
+                  <div className={styles.cardText}>Created for&nbsp;</div>
+                  <div className={styles.cardGreenText}>Artist</div>
+                  <div className={styles.cardText}>. Curated by&nbsp;</div>
+                  <div className={styles.cardGreenText}>You.</div>
+                </div>
+                <div className={styles.cardBottomText}>Foster the Flavor.</div>
               </div>
             ) : (
               <></>
