@@ -48,9 +48,8 @@ const HeroCard = props => {
             </div>
           </div>
           <div className="w-full block">
-            <div className={styles.nftName}>{data.nftName}</div>
-            <div className={`w-full hidden lg:flex ${styles.collectionName}`}>{data.nft_name}</div>
-            <div className={`flex lg:hidden ${styles.artistName}`}>{data.artist_username}</div>
+            <div className={styles.nftName}>{data.nft_name}</div>
+            <div className={`flex ${styles.artistName}`}>{data.artist_username}</div>
           </div>
           <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
             <div className={styles.avatar}>

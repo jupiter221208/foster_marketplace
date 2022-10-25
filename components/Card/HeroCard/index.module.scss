@@ -65,7 +65,7 @@
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
   color: $text-gray-200-color;
   @media (min-width: 1024px) {
     font-size: 20px;
@@ -132,15 +132,15 @@
 .artistName {
   font-family: 'Muli-Regular';
   font-size: 12px;
-  line-height: 16px;
+  line-height: 12px;
   letter-spacing: 0;
   color: $brand-03-color;
   @media (min-width: 1024px) {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 16px;
   }
   @media (min-width: 1280px) {
-    font-size: 14px;
+    font-size: 18px;
     line-height: 24px;
   }
   white-space: nowrap;
