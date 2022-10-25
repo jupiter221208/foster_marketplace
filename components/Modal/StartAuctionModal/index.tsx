@@ -48,15 +48,15 @@ const StartAuctionModal = props => {
   // }, [startDate])
 
   // function displayLocation(latitude, longitude) {
-  //   var geocoder
+  //   let geocoder
   //   geocoder = new window.google.maps.Geocoder()
-  //   var latlng = new google.maps.LatLng(latitude, longitude)
+  //   let latlng = new google.maps.LatLng(latitude, longitude)
 
   //   geocoder.geocode({ latLng: latlng }, function (results, status) {
   //     if (status == google.maps.GeocoderStatus.OK) {
   //       if (results[0]) {
-  //         var add = results[0].formatted_address
-  //         var value = add.split(',')
+  //         let add = results[0].formatted_address
+  //         let value = add.split(',')
   //         let count = value.length
   //         let country = value[count - 1]
   //         let state = value[count - 2]

@@ -304,7 +304,7 @@ const SingleNft = () => {
 
   const createNft = async () => {
     try {
-      var reader = new FileReader()
+      let reader = new FileReader()
       const fileData = new Blob([nftArt[0]])
       reader.readAsArrayBuffer(fileData)
       reader.onload = async function (event) {
@@ -328,7 +328,7 @@ const SingleNft = () => {
           metadata.category = 'image'
           await uploadNft(metadata)
         } else {
-          var coverReader = new FileReader()
+          let coverReader = new FileReader()
           const coverFileData = new Blob([nftCover[0]])
           coverReader.readAsArrayBuffer(coverFileData)
           coverReader.onload = async function (event) {

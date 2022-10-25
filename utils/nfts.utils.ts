@@ -5,16 +5,14 @@ import { getListedNFTs, getMyListedNFTs } from './auction.util'
 export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
   /* @ts-ignore to get mintAddress*/
   const largestAccounts = await mx.connection.getTokenLargestAccounts(new PublicKey(mintAddress))
-  const largestAccountInfo = await mx.connection.getParsedAccountInfo(
-    largestAccounts.value[0].address
-  );
+  const largestAccountInfo = await mx.connection.getParsedAccountInfo(largestAccounts.value[0].address)
 
   /* @ts-ignore to get Parsed Account Info*/
- return largestAccountInfo.value.data.parsed.info.owner
+  return largestAccountInfo.value.data.parsed.info.owner
 }
 
 export async function getMyNFTs(mx: Metaplex) {
-  var nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
+  let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
 
   const listedNFTs = await getMyListedNFTs(mx)
 
@@ -28,7 +26,7 @@ export async function getMyNFTs(mx: Metaplex) {
   const myNFTs = (
     await Promise.all(
       nfts.map(async nft => {
-        var item = { ...nft, offchainMetadata: null }
+        let item = { ...nft, offchainMetadata: null }
 
         try {
           item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
@@ -59,7 +57,7 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
     return {
       asset: {
         ...nft,
-        owner
+        owner,
       },
     }
   }
@@ -68,8 +66,8 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
     ...listedNFTs[0],
     asset: {
       ...listedNFTs[0].asset,
-      owner
-    }
+      owner,
+    },
   }
 }
 
@@ -82,7 +80,7 @@ export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
   return {
     asset: {
       ...nft,
-      owner
+      owner,
     },
   }
 }

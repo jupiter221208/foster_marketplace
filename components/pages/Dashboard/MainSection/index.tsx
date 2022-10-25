@@ -70,7 +70,7 @@ const MainSection = () => {
   const [bannerPictureUrl, setBannerPictureUrl] = useState('')
 
   function getPrefixUrl(url: string) {
-    var prefix = 'http'
+    let prefix = 'http'
     if (url.substring(0, prefix.length) !== prefix) {
       url = prefix + '://' + url
     }
@@ -132,12 +132,11 @@ const MainSection = () => {
         <Image src={EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className={styles.bannerImage}>
-        <Image
-          src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage}
+        <img
+          src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
           width={1620}
           height={460}
-          objectFit="cover"
           className="rounded-[15px] lg:rounded-[30px]"
         />
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">

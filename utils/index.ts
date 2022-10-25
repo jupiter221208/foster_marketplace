@@ -42,7 +42,7 @@ export const useViewport = () => {
 }
 
 export const namePublicFile = name => {
-  var re = /(?:\.([^.]+))?$/
-  var ext = re.exec(name)[1]
+  let re = /(?:\.([^.]+))?$/
+  let ext = re.exec(name)[1]
   return `${uuidv4()}.${ext}`
 }

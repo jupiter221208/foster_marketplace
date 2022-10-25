@@ -55,7 +55,7 @@ const Collection = () => {
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
 
   const mintCollection = async () => {
-    var reader = new FileReader()
+    let reader = new FileReader()
     // it should be coverCroppedImage instead of coverImage
     // banner image should be uploaded
     const fileData = new Blob([coverImage[0]])
@@ -162,9 +162,9 @@ const Collection = () => {
   const [uploadedCount, setUploadedCount] = useState(0)
 
   const readFilesAndUplaod = async () => {
-    var readCount = 0
+    let readCount = 0
     collectionFiles.forEach(item => {
-      var reader = new FileReader()
+      let reader = new FileReader()
       const fileData = new Blob([item.file])
       reader.readAsArrayBuffer(fileData)
       reader.onload = async function (event) {
@@ -194,7 +194,7 @@ const Collection = () => {
     })
 
     if (collectionNft) {
-      for (var i = 0; i < artworks.length; i++) {
+      for (let i = 0; i < artworks.length; i++) {
         const { uri } = await mx
           .nfts()
           .uploadMetadata({

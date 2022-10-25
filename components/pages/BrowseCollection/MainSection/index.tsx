@@ -39,43 +39,46 @@ const MainSection = ({ collection }) => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const items = useMemo(() => nfts?.length || 0, nfts)
-  
+
   const owners = useMemo(() => {
-    var owners = [];
-    if(nfts)
+    let owners = []
+    if (nfts)
       nfts.forEach(nft => {
-        if(owners[nft.owner] === undefined) {
+        if (owners[nft.owner] === undefined) {
           owners.push(nft.owner)
         }
-      });
+      })
     return owners.length
   }, nfts)
 
   const floorPrice = useMemo(() => {
-    var prices = [];
-    if(nfts)
+    let prices = []
+    if (nfts)
       nfts.forEach(nft => {
-        if(nft.price) prices.push(nft.price)
-      });
-    if(prices.length === 0) return 0
+        if (nft.price) prices.push(nft.price)
+      })
+    if (prices.length === 0) return 0
     return Math.min.apply(Math, prices)
   }, nfts)
 
   const totalVolume = useMemo(() => {
-    var totalVolume = 0;
-    if(nfts)
+    let totalVolume = 0
+    if (nfts)
       nfts.forEach(nft => {
-        if(nft.price) totalVolume += nft.price
-      });
+        if (nft.price) totalVolume += nft.price
+      })
     return totalVolume
   }, nfts)
 
   return (
     <div className={styles.container}>
-      {isLoading ? <div className={styles.headerLoading} /> : 
-      <div className={styles.headerImage}>
-        <Image src={HeaderImage} alt="" objectFit="cover" className="rounded-[20px]" />
-      </div>}
+      {isLoading ? (
+        <div className={styles.headerLoading} />
+      ) : (
+        <div className={styles.headerImage}>
+          <img src={HeaderImage.src} alt="" className="rounded-[20px]" />
+        </div>
+      )}
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
@@ -150,55 +153,56 @@ const MainSection = ({ collection }) => {
         </div>
         <div className="flex justify-center w-full mt-[32px]">
           <div className="max-w-[734px]">
-            <div className={styles.description}>
-              {json?.description}
-            </div>
+            <div className={styles.description}>{json?.description}</div>
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">
           <div className={`${styles.nftInfo} grid grid-cols-12`}>
-            {!isLoading && <>
-              <div className="col-span-3 flex justify-center items-center">
-                <div className="text-center">
-                  <div className={styles.nftInfoLabel}>{items}</div>
-                  <div className={styles.nftInfoValue}>Items</div>
-                </div>
-              </div>
-              <div className="col-span-3 flex justify-center items-center">
-                <div className="text-center">
-                  <div className={styles.nftInfoLabel}>{owners}</div>
-                  <div className={styles.nftInfoValue}>Owners</div>
-                </div>
-              </div>
-              <div className="col-span-3 flex justify-center items-center">
-                <div className="text-center">
-                  <div className="flex items-center justify-center">
-                    <Image src={SolanaLogoIcon} alt="" />
-                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(floorPrice)}</div>
+            {!isLoading && (
+              <>
+                <div className="col-span-3 flex justify-center items-center">
+                  <div className="text-center">
+                    <div className={styles.nftInfoLabel}>{items}</div>
+                    <div className={styles.nftInfoValue}>Items</div>
                   </div>
-                  <div className={styles.nftInfoValue}>Floor Price</div>
                 </div>
-              </div>
-              <div className="col-span-3 flex justify-center items-center">
-                <div className="text-center">
-                  <div className="flex items-center justify-center">
-                    <Image src={SolanaSolLogoIcon} alt="" />
-                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(totalVolume)}</div>
+                <div className="col-span-3 flex justify-center items-center">
+                  <div className="text-center">
+                    <div className={styles.nftInfoLabel}>{owners}</div>
+                    <div className={styles.nftInfoValue}>Owners</div>
                   </div>
+                </div>
+                <div className="col-span-3 flex justify-center items-center">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center">
+                      <Image src={SolanaLogoIcon} alt="" />
+                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(floorPrice)}</div>
+                    </div>
+                    <div className={styles.nftInfoValue}>Floor Price</div>
+                  </div>
+                </div>
+                <div className="col-span-3 flex justify-center items-center">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center">
+                      <Image src={SolanaSolLogoIcon} alt="" />
+                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(totalVolume)}</div>
+                    </div>
 
-                  <div className={styles.nftInfoValue}>Total Volume</div>
+                    <div className={styles.nftInfoValue}>Total Volume</div>
+                  </div>
                 </div>
-              </div>
-            </>}
+              </>
+            )}
           </div>
         </div>
         <div className="flex justify-center mt-[30px]">
           <div className={styles.categoryList}>
-            {json?.attributes && json?.attributes.map((item, index) => (
-              <div key={index}>
+            {json?.attributes &&
+              json?.attributes.map((item, index) => (
+                <div key={index}>
                   <CategoryChip data={item} />
-              </div>
-            ))}
+                </div>
+              ))}
           </div>
         </div>
       </div>

@@ -28,17 +28,17 @@ const AuctionCard = () => {
     if (auctionEndTime !== (0 as unknown as Date) && now !== 0) {
       setInterval(() => {
         let obj: any = {}
-        var delta = Math.abs(auctionEndTime.getTime() - now - count * 1000) / 1000
-        var days = Math.floor(delta / 86400)
+        let delta = Math.abs(auctionEndTime.getTime() - now - count * 1000) / 1000
+        let days = Math.floor(delta / 86400)
         obj.days = days
         delta -= days * 86400
-        var hours = Math.floor(delta / 3600) % 24
+        let hours = Math.floor(delta / 3600) % 24
         obj.hours = hours
         delta -= hours * 3600
-        var minutes = Math.floor(delta / 60) % 60
+        let minutes = Math.floor(delta / 60) % 60
         obj.minutes = minutes
         delta -= minutes * 60
-        var seconds = Math.floor(delta % 60)
+        let seconds = Math.floor(delta % 60)
         obj.seconds = seconds
         let temp: any = {}
         if (obj.days > 9) {

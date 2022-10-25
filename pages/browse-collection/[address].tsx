@@ -28,20 +28,22 @@ const BrowseCollection = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
 
-  const [ collection, setCollection ] = useState({});
+  const [collection, setCollection] = useState({})
 
   const { metaplex: mx } = useMetaplex()
 
   useEffect(() => {
-    const getCollection = async () => {
-      dispatch({ type: 'set', isLoading: true })
-      const collection = await getCollectionByAddress(mx, address.toString())
-      setCollection(collection)
-      dispatch({ type: 'set', isLoading: false })
+    if (address !== undefined) {
+      const getCollection = async () => {
+        dispatch({ type: 'set', isLoading: true })
+        const collection = await getCollectionByAddress(mx, address.toString())
+        setCollection(collection)
+        dispatch({ type: 'set', isLoading: false })
+      }
+      if (mx && address) getCollection()
     }
-    if (mx && address) getCollection()
   }, [mx, address])
-  
+
   return (
     <div className="g-container">
       <Head>
@@ -50,8 +52,8 @@ const BrowseCollection = () => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <MainSection collection={collection}/>
-        {!isLoading && <CollectionSection collection={collection}/>}
+        <MainSection collection={collection} />
+        {!isLoading && <CollectionSection collection={collection} />}
       </div>
     </div>
   )
