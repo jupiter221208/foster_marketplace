@@ -44,6 +44,7 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // call api
+import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 
 // styles
@@ -391,14 +392,29 @@ const SingleNft = () => {
       result.forEach(item => {
         category += item.name + ','
       })
-      nftsAPI.create({ token_id: address, nft_name: nft.name, categories: category.slice(0, -1) }).then(
-        response => {
-          console.log(response)
-        },
+      axios.get(nft.uri).then(response => {
+        if (response !== undefined) {
+          const result: any = response.data
+          nftsAPI
+            .create({
+              token_id: address,
+              nft_name: nft.name,
+              categories: category.slice(0, -1),
+              asset_url: result['image'],
+            })
+            .then(
+              response => {
+                console.log(response)
+              },
+              error => {
+                console.log(error)
+              }
+            )
+        }
+      }),
         error => {
           console.log(error)
         }
-      )
       handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
     }
 
