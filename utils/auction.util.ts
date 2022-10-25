@@ -169,8 +169,8 @@ export async function getMyListedNFTs(mx: Metaplex) {
     const accounts = await (
       await getProgramAccounts(mx, listingFilters)
     ).filter(account => {
-      /*@ts-ignore to use slice function in Buffer*/
       const seller = new PublicKey(
+        /*@ts-ignore to use slice function in Buffer*/
         account.account.data.slice(ListingReceiptPosition.Seller, ListingReceiptPosition.Metadata)
       )
       return seller.toBase58() === mx.identity().publicKey.toBase58()
