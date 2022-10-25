@@ -93,7 +93,7 @@ const NFTSwiperSection = ({ nfts }) => {
                     image={item.offchainMetadata.image}
                     nftName={item.offchainMetadata.name}
                     artistName={item.creators[0].address.toString()}
-                    price={item.price}
+                    price={item.price ? getPriceValue(item.price) : null}
                     onClick={() => router.push(`/browse-nft?id=${item.mintAddress.toString()}`)}
                   />
                 </div>

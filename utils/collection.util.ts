@@ -63,34 +63,15 @@ export async function getMyCollections(mx: Metaplex) {
       await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
     ).filter(nft => nft.collectionDetails)
 
-    const listedNFTs = await getListedNFTs(mx)
-
     const collections = (
       await Promise.all(
         nfts.map(async nft => {
-          let item = { ...nft, offchainMetadata: null, floorPrice: 0 }
-
-          const listedCollection = listedNFTs.filter(
-            listedNFT =>
-              /* @ts-ignore to get mintAddress */
-              listedNFT.asset.collection && listedNFT.asset.collection.address.toString() === nft.mintAddress.toString()
-          )
-
-          let prices = []
-
-          if (listedCollection.length > 0)
-            listedCollection.forEach(listedNFT => {
-              if (listedNFT.price) prices.push(listedNFT.price.basisPoints.toNumber())
-            })
-
-          item.floorPrice = prices.length > 0 ? Math.min.apply(Math, prices) : 0
-
+          let item = { ...nft, offchainMetadata: null }
           try {
             item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
           } catch (e) {
             console.log('failed to pull off chain metadata for collection', e)
           }
-
           return item
         })
       )

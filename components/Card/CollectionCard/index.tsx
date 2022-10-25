@@ -18,7 +18,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, mintAddress = '', price} = props
+  const { image, nftName, category, artistName, mintAddress = '' } = props
   const viewport = useViewport()
   const router = useRouter()
 
@@ -47,22 +47,6 @@ const CollectionCard = props => {
             {category?.map((item, index) => (
               <SmallCategoryChip data={item} key={index} />
             ))}
-          </div>
-          <div className="items-center">
-            <div className="flex justify-center items-center mt-[4px]">
-              <Image
-                src={SolanaLogoIcon}
-                width={
-                  viewport === 'xs' ? 11 : viewport === 'sm' ? 13 : viewport === 'md' ? 14 : viewport === 'lg' ? 16 : 24
-                }
-                height={
-                  viewport === 'xs' ? 11 : viewport === 'sm' ? 13 : viewport === 'md' ? 14 : viewport === 'lg' ? 16 : 24
-                }
-                alt=""
-              />
-              <div className={`${styles.price} ml-1 lg:ml-1`}>{price}</div>
-            </div>
-            <div className={styles.priceName}>Floor Price</div>
           </div>
         </div>
       </div>

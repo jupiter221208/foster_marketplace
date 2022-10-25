@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from 'react-redux'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollections } from 'utils/collection.util'
-import { getPriceValue } from 'utils/strings'
 
 const MyCollectionSection = () => {
   const dispatch = useDispatch()
@@ -46,7 +45,6 @@ const MyCollectionSection = () => {
               category={item.offchainMetadata.attributes}
               artistName={item.creators[0].address.toString()}
               mintAddress={item.mintAddress.toString()}
-              price={getPriceValue(item.floorPrice)}
             />
           </div>
         ))}
