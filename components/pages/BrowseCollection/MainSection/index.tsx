@@ -11,17 +11,16 @@ import CategoryChip from 'components/Chip/CategoryChip'
 
 // images and icons
 import HeaderImage from 'assets/images/browse-collection-header.png'
-import AvatarImage from 'assets/images/browse-collection-avatar.png'
-import FacebookWhiteIcon from 'assets/icons/facebook-white.svg'
+import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
-import YoutubeWhiteIcon from 'assets/icons/youtube-white.svg'
+import instagramWhiteIcon from 'assets/icons/instagram-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
-import YoutubeHoverIcon from 'assets/icons/youtube-hover.svg'
+import InstagramHoverIcon from 'assets/icons/instagram-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
-import FacebookHoverIcon from 'assets/icons/facebook-hover.svg'
+import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -90,9 +89,9 @@ const MainSection = ({ collection }) => {
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>
                 <SocialButton
-                  icon={YoutubeWhiteIcon}
-                  iconHover={YoutubeHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
+                  icon={instagramWhiteIcon}
+                  iconHover={InstagramHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_INSTAGRAM_URL as unknown as Url)}
                 />
               </div>
               <div>
@@ -106,13 +105,13 @@ const MainSection = ({ collection }) => {
                 <SocialButton
                   icon={DiscordWhiteIcon}
                   iconHover={DiscordHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_GITHUB_URL as unknown as Url)}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
                 />
               </div>
               <div>
                 <SocialButton
-                  icon={FacebookWhiteIcon}
-                  iconHover={FacebookHoverIcon}
+                  icon={TelegramWhiteIcon}
+                  iconHover={TelegramHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
                 />
               </div>
@@ -122,8 +121,8 @@ const MainSection = ({ collection }) => {
             <div className="hidden lg:flex gap-[10px]">
               <div>
                 <SocialButton
-                  icon={YoutubeWhiteIcon}
-                  iconHover={YoutubeHoverIcon}
+                  icon={instagramWhiteIcon}
+                  iconHover={InstagramHoverIcon}
                   onClick={() => router.push(process.env.NEXT_PUBLIC_DISCORD_URL as unknown as Url)}
                 />
               </div>
@@ -143,9 +142,9 @@ const MainSection = ({ collection }) => {
               </div>
               <div>
                 <SocialButton
-                  icon={FacebookWhiteIcon}
-                  iconHover={FacebookHoverIcon}
-                  onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
+                  icon={TelegramWhiteIcon}
+                  iconHover={TelegramHoverIcon}
+                  onClick={() => router.push(process.env.NEXT_PUBLIC_TELEGRAM_URL as unknown as Url)}
                 />
               </div>
             </div>

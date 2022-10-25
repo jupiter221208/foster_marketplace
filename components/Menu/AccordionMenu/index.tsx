@@ -23,7 +23,6 @@ const AccordionMenu = props => {
   const handleClick = item => {
     dispatch({ type: 'set', openMobileMenu: false })
     if (item.label === 'Profile') {
-      console.log('====', publicKey.toString())
       router.push(item.path + publicKey.toString())
     } else {
       router.push(item.path)

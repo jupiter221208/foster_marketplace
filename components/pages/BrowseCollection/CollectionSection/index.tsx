@@ -12,14 +12,13 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
-import LoadingModal from 'components/Modal/LoadingModal'
 
 const CollectionSection = ({ collection }) => {
   const { nfts } = collection
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
-  
+
   useEffect(() => {
     let array: any[] = []
     TabList.map(item => {
@@ -45,7 +44,7 @@ const CollectionSection = ({ collection }) => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <NFTSwiperSection nfts={nfts}/>
+          <NFTSwiperSection nfts={nfts} />
         </div>
       )}
       {activeTab === 1 && (
@@ -53,10 +52,8 @@ const CollectionSection = ({ collection }) => {
           <ActivitySection />
         </div>
       )}
-      {/* <div className="w-full flex z-0"> */}
       <OtherCollectionSection />
       <ExploreCollectionSection />
-      {/* </div> */}
     </div>
   )
 }
