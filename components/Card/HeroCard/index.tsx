@@ -8,6 +8,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import Avatar from 'components/Avatar'
 
 const HeroCard = props => {
   const { data } = props
@@ -16,44 +17,54 @@ const HeroCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.topMask} />
-      <Image
-        src={data.image}
+      <img
+        src={
+          data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+            ? data.asset_url
+            : '/images/banner.png'
+        }
         alt=""
         width={550}
         height={772}
-        layout="responsive"
-        objectFit="cover"
         className="md:rounded-[10px] lg:rounded-[30px]"
       />
       <div className={styles.cardArea}>
         <div className="flex justify-between gap-[6px]">
           <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">
             <div className={styles.avatar}>
-              <Image
-                src={data.avatar}
+              <img
+                src={
+                  data.artist_profile_picture !== null &&
+                  data.artist_profile_picture !== '' &&
+                  data.artist_profile_picture !== undefined
+                    ? data.artist_profile_picture
+                    : '/images/avatar.png'
+                }
                 alt=""
                 width={viewport === 'lg' ? 40 : 60}
                 height={viewport === 'lg' ? 40 : 60}
-                layout="responsive"
-                objectFit="cover"
                 className="rounded-full"
               />
             </div>
           </div>
           <div className="w-full block">
             <div className={styles.nftName}>{data.nftName}</div>
-            <div className={`w-full hidden lg:flex ${styles.collectionName}`}>{data.collectionName}</div>
-            <div className={`flex lg:hidden ${styles.artistName}`}>{data.artistName}</div>
+            <div className={`w-full hidden lg:flex ${styles.collectionName}`}>{data.nft_name}</div>
+            <div className={`flex lg:hidden ${styles.artistName}`}>{data.artist_username}</div>
           </div>
           <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
             <div className={styles.avatar}>
-              <Image
-                src={data.avatar}
+              <img
+                src={
+                  data.artist_profile_picture !== null &&
+                  data.artist_profile_picture !== '' &&
+                  data.artist_profile_picture !== undefined
+                    ? data.artist_profile_picture
+                    : '/images/avatar.png'
+                }
                 alt=""
                 width={viewport === 'lg' ? 40 : 60}
                 height={viewport === 'lg' ? 40 : 60}
-                layout="responsive"
-                objectFit="cover"
                 className="rounded-full"
               />
             </div>

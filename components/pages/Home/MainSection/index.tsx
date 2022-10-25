@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -24,12 +24,12 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import HeroGreenIcon from 'assets/icons/hero-green.svg'
-// json
-import HeroList from 'assets/json/hero.json'
 
 // styles
 import styles from './index.module.scss'
+
+// call api
+import dashboardAPI from 'apis/dashboard'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -37,10 +37,24 @@ const MainSection = () => {
   const dispatch = useDispatch()
 
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
+  const [heroList, setHeroList] = useState<any[]>([])
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
   }
+
+  useEffect(() => {
+    dashboardAPI.getDashboardBanner().then(
+      response => {
+        if (response !== null && response !== undefined) {
+          setHeroList(response.featured_nfts)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
 
   return (
     <section id="main-section" className={styles.container}>
@@ -98,26 +112,28 @@ const MainSection = () => {
           }}
         >
           <div className="relative max-w-[550px] w-full">
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={30}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Autoplay, Pagination]}
-              className="heroSwiper"
-              loop
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-            >
-              {HeroList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <HeroCard data={item} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            {heroList.length !== 0 && (
+              <Swiper
+                slidesPerView={1}
+                spaceBetween={30}
+                pagination={{
+                  clickable: true,
+                }}
+                modules={[Autoplay, Pagination]}
+                className="heroSwiper"
+                loop
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+              >
+                {heroList.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <HeroCard data={item} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
             {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
               <div className={styles.contentArea}>
                 <div className="flex justify-center">
