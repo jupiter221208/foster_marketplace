@@ -52,28 +52,16 @@ const MainSection = () => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
-          <div className={styles.whiteTitle}>The Art of Blockchain</div>
-          <div className={styles.heroTextContainer}>
-            <div className={styles.greenTitle}>Foster the Flav</div>
-            <div className={styles.heroGreen}>
-              <Image
-                src={HeroGreenIcon}
-                width={
-                  viewport === 'xs' ? 19 : viewport === 'sm' ? 22 : viewport === 'md' ? 26 : viewport === 'lg' ? 32 : 42
-                }
-                height={
-                  viewport === 'xs' ? 19 : viewport === 'sm' ? 26 : viewport === 'md' ? 30 : viewport === 'lg' ? 36 : 48
-                }
-                alt=""
-              />
-            </div>
-            <div className={styles.greenTitle}>r.</div>
+          <p className="w-full flex justify-start">
+            <span className={styles.whiteTitle}>THE&nbsp;</span>
+            <span className={styles.greenTitle}>HOUSE OF ART,&nbsp;</span>
+            <span className={styles.whiteTitle}>SOLANA DESERVES</span>
+          </p>
+          <div className={styles.text}>
+            Created for Artists. Curated by You.
+            <br />
+            Foster The Flavor.
           </div>
-          {viewport === 'xs' || viewport === 'sm' ? (
-            <div className={styles.text}>A Circus of Digital Creators and Curators on Solana - See Everything.</div>
-          ) : (
-            <div className={styles.text}>A Circus of Digital Creators and Curators on Solana - See Everything.</div>
-          )}
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
@@ -137,13 +125,8 @@ const MainSection = () => {
                   <div className={styles.cardGreenTitle}>HOUSE OF ART</div>
                   <div className={styles.cardTitle}>, SOLANA DESERVES</div>
                 </div>
-                <div className="flex justify-center">
-                  <div className={styles.cardText}>Created for&nbsp;</div>
-                  <div className={styles.cardGreenText}>Artist</div>
-                  <div className={styles.cardText}>. Curated by&nbsp;</div>
-                  <div className={styles.cardGreenText}>You.</div>
-                </div>
-                <div className={styles.cardBottomText}>Foster the Flavor.</div>
+                <div className={styles.cardText}>CREATED FOR ARTIST. CURATED BY YOU.</div>
+                <div className={styles.cardText}>FOSTER THE FLAVOR.</div>
               </div>
             ) : (
               <></>
