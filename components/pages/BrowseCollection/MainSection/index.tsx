@@ -40,14 +40,14 @@ const MainSection = ({ collection }) => {
   const items = useMemo(() => nfts?.length || 0, nfts)
 
   const owners = useMemo(() => {
-    let owners = []
+    let owners = {}
     if (nfts)
       nfts.forEach(nft => {
         if (owners[nft.owner] === undefined) {
-          owners.push(nft.owner)
+          owners[nft.owner] = nft.owner
         }
       })
-    return owners.length
+    return Object.keys(owners).length
   }, nfts)
 
   const floorPrice = useMemo(() => {
