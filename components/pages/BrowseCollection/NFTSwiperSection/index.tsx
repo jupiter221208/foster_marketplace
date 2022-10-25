@@ -76,9 +76,9 @@ const NFTSwiperSection = ({ nfts }) => {
                       <NFTCard
                         image={nftItem.offchainMetadata.image}
                         nftName={nftItem.offchainMetadata.name}
-                        artistName={'nftItem.creators[0].address'}
-                        price={10}
-                        onClick={() => router.push(`/browse-nft?id=${item.id}`)}
+                        artistName={nftItem.creators[0].address.toString()}
+                        price={nftItem.price}
+                        onClick={() => router.push(`/browse-nft?id=${nftItem.mintAddress.toString()}`)}
                         key={nftIndex}
                       />
                     ))}
@@ -93,9 +93,9 @@ const NFTSwiperSection = ({ nfts }) => {
                   <NFTCard
                     image={item.offchainMetadata.image}
                     nftName={item.offchainMetadata.name}
-                    artistName={'nftItem.creators[0].address'}
-                    price={10}
-                    onClick={() => router.push(`/browse-nft?id=${item.id}`)}
+                    artistName={item.creators[0].address.toString()}
+                    price={item.price}
+                    onClick={() => router.push(`/browse-nft?id=${item.mintAddress.toString()}`)}
                     key={index}
                   />
                 </div>
