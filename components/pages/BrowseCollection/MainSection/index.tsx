@@ -83,9 +83,12 @@ const MainSection = ({ collection }) => {
           <div className="col-span-3" />
           <div className="col-span-6">
             <BrowseArtistCard image={json?.image} collectionName={json?.name} artistName={creators} />
-            <div className="col-span-12">
-              <LoadingModal open={isLoading} />
-            </div>
+            {isLoading && (
+              <div className="col-span-12 py-10">
+                <LoadingModal open={isLoading} />
+              </div>
+            )}
+
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>
                 <SocialButton
