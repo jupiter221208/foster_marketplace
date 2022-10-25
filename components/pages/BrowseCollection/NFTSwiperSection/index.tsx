@@ -26,7 +26,6 @@ import styles from './index.module.scss'
 import { getPriceValue } from 'utils/strings'
 
 const NFTSwiperSection = ({ nfts }) => {
-  console.log('nfts==================', nfts)
   const viewport = useViewport()
   const router = useRouter()
 
@@ -44,7 +43,6 @@ const NFTSwiperSection = ({ nfts }) => {
         }
       })
       if (tempItem.length > 0) newList.push(tempItem)
-      console.log('nfeList', newList)
       setNFTList(newList)
     }
   }, [nfts])
