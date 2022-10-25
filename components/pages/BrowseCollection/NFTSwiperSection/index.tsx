@@ -89,14 +89,13 @@ const NFTSwiperSection = ({ nfts }) => {
           ) : (
             <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
               {nfts.map((item, index) => (
-                <div className="col-span-6 lg:col-span-3">
+                <div className="col-span-6 lg:col-span-3" key={index}>
                   <NFTCard
                     image={item.offchainMetadata.image}
                     nftName={item.offchainMetadata.name}
                     artistName={item.creators[0].address.toString()}
                     price={item.price}
                     onClick={() => router.push(`/browse-nft?id=${item.mintAddress.toString()}`)}
-                    key={index}
                   />
                 </div>
               ))}
