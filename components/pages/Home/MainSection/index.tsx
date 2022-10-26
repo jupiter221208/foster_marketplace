@@ -67,9 +67,9 @@ const MainSection = () => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
           <p className="w-full flex justify-start">
-            <span className={styles.whiteTitle}>THE&nbsp;</span>
-            <span className={styles.greenTitle}>HOUSE OF ART,&nbsp;</span>
-            <span className={styles.whiteTitle}>SOLANA DESERVES</span>
+            <span className={styles.whiteTitle}>The&nbsp;</span>
+            <span className={styles.greenTitle}>House of Art,&nbsp;</span>
+            <span className={styles.whiteTitle}>Solana Deserves</span>
           </p>
           <div className={styles.text}>
             Created for Artists. Curated by You.
