@@ -13,8 +13,8 @@ class Listings {
       return response.data
     })
   }
-  makeOffer(token_id) {
-    return client.post(API_URL + 'v1/nfts/offer/' + token_id).then(response => {
+  makeOffer(token_id, amount) {
+    return client.post(API_URL + 'v1/nfts/offer/' + token_id, amount).then(response => {
       return response.data
     })
   }

@@ -77,6 +77,9 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getPriceValue, getShortAddress } from 'utils/strings'
 import { useWallet } from '@solana/wallet-adapter-react'
 
+// call apis
+import listingsApi from 'apis/listings'
+
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
@@ -252,6 +255,10 @@ const MainSection = () => {
     setOpenProgressingModal(true)
     const result = await offerNFT(mx, mintAddress, price)
     if (result) {
+      listingsApi.makeOffer(mintAddress, { amount: price }).then(response => console.log(response)),
+        error => {
+          console.log(error)
+        }
       setOpenProgressingModal(false)
       setOpenOfferModal(false)
     }
