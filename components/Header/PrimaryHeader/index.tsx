@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import { useWallet } from '@solana/wallet-adapter-react'
-
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useWallet } from '@solana/wallet-adapter-react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
@@ -41,6 +40,7 @@ import authAPI from 'apis/auth'
 const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
@@ -80,19 +80,29 @@ const PrimaryHeader = () => {
   }
 
   const { connected, publicKey } = useWallet()
-  const connectWalletStatus = useSelector(state => (state as any).connectWalletStatus)
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const openConnectWallet = useSelector(state => (state as any).openConnectWallet)
   const profileInfo = useSelector(state => (state as any).profileInfo)
+
+  // update profile menu list
+  const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
+  useEffect(() => {
+    if (publicKey !== null) {
+      let array = [...profileMenuList]
+      array.forEach(item => {
+        if (item.label === 'Profile' && item.path === '/artist-profile?id=') {
+          item.path += publicKey.toString()
+        }
+      })
+      setProfileMenuList(array)
+    }
+  }, [publicKey])
 
   useEffect(() => {
     if (profileInfo && profileInfo.profile_picture) {
       setProfileImage(profileInfo.profile_picture)
     }
   }, [profileInfo])
-
-  const dispatch = useDispatch()
 
   const handleExploreMenu = item => {
     dispatch({ type: 'set', exploreTab: item.id })
@@ -105,19 +115,6 @@ const PrimaryHeader = () => {
 
   const handleOpenMobileMenu = () => {
     dispatch({ type: 'set', openMobileMenu: !openMobileMenu })
-  }
-
-  const handleOpenConnectWallet = () => {
-    switch (connectWalletStatus) {
-      case true:
-        dispatch({ type: 'set', connectWalletStatus: !connected })
-        break
-      case false:
-        dispatch({ type: 'set', openConnectWallet: !openConnectWallet })
-        break
-      default:
-        break
-    }
   }
 
   const handleGotoHomepage = () => {
@@ -192,7 +189,7 @@ const PrimaryHeader = () => {
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
             <ProfileMenu
               avatar={profileImage.length > 0 ? profileImage : AvatarImage}
-              menuList={ProfileMenuList}
+              menuList={profileMenuList}
               onSelect={item => router.push(item.path)}
               connectWalletStatus={connected}
             />

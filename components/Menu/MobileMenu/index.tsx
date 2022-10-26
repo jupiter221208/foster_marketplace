@@ -48,6 +48,20 @@ const MobileMenu = () => {
   const [profileImage, setProfileImage] = useState('')
   const [profileName, setProfileName] = useState('')
 
+  // update profile menu list
+  const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
+  useEffect(() => {
+    if (publicKey !== null) {
+      let array = [...profileMenuList]
+      array.forEach(item => {
+        if (item.label === 'Profile' && item.path === '/artist-profile?id=') {
+          item.path += publicKey.toString()
+        }
+      })
+      setProfileMenuList(array)
+    }
+  }, [publicKey])
+
   useEffect(() => {
     if (!buttonClicked) {
       return
@@ -116,7 +130,7 @@ const MobileMenu = () => {
                 icon={profileImage.length > 0 ? profileImage : AvatarIcon}
                 label={profileName.length > 0 ? profileName : 'Anonymous'}
                 type="avatar"
-                data={ProfileMenuList}
+                data={profileMenuList}
               />
             </div>
             <div className="my-[10px]">

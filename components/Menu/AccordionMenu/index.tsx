@@ -22,11 +22,7 @@ const AccordionMenu = props => {
 
   const handleClick = item => {
     dispatch({ type: 'set', openMobileMenu: false })
-    if (item.label === 'Profile') {
-      router.push(item.path + publicKey.toString())
-    } else {
-      router.push(item.path)
-    }
+    router.push(item.path)
   }
 
   const handleSoloMenuItemClick = () => {
