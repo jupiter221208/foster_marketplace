@@ -19,9 +19,16 @@ const MyNFTCard = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]" onClick={() => onClick(data)}>
+      <div
+        className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]"
+        onClick={() => onClick(data)}
+      >
         <img
-          src={data.offchainMetadata.image === undefined || data.offchainMetadata.image === null ? AudioPlayerBackground.src : data.offchainMetadata.image}
+          src={
+            data.offchainMetadata.image === undefined || data.offchainMetadata.image === null
+              ? AudioPlayerBackground.src
+              : data.offchainMetadata.image
+          }
           alt={data.offchainMetadata.name || data.name}
           className="w-full aspect-[321/321] object-cover"
         />

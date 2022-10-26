@@ -20,6 +20,9 @@ import GradientButton from 'components/Button/GradientButton'
 import { listNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 
+// call apis
+import listingsApi from 'apis/listings'
+
 const ListNFTModal = props => {
   const { data, open, onClose } = props
 
@@ -30,11 +33,19 @@ const ListNFTModal = props => {
   const [price, setPrice] = useState(0)
   const [listStatus, setListStatus] = useState(false)
 
-  const { metaplex: mx } = useMetaplex();
+  const { metaplex: mx } = useMetaplex()
 
   const handleListNFTClick = async () => {
-    const result = await listNFT(mx, data.mintAddress, price);
-    if(result) setListStatus(true);
+    const result: any = await listNFT(mx, data.mintAddress, price)
+    if (result) {
+      listingsApi.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
+        console.log(response)
+      }),
+        error => {
+          console.log(error)
+        }
+      setListStatus(true)
+    }
   }
 
   return (
@@ -74,7 +85,7 @@ const ListNFTModal = props => {
                       <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name || data?.name} />
                     </div>
                   </div>
-                  <div className={`${styles.nftName} mt-5`}>{data?.offchainMetadata.name || data?.name}</div>
+                  <div className={`${styles.nftName} mt-5 w-full`}>{data?.offchainMetadata.name || data?.name}</div>
                   <div className="w-full mt-12">
                     <PriceInput
                       value={price}

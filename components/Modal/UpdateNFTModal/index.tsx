@@ -62,7 +62,7 @@ const UpdateNFTModal = props => {
                     <img src={data?.asset.json.image} alt={data?.asset.json.name} />
                   </div>
                 </div>
-                <div className={`${styles.nftName} mt-5`}>{data?.asset.json.name}</div>
+                <div className={`${styles.nftName} mt-5 w-full`}>{data?.asset.json.name}</div>
                 <div className="w-full mt-12">
                   <PriceInput
                     value={price}
@@ -72,7 +72,11 @@ const UpdateNFTModal = props => {
                   />
                 </div>
                 <div className="w-full mt-[30px]">
-                  <GradientButton label="Update Price" fullWidth onClick={() => onUpdatePrice(data?.asset.mint.address, data?.tradeStateAddress, price)} />
+                  <GradientButton
+                    label="Update Price"
+                    fullWidth
+                    onClick={() => onUpdatePrice(data?.asset.mint.address, data?.tradeStateAddress, price)}
+                  />
                 </div>
                 <div className="w-full mt-[30px]">
                   <Button

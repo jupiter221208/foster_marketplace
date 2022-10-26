@@ -83,16 +83,17 @@ const MyNFTSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
-        {!isLoading && nftList.map((item, index) => (
-          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-            <MyNFTCard
-              data={item}
-              onClick={(data: any) => handleGotoDetailPage(data)}
-              onClickStartAuction={item => handleStartAuction(item)}
-              onClickListNFT={item => handleListNFT(item)}
-            />
-          </div>
-        ))}
+        {!isLoading &&
+          nftList.map((item, index) => (
+            <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+              <MyNFTCard
+                data={item}
+                onClick={(data: any) => handleGotoDetailPage(data)}
+                onClickStartAuction={item => handleStartAuction(item)}
+                onClickListNFT={item => handleListNFT(item)}
+              />
+            </div>
+          ))}
         <div className="col-span-12">
           <LoadingModal open={isLoading} />
         </div>

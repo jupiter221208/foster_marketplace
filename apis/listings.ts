@@ -3,8 +3,8 @@ import client from './client'
 const API_URL = process.env.BACKEND_URL
 
 class Listings {
-  listNft(token_id) {
-    return client.post(API_URL + 'v1/nfts/list/' + token_id).then(response => {
+  listNft(token_id, amount) {
+    return client.post(API_URL + 'v1/nfts/list/' + token_id, amount).then(response => {
       return response.data
     })
   }
