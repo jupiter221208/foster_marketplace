@@ -85,8 +85,6 @@ const MainSection = () => {
           console.log(error)
         }
       )
-    } else {
-      router.push('/')
     }
   }, [router.query])
 
@@ -104,7 +102,7 @@ const MainSection = () => {
               : HeaderImage.src
           }
           alt=""
-          className="rounded-[20px]"
+          className="w-full rounded-[20px]"
         />
       </div>
       <div className="w-full">
