@@ -256,7 +256,6 @@ const MainSection = () => {
     const result = await offerNFT(mx, mintAddress, price)
     if (result) {
       listingsApi.makeOffer(mintAddress, { amount: price }).then(response => {
-        console.log(response)
         setAlertData([
           {
             id: 0,
