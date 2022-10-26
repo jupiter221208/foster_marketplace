@@ -104,7 +104,7 @@ const ListNFTModal = props => {
                   <div className={styles.close} onClick={() => onClose('unlisted')}>
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
-                  <div className="w-full">
+                  <div className="w-full mt-[20px]">
                     <div className={styles.image}>
                       <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name || data?.name} />
                     </div>
@@ -114,7 +114,7 @@ const ListNFTModal = props => {
                   </div>
                   <div className="w-full mt-[30px]">
                     <GradientButton
-                      label="Go to Listed NFTs"
+                      label="View Listing"
                       fullWidth
                       onClick={() => {
                         setListStatus(false)
