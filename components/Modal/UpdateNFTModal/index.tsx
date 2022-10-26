@@ -82,7 +82,7 @@ const UpdateNFTModal = props => {
                   <Button
                     label="Cancel Listing"
                     fullWidth
-                    onClick={() => onCancelList(data?.tradeStateAddress)}
+                    onClick={() => onCancelList(data?.asset.mint.address, data?.tradeStateAddress)}
                     backgroundColor="#202427"
                     color="#EFF0F6"
                   />

@@ -19,6 +19,9 @@ import { getMyListedNFTs, cancelList, updateList } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch, useSelector } from 'react-redux'
 
+// call api
+import listingsApi from 'apis/listings'
+
 const ListedNFTSection = () => {
   const viewport = useViewport()
 
@@ -52,10 +55,14 @@ const ListedNFTSection = () => {
     if (mx) setMyListedNFTs()
   }, [mx])
 
-  const onCancelList = async tradeStateAddress => {
+  const onCancelList = async (mintAddress, tradeStateAddress) => {
     const result = await cancelList(mx, tradeStateAddress)
     if (result) {
       setShowListNFTModal(false)
+      listingsApi.unlistNft(mintAddress).then(response => console.log(response)),
+        error => {
+          console.log(error)
+        }
       setMyListedNFTs()
     }
   }
@@ -75,15 +82,16 @@ const ListedNFTSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
-        {!isLoading && nftList.map((item, index) => (
-          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-            <ListedNFTCard
-              data={item}
-              onClick={(data: any) => handleGotoDetailPage(data)}
-              onUpdateClick={item => handleSelectData(item)}
-            />
-          </div>
-        ))}
+        {!isLoading &&
+          nftList.map((item, index) => (
+            <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+              <ListedNFTCard
+                data={item}
+                onClick={(data: any) => handleGotoDetailPage(data)}
+                onUpdateClick={item => handleSelectData(item)}
+              />
+            </div>
+          ))}
         <div className="col-span-12">
           <LoadingModal open={isLoading} />
         </div>
@@ -95,7 +103,7 @@ const ListedNFTSection = () => {
         data={selectedData}
         open={showListNFTModal}
         onClose={() => setShowListNFTModal(false)}
-        onCancelList={tradeStateAddress => onCancelList(tradeStateAddress)}
+        onCancelList={(mintAddress, tradeStateAddress) => onCancelList(mintAddress, tradeStateAddress)}
         onUpdatePrice={(nftAddress, tradeStateAddress, price) => onUpdatePrice(nftAddress, tradeStateAddress, price)}
       />
     </section>
