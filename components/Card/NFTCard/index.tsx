@@ -28,7 +28,7 @@ const DashboardNFTCard = props => {
           <div className={styles.nftName}>{nftName}</div>
         </div>
         <div className="w-full flex justify-between items-center mt-[2px]">
-          <div className={styles.artistName}>{getShortAddress(artistName)}</div>
+          <div className={styles.artistName}>{artistName !== undefined && getShortAddress(artistName)}</div>
           {price && (
             <div className="flex justify-center items-center">
               <Image

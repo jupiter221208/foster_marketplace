@@ -15,6 +15,12 @@ class Dashboard {
     })
   }
 
+  getMarketplaceReleases() {
+    return client.get(API_URL + 'v1/dashboard/marketplace-releases').then(response => {
+      return response.data
+    })
+  }
+
   getNftPublic() {
     return client.get(API_URL + 'v1/nfts/public').then(response => {
       return response.data

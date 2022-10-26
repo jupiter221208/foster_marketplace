@@ -31,6 +31,9 @@ import MarketplaceReleaseList from 'assets/json/marketplace-release.json'
 // styles
 import styles from './index.module.scss'
 
+// call apis
+import dashboardApis from 'apis/dashboard'
+
 const MarketplaceReleaseSection = () => {
   const viewport = useViewport()
   const router = useRouter()
@@ -42,6 +45,17 @@ const MarketplaceReleaseSection = () => {
 
   useEffect(() => {
     setMarketplaceReleaseList(MarketplaceReleaseList)
+  }, [])
+
+  useEffect(() => {
+    dashboardApis.getMarketplaceReleases().then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        setMarketplaceReleaseList(response)
+      }
+    }),
+      error => {
+        console.log(error)
+      }
   }, [])
 
   const handleChangeActive = value => {
@@ -62,6 +76,7 @@ const MarketplaceReleaseSection = () => {
         break
     }
   }
+
   return (
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
@@ -120,11 +135,11 @@ const MarketplaceReleaseSection = () => {
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 <NFTCard
-                  image={item.image}
-                  nftName={item.nftName}
-                  artistName={item.artistName}
-                  price={item.price}
-                  onClick={() => router.push(`/browse-nft?id=${item.id}`)}
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  artistName={item.artist_username}
+                  // price={item.price}
+                  onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
                 />
               </div>
             </SwiperSlide>
