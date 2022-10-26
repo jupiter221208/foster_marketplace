@@ -23,7 +23,8 @@ import styles from './index.module.scss'
 import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 
-const MyNFTSection = () => {
+const MyNFTSection = props => {
+  const { changeActiveTab } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -111,9 +112,10 @@ const MyNFTSection = () => {
       <ListNFTModal
         data={selectedData}
         open={showListNFTModal}
-        onClose={() => {
+        onClose={(status: string) => {
           setShowListNFTModal(false)
           loadMyNFTs()
+          if (status === 'listed') changeActiveTab(1)
         }}
       />
     </section>

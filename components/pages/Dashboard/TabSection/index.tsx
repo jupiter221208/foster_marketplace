@@ -49,7 +49,7 @@ const TabSection = () => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <MyNFTSection />
+          <MyNFTSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
         </div>
       )}
       {activeTab === 1 && (

@@ -26,10 +26,6 @@ import listingsApi from 'apis/listings'
 const ListNFTModal = props => {
   const { data, open, onClose } = props
 
-  const closeModal = () => {
-    onClose()
-  }
-
   const [price, setPrice] = useState(0)
   const [listStatus, setListStatus] = useState(false)
 
@@ -50,7 +46,7 @@ const ListNFTModal = props => {
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={closeModal}>
+      <Dialog as="div" className={styles.container} onClose={() => onClose('unlisted')}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -76,7 +72,7 @@ const ListNFTModal = props => {
             >
               {!listStatus ? (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className={styles.close} onClick={closeModal}>
+                  <div className={styles.close} onClick={() => onClose('unlisted')}>
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className={styles.title}>List NFT</div>
@@ -105,7 +101,7 @@ const ListNFTModal = props => {
                 </Dialog.Panel>
               ) : (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className={styles.close} onClick={closeModal}>
+                  <div className={styles.close} onClick={() => onClose('unlisted')}>
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className="w-full">
@@ -121,8 +117,8 @@ const ListNFTModal = props => {
                       label="Go to Listed NFTs"
                       fullWidth
                       onClick={() => {
-                        closeModal()
                         setListStatus(false)
+                        onClose('listed')
                       }}
                     />
                   </div>
