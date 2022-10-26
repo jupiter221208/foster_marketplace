@@ -102,7 +102,9 @@ const MainSection = () => {
               : HeaderImage.src
           }
           alt=""
-          className="w-full rounded-[20px]"
+          width={1620}
+          height={460}
+          className="rounded-[20px]"
         />
       </div>
       <div className="w-full">
