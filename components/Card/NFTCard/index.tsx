@@ -27,9 +27,9 @@ const DashboardNFTCard = props => {
         <div className="w-full flex items-center">
           <div className={styles.nftName}>{nftName}</div>
         </div>
-        <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center mt-[2px]">
           <div className={styles.artistName}>{getShortAddress(artistName)}</div>
-          {price &&
+          {price && (
             <div className="flex justify-center items-center">
               <Image
                 src={SolanaLogoIcon}
@@ -39,7 +39,7 @@ const DashboardNFTCard = props => {
               />
               <div className={styles.price}>{price}</div>
             </div>
-          }
+          )}
         </div>
       </div>
     </div>

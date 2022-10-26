@@ -137,11 +137,11 @@ const MainSection = () => {
             {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
               <div className={styles.contentArea}>
                 <div className="flex justify-center">
-                  <div className={styles.cardTitle}>THE&nbsp;</div>
-                  <div className={styles.cardGreenTitle}>HOUSE OF ART</div>
-                  <div className={styles.cardTitle}>, SOLANA DESERVES</div>
+                  <div className={styles.cardTitle}>The&nbsp;</div>
+                  <div className={styles.cardGreenTitle}>House of Art</div>
+                  <div className={styles.cardTitle}>, Solana Deserves</div>
                 </div>
-                <div className={styles.cardText}>CREATED FOR ARTIST. CURATED BY YOU.</div>
+                <div className={styles.cardText}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
                 <div className={styles.cardText}>FOSTER THE FLAVOR.</div>
               </div>
             ) : (
