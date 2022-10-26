@@ -92,7 +92,7 @@
   }
   @media (min-width: 1536px) {
     border-radius: 20px;
-    padding: 16px 20px;
+    padding: 16px 30px;
   }
 
   display: flex;
@@ -101,38 +101,32 @@
 }
 
 .title {
-  margin-left: 3px;
   font-family: 'Muli-Bold';
   font-size: 8px;
   line-height: 12px;
   margin-right: 1px;
   @media (min-width: 640px) {
-    margin-left: 5px;
     font-size: 10px;
     line-height: 16px;
     margin-right: 1px;
   }
   @media (min-width: 768px) {
-    margin-left: 6px;
     font-size: 12px;
     line-height: 18px;
     margin-right: 1px;
   }
   @media (min-width: 1024px) {
-    margin-left: 7px;
     font-size: 14px;
     line-height: 20px;
     margin-right: 1px;
   }
   @media (min-width: 1280px) {
-    margin-left: 8px;
     font-size: 15px;
     line-height: 22px;
     margin-right: 3px;
   }
   @media (min-width: 1536px) {
-    margin-left: 10px;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px;
   }
 
@@ -141,33 +135,27 @@
 }
 
 .text {
-  margin-left: 3px;
   font-family: 'Muli-Regular';
   font-size: 8px;
   line-height: 12px;
   @media (min-width: 640px) {
-    margin-left: 3px;
     font-size: 10px;
     line-height: 16px;
   }
   @media (min-width: 768px) {
-    margin-left: 4px;
     font-size: 12px;
     line-height: 18px;
   }
   @media (min-width: 1024px) {
-    margin-left: 4px;
     font-size: 14px;
     line-height: 20px;
   }
   @media (min-width: 1280px) {
-    margin-left: 4px;
     font-size: 15px;
     line-height: 22px;
   }
   @media (min-width: 1536px) {
-    margin-left: 4px;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 24px;
   }
 

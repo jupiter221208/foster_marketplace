@@ -48,33 +48,17 @@ const EcosystemCard = props => {
       </div>
       <div className={styles.contentCard}>
         <div className="w-full flex flex-wrap justify-between">
-          <div className="block">
-            <div className="flex">
-              <div className={styles.title}>Collections :</div>
+          <div>
+            <div className="flex justify-center">
               <div className={styles.text}>{data.collections}</div>
             </div>
-            <div className="flex">
-              <div className={styles.title}>Collectors :</div>
-              <div className={styles.text}>{data.collectors}</div>
-            </div>
+            <div className={styles.title}>Collections</div>
           </div>
-          <div className="block">
-            <div className="flex">
-              <div className={styles.title}>NFTs :</div>
+          <div>
+            <div className="flex justify-center">
               <div className={styles.text}>{data.nfts}</div>
             </div>
-            <div className="flex">
-              <div className={styles.title}>Floor :</div>
-              <div className="flex items-center">
-                <Image
-                  src={SolanaLogoIcon}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : 18}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : 18}
-                />
-                <div className={styles.text}>{data.floor}</div>
-              </div>
-            </div>
+            <div className={styles.title}>Artworks</div>
           </div>
         </div>
       </div>
