@@ -336,28 +336,28 @@ const SingleNft = () => {
             const coverArrayBuffer = coverReader.result as ArrayBuffer
             metadata.image = toMetaplexFile(coverArrayBuffer, 'metaplex.png')
             if (nftType === 'video') {
-              const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
-
-              metadata.animation_url = customURL
+              const file = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
+              const fileURL = await mx.storage().upload(file)
+              metadata.animation_url = fileURL
               metadata.category = 'video'
               metadata.properties = {
                 files: [
                   {
                     type: 'video/mp4',
-                    url: customURL,
+                    url: fileURL,
                   },
                 ],
               }
             } else if (nftType === 'audio') {
-              const customURL = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
-
-              metadata.external_url = customURL
+              const file = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
+              const fileURL = await mx.storage().upload(file)
+              metadata.animation_url = fileURL
               metadata.category = 'audio'
               metadata.properties = {
                 files: [
                   {
                     type: 'audio/mp3',
-                    url: customURL,
+                    url: fileURL,
                   },
                 ],
               }
