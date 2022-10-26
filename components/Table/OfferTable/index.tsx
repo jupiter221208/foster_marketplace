@@ -54,14 +54,8 @@ const OfferTable = props => {
                 <div className="flex justify-center">{getShortAddress(item.asset.mint.address.toString())}</div>
               </div>
             </td>
-            {item.isOutgoing ? 
-              <td className="text-center">Outgoing</td> : 
-              <td className="text-center">Incoming</td>
-            }
-            {item.isListed ? 
-              <td className="text-center">Listed</td> :
-              <td className="text-center">Unlisted</td>
-            }
+            {item.isOutgoing ? <td className="text-center">Outgoing</td> : <td className="text-center">Incoming</td>}
+            {item.isListed ? <td className="text-center">Listed</td> : <td className="text-center">Unlisted</td>}
             <td className="text-center">{timeSince(item.createdAt.toNumber())}</td>
             <td className="text-center">
               <div className="flex justify-center gap-[5px]">
@@ -69,25 +63,34 @@ const OfferTable = props => {
                 {getPriceValue(item.price.basisPoints.toNumber())}
               </div>
             </td>
-            {item.isOutgoing ? 
-              <td className="text-center">{getShortAddress(item.owner)}</td> : 
+            {item.isOutgoing ? (
+              <td className="text-center">{getShortAddress(item.owner)}</td>
+            ) : (
               <td className="text-center">{getShortAddress(item.buyer)}</td>
-            }
+            )}
             <td className="">
               <div className="w-full flex justify-center">
-                {item.isOutgoing ?
+                {item.isOutgoing ? (
                   <OutlineButton
                     label="Cancel"
                     onClick={() => onCancel(item.tradeStateAddress)}
                     color="#DEEFD0"
                     borderColor="#DEEFD0"
                     height="48px"
-                  /> : 
-                  <GradientButton 
-                    label="Accept" 
-                    onClick={() => onAccept(item.tradeStateAddress, item.listingTradeStateAddress)} height="48px" 
                   />
-                }
+                ) : (
+                  <GradientButton
+                    label="Accept"
+                    onClick={() =>
+                      onAccept(
+                        item.asset.mint.address.toString(),
+                        item.tradeStateAddress,
+                        item.listingTradeStateAddress
+                      )
+                    }
+                    height="48px"
+                  />
+                )}
               </div>
             </td>
           </tr>

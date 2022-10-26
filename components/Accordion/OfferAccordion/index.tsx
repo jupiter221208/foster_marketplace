@@ -64,24 +64,27 @@ const OfferAccordion = props => {
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  {item.isIncoming && 
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Offer</div>
-                    {item.isOutgoing ? 
-                      <div className={styles.text}>Outgoing</div> : 
-                      <div className={styles.text}>Incoming</div>
-                    }
-                  </div>}
+                  {item.isIncoming && (
+                    <div className={styles.firstRow}>
+                      <div className={styles.title}>Offer</div>
+                      {item.isOutgoing ? (
+                        <div className={styles.text}>Outgoing</div>
+                      ) : (
+                        <div className={styles.text}>Incoming</div>
+                      )}
+                    </div>
+                  )}
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Listing</div>
-                    {item.isListed ? 
-                      <div className={styles.text}>Listed</div> :
+                    {item.isListed ? (
+                      <div className={styles.text}>Listed</div>
+                    ) : (
                       <div className={styles.text}>Unlisted</div>
-                    }
+                    )}
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Time</div>
-                    <div className={styles.text}>{timeSince(item.createdAt.toNumber())}</div>                  
+                    <div className={styles.text}>{timeSince(item.createdAt.toNumber())}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
@@ -89,10 +92,11 @@ const OfferAccordion = props => {
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Member</div>
-                    {item.isOutgoing ? 
-                      <div className={styles.text}>{getShortAddress(item.owner)}</div> : 
+                    {item.isOutgoing ? (
+                      <div className={styles.text}>{getShortAddress(item.owner)}</div>
+                    ) : (
                       <div className={styles.text}>{getShortAddress(item.buyer)}</div>
-                    }
+                    )}
                   </div>
                 </Disclosure.Panel>
               </>
@@ -111,7 +115,11 @@ const OfferAccordion = props => {
             ) : (
               <GradientButton
                 label="Accept"
-                onClick={onAccept(item.tradeStateAddress, item.listingTradeStateAddress)}
+                onClick={onAccept(
+                  item.asset.mint.address.toString(),
+                  item.tradeStateAddress,
+                  item.listingTradeStateAddress
+                )}
                 width="80px"
                 height="42px"
               />

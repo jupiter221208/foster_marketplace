@@ -28,6 +28,11 @@ class Listings {
       return response.data
     })
   }
+  acceptOffer(token_id) {
+    return client.post(API_URL + 'v1/nfts/offer/accept/' + token_id).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Listings()

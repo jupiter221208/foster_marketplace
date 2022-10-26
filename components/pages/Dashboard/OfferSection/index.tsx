@@ -13,12 +13,12 @@ import LoadingModal from 'components/Modal/LoadingModal'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import OfferList from 'assets/json/dashboard/offer-list.json'
-
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyOffers, cancelOffer, acceptOffer } from 'utils/auction.util'
+
+// call apis
+import listingsApi from 'apis/listings'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -77,9 +77,9 @@ const OfferSection = () => {
     dispatch({ type: 'set', isLoading: false })
   }
 
-  const onCancel = async (tradeStateAddress) => {
+  const onCancel = async tradeStateAddress => {
     const result = await cancelOffer(mx, tradeStateAddress)
-    if(result) {
+    if (result) {
       getOffers()
       setAlertData([
         {
@@ -93,9 +93,9 @@ const OfferSection = () => {
     }
   }
 
-  const onAccept = async (tradeStateAddress, listingTradeStateAddress) => {
+  const onAccept = async (mintAddress, tradeStateAddress, listingTradeStateAddress) => {
     const result = await acceptOffer(mx, tradeStateAddress, listingTradeStateAddress)
-    if(result) {
+    if (result) {
       getOffers()
       setAlertData([
         {
@@ -105,37 +105,47 @@ const OfferSection = () => {
           type: 'success',
         },
       ])
+      listingsApi.acceptOffer(mintAddress).then(response => {
+        console.log(response)
+      }),
+        error => {
+          console.log(error)
+        }
       setShowAlert(true)
     }
   }
 
   useEffect(() => {
-    if(mx) getOffers()
+    if (mx) getOffers()
   }, [mx])
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
-
-      {isLoading ? 
+      {isLoading ? (
         <div className="col-span-12">
           <LoadingModal open={isLoading} />
-        </div> : 
+        </div>
+      ) : (
         <div className="w-full mt-[15px] lg:mt-[34px]">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-            <OfferTable 
-              data={showOfferList} 
+            <OfferTable
+              data={showOfferList}
               onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
-              onAccept={(tradeStateAddress, listingTradeStateAddress) => onAccept(tradeStateAddress, listingTradeStateAddress)}
+              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress) =>
+                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress)
+              }
             />
           ) : (
             <OfferAccordion
-              data={showOfferList} 
-              onCancel={tradeStateAddress => onCancel(tradeStateAddress)} 
-              onAccept={(tradeStateAddress, listingTradeStateAddress) => onAccept(tradeStateAddress, listingTradeStateAddress)}
+              data={showOfferList}
+              onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
+              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress) =>
+                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress)
+              }
             />
           )}
         </div>
-      }
+      )}
       <div className="w-full flex justify-end">
         <Pagination data={offerList} getCurrentData={data => setShowOfferList(data)} />
       </div>
