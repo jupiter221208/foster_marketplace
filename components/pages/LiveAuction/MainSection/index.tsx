@@ -246,7 +246,7 @@ const MainSection = () => {
                         }}
                       >
                         <div className="w-full flex flex-wrap flex-column space-between">
-                          <div className={styles.whiteDiscription}>
+                          <div className={styles.whiteDescription}>
                             Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem
                             lacus, ornare non ante sed.
                           </div>

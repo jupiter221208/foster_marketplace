@@ -189,7 +189,7 @@ const MainSection = () => {
       const solBalance = await mx.connection.getBalance(mx.identity().publicKey)
       setMainWalletBalance(Number(getPriceValue(solBalance)))
     }
-    if(mx && connected) getSolBalance()
+    if (mx && connected) getSolBalance()
   }, [mx, connected])
 
   const setListedNFT = async (mx, id) => {
@@ -248,7 +248,7 @@ const MainSection = () => {
     }
   }
 
-  const makeOffer = async (price) => {
+  const makeOffer = async price => {
     setOpenProgressingModal(true)
     const result = await offerNFT(mx, mintAddress, price)
     if (result) {
@@ -445,39 +445,46 @@ const MainSection = () => {
             </div>
 
             <div className="w-full flex flex-wrap">
-              {nftPrice > 0 && <>
-                <div className="w-full flex items-center mt-[77px] lg:mt-4">
-                  <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                  <div className="w-[24px] h-[24px]">
-                    <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
+              {nftPrice > 0 && (
+                <>
+                  <div className="w-full flex items-center mt-[77px] lg:mt-4">
+                    <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
+                    <div className="w-[24px] h-[24px]">
+                      <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
+                    </div>
+                    <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
-                  <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
-                </div>
-                <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                  <GradientButton label="Quick Buy" onClick={() => quickBuy()} icon={QuickBuyBlackIcon} direction="rtl" />
-                  <OutlineButton
-                    label="Make Offer"
-                    onClick={() => setOpenOfferModal(true)}
-                    icon={TagWhiteIcon}
-                    direction="rtl"
-                    borderWidth={2}
-                    paddingLeft="13px"
-                    paddingRight="13px"
-                    gap="4px"
-                  />
-                </div>
-                <div className="w-full flex content-none mt-[14px]">
-                  <p className={styles.whiteDiscription}>
-                    By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                    <span
-                      className={styles.greenDiscription}
-                      onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
-                    >
-                      Terms of Service
-                    </span>
-                  </p>
-                </div>
-              </>}
+                  <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+                    <GradientButton
+                      label="Quick Buy"
+                      onClick={() => quickBuy()}
+                      icon={QuickBuyBlackIcon}
+                      direction="rtl"
+                    />
+                    <OutlineButton
+                      label="Make Offer"
+                      onClick={() => setOpenOfferModal(true)}
+                      icon={TagWhiteIcon}
+                      direction="rtl"
+                      borderWidth={2}
+                      paddingLeft="13px"
+                      paddingRight="13px"
+                      gap="4px"
+                    />
+                  </div>
+                  <div className="w-full flex content-none mt-[14px]">
+                    <p className={styles.whiteDescription}>
+                      By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
+                      <span
+                        className={styles.greenDiscription}
+                        onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
+                      >
+                        Terms of Service
+                      </span>
+                    </p>
+                  </div>
+                </>
+              )}
               <div className="mx-auto w-full mt-4">
                 <Disclosure>
                   {({ open }) => (
@@ -513,7 +520,7 @@ const MainSection = () => {
                         }}
                       >
                         <div className="w-full flex flex-wrap flex-column space-between">
-                          <div className={styles.whiteDiscription}>{nftDescription}</div>
+                          <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-5">
                             <OutlineButton
                               label="Abstract"
@@ -537,7 +544,7 @@ const MainSection = () => {
                               }
                             />
                           </div>
-                          <div className={styles.whiteDiscription}>{nftDescription}</div>
+                          <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-4">
                             {nftCategories.map((item, index) => (
                               <SmallCategoryChip data={item} key={index} />
@@ -744,7 +751,7 @@ const MainSection = () => {
         <MakeAnOfferModal
           open={openOfferModal}
           close={() => setOpenOfferModal(false)}
-          onClick={(price) => makeOffer(price)}
+          onClick={price => makeOffer(price)}
           listingPrice={nftPrice}
           mainWalletBalance={mainWalletBalance}
         />
