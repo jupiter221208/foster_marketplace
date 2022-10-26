@@ -53,6 +53,7 @@ const Collection = () => {
   // step 2
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
+  const [coverImageBuffer, setCoverImageButter] = useState(null)
 
   const mintCollection = async () => {
     let reader = new FileReader()
@@ -62,6 +63,7 @@ const Collection = () => {
     reader.readAsArrayBuffer(fileData)
     reader.onload = async function (event) {
       const arrayBuffer = reader.result as ArrayBuffer
+      setCoverImageButter(arrayBuffer)
 
       const categories = categoryList.filter(item => item.checked)
 
@@ -109,6 +111,7 @@ const Collection = () => {
       let object: any = {}
       object.id = index
       object.file = item
+      object.type = item.type.split('/')[0]
       object.name = ''
       object.description = ''
       object.croppedImage = URL.createObjectURL(item)
@@ -170,7 +173,13 @@ const Collection = () => {
       reader.onload = async function (event) {
         const arrayBuffer = reader.result as ArrayBuffer
         const temp = artworks
-        temp.push({ id: item.id, file: arrayBuffer, name: item.name, description: item.description })
+        temp.push({ 
+          id: item.id, 
+          file: arrayBuffer, 
+          name: item.name, 
+          type: item.type,
+          description: item.description 
+        })
         setArtworks(temp)
         readCount++
         if (readCount === collectionFiles.length) {
@@ -195,14 +204,48 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < artworks.length; i++) {
+        const metadata: JsonMetadata<MetaplexFile> = {
+          name: artworks[i].name,
+          description: artworks[i].description,
+          attributes: attributes,
+        }
+
+        if(artworks[i].type === 'image') {
+          metadata.image = toMetaplexFile(artworks[i].file, 'metaplex.png')
+          metadata.category = 'image'
+        } else if (artworks[i].type === 'video') {
+          metadata.image = toMetaplexFile(coverImageBuffer, 'metaplex.png')
+          const file = toMetaplexFile(artworks[i].file, 'metaplex.mp4', { contentType: 'video/mp4' })
+          const fileURL = await mx.storage().upload(file)
+          metadata.animation_url = fileURL
+          metadata.category = 'video'
+          metadata.properties = {
+            files: [
+              {
+                type: 'video/mp4',
+                url: fileURL,
+              },
+            ],
+          }
+        } else if (artworks[i].type === 'audio') {
+          metadata.image = toMetaplexFile(coverImageBuffer, 'metaplex.png')
+          const file = toMetaplexFile(artworks[i].file, 'metaplex.mp3', { contentType: 'audio/mp3' })
+          const fileURL = await mx.storage().upload(file)
+          metadata.animation_url = fileURL
+          metadata.category = 'audio'
+          metadata.properties = {
+            files: [
+              {
+                type: 'audio/mp3',
+                url: fileURL,
+              },
+            ],
+          }
+        }
+
         const { uri } = await mx
           .nfts()
-          .uploadMetadata({
-            name: artworks[i].name,
-            description: artworks[i].description,
-            attributes: attributes,
-            image: toMetaplexFile(artworks[i].file, 'metaplex.png'),
-          })
+          .uploadMetadata(metadata)
           .run()
 
         const nft = await mx
