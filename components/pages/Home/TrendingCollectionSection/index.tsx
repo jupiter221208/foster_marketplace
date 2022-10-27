@@ -23,55 +23,52 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
-// json
-import TrendingCollectionList from 'assets/json/trending-collection.json'
-
 // styles
 import styles from './index.module.scss'
+
+// call apis
+import dashboardAPI from 'apis/dashboard'
 
 const TrendingCollectionSection = () => {
   const viewport = useViewport()
   const router = useRouter()
 
+  const [allTrendingList, setAllTrendingList] = useState<any[]>([])
   const [trendingList, setTrendingList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
-
-  useEffect(() => {
-    // if (viewport === 'sm' || viewport === 'md') {
-    //   let newList = []
-    //   let tempItem = []
-    //   TrendingCollectionList.map((item, index) => {
-    //     tempItem.push(item)
-    //     if (index % 2 === 1) {
-    //       newList.push(tempItem)
-    //       tempItem = []
-    //     }
-    //   })
-    //   if (tempItem.length > 0) newList.push(tempItem)
-    //   setTrendingCollectionList(newList)
-    // } else {
-    setTrendingList(TrendingCollectionList)
-    // }
-  }, [viewport])
 
   const handleChangeActive = value => {
     setActive(value)
 
     switch (value) {
       case 0:
-        setTrendingList(TrendingCollectionList.slice(0, 3))
+        setTrendingList(allTrendingList.slice(0, 3))
         break
       case 1:
-        setTrendingList(TrendingCollectionList.slice(0, 10))
+        setTrendingList(allTrendingList.slice(0, 10))
         break
       case 2:
-        setTrendingList(TrendingCollectionList.slice(0, 15))
+        setTrendingList(allTrendingList.slice(0, 15))
         break
       default:
-        setTrendingList(TrendingCollectionList)
+        setTrendingList(allTrendingList)
         break
     }
   }
+
+  useEffect(() => {
+    dashboardAPI.getTrendingCollections().then(
+      response => {
+        if (response !== null && response !== undefined) {
+          setAllTrendingList(response)
+          setTrendingList(response)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
 
   return (
     <section className={styles.container}>
@@ -107,32 +104,35 @@ const TrendingCollectionSection = () => {
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' ? 2 : 3}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {trendingList.map((item: any, index) => (
-            <SwiperSlide key={index}>
-              <TrendingCollectionCard
-                image={item.image}
-                nftName={item.nftName}
-                category={item.category}
-                artistName={item.artistName}
-                nfts={item.nfts}
-                avatar={item.avatar}
-                price={item.price}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' ? 2 : 3}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            loop
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
+            {trendingList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <TrendingCollectionCard
+                  collectionID={item.collection_id}
+                  image={item.cover_image}
+                  collectionName={item.collection_name}
+                  artistName={item.artist_username}
+                  nftCount={item.number_in_collections}
+                  avatar={item.artist_profile_picture}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
       <div className="w-full flex lg:hidden justify-center">
         <div className="w-full max-w-[242px] z-10">
