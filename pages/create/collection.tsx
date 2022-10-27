@@ -109,7 +109,8 @@ const Collection = () => {
       object.type = item.type.split('/')[0]
       object.name = ''
       object.description = ''
-      object.croppedImage = URL.createObjectURL(item)
+      if (object.type === 'audio' || object.type === 'video') object.croppedImage = coverCroppedImage
+      else object.croppedImage = URL.createObjectURL(item)
       array.push(object)
     })
     setCollectionFiles(array)
@@ -258,8 +259,12 @@ const Collection = () => {
             isSizedCollection: true,
           })
           .run()
-
-        array.push({ token_id: nft.mintAddress.toString(), nft_name: nft.nft.name, categories: category.slice(0, -1) })
+        array.push({
+          token_id: nft.mintAddress.toString(),
+          nft_name: nft.nft.name,
+          asset_url: nft.nft.json.image,
+          categories: category.slice(0, -1),
+        })
         setUploadedCount(i + 1)
       }
     }
