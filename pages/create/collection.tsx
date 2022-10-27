@@ -33,10 +33,10 @@ const Collection = () => {
   const [description, setDescription] = useState<any>('')
   const [coverImage, setCoverImage] = useState<any>()
   const [coverCroppedImage, setCoverCroppedImage] = useState<any>()
-  const [coverImageURL, setCoverImageURL] = useState('')
+  const [coverAWSUrl, setCoverAWSUrl] = useState<any>()
   const [bannerImage, setBannerImage] = useState<any>()
   const [bannerCroppedImage, setBannerCroppedImage] = useState<any>()
-  const [bannerImageURL, setBannerImageURL] = useState('')
+  const [bannerAWSUrl, setBannerAWSUrl] = useState<any>()
   const [categoryList, setCategoryList] = useState<any[]>([])
   const [dimension, setDimension] = useState<any>(CollectionDimensionList[0])
 
@@ -57,8 +57,6 @@ const Collection = () => {
 
   const mintCollection = async () => {
     let reader = new FileReader()
-    // it should be coverCroppedImage instead of coverImage
-    // banner image should be uploaded
     const fileData = new Blob([coverImage[0]])
     reader.readAsArrayBuffer(fileData)
     reader.onload = async function (event) {
@@ -84,9 +82,6 @@ const Collection = () => {
       const result = await axios.get(uri).then(response => {
         return response.data
       })
-      setCoverImageURL(result.image)
-      // Please update banner image url
-      setBannerImageURL(result.image)
 
       const collectionNft = await mx
         .nfts()
@@ -272,8 +267,8 @@ const Collection = () => {
     let collectionInfo = {
       collection_id: collectionNft.mintAddress.toString(),
       collection_name: collectionName,
-      banner_image: bannerImageURL,
-      cover_image: coverImageURL,
+      banner_image: bannerAWSUrl,
+      cover_image: coverAWSUrl,
       categories: category.slice(0, -1),
       nfts: array,
     }
@@ -306,10 +301,12 @@ const Collection = () => {
             onChangeCoverImage={coverImage => setCoverImage(coverImage)}
             coverCroppedImage={coverCroppedImage}
             setCoverCroppedImage={coverCroppedImage => setCoverCroppedImage(coverCroppedImage)}
+            setCoverAWSUrl={coverAWSUrl => setCoverAWSUrl(coverAWSUrl)}
             bannerImage={bannerImage}
             onChangeBannerImage={bannerImage => setBannerImage(bannerImage)}
             bannerCroppedImage={bannerCroppedImage}
             setBannerCroppedImage={bannerCroppedImage => setBannerCroppedImage(bannerCroppedImage)}
+            setBannerAWSUrl={bannerAWSUrl => setBannerAWSUrl(bannerAWSUrl)}
             royalties={royalties}
             onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}

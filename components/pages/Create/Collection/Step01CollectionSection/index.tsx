@@ -20,7 +20,7 @@ import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -36,6 +36,9 @@ import CategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './index.module.scss'
 
+// call apis
+import uploadFileToS3API from 'apis/aws'
+
 const Step01CollectionSection = props => {
   const {
     currentStep,
@@ -48,10 +51,12 @@ const Step01CollectionSection = props => {
     onChangeCoverImage,
     coverCroppedImage,
     setCoverCroppedImage,
+    setCoverAWSUrl,
     bannerImage,
     onChangeBannerImage,
     bannerCroppedImage,
     setBannerCroppedImage,
+    setBannerAWSUrl,
     royalties,
     onChangeRoyalties,
     categoryList,
@@ -67,6 +72,9 @@ const Step01CollectionSection = props => {
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
+
+  const [updateBannerImage, setUpdateBannerImage] = useState(false)
+  const [updateCoverImage, setUpdateCoverImage] = useState(false)
 
   useEffect(() => {
     setOpenCoverImageEditorModal(false)
@@ -88,6 +96,48 @@ const Step01CollectionSection = props => {
       }
     }
   }, [bannerImage])
+
+  useEffect(() => {
+    if (bannerCroppedImage !== '' && updateBannerImage) {
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'avatar.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('avatar.jpg')
+        uploadBannerFile(file, filename)
+      }
+      fetchData(bannerCroppedImage)
+      setUpdateBannerImage(false)
+    }
+  }, [updateBannerImage])
+
+  const uploadBannerFile = async (file: any, filename: string) => {
+    const { url } = await uploadFileToS3API(file, filename)
+    setBannerAWSUrl(url + filename)
+  }
+
+  useEffect(() => {
+    if (coverCroppedImage !== '' && updateCoverImage) {
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'avatar.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('avatar.jpg')
+        uploadCoverfile(file, filename)
+      }
+      fetchData(coverCroppedImage)
+      setUpdateBannerImage(false)
+    }
+  }, [updateCoverImage])
+
+  const uploadCoverfile = async (file: any, filename: string) => {
+    const { url } = await uploadFileToS3API(file, filename)
+    setCoverAWSUrl(url + filename)
+  }
 
   const handleChangeCurrentStep = step => {
     onChangeCurrentStep(step)
@@ -550,6 +600,7 @@ const Step01CollectionSection = props => {
         close={() => setOpenCoverImageEditorModal(false)}
         nftImage={coverImage}
         getCroppedImage={croppedImage => {
+          setUpdateCoverImage(true)
           setCoverCroppedImage(croppedImage)
           setOpenCoverImageEditorModal(false)
         }}
@@ -560,6 +611,7 @@ const Step01CollectionSection = props => {
         close={() => setOpenBannerImageEditorModal(false)}
         nftImage={bannerImage}
         getCroppedImage={croppedImage => {
+          setUpdateBannerImage(true)
           setBannerCroppedImage(croppedImage)
           setOpenBannerImageEditorModal(false)
         }}
