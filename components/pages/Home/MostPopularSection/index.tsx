@@ -44,7 +44,6 @@ const MostPopularSection = () => {
   useEffect(() => {
     dashboardAPI.getMostPopular().then(
       response => {
-        console.log('response', response)
         if (response !== null && response !== undefined) {
           setAllMostPopularList(response)
           setMostPopularList(response)
