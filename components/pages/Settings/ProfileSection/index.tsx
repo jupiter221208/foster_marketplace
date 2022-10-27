@@ -34,9 +34,9 @@ import ViewGreenIcon from 'assets/icons/view-green.svg'
 import styles from './index.module.scss'
 import { PublicKey } from '@solana/web3.js'
 
-// call api
+// call apis
 import userAPI from 'apis/user'
-import uploadFileToS3 from 'apis/aws'
+import uploadFileToS3API from 'apis/aws'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -95,7 +95,7 @@ const ProfileSection = prop => {
 
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
-    const { data, url } = await uploadFileToS3(file, filename)
+    const { data, url } = await uploadFileToS3API(file, filename)
     setProfilePictureUrl(url + filename)
     setUploadingToS3(false)
   }

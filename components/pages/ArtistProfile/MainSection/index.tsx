@@ -36,7 +36,7 @@ import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 import styles from './index.module.scss'
 import { Url } from 'url'
 
-// call api
+// call apis
 import artistsAPI from 'apis/artists'
 
 const MainSection = () => {

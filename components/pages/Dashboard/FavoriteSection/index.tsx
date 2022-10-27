@@ -18,8 +18,8 @@ import CollectionList from 'assets/json/dashboard/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
-// call api
-import getMyFavoritesAPI from 'apis/nfts'
+// call apis
+import nftsAPI from 'apis/nfts'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -35,7 +35,7 @@ const FavoriteSection = () => {
   }
 
   useEffect(() => {
-    getMyFavoritesAPI.getMyFavorites().then(
+    nftsAPI.getMyFavorites().then(
       response => {
         console.log(response)
       },

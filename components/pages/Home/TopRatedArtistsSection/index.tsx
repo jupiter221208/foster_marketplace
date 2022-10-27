@@ -26,7 +26,7 @@ import Artist from 'assets/images/dashboard-avatar.png'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import dashboardAPI from 'apis/dashboard'
 
 const TopRatedArtistsSection = () => {

@@ -21,7 +21,7 @@ import { listNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // call apis
-import listingsApi from 'apis/listings'
+import listingsAPI from 'apis/listings'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
@@ -34,7 +34,7 @@ const ListNFTModal = props => {
   const handleListNFTClick = async () => {
     const result: any = await listNFT(mx, data.mintAddress, price)
     if (result) {
-      listingsApi.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
+      listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
         console.log(response)
       }),
         error => {

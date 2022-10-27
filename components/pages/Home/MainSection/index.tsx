@@ -28,7 +28,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import dashboardAPI from 'apis/dashboard'
 
 const MainSection = () => {

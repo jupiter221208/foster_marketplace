@@ -16,7 +16,7 @@ import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import nftsAPI from 'apis/nfts'
 
 // solana

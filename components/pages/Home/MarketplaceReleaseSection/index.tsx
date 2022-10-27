@@ -32,7 +32,7 @@ import MarketplaceReleaseList from 'assets/json/marketplace-release.json'
 import styles from './index.module.scss'
 
 // call apis
-import dashboardApis from 'apis/dashboard'
+import dashboardAPI from 'apis/dashboard'
 
 const MarketplaceReleaseSection = () => {
   const viewport = useViewport()
@@ -48,7 +48,7 @@ const MarketplaceReleaseSection = () => {
   }, [])
 
   useEffect(() => {
-    dashboardApis.getMarketplaceReleases().then(response => {
+    dashboardAPI.getMarketplaceReleases().then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setMarketplaceReleaseList(response)
       }

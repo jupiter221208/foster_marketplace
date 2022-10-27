@@ -18,7 +18,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyOffers, cancelOffer, acceptOffer } from 'utils/auction.util'
 
 // call apis
-import listingsApi from 'apis/listings'
+import listingsAPI from 'apis/listings'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -105,7 +105,7 @@ const OfferSection = () => {
           type: 'success',
         },
       ])
-      listingsApi.acceptOffer(mintAddress).then(response => {
+      listingsAPI.acceptOffer(mintAddress).then(response => {
         console.log(response)
       }),
         error => {

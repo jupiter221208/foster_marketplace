@@ -35,7 +35,7 @@ import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.s
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import authAPI from 'apis/auth'
 
 const WalletButton = props => {

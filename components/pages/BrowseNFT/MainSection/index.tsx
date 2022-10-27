@@ -63,9 +63,6 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import TimeList from 'assets/json/browse-nft/time-list.json'
 import ActivityList from 'assets/json/browse-nft/activity-list.json'
 
-// call api
-import nftsAPI from 'apis/nfts'
-
 // styles
 import styles from './index.module.scss'
 import { Url } from 'url'
@@ -78,7 +75,8 @@ import { getPriceValue, getShortAddress } from 'utils/strings'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
-import listingsApi from 'apis/listings'
+import nftsAPI from 'apis/nfts'
+import listingsAPI from 'apis/listings'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -255,7 +253,7 @@ const MainSection = () => {
     setOpenProgressingModal(true)
     const result = await offerNFT(mx, mintAddress, price)
     if (result) {
-      listingsApi.makeOffer(mintAddress, { amount: price }).then(response => {
+      listingsAPI.makeOffer(mintAddress, { amount: price }).then(response => {
         setAlertData([
           {
             id: 0,

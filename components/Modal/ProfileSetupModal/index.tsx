@@ -30,9 +30,9 @@ import IconButton from 'components/Button/IconButton'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { PublicKey } from '@solana/web3.js'
 
-// call api
+// call apis
 import userAPI from 'apis/user'
-import uploadFileToS3 from 'apis/aws'
+import uploadFileToS3API from 'apis/aws'
 
 const ProfileSetupModal = props => {
   // const {open} =props
@@ -86,7 +86,7 @@ const ProfileSetupModal = props => {
 
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
-    const { data, url } = await uploadFileToS3(file, filename)
+    const { data, url } = await uploadFileToS3API(file, filename)
     setProfilePictureUrl(url + filename)
     setUploadingToS3(false)
   }

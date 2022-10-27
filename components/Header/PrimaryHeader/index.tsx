@@ -34,7 +34,7 @@ import ProfileMenuList from 'assets/json/profile-menu.json'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import authAPI from 'apis/auth'
 
 const PrimaryHeader = () => {

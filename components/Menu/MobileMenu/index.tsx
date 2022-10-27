@@ -33,7 +33,7 @@ import CreateMenuList from 'assets/json/create-menu.json'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import authAPI from 'apis/auth'
 
 const MobileMenu = () => {

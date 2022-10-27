@@ -19,8 +19,8 @@ import { getMyListedNFTs, cancelList, updateList } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch, useSelector } from 'react-redux'
 
-// call api
-import listingsApi from 'apis/listings'
+// call apis
+import listingsAPI from 'apis/listings'
 
 const ListedNFTSection = () => {
   const viewport = useViewport()
@@ -59,7 +59,7 @@ const ListedNFTSection = () => {
     const result = await cancelList(mx, tradeStateAddress)
     if (result) {
       setShowListNFTModal(false)
-      listingsApi.unlistNft(mintAddress).then(response => console.log(response)),
+      listingsAPI.unlistNft(mintAddress).then(response => console.log(response)),
         error => {
           console.log(error)
         }

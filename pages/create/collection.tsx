@@ -20,7 +20,7 @@ import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@me
 
 // call apis
 import axios from 'axios'
-import collectionsApi from 'apis/collections'
+import collectionsAPI from 'apis/collections'
 
 const Collection = () => {
   // solana
@@ -173,12 +173,12 @@ const Collection = () => {
       reader.onload = async function (event) {
         const arrayBuffer = reader.result as ArrayBuffer
         const temp = artworks
-        temp.push({ 
-          id: item.id, 
-          file: arrayBuffer, 
-          name: item.name, 
+        temp.push({
+          id: item.id,
+          file: arrayBuffer,
+          name: item.name,
           type: item.type,
-          description: item.description 
+          description: item.description,
         })
         setArtworks(temp)
         readCount++
@@ -210,7 +210,7 @@ const Collection = () => {
           attributes: attributes,
         }
 
-        if(artworks[i].type === 'image') {
+        if (artworks[i].type === 'image') {
           metadata.image = toMetaplexFile(artworks[i].file, 'metaplex.png')
           metadata.category = 'image'
         } else if (artworks[i].type === 'video') {
@@ -243,10 +243,7 @@ const Collection = () => {
           }
         }
 
-        const { uri } = await mx
-          .nfts()
-          .uploadMetadata(metadata)
-          .run()
+        const { uri } = await mx.nfts().uploadMetadata(metadata).run()
 
         const nft = await mx
           .nfts()
@@ -280,7 +277,7 @@ const Collection = () => {
       categories: category.slice(0, -1),
       nfts: array,
     }
-    collectionsApi.mintCollection(collectionInfo).then(
+    collectionsAPI.mintCollection(collectionInfo).then(
       response => {},
       error => {
         console.log(error)

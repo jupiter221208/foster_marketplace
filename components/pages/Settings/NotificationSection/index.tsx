@@ -8,7 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import notificationAPI from 'apis/notification'
 
 const NotificationSection = prop => {

@@ -43,7 +43,7 @@ import MonoLoader2 from 'assets/lottery/mono-loader-2.json'
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
-// call api
+// call apis
 import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 

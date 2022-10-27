@@ -41,9 +41,9 @@ import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
 // styles
 import styles from './index.module.scss'
 
-// call api
+// call apis
 import userAPI from 'apis/user'
-import uploadFileToS3 from 'apis/aws'
+import uploadFileToS3API from 'apis/aws'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -121,7 +121,7 @@ const MainSection = () => {
 
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
-    const { data, url } = await uploadFileToS3(file, filename)
+    const { data, url } = await uploadFileToS3API(file, filename)
     setBannerPictureUrl(url + filename)
     setUploadingToS3(false)
   }
