@@ -15,6 +15,24 @@ class Dashboard {
     })
   }
 
+  getFreshMints() {
+    return client.get(API_URL + 'v1/dashboard/fresh-mints').then(response => {
+      return response.data
+    })
+  }
+
+  getMostPopular() {
+    return client.get(API_URL + 'v1/dashboard/most-popular').then(response => {
+      return response.data
+    })
+  }
+
+  getTrendingCollections() {
+    return client.get(API_URL + 'v1/dashboard/trending-collections').then(response => {
+      return response.data
+    })
+  }
+
   getMarketplaceReleases() {
     return client.get(API_URL + 'v1/dashboard/marketplace-releases').then(response => {
       return response.data
