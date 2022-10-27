@@ -29,8 +29,10 @@ const LiveAuctionCard = props => {
 
   return (
     <div className={styles.container} onClick={() => onClick()}>
-      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={image} alt="" width={321} height={345} layout="responsive" objectFit="cover" />
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent}>
+          <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" />
+        </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-between items-center">

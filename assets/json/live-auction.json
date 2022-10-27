@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "image": "/images/pink-wasteland.png",
+    "image": "/images/category-banner-abstract.png",
     "nftName": "Pink Wasteland 01",
     "artistName": "Kobe Beef",
     "count": 87,
@@ -17,7 +17,7 @@
   },
   {
     "id": 2,
-    "image": "/images/pink-wasteland.png",
+    "image": "/images/most-popular-4.png",
     "nftName": "Pink Wasteland 03",
     "artistName": "Kobe Beef",
     "count": 87,
@@ -25,7 +25,7 @@
   },
   {
     "id": 3,
-    "image": "/images/pink-wasteland.png",
+    "image": "/images/most-popular-2.png",
     "nftName": "Pink Wasteland 04",
     "artistName": "Kobe Beef",
     "count": 87,
@@ -33,7 +33,7 @@
   },
   {
     "id": 4,
-    "image": "/images/pink-wasteland.png",
+    "image": "/images/banner.png",
     "nftName": "Pink Wasteland 05",
     "artistName": "Kobe Beef",
     "count": 87,
