@@ -78,7 +78,13 @@ const SuccessMintCollectionSection = props => {
           </div>
           <div className="max-w-[568px] mt-[142px] mb-[130px] flex flex-wrap justify-center z-10">
             <div className={styles.title}>Congratulations!</div>
-            <div className={styles.text}>Your NFT collection has been minted successfully!</div>
+            <div className={styles.text}>
+              Your NFT collection has been minted successfully and can view on the{' '}
+              <LinkTextButton
+                label="collection page"
+                link={'/browse-collection/' + collectionNft.mintAddress.toBase58()}
+              />
+            </div>
             <div className="w-full flex justify-between gap-[30px] mt-[60px]">
               <div className="w-full">
                 <TweetMintButton
@@ -144,7 +150,13 @@ const SuccessMintCollectionSection = props => {
           </div>
           <div className="w-full mt-[60px] mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.title}>Congratulations!</div>
-            <div className={styles.text}>Your NFT collection has been minted successfully!</div>
+            <div className={styles.text}>
+              Your NFT collection has been minted successfully and can view on the{' '}
+              <LinkTextButton
+                label="collection page"
+                link={'/browse-collection/' + collectionNft.mintAddress.toBase58()}
+              />
+            </div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
                 <GradientButton
