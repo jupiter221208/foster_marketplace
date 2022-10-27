@@ -12,8 +12,6 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 
-import { getPriceValue, getShortAddress } from 'utils/strings'
-
 const DashboardNFTCard = props => {
   const { image, nftName, artistName, price, onClick } = props
   const viewport = useViewport()
@@ -21,7 +19,7 @@ const DashboardNFTCard = props => {
   return (
     <div className={styles.container} onClick={() => onClick()}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
+        <img src={image !== '' ? image : '/images/most-popular-4.png'} alt="" className="w-full object-cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex items-center">

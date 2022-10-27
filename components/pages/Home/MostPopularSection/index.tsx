@@ -25,23 +25,35 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
-// json
-import MostPopularList from 'assets/json/most-popular.json'
-
 // styles
 import styles from './index.module.scss'
+
+// call apis
+import dashboardAPI from 'apis/dashboard'
 
 const MostPopularSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
+  const [allMostPopularList, setAllMostPopularList] = useState<any[]>([])
   const [mostPopularList, setMostPopularList] = useState<any[]>([])
 
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    setMostPopularList(MostPopularList)
+    dashboardAPI.getMostPopular().then(
+      response => {
+        console.log('response', response)
+        if (response !== null && response !== undefined) {
+          setAllMostPopularList(response)
+          setMostPopularList(response)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }, [])
 
   const handleChangeActive = value => {
@@ -49,16 +61,16 @@ const MostPopularSection = () => {
 
     switch (value) {
       case 0:
-        setMostPopularList(MostPopularList.slice(0, 5))
+        setMostPopularList(allMostPopularList.slice(0, 5))
         break
       case 1:
-        setMostPopularList(MostPopularList.slice(0, 10))
+        setMostPopularList(allMostPopularList.slice(0, 10))
         break
       case 2:
-        setMostPopularList(MostPopularList.slice(0, 15))
+        setMostPopularList(allMostPopularList.slice(0, 15))
         break
       default:
-        setMostPopularList(MostPopularList)
+        setMostPopularList(allMostPopularList)
         break
     }
   }
@@ -104,32 +116,37 @@ const MostPopularSection = () => {
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {mostPopularList.map((item: any, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                <NFTCard
-                  image={item.image}
-                  nftName={item.nftName}
-                  artistName={item.artistName}
-                  price={item.price}
-                  onClick={() => router.push(`/browse-nft?id=${item.id}`)}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {mostPopularList !== null && mostPopularList !== undefined && mostPopularList.length !== 0 && (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            loop
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
+            {mostPopularList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+                  <NFTCard
+                    tokenID={item.token_id}
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    artistName={item.artist_username}
+                    price={item.list_price}
+                    onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
       <div className="w-full flex lg:hidden justify-center">
         <div className="w-full max-w-[242px] z-10">
