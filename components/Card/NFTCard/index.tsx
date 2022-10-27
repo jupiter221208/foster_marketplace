@@ -18,8 +18,12 @@ const DashboardNFTCard = props => {
 
   return (
     <div className={styles.container} onClick={() => onClick()}>
-      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <img src={image !== '' ? image : '/images/most-popular-4.png'} alt="" className="w-full object-cover" />
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent}>
+          <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
+            <img src={image !== '' ? image : '/images/most-popular-4.png'} alt="" className="w-full object-cover" />
+          </div>
+        </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex items-center">
