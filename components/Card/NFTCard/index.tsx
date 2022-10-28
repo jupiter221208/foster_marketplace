@@ -8,6 +8,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -21,7 +22,7 @@ const DashboardNFTCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           <img
-            src={image !== '' ? image : '/images/most-popular-4.png'}
+            src={image !== '' ? image : DefaultNftBG}
             alt=""
             // className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain"
             className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
