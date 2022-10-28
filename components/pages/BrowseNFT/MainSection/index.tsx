@@ -190,7 +190,6 @@ const MainSection = () => {
     if (type && type === 'general') nft = await getGeneralNFTDetails(mx, id.toString())
     else nft = await getNFTDetailsByAddress(mx, id.toString())
 
-    console.log('nft------------', nft)
     if (nft.asset.json.category === 'image') {
       setNftType('image')
       setNftUrl(nft.asset.json.image)
@@ -227,7 +226,7 @@ const MainSection = () => {
         }
       })
     }
-    console.log('array', array)
+
     setNftCategories(array)
     if (nft.price) {
       setNftPrice(nft.price?.basisPoints.toNumber() * 0.000000001)
