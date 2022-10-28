@@ -88,9 +88,12 @@ const SuccessMintSingleNFTSection = props => {
           </div>
         )}
       </div>
-      <div className="max-w-[568px] mt-6 mb-[130px] flex flex-wrap justify-center z-10">
+      <div className="max-w-[758px] mt-6 mb-[130px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
-        <div className={styles.mintText}>Your NFT has been minted successfully!</div>
+        <div className={styles.mintText}>
+          Your NFT has been minted successfully and can be biewed on the{' '}
+          <LinkTextButton label="NFT page" link={'/browse-nft/' + nftAddress.toBase58()} />!
+        </div>
         <div className="w-full flex justify-between gap-[30px] mt-[60px]">
           <div className="w-full">
             <TweetMintButton
@@ -174,7 +177,10 @@ const SuccessMintSingleNFTSection = props => {
       </div>
       <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
-        <div className={styles.mintText}>Your NFT has been minted successfully!</div>
+        <div className={styles.mintText}>
+          Your NFT has been minted successfully and can be biewed on the{' '}
+          <LinkTextButton label="NFT page" link={'/browse-nft/' + nftAddress.toBase58()} />!
+        </div>
         <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
           <div className="w-[221px]">
             <GradientButton
