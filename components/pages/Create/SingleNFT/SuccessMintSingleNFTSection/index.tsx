@@ -88,11 +88,14 @@ const SuccessMintSingleNFTSection = props => {
           </div>
         )}
       </div>
-      <div className="max-w-[758px] mt-6 mb-[130px] flex flex-wrap justify-center z-10">
+      <div className="max-w-[800px] mt-6 mb-[130px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
         <div className={styles.mintText}>
-          Your NFT has been minted successfully and can be viewed on the{' '}
-          <LinkTextButton label="NFT page" link={'/browse-nft/' + nftAddress.toBase58()} />!
+          Your NFT has been minted successfully and can be viewed on the&nbsp;
+          <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress}>
+            NFT page
+          </a>
+          !
         </div>
         <div className="w-full flex justify-between gap-[30px] mt-[60px]">
           <div className="w-full">
@@ -178,8 +181,11 @@ const SuccessMintSingleNFTSection = props => {
       <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
         <div className={styles.mintTitle}>Congratulations!</div>
         <div className={styles.mintText}>
-          Your NFT has been minted successfully and can be viewed on the{' '}
-          <LinkTextButton label="NFT page" link={'/browse-nft/' + nftAddress.toBase58()} />!
+          Your NFT has been minted successfully and can be viewed on the&nbsp;
+          <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress}>
+            NFT page
+          </a>
+          !
         </div>
         <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
           <div className="w-[221px]">

@@ -55,8 +55,8 @@ const Pagination = props => {
         <Accordion label={rowCount.toString()} data={RowCountList} onClick={item => setRowCount(item.value)} />
       </div>
       <div>
-        {currentPage * rowCount + 1} -{' '}
-        {currentPage * rowCount + rowCount > totalCount ? totalCount : currentPage * rowCount + rowCount} of{' '}
+        {currentPage * rowCount + 1} -&nbsp;
+        {currentPage * rowCount + rowCount > totalCount ? totalCount : currentPage * rowCount + rowCount} of&nbsp;
         {totalCount}
       </div>
       <div>

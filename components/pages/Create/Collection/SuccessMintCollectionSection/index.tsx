@@ -76,17 +76,16 @@ const SuccessMintCollectionSection = props => {
               </div>
             </div>
           </div>
-          <div className="max-w-[758px] mt-[142px] mb-[130px] flex flex-wrap justify-center z-10">
+          <div className="max-w-[850px] mt-[142px] mb-[130px] flex flex-wrap justify-center z-10">
             <div className={styles.title}>Congratulations!</div>
             <div className={styles.text}>
-              Your NFT collection has been minted successfully and can be viewed on the{' '}
-              <LinkTextButton
-                label="collection page"
-                link={'/browse-collection/' + collectionNft.mintAddress.toBase58()}
-              />
+              Your NFT collection has been minted successfully and can be viewed on the&nbsp;
+              <a className={styles.mintLinkText} href={'/browse-collection/' + collectionNft.mintAddress.toBase58()}>
+                collection page
+              </a>
               !
             </div>
-            <div className="w-full flex justify-between gap-[30px] mt-[60px]">
+            <div className="max-w-[758px] w-full flex justify-between gap-[30px] mt-[60px]">
               <div className="w-full">
                 <TweetMintButton
                   icon={TwitterBackgroundBlackIcon}
@@ -152,11 +151,10 @@ const SuccessMintCollectionSection = props => {
           <div className="w-full mt-[60px] mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.title}>Congratulations!</div>
             <div className={styles.text}>
-              Your NFT collection has been minted successfully and can be viewed on the{' '}
-              <LinkTextButton
-                label="collection page"
-                link={'/browse-collection/' + collectionNft.mintAddress.toBase58()}
-              />
+              Your NFT collection has been minted successfully and can be viewed on the&nbsp;
+              <a className={styles.mintLinkText} href={'/browse-collection/' + collectionNft.mintAddress.toBase58()}>
+                collection page
+              </a>
               !
             </div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
