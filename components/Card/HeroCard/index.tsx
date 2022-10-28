@@ -17,17 +17,21 @@ const HeroCard = props => {
   return (
     <div className={styles.container}>
       {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <div className={styles.topMask} />}
-      <img
-        src={
-          data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-            ? data.asset_url
-            : '/images/banner.png'
-        }
-        alt=""
-        width={550}
-        height={772}
-        className="md:rounded-[10px] lg:rounded-[30px]"
-      />
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent}>
+          <img
+            src={
+              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                ? data.asset_url
+                : '/images/banner.png'
+            }
+            alt=""
+            width={550}
+            height={772}
+            className="w-full h-full object-cover md:rounded-[10px] lg:rounded-[30px]"
+          />
+        </div>
+      </div>
       <div className={styles.cardArea}>
         <div className="flex justify-between gap-[6px]">
           <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">
