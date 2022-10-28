@@ -83,7 +83,11 @@ const MainSection = props => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
           <div className="col-span-6">
-            <BrowseArtistCard image={data?.cover_image} collectionName={data?.collection_name} artistName={creators} />
+            <BrowseArtistCard
+              image={data?.cover_image}
+              collectionName={data?.collection_name}
+              artistName={data?.minter_id}
+            />
             {isLoading && (
               <div className="col-span-12 py-10">
                 <LoadingModal open={isLoading} />

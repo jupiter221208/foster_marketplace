@@ -36,7 +36,7 @@ const BrowseArtistCard = props => {
         <div className={styles.collectionName}>{collectionName}</div>
         {artistName && (
           <div className={styles.artistName}>
-            Created by <span className={styles.greenText}>{getShortAddress(artistName[0].address.toBase58())}</span>
+            Created by <span className={styles.greenText}>{getShortAddress(artistName)}</span>
           </div>
         )}
       </div>
