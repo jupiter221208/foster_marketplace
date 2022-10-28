@@ -31,7 +31,8 @@ const LiveAuctionCard = props => {
     <div className={styles.container} onClick={() => onClick()}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" />
+          {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}
+          <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
         </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">

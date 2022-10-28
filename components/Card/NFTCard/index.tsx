@@ -23,7 +23,8 @@ const DashboardNFTCard = props => {
           <img
             src={image !== '' ? image : '/images/most-popular-4.png'}
             alt=""
-            className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain"
+            // className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain"
+            className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
           />
         </div>
       </div>
