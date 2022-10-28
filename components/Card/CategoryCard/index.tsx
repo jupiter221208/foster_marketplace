@@ -31,7 +31,7 @@ const CategoryCard = props => {
       ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div
           dangerouslySetInnerHTML={{
-            __html: `<video className="app__backgroundVideo" autoplay loop muted playsinline>
+            __html: `<video className="app__backgroundVideo" autoplay loop muted playsinline style="width: 100%">
                   <source src=${image} type="video/mp4" /></video>`,
           }}
         />
