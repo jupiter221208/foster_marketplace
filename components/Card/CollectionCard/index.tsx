@@ -29,9 +29,11 @@ const CollectionCard = props => {
         router.push(`/browse-collection/${mintAddress}`)
       }}
     >
-      <div className="relative w-full rounded-[10px] lg:rounded-[20px] overflow-hidden">
-        <Image src={image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
-        <div className="absolute bottom-[14px] right-[8px]"></div>
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent}>
+          {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}
+          <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+        </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex justify-start items-center">

@@ -30,6 +30,26 @@
   box-shadow: 0px 3px 6px rgba(black, 0.5);
 }
 
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 117.757%; /* 321:378 Aspect Ratio */
+  cursor: pointer;
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // border: 1px solid rgba($text-gray-200-color, 0.1);
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    border-radius: 24px;
+  }
+}
+
 .nftName {
   font-family: 'Muli-Bold';
   font-size: 10px;
