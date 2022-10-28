@@ -13,8 +13,8 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 // styles
 import styles from './index.module.scss'
 
-const CollectionSection = ({ collection }) => {
-  const { nfts } = collection
+const CollectionSection = props => {
+  const { nfts } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)

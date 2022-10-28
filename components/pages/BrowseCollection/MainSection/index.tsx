@@ -30,7 +30,8 @@ import LoadingModal from 'components/Modal/LoadingModal'
 
 import { getPriceValue } from 'utils/strings'
 
-const MainSection = ({ collection }) => {
+const MainSection = props => {
+  const { collection, data } = props
   const { creators, json, nfts } = collection
 
   const router = useRouter()
@@ -71,18 +72,18 @@ const MainSection = ({ collection }) => {
 
   return (
     <div className={styles.container}>
-      {isLoading ? (
-        <div className={styles.headerLoading} />
-      ) : (
+      {data !== undefined && data.banner_image !== undefined ? (
         <div className={styles.headerImage}>
-          <img src={HeaderImage.src} alt="" className="rounded-[20px]" />
+          <img src={data.banner_image} alt="" className="w-full rounded-[20px]" />
         </div>
+      ) : (
+        <div className={styles.headerLoading} />
       )}
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
           <div className="col-span-6">
-            <BrowseArtistCard image={json?.image} collectionName={json?.name} artistName={creators} />
+            <BrowseArtistCard image={data?.cover_image} collectionName={data?.collection_name} artistName={creators} />
             {isLoading && (
               <div className="col-span-12 py-10">
                 <LoadingModal open={isLoading} />

@@ -21,6 +21,9 @@ import { getCollectionByAddress } from 'utils/collection.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch, useSelector } from 'react-redux'
 
+// call apis
+import collectionsAPI from 'apis/collections'
+
 const BrowseCollection = () => {
   const router = useRouter()
   const { address } = router.query
@@ -28,7 +31,8 @@ const BrowseCollection = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
 
-  const [collection, setCollection] = useState({})
+  const [data, setData] = useState({})
+  const [collection, setCollection] = useState<any>({})
 
   const { metaplex: mx } = useMetaplex()
 
@@ -44,6 +48,13 @@ const BrowseCollection = () => {
     }
   }, [mx, address])
 
+  useEffect(() => {
+    collectionsAPI.getCollection(address).then(response => {
+      setData(response)
+    }),
+      error => console.log(error)
+  }, [address])
+
   return (
     <div className="g-container">
       <Head>
@@ -52,8 +63,8 @@ const BrowseCollection = () => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <MainSection collection={collection} />
-        {!isLoading && <CollectionSection collection={collection} />}
+        <MainSection collection={collection} data={data} />
+        <CollectionSection nfts={collection.nfts} />
       </div>
     </div>
   )
