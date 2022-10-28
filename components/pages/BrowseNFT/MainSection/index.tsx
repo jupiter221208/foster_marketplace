@@ -39,12 +39,6 @@ import Select from 'components/Select'
 import { useViewport } from 'utils'
 
 // images and icons
-import Avatar01 from 'assets/images/live-auction.png' // 1080 x 1080
-import Avatar02 from 'assets/images/1920x1080.png'
-import Avatar03 from 'assets/images/1920x1440.png'
-import Avatar04 from 'assets/images/NFT-Display-Group.png' //1080 x 1920
-import Avatar05 from 'assets/images/1440x1920.png'
-
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -84,7 +78,6 @@ const MainSection = () => {
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
-  const [openSocial, setOpenSocial] = useState<boolean>(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
   const [share, setShare] = useState<boolean>(false)
@@ -164,7 +157,6 @@ const MainSection = () => {
     ])
   }, [])
 
-  const [tokenAddresss, setTokenAddress] = useState('')
   const [nftType, setNftType] = useState('')
   const [nftUrl, setNftUrl] = useState('')
   const [nftCoverUrl, setNftCoverUrl] = useState('')
@@ -178,7 +170,7 @@ const MainSection = () => {
   const [nftCategories, setNftCategories] = useState([])
   const [mainWalletBalance, setMainWalletBalance] = useState(0)
 
-  let isRunning = false
+  const [isRunning, setIsRunning] = useState(false)
   const { id, type } = router.query
 
   const { metaplex: mx } = useMetaplex()
@@ -198,6 +190,7 @@ const MainSection = () => {
     if (type && type === 'general') nft = await getGeneralNFTDetails(mx, id.toString())
     else nft = await getNFTDetailsByAddress(mx, id.toString())
 
+    console.log('nft------------', nft)
     if (nft.asset.json.category === 'image') {
       setNftType('image')
       setNftUrl(nft.asset.json.image)
@@ -226,6 +219,16 @@ const MainSection = () => {
     setNftName(nft.asset.json.name)
     setNftOwner(getShortAddress(nft.asset.owner))
     setNftDescription(nft.asset.json.description)
+    let array = []
+    if (nft.asset.json.attributes !== undefined) {
+      nft.asset.json.attributes.map(item => {
+        if (item.trait_type === 'category') {
+          array.push(item)
+        }
+      })
+    }
+    console.log('array', array)
+    setNftCategories(array)
     if (nft.price) {
       setNftPrice(nft.price?.basisPoints.toNumber() * 0.000000001)
     }
@@ -294,11 +297,11 @@ const MainSection = () => {
     }
   }, [id])
 
-  function changeLikeStatus() {
+  const changeLikeStatus = () => {
     if (isRunning) return
 
     let newStatus = !like
-    isRunning = true
+    setIsRunning(true)
 
     if (newStatus) {
       nftsAPI.likeNft(id).then(
@@ -307,10 +310,10 @@ const MainSection = () => {
             setLikeCount(likeCount + 1)
             setLike(newStatus)
           }
-          isRunning = false
+          setIsRunning(false)
         },
         error => {
-          isRunning = false
+          setIsRunning(false)
         }
       )
     } else {
@@ -321,20 +324,20 @@ const MainSection = () => {
             setLikeCount(likeCount - 1)
             setLike(newStatus)
           }
-          isRunning = false
+          setIsRunning(false)
         },
         error => {
-          isRunning = false
+          setIsRunning(false)
         }
       )
     }
   }
 
-  function changeSaveStatus() {
+  const changeSaveStatus = () => {
     if (isRunning) return
 
     let newStatus = !save
-    isRunning = true
+    setIsRunning(true)
 
     if (newStatus) {
       nftsAPI.saveNft(id).then(
@@ -343,10 +346,10 @@ const MainSection = () => {
             setSaveCount(saveCount + 1)
             setSave(newStatus)
           }
-          isRunning = false
+          setIsRunning(false)
         },
         error => {
-          isRunning = true
+          setIsRunning(true)
         }
       )
     } else {
@@ -357,10 +360,10 @@ const MainSection = () => {
             setSaveCount(saveCount - 1)
             setSave(newStatus)
           }
-          isRunning = false
+          setIsRunning(false)
         },
         error => {
-          isRunning = true
+          setIsRunning(true)
         }
       )
     }
@@ -535,30 +538,6 @@ const MainSection = () => {
                         }}
                       >
                         <div className="w-full flex flex-wrap flex-column space-between">
-                          <div className={styles.whiteDescription}>{nftDescription}</div>
-                          <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-5">
-                            <OutlineButton
-                              label="Abstract"
-                              onClick={() => {}}
-                              color="#EFF0F6"
-                              borderColor="#EFF0F6"
-                              borderRadius="16px"
-                              height={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '25px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '28px'
-                                  : '32px'
-                              }
-                              fontSize={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '12px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '14px'
-                                  : '16px'
-                              }
-                            />
-                          </div>
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-4">
                             {nftCategories.map((item, index) => (
