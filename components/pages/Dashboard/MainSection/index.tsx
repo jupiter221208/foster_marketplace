@@ -211,7 +211,7 @@ const MainSection = () => {
             </div>
           </div>
           <div className="col-span-3 flex justify-end">
-            <div className="flex lg:hidden justify-center lg:mt-[16px]">
+            <div className="flex lg:hidden justify-center mt-[-45px]">
               <div>
                 <IconButton
                   icon={SettingWhiteIcon}

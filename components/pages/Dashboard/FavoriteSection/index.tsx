@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 
 // call apis
 import nftsAPI from 'apis/nfts'
+import FilterButton from 'components/Button/FilterButton'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -48,23 +49,29 @@ const FavoriteSection = () => {
   return (
     <section className={styles.container}>
       <div className="flex">
-        <Button
+        <FilterButton
           label="Artists"
           onClick={() => handleChangeActive(0)}
-          color={active === 0 ? '#202427' : '#979EA2'}
-          backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+          color={active === 0 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 0 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
         />
-        <Button
+        <FilterButton
           label="Single NFTs"
           onClick={() => handleChangeActive(1)}
-          color={active === 1 ? '#202427' : '#979EA2'}
-          backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+          color={active === 1 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 1 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
         />
-        <Button
+        <FilterButton
           label="Collections"
           onClick={() => handleChangeActive(2)}
-          color={active === 2 ? '#202427' : '#979EA2'}
-          backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+          color={active === 2 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 2 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
         />
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
