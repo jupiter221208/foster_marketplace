@@ -173,7 +173,7 @@ const MobileMenu = () => {
                 disconnect()
               }}
             >
-              <div>Logout part</div>
+              <div>Logout</div>
               <div className="flex items-center ml-2">
                 <Image src={LogoutDarkRedIcon} alt="" />
               </div>
