@@ -33,7 +33,16 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 140.36%; /* 550:720 Aspect Ratio */
+  padding-top: 81.067%; /* 375:304 Aspect Ratio */
+  @media (min-width: 640px) {
+    padding-top: 72.727%; /* 550:400 Aspect Ratio */
+  }
+  @media (min-width: 768px) {
+    padding-top: 90.09%; /* 550:500 Aspect Ratio */
+  }
+  @media (min-width: 1024px) {
+    padding-top: 140.36%; /* 550:720 Aspect Ratio */
+  }
 }
 
 .imageContent {
