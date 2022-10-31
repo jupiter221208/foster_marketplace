@@ -10,7 +10,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -21,7 +21,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -32,7 +32,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -54,7 +54,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -65,7 +65,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -76,7 +76,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -98,7 +98,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -109,7 +109,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -120,7 +120,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -142,7 +142,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -153,7 +153,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -164,7 +164,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -186,7 +186,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -197,7 +197,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -208,7 +208,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -230,7 +230,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -241,7 +241,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -252,7 +252,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -274,7 +274,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -285,7 +285,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -296,7 +296,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -318,7 +318,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -329,7 +329,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -340,7 +340,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -362,7 +362,7 @@
         "banner": "/images/category-banner-generative.webm",
         "mobile": "/images/popular-category-mobile-generative.mp4",
         "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "name": "Generative",
+        "value": "Generative",
         "type": "video",
         "nfts": 2131,
         "collections": 287
@@ -373,7 +373,7 @@
         "banner": "/images/category-banner-surreal.png",
         "mobile": "/images/hero.png",
         "mobile_banner": "/images/category-banner-surreal.png",
-        "name": "Surreal",
+        "value": "Surreal",
         "type": "image",
         "nfts": 2131,
         "collections": 287
@@ -384,7 +384,7 @@
         "banner": "/images/category-banner-abstract.png",
         "mobile": "/images/popular-category-abstract.png",
         "mobile_banner": "/images/category-banner-abstract.png",
-        "name": "Abstract",
+        "value": "Abstract",
         "type": "image",
         "nfts": 2131,
         "collections": 287
