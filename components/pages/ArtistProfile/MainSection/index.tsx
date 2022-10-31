@@ -79,10 +79,18 @@ const MainSection = () => {
       artistsAPI.getArtist(router.query.id).then(
         response => {
           if (response !== undefined && response !== null) {
-            if (response.profile_picture === null) {
+            if (
+              response.profile_picture === null ||
+              response.profile_picture === '' ||
+              response.profile_picture === undefined
+            ) {
               response.profile_picture = AvatarImage.src
             }
-            if (response.banner_picture === null) {
+            if (
+              response.banner_picture === null ||
+              response.banner_picture === '' ||
+              response.banner_picture === undefined
+            ) {
               response.banner_picture = HeaderImage.src
             }
             setArtistInfo(response)
