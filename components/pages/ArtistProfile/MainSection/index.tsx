@@ -20,6 +20,8 @@ import { useViewport } from 'utils'
 
 // images and icons
 import HeaderImage from 'assets/images/profile-header.png'
+import Rect1620x460Image from 'assets/icons/rect-1620x460.svg'
+import Rect512x512Image from 'assets/icons/rect-512x512.svg'
 import AvatarImage from 'assets/images/artist-avatar.png'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
@@ -34,7 +36,6 @@ import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 
 // styles
 import styles from './index.module.scss'
-import { Url } from 'url'
 
 // call apis
 import artistsAPI from 'apis/artists'
@@ -78,6 +79,12 @@ const MainSection = () => {
       artistsAPI.getArtist(router.query.id).then(
         response => {
           if (response !== undefined && response !== null) {
+            if (response.profile_picture === null) {
+              response.profile_picture = Rect512x512Image.src
+            }
+            if (response.banner_picture === null) {
+              response.banner_picture = Rect1620x460Image.src
+            }
             setArtistInfo(response)
           }
         },
@@ -99,12 +106,12 @@ const MainSection = () => {
           src={
             artistInfo.banner_picture !== undefined && artistInfo.banner_picture !== null
               ? artistInfo.banner_picture
-              : HeaderImage.src
+              : Rect1620x460Image.src
           }
           alt=""
           width={1620}
           height={460}
-          className="rounded-[20px]"
+          className="object-cover rounded-[20px]"
         />
       </div>
       <div className="w-full">
@@ -135,7 +142,7 @@ const MainSection = () => {
               image={
                 artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
                   ? artistInfo.profile_picture
-                  : AvatarImage.src
+                  : Rect512x512Image.src
               }
               name={artistInfo.username}
             />
