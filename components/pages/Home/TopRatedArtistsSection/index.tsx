@@ -147,7 +147,11 @@ const TopRatedArtistsSection = () => {
             artistsList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <ArtistCard
-                  image={item.profile_picture !== null ? item.profile_picture : Artist.src}
+                  image={
+                    item.profile_picture !== null && item.profile_picture !== undefined && item.profile_picture !== ''
+                      ? item.profile_picture
+                      : Artist.src
+                  }
                   username={item.username}
                   onClick={() => {
                     router.push('/artist-profile?id=' + item.wallet_id)
