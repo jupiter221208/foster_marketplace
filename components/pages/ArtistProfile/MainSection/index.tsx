@@ -152,19 +152,6 @@ const MainSection = () => {
                 onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
               />
             </div>
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <></>
-            ) : (
-              <div className="flex justify-center mt-[20px] mb-[10px]">
-                <div className={styles.categoryList}>
-                  {categoryList.map((item, index) => (
-                    <div key={index}>
-                      <CategoryChip data={item} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="flex lg:hidden w-full h-8 justify-center mt-[15px] gap-[10px]">
               {artistInfo.ig_url !== null && (
@@ -254,6 +241,21 @@ const MainSection = () => {
           <div className="max-w-[734px]">
             <div className={styles.description}>{artistInfo.bio}</div>
           </div>
+        </div>
+        <div className="w-full flex justify-center">
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <></>
+          ) : (
+            <div className="flex justify-center mt-[20px] mb-[10px]">
+              <div className={styles.categoryList}>
+                {categoryList.map((item, index) => (
+                  <div key={index}>
+                    <CategoryChip data={item} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
         <div className="flex justify-center mt-[16px]">
           <div className={`${styles.nftInfo} grid grid-cols-12`}>
