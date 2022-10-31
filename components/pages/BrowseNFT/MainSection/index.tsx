@@ -206,7 +206,7 @@ const MainSection = () => {
       setNftType(nft.asset.json.category)
       setNftUrl(
         nft.asset.json.properties?.files
-          .filter(file => file.type.split('/')[0] === 'audio')
+          .filter(file => file.type.split('/')[0] === 'video')
           .map(file => file.url)[0]
           .toString()
       )
