@@ -19,6 +19,8 @@ import CategoryChip from 'components/Chip/CategoryChip'
 import { useViewport } from 'utils'
 
 // images and icons
+import HeaderImage from 'assets/images/alexander-ant.png'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 import Rect1620x480Image from 'assets/icons/rect-1620x480.svg'
 import Rect512x512Image from 'assets/icons/rect-512x512.svg'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
@@ -78,10 +80,10 @@ const MainSection = () => {
         response => {
           if (response !== undefined && response !== null) {
             if (response.profile_picture === null) {
-              response.profile_picture = Rect512x512Image.src
+              response.profile_picture = AvatarImage.src
             }
             if (response.banner_picture === null) {
-              response.banner_picture = Rect1620x480Image.src
+              response.banner_picture = HeaderImage.src
             }
             setArtistInfo(response)
           }
