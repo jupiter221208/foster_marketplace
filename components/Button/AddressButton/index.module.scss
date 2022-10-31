@@ -29,8 +29,10 @@
   font-family: 'Muli';
   height: 18px;
   font-size: 12px;
+  padding-left: 24px;
   @media (min-width: 1024px) {
     height: 24px;
     font-size: 18px;
+    padding-left: 40px;
   }
 }

@@ -147,7 +147,7 @@ const MainSection = () => {
             <div className="flex justify-center mt-[9px] lg:mt-[16px]">
               <AddressButton
                 label={getShortAddress(artistInfo.wallet_id)}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '121px' : '192px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
               />
