@@ -11,7 +11,7 @@ const ArtistCard = props => {
         <img src={image} alt="" width={226} height={226} className="rounded-full" />
       </div>
 
-      <div className={styles.name}>{username}</div>
+      <div className={styles.name}>{username.length > 14 ? username.slice(0, 14) + '...' : username}</div>
     </div>
   )
 }
