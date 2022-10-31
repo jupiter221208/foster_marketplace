@@ -31,14 +31,14 @@ const ProfileArtistCard = props => {
       </div>
       <div className={styles.bottomSection}>
         <div className={styles.name}>{name}</div>
-        <div className="ml-[5px] flex pl-[9px] pr-[9px]">
+        {/* <div className="ml-[5px] flex pl-[9px] pr-[9px]">
           <Image
             src={CheckedGreenIcon}
             alt=""
             width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 28 : 18}
             height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 28 : 18}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   )
