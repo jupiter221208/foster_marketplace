@@ -113,7 +113,7 @@ const MainSection = () => {
         />
       </div>
       <div className="w-full">
-        <div className="grid grid-cols-12 items-center mt-[-60px] lg:mt-[-95px]">
+        <div className="grid grid-cols-12 items-center mt-[-60px]">
           <div className="col-span-3 mt-[-70px]">
             {follow ? (
               <OutlineButton
@@ -128,6 +128,7 @@ const MainSection = () => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
                 fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
+                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
                 label="Follow"
                 direction={'rtl'}
                 icon={AvatarFollowIcon}
