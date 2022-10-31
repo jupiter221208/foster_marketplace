@@ -223,7 +223,7 @@ const ProfileSection = prop => {
             <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
               <div className={styles.avatarArea}>
                 <img
-                  src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar}
+                  src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
                   alt=""
