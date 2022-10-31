@@ -220,7 +220,7 @@ const ProfileSection = prop => {
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
+            {/* <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
               <div className={styles.avatarArea}>
                 <img
                   src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
@@ -230,8 +230,8 @@ const ProfileSection = prop => {
                   className="rounded-full object-cover"
                 />
               </div>
-            </div>
-            <div className="flex justify-center lg:justify-start">
+            </div> */}
+            {/* <div className="flex justify-center lg:justify-start">
               <div className="w-[250px]">
                 <OutlineButton
                   label="Change Profile Picture"
@@ -253,8 +253,8 @@ const ProfileSection = prop => {
                   onChange={event => handleChangeAvatar(event)}
                 />
               </div>
-            </div>
-            <div className="mt-[50px] lg:mt-[101px]">
+            </div> */}
+            <div className="mt-[0px] lg:mt-[101px]">
               <div className={styles.subTitle}>Personal Info</div>
             </div>
             <div className="mt-4 lg:mt-8">
