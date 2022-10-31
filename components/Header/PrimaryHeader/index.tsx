@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
@@ -80,6 +81,7 @@ const PrimaryHeader = () => {
   }
 
   const { connected, publicKey } = useWallet()
+  const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const profileInfo = useSelector(state => (state as any).profileInfo)
@@ -157,6 +159,14 @@ const PrimaryHeader = () => {
     }
   }, [connected])
 
+  const handleSelectMenu = (item: any) => {
+    if (connected) {
+      router.push(item.path)
+    } else {
+      setVisible(true)
+    }
+  }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div>
       <div className={styles.blurContainer}>
@@ -185,7 +195,7 @@ const PrimaryHeader = () => {
               ></div>
             )}
             <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
-            <Menu label="Create" menuList={CreateMenuList} onSelect={item => router.push(item.path)} />
+            <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
             <ProfileMenu
               avatar={profileImage.length > 0 ? profileImage : AvatarImage}

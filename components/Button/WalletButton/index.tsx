@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
@@ -40,7 +41,7 @@ import authAPI from 'apis/auth'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
-
+  const router = useRouter()
   const dispatch = useDispatch()
 
   const { connected, publicKey, disconnect } = useWallet()
@@ -173,7 +174,7 @@ const WalletButton = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className="w-full flex gap-3">
-                  <Avatar avatar={profileImage.length > 0 ? profileImage : avatar} width={36} height={36} />
+                  <Avatar avatar={profileImage !== null ? profileImage : avatar} width={36} height={36} />
                   <div className="block whitespace-nowrap">
                     <div className={styles.title}>{profileName.length > 0 ? profileName : 'Username'}</div>
                     <div className={styles.grayText}>{shortAddress}</div>
@@ -336,6 +337,7 @@ const WalletButton = props => {
       <Alert
         open={showAlert}
         close={() => {
+          router.push('/')
           setShowAlert(false)
         }}
         data={alertData}

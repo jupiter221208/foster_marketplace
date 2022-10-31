@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -38,6 +39,7 @@ import authAPI from 'apis/auth'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { connected, publicKey, disconnect } = useWallet()
 
   const [showAlert, setShowAlert] = useState(false)
@@ -202,6 +204,7 @@ const MobileMenu = () => {
           <Alert
             open={showAlert}
             close={() => {
+              router.push('/')
               setShowAlert(false)
             }}
             data={alertData}

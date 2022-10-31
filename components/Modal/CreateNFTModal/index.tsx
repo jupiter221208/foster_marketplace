@@ -2,6 +2,8 @@ import { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
 import Image from 'next/image'
@@ -26,9 +28,20 @@ const CreateNFTModal = props => {
   const { open, close } = props
   const viewport = useViewport()
   const router = useRouter()
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
 
   const closeModal = () => {
     close()
+  }
+
+  const handleClickButton = (path: string) => {
+    closeModal()
+    if (connected) {
+      router.push(path)
+    } else {
+      setVisible(true)
+    }
   }
 
   return (
@@ -80,10 +93,7 @@ const CreateNFTModal = props => {
                         label="Single NFT"
                         fullWidth
                         icon={AddGrayIcon}
-                        onClick={() => {
-                          closeModal()
-                          router.push('/create/single-nft')
-                        }}
+                        onClick={() => handleClickButton('/create/single-nft')}
                         gradientDirection="bottom"
                         fontSize="22px"
                         height="63px"
@@ -94,10 +104,7 @@ const CreateNFTModal = props => {
                         label="NFT Collection"
                         fullWidth
                         icon={AddWhiteIcon}
-                        onClick={() => {
-                          closeModal()
-                          router.push('/create/collection')
-                        }}
+                        onClick={() => handleClickButton('/create/collection')}
                         backgroundColor="#202427"
                         color="#EFF0F6"
                         fontSize="22px"

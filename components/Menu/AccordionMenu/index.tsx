@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // styles
 import styles from './index.module.scss'
@@ -16,13 +17,19 @@ import styles from './index.module.scss'
 const AccordionMenu = props => {
   const { icon, label, type = '', data, path = '' } = props
 
-  const { publicKey } = useWallet()
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
+
   const router = useRouter()
   const dispatch = useDispatch()
 
   const handleClick = item => {
-    dispatch({ type: 'set', openMobileMenu: false })
-    router.push(item.path)
+    if (connected) {
+      dispatch({ type: 'set', openMobileMenu: false })
+      router.push(item.path)
+    } else {
+      setVisible(true)
+    }
   }
 
   const handleSoloMenuItemClick = () => {
