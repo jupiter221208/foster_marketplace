@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import Head from 'next/head'
-import Image from 'next/image'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -46,7 +45,13 @@ const Category = () => {
         <div className="relative w-full mt-4 lg:mt-8">
           {categoryInfo.type === 'image' ? (
             <div className={styles.imageContainer}>
-              <Image src={categoryInfo.banner} width={1620} height={460} alt="" />
+              <img
+                src={categoryInfo.banner}
+                alt=""
+                width={1620}
+                height={480}
+                className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
+              />
             </div>
           ) : (
             <></>

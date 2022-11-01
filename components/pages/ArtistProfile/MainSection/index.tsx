@@ -119,7 +119,7 @@ const MainSection = () => {
           alt=""
           width={1620}
           height={480}
-          className="object-cover rounded-[20px]"
+          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
         />
       </div>
       <div className="w-full">
