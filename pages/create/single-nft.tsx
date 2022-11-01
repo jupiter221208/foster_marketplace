@@ -365,7 +365,6 @@ const SingleNft = () => {
           let coverReader = new FileReader()
 
           const coverFileData = b64toBlob(nftImage)
-          console.log('coverFileData', coverFileData)
 
           coverReader.readAsArrayBuffer(coverFileData)
           coverReader.onload = async function (event) {
