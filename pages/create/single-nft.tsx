@@ -187,6 +187,39 @@ const SingleNft = () => {
   }, [nftArt])
 
   useEffect(() => {
+    if (nftType === 'video') {
+      setTimeout(() => {
+        captureImage()
+      }, 100)
+    }
+  }, [nftType])
+
+  const captureImage = () => {
+    /**
+     * @type {HTMLCanvasElement}
+     */
+    var canvas = document.getElementById('canvas')
+    var video = document.getElementById('video')
+    if (isCanvas(canvas) && isVideo(video)) {
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      let ctx = canvas.getContext('2d')
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+      let image = canvas.toDataURL('image/jpeg')
+      setNftImage(image)
+    }
+  }
+
+  const isCanvas = (obj: HTMLCanvasElement | HTMLElement): obj is HTMLCanvasElement => {
+    return obj.tagName === 'CANVAS'
+  }
+
+  const isVideo = (obj: HTMLVideoElement | HTMLElement): obj is HTMLVideoElement => {
+    return obj.tagName === 'VIDEO'
+  }
+
+  useEffect(() => {
     if (nftCover !== null && nftCover !== undefined) {
       // setNftType(nftCover[0].type.split('/')[0])
       // setDisabledNextButton(false)
@@ -330,7 +363,10 @@ const SingleNft = () => {
           await uploadNft(metadata)
         } else {
           let coverReader = new FileReader()
-          const coverFileData = new Blob([nftCover[0]])
+
+          const coverFileData = b64toBlob(nftImage)
+          console.log('coverFileData', coverFileData)
+
           coverReader.readAsArrayBuffer(coverFileData)
           coverReader.onload = async function (event) {
             const coverArrayBuffer = coverReader.result as ArrayBuffer
@@ -369,6 +405,17 @@ const SingleNft = () => {
     } catch (error) {
       dispatch({ type: 'set', isLoading: false })
     }
+  }
+
+  const b64toBlob = dataURI => {
+    var byteString = atob(dataURI.split(',')[1])
+    var ab = new ArrayBuffer(byteString.length)
+    var ia = new Uint8Array(ab)
+
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i)
+    }
+    return new Blob([ab], { type: 'image/jpeg' })
   }
 
   const uploadNft = async metadata => {
@@ -459,6 +506,7 @@ const SingleNft = () => {
                 </div>
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Preview Art</div>
+                  <canvas id="canvas" style={{ overflow: 'auto', display: 'none' }}></canvas>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     <FullScreen
                       onChange={onFullScreenChange}
@@ -530,7 +578,7 @@ const SingleNft = () => {
 
                     {nftType === 'video' && (
                       <div className="w-full h-full my-10">
-                        <video controls className="w-full">
+                        <video controls className="w-full" id="video">
                           <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                           Your browser does not support the video tag.
                         </video>
@@ -714,7 +762,7 @@ const SingleNft = () => {
 
                 {nftType === 'video' && (
                   <div className="w-full h-full">
-                    <video controls className="w-full">
+                    <video controls className="w-full" id="video">
                       <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                       Your browser does not support the video tag.
                     </video>

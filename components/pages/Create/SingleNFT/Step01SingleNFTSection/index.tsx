@@ -42,7 +42,7 @@ const Step01SingleNFTSection = props => {
           )}
         </Dropzone>
       </div>
-      {nftType !== 'image' && (
+      {nftType === 'audio' && (
         <>
           <div className={`${styles.subTitle} mt-10`}>Cover *</div>
           <div className="mt-5">
@@ -92,7 +92,7 @@ const Step01SingleNFTSection = props => {
           )}
         </Dropzone>
       </div>
-      {nftType !== 'image' && (
+      {nftType === 'audio' && (
         <>
           <div className={`${styles.subTitle} mt-10`}>Cover *</div>
           <div className="mt-5">
