@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
-import { Url } from 'url'
 import { PublicKey } from '@solana/web3.js'
 
 // custom components
@@ -61,21 +60,27 @@ const MainSection = () => {
   const [banner, setBanner] = useState<any>()
   const [croppedBanner, setCroppedBanner] = useState(profileInfo?.banner_picture ? profileInfo?.banner_picture : '')
 
-  const profileImage = profileInfo?.profile_picture ? profileInfo?.profile_picture : ''
-  const profileName = profileInfo?.username ? profileInfo?.username : ''
-  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
-  const discordUrl = profileInfo?.discord_url ? getPrefixUrl(profileInfo?.discord_url) : ''
-  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
-  const telegramUrl = profileInfo?.telegram_url ? getPrefixUrl(profileInfo?.telegram_url) : ''
-  const [bannerPictureUrl, setBannerPictureUrl] = useState('')
+  const profileImage =
+    profileInfo?.profile_picture !== null &&
+    profileInfo?.profile_picture !== undefined &&
+    profileInfo?.profile_picture !== ''
+      ? profileInfo?.profile_picture
+      : ''
 
-  function getPrefixUrl(url: string) {
+  const getPrefixUrl = (url: string) => {
     let prefix = 'http'
     if (url.substring(0, prefix.length) !== prefix) {
       url = prefix + '://' + url
     }
     return url
   }
+
+  const profileName = profileInfo?.username ? profileInfo?.username : ''
+  const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
+  const discordUrl = profileInfo?.discord_url ? getPrefixUrl(profileInfo?.discord_url) : ''
+  const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
+  const telegramUrl = profileInfo?.telegram_url ? getPrefixUrl(profileInfo?.telegram_url) : ''
+  const [bannerPictureUrl, setBannerPictureUrl] = useState('')
 
   const handleChangeBannerImage = event => {
     const file = event.target.files
@@ -136,8 +141,8 @@ const MainSection = () => {
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
           width={1620}
-          height={460}
-          className="rounded-[15px] lg:rounded-[30px]"
+          height={480}
+          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
         />
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <IconButton
@@ -162,11 +167,38 @@ const MainSection = () => {
       <div className="w-full z-10">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3" />
-          <div className="col-span-6">
-            <DashboardArtistCard
-              image={profileImage.length > 0 ? profileImage : AvatarImage}
-              artistName={profileName.length > 0 ? profileName : 'Username'}
-            />
+          <div className="col-span-6 justify-center">
+            <div className="w-full flex justify-center">
+              <div className="w-content relative">
+                <DashboardArtistCard image={profileImage !== '' ? profileImage : AvatarImage.src} />
+                <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
+                  <IconButton
+                    icon={
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
+                    }
+                    onClick={() => inputFile.current.click()}
+                    backgroundColor={
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#378287' : 'transparent'
+                    }
+                    borderRadius="100%"
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+                  />
+                  <input
+                    type="file"
+                    id="file"
+                    ref={inputFile}
+                    style={{ display: 'none' }}
+                    onChange={event => handleChangeBannerImage(event)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className={styles.bottomSection}>
+              <div className={styles.artistName}>{profileName.length > 0 ? profileName : 'Username'}</div>
+            </div>
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <AddressButton
                 label={shortAddress}
