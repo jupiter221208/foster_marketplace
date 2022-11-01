@@ -52,20 +52,48 @@ const MainSection = () => {
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
-  const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
-  const [updateImage, setUpdateImage] = useState(false)
-  const [uploadingToS3, setUploadingToS3] = useState<boolean>(false)
 
-  const inputFile = useRef<any>(null)
+  // banner part
+  const inputBannerFile = useRef<any>(null)
+  const [updateBanner, setUpdateBanner] = useState(false)
+  const [openBannerEditorModal, setOpenBannerEditorModal] = useState(false)
   const [banner, setBanner] = useState<any>()
-  const [croppedBanner, setCroppedBanner] = useState(profileInfo?.banner_picture ? profileInfo?.banner_picture : '')
+  const [croppedBanner, setCroppedBanner] = useState('')
 
-  const profileImage =
-    profileInfo?.profile_picture !== null &&
-    profileInfo?.profile_picture !== undefined &&
-    profileInfo?.profile_picture !== ''
-      ? profileInfo?.profile_picture
-      : ''
+  const [bannerUploadingToS3, setBannerUploadingToS3] = useState<boolean>(false)
+  const [bannerPictureUrl, setBannerPictureUrl] = useState('')
+
+  // avatar part
+  const inputAvatarFile = useRef<any>(null)
+  const [updateAvatar, setUpdateAvatar] = useState(false)
+  const [openAvatarEditorModal, setOpenAvatarEditorModal] = useState(false)
+  const [avatar, setAvatar] = useState<any>()
+  const [croppedAvatar, setCroppedAvatar] = useState('')
+
+  const [avatarUploadingToS3, setAvatarUploadingToS3] = useState<boolean>(false)
+  const [avatarPictureUrl, setAvatarPictureUrl] = useState('')
+
+  useEffect(() => {
+    if (
+      profileInfo?.banner_picture !== null &&
+      profileInfo?.banner_picture !== undefined &&
+      profileInfo?.banner_picture !== ''
+    ) {
+      setCroppedBanner(profileInfo?.banner_picture)
+    } else {
+      setCroppedBanner('')
+    }
+
+    if (
+      profileInfo?.profile_picture !== null &&
+      profileInfo?.profile_picture !== undefined &&
+      profileInfo?.profile_picture !== ''
+    ) {
+      setCroppedAvatar(profileInfo?.profile_picture)
+    } else {
+      setCroppedAvatar('')
+    }
+  }, [profileInfo])
 
   const getPrefixUrl = (url: string) => {
     let prefix = 'http'
@@ -80,12 +108,17 @@ const MainSection = () => {
   const discordUrl = profileInfo?.discord_url ? getPrefixUrl(profileInfo?.discord_url) : ''
   const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
   const telegramUrl = profileInfo?.telegram_url ? getPrefixUrl(profileInfo?.telegram_url) : ''
-  const [bannerPictureUrl, setBannerPictureUrl] = useState('')
 
   const handleChangeBannerImage = event => {
     const file = event.target.files
     setBanner(file)
-    setOpenNftImageEditorModal(true)
+    setOpenBannerEditorModal(true)
+  }
+
+  const handleChangeAvatar = event => {
+    const file = event.target.files
+    setAvatar(file)
+    setOpenAvatarEditorModal(true)
   }
 
   const copyToClipboard = value => {
@@ -93,7 +126,7 @@ const MainSection = () => {
   }
 
   useEffect(() => {
-    if (croppedBanner !== '' && updateImage) {
+    if (croppedBanner !== '' && updateBanner) {
       const fetchData = async url => {
         let response = await fetch(url)
         let blob = await response.blob()
@@ -101,12 +134,42 @@ const MainSection = () => {
           type: 'image/jpeg',
         })
         const filename = namePublicFile('banner.jpg')
-        uploadFile(file, filename)
+        uploadBannerFile(file, filename)
       }
       fetchData(croppedBanner)
-      setUpdateImage(false)
+      setUpdateBanner(false)
     }
-  }, [updateImage])
+  }, [updateBanner])
+
+  useEffect(() => {
+    if (croppedAvatar !== '' && updateAvatar) {
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'avatar.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('avatar.jpg')
+        uploadAvatarFile(file, filename)
+      }
+      fetchData(croppedAvatar)
+      setUpdateAvatar(false)
+    }
+  }, [updateAvatar])
+
+  const uploadBannerFile = async (file: any, filename: string) => {
+    setBannerUploadingToS3(true)
+    const { data, url } = await uploadFileToS3API(file, filename)
+    setBannerPictureUrl(url + filename)
+    setBannerUploadingToS3(false)
+  }
+
+  const uploadAvatarFile = async (file: any, filename: string) => {
+    setAvatarUploadingToS3(true)
+    const { data, url } = await uploadFileToS3API(file, filename)
+    setAvatarPictureUrl(url + filename)
+    setAvatarUploadingToS3(false)
+  }
 
   useEffect(() => {
     if (bannerPictureUrl.length === 0) return
@@ -122,14 +185,19 @@ const MainSection = () => {
     )
   }, [bannerPictureUrl])
 
-  useEffect(() => {}, [])
-
-  const uploadFile = async (file: any, filename: string) => {
-    setUploadingToS3(true)
-    const { data, url } = await uploadFileToS3API(file, filename)
-    setBannerPictureUrl(url + filename)
-    setUploadingToS3(false)
-  }
+  useEffect(() => {
+    if (avatarPictureUrl.length === 0) return
+    userAPI.update({ wallet_id: publicKey?.toBase58() || '', profile_picture: avatarPictureUrl }).then(
+      response => {
+        if (response !== null) {
+          dispatch({ type: 'set', profileInfo: response })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [avatarPictureUrl])
 
   return (
     <div className={styles.container}>
@@ -147,18 +215,19 @@ const MainSection = () => {
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
           <IconButton
             icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
-            onClick={() => inputFile.current.click()}
+            onClick={() => inputBannerFile.current.click()}
             backgroundColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#378287' : 'transparent'}
             borderRadius="100%"
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
             iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
             iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+            disabled={bannerUploadingToS3}
           />
           <input
             type="file"
-            id="file"
-            ref={inputFile}
+            id="banner-file"
+            ref={inputBannerFile}
             style={{ display: 'none' }}
             onChange={event => handleChangeBannerImage(event)}
           />
@@ -170,13 +239,15 @@ const MainSection = () => {
           <div className="col-span-6 justify-center">
             <div className="w-full flex justify-center">
               <div className="w-content relative">
-                <DashboardArtistCard image={profileImage !== '' ? profileImage : AvatarImage.src} />
+                <DashboardArtistCard
+                  image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
+                />
                 <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
                   <IconButton
                     icon={
                       viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
                     }
-                    onClick={() => inputFile.current.click()}
+                    onClick={() => inputAvatarFile.current.click()}
                     backgroundColor={
                       viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#378287' : 'transparent'
                     }
@@ -185,13 +256,14 @@ const MainSection = () => {
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
                     iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
                     iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+                    disabled={avatarUploadingToS3}
                   />
                   <input
                     type="file"
-                    id="file"
-                    ref={inputFile}
+                    id="avatar-file"
+                    ref={inputAvatarFile}
                     style={{ display: 'none' }}
-                    onChange={event => handleChangeBannerImage(event)}
+                    onChange={event => handleChangeAvatar(event)}
                   />
                 </div>
               </div>
@@ -304,15 +376,26 @@ const MainSection = () => {
         </div>
       </div>
       <NftImageEditorModal
-        open={openNftImageEditorModal}
-        close={() => setOpenNftImageEditorModal(false)}
+        open={openBannerEditorModal}
+        close={() => setOpenBannerEditorModal(false)}
         nftImage={banner}
         getCroppedImage={croppedImage => {
-          setUpdateImage(true)
+          setUpdateBanner(true)
           setCroppedBanner(croppedImage)
-          setOpenNftImageEditorModal(false)
+          setOpenBannerEditorModal(false)
         }}
         dimension={{ value: [1080, 320] }}
+      />
+      <NftImageEditorModal
+        open={openAvatarEditorModal}
+        close={() => setOpenAvatarEditorModal(false)}
+        nftImage={avatar}
+        getCroppedImage={croppedImage => {
+          setUpdateAvatar(true)
+          setCroppedAvatar(croppedImage)
+          setOpenAvatarEditorModal(false)
+        }}
+        dimension={{ value: [512, 512] }}
       />
     </div>
   )
