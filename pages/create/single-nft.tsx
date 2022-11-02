@@ -30,7 +30,7 @@ import GradientButton from 'components/Button/GradientButton'
 import IconButton from 'components/Button/IconButton'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -338,21 +338,10 @@ const SingleNft = () => {
   const { metaplex: mx } = useMetaplex()
   const [nftAddress, setNFTAddress] = useState('')
 
-  const b64toBlob = dataURI => {
-    var byteString = atob(dataURI.split(',')[1])
-    var ab = new ArrayBuffer(byteString.length)
-    var ia = new Uint8Array(ab)
-
-    for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i)
-    }
-    return new Blob([ab], { type: 'image/jpeg' })
-  }
-
   const createNft = async () => {
     try {
       let reader = new FileReader()
-      const fileData = new Blob([nftArt[0]])
+      const fileData = b64toBlob(await getBase64FromUrl(nftImage))
       reader.readAsArrayBuffer(fileData)
       reader.onload = async event => {
         dispatch({ type: 'set', isLoading: true })
@@ -376,8 +365,7 @@ const SingleNft = () => {
           await uploadNft(metadata)
         } else {
           let coverReader = new FileReader()
-
-          const coverFileData = b64toBlob(nftImage)
+          const coverFileData = nftType === 'video' ? b64toBlob(nftImage) : b64toBlob(await getBase64FromUrl(nftImage))
 
           coverReader.readAsArrayBuffer(coverFileData)
           coverReader.onload = async function (event) {
