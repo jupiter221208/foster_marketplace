@@ -47,7 +47,9 @@ const ListedNFTSection = () => {
   const setMyListedNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
     const listedNFTs = await getMyListedNFTs(mx)
-    setMyNFTList(listedNFTs)
+    if (listedNFTs !== undefined && listedNFTs !== null) {
+      setMyNFTList(listedNFTs)
+    }
     dispatch({ type: 'set', isLoading: false })
   }
 
