@@ -14,7 +14,7 @@ export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
 export async function getMyNFTs(mx: Metaplex) {
   let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
 
-  const listedNFTs = await getMyListedNFTs(mx)
+  const listedNFTs = (await getMyListedNFTs(mx)) === undefined ? [] : await getMyListedNFTs(mx)
 
   nfts = nfts.filter(
     nft =>
