@@ -1,0 +1,11 @@
+<svg id="Price_History_Icon" data-name="Price History Icon" xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46">
+  <rect id="Rectangle_20893" data-name="Rectangle 20893" width="46" height="46" fill="none"/>
+  <g id="noun-chart-1186582-EFF0F6" transform="translate(9.979 9.941)">
+    <path id="Path_105746" data-name="Path 105746" d="M10.148,20.356a9.882,9.882,0,0,1-7.145-3A10,10,0,0,1,3,3.063a10.161,10.161,0,0,1,14.37,14.37A10.476,10.476,0,0,1,10.148,20.356Zm0-18.673A8.226,8.226,0,0,0,4.141,4.2a8.429,8.429,0,0,0,0,12.016,8.429,8.429,0,0,0,12.016,0,8.477,8.477,0,0,0,0-12.016A8.226,8.226,0,0,0,10.148,1.682Z" fill="#5AC3BA"/>
+    <path id="Path_105747" data-name="Path 105747" d="M63.006,65.766a2.639,2.639,0,0,1-1.949-.812L53.75,57.647l.812-.568a9.281,9.281,0,0,0,2.517-2.517l.568-.812,7.388,7.388a2.794,2.794,0,0,1,0,3.9,3.118,3.118,0,0,1-2.03.731Zm-6.739-7.957,6.008,6.008a1.091,1.091,0,0,0,1.543-1.543l-6.008-6.008a7.32,7.32,0,0,1-.731.812A2.3,2.3,0,0,1,56.267,57.809Z" transform="translate(-39.785 -39.727)" fill="#5AC3BA"/>
+    <path id="Path_105748" data-name="Path 105748" d="M14.688,37.5h1.624v7.957H14.688Z" transform="translate(-10.872 -27.699)" fill="#5AC3BA"/>
+    <path id="Path_105749" data-name="Path 105749" d="M28.75,45.312h1.624v7.469H28.75Z" transform="translate(-21.281 -33.481)" fill="#5AC3BA"/>
+    <path id="Path_105750" data-name="Path 105750" d="M43.125,20h1.624V34.046H43.125Z" transform="translate(-31.921 -14.745)" fill="#5AC3BA"/>
+    <path id="Path_105751" data-name="Path 105751" d="M57.188,33.75h1.624v8.931H57.188Z" transform="translate(-42.33 -24.923)" fill="#5AC3BA"/>
+  </g>
+</svg>

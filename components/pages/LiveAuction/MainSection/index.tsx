@@ -40,9 +40,9 @@ import { useViewport } from 'utils'
 import Avatar from 'assets/images/live-auction.png'
 import SolanaAuctionIcon from 'assets/icons/solana-auction.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
-import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
-import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
+import DescriptionGreenIcon from 'assets/icons/description-green.svg'
+import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
+import NotificationGreenIcon from 'assets/icons/notification-green.svg'
 import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
@@ -224,12 +224,12 @@ const MainSection = () => {
                         onClick={() => clickRecent(0)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={DescriptionWhiteIcon} alt="" />
-                          <div className={styles.subTitle}>Description</div>
+                          <Image src={DescriptionGreenIcon} alt="" />
+                          <div>Description</div>
                         </div>
                         <ChevronUpIcon
-                          className={`${open ? '' : 'rotate-180 transform'} h-5 w-5`}
-                          style={{ color: '#DEEFD0' }}
+                          className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
+                          style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel
@@ -284,12 +284,12 @@ const MainSection = () => {
                         onClick={() => clickRecent(1)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={PriceHistoryWhiteIcon} alt="" />
-                          <div className={styles.subTitle}>Price History</div>
+                          <Image src={PriceHistoryGreenIcon} alt="" />
+                          <div>Price History</div>
                         </div>
                         <ChevronUpIcon
-                          className={`${open ? '' : 'rotate-180 transform'} h-5 w-5`}
-                          style={{ color: '#DEEFD0' }}
+                          className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
+                          style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel
@@ -323,12 +323,12 @@ const MainSection = () => {
                         onClick={() => clickRecent(2)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={NotificationWhiteIcon} alt="" />
-                          <div className={styles.subTitle}>Activity</div>
+                          <Image src={NotificationGreenIcon} alt="" />
+                          <div>Activity</div>
                         </div>
                         <ChevronUpIcon
-                          className={`${open ? '' : 'rotate-180 transform'} h-5 w-5`}
-                          style={{ color: '#DEEFD0' }}
+                          className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
+                          style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel

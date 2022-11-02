@@ -224,10 +224,14 @@
   justify-content: space-between;
   align-items: center;
   padding-left: 12px;
-  padding-right: 30px;
+  padding-right: 12px;
   border-radius: 12px;
   border: 1px solid rgba($text-gray-200-color, 0.6);
   background-color: $background-black-color;
+
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: $text-gray-200-color;
 }
 
 .accordionOpenButton {
@@ -254,10 +258,14 @@
   justify-content: space-between;
   align-items: center;
   padding-left: 12px;
-  padding-right: 30px;
+  padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
   border: 2px solid rgba($text-gray-200-color, 1);
   background: linear-gradient(to bottom, #212626, #253c3a);
+
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: #c4d3d8;
 }
 
 .accordionArea {
