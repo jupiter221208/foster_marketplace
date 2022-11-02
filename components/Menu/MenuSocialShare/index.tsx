@@ -44,7 +44,7 @@ const MenuSocialShare = props => {
     )
   }
   return (
-    <div className="relative">
+    <div className="relative mt-[4px]">
       <Menu>
         <Menu.Button>
           <div className="flex justify-between items-center">

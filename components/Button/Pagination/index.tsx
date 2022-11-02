@@ -27,9 +27,9 @@ const Pagination = props => {
   const [currentData, setCurrentData] = useState([])
 
   useEffect(() => {
-    setTotalCount(data.length)
+    setTotalCount(data?.length)
     setCurrentPage(0)
-    setCurrentData(data.slice(0, rowCount))
+    setCurrentData(data?.slice(0, rowCount))
   }, [data, rowCount])
 
   useEffect(() => {
@@ -41,11 +41,11 @@ const Pagination = props => {
   }
 
   const handleNext = () => {
-    if (currentPage + 1 < Math.ceil(data.length / rowCount)) setCurrentPage(currentPage + 1)
+    if (currentPage + 1 < Math.ceil(data?.length / rowCount)) setCurrentPage(currentPage + 1)
   }
 
   useEffect(() => {
-    setCurrentData(data.slice(currentPage * rowCount, currentPage * rowCount + rowCount))
+    setCurrentData(data?.slice(currentPage * rowCount, currentPage * rowCount + rowCount))
   }, [data, currentPage, rowCount])
 
   return (

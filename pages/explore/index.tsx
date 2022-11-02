@@ -189,7 +189,7 @@ const Explore = () => {
                   <div className="col-span-12">
                     <LoadingModal open={isLoading} />
                   </div>
-                  {showNftList.map((item, index) => (
+                  {showNftList?.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <NFTCard
                         image={item.asset.json.image}
