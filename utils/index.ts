@@ -46,3 +46,27 @@ export const namePublicFile = name => {
   let ext = re.exec(name)[1]
   return `${uuidv4()}.${ext}`
 }
+
+export const b64toBlob = dataURI => {
+  var byteString = atob(dataURI.split(',')[1])
+  var ab = new ArrayBuffer(byteString.length)
+  var ia = new Uint8Array(ab)
+
+  for (var i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i)
+  }
+  return new Blob([ab], { type: 'image/jpeg' })
+}
+
+export const getBase64FromUrl = async url => {
+  const data = await fetch(url)
+  const blob = await data.blob()
+  return new Promise(resolve => {
+    const reader = new FileReader()
+    reader.readAsDataURL(blob)
+    reader.onloadend = () => {
+      const base64data = reader.result
+      resolve(base64data)
+    }
+  })
+}
