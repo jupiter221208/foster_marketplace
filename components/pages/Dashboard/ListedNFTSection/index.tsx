@@ -9,9 +9,6 @@ import ListedNFTCard from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
 
-// custom functions
-import { useViewport } from 'utils'
-
 // styles
 import styles from './index.module.scss'
 
@@ -23,8 +20,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import listingsAPI from 'apis/listings'
 
 const ListedNFTSection = () => {
-  const viewport = useViewport()
-
   const router = useRouter()
 
   const [myNFTftList, setMyNFTList] = useState<any[]>([])
@@ -86,7 +81,7 @@ const ListedNFTSection = () => {
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!isLoading &&
           nftList.map((item, index) => (
-            <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <ListedNFTCard
                 data={item}
                 onClick={(data: any) => handleGotoDetailPage(data)}
