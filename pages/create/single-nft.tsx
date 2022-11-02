@@ -188,21 +188,25 @@ const SingleNft = () => {
 
   useEffect(() => {
     if (nftType === 'video') {
-      setTimeout(() => {
-        captureImage()
+      const myInterval = setInterval(() => {
+        var video = document.getElementById('video')
+        if (isVideo(video)) {
+          if (video.readyState === 4) {
+            captureImage()
+            clearInterval(myInterval)
+          }
+        }
       }, 100)
+      return () => clearInterval(myInterval)
     }
   }, [nftType])
 
   const captureImage = () => {
-    /**
-     * @type {HTMLCanvasElement}
-     */
     var canvas = document.getElementById('canvas')
     var video = document.getElementById('video')
     if (isCanvas(canvas) && isVideo(video)) {
-      canvas.width = video.videoWidth
-      canvas.height = video.videoHeight
+      canvas.width = video.videoWidth !== 0 ? video.videoWidth : 1920
+      canvas.height = video.videoHeight !== 0 ? video.videoHeight : 1080
       let ctx = canvas.getContext('2d')
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
 
@@ -221,8 +225,6 @@ const SingleNft = () => {
 
   useEffect(() => {
     if (nftCover !== null && nftCover !== undefined) {
-      // setNftType(nftCover[0].type.split('/')[0])
-      // setDisabledNextButton(false)
       if (nftCover[0].type.split('/')[0] === 'image') {
         setOpenNftImageEditorModal(true)
       }
@@ -336,12 +338,23 @@ const SingleNft = () => {
   const { metaplex: mx } = useMetaplex()
   const [nftAddress, setNFTAddress] = useState('')
 
+  const b64toBlob = dataURI => {
+    var byteString = atob(dataURI.split(',')[1])
+    var ab = new ArrayBuffer(byteString.length)
+    var ia = new Uint8Array(ab)
+
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i)
+    }
+    return new Blob([ab], { type: 'image/jpeg' })
+  }
+
   const createNft = async () => {
     try {
       let reader = new FileReader()
       const fileData = new Blob([nftArt[0]])
       reader.readAsArrayBuffer(fileData)
-      reader.onload = async function (event) {
+      reader.onload = async event => {
         dispatch({ type: 'set', isLoading: true })
         const arrayBuffer = reader.result as ArrayBuffer
 
@@ -404,17 +417,6 @@ const SingleNft = () => {
     } catch (error) {
       dispatch({ type: 'set', isLoading: false })
     }
-  }
-
-  const b64toBlob = dataURI => {
-    var byteString = atob(dataURI.split(',')[1])
-    var ab = new ArrayBuffer(byteString.length)
-    var ia = new Uint8Array(ab)
-
-    for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i)
-    }
-    return new Blob([ab], { type: 'image/jpeg' })
   }
 
   const uploadNft = async metadata => {
