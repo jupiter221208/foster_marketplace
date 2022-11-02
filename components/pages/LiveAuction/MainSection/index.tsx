@@ -232,13 +232,7 @@ const MainSection = () => {
                           style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel
-                        className={styles.accordionArea}
-                        style={{
-                          borderTopLeftRadius: open ? '0px' : '12px',
-                          borderTopRightRadius: open ? '0px' : '12px',
-                        }}
-                      >
+                      <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex flex-wrap flex-column space-between">
                           <div className={styles.whiteDescription}>
                             Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem
@@ -292,13 +286,7 @@ const MainSection = () => {
                           style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel
-                        className={styles.accordionArea}
-                        style={{
-                          borderTopLeftRadius: open ? '0px' : '12px',
-                          borderTopRightRadius: open ? '0px' : '12px',
-                        }}
-                      >
+                      <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
                           <div className="w-[100px] lg:w-[150px]">
                             <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
@@ -334,8 +322,6 @@ const MainSection = () => {
                       <Disclosure.Panel
                         className={styles.accordionArea}
                         style={{
-                          borderTopLeftRadius: open ? '0px' : '12px',
-                          borderTopRightRadius: open ? '0px' : '12px',
                           padding: '0px',
                           overflow: 'auto',
                         }}
@@ -343,7 +329,7 @@ const MainSection = () => {
                         <table className="w-full table-auto">
                           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                             <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>Date</th>
@@ -351,7 +337,7 @@ const MainSection = () => {
                             </thead>
                           ) : (
                             <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>From</th>
@@ -397,7 +383,7 @@ const MainSection = () => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div>{item.price}</div>
+                                    <div>{item.price.toFixed(2)}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

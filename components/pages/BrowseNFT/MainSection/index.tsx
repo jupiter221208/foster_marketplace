@@ -524,13 +524,7 @@ const MainSection = () => {
                           style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel
-                        className={styles.accordionArea}
-                        style={{
-                          borderTopLeftRadius: open ? '0px' : '12px',
-                          borderTopRightRadius: open ? '0px' : '12px',
-                        }}
-                      >
+                      <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex flex-wrap flex-column space-between">
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-4">
@@ -563,13 +557,7 @@ const MainSection = () => {
                           style={{ color: '#5AC3BA' }}
                         />
                       </Disclosure.Button>
-                      <Disclosure.Panel
-                        className={styles.accordionArea}
-                        style={{
-                          borderTopLeftRadius: open ? '0px' : '12px',
-                          borderTopRightRadius: open ? '0px' : '12px',
-                        }}
-                      >
+                      <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
                           <div className="w-[100px] lg:w-[150px]">
                             <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
@@ -605,8 +593,6 @@ const MainSection = () => {
                       <Disclosure.Panel
                         className={styles.accordionArea}
                         style={{
-                          borderTopLeftRadius: open ? '0px' : '12px',
-                          borderTopRightRadius: open ? '0px' : '12px',
                           padding: '0px',
                           overflow: 'auto',
                         }}
