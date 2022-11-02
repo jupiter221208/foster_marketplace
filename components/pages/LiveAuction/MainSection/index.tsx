@@ -29,7 +29,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 // components
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
+import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import AuctionCard from 'components/Card/AuctionCard'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 
@@ -235,31 +235,18 @@ const MainSection = () => {
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex flex-wrap flex-column space-between">
                           <div className={styles.whiteDescription}>
-                            Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt. Nam sem
-                            lacus, ornare non ante sed.
+                            Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt.
                           </div>
-                          <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-5">
-                            <OutlineButton
-                              label="Abstract"
-                              onClick={() => {}}
-                              color="#EFF0F6"
-                              borderColor="#EFF0F6"
-                              borderRadius="16px"
-                              height={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '25px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '28px'
-                                  : '32px'
-                              }
-                              fontSize={
-                                viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                                  ? '12px'
-                                  : viewport === 'lg' || viewport === 'xl'
-                                  ? '14px'
-                                  : '16px'
-                              }
-                            />
+                          <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
+                            <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
+                              <SmallCategoryChip data={{ trait_type: 'category', value: 'Comedy' }} />
+                            </div>
+                            <div className="flex items-end">
+                              <div className="block text-center">
+                                <div className={styles.greenRoyalties}>2.5%</div>
+                                <div className={styles.whiteRoyalties}>Royalties</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </Disclosure.Panel>

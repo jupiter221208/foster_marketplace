@@ -163,6 +163,7 @@ const MainSection = () => {
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [nftName, setNftName] = useState('')
   const [nftDescription, setNftDescription] = useState('')
+  const [nftRoyalties, setNftRoyalties] = useState(0)
   const [nftPrice, setNftPrice] = useState(0)
   const [nftCreator, setNftCreator] = useState('')
   const [nftOwner, setNftOwner] = useState('')
@@ -219,6 +220,7 @@ const MainSection = () => {
     setNftName(nft.asset.json.name)
     setNftOwner(getShortAddress(nft.asset.owner))
     setNftDescription(nft.asset.json.description)
+    setNftRoyalties(nft.asset.sellerFeeBasisPoints)
     let array = []
     if (nft.asset.json.attributes !== undefined) {
       nft.asset.json.attributes.map(item => {
@@ -527,10 +529,18 @@ const MainSection = () => {
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex flex-wrap flex-column space-between">
                           <div className={styles.whiteDescription}>{nftDescription}</div>
-                          <div className="w-full flex flex-wrap mt-2 gap-2 lg:gap-3 xl:gap-4">
-                            {nftCategories.map((item, index) => (
-                              <SmallCategoryChip data={item} key={index} />
-                            ))}
+                          <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
+                            <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
+                              {nftCategories.map((item, index) => (
+                                <SmallCategoryChip data={item} key={index} />
+                              ))}
+                            </div>
+                            <div className="flex items-end">
+                              <div className="block text-center">
+                                <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
+                                <div className={styles.whiteRoyalties}>Royalties</div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </Disclosure.Panel>
