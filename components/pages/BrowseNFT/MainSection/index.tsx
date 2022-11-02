@@ -45,7 +45,8 @@ import TagWhiteIcon from 'assets/icons/tag-white.svg'
 import DescriptionWhiteIcon from 'assets/icons/description-white.svg'
 import PriceHistoryWhiteIcon from 'assets/icons/price-history-white.svg'
 import NotificationWhiteIcon from 'assets/icons/notification-white.svg'
-import SaleWhiteIcon from 'assets/icons/sale-white.svg'
+import SaleGreenIcon from 'assets/icons/sale-green.svg'
+import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import EmailWhiteIcon from 'assets/icons/email-white-46x46.svg'
@@ -660,9 +661,9 @@ const MainSection = () => {
                               >
                                 <td className="mx-2">
                                   <div className="flex items-center ml-2">
-                                    <div className="w-3 h-3 lg:w-5 lg:h-5 flex items-center">
+                                    <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
                                       <Image
-                                        src={item.event === 'Sale' ? SaleWhiteIcon : TagWhiteIcon}
+                                        src={item.event === 'Sale' ? SaleGreenIcon : TagGreenIcon}
                                         alt=""
                                         width={
                                           viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
@@ -683,7 +684,7 @@ const MainSection = () => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div>{item.price}</div>
+                                    <div>{item.price.toFixed(2)}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -715,9 +716,7 @@ const MainSection = () => {
                                   </td>
                                 )}
                                 <td>
-                                  <div className="w-full flex justify-center items-center ml-2 pr-4">
-                                    {item.date} ago
-                                  </div>
+                                  <div className="w-full flex justify-end items-center ml-2 pr-4">{item.date}</div>
                                 </td>
                               </tr>
                             ))}

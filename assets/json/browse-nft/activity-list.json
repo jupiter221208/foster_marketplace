@@ -5,7 +5,7 @@
     "price": 1.5,
     "from": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "to": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "date": "1 week"
+    "date": "1 week ago"
   },
   {
     "id": 1,
@@ -13,7 +13,7 @@
     "price": 1.5,
     "from": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "to": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "date": "2 week"
+    "date": "2 week ago"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "price": 1.25,
     "from": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "to": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "date": "2 week"
+    "date": "2 day ago"
   },
   {
     "id": 3,
@@ -29,6 +29,6 @@
     "price": 1.5,
     "from": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "to": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
-    "date": "3 week"
+    "date": "3 week ago"
   }
 ]
