@@ -509,12 +509,6 @@ const MainSection = () => {
                     <>
                       <Disclosure.Button
                         className={open ? styles.accordionOpenButton : styles.accordionButton}
-                        style={{
-                          backgroundColor: open ? '#1f2020' : '#121212',
-                          borderColor: open ? '#DEEFD0' : '#707070',
-                          borderBottomLeftRadius: open ? '0px' : '12px',
-                          borderBottomRightRadius: open ? '0px' : '12px',
-                        }}
                         data-value={open}
                         ref={ref => {
                           buttonRefs.current[0] = ref
@@ -554,12 +548,6 @@ const MainSection = () => {
                     <>
                       <Disclosure.Button
                         className={open ? styles.accordionOpenButton : styles.accordionButton}
-                        style={{
-                          backgroundColor: open ? '#1f2020' : '#121212',
-                          borderColor: open ? '#DEEFD0' : '#707070',
-                          borderBottomLeftRadius: open ? '0px' : '12px',
-                          borderBottomRightRadius: open ? '0px' : '12px',
-                        }}
                         data-value={open}
                         ref={ref => {
                           buttonRefs.current[1] = ref
@@ -599,12 +587,6 @@ const MainSection = () => {
                     <>
                       <Disclosure.Button
                         className={open ? styles.accordionOpenButton : styles.accordionButton}
-                        style={{
-                          backgroundColor: open ? '#1f2020' : '#121212',
-                          borderColor: open ? '#DEEFD0' : '#707070',
-                          borderBottomLeftRadius: open ? '0px' : '12px',
-                          borderBottomRightRadius: open ? '0px' : '12px',
-                        }}
                         data-value={open}
                         ref={ref => {
                           buttonRefs.current[2] = ref
@@ -632,7 +614,7 @@ const MainSection = () => {
                         <table className="w-full table-auto">
                           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                             <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>Date</th>
@@ -640,7 +622,7 @@ const MainSection = () => {
                             </thead>
                           ) : (
                             <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: '#378287' }}>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>From</th>
@@ -656,7 +638,9 @@ const MainSection = () => {
                                 className={`${styles.tableText} gap-2`}
                                 style={{
                                   background:
-                                    index % 2 === 1 ? `linear-gradient(to bottom, #378287, #1C4144)` : 'transparent',
+                                    index % 2 === 1
+                                      ? `linear-gradient(to bottom, rgba(55, 130, 135, 0.35), rgba(28, 65, 68, 0.35))`
+                                      : 'transparent',
                                 }}
                               >
                                 <td className="mx-2">
