@@ -196,7 +196,7 @@ const SingleNft = () => {
             clearInterval(myInterval)
           }
         }
-      }, 100)
+      }, 500)
       return () => clearInterval(myInterval)
     }
   }, [nftType])
@@ -676,6 +676,7 @@ const SingleNft = () => {
         : currentStep !== 4 && (
             // mobile part
             <div className="g-container mt-[26px] mb-[47px]">
+              <canvas id="canvas" style={{ overflow: 'auto', display: 'none' }}></canvas>
               {/* stepper part */}
               <div className="w-full">
                 <Stepper currentStep={currentStep} />
