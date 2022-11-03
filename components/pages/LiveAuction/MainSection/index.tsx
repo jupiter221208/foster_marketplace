@@ -239,7 +239,7 @@ const MainSection = () => {
                           </div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              <SmallCategoryChip data={{ trait_type: 'category', value: 'Comedy' }} />
+                              <SmallCategoryChip data={'Comedy'} />
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">

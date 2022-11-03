@@ -64,13 +64,14 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
-import { getNFTDetailsByAddress, getGeneralNFTDetails } from 'utils/nfts.utils'
+import { getNFTDetailsByAddress, getGeneralNFTDetails, getNFTOwner } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getPriceValue, getShortAddress } from 'utils/strings'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
-import nftsAPI from 'apis/nfts'
+import nftsAPI, { NFT } from 'apis/nfts'
+import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
 
 const MainSection = () => {
@@ -162,11 +163,15 @@ const MainSection = () => {
   const [nftUrl, setNftUrl] = useState('')
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [nftName, setNftName] = useState('')
+  const [nftCollectionName, setNftCollectionName] = useState('')
+  const [nftCollectionAddress, setNftCollectionAddress] = useState('')
   const [nftDescription, setNftDescription] = useState('')
   const [nftRoyalties, setNftRoyalties] = useState(0)
   const [nftPrice, setNftPrice] = useState(0)
-  const [nftCreator, setNftCreator] = useState('')
-  const [nftOwner, setNftOwner] = useState('')
+  const [nftCreatorAddress, setNftCreatorAddress] = useState('')
+  const [nftCreatorUsername, setNftCreatorUsername] = useState('')
+  const [nftOwnerAddress, setNftOwnerAddress] = useState('')
+  const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [mintAddress, setMintAddress] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [nftCategories, setNftCategories] = useState([])
@@ -188,54 +193,7 @@ const MainSection = () => {
   }, [mx, connected])
 
   const setListedNFT = async (mx, id) => {
-    let nft: any
-    if (type && type === 'general') nft = await getGeneralNFTDetails(mx, id.toString())
-    else nft = await getNFTDetailsByAddress(mx, id.toString())
-
-    if (nft.asset.json.category === 'image') {
-      setNftType('image')
-      setNftUrl(nft.asset.json.image)
-    } else if (nft.asset.json.category === 'audio') {
-      setNftType(nft.asset.json.category)
-      setNftUrl(
-        nft.asset.json.properties?.files
-          .filter(file => file.type.split('/')[0] === 'audio')
-          .map(file => file.url)[0]
-          .toString()
-      )
-      setNftCoverUrl(nft.asset.json.image ? nft.asset.json.image : '')
-    } else if (nft.asset.json.category === 'video') {
-      setNftType(nft.asset.json.category)
-      setNftUrl(
-        nft.asset.json.properties?.files
-          .filter(file => file.type.split('/')[0] === 'video')
-          .map(file => file.url)[0]
-          .toString()
-      )
-      setNftCoverUrl(nft.asset.json.image ? nft.asset.json.image : '')
-    } else {
-      setNftType('image')
-      setNftUrl(nft.asset.json.image)
-    }
-    setNftName(nft.asset.json.name)
-    setNftOwner(getShortAddress(nft.asset.owner))
-    setNftDescription(nft.asset.json.description)
-    setNftRoyalties(nft.asset.sellerFeeBasisPoints)
-    let array = []
-    if (nft.asset.json.attributes !== undefined) {
-      nft.asset.json.attributes.map(item => {
-        if (item.trait_type === 'category') {
-          array.push(item)
-        }
-      })
-    }
-
-    setNftCategories(array)
-    if (nft.price) {
-      setNftPrice(nft.price?.basisPoints.toNumber() * 0.000000001)
-    }
-    setNftCreator(getShortAddress(nft.asset.creators[0].address.toBase58()))
-    setMintAddress(nft.asset.address.toBase58())
+    let nft = await getNFTDetailsByAddress(mx, id.toString())
     if (nft.tradeStateAddress) {
       setTradeStateAddress(nft.tradeStateAddress?.toBase58())
     }
@@ -279,9 +237,43 @@ const MainSection = () => {
 
   useEffect(() => {
     if (id !== '') {
-      nftsAPI.get(id).then(
-        response => {
+      nftsAPI.getDetail(id).then(
+        (response: NFT) => {
           if (response !== null) {
+            console.log('==============response===============', response)
+            if (response.asset_type === 'static') {
+              setNftType('image')
+              setNftUrl(response.asset_url)
+            } else if (response.asset_type === 'dynamic') {
+              let asset_type: string
+              switch (response.asset_url.slice(-3)) {
+                case 'mp4' || 'gif':
+                  asset_type = 'video'
+                  break
+                default:
+                  asset_type = 'audio'
+                  break
+              }
+              setNftType(asset_type)
+              setNftUrl(response.asset_url)
+              setNftCoverUrl(response.cover_image_url || '')
+            } else {
+              setNftType('image')
+              setNftUrl(response.asset_url)
+            }
+            setNftName(response.name)
+            setNftCollectionAddress(response.collection_address)
+            setNftCollectionName(response.collection_name)
+            setNftOwnerAddress(response.owner_address)
+            setNftOwnerUsername(response.owner_username)
+            setNftCreatorAddress(response.creator_address)
+            setNftCreatorUsername(response.creator_username)
+            setNftDescription(response.description)
+            setNftCategories(response.categories?.split(','))
+            if (response.listing_status === 'listed') {
+              setNftPrice(parseInt(response.listing.list_price))
+            }
+            setMintAddress(response.address)
             setLikeCount(response.likes >= 0 ? response.likes : 0)
             setShareCount(response.shares >= 0 ? response.shares : 0)
             setSaveCount(response.saves >= 0 ? response.saves : 0)
@@ -290,6 +282,19 @@ const MainSection = () => {
             let shared = response.shared
             if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
             else setShare(false)
+
+            if (response.listing_status === 'listed') {
+              setListedNFT(mx, response.address)
+            }
+
+            if (response.owner_address === '') {
+              getNFTOwner(mx, id as string).then(owner => {
+                setNftOwnerAddress(owner.address)
+                usersAPI.get(owner).then(user => {
+                  setNftOwnerUsername(user.username)
+                })
+              })
+            }
           }
         },
         error => {
@@ -423,7 +428,12 @@ const MainSection = () => {
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
-                <div className={`${styles.greenTitle} hidden lg:flex`}>{nftName}</div>
+                <div
+                  className={`${styles.greenTitle} hidden lg:flex cursor-pointer`}
+                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                >
+                  {nftCollectionName}
+                </div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                   <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
@@ -453,13 +463,13 @@ const MainSection = () => {
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
                 <div
                   className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
-                  onClick={() => router.push('/artist-profile')}
+                  onClick={() => router.push(`/artist-profile/${nftOwnerAddress}`)}
                 >
-                  {nftOwner}
+                  {nftOwnerUsername}
                 </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
-                <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
-                  {nftCreator}
+                <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftCreatorAddress}`)}>
+                  {nftCreatorUsername}
                 </div>
               </div>
             </div>
@@ -476,10 +486,11 @@ const MainSection = () => {
                   </div>
                   <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                     <GradientButton
-                      label="Quick Buy"
+                      label={tradeStateAddress ? 'Quick Buy' : 'Loading Listing Details'}
                       onClick={() => quickBuy()}
-                      icon={QuickBuyBlackIcon}
+                      icon={tradeStateAddress ? QuickBuyBlackIcon : ''}
                       direction="rtl"
+                      disabled={!tradeStateAddress}
                     />
                     <OutlineButton
                       label="Make Offer"
@@ -531,7 +542,7 @@ const MainSection = () => {
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories.map((item, index) => (
+                              {nftCategories?.map((item, index) => (
                                 <SmallCategoryChip data={item} key={index} />
                               ))}
                             </div>

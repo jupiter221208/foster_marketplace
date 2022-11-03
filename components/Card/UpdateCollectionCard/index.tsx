@@ -44,7 +44,7 @@ const UpdateCollectionCard = props => {
         <div className="w-full mt-[6px] flex justify-between items-end">
           <div className="flex flex-wrap gap-[2px]">
             {category.map((item, index) => (
-              <SmallCategoryChip data={item} key={index} />
+              <SmallCategoryChip data={item?.value} key={index} />
             ))}
           </div>
           <div className="items-center">
