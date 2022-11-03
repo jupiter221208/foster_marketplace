@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // third party components
 import Dropzone from 'react-dropzone'
 
 // components
+import Alert from 'components/Alert'
 import Select from 'components/Select'
 import Radio from 'components/Radio'
 
@@ -21,6 +22,20 @@ const Step01SingleNFTSection = props => {
 
   const viewport = useViewport()
 
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+
+  useEffect(() => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Error',
+        description: `File size exceeded 30 MB!`,
+        type: 'error',
+      },
+    ])
+  }, [])
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
       <div className={`${styles.subTitle} mt-20`}>NFT Dimensions *</div>
@@ -29,7 +44,13 @@ const Step01SingleNFTSection = props => {
       </div>
       <div className={`${styles.subTitle} mt-10`}>Art *</div>
       <div className="mt-5">
-        <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
+        <Dropzone
+          onDrop={acceptedFiles => {
+            acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : setShowAlert(true)
+          }}
+          maxFiles={1}
+          maxSize={31457280}
+        >
           {({ getRootProps, getInputProps }) => (
             <section className={nftType === 'image' ? styles.dropzone : styles.mediaDropzone}>
               <div {...getRootProps()} className={styles.selectArea}>
@@ -47,9 +68,12 @@ const Step01SingleNFTSection = props => {
           <div className={`${styles.subTitle} mt-10`}>Cover *</div>
           <div className="mt-5">
             <Dropzone
-              onDrop={acceptedFiles => setNftCover(acceptedFiles)}
+              onDrop={acceptedFiles => {
+                acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : setShowAlert(true)
+              }}
               maxFiles={1}
               accept={{ 'image/jpeg': [], 'image/png': [] }}
+              maxSize={31457280}
             >
               {({ getRootProps, getInputProps }) => (
                 <section className={styles.dropzone}>
@@ -79,7 +103,13 @@ const Step01SingleNFTSection = props => {
       </div>
       <div className={`${styles.subTitle} mt-10`}>Art *</div>
       <div className="mt-5">
-        <Dropzone onDrop={acceptedFiles => setNftArt(acceptedFiles)} maxFiles={1}>
+        <Dropzone
+          onDrop={acceptedFiles => {
+            acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : setShowAlert(true)
+          }}
+          maxFiles={1}
+          maxSize={31457280}
+        >
           {({ getRootProps, getInputProps }) => (
             <section className={nftType === 'image' ? styles.dropzone : styles.mediaDropzone}>
               <div {...getRootProps()} className={styles.selectArea}>
@@ -101,9 +131,12 @@ const Step01SingleNFTSection = props => {
           <div className={`${styles.subTitle} mt-10`}>Cover *</div>
           <div className="mt-5">
             <Dropzone
-              onDrop={acceptedFiles => setNftCover(acceptedFiles)}
+              onDrop={acceptedFiles => {
+                acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : setShowAlert(true)
+              }}
               maxFiles={1}
               accept={{ 'image/jpeg': [], 'image/png': [] }}
+              maxSize={31457280}
             >
               {({ getRootProps, getInputProps }) => (
                 <section className={styles.dropzone}>
@@ -119,6 +152,13 @@ const Step01SingleNFTSection = props => {
           </div>
         </>
       )}
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

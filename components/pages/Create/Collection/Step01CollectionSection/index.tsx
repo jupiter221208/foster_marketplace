@@ -8,6 +8,7 @@ import Dropzone from 'react-dropzone'
 import { limit } from 'utils/strings'
 
 // components
+import Alert from 'components/Alert'
 import IconButton from 'components/Button/IconButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Chip from 'components/Chip'
@@ -69,6 +70,20 @@ const Step01CollectionSection = props => {
   const dropzoneCoverEl = useRef(null)
 
   // variables
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+
+  useEffect(() => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Error',
+        description: `File size exceeded 30 MB!`,
+        type: 'error',
+      },
+    ])
+  }, [])
+
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
@@ -317,9 +332,12 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className="mt-5">
                     <Dropzone
-                      onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
+                      onDrop={acceptedFiles => {
+                        acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : setShowAlert(true)
+                      }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      maxSize={31457280}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -341,9 +359,12 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className="mt-5">
                     <Dropzone
-                      onDrop={acceptedFiles => onChangeBannerImage(acceptedFiles)}
+                      onDrop={acceptedFiles => {
+                        acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : setShowAlert(true)
+                      }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      maxSize={31457280}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
@@ -483,9 +504,12 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
             <div className="mt-5">
               <Dropzone
-                onDrop={acceptedFiles => onChangeCoverImage(acceptedFiles)}
+                onDrop={acceptedFiles => {
+                  acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : setShowAlert(true)
+                }}
                 maxFiles={1}
                 accept={{ 'image/jpeg': [], 'image/png': [] }}
+                maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
@@ -509,9 +533,12 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-10`}>Banner Image *</div>
             <div className="mt-5">
               <Dropzone
-                onDrop={acceptedFiles => onChangeBannerImage(acceptedFiles)}
+                onDrop={acceptedFiles => {
+                  acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : setShowAlert(true)
+                }}
                 maxFiles={1}
                 accept={{ 'image/jpeg': [], 'image/png': [] }}
+                maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
@@ -595,6 +622,13 @@ const Step01CollectionSection = props => {
         </div>
       )}
 
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
       <NftImageEditorModal
         open={openCoverImageEditorModal}
         close={() => setOpenCoverImageEditorModal(false)}

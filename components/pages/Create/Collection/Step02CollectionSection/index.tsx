@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Dropzone from 'react-dropzone'
 
 // components
+import Alert from 'components/Alert'
 import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Select from 'components/Select'
 import Radio from 'components/Radio'
@@ -49,6 +50,21 @@ const Step02CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
+
+  // alert variables
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+
+  useEffect(() => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Error',
+        description: `File size exceeded 30 MB!`,
+        type: 'error',
+      },
+    ])
+  }, [])
 
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -280,7 +296,13 @@ const Step02CollectionSection = props => {
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
                   <div className="mt-5">
-                    <Dropzone onDrop={acceptedFiles => onChangeCollectionFiles(acceptedFiles)} maxFiles={25}>
+                    <Dropzone
+                      onDrop={acceptedFiles => {
+                        acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : setShowAlert(true)
+                      }}
+                      maxFiles={25}
+                      maxSize={31457280}
+                    >
                       {({ getRootProps, getInputProps }) => (
                         <section className={styles.dropzone}>
                           <div {...getRootProps()} className={styles.selectArea}>
@@ -577,7 +599,13 @@ const Step02CollectionSection = props => {
           <div className="w-full">
             <div className={`${styles.subTitle} mt-8`}>Collection Files (max. 25) *</div>
             <div className="mt-5">
-              <Dropzone onDrop={acceptedFiles => onChangeCollectionFiles(acceptedFiles)} maxFiles={25}>
+              <Dropzone
+                onDrop={acceptedFiles => {
+                  acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : setShowAlert(true)
+                }}
+                maxFiles={25}
+                maxSize={31457280}
+              >
                 {({ getRootProps, getInputProps }) => (
                   <section className={styles.dropzone}>
                     <div {...getRootProps()} className={styles.selectArea}>
@@ -823,6 +851,13 @@ const Step02CollectionSection = props => {
           dimension={dimension}
         />
       )}
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }
