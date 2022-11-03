@@ -29,8 +29,8 @@ const Step01SingleNFTSection = props => {
     setAlertData([
       {
         id: 0,
-        title: 'Error',
-        description: `File size exceeded 30 MB!`,
+        title: 'Max File Size Exceeded',
+        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
         type: 'error',
       },
     ])

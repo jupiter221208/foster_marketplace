@@ -77,8 +77,8 @@ const Step01CollectionSection = props => {
     setAlertData([
       {
         id: 0,
-        title: 'Error',
-        description: `File size exceeded 30 MB!`,
+        title: 'Max File Size Exceeded',
+        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
         type: 'error',
       },
     ])
@@ -337,7 +337,7 @@ const Step01CollectionSection = props => {
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [] }}
-                      maxSize={31457280}
+                      maxSize={314572}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
