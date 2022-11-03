@@ -337,7 +337,7 @@ const Step01CollectionSection = props => {
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [] }}
-                      maxSize={314572}
+                      maxSize={31457280}
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
