@@ -46,13 +46,17 @@ const Step01SingleNFTSection = props => {
         <>
           <div className={`${styles.subTitle} mt-10`}>Cover *</div>
           <div className="mt-5">
-            <Dropzone onDrop={acceptedFiles => setNftCover(acceptedFiles)} maxFiles={1}>
+            <Dropzone
+              onDrop={acceptedFiles => setNftCover(acceptedFiles)}
+              maxFiles={1}
+              accept={{ 'image/jpeg': [], 'image/png': [] }}
+            >
               {({ getRootProps, getInputProps }) => (
                 <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <p className={styles.subTitle}>Upload Here</p>
-                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .gif</p>
+                    <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
                 </section>
@@ -96,13 +100,17 @@ const Step01SingleNFTSection = props => {
         <>
           <div className={`${styles.subTitle} mt-10`}>Cover *</div>
           <div className="mt-5">
-            <Dropzone onDrop={acceptedFiles => setNftCover(acceptedFiles)} maxFiles={1}>
+            <Dropzone
+              onDrop={acceptedFiles => setNftCover(acceptedFiles)}
+              maxFiles={1}
+              accept={{ 'image/jpeg': [], 'image/png': [] }}
+            >
               {({ getRootProps, getInputProps }) => (
                 <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <p className={styles.subTitle}>Upload Here</p>
-                    <p className={styles.text}>Supported File Formats .png .jpeg .mp4 .mp3 and .gif</p>
+                    <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
                     <p className={styles.greenText}>Max File Size 30mb</p>
                   </div>
                 </section>
