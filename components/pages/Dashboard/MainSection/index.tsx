@@ -272,20 +272,10 @@ const MainSection = () => {
               <div className={styles.artistName}>{profileName.length > 0 ? profileName : 'Username'}</div>
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
-              <AddressButton
-                label={shortAddress}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-              />
+              <AddressButton label={shortAddress} onClick={() => copyToClipboard(publicKey?.toBase58() || '')} />
             </div>
             <div className="hidden lg:flex justify-center mt-[16px]">
-              <AddressButton
-                label={shortAddress}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '192px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                onClick={() => copyToClipboard(publicKey?.toBase58() || '')}
-              />
+              <AddressButton label={shortAddress} onClick={() => copyToClipboard(publicKey?.toBase58() || '')} />
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>

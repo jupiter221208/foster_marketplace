@@ -2,37 +2,33 @@
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  background-color: #121212;
   border-radius: 12px;
 
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
+
   height: 29px;
   font-size: 12px;
+  padding-left: 10px;
+  padding-right: 10px;
+  gap: 8px;
+  background-color: transparent;
   @media (min-width: 1024px) {
     height: 51px;
     font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 16px;
+    background-color: $background-black-color;
   }
+
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.7);
 
   &:hover {
     opacity: 0.8;
   }
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
-}
-
-.label {
-  color: rgba(#eff0f6, 0.7);
-  font-family: 'Muli';
-  height: 18px;
-  font-size: 12px;
-  padding-left: 24px;
-  @media (min-width: 1024px) {
-    height: 24px;
-    font-size: 18px;
-    padding-left: 40px;
-  }
 }
