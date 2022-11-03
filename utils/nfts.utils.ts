@@ -45,7 +45,8 @@ export async function getMyNFTs(mx: Metaplex) {
 }
 
 export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
-  const listedNFTs = await (await getListedNFTs(mx)).filter(nft => nft.asset.address.toString() === id)
+  const res = await getListedNFTs(mx)
+  const listedNFTs = await (res === undefined ? [] : res).filter(nft => nft.asset.address.toString() === id)
 
   const owner = await getNFTOwner(mx, id)
 
