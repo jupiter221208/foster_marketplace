@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // components
 import GradientButton from 'components/Button/GradientButton'
@@ -26,7 +27,9 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const SuccessMintSingleNFTSection = props => {
-  const { nftType, nftArt, nftImage, artWidth, nftAddress, artHeight, reset } = props
+  const { nftType, nftArt, nftImage, artWidth, nftAddress, artHeight } = props
+
+  const router = useRouter()
 
   const viewport = useViewport()
 
@@ -112,9 +115,9 @@ const SuccessMintSingleNFTSection = props => {
           <div className="w-full">
             <MintOutlineButton
               fullWidth
-              label="Mint another NFT"
+              label="View Dashboard"
               backgroundColor="#63D6CD"
-              onClick={reset}
+              onClick={() => router.push('/dashboard')}
               borderColor="#5AC3BA"
             />
           </div>
@@ -203,10 +206,10 @@ const SuccessMintSingleNFTSection = props => {
           <div className="w-[221px]">
             <OutlineButton
               fullWidth
-              label="Mint another NFT"
+              label="View Dashboard"
               backgroundColor="#63D6CD"
               height="45px"
-              onClick={reset}
+              onClick={() => router.push('/dashboard')}
               borderColor="#5AC3BA"
             />
           </div>
