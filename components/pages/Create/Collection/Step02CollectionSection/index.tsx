@@ -557,7 +557,7 @@ const Step02CollectionSection = props => {
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-8`}>Banner *</div>
+            <div className={`${styles.subTitle} mt-8`}>Collection Files (max. 25) *</div>
             <div className="mt-5">
               <Dropzone onDrop={acceptedFiles => onChangeCollectionFiles(acceptedFiles)} maxFiles={25}>
                 {({ getRootProps, getInputProps }) => (
