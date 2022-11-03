@@ -384,7 +384,7 @@ const Step01CollectionSection = props => {
                     <Button
                       width={viewport === '2xl' ? 184 : 175}
                       height={viewport === '2xl' ? 53 : 46}
-                      label="Create Collection"
+                      label="Next Step"
                       disabled={disabledNextButton}
                       backgroundColor="#888A8E"
                     />
