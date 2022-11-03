@@ -233,7 +233,7 @@ const Step03CollectionSection = props => {
                                 : styles.text
                             }
                           >
-                            Description *
+                            Description
                           </div>
                           <div>
                             <Textarea
@@ -334,7 +334,7 @@ const Step03CollectionSection = props => {
                                 : styles.text
                             }
                           >
-                            Description *
+                            Description
                           </div>
                           <div>
                             <Textarea
@@ -508,7 +508,7 @@ const Step03CollectionSection = props => {
                             : styles.text
                         }
                       >
-                        Description *
+                        Description
                       </div>
                       <div>
                         <Textarea
@@ -601,7 +601,7 @@ const Step03CollectionSection = props => {
                             : styles.text
                         }
                       >
-                        Description *
+                        Description
                       </div>
                       <div>
                         <Textarea

@@ -180,7 +180,7 @@ const Step02CollectionSection = props => {
   useEffect(() => {
     let count = 0
     collectionFiles.forEach((item, index) => {
-      if (item.croppedImage !== '' && item.name !== '' && item.description !== '') {
+      if (item.croppedImage !== '' && item.name !== '') {
         count++
       }
     })
@@ -360,7 +360,7 @@ const Step02CollectionSection = props => {
                                 : styles.text
                             }
                           >
-                            Description *
+                            Description
                           </div>
                           <div>
                             <Textarea
@@ -459,7 +459,7 @@ const Step02CollectionSection = props => {
                                 : styles.text
                             }
                           >
-                            Description *
+                            Description
                           </div>
                           <div>
                             <Textarea
@@ -482,16 +482,34 @@ const Step02CollectionSection = props => {
                     ))}
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-end">
-                  <GradientButton
-                    width={viewport === '2xl' ? 124 : 117}
+                <div className="absolute bottom-0 w-full flex justify-between">
+                  <Button
+                    label="Back"
+                    onClick={() => handleChangeCurrentStep(currentStep - 1)}
+                    width={viewport === '2xl' ? 184 : 175}
                     height={viewport === '2xl' ? 53 : 46}
-                    label="Next Step"
-                    disabled={disabledNextButton}
-                    gradientDirection="bottom"
-                    color="#202427"
-                    onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                    backgroundColor="#378287"
+                    color="#EFF0F6"
                   />
+                  {disabledNextButton ? (
+                    <Button
+                      width={viewport === '2xl' ? 184 : 175}
+                      height={viewport === '2xl' ? 53 : 46}
+                      label="Next Step"
+                      disabled={disabledNextButton}
+                      backgroundColor="#888A8E"
+                    />
+                  ) : (
+                    <GradientButton
+                      width={viewport === '2xl' ? 184 : 175}
+                      height={viewport === '2xl' ? 53 : 46}
+                      label="Next Step"
+                      disabled={disabledNextButton}
+                      gradientDirection="bottom"
+                      color="#202427"
+                      onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -653,7 +671,7 @@ const Step02CollectionSection = props => {
                           : styles.text
                       }
                     >
-                      Description *
+                      Description
                     </div>
                     <div>
                       <Textarea
@@ -742,7 +760,7 @@ const Step02CollectionSection = props => {
                           : styles.text
                       }
                     >
-                      Description *
+                      Description
                     </div>
                     <div>
                       <Textarea
@@ -770,16 +788,25 @@ const Step02CollectionSection = props => {
               />
             </div>
             <div className="w-[161px]">
-              <GradientButton
-                width={viewport === '2xl' ? 124 : 117}
-                height={viewport === '2xl' ? 53 : 46}
-                label="Next Step"
-                fullWidth
-                disabled={disabledNextButton}
-                gradientDirection="bottom"
-                color="#202427"
-                onClick={() => handleChangeCurrentStep(currentStep + 1)}
-              />
+              {disabledNextButton ? (
+                <Button
+                  label="Next Step"
+                  height={viewport === '2xl' ? 53 : 46}
+                  fullWidth
+                  disabled={disabledNextButton}
+                  backgroundColor="#888A8E"
+                />
+              ) : (
+                <GradientButton
+                  height={viewport === '2xl' ? 53 : 46}
+                  label="Next Step"
+                  fullWidth
+                  disabled={disabledNextButton}
+                  gradientDirection="bottom"
+                  color="#202427"
+                  onClick={() => handleChangeCurrentStep(currentStep + 1)}
+                />
+              )}
             </div>
           </div>
         </div>
