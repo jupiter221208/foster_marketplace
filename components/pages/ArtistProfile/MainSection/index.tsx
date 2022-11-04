@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
@@ -19,8 +19,6 @@ import CategoryChip from 'components/Chip/CategoryChip'
 import { useViewport } from 'utils'
 
 // images and icons
-import HeaderImage from 'assets/images/alexander-ant.png'
-import AvatarImage from 'assets/images/dashboard-avatar.png'
 import Rect1620x480Image from 'assets/icons/rect-1620x480.svg'
 import Rect512x512Image from 'assets/icons/rect-512x512.svg'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
@@ -37,16 +35,15 @@ import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 // styles
 import styles from './index.module.scss'
 
-// call apis
-import artistsAPI from 'apis/artists'
+const MainSection = prop => {
+  const { artistInfo } = prop
 
-const MainSection = () => {
+  const router = useRouter()
+
   const viewport = useViewport()
 
   const [follow, setFollow] = useState(false)
-  const [artistInfo, setArtistInfo] = useState<any>({})
 
-  const router = useRouter()
   const categoryList = [
     {
       id: 17,
@@ -73,35 +70,6 @@ const MainSection = () => {
       collections: 287,
     },
   ]
-
-  useEffect(() => {
-    if (router.query.id !== undefined && router.query.id !== null) {
-      artistsAPI.getArtist(router.query.id).then(
-        response => {
-          if (response !== undefined && response !== null) {
-            if (
-              response.profile_picture === null ||
-              response.profile_picture === '' ||
-              response.profile_picture === undefined
-            ) {
-              response.profile_picture = AvatarImage.src
-            }
-            if (
-              response.banner_picture === null ||
-              response.banner_picture === '' ||
-              response.banner_picture === undefined
-            ) {
-              response.banner_picture = HeaderImage.src
-            }
-            setArtistInfo(response)
-          }
-        },
-        error => {
-          console.log(error)
-        }
-      )
-    }
-  }, [router.query])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)

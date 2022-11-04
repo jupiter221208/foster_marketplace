@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Head from 'next/head'
@@ -11,11 +12,46 @@ import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import HeaderImage from 'assets/images/alexander-ant.png'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
 
+// call apis
+import artistsAPI from 'apis/artists'
+
 const ArtistProfile = () => {
+  const router = useRouter()
+
+  const [artistInfo, setArtistInfo] = useState<any>({})
+
+  useEffect(() => {
+    if (router.query.id !== undefined && router.query.id !== null) {
+      artistsAPI.getArtist(router.query.id).then(
+        response => {
+          let artist = response.artist
+          if (artist !== undefined && artist !== null) {
+            if (
+              artist.profile_picture === null ||
+              artist.profile_picture === '' ||
+              artist.profile_picture === undefined
+            ) {
+              artist.profile_picture = AvatarImage.src
+            }
+            if (artist.banner_picture === null || artist.banner_picture === '' || artist.banner_picture === undefined) {
+              artist.banner_picture = HeaderImage.src
+            }
+            setArtistInfo(artist)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }, [router.query])
+
   return (
     <div className="g-container">
       <Head>
@@ -27,7 +63,7 @@ const ArtistProfile = () => {
         <div className={styles.bottomLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <MainSection />
+        <MainSection artistInfo={artistInfo} />
         <NFTSection />
       </div>
     </div>
