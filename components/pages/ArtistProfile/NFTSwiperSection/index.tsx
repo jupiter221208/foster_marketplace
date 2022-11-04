@@ -23,12 +23,13 @@ import { useViewport } from 'utils'
 import FilterGreenIcon from 'assets/icons/filter-green.svg'
 
 // json
-import NFTList from 'assets/json/artist-profile/nft-list.json'
+// import NFTList from 'assets/json/artist-profile/nft-list.json'
 
 // styles
 import styles from './index.module.scss'
 
-const NFTSwiperSection = () => {
+const NFTSwiperSection = props => {
+  const { nfts } = props
   const viewport = useViewport()
   const router = useRouter()
 
@@ -39,7 +40,8 @@ const NFTSwiperSection = () => {
   useEffect(() => {
     let newList: any[] = []
     let tempItem: any[] = []
-    NFTList.map((item, index) => {
+
+    nfts.map((item, index) => {
       tempItem.push(item)
       if (index % 2 === 1) {
         newList.push(tempItem)
@@ -47,15 +49,16 @@ const NFTSwiperSection = () => {
       }
     })
     if (tempItem.length > 0) newList.push(tempItem)
+
     setNFTList(newList)
-  }, [])
+  }, [nfts])
 
   const handleChangeActive = value => {
     setActive(value)
 
     let newList: any[] = []
     let tempItem: any[] = []
-    NFTList.map((item, index) => {
+    nfts.map((item, index) => {
       tempItem.push(item)
       if (index % 2 === 1) {
         newList.push(tempItem)
@@ -144,11 +147,11 @@ const NFTSwiperSection = () => {
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 {item.map((nftItem: any, nftIndex) => (
                   <NFTCard
-                    image={nftItem.image}
-                    nftName={nftItem.nftName}
-                    artistName={nftItem.artistName}
-                    price={nftItem.price}
-                    onClick={() => router.push(`/browse-nft?id=${item.id}`)}
+                    image={nftItem.asset_url}
+                    nftName={nftItem.nft_name}
+                    artistName={nftItem.artist_username}
+                    price={nftItem.list_price ?? 0}
+                    onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
                     key={nftIndex}
                   />
                 ))}

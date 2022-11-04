@@ -20,7 +20,9 @@ import CollectionList from 'assets/json/artist-profile/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
-const CollectionSwiperSection = () => {
+const CollectionSwiperSection = props => {
+  const { collections } = props
+
   const viewport = useViewport()
 
   const [collectionList, setCollectionList] = useState<any[]>([])
@@ -28,7 +30,7 @@ const CollectionSwiperSection = () => {
   useEffect(() => {
     let newList: any[] = []
     let tempItem: any[] = []
-    CollectionList.map((item, index) => {
+    collections.map((item, index) => {
       tempItem.push(item)
       if (index % 2 === 1) {
         newList.push(tempItem)
@@ -59,14 +61,14 @@ const CollectionSwiperSection = () => {
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 {item.map((collectionItem: any, collectionIndex: number) => (
                   <CollectionCard
-                    image={collectionItem.image}
-                    nftName={collectionItem.nftName}
-                    category={collectionItem.category}
-                    artistName={collectionItem.artistName}
-                    mintAddress={item.mintAddress}
-                    nfts={collectionItem.nfts}
-                    icon={collectionItem.icon}
-                    price={collectionItem.price}
+                    image={collectionItem.cover_image}
+                    nftName={collectionItem.collection_name}
+                    // category={collectionItem.collection_name}
+                    artistName={collectionItem.artist_username}
+                    mintAddress={collectionItem.artist_id}
+                    // nfts={collectionItem.nfts}
+                    icon={collectionItem.artist_profile_picture}
+                    // price={collectionItem.price}
                     key={collectionIndex}
                   />
                 ))}

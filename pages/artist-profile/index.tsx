@@ -25,6 +25,8 @@ const ArtistProfile = () => {
   const router = useRouter()
 
   const [artistInfo, setArtistInfo] = useState<any>({})
+  const [nfts, setNfts] = useState<any>([])
+  const [collections, setCollections] = useState<any>([])
 
   useEffect(() => {
     if (router.query.id !== undefined && router.query.id !== null) {
@@ -44,6 +46,8 @@ const ArtistProfile = () => {
             }
             setArtistInfo(artist)
           }
+          setNfts(response.nfts)
+          setCollections(response.collections)
         },
         error => {
           console.log(error)
@@ -64,7 +68,7 @@ const ArtistProfile = () => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <MainSection artistInfo={artistInfo} />
-        <NFTSection />
+        <NFTSection nfts={nfts} collections={collections} />
       </div>
     </div>
   )
