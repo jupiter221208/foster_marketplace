@@ -48,9 +48,8 @@ const HamburgerMenuSocialShare = props => {
     <div className="relative mt-[4px]">
       <Menu>
         <Menu.Button>
-          <div className="flex justify-between items-center">
+          <div className="w-7 h-7 flex justify-center items-center">
             <Image src={HamburgerMenuIcon} alt="" />
-            <div className={styles.text}>{voteCount}</div>
           </div>
         </Menu.Button>
 
