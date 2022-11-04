@@ -55,7 +55,7 @@ const Step02CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
 
-  useEffect(() => {
+  const handleShowAlert = () => {
     setAlertData([
       {
         id: 0,
@@ -64,7 +64,8 @@ const Step02CollectionSection = props => {
         type: 'error',
       },
     ])
-  }, [])
+    setShowAlert(true)
+  }
 
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -298,7 +299,7 @@ const Step02CollectionSection = props => {
                   <div className="mt-5">
                     <Dropzone
                       onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : setShowAlert(true)
+                        acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert()
                       }}
                       maxFiles={25}
                       maxSize={31457280}
@@ -601,7 +602,7 @@ const Step02CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
-                  acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : setShowAlert(true)
+                  acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert()
                 }}
                 maxFiles={25}
                 maxSize={31457280}

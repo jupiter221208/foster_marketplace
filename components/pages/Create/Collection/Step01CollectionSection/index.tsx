@@ -73,7 +73,7 @@ const Step01CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
 
-  useEffect(() => {
+  const handleShowAlert = () => {
     setAlertData([
       {
         id: 0,
@@ -82,7 +82,8 @@ const Step01CollectionSection = props => {
         type: 'error',
       },
     ])
-  }, [])
+    setShowAlert(true)
+  }
 
   const [openCoverImageEditorModal, setOpenCoverImageEditorModal] = useState(false)
   const [openBannerImageEditorModal, setOpenBannerImageEditorModal] = useState(false)
@@ -333,7 +334,7 @@ const Step01CollectionSection = props => {
                   <div className="mt-5">
                     <Dropzone
                       onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : setShowAlert(true)
+                        acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert()
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [] }}
@@ -360,7 +361,7 @@ const Step01CollectionSection = props => {
                   <div className="mt-5">
                     <Dropzone
                       onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : setShowAlert(true)
+                        acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert()
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [] }}
@@ -505,7 +506,7 @@ const Step01CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
-                  acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : setShowAlert(true)
+                  acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert()
                 }}
                 maxFiles={1}
                 accept={{ 'image/jpeg': [], 'image/png': [] }}
@@ -534,7 +535,7 @@ const Step01CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
-                  acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : setShowAlert(true)
+                  acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert()
                 }}
                 maxFiles={1}
                 accept={{ 'image/jpeg': [], 'image/png': [] }}
