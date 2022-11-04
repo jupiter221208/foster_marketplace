@@ -8,7 +8,7 @@ import GradientButton from 'components/Button/GradientButton'
 // styles
 import styles from './index.module.scss'
 
-const DiscoverySection = prop => {
+const ReferralSection = prop => {
   const { success } = prop
 
   const [bidActivity, setBidActivity] = useState(false)
@@ -24,12 +24,12 @@ const DiscoverySection = prop => {
   return (
     <div className={styles.container}>
       <div className="w-full hidden lg:flex justify-start">
-        <div className={styles.title}>Discovery</div>
+        <div className={styles.title}>Referral Program</div>
       </div>
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className="w-full mt-[30px] mb-12">
-            <GreenLineCard content="Discovery settings allows you to choose how other users discover you, and how you discover NFTs, collections and artists" />
+            <GreenLineCard content="The referral program allows you to earn a claim on the future issuance of LIFT tokens based on the number of referrals you make for active users." />
           </div>
           <div className="w-full flex flex-wrap gap-12 mb-[171px] lg:mb-[94px]">
             <Switch
@@ -89,7 +89,7 @@ const DiscoverySection = prop => {
           </div>
           <div className="w-full flex justify-center mb-20">
             <GradientButton
-              label="Save"
+              label="Claim"
               onClick={() => {
                 success()
               }}
@@ -105,4 +105,4 @@ const DiscoverySection = prop => {
   )
 }
 
-export default DiscoverySection
+export default ReferralSection

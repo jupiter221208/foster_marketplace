@@ -10,7 +10,7 @@ import Tab01 from 'components/Tab/Tab01'
 import ProfileSection from 'components/pages/Settings/ProfileSection'
 import NotificationSection from 'components/pages/Settings/NotificationSection'
 import PermissionAndPrivacySection from 'components/pages/Settings/PermissionAndPrivacySection'
-import DiscoverySection from 'components/pages/Settings/DiscoverySection'
+import ReferralSection from 'components/pages/Settings/ReferralSection'
 import SecuritySection from 'components/pages/Settings/SecuritySection'
 import Alert from 'components/Alert'
 
@@ -72,7 +72,7 @@ const Settings = () => {
               {selectedTab === 0 && <div className={styles.title}>Profile</div>}
               {selectedTab === 1 && <div className={styles.title}>Notifications</div>}
               {selectedTab === 2 && <div className={styles.title}>Permissions & Privacy</div>}
-              {selectedTab === 3 && <div className={styles.title}>Discovery</div>}
+              {selectedTab === 3 && <div className={styles.title}>Referral Program</div>}
               {selectedTab === 4 && <div className={styles.title}>Security</div>}
             </div>
             <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20 overflow-auto">
@@ -107,7 +107,7 @@ const Settings = () => {
             </div>
             <div className="w-full">
               {selectedTab === 3 && (
-                <DiscoverySection
+                <ReferralSection
                   success={() => {
                     setShowAlert(true)
                   }}
