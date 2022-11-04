@@ -14,6 +14,7 @@ import IconButton from 'components/Button/IconButton'
 
 // images
 import AlertSuccessGreenIcon from 'assets/icons/alert-success-green.svg'
+import AlertErrorBlackRedIcon from 'assets/icons/alert-error-black-red.svg'
 import CloseBlackRedIcon from 'assets/icons/close-black-red.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -56,14 +57,14 @@ const Alert = props => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className={styles.modalView}>
+                  <Dialog.Panel className={item.type === 'success' ? styles.modalView : styles.errorModalView}>
                     <div className="w-full flex justify-between items-center">
                       <div className="flex items-center gap-[15px]">
-                        <Image src={item.type === 'success' ? AlertSuccessGreenIcon : AlertSuccessGreenIcon} alt="" />
+                        <Image src={item.type === 'success' ? AlertSuccessGreenIcon : AlertErrorBlackRedIcon} alt="" />
                         <div className={styles.title}>{item.title}</div>
                       </div>
                       <IconButton
-                        icon={item.type === 'success' ? CloseWhiteIcon : CloseBlackRedIcon}
+                        icon={CloseWhiteIcon}
                         backgroundColor="#505457"
                         borderColor="transparent"
                         onClick={() => close()}
@@ -75,7 +76,9 @@ const Alert = props => {
                       />
                     </div>
                     <div className={styles.divider} />
-                    <div className={styles.description}>{item.description}</div>
+                    <div className={item.type === 'success' ? styles.description : styles.errorDescription}>
+                      {item.description}
+                    </div>
                   </Dialog.Panel>
                 </Transition.Child>
               </div>
@@ -112,11 +115,13 @@ const Alert = props => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className={styles.mobileModalView}>
+                  <Dialog.Panel
+                    className={item.type === 'success' ? styles.mobileModalView : styles.mobileErrorModalView}
+                  >
                     <div className="relative w-full h-full flex flex-wrap flex-col justify-between">
                       <div className="absolute top-0 right-0">
                         <IconButton
-                          icon={item.type === 'success' ? CloseWhiteIcon : CloseBlackRedIcon}
+                          icon={CloseWhiteIcon}
                           backgroundColor="#505457"
                           borderColor="transparent"
                           onClick={() => close()}
@@ -128,13 +133,15 @@ const Alert = props => {
                         />
                       </div>
                       <div className="w-full flex flex-wrap justify-center items-center text-center">
-                        <Image
-                          src={item.type === 'success' ? AlertSuccessGreenIcon : AlertSuccessGreenIcon}
-                          alt=""
-                          width={72}
-                          height={72}
-                        />
-                        <div className={styles.mobileTitle}>
+                        <div className={item.type === 'success' ? 'mt-0' : 'mt-5'}>
+                          <Image
+                            src={item.type === 'success' ? AlertSuccessGreenIcon : AlertErrorBlackRedIcon}
+                            alt=""
+                            width={item.type === 'success' ? 72 : 49}
+                            height={item.type === 'success' ? 72 : 42}
+                          />
+                        </div>
+                        <div className={item.type === 'success' ? styles.mobileTitle : styles.mobileErrorTitle}>
                           {item.type[0].toUpperCase()}
                           {item.type.slice(1)}
                         </div>
@@ -157,7 +164,11 @@ const Alert = props => {
                       </div>
                       <div className="w-full h-[66px] flex flex-wrap justify-center">
                         <div className={styles.mobileDivier} />
-                        <Image src={LogoText} alt="" />
+                        <div className="w-full flex justify-center items-center">
+                          <div className={item.type === 'success' ? 'opacity-100' : 'opacity-20'}>
+                            <Image src={LogoText} alt="" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </Dialog.Panel>
