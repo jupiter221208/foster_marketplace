@@ -1,25 +1,21 @@
-import React, { useState } from 'react'
+import React from 'react'
+
+// next components
+import Image from 'next/image'
 
 // custom components
 import GreenLineCard from 'components/Card/GreenLineCard'
-import Switch from 'components/Switch'
 import GradientButton from 'components/Button/GradientButton'
+import HamburgerMenuSocialShare from 'components/Menu/HamburgerMenuSocialShare'
+
+// images and icons
+import LogoImage from 'assets/images/logo-02.png'
 
 // styles
 import styles from './index.module.scss'
 
 const ReferralSection = prop => {
   const { success } = prop
-
-  const [bidActivity, setBidActivity] = useState(false)
-  const [bidAccepted, setBidAccepted] = useState(true)
-  const [successfulSale, setSuccessfulSale] = useState(false)
-  const [successfulPurchase, setSuccessfulPurchase] = useState(false)
-  const [auctionOutbid, setAuctionOutbid] = useState(true)
-  const [auctionWon, setAuctionWon] = useState(false)
-  const [auctionBid, setAuctionBid] = useState(false)
-  const [auctionExpiration, setAuctionExpiration] = useState(false)
-  const [fosterNewsletter, setFosterNewsletter] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -32,62 +28,45 @@ const ReferralSection = prop => {
             <GreenLineCard content="The referral program allows you to earn a claim on the future issuance of LIFT tokens based on the number of referrals you make for active users." />
           </div>
           <div className="w-full flex flex-wrap gap-12 mb-[171px] lg:mb-[94px]">
-            <Switch
-              title="Bid Activity"
-              description="When someone makes an offer on one of your items"
-              enabled={bidActivity}
-              onChange={() => setBidActivity(!bidActivity)}
-            />
-            <Switch
-              title="Bid Accepted"
-              description="When someone accepts your bid"
-              enabled={bidAccepted}
-              onChange={() => setBidAccepted(!bidAccepted)}
-            />
-            <Switch
-              title="Successful Sale"
-              description="When someone purchases one of your items"
-              enabled={successfulSale}
-              onChange={() => setSuccessfulSale(!successfulSale)}
-            />
-            <Switch
-              title="Successful Purchase"
-              description="When you successfully buy an item"
-              enabled={successfulPurchase}
-              onChange={() => setSuccessfulPurchase(!successfulPurchase)}
-            />
-            <Switch
-              title="Auction Outbid"
-              description="When an offer you placed is exceeded by another user"
-              enabled={auctionOutbid}
-              onChange={() => setAuctionOutbid(!auctionOutbid)}
-            />
-            <Switch
-              title="Auction Won"
-              description="When you win an auction"
-              enabled={auctionWon}
-              onChange={() => setAuctionWon(!auctionWon)}
-            />
-            <Switch
-              title="Auction Bid"
-              description="When someone bids in your auction"
-              enabled={auctionBid}
-              onChange={() => setAuctionBid(!auctionBid)}
-            />
-            <Switch
-              title="Auction Expiration"
-              description="When a timed auction you created ends"
-              enabled={auctionExpiration}
-              onChange={() => setAuctionExpiration(!auctionExpiration)}
-            />
-            <Switch
-              title="Foster Newsletter"
-              description="Occasional updates from the Foster team"
-              enabled={fosterNewsletter}
-              onChange={() => setFosterNewsletter(!fosterNewsletter)}
-            />
+            <div className="w-full flex justify-between">
+              <div className="grid gap-1">
+                <div className={styles.subTitle}>Referral Link</div>
+                <a href="https://www.fostermarketplace.app/referral/username" className={styles.linkText}>
+                  www.fostermarketplace.app/referral/username
+                </a>
+              </div>
+              <HamburgerMenuSocialShare />
+            </div>
+            <div className="w-full flex justify-between">
+              <div className="grid gap-1">
+                <div className={styles.subTitle}>Count of Referrals</div>
+                <div className={styles.text}>Description of referral metric</div>
+              </div>
+              <div className={styles.number}>32</div>
+            </div>
+            <div className="w-full flex justify-between">
+              <div className="grid gap-1">
+                <div className={styles.subTitle}>Referral Metric (Placeholder)</div>
+                <div className={styles.text}>Description of referral metric</div>
+              </div>
+              <div className={styles.number}>32</div>
+            </div>
+            <div className="w-full flex justify-between">
+              <div className="grid gap-1">
+                <div className={styles.subTitle}>Referral Metric (Placeholder)</div>
+                <div className={styles.text}>Description of referral metric</div>
+              </div>
+              <div className={styles.number}>32</div>
+            </div>
           </div>
-          <div className="w-full flex justify-center mb-20">
+          <div className="w-full flex justify-between mb-20">
+            <div className="flex gap-[10px] items-center">
+              <div className={styles.middleTitle}>LIFT Rewards Balance:</div>
+              <div className={styles.number}>1000</div>
+              <div className="w-6 h-6">
+                <Image src={LogoImage} alt="" width={22} height={22} layout="responsive" objectFit="cover" />
+              </div>
+            </div>
             <GradientButton
               label="Claim"
               onClick={() => {
