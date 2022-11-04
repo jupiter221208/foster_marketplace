@@ -123,7 +123,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
         </div>
         <div className="mt-[44px]">
-          <LinkTextButton label="View on Solscan" link={explorerURL} />
+          <LinkTextButton label="View on SolanaFM" link={explorerURL} />
         </div>
       </div>
     </div>

@@ -9,11 +9,13 @@ export function getExplorerUrl(
     let cluster = ''
     
     if (endpoint === 'https://api.devnet.solana.com') {
-      cluster = 'devnet'
+      cluster = 'devnet-qn1'
+    } else {
+      cluster = 'mainnet-qn1'
     }
 
     return cluster ? `?cluster=${cluster}` : ''
   }
 
-  return `https://explorer.solana.com/${itemType}/${viewTypeOrItemAddress}${getClusterUrlParam()}`
+  return `https://solana.fm/${itemType}/${viewTypeOrItemAddress}${getClusterUrlParam()}`
 }
