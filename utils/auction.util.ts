@@ -314,6 +314,7 @@ export async function getOffersFromAccounts(
       }
     } catch (error) {
       console.log(error)
+      return []
     }
   }
 
