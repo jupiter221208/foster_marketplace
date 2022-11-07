@@ -59,7 +59,7 @@ const Step03CollectionSection = props => {
     if (collectionFiles.length !== 0) {
       let count = 0
       collectionFiles.map((item, index) => {
-        if (item.name === '' || item.description === '') {
+        if (item.name === '') {
           count++
         }
       })
