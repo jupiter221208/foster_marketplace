@@ -178,9 +178,14 @@ const SingleNft = () => {
 
   useEffect(() => {
     if (nftArt !== null && nftArt !== undefined) {
-      setNftType(nftArt[0].type.split('/')[0])
+      if (nftArt[0].type === 'image/gif') {
+        setNftType(nftArt[0].type)
+        setNftImage(URL.createObjectURL(nftArt[0]))
+      } else {
+        setNftType(nftArt[0].type.split('/')[0])
+      }
       setDisabledNextButton(false)
-      if (nftArt[0].type.split('/')[0] === 'image') {
+      if (nftArt[0].type.split('/')[0] === 'image' && nftArt[0].type !== 'image/gif') {
         setOpenNftImageEditorModal(true)
       }
     }
@@ -504,7 +509,7 @@ const SingleNft = () => {
                     >
                       {fullScreenMode && <img src={nftImage} alt="" className="w-full h-full object-contain" />}
                     </FullScreen>
-                    {nftType === 'image' ? (
+                    {nftType === 'image' || nftType === 'image/gif' ? (
                       <div
                         className={`${styles.artArea}`}
                         style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
