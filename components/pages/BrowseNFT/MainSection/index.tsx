@@ -240,7 +240,6 @@ const MainSection = () => {
       nftsAPI.getDetail(id).then(
         (response: NFT) => {
           if (response !== null) {
-            console.log('==============response===============', response)
             if (response.asset_type === 'static') {
               setNftType('image')
               setNftUrl(response.asset_url)

@@ -17,7 +17,7 @@ import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
 
 const ListedNFTCard = props => {
-  const { data, onClick, onUpdateClick } = props
+  const { data, type, onClick, onActionClick } = props
   const viewport = useViewport()
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -38,8 +38,8 @@ const ListedNFTCard = props => {
         </div>
         <div className="mt-[7px] w-full">
           <GradientButton
-            label="Update"
-            onClick={() => onUpdateClick(data)}
+            label={type === 'fixed' ? 'Update' : 'Cancel Auction'}
+            onClick={() => onActionClick(data)}
             height="48px"
             fontSize="16px"
             paddingLeft="37px"

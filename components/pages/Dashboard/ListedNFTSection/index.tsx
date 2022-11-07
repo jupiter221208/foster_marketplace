@@ -8,6 +8,7 @@ import Pagination from 'components/Button/Pagination'
 import ListedNFTCard from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
+import FilterButton from 'components/Button/FilterButton'
 
 // styles
 import styles from './index.module.scss'
@@ -28,8 +29,20 @@ const ListedNFTSection = () => {
 
   const [selectedData, setSelectedData] = useState()
   const handleSelectData = item => {
-    setSelectedData(item)
-    setShowListNFTModal(true)
+    if (active === 0) {
+      // update listing
+    } else {
+      // cancel listing
+    }
+    // setSelectedData(item)
+    // setShowListNFTModal(true)
+  }
+  const [fixedPriceNFTs, setFixedPriceNFTs] = useState<any[]>([])
+  const [liveAuctionNFTs, setLiveAuctionNFTs] = useState<any[]>([])
+  const [active, setActive] = useState(0)
+
+  const handleChangeActive = value => {
+    setActive(value)
   }
 
   const dispatch = useDispatch()
@@ -41,12 +54,34 @@ const ListedNFTSection = () => {
 
   const setMyListedNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
-    const listedNFTs = await getMyListedNFTs(mx)
-    if (listedNFTs !== undefined && listedNFTs !== null) {
-      setMyNFTList(listedNFTs)
+    let fixedPrice = await getMyListedNFTs(mx)
+    let liveAuction = await getMyListedNFTs(mx)
+    setFixedPriceNFTs(fixedPrice)
+    setLiveAuctionNFTs(liveAuction)
+
+    if (active === 0) {
+      if (fixedPrice !== undefined && fixedPrice !== null) {
+        setMyNFTList(fixedPrice)
+      }
+    } else {
+      if (liveAuction !== undefined && liveAuction !== null) {
+        setMyNFTList(liveAuction)
+      }
     }
     dispatch({ type: 'set', isLoading: false })
   }
+
+  useEffect(() => {
+    if (active === 0) {
+      if (fixedPriceNFTs !== undefined && fixedPriceNFTs !== null) {
+        setMyNFTList(fixedPriceNFTs)
+      }
+    } else {
+      if (liveAuctionNFTs !== undefined && liveAuctionNFTs !== null) {
+        setMyNFTList(liveAuctionNFTs)
+      }
+    }
+  }, [active])
 
   useEffect(() => {
     if (mx) setMyListedNFTs()
@@ -78,14 +113,33 @@ const ListedNFTSection = () => {
 
   return (
     <section className={styles.container}>
+      <div className="flex">
+        <FilterButton
+          label="Fixed-Price"
+          onClick={() => handleChangeActive(0)}
+          color={active === 0 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 0 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
+        />
+        <FilterButton
+          label="Live Auction"
+          onClick={() => handleChangeActive(1)}
+          color={active === 1 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 1 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
+        />
+      </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!isLoading &&
           nftList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <ListedNFTCard
                 data={item}
+                type={active === 0 ? 'fixed' : 'auction'}
                 onClick={(data: any) => handleGotoDetailPage(data)}
-                onUpdateClick={item => handleSelectData(item)}
+                onActionClick={item => handleSelectData(item)}
               />
             </div>
           ))}
