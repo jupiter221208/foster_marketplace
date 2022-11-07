@@ -67,7 +67,7 @@ const ListedNFTCard = props => {
         <div className="w-full flex justify-between items-center mt-2">
           <GradientButton
             label="Update"
-            onClick={() => onUpdateClick(data)}
+            onClick={() => onActionClick(data)}
             height="26px"
             fontSize="10px"
             borderRadius="6px"
