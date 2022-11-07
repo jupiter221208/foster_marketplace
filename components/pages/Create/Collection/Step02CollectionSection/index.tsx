@@ -29,6 +29,8 @@ import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
 
+import AudioPlayer from 'assets/images/audio-player.png'
+
 // json
 import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
 
@@ -178,6 +180,53 @@ const Step02CollectionSection = props => {
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
+    if (
+      selectedCollectionFile !== undefined &&
+      selectedCollectionFile.type === 'video' &&
+      selectedCollectionFile.croppedImage === undefined
+    ) {
+      const myInterval = setInterval(() => {
+        var video = document.getElementById('video')
+        if (isVideo(video)) {
+          if (video.readyState === 4) {
+            captureImage()
+            clearInterval(myInterval)
+          }
+        }
+      }, 500)
+      return () => clearInterval(myInterval)
+    } else if (
+      selectedCollectionFile !== undefined &&
+      selectedCollectionFile.type === 'audio' &&
+      selectedCollectionFile.croppedImage === undefined
+    ) {
+      onChangeCroppedImage(AudioPlayer.src, selectedCollectionFile.id)
+    }
+  }, [selectedCollectionFile])
+
+  const captureImage = async () => {
+    var canvas = document.getElementById('canvas')
+    var video = document.getElementById('video')
+    if (isCanvas(canvas) && isVideo(video)) {
+      canvas.width = video.videoWidth !== 0 ? video.videoWidth : 1920
+      canvas.height = video.videoHeight !== 0 ? video.videoHeight : 1080
+      let ctx = canvas.getContext('2d')
+      await ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+      let image = await canvas.toDataURL('image/jpeg')
+      onChangeCroppedImage(image, selectedCollectionFile.id)
+    }
+  }
+
+  const isCanvas = (obj: HTMLCanvasElement | HTMLElement): obj is HTMLCanvasElement => {
+    return obj.tagName === 'CANVAS'
+  }
+
+  const isVideo = (obj: HTMLVideoElement | HTMLElement): obj is HTMLVideoElement => {
+    return obj.tagName === 'VIDEO'
+  }
+
+  useEffect(() => {
     if (collectionFiles !== undefined && collectionFiles.length !== 0) {
       if (collectionFiles.length > 5) {
         setSubCollectionFiles(collectionFiles.slice(0, 5))
@@ -213,6 +262,7 @@ const Step02CollectionSection = props => {
 
   return (
     <div className="w-full">
+      <canvas id="canvas" style={{ overflow: 'auto', display: 'none' }}></canvas>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
@@ -266,6 +316,29 @@ const Step02CollectionSection = props => {
                     iconWidth="24px"
                     iconHeight="24px"
                   />
+                </div>
+              )}
+              {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' && (
+                <div className="w-full h-full">
+                  <video controls className="w-full" id="video">
+                    <source
+                      src={URL.createObjectURL(selectedCollectionFile.file)}
+                      type={selectedCollectionFile.file.type}
+                    />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
+
+              {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
+                <div className="w-full mt-[14px]">
+                  <audio controls className="w-full">
+                    <source
+                      src={URL.createObjectURL(selectedCollectionFile.file)}
+                      type={selectedCollectionFile.file.type}
+                    />
+                    Your browser does not support the video tag.
+                  </audio>
                 </div>
               )}
               <div className="w-full flex justify-center mt-[90px]">
@@ -595,6 +668,29 @@ const Step02CollectionSection = props => {
                 </div>
               )}
             </div>
+            {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' && (
+              <div className="w-full h-full">
+                <video controls className="w-full" id="video">
+                  <source
+                    src={URL.createObjectURL(selectedCollectionFile.file)}
+                    type={selectedCollectionFile.file.type}
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            )}
+
+            {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
+              <div className="w-full mt-[14px]">
+                <audio controls className="w-full">
+                  <source
+                    src={URL.createObjectURL(selectedCollectionFile.file)}
+                    type={selectedCollectionFile.file.type}
+                  />
+                  Your browser does not support the video tag.
+                </audio>
+              </div>
+            )}
           </div>
 
           <div className="w-full">
@@ -840,7 +936,7 @@ const Step02CollectionSection = props => {
           </div>
         </div>
       )}
-      {selectedCollectionFile !== undefined && (
+      {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
         <NftImageEditorModal
           open={openImageEditorModal}
           close={() => setOpenImageEditorModal(false)}
