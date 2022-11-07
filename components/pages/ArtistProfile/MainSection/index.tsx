@@ -36,40 +36,13 @@ import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 import styles from './index.module.scss'
 
 const MainSection = prop => {
-  const { artistInfo } = prop
+  const { artistInfo, categoryList } = prop
 
   const router = useRouter()
 
   const viewport = useViewport()
 
   const [follow, setFollow] = useState(false)
-
-  const categoryList = [
-    {
-      id: 17,
-      image: '/images/hero.png',
-      banner: '/images/category-banner-surreal.png',
-      mobile: '/images/hero.png',
-      mobile_banner: '/images/category-banner-surreal.png',
-      name: 'Surreal',
-      value: 'Surreal',
-      type: 'image',
-      nfts: 2131,
-      collections: 287,
-    },
-    {
-      id: 18,
-      image: '/images/popular-category-audiovisual.webm',
-      banner: '/images/category-banner-audiovisual.webm',
-      mobile: '/images/popular-category-mobile-audiovisual.mp4',
-      mobile_banner: '/images/category-banner-mobile-audiovisual.mp4',
-      name: 'Audiovisual',
-      value: 'Audiovisual',
-      type: 'video',
-      nfts: 2131,
-      collections: 287,
-    },
-  ]
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -226,9 +199,7 @@ const MainSection = prop => {
             <div className="flex justify-center mt-[20px] mb-[10px]">
               <div className={styles.categoryList}>
                 {categoryList.map((item, index) => (
-                  <div key={index}>
-                    <CategoryChip data={item} />
-                  </div>
+                  <div key={index}>{item.length > 0 && <CategoryChip data={{ value: item }} />}</div>
                 ))}
               </div>
             </div>

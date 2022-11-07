@@ -25,8 +25,10 @@ const ArtistProfile = () => {
   const router = useRouter()
 
   const [artistInfo, setArtistInfo] = useState<any>({})
+  const [categoryList, setCategoryList] = useState<any>([])
   const [nfts, setNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
+  const [exploreCircus, setExploreCircus] = useState<any>([])
 
   useEffect(() => {
     if (router.query.id !== undefined && router.query.id !== null) {
@@ -48,6 +50,16 @@ const ArtistProfile = () => {
           }
           setNfts(response.nfts)
           setCollections(response.collections)
+          setCategoryList(response.categories)
+        },
+        error => {
+          console.log(error)
+        }
+      )
+
+      artistsAPI.getExploreCircus(router.query.id).then(
+        response => {
+          setExploreCircus(response)
         },
         error => {
           console.log(error)
@@ -67,8 +79,8 @@ const ArtistProfile = () => {
         <div className={styles.bottomLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <MainSection artistInfo={artistInfo} />
-        <NFTSection nfts={nfts} collections={collections} />
+        <MainSection artistInfo={artistInfo} categoryList={categoryList} />
+        <NFTSection nfts={nfts} collections={collections} exploreCircus={exploreCircus} />
       </div>
     </div>
   )

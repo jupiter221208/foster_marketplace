@@ -18,16 +18,13 @@ import CollectionCard from 'components/Card/CollectionCard'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import ExploreList from 'assets/json/explore/collection-explore-list.json'
-
 // styles
 import styles from './index.module.scss'
 
-const ExploreCollectionSection = () => {
+const ExploreCollectionSection = props => {
+  const { exploreCircus } = props
   const viewport = useViewport()
   const router = useRouter()
-
   return (
     <section className={styles.container}>
       <div className={styles.topLeftEllipse} />
@@ -52,17 +49,17 @@ const ExploreCollectionSection = () => {
             disableOnInteraction: false,
           }}
         >
-          {ExploreList.map((item: any, index) => (
+          {exploreCircus.map((item: any, index) => (
             <SwiperSlide key={index}>
               <CollectionCard
-                image={item.image}
-                nftName={item.nftName}
-                category={item.category}
-                artistName={item.artistName}
-                mintAddress={item.mintAddress}
-                nfts={item.nfts}
-                icon={item.icon}
-                price={item.price}
+                image={item.artist.banner_picture}
+                // nftName={item.nftName}
+                // category={item.category}
+                artistName={item.artist.username}
+                mintAddress={item.artist.wallet_id}
+                nfts={item.number_of_nfts}
+                icon={item.artist.profile_picture}
+                // price={item.price}
               />
             </SwiperSlide>
           ))}

@@ -15,7 +15,7 @@ import TabList from 'assets/json/artist-profile/tab-list.json'
 import styles from './index.module.scss'
 
 const NFTSection = props => {
-  const { nfts, collections } = props
+  const { nfts, collections, exploreCircus } = props
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   useEffect(() => {
@@ -45,13 +45,13 @@ const NFTSection = props => {
         <div className="w-full flex flex-wrap">
           <NFTSwiperSection nfts={nfts} />
           <LiveAuctionSection />
-          <ExploreNFTSection />
+          <ExploreNFTSection exploreCircus={exploreCircus} />
         </div>
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
           <CollectionSwiperSection collections={collections} />
-          <ExploreCollectionSection />
+          <ExploreCollectionSection exploreCircus={exploreCircus} />
         </div>
       )}
     </div>

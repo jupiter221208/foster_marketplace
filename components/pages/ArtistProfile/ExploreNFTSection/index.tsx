@@ -18,13 +18,12 @@ import EcosystemCard from 'components/Card/EcosystemCard'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import ExploreList from 'assets/json/explore/ecosystem-explore-list.json'
-
 // styles
 import styles from './index.module.scss'
 
-const ExploreNFTSection = () => {
+const ExploreNFTSection = props => {
+  const { exploreCircus } = props
+
   const viewport = useViewport()
   const router = useRouter()
 
@@ -52,7 +51,7 @@ const ExploreNFTSection = () => {
             disableOnInteraction: false,
           }}
         >
-          {ExploreList.map((item, index) => (
+          {exploreCircus.map((item, index) => (
             <SwiperSlide key={index}>
               <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
             </SwiperSlide>
