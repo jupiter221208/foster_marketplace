@@ -10,12 +10,12 @@ import { BN } from "@project-serum/anchor";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { Metaplex } from "@metaplex-foundation/js";
 
-const AUCTION_HOUSE_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_ADDRESS)
-const TIMED_AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS)
-const TIMED_AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY)
-const TOKEN_METADATA_PROGRAM_ID = new PublicKey(process.env.TOKEN_METADATA_PROGRAM_ID)
-const WRAPPED_SOL_MINT = new PublicKey(process.env.WRAPPED_SOL_MINT)
-const AUCTIONEER_ADDRESS = new PublicKey(process.env.AUCTIONEER_ADDRESS)
+const AUCTION_HOUSE_ADDRESS = process.env.AUCTION_HOUSE_ADDRESS ? new PublicKey(process.env.AUCTION_HOUSE_ADDRESS) : new PublicKey(0)
+const TIMED_AUCTION_HOUSE_OWNER_ADDRESS = process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS ? new PublicKey(process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS) : new PublicKey(0)
+const TIMED_AUCTION_HOUSE_PUBLIC_KEY = process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY ? new PublicKey(process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY) : new PublicKey(0)
+const TOKEN_METADATA_PROGRAM_ID = process.env.TOKEN_METADATA_PROGRAM_ID ? new PublicKey(process.env.TOKEN_METADATA_PROGRAM_ID) : new PublicKey(0)
+const WRAPPED_SOL_MINT = process.env.WRAPPED_SOL_MINT ? new PublicKey(process.env.WRAPPED_SOL_MINT) : new PublicKey(0)
+const AUCTIONEER_ADDRESS = process.env.AUCTIONEER_ADDRESS ? new PublicKey(process.env.AUCTIONEER_ADDRESS) : new PublicKey(0)
 
 export async function getAuctioneerAuthority() {
   return await PublicKey.findProgramAddress(
