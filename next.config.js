@@ -36,6 +36,7 @@ const nextConfig = {
     // TODO: REMOVE THIS ASAP, Critical for SC integration though
     ignoreBuildErrors: true,
   },
+  staticPageGenerationTimeout: 1000,
 }
 
 module.exports = nextConfig
