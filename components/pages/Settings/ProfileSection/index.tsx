@@ -276,9 +276,11 @@ const ProfileSection = prop => {
                   <Image src={VerifiedGreenIcon} alt="" />
                 </div>
               )}
-              <a href="/" className={styles.linkText}>
-                Request Verification
-              </a>
+              {verificationStatus === 'unverified' && (
+                <a href="/settings/user-verification" className={styles.linkText}>
+                  Request Verification
+                </a>
+              )}
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Wallet</div>
