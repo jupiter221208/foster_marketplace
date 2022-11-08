@@ -1,5 +1,5 @@
-import { Metaplex, sol } from '@metaplex-foundation/js'
-import { PublicKey } from '@solana/web3.js'
+import { CreateNftInput, CreateNftOutput, findAssociatedTokenAccountPda, Metaplex, sol, toPublicKey, TransactionBuilder, VerifyNftCollectionInput } from '@metaplex-foundation/js'
+import { Keypair, PublicKey } from '@solana/web3.js'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
 
 export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
@@ -84,5 +84,19 @@ export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
       ...nft,
       owner,
     },
+  }
+}
+
+export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
+  const nft = await mx
+    .nfts()
+    .findByMint({ mintAddress })
+    .run()
+  
+  const owner = await getNFTOwner(mx, mintAddress.toString())
+   
+  return {
+    owner,
+    ...nft
   }
 }

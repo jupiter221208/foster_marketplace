@@ -59,10 +59,10 @@ const UpdateNFTModal = props => {
                 <div className={styles.title}>Update NFT</div>
                 <div className="w-full max-w-[321px] mt-10">
                   <div className={styles.image}>
-                    <img src={data?.asset.json.image} alt={data?.asset.json.name} />
+                    <img src={data?.image} alt={data?.name} />
                   </div>
                 </div>
-                <div className={`${styles.nftName} mt-5 w-full`}>{data?.asset.json.name}</div>
+                <div className={`${styles.nftName} mt-5 w-full`}>{data?.name}</div>
                 <div className="w-full mt-12">
                   <PriceInput
                     value={price}
@@ -75,14 +75,14 @@ const UpdateNFTModal = props => {
                   <GradientButton
                     label="Update Price"
                     fullWidth
-                    onClick={() => onUpdatePrice(data?.asset.mint.address, data?.tradeStateAddress, price)}
+                    onClick={() => onUpdatePrice(data?.mintAddress, data?.tradeStateAddress, price)}
                   />
                 </div>
                 <div className="w-full mt-[30px]">
                   <Button
                     label="Cancel Listing"
                     fullWidth
-                    onClick={() => onCancelList(data?.asset.mint.address, data?.tradeStateAddress)}
+                    onClick={() => onCancelList(data?.mintAddress, data?.tradeStateAddress)}
                     backgroundColor="#202427"
                     color="#EFF0F6"
                   />

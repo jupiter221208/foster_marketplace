@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // next components
@@ -9,6 +9,12 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
 
 import Alert from 'components/Alert'
+
+// apis
+import AuctionAPI from 'apis/auctions'
+
+// solana
+import { getNFTByAddress } from 'utils/nfts.utils'
 
 import {
   Chart as ChartJS,
@@ -59,6 +65,13 @@ import ActivityList from 'assets/json/browse-nft/activity-list.json'
 // styles
 import styles from './index.module.scss'
 import Select from 'components/Select'
+
+// solana
+import { getShortAddress } from 'utils/strings'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { PublicKey } from '@solana/web3.js'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { depositFunds, placeBid } from 'utils/auctioneer.util'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -136,23 +149,85 @@ const MainSection = () => {
 
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
 
+  const { id } = router.query
+
+  const [nftUrl, setNftUrl] = useState('')
+  const [nftName, setNftName] = useState('')
+  const [nftDescription, setNftDescription] = useState('')
+  const [nftRoyalties, setNftRoyalties] = useState(0)
+  const [nftReservePrice, setNftReservePrice] = useState(0)
+  const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
+  const [nftCreatorAddress, setNftCreatorAddress] = useState('')
+  const [nftOwnerAddress, setNftOwnerAddress] = useState('')
+  const [mintAddress, setMintAddress] = useState<PublicKey>()
+  const [sellerAddress, setSellerAddress] = useState<PublicKey>()
+  const [nftCategories, setNftCategories] = useState([])
+  const [endTime, setEndTime] = useState<Date>(new Date())
+  const [startTime, setStartTime] = useState<Date>(new Date())
+  const [isEnded, setIsEnded] = useState(false)
+  const [isStarted, setIsStarted] = useState(false)
+
+  const { metaplex: mx } = useMetaplex()
+  const { connected } = useWallet()
+
+  const setListedNFT = async () => {
+    const { auction, highest_bid } = await AuctionAPI.getListing(id)
+    const nft = await getNFTByAddress(mx, new PublicKey(auction.mint_address))
+    setNftName(nft.json.name)
+    setNftUrl(nft.json.image)
+    setNftDescription(nft.json.description)
+    setNftRoyalties(nft.sellerFeeBasisPoints / 100)
+    setNftCreatorAddress(nft.creators[0].address.toBase58())
+    setNftOwnerAddress(nft.owner)
+    const categories = nft.json.attributes.map(attribute => {
+      return attribute.value
+    })
+    setNftCategories(categories)
+    setNftReservePrice(Number(auction.reserve_price))
+    setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+    setMintAddress(nft.address)
+    setSellerAddress(new PublicKey(auction.seller_address))
+    setEndTime(new Date(Number(auction.end_time) * 1000))
+    setStartTime(new Date(Number(auction.start_time) * 1000))
+  }
+
+  useEffect(() => {
+    if(mx && id && connected) setListedNFT()
+  }, [mx, id, connected])
+
+  const placeBidAndSave = async (price) => {
+    await depositFunds(mx, price)
+    const { bid } = await placeBid(mx, mintAddress, sellerAddress, price)
+    AuctionAPI.placeBid(mintAddress.toBase58(), {
+      mint_address: bid.mintAddress.toBase58(),
+      buyer_address: bid.buyerAddress.toBase58(),
+      amount: bid.amount.toString()
+    }).then(res => {
+      if(res) {
+        setShowModalPlaceBid(false)
+        setShowAlert(true)
+        setListedNFT()
+      }
+    })
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
         <div className="col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className={styles.mobileImageArea}>
-              <Image src={Avatar} alt="" objectFit="cover" />
+              <Image src={nftUrl} alt="" objectFit="cover" />
               <div className={styles.mobileImageBackground} />
             </div>
           ) : (
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
-                <Image src={Avatar} alt="" layout="fill" objectFit="cover" />
+                <Image src={nftUrl} alt="" layout="fill" objectFit="cover" />
               </div>
               <div className={styles.blurImage} />
               <div className={styles.imageArea}>
-                <Image src={Avatar} alt="" width={Avatar.width} height={Avatar.height} objectFit="contain" />
+                <Image src={nftUrl} alt="" width={Avatar.width} height={Avatar.height} objectFit="contain" />
               </div>
             </div>
           )}
@@ -182,7 +257,7 @@ const MainSection = () => {
                 </div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
-                <div className={styles.title}>The Glass Banana</div>
+                <div className={styles.title}>{nftName}</div>
               </div>
               <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7">
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
@@ -190,26 +265,36 @@ const MainSection = () => {
                   className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
                   onClick={() => router.push('/artist-profile')}
                 >
-                  BillBudz
+                  {getShortAddress(nftCreatorAddress)}
                 </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
                 <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
-                  Plumpadoodle
+                  {getShortAddress(nftOwnerAddress)}
                 </div>
               </div>
             </div>
 
             <div className="w-full flex flex-wrap mt-10">
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                <GradientButton
-                  label="Place Bid"
-                  onClick={() => setShowModalPlaceBid(true)}
-                  icon={SolanaAuctionIcon}
-                  direction="rtl"
-                />
+                {isStarted && !isEnded && 
+                  <GradientButton
+                    label="Place Bid"
+                    disabled={isEnded}
+                    onClick={() => setShowModalPlaceBid(true)}
+                    icon={SolanaAuctionIcon}
+                    direction="rtl"
+                  />
+                  }
               </div>
               <div className="w-full flex content-none mt-6 lg:mt-7">
-                <AuctionCard />
+                <AuctionCard 
+                  currentPrice={nftCurrentPrice}
+                  reservePrice={nftReservePrice}
+                  endTime={endTime}
+                  startTime={startTime}
+                  setIsEnded={setIsEnded}
+                  setIsStarted={setIsStarted}
+                />
               </div>
               <div className="mx-auto w-full mt-4">
                 <Disclosure>
@@ -235,15 +320,17 @@ const MainSection = () => {
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex flex-wrap flex-column space-between">
                           <div className={styles.whiteDescription}>
-                            Proin ac quam et lectus vestibulum blandit. Nunc maximus nibh at placerat tincidunt.
+                            {nftDescription}
                           </div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              <SmallCategoryChip data={'Comedy'} />
+                            {nftCategories.map((category, id) =>
+                              <SmallCategoryChip data={category} key={id}/>
+                            )}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
-                                <div className={styles.greenRoyalties}>2.5%</div>
+                                <div className={styles.greenRoyalties}>{nftRoyalties}</div>
                                 <div className={styles.whiteRoyalties}>Royalties</div>
                               </div>
                             </div>
@@ -418,12 +505,14 @@ const MainSection = () => {
         </div>
       </div>
       <ModalPlaceBid
+        nftName={nftName}
+        nftUrl={nftUrl}
+        currentPrice={nftCurrentPrice}
+        reservePrice={nftReservePrice}
+        placeBid={placeBidAndSave}
         open={showModalPlaceBid}
         onClose={() => {
           setShowModalPlaceBid(false)
-          setTimeout(() => {
-            setShowAlert(true)
-          }, 500)
         }}
       />
       <Alert

@@ -19,13 +19,21 @@ import LiveAuctionImage from 'assets/images/live-auction.png'
 import styles from './index.module.scss'
 
 const ModalPlaceBid = props => {
-  const { open, onClose } = props
+  const { nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose } = props
 
   const closeModal = () => {
     onClose()
   }
 
   const [price, setPrice] = useState(0)
+
+  const onClickPlaceBid = async () => {
+    if(price < reservePrice || price <= currentPrice) {
+      alert("Low Price")
+      return
+    }
+    placeBid(price)
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -60,10 +68,10 @@ const ModalPlaceBid = props => {
                 <div className={styles.title}>Place Bid</div>
                 <div className="w-full mt-10">
                   <div className={styles.image}>
-                    <img src={LiveAuctionImage.src} alt="" />
+                    <img src={nftUrl} alt="" />
                   </div>
                 </div>
-                <div className={`${styles.nftName} mt-5`}>The Glass Banana</div>
+                <div className={`${styles.nftName} mt-5`}>{nftName}</div>
                 <div className="w-full mt-12">
                   <PriceInput
                     value={price}
@@ -73,7 +81,7 @@ const ModalPlaceBid = props => {
                   />
                 </div>
                 <div className="w-full mt-[30px]">
-                  <GradientButton label="Place Bid" fullWidth onClick={() => closeModal()} />
+                  <GradientButton label="Place Bid" fullWidth onClick={onClickPlaceBid} />
                 </div>
                 <div className="w-full flex justify-center mt-10">
                   <div className={styles.text}>By selecting “Place bid” you agree to Terms of Services</div>

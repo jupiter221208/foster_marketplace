@@ -36,6 +36,8 @@ import NFTExploreList from 'assets/json/explore/nft-explore-list.json'
 import CollectionExploreList from 'assets/json/explore/collection-explore-list.json'
 import EcosystemExploreList from 'assets/json/explore/ecosystem-explore-list.json'
 
+import AvailabilityList from 'assets/json/explore/availability.json'
+
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import FilterGrayIcon from 'assets/icons/filter-gray.svg'
@@ -46,8 +48,13 @@ import styles from './index.module.scss'
 
 // solana
 import { getListedNFTs } from 'utils/auction.util'
+import { getNFTByAddress } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getPriceValue } from 'utils/strings'
+import { PublicKey } from '@solana/web3.js'
+
+// apis
+import AuctionAPI from 'apis/auctions'
 
 const Explore = () => {
   const router = useRouter()
@@ -83,12 +90,18 @@ const Explore = () => {
   const [sortData, setSortData] = useState(NFTSortList)
   const [selectedSort, setSelectedSort] = useState(NFTSortList[0])
 
+  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[0])
+
   useEffect(() => {
     switch (exploreTab) {
       case 0:
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
-        setListedNFTs()
+        if(selectedAvailability.value === "Live Auction") {
+          setAuctionsNFTs()
+        } else {
+          setListedNFTs()
+        }
         break
       case 1:
         setSortData(CollectionSortList)
@@ -103,7 +116,7 @@ const Explore = () => {
       default:
         break
     }
-  }, [exploreTab])
+  }, [exploreTab, selectedAvailability])
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
@@ -112,7 +125,35 @@ const Explore = () => {
 
   const setListedNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
-    const nfts = await getListedNFTs(mx)
+    const listedNfts = await getListedNFTs(mx)
+    const nfts = listedNfts.map(nft => {
+      return {
+        image: nft.asset.json.image,
+        name: nft.asset.json.name,
+        creator: nft.asset.creators[0].address.toString(),
+        url: `/browse-nft?id=${nft.asset.address.toString()}`,
+        price: nft.price.basisPoints
+      }
+    })
+    setNftList(nfts)
+    dispatch({ type: 'set', isLoading: false })
+  }
+
+  const setAuctionsNFTs = async () => {
+    dispatch({ type: 'set', isLoading: true })
+    const listings = await AuctionAPI.getListings()
+    const nfts = await Promise.all(
+      listings.map(async listing => {
+        const nft = await getNFTByAddress(mx, new PublicKey(listing.auction.mint_address))
+        return {
+          image: nft.json.image,
+          name: nft.json.name,
+          creator: nft.creators[0].address.toString(),
+          url: `/live-auction?id=${nft.address.toString()}`,
+          price: Number(listing.auction.reserve_price) * 1000000000
+        } 
+      })
+    )
     setNftList(nfts)
     dispatch({ type: 'set', isLoading: false })
   }
@@ -132,7 +173,10 @@ const Explore = () => {
         <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] mt-[37px] xl:mt-[88px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
-            {exploreTab === 0 && <NFTFilter />}
+            {exploreTab === 0 && <NFTFilter 
+              selectedAvailability={selectedAvailability}
+              setSelectedAvailability={setSelectedAvailability}
+            />}
             {exploreTab === 1 && <CollectionFilter />}
             {exploreTab === 2 && <EcosystemFilter />}
           </div>
@@ -189,14 +233,14 @@ const Explore = () => {
                   <div className="col-span-12">
                     <LoadingModal open={isLoading} />
                   </div>
-                  {showNftList?.map((item, index) => (
+                  {!isLoading && showNftList?.map((item, index) => (
                     <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                       <NFTCard
-                        image={item.asset.json.image}
-                        nftName={item.asset.json.name}
-                        artistName={item.asset.creators[0].address.toString()}
-                        onClick={() => router.push(`/browse-nft?id=${item.asset.address.toString()}`)}
-                        price={getPriceValue(item.price.basisPoints)}
+                        image={item.image}
+                        nftName={item.name}
+                        artistName={item.creator}
+                        onClick={() => router.push(item.url)}
+                        price={getPriceValue(item.price)}
                       />
                     </div>
                   ))}

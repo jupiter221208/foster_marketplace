@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 // next components
 import Image from 'next/image'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
+import Button from 'components/Button'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -15,54 +16,118 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
+import { PublicKey } from '@solana/web3.js'
 
 const ListedNFTCard = props => {
-  const { data, type, onClick, onActionClick } = props
+  const { data, type, onClick, onActionClick, cancelAuction, finalizeSale } = props
+  const { startTime, endTime, highestBid } = data
   const viewport = useViewport()
+
+  const isStarted = useMemo(() => {
+    if(startTime) {
+      const start = new Date(Number(startTime) * 1000)
+      const now = new Date
+      return now.getTime() - start.getTime() > 0 ? true : false
+    }
+    return false
+  }, [startTime])
+
+  const isEnded = useMemo(() => {
+    if(endTime) {
+      const end = new Date(Number(endTime) * 1000)
+      const now = new Date
+      return now.getTime() - end.getTime() > 0 ? true : false
+    }
+    return false
+  }, [endTime])
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
-      <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data)}>
-        <Image src={data.asset.json.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
+      <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data.url)}>
+        <Image src={data.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.asset.json.name}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(data.asset.creators[0].address.toString())}</div>
+          <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{getPriceValue(data.price.basisPoints)}</div>
+            <div className={styles.nftName}>{getPriceValue(data.price)}</div>
           </div>
         </div>
         <div className="mt-[7px] w-full">
-          <GradientButton
-            label={type === 'fixed' ? 'Update' : 'Cancel Auction'}
-            onClick={() => onActionClick(data)}
-            height="48px"
-            fontSize="16px"
-            paddingLeft="37px"
-            paddingRight="37px"
-            backgroundColor01="#63D6CD"
-            backgroundColor02="#326B67"
-            gradientDirection="bottom"
-            fullWidth
-          />
+          {type === 'fixed' ? 
+            <GradientButton
+              label={'Update'}
+              onClick={() => onActionClick(data)}
+              height="48px"
+              fontSize="16px"
+              paddingLeft="37px"
+              paddingRight="37px"
+              backgroundColor01="#63D6CD"
+              backgroundColor02="#326B67"
+              gradientDirection="bottom"
+              fullWidth
+            /> :
+            <>
+              {
+                (isStarted && !isEnded ) && <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  label="Cancel Auction"
+                  disabled={true}
+                  backgroundColor="#888A8E"
+                  fullWidth
+                />
+              }
+              {
+                (!isStarted || isEnded && !highestBid) && <GradientButton
+                  label={'Cancel Auction'}
+                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  backgroundColor01="#63D6CD"
+                  backgroundColor02="#326B67"
+                  gradientDirection="bottom"
+                  fullWidth
+                />
+              }
+              {
+                (isEnded && highestBid) && <GradientButton
+                  label={'Finalize Sale'}
+                  onClick={() => finalizeSale(data?.mintAddress, data?.sellerAddress, new PublicKey(data?.highestBid.buyer_address), Number(data?.highestBid.amount))}
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  backgroundColor01="#63D6CD"
+                  backgroundColor02="#326B67"
+                  gradientDirection="bottom"
+                  fullWidth
+                />
+              }
+            </>
+          }
         </div>
       </div>
     </div>
   ) : (
     <div className={styles.container}>
       <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={data.asset.json.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
+        <Image src={data.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.asset.json.name}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(data.asset.creators[0].address.toString())}</div>
+          <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
         </div>
         <div className="w-full flex justify-between items-center mt-2">
           <GradientButton
@@ -74,7 +139,7 @@ const ListedNFTCard = props => {
           />
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{getPriceValue(data.price.basisPoints)}</div>
+            <div className={styles.nftName}>{getPriceValue(data.price)}</div>
           </div>
         </div>
       </div>

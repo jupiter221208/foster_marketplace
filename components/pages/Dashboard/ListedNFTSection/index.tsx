@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
+// redux
+import { useDispatch, useSelector } from 'react-redux'
+
 // components
 import Pagination from 'components/Button/Pagination'
 import ListedNFTCard from 'components/Card/ListedNFTCard'
@@ -13,12 +16,16 @@ import FilterButton from 'components/Button/FilterButton'
 // styles
 import styles from './index.module.scss'
 
+// solana
 import { getMyListedNFTs, cancelList, updateList } from 'utils/auction.util'
+import { cancelListing, executeSale } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { useDispatch, useSelector } from 'react-redux'
+import { getNFTByAddress } from 'utils/nfts.utils'
+import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import listingsAPI from 'apis/listings'
+import auctionAPI from 'apis/auctions'
 
 const ListedNFTSection = () => {
   const router = useRouter()
@@ -29,13 +36,8 @@ const ListedNFTSection = () => {
 
   const [selectedData, setSelectedData] = useState()
   const handleSelectData = item => {
-    if (active === 0) {
-      // update listing
-    } else {
-      // cancel listing
-    }
-    // setSelectedData(item)
-    // setShowListNFTModal(true)
+    setSelectedData(item)
+    setShowListNFTModal(true)
   }
   const [fixedPriceNFTs, setFixedPriceNFTs] = useState<any[]>([])
   const [liveAuctionNFTs, setLiveAuctionNFTs] = useState<any[]>([])
@@ -54,9 +56,37 @@ const ListedNFTSection = () => {
 
   const setMyListedNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
-    let fixedPrice = await getMyListedNFTs(mx)
-    let liveAuction = await getMyListedNFTs(mx)
+    const listedNfts = await getMyListedNFTs(mx)
+    const fixedPrice = listedNfts.map(nft => {
+      return {
+        mintAddress: nft.asset.address,
+        image: nft.asset.json.image,
+        name: nft.asset.json.name,
+        creator: nft.asset.creators[0].address.toString(),
+        url: `/browse-nft?id=${nft.asset.address.toString()}`,
+        price: nft.price.basisPoints,
+        tradeStateAddress: nft.tradeStateAddress
+      }
+    })
     setFixedPriceNFTs(fixedPrice)
+    const listings = await auctionAPI.getListingsBySeller(mx.identity().publicKey.toBase58())
+    const liveAuction = await Promise.all(
+      listings.map(async listing => {
+        const nft = await getNFTByAddress(mx, new PublicKey(listing.auction.mint_address))
+        return {
+          mintAddress: nft.address,
+          image: nft.json.image,
+          name: nft.json.name,
+          creator: nft.creators[0].address.toString(),
+          url: `/live-auction?id=${nft.address.toString()}`,
+          startTime: listing.auction.start_time,
+          endTime: listing.auction.end_time,
+          highestBid: listing.highest_bid,
+          sellerAddress: new PublicKey(listing.auction.seller_address),
+          price: Number(listing.auction.reserve_price) * 1000000000
+        } 
+      })
+    )
     setLiveAuctionNFTs(liveAuction)
 
     if (active === 0) {
@@ -107,8 +137,26 @@ const ListedNFTSection = () => {
     }
   }
 
-  const handleGotoDetailPage = (data: any) => {
-    router.push(`/browse-nft?id=${data.asset.mint.address.toString()}`)
+  const cancelAuction = async (mintAddress, sellerAddress) => {
+    const { auction } = await cancelListing(mx, mintAddress, sellerAddress)
+    auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
+      if(res) setMyListedNFTs()
+    })
+  }
+
+  const finalizeSale = async (mintAddress, sellerAddress, buyerAddress, price) => {
+    const { sale } = await executeSale(mx, mintAddress, sellerAddress, buyerAddress, price)
+    auctionAPI.executeSale(sale.mintAddress.toBase58(), {
+      token_address: sale.mintAddress.toBase58(),
+      buyer_wallet_id: sale.buyerAddress.toBase58(),
+      sale_price: sale.price.toString()
+    }).then(res => {
+      setMyListedNFTs()
+    })
+  }
+
+  const handleGotoDetailPage = (url) => {
+    router.push(url)
   }
 
   return (
@@ -138,8 +186,10 @@ const ListedNFTSection = () => {
               <ListedNFTCard
                 data={item}
                 type={active === 0 ? 'fixed' : 'auction'}
-                onClick={(data: any) => handleGotoDetailPage(data)}
+                onClick={url => handleGotoDetailPage(url)}
                 onActionClick={item => handleSelectData(item)}
+                cancelAuction={(mintAddress, sellerAddress) => cancelAuction(mintAddress, sellerAddress)}
+                finalizeSale={(mintAddress, sellerAddress, buyerAddress, price) => finalizeSale(mintAddress, sellerAddress, buyerAddress, price)}
               />
             </div>
           ))}

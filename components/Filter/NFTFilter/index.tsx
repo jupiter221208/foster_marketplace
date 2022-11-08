@@ -17,8 +17,8 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const NFTFilter = props => {
+  const { selectedAvailability, setSelectedAvailability } = props
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[0])
-  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[0])
   const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[0])
   const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[0])
   const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[0])

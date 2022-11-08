@@ -1,0 +1,525 @@
+import {
+  createSellInstruction,
+  createDepositInstruction,
+  createBuyInstruction,
+  createCancelInstruction,
+  createExecuteSaleInstruction
+} from "@metaplex-foundation/mpl-auctioneer";
+import { PublicKey, Transaction } from "@solana/web3.js";
+import { BN } from "@project-serum/anchor";
+import { getAssociatedTokenAddress } from "@solana/spl-token";
+import { Metaplex } from "@metaplex-foundation/js";
+
+const AUCTION_HOUSE_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_ADDRESS)
+const TIMED_AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS)
+const TIMED_AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY)
+const TOKEN_METADATA_PROGRAM_ID = new PublicKey(process.env.TOKEN_METADATA_PROGRAM_ID)
+const WRAPPED_SOL_MINT = new PublicKey(process.env.WRAPPED_SOL_MINT)
+const AUCTIONEER_ADDRESS = new PublicKey(process.env.AUCTIONEER_ADDRESS)
+
+export async function getAuctioneerAuthority() {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("auctioneer"), 
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer()
+    ],
+    AUCTIONEER_ADDRESS
+  );
+}
+
+export async function getPda(auctioneerAuthority) {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("auctioneer"),
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
+      auctioneerAuthority.toBuffer(),
+    ],
+    AUCTION_HOUSE_ADDRESS
+  );
+}
+
+export async function getListingConfig(publicKey, associatedAddress, mintAddress) {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("listing_config"),
+      publicKey.toBuffer(),
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
+      associatedAddress.toBuffer(),
+      WRAPPED_SOL_MINT.toBuffer(),
+      mintAddress.toBuffer(),
+      new BN(1).toArrayLike(Buffer, "le", 8),
+    ],
+    AUCTIONEER_ADDRESS
+  );
+}
+
+async function getAuctionHouseTradeState(
+  wallet,
+  tokenAccount,
+  tokenMint,
+  buyPrice
+) {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("auction_house"),
+      wallet.toBuffer(),
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
+      tokenAccount.toBuffer(),
+      WRAPPED_SOL_MINT.toBuffer(),
+      tokenMint.toBuffer(),
+      new BN(buyPrice).toArrayLike(Buffer, "le", 8),
+      new BN(1).toArrayLike(Buffer, "le", 8),
+    ],
+    AUCTION_HOUSE_ADDRESS
+  );
+}
+
+export async function getFeePayer() {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("auction_house"), 
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(), 
+      Buffer.from("fee_payer")
+    ],
+    AUCTION_HOUSE_ADDRESS
+  );
+}
+
+export async function getMeatdata(mintAddress) {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("metadata"),
+      TOKEN_METADATA_PROGRAM_ID.toBuffer(),
+      mintAddress.toBuffer(),
+    ],
+    TOKEN_METADATA_PROGRAM_ID
+  );
+}
+
+export async function getSigner() {
+  return await PublicKey.findProgramAddress(
+    [Buffer.from("auction_house"), Buffer.from("signer")],
+    AUCTION_HOUSE_ADDRESS
+  );
+}
+
+export async function getEscrowPaymentAccount(publicKey: PublicKey) {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from('auction_house'),
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
+      publicKey.toBuffer(),
+    ],
+    AUCTION_HOUSE_ADDRESS
+  )
+}
+
+export async function getAuctionHouseTreasury() {
+  return await PublicKey.findProgramAddress(
+    [Buffer.from("auction_house"), 
+    TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
+    Buffer.from("treasury")],
+    AUCTION_HOUSE_ADDRESS
+  )
+}
+
+export async function startAuction(
+  mx: Metaplex,
+  mintAddress: PublicKey,
+  startDate: Date,
+  endDate: Date,
+  price: number
+) {
+
+  const startTime = Math.floor(startDate.getTime() / 1000)
+  const endTime = Math.floor(endDate.getTime() / 1000)
+
+  const publicKey = mx.identity().publicKey
+
+  const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
+
+  const [pda] = await getPda(auctioneerAuthority)
+
+  const associatedAddress = await getAssociatedTokenAddress(mintAddress, publicKey);
+
+  const [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress) 
+
+  const [sellerTradeState, sellerTradeStateBump] = await getAuctionHouseTradeState(
+    publicKey,
+    associatedAddress,
+    mintAddress,
+    "18446744073709551615"
+  );
+
+  const [freeTradeState, freeTradeBump] = await getAuctionHouseTradeState(
+    publicKey,
+    associatedAddress,
+    mintAddress,
+    "0"
+  );
+
+  const [feePayer] = await getFeePayer()
+
+  const [metadata] = await getMeatdata(mintAddress)
+
+  const [signer, signerBump] = await getSigner()
+
+  const accounts = {
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
+    listingConfig: listingConfig,
+    wallet: publicKey,
+    tokenAccount: associatedAddress,
+    metadata: metadata,
+    authority: TIMED_AUCTION_HOUSE_OWNER_ADDRESS,
+    auctionHouse: TIMED_AUCTION_HOUSE_PUBLIC_KEY,
+    auctionHouseFeeAccount: feePayer,
+    sellerTradeState: sellerTradeState,
+    freeSellerTradeState: freeTradeState,
+    auctioneerAuthority: auctioneerAuthority,
+    ahAuctioneerPda: pda,
+    programAsSigner: signer,
+  };
+
+  const args = {
+    tradeStateBump: sellerTradeStateBump,
+    freeTradeStateBump: freeTradeBump,
+    programAsSignerBump: signerBump,
+    auctioneerAuthorityBump: auctioneerAuthorityBump,
+    tokenSize: new BN(Math.ceil(1 * 1)),
+    startTime: startTime,
+    endTime: endTime,
+    reservePrice: price * 1000000000,
+    minBidIncrement: 1,
+    timeExtPeriod: 1,
+    timeExtDelta: 1,
+    allowHighBidCancel: true,
+  };
+
+  const sellInstruction = await createSellInstruction(accounts, args);
+
+  let tx = new Transaction();
+  tx.add(sellInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response,
+    auction: {
+      mintAddress,
+      associatedAddress,
+      freeTradeState,
+      metadata: metadata,
+      signer,
+      sellerAddress: publicKey,
+      startTime,
+      endTime,
+      reservePrice: price
+    }
+  }
+}
+
+export async function cancelListing(
+  mx: Metaplex,
+  mintAddress: PublicKey,
+  sellerAddress: PublicKey
+) {
+
+  const publicKey = mx.identity().publicKey;
+
+  const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
+
+  const [pda] = await getPda(auctioneerAuthority)
+
+  const associatedAddress = await getAssociatedTokenAddress(mintAddress, sellerAddress)
+
+  const [listingConfig] = await getListingConfig(sellerAddress, associatedAddress, mintAddress)
+
+  const [feePayer] = await getFeePayer()
+
+  const [sellerTradeState] = await getAuctionHouseTradeState(
+    sellerAddress,
+    associatedAddress,
+    mintAddress,
+    "18446744073709551615"
+  )
+
+  const cancelArgs = {
+    auctioneerAuthorityBump: auctioneerAuthorityBump,
+    buyerPrice: new BN("18446744073709551615").toArrayLike(Buffer, "le", 8),
+    tokenSize: 1,
+  };
+  
+  const cancelAccounts = {
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
+    listingConfig: listingConfig,
+    seller: sellerAddress,
+    wallet: publicKey,
+    tokenAccount: associatedAddress,
+    tokenMint: mintAddress,
+    authority: TIMED_AUCTION_HOUSE_OWNER_ADDRESS,
+    auctionHouse: TIMED_AUCTION_HOUSE_PUBLIC_KEY,
+    auctionHouseFeeAccount: feePayer,
+    tradeState: sellerTradeState,
+    auctioneerAuthority: auctioneerAuthority,
+    ahAuctioneerPda: pda
+  };
+
+  /**@ts-ignore for buyerPrice */
+  const cancelInstruction = await createCancelInstruction(cancelAccounts, cancelArgs);
+
+  let tx = new Transaction();
+  tx.add(cancelInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response,
+    auction: {
+      mintAddress
+    }
+  }
+}
+
+export async function depositFunds(
+  mx: Metaplex,
+  price: number
+) {
+
+  const publicKey = mx.identity().publicKey;
+
+  const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
+
+  const [pda] = await getPda(auctioneerAuthority)
+
+  const [feePayer] = await getFeePayer()
+
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
+
+  const depositArgs = {
+    escrowPaymentBump: escrowPaymentBump,
+    auctioneerAuthorityBump: auctioneerAuthorityBump,
+    amount: price * 1000000000,
+  };
+
+  const depositAccounts = {
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
+    wallet: publicKey,
+    paymentAccount: publicKey,
+    transferAuthority: publicKey,
+    escrowPaymentAccount: escrowPaymentAccount,
+    treasuryMint: WRAPPED_SOL_MINT,
+    authority: TIMED_AUCTION_HOUSE_OWNER_ADDRESS,
+    auctionHouse: TIMED_AUCTION_HOUSE_PUBLIC_KEY,
+    auctionHouseFeeAccount: feePayer,
+    auctioneerAuthority: auctioneerAuthority,
+    ahAuctioneerPda: pda,
+  };
+
+  const depositInstruction = await createDepositInstruction(depositAccounts, depositArgs);
+
+  let tx = new Transaction();
+  tx.add(depositInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response
+  }
+}
+
+export async function placeBid(
+  mx: Metaplex,
+  mintAddress: PublicKey,
+  sellerAddress: PublicKey,
+  price: number
+) {
+
+  const publicKey = mx.identity().publicKey;
+
+  const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
+
+  const [pda] = await getPda(auctioneerAuthority)
+
+  const associatedAddress = await getAssociatedTokenAddress(mintAddress, sellerAddress)
+
+  const [listingConfig] = await getListingConfig(sellerAddress, associatedAddress, mintAddress)
+
+  const [metadata] = await getMeatdata(mintAddress)
+
+  const [feePayer] = await getFeePayer()
+
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
+
+  const [buyerTradeState, buyerTradeStateBump] = await getAuctionHouseTradeState(
+    publicKey,
+    associatedAddress,
+    mintAddress,
+    price * 1000000000
+  )
+
+  const buyArgs = {
+    tradeStateBump: buyerTradeStateBump,
+    escrowPaymentBump: escrowPaymentBump,
+    auctioneerAuthorityBump: auctioneerAuthorityBump,
+    buyerPrice: price * 1000000000,
+    tokenSize: 1,
+  };
+  
+  const buyAccounts = {
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
+    listingConfig: listingConfig,
+    seller: sellerAddress,
+    wallet: publicKey,
+    paymentAccount: publicKey,
+    transferAuthority: sellerAddress,
+    treasuryMint: WRAPPED_SOL_MINT,
+    tokenAccount: associatedAddress,
+    metadata: metadata,
+    escrowPaymentAccount: escrowPaymentAccount,
+    authority: TIMED_AUCTION_HOUSE_OWNER_ADDRESS,
+    auctionHouse: TIMED_AUCTION_HOUSE_PUBLIC_KEY,
+    auctionHouseFeeAccount: feePayer,
+    buyerTradeState: buyerTradeState,
+    auctioneerAuthority: auctioneerAuthority,
+    ahAuctioneerPda: pda
+  };
+
+  const buyInstruction = await createBuyInstruction(buyAccounts, buyArgs);
+
+  let tx = new Transaction();
+  tx.add(buyInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response,
+    bid: {
+      mintAddress,
+      buyerAddress: publicKey,
+      amount: price
+    }
+  }
+}
+
+export async function executeSale(
+  mx: Metaplex,
+  mintAddress: PublicKey,
+  sellerAddress: PublicKey,
+  buyerAddress: PublicKey,
+  price: number
+) {
+
+  const publicKey = mx.identity().publicKey;
+
+  const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
+
+  const [pda] = await getPda(auctioneerAuthority)
+
+  const associatedAddress = await getAssociatedTokenAddress(mintAddress, sellerAddress)
+
+  const buyerAssociatedAddress = await getAssociatedTokenAddress(mintAddress, buyerAddress);
+
+  const [listingConfig] = await getListingConfig(sellerAddress, associatedAddress, mintAddress)
+
+  const [metadata] = await getMeatdata(mintAddress)
+
+  const [feePayer] = await getFeePayer()
+
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(buyerAddress)
+
+  const [buyerTradeState] = await getAuctionHouseTradeState(
+    buyerAddress,
+    associatedAddress,
+    mintAddress,
+    price * 1000000000
+  )
+
+  const [sellerTradeState] = await getAuctionHouseTradeState(
+    sellerAddress,
+    associatedAddress,
+    mintAddress,
+    "18446744073709551615"
+  );
+
+  const [freeTradeState, freeTradeBump] = await getAuctionHouseTradeState(
+    sellerAddress,
+    associatedAddress,
+    mintAddress,
+    "0"
+  );
+
+  const [signer, signerBump] = await getSigner()
+
+  const [auctionHouseTreasury] = await getAuctionHouseTreasury()
+
+  let remainingAccounts = [];
+  const nft = await mx.nfts().findByMint({ mintAddress }).run();
+
+  for (let i = 0; i < nft.creators.length; i++) {
+    let creator = { pubkey: nft.creators[i].address, isWritable: true, isSigner: false };
+    remainingAccounts.push(creator);
+  }
+
+  const executeSaleArgs = {
+    escrowPaymentBump: escrowPaymentBump,
+    freeTradeStateBump: freeTradeBump,
+    programAsSignerBump: signerBump,
+    auctioneerAuthorityBump: auctioneerAuthorityBump,
+    buyerPrice: price * 1000000000,
+    tokenSize: 1,
+  };
+  
+  const executeSaleAccounts = {
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
+    listingConfig: listingConfig,
+    buyer: buyerAddress,
+    seller: sellerAddress,
+    tokenAccount: associatedAddress,
+    tokenMint: mintAddress,
+    metadata: metadata,
+    treasuryMint: WRAPPED_SOL_MINT,
+    escrowPaymentAccount: escrowPaymentAccount,
+    sellerPaymentReceiptAccount: sellerAddress,
+    buyerReceiptTokenAccount: buyerAssociatedAddress,
+    authority: TIMED_AUCTION_HOUSE_OWNER_ADDRESS,
+    auctionHouse: TIMED_AUCTION_HOUSE_PUBLIC_KEY,
+    auctionHouseFeeAccount: feePayer,
+    auctionHouseTreasury: auctionHouseTreasury,
+    buyerTradeState: buyerTradeState,
+    sellerTradeState: sellerTradeState,
+    freeTradeState: freeTradeState,
+    auctioneerAuthority: auctioneerAuthority,
+    ahAuctioneerPda: pda,
+    programAsSigner: signer,
+  };
+
+  const executeSale = await createExecuteSaleInstruction(executeSaleAccounts, executeSaleArgs);
+
+  remainingAccounts.forEach(account => {
+    executeSale.keys.push(account)
+  })
+
+  let tx = new Transaction();
+  tx.add(executeSale);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response,
+    sale: {
+      mintAddress,
+      buyerAddress,
+      price
+    }
+  }
+}

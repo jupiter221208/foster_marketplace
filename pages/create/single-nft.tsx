@@ -420,7 +420,7 @@ const SingleNft = () => {
       .create({
         uri,
         name: nftName,
-        sellerFeeBasisPoints: royalties,
+        sellerFeeBasisPoints: royalties * 100,
       })
       .run()
 
