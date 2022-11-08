@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -6,29 +6,27 @@ import Image from 'next/image'
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // custom components
-import OutlineButton from 'components/Button/OutlineButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import IconButton from 'components/Button/IconButton'
 import CopyWalletInput from 'components/Input/CopyWalletInput'
 import GradientButton from 'components/Button/GradientButton'
 import Alert from 'components/Alert'
-import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // custom functions
-import { useViewport, namePublicFile } from 'utils'
+import { useViewport } from 'utils'
 
 // images and icons
-import DefaultAvatar from 'assets/images/dashboard-avatar.png'
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
-import ViewGreenIcon from 'assets/icons/view-green.svg'
+import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
+import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
+import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -36,7 +34,6 @@ import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
-import uploadFileToS3API from 'apis/aws'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -46,9 +43,6 @@ const ProfileSection = prop => {
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
-  const inputFile = useRef<any>(null)
-  const [avatar, setAvatar] = useState<any>()
-  const [croppedAvatar, setCroppedAvatar] = useState('')
   const [userName, setUsername] = useState('')
   const [bio, setBio] = useState('')
   const [userEmail, setUserEmail] = useState('')
@@ -58,46 +52,14 @@ const ProfileSection = prop => {
   const [twitterUrl, setTwitterUrl] = useState('')
   const [telegramUrl, setTelegramUrl] = useState('')
   const [orgUserInfo, setOrgUserInfo] = useState<any>(null)
+  const [verificationStatus, setVerificationStatus] = useState('unverified') // unverified, review, verified
   const [enableSave, setEnableSave] = useState(false)
 
-  const [updateImage, setUpdateImage] = useState(false)
   const [showAlert, setShowAlert] = useState<boolean>(false)
-  const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
-
-  const [uploadingToS3, setUploadingToS3] = useState<boolean>(false)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
     setShowAlert(true)
-  }
-
-  const handleChangeAvatar = event => {
-    const file = event.target.files
-    setAvatar(file)
-    setOpenNftImageEditorModal(true)
-  }
-
-  useEffect(() => {
-    if (croppedAvatar !== '' && updateImage) {
-      const fetchData = async url => {
-        let response = await fetch(url)
-        let blob = await response.blob()
-        const file = new File([blob], 'avatar.jpg', {
-          type: 'image/jpeg',
-        })
-        const filename = namePublicFile('avatar.jpg')
-        uploadFile(file, filename)
-      }
-      fetchData(croppedAvatar)
-      setUpdateImage(false)
-    }
-  }, [updateImage])
-
-  const uploadFile = async (file: any, filename: string) => {
-    setUploadingToS3(true)
-    const { data, url } = await uploadFileToS3API(file, filename)
-    setProfilePictureUrl(url + filename)
-    setUploadingToS3(false)
   }
 
   const checkEnableSave = () => {
@@ -189,7 +151,6 @@ const ProfileSection = prop => {
         if (response !== null) {
           const userInfo = response
           if (userInfo.profile_picture) {
-            setCroppedAvatar(userInfo.profile_picture)
             setProfilePictureUrl(userInfo.profile_picture)
           }
           setUsername(userInfo.username)
@@ -220,40 +181,6 @@ const ProfileSection = prop => {
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            {/* <div className="w-full flex justify-center lg:justify-start lg:mt-12 mb-[20px] lg:mb-[22px]">
-              <div className={styles.avatarArea}>
-                <img
-                  src={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 251}
-                  alt=""
-                  className="rounded-full object-cover"
-                />
-              </div>
-            </div> */}
-            {/* <div className="flex justify-center lg:justify-start">
-              <div className="w-[250px]">
-                <OutlineButton
-                  label="Change Profile Picture"
-                  icon={EditorGreenIcon}
-                  onClick={() => {
-                    inputFile.current.click()
-                  }}
-                  direction="rtl"
-                  fullWidth
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '41px' : '64px'}
-                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  borderColor="#EFF0F6"
-                />
-                <input
-                  type="file"
-                  id="file"
-                  ref={inputFile}
-                  style={{ display: 'none' }}
-                  onChange={event => handleChangeAvatar(event)}
-                />
-              </div>
-            </div> */}
             <div className="mt-[0px] lg:mt-[101px]">
               <div className={styles.subTitle}>Personal Info</div>
             </div>
@@ -328,6 +255,32 @@ const ProfileSection = prop => {
               <Input value={telegramUrl} placeholder="Add Your Account" onChange={value => setTelegramUrl(value)} />
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
+              <div className={styles.subTitle}>Verification Status</div>
+            </div>
+            <div className="mt-4 lg:mt-8 flex justify-between">
+              {verificationStatus === 'unverified' && (
+                <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
+                  <div className={styles.unverifiedTextColor}>Unverified</div>
+                  <Image src={UnverifiedLightBrownIcon} alt="" />
+                </div>
+              )}
+              {verificationStatus === 'review' && (
+                <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
+                  <div className={styles.reviewTextColor}>Under Review</div>
+                  <Image src={ReviewLightGreenIcon} alt="" />
+                </div>
+              )}
+              {verificationStatus === 'verified' && (
+                <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
+                  <div className={styles.verifiedTextColor}>Verified</div>
+                  <Image src={VerifiedGreenIcon} alt="" />
+                </div>
+              )}
+              <a href="/" className={styles.linkText}>
+                Request Verification
+              </a>
+            </div>
+            <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Wallet</div>
             </div>
             <div className="mt-4 lg:mt-8">
@@ -362,7 +315,6 @@ const ProfileSection = prop => {
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   opacity={0.7}
-                  disabled={uploadingToS3}
                 />
               )}
             </div>
@@ -375,17 +327,6 @@ const ProfileSection = prop => {
           setShowAlert(false)
         }}
         data={data}
-      />
-      <NftImageEditorModal
-        open={openNftImageEditorModal}
-        close={() => setOpenNftImageEditorModal(false)}
-        nftImage={avatar}
-        getCroppedImage={croppedImage => {
-          setUpdateImage(true)
-          setCroppedAvatar(croppedImage)
-          setOpenNftImageEditorModal(false)
-        }}
-        dimension={{ value: [1080, 1080] }}
       />
     </div>
   )

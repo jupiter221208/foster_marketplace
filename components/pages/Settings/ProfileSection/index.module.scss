@@ -55,3 +55,43 @@
   color: $text-gray-200-color;
   width: 100%;
 }
+
+.verifyText {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 44px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 44px;
+    text-align: start;
+  }
+  letter-spacing: 0;
+}
+
+.unverifiedTextColor {
+  color: $brand-04-color;
+}
+
+.reviewTextColor {
+  color: $brand-06-color;
+}
+
+.verifiedTextColor {
+  color: $brand-01-color;
+}
+
+.linkText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 44px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 44px;
+    text-align: start;
+  }
+  letter-spacing: 0;
+  color: $brand-01-color;
+  text-decoration: underline;
+}
