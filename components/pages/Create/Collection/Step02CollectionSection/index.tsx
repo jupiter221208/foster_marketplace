@@ -189,7 +189,9 @@ const Step02CollectionSection = props => {
         var video = document.getElementById('video')
         if (isVideo(video)) {
           if (video.readyState === 4) {
-            captureImage()
+            setTimeout(() => {
+              captureImage()
+            }, 500)
             clearInterval(myInterval)
           }
         }
