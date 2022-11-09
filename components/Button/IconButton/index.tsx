@@ -9,7 +9,6 @@ import styles from './index.module.scss'
 const IconButton = props => {
   const {
     icon,
-    label = '',
     fullWidth = false,
     onClick,
     color = '',
@@ -21,6 +20,7 @@ const IconButton = props => {
     borderRadius,
     borderColor,
     borderWidth,
+    opacity = '1',
   } = props
   return (
     <button
@@ -35,12 +35,12 @@ const IconButton = props => {
         borderRadius: borderRadius,
         borderColor: borderColor,
         borderWidth: borderWidth,
+        opacity: opacity,
       }}
     >
       <div className={styles.image}>
         <Image src={icon} width={iconWidth} height={iconHeight} alt="" />
       </div>
-      {label}
     </button>
   )
 }
