@@ -220,8 +220,8 @@ const MainSection = () => {
             borderRadius="100%"
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-            iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
-            iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+            iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+            iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
             disabled={bannerUploadingToS3}
           />
           <input
@@ -254,8 +254,8 @@ const MainSection = () => {
                     borderRadius="100%"
                     width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
-                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
+                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
                     disabled={avatarUploadingToS3}
                   />
                   <input

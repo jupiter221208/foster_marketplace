@@ -315,8 +315,8 @@ const Step02CollectionSection = props => {
                     icon={TrashGrayIcon}
                     onClick={() => {}}
                     backgroundColor="transparent"
-                    iconWidth="24px"
-                    iconHeight="24px"
+                    iconWidth={24}
+                    iconHeight={24}
                   />
                 </div>
               )}
@@ -474,8 +474,8 @@ const Step02CollectionSection = props => {
                           icon={TrashGrayIcon}
                           onClick={() => onRemoveCollectionFile(item)}
                           backgroundColor="transparent"
-                          iconWidth="24px"
-                          iconHeight="24px"
+                          iconWidth={24}
+                          iconHeight={24}
                         />
                       </div>
                     ))}
@@ -485,8 +485,8 @@ const Step02CollectionSection = props => {
                         icon={ArrowDownGreenIcon}
                         onClick={() => setShowMore(true)}
                         backgroundColor="transparent"
-                        iconWidth="64px"
-                        iconHeight="64px"
+                        iconWidth={64}
+                        iconHeight={64}
                       />
                     </div>
                   )}
@@ -573,8 +573,8 @@ const Step02CollectionSection = props => {
                           icon={TrashGrayIcon}
                           onClick={() => onRemoveCollectionFile(item)}
                           backgroundColor="transparent"
-                          iconWidth="24px"
-                          iconHeight="24px"
+                          iconWidth={24}
+                          iconHeight={24}
                         />
                       </div>
                     ))}
@@ -664,8 +664,8 @@ const Step02CollectionSection = props => {
                     icon={TrashGrayIcon}
                     onClick={() => {}}
                     backgroundColor="transparent"
-                    iconWidth="24px"
-                    iconHeight="24px"
+                    iconWidth={24}
+                    iconHeight={24}
                   />
                 </div>
               )}
@@ -765,8 +765,8 @@ const Step02CollectionSection = props => {
                       icon={TrashGrayIcon}
                       onClick={() => onRemoveCollectionFile(item)}
                       backgroundColor="transparent"
-                      iconWidth="24px"
-                      iconHeight="24px"
+                      iconWidth={24}
+                      iconHeight={24}
                     />
                   </div>
                   <div className="w-full block">
@@ -818,8 +818,8 @@ const Step02CollectionSection = props => {
                   icon={ArrowDownGreenIcon}
                   onClick={() => setShowMore(true)}
                   backgroundColor="transparent"
-                  iconWidth="32px"
-                  iconHeight="32px"
+                  iconWidth={32}
+                  iconHeight={32}
                 />
               </div>
             )}
@@ -853,8 +853,8 @@ const Step02CollectionSection = props => {
                       icon={TrashGrayIcon}
                       onClick={() => onRemoveCollectionFile(item)}
                       backgroundColor="transparent"
-                      iconWidth="24px"
-                      iconHeight="24px"
+                      iconWidth={24}
+                      iconHeight={24}
                     />
                   </div>
 

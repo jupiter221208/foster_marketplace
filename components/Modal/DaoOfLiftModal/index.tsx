@@ -63,8 +63,8 @@ const DaoOfLiftModal = props => {
                     width="30px"
                     height="30px"
                     borderRadius="15px"
-                    iconWidth="12px"
-                    iconHeight="12px"
+                    iconWidth={12}
+                    iconHeight={12}
                   />
                 </div>
                 <div className="absolute inset-0 z-0">
@@ -140,8 +140,8 @@ const DaoOfLiftModal = props => {
                     width="30px"
                     height="30px"
                     borderRadius="15px"
-                    iconWidth="12px"
-                    iconHeight="12px"
+                    iconWidth={12}
+                    iconHeight={12}
                   />
                 </div>
                 <div className="absolute inset-0 z-0">

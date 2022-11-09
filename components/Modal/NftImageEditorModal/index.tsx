@@ -90,8 +90,8 @@ const NftImageEditorModal = props => {
                     width="30px"
                     height="30px"
                     borderRadius="15px"
-                    iconWidth="12px"
-                    iconHeight="12px"
+                    iconWidth={12}
+                    iconHeight={!2}
                   />
                 </div>
                 <div className={styles.cropContainer}>
