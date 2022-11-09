@@ -138,20 +138,21 @@ const MainSection = () => {
     ],
   }
 
-  const alertData = [
+  const [alertData, setAlertData] = useState<any[]>([
     {
       id: 0,
       title: 'Successful bid!',
       description: `You've successfully placed a bid on The Glass Banana #6921`,
       type: 'success',
     },
-  ]
+  ])
 
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
 
   const { id } = router.query
 
   const [nftUrl, setNftUrl] = useState('')
+  const [collectionName, setCollectionName] = useState('')
   const [nftName, setNftName] = useState('')
   const [nftDescription, setNftDescription] = useState('')
   const [nftRoyalties, setNftRoyalties] = useState(0)
@@ -192,19 +193,27 @@ const MainSection = () => {
   }
 
   useEffect(() => {
-    if(mx && id && connected) setListedNFT()
+    if (mx && id && connected) setListedNFT()
   }, [mx, id, connected])
 
-  const placeBidAndSave = async (price) => {
+  const placeBidAndSave = async price => {
     await depositFunds(mx, price)
     const { bid } = await placeBid(mx, mintAddress, sellerAddress, price)
     AuctionAPI.placeBid(mintAddress.toBase58(), {
       mint_address: bid.mintAddress.toBase58(),
       buyer_address: bid.buyerAddress.toBase58(),
-      amount: bid.amount.toString()
+      amount: bid.amount.toString(),
     }).then(res => {
-      if(res) {
+      if (res) {
         setShowModalPlaceBid(false)
+        setAlertData([
+          {
+            id: 0,
+            title: 'Successful bid!',
+            description: `You've successfully placed a bid on ${nftName}`,
+            type: 'success',
+          },
+        ])
         setShowAlert(true)
         setListedNFT()
       }
@@ -236,7 +245,7 @@ const MainSection = () => {
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex justify-between items-center">
-                <div className={styles.greenTitle}>The GB Series</div>
+                <div className={styles.greenTitle}>{collectionName}</div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                   <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
@@ -276,7 +285,7 @@ const MainSection = () => {
 
             <div className="w-full flex flex-wrap mt-10">
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                {isStarted && !isEnded && 
+                {isStarted && !isEnded && (
                   <GradientButton
                     label="Place Bid"
                     disabled={isEnded}
@@ -284,10 +293,10 @@ const MainSection = () => {
                     icon={SolanaAuctionIcon}
                     direction="rtl"
                   />
-                  }
+                )}
               </div>
               <div className="w-full flex content-none mt-6 lg:mt-7">
-                <AuctionCard 
+                <AuctionCard
                   currentPrice={nftCurrentPrice}
                   reservePrice={nftReservePrice}
                   endTime={endTime}
@@ -319,14 +328,12 @@ const MainSection = () => {
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex flex-wrap flex-column space-between">
-                          <div className={styles.whiteDescription}>
-                            {nftDescription}
-                          </div>
+                          <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                            {nftCategories.map((category, id) =>
-                              <SmallCategoryChip data={category} key={id}/>
-                            )}
+                              {nftCategories.map((category, id) => (
+                                <SmallCategoryChip data={category} key={id} />
+                              ))}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
