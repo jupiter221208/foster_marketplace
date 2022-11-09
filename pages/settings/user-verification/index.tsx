@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -90,11 +91,10 @@ const UserVerification = () => {
                   </div>
                   <div className="block">
                     <p className={styles.text}>
-                      If you're not quite ready to take the leap you can get more information at our{' '}
-                      <a href="/" className={styles.link}>
-                        Help Center
-                      </a>
-                      .
+                      If you&apos;re not quite ready to take the leap you can get more information at our{' '}
+                      <Link href="/">
+                        <a className={styles.link}>Help Center</a>
+                      </Link>
                     </p>
                   </div>
                 </div>

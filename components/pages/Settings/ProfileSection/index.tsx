@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import Link from 'next/link'
 
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -277,9 +278,9 @@ const ProfileSection = prop => {
                 </div>
               )}
               {verificationStatus === 'unverified' && (
-                <a href="/settings/user-verification" className={styles.linkText}>
-                  Request Verification
-                </a>
+                <Link href="/settings/user-verification">
+                  <a className={styles.linkText}>Request Verification</a>
+                </Link>
               )}
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
