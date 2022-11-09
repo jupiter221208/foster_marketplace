@@ -24,6 +24,23 @@
 }
 
 .label {
+  margin-bottom: 10px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 21px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 36px;
+  }
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 0.6);
+  text-align: start;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bottomLabel {
   margin-top: 10px;
   font-family: 'Muli-Regular';
   font-size: 14px;
