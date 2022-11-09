@@ -12,6 +12,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import IconButton from 'components/Button/IconButton'
 import GreenLineCard from 'components/Card/GreenLineCard'
 import GradientButton from 'components/Button/GradientButton'
+import RequestVerifyModal from 'components/Modal/RequestVerifyModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -25,8 +26,9 @@ import styles from './index.module.scss'
 
 const UserVerification = () => {
   const router = useRouter()
-
   const viewport = useViewport()
+
+  const [showRequestVerifyModal, setShowRequestVerifyModal] = useState(false)
 
   return (
     <div className="g-container">
@@ -101,10 +103,10 @@ const UserVerification = () => {
                 <div className="w-full flex justify-end mt-[98px] lg:mt-[60px] mb-20">
                   <GradientButton
                     label="Apply Now"
-                    onClick={() => {}}
+                    onClick={() => setShowRequestVerifyModal(true)}
                     gradientDirection="bottom"
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                    borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '53px'}
+                    borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '12px'}
                     paddingLeft="41px"
                     paddingRight="41px"
                     fontSize="18px"
@@ -115,6 +117,11 @@ const UserVerification = () => {
           </div>
         </div>
       </div>
+      <RequestVerifyModal
+        open={showRequestVerifyModal}
+        onClick={() => {}}
+        onClose={() => setShowRequestVerifyModal(false)}
+      />
     </div>
   )
 }
