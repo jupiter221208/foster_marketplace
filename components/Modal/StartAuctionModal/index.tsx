@@ -47,12 +47,12 @@ const StartAuctionModal = props => {
   const endDate = useMemo(() => {
     var plusDays = days
     var plusHours = hours
-    
-    if(!days) plusDays = 0
-    if(!hours) plusHours = 0
+
+    if (!days) plusDays = 0
+    if (!hours) plusHours = 0
 
     const endDate = new Date(startDate)
-    endDate.setTime(startDate.getTime() + (plusDays * 24 * 60 * 60 * 1000) + (plusHours * 60 * 60 * 1000))
+    endDate.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
 
     return endDate
   }, [startDate, days, hours])
@@ -74,7 +74,7 @@ const StartAuctionModal = props => {
       canceled_at: null,
       sold_at: null,
     }).then(res => {
-      if(res) closeModal()
+      if (res) closeModal()
     })
   }
 
@@ -157,7 +157,9 @@ const StartAuctionModal = props => {
                     <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name} />
                   </div>
                 </div>
-                <div className={`${styles.nftName} mt-5`}>{data?.offchainMetadata.name}</div>
+                <div className="w-full flex justify-center">
+                  <div className={`${styles.nftName} mt-5`}>{data?.offchainMetadata.name}</div>
+                </div>
                 <input className="w-0 h-9" />
                 <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">
                   <DatePicker
@@ -202,7 +204,8 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="mt-2 w-full text-start">
                   <div className={styles.label}>
-                    The auction is due to end <span className="font-bold text-white">{endDate.toLocaleDateString()}</span>
+                    The auction is due to end{' '}
+                    <span className="font-bold text-white">{endDate.toLocaleDateString()}</span>
                     {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
                   </div>
                 </div>
