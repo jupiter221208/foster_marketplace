@@ -21,7 +21,7 @@
   border-radius: 30px;
   padding: 35px 24px 30px 24px;
   @media (min-width: 1024px) {
-    padding: 35px 30px 30px 30px;
+    padding: 35px 28px 30px 28px;
   }
 
   display: flex;
@@ -67,14 +67,41 @@
 
 .text {
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 14px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    text-align: start;
+  }
   line-height: 24px;
   letter-spacing: 0px;
   color: $text-gray-200-color;
-  text-align: start;
 }
 
 .linkText {
   color: $brand-01-color;
   text-decoration: underline;
+}
+
+.title02 {
+  font-family: 'Muli-Bold';
+  font-size: 25px;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+  }
+  line-height: 36px;
+  letter-spacing: 0px;
+  color: $text-gray-200-color;
+}
+
+.subTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  letter-spacing: 0px;
+  color: $brand-01-color;
 }
