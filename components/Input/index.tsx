@@ -1,5 +1,8 @@
 import React from 'react'
 
+// next components
+import Image from 'next/image'
+
 // styles
 import styles from './index.module.scss'
 
@@ -7,11 +10,13 @@ const Input = props => {
   const {
     value,
     placeholder,
+    onChange,
     label = '',
+    labelColor = '',
+    labelIcon = '',
     label01 = '',
     label02 = '',
     error = '',
-    onChange,
     color = '',
     fullWidth = false,
     backgroundColor = '',
@@ -23,7 +28,12 @@ const Input = props => {
   } = props
   return (
     <div className="w-full">
-      {label !== '' && <div className={styles.label}>{label}</div>}
+      {label !== '' && (
+        <div className={styles.label} style={{ color: labelColor }}>
+          {label}
+          {labelIcon !== '' && <Image src={labelIcon} alt="" />}
+        </div>
+      )}
       <input
         className={styles.container}
         value={value}
