@@ -84,7 +84,7 @@ const RequestVerifyModal = props => {
                     <div className={styles.title}>Select a category</div>
                     <div className="w-full mt-5">
                       <p className={styles.text}>
-                        You'll need to meet specific requirement depending on the type of account you have.{' '}
+                        You&apos;ll need to meet specific requirement depending on the type of account you have.{' '}
                         <Link href="/">
                           <a className={styles.linkText}>Learn more</a>
                         </Link>
