@@ -260,6 +260,11 @@ const WalletButton = props => {
     )
   }
 
+  const handleDisconnect = () => {
+    disconnect()
+    localStorage.removeItem('token')
+  }
+
   return connected ? (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -306,7 +311,7 @@ const WalletButton = props => {
                   className="w-full flex items-center cursor-pointer hover:opacity-80"
                   onClick={() => {
                     setButtonClicked(true)
-                    disconnect()
+                    handleDisconnect()
                   }}
                 >
                   <Image src={DisconnectWalletIcon} alt="" />

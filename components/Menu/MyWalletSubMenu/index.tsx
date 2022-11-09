@@ -39,6 +39,11 @@ const MyWalletSubMenu = props => {
     navigator.clipboard.writeText(value)
   }
 
+  const handleDisconnect = () => {
+    disconnect()
+    localStorage.removeItem('token')
+  }
+
   const [showDeposit, setShowDeposit] = useState(false)
   const [status, setStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
   const [price, setPrice] = useState(13.2)
@@ -77,7 +82,7 @@ const MyWalletSubMenu = props => {
             <div className={styles.menuItem}>
               <div
                 className="w-full flex justify-start items-center cursor-pointer hover:opacity-80"
-                onClick={disconnect}
+                onClick={handleDisconnect}
               >
                 <Image src={DisconnectWalletIcon} alt="" width={50} height={50} />
                 <div>Disconnect Wallet</div>
