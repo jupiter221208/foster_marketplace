@@ -2161,7 +2161,7 @@
     mime "^3.0.0"
     tweetnacl "^1.0.3"
 
-"@metaplex-foundation/mpl-auction-house@^2.1.1":
+"@metaplex-foundation/mpl-auction-house@^2.1.1", "@metaplex-foundation/mpl-auction-house@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@metaplex-foundation/mpl-auction-house/-/mpl-auction-house-2.3.0.tgz#7022490cf10d30b4a1be43bd3a50c2c5a62ddb1e"
   integrity sha512-J27In0C/B0ETsDvy/3HkopiZ+I7AR4TlEzU0T2URKsreP4ghWGUUmhldkblxY7KhgLpvvQN/L0IaIBt+TFWU8g==

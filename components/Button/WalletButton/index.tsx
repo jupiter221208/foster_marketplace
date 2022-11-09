@@ -39,6 +39,20 @@ import styles from './index.module.scss'
 // call apis
 import authAPI from 'apis/auth'
 
+// solana
+import { useMetaplex } from 'hooks/useMetaplex'
+import {
+  depositFunds as depositOfferFunds,
+  withdrawFunds as withdrawOfferFunds,
+  getEscrowPaymentAccount as getOfferEscrowAddress 
+} from 'utils/auction.util'
+import { 
+  depositFunds as depositBiddingFunds,
+  withdrawFunds as withdrawBiddingFunds,
+  getEscrowPaymentAccount as getBiddingEscrowAddress 
+} from 'utils/auctioneer.util'
+import { getPriceValue } from 'utils/strings'
+
 const WalletButton = props => {
   const { fullWidth = false } = props
   const router = useRouter()
@@ -46,43 +60,141 @@ const WalletButton = props => {
 
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
-  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
+  const shortMainAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
   }
 
-  const [showDeposit, setShowDeposit] = useState(false)
-  const [status, setStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
-  const [price, setPrice] = useState(0)
-  const [mainBalance, setMainBalance] = useState(120)
-  const [biddingBalance, setBiddingBalance] = useState(12)
-  const [newMainWallet, setNewMainWallet] = useState(120)
+  const [showOfferWallet, setShowOfferWallet] = useState(false)
+  const [showBiddingWallet, setShowBiddingWallet] = useState(false)
+  const [offerStatus, setOfferStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
+  const [biddingStatus, setBiddingStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
+  const [offerPrice, setOfferPrice] = useState(0)
+  const [biddingPrice, setBiddingPrice] = useState(0)
+  const [mainBalance, setMainBalance] = useState(12)
+  const [offerBalance, setOfferBalance] = useState(1)
+  const [biddingBalance, setBiddingBalance] = useState(1)
+  const [newMainWallet, setNewMainWallet] = useState(0)
+  const [newOfferWallet, setNewOfferWallet] = useState(0)
   const [newBiddingWallet, setNewBiddingWallet] = useState(0)
-  const [errorMessage, setErrorMessage] = useState('')
+  const [offerErrorMessage, setOfferErrorMessage] = useState('')
+  const [biddingErrorMessage, setBiddingErrorMessage] = useState('')
+  const [offerWalletAddress, setOfferWalletAddress] = useState<PublicKey>()
+  const [biddingWalletAddress, setBiddingWalletAddress] = useState<PublicKey>()
 
-  const onChangePrice = value => {
-    setErrorMessage('')
-    setPrice(value)
+  const shortOfferAddress = useMemo(() => getShortAddress(offerWalletAddress || ('' as unknown as PublicKey)), [offerWalletAddress])
+  const shortBiddingAddress = useMemo(() => getShortAddress(biddingWalletAddress || ('' as unknown as PublicKey)), [biddingWalletAddress])
+
+  const onChangeOfferPrice = value => {
+    setOfferErrorMessage('')
     if (value.length === 0) {
-      setNewMainWallet(0)
-      setNewBiddingWallet(0)
+      setOfferPrice(0)
       return
     }
-
     let price = parseFloat(value)
-    if (price > mainBalance) {
-      setErrorMessage('Not enough balance in the wallet')
-      setNewMainWallet(0)
-    } else {
-      setNewMainWallet(mainBalance - price)
+    setOfferPrice(price)
+  }
+
+  useEffect(() => {
+    setOfferErrorMessage('')
+    if (offerStatus === "deposit") {
+      if(offerPrice > mainBalance) {
+        setOfferErrorMessage('Not enough balance in the wallet')
+        setNewMainWallet(0)
+        setNewOfferWallet(mainBalance + offerBalance)
+      } else {
+        setNewMainWallet(mainBalance - offerPrice)
+        setNewOfferWallet(offerBalance + offerPrice)
+      }
     }
-    if (price + biddingBalance > mainBalance) {
-      setErrorMessage('Not enough balance in the wallet')
-      setNewBiddingWallet(0)
-    } else {
-      setNewBiddingWallet(price + biddingBalance)
+
+    if (offerStatus === "withdraw") {
+      if(offerPrice > offerBalance) {
+        setOfferErrorMessage('Not enough balance in the wallet')
+        setNewMainWallet(mainBalance + offerBalance)
+        setNewOfferWallet(0)
+      } else {
+        setNewMainWallet(mainBalance + offerPrice)
+        setNewOfferWallet(offerBalance - offerPrice)
+      }
     }
+  },[mainBalance, offerBalance, offerStatus, offerPrice])
+
+  const onChangeBiddingPrice = value => {
+    setBiddingErrorMessage('')
+    if (value.length === 0) {
+      setBiddingPrice(0)
+      return
+    }
+    let price = parseFloat(value)
+    setBiddingPrice(price)
+  }
+
+  useEffect(() => {
+    setBiddingErrorMessage('')
+    if (biddingStatus === "deposit") {
+      if(biddingPrice > mainBalance) {
+        setOfferErrorMessage('Not enough balance in the wallet')
+        setNewMainWallet(0)
+        setNewBiddingWallet(mainBalance + biddingBalance)
+      } else {
+        setNewMainWallet(mainBalance - biddingPrice)
+        setNewBiddingWallet(biddingBalance + biddingPrice)
+      }
+    }
+
+    if (biddingStatus === "withdraw") {
+      if(biddingPrice > biddingBalance) {
+        setOfferErrorMessage('Not enough balance in the wallet')
+        setNewMainWallet(mainBalance + biddingBalance)
+        setNewBiddingWallet(0)
+      } else {
+        setNewMainWallet(mainBalance + biddingPrice)
+        setNewBiddingWallet(biddingBalance - biddingPrice)
+      }
+    }
+  }, [mainBalance, biddingBalance, biddingStatus, biddingPrice])
+
+  const { metaplex: mx } = useMetaplex()
+
+  const getSolBalance = async () => {
+    const main = await mx.connection.getBalance(mx.identity().publicKey)
+    setMainBalance(Number(getPriceValue(main)))
+    
+    const [offerEscrowAddress] = await getOfferEscrowAddress(mx.identity().publicKey)
+    setOfferWalletAddress(offerEscrowAddress)
+    const offer = await mx.connection.getBalance(offerEscrowAddress)
+    setOfferBalance(Number(getPriceValue(offer)))
+    
+    const [biddingEscrowAddress] = await getBiddingEscrowAddress(mx.identity().publicKey)
+    setBiddingWalletAddress(biddingEscrowAddress)
+    const bidding = await mx.connection.getBalance(biddingEscrowAddress)
+    setBiddingBalance(Number(getPriceValue(bidding)))
+  }
+
+  useEffect(() => {
+    if (mx && connected) getSolBalance()
+  }, [mx, connected])
+
+  const onClickOfferButton = async () => {
+    if(offerStatus === 'deposit') {
+      await depositOfferFunds(mx, offerPrice)
+    } else {
+      await withdrawOfferFunds(mx, offerPrice)
+    }
+    setOfferPrice(0)
+    getSolBalance()
+  }
+
+  const onClickBiddingButton = async () => {
+    if(biddingStatus === 'deposit') {
+      await depositBiddingFunds(mx, biddingPrice)
+    } else {
+      await withdrawBiddingFunds(mx, biddingPrice)
+    }
+    setBiddingPrice(0)
+    getSolBalance()
   }
 
   const [showAlert, setShowAlert] = useState(false)
@@ -152,7 +264,7 @@ const WalletButton = props => {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-          {shortAddress}
+          {shortMainAddress}
           <Image src={WalletGrayIcon} alt="" />
         </Menu.Button>
       </div>
@@ -174,7 +286,7 @@ const WalletButton = props => {
                   <Avatar avatar={profileImage !== null ? profileImage : avatar} width={36} height={36} />
                   <div className="block whitespace-nowrap">
                     <div className={styles.title}>{profileName.length > 0 ? profileName : 'Username'}</div>
-                    <div className={styles.grayText}>{shortAddress}</div>
+                    <div className={styles.grayText}>{shortMainAddress}</div>
                   </div>
                 </div>
               )}
@@ -219,7 +331,7 @@ const WalletButton = props => {
                   <div className="flex gap-2">
                     <Image src={CopyAltLightGreenIcon} alt="" />
                     <div className={styles.grayCard}>
-                      <div className={styles.lightGreenText}>{shortAddress}</div>
+                      <div className={styles.lightGreenText}>{shortMainAddress}</div>
                     </div>
                   </div>
                 </div>
@@ -229,7 +341,86 @@ const WalletButton = props => {
               {({ active }) => (
                 <div
                   className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
-                  onClick={() => copyToClipboard(publicKey?.toString() || '')}
+                  onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                >
+                  <div className="block">
+                    <div className={styles.whiteText}>Offer wallet</div>
+                    <div className="flex items-center gap-1">
+                      <Image src={SolanaLogoIcon} alt="" />
+                      <div className={styles.grayText}>{offerBalance.toFixed(2)}</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <div className={styles.grayCard}>
+                      <div className={styles.lightGreenText}>{shortOfferAddress}</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Menu.Item>
+            <div className="w-full flex justify-end items-center cursor-pointer mt-3">
+              <IconButton
+                icon={EllipseGroupWhiteIcon}
+                backgroundColor="transparent"
+                onClick={() => setShowOfferWallet(!showOfferWallet)}
+              />
+            </div>
+            {showOfferWallet && (
+              <div className={styles.walletCard}>
+                <div
+                  className="w-full flex justify-start items-center gap-2 cursor-pointer"
+                  onClick={() => setOfferStatus('deposit')}
+                >
+                  <Image src={offerStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                  <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
+                    Deposit from Main Wallet
+                  </div>
+                </div>
+                <div
+                  className="w-full flex justify-start items-center gap-2 cursor-pointer"
+                  onClick={() => setOfferStatus('withdraw')}
+                >
+                  <Image src={offerStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon} alt="" />
+                  <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
+                    Withdraw to Main Wallet
+                  </div>
+                </div>
+              </div>
+            )}
+            {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
+              <div className="w-full flex flex-wrap mt-[14px] gap-1">
+                <div className="w-full text-end">
+                  <div className={styles.lightGreenText}>New main wallet balance</div>
+                </div>
+                <div className="w-full flex justify-end gap-1">
+                  <Image src={SolanaLogoIcon} alt="" />
+                  <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                </div>
+                <div className="w-full text-end">
+                  <div className={styles.lightGreenText}>New offer wallet balance</div>
+                </div>
+                <div className="w-full flex justify-end gap-1">
+                  <Image src={SolanaLogoIcon} alt="" />
+                  <div className={styles.cardWhiteText}>{newOfferWallet.toFixed(2)}</div>
+                </div>
+                <div className="w-full flex justify-between gap-2 mt-1">
+                  <PriceInput value={offerPrice} onChange={value => onChangeOfferPrice(value)} height="30px" fontSize="12px" />
+                  <GradientButton
+                    label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                    height="30px"
+                    fontSize="12px"
+                    onClick={() => onClickOfferButton()}
+                  />
+                </div>
+                {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
+              </div>
+            )}
+            <Menu.Item>
+              {({ active }) => (
+                <div
+                  className="w-full flex justify-between items-center cursor-pointer hover:opacity-80 mt-3"
+                  onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
                 >
                   <div className="block">
                     <div className={styles.whiteText}>Bidding wallet</div>
@@ -241,7 +432,7 @@ const WalletButton = props => {
                   <div className="flex gap-2">
                     <Image src={CopyAltLightGreenIcon} alt="" />
                     <div className={styles.grayCard}>
-                      <div className={styles.lightGreenText}>{shortAddress}</div>
+                      <div className={styles.lightGreenText}>{shortBiddingAddress}</div>
                     </div>
                   </div>
                 </div>
@@ -251,32 +442,32 @@ const WalletButton = props => {
               <IconButton
                 icon={EllipseGroupWhiteIcon}
                 backgroundColor="transparent"
-                onClick={() => setShowDeposit(!showDeposit)}
+                onClick={() => setShowBiddingWallet(!showBiddingWallet)}
               />
             </div>
-            {showDeposit && (
+            {showBiddingWallet && (
               <div className={styles.walletCard}>
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                  onClick={() => setStatus('deposit')}
+                  onClick={() => setBiddingStatus('deposit')}
                 >
-                  <Image src={status === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
-                  <div className={status === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
+                  <Image src={biddingStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                  <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                     Deposit from Main Wallet
                   </div>
                 </div>
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                  onClick={() => setStatus('withdraw')}
+                  onClick={() => setBiddingStatus('withdraw')}
                 >
-                  <Image src={status === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon} alt="" />
-                  <div className={status === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
+                  <Image src={biddingStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon} alt="" />
+                  <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                     Withdraw to Main Wallet
                   </div>
                 </div>
               </div>
             )}
-            {showDeposit && (status === 'deposit' || status === 'withdraw') && (
+            {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
               <div className="w-full flex flex-wrap mt-[14px] gap-1">
                 <div className="w-full text-end">
                   <div className={styles.lightGreenText}>New main wallet balance</div>
@@ -293,15 +484,15 @@ const WalletButton = props => {
                   <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
                 </div>
                 <div className="w-full flex justify-between gap-2 mt-1">
-                  <PriceInput value={price} onChange={value => onChangePrice(value)} height="30px" fontSize="12px" />
+                  <PriceInput value={biddingPrice} onChange={value => onChangeBiddingPrice(value)} height="30px" fontSize="12px" />
                   <GradientButton
-                    label={status === 'deposit' ? 'Deposit' : 'Withdraw'}
+                    label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"
                     fontSize="12px"
-                    onClick={() => {}}
+                    onClick={() => onClickBiddingButton()}
                   />
                 </div>
-                {errorMessage.length > 0 && <div className={styles.errorMessage}>{errorMessage}</div>}
+                {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
               </div>
             )}
           </div>

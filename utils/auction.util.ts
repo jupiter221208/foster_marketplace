@@ -1,9 +1,12 @@
 import { Metaplex, sol } from '@metaplex-foundation/js'
-import { AccountInfo, ParsedAccountData, PublicKey } from '@solana/web3.js'
+import { createDepositInstruction, createWithdrawInstruction, DepositInstructionAccounts, DepositInstructionArgs, WithdrawInstructionAccounts, WithdrawInstructionArgs } from '@metaplex-foundation/mpl-auction-house'
+import { AccountInfo, ParsedAccountData, PublicKey, Transaction } from '@solana/web3.js'
 import { getNFTOwner } from './nfts.utils'
 
 const AUCTION_HOUSE_ADDRESS = process.env.AUCTION_HOUSE_ADDRESS
 const AUCTION_HOUSE_PUBLIC_KEY = process.env.AUCTION_HOUSE_PUBLIC_KEY
+const AUCTION_HOUSE_OWNER_ADDRESS = process.env.AUCTION_HOUSE_OWNER_ADDRESS
+const WRAPPED_SOL_MINT = process.env.WRAPPED_SOL_MINT
 
 const LISTING_RECEIPT_SIZE =
   8 + //key
@@ -389,4 +392,99 @@ export async function acceptOffer(mx: Metaplex, tradeStateAddress: PublicKey, li
     console.log(error)
   }
   return false
+}
+
+export async function getEscrowPaymentAccount(publicKey: PublicKey) {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from('auction_house'),
+      new PublicKey(AUCTION_HOUSE_PUBLIC_KEY).toBuffer(),
+      publicKey.toBuffer(),
+    ],
+    new PublicKey(AUCTION_HOUSE_ADDRESS)
+  )
+}
+
+export async function getFeePayer() {
+  return await PublicKey.findProgramAddress(
+    [
+      Buffer.from("auction_house"), 
+      new PublicKey(AUCTION_HOUSE_PUBLIC_KEY).toBuffer(), 
+      Buffer.from("fee_payer")
+    ],
+    new PublicKey(AUCTION_HOUSE_ADDRESS)
+  );
+}
+
+export async function depositFunds(mx: Metaplex, price: number) {
+  const publicKey = mx.identity().publicKey
+
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
+
+  const [feePayer] = await getFeePayer()
+
+  const accounts: DepositInstructionAccounts = {
+    wallet: publicKey,
+    paymentAccount: publicKey,
+    transferAuthority: publicKey,
+    escrowPaymentAccount: escrowPaymentAccount,
+    treasuryMint: new PublicKey(WRAPPED_SOL_MINT),
+    authority: new PublicKey(AUCTION_HOUSE_OWNER_ADDRESS),
+    auctionHouse: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY),
+    auctionHouseFeeAccount: feePayer,
+  };
+  
+  const args: DepositInstructionArgs = {
+    escrowPaymentBump: escrowPaymentBump,
+    amount: price * 1000000000,
+  };
+
+  const depositeInstruction = await createDepositInstruction(accounts, args);
+
+  let tx = new Transaction();
+  tx.add(depositeInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response
+  }
+}
+
+export async function withdrawFunds(mx: Metaplex, price: number) {
+  const publicKey = mx.identity().publicKey
+
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
+
+  const [feePayer] = await getFeePayer()
+
+  const accounts: WithdrawInstructionAccounts = {
+    wallet: publicKey,
+    receiptAccount: publicKey,
+    escrowPaymentAccount: escrowPaymentAccount,
+    treasuryMint: new PublicKey(WRAPPED_SOL_MINT),
+    authority: new PublicKey(AUCTION_HOUSE_OWNER_ADDRESS),
+    auctionHouse: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY),
+    auctionHouseFeeAccount: feePayer,
+  };
+  
+  const args: WithdrawInstructionArgs = {
+    amount: price * 1000000000,
+    escrowPaymentBump: escrowPaymentBump,
+  };
+
+  const withdrawInstruction = await createWithdrawInstruction(accounts, args);
+
+  let tx = new Transaction();
+  tx.add(withdrawInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response
+  }
 }

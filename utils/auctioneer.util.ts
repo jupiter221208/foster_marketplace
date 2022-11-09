@@ -3,7 +3,8 @@ import {
   createDepositInstruction,
   createBuyInstruction,
   createCancelInstruction,
-  createExecuteSaleInstruction
+  createExecuteSaleInstruction,
+  createWithdrawInstruction
 } from "@metaplex-foundation/mpl-auctioneer";
 import { PublicKey, Transaction } from "@solana/web3.js";
 import { BN } from "@project-serum/anchor";
@@ -323,6 +324,54 @@ export async function depositFunds(
 
   let tx = new Transaction();
   tx.add(depositInstruction);
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.feePayer = publicKey;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+
+  return {
+    response
+  }
+}
+
+export async function withdrawFunds(
+  mx: Metaplex,
+  price: number
+) {
+
+  const publicKey = mx.identity().publicKey;
+
+  const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
+
+  const [pda] = await getPda(auctioneerAuthority)
+
+  const [feePayer] = await getFeePayer()
+
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
+
+  const withdrawArgs = {
+    escrowPaymentBump: escrowPaymentBump,
+    auctioneerAuthorityBump: auctioneerAuthorityBump,
+    amount: price * 1000000000,
+  };
+
+  const withdrawAccounts = {
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
+    wallet: publicKey,
+    receiptAccount: publicKey,
+    escrowPaymentAccount: escrowPaymentAccount,
+    treasuryMint: WRAPPED_SOL_MINT,
+    authority: TIMED_AUCTION_HOUSE_OWNER_ADDRESS,
+    auctionHouse: TIMED_AUCTION_HOUSE_PUBLIC_KEY,
+    auctionHouseFeeAccount: feePayer,
+    auctioneerAuthority: auctioneerAuthority,
+    ahAuctioneerPda: pda,
+  };
+
+  const withdrawInstruction = await createWithdrawInstruction(withdrawAccounts, withdrawArgs);
+
+  let tx = new Transaction();
+  tx.add(withdrawInstruction);
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
