@@ -102,7 +102,9 @@ const UserVerification = () => {
                   <GradientButton
                     label="Apply Now"
                     onClick={() => {}}
-                    height="53px"
+                    gradientDirection="bottom"
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
+                    borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '53px'}
                     paddingLeft="41px"
                     paddingRight="41px"
                     fontSize="18px"
