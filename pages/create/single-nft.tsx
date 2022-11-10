@@ -56,17 +56,14 @@ const SingleNft = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [screenWidth, setScreenWidth] = useState(1920)
-  const [screenHeight, setScreenHeight] = useState(1080)
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    setScreenHeight(window.innerHeight)
   }, [])
 
   useEffect(() => {
     const resizeFunction = () => {
       setScreenWidth(window.innerWidth)
-      setScreenHeight(window.innerHeight)
     }
     window.addEventListener('resize', resizeFunction)
   }, [])
@@ -333,7 +330,7 @@ const SingleNft = () => {
           await uploadNft(metadata)
         } else {
           let coverReader = new FileReader()
-          const coverFileData = nftType === 'video' ? b64toBlob(nftImage) : b64toBlob(await getBase64FromUrl(nftImage))
+          const coverFileData = b64toBlob(await getBase64FromUrl(nftImage))
 
           coverReader.readAsArrayBuffer(coverFileData)
           coverReader.onload = async function (event) {

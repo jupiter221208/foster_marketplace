@@ -61,7 +61,12 @@ const SuccessMintSingleNFTSection = props => {
             className={`${styles.artArea}`}
             style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
           >
-            {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+            {nftType === 'video' ? (
+              <video controls className="w-full">
+                <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                Your browser does not support the video tag.
+              </video>
+            ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
               <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
             ) : (
               <div
@@ -73,15 +78,6 @@ const SuccessMintSingleNFTSection = props => {
         )}
       </div>
       <div className="w-full flex justify-center">
-        {nftType === 'video' && (
-          <div className="w-full max-w-[392px] h-full mt-4">
-            <video controls className="w-full">
-              <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        )}
-
         {nftType === 'audio' && (
           <div className="w-full max-w-[392px] mt-4">
             <audio controls className="w-full">
@@ -151,7 +147,12 @@ const SuccessMintSingleNFTSection = props => {
                 className={`${styles.artArea}`}
                 style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
               >
-                {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                {nftType === 'video' ? (
+                  <video controls className="w-full">
+                    <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                   <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                 ) : (
                   <div
@@ -159,14 +160,6 @@ const SuccessMintSingleNFTSection = props => {
                     style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                   />
                 )}
-              </div>
-            )}
-            {nftType === 'video' && (
-              <div className="w-full h-full mt-4">
-                <video controls className="w-full">
-                  <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                  Your browser does not support the video tag.
-                </video>
               </div>
             )}
 
