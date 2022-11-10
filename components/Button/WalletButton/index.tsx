@@ -52,6 +52,7 @@ import {
   getEscrowPaymentAccount as getBiddingEscrowAddress 
 } from 'utils/auctioneer.util'
 import { getPriceValue } from 'utils/strings'
+import { useWallets } from 'hooks/useWallets'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -60,6 +61,16 @@ const WalletButton = props => {
 
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
+
+  const { 
+    mainBalance,
+    offerBalance,
+    biddingBalance,
+    offerWalletAddress,
+    biddingWalletAddress,
+    updateSolBalance
+  } = useWallets()
+
   const shortMainAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const copyToClipboard = value => {
@@ -72,16 +83,11 @@ const WalletButton = props => {
   const [biddingStatus, setBiddingStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
   const [offerPrice, setOfferPrice] = useState(0)
   const [biddingPrice, setBiddingPrice] = useState(0)
-  const [mainBalance, setMainBalance] = useState(12)
-  const [offerBalance, setOfferBalance] = useState(1)
-  const [biddingBalance, setBiddingBalance] = useState(1)
   const [newMainWallet, setNewMainWallet] = useState(0)
   const [newOfferWallet, setNewOfferWallet] = useState(0)
   const [newBiddingWallet, setNewBiddingWallet] = useState(0)
   const [offerErrorMessage, setOfferErrorMessage] = useState('')
   const [biddingErrorMessage, setBiddingErrorMessage] = useState('')
-  const [offerWalletAddress, setOfferWalletAddress] = useState<PublicKey>()
-  const [biddingWalletAddress, setBiddingWalletAddress] = useState<PublicKey>()
 
   const shortOfferAddress = useMemo(() => getShortAddress(offerWalletAddress || ('' as unknown as PublicKey)), [offerWalletAddress])
   const shortBiddingAddress = useMemo(() => getShortAddress(biddingWalletAddress || ('' as unknown as PublicKey)), [biddingWalletAddress])
@@ -158,25 +164,6 @@ const WalletButton = props => {
 
   const { metaplex: mx } = useMetaplex()
 
-  const getSolBalance = async () => {
-    const main = await mx.connection.getBalance(mx.identity().publicKey)
-    setMainBalance(Number(getPriceValue(main)))
-    
-    const [offerEscrowAddress] = await getOfferEscrowAddress(mx.identity().publicKey)
-    setOfferWalletAddress(offerEscrowAddress)
-    const offer = await mx.connection.getBalance(offerEscrowAddress)
-    setOfferBalance(Number(getPriceValue(offer)))
-    
-    const [biddingEscrowAddress] = await getBiddingEscrowAddress(mx.identity().publicKey)
-    setBiddingWalletAddress(biddingEscrowAddress)
-    const bidding = await mx.connection.getBalance(biddingEscrowAddress)
-    setBiddingBalance(Number(getPriceValue(bidding)))
-  }
-
-  useEffect(() => {
-    if (mx && connected) getSolBalance()
-  }, [mx, connected])
-
   const onClickOfferButton = async () => {
     if(offerStatus === 'deposit') {
       await depositOfferFunds(mx, offerPrice)
@@ -184,7 +171,7 @@ const WalletButton = props => {
       await withdrawOfferFunds(mx, offerPrice)
     }
     setOfferPrice(0)
-    getSolBalance()
+    await updateSolBalance()
   }
 
   const onClickBiddingButton = async () => {
@@ -194,7 +181,7 @@ const WalletButton = props => {
       await withdrawBiddingFunds(mx, biddingPrice)
     }
     setBiddingPrice(0)
-    getSolBalance()
+    await updateSolBalance()
   }
 
   const [showAlert, setShowAlert] = useState(false)
@@ -410,7 +397,7 @@ const WalletButton = props => {
                   <div className={styles.cardWhiteText}>{newOfferWallet.toFixed(2)}</div>
                 </div>
                 <div className="w-full flex justify-between gap-2 mt-1">
-                  <PriceInput value={offerPrice} onChange={value => onChangeOfferPrice(value)} height="30px" fontSize="12px" />
+                  <PriceInput onChange={value => onChangeOfferPrice(value)} height="30px" fontSize="12px" />
                   <GradientButton
                     label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"
@@ -489,7 +476,7 @@ const WalletButton = props => {
                   <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
                 </div>
                 <div className="w-full flex justify-between gap-2 mt-1">
-                  <PriceInput value={biddingPrice} onChange={value => onChangeBiddingPrice(value)} height="30px" fontSize="12px" />
+                  <PriceInput onChange={value => onChangeBiddingPrice(value)} height="30px" fontSize="12px" />
                   <GradientButton
                     label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"

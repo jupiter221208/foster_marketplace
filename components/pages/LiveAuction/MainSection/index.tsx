@@ -71,7 +71,8 @@ import { getShortAddress } from 'utils/strings'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { depositFunds, placeBid } from 'utils/auctioneer.util'
+import { placeBid } from 'utils/auctioneer.util'
+import { useWallets } from 'hooks/useWallets'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -167,9 +168,19 @@ const MainSection = () => {
   const [startTime, setStartTime] = useState<Date>(new Date())
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
+  const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
+
+  useEffect(() => {
+    if(isStarted && !isEnded) {
+      setShowPlaceBIdButton(true)
+    } else {
+      setShowPlaceBIdButton(false)
+    }
+  }, [isEnded, isStarted])
 
   const { metaplex: mx } = useMetaplex()
   const { connected } = useWallet()
+  const { updateSolBalance } = useWallets()
 
   const setListedNFT = async () => {
     const { auction, highest_bid } = await AuctionAPI.getListing(id)
@@ -197,11 +208,11 @@ const MainSection = () => {
   }, [mx, id, connected])
 
   const placeBidAndSave = async price => {
-    await depositFunds(mx, price)
     if (price[0] === '.') {
       price = '0' + price
     }
     const { bid } = await placeBid(mx, mintAddress, sellerAddress, price)
+    await updateSolBalance()
     AuctionAPI.placeBid(mintAddress.toBase58(), {
       mint_address: bid.mintAddress.toBase58(),
       buyer_address: bid.buyerAddress.toBase58(),
@@ -288,7 +299,7 @@ const MainSection = () => {
 
             <div className="w-full flex flex-wrap mt-10">
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                {isStarted && !isEnded && (
+                {showPlaceBidButton && (
                   <GradientButton
                     label="Place Bid"
                     disabled={isEnded}

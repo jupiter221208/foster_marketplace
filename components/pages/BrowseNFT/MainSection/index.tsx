@@ -73,6 +73,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import nftsAPI, { NFT } from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
+import { useWallets } from 'hooks/useWallets'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -175,22 +176,14 @@ const MainSection = () => {
   const [mintAddress, setMintAddress] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [nftCategories, setNftCategories] = useState([])
-  const [mainWalletBalance, setMainWalletBalance] = useState(0)
 
   const [isRunning, setIsRunning] = useState(false)
   const { id, type } = router.query
 
   const { metaplex: mx } = useMetaplex()
+  const { mainBalance: mainWalletBalance, updateSolBalance } = useWallets()
 
   const { connected } = useWallet()
-
-  useEffect(() => {
-    const getSolBalance = async () => {
-      const solBalance = await mx.connection.getBalance(mx.identity().publicKey)
-      setMainWalletBalance(Number(getPriceValue(solBalance)))
-    }
-    if (mx && connected) getSolBalance()
-  }, [mx, connected])
 
   const setListedNFT = async (mx, id) => {
     let nft = await getNFTDetailsByAddress(mx, id.toString())
@@ -206,6 +199,7 @@ const MainSection = () => {
   const quickBuy = async () => {
     setOpenProgressingModal(true)
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
+    await updateSolBalance()
     if (result) {
       setOpenProgressingModal(false)
       setShowAlert(true)
@@ -215,6 +209,7 @@ const MainSection = () => {
   const makeOffer = async price => {
     setOpenProgressingModal(true)
     const result = await offerNFT(mx, mintAddress, price)
+    await updateSolBalance()
     if (result) {
       listingsAPI.makeOffer(mintAddress, { amount: price }).then(response => {
         setAlertData([

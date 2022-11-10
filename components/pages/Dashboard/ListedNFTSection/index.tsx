@@ -26,6 +26,7 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
+import { useWallets } from 'hooks/useWallets'
 
 const ListedNFTSection = () => {
   const router = useRouter()
@@ -51,6 +52,8 @@ const ListedNFTSection = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const { metaplex: mx } = useMetaplex()
+
+  const { updateSolBalance } = useWallets()
 
   const [nftList, setNFTList] = useState([])
 
@@ -149,6 +152,7 @@ const ListedNFTSection = () => {
 
   const finalizeSale = async (mintAddress, sellerAddress, buyerAddress, price) => {
     const { sale } = await executeSale(mx, mintAddress, sellerAddress, buyerAddress, price)
+    await updateSolBalance()
     auctionAPI
       .executeSale(sale.mintAddress.toBase58(), {
         token_address: sale.mintAddress.toBase58(),

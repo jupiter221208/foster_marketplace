@@ -19,9 +19,7 @@ const AuctionCard = (props) => {
   })
 
   useEffect(() => {
-    setIsStarted(false)
-    setIsEnded(false)
-    const internalID = setInterval(() => {
+    const setCountDown = () => {
       const now = new Date()
       const start = startTime
       const end = endTime
@@ -41,7 +39,6 @@ const AuctionCard = (props) => {
           seconds: 0,
         })
         setIsEnded(true)
-        clearInterval(internalID)
         return
       }
       const days = Math.floor(t / (1000 * 60 * 60 * 24))
@@ -54,7 +51,20 @@ const AuctionCard = (props) => {
         minutes,
         seconds
       })
-    }, 1000)
+    }
+
+    let internalID
+
+    if(startTime && endTime) {
+      if(internalID) clearInterval(internalID)
+      internalID = setInterval(setCountDown, 1000)
+      const now = new Date()
+      const t = endTime.getTime() - now.getTime()
+      if(t < 0) {
+        clearInterval(internalID)
+      }
+    }
+
   }, [startTime, endTime])
 
   // useEffect(() => {
