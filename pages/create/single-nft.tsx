@@ -463,7 +463,6 @@ const SingleNft = () => {
                 </div>
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Preview Art</div>
-                  <canvas id="canvas" style={{ overflow: 'auto', display: 'none' }}></canvas>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     <FullScreen
                       onChange={onFullScreenChange}
@@ -640,7 +639,6 @@ const SingleNft = () => {
         : currentStep !== 4 && (
             // mobile part
             <div className="g-container mt-[26px] mb-[47px]">
-              <canvas id="canvas" style={{ overflow: 'auto', display: 'none' }}></canvas>
               {/* stepper part */}
               <div className="w-full">
                 <Stepper currentStep={currentStep} />
