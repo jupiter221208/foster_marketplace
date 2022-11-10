@@ -23,15 +23,21 @@ const MyNFTCard = props => {
         className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]"
         onClick={() => onClick(data)}
       >
-        <img
-          src={
-            data.offchainMetadata.image === undefined || data.offchainMetadata.image === null
-              ? AudioPlayerBackground.src
-              : data.offchainMetadata.image
-          }
-          alt={data.offchainMetadata.name || data.name}
-          className="w-full aspect-[321/321] object-cover"
-        />
+        {data.offchainMetadata.category === 'video' ? (
+          <video autoPlay loop muted>
+            <source src={data.offchainMetadata.animation_url} />
+          </video>
+        ) : (
+          <img
+            src={
+              data.offchainMetadata.image === undefined || data.offchainMetadata.image === null
+                ? AudioPlayerBackground.src
+                : data.offchainMetadata.image
+            }
+            alt={data.offchainMetadata.name || data.name}
+            className="w-full aspect-[321/321] object-cover"
+          />
+        )}
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">

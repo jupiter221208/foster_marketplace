@@ -401,7 +401,10 @@ const SingleNft = () => {
               token_id: address,
               nft_name: nft.name,
               categories: category.slice(0, -1),
-              asset_url: result['image'],
+              asset_url:
+                nftType === 'video' || nftType === 'audio' || nftType === 'image/gif'
+                  ? result['animation_url']
+                  : result['image'],
             })
             .then(
               response => {
