@@ -192,43 +192,6 @@ const SingleNft = () => {
   }, [nftArt])
 
   useEffect(() => {
-    if (nftType === 'video') {
-      const myInterval = setInterval(() => {
-        var video = document.getElementById('video')
-        if (isVideo(video)) {
-          if (video.readyState === 4) {
-            captureImage()
-            clearInterval(myInterval)
-          }
-        }
-      }, 500)
-      return () => clearInterval(myInterval)
-    }
-  }, [nftType])
-
-  const captureImage = () => {
-    var canvas = document.getElementById('canvas')
-    var video = document.getElementById('video')
-    if (isCanvas(canvas) && isVideo(video)) {
-      canvas.width = video.videoWidth !== 0 ? video.videoWidth : 1920
-      canvas.height = video.videoHeight !== 0 ? video.videoHeight : 1080
-      let ctx = canvas.getContext('2d')
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-      let image = canvas.toDataURL('image/jpeg')
-      setNftImage(image)
-    }
-  }
-
-  const isCanvas = (obj: HTMLCanvasElement | HTMLElement): obj is HTMLCanvasElement => {
-    return obj.tagName === 'CANVAS'
-  }
-
-  const isVideo = (obj: HTMLVideoElement | HTMLElement): obj is HTMLVideoElement => {
-    return obj.tagName === 'VIDEO'
-  }
-
-  useEffect(() => {
     if (nftCover !== null && nftCover !== undefined) {
       if (nftCover[0].type.split('/')[0] === 'image') {
         setOpenNftImageEditorModal(true)
@@ -528,7 +491,12 @@ const SingleNft = () => {
                         className={`${styles.artArea}`}
                         style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
                       >
-                        {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                        {nftType === 'video' ? (
+                          <video controls className="w-full" id="video">
+                            <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                            Your browser does not support the video tag.
+                          </video>
+                        ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                         ) : (
                           <div
@@ -567,15 +535,6 @@ const SingleNft = () => {
                         ) : (
                           <>&nbsp;</>
                         )}
-                      </div>
-                    )}
-
-                    {nftType === 'video' && (
-                      <div className="w-full h-full my-10">
-                        <video controls className="w-full" id="video">
-                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                          Your browser does not support the video tag.
-                        </video>
                       </div>
                     )}
 
@@ -711,7 +670,12 @@ const SingleNft = () => {
                     className={`${styles.artArea}`}
                     style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                   >
-                    {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                    {nftType === 'video' ? (
+                      <video controls className="w-full" id="video">
+                        <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
                       <div
@@ -752,15 +716,6 @@ const SingleNft = () => {
                         height="32px"
                       />
                     </div>
-                  </div>
-                )}
-
-                {nftType === 'video' && (
-                  <div className="w-full h-full">
-                    <video controls className="w-full" id="video">
-                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                      Your browser does not support the video tag.
-                    </video>
                   </div>
                 )}
 
