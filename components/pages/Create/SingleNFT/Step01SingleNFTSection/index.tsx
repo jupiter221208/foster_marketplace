@@ -79,7 +79,7 @@ const Step01SingleNFTSection = props => {
                     acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert()
                   }}
                   maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [] }}
+                  accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
@@ -142,7 +142,7 @@ const Step01SingleNFTSection = props => {
                     acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert()
                   }}
                   maxFiles={1}
-                  accept={{ 'image/jpeg': [], 'image/png': [] }}
+                  accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (

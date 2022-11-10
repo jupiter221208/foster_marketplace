@@ -337,7 +337,7 @@ const Step01CollectionSection = props => {
                         acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert()
                       }}
                       maxFiles={1}
-                      accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
                       maxSize={31457280}
                     >
                       {({ getRootProps, getInputProps, open }) => (
@@ -364,7 +364,7 @@ const Step01CollectionSection = props => {
                         acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert()
                       }}
                       maxFiles={1}
-                      accept={{ 'image/jpeg': [], 'image/png': [] }}
+                      accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
                       maxSize={31457280}
                     >
                       {({ getRootProps, getInputProps, open }) => (
@@ -509,7 +509,7 @@ const Step01CollectionSection = props => {
                   acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert()
                 }}
                 maxFiles={1}
-                accept={{ 'image/jpeg': [], 'image/png': [] }}
+                accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
                 maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
@@ -538,7 +538,7 @@ const Step01CollectionSection = props => {
                   acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert()
                 }}
                 maxFiles={1}
-                accept={{ 'image/jpeg': [], 'image/png': [] }}
+                accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
                 maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
