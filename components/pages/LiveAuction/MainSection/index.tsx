@@ -198,6 +198,9 @@ const MainSection = () => {
 
   const placeBidAndSave = async price => {
     await depositFunds(mx, price)
+    if (price[0] === '.') {
+      price = '0' + price
+    }
     const { bid } = await placeBid(mx, mintAddress, sellerAddress, price)
     AuctionAPI.placeBid(mintAddress.toBase58(), {
       mint_address: bid.mintAddress.toBase58(),
