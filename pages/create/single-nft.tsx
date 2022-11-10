@@ -306,7 +306,7 @@ const SingleNft = () => {
   const createNft = async () => {
     try {
       let reader = new FileReader()
-      const fileData = b64toBlob(await getBase64FromUrl(nftImage))
+      const fileData = nftType !== 'image' ? new Blob([nftArt[0]]) : b64toBlob(await getBase64FromUrl(nftImage))
       reader.readAsArrayBuffer(fileData)
       reader.onload = async event => {
         dispatch({ type: 'set', isLoading: true })
