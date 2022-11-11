@@ -106,7 +106,11 @@ const Collection = () => {
       let object: any = {}
       object.id = index
       object.file = item
-      object.type = item.type.split('/')[0]
+      if (item.type === 'image/gif') {
+        object.type = item.type
+      } else {
+        object.type = item.type.split('/')[0]
+      }
       object.name = ''
       object.description = ''
       if (object.type === 'audio' || object.type === 'video') object.croppedImage = coverCroppedImage

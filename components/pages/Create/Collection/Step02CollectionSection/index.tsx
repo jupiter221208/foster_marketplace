@@ -180,53 +180,15 @@ const Step02CollectionSection = props => {
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
+    console.log('.type', selectedCollectionFile)
     if (
       selectedCollectionFile !== undefined &&
-      selectedCollectionFile.type === 'video' &&
-      selectedCollectionFile.croppedImage === undefined
-    ) {
-      const myInterval = setInterval(() => {
-        var video = document.getElementById('video')
-        if (isVideo(video)) {
-          if (video.readyState === 4) {
-            setTimeout(() => {
-              captureImage()
-            }, 500)
-            clearInterval(myInterval)
-          }
-        }
-      }, 500)
-      return () => clearInterval(myInterval)
-    } else if (
-      selectedCollectionFile !== undefined &&
-      selectedCollectionFile.type === 'audio' &&
+      selectedCollectionFile.type === 'image' &&
       selectedCollectionFile.croppedImage === undefined
     ) {
       onChangeCroppedImage(AudioPlayer.src, selectedCollectionFile.id)
     }
   }, [selectedCollectionFile])
-
-  const captureImage = async () => {
-    var canvas = document.getElementById('canvas')
-    var video = document.getElementById('video')
-    if (isCanvas(canvas) && isVideo(video)) {
-      canvas.width = video.videoWidth !== 0 ? video.videoWidth : 1920
-      canvas.height = video.videoHeight !== 0 ? video.videoHeight : 1080
-      let ctx = canvas.getContext('2d')
-      await ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-      let image = await canvas.toDataURL('image/jpeg')
-      onChangeCroppedImage(image, selectedCollectionFile.id)
-    }
-  }
-
-  const isCanvas = (obj: HTMLCanvasElement | HTMLElement): obj is HTMLCanvasElement => {
-    return obj.tagName === 'CANVAS'
-  }
-
-  const isVideo = (obj: HTMLVideoElement | HTMLElement): obj is HTMLVideoElement => {
-    return obj.tagName === 'VIDEO'
-  }
 
   useEffect(() => {
     if (collectionFiles !== undefined && collectionFiles.length !== 0) {
@@ -264,7 +226,6 @@ const Step02CollectionSection = props => {
 
   return (
     <div className="w-full">
-      <canvas id="canvas" style={{ overflow: 'auto', display: 'none' }}></canvas>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
@@ -281,29 +242,41 @@ const Step02CollectionSection = props => {
                     className={styles.imageArea}
                     style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
                   >
-                    {selectedCollectionFile !== undefined && (
-                      <img
-                        src={
-                          selectedCollectionFile.croppedImage !== ''
-                            ? selectedCollectionFile.croppedImage
-                            : URL.createObjectURL(selectedCollectionFile.file)
-                        }
-                        alt=""
-                        className="w-full h-full object-contain rounded-[6px]"
-                      />
+                    {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
+                      <video controls className="w-full" id="video">
+                        <source
+                          src={URL.createObjectURL(selectedCollectionFile.file)}
+                          type={selectedCollectionFile.file.type}
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    ) : (
+                      selectedCollectionFile !== undefined && (
+                        <img
+                          src={
+                            selectedCollectionFile.croppedImage !== ''
+                              ? selectedCollectionFile.croppedImage
+                              : URL.createObjectURL(selectedCollectionFile.file)
+                          }
+                          alt=""
+                          className="w-full h-full object-contain rounded-[6px]"
+                        />
+                      )
                     )}
                   </div>
                 </div>
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  <IconButton
-                    icon={EditorGrayIcon}
-                    onClick={() => setOpenImageEditorModal(true)}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
+                  {selectedCollectionFile.type === 'image' && (
+                    <IconButton
+                      icon={EditorGrayIcon}
+                      onClick={() => setOpenImageEditorModal(true)}
+                      backgroundColor="transparent"
+                      width="32px"
+                      height="32px"
+                    />
+                  )}
                   <IconButton
                     icon={FullScreenGrayIcon}
                     onClick={() => {}}
@@ -318,17 +291,6 @@ const Step02CollectionSection = props => {
                     iconWidth={24}
                     iconHeight={24}
                   />
-                </div>
-              )}
-              {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' && (
-                <div className="w-full h-full">
-                  <video controls className="w-full" id="video">
-                    <source
-                      src={URL.createObjectURL(selectedCollectionFile.file)}
-                      type={selectedCollectionFile.file.type}
-                    />
-                    Your browser does not support the video tag.
-                  </video>
                 </div>
               )}
 
@@ -631,28 +593,40 @@ const Step02CollectionSection = props => {
                   className={styles.imageArea}
                   style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                 >
-                  {selectedCollectionFile !== undefined && (
-                    <img
-                      src={
-                        selectedCollectionFile.croppedImage !== ''
-                          ? selectedCollectionFile.croppedImage
-                          : URL.createObjectURL(selectedCollectionFile.file)
-                      }
-                      alt=""
-                      className="w-full h-full object-contain rounded-[6px]"
-                    />
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
+                    <video controls className="w-full" id="video">
+                      <source
+                        src={URL.createObjectURL(selectedCollectionFile.file)}
+                        type={selectedCollectionFile.file.type}
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    selectedCollectionFile !== undefined && (
+                      <img
+                        src={
+                          selectedCollectionFile.croppedImage !== ''
+                            ? selectedCollectionFile.croppedImage
+                            : URL.createObjectURL(selectedCollectionFile.file)
+                        }
+                        alt=""
+                        className="w-full h-full object-contain rounded-[6px]"
+                      />
+                    )
                   )}
                 </div>
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  <IconButton
-                    icon={EditorGrayIcon}
-                    onClick={() => setOpenImageEditorModal(true)}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
+                  {selectedCollectionFile.type === 'image' && (
+                    <IconButton
+                      icon={EditorGrayIcon}
+                      onClick={() => setOpenImageEditorModal(true)}
+                      backgroundColor="transparent"
+                      width="32px"
+                      height="32px"
+                    />
+                  )}
                   <IconButton
                     icon={FullScreenGrayIcon}
                     onClick={() => {}}
@@ -670,17 +644,6 @@ const Step02CollectionSection = props => {
                 </div>
               )}
             </div>
-            {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' && (
-              <div className="w-full h-full">
-                <video controls className="w-full" id="video">
-                  <source
-                    src={URL.createObjectURL(selectedCollectionFile.file)}
-                    type={selectedCollectionFile.file.type}
-                  />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            )}
 
             {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
               <div className="w-full mt-[14px]">

@@ -65,6 +65,9 @@
   background-color: rgba($background-light-color, 0.25);
   padding: 5px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 // right part
