@@ -15,13 +15,14 @@ import styles from './index.module.scss'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const LiveAuctionCard = props => {
-  const { image, nftName, artistName, count, endsIn, onClick } = props
+  const { data, onClick } = props
+
   const viewport = useViewport()
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(endsIn))
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(Number(data.end_time) * 1000))
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft(endsIn))
+      setTimeLeft(calculateTimeLeft(Number(data.end_time) * 1000))
     }, 60000)
 
     return () => clearTimeout(timer)
@@ -31,16 +32,15 @@ const LiveAuctionCard = props => {
     <div className={styles.container} onClick={() => onClick()}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}
-          <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+          <img src={data.asset_url} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
         </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{nftName}</div>
+          <div className={styles.nftName}>{data.nft_name}</div>
         </div>
         <div className="w-full flex items-center mt-[2px] lg:mt-[4px]">
-          <div className={styles.artistName}>{artistName}</div>
+          <div className={styles.artistName}>{data.artist_username}</div>
           <div className="pl-[6px] flex items-center">
             <Image
               src={CheckedGreenIcon}
@@ -62,7 +62,7 @@ const LiveAuctionCard = props => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : viewport === 'xl' ? 18 : 23}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : viewport === 'xl' ? 18 : 23}
               />
-              <div className={styles.bidCount}>{count}</div>
+              <div className={styles.bidCount}>{data.reserve_price}</div>
             </div>
             <div className={styles.bidDesc}>Reserve Met</div>
           </div>

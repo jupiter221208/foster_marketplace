@@ -26,16 +26,15 @@ import LiveAuctionList from 'assets/json/live-auction.json'
 // styles
 import styles from './index.module.scss'
 
+// call apis
+import dashboardAPI from 'apis/dashboard'
+
 const LiveAuctionSection = () => {
   const viewport = useViewport()
   const router = useRouter()
 
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
-
-  useEffect(() => {
-    setLiveAuctionList(LiveAuctionList)
-  }, [viewport])
 
   const handleChangeActive = value => {
     setActive(value)
@@ -55,6 +54,18 @@ const LiveAuctionSection = () => {
         break
     }
   }
+
+  useEffect(() => {
+    dashboardAPI.getLiveAuctions().then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        console.log('response', response)
+        setLiveAuctionList(response)
+      }
+    }),
+      error => {
+        console.log(error)
+      }
+  }, [])
 
   return (
     <section className={styles.container}>
@@ -103,12 +114,8 @@ const LiveAuctionSection = () => {
           {liveAuctionList.map((item: any, index) => (
             <SwiperSlide key={index}>
               <LiveAuctionCard
-                image={item.image}
-                nftName={item.nftName}
-                artistName={item.artistName}
-                count={item.count}
-                endsIn={item.endsIn}
-                onClick={() => router.push('/live-auction')}
+                data={item}
+                onClick={() => router.push('/live-auction?id=' + item.token_id)}
                 key={index}
               />
             </SwiperSlide>

@@ -39,6 +39,12 @@ class Dashboard {
     })
   }
 
+  getLiveAuctions() {
+    return client.get(API_URL + 'v1/dashboard/live-auctions').then(response => {
+      return response.data
+    })
+  }
+
   getNftPublic() {
     return client.get(API_URL + 'v1/nfts/public').then(response => {
       return response.data
