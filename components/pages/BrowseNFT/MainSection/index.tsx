@@ -233,31 +233,19 @@ const MainSection = () => {
       nftsAPI.getDetail(id).then(
         (response: NFT) => {
           if (response !== null) {
-            if (response.asset_type === 'static') {
-              setNftType('image')
-              setNftUrl(response.asset_url)
-            } else if (response.asset_type === 'dynamic') {
-              let asset_type: string
-              switch (response.asset_url.slice(-3)) {
-                case 'mp4' || 'gif':
-                  asset_type = 'video'
-                  break
-                default:
-                  asset_type = 'audio'
-                  break
-              }
-              setNftType(asset_type)
-              setNftUrl(response.asset_url)
-              setNftCoverUrl(response.cover_image_url || '')
-            } else {
-              setNftType('image')
-              setNftUrl(response.asset_url)
-            }
+            let type = 'image'
+            if (response.asset_type === 'image') type = 'image'
+            else if (response.asset_type.includes('video')) type = 'video'
+            else if (response.asset_type.includes('audio')) type = 'audio'
+
+            setNftType(type)
+            setNftUrl(response.asset_url)
             setNftName(response.name)
             setNftCollectionAddress(response.collection_address)
             setNftCollectionName(response.collection_name)
             setNftOwnerAddress(response.owner_address)
             setNftOwnerUsername(response.owner_username)
+            setNftCoverUrl(response.cover_image_url)
             setNftCreatorAddress(response.creator_address)
             setNftCreatorUsername(response.creator_username)
             setNftDescription(response.description)
@@ -378,11 +366,11 @@ const MainSection = () => {
                 <img src={nftUrl} alt="" />
                 <div className={styles.mobileImageBackground} />
               </div>
-            ) : nftType === 'audio' ? (
+            ) : nftType.includes('audio') ? (
               <div className={styles.audioArea}>
                 <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
               </div>
-            ) : nftType === 'video' ? (
+            ) : nftType.includes('video') ? (
               <div className={styles.audioArea}>
                 <video controls muted>
                   <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
