@@ -178,12 +178,10 @@ const MainSection = () => {
   const [nftCategories, setNftCategories] = useState([])
 
   const [isRunning, setIsRunning] = useState(false)
-  const { id, type } = router.query
+  const { id } = router.query
 
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, updateSolBalance } = useWallets()
-
-  const { connected } = useWallet()
 
   const setListedNFT = async (mx, id) => {
     let nft = await getNFTDetailsByAddress(mx, id.toString())

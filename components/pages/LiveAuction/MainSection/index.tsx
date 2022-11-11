@@ -12,7 +12,7 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 import AuctionAPI from 'apis/auctions'
 
 // solana
-import { getNFTByAddress } from 'utils/nfts.utils'
+import { getNFTOwner } from 'utils/nfts.utils'
 
 import {
   Chart as ChartJS,
@@ -42,7 +42,6 @@ import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import { useViewport } from 'utils'
 
 // images and icons
-import Avatar from 'assets/images/live-auction.png'
 import SolanaAuctionIcon from 'assets/icons/solana-auction.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg'
@@ -66,12 +65,15 @@ import styles from './index.module.scss'
 import Select from 'components/Select'
 
 // solana
-import { getShortAddress } from 'utils/strings'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { placeBid } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
+
+// call apis
+import nftsAPI, { NFT } from 'apis/nfts'
+import usersAPI from 'apis/user'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -79,9 +81,6 @@ const MainSection = () => {
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any>(null)
-  const [like, setLike] = useState<boolean>(false)
-  const [share, setShare] = useState<boolean>(false)
-  const [favorite, setFavorite] = useState<boolean>(false)
   const [showAlert, setShowAlert] = useState<boolean>(false)
 
   const clickRecent = index => {
@@ -152,15 +151,14 @@ const MainSection = () => {
   const { id } = router.query
 
   const [nftUrl, setNftUrl] = useState('')
-  const [collectionName, setCollectionName] = useState('')
   const [nftName, setNftName] = useState('')
   const [nftDescription, setNftDescription] = useState('')
-  const [nftRoyalties, setNftRoyalties] = useState(0)
+  const [nftRoyalties, setNftRoyalties] = useState(1)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [nftCreatorAddress, setNftCreatorAddress] = useState('')
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
-  const [mintAddress, setMintAddress] = useState<PublicKey>()
+  const [mintAddress, setMintAddress] = useState('')
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [nftCategories, setNftCategories] = useState([])
   const [endTime, setEndTime] = useState<Date>(new Date())
@@ -168,6 +166,17 @@ const MainSection = () => {
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
+  const [nftCollectionAddress, setNftCollectionAddress] = useState('')
+  const [nftCollectionName, setNftCollectionName] = useState('')
+  const [nftOwnerUsername, setNftOwnerUsername] = useState('')
+  const [nftCreatorUsername, setNftCreatorUsername] = useState('')
+
+  const [like, setLike] = useState<boolean>(false)
+  const [likeCount, setLikeCount] = useState(0)
+  const [share, setShare] = useState<boolean>(false)
+  const [shareCount, setShareCount] = useState(0)
+  const [save, setSave] = useState<boolean>(false)
+  const [saveCount, setSaveCount] = useState(0)
 
   useEffect(() => {
     if (isStarted && !isEnded) {
@@ -180,57 +189,174 @@ const MainSection = () => {
   const { metaplex: mx } = useMetaplex()
   const { connected } = useWallet()
   const { updateSolBalance } = useWallets()
-
-  const setListedNFT = async () => {
-    const { auction, highest_bid } = await AuctionAPI.getListing(id)
-    const nft = await getNFTByAddress(mx, new PublicKey(auction.mint_address))
-    setNftName(nft.json.name)
-    setNftUrl(nft.json.image)
-    setNftDescription(nft.json.description)
-    setNftRoyalties(nft.sellerFeeBasisPoints / 100)
-    setNftCreatorAddress(nft.creators[0].address.toBase58())
-    setNftOwnerAddress(nft.owner)
-    const categories = nft.json.attributes.map(attribute => {
-      return attribute.value
-    })
-    setNftCategories(categories)
-    setNftReservePrice(Number(auction.reserve_price))
-    setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
-    setMintAddress(nft.address)
-    setSellerAddress(new PublicKey(auction.seller_address))
-    setEndTime(new Date(Number(auction.end_time) * 1000))
-    setStartTime(new Date(Number(auction.start_time) * 1000))
-  }
+  const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
-    if (mx && id && connected) setListedNFT()
-  }, [mx, id, connected])
+    if (id !== '') {
+      getNftDetailInfo()
+    }
+  }, [id])
+
+  function getNftDetailInfo() {
+    nftsAPI.getDetail(id).then(
+      (response: NFT) => {
+        if (response !== null) {
+          setNftUrl(response.asset_url)
+          setNftName(response.name)
+          setNftCollectionAddress(response.collection_address)
+          setNftCollectionName(response.collection_name)
+          setNftOwnerAddress(response.owner_address)
+          setNftOwnerUsername(response.owner_username)
+          setNftCreatorAddress(response.creator_address)
+          setNftCreatorUsername(response.creator_username)
+          setNftDescription(response.description)
+          setNftCategories(response.categories?.split(','))
+
+          setMintAddress(response.address)
+          setLikeCount(response.likes >= 0 ? response.likes : 0)
+          setShareCount(response.shares >= 0 ? response.shares : 0)
+          setSaveCount(response.saves >= 0 ? response.saves : 0)
+          setLike(response.liked)
+          setSave(response.saved)
+          let shared = response.shared
+          if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
+          else setShare(false)
+
+          if (response.listing_status === 'auctioned') {
+            const auction = response.auction.auction
+            const highest_bid = response.auction.highest_bid
+            setNftReservePrice(Number(auction.reserve_price))
+            setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+            setSellerAddress(new PublicKey(auction.seller_address))
+            setEndTime(new Date(Number(auction.end_time) * 1000))
+            setStartTime(new Date(Number(auction.start_time) * 1000))
+          }
+
+          if (response.owner_address === '') {
+            getNFTOwner(mx, id as string).then(owner => {
+              setNftOwnerAddress(owner.address)
+              usersAPI.get(owner).then(user => {
+                setNftOwnerUsername(user.username)
+              })
+            })
+          }
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+  // const setListedNFT = async () => {
+  //   const { auction, highest_bid } = await AuctionAPI.getListing(id)
+  //   const nft = await getNFTByAddress(mx, new PublicKey(auction.mint_address))
+  //   setNftRoyalties(nft.sellerFeeBasisPoints / 100)
+  // }
+
+  // useEffect(() => {
+  //   if (mx && id && connected) setListedNFT()
+  // }, [mx, id, connected])
 
   const placeBidAndSave = async price => {
     if (price[0] === '.') {
       price = '0' + price
     }
-    const { bid } = await placeBid(mx, mintAddress, sellerAddress, price)
+    const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
     await updateSolBalance()
-    AuctionAPI.placeBid(mintAddress.toBase58(), {
+    AuctionAPI.placeBid(mintAddress, {
       mint_address: bid.mintAddress.toBase58(),
       buyer_address: bid.buyerAddress.toBase58(),
       amount: bid.amount.toString(),
     }).then(res => {
       if (res) {
         setShowModalPlaceBid(false)
-        setAlertData([
-          {
-            id: 0,
-            title: 'Successful bid!',
-            description: `You've successfully placed a bid on ${nftName}`,
-            type: 'success',
-          },
-        ])
-        setShowAlert(true)
-        setListedNFT()
+        setNftCurrentPrice(Number(bid.amount.toString()))
+        setTimeout(() => {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Successful bid!',
+              description: `You've successfully placed a bid on ${nftName}`,
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+        }, 500)
+        // setListedNFT()
       }
     })
+  }
+
+  const changeLikeStatus = () => {
+    if (isRunning) return
+
+    let newStatus = !like
+    setIsRunning(true)
+
+    if (newStatus) {
+      nftsAPI.likeNft(id).then(
+        response => {
+          if (response !== null) {
+            setLikeCount(likeCount + 1)
+            setLike(newStatus)
+          }
+          setIsRunning(false)
+        },
+        error => {
+          setIsRunning(false)
+        }
+      )
+    } else {
+      nftsAPI.unlikeNft(id).then(
+        response => {
+          console.log(response)
+          if (response !== null) {
+            setLikeCount(likeCount - 1)
+            setLike(newStatus)
+          }
+          setIsRunning(false)
+        },
+        error => {
+          setIsRunning(false)
+        }
+      )
+    }
+  }
+
+  const changeSaveStatus = () => {
+    if (isRunning) return
+
+    let newStatus = !save
+    setIsRunning(true)
+
+    if (newStatus) {
+      nftsAPI.saveNft(id).then(
+        response => {
+          if (response !== null) {
+            setSaveCount(saveCount + 1)
+            setSave(newStatus)
+          }
+          setIsRunning(false)
+        },
+        error => {
+          setIsRunning(true)
+        }
+      )
+    } else {
+      nftsAPI.unsaveNft(id).then(
+        response => {
+          console.log(response)
+          if (response !== null) {
+            setSaveCount(saveCount - 1)
+            setSave(newStatus)
+          }
+          setIsRunning(false)
+        },
+        error => {
+          setIsRunning(true)
+        }
+      )
+    }
   }
 
   return (
@@ -258,23 +384,30 @@ const MainSection = () => {
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex justify-between items-center">
-                <div className={styles.greenTitle}>{collectionName}</div>
+                <div
+                  className={styles.greenTitle}
+                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                >
+                  {nftCollectionName}
+                </div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex items-center cursor-pointer" onClick={() => setLike(!like)}>
+                  <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{like ? 255 : 254}</div>
+                    <div className={styles.text}>{likeCount}</div>
                   </div>
                   <MenuSocialShare
-                    address=""
+                    address={id}
                     icon01={EmailWhiteIcon}
                     icon02={EmailGreenIcon}
                     vote={share}
-                    voteCount={share ? 255 : 254}
-                    onClick={() => setShare(!share)}
+                    setVote={setShare}
+                    voteCount={shareCount}
+                    setVoteCount={setShareCount}
+                    onClick={() => {}}
                   />
-                  <div className="flex items-center cursor-pointer" onClick={() => setFavorite(!favorite)}>
-                    <Image src={favorite ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{favorite ? 255 : 254}</div>
+                  <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
+                    <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                    <div className={styles.text}>{saveCount}</div>
                   </div>
                 </div>
               </div>
@@ -285,13 +418,13 @@ const MainSection = () => {
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
                 <div
                   className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
-                  onClick={() => router.push('/artist-profile')}
+                  onClick={() => router.push(`/artist-profile/${nftCreatorUsername}`)}
                 >
-                  {getShortAddress(nftCreatorAddress)}
+                  {nftCreatorUsername}
                 </div>
                 <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
-                <div className={styles.greenText} onClick={() => router.push('/artist-profile')}>
-                  {getShortAddress(nftOwnerAddress)}
+                <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftOwnerAddress}`)}>
+                  {nftOwnerUsername}
                 </div>
               </div>
             </div>

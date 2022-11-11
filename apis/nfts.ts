@@ -25,6 +25,7 @@ export type NFT = {
   shared: NftShareData
   listing_status: string
   listing: NftListing | null | undefined
+  auction: NftAuctionData | null | undefined
   created_at: String
 }
 
@@ -41,6 +42,35 @@ export type NftListing = {
   result: string | null | undefined
   created_at: string
   list_price: string
+}
+
+export type NftAuctionData = {
+  auction: NftAuction
+  highest_bid: NftHighestBid
+}
+
+export type NftAuction = {
+  id: number
+  mint_address: string
+  associated_address: string
+  free_trade_state: string
+  metadata: string
+  signer: string
+  seller_address: string
+  start_time: string
+  end_time: string
+  reserve_price: string
+  canceled_at: string
+  sold_at: string
+  created_at: string
+}
+
+export type NftHighestBid = {
+  id: number
+  mint_address: string
+  buyer_address: string
+  amount: string
+  created_at: string
 }
 
 class Nfts {
