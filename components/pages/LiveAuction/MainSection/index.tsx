@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
-
-import Alert from 'components/Alert'
 
 // apis
 import AuctionAPI from 'apis/auctions'
@@ -33,6 +31,7 @@ import faker from 'faker'
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
 
 // components
+import Alert from 'components/Alert'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
@@ -171,7 +170,7 @@ const MainSection = () => {
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
 
   useEffect(() => {
-    if(isStarted && !isEnded) {
+    if (isStarted && !isEnded) {
       setShowPlaceBIdButton(true)
     } else {
       setShowPlaceBIdButton(false)
@@ -240,17 +239,17 @@ const MainSection = () => {
         <div className="col-span-2 lg:col-span-1">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className={styles.mobileImageArea}>
-              <Image src={nftUrl} alt="" objectFit="cover" />
+              <img src={nftUrl} alt="" className="w-full h-full object-cover" />
               <div className={styles.mobileImageBackground} />
             </div>
           ) : (
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
-                <Image src={nftUrl} alt="" layout="fill" objectFit="cover" />
+                <img src={nftUrl} alt="" className="w-full h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
               <div className={styles.imageArea}>
-                <Image src={nftUrl} alt="" width={Avatar.width} height={Avatar.height} objectFit="contain" />
+                <img src={nftUrl} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
               </div>
             </div>
           )}
