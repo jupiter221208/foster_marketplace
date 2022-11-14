@@ -99,7 +99,7 @@ const Step01CollectionSection = props => {
 
   useEffect(() => {
     if (coverImage !== null && coverImage !== undefined) {
-      if (coverImage[0].type.split('/')[0] === 'image') {
+      if (coverImage[0].type.split('/')[0] === 'image' && coverImage[0].type !== 'image/gif') {
         setOpenCoverImageEditorModal(true)
       }
     }
@@ -107,7 +107,7 @@ const Step01CollectionSection = props => {
 
   useEffect(() => {
     if (bannerImage !== null && bannerImage !== undefined) {
-      if (bannerImage[0].type.split('/')[0] === 'image') {
+      if (bannerImage[0].type.split('/')[0] === 'image' && bannerImage[0].type !== 'image/gif') {
         setOpenBannerImageEditorModal(true)
       }
     }
@@ -241,7 +241,13 @@ const Step01CollectionSection = props => {
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
                     <Image
-                      src={bannerCroppedImage !== undefined ? bannerCroppedImage : BannerImage}
+                      src={
+                        bannerCroppedImage !== undefined
+                          ? bannerCroppedImage
+                          : bannerImage === undefined
+                          ? BannerImage
+                          : URL.createObjectURL(bannerImage[0])
+                      }
                       width={758}
                       height={194}
                       alt=""
@@ -262,7 +268,13 @@ const Step01CollectionSection = props => {
                 <div className="w-full flex justify-center -mt-16">
                   <div className={styles.coverImageArea}>
                     <Image
-                      src={coverCroppedImage !== undefined ? coverCroppedImage : CoverImage}
+                      src={
+                        coverCroppedImage !== undefined
+                          ? coverCroppedImage
+                          : coverImage === undefined
+                          ? CoverImage
+                          : URL.createObjectURL(coverImage[0])
+                      }
                       width={160}
                       height={160}
                       alt=""

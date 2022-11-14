@@ -53,7 +53,7 @@ const Collection = () => {
   // step 2
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
-  const [coverImageBuffer, setCoverImageButter] = useState(null)
+  const [coverImageBuffer, setCoverImageBuffer] = useState(null)
 
   const mintCollection = async () => {
     let reader = new FileReader()
@@ -61,7 +61,7 @@ const Collection = () => {
     reader.readAsArrayBuffer(fileData)
     reader.onload = async function (event) {
       const arrayBuffer = reader.result as ArrayBuffer
-      setCoverImageButter(arrayBuffer)
+      setCoverImageBuffer(arrayBuffer)
 
       const categories = categoryList.filter(item => item.checked)
 
