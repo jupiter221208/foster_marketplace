@@ -180,10 +180,9 @@ const Step02CollectionSection = props => {
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
-    console.log('.type', selectedCollectionFile)
     if (
       selectedCollectionFile !== undefined &&
-      selectedCollectionFile.type === 'image' &&
+      selectedCollectionFile.type === 'audio' &&
       selectedCollectionFile.croppedImage === undefined
     ) {
       onChangeCroppedImage(AudioPlayer.src, selectedCollectionFile.id)
@@ -268,7 +267,7 @@ const Step02CollectionSection = props => {
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {selectedCollectionFile.type === 'image' && (
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
                     <IconButton
                       icon={EditorGrayIcon}
                       onClick={() => setOpenImageEditorModal(true)}
@@ -378,18 +377,25 @@ const Step02CollectionSection = props => {
                               : styles.nonSelectedImage
                           }
                         >
-                          <Image
-                            src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                            alt=""
-                            width={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            height={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            objectFit="cover"
-                            className="rounded-lg"
-                          />
+                          {item.type === 'video' ? (
+                            <video loop autoPlay className="w-full" id="video">
+                              <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                              Your browser does not support the video tag.
+                            </video>
+                          ) : (
+                            <Image
+                              src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
+                              alt=""
+                              width={
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                              }
+                              height={
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                              }
+                              objectFit="cover"
+                              className="rounded-lg"
+                            />
+                          )}
                         </div>
                         <div className="flex-1 block h-[120px]">
                           <div
@@ -477,18 +483,25 @@ const Step02CollectionSection = props => {
                               : styles.nonSelectedImage
                           }
                         >
-                          <Image
-                            src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                            alt=""
-                            width={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            height={
-                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                            }
-                            objectFit="cover"
-                            className="rounded-lg"
-                          />
+                          {item.type === 'video' ? (
+                            <video loop autoPlay className="w-full" id="video">
+                              <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                              Your browser does not support the video tag.
+                            </video>
+                          ) : (
+                            <Image
+                              src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
+                              alt=""
+                              width={
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                              }
+                              height={
+                                selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                              }
+                              objectFit="cover"
+                              className="rounded-lg"
+                            />
+                          )}
                         </div>
                         <div className="flex-1 block h-[120px]">
                           <div
@@ -715,14 +728,25 @@ const Step02CollectionSection = props => {
                           : styles.nonSelectedImage
                       }
                     >
-                      <Image
-                        src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                        alt=""
-                        width={selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68}
-                        height={selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68}
-                        objectFit="cover"
-                        className="rounded-lg"
-                      />
+                      {item.type === 'video' ? (
+                        <video loop autoPlay className="w-full" id="video">
+                          <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <Image
+                          src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
+                          alt=""
+                          width={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          height={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          objectFit="cover"
+                          className="rounded-lg"
+                        />
+                      )}
                     </div>
                     <IconButton
                       icon={TrashGrayIcon}
@@ -803,14 +827,25 @@ const Step02CollectionSection = props => {
                           : styles.nonSelectedImage
                       }
                     >
-                      <Image
-                        src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                        alt=""
-                        width={selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68}
-                        height={selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68}
-                        objectFit="cover"
-                        className="rounded-lg"
-                      />
+                      {item.type === 'video' ? (
+                        <video loop autoPlay className="w-full" id="video">
+                          <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <Image
+                          src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
+                          alt=""
+                          width={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          height={
+                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                          }
+                          objectFit="cover"
+                          className="rounded-lg"
+                        />
+                      )}
                     </div>
                     <IconButton
                       icon={TrashGrayIcon}
