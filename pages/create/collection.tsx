@@ -18,6 +18,9 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@metaplex-foundation/js'
 
+// images and icons
+import AudioPlayer from 'assets/images/audio-player.png'
+
 // call apis
 import axios from 'axios'
 import collectionsAPI from 'apis/collections'
@@ -111,10 +114,13 @@ const Collection = () => {
       } else {
         object.type = item.type.split('/')[0]
       }
+      if (item.type.split('/')[0] === 'audio') {
+        object.croppedImage = AudioPlayer.src
+      } else if (item.type.split('/')[0] === 'image') {
+        object.croppedImage = URL.createObjectURL(item)
+      }
       object.name = ''
       object.description = ''
-      if (object.type === 'audio' || object.type === 'video') object.croppedImage = coverCroppedImage
-      else object.croppedImage = URL.createObjectURL(item)
       array.push(object)
     })
     setCollectionFiles(array)
@@ -283,9 +289,7 @@ const Collection = () => {
     }
     collectionsAPI.mintCollection(collectionInfo).then(
       response => {},
-      error => {
-        console.log(error)
-      }
+      error => {}
     )
     setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
   }
