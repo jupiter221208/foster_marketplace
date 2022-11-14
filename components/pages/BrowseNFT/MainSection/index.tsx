@@ -434,7 +434,12 @@ const MainSection = () => {
                     <div className={styles.text}>{saveCount}</div>
                   </div>
                 </div>
-                <div className={`${styles.greenTitle} w-full flex lg:hidden`}>The GB Series</div>
+                <div
+                  className={`${styles.greenTitle} w-full flex lg:hidden`}
+                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                >
+                  {nftCollectionName}
+                </div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
                 <div className={styles.title}>{nftName}</div>
