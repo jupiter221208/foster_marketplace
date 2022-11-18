@@ -14,7 +14,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.svg'
 import styles from './index.module.scss'
 
 const DashboardNFTCard = props => {
-  const { image, nftName, artistName, price, onClick } = props
+  const { image, nftName, artistName, assetType, price, onClick } = props
   const viewport = useViewport()
 
   return (
