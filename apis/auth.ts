@@ -6,7 +6,7 @@ class Auth {
   login(authInfo) {
     return axios.post(API_URL + 'v1/login', authInfo).then(response => {
       if (response.data.token !== null) {
-        localStorage.setItem('token', JSON.stringify(response.data.token))
+        localStorage.setItem('token', response.data.token)
       }
       return response.data
     })
