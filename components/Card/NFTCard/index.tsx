@@ -28,7 +28,7 @@ const DashboardNFTCard = props => {
               muted
               className="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]"
             >
-              <source src={image} />
+              <source src={image} type="video/mp4" />
             </video>
           ) : (
             <img

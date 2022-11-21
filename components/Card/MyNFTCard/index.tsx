@@ -25,7 +25,7 @@ const MyNFTCard = props => {
       >
         {data.offchainMetadata.category === 'video' ? (
           <video autoPlay loop muted className="w-full aspect-[321/321] object-cover">
-            <source src={data.offchainMetadata.animation_url} />
+            <source src={data.offchainMetadata.animation_url} type="video/mp4" />
           </video>
         ) : (
           <img
