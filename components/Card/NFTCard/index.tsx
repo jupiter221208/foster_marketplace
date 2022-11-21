@@ -22,7 +22,12 @@ const DashboardNFTCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {assetType === 'video' ? (
-            <video autoPlay loop muted>
+            <video
+              autoPlay
+              loop
+              muted
+              className="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]"
+            >
               <source src={image} />
             </video>
           ) : (
