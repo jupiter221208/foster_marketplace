@@ -24,10 +24,16 @@ const MyNFTCard = props => {
         onClick={() => onClick(data)}
       >
         {data.offchainMetadata.category === 'video' ? (
-          <video autoPlay loop muted className="w-full aspect-[321/321] object-cover">
-            <source src={data.offchainMetadata.animation_url} type="video/mp4" />
-          </video>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  <source src=${data.offchainMetadata.animation_url} type="video/mp4" /></video>`,
+            }}
+          />
         ) : (
+          // <video autoPlay loop muted webkit-playsInline playsInline className="w-full aspect-[321/321] object-cover">
+          //   <source src={data.offchainMetadata.animation_url} type="video/mp4" />
+          // </video>
           <img
             src={
               data.offchainMetadata.image === undefined || data.offchainMetadata.image === null
