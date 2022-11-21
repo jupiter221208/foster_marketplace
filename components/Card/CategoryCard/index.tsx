@@ -13,25 +13,17 @@ import styles from './index.module.scss'
 import LogoGrayIcon from 'assets/icons/logo-gray.svg'
 
 const CategoryCard = props => {
-  const { image, name, type = 'image', nfts, collections, onClick } = props
+  const { image, name, type = 'image', onClick } = props
   const viewport = useViewport()
 
   return (
     <div className={styles.container} onClick={() => onClick()}>
       {type === 'image' ? (
-        <Image
-          src={image}
-          alt=""
-          width={359}
-          height={490}
-          layout="responsive"
-          objectFit="cover"
-          className="rounded-[30px]"
-        />
+        <img src={image} alt="" className="rounded-[30px] object-cover" />
       ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div
           dangerouslySetInnerHTML={{
-            __html: `<video className="app__backgroundVideo" autoplay loop muted playsinline style="width: 100%">
+            __html: `<video autoplay loop muted playsinline style="width: 100%">
                   <source src=${image} type="video/mp4" /></video>`,
           }}
         />

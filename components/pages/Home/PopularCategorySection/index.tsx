@@ -66,7 +66,7 @@ const PopularCategorySection = props => {
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 5000000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
         >
@@ -76,8 +76,6 @@ const PopularCategorySection = props => {
                 image={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? item.mobile : item.image}
                 name={item.name}
                 type={item.type}
-                nfts={item.nfts}
-                collections={item.collections}
                 onClick={() => router.push(`/category/${item.id}`)}
               />
             </SwiperSlide>
