@@ -22,7 +22,7 @@ const Home = () => {
       </Head>
 
       <MainSection />
-      <PopularCategorySection type="home" />
+      {/* <PopularCategorySection type="home" /> */}
       <TopRatedArtistsSection />
       <TrendingCollectionSection />
       <MostPopularSection />
