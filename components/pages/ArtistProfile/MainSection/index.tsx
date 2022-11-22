@@ -8,9 +8,7 @@ import Image from 'next/image'
 import { getShortAddress } from 'utils/wallet.util'
 
 // custom components
-import OutlineButton from 'components/Button/OutlineButton'
 import ProfileArtistCard from 'components/Card/ProfileArtistCard'
-import GradientButton from 'components/Button/GradientButton'
 import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
 import CategoryChip from 'components/Chip/CategoryChip'
@@ -21,7 +19,6 @@ import { useViewport } from 'utils'
 // images and icons
 import Rect1620x480Image from 'assets/icons/rect-1620x480.svg'
 import Rect512x512Image from 'assets/icons/rect-512x512.svg'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
@@ -66,26 +63,14 @@ const MainSection = prop => {
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-60px]">
           <div className="col-span-3 mt-[-70px]">
-            {follow ? (
-              <OutlineButton
-                label="Following"
-                onClick={() => setFollow(false)}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
-              />
-            ) : (
-              <GradientButton
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
-                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
-                label="Follow"
-                direction={'rtl'}
-                icon={AvatarFollowIcon}
-                onClick={() => setFollow(true)}
-              />
-            )}
+            <div className="flex gap-[15px]">
+              <div className="cursor-pointer flex hover:opacity-60">
+                <div className="text-[#EFF0F6] font-bold">444</div>&nbsp;<div className="text-[#B5B6BA]">Followers</div>
+              </div>
+              <div className="cursor-pointer flex hover:opacity-60">
+                <div className="text-[#EFF0F6] font-bold">444</div>&nbsp;<div className="text-[#B5B6BA]">Following</div>
+              </div>
+            </div>
           </div>
           <div className="col-span-6">
             <ProfileArtistCard
