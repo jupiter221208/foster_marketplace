@@ -73,7 +73,8 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className="text-[#EFF0F6] font-bold">444</div>&nbsp;<div className="text-[#B5B6BA]">Followers</div>
+                <div className="text-[#EFF0F6] font-bold">{artistInfo.followers}</div>&nbsp;
+                <div className="text-[#B5B6BA]">Followers</div>
               </div>
               <div
                 className="cursor-pointer flex hover:opacity-60"
@@ -82,7 +83,8 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className="text-[#EFF0F6] font-bold">444</div>&nbsp;<div className="text-[#B5B6BA]">Following</div>
+                <div className="text-[#EFF0F6] font-bold">{artistInfo.following}</div>&nbsp;
+                <div className="text-[#B5B6BA]">Following</div>
               </div>
             </div>
           </div>
