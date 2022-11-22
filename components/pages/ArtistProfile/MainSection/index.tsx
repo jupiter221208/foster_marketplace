@@ -237,7 +237,14 @@ const MainSection = prop => {
           </div>
         </div>
       </div>
-      {showFollowModal && <FollowModal open={showFollowModal} close={() => setShowFollowModal(false)} type={type} />}
+      {showFollowModal && (
+        <FollowModal
+          open={showFollowModal}
+          close={() => setShowFollowModal(false)}
+          type={type}
+          wallet={artistInfo.wallet_id}
+        />
+      )}
     </div>
   )
 }

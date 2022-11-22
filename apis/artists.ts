@@ -15,6 +15,18 @@ class Artists {
     })
   }
 
+  getFollowings(wallet_id) {
+    return client.get(API_URL + 'v1/artists/' + wallet_id + '/following').then(response => {
+      return response.data
+    })
+  }
+
+  getFollowers(wallet_id) {
+    return client.get(API_URL + 'v1/artists/' + wallet_id + '/followers').then(response => {
+      return response.data
+    })
+  }
+
   followArtist(wallet_id) {
     return client.post(API_URL + 'v1/users/follow/' + wallet_id).then(response => {
       return response.data

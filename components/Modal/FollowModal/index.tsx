@@ -6,6 +6,7 @@ import { Dialog, Transition } from '@headlessui/react'
 // next components
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // custom components
 import Tab from 'components/Tab'
@@ -18,14 +19,16 @@ import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 
 // json
 import TabList from 'assets/json/artist-profile/follow-tab-list.json'
-import FollwersList from 'assets/json/artist-profile/followers-list.json'
-import FollwingList from 'assets/json/artist-profile/following-list.json'
 
 // styles
 import styles from './index.module.scss'
 
+// apis
+import artistsAPI from 'apis/artists'
+
 const FollowModal = props => {
-  const { open, close, type } = props
+  const { open, close, type, wallet } = props
+  const router = useRouter()
 
   const closeModal = () => {
     close()
@@ -64,9 +67,19 @@ const FollowModal = props => {
     setActiveTab(selectedItem.id)
   }
 
-  const [followersList, setFollowersList] = useState(FollwersList)
-  const [followingList, setFollowingList] = useState(FollwingList)
+  const [followersList, setFollowersList] = useState([])
+  const [followingList, setFollowingList] = useState([])
 
+  useEffect(() => {
+    if (open) {
+      artistsAPI.getFollowers(wallet).then(response => {
+        setFollowersList(response)
+      })
+      artistsAPI.getFollowings(wallet).then(response => {
+        setFollowingList(response)
+      })
+    }
+  }, [open])
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -103,22 +116,28 @@ const FollowModal = props => {
                   </div>
                   <div className="w-full h-full flex justify-between items-center mt-12 overflow-auto">
                     {activeTab === 0 && (
-                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_170px)] h-full pr-4">
+                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_240px)] min-h-[calc(100vh_-_200px_-_240px)] h-full pr-4">
                         {followersList.map((item, index) => (
                           <div className="w-full flex justify-between items-center" key={index}>
                             <div className="flex gap-[25px] items-center">
                               <div className={styles.avatarArea}>
-                                <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
                               </div>
                               <div className="flex">
-                                <Link href={item.url}>
-                                  <a className={styles.username}>{item.username}</a>
-                                </Link>
+                                <div
+                                  className={styles.username}
+                                  onClick={() => {
+                                    router.push(`/artist-profile?id=${item.wallet_id}`)
+                                    close()
+                                  }}
+                                >
+                                  {item.username}
+                                </div>
                                 <div className={styles.text}>&nbsp;is following you</div>
                               </div>
                             </div>
                             <div className="w-[146px]">
-                              {item.status === 0 ? (
+                              {item.following === false ? (
                                 <GradientButton
                                   label="Follow"
                                   icon={AvatarFollowIcon}
@@ -135,22 +154,28 @@ const FollowModal = props => {
                       </div>
                     )}
                     {activeTab === 1 && (
-                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_170px)] h-full pr-4">
+                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_240px)] min-h-[calc(100vh_-_200px_-_240px)] h-full pr-4">
                         {followingList.map((item, index) => (
                           <div className="w-full flex justify-between items-center" key={index}>
                             <div className="flex gap-[25px] items-center">
                               <div className={styles.avatarArea}>
-                                <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
                               </div>
                               <div className="flex">
-                                <Link href={item.url}>
-                                  <a className={styles.username}>{item.username}</a>
-                                </Link>
+                                <div
+                                  className={styles.username}
+                                  onClick={() => {
+                                    router.push(`/artist-profile?id=${item.wallet_id}`)
+                                    close()
+                                  }}
+                                >
+                                  {item.username}
+                                </div>
                                 <div className={styles.text}>&nbsp;is following you</div>
                               </div>
                             </div>
                             <div className="w-[146px]">
-                              {item.status === 0 ? (
+                              {item.following === false ? (
                                 <GradientButton
                                   label="Follow"
                                   icon={AvatarFollowIcon}
