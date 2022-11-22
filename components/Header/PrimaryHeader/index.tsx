@@ -37,6 +37,7 @@ import styles from './index.module.scss'
 
 // call apis
 import authAPI from 'apis/auth'
+import searchAPI from 'apis/search'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -46,27 +47,28 @@ const PrimaryHeader = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [profileImage, setProfileImage] = useState('')
+  let timer = null
 
   useEffect(() => {
-    if (searchKeyword !== '') {
-      const getRandom = (arr, n) => {
-        let result = new Array(n),
-          len = arr.length,
-          taken = new Array(len)
-        if (n > len) throw new RangeError('getRandom: more elements taken than available')
-        while (n--) {
-          let x = Math.floor(Math.random() * len)
-          result[n] = arr[x in taken ? taken[x] : x]
-          taken[x] = --len in taken ? taken[len] : len
-        }
-        return result
+    if (searchKeyword !== '' && searchKeyword.length >= 2) {
+      if (timer) {
+        clearTimeout(timer)
+        timer = null
       }
-
-      let object: any = {}
-      object.nfts = getRandom(SearchList.nfts, Math.floor(Math.random() * 5))
-      object.artists = getRandom(SearchList.artists, Math.floor(Math.random() * 5))
-      object.collections = getRandom(SearchList.collections, Math.floor(Math.random() * 5))
-      setSearchList(object)
+      timer = setTimeout(() => {
+        searchAPI.search(searchKeyword).then(
+          response => {
+            let object: any = {}
+            object.nfts = response.nfts
+            object.artists = response.artists
+            object.collections = response.collections
+            setSearchList(object)
+          },
+          error => {
+            console.log(error)
+          }
+        )
+      }, 500)
     } else {
       setSearchList({ nfts: [], artists: [], collections: [] })
     }

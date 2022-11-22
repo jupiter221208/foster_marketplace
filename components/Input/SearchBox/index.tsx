@@ -12,6 +12,7 @@ import { useViewport } from 'utils'
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import CloseGrayIcon from 'assets/icons/close-gray.svg'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -57,17 +58,9 @@ const SearchBox = props => {
             {searchList.nfts.map((item, index) => (
               <div key={index} className={styles.selection} onClick={() => onClose()}>
                 <div className="w-[35px] h-[35px] mr-5">
-                  <Image
-                    src={item.image}
-                    alt=""
-                    width={35}
-                    height={35}
-                    layout="responsive"
-                    objectFit="cover"
-                    className="rounded-full"
-                  />
+                  <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
                 </div>
-                <div className={styles.text}>{item.label}</div>
+                <div className={styles.text}>{item.name}</div>
               </div>
             ))}
           </div>
@@ -77,17 +70,21 @@ const SearchBox = props => {
             {searchList.artists.map((item, index) => (
               <div key={index} className={styles.selection} onClick={() => onClose()}>
                 <div className="w-[35px] h-[35px] mr-5">
-                  <Image
-                    src={item.image}
-                    alt=""
-                    width={35}
-                    height={35}
-                    layout="responsive"
-                    objectFit="cover"
-                    className="rounded-full"
-                  />
+                  {item.image_url.length > 0 ? (
+                    <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
+                  ) : (
+                    <Image
+                      src={DefaultAvatar}
+                      alt=""
+                      width={35}
+                      height={35}
+                      layout="responsive"
+                      objectFit="cover"
+                      className="rounded-full"
+                    />
+                  )}
                 </div>
-                <div className={styles.text}>{item.label}</div>
+                <div className={styles.text}>{item.name}</div>
               </div>
             ))}
           </div>
@@ -99,17 +96,9 @@ const SearchBox = props => {
             {searchList.collections.map((item, index) => (
               <div key={index} className={styles.selection} onClick={() => onClose()}>
                 <div className="w-[35px] h-[35px] mr-5">
-                  <Image
-                    src={item.image}
-                    alt=""
-                    width={35}
-                    height={35}
-                    layout="responsive"
-                    objectFit="cover"
-                    className="rounded-full"
-                  />
+                  <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
                 </div>
-                <div className={styles.text}>{item.label}</div>
+                <div className={styles.text}>{item.name}</div>
               </div>
             ))}
           </div>
