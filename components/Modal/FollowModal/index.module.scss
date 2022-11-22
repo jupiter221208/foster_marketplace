@@ -16,7 +16,7 @@
   width: 100%;
   max-height: calc(100vh - 200px);
   height: 100%;
-  background-color: rgba($background-light-color, 0.25);
+  background-color: rgba($background-light-color, 0.2);
   border-radius: 20px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
@@ -34,4 +34,35 @@
   }
   cursor: pointer;
   z-index: 20;
+}
+
+.avatarArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 100%;
+  background: linear-gradient(
+    110deg,
+    $brand-06-color -60%,
+    #5e2028 20%,
+    $brand-01-color 50%,
+    $brand-04-color 80%,
+    $brand-01-color 140%
+  );
+}
+
+.username {
+  font-family: 'Muli-SemiBold';
+  font-size: 13px;
+  line-height: 18px;
+  color: $brand-01-color;
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 13px;
+  line-height: 18px;
+  color: $text-gray-200-color;
 }
