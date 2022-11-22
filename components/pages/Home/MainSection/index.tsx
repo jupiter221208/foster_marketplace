@@ -115,8 +115,8 @@ const MainSection = () => {
             <div className={styles.contentArea}>
               <div className="flex justify-center">
                 <div className={styles.cardTitle}>The&nbsp;</div>
-                <div className={styles.cardGreenTitle}>House of Art</div>
-                <div className={styles.cardTitle}>, Solana Deserves</div>
+                <div className={styles.cardGreenTitle}>House of Art,</div>
+                <div className={styles.cardTitle}> Solana Deserves</div>
               </div>
               <div className={styles.cardText}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
               <div className={styles.cardText}>FOSTER THE FLAVOR.</div>
@@ -151,7 +151,7 @@ const MainSection = () => {
         </div>
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end">
+          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[27px]">
             <div className="w-full flex justify-center gap-8">
               <GreenGradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton
