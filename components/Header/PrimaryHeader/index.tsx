@@ -76,9 +76,11 @@ const PrimaryHeader = () => {
 
   const handleClear = () => {
     setSearchKeyword('')
+    setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
   const handleClose = () => {
+    setSearchKeyword('')
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 

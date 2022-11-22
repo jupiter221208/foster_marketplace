@@ -2,6 +2,7 @@ import React from 'react'
 
 // next components
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -20,6 +21,7 @@ import styles from './index.module.scss'
 const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
   const viewport = useViewport()
+  const router = useRouter()
 
   return (
     <div className={styles.container}>
@@ -56,7 +58,14 @@ const SearchBox = props => {
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[26px]`}>NFTs</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.nfts.map((item, index) => (
-              <div key={index} className={styles.selection} onClick={() => onClose()}>
+              <div
+                key={index}
+                className={styles.selection}
+                onClick={() => {
+                  router.push(`/browse-nft?id=${item.id}`)
+                  onClose()
+                }}
+              >
                 <div className="w-[35px] h-[35px] mr-5">
                   <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
                 </div>
@@ -68,7 +77,14 @@ const SearchBox = props => {
           {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[26px]`}>Artists</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.artists.map((item, index) => (
-              <div key={index} className={styles.selection} onClick={() => onClose()}>
+              <div
+                key={index}
+                className={styles.selection}
+                onClick={() => {
+                  router.push(`/artist-profile?id=${item.id}`)
+                  onClose()
+                }}
+              >
                 <div className="w-[35px] h-[35px] mr-5">
                   {item.image_url.length > 0 ? (
                     <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
@@ -94,7 +110,14 @@ const SearchBox = props => {
           {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[26px]`}>Collections</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.collections.map((item, index) => (
-              <div key={index} className={styles.selection} onClick={() => onClose()}>
+              <div
+                key={index}
+                className={styles.selection}
+                onClick={() => {
+                  router.push(`/category/${item.id}`)
+                  onClose()
+                }}
+              >
                 <div className="w-[35px] h-[35px] mr-5">
                   <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
                 </div>

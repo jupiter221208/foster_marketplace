@@ -251,7 +251,8 @@ const MainSection = () => {
             setNftDescription(response.description)
             setNftCategories(response.categories?.split(','))
             if (response.listing_status === 'listed') {
-              setNftPrice(parseFloat(response.listing.list_price))
+              if (response.listing)
+                setNftPrice(parseFloat(response.listing.list_price))
             }
             setMintAddress(response.address)
             setLikeCount(response.likes >= 0 ? response.likes : 0)
