@@ -114,12 +114,12 @@ const FollowModal = props => {
                   <div className="w-full flex justify-start -ml-4">
                     <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                   </div>
-                  <div className="w-full h-full flex justify-between items-center mt-12 overflow-auto">
+                  <div className="w-full h-full flex justify-between items-center mt-4 lg:mt-12 overflow-auto">
                     {activeTab === 0 && (
-                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_240px)] min-h-[calc(100vh_-_200px_-_240px)] h-full pr-4">
+                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_240px)] min-h-[calc(100vh_-_200px_-_240px)] h-full pr-2 lg:pr-4">
                         {followersList.map((item, index) => (
                           <div className="w-full flex justify-between items-center" key={index}>
-                            <div className="flex gap-[25px] items-center">
+                            <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
                                 {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
                               </div>
@@ -136,7 +136,7 @@ const FollowModal = props => {
                                 <div className={styles.text}>&nbsp;is following you</div>
                               </div>
                             </div>
-                            <div className="w-[146px]">
+                            <div className="w-24 lg:w-[146px]">
                               {item.following === false ? (
                                 <GradientButton
                                   label="Follow"
@@ -144,9 +144,10 @@ const FollowModal = props => {
                                   onClick={() => {}}
                                   fullWidth
                                   direction="rtl"
+                                  borderRadius="12px"
                                 />
                               ) : (
-                                <OutlineButton label="Following" onClick={() => {}} fullWidth />
+                                <OutlineButton label="Following" onClick={() => {}} fullWidth borderRadius="12px" />
                               )}
                             </div>
                           </div>
@@ -154,10 +155,10 @@ const FollowModal = props => {
                       </div>
                     )}
                     {activeTab === 1 && (
-                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_240px)] min-h-[calc(100vh_-_200px_-_240px)] h-full pr-4">
+                      <div className="w-full flex flex-wrap gap-[38px] max-h-[calc(100vh_-_200px_-_240px)] min-h-[calc(100vh_-_200px_-_240px)] h-full pr-2 lg:pr-4">
                         {followingList.map((item, index) => (
                           <div className="w-full flex justify-between items-center" key={index}>
-                            <div className="flex gap-[25px] items-center">
+                            <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
                                 {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
                               </div>
@@ -174,7 +175,7 @@ const FollowModal = props => {
                                 <div className={styles.text}>&nbsp;is following you</div>
                               </div>
                             </div>
-                            <div className="w-[146px]">
+                            <div className="w-24 lg:w-[146px]">
                               {item.following === false ? (
                                 <GradientButton
                                   label="Follow"
@@ -182,9 +183,10 @@ const FollowModal = props => {
                                   onClick={() => {}}
                                   fullWidth
                                   direction="rtl"
+                                  borderRadius="12px"
                                 />
                               ) : (
-                                <OutlineButton label="Following" onClick={() => {}} fullWidth />
+                                <OutlineButton label="Following" onClick={() => {}} fullWidth borderRadius="12px" />
                               )}
                             </div>
                           </div>
