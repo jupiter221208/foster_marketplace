@@ -12,6 +12,7 @@ import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
 import CategoryChip from 'components/Chip/CategoryChip'
+import FollowModal from 'components/Modal/FollowModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -39,7 +40,8 @@ const MainSection = prop => {
 
   const viewport = useViewport()
 
-  const [follow, setFollow] = useState(false)
+  const [showFollowModal, setShowFollowModal] = useState(false)
+  const [type, setType] = useState(0)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -64,10 +66,22 @@ const MainSection = prop => {
         <div className="grid grid-cols-12 items-center mt-[-60px]">
           <div className="col-span-3 mt-[-70px]">
             <div className="flex gap-[15px]">
-              <div className="cursor-pointer flex hover:opacity-60">
+              <div
+                className="cursor-pointer flex hover:opacity-60"
+                onClick={() => {
+                  setType(0)
+                  setShowFollowModal(true)
+                }}
+              >
                 <div className="text-[#EFF0F6] font-bold">444</div>&nbsp;<div className="text-[#B5B6BA]">Followers</div>
               </div>
-              <div className="cursor-pointer flex hover:opacity-60">
+              <div
+                className="cursor-pointer flex hover:opacity-60"
+                onClick={() => {
+                  setType(1)
+                  setShowFollowModal(true)
+                }}
+              >
                 <div className="text-[#EFF0F6] font-bold">444</div>&nbsp;<div className="text-[#B5B6BA]">Following</div>
               </div>
             </div>
@@ -223,7 +237,7 @@ const MainSection = prop => {
           </div>
         </div>
       </div>
-      <div></div>
+      {showFollowModal && <FollowModal open={showFollowModal} close={() => setShowFollowModal(false)} type={type} />}
     </div>
   )
 }
