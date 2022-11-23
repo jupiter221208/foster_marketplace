@@ -21,12 +21,13 @@ const CategoryCard = props => {
       {type === 'image' ? (
         <img src={image} alt="" className="rounded-[30px] object-cover" />
       ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `<video autoplay loop muted webkit-playsinline playsinline style="width: 100%">
-                  <source src=${image} type="video/mp4" /></video>`,
-          }}
-        />
+        // <div
+        //   dangerouslySetInnerHTML={{
+        //     __html: `<video autoplay loop muted webkit-playsinline playsinline style="width: 100%">
+        //           <source src=${image} type="video/mp4" /></video>`,
+        //   }}
+        // />
+        <img src={image} alt="" className="rounded-[30px] object-cover" />
       ) : (
         <video autoPlay loop muted>
           <source type="video/mp4" src={image} />

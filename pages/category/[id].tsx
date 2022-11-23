@@ -46,7 +46,7 @@ const Category = () => {
           {categoryInfo.type === 'image' ? (
             <div className={styles.imageContainer}>
               <img
-                src={categoryInfo.banner}
+                src={viewport === 'xs' ? categoryInfo.mobile_banner : categoryInfo.banner}
                 alt=""
                 width={1620}
                 height={480}
@@ -59,12 +59,17 @@ const Category = () => {
           {categoryInfo.type === 'video' ? (
             <div className={styles.videoContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div
-                  className="overflow-hidden w-full"
-                  dangerouslySetInnerHTML={{
-                    __html: `<video class="overflow-hidden w-full rounded-[16px]" autoplay loop muted playsinline>
-                    <source src=${categoryInfo.mobile_banner} type="video/mp4" /></video>`,
-                  }}
+                // <div
+                //   className="overflow-hidden w-full"
+                //   dangerouslySetInnerHTML={{
+                //     __html: `<video class="overflow-hidden w-full rounded-[16px]" autoplay loop muted playsinline>
+                //     <source src=${categoryInfo.mobile_banner} type="video/mp4" /></video>`,
+                //   }}
+                // />
+                <img
+                  src={categoryInfo.mobile_banner}
+                  alt=""
+                  className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
                 />
               ) : (
                 <video autoPlay loop muted>
