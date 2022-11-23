@@ -65,7 +65,7 @@ const MainSection = prop => {
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-60px]">
           <div className="col-span-3 mt-[-70px]">
-            <div className="flex gap-[15px]">
+            <div className="gap-[15px] mt-[16px] lg:flex lg:mt-[0px]">
               <div
                 className="cursor-pointer flex hover:opacity-60"
                 onClick={() => {
@@ -73,8 +73,8 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className="text-[#EFF0F6] font-bold">{artistInfo.followers}</div>&nbsp;
-                <div className="text-[#B5B6BA]">Followers</div>
+                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>&nbsp;
+                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
               </div>
               <div
                 className="cursor-pointer flex hover:opacity-60"
@@ -83,8 +83,8 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className="text-[#EFF0F6] font-bold">{artistInfo.following}</div>&nbsp;
-                <div className="text-[#B5B6BA]">Following</div>
+                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px]font-bold">{artistInfo.following}</div>&nbsp;
+                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
               </div>
             </div>
           </div>
