@@ -13,6 +13,9 @@ import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
 import CategoryChip from 'components/Chip/CategoryChip'
 import FollowModal from 'components/Modal/FollowModal'
+import GradientButton from 'components/Button/GradientButton'
+import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
+import OutlineButton from 'components/Button/OutlineButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -33,8 +36,11 @@ import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 // styles
 import styles from './index.module.scss'
 
+// api endpoint
+import artistsAPI from 'apis/artists'
+
 const MainSection = prop => {
-  const { artistInfo, categoryList } = prop
+  const { artistInfo, categoryList, isOwn } = prop
 
   const router = useRouter()
 
@@ -42,9 +48,24 @@ const MainSection = prop => {
 
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [type, setType] = useState(0)
+  const [follow, setFollow] = useState(artistInfo ? artistInfo.followed : false)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
+  }
+
+  const followArtist = wallet => {
+    artistsAPI.followArtist(wallet).then(response => {
+      if (response && response.followed_wallet_id) {
+        setFollow(true)
+      }
+    })
+  }
+
+  const unfollowArtist = wallet => {
+    artistsAPI.unfollowArtist(wallet).then(response => {
+      setFollow(false)
+    })
   }
 
   return (
@@ -64,30 +85,61 @@ const MainSection = prop => {
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-60px]">
-          <div className="col-span-3 mt-[-70px]">
-            <div className="gap-[15px] mt-[16px] lg:flex lg:mt-[0px]">
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(0)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>&nbsp;
-                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
-              </div>
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(1)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>&nbsp;
-                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
+          {isOwn === false ? (
+            <div className="col-span-3 mt-[-70px]">
+              {follow ? (
+                <OutlineButton
+                  label="Following"
+                  onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                  fontSize={
+                    viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'
+                  }
+                />
+              ) : (
+                <GradientButton
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                  fontSize={
+                    viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'
+                  }
+                  borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
+                  label="Follow"
+                  direction={'rtl'}
+                  icon={AvatarFollowIcon}
+                  onClick={() => followArtist(artistInfo.wallet_id)}
+                />
+              )}
+            </div>
+          ) : (
+            <div className="col-span-3 mt-[-70px]">
+              <div className="gap-[15px] mt-[16px] lg:flex lg:mt-[0px]">
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(0)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>
+                  &nbsp;
+                  <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
+                </div>
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(1)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>
+                  &nbsp;
+                  <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div className="col-span-6">
             <ProfileArtistCard
               image={

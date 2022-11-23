@@ -7,6 +7,7 @@ import Image from 'next/image'
 
 // third party components
 import { useDispatch } from 'react-redux'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -26,6 +27,7 @@ import artistsAPI from 'apis/artists'
 
 const ArtistProfile = () => {
   const router = useRouter()
+  const { publicKey } = useWallet()
 
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
@@ -35,6 +37,7 @@ const ArtistProfile = () => {
   const [nfts, setNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [exploreCircus, setExploreCircus] = useState<any>([])
+  const [isOwn, setIsOwn] = useState<any>(false)
 
   useEffect(() => {
     if (router.query.id !== undefined && router.query.id !== null) {
@@ -53,6 +56,7 @@ const ArtistProfile = () => {
               artist.banner_picture = HeaderImage.src
             }
             setArtistInfo(artist)
+            setIsOwn(artist.wallet_id === publicKey?.toBase58())
           }
           setNfts(response.nfts)
           setCollections(response.collections)
@@ -85,7 +89,7 @@ const ArtistProfile = () => {
         <div className={styles.bottomLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <MainSection artistInfo={artistInfo} categoryList={categoryList} />
+        <MainSection artistInfo={artistInfo} categoryList={categoryList} isOwn={isOwn} />
         <NFTSection nfts={nfts} collections={collections} exploreCircus={exploreCircus} />
       </div>
     </div>
