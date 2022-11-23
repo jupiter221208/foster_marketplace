@@ -1,6 +1,7 @@
 [
   {
     "id": 0,
+    "query": "collage",
     "image": "/images/popular-category-collage.png",
     "banner": "/images/category-banner-collage.png",
     "mobile": "/images/popular-category-collage-mobile.png",
@@ -13,6 +14,7 @@
   },
   {
     "id": 1,
+    "query": "foster-house",
     "image": "/images/popular-category-fosterlabs.webm",
     "banner": "/images/category-banner-fosterlabs.webm",
     "mobile": "/images/popular-category-fosterlabs-mobile.png",
@@ -25,6 +27,7 @@
   },
   {
     "id": 2,
+    "query": "pfp",
     "image": "/images/popular-category-pfp.png",
     "banner": "/images/category-banner-pfp.png",
     "mobile": "/images/popular-category-pfp-mobile.png",
@@ -37,6 +40,7 @@
   },
   {
     "id": 3,
+    "query": "comedy",
     "image": "/images/popular-category-comedy.png",
     "banner": "/images/category-banner-comedy.png",
     "mobile": "/images/popular-category-comedy.png",
@@ -49,6 +53,7 @@
   },
   {
     "id": 4,
+    "query": "3d",
     "image": "/images/popular-category-3d.png",
     "banner": "/images/category-banner-3d.png",
     "mobile": "/images/popular-category-3d-mobile.png",
@@ -61,6 +66,7 @@
   },
   {
     "id": 5,
+    "query": "music",
     "image": "/images/popular-category-music.webm",
     "banner": "/images/category-banner-music.webm",
     "mobile": "/images/popular-category-mobile-music-mobile.png",
@@ -73,6 +79,7 @@
   },
   {
     "id": 6,
+    "query": "black-white",
     "image": "/images/popular-category-black-white.png",
     "banner": "/images/category-banner-black-white.png",
     "mobile": "/images/popular-category-black-white-mobile.png",
@@ -85,6 +92,7 @@
   },
   {
     "id": 7,
+    "query": "figurative",
     "image": "/images/popular-category-figurative.png",
     "banner": "/images/category-banner-figurative.png",
     "mobile": "/images/popular-category-figurative-mobile.png",
@@ -97,6 +105,7 @@
   },
   {
     "id": 8,
+    "query": "algorithmic",
     "image": "/images/popular-category-algorithmic.png",
     "banner": "/images/category-banner-algorithmic.png",
     "mobile": "/images/popular-category-algorithmic-mobile.png",
@@ -109,6 +118,7 @@
   },
   {
     "id": 9,
+    "query": "collaboration",
     "image": "/images/popular-category-collaboration.png",
     "banner": "/images/category-banner-collaboration.png",
     "mobile": "/images/popular-category-collaboration-mobile.png",
@@ -121,6 +131,7 @@
   },
   {
     "id": 10,
+    "query": "drawing",
     "image": "/images/popular-category-drawing.png",
     "banner": "/images/category-banner-drawing.png",
     "mobile": "/images/popular-category-drawing-mobile.png",
@@ -133,6 +144,7 @@
   },
   {
     "id": 11,
+    "query": "generative",
     "image": "/images/popular-category-generative.webm",
     "banner": "/images/category-banner-generative.webm",
     "mobile": "/images/popular-category-mobile-generative-mobile.png",
@@ -145,6 +157,7 @@
   },
   {
     "id": 12,
+    "query": "sports",
     "image": "/images/popular-category-sports.png",
     "banner": "/images/category-banner-sports.png",
     "mobile": "/images/popular-category-sports-mobile.png",
@@ -157,6 +170,7 @@
   },
   {
     "id": 13,
+    "query": "trukey-circus",
     "image": "/images/popular-category-turkey.png",
     "banner": "/images/category-banner-turkey.png",
     "mobile": "/images/popular-category-turkey-mobile.png",
@@ -169,6 +183,7 @@
   },
   {
     "id": 15,
+    "query": "painting",
     "image": "/images/popular-category-painting.png",
     "banner": "/images/category-banner-painting.png",
     "mobile": "/images/popular-category-painting-mobile.png",
@@ -181,6 +196,7 @@
   },
   {
     "id": 16,
+    "query": "photography",
     "image": "/images/popular-category-photography.png",
     "banner": "/images/category-banner-photography.png",
     "mobile": "/images/popular-category-photography-mobile.png",
@@ -193,6 +209,7 @@
   },
   {
     "id": 17,
+    "query": "surreal",
     "image": "/images/popular-category-surreal.png",
     "banner": "/images/category-banner-surreal.png",
     "mobile": "/images/popular-category-surreal-mobile.png",
@@ -205,6 +222,7 @@
   },
   {
     "id": 18,
+    "query": "audiovisual",
     "image": "/images/popular-category-audiovisual.webm",
     "banner": "/images/category-banner-audiovisual.webm",
     "mobile": "/images/popular-category-audiovisual-mobile.png",
@@ -217,6 +235,7 @@
   },
   {
     "id": 19,
+    "query": "abstract",
     "image": "/images/popular-category-abstract.png",
     "banner": "/images/category-banner-abstract.png",
     "mobile": "/images/popular-category-abstract-mobile.png",
@@ -229,6 +248,7 @@
   },
   {
     "id": 20,
+    "query": "glitch",
     "image": "/images/popular-category-glitch.webm",
     "banner": "/images/category-banner-glitch.webm",
     "mobile": "/images/popular-category-mobile-glitch-mobile.png",

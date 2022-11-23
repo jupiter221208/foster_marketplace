@@ -29,8 +29,10 @@ const Category = () => {
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
   useEffect(() => {
-    const cateId: any = router.query.id
-    let category: any = PopularCategoryList[cateId]
+    const cateQuery: any = router.query.id
+    let category = PopularCategoryList.filter(function (category) {
+      return category.query === cateQuery
+    })[0]
     setCategoryInfo(category)
   }, [router.query.id])
 

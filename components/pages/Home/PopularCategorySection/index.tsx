@@ -76,7 +76,7 @@ const PopularCategorySection = props => {
                 image={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? item.mobile : item.image}
                 name={item.name}
                 type={item.type}
-                onClick={() => router.push(`/category/${item.id}`)}
+                onClick={() => router.push(`/category/${item.query}`)}
               />
             </SwiperSlide>
           ))}
