@@ -58,7 +58,6 @@ const LiveAuctionSection = () => {
   useEffect(() => {
     dashboardAPI.getLiveAuctions().then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        console.log('response', response)
         setLiveAuctionList(response)
       }
     }),
