@@ -116,7 +116,7 @@ const MainSection = () => {
               <div className="flex justify-center">
                 <div className={styles.cardTitle}>The&nbsp;</div>
                 <div className={styles.cardGreenTitle}>House of Art,</div>
-                <div className={styles.cardTitle}> Solana Deserves</div>
+                <div className={styles.cardTitle}>&nbsp;Solana Deserves</div>
               </div>
               <div className={styles.cardText}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
               <div className={styles.cardText}>FOSTER THE FLAVOR.</div>
