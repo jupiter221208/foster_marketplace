@@ -73,6 +73,7 @@ const FollowModal = props => {
   useEffect(() => {
     if (open) {
       artistsAPI.getFollowers(wallet).then(response => {
+        console.log('========getFollowers=========')
         setFollowersList(response)
       })
       artistsAPI.getFollowings(wallet).then(response => {
@@ -80,6 +81,32 @@ const FollowModal = props => {
       })
     }
   }, [open])
+
+  const followArtist = wallet => {
+    artistsAPI.followArtist(wallet).then(response => {
+      if (response && response.followed_wallet_id) {
+        let lists = [...followersList]
+        lists.map(artist => {
+          if (artist.wallet_id === wallet) {
+            artist.following = true
+          }
+        })
+        setFollowersList(lists)
+      }
+    })
+  }
+
+  const unfollowArtist = wallet => {
+    artistsAPI.unfollowArtist(wallet).then(response => {
+      let lists = [...followersList]
+      lists.map(artist => {
+        if (artist.wallet_id === wallet) {
+          artist.following = false
+        }
+      })
+      setFollowersList(lists)
+    })
+  }
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -141,13 +168,22 @@ const FollowModal = props => {
                                 <GradientButton
                                   label="Follow"
                                   icon={AvatarFollowIcon}
-                                  onClick={() => {}}
+                                  onClick={() => {
+                                    followArtist(item.wallet_id)
+                                  }}
                                   fullWidth
                                   direction="rtl"
                                   borderRadius="12px"
                                 />
                               ) : (
-                                <OutlineButton label="Following" onClick={() => {}} fullWidth borderRadius="12px" />
+                                <OutlineButton
+                                  label="Following"
+                                  onClick={() => {
+                                    unfollowArtist(item.wallet_id)
+                                  }}
+                                  fullWidth
+                                  borderRadius="12px"
+                                />
                               )}
                             </div>
                           </div>

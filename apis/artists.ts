@@ -28,13 +28,13 @@ class Artists {
   }
 
   followArtist(wallet_id) {
-    return client.post(API_URL + 'v1/users/follow/' + wallet_id).then(response => {
+    return client.post(API_URL + 'v1/artists/follow/' + wallet_id).then(response => {
       return response.data
     })
   }
 
   unfollowArtist(wallet_id) {
-    return client.delete(API_URL + 'v1/users/follow/' + wallet_id).then(response => {
+    return client.delete(API_URL + 'v1/artists/follow/' + wallet_id).then(response => {
       return response.data
     })
   }

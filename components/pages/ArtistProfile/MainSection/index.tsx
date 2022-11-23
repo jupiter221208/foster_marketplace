@@ -83,7 +83,7 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px]font-bold">{artistInfo.following}</div>&nbsp;
+                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>&nbsp;
                 <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
               </div>
             </div>
