@@ -5,6 +5,9 @@ import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Image from 'next/image'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/ArtistProfile/MainSection'
@@ -23,6 +26,9 @@ import artistsAPI from 'apis/artists'
 
 const ArtistProfile = () => {
   const router = useRouter()
+
+  const dispatch = useDispatch()
+  dispatch({ type: 'set', isLoading: false })
 
   const [artistInfo, setArtistInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])

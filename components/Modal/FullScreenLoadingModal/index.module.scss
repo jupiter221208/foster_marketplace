@@ -1,0 +1,23 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background-color: rgba(#121212, 0.1);
+  position: fixed;
+  inset: 0;
+}
+
+.ringLoader {
+  display: flex;
+  justify-content: center;
+}
+
+.ringLoader > span > span {
+  opacity: 1 !important;
+}

@@ -11,8 +11,14 @@ import FreshMintSection from 'components/pages/Home/FreshMintSection'
 import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+
+// third party components
+import { useSelector } from 'react-redux'
 
 const Home = () => {
+  const isLoading = useSelector<any>(state => state.isLoading)
+
   return (
     <div className="g-container">
       <Head>
@@ -30,6 +36,8 @@ const Home = () => {
       <FreshMintSection />
       <LiveAuctionSection />
       <CreateSellNFTSection />
+
+      {isLoading && <FullScreenLoadingModal open={isLoading} />}
     </div>
   )
 }
