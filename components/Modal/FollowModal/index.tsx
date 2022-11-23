@@ -73,7 +73,6 @@ const FollowModal = props => {
   useEffect(() => {
     if (open) {
       artistsAPI.getFollowers(wallet).then(response => {
-        console.log('========getFollowers=========')
         setFollowersList(response)
       })
       artistsAPI.getFollowings(wallet).then(response => {
