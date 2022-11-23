@@ -5,12 +5,17 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // custom components
+import GradientButton from 'components/Button/GradientButton'
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
 import SocialButton from 'components/Button/SocialButton'
 import CategoryChip from 'components/Chip/CategoryChip'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // images and icons
 import HeaderImage from 'assets/images/browse-collection-header.png'
+import SaveDarkBlackIcon from 'assets/icons/save-dark-black.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
@@ -35,7 +40,7 @@ const MainSection = props => {
   const { creators, json, nfts } = collection
 
   const router = useRouter()
-
+  const viewport = useViewport()
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const items = useMemo(() => nfts?.length || 0, nfts)
@@ -81,20 +86,27 @@ const MainSection = props => {
       )}
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
-          <div className="col-span-3" />
+          <div className="col-span-3">
+            <div className="w-[89px] lg:w-[146px]">
+              <GradientButton
+                label="Save"
+                icon={SaveDarkBlackIcon}
+                direction="rtl"
+                fullWidth
+                onClick={() => {}}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '53px'}
+                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
+              />
+            </div>
+          </div>
           <div className="col-span-6">
             <BrowseArtistCard
               image={data?.cover_image}
               collectionName={data?.collection_name}
               artistName={data?.minter_id}
             />
-            {isLoading && (
-              <div className="col-span-12 py-10">
-                <LoadingModal open={isLoading} />
-              </div>
-            )}
 
-            <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
+            {/* <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
               <div>
                 <SocialButton
                   icon={instagramWhiteIcon}
@@ -123,10 +135,10 @@ const MainSection = props => {
                   onClick={() => router.push(process.env.NEXT_PUBLIC_MEDIUM_URL as unknown as Url)}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="col-span-3 flex justify-end">
-            <div className="hidden lg:flex gap-[10px]">
+            {/* <div className="hidden lg:flex gap-[10px]">
               <div>
                 <SocialButton
                   icon={instagramWhiteIcon}
@@ -155,9 +167,14 @@ const MainSection = props => {
                   onClick={() => router.push(process.env.NEXT_PUBLIC_TELEGRAM_URL as unknown as Url)}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
+        {isLoading && (
+          <div className="col-span-12 py-10">
+            <LoadingModal open={isLoading} />
+          </div>
+        )}
         <div className="flex justify-center w-full mt-[32px]">
           <div className="max-w-[734px]">
             <div className={styles.description}>{json?.description}</div>

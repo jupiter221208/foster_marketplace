@@ -49,10 +49,12 @@ const BrowseCollection = () => {
   }, [mx, address])
 
   useEffect(() => {
-    collectionsAPI.getCollection(address).then(response => {
-      setData(response)
-    }),
-      error => console.log(error)
+    if (address !== undefined) {
+      collectionsAPI.getCollection(address).then(response => {
+        setData(response)
+      }),
+        error => console.log(error)
+    }
   }, [address])
 
   return (

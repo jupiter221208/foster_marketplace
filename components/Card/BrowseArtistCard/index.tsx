@@ -20,14 +20,12 @@ const BrowseArtistCard = props => {
       <div className={styles.avatarArea}>
         <div className={styles.avatar}>
           {image && (
-            <Image
+            <img
               src={image}
               alt=""
               width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
               height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-              layout="responsive"
-              objectFit="cover"
-              className="rounded-full"
+              className="object-cover rounded-full"
             />
           )}
         </div>
