@@ -99,9 +99,17 @@ const ListNFTModal = props => {
                     />
                   </div>
                   <div className="w-full mt-[30px]">
-                    <div className={styles.text}>
-                      By listing an NFT you are giving authority to transfer ownership to the platform
-                    </div>
+                    <p className={styles.bottomText}>
+                      By clicking "List", you agree to the&nbsp;
+                      <span
+                        className={styles.text}
+                        onClick={() => {
+                          window.open('https://foster-marketplace.gitbook.io/docs/v/legal-documentation/')
+                        }}
+                      >
+                        Foster Marketplace Terms of Service
+                      </span>
+                    </p>
                   </div>
                 </Dialog.Panel>
               ) : (
