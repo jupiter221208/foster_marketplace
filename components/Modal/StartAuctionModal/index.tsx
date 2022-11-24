@@ -42,7 +42,7 @@ const StartAuctionModal = props => {
   const [startDate, setStartDate] = useState(new Date())
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState()
 
   const endDate = useMemo(() => {
     var plusDays = days

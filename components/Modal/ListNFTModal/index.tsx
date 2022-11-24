@@ -26,7 +26,7 @@ import listingsAPI from 'apis/listings'
 const ListNFTModal = props => {
   const { data, open, onClose } = props
 
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState()
   const [listStatus, setListStatus] = useState(false)
 
   const { metaplex: mx } = useMetaplex()
