@@ -83,7 +83,11 @@ const NFTSwiperSection = props => {
     }
   }
 
-  return (
+  return nfts.length === 0 ? (
+    <section className={styles.container}>
+      <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">No data</div>
+    </section>
+  ) : (
     <section className={styles.container}>
       <div className={`w-full flex ${viewport === 'xs' ? 'justify-end' : 'justify-between'} items-center z-10`}>
         {showFilter ? (
@@ -125,6 +129,7 @@ const NFTSwiperSection = props => {
             borderColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#63D6CD' : '#ffffff'}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '51px'}
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : ''}
+            borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
             direction="rtl"
           />
         </div>
