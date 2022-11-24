@@ -38,6 +38,9 @@ const MainSection = () => {
 
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
   const [heroList, setHeroList] = useState<any[]>([])
+  const [artworkCnt, setArtworkCnt] = useState()
+  const [collectionCnt, setCollectionCnt] = useState()
+  const [nftCnt, setNftCnt] = useState()
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -48,6 +51,9 @@ const MainSection = () => {
       response => {
         if (response !== null && response !== undefined) {
           setHeroList(response.featured_nfts)
+          setArtworkCnt(response.stats.users)
+          setCollectionCnt(response.stats.collections)
+          setNftCnt(response.stats.nfts)
         }
       },
       error => {
@@ -91,15 +97,15 @@ const MainSection = () => {
           )}
           <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[140px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
             <div className="block">
-              <div className={styles.count}>27k+</div>
+              <div className={styles.count}>{artworkCnt}</div>
               <div className={styles.countText}>Artworks</div>
             </div>
             <div className="block">
-              <div className={styles.count}>17k+</div>
+              <div className={styles.count}>{collectionCnt}</div>
               <div className={styles.countText}>Collections</div>
             </div>
             <div className="block">
-              <div className={styles.count}>12k+</div>
+              <div className={styles.count}>{nftCnt}</div>
               <div className={styles.countText}>Ecosystem</div>
             </div>
           </div>
