@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -20,9 +19,6 @@ import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import LiveAuctionList from 'assets/json/live-auction.json'
-
 // styles
 import styles from './index.module.scss'
 
@@ -33,31 +29,14 @@ const LiveAuctionSection = () => {
   const viewport = useViewport()
   const router = useRouter()
 
+  const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setLiveAuctionList(LiveAuctionList.slice(0, 5))
-        break
-      case 1:
-        setLiveAuctionList(LiveAuctionList.slice(0, 10))
-        break
-      case 2:
-        setLiveAuctionList(LiveAuctionList.slice(0, 15))
-        break
-      default:
-        setLiveAuctionList(LiveAuctionList)
-        break
-    }
-  }
 
   useEffect(() => {
     dashboardAPI.getLiveAuctions().then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
+        setAllLiveAuctionList(response)
         setLiveAuctionList(response)
       }
     }),
@@ -65,6 +44,24 @@ const LiveAuctionSection = () => {
         console.log(error)
       }
   }, [])
+
+  const handleChangeActive = value => {
+    setActive(value)
+    switch (value) {
+      case 0:
+        setLiveAuctionList(allListAuctionList.slice(0, 5))
+        break
+      case 1:
+        setLiveAuctionList(allListAuctionList.slice(0, 10))
+        break
+      case 2:
+        setLiveAuctionList(allListAuctionList.slice(0, 15))
+        break
+      default:
+        setLiveAuctionList(allListAuctionList)
+        break
+    }
+  }
 
   return (
     <section className={styles.container}>
@@ -98,28 +95,44 @@ const LiveAuctionSection = () => {
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {liveAuctionList.map((item: any, index) => (
-            <SwiperSlide key={index}>
-              <LiveAuctionCard
-                data={item}
-                onClick={() => router.push('/live-auction?id=' + item.token_id)}
-                key={index}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+        {liveAuctionList.length > 4 ? (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            loop
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
+            {liveAuctionList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <LiveAuctionCard
+                  data={item}
+                  onClick={() => router.push('/live-auction?id=' + item.token_id)}
+                  key={index}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
+            {liveAuctionList.map((item, index) => (
+              <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
+                <LiveAuctionCard
+                  data={item}
+                  onClick={() => router.push('/live-auction?id=' + item.token_id)}
+                  key={index}
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div className="w-full flex lg:hidden justify-center">
         <div className="w-full max-w-[242px] z-10">
