@@ -100,7 +100,7 @@ const ListNFTModal = props => {
                   </div>
                   <div className="w-full mt-[30px]">
                     <p className={styles.bottomText}>
-                      By clicking "List", you agree to the&nbsp;
+                      By clicking &quot;List&quot;, you agree to the&nbsp;
                       <span
                         className={styles.text}
                         onClick={() => {
