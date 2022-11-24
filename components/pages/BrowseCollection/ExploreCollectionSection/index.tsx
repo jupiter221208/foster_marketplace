@@ -20,9 +20,10 @@ import styles from './index.module.scss'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
+import { useViewport } from 'utils'
 
 const ExploreCollectionSection = props => {
-  const { viewport } = props
+  const viewport = useViewport()
   const router = useRouter()
 
   const [trendingList, setTrendingList] = useState<any[]>([])
