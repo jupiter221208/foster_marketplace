@@ -26,7 +26,7 @@ import listingsAPI from 'apis/listings'
 const ListNFTModal = props => {
   const { data, open, onClose } = props
 
-  const [price, setPrice] = useState()
+  const [price, setPrice] = useState<number>()
   const [listStatus, setListStatus] = useState(false)
 
   const { metaplex: mx } = useMetaplex()
@@ -91,7 +91,12 @@ const ListNFTModal = props => {
                     />
                   </div>
                   <div className="w-full mt-[30px]">
-                    <GradientButton label="List" fullWidth onClick={() => handleListNFTClick()} />
+                    <GradientButton
+                      disabled={price !== undefined && price > 0 ? false : true}
+                      label="List"
+                      fullWidth
+                      onClick={() => handleListNFTClick()}
+                    />
                   </div>
                   <div className="w-full mt-[30px]">
                     <div className={styles.text}>

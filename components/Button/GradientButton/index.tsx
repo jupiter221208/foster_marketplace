@@ -44,7 +44,7 @@ const GradientButton = props => {
         borderRadius: borderRadius,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
-        opacity: opacity,
+        opacity: disabled ? 0.5 : opacity,
       }}
     >
       {(direction === 'both' || direction === 'rtl') && icon !== '' && (
