@@ -284,28 +284,25 @@ const WalletButton = props => {
               )}
             </Menu.Item>
             <div className={styles.divider}></div>
-            <Menu.Item>
-              {({ active }) => (
-                <div className="w-full flex justify-between items-center">
-                  <div className="block">
-                    <div className={styles.whiteText}>Main wallet</div>
-                    <div className="flex items-center gap-1">
-                      <Image src={SolanaLogoIcon} alt="" />
-                      <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
-                    </div>
-                  </div>
-                  <div
-                    className="flex gap-2 cursor-pointer hover:opacity-80"
-                    onClick={() => copyToClipboard(publicKey?.toString() || '')}
-                  >
-                    <Image src={CopyAltLightGreenIcon} alt="" />
-                    <div className={styles.grayCard}>
-                      <div className={styles.greenText}>{shortMainAddress}</div>
-                    </div>
-                  </div>
+            {/* main wallet part */}
+            <div className="w-full flex justify-between items-center">
+              <div className="block">
+                <div className={styles.whiteText}>Main wallet</div>
+                <div className="flex items-center gap-1">
+                  <Image src={SolanaLogoIcon} alt="" />
+                  <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
                 </div>
-              )}
-            </Menu.Item>
+              </div>
+              <div
+                className="flex gap-2 cursor-pointer hover:opacity-80"
+                onClick={() => copyToClipboard(publicKey?.toString() || '')}
+              >
+                <Image src={CopyAltLightGreenIcon} alt="" />
+                <div className={styles.grayCard}>
+                  <div className={styles.greenText}>{shortMainAddress}</div>
+                </div>
+              </div>
+            </div>
             <Menu.Item>
               {({ active }) => (
                 <div className="w-full flex items-center cursor-pointer hover:opacity-80">
@@ -330,7 +327,7 @@ const WalletButton = props => {
             </Menu.Item>
             <div className={styles.divider}></div>
             {/* offer wallet part */}
-            <div className="w-full flex justify-between items-center mt-3">
+            <div className="flex justify-between my-3">
               <div className="block">
                 <div className={styles.whiteText}>Offer wallet</div>
                 <div className="flex items-center gap-1">
@@ -338,22 +335,23 @@ const WalletButton = props => {
                   <div className={styles.grayText}>{offerBalance.toFixed(2)}</div>
                 </div>
               </div>
-              <div
-                className="flex gap-2 cursor-pointer hover:opacity-80"
-                onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
-              >
-                <Image src={CopyAltLightGreenIcon} alt="" />
-                <div className={styles.grayCard}>
-                  <div className={styles.greenText}>{shortOfferAddress}</div>
+              <div className="flex flex-wrap">
+                <div
+                  className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
+                  onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                >
+                  <Image src={CopyAltLightGreenIcon} alt="" />
+                  <div className={styles.grayCard}>
+                    <div className={styles.greenText}>{shortOfferAddress}</div>
+                  </div>
+                </div>
+                <div
+                  className="w-full flex justify-end py-1 cursor-pointer"
+                  onClick={() => setShowOfferWallet(!showOfferWallet)}
+                >
+                  <Image src={EllipseGroupWhiteIcon} />
                 </div>
               </div>
-            </div>
-            <div className="w-full flex justify-end items-center cursor-pointer mt-3">
-              <IconButton
-                icon={EllipseGroupWhiteIcon}
-                backgroundColor="transparent"
-                onClick={() => setShowOfferWallet(!showOfferWallet)}
-              />
             </div>
             {showOfferWallet && (
               <div className={styles.walletCard}>
@@ -406,7 +404,7 @@ const WalletButton = props => {
               </div>
             )}
             {/* bidding wallet part */}
-            <div className="w-full flex justify-between items-center mt-3">
+            <div className="flex justify-between my-3">
               <div className="block">
                 <div className={styles.whiteText}>Bidding wallet</div>
                 <div className="flex items-center gap-1">
@@ -414,22 +412,23 @@ const WalletButton = props => {
                   <div className={styles.grayText}>{biddingBalance.toFixed(2)}</div>
                 </div>
               </div>
-              <div
-                className="flex gap-2 cursor-pointer hover:opacity-80"
-                onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
-              >
-                <Image src={CopyAltLightGreenIcon} alt="" />
-                <div className={styles.grayCard}>
-                  <div className={styles.greenText}>{shortBiddingAddress}</div>
+              <div className="flex flex-wrap">
+                <div
+                  className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
+                  onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                >
+                  <Image src={CopyAltLightGreenIcon} alt="" />
+                  <div className={styles.grayCard}>
+                    <div className={styles.greenText}>{shortBiddingAddress}</div>
+                  </div>
+                </div>
+                <div
+                  className="w-full flex justify-end py-1 cursor-pointer"
+                  onClick={() => setShowBiddingWallet(!showBiddingWallet)}
+                >
+                  <Image src={EllipseGroupWhiteIcon} />
                 </div>
               </div>
-            </div>
-            <div className="w-full flex justify-end items-center cursor-pointer mt-3">
-              <IconButton
-                icon={EllipseGroupWhiteIcon}
-                backgroundColor="transparent"
-                onClick={() => setShowBiddingWallet(!showBiddingWallet)}
-              />
             </div>
             {showBiddingWallet && (
               <div className={styles.walletCard}>
