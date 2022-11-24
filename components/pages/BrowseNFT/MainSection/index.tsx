@@ -251,8 +251,7 @@ const MainSection = () => {
             setNftDescription(response.description)
             setNftCategories(response.categories?.split(','))
             if (response.listing_status === 'listed') {
-              if (response.listing)
-                setNftPrice(parseFloat(response.listing.list_price))
+              if (response.listing) setNftPrice(parseFloat(response.listing.list_price))
             }
             setMintAddress(response.address)
             setLikeCount(response.likes >= 0 ? response.likes : 0)
@@ -420,6 +419,10 @@ const MainSection = () => {
                     <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                     <div className={styles.text}>{likeCount}</div>
                   </div>
+                  <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
+                    <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                    <div className={styles.text}>{saveCount}</div>
+                  </div>
                   <MenuSocialShare
                     address={id}
                     icon01={EmailWhiteIcon}
@@ -430,10 +433,6 @@ const MainSection = () => {
                     setVoteCount={setShareCount}
                     onClick={() => {}}
                   />
-                  <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
-                    <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{saveCount}</div>
-                  </div>
                 </div>
                 <div
                   className={`${styles.greenTitle} w-full flex lg:hidden`}
