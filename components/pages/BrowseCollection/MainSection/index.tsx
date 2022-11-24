@@ -200,7 +200,9 @@ const MainSection = props => {
                   <div className="text-center">
                     <div className="flex items-center justify-center">
                       <Image src={SolanaLogoIcon} alt="" />
-                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(floorPrice)}</div>
+                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>
+                        {floorPrice > 0 ? getPriceValue(floorPrice) : 'N/A'}
+                      </div>
                     </div>
                     <div className={styles.nftInfoValue}>Floor Price</div>
                   </div>
@@ -209,7 +211,9 @@ const MainSection = props => {
                   <div className="text-center">
                     <div className="flex items-center justify-center">
                       <Image src={SolanaSolLogoIcon} alt="" />
-                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>{getPriceValue(totalVolume)}</div>
+                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>
+                        {totalVolume > 0 ? getPriceValue(totalVolume) : 'N/A'}
+                      </div>
                     </div>
 
                     <div className={styles.nftInfoValue}>Total Volume</div>
