@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 
 const OutlineButton = props => {
   const {
+    backgroundColor = '',
     borderColor,
     borderRadius = '',
     borderWidth = 1,
@@ -31,6 +32,7 @@ const OutlineButton = props => {
       onClick={() => onClick()}
       className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
       style={{
+        backgroundColor: backgroundColor,
         color: color,
         borderWidth: borderWidth,
         borderColor: borderColor,

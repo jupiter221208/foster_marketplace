@@ -62,15 +62,13 @@
   right: 0;
   margin-top: 28px;
   transform-origin: top right;
-  background-color: rgba($background-black-color, 0.45);
+  background-color: rgba($background-black-color, 0.8);
   border-radius: 12px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
 }
 
 .menuArea {
-  // width: 100%;
-  // height: 100%;
   background: transparent;
   border: 1px solid rgba($text-gray-200-color, 0.1);
   border-radius: 12px;
@@ -157,7 +155,8 @@
 .walletCard {
   width: 100%;
   border-radius: 8px;
-  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba(#1c4144, 35%));
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+  background: linear-gradient(to bottom, rgba($background-dark-color, 100%), rgba($background-black-color, 100%));
   padding: 13px;
 
   display: flex;

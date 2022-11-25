@@ -18,6 +18,7 @@ import Avatar from 'components/Avatar'
 import IconButton from 'components/Button/IconButton'
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from '../OutlineButton'
 
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
@@ -405,11 +406,23 @@ const WalletButton = props => {
                   <div className={styles.cardWhiteText}>{newOfferWallet.toFixed(2)}</div>
                 </div>
                 <div className="w-full flex justify-between gap-2 mt-1">
-                  <PriceInput onChange={value => onChangeOfferPrice(value)} height="30px" fontSize="12px" />
-                  <GradientButton
+                  <PriceInput
+                    onChange={value => onChangeOfferPrice(value)}
+                    height="30px"
+                    fontSize="12px"
+                    borderColor="rgba(255, 255, 255, 0.1)"
+                    borderRadius="6px"
+                    paddingLeft="10px"
+                    paddingRight="10px"
+                  />
+                  <OutlineButton
                     label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"
                     fontSize="12px"
+                    backgroundColor01="#202427"
+                    backgroundColor02="#202427"
+                    borderRadius="6px"
+                    borderColor="rgba(255, 255, 255, 0.1)"
                     onClick={() => onClickOfferButton()}
                   />
                 </div>
@@ -485,11 +498,23 @@ const WalletButton = props => {
                   <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
                 </div>
                 <div className="w-full flex justify-between gap-2 mt-1">
-                  <PriceInput onChange={value => onChangeBiddingPrice(value)} height="30px" fontSize="12px" />
-                  <GradientButton
+                  <PriceInput
+                    onChange={value => onChangeBiddingPrice(value)}
+                    height="30px"
+                    fontSize="12px"
+                    borderColor="rgba(255, 255, 255, 0.1)"
+                    borderRadius="6px"
+                    paddingLeft="10px"
+                    paddingRight="10px"
+                  />
+                  <OutlineButton
                     label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"
                     fontSize="12px"
+                    backgroundColor01="#202427"
+                    backgroundColor02="#202427"
+                    borderRadius="6px"
+                    borderColor="rgba(255, 255, 255, 0.1)"
                     onClick={() => onClickBiddingButton()}
                   />
                 </div>
