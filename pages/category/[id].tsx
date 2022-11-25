@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 import Head from 'next/head'
 
 // components
@@ -26,6 +29,9 @@ import PopularCategorySection from 'components/pages/Home/PopularCategorySection
 const Category = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
+  dispatch({ type: 'set', isLoading: false })
+
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
   useEffect(() => {

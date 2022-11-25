@@ -9,12 +9,22 @@ import Avatar from 'assets/images/dashboard-avatar.png'
 // styles
 import styles from './index.module.scss'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar } = props
   const router = useRouter()
+  const dispatch = useDispatch()
 
   return (
-    <div className={styles.container} onClick={() => router.push('/browse-collection/' + collectionID)}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        dispatch({ type: 'set', isLoading: true })
+        router.push('/browse-collection/' + collectionID)
+      }}
+    >
       <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
         <img src={image} alt="" width={492} height={492} className="w-full object-cover aspect-square" />
         <div className={styles.bottomMask} />

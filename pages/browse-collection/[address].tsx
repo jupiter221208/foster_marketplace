@@ -29,6 +29,8 @@ const BrowseCollection = () => {
   const { address } = router.query
 
   const dispatch = useDispatch()
+  dispatch({ type: 'set', isLoading: false })
+
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [data, setData] = useState({})

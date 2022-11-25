@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'

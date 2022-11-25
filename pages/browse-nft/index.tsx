@@ -17,10 +17,16 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 // styles
 import styles from './index.module.scss'
 
 const BrowseNFT = () => {
+  const dispatch = useDispatch()
+  dispatch({ type: 'set', isLoading: false })
+
   return (
     <div className="g-container">
       <Head>
