@@ -120,7 +120,19 @@
 
   background-color: $background-black-color;
   border-radius: 27px;
-  border: 1px solid #707070;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+}
+
+.collectionName {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 28px;
+  }
+  color: rgba($text-gray-200-color, 0.75);
+  white-space: nowrap;
 }
 
 .greenTitle {
@@ -196,7 +208,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba($text-gray-200-color, 0.6);
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .greenText {
@@ -207,7 +219,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: $brand-01-color;
+  color: rgba($brand-03-color, 0.75);
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -279,7 +291,7 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px;
-  border: 1px solid rgba($text-gray-200-color, 0.6);
+  border: 1px solid rgba($text-gray-200-color, 0.1);
   background-color: $background-black-color;
 
   font-family: 'Muli-Bold';

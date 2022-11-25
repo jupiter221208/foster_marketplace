@@ -421,10 +421,10 @@ const MainSection = () => {
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
                 <div
-                  className={`${styles.greenTitle} hidden lg:flex cursor-pointer`}
+                  className={`${styles.collectionName} hidden lg:flex cursor-pointer`}
                   onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
                 >
-                  {nftCollectionName}
+                  {nftCollectionName}ssss
                 </div>
                 <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                   <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
@@ -456,17 +456,18 @@ const MainSection = () => {
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
                 <div className={styles.title}>{nftName}</div>
               </div>
-              <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7">
-                <div className={`${styles.grayText} mr-1 lg:mr-3`}>Fostered by</div>
-                <div
-                  className={`${styles.greenText} mr-[14px] lg:mr-[34px]`}
-                  onClick={() => router.push(`/artist-profile/${nftOwnerAddress}`)}
-                >
-                  {nftOwnerUsername}
+              <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7 gap-x-[14px] lg:gap-x-[34px]">
+                <div className="flex gap-1 lg:gap-3">
+                  <div className={styles.grayText}>Fostered by</div>
+                  <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftOwnerAddress}`)}>
+                    {nftOwnerUsername}
+                  </div>
                 </div>
-                <div className={`${styles.grayText} mr-1 lg:mr-3`}>Created by</div>
-                <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftCreatorAddress}`)}>
-                  {nftCreatorUsername}
+                <div className="flex gap-1 lg:gap-3">
+                  <div className={styles.grayText}>Created by</div>
+                  <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftCreatorAddress}`)}>
+                    {nftCreatorUsername}
+                  </div>
                 </div>
               </div>
             </div>
