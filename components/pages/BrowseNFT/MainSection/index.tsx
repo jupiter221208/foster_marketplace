@@ -40,6 +40,7 @@ import LoadingModal from 'components/Modal/LoadingModal'
 import { useViewport } from 'utils'
 
 // images and icons
+import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -421,30 +422,37 @@ const MainSection = () => {
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-end lg:justify-between items-center">
                 <div
-                  className={`${styles.collectionName} hidden lg:flex cursor-pointer`}
+                  className={`${styles.collectionName} hidden lg:flex cursor-pointer mt-8`}
                   onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
                 >
-                  {nftCollectionName}ssss
+                  {nftCollectionName}
                 </div>
-                <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
-                    <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{likeCount}</div>
+                <div className="inline">
+                  <div className="flex justify-end">
+                    <div className="p-1 cursor-pointer" onClick={() => {}}>
+                      <Image src={EllipseGroupWhiteIcon} alt="" />
+                    </div>
                   </div>
-                  <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
-                    <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{saveCount}</div>
+                  <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                    <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
+                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                      <div className={styles.text}>{likeCount}</div>
+                    </div>
+                    <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
+                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                      <div className={styles.text}>{saveCount}</div>
+                    </div>
+                    <MenuSocialShare
+                      address={id}
+                      icon01={EmailWhiteIcon}
+                      icon02={EmailGreenIcon}
+                      vote={share}
+                      setVote={setShare}
+                      voteCount={shareCount}
+                      setVoteCount={setShareCount}
+                      onClick={() => {}}
+                    />
                   </div>
-                  <MenuSocialShare
-                    address={id}
-                    icon01={EmailWhiteIcon}
-                    icon02={EmailGreenIcon}
-                    vote={share}
-                    setVote={setShare}
-                    voteCount={shareCount}
-                    setVoteCount={setShareCount}
-                    onClick={() => {}}
-                  />
                 </div>
                 <div
                   className={`${styles.greenTitle} w-full flex lg:hidden`}
