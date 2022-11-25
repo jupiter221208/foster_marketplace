@@ -76,6 +76,7 @@ import nftsAPI, { NFT } from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
 import { useWallets } from 'hooks/useWallets'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -491,13 +492,17 @@ const MainSection = () => {
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
                   <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                    <GradientButton
-                      label={tradeStateAddress ? 'Quick Buy' : 'Loading Listing Details'}
-                      onClick={() => quickBuy()}
-                      icon={tradeStateAddress ? QuickBuyBlackIcon : ''}
-                      direction="rtl"
-                      disabled={!tradeStateAddress}
-                    />
+                    {tradeStateAddress ? (
+                      <GradientButton
+                        label={'Quick Buy'}
+                        onClick={() => quickBuy()}
+                        icon={QuickBuyBlackIcon}
+                        direction="rtl"
+                        disabled={!tradeStateAddress}
+                      />
+                    ) : (
+                      <LoadingButton />
+                    )}
                     <OutlineButton
                       label="Make Offer"
                       onClick={() => setOpenOfferModal(true)}
