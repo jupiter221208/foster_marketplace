@@ -4,6 +4,9 @@ import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/LiveAuction/MainSection'
@@ -18,6 +21,9 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import styles from './index.module.scss'
 
 const LiveAuction = () => {
+  const dispatch = useDispatch()
+  dispatch({ type: 'set', isLoading: false })
+
   return (
     <div className="g-container">
       <Head>

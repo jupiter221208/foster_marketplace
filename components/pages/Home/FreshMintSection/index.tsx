@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useDispatch } from 'react-redux'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -32,6 +34,7 @@ import dashboardAPI from 'apis/dashboard'
 const FreshMintSection = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [allFreshMintsList, setAllFreshMintsList] = useState<any[]>([])
   const [freshMintsList, setFreshMintsList] = useState<any[]>([])
@@ -129,7 +132,10 @@ const FreshMintSection = () => {
                     assetType={item.asset_type}
                     artistName={item.artist_username}
                     price={item.list_price}
-                    onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-nft?id=${item.token_id}`)
+                    }}
                   />
                 </div>
               </SwiperSlide>

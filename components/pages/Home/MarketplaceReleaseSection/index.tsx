@@ -139,7 +139,10 @@ const MarketplaceReleaseSection = () => {
                   nftName={item.nft_name}
                   artistName={item.artist_username}
                   price={item.list_price}
-                  onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/browse-nft?id=${item.token_id}`)
+                  }}
                 />
               </div>
             </SwiperSlide>

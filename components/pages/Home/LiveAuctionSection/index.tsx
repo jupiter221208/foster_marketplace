@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useDispatch } from 'react-redux'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -28,6 +30,7 @@ import dashboardAPI from 'apis/dashboard'
 const LiveAuctionSection = () => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
@@ -122,7 +125,10 @@ const LiveAuctionSection = () => {
                 <SwiperSlide key={index}>
                   <LiveAuctionCard
                     data={item}
-                    onClick={() => router.push('/live-auction?id=' + item.token_id)}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push('/live-auction?id=' + item.token_id)
+                    }}
                     key={index}
                   />
                 </SwiperSlide>
