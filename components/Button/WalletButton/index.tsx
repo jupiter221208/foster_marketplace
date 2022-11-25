@@ -71,6 +71,7 @@ const WalletButton = props => {
     navigator.clipboard.writeText(value)
   }
 
+  const [showMainWallet, setShowMainWallet] = useState(false)
   const [showOfferWallet, setShowOfferWallet] = useState(false)
   const [showBiddingWallet, setShowBiddingWallet] = useState(false)
   const [offerStatus, setOfferStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
@@ -285,7 +286,7 @@ const WalletButton = props => {
             </Menu.Item>
             <div className={styles.divider}></div>
             {/* main wallet part */}
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex justify-between">
               <div className="block">
                 <div className={styles.whiteText}>Main wallet</div>
                 <div className="flex items-center gap-1">
@@ -293,38 +294,50 @@ const WalletButton = props => {
                   <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
                 </div>
               </div>
-              <div
-                className="flex gap-2 cursor-pointer hover:opacity-80"
-                onClick={() => copyToClipboard(publicKey?.toString() || '')}
-              >
-                <Image src={CopyAltLightGreenIcon} alt="" />
-                <div className={styles.grayCard}>
-                  <div className={styles.greenText}>{shortMainAddress}</div>
+              <div className="flex flex-wrap">
+                <div
+                  className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
+                  onClick={() => copyToClipboard(publicKey?.toString() || '')}
+                >
+                  <Image src={CopyAltLightGreenIcon} alt="" />
+                  <div className={styles.grayCard}>
+                    <div className={styles.greenText}>{shortMainAddress}</div>
+                  </div>
+                </div>
+                <div
+                  className="w-full flex justify-end py-1 cursor-pointer"
+                  onClick={() => setShowMainWallet(!showMainWallet)}
+                >
+                  <Image src={EllipseGroupWhiteIcon} />
                 </div>
               </div>
             </div>
-            <Menu.Item>
-              {({ active }) => (
-                <div className="w-full flex items-center cursor-pointer hover:opacity-80">
-                  <Image src={ChangeWalletIcon} alt="" />
-                  <div className={styles.whiteText}>Change wallet</div>
-                </div>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <div
-                  className="w-full flex items-center cursor-pointer hover:opacity-80"
-                  onClick={() => {
-                    setButtonClicked(true)
-                    handleDisconnect()
-                  }}
-                >
-                  <Image src={DisconnectWalletIcon} alt="" />
-                  <div className={styles.whiteText}>Disconnect wallet</div>
-                </div>
-              )}
-            </Menu.Item>
+            {showMainWallet && (
+              <div className="w-full flex flex-wrap">
+                <Menu.Item>
+                  {({ active }) => (
+                    <div className="w-full flex items-center cursor-pointer hover:opacity-80">
+                      <Image src={ChangeWalletIcon} alt="" />
+                      <div className={styles.whiteText}>Change wallet</div>
+                    </div>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <div
+                      className="w-full flex items-center cursor-pointer hover:opacity-80"
+                      onClick={() => {
+                        setButtonClicked(true)
+                        handleDisconnect()
+                      }}
+                    >
+                      <Image src={DisconnectWalletIcon} alt="" />
+                      <div className={styles.whiteText}>Disconnect wallet</div>
+                    </div>
+                  )}
+                </Menu.Item>
+              </div>
+            )}
             <div className={styles.divider}></div>
             {/* offer wallet part */}
             <div className="flex justify-between my-3">
