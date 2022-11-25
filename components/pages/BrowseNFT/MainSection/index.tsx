@@ -26,6 +26,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 // components
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
+import ReportMenu from 'components/Menu/ReportMenu'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
@@ -40,7 +41,6 @@ import LoadingModal from 'components/Modal/LoadingModal'
 import { useViewport } from 'utils'
 
 // images and icons
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
@@ -430,9 +430,7 @@ const MainSection = () => {
                 </div>
                 <div className="inline">
                   <div className="flex justify-end">
-                    <div className="p-1 cursor-pointer" onClick={() => {}}>
-                      <Image src={EllipseGroupWhiteIcon} alt="" />
-                    </div>
+                    <ReportMenu address={id} />
                   </div>
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
