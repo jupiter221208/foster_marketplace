@@ -9,7 +9,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 
-const AuctionCard = (props) => {
+const AuctionCard = props => {
   const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
   const [displayEndTime, setDisplayEndTime] = useState({
     days: 0,
@@ -25,13 +25,13 @@ const AuctionCard = (props) => {
       const end = endTime
 
       const s = start.getTime() - now.getTime()
-      
-      if(s <= 0) {
+
+      if (s <= 0) {
         setIsStarted(true)
       }
 
       const t = end.getTime() - now.getTime()
-      if(t < 0) {
+      if (t < 0) {
         setDisplayEndTime({
           days: 0,
           hours: 0,
@@ -49,22 +49,21 @@ const AuctionCard = (props) => {
         days,
         hours,
         minutes,
-        seconds
+        seconds,
       })
     }
 
     let internalID
 
-    if(startTime && endTime) {
-      if(internalID) clearInterval(internalID)
+    if (startTime && endTime) {
+      if (internalID) clearInterval(internalID)
       internalID = setInterval(setCountDown, 1000)
       const now = new Date()
       const t = endTime.getTime() - now.getTime()
-      if(t < 0) {
+      if (t < 0) {
         clearInterval(internalID)
       }
     }
-
   }, [startTime, endTime])
 
   // useEffect(() => {
@@ -133,15 +132,11 @@ const AuctionCard = (props) => {
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.whiteText}>Ends In</div>
+        <div className={styles.whiteText}>Time Remaining</div>
         <div className="flex justify-around gap-1">
           <div className="block justify-center">
-            <div className={styles.greenText}>
-              {/* {displayEndTime.hours[0]}
-              {displayEndTime.hours[1]} */}
-              {displayEndTime.days}
-            </div>
-            <div className={styles.grayText}>Days</div>
+            <div className={styles.greenText}>{displayEndTime.days}</div>
+            <div className={styles.grayText}>&nbsp;Days&nbsp;</div>
           </div>
           <div className="block justify-center">
             <div className={styles.greenText}>
@@ -149,7 +144,7 @@ const AuctionCard = (props) => {
               {displayEndTime.hours[1]} */}
               {displayEndTime.hours}
             </div>
-            <div className={styles.grayText}>Hours</div>
+            <div className={styles.grayText}>&nbsp;&nbsp;Hours&nbsp;&nbsp;</div>
           </div>
           <div className="block justify-center">
             <div className={styles.greenText}>
@@ -157,7 +152,7 @@ const AuctionCard = (props) => {
               {displayEndTime.minutes[1]} */}
               {displayEndTime.minutes}
             </div>
-            <div className={styles.grayText}>Min</div>
+            <div className={styles.grayText}>Minutes</div>
           </div>
           <div className="block justify-center">
             <div className={styles.greenText}>
@@ -165,7 +160,7 @@ const AuctionCard = (props) => {
               {displayEndTime.seconds[1]} */}
               {displayEndTime.seconds}
             </div>
-            <div className={styles.grayText}>Sec</div>
+            <div className={styles.grayText}>Seconds</div>
           </div>
         </div>
       </div>

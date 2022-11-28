@@ -5,13 +5,11 @@
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  background-color: $background-dark-color;
+  background-color: rgba($brand-01-color, 0.1);
   border-radius: 12px;
-  border: 1px solid $brand-06-color;
-
   padding: 8px 10px;
   @media (min-width: 1024px) {
-    padding-top: 3px;
+    padding-top: 9px;
     padding-bottom: 10px;
   }
 }
@@ -40,7 +38,7 @@
     font-size: 22px;
     line-height: 25px;
   }
-  color: $brand-06-color;
+  color: $brand-01-color;
 }
 
 .grayText {
@@ -50,8 +48,8 @@
   font-size: 8px;
   line-height: 8px;
   @media (min-width: 1024px) {
-    font-size: 12px;
+    font-size: 10px;
     line-height: 12px;
   }
-  color: $brand-06-color;
+  color: rgba($text-gray-200-color, 0.8);
 }
