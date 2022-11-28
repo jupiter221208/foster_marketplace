@@ -33,6 +33,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
+import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import Select from 'components/Select'
 import LoadingModal from 'components/Modal/LoadingModal'
@@ -85,6 +86,7 @@ const MainSection = () => {
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [loading, setLoading] = useState(false)
+  const [openReportModal, setOpenReportModal] = useState(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
   const [share, setShare] = useState<boolean>(false)
@@ -430,7 +432,7 @@ const MainSection = () => {
                 </div>
                 <div className="inline">
                   <div className="flex justify-end">
-                    <ReportMenu address={id} />
+                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                   </div>
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
@@ -739,6 +741,14 @@ const MainSection = () => {
         }}
         data={alertData}
       />
+      {openReportModal && (
+        <ReportAnIssueModal
+          open={openReportModal}
+          close={() => {
+            setOpenReportModal(false)
+          }}
+        />
+      )}
       {openOfferModal && (
         <MakeAnOfferModal
           open={openOfferModal}
