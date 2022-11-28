@@ -438,16 +438,8 @@ const MainSection = () => {
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex justify-between items-center">
-                <div
-                  className={styles.collectionName}
-                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
-                >
-                  {nftCollectionName}
-                </div>
+                <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                 <div className="inline">
-                  <div className="flex justify-end">
-                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
-                  </div>
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
                       <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
@@ -468,6 +460,14 @@ const MainSection = () => {
                       onClick={() => {}}
                     />
                   </div>
+                </div>
+              </div>
+              <div className="w-full flex justify-between items-center">
+                <div
+                  className={styles.collectionName}
+                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                >
+                  {nftCollectionName}
                 </div>
               </div>
               <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">

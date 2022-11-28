@@ -14,9 +14,9 @@
   }
   height: auto;
   position: absolute;
-  right: 0;
+  left: 0;
   top: 28px;
-  transform-origin: top right;
+  transform-origin: top left;
   background-color: rgba($background-dark-color, 0.1);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);

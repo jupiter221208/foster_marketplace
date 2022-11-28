@@ -48,18 +48,22 @@ const ReportMenu = props => {
         >
           <Menu.Items className={styles.menuBlur}>
             <div className={styles.menuArea}>
-              <div className="absolute top-[9px] right-[11px]">
-                <IconButton
-                  icon={CloseWhiteIcon}
-                  onClick={() => close()}
-                  backgroundColor="#4B4B4B"
-                  width="20px"
-                  height="20px"
-                  borderRadius="10px"
-                  iconWidth={10}
-                  iconHeight={10}
-                />
-              </div>
+              <Menu.Item>
+                {({ active }) => (
+                  <div className="absolute top-[9px] right-[11px]">
+                    <IconButton
+                      icon={CloseWhiteIcon}
+                      onClick={() => {}}
+                      backgroundColor="#4B4B4B"
+                      width="20px"
+                      height="20px"
+                      borderRadius="10px"
+                      iconWidth={10}
+                      iconHeight={10}
+                    />
+                  </div>
+                )}
+              </Menu.Item>
               <div className={styles.title}>Details</div>
               <div className={styles.divider} />
               <Menu.Item>
