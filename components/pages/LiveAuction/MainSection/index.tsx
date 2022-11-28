@@ -453,6 +453,10 @@ const MainSection = () => {
                       <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{likeCount}</div>
                     </div>
+                    <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
+                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                      <div className={styles.text}>{saveCount}</div>
+                    </div>
                     <MenuSocialShare
                       address={id}
                       icon01={EmailWhiteIcon}
@@ -463,10 +467,6 @@ const MainSection = () => {
                       setVoteCount={setShareCount}
                       onClick={() => {}}
                     />
-                    <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
-                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                      <div className={styles.text}>{saveCount}</div>
-                    </div>
                   </div>
                 </div>
               </div>
