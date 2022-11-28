@@ -43,7 +43,7 @@ import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaAuctionIcon from 'assets/icons/solana-auction.svg'
+import SolanaAuctionIcon from 'assets/icons/solana-place-bid.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg'
 import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
@@ -160,6 +160,7 @@ const MainSection = () => {
   const [nftRoyalties, setNftRoyalties] = useState(1)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
+  const [highBidder, setHighBidder] = useState('')
   const [nftCreatorAddress, setNftCreatorAddress] = useState('')
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [mintAddress, setMintAddress] = useState('')
@@ -191,7 +192,7 @@ const MainSection = () => {
   }, [isEnded, isStarted])
 
   const { metaplex: mx } = useMetaplex()
-  const { connected } = useWallet()
+  const { publicKey } = useWallet()
   const { updateSolBalance } = useWallets()
   const [isRunning, setIsRunning] = useState(false)
 
@@ -238,6 +239,7 @@ const MainSection = () => {
             const highest_bid = response.auction.highest_bid
             setNftReservePrice(Number(auction.reserve_price))
             setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+            setHighBidder(highest_bid ? highest_bid.buyer_address : '')
             setSellerAddress(new PublicKey(auction.seller_address))
             setEndTime(new Date(Number(auction.end_time) * 1000))
             setStartTime(new Date(Number(auction.start_time) * 1000))
@@ -274,9 +276,8 @@ const MainSection = () => {
     }
 
     setAuctionLoading(true)
-
-    const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
     try {
+      const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
       updateSolBalance()
       AuctionAPI.placeBid(mintAddress, {
         mint_address: bid.mintAddress.toBase58(),
@@ -482,13 +483,20 @@ const MainSection = () => {
             <div className="w-full flex flex-wrap mt-10">
               <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 {showPlaceBidButton && (
-                  <GradientButton
-                    label="Place Bid"
-                    disabled={isEnded}
-                    onClick={() => setShowModalPlaceBid(true)}
-                    icon={SolanaAuctionIcon}
-                    direction="rtl"
-                  />
+                  <div>
+                    <GradientButton
+                      label="Place Bid"
+                      disabled={isEnded}
+                      onClick={() => setShowModalPlaceBid(true)}
+                      icon={SolanaAuctionIcon}
+                      direction="rtl"
+                      backgroundColor01={publicKey?.toBase58() === highBidder ? '#83888A' : '#5ac3ba'}
+                      backgroundColor02={publicKey?.toBase58() === highBidder ? '#83888A' : '#378287'}
+                    />
+                    {publicKey?.toBase58() === highBidder ? (
+                      <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                    ) : null}
+                  </div>
                 )}
               </div>
               <div className="w-full flex content-none mt-6 lg:mt-7">
