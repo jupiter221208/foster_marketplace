@@ -103,7 +103,7 @@
   border: 1px solid #707070;
 }
 
-.greenTitle {
+.collectionName {
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 20px;
@@ -111,7 +111,8 @@
     font-size: 24px;
     line-height: 28px;
   }
-  color: $brand-01-color;
+  color: rgba($text-gray-200-color, 0.75);
+  white-space: nowrap;
 }
 
 .likeTitle {
@@ -248,7 +249,7 @@
   padding-right: 12px;
   border-radius: 12px;
   border: 1px solid rgba(#eceef4, 0.1);
-  background-color: rgba($background-dark-color, 0.6);
+  background-color: rgba($background-dark-color, 1);
 
   font-family: 'Muli-Bold';
   font-size: 18px;
