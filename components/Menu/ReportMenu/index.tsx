@@ -23,7 +23,7 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const ReportMenu = props => {
-  const { address } = props
+  const { address, onClick } = props
 
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
@@ -66,13 +66,15 @@ const ReportMenu = props => {
                 {({ active }) => (
                   <div className={styles.menuItem}>
                     <Image src={SolanaSolLogoIcon} alt="" />
-                    View on SolanaFM
+                    <a target="_blank" href={explorerURL} rel="noopener noreferrer">
+                      View on SolanaFM
+                    </a>
                   </div>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <div className={styles.menuItem}>
+                  <div className={styles.menuItem} onClick={() => onClick()}>
                     <Image src={NounProhibitIcon} alt="" />
                     Report an Issue
                   </div>
