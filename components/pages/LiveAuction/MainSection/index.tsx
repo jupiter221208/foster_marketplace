@@ -38,6 +38,8 @@ import GradientButton from 'components/Button/GradientButton'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import AuctionCard from 'components/Card/AuctionCard'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
+import ReportMenu from 'components/Menu/ReportMenu'
+import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -84,6 +86,7 @@ const MainSection = () => {
   const openedRef = useRef<any>(null)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
+  const [openReportModal, setOpenReportModal] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -441,24 +444,29 @@ const MainSection = () => {
                 >
                   {nftCollectionName}
                 </div>
-                <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                  <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
-                    <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{likeCount}</div>
+                <div className="inline">
+                  <div className="flex justify-end">
+                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                   </div>
-                  <MenuSocialShare
-                    address={id}
-                    icon01={EmailWhiteIcon}
-                    icon02={EmailGreenIcon}
-                    vote={share}
-                    setVote={setShare}
-                    voteCount={shareCount}
-                    setVoteCount={setShareCount}
-                    onClick={() => {}}
-                  />
-                  <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
-                    <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                    <div className={styles.text}>{saveCount}</div>
+                  <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                    <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
+                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                      <div className={styles.text}>{likeCount}</div>
+                    </div>
+                    <MenuSocialShare
+                      address={id}
+                      icon01={EmailWhiteIcon}
+                      icon02={EmailGreenIcon}
+                      vote={share}
+                      setVote={setShare}
+                      voteCount={shareCount}
+                      setVoteCount={setShareCount}
+                      onClick={() => {}}
+                    />
+                    <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
+                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                      <div className={styles.text}>{saveCount}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -734,6 +742,14 @@ const MainSection = () => {
         }}
         data={alertData}
       />
+      {openReportModal && (
+        <ReportAnIssueModal
+          open={openReportModal}
+          close={() => {
+            setOpenReportModal(false)
+          }}
+        />
+      )}
     </div>
   )
 }
