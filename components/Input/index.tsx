@@ -14,6 +14,8 @@ const Input = props => {
     label = '',
     labelColor = '',
     labelIcon = '',
+    labelIconWidth = '',
+    labelIconHeight = '',
     label01 = '',
     label02 = '',
     error = '',
@@ -31,7 +33,7 @@ const Input = props => {
       {label !== '' && (
         <div className={styles.label} style={{ color: labelColor }}>
           {label}
-          {labelIcon !== '' && <Image src={labelIcon} alt="" />}
+          {labelIcon !== '' && <Image src={labelIcon} alt="" width={labelIconWidth} height={labelIconHeight} />}
         </div>
       )}
       <input
