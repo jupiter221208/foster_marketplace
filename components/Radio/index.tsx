@@ -4,12 +4,21 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const Radio = props => {
-  const { data, selected, onChange, direction = 'ltr', backgroundColor = '', borderRadius = '', padding = '' } = props
+  const {
+    data,
+    selected,
+    onChange,
+    direction = 'ltr',
+    backgroundColor = '',
+    borderRadius = '',
+    padding = '',
+    gap = '',
+  } = props
 
   return data.map((item, index) => (
     <div
       key={index}
-      className="flex justify-between my-4 gap-4 z-10"
+      className="flex justify-between my-3 lg:my-4 gap-4 z-10"
       style={{ backgroundColor: backgroundColor, borderRadius: borderRadius, padding: padding }}
     >
       {direction === 'ltr' && (

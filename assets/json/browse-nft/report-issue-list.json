@@ -1,0 +1,8 @@
+[
+  { "id": 0, "label": "Violent or Graphic Content", "value": "Violent or Graphic Content" },
+  { "id": 1, "label": "Hateful or Abusive Content", "value": "Hateful or Abusive Content" },
+  { "id": 2, "label": "Graphic Sexual Content", "value": "Graphic Sexual Content" },
+  { "id": 3, "label": "Counterfeit Artwork", "value": "Counterfeit Artwork" },
+  { "id": 4, "label": "User Misrepresentation", "value": "User Misrepresentation" },
+  { "id": 5, "label": "Other Suspicious Activity", "value": "Other Suspicious Activity" }
+]

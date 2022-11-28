@@ -4,7 +4,17 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const Button = props => {
-  const { label, onClick, fullWidth, disabled = false, width = '', color, backgroundColor, height = '' } = props
+  const {
+    label,
+    onClick,
+    fullWidth,
+    disabled = false,
+    width = '',
+    color,
+    backgroundColor,
+    height = '',
+    fontSize = '',
+  } = props
   return (
     <button
       type="button"
@@ -16,6 +26,7 @@ const Button = props => {
         color: color,
         backgroundColor: backgroundColor,
         height: height,
+        fontSize: fontSize,
       }}
     >
       {label}
