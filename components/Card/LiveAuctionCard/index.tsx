@@ -62,7 +62,7 @@ const LiveAuctionCard = props => {
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : viewport === 'xl' ? 18 : 23}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : viewport === 'xl' ? 18 : 23}
               />
-              <div className={styles.bidCount}>{data.reserve_price}</div>
+              <div className={styles.bidCount}>{data.current_bid !== null ? data.current_bid : data.reserve_price}</div>
             </div>
             <div className={styles.bidDesc}>Reserve Met</div>
           </div>
