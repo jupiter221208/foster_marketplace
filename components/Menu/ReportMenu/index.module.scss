@@ -7,20 +7,31 @@
   color: rgba($text-gray-200-color, 0.8);
 }
 
-.menuArea {
+.menuBlur {
+  width: 200px;
+  @media (min-width: 1024px) {
+    width: 343px;
+  }
+  height: auto;
   position: absolute;
-  top: 30px;
-  right: 0px;
-  background-color: $background-dark-color;
+  right: 0;
+  top: 28px;
+  transform-origin: top right;
+  background-color: rgba($background-dark-color, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border-radius: 15px;
   border: 1px solid rgba($text-gray-200-color, 0.1);
-  width: 343px;
+  z-index: 10;
+}
+
+.menuArea {
+  background-color: transparent;
   padding: 32px 24px;
 
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
-  overflow: hidden;
 
   cursor: pointer;
   z-index: 100;
@@ -28,9 +39,19 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 14px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 32px;
+  }
   color: $text-gray-200-color;
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba($text-gray-200-color, 0.6);
 }
 
 .menuItem {
@@ -38,11 +59,6 @@
   background-image: linear-gradient(to bottom, trasnparent 0%, trasnparent 100%);
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  // &:hover {
-  //   background-image: linear-gradient(to bottom, rgba($brand-01-color, 30%) 0%, rgba(#2d625d, 30%) 100%);
-  //   border-top: 1px solid rgba($background-light-color, 0.5);
-  //   border-bottom: 1px solid rgba($background-light-color, 0.5);
-  // }
   transition: all 0.2s;
   transition-timing-function: ease-in-out;
   white-space: nowrap;
@@ -55,5 +71,8 @@
   font-size: 14px;
   line-height: 24px;
   color: $text-gray-200-color;
+  &:hover {
+    color: $brand-01-color;
+  }
   gap: 10px;
 }
