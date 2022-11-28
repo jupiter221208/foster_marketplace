@@ -83,6 +83,7 @@ const MainSection = () => {
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any>(null)
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -271,30 +272,37 @@ const MainSection = () => {
     if (price[0] === '.') {
       price = '0' + price
     }
+
+    setAuctionLoading(true)
+
     const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
     await updateSolBalance()
     AuctionAPI.placeBid(mintAddress, {
       mint_address: bid.mintAddress.toBase58(),
       buyer_address: bid.buyerAddress.toBase58(),
       amount: bid.amount.toString(),
-    }).then(res => {
-      if (res) {
-        setShowModalPlaceBid(false)
-        setNftCurrentPrice(Number(bid.amount.toString()))
-        setTimeout(() => {
-          setAlertData([
-            {
-              id: 0,
-              title: 'Successful bid!',
-              description: `You've successfully placed a bid on ${nftName}`,
-              type: 'success',
-            },
-          ])
-          setShowAlert(true)
-        }, 500)
-        // setListedNFT()
-      }
     })
+      .then(res => {
+        if (res) {
+          setShowModalPlaceBid(false)
+          setNftCurrentPrice(Number(bid.amount.toString()))
+          setTimeout(() => {
+            setAlertData([
+              {
+                id: 0,
+                title: 'Successful bid!',
+                description: `You've successfully placed a bid on ${nftName}`,
+                type: 'success',
+              },
+            ])
+            setShowAlert(true)
+          }, 500)
+          setAuctionLoading(false)
+        }
+      })
+      .catch(rejected => {
+        setAuctionLoading(false)
+      })
   }
 
   const changeLikeStatus = () => {
@@ -701,6 +709,7 @@ const MainSection = () => {
         reservePrice={nftReservePrice}
         placeBid={placeBidAndSave}
         open={showModalPlaceBid}
+        loading={auctionLoading}
         onClose={() => {
           setShowModalPlaceBid(false)
         }}

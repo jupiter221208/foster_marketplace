@@ -9,7 +9,7 @@ import Image from 'next/image'
 // custom components
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
-import Button from 'components/Button'
+import LoadingButton from 'components/Button/LoadingButton'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
@@ -19,7 +19,7 @@ import LiveAuctionImage from 'assets/images/live-auction.png'
 import styles from './index.module.scss'
 
 const ModalPlaceBid = props => {
-  const { nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose } = props
+  const { nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
 
   const closeModal = () => {
     onClose()
@@ -28,8 +28,8 @@ const ModalPlaceBid = props => {
   const [price, setPrice] = useState(0)
 
   const onClickPlaceBid = async () => {
-    if(price < reservePrice || price <= currentPrice) {
-      alert("Low Price")
+    if (price < reservePrice || price <= currentPrice) {
+      alert('Low Price')
       return
     }
     placeBid(price)
@@ -81,7 +81,11 @@ const ModalPlaceBid = props => {
                   />
                 </div>
                 <div className="w-full mt-[30px]">
-                  <GradientButton label="Place Bid" fullWidth onClick={onClickPlaceBid} />
+                  {loading ? (
+                    <LoadingButton fullWidth />
+                  ) : (
+                    <GradientButton label="Place Bid" fullWidth onClick={onClickPlaceBid} />
+                  )}
                 </div>
                 <div className="w-full flex justify-center mt-10">
                   <div className={styles.text}>By selecting “Place bid” you agree to Terms of Services</div>
