@@ -58,7 +58,6 @@ const TrendingCollectionSection = props => {
   }
 
   useEffect(() => {
-    console.log(category, '===========category========')
     dashboardAPI.getTrendingCollections(category).then(
       response => {
         if (response !== null && response !== undefined) {
