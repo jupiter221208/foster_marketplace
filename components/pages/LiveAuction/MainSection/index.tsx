@@ -521,7 +521,7 @@ const MainSection = () => {
                     <GradientButton
                       label="Place Bid"
                       disabled={isEnded}
-                      onClick={() => setShowModalPlaceBid(true)}
+                      onClick={() => (publicKey?.toBase58() === highBidder ? {} : setShowModalPlaceBid(true))}
                       icon={SolanaAuctionIcon}
                       direction="rtl"
                       backgroundColor01={publicKey?.toBase58() === highBidder ? '#83888A' : '#5ac3ba'}
