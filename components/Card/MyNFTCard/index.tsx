@@ -19,10 +19,7 @@ const MyNFTCard = props => {
 
   return (
     <div className={styles.container}>
-      <div
-        className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden max-h-[321px]"
-        onClick={() => onClick(data)}
-      >
+      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data)}>
         {data.offchainMetadata.category === 'video' ? (
           <div
             dangerouslySetInnerHTML={{

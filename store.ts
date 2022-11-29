@@ -10,6 +10,8 @@ const initialState = {
   connectWalletStatus: false,
   openCreateNFTModal: false,
   profileSetup: false,
+  isGetMyNFTs: false,
+  myNftList: [],
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

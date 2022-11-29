@@ -28,23 +28,26 @@ const MyNFTSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
+  const myNftList = useSelector<any>(state => state.myNftList)
   const { connection } = useConnection()
   const { publicKey } = useWallet()
-
-  const [myNFTftList, setMyNFTList] = useState<any[]>([])
 
   const { metaplex: mx } = useMetaplex()
 
   const loadMyNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
     let nfts = await getMyNFTs(mx)
-    setMyNFTList(nfts)
+    dispatch({ type: 'set', isGetMyNFTs: true })
+    dispatch({ type: 'set', myNftList: nfts })
     dispatch({ type: 'set', isLoading: false })
   }
 
   useEffect(() => {
-    if (mx && connection && publicKey) loadMyNFTs()
-  }, [mx, connection, publicKey])
+    if (mx && connection && publicKey && !isGetMyNFTs) {
+      loadMyNFTs()
+    }
+  }, [mx, connection, publicKey, isGetMyNFTs])
 
   const [nftList, setNFTList] = useState([])
 
@@ -100,7 +103,7 @@ const MyNFTSection = props => {
         </div>
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} />
+        <Pagination data={myNftList} getCurrentData={data => setNFTList(data)} />
       </div>
       <StartAuctionModal
         data={selectedData}
