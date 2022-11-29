@@ -200,7 +200,6 @@ const SuccessMintSingleNFTSection = props => {
             <OutlineButton
               fullWidth
               label="View Dashboard"
-              backgroundColor="#63D6CD"
               height="45px"
               onClick={() => router.push('/dashboard')}
               borderColor="#5AC3BA"
