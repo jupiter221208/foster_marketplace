@@ -15,6 +15,10 @@
   height: auto;
   position: absolute;
   left: 0;
+  @media (min-width: 1024px) {
+    left: auto;
+    right: 0;
+  }
   top: 28px;
   transform-origin: top left;
   background-color: rgba($background-dark-color, 0.1);
