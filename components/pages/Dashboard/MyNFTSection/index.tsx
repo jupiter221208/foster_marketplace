@@ -27,7 +27,7 @@ const MyNFTSection = props => {
   const { changeActiveTab } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
   const { connection } = useConnection()
@@ -36,11 +36,11 @@ const MyNFTSection = props => {
   const { metaplex: mx } = useMetaplex()
 
   const loadMyNFTs = async () => {
-    dispatch({ type: 'set', isLoading: true })
+    setLoading(true)
     let nfts = await getMyNFTs(mx)
     dispatch({ type: 'set', isGetMyNFTs: true })
     dispatch({ type: 'set', myNftList: nfts })
-    dispatch({ type: 'set', isLoading: false })
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const MyNFTSection = props => {
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
-        {!isLoading &&
+        {!loading &&
           nftList.map((item, index) => (
             <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <MyNFTCard
@@ -99,7 +99,7 @@ const MyNFTSection = props => {
             </div>
           ))}
         <div className="col-span-12">
-          <LoadingModal open={isLoading} />
+          <LoadingModal open={loading} />
         </div>
       </div>
       <div className="w-full flex justify-end">
