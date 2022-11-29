@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
-// redux
-import { useDispatch, useSelector } from 'react-redux'
-
 // components
 import Pagination from 'components/Button/Pagination'
 import ListedNFTCard from 'components/Card/ListedNFTCard'
@@ -48,8 +45,7 @@ const ListedNFTSection = () => {
     setActive(value)
   }
 
-  const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  const [loading, setLoading] = useState(false)
 
   const { metaplex: mx } = useMetaplex()
 
@@ -58,7 +54,7 @@ const ListedNFTSection = () => {
   const [nftList, setNFTList] = useState([])
 
   const setMyListedNFTs = async () => {
-    dispatch({ type: 'set', isLoading: true })
+    setLoading(true)
     const listedNfts = await getMyListedNFTs(mx)
     let fixedPrice = []
     if (listedNfts) {
@@ -104,7 +100,7 @@ const ListedNFTSection = () => {
         setMyNFTList(liveAuction)
       }
     }
-    dispatch({ type: 'set', isLoading: false })
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -189,7 +185,7 @@ const ListedNFTSection = () => {
         />
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
-        {!isLoading &&
+        {!loading &&
           nftList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <ListedNFTCard
@@ -205,7 +201,7 @@ const ListedNFTSection = () => {
             </div>
           ))}
         <div className="col-span-12">
-          <LoadingModal open={isLoading} />
+          <LoadingModal open={loading} />
         </div>
       </div>
       <div className="w-full flex justify-end">
