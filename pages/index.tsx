@@ -30,11 +30,11 @@ const Home = () => {
       <MainSection />
       <PopularCategorySection type="home" />
       <TopRatedArtistsSection />
-      <TrendingCollectionSection />
-      <MostPopularSection />
-      <MarketplaceReleaseSection />
-      <FreshMintSection />
-      <LiveAuctionSection />
+      <TrendingCollectionSection category={''} />
+      <MostPopularSection category={''} />
+      <MarketplaceReleaseSection category={''} />
+      <FreshMintSection category={''} />
+      <LiveAuctionSection category={''} />
       <CreateSellNFTSection />
 
       {isLoading && <FullScreenLoadingModal open={isLoading} />}

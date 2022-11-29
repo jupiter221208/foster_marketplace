@@ -14,7 +14,7 @@
   },
   {
     "id": 1,
-    "query": "foster-house",
+    "query": "foster",
     "image": "/images/popular-category-fosterlabs.webm",
     "banner": "/images/category-banner-fosterlabs.webm",
     "mobile": "/images/popular-category-fosterlabs-mobile.png",
@@ -79,7 +79,7 @@
   },
   {
     "id": 6,
-    "query": "black-white",
+    "query": "black",
     "image": "/images/popular-category-black-white.png",
     "banner": "/images/category-banner-black-white.png",
     "mobile": "/images/popular-category-black-white-mobile.png",
@@ -170,7 +170,7 @@
   },
   {
     "id": 13,
-    "query": "trukey-circus",
+    "query": "trukey",
     "image": "/images/popular-category-turkey.png",
     "banner": "/images/category-banner-turkey.png",
     "mobile": "/images/popular-category-turkey-mobile.png",

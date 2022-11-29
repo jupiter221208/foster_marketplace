@@ -31,7 +31,8 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 
-const MostPopularSection = () => {
+const MostPopularSection = props => {
+  const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ const MostPopularSection = () => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getMostPopular().then(
+    dashboardAPI.getMostPopular(category).then(
       response => {
         if (response !== null && response !== undefined) {
           setAllMostPopularList(response)

@@ -32,10 +32,11 @@ const Category = () => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
 
+  const cateQuery: any = router.query.id
+
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
   useEffect(() => {
-    const cateQuery: any = router.query.id
     let category = PopularCategoryList.filter(function (category) {
       return category.query === cateQuery
     })[0]
@@ -93,11 +94,11 @@ const Category = () => {
 
           <div className={styles.title}>{categoryInfo.name}</div>
         </div>
-        <TrendingCollectionSection />
-        <MostPopularSection />
-        <MarketplaceReleaseSection />
-        <LiveAuctionSection />
-        <FreshMintSection />
+        <TrendingCollectionSection category={cateQuery} />
+        <MostPopularSection category={cateQuery} />
+        <MarketplaceReleaseSection category={cateQuery} />
+        <LiveAuctionSection category={cateQuery} />
+        <FreshMintSection category={cateQuery} />
         <PopularCategorySection type="category" />
       </div>
     </div>

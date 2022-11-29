@@ -15,34 +15,64 @@ class Dashboard {
     })
   }
 
-  getFreshMints() {
-    return client.get(API_URL + 'v1/dashboard/fresh-mints').then(response => {
-      return response.data
-    })
+  getFreshMints(category) {
+    return client
+      .get(
+        API_URL +
+          'v1/dashboard/fresh-mints' +
+          (category !== null && category?.length > 0 ? '?category=' + category : '')
+      )
+      .then(response => {
+        return response.data
+      })
   }
 
-  getMostPopular() {
-    return client.get(API_URL + 'v1/dashboard/most-popular').then(response => {
-      return response.data
-    })
+  getMostPopular(category) {
+    return client
+      .get(
+        API_URL +
+          'v1/dashboard/most-popular' +
+          (category !== null && category?.length > 0 ? '?category=' + category : '')
+      )
+      .then(response => {
+        return response.data
+      })
   }
 
-  getTrendingCollections() {
-    return client.get(API_URL + 'v1/dashboard/trending-collections').then(response => {
-      return response.data
-    })
+  getTrendingCollections(category) {
+    return client
+      .get(
+        API_URL +
+          'v1/dashboard/trending-collections' +
+          (category !== null && category?.length > 0 ? '?category=' + category : '')
+      )
+      .then(response => {
+        return response.data
+      })
   }
 
-  getMarketplaceReleases() {
-    return client.get(API_URL + 'v1/dashboard/marketplace-releases').then(response => {
-      return response.data
-    })
+  getMarketplaceReleases(category) {
+    return client
+      .get(
+        API_URL +
+          'v1/dashboard/marketplace-releases' +
+          (category !== null && category?.length > 0 ? '?category=' + category : '')
+      )
+      .then(response => {
+        return response.data
+      })
   }
 
-  getLiveAuctions() {
-    return client.get(API_URL + 'v1/dashboard/live-auctions').then(response => {
-      return response.data
-    })
+  getLiveAuctions(category) {
+    return client
+      .get(
+        API_URL +
+          'v1/dashboard/live-auctions' +
+          (category !== null && category?.length > 0 ? '?category=' + category : '')
+      )
+      .then(response => {
+        return response.data
+      })
   }
 
   getNftPublic() {

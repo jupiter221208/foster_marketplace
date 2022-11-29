@@ -27,7 +27,8 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 
-const LiveAuctionSection = () => {
+const LiveAuctionSection = props => {
+  const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -37,7 +38,7 @@ const LiveAuctionSection = () => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getLiveAuctions().then(response => {
+    dashboardAPI.getLiveAuctions(category).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllLiveAuctionList(response)
         setLiveAuctionList(response)

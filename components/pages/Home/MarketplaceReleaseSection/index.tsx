@@ -34,7 +34,8 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 
-const MarketplaceReleaseSection = () => {
+const MarketplaceReleaseSection = props => {
+  const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -48,7 +49,7 @@ const MarketplaceReleaseSection = () => {
   }, [])
 
   useEffect(() => {
-    dashboardAPI.getMarketplaceReleases().then(response => {
+    dashboardAPI.getMarketplaceReleases(category).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setMarketplaceReleaseList(response)
       }

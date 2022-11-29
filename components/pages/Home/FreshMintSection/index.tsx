@@ -31,7 +31,8 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 
-const FreshMintSection = () => {
+const FreshMintSection = props => {
+  const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ const FreshMintSection = () => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getFreshMints().then(
+    dashboardAPI.getFreshMints(category).then(
       response => {
         if (response !== null && response !== undefined) {
           setAllFreshMintsList(response)

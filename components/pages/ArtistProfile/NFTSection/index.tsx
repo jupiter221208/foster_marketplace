@@ -44,7 +44,7 @@ const NFTSection = props => {
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
           <NFTSwiperSection nfts={nfts} />
-          <LiveAuctionSection />
+          <LiveAuctionSection category={''} />
           <ExploreNFTSection exploreCircus={exploreCircus} />
         </div>
       )}

@@ -29,7 +29,7 @@ const ExploreCollectionSection = props => {
   const [trendingList, setTrendingList] = useState<any[]>([])
 
   useEffect(() => {
-    dashboardAPI.getTrendingCollections().then(
+    dashboardAPI.getTrendingCollections('').then(
       response => {
         if (response !== null && response !== undefined) {
           setTrendingList(response)

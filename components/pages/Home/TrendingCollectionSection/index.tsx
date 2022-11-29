@@ -29,7 +29,8 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 
-const TrendingCollectionSection = () => {
+const TrendingCollectionSection = props => {
+  const { category } = props
   const viewport = useViewport()
   const router = useRouter()
 
@@ -57,7 +58,8 @@ const TrendingCollectionSection = () => {
   }
 
   useEffect(() => {
-    dashboardAPI.getTrendingCollections().then(
+    console.log(category, '===========category========')
+    dashboardAPI.getTrendingCollections(category).then(
       response => {
         if (response !== null && response !== undefined) {
           setAllTrendingList(response)
