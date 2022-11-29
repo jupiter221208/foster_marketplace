@@ -40,6 +40,7 @@ import AuctionCard from 'components/Card/AuctionCard'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import ReportMenu from 'components/Menu/ReportMenu'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -84,6 +85,7 @@ const MainSection = () => {
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any>(null)
+  const [loading, setLoading] = useState(false)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
@@ -206,6 +208,7 @@ const MainSection = () => {
   }, [id])
 
   function getNftDetailInfo() {
+    setLoading(true)
     nftsAPI.getDetail(id).then(
       (response: NFT) => {
         if (response !== null) {
@@ -256,9 +259,11 @@ const MainSection = () => {
               })
             })
           }
+          setLoading(false)
         }
       },
       error => {
+        setLoading(false)
         console.log(error)
       }
     )
@@ -389,51 +394,58 @@ const MainSection = () => {
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
-        <div className="col-span-2 lg:col-span-1">
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            nftType === 'image' ? (
-              <div className={styles.mobileImageArea}>
-                <img src={nftUrl} alt="" />
-                <div className={styles.mobileImageBackground} />
+        {loading ? (
+          <div className="col-span-2 lg:col-span-1 flex items-center">
+            <LoadingModal open={loading} />
+          </div>
+        ) : (
+          <div className="col-span-2 lg:col-span-1">
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              nftType === 'image' ? (
+                <div className={styles.mobileImageArea}>
+                  <img src={nftUrl} alt="" />
+                  <div className={styles.mobileImageBackground} />
+                </div>
+              ) : nftType.includes('audio') ? (
+                <div className={styles.audioArea}>
+                  <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                </div>
+              ) : nftType.includes('video') ? (
+                <div className={styles.audioArea}>
+                  <video controls muted>
+                    <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+                  </video>
+                </div>
+              ) : (
+                <></>
+              )
+            ) : nftType === 'image' ? (
+              <div className={styles.blurBackground}>
+                <div className="absolute inset-0">
+                  <img src={nftUrl} alt="" className="min-w-full min-h-full object-cover" />
+                </div>
+                <div className={styles.blurImage} />
+                <div className={styles.imageArea}>
+                  <img src={nftUrl} alt="" className="h-full" />
+                </div>
               </div>
-            ) : nftType.includes('audio') ? (
+            ) : nftType === 'audio' ? (
               <div className={styles.audioArea}>
                 <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
               </div>
-            ) : nftType.includes('video') ? (
+            ) : nftType === 'video' ? (
               <div className={styles.audioArea}>
                 <video controls muted>
+                  <div>{nftUrl}</div>
                   <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
                 </video>
               </div>
             ) : (
               <></>
-            )
-          ) : nftType === 'image' ? (
-            <div className={styles.blurBackground}>
-              <div className="absolute inset-0">
-                <img src={nftUrl} alt="" className="min-w-full min-h-full object-cover" />
-              </div>
-              <div className={styles.blurImage} />
-              <div className={styles.imageArea}>
-                <img src={nftUrl} alt="" className="h-full" />
-              </div>
-            </div>
-          ) : nftType === 'audio' ? (
-            <div className={styles.audioArea}>
-              <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
-            </div>
-          ) : nftType === 'video' ? (
-            <div className={styles.audioArea}>
-              <video controls muted>
-                <div>{nftUrl}</div>
-                <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
-              </video>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
+            )}
+          </div>
+        )}
+
         <div className="col-span-2 lg:col-span-1 z-10">
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
