@@ -16,7 +16,6 @@ const HeroCard = props => {
 
   return (
     <div className={styles.container}>
-      {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <div className={styles.topMask} />}
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           <img
