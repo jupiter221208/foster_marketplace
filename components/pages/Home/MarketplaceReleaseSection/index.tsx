@@ -44,9 +44,9 @@ const MarketplaceReleaseSection = props => {
 
   const [active, setActive] = useState<any>(0)
 
-  useEffect(() => {
-    setMarketplaceReleaseList(MarketplaceReleaseList)
-  }, [])
+  // useEffect(() => {
+  //   setMarketplaceReleaseList(MarketplaceReleaseList)
+  // }, [])
 
   useEffect(() => {
     dashboardAPI.getMarketplaceReleases(category).then(response => {
@@ -79,89 +79,93 @@ const MarketplaceReleaseSection = props => {
   }
 
   return (
-    <section className={styles.container}>
-      <div className={styles.bottomLeftEllipse}>
-        <Image src={EllipseGreen} alt="" />
-      </div>
-      <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Marketplace Releases</div>
+    marketplaceReleaseList.length !== 0 && (
+      <section className={styles.container}>
+        <div className={styles.bottomLeftEllipse}>
+          <Image src={EllipseGreen} alt="" />
+        </div>
+        <div className="w-full flex justify-between items-center z-10">
+          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Marketplace Releases</div>
+            <div className="hidden lg:flex z-10">
+              <Button
+                label="24 hrs"
+                onClick={() => handleChangeActive(0)}
+                color={active === 0 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="7 days"
+                onClick={() => handleChangeActive(1)}
+                color={active === 1 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="30 days"
+                onClick={() => handleChangeActive(2)}
+                color={active === 2 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+              />
+            </div>
+          </div>
           <div className="hidden lg:flex z-10">
-            <Button
-              label="24 hrs"
-              onClick={() => handleChangeActive(0)}
-              color={active === 0 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="7 days"
-              onClick={() => handleChangeActive(1)}
-              color={active === 1 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="30 days"
-              onClick={() => handleChangeActive(2)}
-              color={active === 2 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+            <OutlineButton
+              label="See More"
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                router.push('/explore')
+              }}
+              borderColor="#ffffff"
+              height="42px"
             />
           </div>
         </div>
-        <div className="hidden lg:flex z-10">
-          <OutlineButton
-            label="See More"
-            onClick={() => {
-              dispatch({ type: 'set', exploreTab: 0 })
-              router.push('/explore')
+        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            loop
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
             }}
-            borderColor="#ffffff"
-            height="42px"
-          />
+          >
+            {marketplaceReleaseList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+                  <NFTCard
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    artistName={item.artist_username}
+                    price={item.list_price}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-nft?id=${item.token_id}`)
+                    }}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-      </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {marketplaceReleaseList.map((item: any, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                <NFTCard
-                  image={item.asset_url}
-                  nftName={item.nft_name}
-                  artistName={item.artist_username}
-                  price={item.list_price}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push(`/browse-nft?id=${item.token_id}`)
-                  }}
-                />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
-          <OutlineButton
-            label="See More"
-            fullWidth
-            onClick={() => router.push('/explore')}
-            borderColor="#ffffff"
-            height="40px"
-          />
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[242px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => router.push('/explore')}
+              borderColor="#ffffff"
+              height="40px"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )
   )
 }
 
