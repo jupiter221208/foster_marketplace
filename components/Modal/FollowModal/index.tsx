@@ -207,7 +207,7 @@ const FollowModal = props => {
                                 >
                                   {item.username}
                                 </div>
-                                <div className={styles.text}>&nbsp;is following you</div>
+                                {/* <div className={styles.text}>&nbsp;is following you</div> */}
                               </div>
                             </div>
                             <div className="w-24 lg:w-[146px]">
