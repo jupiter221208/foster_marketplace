@@ -97,7 +97,7 @@ const Explore = () => {
       case 0:
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
-        if(selectedAvailability.value === "Live Auction") {
+        if (selectedAvailability.value === 'Live Auction') {
           setAuctionsNFTs()
         } else {
           setListedNFTs()
@@ -128,11 +128,11 @@ const Explore = () => {
     const listedNfts = await getListedNFTs(mx)
     const nfts = listedNfts.map(nft => {
       return {
-        image: nft.asset.json.image,
-        name: nft.asset.json.name,
+        image: nft.asset.json ? nft.asset.json.image : '',
+        name: nft.asset.json ? nft.asset.json.name : '',
         creator: nft.asset.creators[0].address.toString(),
         url: `/browse-nft?id=${nft.asset.address.toString()}`,
-        price: nft.price.basisPoints
+        price: nft.price.basisPoints,
       }
     })
     setNftList(nfts)
@@ -150,8 +150,8 @@ const Explore = () => {
           name: nft.json.name,
           creator: nft.creators[0].address.toString(),
           url: `/live-auction?id=${nft.address.toString()}`,
-          price: Number(listing.auction.reserve_price) * 1000000000
-        } 
+          price: Number(listing.auction.reserve_price) * 1000000000,
+        }
       })
     )
     setNftList(nfts)
@@ -173,10 +173,12 @@ const Explore = () => {
         <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] mt-[37px] xl:mt-[88px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
-            {exploreTab === 0 && <NFTFilter 
-              selectedAvailability={selectedAvailability}
-              setSelectedAvailability={setSelectedAvailability}
-            />}
+            {exploreTab === 0 && (
+              <NFTFilter
+                selectedAvailability={selectedAvailability}
+                setSelectedAvailability={setSelectedAvailability}
+              />
+            )}
             {exploreTab === 1 && <CollectionFilter />}
             {exploreTab === 2 && <EcosystemFilter />}
           </div>
@@ -233,17 +235,18 @@ const Explore = () => {
                   <div className="col-span-12">
                     <LoadingModal open={isLoading} />
                   </div>
-                  {!isLoading && showNftList?.map((item, index) => (
-                    <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
-                      <NFTCard
-                        image={item.image}
-                        nftName={item.name}
-                        artistName={item.creator}
-                        onClick={() => router.push(item.url)}
-                        price={getPriceValue(item.price)}
-                      />
-                    </div>
-                  ))}
+                  {!isLoading &&
+                    showNftList?.map((item, index) => (
+                      <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
+                        <NFTCard
+                          image={item.image}
+                          nftName={item.name}
+                          artistName={item.creator}
+                          onClick={() => router.push(item.url)}
+                          price={getPriceValue(item.price)}
+                        />
+                      </div>
+                    ))}
                 </div>
               )}
               {exploreTab === 1 && (
