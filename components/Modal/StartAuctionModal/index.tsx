@@ -12,7 +12,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import Input from 'components/Input'
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
-import Button from 'components/Button'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -32,7 +31,7 @@ import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 const StartAuctionModal = props => {
-  const { data, open, onClick, onClose } = props
+  const { data, open, onSuccess, onClose } = props
   const viewport = useViewport()
 
   const closeModal = () => {
@@ -74,7 +73,9 @@ const StartAuctionModal = props => {
       canceled_at: null,
       sold_at: null,
     }).then(res => {
-      if (res) closeModal()
+      if (res) {
+        onSuccess(data?.offchainMetadata.name)
+      }
     })
   }
 

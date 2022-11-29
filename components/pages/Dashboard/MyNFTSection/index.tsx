@@ -14,6 +14,7 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import LoadingModal from 'components/Modal/LoadingModal'
+import Alert from 'components/Alert'
 
 // custom functions
 import { getTokensByAccount } from 'utils/wallet.util'
@@ -54,6 +55,8 @@ const MyNFTSection = props => {
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState<boolean>(false)
 
   const [selectedData, setSelectedData] = useState()
 
@@ -66,15 +69,28 @@ const MyNFTSection = props => {
     setShowStartAuctionModal(true)
   }
 
-  const handleProgressAuction = () => {
+  const handleSuccessAuction = nftName => {
     setShowStartAuctionModal(false)
-    setOpenProgressingModal(true)
+    setAlertData([
+      {
+        id: 0,
+        title: 'Successful bid!',
+        description: `You've successfully published an auction for ${nftName}`,
+        type: 'success',
+      },
+    ])
+    setTimeout(() => {
+      setOpenProgressingModal(true)
+    }, 500)
   }
 
   useEffect(() => {
     if (openProgressingModal) {
       setTimeout(() => {
         setOpenProgressingModal(false)
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 500)
       }, 3000)
     }
   }, [openProgressingModal])
@@ -108,10 +124,10 @@ const MyNFTSection = props => {
       <StartAuctionModal
         data={selectedData}
         open={showStartAuctionModal}
+        onSuccess={nft => handleSuccessAuction(nft)}
         onClose={() => setShowStartAuctionModal(false)}
-        onClick={() => handleProgressAuction()}
       />
-      {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
+      <ProgressingModal open={openProgressingModal} />
       <ListNFTModal
         data={selectedData}
         open={showListNFTModal}
@@ -120,6 +136,13 @@ const MyNFTSection = props => {
           loadMyNFTs()
           if (status === 'listed') changeActiveTab(1)
         }}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </section>
   )
