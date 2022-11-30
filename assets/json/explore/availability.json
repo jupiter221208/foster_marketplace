@@ -1,7 +1,7 @@
 [
-  { "id": "availability-0", "label": "Buy Now", "value": "Buy Now" },
+  { "id": "availability-0", "label": "Fixed Price", "value": "Fixed Price" },
   { "id": "availability-1", "label": "Live Auction", "value": "Live Auction" },
-  { "id": "availability-2", "label": "Reserve Price", "value": "Reserve Price" },
+  { "id": "availability-2", "label": "Reserve Met", "value": "Reserve Met" },
   { "id": "availability-3", "label": "Not Listed", "value": "Not Listed" },
   { "id": "availability-4", "label": "All", "value": "All" }
 ]

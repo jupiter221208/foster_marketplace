@@ -15,6 +15,7 @@ import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
+import RoyaltyRange from 'components/Range/RoyaltyRange'
 
 const NFTFilter = props => {
   const { selectedAvailability, setSelectedAvailability } = props
@@ -58,7 +59,8 @@ const NFTFilter = props => {
       <Radio data={MediumList} selected={selectedMedium} onChange={item => setSelectedMedium(item)} />
       <div className={`${styles.title} mt-[52px]`}>PRICE</div>
       <PriceRange />
-
+      <div className={`${styles.title} mt-[52px]`}>ROYALTIES</div>
+      <RoyaltyRange />
       <div className={`${styles.title} mt-[52px]`}>CATEGORIES</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />

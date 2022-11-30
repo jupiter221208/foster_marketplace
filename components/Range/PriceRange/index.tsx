@@ -13,7 +13,7 @@ const PriceRange = props => {
   const STEP = 1
   const MIN = 0
   const MAX = 1000
-  const [values, setValues] = useState([250, 750])
+  const [values, setValues] = useState([0, 1000])
 
   const handleSetValues = (value, type) => {
     let array = [...values]
@@ -36,7 +36,7 @@ const PriceRange = props => {
     <div className={styles.container}>
       <div className="w-full flex justify-between items-center my-4">
         <Input
-          value={values[0]}
+          value={values[0] === 0 ? '' : values[0]}
           placeholder="$0"
           onChange={value => handleSetValues(value, 'min')}
           color="#EFF0F6"
@@ -48,7 +48,7 @@ const PriceRange = props => {
         />
         <div className="mx-3">-</div>
         <Input
-          value={values[1]}
+          value={values[1] === 1000 ? '' : values[1]}
           placeholder="$1000+"
           onChange={value => handleSetValues(value, 'max')}
           color="#EFF0F6"
@@ -110,7 +110,6 @@ const PriceRange = props => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              // boxShadow: '0px 2px 6px #AAA',
             }}
           />
         )}
