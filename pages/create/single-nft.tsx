@@ -393,6 +393,7 @@ const SingleNft = () => {
       result.forEach(item => {
         category += item.name + ','
       })
+
       axios.get(nft.uri).then(response => {
         if (response !== undefined) {
           const result: any = response.data
@@ -402,6 +403,7 @@ const SingleNft = () => {
               nft_name: nft.name,
               categories: category.slice(0, -1),
               asset_type: nftType,
+              cover_image_url: nftType === 'audio' ? result['image'] : '',
               asset_url:
                 nftType === 'video' || nftType === 'audio' || nftType === 'image/gif'
                   ? result['animation_url']
