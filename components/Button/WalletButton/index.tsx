@@ -277,7 +277,11 @@ const WalletButton = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className="w-full flex gap-3">
-                  <Avatar avatar={profileImage !== null ? profileImage : avatar} width={36} height={36} />
+                  <Avatar
+                    avatar={profileImage !== null && profileImage !== undefined ? profileImage : avatar}
+                    width={36}
+                    height={36}
+                  />
                   <div className="block whitespace-nowrap">
                     <div className={styles.title}>{profileName.length > 0 ? profileName : 'Username'}</div>
                     <div className={styles.grayText}>{shortMainAddress}</div>
@@ -339,7 +343,6 @@ const WalletButton = props => {
                 </Menu.Item>
               </div>
             )}
-            <div className={styles.divider}></div>
             {/* offer wallet part */}
             <div className="flex justify-between my-3">
               <div className="block">
@@ -415,18 +418,25 @@ const WalletButton = props => {
                     paddingLeft="10px"
                     paddingRight="10px"
                   />
-                  <OutlineButton
+                  <GradientButton
                     label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"
                     fontSize="12px"
-                    backgroundColor01="#202427"
-                    backgroundColor02="#202427"
+                    backgroundColor01="#378287"
+                    backgroundColor02="#1C4144"
+                    color="#EFF0F6"
+                    gradientDirection="bottom"
                     borderRadius="6px"
                     borderColor="rgba(255, 255, 255, 0.1)"
                     onClick={() => onClickOfferButton()}
                   />
                 </div>
                 {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
+                <div className="w-full flex flex-wrap mt-[14px] gap-1">
+                  <p className={styles.cardGrayText}>
+                    Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
+                  </p>
+                </div>
               </div>
             )}
             {/* bidding wallet part */}
@@ -507,18 +517,25 @@ const WalletButton = props => {
                     paddingLeft="10px"
                     paddingRight="10px"
                   />
-                  <OutlineButton
+                  <GradientButton
                     label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                     height="30px"
                     fontSize="12px"
-                    backgroundColor01="#202427"
-                    backgroundColor02="#202427"
+                    backgroundColor01="#378287"
+                    backgroundColor02="#1C4144"
+                    color="#EFF0F6"
+                    gradientDirection="bottom"
                     borderRadius="6px"
                     borderColor="rgba(255, 255, 255, 0.1)"
                     onClick={() => onClickBiddingButton()}
                   />
                 </div>
                 {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
+                <div className="w-full flex flex-wrap mt-[14px] gap-1">
+                  <p className={styles.cardGrayText}>
+                    Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
+                  </p>
+                </div>
               </div>
             )}
           </div>
