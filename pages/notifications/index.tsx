@@ -23,9 +23,79 @@ import SortGreenIcon from 'assets/icons/sort-green.svg'
 // styles
 import styles from './index.module.scss'
 
+// api
+import userAPI from 'apis/user'
+
 const Notifications = () => {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<any[]>([])
+  const [filterNotification, setFilterNotification] = useState<any[]>([])
+
+  function getDateLabel(date) {
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ]
+    let month = months[date.getMonth()]
+    let day = date.getDate()
+    let year = date.getFullYear()
+    return month + ' ' + day + ', ' + year
+  }
+
+  useEffect(() => {
+    let today = new Date().setHours(0, 0, 0, 0)
+    let yesterday = today - 3600 * 24 * 1000
+    userAPI.getNotifications().then(
+      response => {
+        if (response !== null) {
+          if (response.notifications.length > 0) {
+            let notifications = response.notifications
+            let sortedByDate = {}
+            notifications.map(notification => {
+              const createdDate = new Date(notification.created_at).setHours(0, 0, 0, 0)
+              const strCreatedDate = createdDate.toString()
+              if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
+                sortedByDate[strCreatedDate] = []
+              }
+              sortedByDate[strCreatedDate].push(notification)
+            })
+            let index = 0
+            let sortedNotification = []
+            Object.keys(sortedByDate)
+              .sort()
+              .reverse()
+              .forEach(function (key) {
+                let createDate = new Date(parseInt(key))
+                let strDate = getDateLabel(createDate)
+                if (parseInt(key) == today) {
+                  strDate = 'Today'
+                } else if (parseInt(key) == yesterday) {
+                  strDate = 'Yesterday'
+                }
+                let dayNotifications = { id: index, date: strDate, data: sortedByDate[key] }
+                sortedNotification.push(dayNotifications)
+                index++
+              })
+            console.log('=============sortedNotification===============', sortedNotification)
+            setFilterNotification(sortedNotification)
+          }
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
 
   useEffect(() => {
     let array: any[] = []
@@ -89,7 +159,7 @@ const Notifications = () => {
                 justifyContent="flex-start"
               />
             </div>
-            <NotificationsCard data={NotificationsList} />
+            <NotificationsCard data={filterNotification} />
           </div>
           <NotificationsFilterCard
             filterList={filterList}

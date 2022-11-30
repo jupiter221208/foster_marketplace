@@ -13,6 +13,11 @@ class User {
       return response.data
     })
   }
+  getNotifications() {
+    return client.get(API_URL + 'v1/users/notifications').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()
