@@ -3,6 +3,9 @@ import { Fragment, useState } from 'react'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 // next components
 import Image from 'next/image'
 
@@ -25,7 +28,7 @@ import listingsAPI from 'apis/listings'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
-
+  const dispatch = useDispatch()
   const [price, setPrice] = useState<number>()
   const [listStatus, setListStatus] = useState(false)
 
@@ -40,6 +43,7 @@ const ListNFTModal = props => {
         error => {
           console.log(error)
         }
+      dispatch({ type: 'set', isGetListedNFTs: false })
       setListStatus(true)
     }
   }

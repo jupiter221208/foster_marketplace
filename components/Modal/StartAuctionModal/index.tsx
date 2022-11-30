@@ -29,10 +29,12 @@ import AuctionsAPI from 'apis/auctions'
 // solana
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
+import { useDispatch } from 'react-redux'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose } = props
   const viewport = useViewport()
+  const dispatch = useDispatch()
 
   const closeModal = () => {
     onClose()
@@ -75,6 +77,7 @@ const StartAuctionModal = props => {
     }).then(res => {
       if (res) {
         onSuccess(data?.offchainMetadata.name)
+        dispatch({ type: 'set', isGetListedNFTs: false })
       }
     })
   }

@@ -111,6 +111,7 @@ const ListedNFTSection = () => {
           console.log(error)
         }
       setMyListedNFTs()
+      dispatch({ type: 'set', isGetMyNFTs: false })
     }
   }
 

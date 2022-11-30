@@ -3,6 +3,9 @@ import React from 'react'
 // next components
 import Head from 'next/head'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 // custom components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MainSection from 'components/pages/Dashboard/MainSection'
@@ -12,6 +15,10 @@ import TabSection from 'components/pages/Dashboard/TabSection'
 import styles from './index.module.scss'
 
 const Dashbord = () => {
+  const dispatch = useDispatch()
+  dispatch({ type: 'set', isGetMyNFTs: false })
+  dispatch({ type: 'set', isGetListedNFTs: false })
+
   return (
     <div className="g-container">
       <Head>
