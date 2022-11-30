@@ -16,7 +16,7 @@
 .modalView {
   width: 100%;
   max-width: 474px;
-  background-color: #121212;
+  background-color: $background-black-color;
   padding: 18px 38px 85px 38px;
   border-top: 1px solid rgba($background-light-color, 0.1);
   @media (min-width: 1024px) {

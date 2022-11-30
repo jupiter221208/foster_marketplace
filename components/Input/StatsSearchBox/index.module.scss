@@ -14,7 +14,7 @@
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
-    background-color: #121212;
+    background-color: $background-black-color;
   }
 
   @media (min-width: 1024px) {
@@ -22,7 +22,7 @@
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
-    background-color: #121212;
+    background-color: $background-black-color;
   }
 
   @media (min-width: 1280px) {
@@ -30,7 +30,7 @@
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
-    background-color: #121212;
+    background-color: $background-black-color;
   }
   border-radius: 12px;
   display: flex;
