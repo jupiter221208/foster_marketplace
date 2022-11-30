@@ -126,48 +126,23 @@ const MobileMenu = () => {
     <div className={styles.menu}>
       {connected ? (
         <div className={styles.container}>
-          <div className="w-full">
-            <div className="my-[10px]">
-              <AccordionMenu
-                icon={profileImage.length > 0 ? profileImage : AvatarIcon}
-                label={profileName.length > 0 ? profileName : 'Anonymous'}
-                type="avatar"
-                data={profileMenuList}
-              />
-            </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
-            </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
-            </div>
-            <div className="my-[10px]">
-              <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
-            </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
-            </div>
-            <div className="my-[10px]">
-              <AccordionMenu
-                icon={NotificationWhiteIcon}
-                label="Notifications"
-                type=""
-                data={[]}
-                path="/notifications"
-              />
-            </div>
-
-            <div className="my-[10px]">
-              <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
-            </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
-            </div>
-            <div className="my-[10px]">
-              <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
-            </div>
+          <div className="w-full flex flex-wrap gap-[10px]">
+            <AccordionMenu
+              icon={profileImage.length > 0 ? profileImage : AvatarIcon}
+              label={profileName.length > 0 ? profileName : 'Anonymous'}
+              type="avatar"
+              data={profileMenuList}
+            />
+            <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
+            <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
+            <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
+            <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
+            <AccordionMenu icon={NotificationWhiteIcon} label="Notifications" type="" data={[]} path="/notifications" />
+            <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
+            <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
+            <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
           </div>
-          <div className="w-full">
+          <div className="w-full mt-5">
             <div
               className={styles.logout}
               onClick={() => {
@@ -196,6 +171,9 @@ const MobileMenu = () => {
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
             <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
             <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
+            <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
+            <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
+            <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
           </div>
           <div className="w-full flex items-end">
             <WalletButton fullWidth />
