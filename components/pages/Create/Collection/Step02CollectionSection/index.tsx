@@ -631,7 +631,7 @@ const Step02CollectionSection = props => {
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {selectedCollectionFile.type === 'image' && (
+                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
                     <IconButton
                       icon={EditorGrayIcon}
                       onClick={() => setOpenImageEditorModal(true)}
