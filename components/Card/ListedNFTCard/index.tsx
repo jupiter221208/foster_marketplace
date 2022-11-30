@@ -24,18 +24,18 @@ const ListedNFTCard = props => {
   const viewport = useViewport()
 
   const isStarted = useMemo(() => {
-    if(startTime) {
+    if (startTime) {
       const start = new Date(Number(startTime) * 1000)
-      const now = new Date
+      const now = new Date()
       return now.getTime() - start.getTime() > 0 ? true : false
     }
     return false
   }, [startTime])
 
   const isEnded = useMemo(() => {
-    if(endTime) {
+    if (endTime) {
       const end = new Date(Number(endTime) * 1000)
-      const now = new Date
+      const now = new Date()
       return now.getTime() - end.getTime() > 0 ? true : false
     }
     return false
@@ -43,7 +43,10 @@ const ListedNFTCard = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
-      <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data.url)}>
+      <div
+        className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden"
+        onClick={() => onClick(data.url)}
+      >
         <Image src={data.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
@@ -58,7 +61,7 @@ const ListedNFTCard = props => {
           </div>
         </div>
         <div className="mt-[7px] w-full">
-          {type === 'fixed' ? 
+          {type === 'fixed' ? (
             <GradientButton
               label={'Update'}
               onClick={() => onActionClick(data)}
@@ -70,22 +73,24 @@ const ListedNFTCard = props => {
               backgroundColor02="#326B67"
               gradientDirection="bottom"
               fullWidth
-            /> :
+            />
+          ) : (
             <>
-              {
-                (isStarted && !isEnded ) && <Button
+              {isStarted && !isEnded && (
+                <Button
                   height="48px"
                   fontSize="16px"
                   paddingLeft="37px"
                   paddingRight="37px"
                   label="Cancel Auction"
                   disabled={true}
-                  backgroundColor="#888A8E"
+                  backgroundColor="#383838"
+                  color="#202427"
                   fullWidth
                 />
-              }
-              {
-                (!isStarted || isEnded && !highestBid) && <GradientButton
+              )}
+              {(!isStarted || (isEnded && !highestBid)) && (
+                <GradientButton
                   label={'Cancel Auction'}
                   onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
                   height="48px"
@@ -97,11 +102,18 @@ const ListedNFTCard = props => {
                   gradientDirection="bottom"
                   fullWidth
                 />
-              }
-              {
-                (isEnded && highestBid) && <GradientButton
+              )}
+              {isEnded && highestBid && (
+                <GradientButton
                   label={'Finalize Sale'}
-                  onClick={() => finalizeSale(data?.mintAddress, data?.sellerAddress, new PublicKey(data?.highestBid.buyer_address), Number(data?.highestBid.amount))}
+                  onClick={() =>
+                    finalizeSale(
+                      data?.mintAddress,
+                      data?.sellerAddress,
+                      new PublicKey(data?.highestBid.buyer_address),
+                      Number(data?.highestBid.amount)
+                    )
+                  }
                   height="48px"
                   fontSize="16px"
                   paddingLeft="37px"
@@ -111,9 +123,9 @@ const ListedNFTCard = props => {
                   gradientDirection="bottom"
                   fullWidth
                 />
-              }
+              )}
             </>
-          }
+          )}
         </div>
       </div>
     </div>
@@ -129,14 +141,73 @@ const ListedNFTCard = props => {
         <div className="w-full flex justify-between items-center">
           <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
         </div>
+
         <div className="w-full flex justify-between items-center mt-2">
-          <GradientButton
-            label="Update"
-            onClick={() => onActionClick(data)}
-            height="26px"
-            fontSize="10px"
-            borderRadius="6px"
-          />
+          {type === 'fixed' ? (
+            <GradientButton
+              label={'Update'}
+              onClick={() => onActionClick(data)}
+              height="26px"
+              fontSize="10px"
+              paddingLeft="7px"
+              paddingRight="7px"
+              backgroundColor01="#63D6CD"
+              backgroundColor02="#326B67"
+              gradientDirection="bottom"
+              borderRadius="6px"
+            />
+          ) : (
+            <>
+              {isStarted && !isEnded && (
+                <Button
+                  height="26px"
+                  fontSize="10px"
+                  paddingLeft="7px"
+                  paddingRight="7px"
+                  label="Cancel Auction"
+                  disabled={true}
+                  backgroundColor="#202427"
+                  color="rgba(239,240, 246, 0.6)"
+                  borderRadius="6px"
+                />
+              )}
+              {(!isStarted || (isEnded && !highestBid)) && (
+                <GradientButton
+                  label={'Cancel Auction'}
+                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
+                  height="26px"
+                  fontSize="10px"
+                  paddingLeft="7px"
+                  paddingRight="7px"
+                  backgroundColor01="#63D6CD"
+                  backgroundColor02="#326B67"
+                  gradientDirection="bottom"
+                  borderRadius="6px"
+                />
+              )}
+              {isEnded && highestBid && (
+                <GradientButton
+                  label={'Finalize Sale'}
+                  onClick={() =>
+                    finalizeSale(
+                      data?.mintAddress,
+                      data?.sellerAddress,
+                      new PublicKey(data?.highestBid.buyer_address),
+                      Number(data?.highestBid.amount)
+                    )
+                  }
+                  height="26px"
+                  fontSize="10px"
+                  paddingLeft="7px"
+                  paddingRight="7px"
+                  backgroundColor01="#63D6CD"
+                  backgroundColor02="#326B67"
+                  gradientDirection="bottom"
+                  borderRadius="6px"
+                />
+              )}
+            </>
+          )}
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
             <div className={styles.nftName}>{getPriceValue(data.price)}</div>

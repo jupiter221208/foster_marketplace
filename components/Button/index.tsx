@@ -14,6 +14,9 @@ const Button = props => {
     backgroundColor,
     height = '',
     fontSize = '',
+    borderRadius = '',
+    paddingLeft = '',
+    paddingRight = '',
   } = props
   return (
     <button
@@ -27,6 +30,9 @@ const Button = props => {
         backgroundColor: backgroundColor,
         height: height,
         fontSize: fontSize,
+        borderRadius: borderRadius,
+        paddingLeft: paddingLeft,
+        paddingRight: paddingRight,
       }}
     >
       {label}
