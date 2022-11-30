@@ -12,6 +12,9 @@ const initialState = {
   profileSetup: false,
   isGetMyNFTs: false,
   myNftList: [],
+  isGetListedNFTs: false,
+  fixedPriceNFTs: [],
+  liveAuctionNFTs: [],
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

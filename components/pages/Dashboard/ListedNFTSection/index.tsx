@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
+// third party components
+import { useSelector, useDispatch } from 'react-redux'
+
 // components
 import Pagination from 'components/Button/Pagination'
 import ListedNFTCard from 'components/Card/ListedNFTCard'
@@ -27,8 +30,7 @@ import { useWallets } from 'hooks/useWallets'
 
 const ListedNFTSection = () => {
   const router = useRouter()
-
-  const [myNFTftList, setMyNFTList] = useState<any[]>([])
+  const dispatch = useDispatch()
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
 
@@ -37,8 +39,10 @@ const ListedNFTSection = () => {
     setSelectedData(item)
     setShowListNFTModal(true)
   }
-  const [fixedPriceNFTs, setFixedPriceNFTs] = useState<any[]>([])
-  const [liveAuctionNFTs, setLiveAuctionNFTs] = useState<any[]>([])
+
+  const isGetListedNFTs = useSelector<any>(state => state.isGetListedNFTs)
+  const fixedPriceNFTs = useSelector<any>(state => state.fixedPriceNFTs)
+  const liveAuctionNFTs = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
 
   const handleChangeActive = value => {
@@ -69,7 +73,7 @@ const ListedNFTSection = () => {
           tradeStateAddress: nft.tradeStateAddress,
         }
       })
-      setFixedPriceNFTs(fixedPrice)
+      dispatch({ type: 'set', fixedPriceNFTs: fixedPrice })
     }
     const listings = await auctionAPI.getListingsBySeller(mx.identity().publicKey.toBase58())
     const liveAuction = await Promise.all(
@@ -89,35 +93,14 @@ const ListedNFTSection = () => {
         }
       })
     )
-    setLiveAuctionNFTs(liveAuction)
-
-    if (active === 0) {
-      if (fixedPrice !== undefined && fixedPrice !== null) {
-        setMyNFTList(fixedPrice)
-      }
-    } else {
-      if (liveAuction !== undefined && liveAuction !== null) {
-        setMyNFTList(liveAuction)
-      }
-    }
+    dispatch({ type: 'set', isGetListedNFTs: true })
+    dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
     setLoading(false)
   }
 
   useEffect(() => {
-    if (active === 0) {
-      if (fixedPriceNFTs !== undefined && fixedPriceNFTs !== null) {
-        setMyNFTList(fixedPriceNFTs)
-      }
-    } else {
-      if (liveAuctionNFTs !== undefined && liveAuctionNFTs !== null) {
-        setMyNFTList(liveAuctionNFTs)
-      }
-    }
-  }, [active])
-
-  useEffect(() => {
-    if (mx) setMyListedNFTs()
-  }, [mx])
+    if (mx && !isGetListedNFTs) setMyListedNFTs()
+  }, [mx, isGetListedNFTs])
 
   const onCancelList = async (mintAddress, tradeStateAddress) => {
     const result = await cancelList(mx, tradeStateAddress)
@@ -205,7 +188,7 @@ const ListedNFTSection = () => {
         </div>
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={myNFTftList} getCurrentData={data => setNFTList(data)} />
+        <Pagination data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs} getCurrentData={data => setNFTList(data)} />
       </div>
       <UpdateNFTModal
         data={selectedData}
