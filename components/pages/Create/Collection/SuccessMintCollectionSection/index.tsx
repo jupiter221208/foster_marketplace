@@ -90,6 +90,7 @@ const SuccessMintCollectionSection = props => {
                 <TweetMintButton
                   icon={TwitterBackgroundBlackIcon}
                   fullWidth
+                  height="68px"
                   label="Tweet your Mint"
                   color="#202427"
                   backgroundColor="#378287"
@@ -101,8 +102,9 @@ const SuccessMintCollectionSection = props => {
                 <OutlineButton
                   fullWidth
                   label="View Dashboard"
-                  backgroundColor="#63D6CD"
+                  backgroundColor="transparent"
                   height="68px"
+                  fontSize="22px"
                   onClick={() => router.push('/dashboard')}
                   borderColor="#5AC3BA"
                 />
