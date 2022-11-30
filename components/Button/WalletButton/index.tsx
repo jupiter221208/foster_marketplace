@@ -277,11 +277,7 @@ const WalletButton = props => {
             <Menu.Item>
               {({ active }) => (
                 <div className="w-full flex gap-3">
-                  <Avatar
-                    avatar={profileImage !== null && profileImage !== undefined ? profileImage : avatar}
-                    width={36}
-                    height={36}
-                  />
+                  <Avatar avatar={profileImage !== '' ? profileImage : avatar} width={36} height={36} />
                   <div className="block whitespace-nowrap">
                     <div className={styles.title}>{profileName.length > 0 ? profileName : 'Username'}</div>
                     <div className={styles.grayText}>{shortMainAddress}</div>
