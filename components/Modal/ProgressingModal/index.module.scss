@@ -51,14 +51,14 @@
   color: $text-gray-200-color;
 }
 
-.whiteBackground {
+.darkBackground {
   width: 100%;
-  background-color: $text-gray-200-color;
+  background-color: $background-dark-color;
   border-radius: 12px;
   padding: 15px;
 
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-800-color;
+  color: $text-gray-200-color;
 }

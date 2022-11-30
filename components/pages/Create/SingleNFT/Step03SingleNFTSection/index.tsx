@@ -38,7 +38,7 @@ const Step03SingleNFTSection = props => {
             backgroundColor="#888A8E"
           />
         ) : (
-          <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint NFT" onClick={createNft} />
+          <GradientButton width={viewport === '2xl' ? 124 : 117} label="Mint NFT" onClick={() => createNft()} />
         )}
       </div>
     </div>
@@ -58,7 +58,7 @@ const Step03SingleNFTSection = props => {
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
           <Button label="Mint NFT" fullWidth disabled={disabledNextButton} backgroundColor="#888A8E" />
         ) : (
-          <GradientButton label="Mint NFT" onClick={createNft} fullWidth />
+          <GradientButton label="Mint NFT" onClick={() => createNft()} fullWidth />
         )}
       </div>
     </div>

@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
-import Lottie from 'lottie-react'
 import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 
 // components
@@ -22,6 +21,7 @@ import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02Sing
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import ProgressingModal from 'components/Modal/ProgressingModal'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -39,7 +39,6 @@ import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
 // json
-import MonoLoader2 from 'assets/lottery/mono-loader-2.json'
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
@@ -453,12 +452,6 @@ const SingleNft = () => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
         ? currentStep !== 4 && (
             <div className="relative w-full grid grid-cols-12 gap-0">
-              {isLoading && (
-                <div className="fixed top-[100px] left-0 right-0 z-[10000]">
-                  <Lottie animationData={MonoLoader2} loop={true} />
-                </div>
-              )}
-
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
                 <div className={styles.topLeftEllipse}>
@@ -600,7 +593,7 @@ const SingleNft = () => {
                         royalties={royalties}
                         setRoyalties={value => setRoyalties(value)}
                         disabledNextButton={disabledNextButton}
-                        createNft={createNft}
+                        createNft={() => createNft()}
                       />
                     )}
                     <div className="w-full h-32" />
@@ -756,7 +749,7 @@ const SingleNft = () => {
 
               {currentStep === 3 && (
                 <Step03SingleNFTSection
-                  createNft={createNft}
+                  createNft={() => createNft()}
                   royalties={royalties}
                   setRoyalties={value => setRoyalties(value)}
                   disabledNextButton={disabledNextButton}
@@ -861,6 +854,7 @@ const SingleNft = () => {
         }}
         dimension={selectedDimension}
       />
+      <ProgressingModal open={isLoading} />
     </div>
   )
 }
