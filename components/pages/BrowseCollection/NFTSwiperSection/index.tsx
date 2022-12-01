@@ -105,7 +105,7 @@ const NFTSwiperSection = ({ nfts }) => {
       )}
 
       <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
+        <div className="w-full max-w-[242px] z-10 mt-[30px]">
           <OutlineButton
             label="See More"
             fullWidth
