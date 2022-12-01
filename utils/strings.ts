@@ -3,6 +3,7 @@ export const limit = (string = '', limit = 0) => {
 }
 
 export const getShortAddress = address => {
+  if (address === null || address.length < 5) return address
   return address.slice(0, 4) + '..' + address.slice(-4) || ''
 }
 

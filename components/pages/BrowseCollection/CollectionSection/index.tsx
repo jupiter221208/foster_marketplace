@@ -14,7 +14,7 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 import styles from './index.module.scss'
 
 const CollectionSection = props => {
-  const { nfts } = props
+  const { nfts, artistId } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -52,8 +52,8 @@ const CollectionSection = props => {
           <ActivitySection />
         </div>
       )}
-      <OtherCollectionSection />
-      <ExploreCollectionSection />
+      <OtherCollectionSection artistId={artistId} />
+      {/* <ExploreCollectionSection /> */}
     </div>
   )
 }

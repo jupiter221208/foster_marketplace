@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -28,9 +28,25 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
-const ExploreCollectionSection = () => {
+// api
+import collectionAPI from 'apis/collections'
+
+const OtherCollectionSection = props => {
+  const { artistId } = props
   const viewport = useViewport()
   const router = useRouter()
+  const [collectionList, setCollectionList] = useState([])
+
+  useEffect(() => {
+    if (artistId !== null) {
+      collectionAPI.getOtherCollections(artistId).then(
+        response => {
+          setCollectionList(response)
+        },
+        error => {}
+      )
+    }
+  }, [artistId])
 
   return (
     <section className={styles.container}>
@@ -58,17 +74,15 @@ const ExploreCollectionSection = () => {
             disableOnInteraction: false,
           }}
         >
-          {ExploreList.map((item: any, index) => (
+          {collectionList.map((item: any, index) => (
             <SwiperSlide key={index}>
               <CollectionCard
-                image={item.image}
-                nftName={item.nftName}
-                category={item.category}
-                artistName={item.artistName}
-                mintAddress={item.mintAddress}
-                nfts={item.nfts}
-                icon={item.icon}
-                price={item.price}
+                image={item.cover_image}
+                nftName={item.collection_name}
+                category={item.categories.split(',')}
+                artistName={''}
+                artistAddress={artistId}
+                mintAddress={item.collection_id}
               />
             </SwiperSlide>
           ))}
@@ -89,4 +103,4 @@ const ExploreCollectionSection = () => {
   )
 }
 
-export default ExploreCollectionSection
+export default OtherCollectionSection

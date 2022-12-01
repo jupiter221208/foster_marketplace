@@ -44,6 +44,7 @@ const BrowseCollection = () => {
         dispatch({ type: 'set', isLoading: true })
         const collection = await getCollectionByAddress(mx, address.toString())
         setCollection(collection)
+        console.log('==========collection=========', collection)
         dispatch({ type: 'set', isLoading: false })
       }
       if (mx && address) getCollection()
@@ -68,7 +69,7 @@ const BrowseCollection = () => {
       </Head>
       <div className={styles.container}>
         <MainSection collection={collection} data={data} />
-        <CollectionSection nfts={collection.nfts} />
+        <CollectionSection nfts={collection.nfts} artistId={data['minter_id']} />
       </div>
     </div>
   )

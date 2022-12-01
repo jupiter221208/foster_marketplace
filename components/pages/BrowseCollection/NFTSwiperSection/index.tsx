@@ -24,6 +24,7 @@ import NFTList from 'assets/json/browse-collection/nft-list.json'
 // styles
 import styles from './index.module.scss'
 import { getPriceValue } from 'utils/strings'
+import { getShortAddress } from 'utils/wallet.util'
 
 const NFTSwiperSection = ({ nfts }) => {
   const viewport = useViewport()
@@ -75,7 +76,7 @@ const NFTSwiperSection = ({ nfts }) => {
                       <NFTCard
                         image={nftItem.offchainMetadata.image}
                         nftName={nftItem.offchainMetadata.name}
-                        artistName={nftItem.creators[0].address.toString()}
+                        artistName={getShortAddress(nftItem.creators[0].address.toString())}
                         price={nftItem.price ? getPriceValue(nftItem.price) : null}
                         onClick={() => router.push(`/browse-nft?id=${nftItem.mintAddress.toString()}`)}
                         key={nftIndex}
@@ -92,7 +93,7 @@ const NFTSwiperSection = ({ nfts }) => {
                   <NFTCard
                     image={item.offchainMetadata.image}
                     nftName={item.offchainMetadata.name}
-                    artistName={item.creators[0].address.toString()}
+                    artistName={getShortAddress(item.creators[0].address.toString())}
                     price={item.price ? getPriceValue(item.price) : null}
                     onClick={() => router.push(`/browse-nft?id=${item.mintAddress.toString()}`)}
                   />
