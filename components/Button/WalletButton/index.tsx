@@ -303,7 +303,7 @@ const WalletButton = props => {
                   </div>
                 </div>
                 <div
-                  className="w-full flex justify-end py-1 cursor-pointer"
+                  className="w-full flex justify-end pt-4 cursor-pointer"
                   onClick={() => setShowMainWallet(!showMainWallet)}
                 >
                   <Image src={EllipseGroupWhiteIcon} />
@@ -356,7 +356,7 @@ const WalletButton = props => {
                   </div>
                 </div>
                 <div
-                  className="w-full flex justify-end py-1 cursor-pointer"
+                  className="w-full flex justify-end pt-4 cursor-pointer"
                   onClick={() => setShowOfferWallet(!showOfferWallet)}
                 >
                   <Image src={EllipseGroupWhiteIcon} />
@@ -452,7 +452,7 @@ const WalletButton = props => {
                   </div>
                 </div>
                 <div
-                  className="w-full flex justify-end py-1 cursor-pointer"
+                  className="w-full flex justify-end pt-4 cursor-pointer"
                   onClick={() => setShowBiddingWallet(!showBiddingWallet)}
                 >
                   <Image src={EllipseGroupWhiteIcon} />

@@ -202,7 +202,7 @@ const MyWalletSubMenu = props => {
       {({ open }) => (
         <>
           <Disclosure.Button className={open ? styles.openContainer : styles.container}>
-            <div className="flex items-center gap-5">
+            <div className="flex items-center">
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : (
@@ -240,7 +240,7 @@ const MyWalletSubMenu = props => {
                     </div>
                   </div>
                   <div
-                    className="w-full flex justify-end py-1 cursor-pointer"
+                    className="w-full flex justify-end py-4 cursor-pointer"
                     onClick={() => setShowMainWallet(!showMainWallet)}
                   >
                     <Image src={EllipseGroupWhiteIcon} />
@@ -284,7 +284,7 @@ const MyWalletSubMenu = props => {
                     </div>
                   </div>
                   <div
-                    className="w-full flex justify-end py-1 cursor-pointer"
+                    className="w-full flex justify-end pt-4 cursor-pointer"
                     onClick={() => setShowOfferWallet(!showOfferWallet)}
                   >
                     <Image src={EllipseGroupWhiteIcon} />
@@ -383,7 +383,7 @@ const MyWalletSubMenu = props => {
                     </div>
                   </div>
                   <div
-                    className="w-full flex justify-end py-1 cursor-pointer"
+                    className="w-full flex justify-end pt-4 cursor-pointer"
                     onClick={() => setShowBiddingWallet(!showBiddingWallet)}
                   >
                     <Image src={EllipseGroupWhiteIcon} />
