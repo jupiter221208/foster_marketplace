@@ -31,9 +31,6 @@ import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.s
 // styles
 import styles from './index.module.scss'
 
-// call apis
-import authAPI from 'apis/auth'
-
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import {
@@ -49,8 +46,7 @@ import {
 import { useWallets } from 'hooks/useWallets'
 
 const MyWalletSubMenu = props => {
-  const { icon, label, type = '', data, path = '' } = props
-  const dispatch = useDispatch()
+  const { icon, label, type = '', data } = props
 
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
@@ -180,30 +176,9 @@ const MyWalletSubMenu = props => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [buttonClicked, setButtonClicked] = useState(false)
-
-  const profileInfo = useSelector(state => (state as any).profileInfo)
-  const [profileName, setProfileName] = useState('')
-  const [profileImage, setProfileImage] = useState('')
 
   useEffect(() => {
-    if (!buttonClicked) {
-      return
-    }
-
-    setButtonClicked(true)
-
-    if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      setShowAlert(true)
-    } else {
+    if (!connected) {
       setAlertData([
         {
           id: 0,
@@ -216,32 +191,8 @@ const MyWalletSubMenu = props => {
     }
   }, [connected])
 
-  useEffect(() => {
-    if (profileInfo) {
-      if (profileInfo.username) {
-        setProfileName(profileInfo.username)
-      }
-      if (profileInfo.profile_picture) {
-        setProfileImage(profileInfo.profile_picture)
-      }
-    }
-  }, [profileInfo])
-
-  // handle login
-  const handleLogin = () => {
-    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
-      response => {
-        dispatch({ type: 'set', profileInfo: response.user })
-        setProfileImage(response.user.profile_picture)
-        setProfileName(response.user.username)
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }
-
   const handleDisconnect = () => {
+    setShowAlert(true)
     disconnect()
     localStorage.removeItem('token')
   }
@@ -305,7 +256,6 @@ const MyWalletSubMenu = props => {
                   <div
                     className="w-full flex items-center cursor-pointer hover:opacity-80"
                     onClick={() => {
-                      setButtonClicked(true)
                       handleDisconnect()
                     }}
                   >
@@ -514,12 +464,11 @@ const MyWalletSubMenu = props => {
               )}
             </div>
           </Disclosure.Panel>
-          {/* connect wallet alert */}
+          {/* disconnect wallet alert */}
           <Alert
             open={showAlert}
             close={() => {
               setShowAlert(false)
-              handleLogin()
             }}
             data={alertData}
           />
