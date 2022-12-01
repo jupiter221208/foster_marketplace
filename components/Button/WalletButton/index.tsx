@@ -15,10 +15,8 @@ import { PublicKey } from '@solana/web3.js'
 // components
 import Alert from 'components/Alert'
 import Avatar from 'components/Avatar'
-import IconButton from 'components/Button/IconButton'
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from '../OutlineButton'
 
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
@@ -52,7 +50,6 @@ import {
   withdrawFunds as withdrawBiddingFunds,
   getEscrowPaymentAccount as getBiddingEscrowAddress,
 } from 'utils/auctioneer.util'
-import { getPriceValue } from 'utils/strings'
 import { useWallets } from 'hooks/useWallets'
 
 const WalletButton = props => {
