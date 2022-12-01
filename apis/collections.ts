@@ -20,6 +20,12 @@ class Collections {
       return response.data
     })
   }
+
+  getCollectionNft(collection_id) {
+    return client.get(API_URL + 'v1/collections/' + collection_id + '/nfts').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Collections()

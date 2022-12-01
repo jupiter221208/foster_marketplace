@@ -79,13 +79,13 @@ import listingsAPI from 'apis/listings'
 import { useWallets } from 'hooks/useWallets'
 import LoadingButton from 'components/Button/LoadingButton'
 
-const MainSection = () => {
+const MainSection = props => {
+  const { nftDetail, loading } = props
   const viewport = useViewport()
   const router = useRouter()
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
-  const [loading, setLoading] = useState(false)
   const [openReportModal, setOpenReportModal] = useState(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
@@ -235,63 +235,51 @@ const MainSection = () => {
   }
 
   useEffect(() => {
-    if (id !== '') {
-      setLoading(true)
-      nftsAPI.getDetail(id).then(
-        (response: NFT) => {
-          if (response !== null) {
-            let type = 'image'
-            if (response.asset_type === 'image') type = 'image'
-            else if (response.asset_type.includes('video')) type = 'video'
-            else if (response.asset_type.includes('audio')) type = 'audio'
+    if (nftDetail !== null) {
+      let type = 'image'
+      if (nftDetail.asset_type === 'image') type = 'image'
+      else if (nftDetail.asset_type.includes('video')) type = 'video'
+      else if (nftDetail.asset_type.includes('audio')) type = 'audio'
 
-            setNftType(type)
-            setNftUrl(response.asset_url)
-            setNftName(response.name)
-            setNftCollectionAddress(response.collection_address)
-            setNftCollectionName(response.collection_name)
-            setNftOwnerAddress(response.owner_address)
-            setNftOwnerUsername(response.owner_username)
-            setNftCoverUrl(response.cover_image_url)
-            setNftCreatorAddress(response.creator_address)
-            setNftCreatorUsername(response.creator_username)
-            setNftDescription(response.description)
-            setNftCategories(response.categories?.split(','))
-            if (response.listing_status === 'listed') {
-              if (response.listing) setNftPrice(parseFloat(response.listing.list_price))
-            }
-            setMintAddress(response.address)
-            setLikeCount(response.likes >= 0 ? response.likes : 0)
-            setShareCount(response.shares >= 0 ? response.shares : 0)
-            setSaveCount(response.saves >= 0 ? response.saves : 0)
-            setLike(response.liked)
-            setSave(response.saved)
-            let shared = response.shared
-            if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
-            else setShare(false)
+      setNftType(type)
+      setNftUrl(nftDetail.asset_url)
+      setNftName(nftDetail.name)
+      setNftCollectionAddress(nftDetail.collection_address)
+      setNftCollectionName(nftDetail.collection_name)
+      setNftOwnerAddress(nftDetail.owner_address)
+      setNftOwnerUsername(nftDetail.owner_username)
+      setNftCoverUrl(nftDetail.cover_image_url)
+      setNftCreatorAddress(nftDetail.creator_address)
+      setNftCreatorUsername(nftDetail.creator_username)
+      setNftDescription(nftDetail.description)
+      setNftCategories(nftDetail.categories?.split(','))
+      if (nftDetail.listing_status === 'listed') {
+        if (nftDetail.listing) setNftPrice(parseFloat(nftDetail.listing.list_price))
+      }
+      setMintAddress(nftDetail.address)
+      setLikeCount(nftDetail.likes >= 0 ? nftDetail.likes : 0)
+      setShareCount(nftDetail.shares >= 0 ? nftDetail.shares : 0)
+      setSaveCount(nftDetail.saves >= 0 ? nftDetail.saves : 0)
+      setLike(nftDetail.liked)
+      setSave(nftDetail.saved)
+      let shared = nftDetail.shared
+      if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
+      else setShare(false)
 
-            if (response.listing_status === 'listed') {
-              setListedNFT(mx, response.address)
-            }
+      if (nftDetail.listing_status === 'listed') {
+        setListedNFT(mx, nftDetail.address)
+      }
 
-            if (response.owner_address === '') {
-              getNFTOwner(mx, id as string).then(owner => {
-                setNftOwnerAddress(owner.address)
-                usersAPI.get(owner).then(user => {
-                  setNftOwnerUsername(user.username)
-                })
-              })
-            }
-          }
-          setLoading(false)
-        },
-        error => {
-          setLoading(false)
-          console.log(error)
-        }
-      )
+      if (nftDetail.owner_address === '') {
+        getNFTOwner(mx, id as string).then(owner => {
+          setNftOwnerAddress(owner.address)
+          usersAPI.get(owner).then(user => {
+            setNftOwnerUsername(user.username)
+          })
+        })
+      }
     }
-  }, [id])
+  }, [nftDetail])
 
   const changeLikeStatus = () => {
     if (isRunning) return

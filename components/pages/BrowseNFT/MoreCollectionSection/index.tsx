@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -24,9 +24,25 @@ import MarketplaceReleaseList from 'assets/json/marketplace-release.json'
 // styles
 import styles from './index.module.scss'
 
-const MoreCollectionSection = () => {
+// api
+import collectionAPI from 'apis/collections'
+
+const MoreCollectionSection = props => {
+  const { collectionId } = props
   const viewport = useViewport()
   const router = useRouter()
+  const [nftList, setNftList] = useState([])
+
+  useEffect(() => {
+    if (collectionId !== null) {
+      collectionAPI.getCollectionNft(collectionId).then(
+        response => {
+          setNftList(response)
+        },
+        error => {}
+      )
+    }
+  }, [collectionId])
 
   return (
     <section className={styles.container}>
@@ -51,14 +67,14 @@ const MoreCollectionSection = () => {
             disableOnInteraction: false,
           }}
         >
-          {MarketplaceReleaseList.map((item, index) => (
+          {nftList.map((item, index) => (
             <SwiperSlide key={index}>
               <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                 <NFTCard
-                  image={item.image}
-                  nftName={item.nftName}
-                  artistName={item.artistName}
-                  price={item.price}
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  artistName={item.artist_username}
+                  price={item.list_price}
                   onClick={() => router.push(`/browse-nft?id=${item.id}`)}
                 />
               </div>
