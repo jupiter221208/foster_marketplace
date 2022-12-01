@@ -67,7 +67,6 @@ const MoreCategorySection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            loop
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
