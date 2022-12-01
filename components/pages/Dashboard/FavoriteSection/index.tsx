@@ -31,25 +31,17 @@ const FavoriteSection = () => {
   const [collectionList, setCollectionList] = useState([])
   const [allCollectionList, setAllCollectionList] = useState([])
 
-  const [active, setActive] = useState(1)
+  const [active, setActive] = useState(0)
 
   const handleChangeActive = value => {
+    if (value === 1) return
     setActive(value)
   }
 
   useEffect(() => {
-    nftsAPI.getMyFavorites().then(
-      response => {
-        setAllNftList(response)
-      },
-      error => {
-        console.log(error)
-      }
-    )
-
     collectionsAPI.getFavorites().then(
       response => {
-        setAllCollectionList(response)
+        setAllNftList(response)
       },
       error => {
         console.log(error)
@@ -61,7 +53,7 @@ const FavoriteSection = () => {
     <section className={styles.container}>
       <div className="flex">
         <FilterButton
-          label="Artists"
+          label="Single NFTs"
           onClick={() => handleChangeActive(0)}
           color={active === 0 ? '#5AC3BA' : '#979EA2'}
           background={
@@ -69,30 +61,16 @@ const FavoriteSection = () => {
           }
         />
         <FilterButton
-          label="Single NFTs"
+          label="Collections"
           onClick={() => handleChangeActive(1)}
           color={active === 1 ? '#5AC3BA' : '#979EA2'}
           background={
             active === 1 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
           }
         />
-        <FilterButton
-          label="Collections"
-          onClick={() => handleChangeActive(2)}
-          color={active === 2 ? '#5AC3BA' : '#979EA2'}
-          background={
-            active === 2 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
-          }
-        />
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
-        {/* {active === 0 &&
-          artistList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
-            </div>
-          ))} */}
-        {active === 1 &&
+        {active === 0 &&
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <NFTCard
@@ -107,7 +85,7 @@ const FavoriteSection = () => {
             </div>
           ))}
 
-        {active === 2 &&
+        {active === 1 &&
           collectionList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
@@ -121,9 +99,8 @@ const FavoriteSection = () => {
           ))}
       </div>
       <div className="w-full flex justify-end">
-        {active === 0 && <Pagination data={ArtistList} getCurrentData={data => setArtistList(data)} />}
-        {active === 1 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
-        {active === 2 && <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />}
+        {active === 0 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
+        {active === 1 && <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />}
       </div>
     </section>
   )
