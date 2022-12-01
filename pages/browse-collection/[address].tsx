@@ -44,7 +44,6 @@ const BrowseCollection = () => {
         dispatch({ type: 'set', isLoading: true })
         const collection = await getCollectionByAddress(mx, address.toString())
         setCollection(collection)
-        console.log('==========collection=========', collection)
         dispatch({ type: 'set', isLoading: false })
       }
       if (mx && address) getCollection()
