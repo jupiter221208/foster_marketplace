@@ -1,10 +1,14 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment } from 'react'
+
 // next components
 import Image from 'next/image'
+
 // third party components
 import { Menu, Transition } from '@headlessui/react'
+
 // images and icons
 import UserAccountWhiteIcon from 'assets/icons/user-account-white.svg'
+
 // styles
 import styles from './index.module.scss'
 
