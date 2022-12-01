@@ -39,6 +39,7 @@
   justify-content: flex-start;
   align-items: center;
   white-space: nowrap;
+  border: 1px solid transparent;
   &:hover {
     background-color: rgba($brand-02-color, 0.3);
     border: 1px solid $brand-01-color;
