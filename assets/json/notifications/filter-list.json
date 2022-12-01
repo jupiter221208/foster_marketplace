@@ -7,36 +7,36 @@
   {
     "id": 1,
     "name": "Offers",
-    "value": "Offers"
+    "value": "Offer"
   },
   {
     "id": 2,
     "name": "Saves",
-    "value": "Saves"
+    "value": "Save"
   },
   {
     "id": 3,
     "name": "Bids",
-    "value": "Bids"
+    "value": "Bid"
   },
   {
     "id": 4,
     "name": "Likes",
-    "value": "Likes"
+    "value": "Like"
   },
   {
     "id": 5,
     "name": "Shares",
-    "value": "Shares"
+    "value": "Share"
   },
   {
     "id": 6,
     "name": "Sales",
-    "value": "Sales"
+    "value": "Sale"
   },
   {
     "id": 7,
     "name": "Purchases",
-    "value": "Purchases"
+    "value": "Purchase"
   }
 ]

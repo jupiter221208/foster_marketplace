@@ -29,6 +29,7 @@ import userAPI from 'apis/user'
 const Notifications = () => {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<any[]>([])
+  const [allNotification, setAllNotification] = useState<any[]>([])
   const [filterNotification, setFilterNotification] = useState<any[]>([])
 
   function getDateLabel(date) {
@@ -52,42 +53,46 @@ const Notifications = () => {
     return month + ' ' + day + ', ' + year
   }
 
-  useEffect(() => {
+  function getSortedNotification(notifications) {
     let today = new Date().setHours(0, 0, 0, 0)
     let yesterday = today - 3600 * 24 * 1000
+    let sortedByDate = {}
+    notifications.map(notification => {
+      const createdDate = new Date(notification.created_at).setHours(0, 0, 0, 0)
+      const strCreatedDate = createdDate.toString()
+      if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
+        sortedByDate[strCreatedDate] = []
+      }
+      sortedByDate[strCreatedDate].push(notification)
+    })
+    let index = 0
+    let sortedNotification = []
+    Object.keys(sortedByDate)
+      .sort()
+      .reverse()
+      .forEach(function (key) {
+        let createDate = new Date(parseInt(key))
+        let strDate = getDateLabel(createDate)
+        if (parseInt(key) == today) {
+          strDate = 'Today'
+        } else if (parseInt(key) == yesterday) {
+          strDate = 'Yesterday'
+        }
+        let dayNotifications = { id: index, date: strDate, data: sortedByDate[key] }
+        sortedNotification.push(dayNotifications)
+        index++
+      })
+    return sortedNotification
+  }
+
+  useEffect(() => {
     userAPI.getNotifications().then(
       response => {
         if (response !== null) {
           if (response.notifications.length > 0) {
             let notifications = response.notifications
-            let sortedByDate = {}
-            notifications.map(notification => {
-              const createdDate = new Date(notification.created_at).setHours(0, 0, 0, 0)
-              const strCreatedDate = createdDate.toString()
-              if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
-                sortedByDate[strCreatedDate] = []
-              }
-              sortedByDate[strCreatedDate].push(notification)
-            })
-            let index = 0
-            let sortedNotification = []
-            Object.keys(sortedByDate)
-              .sort()
-              .reverse()
-              .forEach(function (key) {
-                let createDate = new Date(parseInt(key))
-                let strDate = getDateLabel(createDate)
-                if (parseInt(key) == today) {
-                  strDate = 'Today'
-                } else if (parseInt(key) == yesterday) {
-                  strDate = 'Yesterday'
-                }
-                let dayNotifications = { id: index, date: strDate, data: sortedByDate[key] }
-                sortedNotification.push(dayNotifications)
-                index++
-              })
-            console.log('=============sortedNotification===============', sortedNotification)
-            setFilterNotification(sortedNotification)
+            setAllNotification(notifications)
+            setFilterNotification(getSortedNotification(notifications))
           }
         }
       },
@@ -109,14 +114,26 @@ const Notifications = () => {
 
   const handleSelectFilter = index => {
     let array = [...filterList]
-    let checkedCount = 0
-    array.forEach(item => {
-      if (item.checked === true) {
-        checkedCount++
-      }
-    })
     array[index].checked = !array[index].checked
     setFilterList(array)
+    let types = []
+    array.forEach(item => {
+      if (item.checked === true) {
+        types.push(item.value)
+      }
+    })
+    if (types.length === 0) {
+      setFilterNotification(getSortedNotification(allNotification))
+    } else {
+      let filtered = []
+      allNotification.forEach(item => {
+        if (types.includes(item.notification_type)) {
+          filtered.push(item)
+        }
+      })
+      console.log('===============filter==========', getSortedNotification(filtered))
+      setFilterNotification(getSortedNotification(filtered))
+    }
   }
 
   const handleSelectAllFilters = status => {

@@ -59,7 +59,7 @@ const NotificationsCard = props => {
                     </div>
                     <div className="block items-start">
                       <p>
-                        <span className={styles.username}>{elem.username}</span>
+                        <span className={styles.username}>{elem.wallet_id}</span>
                         <span className={styles.description}>&nbsp;{elem.description}</span>
                       </p>
                       {elem.viewDetails && <div className={styles.viewDetails}>View Details</div>}
