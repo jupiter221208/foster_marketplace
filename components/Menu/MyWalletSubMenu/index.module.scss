@@ -10,10 +10,26 @@
   padding-left: 25px;
   padding-right: 25px;
   background-color: $background-dark-color;
-
-  &:hover {
-    background-color: $brand-02-color;
+  border-color: rgba($background-light-color, 0.1);
+  border-width: 1px;
+  &:focus {
+    outline: none;
   }
+}
+
+.openContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 71px;
+  border-radius: 15px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background: linear-gradient(to bottom, $brand-02-color, $background-dark-color);
+  border-color: rgba($background-light-color, 0.1);
+  border-width: 1px;
+  background-origin: border-box;
   &:focus {
     outline: none;
   }

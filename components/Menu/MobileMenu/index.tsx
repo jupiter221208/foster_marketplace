@@ -15,6 +15,7 @@ import WalletButton from 'components/Button/WalletButton'
 import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
+import EllipseGreenKingsizeIcon from 'assets/icons/ellipse-green-kingsize.svg'
 import AvatarIcon from 'assets/icons/profile-thumb.svg'
 import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
 import PlusWhiteIcon from 'assets/icons/plus-green.svg'
@@ -124,6 +125,9 @@ const MobileMenu = () => {
 
   return (
     <div className={styles.menu}>
+      <div className={styles.bgImage}>
+        <Image src={EllipseGreenKingsizeIcon} width={549} height={1005} alt="" />
+      </div>
       {connected ? (
         <div className={styles.container}>
           <div className="w-full flex flex-wrap gap-[10px]">
@@ -175,7 +179,7 @@ const MobileMenu = () => {
             <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
             <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
           </div>
-          <div className="w-full flex items-end">
+          <div className="w-full flex items-end mt-5">
             <WalletButton fullWidth />
           </div>
           {/* disconnect wallet alert */}

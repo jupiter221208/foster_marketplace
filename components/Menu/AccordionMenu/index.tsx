@@ -43,7 +43,10 @@ const AccordionMenu = props => {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className={styles.container} onClick={() => handleSoloMenuItemClick()}>
+          <Disclosure.Button
+            className={open ? styles.openContainer : styles.container}
+            onClick={() => handleSoloMenuItemClick()}
+          >
             <div className="flex items-center">
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />

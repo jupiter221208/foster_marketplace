@@ -33,7 +33,7 @@ const MyWalletSubMenu = props => {
   const { icon, label, type = '', data, path = '' } = props
 
   const { publicKey, disconnect } = useWallet()
-  const shortAddress = useMemo(() => getShortAddress(publicKey || '' as unknown as PublicKey), [publicKey])
+  const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -52,7 +52,7 @@ const MyWalletSubMenu = props => {
     <Disclosure>
       {({ open }) => (
         <>
-          <Disclosure.Button className={styles.container}>
+          <Disclosure.Button className={open ? styles.openContainer : styles.container}>
             <div className="flex items-center">
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
