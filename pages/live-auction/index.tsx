@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Head from 'next/head'
@@ -20,9 +21,38 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 // styles
 import styles from './index.module.scss'
 
+// api
+import nftsAPI, { NFT } from 'apis/nfts'
+
 const LiveAuction = () => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
+  const router = useRouter()
+
+  const { id } = router.query
+  const [nftDetail, setNftDetail] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [collectionId, setCollectionId] = useState(null)
+
+  useEffect(() => {
+    if (id !== '') {
+      setLoading(true)
+      nftsAPI.getDetail(id).then(
+        (response: NFT) => {
+          if (response !== null) {
+            setNftDetail(response)
+            if (response.collection_address !== null) {
+              setCollectionId(response.collection_address)
+            }
+            setLoading(false)
+          }
+        },
+        error => {
+          setLoading(false)
+        }
+      )
+    }
+  }, [id])
 
   return (
     <div className="g-container">
@@ -39,8 +69,8 @@ const LiveAuction = () => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="z-10">
-          <MainSection />
-          <MoreCollectionSection />
+          <MainSection nftDetail={nftDetail} loading={loading} />
+          {collectionId !== null && <MoreCollectionSection collectionId={collectionId} />}
           <MoreArtistSection />
           <MoreCategorySection />
         </div>

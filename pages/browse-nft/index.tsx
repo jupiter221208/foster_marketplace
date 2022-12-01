@@ -23,6 +23,7 @@ import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
+
 // api
 import nftsAPI, { NFT } from 'apis/nfts'
 
@@ -72,7 +73,7 @@ const BrowseNFT = () => {
         </div>
         <div className="z-10">
           <MainSection nftDetail={nftDetail} loading={loading} />
-          <MoreCollectionSection collectionId={collectionId} />
+          {collectionId !== null && <MoreCollectionSection collectionId={collectionId} />}
           <MoreArtistSection />
           <MoreCategorySection />
         </div>

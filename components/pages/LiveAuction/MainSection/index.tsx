@@ -79,13 +79,14 @@ import { useWallets } from 'hooks/useWallets'
 import nftsAPI, { NFT } from 'apis/nfts'
 import usersAPI from 'apis/user'
 
-const MainSection = () => {
+const MainSection = props => {
+  const { nftDetail, loading } = props
+
   const viewport = useViewport()
   const router = useRouter()
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any>(null)
-  const [loading, setLoading] = useState(false)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
@@ -202,71 +203,59 @@ const MainSection = () => {
   const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
-    if (id !== '') {
+    if (nftDetail !== null) {
       getNftDetailInfo()
     }
-  }, [id])
+  }, [nftDetail])
 
   function getNftDetailInfo() {
-    setLoading(true)
-    nftsAPI.getDetail(id).then(
-      (response: NFT) => {
-        if (response !== null) {
-          let type = 'image'
-          if (response.asset_type === 'image') type = 'image'
-          else if (response.asset_type.includes('video')) type = 'video'
-          else if (response.asset_type.includes('audio')) type = 'audio'
+    let type = 'image'
+    if (nftDetail.asset_type === 'image') type = 'image'
+    else if (nftDetail.asset_type.includes('video')) type = 'video'
+    else if (nftDetail.asset_type.includes('audio')) type = 'audio'
 
-          setNftType(type)
-          setNftUrl(response.asset_url)
-          setNftCoverUrl(response.cover_image_url)
-          setNftName(response.name)
-          setNftCollectionAddress(response.collection_address)
-          setNftCollectionName(response.collection_name)
-          setNftOwnerAddress(response.owner_address)
-          setNftOwnerUsername(response.owner_username)
-          setNftCreatorAddress(response.creator_address)
-          setNftCreatorUsername(response.creator_username)
-          setNftDescription(response.description)
-          setNftCategories(response.categories?.split(','))
+    setNftType(type)
+    setNftUrl(nftDetail.asset_url)
+    setNftCoverUrl(nftDetail.cover_image_url)
+    setNftName(nftDetail.name)
+    setNftCollectionAddress(nftDetail.collection_address)
+    setNftCollectionName(nftDetail.collection_name)
+    setNftOwnerAddress(nftDetail.owner_address)
+    setNftOwnerUsername(nftDetail.owner_username)
+    setNftCreatorAddress(nftDetail.creator_address)
+    setNftCreatorUsername(nftDetail.creator_username)
+    setNftDescription(nftDetail.description)
+    setNftCategories(nftDetail.categories?.split(','))
 
-          setMintAddress(response.address)
-          setLikeCount(response.likes >= 0 ? response.likes : 0)
-          setShareCount(response.shares >= 0 ? response.shares : 0)
-          setSaveCount(response.saves >= 0 ? response.saves : 0)
-          setLike(response.liked)
-          setSave(response.saved)
-          let shared = response.shared
-          if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
-          else setShare(false)
+    setMintAddress(nftDetail.address)
+    setLikeCount(nftDetail.likes >= 0 ? nftDetail.likes : 0)
+    setShareCount(nftDetail.shares >= 0 ? nftDetail.shares : 0)
+    setSaveCount(nftDetail.saves >= 0 ? nftDetail.saves : 0)
+    setLike(nftDetail.liked)
+    setSave(nftDetail.saved)
+    let shared = nftDetail.shared
+    if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
+    else setShare(false)
 
-          if (response.listing_status === 'auctioned') {
-            const auction = response.auction.auction
-            const highest_bid = response.auction.highest_bid
-            setNftReservePrice(Number(auction.reserve_price))
-            setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
-            setHighBidder(highest_bid ? highest_bid.buyer_address : '')
-            setSellerAddress(new PublicKey(auction.seller_address))
-            setEndTime(new Date(Number(auction.end_time) * 1000))
-            setStartTime(new Date(Number(auction.start_time) * 1000))
-          }
+    if (nftDetail.listing_status === 'auctioned') {
+      const auction = nftDetail.auction.auction
+      const highest_bid = nftDetail.auction.highest_bid
+      setNftReservePrice(Number(auction.reserve_price))
+      setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+      setHighBidder(highest_bid ? highest_bid.buyer_address : '')
+      setSellerAddress(new PublicKey(auction.seller_address))
+      setEndTime(new Date(Number(auction.end_time) * 1000))
+      setStartTime(new Date(Number(auction.start_time) * 1000))
+    }
 
-          if (response.owner_address === '') {
-            getNFTOwner(mx, id as string).then(owner => {
-              setNftOwnerAddress(owner.address)
-              usersAPI.get(owner).then(user => {
-                setNftOwnerUsername(user.username)
-              })
-            })
-          }
-          setLoading(false)
-        }
-      },
-      error => {
-        setLoading(false)
-        console.log(error)
-      }
-    )
+    if (nftDetail.owner_address === '') {
+      getNFTOwner(mx, id as string).then(owner => {
+        setNftOwnerAddress(owner.address)
+        usersAPI.get(owner).then(user => {
+          setNftOwnerUsername(user.username)
+        })
+      })
+    }
   }
   // const setListedNFT = async () => {
   //   const { auction, highest_bid } = await AuctionAPI.getListing(id)
