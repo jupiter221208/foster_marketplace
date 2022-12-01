@@ -22,6 +22,8 @@ const CollectionCard = props => {
   const viewport = useViewport()
   const router = useRouter()
 
+  console.log('mintAddress', mintAddress)
+
   return (
     <div
       className={styles.container}

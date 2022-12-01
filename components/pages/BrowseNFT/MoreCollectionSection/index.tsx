@@ -18,9 +18,6 @@ import NFTCard from 'components/Card/NFTCard'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import MarketplaceReleaseList from 'assets/json/marketplace-release.json'
-
 // styles
 import styles from './index.module.scss'
 

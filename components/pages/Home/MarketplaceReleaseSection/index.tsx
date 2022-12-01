@@ -25,9 +25,6 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
-// json
-import MarketplaceReleaseList from 'assets/json/marketplace-release.json'
-
 // styles
 import styles from './index.module.scss'
 
@@ -41,17 +38,15 @@ const MarketplaceReleaseSection = props => {
   const dispatch = useDispatch()
 
   const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
+  const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
 
   const [active, setActive] = useState<any>(0)
-
-  // useEffect(() => {
-  //   setMarketplaceReleaseList(MarketplaceReleaseList)
-  // }, [])
 
   useEffect(() => {
     dashboardAPI.getMarketplaceReleases(category).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setMarketplaceReleaseList(response)
+        setAllMarketplaceReleaseList(response)
       }
     }),
       error => {
@@ -64,16 +59,16 @@ const MarketplaceReleaseSection = props => {
 
     switch (value) {
       case 0:
-        setMarketplaceReleaseList(MarketplaceReleaseList.slice(0, 5))
+        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 5))
         break
       case 1:
-        setMarketplaceReleaseList(MarketplaceReleaseList.slice(0, 10))
+        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 10))
         break
       case 2:
-        setMarketplaceReleaseList(MarketplaceReleaseList.slice(0, 15))
+        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 15))
         break
       default:
-        setMarketplaceReleaseList(MarketplaceReleaseList)
+        setMarketplaceReleaseList(allMarketplaceReleaseList)
         break
     }
   }

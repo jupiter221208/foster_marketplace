@@ -37,6 +37,7 @@ const BrowseNFT = () => {
   const [loading, setLoading] = useState(false)
   const [collectionId, setCollectionId] = useState(null)
   const [artistInfo, setArtistInfo] = useState(null)
+  const [categories, setCategories] = useState<any>([])
 
   useEffect(() => {
     if (id !== '') {
@@ -45,6 +46,7 @@ const BrowseNFT = () => {
         (response: NFT) => {
           if (response !== null) {
             setNftDetail(response)
+            setCategories(response.categories?.split(','))
             if (response.collection_address !== null) {
               setCollectionId(response.collection_address)
             }
@@ -79,7 +81,7 @@ const BrowseNFT = () => {
           <MainSection nftDetail={nftDetail} loading={loading} />
           {collectionId !== null && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo !== null && <MoreArtistSection artistInfo={artistInfo} />}
-          <MoreCategorySection />
+          <MoreCategorySection categories={categories} />
         </div>
       </div>
     </div>
