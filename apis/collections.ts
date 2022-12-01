@@ -26,6 +26,12 @@ class Collections {
       return response.data
     })
   }
+
+  getOtherCollections(artist_id) {
+    return client.get(API_URL + 'v1/collections/other-by-artist/' + artist_id).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Collections()

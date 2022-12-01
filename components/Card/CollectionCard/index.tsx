@@ -41,13 +41,13 @@ const CollectionCard = props => {
         </div>
         <div className="w-full flex justify-start items-center">
           <div className={styles.artistName}>
-            {getShortAddress(artistName)} / {getShortAddress(mintAddress)}
+            {artistName} / {getShortAddress(mintAddress)}
           </div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">
           <div className="flex flex-wrap gap-[2px]">
             {category?.map((item, index) => (
-              <SmallCategoryChip data={item?.value} key={index} />
+              <SmallCategoryChip data={item} key={index} />
             ))}
           </div>
         </div>

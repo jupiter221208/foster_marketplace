@@ -33,6 +33,7 @@ const LiveAuction = () => {
   const [nftDetail, setNftDetail] = useState(null)
   const [loading, setLoading] = useState(false)
   const [collectionId, setCollectionId] = useState(null)
+  const [artistInfo, setArtistInfo] = useState(null)
 
   useEffect(() => {
     if (id !== '') {
@@ -43,6 +44,9 @@ const LiveAuction = () => {
             setNftDetail(response)
             if (response.collection_address !== null) {
               setCollectionId(response.collection_address)
+            }
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
             }
             setLoading(false)
           }
@@ -71,7 +75,7 @@ const LiveAuction = () => {
         <div className="z-10">
           <MainSection nftDetail={nftDetail} loading={loading} />
           {collectionId !== null && <MoreCollectionSection collectionId={collectionId} />}
-          <MoreArtistSection />
+          {artistInfo !== null && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection />
         </div>
       </div>
