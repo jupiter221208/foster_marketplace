@@ -49,8 +49,8 @@ const NFTSwiperSection = ({ nfts }) => {
   }, [nfts])
 
   return (
-    <section className={styles.container}>
-      {nfts !== undefined && (
+    nfts !== undefined && (
+      <section className={styles.container}>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
           {nfts.length > 5 ? (
             <Swiper
@@ -102,20 +102,20 @@ const NFTSwiperSection = ({ nfts }) => {
             </div>
           )}
         </div>
-      )}
 
-      <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10 mt-[30px]">
-          <OutlineButton
-            label="See More"
-            fullWidth
-            onClick={() => router.push('/explore')}
-            borderColor="#ffffff"
-            height="40px"
-          />
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[242px] z-10 mt-[30px]">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => router.push('/explore')}
+              borderColor="#ffffff"
+              height="40px"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )
   )
 }
 
