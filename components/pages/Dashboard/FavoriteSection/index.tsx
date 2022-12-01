@@ -12,24 +12,26 @@ import Pagination from 'components/Button/Pagination'
 
 // json
 import ArtistList from 'assets/json/dashboard/artist-list.json'
-import NFTList from 'assets/json/dashboard/nft-list.json'
-import CollectionList from 'assets/json/dashboard/collection-list.json'
 
 // styles
 import styles from './index.module.scss'
 
 // call apis
 import nftsAPI from 'apis/nfts'
+import collectionsAPI from 'apis/collections'
 import FilterButton from 'components/Button/FilterButton'
 
 const FavoriteSection = () => {
   const router = useRouter()
 
   const [artistList, setArtistList] = useState([])
-  const [nftList, setNFTList] = useState([])
+  const [allArtistList, setAllArtistList] = useState([])
+  const [nftList, setNftList] = useState([])
+  const [allNftList, setAllNftList] = useState([])
   const [collectionList, setCollectionList] = useState([])
+  const [allCollectionList, setAllCollectionList] = useState([])
 
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState(1)
 
   const handleChangeActive = value => {
     setActive(value)
@@ -38,7 +40,16 @@ const FavoriteSection = () => {
   useEffect(() => {
     nftsAPI.getMyFavorites().then(
       response => {
-        console.log(response)
+        setAllNftList(response)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+
+    collectionsAPI.getFavorites().then(
+      response => {
+        setAllCollectionList(response)
       },
       error => {
         console.log(error)
@@ -75,22 +86,23 @@ const FavoriteSection = () => {
         />
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
-        {active === 0 &&
+        {/* {active === 0 &&
           artistList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
             </div>
-          ))}
+          ))} */}
         {active === 1 &&
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <NFTCard
-                image={item.image}
-                nftName={item.nftName}
-                artistName={item.artistName}
-                price={item.price}
-                showCount={false}
-                onClick={() => router.push(`/browse-nft?id=${item.id}`)}
+                image={item.asset_url}
+                nftName={item.nft_name}
+                artistName={item.artist_username}
+                price={item.list_price}
+                onClick={() => {
+                  router.push(`/browse-nft?id=${item.token_id}`)
+                }}
               />
             </div>
           ))}
@@ -99,22 +111,19 @@ const FavoriteSection = () => {
           collectionList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
-                image={item.image}
-                nftName={item.nftName}
+                image={item.asset_url}
+                nftName={item.nft_name}
                 category={item.category}
-                artistName={item.artistName}
-                mintAddress={item.mintAddress}
-                nfts={item.nfts}
-                icon={item.icon}
-                price={item.price}
+                artistName={item.artist_username}
+                mintAddress={item.token_id}
               />
             </div>
           ))}
       </div>
       <div className="w-full flex justify-end">
         {active === 0 && <Pagination data={ArtistList} getCurrentData={data => setArtistList(data)} />}
-        {active === 1 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />}
-        {active === 2 && <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />}
+        {active === 1 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
+        {active === 2 && <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />}
       </div>
     </section>
   )
