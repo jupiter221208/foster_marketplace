@@ -31,7 +31,7 @@ const SecuritySection = prop => {
           <div className="w-full mt-[30px] mb-12">
             <GreenLineCard content="Two-Factor authentication (2FA) is a good way to add an extra layer of security to your Foster account to make sure that only you have the ability to execute select transactions. Select which transactions you would like to enable 2FA." />
           </div>
-          <div className="w-full flex flex-wrap gap-12 mb-[171px] lg:mb-[94px]">
+          <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[94px]">
             <Switch
               title="Quick Buy"
               description="Require 2FA before a quick purchase can be executed"
@@ -87,7 +87,7 @@ const SecuritySection = prop => {
               onChange={() => setRemoveListing(!removeListing)}
             />
           </div>
-          <div className="w-full flex justify-center lg:justify-end mb-20">
+          <div className="w-full flex justify-end mb-20">
             <GradientButton
               label="Save"
               onClick={() => {

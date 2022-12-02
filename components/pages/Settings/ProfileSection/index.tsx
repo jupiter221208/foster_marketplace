@@ -294,7 +294,7 @@ const ProfileSection = prop => {
                 onClick={() => copyToClipboard(publicKey?.toString() || '')}
               />
             </div>
-            <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
+            <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"

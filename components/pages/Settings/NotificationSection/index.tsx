@@ -95,7 +95,7 @@ const NotificationSection = prop => {
             the notifications sent to in your profile settings."
             />
           </div>
-          <div className="w-full flex flex-wrap gap-12 mb-[171px] lg:mb-[94px]">
+          <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[94px]">
             <Switch
               title="Bid Activity"
               description="When someone makes an offer on one of your items"
@@ -151,7 +151,7 @@ const NotificationSection = prop => {
               onChange={() => setFosterNewsletter(!fosterNewsletter)}
             />
           </div>
-          <div className="w-full flex justify-center lg:justify-end mb-20">
+          <div className="w-full flex justify-end mb-20">
             <GradientButton
               label="Save"
               onClick={() => {
