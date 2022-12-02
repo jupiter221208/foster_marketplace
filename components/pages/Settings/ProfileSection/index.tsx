@@ -200,12 +200,12 @@ const ProfileSection = prop => {
             <div className="mt-4 lg:mt-8 flex items-center gap-6">
               <IconButton
                 icon={InstagramWhiteIcon}
-                backgroundColor="transparent"
-                borderColor="#EFF0F6"
+                backgroundColor="#202427"
+                borderColor="#202427"
                 width="46px"
                 height="46px"
                 borderRadius="12px"
-                borderWidth="2px"
+                borderWidth="0px"
                 onClick={() => {}}
               />
               <Input
@@ -219,12 +219,12 @@ const ProfileSection = prop => {
             <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
               <IconButton
                 icon={DiscordWhiteIcon}
-                backgroundColor="transparent"
-                borderColor="#EFF0F6"
+                backgroundColor="#202427"
+                borderColor="#202427"
                 width="46px"
                 height="46px"
                 borderRadius="12px"
-                borderWidth="2px"
+                borderWidth="0px"
                 onClick={() => {}}
               />
               <Input value={discordUrl} placeholder="Add Your Account" onChange={value => setDiscordUrl(value)} />
@@ -232,12 +232,12 @@ const ProfileSection = prop => {
             <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
               <IconButton
                 icon={TwitterWhiteIcon}
-                backgroundColor="transparent"
-                borderColor="#EFF0F6"
+                backgroundColor="#202427"
+                borderColor="#202427"
                 width="46px"
                 height="46px"
                 borderRadius="12px"
-                borderWidth="2px"
+                borderWidth="0px"
                 onClick={() => {}}
               />
               <Input value={twitterUrl} placeholder="Add Your Account" onChange={value => setTwitterUrl(value)} />
@@ -245,12 +245,12 @@ const ProfileSection = prop => {
             <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
               <IconButton
                 icon={TelegramWhiteIcon}
-                backgroundColor="transparent"
-                borderColor="#EFF0F6"
+                backgroundColor="#202427"
+                borderColor="#202427"
                 width="46px"
                 height="46px"
                 borderRadius="12px"
-                borderWidth="2px"
+                borderWidth="0px"
                 onClick={() => {}}
               />
               <Input value={telegramUrl} placeholder="Add Your Account" onChange={value => setTelegramUrl(value)} />
@@ -294,7 +294,7 @@ const ProfileSection = prop => {
                 onClick={() => copyToClipboard(publicKey?.toString() || '')}
               />
             </div>
-            <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
+            <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"

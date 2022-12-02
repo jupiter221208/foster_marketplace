@@ -44,22 +44,33 @@ const ReferralSection = prop => {
             </div>
             <div className="w-full flex justify-between">
               <div className="grid gap-1">
-                <div className={styles.subTitle}>Count of Referrals</div>
-                <div className={styles.text}>Description of referral metric</div>
+                <div className={styles.subTitle}>Total Referrals</div>
+                <div className={styles.text}>
+                  The number of referrals that visited the marketplace using your referral link
+                </div>
               </div>
               <div className={styles.number}>32</div>
             </div>
             <div className="w-full flex justify-between">
               <div className="grid gap-1">
-                <div className={styles.subTitle}>Referral Metric (Placeholder)</div>
-                <div className={styles.text}>Description of referral metric</div>
+                <div className={styles.subTitle}>Active Referrals</div>
+                <div className={styles.text}>
+                  The number of referrals that visited the marketplace and connected their wallet
+                </div>
               </div>
               <div className={styles.number}>32</div>
             </div>
             <div className="w-full flex justify-between">
               <div className="grid gap-1">
-                <div className={styles.subTitle}>Referral Metric (Placeholder)</div>
-                <div className={styles.text}>Description of referral metric</div>
+                <div className={styles.subTitle}>Creator Referrals</div>
+                <div className={styles.text}>The number of referrals that minted an NFT</div>
+              </div>
+              <div className={styles.number}>32</div>
+            </div>
+            <div className="w-full flex justify-between">
+              <div className="grid gap-1">
+                <div className={styles.subTitle}>Collector Referrals</div>
+                <div className={styles.text}>The number of referrals that purchased an NFT</div>
               </div>
               <div className={styles.number}>32</div>
             </div>
@@ -84,7 +95,7 @@ const ReferralSection = prop => {
                 <Image src={LogoImage} alt="" width={22} height={22} layout="responsive" objectFit="cover" />
               </div>
             </div>
-            <div className="w-full lg:w-auto flex justify-end">
+            <div className="w-full lg:w-auto flex justify-center lg:justify-end">
               <GradientButton
                 label="Claim"
                 onClick={() => {

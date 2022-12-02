@@ -87,7 +87,7 @@ const SecuritySection = prop => {
               onChange={() => setRemoveListing(!removeListing)}
             />
           </div>
-          <div className="w-full flex justify-center mb-20">
+          <div className="w-full flex justify-center lg:justify-end mb-20">
             <GradientButton
               label="Save"
               onClick={() => {

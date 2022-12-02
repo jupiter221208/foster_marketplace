@@ -87,7 +87,7 @@ const PermissionAndPrivacySection = prop => {
               onChange={() => setAntiPhishingcode(!antiPhishingCode)}
             />
           </div>
-          <div className="w-full flex justify-center mb-20">
+          <div className="w-full flex justify-center lg:justify-end mb-20">
             <GradientButton
               label="Save"
               onClick={() => {

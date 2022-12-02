@@ -64,10 +64,11 @@
 .number {
   font-family: 'Muli-Bold';
   font-size: 16px;
+  line-height: 20px;
   @media (min-width: 1024px) {
     font-size: 22px;
+    line-height: 44px;
   }
-  line-height: 44px;
   letter-spacing: 0;
   color: $brand-01-color;
   text-align: start;
