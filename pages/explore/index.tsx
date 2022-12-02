@@ -24,7 +24,7 @@ import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import OutlineButton from 'components/Button/OutlineButton'
 import Pagination from 'components/Button/Pagination'
-import LoadingModal from 'components/Modal/LoadingModal'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
 import TabList from 'assets/json/explore/tab-list.json'
@@ -32,7 +32,6 @@ import NFTSortList from 'assets/json/explore/nft-sort.json'
 import CollectionSortList from 'assets/json/explore/collection-sort.json'
 import EcosystemSortList from 'assets/json/explore/ecosystem-sort.json'
 
-import NFTExploreList from 'assets/json/explore/nft-explore-list.json'
 import CollectionExploreList from 'assets/json/explore/collection-explore-list.json'
 import EcosystemExploreList from 'assets/json/explore/ecosystem-explore-list.json'
 
@@ -60,7 +59,7 @@ const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  const [loading, setLoading] = useState(false)
 
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
@@ -124,7 +123,7 @@ const Explore = () => {
   const { metaplex: mx } = useMetaplex()
 
   const setListedNFTs = async () => {
-    dispatch({ type: 'set', isLoading: true })
+    setLoading(true)
     const listedNfts = await getListedNFTs(mx)
     const nfts = listedNfts.map(nft => {
       return {
@@ -136,11 +135,11 @@ const Explore = () => {
       }
     })
     setNftList(nfts)
-    dispatch({ type: 'set', isLoading: false })
+    setLoading(false)
   }
 
   const setAuctionsNFTs = async () => {
-    dispatch({ type: 'set', isLoading: true })
+    setLoading(true)
     const listings = await AuctionAPI.getListings()
     const nfts = await Promise.all(
       listings.map(async listing => {
@@ -155,7 +154,7 @@ const Explore = () => {
       })
     )
     setNftList(nfts)
-    dispatch({ type: 'set', isLoading: false })
+    setLoading(false)
   }
 
   return (
@@ -233,9 +232,9 @@ const Explore = () => {
               {exploreTab === 0 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
                   <div className="col-span-12">
-                    <LoadingModal open={isLoading} />
+                    <FullScreenLoadingModal open={loading} />
                   </div>
-                  {!isLoading &&
+                  {!loading &&
                     showNftList?.map((item, index) => (
                       <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                         <NFTCard
