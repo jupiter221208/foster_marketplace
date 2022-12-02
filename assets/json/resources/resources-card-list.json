@@ -3,55 +3,55 @@
     "id": 0,
     "title": "General Inquiries",
     "description": "New around here? Start with the Business",
-    "icon01": "/icons/resources/logo-middle-red.svg",
-    "icon02": "/icons/resources/logo-01.svg",
+    "icon01": "/icons/resources/general-inquiries.svg",
+    "icon02": "/icons/resources/general-inquiries.svg",
     "width": 35,
     "height": 41,
-    "bgColor01": "#5E2028",
-    "bgColor02": "#130608"
+    "bgColor01": "#202427",
+    "bgColor02": "#121212"
   },
   {
     "id": 1,
     "title": "Marketplace Features",
     "description": "Learn more about marketplace features and creator tools",
-    "icon01": "/icons/resources/logo-middle-cyan.svg",
-    "icon02": "/icons/resources/logo-02.svg",
+    "icon01": "/icons/resources/marketplace-features.svg",
+    "icon02": "/icons/resources/marketplace-features.svg",
     "width": 35,
     "height": 41,
-    "bgColor01": "#378287",
-    "bgColor02": "#1C4144"
+    "bgColor01": "#202427",
+    "bgColor02": "#121212"
   },
   {
     "id": 2,
     "title": "Turkey Circus",
     "description": "Interested in joining the Foster Marketplace DAO?",
-    "icon01": "/icons/resources/logo-light-red.svg",
-    "icon02": "/icons/resources/logo-03.svg",
+    "icon01": "/icons/resources/turkey-circus.svg",
+    "icon02": "/icons/resources/turkey-circus.svg",
     "width": 35,
     "height": 41,
-    "bgColor01": "#865554",
-    "bgColor02": "#432B2A"
+    "bgColor01": "#202427",
+    "bgColor02": "#121212"
   },
   {
     "id": 3,
     "title": "LIFT Token",
     "description": "Interested in investing in the Foster Protocol or participate in governance?",
-    "icon01": "/icons/resources/logo-light-gray.svg",
-    "icon02": "/icons/resources/logo-04.svg",
+    "icon01": "/icons/resources/lift-token.svg",
+    "icon02": "/icons/resources/lift-token.svg",
     "width": 35,
     "height": 41,
-    "bgColor01": "#404147",
-    "bgColor02": "#0D0D0E"
+    "bgColor01": "#202427",
+    "bgColor02": "#121212"
   },
   {
     "id": 4,
     "title": "Support",
     "description": "Is something not working properly? Or have a product enhancement idea?",
-    "icon01": "/icons/resources/logo-light-cyan.svg",
-    "icon02": "/icons/resources/logo-05.svg",
+    "icon01": "/icons/resources/support.svg",
+    "icon02": "/icons/resources/support.svg",
     "width": 35,
     "height": 41,
-    "bgColor01": "#5AC3BA",
-    "bgColor02": "#2D625D"
+    "bgColor01": "#202427",
+    "bgColor02": "#121212"
   }
 ]

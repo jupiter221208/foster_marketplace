@@ -7,13 +7,17 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 
 const ResourcesCard = props => {
-  const { data, onClick } = props
+  const { data, onClick, selected } = props
 
   return (
     <div
       className={styles.container}
       style={{
-        background: `linear-gradient(to bottom, ${data.bgColor01}, ${data.bgColor02})`,
+        background: selected
+          ? `linear-gradient(to bottom, ${'#378287'}, ${'#121212'})`
+          : `linear-gradient(to bottom, ${'#202427'}, ${'#121212'})`,
+        borderColor: '#5AC3BA',
+        borderWidth: selected ? '2px' : '0px',
       }}
       onClick={() => onClick(data.id)}
     >

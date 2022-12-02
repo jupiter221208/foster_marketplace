@@ -85,7 +85,7 @@ const Resources = () => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="w-full flex flex-wrap z-10">
-          <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>{title}</div>
+          <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>Foster Resources</div>
           <div className="w-full flex justify-end mt-[65px] lg:mt-[61px]">
             <ResourceSearchBox
               value={searchKeyword}
@@ -97,7 +97,7 @@ const Resources = () => {
             <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
               {ResourcesCardList.map((item, index) => (
                 <div key={index} className="w-full">
-                  <ResourcesCard data={item} onClick={id => setSelectedCard(id)} />
+                  <ResourcesCard data={item} selected={item.id === selectedCard} onClick={id => setSelectedCard(id)} />
                 </div>
               ))}
             </div>

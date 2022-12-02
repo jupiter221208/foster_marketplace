@@ -24,16 +24,16 @@
 }
 
 .title {
-  font-family: 'Muli-Bold';
-  font-size: 20px;
-  line-height: 24px;
+  font-family: 'KCDurhamBoxcar';
+  font-size: 30px;
+  line-height: 30px;
   @media (min-width: 1024px) {
-    font-size: 28px;
-    line-height: 34px;
+    font-size: 50px;
+    line-height: 50px;
   }
   @media (min-width: 1280px) {
-    font-size: 34px;
-    line-height: 44px;
+    font-size: 82px;
+    line-height: 82px;
   }
   color: $text-gray-200-color;
 }
