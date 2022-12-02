@@ -64,7 +64,7 @@ const MobileNFTFilter = props => {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between">
+              <Disclosure.Button className="flex w-full justify-between" disabled={true}>
                 <div className={styles.subTitle}>ARTIST VERIFICATION</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
@@ -107,7 +107,7 @@ const MobileNFTFilter = props => {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between items-center">
+              <Disclosure.Button className="flex w-full justify-between items-center" disabled={true}>
                 <div className={`${styles.subTitle} mt-[12px]`}>DIMENSIONS</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}

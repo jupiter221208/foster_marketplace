@@ -27,6 +27,7 @@ const Select = props => {
                   key={index}
                   className={({ active }) => `${styles.menuItem} ${active ? styles.activeMenuItem : ''}`}
                   value={item}
+                  disabled={item.disabled !== undefined ? item.disabled : false}
                 >
                   {({ selected }) => (
                     <>

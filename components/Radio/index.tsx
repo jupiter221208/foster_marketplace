@@ -28,9 +28,14 @@ const Radio = props => {
           id={item.id}
           checked={selected.id === item.id}
           onChange={() => onChange(item)}
+          disabled={item.disabled !== undefined ? item.disabled : false}
         />
       )}
-      <label className={styles.label} htmlFor={item.id} onClick={() => onChange(item)}>
+      <label
+        className={styles.label}
+        htmlFor={item.id}
+        onClick={() => (item.disabled !== undefined && item.disabled ? {} : onChange(item))}
+      >
         {item.label}
       </label>
       {direction === 'rtl' && (
@@ -40,6 +45,7 @@ const Radio = props => {
           id={item.id}
           checked={selected.id === item.id}
           onChange={() => onChange(item)}
+          disabled={item.disabled !== undefined ? item.disabled : false}
         />
       )}
     </div>

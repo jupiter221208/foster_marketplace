@@ -1,8 +1,8 @@
 [
-  { "id": "dimension-0", "label": "1080px by 1080px", "value": "1080x1080" },
-  { "id": "dimension-1", "label": "1920px by 1080px", "value": "1920x1080" },
-  { "id": "dimension-2", "label": "1920px by 1440px", "value": "1920x1080" },
-  { "id": "dimension-3", "label": "1080px by 1920px", "value": "1080x1920" },
-  { "id": "dimension-4", "label": "1440px by 1920px", "value": "1440x1920" },
-  { "id": 5, "label": "All", "value": [0, 0] }
+  { "id": "dimension-0", "label": "1080px by 1080px", "value": "1080x1080", "disabled": true },
+  { "id": "dimension-1", "label": "1920px by 1080px", "value": "1920x1080", "disabled": true },
+  { "id": "dimension-2", "label": "1920px by 1440px", "value": "1920x1080", "disabled": true },
+  { "id": "dimension-3", "label": "1080px by 1920px", "value": "1080x1920", "disabled": true },
+  { "id": "dimension-4", "label": "1440px by 1920px", "value": "1440x1920", "disabled": true },
+  { "id": "dimension-5", "label": "All", "value": [0, 0], "disabled": true }
 ]

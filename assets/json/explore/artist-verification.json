@@ -1,5 +1,5 @@
 [
-  { "id": "artist-verification-0", "label": "Verified", "value": "Verified" },
-  { "id": "artist-verification-1", "label": "Not Verified", "value": "Not Verified" },
-  { "id": "artist-verification-2", "label": "All", "value": "All" }
+  { "id": "artist-verification-0", "label": "Verified", "value": "Verified", "disabled": true },
+  { "id": "artist-verification-1", "label": "Not Verified", "value": "Not Verified", "disabled": true },
+  { "id": "artist-verification-2", "label": "All", "value": "All", "disabled": true }
 ]
