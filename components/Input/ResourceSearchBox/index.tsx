@@ -10,7 +10,7 @@ import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import styles from './index.module.scss'
 
 const ResourceSearchBox = props => {
-  const { value, placeholder, onChange } = props
+  const { value, placeholder, onChange, onClick } = props
   return (
     <div className={styles.container}>
       <input
@@ -19,7 +19,7 @@ const ResourceSearchBox = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
-      <Image src={SearchGrayIcon} alt="" />
+      <Image src={SearchGrayIcon} alt="" onClick={onClick} />
     </div>
   )
 }

@@ -118,7 +118,6 @@ const Notifications = () => {
           filtered.push(item)
         }
       })
-      console.log('===============filter==========', getSortedNotification(filtered))
       setFilterNotification(getSortedNotification(filtered))
     }
   }

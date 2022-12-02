@@ -20,21 +20,41 @@ import QAList from 'assets/json/resources/qa-list.json'
 
 // styles
 import styles from './index.module.scss'
+import { useViewport } from 'utils'
 
 const Resources = () => {
+  const viewport = useViewport()
   const [selectedCard, setSelectedCard] = useState(0)
   const [title, setTitle] = useState('')
   const [searchList, setSearchList] = useState(QAList[0])
   const [searchKeyword, setSearchKeyword] = useState('')
-
   const [content, setContent] = useState<any[]>([])
+  const [resourceList, setResourceList] = useState<any[]>([])
 
   useEffect(() => {
-    setTitle(ResourcesCardList[selectedCard].title)
+    setResourceList(ResourcesCardList)
+  }, [])
+
+  useEffect(() => {
+    if (resourceList.length === 0) return
+    setTitle(resourceList[selectedCard].title)
     setSearchList(QAList[selectedCard])
-  }, [selectedCard])
+  }, [resourceList, selectedCard])
 
   useEffect(() => {
+    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') return
+    searchResearch()
+  }, [searchKeyword, selectedCard])
+
+  useEffect(() => {
+    setContent(searchList.content)
+  }, [searchList])
+
+  const onClickSearch = () => {
+    searchResearch()
+  }
+
+  const searchResearch = () => {
     let object = QAList[selectedCard]
     const searchResult = QAList[selectedCard].content.filter(
       element =>
@@ -43,11 +63,20 @@ const Resources = () => {
     )
     object = { ...QAList[selectedCard], content: searchResult }
     setSearchList(object)
-  }, [searchKeyword, selectedCard])
+  }
 
-  useEffect(() => {
-    setContent(searchList.content)
-  }, [searchList])
+  const setSelectResourceCard = index => {
+    setSelectedCard(index)
+    let lists = [...resourceList]
+    lists.forEach(item => {
+      if (item.id === index) {
+        item.selected = !item.selected
+      } else {
+        item.selected = false
+      }
+    })
+    setResourceList(lists)
+  }
 
   const handleGetCurrentData = data => {
     setContent(data)
@@ -67,10 +96,17 @@ const Resources = () => {
   }
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+      window.scrollTo({
+        top: selectedCard * 160,
+        behavior: 'smooth',
+      })
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+    }
   }, [content])
 
   return (
@@ -91,39 +127,86 @@ const Resources = () => {
               value={searchKeyword}
               placeholder="Search by keywords"
               onChange={value => setSearchKeyword(value)}
+              onClick={() => onClickSearch()}
             />
           </div>
-          <div className="w-full flex flex-wrap gap-[20px] mt-[31px]">
-            <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
-              {ResourcesCardList.map((item, index) => (
-                <div key={index} className="w-full">
-                  <ResourcesCard data={item} selected={item.id === selectedCard} onClick={id => setSelectedCard(id)} />
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-1 h-fit">
-              <div className={styles.content}>
-                <div className="w-full hidden lg:flex justify-start gap-6">
-                  <Image
-                    src={ResourcesCardList[selectedCard].icon02}
-                    alt=""
-                    width={ResourcesCardList[selectedCard].width}
-                    height={ResourcesCardList[selectedCard].height}
-                  />
-                  <div className="block">
-                    <div className={styles.subTitle}>{ResourcesCardList[selectedCard].title}</div>
-                    <div className={styles.description}>{ResourcesCardList[selectedCard].description}</div>
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className="w-full flex flex-wrap gap-[20px] mt-[31px]">
+              <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
+                {resourceList.map((item, index) => (
+                  <div key={index} className="w-full">
+                    <ResourcesCard
+                      data={item}
+                      selected={item.id === selectedCard}
+                      onClick={id => setSelectResourceCard(id)}
+                    />
+                    {item.selected === true ? (
+                      <div className="flex flex-1 h-fit">
+                        <div className={styles.content}>
+                          <div className="w-full hidden lg:flex justify-start gap-6">
+                            <Image
+                              src={resourceList[selectedCard].icon02}
+                              alt=""
+                              width={resourceList[selectedCard].width}
+                              height={resourceList[selectedCard].height}
+                            />
+                            <div className="block">
+                              <div className={styles.subTitle}>{resourceList[selectedCard].title}</div>
+                              <div className={styles.description}>{resourceList[selectedCard].description}</div>
+                            </div>
+                          </div>
+                          <div className="w-full flex flex-wrap gap-5">
+                            <ResourcesAccordion
+                              data={searchList.content}
+                              onClick={type => handleClickAccordion(type)}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
-                </div>
-                <div className="w-full flex flex-wrap gap-5">
-                  <ResourcesAccordion data={content} onClick={type => handleClickAccordion(type)} />
-                </div>
-                <div className="w-full flex justify-end">
-                  <Pagination data={searchList.content} getCurrentData={data => handleGetCurrentData(data)} />
-                </div>
+                ))}
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="w-full flex flex-wrap gap-[20px] mt-[31px]">
+              <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
+                {resourceList.map((item, index) => (
+                  <div key={index} className="w-full">
+                    <ResourcesCard
+                      data={item}
+                      selected={item.id === selectedCard}
+                      onClick={id => setSelectedCard(id)}
+                    />
+                  </div>
+                ))}
+              </div>
+              {resourceList.length > 0 && (
+                <div className="flex flex-1 h-fit">
+                  <div className={styles.content}>
+                    <div className="w-full hidden lg:flex justify-start gap-6">
+                      <Image
+                        src={resourceList[selectedCard].icon02}
+                        alt=""
+                        width={resourceList[selectedCard].width}
+                        height={resourceList[selectedCard].height}
+                      />
+                      <div className="block">
+                        <div className={styles.subTitle}>{resourceList[selectedCard].title}</div>
+                        <div className={styles.description}>{resourceList[selectedCard].description}</div>
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-wrap gap-5">
+                      <ResourcesAccordion data={content} onClick={type => handleClickAccordion(type)} />
+                    </div>
+                    <div className="w-full flex justify-end">
+                      <Pagination data={searchList.content} getCurrentData={data => handleGetCurrentData(data)} />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
