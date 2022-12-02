@@ -43,7 +43,9 @@ const NFTFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>ARTIST VERIFICATION</div>
+      <div className={styles.title} style={{ color: '#eff0f6', opacity: 0.7 }}>
+        ARTIST VERIFICATION
+      </div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}
@@ -51,7 +53,9 @@ const NFTFilter = props => {
       />
       <div className={`${styles.title} mt-[52px]`}>AVAILABILITY</div>
       <Radio data={AvailabilityList} selected={selectedAvailability} onChange={item => setSelectedAvailability(item)} />
-      <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
+      <div className={`${styles.title} mt-[52px]`} style={{ color: '#eff0f6', opacity: 0.7 }}>
+        DIMENSIONS
+      </div>
       <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} />
       <div className={`${styles.title} mt-[52px]`}>MARKET</div>
       <Radio data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />

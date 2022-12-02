@@ -24,6 +24,7 @@ const Radio = props => {
       {direction === 'ltr' && (
         <input
           className={styles.radio}
+          style={{ opacity: item.disabled ? 0.7 : 1 }}
           type="radio"
           id={item.id}
           checked={selected.id === item.id}
@@ -35,12 +36,14 @@ const Radio = props => {
         className={styles.label}
         htmlFor={item.id}
         onClick={() => (item.disabled !== undefined && item.disabled ? {} : onChange(item))}
+        style={{ opacity: item.disabled ? 0.7 : 1 }}
       >
         {item.label}
       </label>
       {direction === 'rtl' && (
         <input
           className={styles.radio}
+          style={{ opacity: item.disabled ? 0.7 : 1 }}
           type="radio"
           id={item.id}
           checked={selected.id === item.id}

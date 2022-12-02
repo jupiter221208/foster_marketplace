@@ -33,7 +33,9 @@ const CollectionFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>ARTIST VERIFICATION</div>
+      <div className={styles.title} style={{ color: '#eff0f6', opacity: 0.7 }}>
+        ARTIST VERIFICATION
+      </div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}

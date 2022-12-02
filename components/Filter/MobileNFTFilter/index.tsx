@@ -65,10 +65,12 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between" disabled={true}>
-                <div className={styles.subTitle}>ARTIST VERIFICATION</div>
+                <div className={styles.subTitle} style={{ color: '#eff0f6', opacity: 0.7 }}>
+                  ARTIST VERIFICATION
+                </div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#eff0f6', opacity: 0.7 }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -108,10 +110,12 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center" disabled={true}>
-                <div className={`${styles.subTitle} mt-[12px]`}>DIMENSIONS</div>
+                <div className={`${styles.subTitle} mt-[12px]`} style={{ color: '#eff0f6', opacity: 0.7 }}>
+                  DIMENSIONS
+                </div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#eff0f6', opacity: 0.7 }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
