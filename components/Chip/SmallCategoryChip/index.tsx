@@ -7,9 +7,11 @@ const SmallCategoryChip = props => {
   const { data } = props
 
   return (
-    <div className={styles.container} onClick={/* () => router.push(`/category/${data.id}`) */ () => {}}>
-      {data}
-    </div>
+    data !== '' && (
+      <div className={styles.container} onClick={/* () => router.push(`/category/${data.id}`) */ () => {}}>
+        {data}
+      </div>
+    )
   )
 }
 
