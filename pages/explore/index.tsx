@@ -109,12 +109,12 @@ const Explore = () => {
       case 1:
         setSortData(CollectionSortList)
         setSelectedSort(CollectionSortList[0])
-        setNftList(CollectionExploreList)
+        // setNftList(CollectionExploreList)
         break
       case 2:
         setSortData(EcosystemSortList)
         setSelectedSort(EcosystemSortList[0])
-        setNftList(EcosystemExploreList)
+        // setNftList(EcosystemExploreList)
         break
       default:
         break
@@ -239,6 +239,7 @@ const Explore = () => {
                     <FullScreenLoadingModal open={loading} />
                   </div>
                   {!loading &&
+                    showNftList.length !== 0 &&
                     showNftList?.map((item, index) => (
                       <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                         <NFTCard
@@ -254,20 +255,19 @@ const Explore = () => {
               )}
               {exploreTab === 1 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {showCollectionList.map((item, index) => (
-                    <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
-                      <CollectionCard
-                        image={item.image}
-                        nftName={item.nftName}
-                        category={item.category.split(',')}
-                        artistName={item.artistName}
-                        mintAddress={item.mintAddress}
-                        nfts={item.nfts}
-                        icon={item.icon}
-                        price={item.price}
-                      />
-                    </div>
-                  ))}
+                  {showCollectionList.length !== 0 &&
+                    showCollectionList.map((item, index) => (
+                      <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
+                        <CollectionCard
+                          image={item.image}
+                          nftName={item.nftName}
+                          category={item.category.split(',')}
+                          artistName={item.artistName}
+                          mintAddress={item.mintAddress}
+                          price={item.price}
+                        />
+                      </div>
+                    ))}
                 </div>
               )}
               {exploreTab === 2 && (
@@ -281,7 +281,7 @@ const Explore = () => {
               )}
               <div className="w-full flex justify-end">
                 <Pagination
-                  data={nftList}
+                  data={exploreTab === 0 ? nftList : exploreTab === 1 ? CollectionExploreList : []}
                   getCurrentData={data => {
                     if (exploreTab === 0) setShowNFTList(data)
                     else if (exploreTab === 1) setShowCollectionList(data)
