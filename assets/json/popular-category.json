@@ -258,5 +258,31 @@
     "type": "video",
     "nfts": 2131,
     "collections": 287
+  },
+  {
+    "id": 21,
+    "query": "AI",
+    "image": "/images/popular-category-ai.png",
+    "banner": "/images/category-banner-ai.png",
+    "mobile": "/images/popular-category-mobile-ai.png",
+    "mobile_banner": "/images/category-banner-mobile-ai.png",
+    "icon": "/images/popular-category-mobile-ai.png",
+    "name": "AI Art",
+    "type": "image",
+    "nfts": 2131,
+    "collections": 287
+  },
+  {
+    "id": 22,
+    "query": "Animation",
+    "image": "/images/popular-category-animation.png",
+    "banner": "/images/category-banner-animation.png",
+    "mobile": "/images/popular-category-mobile-animation.png",
+    "mobile_banner": "/images/category-banner-mobile-animation.png",
+    "icon": "/images/popular-category-mobile-animation.png",
+    "name": "Animation",
+    "type": "image",
+    "nfts": 2131,
+    "collections": 287
   }
 ]
