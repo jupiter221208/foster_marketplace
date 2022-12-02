@@ -34,7 +34,7 @@ const Pagination = props => {
 
   useEffect(() => {
     getCurrentData(currentData)
-  }, [getCurrentData, currentData])
+  }, [currentData])
 
   const handlePrev = () => {
     if (currentPage - 1 >= 0) setCurrentPage(currentPage - 1)
