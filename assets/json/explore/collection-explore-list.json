@@ -3,41 +3,7 @@
     "id": 0,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 01",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -47,41 +13,7 @@
     "id": 1,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 02",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -91,41 +23,7 @@
     "id": 2,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 03",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -135,41 +33,7 @@
     "id": 3,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 04",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -179,41 +43,7 @@
     "id": 4,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 05",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -223,41 +53,7 @@
     "id": 5,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 06",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -267,41 +63,7 @@
     "id": 6,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 07",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -311,41 +73,7 @@
     "id": 7,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 08",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,
@@ -355,41 +83,7 @@
     "id": 8,
     "image": "/images/pexels-alexander-ant.png",
     "nftName": "Anatomy 09",
-    "category": [
-      {
-        "id": 11,
-        "image": "/images/popular-category-generative.webm",
-        "banner": "/images/category-banner-generative.webm",
-        "mobile": "/images/popular-category-mobile-generative.mp4",
-        "mobile_banner": "/images/category-banner-mobile-generative.mp4",
-        "value": "Generative",
-        "type": "video",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 17,
-        "image": "/images/hero.png",
-        "banner": "/images/category-banner-surreal.png",
-        "mobile": "/images/hero.png",
-        "mobile_banner": "/images/category-banner-surreal.png",
-        "value": "Surreal",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      },
-      {
-        "id": 19,
-        "image": "/images/popular-category-abstract.png",
-        "banner": "/images/category-banner-abstract.png",
-        "mobile": "/images/popular-category-abstract.png",
-        "mobile_banner": "/images/category-banner-abstract.png",
-        "value": "Abstract",
-        "type": "image",
-        "nfts": 2131,
-        "collections": 287
-      }
-    ],
+    "category": "Generative,Surreal,Abstract,",
     "artistName": "Lane Rudd",
     "mintAddress": "0xEAC3ce292F95d779732e7a26c95c57A742cf5119",
     "nfts": 8,

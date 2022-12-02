@@ -86,6 +86,7 @@ const Explore = () => {
   }, [exploreTab])
 
   const handleSelectedTab = item => {
+    if (item.id === 2) item.id = 0
     dispatch({ type: 'set', exploreTab: item.id })
   }
 
@@ -258,7 +259,7 @@ const Explore = () => {
                       <CollectionCard
                         image={item.image}
                         nftName={item.nftName}
-                        category={item.category}
+                        category={item.category.split(',')}
                         artistName={item.artistName}
                         mintAddress={item.mintAddress}
                         nfts={item.nfts}
