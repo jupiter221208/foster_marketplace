@@ -52,6 +52,9 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getPriceValue } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
 
+// custom functions
+import { getShortAddress } from 'utils/strings'
+
 // apis
 import AuctionAPI from 'apis/auctions'
 
@@ -240,7 +243,7 @@ const Explore = () => {
                         <NFTCard
                           image={item.image}
                           nftName={item.name}
-                          artistName={item.creator}
+                          artistName={getShortAddress(item.creator)}
                           onClick={() => router.push(item.url)}
                           price={getPriceValue(item.price)}
                         />
