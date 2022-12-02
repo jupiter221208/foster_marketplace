@@ -37,7 +37,7 @@ const Home = () => {
       <LiveAuctionSection category={''} />
       <CreateSellNFTSection />
 
-      {isLoading && <FullScreenLoadingModal open={isLoading} />}
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

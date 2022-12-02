@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import { useRouter } from 'next/router'
+
 // components
 import CollectionCard from 'components/Card/CollectionCard'
 import Pagination from 'components/Button/Pagination'
@@ -16,9 +19,11 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollections } from 'utils/collection.util'
 
 const MyCollectionSection = () => {
+  const router = useRouter()
   const dispatch = useDispatch()
+
   const isLoading = useSelector<any>(state => state.isLoading)
-  
+
   const [collections, setCollections] = useState([])
   const [collectionList, setCollectionList] = useState([])
 
@@ -31,23 +36,28 @@ const MyCollectionSection = () => {
       setCollections(collections)
       dispatch({ type: 'set', isLoading: false })
     }
-    if(mx) getCollections()
+    if (mx) getCollections()
   }, [mx])
 
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
-        {!isLoading && collectionList.map((item, index) => (
-          <div className="col-span-6 lg:col-span-3" key={index}>
-            <CollectionCard
-              image={item.offchainMetadata.image}
-              nftName={item.offchainMetadata.name}
-              category={item.offchainMetadata.attributes}
-              artistName={item.creators[0].address.toString()}
-              mintAddress={item.mintAddress.toString()}
-            />
-          </div>
-        ))}
+        {!isLoading &&
+          collectionList.map((item, index) => (
+            <div className="col-span-6 lg:col-span-3" key={index}>
+              <CollectionCard
+                image={item.offchainMetadata.image}
+                nftName={item.offchainMetadata.name}
+                category={item.offchainMetadata.attributes}
+                artistName={item.creators[0].address.toString()}
+                mintAddress={item.mintAddress.toString()}
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/browse-collection/${item.mintAddress.toString()}`)
+                }}
+              />
+            </div>
+          ))}
       </div>
       <div className="col-span-12">
         <LoadingModal open={isLoading} />

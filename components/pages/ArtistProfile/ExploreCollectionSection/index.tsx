@@ -4,6 +4,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useDispatch } from 'react-redux'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -23,8 +24,10 @@ import styles from './index.module.scss'
 
 const ExploreCollectionSection = props => {
   const { exploreCircus } = props
+
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   return (
     exploreCircus.length !== 0 && (
@@ -69,6 +72,10 @@ const ExploreCollectionSection = props => {
                     mintAddress={item.artist.wallet_id}
                     nfts={item.number_of_nfts}
                     icon={item.artist.profile_picture}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-collection/${item.artist.wallet_id}`)
+                    }}
                   />
                 </SwiperSlide>
               ))}
@@ -83,6 +90,10 @@ const ExploreCollectionSection = props => {
                     mintAddress={item.artist.wallet_id}
                     nfts={item.number_of_nfts}
                     icon={item.artist.profile_picture}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-collection/${item.artist.wallet_id}`)
+                    }}
                   />
                 </div>
               ))}

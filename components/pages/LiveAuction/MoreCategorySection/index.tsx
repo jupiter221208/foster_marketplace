@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
+import { useDispatch } from 'react-redux'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -26,8 +27,10 @@ import dashboardAPI from 'apis/dashboard'
 
 const MoreCategorySection = props => {
   const { categories } = props
+
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [collectionList, setCollectionList] = useState([])
 
@@ -81,6 +84,10 @@ const MoreCategorySection = props => {
                     category={categories}
                     artistName={item.artist_username}
                     mintAddress={item.collection_id}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-collection/${item.collection_id}`)
+                    }}
                   />
                 </div>
               </SwiperSlide>

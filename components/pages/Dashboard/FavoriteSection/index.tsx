@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
+// third party components
+import { useDispatch } from 'react-redux'
+
 // components
 import Button from 'components/Button'
 import EcosystemCard from 'components/Card/EcosystemCard'
@@ -23,6 +26,8 @@ import FilterButton from 'components/Button/FilterButton'
 
 const FavoriteSection = () => {
   const router = useRouter()
+
+  const dispatch = useDispatch()
 
   const [artistList, setArtistList] = useState([])
   const [allArtistList, setAllArtistList] = useState([])
@@ -94,6 +99,10 @@ const FavoriteSection = () => {
                 category={item.category}
                 artistName={item.artist_username}
                 mintAddress={item.token_id}
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/browse-collection/${item.token_id}`)
+                }}
               />
             </div>
           ))}

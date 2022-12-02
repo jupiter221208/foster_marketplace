@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import { useRouter } from 'next/router'
+
 // third party components
+import { useDispatch } from 'react-redux'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -19,6 +23,9 @@ import styles from './index.module.scss'
 
 const CollectionSwiperSection = props => {
   const { collections } = props
+
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   const viewport = useViewport()
 
@@ -71,6 +78,10 @@ const CollectionSwiperSection = props => {
                       mintAddress={collectionItem.artist_id}
                       icon={collectionItem.artist_profile_picture}
                       key={collectionIndex}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push(`/browse-collection/${collectionItem.artist_id}`)
+                      }}
                     />
                   ))}
                 </div>
@@ -87,7 +98,10 @@ const CollectionSwiperSection = props => {
                   artistName={item.artist_username}
                   mintAddress={item.artist_id}
                   icon={item.artist_profile_picture}
-                  key={index}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/browse-collection/${item.artist_id}`)
+                  }}
                 />
               </div>
             ))}

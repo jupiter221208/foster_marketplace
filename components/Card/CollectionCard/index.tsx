@@ -1,34 +1,19 @@
 import React from 'react'
 
-// next components
-import Image from 'next/image'
-import { useRouter } from 'next/router'
-
 // custom functions
 import { getShortAddress } from 'utils/strings'
-import { useViewport } from 'utils'
 
 // custom components
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
-
-// images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, artistAddress, mintAddress = '' } = props
-  const viewport = useViewport()
-  const router = useRouter()
+  const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick } = props
 
   return (
-    <div
-      className={styles.container}
-      onClick={() => {
-        router.push(`/browse-collection/${mintAddress}`)
-      }}
-    >
+    <div className={styles.container} onClick={() => onClick()}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}

@@ -62,7 +62,7 @@ const Explore = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [loading, setLoading] = useState(false)
+  const isLoading = useSelector<any>(state => state.isLoading)
 
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
@@ -127,7 +127,7 @@ const Explore = () => {
   const { metaplex: mx } = useMetaplex()
 
   const setListedNFTs = async () => {
-    setLoading(true)
+    dispatch({ type: 'set', isLoading: true })
     const listedNfts = await getListedNFTs(mx)
     const nfts = listedNfts.map(nft => {
       return {
@@ -139,11 +139,11 @@ const Explore = () => {
       }
     })
     setNftList(nfts)
-    setLoading(false)
+    dispatch({ type: 'set', isLoading: false })
   }
 
   const setAuctionsNFTs = async () => {
-    setLoading(true)
+    dispatch({ type: 'set', isLoading: true })
     const listings = await AuctionAPI.getListings()
     const nfts = await Promise.all(
       listings.map(async listing => {
@@ -158,7 +158,7 @@ const Explore = () => {
       })
     )
     setNftList(nfts)
-    setLoading(false)
+    dispatch({ type: 'set', isLoading: false })
   }
 
   return (
@@ -235,18 +235,17 @@ const Explore = () => {
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
-                  <div className="col-span-12">
-                    <FullScreenLoadingModal open={loading} />
-                  </div>
-                  {!loading &&
-                    showNftList.length !== 0 &&
+                  {showNftList.length !== 0 &&
                     showNftList?.map((item, index) => (
                       <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                         <NFTCard
                           image={item.image}
                           nftName={item.name}
                           artistName={getShortAddress(item.creator)}
-                          onClick={() => router.push(item.url)}
+                          onClick={() => {
+                            dispatch({ type: 'set', isLoading: true })
+                            router.push(item.url)
+                          }}
                           price={getPriceValue(item.price)}
                         />
                       </div>
@@ -265,6 +264,10 @@ const Explore = () => {
                           artistName={item.artistName}
                           mintAddress={item.mintAddress}
                           price={item.price}
+                          onClick={() => {
+                            dispatch({ type: 'set', isLoading: true })
+                            router.push(`/browse-collection/${item.mintAddress}`)
+                          }}
                         />
                       </div>
                     ))}
@@ -299,6 +302,7 @@ const Explore = () => {
         {openMobileFilter && exploreTab === 2 && <MobileEcosystemFilter onClose={() => setOpenMobileFilter(false)} />}
         {openMobileSort && <MobileSort data={sortData} onClose={() => setOpenMobileSort(false)} />}
       </div>
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
