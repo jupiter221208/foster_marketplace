@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -10,6 +10,7 @@ import Image from 'next/image'
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
+import Alert from 'components/Alert'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
@@ -20,6 +21,8 @@ import styles from './index.module.scss'
 
 const ModalPlaceBid = props => {
   const { nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   const closeModal = () => {
     onClose()
@@ -29,11 +32,22 @@ const ModalPlaceBid = props => {
 
   const onClickPlaceBid = async () => {
     if (price < reservePrice || price <= currentPrice) {
-      alert('Low Price')
+      setShowAlert(true)
       return
     }
     placeBid(price)
   }
+
+  useEffect(() => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Place Bid',
+        description: `The bid amount you entered is lower than the starting bid or current bid.`,
+        type: 'success',
+      },
+    ])
+  }, [])
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -94,6 +108,14 @@ const ModalPlaceBid = props => {
             </Transition.Child>
           </div>
         </div>
+
+        <Alert
+          open={showAlert}
+          close={() => {
+            setShowAlert(false)
+          }}
+          data={alertData}
+        />
       </Dialog>
     </Transition>
   )
