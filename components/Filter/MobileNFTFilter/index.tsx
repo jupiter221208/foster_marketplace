@@ -29,12 +29,12 @@ import styles from './index.module.scss'
 const MobileNFTFilter = props => {
   const { onClose } = props
 
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[0])
-  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[0])
-  const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[0])
-  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[0])
+  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
+  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
+  const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
+  const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
+  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
   const [categoryList, setCategoryList] = useState<any[]>([])
-  const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[0])
 
   useEffect(() => {
     let array: any[] = []
@@ -64,13 +64,11 @@ const MobileNFTFilter = props => {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between" disabled={true}>
-                <div className={styles.subTitle} style={{ color: '#eff0f6', opacity: 0.7 }}>
-                  ARTIST VERIFICATION
-                </div>
+              <Disclosure.Button className="flex w-full justify-between">
+                <div className={styles.subTitle}>ARTIST VERIFICATION</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#eff0f6', opacity: 0.7 }}
+                  style={{ color: '#DEEFD0' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -109,13 +107,11 @@ const MobileNFTFilter = props => {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between items-center" disabled={true}>
-                <div className={`${styles.subTitle} mt-[12px]`} style={{ color: '#eff0f6', opacity: 0.7 }}>
-                  DIMENSIONS
-                </div>
+              <Disclosure.Button className="flex w-full justify-between items-center">
+                <div className={`${styles.subTitle} mt-[12px]`}>DIMENSIONS</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#eff0f6', opacity: 0.7 }}
+                  style={{ color: '#DEEFD0' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>

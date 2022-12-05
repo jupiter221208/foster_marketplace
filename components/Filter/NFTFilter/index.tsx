@@ -19,10 +19,10 @@ import RoyaltyRange from 'components/Range/RoyaltyRange'
 
 const NFTFilter = props => {
   const { selectedAvailability, setSelectedAvailability } = props
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[0])
-  const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[0])
-  const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[0])
-  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[0])
+  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
+  const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
+  const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
+  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -43,9 +43,7 @@ const NFTFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title} style={{ color: '#eff0f6', opacity: 0.7 }}>
-        ARTIST VERIFICATION
-      </div>
+      <div className={styles.title}>ARTIST VERIFICATION</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}
@@ -53,9 +51,7 @@ const NFTFilter = props => {
       />
       <div className={`${styles.title} mt-[52px]`}>AVAILABILITY</div>
       <Radio data={AvailabilityList} selected={selectedAvailability} onChange={item => setSelectedAvailability(item)} />
-      <div className={`${styles.title} mt-[52px]`} style={{ color: '#eff0f6', opacity: 0.7 }}>
-        DIMENSIONS
-      </div>
+      <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
       <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} />
       <div className={`${styles.title} mt-[52px]`}>MARKET</div>
       <Radio data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />

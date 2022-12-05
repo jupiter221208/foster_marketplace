@@ -93,7 +93,7 @@ const Explore = () => {
   const [sortData, setSortData] = useState(NFTSortList)
   const [selectedSort, setSelectedSort] = useState(NFTSortList[0])
 
-  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[0])
+  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
 
   useEffect(() => {
     switch (exploreTab) {
