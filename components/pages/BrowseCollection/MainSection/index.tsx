@@ -41,7 +41,7 @@ const MainSection = props => {
 
   const router = useRouter()
   const viewport = useViewport()
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
 
   const items = useMemo(() => nfts?.length || 0, nfts)
 
@@ -170,11 +170,6 @@ const MainSection = props => {
             </div> */}
           </div>
         </div>
-        {isLoading && (
-          <div className="col-span-12 py-10">
-            <LoadingModal open={isLoading} />
-          </div>
-        )}
         <div className="flex justify-center w-full mt-[32px]">
           <div className="max-w-[734px]">
             <div className={styles.description}>{json?.description}</div>
@@ -182,45 +177,43 @@ const MainSection = props => {
         </div>
         <div className="flex justify-center mt-[16px]">
           <div className={`${styles.nftInfo} grid grid-cols-12`}>
-            {!isLoading && (
-              <>
-                <div className="col-span-3 flex justify-center items-center">
-                  <div className="text-center">
-                    <div className={styles.nftInfoLabel}>{items}</div>
-                    <div className={styles.nftInfoValue}>Items</div>
-                  </div>
+            <>
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className={styles.nftInfoLabel}>{items}</div>
+                  <div className={styles.nftInfoValue}>Items</div>
                 </div>
-                <div className="col-span-3 flex justify-center items-center">
-                  <div className="text-center">
-                    <div className={styles.nftInfoLabel}>{owners}</div>
-                    <div className={styles.nftInfoValue}>Owners</div>
-                  </div>
+              </div>
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className={styles.nftInfoLabel}>{owners}</div>
+                  <div className={styles.nftInfoValue}>Owners</div>
                 </div>
-                <div className="col-span-3 flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center">
-                      <Image src={SolanaLogoIcon} alt="" />
-                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>
-                        {floorPrice > 0 ? getPriceValue(floorPrice) : 'N/A'}
-                      </div>
+              </div>
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className="flex items-center justify-center">
+                    <Image src={SolanaLogoIcon} alt="" />
+                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>
+                      {floorPrice > 0 ? getPriceValue(floorPrice) : 'N/A'}
                     </div>
-                    <div className={styles.nftInfoValue}>Floor Price</div>
                   </div>
+                  <div className={styles.nftInfoValue}>Floor Price</div>
                 </div>
-                <div className="col-span-3 flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center">
-                      <Image src={SolanaSolLogoIcon} alt="" />
-                      <div className={`${styles.nftInfoLabel} ml-[8px]`}>
-                        {totalVolume > 0 ? getPriceValue(totalVolume) : 'N/A'}
-                      </div>
+              </div>
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className="flex items-center justify-center">
+                    <Image src={SolanaSolLogoIcon} alt="" />
+                    <div className={`${styles.nftInfoLabel} ml-[8px]`}>
+                      {totalVolume > 0 ? getPriceValue(totalVolume) : 'N/A'}
                     </div>
+                  </div>
 
-                    <div className={styles.nftInfoValue}>Total Volume</div>
-                  </div>
+                  <div className={styles.nftInfoValue}>Total Volume</div>
                 </div>
-              </>
-            )}
+              </div>
+            </>
           </div>
         </div>
         <div className="flex justify-center mt-[30px]">

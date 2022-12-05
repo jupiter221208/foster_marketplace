@@ -7,6 +7,7 @@ import Head from 'next/head'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
 import CollectionSection from 'components/pages/BrowseCollection/CollectionSection'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // styles
 import styles from './index.module.scss'
@@ -29,7 +30,6 @@ const BrowseCollection = () => {
   const { address } = router.query
 
   const dispatch = useDispatch()
-  dispatch({ type: 'set', isLoading: false })
 
   const isLoading = useSelector<any>(state => state.isLoading)
 
@@ -48,7 +48,7 @@ const BrowseCollection = () => {
       }
       if (mx && address) getCollection()
     }
-  }, [mx, address])
+  }, [address])
 
   useEffect(() => {
     if (address !== undefined) {
@@ -70,6 +70,7 @@ const BrowseCollection = () => {
         <MainSection collection={collection} data={data} />
         <CollectionSection nfts={collection.nfts} artistId={data['minter_id']} />
       </div>
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
