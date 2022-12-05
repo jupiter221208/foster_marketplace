@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -10,11 +11,16 @@ import { useViewport } from 'utils'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
+// image
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
+
 // styles
 import styles from './index.module.scss'
 
 const NotificationsCard = props => {
   const { data } = props
+  const router = useRouter()
   const viewport = useViewport()
 
   const [list, setList] = useState<any[]>([])
@@ -37,11 +43,24 @@ const NotificationsCard = props => {
     setList(array)
   }
 
+  const getNotificationType = notification => {
+    if (notification.notification_type === 'Like') return ' liked '
+    else if (notification.notification_type === 'Follow') return ' started following '
+  }
+
+  const getTime = dateString => {
+    let date = new Date(dateString)
+    return date.getHours() + ':' + date.getMinutes()
+  }
+
+  const gotoUserPage = wallet => {
+    router.push(`/artist-profile?id=${wallet}`)
+  }
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         {list.map((item: any, index) => (
-          <div className="" key={index}>
+          <div className="w-full" key={index}>
             <div className={styles.title}>{item.date}</div>
             <div className="mt-[25px] w-full flex flex-wrap gap-7">
               {item.data.map((elem, idx) => (
@@ -50,7 +69,7 @@ const NotificationsCard = props => {
                     <div className={styles.dot} />
                     <div className={styles.avatarArea}>
                       <Image
-                        src={elem.avatar}
+                        src={elem.reference_asset_url !== null ? elem.reference_asset_url : DefaultAvatar}
                         alt=""
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
@@ -59,23 +78,40 @@ const NotificationsCard = props => {
                     </div>
                     <div className="block items-start">
                       <p>
-                        <span className={styles.username}>{elem.wallet_id}</span>
-                        <span className={styles.description}>&nbsp;{elem.description}</span>
+                        <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
+                          {elem.reference_username}
+                        </span>
+                        <span className={styles.type}>{getNotificationType(elem)}</span>
+                        <span className={styles.description}>{elem.reference_token_name}</span>
+                        <span className={styles.hour}>&nbsp;{getTime(elem.created_at)}</span>
                       </p>
-                      {elem.viewDetails && <div className={styles.viewDetails}>View Details</div>}
+                      {elem.notification_type === 'Offer' && <div className={styles.viewDetails}>View Details</div>}
                     </div>
                   </div>
-                  <div>
-                    <div className="flex-1 min-w-[56px]">
-                      {elem.status === '' && (
-                        <Image src={elem.image} alt="" width={56} height={56} className="border-[15px]" />
-                      )}
-                    </div>
-                    {elem.status === 'Follow' && (
-                      <GradientButton label="Follow" onClick={() => handleClickButton(item.id, elem.id, 'Following')} />
-                    )}
-                    {elem.status === 'Following' && (
+                  <div className="flex justify-end">
+                    {elem.notification_type === 'Follow' ? (
+                      <GradientButton
+                        label="Follow"
+                        direction="rtl"
+                        icon={AvatarFollowIcon}
+                        onClick={() => handleClickButton(item.id, elem.id, 'Following')}
+                      />
+                    ) : elem.notification_type === 'Following' ? (
                       <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem.id, 'Follow')} />
+                    ) : (
+                      <div className="min-w-[56px]">
+                        <Image
+                          src={
+                            elem.reference_user_profile_picture !== null
+                              ? elem.reference_user_profile_picture
+                              : DefaultAvatar
+                          }
+                          alt=""
+                          width={56}
+                          height={56}
+                          className="rounded-[15px]"
+                        />
+                      </div>
                     )}
                   </div>
                 </div>

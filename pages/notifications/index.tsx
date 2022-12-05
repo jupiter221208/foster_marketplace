@@ -65,7 +65,7 @@ const Notifications = () => {
         } else if (parseInt(key) == yesterday) {
           strDate = 'Yesterday'
         }
-        let dayNotifications = { id: index, date: strDate, data: sortedByDate[key] }
+        let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
         sortedNotification.push(dayNotifications)
         index++
       })

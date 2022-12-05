@@ -74,13 +74,29 @@
   font-size: 15px;
   line-height: 20px;
   color: $brand-01-color;
+  cursor: pointer;
 }
 
 .description {
+  font-family: 'Muli-Regular';
+  font-size: 15px;
+  line-height: 20px;
+  color: $text-gray-200-color;
+}
+
+.type {
   font-family: 'Muli-SemiBold';
   font-size: 15px;
   line-height: 20px;
   color: $text-gray-200-color;
+}
+
+.hour {
+  font-family: 'Muli-Regular';
+  font-size: 15px;
+  line-height: 20px;
+  color: $text-gray-200-color;
+  opacity: 0.8;
 }
 
 .viewDetails {
