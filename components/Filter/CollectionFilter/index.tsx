@@ -12,7 +12,7 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const CollectionFilter = props => {
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[0])
+  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -33,9 +33,7 @@ const CollectionFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title} style={{ color: '#eff0f6', opacity: 0.7 }}>
-        ARTIST VERIFICATION
-      </div>
+      <div className={styles.title}>ARTIST VERIFICATION</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}

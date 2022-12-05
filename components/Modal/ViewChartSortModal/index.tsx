@@ -1,22 +1,13 @@
-import React, { useEffect, useState } from 'react'
-
-// third party components
-import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
+import React from 'react'
 
 // components
 import IconButton from 'components/Button/IconButton'
 import Radio from 'components/Radio'
-import Checkbox from 'components/Checkbox'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
-
-// json
-import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
-import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'

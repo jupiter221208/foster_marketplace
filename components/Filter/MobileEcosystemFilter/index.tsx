@@ -23,7 +23,7 @@ import styles from './index.module.scss'
 const MobileEcosystemFilter = props => {
   const { onClose } = props
   const [selectedProfile, setSelectedProfile] = useState(ProfileList[0])
-  const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[0])
+  const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[2])
 
   return (
     <div className={styles.container}>

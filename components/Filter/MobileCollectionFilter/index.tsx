@@ -23,7 +23,7 @@ import styles from './index.module.scss'
 
 const MobileCollectionFilter = props => {
   const { onClose } = props
-  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[0])
+  const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -54,14 +54,9 @@ const MobileCollectionFilter = props => {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="flex w-full justify-between" disabled={true}>
-                <div className={styles.subTitle} style={{ color: '#eff0f6', opacity: 0.7 }}>
-                  ARTIST VERIFICATION
-                </div>
-                <ChevronUpIcon
-                  className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#eff0f6', opacity: 0.7 }}
-                />
+              <Disclosure.Button className="flex w-full justify-between">
+                <div className={styles.subTitle}>ARTIST VERIFICATION</div>
+                <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
               </Disclosure.Button>
               <Disclosure.Panel>
                 <Radio

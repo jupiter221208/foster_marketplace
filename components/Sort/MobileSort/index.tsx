@@ -11,7 +11,6 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 
 // json
 import ProfileList from 'assets/json/explore/profile.json'
-import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 
 // styles
 import styles from './index.module.scss'
@@ -19,7 +18,6 @@ import styles from './index.module.scss'
 const MobileSort = props => {
   const { data, onClose } = props
   const [selectedSort, setSelectedSort] = useState(ProfileList[0])
-  const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[0])
 
   return (
     <div className={styles.container}>
