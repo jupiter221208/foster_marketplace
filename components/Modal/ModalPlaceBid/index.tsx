@@ -23,6 +23,7 @@ const ModalPlaceBid = props => {
   const { nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [placeBtnEnabled, setPlaceBtnEnabled] = useState(false)
 
   const closeModal = () => {
     onClose()
@@ -48,6 +49,10 @@ const ModalPlaceBid = props => {
       },
     ])
   }, [])
+
+  useEffect(() => {
+    setPlaceBtnEnabled(price >= reservePrice)
+  }, [price])
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -98,7 +103,7 @@ const ModalPlaceBid = props => {
                   {loading ? (
                     <LoadingButton fullWidth />
                   ) : (
-                    <GradientButton label="Place Bid" fullWidth onClick={onClickPlaceBid} />
+                    <GradientButton disabled={!placeBtnEnabled} label="Place Bid" fullWidth onClick={onClickPlaceBid} />
                   )}
                 </div>
                 <div className="w-full flex justify-center mt-10">
