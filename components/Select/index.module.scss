@@ -5,7 +5,7 @@
   width: 100%;
   height: 51px;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: transparent;
   border: 1px solid rgba($text-gray-200-color, 0.6);
   padding-left: 12px;
@@ -29,15 +29,25 @@
   color: $text-gray-200-color;
 }
 
-.menuArea {
+.menuBlur {
+  width: 100%;
+  height: auto;
   position: absolute;
+  right: 0;
   margin-top: 4px;
+  transform-origin: top right;
+  background-color: rgba($background-black-color, 0.4);
+  border-radius: 8px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+.menuArea {
   width: 100%;
   cursor: pointer;
-  overflow: auto;
-  border-radius: 12px;
-  border: 1px solid rgba($text-gray-200-color, 0.6);
-  background-color: $background-dark-color;
+  border-radius: 8px;
+  border: 1px solid rgba($text-gray-200-color, 0.05);
+  background-color: transparent;
 
   &:focus {
     outline: none;
@@ -49,15 +59,18 @@
   letter-spacing: 0;
   color: $text-gray-200-color;
   z-index: 1;
+  padding: 8px 8px 8px 8px;
+  @media (min-width: 1024px) {
+    padding: 32px 32px 40px 32px;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .menuItem {
   position: relative;
   cursor: pointer;
-  padding: 8px 8px 8px 8px;
-  @media (min-width: 1024px) {
-    padding: 8px 16px 8px 40px;
-  }
 
   font-family: 'Muli-Regular';
   font-size: 16px;
@@ -67,21 +80,10 @@
 }
 
 .activeMenuItem {
-  background-color: rgba($text-gray-200-color, 0.6);
+  color: $brand-01-color;
 }
 
-.iconStyle {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
-  color: $text-gray-200-color;
-  display: none;
-  @media (min-width: 1024px) {
-    display: flex;
-    align-items: center;
-  }
+.disabledMenuItem {
+  cursor: default;
+  color: rgba($text-gray-200-color, 0.6);
 }

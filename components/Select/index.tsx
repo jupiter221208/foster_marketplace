@@ -21,27 +21,24 @@ const Select = props => {
           </Listbox.Button>
           {/* <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"> */}
           <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
-            <Listbox.Options className={styles.menuArea}>
-              {data.map((item, index) => (
-                <Listbox.Option
-                  key={index}
-                  className={({ active }) => `${styles.menuItem} ${active ? styles.activeMenuItem : ''}`}
-                  value={item}
-                  disabled={item.disabled !== undefined ? item.disabled : false}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>{item.label}</span>
-                      {selected ? (
-                        <span className={styles.iconStyle}>
-                          <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
+            <div className={styles.menuBlur}>
+              <Listbox.Options className={styles.menuArea}>
+                {data.map((item, index) => (
+                  <Listbox.Option
+                    key={index}
+                    className={({ active }) => `${styles.menuItem} ${active ? styles.activeMenuItem : ''}`}
+                    value={item}
+                    disabled={item.disabled !== undefined ? item.disabled : false}
+                  >
+                    {({ selected }) => (
+                      <span className={selected ? styles.activeMenuItem : item.disabled ? styles.disabledMenuItem : ''}>
+                        {item.label}
+                      </span>
+                    )}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </div>
           </Transition>
         </div>
       </Listbox>
