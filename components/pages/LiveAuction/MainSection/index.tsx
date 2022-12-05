@@ -202,7 +202,7 @@ const MainSection = props => {
   const { updateSolBalance } = useWallets()
   const [isRunning, setIsRunning] = useState(false)
 
-  const [balance, setBalance] = useState(0)
+  const [balance, setBalance] = useState<any>(0)
   useEffect(() => {
     const getWalletBanace = async () => {
       const walletBalance = await mx.connection.getBalance(publicKey)

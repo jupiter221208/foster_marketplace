@@ -133,8 +133,10 @@ const MyNFTSection = props => {
         open={showListNFTModal}
         onClose={(status: string) => {
           setShowListNFTModal(false)
-          loadMyNFTs()
-          if (status === 'listed') changeActiveTab(1)
+          if (status === 'listed') {
+            loadMyNFTs()
+            changeActiveTab(1)
+          }
         }}
       />
       <Alert

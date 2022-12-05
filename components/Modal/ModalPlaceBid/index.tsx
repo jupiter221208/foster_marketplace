@@ -31,7 +31,6 @@ const ModalPlaceBid = props => {
   }
 
   const [price, setPrice] = useState(0)
-  console.log('=============balance==========', balance)
 
   const onClickPlaceBid = async () => {
     placeBid(price)

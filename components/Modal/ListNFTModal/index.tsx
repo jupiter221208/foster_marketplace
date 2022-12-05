@@ -14,6 +14,7 @@ import PriceInput from 'components/Input/PriceInput'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
@@ -31,7 +32,6 @@ const ListNFTModal = props => {
   const dispatch = useDispatch()
   const [price, setPrice] = useState<number>()
   const [listStatus, setListStatus] = useState(false)
-
   const { metaplex: mx } = useMetaplex()
 
   const handleListNFTClick = async () => {
@@ -80,10 +80,25 @@ const ListNFTModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className={styles.title}>List NFT</div>
-                  <div className="w-full max-w-[321px] mt-10 flex justify-center">
-                    <div className={styles.image}>
-                      <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name || data?.name} />
-                    </div>
+                  <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                    {data?.offchainMetadata.category === 'video' ? (
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  <source src=${data?.offchainMetadata.animation_url} type="video/mp4" /></video>`,
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={
+                          data?.offchainMetadata.image === undefined || data?.offchainMetadata.image === null
+                            ? AudioPlayerBackground.src
+                            : data?.offchainMetadata.image
+                        }
+                        alt={data?.offchainMetadata.name || data?.name}
+                        className="w-full aspect-[321/321] object-cover"
+                      />
+                    )}
                   </div>
                   <div className={`${styles.nftName} mt-5 w-full`}>{data?.offchainMetadata.name || data?.name}</div>
                   <div className="w-full mt-12">
