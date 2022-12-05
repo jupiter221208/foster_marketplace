@@ -74,6 +74,7 @@ import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { placeBid } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
+import { getPriceValue } from 'utils/strings'
 
 // call apis
 import nftsAPI, { NFT } from 'apis/nfts'
@@ -81,7 +82,6 @@ import usersAPI from 'apis/user'
 
 const MainSection = props => {
   const { nftDetail, loading } = props
-
   const viewport = useViewport()
   const router = useRouter()
 
@@ -201,6 +201,15 @@ const MainSection = props => {
   const { publicKey } = useWallet()
   const { updateSolBalance } = useWallets()
   const [isRunning, setIsRunning] = useState(false)
+
+  const [balance, setBalance] = useState(0)
+  useEffect(() => {
+    const getWalletBanace = async () => {
+      const walletBalance = await mx.connection.getBalance(publicKey)
+      setBalance(getPriceValue(walletBalance))
+    }
+    getWalletBanace()
+  }, [])
 
   useEffect(() => {
     if (nftDetail !== null) {
@@ -741,6 +750,7 @@ const MainSection = props => {
         </div>
       </div>
       <ModalPlaceBid
+        balance={balance}
         nftName={nftName}
         nftUrl={nftUrl}
         currentPrice={nftCurrentPrice}
