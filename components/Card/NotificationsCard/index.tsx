@@ -18,6 +18,9 @@ import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 // styles
 import styles from './index.module.scss'
 
+// api endpoint
+import artistsAPI from 'apis/artists'
+
 const NotificationsCard = props => {
   const { data } = props
   const router = useRouter()
@@ -29,13 +32,35 @@ const NotificationsCard = props => {
     setList(data)
   }, [data])
 
-  const handleClickButton = (itemID, elemID, status) => {
+  const followArtist = wallet => {
+    artistsAPI.followArtist(wallet).then(response => {
+      if (response && response.followed_wallet_id) {
+      }
+    })
+  }
+
+  const handleClickButton = (itemID, notification, status) => {
+    if (status === 'Follow') {
+      artistsAPI.followArtist(notification.reference_wallet_id).then(response => {
+        if (response && response.followed_wallet_id) {
+          updateList(itemID, notification.id, status)
+        }
+      })
+    } else {
+      artistsAPI.unfollowArtist(notification.reference_wallet_id).then(response => {
+        updateList(itemID, notification.id, status)
+      })
+    }
+  }
+
+  const updateList = (itemID, elemID, status) => {
     const array = [...list]
+
     array.map((item: any, index) => {
       if (item.id === itemID) {
         item.data.map((elem, idx) => {
           if (elem.id === elemID) {
-            array[index].data[idx].status = status
+            array[index].data[idx].notification_type = status
           }
         })
       }
@@ -46,6 +71,7 @@ const NotificationsCard = props => {
   const getNotificationType = notification => {
     if (notification.notification_type === 'Like') return ' liked '
     else if (notification.notification_type === 'Follow') return ' started following '
+    else if (notification.notification_type === 'Following') return ' followed '
   }
 
   const getTime = dateString => {
@@ -94,17 +120,15 @@ const NotificationsCard = props => {
                         label="Follow"
                         direction="rtl"
                         icon={AvatarFollowIcon}
-                        onClick={() => handleClickButton(item.id, elem.id, 'Following')}
+                        onClick={() => handleClickButton(item.id, elem, 'Following')}
                       />
                     ) : elem.notification_type === 'Following' ? (
-                      <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem.id, 'Follow')} />
+                      <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem, 'Follow')} />
                     ) : (
                       <div className="min-w-[56px]">
                         <Image
                           src={
-                            elem.reference_user_profile_picture !== null
-                              ? elem.reference_user_profile_picture
-                              : DefaultAvatar
+                            elem.reference_user_profile_picture !== null ? elem.reference_user_profile_picture : <div />
                           }
                           alt=""
                           width={56}
