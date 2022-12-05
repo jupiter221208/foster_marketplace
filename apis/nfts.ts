@@ -119,6 +119,11 @@ class Nfts {
       return response.data
     })
   }
+  filteredNfts() {
+    return client.get(API_URL + 'v1/users/filtered-nfts').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Nfts()

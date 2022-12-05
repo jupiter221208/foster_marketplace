@@ -275,34 +275,36 @@ const MainSection = props => {
     setAuctionLoading(true)
     try {
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
-      updateSolBalance()
-      AuctionAPI.placeBid(mintAddress, {
-        mint_address: bid.mintAddress.toBase58(),
-        buyer_address: bid.buyerAddress.toBase58(),
-        amount: bid.amount.toString(),
-      })
-        .then(res => {
-          if (res) {
-            setShowModalPlaceBid(false)
-            setNftCurrentPrice(Number(bid.amount.toString()))
-            setTimeout(() => {
-              setAlertData([
-                {
-                  id: 0,
-                  title: 'Successful bid!',
-                  description: `You've successfully placed a bid on ${nftName}`,
-                  type: 'success',
-                },
-              ])
-              setShowAlert(true)
-            }, 500)
+      if(bid) {
+        updateSolBalance()
+        AuctionAPI.placeBid(mintAddress, {
+          mint_address: bid.mintAddress.toBase58(),
+          buyer_address: bid.buyerAddress.toBase58(),
+          amount: bid.amount.toString(),
+        })
+          .then(res => {
+            if (res) {
+              setShowModalPlaceBid(false)
+              setNftCurrentPrice(Number(bid.amount.toString()))
+              setTimeout(() => {
+                setAlertData([
+                  {
+                    id: 0,
+                    title: 'Successful bid!',
+                    description: `You've successfully placed a bid on ${nftName}`,
+                    type: 'success',
+                  },
+                ])
+                setShowAlert(true)
+              }, 500)
+              setAuctionLoading(false)
+            }
+          })
+          .catch(rejected => {
             setAuctionLoading(false)
-          }
-        })
-        .catch(rejected => {
-          setAuctionLoading(false)
-          setShowModalPlaceBid(false)
-        })
+            setShowModalPlaceBid(false)
+          })
+      }
     } catch (error) {
       setAuctionLoading(false)
     }

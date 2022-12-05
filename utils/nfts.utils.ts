@@ -1,6 +1,7 @@
 import { Metaplex } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
+import nftsAPI from 'apis/nfts'
 
 export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
   /* @ts-ignore to get mintAddress*/
@@ -14,13 +15,13 @@ export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
 export async function getMyNFTs(mx: Metaplex) {
   let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
 
-  const res = await getMyListedNFTs(mx)
+  const res = await nftsAPI.filteredNfts().then(res => res)
   const listedNFTs = res === undefined ? [] : res
 
   nfts = nfts.filter(
     nft =>
       /* @ts-ignore to get mintAddress*/
-      !listedNFTs.some(listedNFT => listedNFT.asset.address.toString() === nft.mintAddress.toString()) &&
+      !listedNFTs.some(listedNFT => listedNFT.toString() === nft.mintAddress.toString()) &&
       !nft.collectionDetails
   )
 
