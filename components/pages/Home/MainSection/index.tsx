@@ -24,6 +24,8 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
+import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -72,16 +74,14 @@ const MainSection = () => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
-          <p className="w-full flex justify-start">
+          {/* <p className="w-full flex justify-start">
             <span className={styles.whiteTitle}>The&nbsp;</span>
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
             <span className={styles.whiteTitle}>Solana Deserves</span>
-          </p>
-          <div className={styles.text}>
-            Created for Artists. Curated by You.
-            <br />
-            Foster The Flavor.
-          </div>
+          </p> */}
+          <Image src={FosterEnhancedIcon} width={610} height={94} alt="" objectFit="cover" />
+
+          <div className={styles.text}>CREATED BY ARTISTS. CURATED BY YOU.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
@@ -89,6 +89,7 @@ const MainSection = () => {
               <OutlineButton
                 label="Create"
                 width={124}
+                borderWidth={2}
                 onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
               />
             </div>
@@ -119,13 +120,14 @@ const MainSection = () => {
         >
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
-              <div className="flex justify-center">
+              {/* <div className="flex justify-center">
                 <div className={styles.cardTitle}>The&nbsp;</div>
                 <div className={styles.cardGreenTitle}>House of Art,</div>
                 <div className={styles.cardTitle}>&nbsp;Solana Deserves</div>
-              </div>
-              <div className={styles.cardText}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
-              <div className={styles.cardText}>FOSTER THE FLAVOR.</div>
+              </div> */}
+              <Image src={FosterEnhancedMobile} width={278} height={42} alt="" objectFit="cover" />
+
+              <div className={styles.cardText}>CREATED BY ARTISTS. CURATED BY YOU.</div>
             </div>
           ) : (
             <></>

@@ -15,7 +15,6 @@ import Menu from 'components/Menu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButton from 'components/Button/IconButton'
-
 // custom functions
 import { useViewport } from 'utils'
 
@@ -25,6 +24,7 @@ import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/icons/profile-thumb.svg'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
+import LogoIcon from 'assets/icons/logo-color.svg'
 
 // json
 import SearchList from 'assets/json/search-list.json'
@@ -179,14 +179,14 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {!connected && (
+            {/* {!connected && (
               <div
                 className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
                 onClick={() => handleGotoHomepage()}
               >
                 <Image src={LogoTextIcon} alt="" />
               </div>
-            )}
+            )} */}
             <SearchBox
               value={searchKeyword}
               placeholder="Search by NFT, Collection, or Artist"
@@ -195,12 +195,7 @@ const PrimaryHeader = () => {
               onClick={() => handleClear()}
               onClose={() => handleClose()}
             />
-            {connected && (
-              <div
-                className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
-                onClick={() => handleGotoHomepage()}
-              ></div>
-            )}
+            <div className="cursor-pointer min-w-[80px] xl:min-w-[120px] 2xl:min-w-[376px] flex items-center" />
             <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
             <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
@@ -224,7 +219,7 @@ const PrimaryHeader = () => {
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-            <Image src={LogoTextMobileIcon} width={110} height={25} alt="" />
+            <Image src={LogoIcon} alt="" />
           </div>
           <div className="flex">
             <IconButton
