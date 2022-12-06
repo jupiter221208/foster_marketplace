@@ -28,10 +28,14 @@ import FilterGreenIcon from 'assets/icons/filter-green.svg'
 // styles
 import styles from './index.module.scss'
 
+// redux
+import { useDispatch } from 'react-redux'
+
 const NFTSwiperSection = props => {
   const { nfts } = props
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [nftList, setNFTList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
@@ -157,7 +161,10 @@ const NFTSwiperSection = props => {
                       nftName={nftItem.nft_name}
                       artistName={nftItem.artist_username}
                       price={nftItem.list_price}
-                      onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push(`/browse-nft?id=${nftItem.token_id}`)
+                      }}
                       key={nftIndex}
                     />
                   ))}
@@ -174,7 +181,10 @@ const NFTSwiperSection = props => {
                   nftName={item.nft_name}
                   artistName={item.artist_username}
                   price={item.list_price}
-                  onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/browse-nft?id=${item.token_id}`)
+                  }}
                   key={item}
                 />
               </div>
