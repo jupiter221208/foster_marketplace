@@ -1,8 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
 
-// next components
-import Image from 'next/image'
-
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 import Cropper from 'react-easy-crop'
@@ -15,7 +12,6 @@ import Range from 'components/Range'
 import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
-import { useViewport } from 'utils'
 import getCroppedImg from 'utils/cropImage'
 
 // images
@@ -38,8 +34,6 @@ const NftImageEditorModal = props => {
       }, 400)
     }
   }, [nftImage])
-
-  const viewport = useViewport()
 
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
@@ -97,7 +91,7 @@ const NftImageEditorModal = props => {
                     iconHeight={!2}
                   />
                 </div>
-                <div className="w-full h-[42px] flex justify-between lg:justify-center items-center">
+                <div className="w-full h-[44px] flex justify-between lg:justify-center items-center">
                   <div className="flex lg:hidden px-4">
                     <IconButton
                       icon={CloseWhiteIcon}
@@ -115,7 +109,7 @@ const NftImageEditorModal = props => {
                     <Button
                       label="Crop"
                       backgroundColor="transparent"
-                      color="#EFF0F6"
+                      color="rgba(239, 240, 246, 0.75)"
                       fullWidth
                       fontSize="16px"
                       onClick={() => showCroppedImage()}
