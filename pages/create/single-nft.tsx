@@ -174,16 +174,16 @@ const SingleNft = () => {
 
   useEffect(() => {
     if (nftArt !== null && nftArt !== undefined) {
-      if (nftArt[0].type === 'image/gif') {
+      if (nftArt[0].type.split('/')[0] === 'image') {
+        setNftType(nftArt[0].type.split('/')[0])
+        setNftImage(URL.createObjectURL(nftArt[0]))
+      } else if (nftArt[0].type === 'image/gif') {
         setNftType(nftArt[0].type)
         setNftImage(URL.createObjectURL(nftArt[0]))
       } else {
         setNftType(nftArt[0].type.split('/')[0])
       }
       setDisabledNextButton(false)
-      if (nftArt[0].type.split('/')[0] === 'image' && nftArt[0].type !== 'image/gif') {
-        setOpenNftImageEditorModal(true)
-      }
     }
   }, [nftArt])
 
