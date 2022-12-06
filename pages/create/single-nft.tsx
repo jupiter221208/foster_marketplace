@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
-import { FullScreen, useFullScreenHandle } from 'react-full-screen'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -35,7 +34,6 @@ import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
-import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
 // json
@@ -194,19 +192,6 @@ const SingleNft = () => {
       }
     }
   }, [nftCover])
-
-  const handleFullScreen = useFullScreenHandle()
-  const [fullScreenMode, setFullScreenMode] = useState(false)
-
-  const fullScreenToggler = () => {
-    if (!fullScreenMode) {
-      handleFullScreen.enter()
-    }
-  }
-
-  const onFullScreenChange = (state, handle) => {
-    setFullScreenMode(state)
-  }
 
   // step 2
   const [nftName, setNftName] = useState<any>('')
@@ -460,13 +445,6 @@ const SingleNft = () => {
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Preview Art</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
-                    <FullScreen
-                      onChange={onFullScreenChange}
-                      handle={handleFullScreen}
-                      className="flex justify-center items-center"
-                    >
-                      {fullScreenMode && <img src={nftImage} alt="" className="w-full h-full object-contain" />}
-                    </FullScreen>
                     {nftType === 'image' || nftType === 'image/gif' ? (
                       <div
                         className={`${styles.artArea}`}
@@ -513,11 +491,6 @@ const SingleNft = () => {
                         ) : (
                           <>&nbsp;</>
                         )}
-                        <IconButton
-                          icon={FullScreenGrayIcon}
-                          onClick={() => fullScreenToggler()}
-                          backgroundColor="transparent"
-                        />
                         {currentStep === 1 ? (
                           <IconButton
                             icon={TrashGrayIcon}
@@ -642,9 +615,6 @@ const SingleNft = () => {
               <div className={`${styles.title} w-full`}>Preview Art</div>
 
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
-                <FullScreen onChange={onFullScreenChange} handle={handleFullScreen} className="flex justify-center">
-                  {fullScreenMode && <img src={nftImage} alt="" className="w-full h-full object-contain" />}
-                </FullScreen>
                 {nftType === 'image' ? (
                   <div
                     className={`${styles.artArea}`}
@@ -690,15 +660,6 @@ const SingleNft = () => {
                         width="32px"
                         height="32px"
                       />
-                      {nftType === 'image' && (
-                        <IconButton
-                          icon={FullScreenGrayIcon}
-                          onClick={() => fullScreenToggler()}
-                          backgroundColor="transparent"
-                          width="32px"
-                          height="32px"
-                        />
-                      )}
                       <IconButton
                         icon={TrashGrayIcon}
                         onClick={() => {
