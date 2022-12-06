@@ -36,7 +36,6 @@ const NFTSwiperSection = props => {
   const [nftList, setNFTList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
   const [showFilter, setShowFilter] = useState<boolean>(false)
-
   useEffect(() => {
     let newList: any[] = []
     let tempItem: any[] = []
@@ -158,7 +157,7 @@ const NFTSwiperSection = props => {
                       image={nftItem.asset_url}
                       nftName={nftItem.nft_name}
                       artistName={nftItem.artist_username}
-                      price={nftItem.list_price ?? ''}
+                      price={nftItem.list_price}
                       onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
                       key={nftIndex}
                     />
@@ -175,7 +174,7 @@ const NFTSwiperSection = props => {
                   image={item.asset_url}
                   nftName={item.nft_name}
                   artistName={item.artist_username}
-                  price={item.list_price ?? 0}
+                  price={item.list_price}
                   onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
                   key={item}
                 />

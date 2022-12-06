@@ -34,26 +34,33 @@ const BrowseCollection = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [data, setData] = useState({})
+  const [nfts, setNfts] = useState([])
+
   const [collection, setCollection] = useState<any>({})
 
   const { metaplex: mx } = useMetaplex()
 
-  useEffect(() => {
-    if (address !== undefined) {
-      const getCollection = async () => {
-        dispatch({ type: 'set', isLoading: true })
-        const collection = await getCollectionByAddress(mx, address.toString())
-        setCollection(collection)
-        dispatch({ type: 'set', isLoading: false })
-      }
-      if (mx && address) getCollection()
-    }
-  }, [address])
+  // useEffect(() => {
+  //   if (address !== undefined) {
+  //     const getCollection = async () => {
+  //       dispatch({ type: 'set', isLoading: true })
+  //       const collection = await getCollectionByAddress(mx, address.toString())
+  //       setCollection(collection)
+  //       dispatch({ type: 'set', isLoading: false })
+  //     }
+  //     if (mx && address) getCollection()
+  //   }
+  // }, [address])
 
   useEffect(() => {
     if (address !== undefined) {
       collectionsAPI.getCollection(address).then(response => {
         setData(response)
+      }),
+        error => console.log(error)
+
+      collectionsAPI.getCollectionNft(address).then(response => {
+        setNfts(response)
       }),
         error => console.log(error)
     }
@@ -67,8 +74,8 @@ const BrowseCollection = () => {
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
-        <MainSection collection={collection} data={data} />
-        <CollectionSection nfts={collection.nfts} artistId={data['minter_id']} />
+        <MainSection nfts={nfts} data={data} />
+        <CollectionSection nfts={nfts} artistId={data['minter_id']} />
       </div>
       <FullScreenLoadingModal open={isLoading} />
     </div>

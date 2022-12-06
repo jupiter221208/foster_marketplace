@@ -18,13 +18,8 @@ import NFTCard from 'components/Card/NFTCard'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import NFTList from 'assets/json/browse-collection/nft-list.json'
-
 // styles
 import styles from './index.module.scss'
-import { getPriceValue } from 'utils/strings'
-import { getShortAddress } from 'utils/wallet.util'
 
 const NFTSwiperSection = ({ nfts }) => {
   const viewport = useViewport()
@@ -74,10 +69,11 @@ const NFTSwiperSection = ({ nfts }) => {
                   <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                     {item.map((nftItem, nftIndex) => (
                       <NFTCard
-                        image={nftItem.offchainMetadata.image}
-                        nftName={nftItem.offchainMetadata.name}
-                        artistName={getShortAddress(nftItem.creators[0].address.toString())}
-                        price={nftItem.price ? getPriceValue(nftItem.price) : null}
+                        image={nftItem.asset_url}
+                        nftName={nftItem.nft_name}
+                        assetType={nftItem.asset_type}
+                        artistName={item.artist_username}
+                        price={nftItem.list_price}
                         onClick={() => router.push(`/browse-nft?id=${nftItem.mintAddress.toString()}`)}
                         key={nftIndex}
                       />
@@ -91,11 +87,12 @@ const NFTSwiperSection = ({ nfts }) => {
               {nfts.map((item, index) => (
                 <div className="col-span-6 lg:col-span-3" key={index}>
                   <NFTCard
-                    image={item.offchainMetadata.image}
-                    nftName={item.offchainMetadata.name}
-                    artistName={getShortAddress(item.creators[0].address.toString())}
-                    price={item.price ? getPriceValue(item.price) : null}
-                    onClick={() => router.push(`/browse-nft?id=${item.mintAddress.toString()}`)}
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    assetType={item.asset_type}
+                    artistName={item.artist_username}
+                    price={item.list_price}
+                    onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
                   />
                 </div>
               ))}

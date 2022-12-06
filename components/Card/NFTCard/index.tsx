@@ -22,14 +22,6 @@ const DashboardNFTCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {assetType === 'video' ? (
-            // <video
-            //   autoPlay
-            //   loop
-            //   muted
-            //   className="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]"
-            // >
-            //   <source src={image} type="video/mp4" />
-            // </video>
             <div
               dangerouslySetInnerHTML={{
                 __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]">
