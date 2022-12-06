@@ -48,7 +48,11 @@ const MainSection = prop => {
 
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [type, setType] = useState(0)
-  const [follow, setFollow] = useState(artistInfo ? artistInfo.followed : false)
+  const [follow, setFollow] = useState(false)
+
+  useEffect(() => {
+    setFollow(artistInfo ? artistInfo.followed : false)
+  }, artistInfo)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
