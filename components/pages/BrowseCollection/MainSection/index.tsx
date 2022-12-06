@@ -136,7 +136,12 @@ const MainSection = props => {
         </div>
         <div className="flex justify-center mt-[30px]">
           <div className={styles.categoryList}>
-            <CategoryChip data={{ value: data.categories }} />
+            {data.categories &&
+              data.categories.split(',').map((item, index) => (
+                <div key={index}>
+                  <CategoryChip data={{ value: item }} />
+                </div>
+              ))}
           </div>
         </div>
       </div>

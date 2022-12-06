@@ -56,6 +56,7 @@ const BrowseCollection = () => {
     if (address !== undefined) {
       collectionsAPI.getCollection(address).then(response => {
         setData(response)
+        dispatch({ type: 'set', isLoading: false })
       }),
         error => console.log(error)
 
