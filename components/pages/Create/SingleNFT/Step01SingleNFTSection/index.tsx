@@ -41,15 +41,15 @@ const Step01SingleNFTSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>NFT Dimensions *</div>
+          {/* <div className={`${styles.subTitle} mt-20`}>NFT Dimensions *</div>
           <div className="max-w-[370px] w-full mt-5">
             <Select
               data={NFTDimensionList}
               selected={selectedDimension}
               onChange={item => setSelectedDimension(item)}
             />
-          </div>
-          <div className={`${styles.subTitle} mt-10`}>Art *</div>
+          </div> */}
+          <div className={`${styles.subTitle} mt-20`}>Art *</div>
           <div className="mt-5">
             <Dropzone
               onDrop={acceptedFiles => {

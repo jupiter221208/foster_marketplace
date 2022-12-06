@@ -33,6 +33,8 @@ import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import CropGrayIcon from 'assets/icons/crop-gray-46x46.svg'
+import CropGreenIcon from 'assets/icons/crop-green-46x46.svg'
 import EditorGrayIcon from 'assets/icons/editor-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
@@ -484,7 +486,7 @@ const SingleNft = () => {
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 ? (
                           <IconButton
-                            icon={EditorGrayIcon}
+                            icon={CropGrayIcon}
                             onClick={() => setOpenNftImageEditorModal(true)}
                             backgroundColor="transparent"
                           />
@@ -654,7 +656,7 @@ const SingleNft = () => {
                   <div className="w-full mt-4 flex justify-center">
                     <div className="flex justify-between" style={{ width: artWidth }}>
                       <IconButton
-                        icon={EditorGrayIcon}
+                        icon={CropGrayIcon}
                         onClick={() => setOpenNftImageEditorModal(true)}
                         backgroundColor="transparent"
                         width="32px"

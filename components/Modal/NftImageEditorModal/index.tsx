@@ -82,17 +82,20 @@ const NftImageEditorModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={styles.modalView}>
-                <div className="absolute top-5 right-4 z-20">
+                <div className="absolute top-5 left-4 lg:left-auto right-auto lg:right-4 z-20">
                   <IconButton
                     icon={CloseWhiteIcon}
                     onClick={() => close()}
-                    backgroundColor="#378287"
+                    backgroundColor="#585B5D"
                     width="30px"
                     height="30px"
                     borderRadius="15px"
                     iconWidth={12}
                     iconHeight={!2}
                   />
+                </div>
+                <div className="w-full flex justify-center">
+                  <div className={styles.title}>Crop Photo</div>
                 </div>
                 <div className={styles.cropContainer}>
                   {image !== '' && (
@@ -112,8 +115,14 @@ const NftImageEditorModal = props => {
                     <div className={styles.text}>Zoom</div>
                     <Range min={1} max={3} step={0.1} value={zoom} onChange={(value: number) => setZoom(value)} />
                   </div>
-                  <div className="w-full lg:max-w-[140px]">
-                    <GradientButton label="Crop Image" fullWidth onClick={() => showCroppedImage()} />
+                  <div className="w-full lg:max-w-[99px]">
+                    <GradientButton
+                      label="Crop"
+                      gradientDirection="bottom"
+                      fullWidth
+                      height="45px"
+                      onClick={() => showCroppedImage()}
+                    />
                   </div>
                 </div>
               </Dialog.Panel>
