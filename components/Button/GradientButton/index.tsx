@@ -37,7 +37,7 @@ const GradientButton = props => {
       style={{
         width: fullWidth ? '100%' : width,
         color: color,
-        backgroundImage: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
+        background: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
         height: height,
         fontFamily: fontFamily,
         fontSize: fontSize,
