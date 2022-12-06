@@ -55,8 +55,8 @@ import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
-import EmailWhiteIcon from 'assets/icons/email-white-46x46.svg'
-import EmailGreenIcon from 'assets/icons/email-green-46x46.svg'
+import ShareBlankIcon from 'assets/icons/share-blank.svg'
+import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 
@@ -466,18 +466,18 @@ const MainSection = props => {
                     <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                   </div>
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                    <div className="flex items-center cursor-pointer" onClick={() => changeLikeStatus()}>
+                    <div className="flex items-center cursor-pointer mr-[16px]" onClick={() => changeLikeStatus()}>
                       <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{likeCount}</div>
                     </div>
-                    <div className="flex items-center cursor-pointer" onClick={() => changeSaveStatus()}>
+                    <div className="flex items-center cursor-pointer mr-[12px]" onClick={() => changeSaveStatus()}>
                       <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
                       address={id}
-                      icon01={EmailWhiteIcon}
-                      icon02={EmailGreenIcon}
+                      icon01={ShareBlankIcon}
+                      icon02={ShareWhiteIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}

@@ -1,6 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 46">
-  <rect id="Rectangle_20901" data-name="Rectangle 20901" width="46" height="46" fill="none"/>
-  <g id="Component_2199" data-name="Component 2199" transform="translate(14.416 11.554)">
-    <path id="noun-save-4920260" d="M240,126.868h17.169V142.32a.572.572,0,0,1-.977.4l-7.608-7.608-7.607,7.608a.572.572,0,0,1-.977-.4ZM254.307,120H242.861A2.865,2.865,0,0,0,240,122.861v2.861h17.169v-2.861A2.865,2.865,0,0,0,254.307,120Z" transform="translate(-240 -120)" fill="#3a4a4a" stroke="#9db2b4" stroke-width="2"/>
-  </g>
+<svg id="Component_2199" data-name="Component 2199" xmlns="http://www.w3.org/2000/svg" width="13.5" height="18" viewBox="0 0 13.5 18">
+  <path id="noun-save-4920260" d="M240,125.4h13.5v12.15a.45.45,0,0,1-.768.318l-5.982-5.982-5.981,5.982a.45.45,0,0,1-.769-.318Zm11.25-5.4h-9a2.252,2.252,0,0,0-2.25,2.25v2.25h13.5v-2.25A2.252,2.252,0,0,0,251.25,120Z" transform="translate(-240 -120)" fill="#9db2b4"/>
 </svg>

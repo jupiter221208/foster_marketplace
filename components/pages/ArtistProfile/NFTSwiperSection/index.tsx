@@ -92,51 +92,6 @@ const NFTSwiperSection = props => {
     </section>
   ) : (
     <section className={styles.container}>
-      <div className={`w-full flex ${viewport === 'xs' ? 'justify-end' : 'justify-between'} items-center z-10`}>
-        {showFilter ? (
-          <div className="flex h-[42px] justify-between lg:justify-start items-center gap-4 lg:gap-8 mr-[10px]">
-            <div className="flex z-10">
-              <Button
-                label="Created"
-                onClick={() => handleChangeActive(0)}
-                color={active === 0 ? '#202427' : '#979EA2'}
-                height={viewport === 'xs' ? 32 : 42}
-                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-              />
-              <Button
-                label="All"
-                onClick={() => handleChangeActive(1)}
-                color={active === 1 ? '#202427' : '#979EA2'}
-                height={viewport === 'xs' ? 32 : 42}
-                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-              />
-              <Button
-                label="Collected"
-                onClick={() => handleChangeActive(2)}
-                color={active === 2 ? '#202427' : '#979EA2'}
-                height={viewport === 'xs' ? 32 : 42}
-                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-              />
-            </div>
-          </div>
-        ) : (
-          <div className="h-[42px]"></div>
-        )}
-        <div className="flex z-10">
-          <OutlineButton
-            label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : 'Filter'}
-            icon={FilterGreenIcon}
-            onClick={() => {
-              setShowFilter(!showFilter)
-            }}
-            borderColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#63D6CD' : '#ffffff'}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '51px'}
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : ''}
-            borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
-            direction="rtl"
-          />
-        </div>
-      </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         {nfts.length > 4 ? (
           <Swiper
