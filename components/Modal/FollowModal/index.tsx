@@ -72,38 +72,30 @@ const FollowModal = props => {
 
   useEffect(() => {
     if (open) {
-      artistsAPI.getFollowers(wallet).then(response => {
-        setFollowersList(response)
-      })
-      artistsAPI.getFollowings(wallet).then(response => {
-        setFollowingList(response)
-      })
+      reloadFollowing()
     }
   }, [open])
+
+  const reloadFollowing = () => {
+    artistsAPI.getFollowers(wallet).then(response => {
+      setFollowersList(response)
+    })
+    artistsAPI.getFollowings(wallet).then(response => {
+      setFollowingList(response)
+    })
+  }
 
   const followArtist = wallet => {
     artistsAPI.followArtist(wallet).then(response => {
       if (response && response.followed_wallet_id) {
-        let lists = [...followersList]
-        lists.map(artist => {
-          if (artist.wallet_id === wallet) {
-            artist.following = true
-          }
-        })
-        setFollowersList(lists)
+        reloadFollowing()
       }
     })
   }
 
   const unfollowArtist = wallet => {
     artistsAPI.unfollowArtist(wallet).then(response => {
-      let lists = [...followersList]
-      lists.map(artist => {
-        if (artist.wallet_id === wallet) {
-          artist.following = false
-        }
-      })
-      setFollowersList(lists)
+      reloadFollowing()
     })
   }
   return (
@@ -215,13 +207,22 @@ const FollowModal = props => {
                                 <GradientButton
                                   label="Follow"
                                   icon={AvatarFollowIcon}
-                                  onClick={() => {}}
+                                  onClick={() => {
+                                    followArtist(item.wallet_id)
+                                  }}
                                   fullWidth
                                   direction="rtl"
                                   borderRadius="12px"
                                 />
                               ) : (
-                                <OutlineButton label="Following" onClick={() => {}} fullWidth borderRadius="12px" />
+                                <OutlineButton
+                                  label="Following"
+                                  onClick={() => {
+                                    unfollowArtist(item.wallet_id)
+                                  }}
+                                  fullWidth
+                                  borderRadius="12px"
+                                />
                               )}
                             </div>
                           </div>

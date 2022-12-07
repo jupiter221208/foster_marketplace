@@ -146,6 +146,7 @@
 
   letter-spacing: 0;
   color: $text-gray-200-color;
+  opacity: 0.75;
 }
 
 .count {
@@ -206,4 +207,5 @@
   line-height: 20px;
   color: $text-gray-200-color;
   text-shadow: 0px 3px 6px rgba($background-black-color, 0.4);
+  opacity: 0.75;
 }

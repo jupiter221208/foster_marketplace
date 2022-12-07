@@ -81,7 +81,7 @@ const MainSection = () => {
           </p> */}
           <Image src={FosterEnhancedIcon} width={610} height={94} alt="" objectFit="cover" />
 
-          <div className={styles.text}>CREATED BY ARTISTS. CURATED BY YOU.</div>
+          <div className={styles.text}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
@@ -127,7 +127,7 @@ const MainSection = () => {
               </div> */}
               <Image src={FosterEnhancedMobile} width={278} height={42} alt="" objectFit="cover" />
 
-              <div className={styles.cardText}>CREATED BY ARTISTS. CURATED BY YOU.</div>
+              <div className={styles.cardText}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
             </div>
           ) : (
             <></>
