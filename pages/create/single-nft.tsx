@@ -206,6 +206,7 @@ const SingleNft = () => {
               windowWidth = screenWidth / 2 - 100 - 50 - 32
               break
             default:
+              windowWidth = screenWidth - 140
               break
           }
           if (windowWidth > 672) {
