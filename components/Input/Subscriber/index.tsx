@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // import images and icons
-import FosterGreenIcon from 'assets/icons/foster-green.svg'
+import FosterGreenIcon from 'assets/icons/logo-color.svg'
 
 // styles
 import styles from './index.module.scss'

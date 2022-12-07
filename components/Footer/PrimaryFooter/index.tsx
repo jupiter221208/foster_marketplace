@@ -95,7 +95,7 @@ const PrimaryFooter = () => {
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
-            <div className={styles.title}>See Everything</div>
+            <div className={styles.title}>Stay Connected</div>
             <div className="mt-[29px]">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
             </div>
@@ -197,7 +197,7 @@ const PrimaryFooter = () => {
           </div>
 
           <div className="w-full block justify-center text-center mt-[44px]">
-            <div className={styles.title}>See Everything</div>
+            <div className={styles.title}>Stay Connected</div>
             <div className="mt-[26px] flex justify-center z-10">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
             </div>
