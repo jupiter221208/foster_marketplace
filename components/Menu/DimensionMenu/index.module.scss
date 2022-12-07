@@ -1,8 +1,12 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  width: 46px;
-  height: 46px;
+  width: 30px;
+  height: 30px;
+  @media (min-width: 1024px) {
+    width: 46px;
+    height: 46px;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,6 +14,11 @@
   background-image: url('../../../assets/icons/crop-gray-46x46.svg');
   &:hover {
     background-image: url('../../../assets/icons/crop-green-46x46.svg');
+  }
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  @media (min-width: 1024px) {
+    background-size: 46px 46px;
   }
   transition: background-image 0.2s;
   transition-timing-function: ease-in-out;
