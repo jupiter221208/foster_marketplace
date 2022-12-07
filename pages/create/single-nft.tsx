@@ -578,8 +578,6 @@ const SingleNft = () => {
                     {/* upload artwork part */}
                     {currentStep === 1 && (
                       <Step01SingleNFTSection
-                        selectedDimension={selectedDimension}
-                        setSelectedDimension={item => setSelectedDimension(item)}
                         nftType={nftType}
                         setNftArt={item => setNftArt(item)}
                         setNftCover={item => setNftCover(item)}
@@ -712,8 +710,6 @@ const SingleNft = () => {
               {/* upload artwork part */}
               {currentStep === 1 && (
                 <Step01SingleNFTSection
-                  selectedDimension={selectedDimension}
-                  setSelectedDimension={item => setSelectedDimension(item)}
                   nftType={nftType}
                   setNftArt={item => setNftArt(item)}
                   setNftCover={item => setNftCover(item)}
