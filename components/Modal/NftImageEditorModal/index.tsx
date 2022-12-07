@@ -54,7 +54,7 @@ const NftImageEditorModal = props => {
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={() => close()}>
+      <Dialog as="div" className={styles.container} onClose={() => {}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
