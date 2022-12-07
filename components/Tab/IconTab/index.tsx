@@ -26,13 +26,7 @@ const IconTab = props => {
               onClick={() => onChange(item)}
             >
               <div className="w-full h-full min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
-                <Image
-                  src={item.selected ? item.icon01 : item.icon02}
-                  alt=""
-                  width={20}
-                  height={20}
-                  objectFit="cover"
-                />
+                <img src={item.selected ? item.icon01 : item.icon02} alt="" />
               </div>
               <div className="ml-3">{item.label}</div>
             </button>
