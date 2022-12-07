@@ -217,6 +217,7 @@ const SingleNft = () => {
           }
         }
 
+        setSelectedDimension(dimensionList[0])
         setNftType(nftArt[0].type.split('/')[0])
         setNftImage(URL.createObjectURL(nftArt[0]))
       } else if (nftArt[0].type === 'image/gif') {
