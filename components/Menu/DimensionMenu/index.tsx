@@ -1,7 +1,4 @@
-import React, { Fragment, useState } from 'react'
-
-// next components
-import Image from 'next/image'
+import React, { Fragment } from 'react'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'

@@ -34,7 +34,6 @@ import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import CropGrayIcon from 'assets/icons/crop-gray-46x46.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
 // json
@@ -110,10 +109,13 @@ const SingleNft = () => {
             width = screenWidth - 80
             break
           case 3:
-            width = screenWidth - 225
+            width = screenWidth - 140
             break
           case 4:
             width = screenWidth - 180
+            break
+          case 5:
+            width = screenWidth - 225
             break
         }
         break
@@ -676,7 +678,7 @@ const SingleNft = () => {
 
                 {nftArt !== null && nftArt !== undefined && (
                   <div className="w-full mt-4 flex justify-center">
-                    <div className="flex justify-between" style={{ width: artWidth }}>
+                    <div className="w-full flex justify-between">
                       <DimensionMenu
                         dimensionList={dimensionList}
                         selectedDimension={selectedDimension}
