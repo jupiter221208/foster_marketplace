@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
+import NextImage from 'next/image'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
@@ -75,7 +75,8 @@ const SingleNft = () => {
     setCurrentStep(step)
   }
   // step 1
-  const [selectedDimension, setSelectedDimension] = useState(NFTDimensionList[0])
+  const [dimensionList, setDimensionList] = useState(NFTDimensionList)
+  const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
   const [nftArt, setNftArt] = useState<any>()
   const [nftCover, setNftCover] = useState<any>()
   const [nftType, setNftType] = useState('image')
@@ -119,7 +120,7 @@ const SingleNft = () => {
     }
     switch (selectedDimension.id) {
       case 0:
-        ratio = 1920 / 1920
+        ratio = selectedDimension.value[1] / selectedDimension.value[0]
         if (width > 672) {
           setArtWidth(672)
           setArtHeight(672 * ratio)
@@ -184,6 +185,38 @@ const SingleNft = () => {
   useEffect(() => {
     if (nftArt !== null && nftArt !== undefined) {
       if (nftArt[0].type.split('/')[0] === 'image') {
+        const image = new Image()
+        image.src = URL.createObjectURL(nftArt[0])
+        image.onload = () => {
+          const { width, height } = image
+          let array = dimensionList
+          array[0].value = [width, height]
+          setDimensionList(array)
+          const ratio = height / width
+
+          let windowWidth = 0
+          switch (viewport) {
+            case '2xl':
+              windowWidth = screenWidth / 2 - 150 - 80 - 32
+              break
+            case 'xl':
+              windowWidth = screenWidth / 2 - 120 - 80 - 32
+              break
+            case 'lg':
+              windowWidth = screenWidth / 2 - 100 - 50 - 32
+              break
+            default:
+              break
+          }
+          if (windowWidth > 672) {
+            setArtWidth(672)
+            setArtHeight(672 * ratio)
+          } else {
+            setArtWidth(windowWidth)
+            setArtHeight(windowWidth * ratio)
+          }
+        }
+
         setNftType(nftArt[0].type.split('/')[0])
         setNftImage(URL.createObjectURL(nftArt[0]))
       } else if (nftArt[0].type === 'image/gif') {
@@ -451,7 +484,7 @@ const SingleNft = () => {
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
                 <div className={styles.topLeftEllipse}>
-                  <Image src={EllipseGreen} alt="" objectFit="cover" />
+                  <NextImage src={EllipseGreen} alt="" objectFit="cover" />
                 </div>
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Preview Art</div>
@@ -483,7 +516,7 @@ const SingleNft = () => {
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 ? (
                           <DimensionMenu
-                            dimensionList={NFTDimensionList}
+                            dimensionList={dimensionList}
                             selectedDimension={selectedDimension}
                             onSelect={item => {
                               setSelectedDimension(item)
@@ -645,7 +678,7 @@ const SingleNft = () => {
                   <div className="w-full mt-4 flex justify-center">
                     <div className="flex justify-between" style={{ width: artWidth }}>
                       <DimensionMenu
-                        dimensionList={NFTDimensionList}
+                        dimensionList={dimensionList}
                         selectedDimension={selectedDimension}
                         onSelect={item => {
                           setSelectedDimension(item)
