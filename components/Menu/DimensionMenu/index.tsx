@@ -28,18 +28,20 @@ const DimensionMenu = props => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <div className={styles.menuArea}>
-            {dimensionList.map((item, index) => (
-              <div
-                key={index}
-                className={styles.menuItem}
-                onClick={() => {
-                  onSelect(item)
-                }}
-              >
-                <div className={selectedDimension.id === item.id ? styles.selectedMenuItem : ''}>{item.label}</div>
-              </div>
-            ))}
+          <div className={styles.menuBlur}>
+            <div className={styles.menuArea}>
+              {dimensionList.map((item, index) => (
+                <div
+                  key={index}
+                  className={styles.menuItem}
+                  onClick={() => {
+                    onSelect(item)
+                  }}
+                >
+                  <div className={selectedDimension.id === item.id ? styles.selectedMenuItem : ''}>{item.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </Transition>
       </Menu>

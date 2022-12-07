@@ -15,14 +15,22 @@
   transition-timing-function: ease-in-out;
 }
 
-.menuArea {
+.menuBlur {
+  min-width: 200px;
+  width: auto;
   position: absolute;
   bottom: 76px;
   left: 0;
-  min-width: 200px;
-  width: auto;
-  padding: 8px;
-  background-color: $background-dark-color;
+  transform-origin: top right;
+  background-color: rgba($background-black-color, 0.4);
+  border-radius: 12px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+}
+
+.menuArea {
+  padding: 15px;
+  background: transparent;
   border-radius: 15px;
   border: 1px solid rgba($text-gray-200-color, 0.1);
 }
