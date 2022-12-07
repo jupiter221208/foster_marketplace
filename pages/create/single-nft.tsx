@@ -76,8 +76,8 @@ const SingleNft = () => {
   // step 1
   const [dimensionList, setDimensionList] = useState(NFTDimensionList)
   const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
-  const [nftArt, setNftArt] = useState<any>()
-  const [nftCover, setNftCover] = useState<any>()
+  const [nftArt, setNftArt] = useState<any>(null)
+  const [nftCover, setNftCover] = useState<any>(null)
   const [nftType, setNftType] = useState('image')
   const [artWidth, setArtWidth] = useState(0)
   const [artHeight, setArtHeight] = useState(0)
@@ -537,6 +537,7 @@ const SingleNft = () => {
                               setNftArt(null)
                               setNftImage('')
                               setNftType('image')
+                              handleFormValidate(1)
                             }}
                             backgroundColor="transparent"
                           />
@@ -691,7 +692,9 @@ const SingleNft = () => {
                         icon={TrashGrayIcon}
                         onClick={() => {
                           setNftArt(null)
+                          setNftImage('')
                           setNftType('image')
+                          handleFormValidate(1)
                         }}
                         backgroundColor="transparent"
                         width="32px"
