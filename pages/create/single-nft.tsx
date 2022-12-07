@@ -15,6 +15,7 @@ import { toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation
 
 import { useMetaplex } from 'hooks/useMetaplex'
 
+import DimensionMenu from 'components/Menu/DimensionMenu'
 import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01SingleNFTSection'
 import Step02SingleNFTSection from 'components/pages/Create/SingleNFT/Step02SingleNFTSection'
 import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03SingleNFTSection'
@@ -34,8 +35,6 @@ import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import CropGrayIcon from 'assets/icons/crop-gray-46x46.svg'
-import CropGreenIcon from 'assets/icons/crop-green-46x46.svg'
-import EditorGrayIcon from 'assets/icons/editor-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 
 // json
@@ -450,21 +449,21 @@ const SingleNft = () => {
                     {nftType === 'image' || nftType === 'image/gif' ? (
                       <div
                         className={`${styles.artArea}`}
-                        style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+                        // style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
                       >
                         {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full object-contain" />
                         ) : (
                           <div
                             className={`${styles.artArea}`}
-                            style={{ width: artWidth + 24, height: artHeight + 24, padding: '!2px' }}
+                            // style={{ width: artWidth + 24, height: artHeight + 24, padding: '!2px' }}
                           />
                         )}
                       </div>
                     ) : (
                       <div
                         className={`${styles.artArea}`}
-                        style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
+                        // style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
                       >
                         {nftType === 'video' ? (
                           <video controls className="w-full" id="video">
@@ -476,7 +475,7 @@ const SingleNft = () => {
                         ) : (
                           <div
                             className={`${styles.artArea}`}
-                            style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                            // style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                           />
                         )}
                       </div>
@@ -485,10 +484,13 @@ const SingleNft = () => {
                     {nftArt !== null && nftArt !== undefined && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 ? (
-                          <IconButton
-                            icon={CropGrayIcon}
-                            onClick={() => setOpenNftImageEditorModal(true)}
-                            backgroundColor="transparent"
+                          <DimensionMenu
+                            dimensionList={NFTDimensionList}
+                            selectedDimension={selectedDimension}
+                            onSelect={item => {
+                              setSelectedDimension(item)
+                              setOpenNftImageEditorModal(true)
+                            }}
                           />
                         ) : (
                           <>&nbsp;</>
@@ -620,21 +622,21 @@ const SingleNft = () => {
                 {nftType === 'image' ? (
                   <div
                     className={`${styles.artArea}`}
-                    style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                    // style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                   >
                     {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
                       <div
                         className={`${styles.artArea}`}
-                        style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                        // style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                       />
                     )}
                   </div>
                 ) : (
                   <div
                     className={`${styles.artArea}`}
-                    style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                    // style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                   >
                     {nftType === 'video' ? (
                       <video controls className="w-full" id="video">
@@ -646,7 +648,7 @@ const SingleNft = () => {
                     ) : (
                       <div
                         className={`${styles.artArea}`}
-                        style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
+                        // style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
                       />
                     )}
                   </div>
