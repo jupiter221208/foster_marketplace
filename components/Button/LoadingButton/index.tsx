@@ -26,7 +26,7 @@ const LoadingButton = props => {
       className={styles.container}
       style={{
         width: fullWidth ? '100%' : width,
-        backgroundImage: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
+        background: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
       }}
     >
       <div className="flex items-center w-[40px]">
