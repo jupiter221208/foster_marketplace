@@ -115,11 +115,9 @@ const OfferAccordion = props => {
             ) : (
               <GradientButton
                 label="Accept"
-                onClick={onAccept(
-                  item.asset.mint.address.toString(),
-                  item.tradeStateAddress,
-                  item.listingTradeStateAddress
-                )}
+                onClick={() =>
+                  onAccept(item.asset.mint.address.toString(), item.tradeStateAddress, item.listingTradeStateAddress)
+                }
                 width="80px"
                 height="42px"
               />
