@@ -23,6 +23,11 @@ class User {
       return response.data
     })
   }
+  getCollectedNFT(collectionId) {
+    return client.get(API_URL + 'v1/users/collected/' + collectionId).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()

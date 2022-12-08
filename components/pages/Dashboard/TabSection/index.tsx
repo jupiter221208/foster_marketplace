@@ -22,6 +22,7 @@ const TabSection = () => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [detailCollection, setDetailCollection] = useState<boolean>(false)
+  const [collectionId, setCollectionId] = useState(null)
 
   useEffect(() => {
     let array: any[] = []
@@ -76,10 +77,15 @@ const TabSection = () => {
                   Return
                 </div>
               </div>
-              <DetailCollectedSection></DetailCollectedSection>
+              <DetailCollectedSection collectionId={collectionId}></DetailCollectedSection>
             </div>
           ) : (
-            <CollectedSection onClickItem={() => setDetailCollection(true)} />
+            <CollectedSection
+              onClickItem={collectionId => {
+                setCollectionId(collectionId)
+                setDetailCollection(true)
+              }}
+            />
           )}
         </div>
       )}

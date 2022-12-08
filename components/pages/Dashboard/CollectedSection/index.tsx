@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 // components
 import DashboardNFTCard from 'components/Card/DashboardNFTCard'
 import Pagination from 'components/Button/Pagination'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // json
 import NFTList from 'assets/json/artist-profile/nft-list.json'
@@ -19,15 +20,19 @@ const CollectedSection = props => {
 
   const [nftList, setNFTList] = useState([])
   const [allNftList, setAllNFTList] = useState([])
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     userAPI.getCollected().then(
       response => {
         if (response !== null && response.length > 0) {
           setAllNFTList(response)
+          setLoading(false)
         }
       },
       error => {
+        setLoading(false)
         console.log(error)
       }
     )
@@ -36,21 +41,23 @@ const CollectedSection = props => {
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
-        {nftList.map((item: any, index) => (
-          <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-            <CollectionCard
-              image={item.cover_image}
-              nftName={item.collection_name}
-              artistName={item.artist_username}
-              mintAddress={item.artist_id}
-              icon={item.artist_profile_picture}
-              key={index}
-              onClick={() => {
-                onClickItem(item.collection_id)
-              }}
-            />
-          </div>
-        ))}
+        {!loading &&
+          nftList.map((item: any, index) => (
+            <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
+              <CollectionCard
+                image={item.cover_image}
+                nftName={item.collection_name}
+                artistName={item.artist_username}
+                mintAddress={item.artist_id}
+                icon={item.artist_profile_picture}
+                key={index}
+                onClick={() => onClickItem(item.collection_id)}
+              />
+            </div>
+          ))}
+        <div className="col-span-12">
+          <LoadingModal open={loading} />
+        </div>
       </div>
       <div className="w-full flex justify-end">
         <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
