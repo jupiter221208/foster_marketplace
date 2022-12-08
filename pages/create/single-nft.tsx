@@ -548,15 +548,21 @@ const SingleNft = () => {
                   <div className={`${styles.title} w-full`}>Preview Art</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     {nftType === 'image' || nftType === 'image/gif' ? (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{
+                          width: artWidth,
+                          height: artWidth,
+                        }}
+                      >
                         {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain" />
                         ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                         )}
                       </div>
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                         {nftType === 'video' && nftArt !== null ? (
                           <video controls className="w-full h-full" id="video">
                             <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -706,15 +712,15 @@ const SingleNft = () => {
 
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 {nftType === 'image' ? (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                     {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                     )}
                   </div>
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
+                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                     {nftType === 'video' && nftArt !== null ? (
                       <video controls className="w-full h-full" id="video">
                         <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -723,7 +729,7 @@ const SingleNft = () => {
                     ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                     )}
                   </div>
                 )}
