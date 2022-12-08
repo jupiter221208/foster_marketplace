@@ -186,7 +186,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     if (nftArt !== null && nftArt !== undefined) {
-      if (nftArt[0].type.split('/')[0] === 'image') {
+      if (nftArt[0].type !== 'image/gif' && nftArt[0].type.split('/')[0] === 'image') {
         const image = new Image()
         image.src = URL.createObjectURL(nftArt[0])
         image.onload = () => {
@@ -539,7 +539,7 @@ const SingleNft = () => {
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
                         {nftType === 'video' ? (
-                          <video controls className="w-full" id="video">
+                          <video controls className="w-full h-full" id="video">
                             <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                             Your browser does not support the video tag.
                           </video>
@@ -553,7 +553,7 @@ const SingleNft = () => {
 
                     {nftArt !== null && nftArt !== undefined && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
-                        {currentStep === 1 ? (
+                        {currentStep === 1 && (nftType === 'image' || (nftType === 'audio' && nftCover !== null)) ? (
                           <DimensionMenu
                             dimensionList={dimensionList}
                             selectedDimension={selectedDimension}
