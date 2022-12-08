@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
+import notification from 'apis/notification'
 
 const NotificationsCard = props => {
   const { data } = props
@@ -66,6 +67,31 @@ const NotificationsCard = props => {
       }
     })
     setList(array)
+  }
+
+  const getViewDietail = notification => {
+    const type = notification.notification_type
+    let detail = ''
+    switch (type) {
+      case 'offer':
+        detail = 'View Offer'
+        break
+      case 'bid':
+      case 'save_nft':
+      case 'save_collection':
+      case 'like':
+      case 'purchase':
+        detail = notification.reference_token_name
+        break
+      case 'winner':
+        detail = 'Finalize Sale'
+        break
+      case 'no_winner':
+        detail = 'Cancel Auction'
+        break
+    }
+
+    return detail
   }
 
   const getNotificationType = notification => {
@@ -145,6 +171,22 @@ const NotificationsCard = props => {
     return rtnValue
   }
 
+  const isShowAvatar = notification => {
+    const type = notification.notification_type
+    let show = false
+    switch (type) {
+      case 'offer':
+      case 'bid':
+      case 'save_nft':
+      case 'save_collection':
+      case 'like':
+      case 'purchase':
+        show = true
+        break
+    }
+    return show
+  }
+
   const getTime = dateString => {
     let date = new Date(dateString)
     return date.getHours() + ':' + date.getMinutes()
@@ -174,7 +216,7 @@ const NotificationsCard = props => {
                       />
                     </div>
                     <div className="block items-start">
-                      <p>
+                      <p className="max-w-[450px]">
                         {fromUser(elem) && (
                           <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
                             {elem.reference_username}{' '}
@@ -190,31 +232,39 @@ const NotificationsCard = props => {
                           </span>
                         )}
                       </p>
-                      {elem.notification_type === 'Offer' && <div className={styles.viewDetails}>View Details</div>}
+                      {elem.notification_type !== 'following' && (
+                        <div className={styles.viewDetails}>{getViewDietail(elem)}</div>
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-end">
-                    {elem.notification_type === 'Follow' ? (
+                    {elem.notification_type === 'follow' ? (
                       <GradientButton
                         label="Follow"
                         direction="rtl"
                         icon={AvatarFollowIcon}
                         onClick={() => handleClickButton(item.id, elem, 'Following')}
                       />
-                    ) : elem.notification_type === 'Following' ? (
+                    ) : elem.notification_type === 'following' ? (
                       <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem, 'Follow')} />
                     ) : (
-                      <div className="min-w-[56px]">
-                        <Image
-                          src={
-                            elem.reference_user_profile_picture !== null ? elem.reference_user_profile_picture : <div />
-                          }
-                          alt=""
-                          width={56}
-                          height={56}
-                          className="rounded-[15px]"
-                        />
-                      </div>
+                      isShowAvatar(elem) && (
+                        <div className="min-w-[56px]">
+                          <Image
+                            src={
+                              elem.reference_user_profile_picture !== null ? (
+                                elem.reference_user_profile_picture
+                              ) : (
+                                <div />
+                              )
+                            }
+                            alt=""
+                            width={56}
+                            height={56}
+                            className="rounded-[15px]"
+                          />
+                        </div>
+                      )
                     )}
                   </div>
                 </div>

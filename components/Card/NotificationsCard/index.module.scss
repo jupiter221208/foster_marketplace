@@ -71,23 +71,23 @@
 
 .username {
   font-family: 'Muli-Bold';
-  font-size: 15px;
-  line-height: 20px;
-  color: $brand-01-color;
+  font-size: 16px;
+  line-height: 22px;
+  color: $text-gray-200-color;
   cursor: pointer;
 }
 
 .description {
   font-family: 'Muli-Regular';
-  font-size: 15px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 22px;
   color: $text-gray-200-color;
 }
 
 .type {
   font-family: 'Muli-Regular';
-  font-size: 15px;
-  line-height: 20px;
+  font-size: 16px;
+  line-height: 22px;
   color: $text-gray-200-color;
 }
 
@@ -101,8 +101,9 @@
 
 .viewDetails {
   font-family: 'Muli-Regular';
-  font-size: 15px;
+  text-decoration: underline;
+  font-size: 16px;
   line-height: 20px;
-  color: $brand-06-color;
+  color: $brand-01-color;
   cursor: pointer;
 }
