@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // components
 import DashboardNFTCard from 'components/Card/DashboardNFTCard'
@@ -10,29 +10,50 @@ import NFTList from 'assets/json/artist-profile/nft-list.json'
 // styles
 import styles from './index.module.scss'
 
+// api
+import userAPI from 'apis/user'
+import CollectionCard from 'components/Card/CollectionCard'
+
 const CollectedSection = props => {
   const { onClickItem } = props
 
   const [nftList, setNFTList] = useState([])
+  const [allNftList, setAllNFTList] = useState([])
+
+  useEffect(() => {
+    userAPI.getCollected().then(
+      response => {
+        if (response !== null && response.length > 0) {
+          setAllNFTList(response)
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
 
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {nftList.map((item: any, index) => (
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-            <DashboardNFTCard
-              image={item.image}
-              nftName={item.nftName}
-              artistName={item.artistName}
-              price={item.price}
-              showCount={false}
-              onClick={onClickItem}
+            <CollectionCard
+              image={item.cover_image}
+              nftName={item.collection_name}
+              artistName={item.artist_username}
+              mintAddress={item.artist_id}
+              icon={item.artist_profile_picture}
+              key={index}
+              onClick={() => {
+                onClickItem(item.collection_id)
+              }}
             />
           </div>
         ))}
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />
+        <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
       </div>
     </section>
   )

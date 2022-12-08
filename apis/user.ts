@@ -18,6 +18,11 @@ class User {
       return response.data
     })
   }
+  getCollected() {
+    return client.get(API_URL + 'v1/users/collected').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()
