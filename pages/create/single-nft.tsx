@@ -549,27 +549,35 @@ const SingleNft = () => {
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     {nftType === 'image' || nftType === 'image/gif' ? (
                       <div
-                        className={`${styles.artArea}`}
+                        className={styles.artArea}
                         style={{
                           width: artWidth,
                           height: artWidth,
                         }}
                       >
+                        <div className="absolute inset-0 flex justify-center items-center">
+                          <img src={nftImage} alt="" className="min-w-full min-h-full object-cover" />
+                        </div>
+                        <div className={styles.blurImage} />
                         {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
-                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain" />
+                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                         ) : (
                           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                         )}
                       </div>
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+                        <div className="absolute inset-0">
+                          <img src={nftImage} alt="" className="min-w-full min-h-full object-cover" />
+                        </div>
+                        <div className={styles.blurImage} />
                         {nftType === 'video' && nftArt !== null ? (
-                          <video controls className="w-full h-full" id="video">
+                          <video controls className="w-full h-full z-10" id="video">
                             <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                             Your browser does not support the video tag.
                           </video>
                         ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
-                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain" />
+                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                         ) : (
                           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
                         )}
