@@ -13,6 +13,7 @@ import Button from 'components/Button'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
@@ -57,11 +58,21 @@ const UpdateNFTModal = props => {
                   <Image src={CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Update NFT</div>
-                <div className="w-full max-w-[321px] mt-10">
-                  <div className={styles.image}>
-                    <img src={data?.image} alt={data?.name} />
-                  </div>
-                </div>
+                {data?.category === 'video' ? (
+                  <div
+                    className="mt-[10px]"
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  <source src=${data?.animation_url} type="video/mp4" /></video>`,
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={data?.image === undefined || data?.image === null ? AudioPlayerBackground.src : data?.image}
+                    alt={data?.name}
+                    className="w-full aspect-[321/321] object-cover mt-[10px]"
+                  />
+                )}
                 <div className={`${styles.nftName} mt-5 w-full`}>{data?.name}</div>
                 <div className="w-full mt-12">
                   <PriceInput

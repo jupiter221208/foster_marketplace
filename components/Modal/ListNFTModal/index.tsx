@@ -136,11 +136,25 @@ const ListNFTModal = props => {
                   <div className={styles.close} onClick={() => onClose('unlisted')}>
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
-                  <div className="w-full mt-[20px]">
-                    <div className={styles.image}>
-                      <img src={data?.offchainMetadata.image} alt={data?.offchainMetadata.name || data?.name} />
-                    </div>
-                  </div>
+                  {data?.offchainMetadata.category === 'video' ? (
+                    <div
+                      className="mt-[20px]"
+                      dangerouslySetInnerHTML={{
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  <source src=${data?.offchainMetadata?.animation_url} type="video/mp4" /></video>`,
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={
+                        data?.offchainMetadata?.image === undefined || data?.offchainMetadata?.image === null
+                          ? AudioPlayerBackground.src
+                          : data?.offchainMetadata?.image
+                      }
+                      alt={data?.offchainMetadata.name || data?.name}
+                      className="w-full aspect-[321/321] object-cover mt-[20px]"
+                    />
+                  )}
                   <div className="mt-5">
                     <div className={styles.title}>NFT has been listed!</div>
                   </div>

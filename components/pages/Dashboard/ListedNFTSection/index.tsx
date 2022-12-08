@@ -67,6 +67,8 @@ const ListedNFTSection = () => {
           mintAddress: nft.asset.address,
           image: nft.asset.json.image,
           name: nft.asset.json.name,
+          category: nft.asset.json.category,
+          animation_url: nft.asset.json.animation_url,
           creator: nft.asset.creators[0].address.toString(),
           url: `/browse-nft?id=${nft.asset.address.toString()}`,
           price: nft.price.basisPoints,
