@@ -184,8 +184,36 @@ const SingleNft = () => {
     }
   }, [viewport, selectedDimension, screenWidth])
 
+  const handleChangeDimension = (item: any) => {
+    setSelectedDimension(item)
+    setOpenNftImageEditorModal(true)
+  }
+
+  const handleChangeNftArt = (item: any) => {
+    setNftImage('')
+    if (item[0].type.split('/')[0] === 'video') {
+      setNftArt(null)
+      setTimeout(() => {
+        setNftArt(item)
+      }, 100)
+    } else {
+      setNftArt(item)
+    }
+  }
+
+  const handleChangeNftCover = (item: any) => {
+    setNftCover(item)
+  }
+
+  const handleDeleteNftArt = () => {
+    setNftArt(null)
+    setNftImage('')
+    setNftType('image')
+    handleFormValidate(1)
+  }
+
   useEffect(() => {
-    if (nftArt !== null && nftArt !== undefined) {
+    if (nftArt !== null) {
       if (nftArt[0].type !== 'image/gif' && nftArt[0].type.split('/')[0] === 'image') {
         const image = new Image()
         image.src = URL.createObjectURL(nftArt[0])
@@ -221,20 +249,19 @@ const SingleNft = () => {
         }
 
         setSelectedDimension(dimensionList[0])
-        setNftType(nftArt[0].type.split('/')[0])
+        setNftType('image')
         setNftImage(URL.createObjectURL(nftArt[0]))
       } else if (nftArt[0].type === 'image/gif') {
-        setNftType(nftArt[0].type)
+        setNftType('image/gif')
         setNftImage(URL.createObjectURL(nftArt[0]))
       } else {
         setNftType(nftArt[0].type.split('/')[0])
       }
-      setDisabledNextButton(false)
     }
   }, [nftArt])
 
   useEffect(() => {
-    if (nftCover !== null && nftCover !== undefined) {
+    if (nftCover !== null) {
       if (nftCover[0].type.split('/')[0] === 'image') {
         const image = new Image()
         image.src = URL.createObjectURL(nftCover[0])
@@ -272,9 +299,12 @@ const SingleNft = () => {
         setSelectedDimension(dimensionList[0])
         setNftImage(URL.createObjectURL(nftCover[0]))
       }
-      setDisabledNextButton(false)
     }
   }, [nftCover])
+
+  useEffect(() => {
+    handleFormValidate(1)
+  }, [nftArt, nftImage, nftType, nftCover])
 
   // step 2
   const [nftName, setNftName] = useState<any>('')
@@ -331,40 +361,6 @@ const SingleNft = () => {
 
   // step 3
   const [royalties, setRoyalties] = useState(0)
-
-  // form validate
-  const handleFormValidate = step => {
-    switch (step) {
-      case 1:
-        if (nftArt !== null && nftArt !== undefined) {
-          if (nftType === 'image' && nftImage !== '') {
-            setDisabledNextButton(false)
-          } else {
-            setDisabledNextButton(true)
-          }
-        } else {
-          setDisabledNextButton(true)
-        }
-        break
-      case 2:
-        let count = 0
-        categoryList.map(item => {
-          if (item.checked === true) count++
-        })
-
-        if (nftName !== '' && description !== '' && count !== 0) {
-          setDisabledNextButton(false)
-        } else {
-          setDisabledNextButton(true)
-        }
-        break
-      case 3:
-        setDisabledNextButton(true)
-        break
-      default:
-        break
-    }
-  }
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -495,19 +491,42 @@ const SingleNft = () => {
     dispatch({ type: 'set', isLoading: false })
   }
 
-  const reset = () => {
-    setCurrentStep(1)
-    setNftArt(null)
-    setNftName('')
-    setDescription('')
-    const categories = categoryList.map(item => {
-      item.checked = false
-      return item
-    })
-    setCategoryList(categories)
-    setShowCategoryList(false)
-    setRoyalties(0)
-    setNFTAddress('')
+  // form validate
+  const handleFormValidate = step => {
+    switch (step) {
+      case 1:
+        if (nftArt !== null) {
+          if (nftType !== 'audio') {
+            setDisabledNextButton(false)
+          } else {
+            if (nftImage !== '') {
+              setDisabledNextButton(false)
+            } else {
+              setDisabledNextButton(true)
+            }
+          }
+        } else {
+          setDisabledNextButton(true)
+        }
+        break
+      case 2:
+        let count = 0
+        categoryList.map(item => {
+          if (item.checked === true) count++
+        })
+
+        if (nftName !== '' && description !== '' && count !== 0) {
+          setDisabledNextButton(false)
+        } else {
+          setDisabledNextButton(true)
+        }
+        break
+      case 3:
+        setDisabledNextButton(true)
+        break
+      default:
+        break
+    }
   }
 
   return (
@@ -538,7 +557,7 @@ const SingleNft = () => {
                       </div>
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                        {nftType === 'video' ? (
+                        {nftType === 'video' && nftArt !== null ? (
                           <video controls className="w-full h-full" id="video">
                             <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                             Your browser does not support the video tag.
@@ -551,16 +570,18 @@ const SingleNft = () => {
                       </div>
                     )}
 
-                    {nftArt !== null && nftArt !== undefined && (
+                    {nftArt !== null && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
-                        {currentStep === 1 && (nftType === 'image' || (nftType === 'audio' && nftCover !== null)) ? (
+                        {currentStep === 1 &&
+                        (nftType === 'image' ||
+                          (nftType === 'audio' &&
+                            nftImage !== '' &&
+                            nftCover !== null &&
+                            nftCover[0].type !== 'image/gif')) ? (
                           <DimensionMenu
                             dimensionList={dimensionList}
                             selectedDimension={selectedDimension}
-                            onSelect={item => {
-                              setSelectedDimension(item)
-                              setOpenNftImageEditorModal(true)
-                            }}
+                            onSelect={item => handleChangeDimension(item)}
                           />
                         ) : (
                           <>&nbsp;</>
@@ -568,12 +589,7 @@ const SingleNft = () => {
                         {currentStep === 1 ? (
                           <IconButton
                             icon={TrashGrayIcon}
-                            onClick={() => {
-                              setNftArt(null)
-                              setNftImage('')
-                              setNftType('image')
-                              handleFormValidate(1)
-                            }}
+                            onClick={() => handleDeleteNftArt()}
                             backgroundColor="transparent"
                           />
                         ) : (
@@ -582,7 +598,7 @@ const SingleNft = () => {
                       </div>
                     )}
 
-                    {nftType === 'audio' && (
+                    {nftType === 'audio' && nftArt !== null && (
                       <div className="w-full my-10">
                         <audio controls className="w-full">
                           <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -618,8 +634,8 @@ const SingleNft = () => {
                     {currentStep === 1 && (
                       <Step01SingleNFTSection
                         nftType={nftType}
-                        setNftArt={item => setNftArt(item)}
-                        setNftCover={item => setNftCover(item)}
+                        setNftArt={item => handleChangeNftArt(item)}
+                        setNftCover={item => handleChangeNftCover(item)}
                       />
                     )}
                     {currentStep === 2 && (
@@ -699,8 +715,8 @@ const SingleNft = () => {
                   </div>
                 ) : (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }}>
-                    {nftType === 'video' ? (
-                      <video controls className="w-full" id="video">
+                    {nftType === 'video' && nftArt !== null ? (
+                      <video controls className="w-full h-full" id="video">
                         <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                         Your browser does not support the video tag.
                       </video>
@@ -712,25 +728,26 @@ const SingleNft = () => {
                   </div>
                 )}
 
-                {nftArt !== null && nftArt !== undefined && (
+                {nftArt !== null && (
                   <div className="w-full mt-4 flex justify-center">
                     <div className="w-full flex justify-between">
-                      <DimensionMenu
-                        dimensionList={dimensionList}
-                        selectedDimension={selectedDimension}
-                        onSelect={item => {
-                          setSelectedDimension(item)
-                          setOpenNftImageEditorModal(true)
-                        }}
-                      />
+                      {currentStep === 1 &&
+                      (nftType === 'image' ||
+                        (nftType === 'audio' &&
+                          nftImage !== '' &&
+                          nftCover !== null &&
+                          nftCover[0].type !== 'image/gif')) ? (
+                        <DimensionMenu
+                          dimensionList={dimensionList}
+                          selectedDimension={selectedDimension}
+                          onSelect={item => handleChangeDimension(item)}
+                        />
+                      ) : (
+                        <>&nbsp;</>
+                      )}
                       <IconButton
                         icon={TrashGrayIcon}
-                        onClick={() => {
-                          setNftArt(null)
-                          setNftImage('')
-                          setNftType('image')
-                          handleFormValidate(1)
-                        }}
+                        onClick={() => handleDeleteNftArt()}
                         backgroundColor="transparent"
                         width="32px"
                         height="32px"
@@ -739,7 +756,7 @@ const SingleNft = () => {
                   </div>
                 )}
 
-                {nftType === 'audio' && (
+                {nftType === 'audio' && nftArt !== null && (
                   <div className="w-full mt-[14px]">
                     <audio controls className="w-full">
                       <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
@@ -752,8 +769,8 @@ const SingleNft = () => {
               {currentStep === 1 && (
                 <Step01SingleNFTSection
                   nftType={nftType}
-                  setNftArt={item => setNftArt(item)}
-                  setNftCover={item => setNftCover(item)}
+                  setNftArt={item => handleChangeNftArt(item)}
+                  setNftCover={item => handleChangeNftCover(item)}
                 />
               )}
 
@@ -860,7 +877,6 @@ const SingleNft = () => {
       {currentStep === 4 && (
         <SuccessMintSingleNFTSection
           nftType={nftType}
-          reset={reset}
           nftArt={nftArt}
           nftImage={nftImage}
           artWidth={artWidth}
