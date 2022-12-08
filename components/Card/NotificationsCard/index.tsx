@@ -69,9 +69,80 @@ const NotificationsCard = props => {
   }
 
   const getNotificationType = notification => {
-    if (notification.notification_type === 'Like') return ' liked '
-    else if (notification.notification_type === 'Follow') return ' started following '
-    else if (notification.notification_type === 'Following') return ' followed '
+    const type = notification.notification_type
+    let message = ''
+    switch (type) {
+      case 'follow':
+        message = 'started following you'
+        break
+      case 'save_nft':
+        message = 'added your art to their favorites'
+        break
+      case 'save_collection':
+        message = 'added your collection to their favorites'
+        break
+      case 'like':
+        message = 'liked your art'
+        break
+      case 'offer':
+        message = 'You received an offer from'
+        break
+      case 'bid':
+        message = 'placed a bid in your auction'
+        break
+      case 'sale':
+        message = 'Your NFT was purchased by'
+        break
+      case 'winner':
+        message = 'is the winner of your auction'
+        break
+      case 'no_winner':
+        message = 'Your auction ended without a winner'
+        break
+      case 'outbid':
+        message = 'You were outbid on an auction'
+        break
+      case 'won':
+        message =
+          'You are the winner of ' +
+          notification.reference_token_name +
+          ', the seller has been notified to finalize the sale'
+        break
+      case 'purchase':
+        message = 'has accepted your offer'
+        break
+    }
+
+    return message
+  }
+
+  const fromUser = notification => {
+    const type = notification.notification_type
+    let rtnValue = false
+    switch (type) {
+      case 'follow':
+      case 'save_nft':
+      case 'save_collection':
+      case 'like':
+      case 'bid':
+      case 'winner':
+      case 'purchase':
+        rtnValue = true
+        break
+    }
+    return rtnValue
+  }
+
+  const fromEndUser = notification => {
+    const type = notification.notification_type
+    let rtnValue = false
+    switch (type) {
+      case 'offer':
+      case 'sale':
+        rtnValue = true
+        break
+    }
+    return rtnValue
   }
 
   const getTime = dateString => {
@@ -104,12 +175,20 @@ const NotificationsCard = props => {
                     </div>
                     <div className="block items-start">
                       <p>
-                        <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
-                          {elem.reference_username}
-                        </span>
+                        {fromUser(elem) && (
+                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
+                            {elem.reference_username}{' '}
+                          </span>
+                        )}
+
                         <span className={styles.type}>{getNotificationType(elem)}</span>
-                        <span className={styles.description}>{elem.reference_token_name}</span>
-                        <span className={styles.hour}>&nbsp;{getTime(elem.created_at)}</span>
+
+                        {fromEndUser(elem) && (
+                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
+                            {' '}
+                            {elem.reference_username}
+                          </span>
+                        )}
                       </p>
                       {elem.notification_type === 'Offer' && <div className={styles.viewDetails}>View Details</div>}
                     </div>

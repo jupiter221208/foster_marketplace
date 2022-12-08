@@ -42,18 +42,26 @@ const Notifications = () => {
 
   function getSortedNotification(notifications) {
     let today = new Date().setHours(0, 0, 0, 0)
-    let yesterday = today - 3600 * 24 * 1000
+    let weekStart = today - 3600 * 24 * 1000
+    let weekEnd = today - 3600 * 168 * 1000
     let sortedByDate = {}
+    let newNotifications = []
     notifications.map(notification => {
-      const createdDate = new Date(notification.created_at).setHours(0, 0, 0, 0)
-      const strCreatedDate = createdDate.toString()
-      if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
-        sortedByDate[strCreatedDate] = []
+      if (notification.acknowledged === false) {
+        newNotifications.push(notification)
+      } else {
+        const createdDate = new Date(notification.created_at).setHours(0, 0, 0, 0)
+        const strCreatedDate = createdDate.toString()
+        if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
+          sortedByDate[strCreatedDate] = []
+        }
+        sortedByDate[strCreatedDate].push(notification)
       }
-      sortedByDate[strCreatedDate].push(notification)
     })
-    let index = 0
     let sortedNotification = []
+    sortedNotification.push({ id: 0, date: 'NEW', data: newNotifications })
+
+    let index = 1
     Object.keys(sortedByDate)
       .sort()
       .reverse()
@@ -61,9 +69,9 @@ const Notifications = () => {
         let createDate = new Date(parseInt(key))
         let strDate = getDateLabel(createDate)
         if (parseInt(key) == today) {
-          strDate = 'Today'
-        } else if (parseInt(key) == yesterday) {
-          strDate = 'Yesterday'
+          strDate = 'TODAY'
+        } else if (parseInt(key) <= weekStart && parseInt(key) >= weekEnd) {
+          strDate = 'THIS WEEK'
         }
         let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
         sortedNotification.push(dayNotifications)
