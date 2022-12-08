@@ -28,8 +28,8 @@ class Listings {
       return response.data
     })
   }
-  acceptOffer(token_id) {
-    return client.post(API_URL + 'v1/nfts/offer/accept/' + token_id).then(response => {
+  acceptOffer(token_id, param) {
+    return client.post(API_URL + 'v1/nfts/offer/accept/' + token_id, param).then(response => {
       return response.data
     })
   }

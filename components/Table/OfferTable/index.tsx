@@ -85,7 +85,9 @@ const OfferTable = props => {
                       onAccept(
                         item.asset.mint.address.toString(),
                         item.tradeStateAddress,
-                        item.listingTradeStateAddress
+                        item.listingTradeStateAddress,
+                        item.buyer,
+                        getPriceValue(item.price.basisPoints.toNumber())
                       )
                     }
                     height="48px"

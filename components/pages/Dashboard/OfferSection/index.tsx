@@ -93,7 +93,7 @@ const OfferSection = () => {
     }
   }
 
-  const onAccept = async (mintAddress, tradeStateAddress, listingTradeStateAddress) => {
+  const onAccept = async (mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) => {
     const result = await acceptOffer(mx, tradeStateAddress, listingTradeStateAddress)
     if (result) {
       getOffers()
@@ -105,9 +105,14 @@ const OfferSection = () => {
           type: 'success',
         },
       ])
-      listingsAPI.acceptOffer(mintAddress).then(response => {
-        console.log(response)
-      }),
+      listingsAPI
+        .acceptOffer(mintAddress, {
+          buyer_wallet_id: buyerAddress,
+          amount: price,
+        })
+        .then(response => {
+          console.log(response)
+        }),
         error => {
           console.log(error)
         }
@@ -131,16 +136,16 @@ const OfferSection = () => {
             <OfferTable
               data={showOfferList}
               onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
-              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress) =>
-                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress)
+              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
+                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price)
               }
             />
           ) : (
             <OfferAccordion
               data={showOfferList}
               onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
-              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress) =>
-                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress)
+              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
+                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price)
               }
             />
           )}
