@@ -236,8 +236,43 @@ const SingleNft = () => {
   useEffect(() => {
     if (nftCover !== null && nftCover !== undefined) {
       if (nftCover[0].type.split('/')[0] === 'image') {
-        setOpenNftImageEditorModal(true)
+        const image = new Image()
+        image.src = URL.createObjectURL(nftCover[0])
+        image.onload = () => {
+          const { width, height } = image
+          let array = dimensionList
+          array[0].value = [width, height]
+          setDimensionList(array)
+          const ratio = height / width
+
+          let windowWidth = 0
+          switch (viewport) {
+            case '2xl':
+              windowWidth = screenWidth / 2 - 150 - 80 - 32
+              break
+            case 'xl':
+              windowWidth = screenWidth / 2 - 120 - 80 - 32
+              break
+            case 'lg':
+              windowWidth = screenWidth / 2 - 100 - 50 - 32
+              break
+            default:
+              windowWidth = screenWidth - 140
+              break
+          }
+          if (windowWidth > 672) {
+            setArtWidth(672)
+            setArtHeight(672 * ratio)
+          } else {
+            setArtWidth(windowWidth)
+            setArtHeight(windowWidth * ratio)
+          }
+        }
+
+        setSelectedDimension(dimensionList[0])
+        setNftImage(URL.createObjectURL(nftCover[0]))
       }
+      setDisabledNextButton(false)
     }
   }, [nftCover])
 
