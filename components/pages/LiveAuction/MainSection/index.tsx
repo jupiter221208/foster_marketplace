@@ -284,7 +284,7 @@ const MainSection = props => {
     setAuctionLoading(true)
     try {
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
-      if(bid) {
+      if (bid) {
         updateSolBalance()
         AuctionAPI.placeBid(mintAddress, {
           mint_address: bid.mintAddress.toBase58(),
@@ -501,13 +501,19 @@ const MainSection = props => {
               <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7 gap-x-[14px] lg:gap-x-[34px]">
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Created by</div>
-                  <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftCreatorAddress}`)}>
+                  <div
+                    className={styles.greenText}
+                    onClick={() => router.push(`/artist-profile?id=${nftCreatorAddress}`)}
+                  >
                     {nftCreatorUsername}
                   </div>
                 </div>
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Fostered by</div>
-                  <div className={styles.greenText} onClick={() => router.push(`/artist-profile/${nftOwnerAddress}`)}>
+                  <div
+                    className={styles.greenText}
+                    onClick={() => router.push(`/artist-profile?id=${nftOwnerAddress}`)}
+                  >
                     {nftOwnerUsername}
                   </div>
                 </div>
