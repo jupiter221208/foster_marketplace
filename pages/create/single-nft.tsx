@@ -472,7 +472,7 @@ const SingleNft = () => {
                   <NextImage src={EllipseGreen} alt="" objectFit="cover" />
                 </div>
                 <div className={styles.leftContainer}>
-                  <div className={`${styles.title} w-full`}>Preview Art</div>
+                  <div className={`${styles.title} w-full`}>Artwork Preview</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                     {nftType === 'image' || nftType === 'image/gif' ? (
                       <div
@@ -643,7 +643,7 @@ const SingleNft = () => {
               <div className="w-full">
                 <Stepper currentStep={currentStep} />
               </div>
-              <div className={`${styles.title} w-full`}>Preview Art</div>
+              {/* <div className={`${styles.title} w-full`}>Artwork Preview</div> */}
 
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 {nftType === 'image' ? (

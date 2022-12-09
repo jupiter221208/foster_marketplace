@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+// next components
+import Image from 'next/image'
+
 // third party components
 import Dropzone from 'react-dropzone'
 
@@ -8,6 +11,9 @@ import Alert from 'components/Alert'
 
 // custom functions
 import { useViewport } from 'utils'
+
+// images and icons
+import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -46,7 +52,7 @@ const Step01SingleNFTSection = props => {
               maxSize={31457280}
             >
               {({ getRootProps, getInputProps }) => (
-                <section className={nftType === 'image' ? styles.dropzone : styles.mediaDropzone}>
+                <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
                     <p className={styles.subTitle}>Upload Here</p>
@@ -59,7 +65,7 @@ const Step01SingleNFTSection = props => {
           </div>
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>Cover *</div>
+              <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
               <div className="mt-5">
                 <Dropzone
                   onDrop={acceptedFiles => {
@@ -70,7 +76,7 @@ const Step01SingleNFTSection = props => {
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={styles.dropzone}>
+                    <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
                         <p className={styles.subTitle}>Upload Here</p>
@@ -86,7 +92,7 @@ const Step01SingleNFTSection = props => {
         </div>
       ) : (
         <div className="w-full">
-          <div className={`${styles.subTitle} mt-20`}>Art *</div>
+          {nftType === 'audio' && <div className={`${styles.subTitle} mt-20`}>Art *</div>}
           <div className="mt-5">
             <Dropzone
               onDrop={acceptedFiles => {
@@ -96,9 +102,10 @@ const Step01SingleNFTSection = props => {
               maxSize={31457280}
             >
               {({ getRootProps, getInputProps }) => (
-                <section className={nftType === 'image' ? styles.dropzone : styles.mediaDropzone}>
+                <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
+                    <Image src={UploadGreenIcon} alt="" />
                     <p className={styles.subTitle}>Upload Here</p>
                     <p className={styles.text}>
                       Supported File Formats
@@ -113,7 +120,7 @@ const Step01SingleNFTSection = props => {
           </div>
           {nftType === 'audio' && (
             <>
-              <div className={`${styles.subTitle} mt-10`}>Cover *</div>
+              <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
               <div className="mt-5">
                 <Dropzone
                   onDrop={acceptedFiles => {
@@ -124,11 +131,16 @@ const Step01SingleNFTSection = props => {
                   maxSize={31457280}
                 >
                   {({ getRootProps, getInputProps }) => (
-                    <section className={styles.dropzone}>
+                    <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
+                        <Image src={UploadGreenIcon} alt="" />
                         <p className={styles.subTitle}>Upload Here</p>
-                        <p className={styles.text}>Supported File Formats .png .jpeg and .gif</p>
+                        <p className={styles.text}>
+                          Supported File Formats
+                          <br />
+                          .png .jpeg and .gif
+                        </p>
                         <p className={styles.greenText}>Max File Size 30mb</p>
                       </div>
                     </section>
