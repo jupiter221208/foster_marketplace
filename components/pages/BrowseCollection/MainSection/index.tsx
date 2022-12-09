@@ -20,7 +20,8 @@ import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 // styles
 import styles from './index.module.scss'
 
-import { getPriceValue } from 'utils/strings'
+// api
+import collectionAPI from 'apis/collections'
 
 const MainSection = props => {
   const { nfts, data } = props
@@ -59,6 +60,13 @@ const MainSection = props => {
     setTotalVolum(totalVolume)
   }, [nfts])
 
+  const likeCollection = collectionId => {
+    collectionAPI.likeCollection(collectionId).then(
+      response => {},
+      error => {}
+    )
+  }
+
   return (
     <div className={styles.container}>
       {data !== undefined && data.banner_image !== undefined ? (
@@ -77,7 +85,7 @@ const MainSection = props => {
                 icon={SaveDarkBlackIcon}
                 direction="rtl"
                 fullWidth
-                onClick={() => {}}
+                onClick={() => likeCollection(data?.collection_id)}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '53px'}
                 borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
               />
