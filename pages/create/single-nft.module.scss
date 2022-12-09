@@ -73,8 +73,8 @@
   padding: 24px;
   text-align: center;
   @media (min-width: 1024px) {
-    padding: 24px;
-    height: 128px;
+    min-height: 128px;
+    height: auto;
   }
   border-radius: 12px;
   border: 2px dashed rgba($text-gray-200-color, 0.6);
