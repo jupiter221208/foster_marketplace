@@ -151,6 +151,7 @@ const NotificationsCard = props => {
     let rtnValue = false
     switch (type) {
       case 'follow':
+      case 'following':
       case 'save_nft':
       case 'save_collection':
       case 'like':
