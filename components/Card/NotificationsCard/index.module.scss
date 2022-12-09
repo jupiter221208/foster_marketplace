@@ -5,7 +5,7 @@
   height: 100%;
   @media (min-width: 1024px) {
     max-height: 512px;
-    padding: 28px 0px 48px 14px;
+    padding: 10px 5px 48px 14px;
     background-color: rgba($text-gray-200-color, 0.075);
   }
   border-radius: 20px;
@@ -16,13 +16,16 @@
   height: 100%;
   @media (min-width: 1024px) {
     height: auto;
-    max-height: 436px;
+    max-height: 490px;
     padding-right: 36px;
   }
   overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 46px;
+
+  @media (min-width: 1024px) {
+    gap: 46px;
+  }
 }
 
 .title {

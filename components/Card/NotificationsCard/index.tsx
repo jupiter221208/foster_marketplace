@@ -20,7 +20,6 @@ import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
-import notification from 'apis/notification'
 
 const NotificationsCard = props => {
   const { data } = props
@@ -41,7 +40,7 @@ const NotificationsCard = props => {
   }
 
   const handleClickButton = (itemID, notification, status) => {
-    if (status === 'Follow') {
+    if (status === 'follow') {
       artistsAPI.followArtist(notification.reference_wallet_id).then(response => {
         if (response && response.followed_wallet_id) {
           updateList(itemID, notification.id, status)
@@ -101,6 +100,9 @@ const NotificationsCard = props => {
     let message = ''
     switch (type) {
       case 'follow':
+        message = 'started following you'
+        break
+      case 'following':
         message = 'started following you'
         break
       case 'save_nft':
@@ -281,10 +283,10 @@ const NotificationsCard = props => {
                         label="Follow"
                         direction="rtl"
                         icon={AvatarFollowIcon}
-                        onClick={() => handleClickButton(item.id, elem, 'Following')}
+                        onClick={() => handleClickButton(item.id, elem, 'following')}
                       />
                     ) : elem.notification_type === 'following' ? (
-                      <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem, 'Follow')} />
+                      <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem, 'follow')} />
                     ) : (
                       isShowAvatar(elem) && (
                         <div className="min-w-[56px]">

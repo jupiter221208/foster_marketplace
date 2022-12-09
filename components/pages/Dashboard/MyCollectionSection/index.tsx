@@ -39,6 +39,15 @@ const MyCollectionSection = () => {
     if (mx) getCollections()
   }, [mx])
 
+  const getCategory = attributes => {
+    if (attributes === null || attributes.length === 0) return []
+
+    let categories = []
+    attributes.forEach(element => {
+      categories.push(element.value)
+    })
+    return categories
+  }
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
@@ -48,7 +57,7 @@ const MyCollectionSection = () => {
               <CollectionCard
                 image={item.offchainMetadata.image}
                 nftName={item.offchainMetadata.name}
-                category={item.offchainMetadata.attributes}
+                category={getCategory(item.offchainMetadata.attributes)}
                 artistName={item.creators[0].address.toString()}
                 mintAddress={item.mintAddress.toString()}
                 onClick={() => {
