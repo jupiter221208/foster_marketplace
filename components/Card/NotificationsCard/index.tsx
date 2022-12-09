@@ -80,6 +80,8 @@ const NotificationsCard = props => {
       case 'save_nft':
       case 'save_collection':
       case 'like':
+      case 'sale':
+      case 'outbid':
       case 'purchase':
         detail = notification.reference_token_name
         break
@@ -195,17 +197,51 @@ const NotificationsCard = props => {
   const gotoUserPage = wallet => {
     router.push(`/artist-profile?id=${wallet}`)
   }
+
+  const gotoDetailPage = notification => {
+    const type = notification.notification_type
+    let detail = ''
+    switch (type) {
+      case 'offer':
+        detail = 'View Offer'
+        break
+      case 'bid':
+      case 'save_nft':
+      case 'save_collection':
+      case 'like':
+      case 'sale':
+      case 'outbid':
+      case 'purchase':
+        router.push(`/browse-nft?id=${notification.reference_token_id}`)
+        break
+      case 'winner':
+        detail = 'Finalize Sale'
+        break
+      case 'no_winner':
+        detail = 'Cancel Auction'
+        break
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         {list.map((item: any, index) => (
-          <div className="w-full" key={index}>
-            <div className={styles.title}>{item.date}</div>
+          <div className="w-full pl-[15px]" key={index}>
+            {item.date === 'NEW' ? (
+              <div className="flex justify-between">
+                <div className={styles.title}>{item.date}</div>
+                <div className={styles.mark}>Mark as read</div>
+              </div>
+            ) : (
+              <div className={styles.title}>{item.date}</div>
+            )}
+
             <div className="mt-[25px] w-full flex flex-wrap gap-7">
               {item.data.map((elem, idx) => (
                 <div className="w-full flex justify-between items-center gap-4" key={idx}>
                   <div className="flex justify-start items-center">
-                    <div className={styles.dot} />
+                    {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
                       <Image
                         src={elem.reference_asset_url !== null ? elem.reference_asset_url : DefaultAvatar}
@@ -233,7 +269,9 @@ const NotificationsCard = props => {
                         )}
                       </p>
                       {elem.notification_type !== 'following' && (
-                        <div className={styles.viewDetails}>{getViewDietail(elem)}</div>
+                        <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
+                          {getViewDietail(elem)}
+                        </div>
                       )}
                     </div>
                   </div>

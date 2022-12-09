@@ -30,6 +30,16 @@
   font-size: 16px;
   line-height: 20px;
   color: rgba($text-gray-200-color, 0.8);
+  margin-top: 20px;
+}
+
+.mark {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: underline;
+  color: rgba($brand-06-color, 1);
+  margin-top: 20px;
 }
 
 .dot {
@@ -41,6 +51,17 @@
   height: 8px;
   border-radius: 100%;
   background: linear-gradient(to bottom, $brand-01-color 0%, #2d625d 100%);
+  margin-right: 14px;
+}
+
+.read {
+  display: none;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
   margin-right: 14px;
 }
 
