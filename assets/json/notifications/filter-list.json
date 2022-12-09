@@ -2,41 +2,31 @@
   {
     "id": 0,
     "name": "Follow",
-    "value": "Follow"
+    "value": "follow"
   },
   {
     "id": 1,
     "name": "Offers",
-    "value": "Offer"
+    "value": "offer"
   },
   {
     "id": 2,
     "name": "Saves",
-    "value": "Save"
+    "value": "save"
   },
   {
     "id": 3,
     "name": "Bids",
-    "value": "Bid"
+    "value": "bid"
   },
   {
     "id": 4,
     "name": "Likes",
-    "value": "Like"
+    "value": "like"
   },
   {
     "id": 5,
-    "name": "Shares",
-    "value": "Share"
-  },
-  {
-    "id": 6,
     "name": "Sales",
-    "value": "Sale"
-  },
-  {
-    "id": 7,
-    "name": "Purchases",
-    "value": "Purchase"
+    "value": "sale"
   }
 ]

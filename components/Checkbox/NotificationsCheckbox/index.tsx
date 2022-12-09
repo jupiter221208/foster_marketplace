@@ -17,7 +17,7 @@ const NotificationsCheckbox = props => {
               checked={item.checked}
               onChange={() => onChange(index)}
             />
-            <label className={styles.checkmark} onClick={() => onChange(index)}>
+            <label className={item.checked ? styles.checkmark : styles.nocheck} onClick={() => onChange(index)}>
               {item.name}
             </label>
           </div>
@@ -25,7 +25,7 @@ const NotificationsCheckbox = props => {
       {direction === 'rtl' &&
         categoryList.map((item, index) => (
           <div key={index} className="col-span-12 lg:col-span-6 flex items-center justify-between">
-            <label className={styles.checkmark} onClick={() => onChange(index)}>
+            <label className={item.checked ? styles.checkmark : styles.nocheck} onClick={() => onChange(index)}>
               {item.name}
             </label>
             <input
