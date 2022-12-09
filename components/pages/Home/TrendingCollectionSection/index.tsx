@@ -12,6 +12,8 @@ import { Autoplay, Lazy, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
+import Marquee from 'react-fast-marquee'
+
 // components
 import OutlineButton from 'components/Button/OutlineButton'
 import Button from 'components/Button'
@@ -106,22 +108,36 @@ const TrendingCollectionSection = props => {
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
         {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3}
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
-            loop
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-          >
-            {trendingList.map((item: any, index) => (
-              <SwiperSlide key={index}>
+          // <Swiper
+          //   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          //   slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3}
+          //   spaceBetween={
+          //     viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+          //   }
+          //   modules={[Autoplay, Lazy, Navigation]}
+          //   className="navigationSwiper"
+          //   loop
+          //   autoplay={{
+          //     delay: 5000,
+          //     disableOnInteraction: false,
+          //   }}
+          // >
+          //   {trendingList.map((item: any, index) => (
+          //     <SwiperSlide key={index}>
+          //       <TrendingCollectionCard
+          //         collectionID={item.collection_id}
+          //         image={item.cover_image}
+          //         collectionName={item.collection_name}
+          //         artistName={item.artist_username}
+          //         nftCount={item.number_in_collections}
+          //         avatar={item.artist_profile_picture}
+          //       />
+          //     </SwiperSlide>
+          //   ))}
+          // </Swiper>
+          <Marquee gradient={false} pauseOnHover={true} speed={100}>
+            <div className="w-full flex gap-5 lg:gap-10 mx-[10px] lg:mx-5">
+              {trendingList.map((item: any, index) => (
                 <TrendingCollectionCard
                   collectionID={item.collection_id}
                   image={item.cover_image}
@@ -129,10 +145,11 @@ const TrendingCollectionSection = props => {
                   artistName={item.artist_username}
                   nftCount={item.number_in_collections}
                   avatar={item.artist_profile_picture}
+                  key={index}
                 />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+              ))}
+            </div>
+          </Marquee>
         )}
       </div>
       <div className="w-full flex lg:hidden justify-center">
