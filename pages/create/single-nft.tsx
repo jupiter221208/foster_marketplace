@@ -80,107 +80,32 @@ const SingleNft = () => {
   const [nftCover, setNftCover] = useState<any>(null)
   const [nftType, setNftType] = useState('image')
   const [artWidth, setArtWidth] = useState(0)
-  const [artHeight, setArtHeight] = useState(0)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
 
   useEffect(() => {
     let width = 0
-    let ratio = 1920 / 1920
     switch (viewport) {
       case '2xl':
-        width = screenWidth / 2 - 150 - 80 - 32
+        width = screenWidth / 2 - 150 - 80 - 32 - 8
         break
       case 'xl':
-        width = screenWidth / 2 - 120 - 80 - 32
+        width = screenWidth / 2 - 120 - 80 - 32 - 8
         break
       case 'lg':
-        width = screenWidth / 2 - 100 - 50 - 32
+        width = screenWidth / 2 - 100 - 50 - 32 - 8
+        break
+      case 'md':
+        width = screenWidth - 200 - 32 - 8
         break
       default:
-        switch (selectedDimension.id) {
-          case 0:
-            width = screenWidth - 140
-            break
-          case 1:
-            width = screenWidth - 60
-            break
-          case 2:
-            width = screenWidth - 80
-            break
-          case 3:
-            width = screenWidth - 140
-            break
-          case 4:
-            width = screenWidth - 180
-            break
-          case 5:
-            width = screenWidth - 225
-            break
-        }
+        width = screenWidth - 32 - 8
         break
     }
-    switch (selectedDimension.id) {
-      case 0:
-        ratio = selectedDimension.value[1] / selectedDimension.value[0]
-        if (width > 672) {
-          setArtWidth(672)
-          setArtHeight(672 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 1:
-        ratio = 1080 / 1920
-        if (width > 636) {
-          setArtWidth(636)
-          setArtHeight(636 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 2:
-        ratio = 1440 / 1920
-        if (width > 636) {
-          setArtWidth(636)
-          setArtHeight(636 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 3:
-        ratio = 1080 / 1080
-        if (width > 672) {
-          setArtWidth(672)
-          setArtHeight(672 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 4:
-        ratio = 1920 / 1440
-        if (width > 487) {
-          setArtWidth(487)
-          setArtHeight(487 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 5:
-        ratio = 1920 / 1080
-        if (width > 366) {
-          setArtWidth(366)
-          setArtHeight(366 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
+    if (width > 672) {
+      setArtWidth(672)
+    } else {
+      setArtWidth(width)
     }
   }, [viewport, selectedDimension, screenWidth])
 
@@ -227,24 +152,25 @@ const SingleNft = () => {
           let windowWidth = 0
           switch (viewport) {
             case '2xl':
-              windowWidth = screenWidth / 2 - 150 - 80 - 32
+              windowWidth = screenWidth / 2 - 150 - 80 - 32 - 8
               break
             case 'xl':
-              windowWidth = screenWidth / 2 - 120 - 80 - 32
+              windowWidth = screenWidth / 2 - 120 - 80 - 32 - 8
               break
             case 'lg':
-              windowWidth = screenWidth / 2 - 100 - 50 - 32
+              windowWidth = screenWidth / 2 - 100 - 50 - 32 - 8
+              break
+            case 'md':
+              windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              windowWidth = screenWidth - 140
+              windowWidth = screenWidth - 32 - 8
               break
           }
           if (windowWidth > 672) {
             setArtWidth(672)
-            setArtHeight(672 * ratio)
           } else {
             setArtWidth(windowWidth)
-            setArtHeight(windowWidth * ratio)
           }
         }
 
@@ -275,24 +201,25 @@ const SingleNft = () => {
           let windowWidth = 0
           switch (viewport) {
             case '2xl':
-              windowWidth = screenWidth / 2 - 150 - 80 - 32
+              windowWidth = screenWidth / 2 - 150 - 80 - 32 - 8
               break
             case 'xl':
-              windowWidth = screenWidth / 2 - 120 - 80 - 32
+              windowWidth = screenWidth / 2 - 120 - 80 - 32 - 8
               break
             case 'lg':
-              windowWidth = screenWidth / 2 - 100 - 50 - 32
+              windowWidth = screenWidth / 2 - 100 - 50 - 32 - 8
+              break
+            case 'md':
+              windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              windowWidth = screenWidth - 140
+              windowWidth = screenWidth - 32 - 8
               break
           }
           if (windowWidth > 672) {
             setArtWidth(672)
-            setArtHeight(672 * ratio)
           } else {
             setArtWidth(windowWidth)
-            setArtHeight(windowWidth * ratio)
           }
         }
 
@@ -559,7 +486,7 @@ const SingleNft = () => {
                           <img src={nftImage} alt="" className="min-w-full min-h-full object-cover" />
                         </div>
                         <div className={styles.blurImage} />
-                        {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                        {nftImage !== '' && artWidth !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                         ) : (
                           <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
@@ -576,10 +503,10 @@ const SingleNft = () => {
                             <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                             Your browser does not support the video tag.
                           </video>
-                        ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                        ) : nftImage !== '' && artWidth !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                         ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artHeight }} />
+                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                         )}
                       </div>
                     )}
@@ -721,7 +648,7 @@ const SingleNft = () => {
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 {nftType === 'image' ? (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
-                    {nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                    {nftImage !== '' && artWidth !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
@@ -734,7 +661,7 @@ const SingleNft = () => {
                         <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                         Your browser does not support the video tag.
                       </video>
-                    ) : nftImage !== '' && artWidth !== 0 && artHeight !== 0 ? (
+                    ) : nftImage !== '' && artWidth !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
@@ -895,7 +822,6 @@ const SingleNft = () => {
           nftImage={nftImage}
           artWidth={artWidth}
           nftAddress={nftAddress}
-          artHeight={artHeight}
         />
       )}
       <NftImageEditorModal
