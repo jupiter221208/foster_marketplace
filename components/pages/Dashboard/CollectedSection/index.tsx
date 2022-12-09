@@ -28,8 +28,8 @@ const CollectedSection = props => {
       response => {
         if (response !== null && response.length > 0) {
           setAllNFTList(response)
-          setLoading(false)
         }
+        setLoading(false)
       },
       error => {
         setLoading(false)

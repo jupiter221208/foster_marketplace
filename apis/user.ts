@@ -28,6 +28,18 @@ class User {
       return response.data
     })
   }
+
+  getFavoriteNFT() {
+    return client.get(API_URL + 'v1/users/favorites/nfts').then(response => {
+      return response.data
+    })
+  }
+
+  getFavoriteCollection() {
+    return client.get(API_URL + 'v1/users/favorites/collections').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()

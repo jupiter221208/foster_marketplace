@@ -12,6 +12,7 @@ import EcosystemCard from 'components/Card/EcosystemCard'
 import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import Pagination from 'components/Button/Pagination'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // json
 import ArtistList from 'assets/json/dashboard/artist-list.json'
@@ -20,8 +21,7 @@ import ArtistList from 'assets/json/dashboard/artist-list.json'
 import styles from './index.module.scss'
 
 // call apis
-import nftsAPI from 'apis/nfts'
-import collectionsAPI from 'apis/collections'
+import userAPI from 'apis/user'
 import FilterButton from 'components/Button/FilterButton'
 
 const FavoriteSection = () => {
@@ -29,24 +29,35 @@ const FavoriteSection = () => {
 
   const dispatch = useDispatch()
 
-  const [artistList, setArtistList] = useState([])
-  const [allArtistList, setAllArtistList] = useState([])
   const [nftList, setNftList] = useState([])
   const [allNftList, setAllNftList] = useState([])
   const [collectionList, setCollectionList] = useState([])
   const [allCollectionList, setAllCollectionList] = useState([])
 
   const [active, setActive] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const handleChangeActive = value => {
-    if (value === 1) return
     setActive(value)
   }
 
   useEffect(() => {
-    collectionsAPI.getFavorites().then(
+    setLoading(true)
+
+    userAPI.getFavoriteNFT().then(
       response => {
         setAllNftList(response)
+        setLoading(false)
+      },
+      error => {
+        console.log(error)
+        setLoading(false)
+      }
+    )
+
+    userAPI.getFavoriteCollection().then(
+      response => {
+        setAllCollectionList(response)
       },
       error => {
         console.log(error)
@@ -76,11 +87,13 @@ const FavoriteSection = () => {
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {active === 0 &&
+          !loading &&
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <NFTCard
                 image={item.asset_url}
                 nftName={item.nft_name}
+                assetType={item.asset_type}
                 artistName={item.artist_username}
                 price={item.list_price}
                 onClick={() => {
@@ -91,6 +104,7 @@ const FavoriteSection = () => {
           ))}
 
         {active === 1 &&
+          !loading &&
           collectionList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
@@ -106,6 +120,9 @@ const FavoriteSection = () => {
               />
             </div>
           ))}
+        <div className="col-span-12">
+          <LoadingModal open={loading} />
+        </div>
       </div>
       <div className="w-full flex justify-end">
         {active === 0 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
