@@ -106,7 +106,7 @@ const TrendingCollectionSection = props => {
           <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
         </div>
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10 pb-[30px]">
         {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
           // <Swiper
           //   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
@@ -135,7 +135,7 @@ const TrendingCollectionSection = props => {
           //     </SwiperSlide>
           //   ))}
           // </Swiper>
-          <Marquee gradient={false} pauseOnHover={true} speed={100}>
+          <Marquee gradient={false} pauseOnHover={true} speed={40}>
             <div className="w-full flex gap-5 lg:gap-10 mx-[10px] lg:mx-5">
               {trendingList.map((item: any, index) => (
                 <TrendingCollectionCard
