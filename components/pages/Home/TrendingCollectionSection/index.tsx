@@ -135,7 +135,23 @@ const TrendingCollectionSection = props => {
           //     </SwiperSlide>
           //   ))}
           // </Swiper>
-          <Marquee gradient={false} pauseOnHover={true} speed={40}>
+          <Marquee
+            gradient={false}
+            pauseOnHover={true}
+            speed={
+              viewport === 'xs'
+                ? 40
+                : viewport === 'sm'
+                ? 50
+                : viewport === 'md'
+                ? 60
+                : viewport === 'lg'
+                ? 70
+                : viewport === 'xl'
+                ? 90
+                : 110
+            }
+          >
             <div className="w-full flex gap-5 lg:gap-10 mx-[10px] lg:mx-5">
               {trendingList.map((item: any, index) => (
                 <TrendingCollectionCard
