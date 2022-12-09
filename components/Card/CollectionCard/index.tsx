@@ -11,7 +11,6 @@ import styles from './index.module.scss'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick } = props
-
   return (
     <div className={styles.container} onClick={() => onClick()}>
       <div className={styles.imageArea}>
@@ -26,7 +25,8 @@ const CollectionCard = props => {
         </div>
         <div className="w-full flex justify-start items-center">
           <div className={styles.artistName}>
-            {artistName.length > 0 ? artistName : getShortAddress(artistAddress)} / {getShortAddress(mintAddress)}
+            {artistName && artistName.length > 0 ? artistName : getShortAddress(artistAddress)} /{' '}
+            {getShortAddress(mintAddress)}
           </div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">

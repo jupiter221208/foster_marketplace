@@ -34,6 +34,7 @@ const MyCollectionSection = () => {
       dispatch({ type: 'set', isLoading: true })
       const collections = await getMyCollections(mx)
       setCollections(collections)
+      console.log(collections)
       dispatch({ type: 'set', isLoading: false })
     }
     if (mx) getCollections()
@@ -58,8 +59,8 @@ const MyCollectionSection = () => {
                 image={item.offchainMetadata.image}
                 nftName={item.offchainMetadata.name}
                 category={getCategory(item.offchainMetadata.attributes)}
-                artistName={item.creators[0].address.toString()}
-                mintAddress={item.mintAddress.toString()}
+                artistAddress={item.creators[0].address.toString()}
+                mintAddress={item.mintAddress.toBase58()}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/browse-collection/${item.mintAddress.toString()}`)
