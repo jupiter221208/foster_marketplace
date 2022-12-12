@@ -43,11 +43,10 @@
 
 .nftInfo {
   display: flex;
-  width: 499px;
+  width: auto;
   height: 98px;
   justify-content: space-between;
   align-items: center;
-  background: rgba($text-gray-800-color, 0.4);
   border-radius: 16px;
   padding: 0px 22px;
   @media (min-width: 1024px) {
@@ -61,6 +60,7 @@
   font-size: 18px;
   @media (min-width: 1024px) {
     font-size: 22px;
+    line-height: 54px;
   }
   color: $brand-01-color;
 }
@@ -72,7 +72,7 @@
   @media (min-width: 1024px) {
     font-size: 14px;
   }
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .categoryList {

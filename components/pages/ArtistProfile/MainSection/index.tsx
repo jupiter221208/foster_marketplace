@@ -80,9 +80,9 @@ const MainSection = prop => {
         />
       </div>
       <div className="w-full">
-        <div className="grid grid-cols-12 items-center mt-[-60px]">
+        <div className="grid grid-cols-12 items-center mt-[-50px] lg:mt-[-80px]">
           {isOwn === false ? (
-            <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
+            <div className="col-span-3 mt-[-20px] lg:mt-[-50px]">
               {follow ? (
                 <OutlineButton
                   label="Following"
@@ -110,7 +110,7 @@ const MainSection = prop => {
             </div>
           ) : (
             <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
-              <div className="gap-[15px] mt-[16px] lg:flex lg:mt-[0px]">
+              <div className="gap-[15px] mt-[16px] lg:flex">
                 <div
                   className="cursor-pointer flex hover:opacity-60"
                   onClick={() => {
@@ -152,8 +152,7 @@ const MainSection = prop => {
               />
             </div>
           </div>
-          <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-80px]">
-            {/* <div className="hidden lg:flex gap-[10px] h-[46px]"> */}
+          <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-60px]">
             <div className="lg:flex flex-nowrap gap-[10px]">
               <div className={`${styles.collectorProfile} hidden lg:flex`}>Artist Profile</div>
               <SwitchButton enabled={collectorEnable} onChange={() => setCollectorEnable(!collectorEnable)} />
@@ -175,33 +174,46 @@ const MainSection = prop => {
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">
-          <div className={`${styles.nftInfo} grid grid-cols-12`}>
+          <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] lg:gap-[35px]`}>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>800</div>
-                <div className={styles.nftInfoValue}>NFTs</div>
+                <div className={styles.nftInfoValue}>
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'NFTS' : 'NFTS CREATED'}
+                </div>
               </div>
             </div>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
-                <div className={styles.nftInfoLabel}>03</div>
-                <div className={styles.nftInfoValue}>Collections</div>
+                <div className={styles.nftInfoLabel}>20</div>
+                <div className={styles.nftInfoValue}>
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'COLLECTIONS' : 'COLLECTIONS'}
+                </div>
               </div>
             </div>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
-                <div className={styles.nftInfoLabel}>1.2k</div>
-                <div className={styles.nftInfoValue}>Collectors</div>
+                <div className={styles.nftInfoLabel}>1000</div>
+                <div className={styles.nftInfoValue}>
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'SUPPORTED' : 'MONTHLY VISITORS'}
+                </div>
               </div>
             </div>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className="flex items-center justify-center">
-                  <Image src={SolanaLogoIcon} alt="" />
+                  <Image
+                    src={SolanaLogoIcon}
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                    alt=""
+                  />
                   <div className={`${styles.nftInfoLabel} ml-[6px]`}>62.3</div>
                 </div>
 
-                <div className={styles.nftInfoValue}>Total Volume</div>
+                <div className={styles.nftInfoValue}>
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'SALES VOLUME' : 'SALES VOLUME'}
+                </div>
               </div>
             </div>
           </div>
