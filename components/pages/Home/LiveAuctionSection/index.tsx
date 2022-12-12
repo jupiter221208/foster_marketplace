@@ -25,10 +25,11 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 // call apis
+import auctionAPI from 'apis/auctions'
 import dashboardAPI from 'apis/dashboard'
 
 const LiveAuctionSection = props => {
-  const { category } = props
+  const { category, artist = '' } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -38,15 +39,27 @@ const LiveAuctionSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getLiveAuctions(category).then(response => {
-      if (response !== null && response !== undefined && response.length !== 0) {
-        setAllLiveAuctionList(response)
-        setLiveAuctionList(response)
-      }
-    }),
-      error => {
-        console.log(error)
-      }
+    if (artist.length > 0) {
+      auctionAPI.getListingsBySeller(category).then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          setAllLiveAuctionList(response)
+          setLiveAuctionList(response)
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    } else {
+      dashboardAPI.getLiveAuctions(category).then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          setAllLiveAuctionList(response)
+          setLiveAuctionList(response)
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    }
   }, [])
 
   const handleChangeActive = value => {

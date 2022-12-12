@@ -90,7 +90,7 @@ const ArtistProfile = () => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <MainSection artistInfo={artistInfo} categoryList={categoryList} isOwn={isOwn} />
-        <NFTSection nfts={nfts} collections={collections} exploreCircus={exploreCircus} />
+        <NFTSection nfts={nfts} collections={collections} exploreCircus={exploreCircus} wallet={artistInfo.wallet_id} />
       </div>
     </div>
   )
