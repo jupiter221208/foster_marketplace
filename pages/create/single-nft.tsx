@@ -99,7 +99,8 @@ const SingleNft = () => {
         width = screenWidth - 200 - 32 - 8
         break
       default:
-        width = screenWidth - 32 - 8
+        // width = screenWidth - 32 - 8
+        width = screenWidth
         break
     }
     if (width > 672) {
@@ -164,7 +165,8 @@ const SingleNft = () => {
               windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              windowWidth = screenWidth - 32 - 8
+              // windowWidth = screenWidth - 32 - 8
+              windowWidth = screenWidth
               break
           }
           if (windowWidth > 672) {
@@ -213,7 +215,8 @@ const SingleNft = () => {
               windowWidth = screenWidth - 200 - 32 - 8
               break
             default:
-              windowWidth = screenWidth - 32 - 8
+              // windowWidth = screenWidth - 32 - 8
+              windowWidth = screenWidth
               break
           }
           if (windowWidth > 672) {
@@ -647,24 +650,36 @@ const SingleNft = () => {
 
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 {nftType === 'image' ? (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+                  <div
+                    className={`${styles.artArea}`}
+                    style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                  >
                     {nftImage !== '' && artWidth !== 0 ? (
-                      <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
+                      <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                      />
                     )}
                   </div>
                 ) : (
-                  <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
+                  <div
+                    className={`${styles.artArea}`}
+                    style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                  >
                     {nftType === 'video' && nftArt !== null ? (
                       <video controls className="w-full h-full" id="video">
                         <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                         Your browser does not support the video tag.
                       </video>
                     ) : nftImage !== '' && artWidth !== 0 ? (
-                      <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
+                      <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
                     ) : (
-                      <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
+                      <div
+                        className={`${styles.artArea}`}
+                        style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                      />
                     )}
                   </div>
                 )}
