@@ -1,0 +1,25 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.active {
+  background: $brand-08-color;
+}
+
+.inactive {
+  background-color: $background-dark-color;
+}
+
+.activeToggle {
+  background: $background-dark-color;
+}
+
+.inactiveToggle {
+  background-color: $brand-08-color;
+}

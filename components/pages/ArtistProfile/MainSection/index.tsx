@@ -8,10 +8,9 @@ import Image from 'next/image'
 import { getShortAddress } from 'utils/wallet.util'
 
 // custom components
+import ReadMoreModal from 'components/Modal/ReadMoreModal'
 import ProfileArtistCard from 'components/Card/ProfileArtistCard'
-import SocialButton from 'components/Button/SocialButton'
 import AddressButton from 'components/Button/AddressButton'
-import CategoryChip from 'components/Chip/CategoryChip'
 import FollowModal from 'components/Modal/FollowModal'
 import GradientButton from 'components/Button/GradientButton'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
@@ -23,32 +22,25 @@ import { useViewport } from 'utils'
 // images and icons
 import Rect1620x480Image from 'assets/icons/rect-1620x480.svg'
 import Rect512x512Image from 'assets/icons/rect-512x512.svg'
-import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
-import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
-import IGWhiteIcon from 'assets/icons/instagram-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import IGHoverIcon from 'assets/icons/instagram-hover.svg'
-import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
-import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
-import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 
 // styles
 import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
+import SwitchButton from 'components/SwitchButton'
 
 const MainSection = prop => {
   const { artistInfo, categoryList, isOwn } = prop
 
-  const router = useRouter()
-
   const viewport = useViewport()
 
   const [showFollowModal, setShowFollowModal] = useState(false)
+  const [showReadMore, setShowReadMore] = useState(false)
   const [type, setType] = useState(0)
   const [follow, setFollow] = useState(false)
+  const [collectorEnable, setCollectorEnable] = useState(false)
 
   useEffect(() => {
     setFollow(artistInfo ? artistInfo.followed : false)
@@ -90,7 +82,7 @@ const MainSection = prop => {
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-60px]">
           {isOwn === false ? (
-            <div className="col-span-3 mt-[-70px]">
+            <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
               {follow ? (
                 <OutlineButton
                   label="Following"
@@ -117,7 +109,7 @@ const MainSection = prop => {
               )}
             </div>
           ) : (
-            <div className="col-span-3 mt-[-70px]">
+            <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
               <div className="gap-[15px] mt-[16px] lg:flex lg:mt-[0px]">
                 <div
                   className="cursor-pointer flex hover:opacity-60"
@@ -159,84 +151,12 @@ const MainSection = prop => {
                 onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
               />
             </div>
-
-            <div className="flex lg:hidden w-full h-8 justify-center mt-[15px] gap-[10px]">
-              {artistInfo.ig_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={IGWhiteIcon}
-                    iconHover={IGHoverIcon}
-                    onClick={() => router.push(artistInfo.ig_url)}
-                  />
-                </div>
-              )}
-              {artistInfo.discord_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={DiscordWhiteIcon}
-                    iconHover={DiscordHoverIcon}
-                    onClick={() => router.push(artistInfo.discord_url)}
-                  />
-                </div>
-              )}
-              {artistInfo.twitter_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={TwitterWhiteIcon}
-                    iconHover={TwitterHoverIcon}
-                    onClick={() => router.push(artistInfo.twitter_url)}
-                  />
-                </div>
-              )}
-              {artistInfo.telegram_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={TelegramWhiteIcon}
-                    iconHover={TelegramHoverIcon}
-                    onClick={() => router.push(artistInfo.telegram_url)}
-                  />
-                </div>
-              )}
-            </div>
           </div>
-          <div className="col-span-3 flex justify-end mt-[-80px]">
-            <div className="hidden lg:flex gap-[10px] h-[46px]">
-              {artistInfo.ig_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={IGWhiteIcon}
-                    iconHover={IGHoverIcon}
-                    onClick={() => router.push(artistInfo.ig_url)}
-                  />
-                </div>
-              )}
-              {artistInfo.discord_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={DiscordWhiteIcon}
-                    iconHover={DiscordHoverIcon}
-                    onClick={() => router.push(artistInfo.discord_url)}
-                  />
-                </div>
-              )}
-              {artistInfo.twitter_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={TwitterWhiteIcon}
-                    iconHover={TwitterHoverIcon}
-                    onClick={() => router.push(artistInfo.twitter_url)}
-                  />
-                </div>
-              )}
-              {artistInfo.telegram_url !== null && (
-                <div>
-                  <SocialButton
-                    icon={TelegramWhiteIcon}
-                    iconHover={TelegramHoverIcon}
-                    onClick={() => router.push(artistInfo.telegram_url)}
-                  />
-                </div>
-              )}
+          <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-80px]">
+            {/* <div className="hidden lg:flex gap-[10px] h-[46px]"> */}
+            <div className="lg:flex flex-nowrap gap-[10px]">
+              <div className={`${styles.collectorProfile} hidden lg:flex`}>Artist Profile</div>
+              <SwitchButton enabled={collectorEnable} onChange={() => setCollectorEnable(!collectorEnable)} />
             </div>
           </div>
         </div>
@@ -245,22 +165,14 @@ const MainSection = prop => {
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'mt-[12px]' : 'mt-[12px]'
           }`}
         >
-          <div className="max-w-[734px]">
-            <div className={styles.description}>{artistInfo.bio}</div>
-          </div>
-        </div>
-        <div className="w-full flex justify-center">
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <></>
-          ) : (
-            <div className="flex justify-center mt-[20px] mb-[10px]">
-              <div className={styles.categoryList}>
-                {categoryList.map((item, index) => (
-                  <div key={index}>{item.length > 0 && <CategoryChip data={{ value: item }} />}</div>
-                ))}
-              </div>
+          <div className="max-w-[678px]">
+            <div className={styles.description}>
+              {artistInfo.bio}&nbsp;
+              <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+                Read more
+              </span>
             </div>
-          )}
+          </div>
         </div>
         <div className="flex justify-center mt-[16px]">
           <div className={`${styles.nftInfo} grid grid-cols-12`}>
@@ -295,12 +207,23 @@ const MainSection = prop => {
           </div>
         </div>
       </div>
+
       {showFollowModal && (
         <FollowModal
           open={showFollowModal}
           close={() => setShowFollowModal(false)}
           type={type}
           wallet={artistInfo.wallet_id}
+        />
+      )}
+
+      {showReadMore && (
+        <ReadMoreModal
+          open={showReadMore}
+          close={() => setShowReadMore(false)}
+          type={type}
+          artistInfo={artistInfo}
+          categoryList={categoryList}
         />
       )}
     </div>

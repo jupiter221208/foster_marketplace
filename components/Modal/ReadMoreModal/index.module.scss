@@ -1,0 +1,76 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  position: relative;
+  max-width: 675px;
+  width: 100%;
+  max-height: calc(100vh - 200px);
+  height: 100%;
+  background-color: rgba($background-light-color, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  background-origin: border-box;
+  border: 1px solid rgba($background-light-color, 0.1);
+  padding: 16px;
+  @media (min-width: 1024px) {
+    padding: 43px 32px 39px 32px;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  @media (min-width: 1024px) {
+    right: 16px;
+  }
+  cursor: pointer;
+  z-index: 20;
+}
+
+.profile {
+  width: 100%;
+  font-size: 20px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+  text-align: start;
+}
+
+.bio {
+  width: 100%;
+  margin-top: 15px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.8);
+  text-align: start;
+}
+
+.category {
+  width: 100%;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+  text-align: start;
+}
+
+.categoryList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 768px;
+  gap: 5px;
+}
