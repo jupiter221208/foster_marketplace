@@ -15,6 +15,7 @@ import FollowModal from 'components/Modal/FollowModal'
 import GradientButton from 'components/Button/GradientButton'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import OutlineButton from 'components/Button/OutlineButton'
+import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -94,6 +95,9 @@ const MainSection = prop => {
         />
       </div>
       <div className="w-full">
+        <div className={styles.topLeftEllipse}>
+          <Image src={EllipseGreen} width={2021} height={2021} alt="" />
+        </div>
         <div className="grid grid-cols-12 items-center mt-[-50px] lg:mt-[-80px]">
           {isOwn === false ? (
             <div className="col-span-3 mt-[-20px] lg:mt-[-50px]">
@@ -210,7 +214,7 @@ const MainSection = prop => {
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
                     ? 'COLLECTIONS'
                     : artistEnable
-                    ? 'COLLECTIONS'
+                    ? 'COLLECTIONS PUBLISHED'
                     : 'UNIQUE COLLECTIONS'}
                 </div>
               </div>
