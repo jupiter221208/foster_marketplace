@@ -141,18 +141,17 @@ const FollowModal = props => {
                               <div className={styles.avatarArea}>
                                 {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
                               </div>
-                              <p className="flex">
-                                <span
-                                  className={styles.username}
-                                  onClick={() => {
-                                    router.push(`/artist-profile?id=${item.wallet_id}`)
-                                    close()
-                                  }}
-                                >
-                                  {item.username}
-                                  <span className={styles.text}>&nbsp;is following you</span>
-                                </span>
-                              </p>
+
+                              <div
+                                className={styles.username}
+                                onClick={() => {
+                                  router.push(`/artist-profile?id=${item.wallet_id}`)
+                                  close()
+                                }}
+                              >
+                                {item.username}
+                                <div className={styles.text}>is following you</div>
+                              </div>
                             </div>
                             <div className="w-24 lg:w-[146px]">
                               {item.following === false ? (
