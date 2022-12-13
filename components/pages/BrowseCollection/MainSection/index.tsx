@@ -22,6 +22,7 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MainSection = props => {
   const { nfts, data } = props
@@ -32,6 +33,13 @@ const MainSection = props => {
   const [owners, setOwners] = useState<any>()
   const [floorPrice, setFloorPrice] = useState<any>()
   const [totalVolume, setTotalVolum] = useState<any>()
+  const [saved, setSaved] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (data) {
+      setSaved(data['saved'])
+    }
+  }, [data])
 
   useEffect(() => {
     setItems(nfts?.length || 0)
@@ -60,13 +68,24 @@ const MainSection = props => {
     setTotalVolum(totalVolume)
   }, [nfts])
 
-  const likeCollection = collectionId => {
-    collectionAPI.likeCollection(collectionId).then(
-      response => {},
+  const saveCollection = collectionId => {
+    collectionAPI.saveCollection(collectionId).then(
+      response => {
+        if (response) setSaved(true)
+      },
       error => {}
     )
   }
 
+  const unsaveCollection = collectionId => {
+    setSaved(false)
+    // collectionAPI.saveCollection(collectionId).then(
+    //   response => {
+    //     if (response) setSaved(true)
+    //   },
+    //   error => {}
+    // )
+  }
   return (
     <div className={styles.container}>
       {data !== undefined && data.banner_image !== undefined ? (
@@ -80,15 +99,25 @@ const MainSection = props => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
             <div className="w-[89px] lg:w-[146px]">
-              <GradientButton
-                label="Save"
-                icon={SaveDarkBlackIcon}
-                direction="rtl"
-                fullWidth
-                onClick={() => likeCollection(data?.collection_id)}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '53px'}
-                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
-              />
+              {saved === true ? (
+                <OutlineButton
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 146}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 53}
+                  label="Saved"
+                  borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 8 : 12}
+                  onClick={() => unsaveCollection(data?.collection_id)}
+                />
+              ) : (
+                <GradientButton
+                  label="Save"
+                  icon={SaveDarkBlackIcon}
+                  direction="rtl"
+                  fullWidth
+                  onClick={() => saveCollection(data?.collection_id)}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '53px'}
+                  borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
+                />
+              )}
             </div>
           </div>
           <div className="col-span-6">
