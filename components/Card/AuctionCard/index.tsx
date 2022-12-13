@@ -114,32 +114,32 @@ const AuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className={styles.whiteText}>Starting Bid</div>
+        <div className={styles.thinGreenText}>Starting Bid</div>
         <div className="flex justify-center gap-1 mt-1">
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
           </div>
-          <div className={styles.greenText}>{reservePrice}</div>
+          <div className={styles.whiteText}>{reservePrice}</div>
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.whiteText}>Current Bid</div>
+        <div className={styles.thinGreenText}>Current Bid</div>
         <div className="flex justify-center gap-1 mt-1">
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
           </div>
-          <div className={styles.greenText}>{currentPrice}</div>
+          <div className={styles.whiteText}>{currentPrice}</div>
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.whiteText}>Time Remaining</div>
+        <div className={styles.thinGreenText}>Time Remaining</div>
         <div className="flex justify-around gap-1">
           <div className="block justify-center">
-            <div className={styles.greenText}>{displayEndTime.days}</div>
+            <div className={styles.whiteText}>{displayEndTime.days}</div>
             <div className={styles.grayText}>&nbsp;Days&nbsp;</div>
           </div>
           <div className="block justify-center">
-            <div className={styles.greenText}>
+            <div className={styles.whiteText}>
               {/* {displayEndTime.hours[0]}
               {displayEndTime.hours[1]} */}
               {displayEndTime.hours}
@@ -147,7 +147,7 @@ const AuctionCard = props => {
             <div className={styles.grayText}>&nbsp;&nbsp;Hours&nbsp;&nbsp;</div>
           </div>
           <div className="block justify-center">
-            <div className={styles.greenText}>
+            <div className={styles.whiteText}>
               {/* {displayEndTime.minutes[0]}
               {displayEndTime.minutes[1]} */}
               {displayEndTime.minutes}
@@ -155,7 +155,7 @@ const AuctionCard = props => {
             <div className={styles.grayText}>Minutes</div>
           </div>
           <div className="block justify-center">
-            <div className={styles.greenText}>
+            <div className={styles.whiteText}>
               {/* {displayEndTime.seconds[0]}
               {displayEndTime.seconds[1]} */}
               {displayEndTime.seconds}
