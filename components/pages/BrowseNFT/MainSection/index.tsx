@@ -397,8 +397,7 @@ const MainSection = props => {
               </div>
             ) : nftType === 'video' ? (
               <div className={styles.audioArea}>
-                <video controls muted style={{ maxWidth: '100%', maxHeight: '100%' }}>
-                  <div>{nftUrl}</div>
+                <video controls muted className="max-w-full max-h-full">
                   <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
                 </video>
               </div>
