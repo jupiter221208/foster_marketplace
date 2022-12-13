@@ -244,8 +244,8 @@ const MainSection = prop => {
                 <div className={styles.nftInfoValue}>
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
                     ? artistEnable
-                      ? 'PURCHASES'
-                      : 'SALES'
+                      ? 'SALES'
+                      : 'PURCHASES'
                     : artistEnable
                     ? 'SALES VOLUME'
                     : 'PURCHASE VOLUME'}
