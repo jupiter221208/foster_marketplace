@@ -141,8 +141,8 @@ const FollowModal = props => {
                               <div className={styles.avatarArea}>
                                 {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
                               </div>
-                              <div className="flex">
-                                <div
+                              <p className="flex">
+                                <span
                                   className={styles.username}
                                   onClick={() => {
                                     router.push(`/artist-profile?id=${item.wallet_id}`)
@@ -150,9 +150,9 @@ const FollowModal = props => {
                                   }}
                                 >
                                   {item.username}
-                                </div>
-                                <div className={styles.text}>&nbsp;is following you</div>
-                              </div>
+                                  <span className={styles.text}>&nbsp;is following you</span>
+                                </span>
+                              </p>
                             </div>
                             <div className="w-24 lg:w-[146px]">
                               {item.following === false ? (

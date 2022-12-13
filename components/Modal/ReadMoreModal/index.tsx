@@ -61,7 +61,7 @@ const ReadMoreModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className="w-full h-full overflow-auto">
-                    <div className="w-full max-h-[calc(100vh_-_200px)] min-h-[calc(100vh_-_200px)] h-full pl-1 pt-1">
+                    <div className="w-full max-h-[calc(100vh_-_200px)] pl-1 pt-1">
                       <div className="w-full mt-[30px]">
                         <div className={styles.profile}>PROFILE</div>
                         <div className={styles.bio}>{artistInfo.bio}</div>
