@@ -65,6 +65,7 @@ const MainSection = prop => {
   }
 
   const getShortDescription = description => {
+    if (description === null || description === undefined) return ''
     if (viewport === 'xs') {
       if (description.length > 100) return description.slice(0, 120) + '...'
     } else if (viewport === 'sm') {
