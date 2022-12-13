@@ -194,7 +194,7 @@ const MainSection = prop => {
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">
-          <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] xs:gap-[12px] lg:gap-[35px]`}>
+          <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] xs:gap-[24px] lg:gap-[35px]`}>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>800</div>
