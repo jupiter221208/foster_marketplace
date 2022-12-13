@@ -64,6 +64,19 @@ const MainSection = prop => {
     })
   }
 
+  const getShortDescription = description => {
+    if (viewport === 'xs') {
+      if (description.length > 100) return description.slice(0, 120) + '...'
+    } else if (viewport === 'sm') {
+      if (description.length > 200) return description.slice(0, 200) + '...'
+    } else if (viewport === 'md') {
+      if (description.length > 200) return description.slice(0, 200) + '...'
+    } else {
+      if (description.length > 200) return description.slice(0, 220) + '...'
+    }
+    return description
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.headerImage}>
@@ -168,7 +181,7 @@ const MainSection = prop => {
         >
           <div className="max-w-[678px]">
             <div className={styles.description}>
-              {artistInfo.bio}&nbsp;
+              {getShortDescription(artistInfo.bio)}&nbsp;
               <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
                 Read more
               </span>
