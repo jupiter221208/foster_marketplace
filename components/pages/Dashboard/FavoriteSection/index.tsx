@@ -108,14 +108,13 @@ const FavoriteSection = () => {
           collectionList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <CollectionCard
-                image={item.asset_url}
-                nftName={item.nft_name}
-                category={item.category}
+                image={item.cover_image}
+                nftName={item.collection_name}
                 artistName={item.artist_username}
-                mintAddress={item.token_id}
+                mintAddress={item.collection_id}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/browse-collection/${item.token_id}`)
+                  router.push(`/browse-collection/${item.collection_id}`)
                 }}
               />
             </div>
