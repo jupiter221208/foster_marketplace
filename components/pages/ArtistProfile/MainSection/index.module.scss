@@ -24,9 +24,10 @@
   width: 100%;
   font-family: 'Muli-Regular';
   font-size: 14px;
-  word-break: break-all;
+  word-break: break-word;
   @media (min-width: 1024px) {
     font-size: 16px;
+    word-break: break-all;
   }
   line-height: 24px;
   color: $text-gray-200-color;

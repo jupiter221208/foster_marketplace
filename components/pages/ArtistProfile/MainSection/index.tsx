@@ -67,7 +67,7 @@ const MainSection = prop => {
   const getShortDescription = description => {
     if (description === null || description === undefined) return ''
     if (viewport === 'xs') {
-      if (description.length > 100) return description.slice(0, 120) + '...'
+      if (description.length > 120) return description.slice(0, 120) + '...'
     } else if (viewport === 'sm') {
       if (description.length > 200) return description.slice(0, 200) + '...'
     } else if (viewport === 'md') {
@@ -181,16 +181,16 @@ const MainSection = prop => {
           }`}
         >
           <div className="max-w-[678px]">
-            <div className={styles.description}>
-              {getShortDescription(artistInfo.bio)}&nbsp;
+            <span className={styles.description}>
+              {getShortDescription(artistInfo.bio) + ' '}
               <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
-                Read more
+                Read&nbsp;more
               </span>
-            </div>
+            </span>
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">
-          <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] lg:gap-[35px]`}>
+          <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] xs:gap-[12px] lg:gap-[35px]`}>
             <div className="col-span-3 flex justify-center items-center">
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>800</div>
@@ -220,7 +220,9 @@ const MainSection = prop => {
                 <div className={styles.nftInfoLabel}>1000</div>
                 <div className={styles.nftInfoValue}>
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                    ? 'SUPPORTED'
+                    ? artistEnable
+                      ? 'VISITORS'
+                      : 'SUPPORTED'
                     : artistEnable
                     ? 'MONTHLY VISITORS'
                     : 'CREATORS SUPPORTED'}
@@ -242,11 +244,11 @@ const MainSection = prop => {
                 <div className={styles.nftInfoValue}>
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
                     ? artistEnable
-                      ? 'TOTAL'
+                      ? 'PURCHASES'
                       : 'SALES'
                     : artistEnable
-                    ? 'PURCHASE VOLUME'
-                    : 'SALES VOLUME'}
+                    ? 'SALES VOLUME'
+                    : 'PURCHASE VOLUME'}
                 </div>
               </div>
             </div>
