@@ -40,7 +40,7 @@ const MainSection = prop => {
   const [showReadMore, setShowReadMore] = useState(false)
   const [type, setType] = useState(0)
   const [follow, setFollow] = useState(false)
-  const [collectorEnable, setCollectorEnable] = useState(false)
+  const [artistEnable, setArtistEnable] = useState(false)
 
   useEffect(() => {
     setFollow(artistInfo ? artistInfo.followed : false)
@@ -154,8 +154,10 @@ const MainSection = prop => {
           </div>
           <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-60px]">
             <div className="lg:flex flex-nowrap gap-[10px]">
-              <div className={`${styles.collectorProfile} hidden lg:flex`}>Artist Profile</div>
-              <SwitchButton enabled={collectorEnable} onChange={() => setCollectorEnable(!collectorEnable)} />
+              <div className={`${styles.collectorProfile} hidden lg:flex`}>
+                {artistEnable ? 'ARTIST PROFILE' : 'COLLECTOR PROFILE'}
+              </div>
+              <SwitchButton enabled={artistEnable} onChange={() => setArtistEnable(!artistEnable)} />
             </div>
           </div>
         </div>
@@ -179,7 +181,11 @@ const MainSection = prop => {
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>800</div>
                 <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'NFTS' : 'NFTS CREATED'}
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                    ? 'NFTS'
+                    : artistEnable
+                    ? 'NFTS CREATED'
+                    : 'NFTS COLLECTED'}
                 </div>
               </div>
             </div>
@@ -187,7 +193,11 @@ const MainSection = prop => {
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>20</div>
                 <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'COLLECTIONS' : 'COLLECTIONS'}
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                    ? 'COLLECTIONS'
+                    : artistEnable
+                    ? 'COLLECTIONS'
+                    : 'UNIQUE COLLECTIONS'}
                 </div>
               </div>
             </div>
@@ -195,7 +205,11 @@ const MainSection = prop => {
               <div className="text-center">
                 <div className={styles.nftInfoLabel}>1000</div>
                 <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'SUPPORTED' : 'MONTHLY VISITORS'}
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                    ? 'SUPPORTED'
+                    : artistEnable
+                    ? 'MONTHLY VISITORS'
+                    : 'CREATORS SUPPORTED'}
                 </div>
               </div>
             </div>
@@ -212,7 +226,11 @@ const MainSection = prop => {
                 </div>
 
                 <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'SALES VOLUME' : 'SALES VOLUME'}
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                    ? 'SALES'
+                    : artistEnable
+                    ? 'PURCHASE VOLUME'
+                    : 'SALES VOLUME'}
                 </div>
               </div>
             </div>

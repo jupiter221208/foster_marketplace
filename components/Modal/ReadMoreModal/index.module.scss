@@ -14,15 +14,15 @@
   position: relative;
   max-width: 675px;
   width: 100%;
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 100px);
   height: 100%;
   background-color: rgba($background-light-color, 0.1);
   border-radius: 20px;
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(30px);
   background-origin: border-box;
   border: 1px solid rgba($background-light-color, 0.1);
-  padding: 16px;
+  padding: 16px 4px 16px 16px;
   @media (min-width: 1024px) {
     padding: 43px 32px 39px 32px;
   }
@@ -30,8 +30,8 @@
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 24px;
+  top: 18px;
+  right: 18px;
   @media (min-width: 1024px) {
     right: 16px;
   }
@@ -70,7 +70,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
   max-width: 768px;
   gap: 5px;
 }
