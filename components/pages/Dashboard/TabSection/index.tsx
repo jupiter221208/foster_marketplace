@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
+// next components
+import { useRouter } from 'next/router'
+
 // components
 import IconTab from 'components/Tab/IconTab'
 import MyNFTSection from 'components/pages/Dashboard/MyNFTSection'
@@ -19,7 +22,19 @@ import styles from './index.module.scss'
 import DetailCollectedSection from '../DetailCollectedSection'
 
 const TabSection = () => {
+  const router = useRouter()
+  const { tab } = router.query
+
   const [activeTab, setActiveTab] = useState<any>(0)
+
+  useEffect(() => {
+    if (tab !== undefined) {
+      setActiveTab(Number(tab))
+    } else {
+      setActiveTab(0)
+    }
+  }, [tab])
+
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [detailCollection, setDetailCollection] = useState<boolean>(false)
   const [collectionId, setCollectionId] = useState(null)

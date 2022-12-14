@@ -68,7 +68,7 @@ const NotificationsCard = props => {
     setList(array)
   }
 
-  const getViewDietail = notification => {
+  const getViewDetail = notification => {
     const type = notification.notification_type
     let detail = ''
     switch (type) {
@@ -203,10 +203,9 @@ const NotificationsCard = props => {
 
   const gotoDetailPage = notification => {
     const type = notification.notification_type
-    let detail = ''
     switch (type) {
       case 'offer':
-        detail = 'View Offer'
+        router.push(`/dashboard?tab=7`)
         break
       case 'bid':
       case 'save_nft':
@@ -218,10 +217,10 @@ const NotificationsCard = props => {
         router.push(`/browse-nft?id=${notification.reference_token_id}`)
         break
       case 'winner':
-        detail = 'Finalize Sale'
+        router.push(`/live-auction?id=${notification.reference_token_id}`)
         break
       case 'no_winner':
-        detail = 'Cancel Auction'
+        router.push(`/live-auction?id=${notification.reference_token_id}`)
         break
     }
   }
@@ -258,7 +257,7 @@ const NotificationsCard = props => {
                       <p className="max-w-[450px]">
                         {fromUser(elem) && (
                           <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
-                            {elem.reference_username}{' '}
+                            {elem.reference_username}&nbsp;
                           </span>
                         )}
 
@@ -266,14 +265,13 @@ const NotificationsCard = props => {
 
                         {fromEndUser(elem) && (
                           <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
-                            {' '}
-                            {elem.reference_username}
+                            &nbsp;{elem.reference_username}
                           </span>
                         )}
                       </p>
                       {elem.notification_type !== 'following' && (
                         <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
-                          {getViewDietail(elem)}
+                          {getViewDetail(elem)}
                         </div>
                       )}
                     </div>
