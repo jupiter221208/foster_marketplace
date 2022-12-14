@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -24,6 +25,7 @@ import artistsAPI from 'apis/artists'
 const NotificationsCard = props => {
   const { data } = props
   const router = useRouter()
+  const dispatch = useDispatch()
   const viewport = useViewport()
 
   const [list, setList] = useState<any[]>([])
@@ -205,6 +207,7 @@ const NotificationsCard = props => {
     const type = notification.notification_type
     switch (type) {
       case 'offer':
+        dispatch({ type: 'set', isLoading: true })
         router.push(`/dashboard?tab=7`)
         break
       case 'bid':
@@ -214,12 +217,15 @@ const NotificationsCard = props => {
       case 'sale':
       case 'outbid':
       case 'purchase':
+        dispatch({ type: 'set', isLoading: true })
         router.push(`/browse-nft?id=${notification.reference_token_id}`)
         break
       case 'winner':
+        dispatch({ type: 'set', isLoading: true })
         router.push(`/live-auction?id=${notification.reference_token_id}`)
         break
       case 'no_winner':
+        dispatch({ type: 'set', isLoading: true })
         router.push(`/live-auction?id=${notification.reference_token_id}`)
         break
     }
