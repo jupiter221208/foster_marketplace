@@ -127,10 +127,17 @@ const Explore = () => {
   const { metaplex: mx } = useMetaplex()
 
   const getExploreNFTData = async (curPage, categoryList) => {
+    let categoryLabel = []
+    categoryList.map(category => {
+      if (category.checked === true) {
+        categoryLabel.push(category.query)
+      }
+    })
+
     dispatch({ type: 'set', isLoading: true })
     setNftList([])
     ExploreAPI.getExploreNFT({
-      categories: categoryList.length === 0 ? null : categoryList,
+      categories: categoryLabel.length === 0 ? null : categoryLabel,
       sort: null,
       page: curPage + 1,
     }).then(
@@ -161,10 +168,17 @@ const Explore = () => {
   }
 
   const getExploreCollectionData = async (curPage, categoryList) => {
+    let categoryLabel = []
+    categoryList.map(category => {
+      if (category.checked === true) {
+        categoryLabel.push(category.query)
+      }
+    })
+
     dispatch({ type: 'set', isLoading: true })
     setCollectionList([])
     ExploreAPI.getExploreCollection({
-      categories: categoryList.length === 0 ? null : categoryList,
+      categories: categoryLabel.length === 0 ? null : categoryLabel,
       sort: null,
       page: curPage + 1,
     }).then(
@@ -210,15 +224,9 @@ const Explore = () => {
   }
 
   const selectCategory = categoryList => {
-    let categoryLabel = []
-    categoryList.map(category => {
-      if (category.checked === true) {
-        categoryLabel.push(category.query)
-      }
-    })
-    setCategoryList(categoryLabel)
-    if (exploreTab === 0) getExploreNFTData(currentPage, categoryLabel)
-    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryLabel)
+    setCategoryList(categoryList)
+    if (exploreTab === 0) getExploreNFTData(currentPage, categoryList)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList)
   }
 
   const setListedNFTs = async () => {
@@ -254,6 +262,14 @@ const Explore = () => {
     )
     setNftList(nfts)
     dispatch({ type: 'set', isLoading: false })
+  }
+
+  const onMobileFilter = async params => {
+    let categoryList = params['category']
+    let newCateList = JSON.parse(JSON.stringify(categoryList))
+    setCategoryList(newCateList)
+    if (exploreTab === 0) getExploreNFTData(currentPage, newCateList)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, newCateList)
   }
 
   return (
@@ -390,8 +406,26 @@ const Explore = () => {
         </div>
       </div>
       <div className="flex lg:hidden w-full">
-        {openMobileFilter && exploreTab === 0 && <MobileNFTFilter onClose={() => setOpenMobileFilter(false)} />}
-        {openMobileFilter && exploreTab === 1 && <MobileCollectionFilter onClose={() => setOpenMobileFilter(false)} />}
+        {openMobileFilter && exploreTab === 0 && (
+          <MobileNFTFilter
+            category={categoryList}
+            onFilter={params => {
+              onMobileFilter(params)
+              setOpenMobileFilter(false)
+            }}
+            onClose={() => setOpenMobileFilter(false)}
+          />
+        )}
+        {openMobileFilter && exploreTab === 1 && (
+          <MobileCollectionFilter
+            category={categoryList}
+            onFilter={params => {
+              onMobileFilter(params)
+              setOpenMobileFilter(false)
+            }}
+            onClose={() => setOpenMobileFilter(false)}
+          />
+        )}
         {openMobileFilter && exploreTab === 2 && <MobileEcosystemFilter onClose={() => setOpenMobileFilter(false)} />}
         {openMobileSort && <MobileSort data={sortData} onClose={() => setOpenMobileSort(false)} />}
       </div>

@@ -27,7 +27,7 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const MobileNFTFilter = props => {
-  const { onClose } = props
+  const { category, onClose, onFilter } = props
 
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
@@ -37,6 +37,10 @@ const MobileNFTFilter = props => {
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
+    if (category.length > 0) {
+      setCategoryList(category)
+      return
+    }
     let array: any[] = []
     CategoryList.map(item => {
       let object: any = item
@@ -219,7 +223,7 @@ const MobileNFTFilter = props => {
           />
         </div>
         <div className="w-[94px]">
-          <GradientButton label="Done" onClick={() => onClose()} color="#202427" fullWidth />
+          <GradientButton label="Done" onClick={() => onFilter({ category: categoryList })} color="#202427" fullWidth />
         </div>
       </div>
     </div>
