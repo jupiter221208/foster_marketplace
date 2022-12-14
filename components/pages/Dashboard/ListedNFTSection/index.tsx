@@ -28,7 +28,9 @@ import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
 import { useWallets } from 'hooks/useWallets'
 
-const ListedNFTSection = () => {
+const ListedNFTSection = props => {
+  const { filter } = props
+
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -44,6 +46,14 @@ const ListedNFTSection = () => {
   const fixedPriceNFTs = useSelector<any>(state => state.fixedPriceNFTs)
   const liveAuctionNFTs = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    if (filter !== undefined) {
+      setActive(Number(filter))
+    } else {
+      setActive(0)
+    }
+  }, [filter])
 
   const handleChangeActive = value => {
     setActive(value)

@@ -23,7 +23,7 @@ import DetailCollectedSection from '../DetailCollectedSection'
 
 const TabSection = () => {
   const router = useRouter()
-  const { tab } = router.query
+  const { tab, filter } = router.query
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
@@ -70,7 +70,7 @@ const TabSection = () => {
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
-          <ListedNFTSection />
+          <ListedNFTSection filter={filter} />
         </div>
       )}
       {activeTab === 2 && (

@@ -222,11 +222,11 @@ const NotificationsCard = props => {
         break
       case 'winner':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/live-auction?id=${notification.reference_token_id}`)
+        router.push(`/dashboard?tab=1&filter=1`)
         break
       case 'no_winner':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/live-auction?id=${notification.reference_token_id}`)
+        router.push(`/dashboard?tab=1&filter=1`)
         break
     }
   }
