@@ -23,7 +23,7 @@ import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import OutlineButton from 'components/Button/OutlineButton'
-import Pagination from 'components/Button/Pagination'
+import ExplorePagination from 'components/Button/ExplorePagination'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
@@ -31,9 +31,6 @@ import TabList from 'assets/json/explore/tab-list.json'
 import NFTSortList from 'assets/json/explore/nft-sort.json'
 import CollectionSortList from 'assets/json/explore/collection-sort.json'
 import EcosystemSortList from 'assets/json/explore/ecosystem-sort.json'
-
-import CollectionExploreList from 'assets/json/explore/collection-explore-list.json'
-import EcosystemExploreList from 'assets/json/explore/ecosystem-explore-list.json'
 
 import AvailabilityList from 'assets/json/explore/availability.json'
 
@@ -49,7 +46,6 @@ import styles from './index.module.scss'
 import { getListedNFTs } from 'utils/auction.util'
 import { getNFTByAddress } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { getPriceValue } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
 
 // custom functions
@@ -57,6 +53,7 @@ import { getShortAddress } from 'utils/strings'
 
 // apis
 import AuctionAPI from 'apis/auctions'
+import ExploreAPI from 'apis/explore'
 
 const Explore = () => {
   const router = useRouter()
@@ -67,9 +64,15 @@ const Explore = () => {
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
   const [nftList, setNftList] = useState<any>([])
+  const [collectionList, setCollectionList] = useState<any>([])
   const [showNftList, setShowNFTList] = useState<any>([])
   const [showCollectionList, setShowCollectionList] = useState<any>([])
   const [showEcosystemList, setShowEcosystemList] = useState<any>([])
+  const [nftCurrentPage, setNftCurrentPage] = useState(0)
+  const [collectionCurrentPage, setCollectionCurrentPage] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
+  const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
     let array: any[] = []
@@ -100,16 +103,14 @@ const Explore = () => {
       case 0:
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
-        if (selectedAvailability.value === 'Live Auction') {
-          setAuctionsNFTs()
-        } else {
-          setListedNFTs()
-        }
+        setCurrentPage(nftCurrentPage)
+        getExploreNFT(nftCurrentPage)
         break
       case 1:
         setSortData(CollectionSortList)
         setSelectedSort(CollectionSortList[0])
-        // setNftList(CollectionExploreList)
+        setCurrentPage(collectionCurrentPage)
+        getExploreCollection(collectionCurrentPage)
         break
       case 2:
         setSortData(EcosystemSortList)
@@ -125,6 +126,82 @@ const Explore = () => {
   const [openMobileSort, setOpenMobileSort] = useState(false)
 
   const { metaplex: mx } = useMetaplex()
+
+  const getExploreNFT = async curPage => {
+    dispatch({ type: 'set', isLoading: true })
+    setNftList([])
+    ExploreAPI.getExploreNFT({ categories: null, sort: null, page: curPage + 1 }).then(
+      respone => {
+        dispatch({ type: 'set', isLoading: false })
+        const nfts = respone.map(nft => {
+          return {
+            image: nft.asset_url,
+            name: nft.nft_name,
+            creator: nft.artist_username,
+            url: `/browse-nft?id=${nft.token_id}`,
+            price: nft.list_price,
+          }
+        })
+        setCurrentPage(curPage)
+        setNftCurrentPage(curPage)
+        setTotalCount(rowCount * curPage + nfts.length)
+        setNftList(nfts)
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      },
+      error => {
+        dispatch({ type: 'set', isLoading: false })
+      }
+    )
+  }
+
+  const getExploreCollection = async curPage => {
+    dispatch({ type: 'set', isLoading: true })
+    setCollectionList([])
+    ExploreAPI.getExploreCollection({ categories: null, sort: null, page: curPage + 1 }).then(
+      respone => {
+        dispatch({ type: 'set', isLoading: false })
+        const collections = respone.map(nft => {
+          return {
+            collectionId: nft.collection_id,
+            image: nft.cover_image,
+            collectionName: nft.collection_name,
+            artistName: nft.artist_username,
+            url: `/browse-collection?id=${nft.collection_id}`,
+            mintAddress: nft.artist_id,
+          }
+        })
+        setCurrentPage(curPage)
+        setCollectionCurrentPage(curPage)
+        setTotalCount(rowCount * curPage + collections.length)
+        setCollectionList(collections)
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      },
+      error => {
+        dispatch({ type: 'set', isLoading: false })
+      }
+    )
+  }
+
+  const handleNextPage = () => {
+    if (totalCount < (currentPage + 1) * rowCount) return
+
+    const nextPage = currentPage + 1
+    if (exploreTab === 0) getExploreNFT(nextPage)
+    else if (exploreTab === 1) getExploreCollection(nextPage)
+  }
+
+  const handlePreviousPage = () => {
+    if (currentPage === 0) return
+    const prevPage = currentPage - 1
+    if (exploreTab === 0) getExploreNFT(prevPage)
+    else if (exploreTab === 1) getExploreCollection(prevPage)
+  }
 
   const setListedNFTs = async () => {
     dispatch({ type: 'set', isLoading: true })
@@ -235,18 +312,18 @@ const Explore = () => {
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8 z-10">
-                  {showNftList.length !== 0 &&
-                    showNftList?.map((item, index) => (
+                  {nftList.length !== 0 &&
+                    nftList?.map((item, index) => (
                       <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                         <NFTCard
                           image={item.image}
                           nftName={item.name}
-                          artistName={getShortAddress(item.creator)}
+                          artistName={item.creator}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })
                             router.push(item.url)
                           }}
-                          price={getPriceValue(item.price)}
+                          price={item.price}
                         />
                       </div>
                     ))}
@@ -254,19 +331,18 @@ const Explore = () => {
               )}
               {exploreTab === 1 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {showCollectionList.length !== 0 &&
-                    showCollectionList.map((item, index) => (
+                  {collectionList.length !== 0 &&
+                    collectionList.map((item, index) => (
                       <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
                         <CollectionCard
                           image={item.image}
-                          nftName={item.nftName}
-                          category={item.category.split(',')}
+                          nftName={item.collectionName}
                           artistName={item.artistName}
                           mintAddress={item.mintAddress}
                           price={item.price}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })
-                            router.push(`/browse-collection/${item.mintAddress}`)
+                            router.push(`/browse-collection/${item.collectionId}`)
                           }}
                         />
                       </div>
@@ -283,13 +359,11 @@ const Explore = () => {
                 </div>
               )}
               <div className="w-full flex justify-end">
-                <Pagination
-                  data={exploreTab === 0 ? nftList : exploreTab === 1 ? CollectionExploreList : []}
-                  getCurrentData={data => {
-                    if (exploreTab === 0) setShowNFTList(data)
-                    else if (exploreTab === 1) setShowCollectionList(data)
-                    else setShowEcosystemList(data)
-                  }}
+                <ExplorePagination
+                  currentPage={currentPage}
+                  totalCount={totalCount}
+                  handleNext={handleNextPage}
+                  handlePrev={handlePreviousPage}
                 />
               </div>
             </div>

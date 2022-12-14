@@ -23,6 +23,7 @@ export const getPercentValue = value => {
 }
 
 export const getPriceValue = price => {
+  console.log(price)
   if (typeof price === 'number') return (price * 0.000000001).toFixed(2)
   return (price.toNumber() * 0.000000001).toFixed(2)
 }

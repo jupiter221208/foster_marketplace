@@ -124,6 +124,11 @@ class Nfts {
       return response.data
     })
   }
+  getExploreNFT(data) {
+    return client.post(API_URL + 'v1/explore/nfts', data).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Nfts()

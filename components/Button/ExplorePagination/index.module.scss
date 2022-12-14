@@ -1,0 +1,22 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  margin-top: 84px;
+  margin-bottom: 120px;
+
+  font-family: 'Muli-Regular';
+  gap: 10px;
+  font-size: 13px;
+  line-height: 20px;
+
+  @media (min-width: 1024px) {
+    gap: 20px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+}
