@@ -18,7 +18,7 @@ import styles from './index.module.scss'
 import RoyaltyRange from 'components/Range/RoyaltyRange'
 
 const NFTFilter = props => {
-  const { selectedAvailability, setSelectedAvailability } = props
+  const { selectedAvailability, setSelectedAvailability, selectCategory } = props
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
   const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
@@ -39,6 +39,7 @@ const NFTFilter = props => {
     let array = [...categoryList]
     array[index].checked = !array[index].checked
     setCategoryList(array)
+    selectCategory(array)
   }
 
   return (

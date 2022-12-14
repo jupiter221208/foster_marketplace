@@ -12,6 +12,8 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const CollectionFilter = props => {
+  const { selectCategory } = props
+
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
@@ -29,6 +31,7 @@ const CollectionFilter = props => {
     let array = [...categoryList]
     array[index].checked = !array[index].checked
     setCategoryList(array)
+    selectCategory(array)
   }
 
   return (

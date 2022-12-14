@@ -65,9 +65,8 @@ const Explore = () => {
   const [tabList, setTabList] = useState<any>(TabList)
   const [nftList, setNftList] = useState<any>([])
   const [collectionList, setCollectionList] = useState<any>([])
-  const [showNftList, setShowNFTList] = useState<any>([])
-  const [showCollectionList, setShowCollectionList] = useState<any>([])
-  const [showEcosystemList, setShowEcosystemList] = useState<any>([])
+  const [ecosystemList, setEcosystemList] = useState<any>([])
+  const [categoryList, setCategoryList] = useState<any>([])
   const [nftCurrentPage, setNftCurrentPage] = useState(0)
   const [collectionCurrentPage, setCollectionCurrentPage] = useState(0)
   const [currentPage, setCurrentPage] = useState(0)
@@ -89,13 +88,11 @@ const Explore = () => {
   }, [exploreTab])
 
   const handleSelectedTab = item => {
-    if (item.id === 2) item.id = 0
     dispatch({ type: 'set', exploreTab: item.id })
   }
 
   const [sortData, setSortData] = useState(NFTSortList)
   const [selectedSort, setSelectedSort] = useState(NFTSortList[0])
-
   const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
 
   useEffect(() => {
@@ -104,18 +101,20 @@ const Explore = () => {
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
         setCurrentPage(nftCurrentPage)
-        getExploreNFT(nftCurrentPage)
+        setCategoryList([])
+        getExploreNFTData(nftCurrentPage, [])
         break
       case 1:
         setSortData(CollectionSortList)
         setSelectedSort(CollectionSortList[0])
         setCurrentPage(collectionCurrentPage)
-        getExploreCollection(collectionCurrentPage)
+        setCategoryList([])
+        getExploreCollectionData(collectionCurrentPage, [])
         break
       case 2:
         setSortData(EcosystemSortList)
         setSelectedSort(EcosystemSortList[0])
-        // setNftList(EcosystemExploreList)
+        setEcosystemList([])
         break
       default:
         break
@@ -127,10 +126,14 @@ const Explore = () => {
 
   const { metaplex: mx } = useMetaplex()
 
-  const getExploreNFT = async curPage => {
+  const getExploreNFTData = async (curPage, categoryList) => {
     dispatch({ type: 'set', isLoading: true })
     setNftList([])
-    ExploreAPI.getExploreNFT({ categories: null, sort: null, page: curPage + 1 }).then(
+    ExploreAPI.getExploreNFT({
+      categories: categoryList.length === 0 ? null : categoryList,
+      sort: null,
+      page: curPage + 1,
+    }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
         const nfts = respone.map(nft => {
@@ -157,10 +160,14 @@ const Explore = () => {
     )
   }
 
-  const getExploreCollection = async curPage => {
+  const getExploreCollectionData = async (curPage, categoryList) => {
     dispatch({ type: 'set', isLoading: true })
     setCollectionList([])
-    ExploreAPI.getExploreCollection({ categories: null, sort: null, page: curPage + 1 }).then(
+    ExploreAPI.getExploreCollection({
+      categories: categoryList.length === 0 ? null : categoryList,
+      sort: null,
+      page: curPage + 1,
+    }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
         const collections = respone.map(nft => {
@@ -190,17 +197,28 @@ const Explore = () => {
 
   const handleNextPage = () => {
     if (totalCount < (currentPage + 1) * rowCount) return
-
     const nextPage = currentPage + 1
-    if (exploreTab === 0) getExploreNFT(nextPage)
-    else if (exploreTab === 1) getExploreCollection(nextPage)
+    if (exploreTab === 0) getExploreNFTData(nextPage, categoryList)
+    else if (exploreTab === 1) getExploreCollectionData(nextPage, categoryList)
   }
 
   const handlePreviousPage = () => {
     if (currentPage === 0) return
     const prevPage = currentPage - 1
-    if (exploreTab === 0) getExploreNFT(prevPage)
-    else if (exploreTab === 1) getExploreCollection(prevPage)
+    if (exploreTab === 0) getExploreNFTData(prevPage, categoryList)
+    else if (exploreTab === 1) getExploreCollectionData(prevPage, categoryList)
+  }
+
+  const selectCategory = categoryList => {
+    let categoryLabel = []
+    categoryList.map(category => {
+      if (category.checked === true) {
+        categoryLabel.push(category.query)
+      }
+    })
+    setCategoryList(categoryLabel)
+    if (exploreTab === 0) getExploreNFTData(currentPage, categoryLabel)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryLabel)
   }
 
   const setListedNFTs = async () => {
@@ -257,9 +275,10 @@ const Explore = () => {
               <NFTFilter
                 selectedAvailability={selectedAvailability}
                 setSelectedAvailability={setSelectedAvailability}
+                selectCategory={selectCategory}
               />
             )}
-            {exploreTab === 1 && <CollectionFilter />}
+            {exploreTab === 1 && <CollectionFilter selectCategory={selectCategory} />}
             {exploreTab === 2 && <EcosystemFilter />}
           </div>
           {/* content part */}
@@ -351,7 +370,7 @@ const Explore = () => {
               )}
               {exploreTab === 2 && (
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
-                  {showEcosystemList.map((item, index) => (
+                  {ecosystemList.map((item, index) => (
                     <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
                       {item.avatar && <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />}
                     </div>
