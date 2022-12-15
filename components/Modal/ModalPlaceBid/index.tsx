@@ -23,7 +23,7 @@ const ModalPlaceBid = props => {
   const { balance, nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [lowerPriceCheck, setLowerPriceCheck] = useState(false)
+  const [priceCheckMode, setPriceCheckMode] = useState(0)
   const [balancePriceCheck, setBalancePriceCheck] = useState(false)
 
   const closeModal = () => {
@@ -48,17 +48,20 @@ const ModalPlaceBid = props => {
   }, [])
 
   useEffect(() => {
-    if (price < reservePrice || price <= currentPrice) {
-      setLowerPriceCheck(true)
+    if (price == 0) {
+      setPriceCheckMode(3)
       return
-    } else {
-      setLowerPriceCheck(false)
     }
-    if (price > balance) {
-      setBalancePriceCheck(true)
+    if (price < reservePrice || price <= currentPrice) {
+      setPriceCheckMode(1)
       return
     } else {
-      setBalancePriceCheck(false)
+      if (price > balance) {
+        setPriceCheckMode(2)
+        return
+      } else {
+        setPriceCheckMode(0)
+      }
     }
   }, [price])
 
@@ -107,36 +110,37 @@ const ModalPlaceBid = props => {
                     onChange={value => setPrice(value)}
                   />
                 </div>
-                {price > 0 && (
-                  <div className="w-full flex justify-center mt-1">
-                    {lowerPriceCheck ? (
-                      <div className={styles.errorText}>
-                        The bid amount you entered is lower than the starting bid or current bid.
-                      </div>
-                    ) : balancePriceCheck ? (
-                      <div className={styles.errorText}>
-                        Insufficient available balance in bidding wallet and main wallet.
-                        <br />
-                        Please fund your wallet and try again .
-                      </div>
-                    ) : null}
-                  </div>
-                )}
                 <div className="w-full mt-[30px]">
                   {loading ? (
                     <LoadingButton fullWidth />
                   ) : (
                     <GradientButton
-                      disabled={price <= 0 || lowerPriceCheck || balancePriceCheck}
+                      disabled={priceCheckMode > 0}
                       label="Place Bid"
                       fullWidth
                       onClick={onClickPlaceBid}
                     />
                   )}
                 </div>
-                <div className="w-full flex justify-center mt-10">
-                  <div className={styles.text}>By selecting “Place bid” you agree to Terms of Services.</div>
-                </div>
+                {price > 0 && (
+                  <div className="w-full flex justify-center mt-10">
+                    <div className={styles.text}>
+                      {priceCheckMode === 3 ? (
+                        <></>
+                      ) : priceCheckMode === 1 ? (
+                        <div className={styles.errorText}>
+                          The bid amount you entered is lower than the starting bid or current bid.
+                        </div>
+                      ) : priceCheckMode === 2 ? (
+                        <div className={styles.errorText}>
+                          Insufficient available balance in bidding wallet and main wallet.
+                          <br />
+                          Please fund your wallet and try again .
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
               </Dialog.Panel>
             </Transition.Child>
           </div>
