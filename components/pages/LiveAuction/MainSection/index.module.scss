@@ -37,6 +37,51 @@
   z-index: 10;
 }
 
+.auctionContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  border-radius: 12px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0px 3px 6px rgba($brand-01-color, 0.23);
+}
+
+.auctionBG {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, $background-black-color, $background-dark-color);
+  overflow: hidden;
+}
+
+.auctionBGIcon {
+  align-items: center;
+}
+
+.placeBidBG {
+  width: auto;
+  background: linear-gradient(to bottom, $background-black-color, $brand-10-color);
+  margin: 14px 18px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeBidBtn {
+  font-family: 'KCDurhamBoxcar';
+  font-size: 35px;
+  color: #9cedd6;
+  margin: 5px 9px;
+}
+
 .imageArea {
   margin: 11px;
   border-radius: 12px;

@@ -59,6 +59,8 @@ import ShareBlankIcon from 'assets/icons/share-blank.svg'
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import AuctionBGIcon from 'assets/icons/auction-bg-icon.svg'
+import PlaceBidIcon from 'assets/icons/place-bid-icon.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -539,7 +541,28 @@ const MainSection = props => {
                   </div>
                 )}
               </div>
-              <div className="w-full flex content-none mt-6 lg:mt-7">
+              <div className="w-full h-[193px] relative">
+                <div className={styles.auctionBG}>
+                  <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} />
+                </div>
+                <div className={styles.auctionContainer}>
+                  <AuctionCard
+                    currentPrice={nftCurrentPrice}
+                    reservePrice={nftReservePrice}
+                    endTime={endTime}
+                    startTime={startTime}
+                    setIsEnded={setIsEnded}
+                    setIsStarted={setIsStarted}
+                  />
+                  <div className={styles.placeBidBG}>
+                    <div className="flex">
+                      <div className={styles.placeBidBtn}>Place Bid</div>
+                      <Image src={PlaceBidIcon} alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="w-full flex content-none mt-6 lg:mt-7">
                 <AuctionCard
                   currentPrice={nftCurrentPrice}
                   reservePrice={nftReservePrice}
@@ -548,7 +571,7 @@ const MainSection = props => {
                   setIsEnded={setIsEnded}
                   setIsStarted={setIsStarted}
                 />
-              </div>
+              </div> */}
               <div className="mx-auto w-full mt-4">
                 <Disclosure>
                   {({ open }) => (

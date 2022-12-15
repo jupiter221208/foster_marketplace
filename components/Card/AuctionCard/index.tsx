@@ -66,56 +66,11 @@ const AuctionCard = props => {
     }
   }, [startTime, endTime])
 
-  // useEffect(() => {
-  //   let count = 0
-  //   const auctionEndTime = new Date(endTime)
-  //   if (auctionEndTime !== (0 as unknown as Date) && now !== 0) {
-  //     setInterval(() => {
-  //       let obj: any = {}
-  //       let delta = Math.abs(auctionEndTime.getTime() - now - count * 1000) / 1000
-  //       let days = Math.floor(delta / 86400)
-  //       obj.days = days
-  //       delta -= days * 86400
-  //       let hours = Math.floor(delta / 3600) % 24
-  //       obj.hours = hours
-  //       delta -= hours * 3600
-  //       let minutes = Math.floor(delta / 60) % 60
-  //       obj.minutes = minutes
-  //       delta -= minutes * 60
-  //       let seconds = Math.floor(delta % 60)
-  //       obj.seconds = seconds
-  //       let temp: any = {}
-  //       if (obj.days > 9) {
-  //         temp.days = obj.days.toString()
-  //       } else {
-  //         temp.days = '0' + obj.days.toString()
-  //       }
-  //       if (obj.hours > 9) {
-  //         temp.hours = obj.hours.toString()
-  //       } else {
-  //         temp.hours = '0' + obj.hours.toString()
-  //       }
-  //       if (obj.minutes > 9) {
-  //         temp.minutes = obj.minutes.toString()
-  //       } else {
-  //         temp.minutes = '0' + obj.minutes.toString()
-  //       }
-  //       if (obj.seconds > 9) {
-  //         temp.seconds = obj.seconds.toString()
-  //       } else {
-  //         temp.seconds = '0' + obj.seconds.toString()
-  //       }
-  //       setDisplayEndTime(temp)
-  //       count++
-  //     }, 1000)
-  //   }
-  // }, [now])
-
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>Starting Bid</div>
-        <div className="flex justify-center gap-1 mt-1">
+        <div className={styles.thinGreenText}>STARTING BID</div>
+        <div className="flex justify-center gap-1 mt-2">
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
           </div>
@@ -123,8 +78,8 @@ const AuctionCard = props => {
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>Current Bid</div>
-        <div className="flex justify-center gap-1 mt-1">
+        <div className={styles.thinGreenText}>CURRENT BID</div>
+        <div className="flex justify-center gap-1 mt-2">
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
           </div>
@@ -132,34 +87,22 @@ const AuctionCard = props => {
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>Time Remaining</div>
-        <div className="flex justify-around gap-1">
+        <div className={styles.thinGreenText}>TIME REMAINING</div>
+        <div className="flex justify-around gap-1 mt-1">
           <div className="block justify-center">
             <div className={styles.whiteText}>{displayEndTime.days}</div>
             <div className={styles.grayText}>&nbsp;Days&nbsp;</div>
           </div>
           <div className="block justify-center">
-            <div className={styles.whiteText}>
-              {/* {displayEndTime.hours[0]}
-              {displayEndTime.hours[1]} */}
-              {displayEndTime.hours}
-            </div>
+            <div className={styles.whiteText}>{displayEndTime.hours}</div>
             <div className={styles.grayText}>&nbsp;&nbsp;Hours&nbsp;&nbsp;</div>
           </div>
           <div className="block justify-center">
-            <div className={styles.whiteText}>
-              {/* {displayEndTime.minutes[0]}
-              {displayEndTime.minutes[1]} */}
-              {displayEndTime.minutes}
-            </div>
+            <div className={styles.whiteText}>{displayEndTime.minutes}</div>
             <div className={styles.grayText}>Minutes</div>
           </div>
           <div className="block justify-center">
-            <div className={styles.whiteText}>
-              {/* {displayEndTime.seconds[0]}
-              {displayEndTime.seconds[1]} */}
-              {displayEndTime.seconds}
-            </div>
+            <div className={styles.whiteText}>{displayEndTime.seconds}</div>
             <div className={styles.grayText}>Seconds</div>
           </div>
         </div>
