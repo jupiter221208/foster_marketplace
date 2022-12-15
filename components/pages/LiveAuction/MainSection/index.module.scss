@@ -67,7 +67,7 @@
 
 .placeBidBG {
   width: auto;
-  background: linear-gradient(to bottom, $background-black-color, $brand-10-color);
+
   margin: 4px 18px;
   @media (min-width: 1024px) {
     margin: 14px 18px 0px 18px;
@@ -79,6 +79,14 @@
   cursor: pointer;
 }
 
+.placeBidEnabledBG {
+  background: linear-gradient(to bottom, $background-black-color, $brand-10-color);
+}
+
+.placeBidDisabledBG {
+  background: $background-black-color;
+}
+
 .placeBidBtn {
   font-family: 'KCDurhamBoxcar';
   font-size: 25px;
@@ -88,6 +96,14 @@
     margin: 5px 9px;
     font-size: 35px;
   }
+}
+
+.placeBidEnabledColor {
+  color: #9cedd6;
+}
+
+.placeBidDisabledColor {
+  color: rgba($text-gray-200-color, 0.5);
 }
 
 .imageArea {
@@ -373,10 +389,10 @@
 
 .highBidText {
   font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
-  color: $text-gray-200-color;
-  text-align: center;
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba($text-gray-200-color, 0.75);
+  margin-left: 30px;
   @media (min-width: 1536px) {
     margin-top: 4px;
   }

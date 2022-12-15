@@ -14,7 +14,6 @@ import Alert from 'components/Alert'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import LiveAuctionImage from 'assets/images/live-auction.png'
 
 // styles
 import styles from './index.module.scss'
@@ -105,7 +104,7 @@ const ModalPlaceBid = props => {
                 <div className="w-full mt-12">
                   <PriceInput
                     value={price}
-                    placeholder="Enter price value"
+                    placeholder="Enter bid amount"
                     fullWidth
                     onChange={value => setPrice(value)}
                   />
@@ -135,7 +134,7 @@ const ModalPlaceBid = props => {
                         <div className={styles.errorText}>
                           Insufficient available balance in bidding wallet and main wallet.
                           <br />
-                          Please fund your wallet and try again .
+                          Please fund your wallet and try again.
                         </div>
                       ) : null}
                     </div>

@@ -61,6 +61,7 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import AuctionBGIcon from 'assets/icons/auction-bg-icon.svg'
 import PlaceBidIcon from 'assets/icons/place-bid-icon.svg'
+import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -523,24 +524,6 @@ const MainSection = props => {
             </div>
 
             <div className="w-full flex flex-wrap mt-10">
-              {/* <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                {showPlaceBidButton && (
-                  <div>
-                    <GradientButton
-                      label="Place Bid"
-                      disabled={isEnded}
-                      onClick={() => (publicKey?.toBase58() === highBidder ? {} : setShowModalPlaceBid(true))}
-                      icon={SolanaAuctionIcon}
-                      direction="rtl"
-                      backgroundColor01={publicKey?.toBase58() === highBidder ? '#83888A' : '#5ac3ba'}
-                      backgroundColor02={publicKey?.toBase58() === highBidder ? '#83888A' : '#378287'}
-                    />
-                    {publicKey?.toBase58() === highBidder ? (
-                      <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                    ) : null}
-                  </div>
-                )}
-              </div> */}
               <div
                 className={`w-full ${showPlaceBidButton ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'} relative`}
               >
@@ -559,14 +542,29 @@ const MainSection = props => {
                   {showPlaceBidButton && (
                     <div>
                       <div
-                        className={styles.placeBidBG}
+                        className={`${styles.placeBidBG} ${
+                          publicKey?.toBase58() === highBidder || isEnded
+                            ? styles.placeBidDisabledBG
+                            : styles.placeBidEnabledBG
+                        }`}
                         onClick={() =>
                           publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
                         }
                       >
                         <div className="flex">
-                          <div className={styles.placeBidBtn}>Place Bid</div>
-                          <Image src={PlaceBidIcon} alt="" />
+                          <div
+                            className={`${styles.placeBidBtn} ${
+                              publicKey?.toBase58() === highBidder || isEnded
+                                ? styles.placeBidDisabledColor
+                                : styles.placeBidEnabledColor
+                            }`}
+                          >
+                            Place Bid
+                          </div>
+                          <Image
+                            src={publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon}
+                            alt=""
+                          />
                         </div>
                       </div>
                       {publicKey?.toBase58() === highBidder ? (
@@ -576,16 +574,6 @@ const MainSection = props => {
                   )}
                 </div>
               </div>
-              {/* <div className="w-full flex content-none mt-6 lg:mt-7">
-                <AuctionCard
-                  currentPrice={nftCurrentPrice}
-                  reservePrice={nftReservePrice}
-                  endTime={endTime}
-                  startTime={startTime}
-                  setIsEnded={setIsEnded}
-                  setIsStarted={setIsStarted}
-                />
-              </div> */}
               <div className="mx-auto w-full mt-4">
                 <Disclosure>
                   {({ open }) => (

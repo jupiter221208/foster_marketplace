@@ -15,7 +15,7 @@
   width: 100%;
   max-width: 488px;
   background-color: $background-black-color;
-  border: 1px solid $brand-07-color;
+  border: 1px solid rgba($text-gray-200-color, 0.1);
   border-radius: 30px;
   padding: 35px 30px 30px 30px;
 
@@ -53,7 +53,7 @@
   line-height: 36px;
   text-align: center;
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: $brand-01-color;
 }
 
 .nftName {
