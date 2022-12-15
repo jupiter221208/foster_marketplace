@@ -188,6 +188,8 @@ const NotificationsCard = props => {
       case 'save_collection':
       case 'like':
       case 'purchase':
+      case 'winner':
+      case 'sale':
         show = true
         break
     }
@@ -252,13 +254,16 @@ const NotificationsCard = props => {
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
                       <Image
-                        src={elem.reference_asset_url !== null ? elem.reference_asset_url : DefaultAvatar}
+                        src={
+                          elem.reference_user_profile_picture !== null ? elem.reference_user_profile_picture : <div />
+                        }
                         alt=""
-                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                        width={56}
+                        height={56}
                         className="rounded-full"
                       />
                     </div>
+
                     <div className="block items-start">
                       <p className="max-w-[450px]">
                         {fromUser(elem) && (
@@ -294,19 +299,13 @@ const NotificationsCard = props => {
                       <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem, 'follow')} />
                     ) : (
                       isShowAvatar(elem) && (
-                        <div className="min-w-[56px]">
+                        <div>
                           <Image
-                            src={
-                              elem.reference_user_profile_picture !== null ? (
-                                elem.reference_user_profile_picture
-                              ) : (
-                                <div />
-                              )
-                            }
+                            src={elem.reference_asset_url !== null ? elem.reference_asset_url : DefaultAvatar}
                             alt=""
-                            width={56}
-                            height={56}
-                            className="rounded-[15px]"
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
+                            className="rounded-[8px] lg:rounded-[8px]"
                           />
                         </div>
                       )

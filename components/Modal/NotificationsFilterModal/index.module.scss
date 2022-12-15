@@ -6,7 +6,9 @@
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: #0f1316;
+  // background-color: #0f1316;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(50px);
   z-index: 100;
   display: flex;
   flex-wrap: wrap;
