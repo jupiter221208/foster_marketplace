@@ -68,18 +68,26 @@
 .placeBidBG {
   width: auto;
   background: linear-gradient(to bottom, $background-black-color, $brand-10-color);
-  margin: 14px 18px;
+  margin: 4px 18px;
+  @media (min-width: 1024px) {
+    margin: 14px 18px 0px 18px;
+  }
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .placeBidBtn {
   font-family: 'KCDurhamBoxcar';
-  font-size: 35px;
+  font-size: 25px;
   color: #9cedd6;
-  margin: 5px 9px;
+  margin: 5px 3px;
+  @media (min-width: 1024px) {
+    margin: 5px 9px;
+    font-size: 35px;
+  }
 }
 
 .imageArea {
@@ -366,11 +374,11 @@
 .highBidText {
   font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 24px;
+  line-height: 18px;
   color: $text-gray-200-color;
-  margin-top: 8px;
-  @media (min-width: 1024px) {
-    margin-top: 15px;
+  text-align: center;
+  @media (min-width: 1536px) {
+    margin-top: 4px;
   }
 }
 

@@ -523,7 +523,7 @@ const MainSection = props => {
             </div>
 
             <div className="w-full flex flex-wrap mt-10">
-              <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+              {/* <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                 {showPlaceBidButton && (
                   <div>
                     <GradientButton
@@ -540,8 +540,10 @@ const MainSection = props => {
                     ) : null}
                   </div>
                 )}
-              </div>
-              <div className="w-full h-[193px] relative">
+              </div> */}
+              <div
+                className={`w-full ${showPlaceBidButton ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'} relative`}
+              >
                 <div className={styles.auctionBG}>
                   <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} />
                 </div>
@@ -554,12 +556,24 @@ const MainSection = props => {
                     setIsEnded={setIsEnded}
                     setIsStarted={setIsStarted}
                   />
-                  <div className={styles.placeBidBG}>
-                    <div className="flex">
-                      <div className={styles.placeBidBtn}>Place Bid</div>
-                      <Image src={PlaceBidIcon} alt="" />
+                  {showPlaceBidButton && (
+                    <div>
+                      <div
+                        className={styles.placeBidBG}
+                        onClick={() =>
+                          publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
+                        }
+                      >
+                        <div className="flex">
+                          <div className={styles.placeBidBtn}>Place Bid</div>
+                          <Image src={PlaceBidIcon} alt="" />
+                        </div>
+                      </div>
+                      {publicKey?.toBase58() === highBidder ? (
+                        <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                      ) : null}
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
               {/* <div className="w-full flex content-none mt-6 lg:mt-7">
