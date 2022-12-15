@@ -1,18 +1,18 @@
 [
   {
     "id": 0,
-    "name": "Follow",
-    "value": "follow"
+    "name": "Purchases",
+    "value": "purchase"
   },
   {
     "id": 1,
-    "name": "Offers",
-    "value": "offer"
+    "name": "Sales",
+    "value": "sale"
   },
   {
     "id": 2,
-    "name": "Saves",
-    "value": "save"
+    "name": "Offers",
+    "value": "offer"
   },
   {
     "id": 3,
@@ -26,7 +26,17 @@
   },
   {
     "id": 5,
-    "name": "Sales",
-    "value": "sale"
+    "name": "Follows",
+    "value": "follow"
+  },
+  {
+    "id": 6,
+    "name": "Saves",
+    "value": "save"
+  },
+  {
+    "id": 7,
+    "name": "Aunction Status",
+    "value": "auction"
   }
 ]
