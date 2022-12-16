@@ -8,6 +8,7 @@ import Dropzone from 'react-dropzone'
 
 // components
 import Alert from 'components/Alert'
+import DimensionMenu from 'components/Menu/DimensionMenu'
 import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Select from 'components/Select'
 import Radio from 'components/Radio'
@@ -32,7 +33,8 @@ import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20
 import AudioPlayer from 'assets/images/audio-player.png'
 
 // json
-import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
+// import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
+import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -41,8 +43,8 @@ const Step02CollectionSection = props => {
   const {
     currentStep,
     onChangeCurrentStep,
-    dimension,
-    onChangeDimension,
+    // dimension,
+    // onChangeDimension,
     collectionFiles,
     onChangeCollectionFiles,
     onRemoveCollectionFile,
@@ -99,78 +101,16 @@ const Step02CollectionSection = props => {
         width = screenWidth / 2 - 100 - 50 - 32
         break
       default:
-        switch (dimension.id) {
-          case 0:
-            width = screenWidth - 140
-            break
-          case 1:
-            width = screenWidth - 60
-            break
-          case 2:
-            width = screenWidth - 80
-            break
-          case 3:
-            width = screenWidth - 225
-            break
-          case 4:
-            width = screenWidth - 180
-            break
-        }
+        // width = screenWidth - 32 - 8
+        width = screenWidth
         break
     }
-    switch (dimension.id) {
-      case 0:
-        ratio = 1920 / 1920
-        if (width > 672) {
-          setArtWidth(672)
-          setArtHeight(672 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 1:
-        ratio = 1080 / 1920
-        if (width > 636) {
-          setArtWidth(636)
-          setArtHeight(636 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 2:
-        ratio = 1440 / 1920
-        if (width > 636) {
-          setArtWidth(636)
-          setArtHeight(636 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 3:
-        ratio = 1920 / 1080
-        if (width > 366) {
-          setArtWidth(366)
-          setArtHeight(366 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
-      case 4:
-        ratio = 1920 / 1440
-        if (width > 487) {
-          setArtWidth(487)
-          setArtHeight(487 * ratio)
-        } else {
-          setArtWidth(width)
-          setArtHeight(width * ratio)
-        }
-        break
+    if (width > 672) {
+      setArtWidth(672)
+    } else {
+      setArtWidth(width)
     }
-  }, [viewport, dimension, screenWidth])
+  }, [viewport, screenWidth])
 
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
@@ -205,6 +145,11 @@ const Step02CollectionSection = props => {
     handleFormValidate()
     onChangeCurrentStep(step)
   }
+
+  // const handleChangeDimension = (item: any) => {
+  //   setSelectedDimension(item)
+  //   setOpenNftImageEditorModal(true)
+  // }
 
   useEffect(() => {
     let count = 0
@@ -267,6 +212,11 @@ const Step02CollectionSection = props => {
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
+                  {/* <DimensionMenu
+                    dimensionList={dimensionList}
+                    selectedDimension={onChangeDimension}
+                    onSelect={item => handleChangeDimension(item)}
+                  /> */}
                   {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
                     <IconButton
                       icon={EditorGrayIcon}
@@ -320,7 +270,7 @@ const Step02CollectionSection = props => {
                   <CollectionStepper currentStep={currentStep} />
                 </div>
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-10 flex items-center gap-2`}>
+                  {/* <div className={`${styles.subTitle} mt-10 flex items-center gap-2`}>
                     Dimensions of Artwork *
                     <Image src={InfoCircleLightGreenIcon} alt="" />
                   </div>
@@ -330,7 +280,7 @@ const Step02CollectionSection = props => {
                       selected={dimension}
                       onChange={item => onChangeDimension(item)}
                     />
-                  </div>
+                  </div> */}
                   <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
                   <div className="mt-5">
                     <Dropzone
@@ -697,7 +647,7 @@ const Step02CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            <div className={`${styles.subTitle} mt-8 flex items-center gap-2`}>
+            {/* <div className={`${styles.subTitle} mt-8 flex items-center gap-2`}>
               Dimensions of Artwork *
               <Image src={InfoCircleLightGreenIcon} alt="" />
             </div>
@@ -708,7 +658,7 @@ const Step02CollectionSection = props => {
                 onChange={item => onChangeDimension(item)}
                 direction="rtl"
               />
-            </div>
+            </div> */}
           </div>
           <div className="w-full">
             {!showMore &&
@@ -945,7 +895,7 @@ const Step02CollectionSection = props => {
             onChangeCroppedImage(croppedImage, selectedCollectionFile.id)
             setOpenImageEditorModal(false)
           }}
-          dimension={dimension}
+          // dimension={dimension}
         />
       )}
       <Alert

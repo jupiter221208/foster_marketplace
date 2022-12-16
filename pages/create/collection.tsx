@@ -11,7 +11,7 @@ import Step02CollectionSection from 'components/pages/Create/Collection/Step02Co
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
 
 // json
-import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
+import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // solana
@@ -21,6 +21,9 @@ import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@me
 // images and icons
 import AudioPlayer from 'assets/images/audio-player.png'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // call apis
 import axios from 'axios'
 import collectionsAPI from 'apis/collections'
@@ -29,8 +32,23 @@ const Collection = () => {
   // solana
   const { metaplex: mx } = useMetaplex()
 
+  const viewport = useViewport()
+
+  const [screenWidth, setScreenWidth] = useState(1920)
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+  }, [])
+
+  useEffect(() => {
+    const resizeFunction = () => {
+      setScreenWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', resizeFunction)
+  }, [])
+
   // variables
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(2)
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')
@@ -41,7 +59,6 @@ const Collection = () => {
   const [bannerCroppedImage, setBannerCroppedImage] = useState<any>()
   const [bannerAWSUrl, setBannerAWSUrl] = useState<any>()
   const [categoryList, setCategoryList] = useState<any[]>([])
-  const [dimension, setDimension] = useState<any>(CollectionDimensionList[0])
 
   useEffect(() => {
     let array: any[] = []
@@ -54,6 +71,7 @@ const Collection = () => {
   }, [])
 
   // step 2
+  const [collectionFiles, setCollectionFiles] = useState<any[]>([])
   const [royalties, setRoyalties] = useState(0)
   const [collectionNft, setCollectionNft] = useState<CreateNftOutput>()
   const [coverImageBuffer, setCoverImageBuffer] = useState(null)
@@ -103,8 +121,17 @@ const Collection = () => {
     }
   }
 
+  const imageProcess = src => {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.src = src
+      img.onload = () => resolve({ width: img.width, height: img.height })
+      img.onerror = reject
+    })
+  }
+
   const onChangeCollectionFiles = files => {
-    const array: any[] = []
+    let array: any[] = []
     files.map((item, index) => {
       let object: any = {}
       object.id = index
@@ -119,11 +146,19 @@ const Collection = () => {
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
       }
-      object.name = ''
-      object.description = ''
-      array.push(object)
+
+      if (item.type !== 'image/gif' && item.type.split('/')[0] === 'image') {
+        imageProcess(URL.createObjectURL(item)).then((result: any) => {
+          let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
+          dimensionArray[0].value = [result.width, result.height]
+          object.name = ''
+          object.description = ''
+          object.dimensionList = dimensionArray
+          array.push(object)
+          if (array.length === files.length) setCollectionFiles(array)
+        })
+      }
     })
-    setCollectionFiles(array)
   }
 
   const handleRemoveCollectionFile = item => {
@@ -164,7 +199,6 @@ const Collection = () => {
   }
 
   // step 3
-  const [collectionFiles, setCollectionFiles] = useState<any[]>([])
 
   const [artworks, setArtworks] = useState<any[]>([])
 
@@ -331,8 +365,8 @@ const Collection = () => {
           <Step02CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
-            dimension={dimension}
-            onChangeDimension={dimension => setDimension(dimension)}
+            // dimension={dimension}
+            // onChangeDimension={dimension => setDimension(dimension)}
             collectionFiles={collectionFiles}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
