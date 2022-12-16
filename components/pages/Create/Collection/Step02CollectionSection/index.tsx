@@ -32,10 +32,6 @@ import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20
 
 import AudioPlayer from 'assets/images/audio-player.png'
 
-// json
-// import CollectionDimensionList from 'assets/json/nft-dimension-list.json'
-import NFTDimensionList from 'assets/json/nft-dimension-list.json'
-
 // styles
 import styles from './index.module.scss'
 
@@ -43,8 +39,6 @@ const Step02CollectionSection = props => {
   const {
     currentStep,
     onChangeCurrentStep,
-    // dimension,
-    // onChangeDimension,
     collectionFiles,
     onChangeCollectionFiles,
     onRemoveCollectionFile,
@@ -146,11 +140,6 @@ const Step02CollectionSection = props => {
     onChangeCurrentStep(step)
   }
 
-  // const handleChangeDimension = (item: any) => {
-  //   setSelectedDimension(item)
-  //   setOpenNftImageEditorModal(true)
-  // }
-
   useEffect(() => {
     let count = 0
     collectionFiles.forEach((item, index) => {
@@ -181,11 +170,22 @@ const Step02CollectionSection = props => {
               <div className={`${styles.title} w-full`}>Artwork Preview</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
-                <div className="w-full flex justify-center">
-                  <div
-                    className={styles.imageArea}
-                    style={{ width: artWidth + 24, height: artHeight + 24, padding: '12px' }}
-                  >
+                <div className="w-full flex justify-center z-10">
+                  <div className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
+                    <div className="absolute inset-0 flex justify-center items-center">
+                      {selectedCollectionFile !== undefined && (
+                        <img
+                          src={
+                            selectedCollectionFile.croppedImage !== ''
+                              ? selectedCollectionFile.croppedImage
+                              : URL.createObjectURL(selectedCollectionFile.file)
+                          }
+                          alt=""
+                          className="min-w-full min-h-full object-cover"
+                        />
+                      )}
+                    </div>
+                    <div className={styles.blurImage} />
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                       <video controls className="w-full" id="video">
                         <source
@@ -203,7 +203,7 @@ const Step02CollectionSection = props => {
                               : URL.createObjectURL(selectedCollectionFile.file)
                           }
                           alt=""
-                          className="w-full h-full object-contain rounded-[6px]"
+                          className="w-full h-full object-contain rounded-[6px] z-10"
                         />
                       )
                     )}
@@ -895,7 +895,7 @@ const Step02CollectionSection = props => {
             onChangeCroppedImage(croppedImage, selectedCollectionFile.id)
             setOpenImageEditorModal(false)
           }}
-          // dimension={dimension}
+          dimension={selectedCollectionFile.selectedDimension}
         />
       )}
       <Alert

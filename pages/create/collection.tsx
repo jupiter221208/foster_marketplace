@@ -154,6 +154,7 @@ const Collection = () => {
           object.name = ''
           object.description = ''
           object.dimensionList = dimensionArray
+          object.selectedDimension = dimensionArray[0]
           array.push(object)
           if (array.length === files.length) setCollectionFiles(array)
         })
@@ -365,8 +366,6 @@ const Collection = () => {
           <Step02CollectionSection
             currentStep={currentStep}
             onChangeCurrentStep={step => setCurrentStep(step)}
-            // dimension={dimension}
-            // onChangeDimension={dimension => setDimension(dimension)}
             collectionFiles={collectionFiles}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}
             onRemoveCollectionFile={item => handleRemoveCollectionFile(item)}
