@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
+import NextImage from 'next/image'
 
 // third party components
 import Dropzone from 'react-dropzone'
@@ -10,8 +10,6 @@ import Dropzone from 'react-dropzone'
 import Alert from 'components/Alert'
 import DimensionMenu from 'components/Menu/DimensionMenu'
 import CollectionStepper from 'components/Stepper/CollectionStepper'
-import Select from 'components/Select'
-import Radio from 'components/Radio'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import Button from 'components/Button'
@@ -28,8 +26,10 @@ import EditorGrayIcon from 'assets/icons/editor-gray.svg'
 import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
-
 import AudioPlayer from 'assets/images/audio-player.png'
+
+// json
+import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -78,11 +78,9 @@ const Step02CollectionSection = props => {
   }, [])
 
   const [artWidth, setArtWidth] = useState(0)
-  const [artHeight, setArtHeight] = useState(0)
 
   useEffect(() => {
     let width = 0
-    let ratio = 1920 / 1920
     switch (viewport) {
       case '2xl':
         width = screenWidth / 2 - 150 - 80 - 32
@@ -120,6 +118,29 @@ const Step02CollectionSection = props => {
     )
       onChangeCroppedImage(AudioPlayer.src, selectedCollectionFile.id)
   }, [selectedCollectionFile])
+
+  const imageProcess = src => {
+    return new Promise((resolve, reject) => {
+      const img = new Image()
+      img.src = src
+      img.onload = () => resolve({ width: img.width, height: img.height })
+      img.onerror = reject
+    })
+  }
+
+  const handleSelectedCollectioinFile = (item: any) => {
+    if (item.type !== 'image/gif' && item.type.split('/')[0] === 'image') {
+      imageProcess(URL.createObjectURL(item.file)).then((result: any) => {
+        let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
+        dimensionArray[0].value = [result.width, result.height]
+        item.dimensionList = dimensionArray
+        item.selectedDimension = dimensionArray[0]
+        setSelectedCollectionFile(item)
+      })
+    } else {
+      setSelectedCollectionFile(item)
+    }
+  }
 
   const handleChangeDimension = (item: any) => {
     setSelectedCollectionFile({ ...selectedCollectionFile, selectedDimension: item })
@@ -166,7 +187,7 @@ const Step02CollectionSection = props => {
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
           <div className={styles.topLeftEllipse}>
-            <Image src={EllipseGreen} alt="" objectFit="cover" />
+            <NextImage src={EllipseGreen} alt="" objectFit="cover" />
           </div>
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
@@ -190,7 +211,7 @@ const Step02CollectionSection = props => {
                     </div>
                     <div className={styles.blurImage} />
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
-                      <video controls className="w-full" id="video">
+                      <video controls className="w-full h-full z-10" id="video">
                         <source
                           src={URL.createObjectURL(selectedCollectionFile.file)}
                           type={selectedCollectionFile.file.type}
@@ -215,12 +236,16 @@ const Step02CollectionSection = props => {
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
+                  {selectedCollectionFile !== undefined &&
+                  selectedCollectionFile.type === 'image' &&
+                  selectedCollectionFile.dimensionList !== undefined ? (
                     <DimensionMenu
                       dimensionList={selectedCollectionFile.dimensionList}
                       selectedDimension={selectedCollectionFile.selectedDimension}
                       onSelect={item => handleChangeDimension(item)}
                     />
+                  ) : (
+                    <>&nbsp;</>
                   )}
                   {selectedCollectionFile !== undefined && (
                     <IconButton icon={TrashGrayIcon} onClick={() => {}} backgroundColor="transparent" />
@@ -283,7 +308,7 @@ const Step02CollectionSection = props => {
                       <div
                         className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
                         key={index}
-                        onClick={() => setSelectedCollectionFile(item)}
+                        onClick={() => handleSelectedCollectioinFile(item)}
                       >
                         <div
                           className={
@@ -302,12 +327,12 @@ const Step02CollectionSection = props => {
                           }
                         >
                           {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full" id="video">
+                            <video loop autoPlay className="w-full h-full" id="video">
                               <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                               Your browser does not support the video tag.
                             </video>
                           ) : (
-                            <Image
+                            <NextImage
                               src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
                               alt=""
                               width={
@@ -389,7 +414,7 @@ const Step02CollectionSection = props => {
                       <div
                         className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
                         key={index}
-                        onClick={() => setSelectedCollectionFile(item)}
+                        onClick={() => handleSelectedCollectioinFile(item)}
                       >
                         <div
                           className={
@@ -408,12 +433,12 @@ const Step02CollectionSection = props => {
                           }
                         >
                           {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full" id="video">
+                            <video loop autoPlay className="w-full h-full" id="video">
                               <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                               Your browser does not support the video tag.
                             </video>
                           ) : (
-                            <Image
+                            <NextImage
                               src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
                               alt=""
                               width={
@@ -526,12 +551,9 @@ const Step02CollectionSection = props => {
             <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
               {/* banner image */}
               <div className="w-full flex justify-center">
-                <div
-                  className={styles.imageArea}
-                  style={{ width: artWidth + 12, height: artHeight + 12, padding: '6px' }}
-                >
+                <div className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
                   {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
-                    <video controls className="w-full" id="video">
+                    <video controls className="w-full h-full z-10" id="video">
                       <source
                         src={URL.createObjectURL(selectedCollectionFile.file)}
                         type={selectedCollectionFile.file.type}
@@ -630,7 +652,7 @@ const Step02CollectionSection = props => {
                 <div
                   className="w-full flex flex-wrap gap-4 mt-10 cursor-pointer"
                   key={index}
-                  onClick={() => setSelectedCollectionFile(item)}
+                  onClick={() => handleSelectedCollectioinFile(item)}
                 >
                   <div className="w-full flex justify-between items-center">
                     <div
@@ -641,12 +663,12 @@ const Step02CollectionSection = props => {
                       }
                     >
                       {item.type === 'video' ? (
-                        <video loop autoPlay className="w-full" id="video">
+                        <video loop autoPlay className="w-full h-full" id="video">
                           <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                           Your browser does not support the video tag.
                         </video>
                       ) : (
-                        <Image
+                        <NextImage
                           src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
                           alt=""
                           width={
@@ -729,7 +751,7 @@ const Step02CollectionSection = props => {
                 <div
                   className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
                   key={index}
-                  onClick={() => setSelectedCollectionFile(item)}
+                  onClick={() => handleSelectedCollectioinFile(item)}
                 >
                   <div className="w-full flex justify-between items-center">
                     <div
@@ -740,12 +762,12 @@ const Step02CollectionSection = props => {
                       }
                     >
                       {item.type === 'video' ? (
-                        <video loop autoPlay className="w-full" id="video">
+                        <video loop autoPlay className="w-full h-full" id="video">
                           <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                           Your browser does not support the video tag.
                         </video>
                       ) : (
-                        <Image
+                        <NextImage
                           src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
                           alt=""
                           width={
@@ -848,13 +870,13 @@ const Step02CollectionSection = props => {
           </div>
         </div>
       )}
-      {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
+      {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && openImageEditorModal && (
         <NftImageEditorModal
           open={openImageEditorModal}
           close={() => setOpenImageEditorModal(false)}
           nftImage={[selectedCollectionFile.file]}
           getCroppedImage={croppedImage => {
-            setSelectedCollectionFile({ ...selectedCollectionFile, croppedImage: croppedImage })
+            handleSelectedCollectioinFile({ ...selectedCollectionFile, croppedImage: croppedImage })
             onChangeCroppedImage(croppedImage, selectedCollectionFile.id)
             setOpenImageEditorModal(false)
           }}

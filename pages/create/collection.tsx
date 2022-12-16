@@ -121,15 +121,6 @@ const Collection = () => {
     }
   }
 
-  const imageProcess = src => {
-    return new Promise((resolve, reject) => {
-      const img = new Image()
-      img.src = src
-      img.onload = () => resolve({ width: img.width, height: img.height })
-      img.onerror = reject
-    })
-  }
-
   const onChangeCollectionFiles = files => {
     let array: any[] = []
     files.map((item, index) => {
@@ -141,25 +132,17 @@ const Collection = () => {
       } else {
         object.type = item.type.split('/')[0]
       }
+      object.name = ''
+      object.description = ''
       if (item.type.split('/')[0] === 'audio') {
         object.croppedImage = AudioPlayer.src
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
       }
 
-      if (item.type !== 'image/gif' && item.type.split('/')[0] === 'image') {
-        imageProcess(URL.createObjectURL(item)).then((result: any) => {
-          let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
-          dimensionArray[0].value = [result.width, result.height]
-          object.name = ''
-          object.description = ''
-          object.dimensionList = dimensionArray
-          object.selectedDimension = dimensionArray[0]
-          array.push(object)
-          if (array.length === files.length) setCollectionFiles(array)
-        })
-      }
+      array.push(object)
     })
+    setCollectionFiles(array)
   }
 
   const handleRemoveCollectionFile = item => {
