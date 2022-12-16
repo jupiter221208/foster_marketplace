@@ -154,7 +154,10 @@ const LiveAuctionSection = props => {
                 <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
                   <LiveAuctionCard
                     data={item}
-                    onClick={() => router.push('/live-auction?id=' + item.token_id)}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push('/live-auction?id=' + item.token_id)
+                    }}
                     key={index}
                   />
                 </div>
