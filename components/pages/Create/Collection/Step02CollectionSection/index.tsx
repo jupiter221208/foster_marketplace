@@ -28,7 +28,6 @@ import EditorGrayIcon from 'assets/icons/editor-gray.svg'
 import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
-import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
 
 import AudioPlayer from 'assets/images/audio-player.png'
 
@@ -118,10 +117,14 @@ const Step02CollectionSection = props => {
       selectedCollectionFile !== undefined &&
       selectedCollectionFile.type === 'audio' &&
       selectedCollectionFile.croppedImage === undefined
-    ) {
+    )
       onChangeCroppedImage(AudioPlayer.src, selectedCollectionFile.id)
-    }
   }, [selectedCollectionFile])
+
+  const handleChangeDimension = (item: any) => {
+    setSelectedCollectionFile({ ...selectedCollectionFile, selectedDimension: item })
+    setOpenImageEditorModal(true)
+  }
 
   useEffect(() => {
     if (collectionFiles !== undefined && collectionFiles.length !== 0) {
@@ -212,34 +215,16 @@ const Step02CollectionSection = props => {
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {/* <DimensionMenu
-                    dimensionList={dimensionList}
-                    selectedDimension={onChangeDimension}
-                    onSelect={item => handleChangeDimension(item)}
-                  /> */}
                   {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
-                    <IconButton
-                      icon={EditorGrayIcon}
-                      onClick={() => setOpenImageEditorModal(true)}
-                      backgroundColor="transparent"
-                      width="32px"
-                      height="32px"
+                    <DimensionMenu
+                      dimensionList={selectedCollectionFile.dimensionList}
+                      selectedDimension={selectedCollectionFile.selectedDimension}
+                      onSelect={item => handleChangeDimension(item)}
                     />
                   )}
-                  <IconButton
-                    icon={FullScreenGrayIcon}
-                    onClick={() => {}}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
-                  <IconButton
-                    icon={TrashGrayIcon}
-                    onClick={() => {}}
-                    backgroundColor="transparent"
-                    iconWidth={24}
-                    iconHeight={24}
-                  />
+                  {selectedCollectionFile !== undefined && (
+                    <IconButton icon={TrashGrayIcon} onClick={() => {}} backgroundColor="transparent" />
+                  )}
                 </div>
               )}
 
@@ -270,17 +255,6 @@ const Step02CollectionSection = props => {
                   <CollectionStepper currentStep={currentStep} />
                 </div>
                 <div className="w-full">
-                  {/* <div className={`${styles.subTitle} mt-10 flex items-center gap-2`}>
-                    Dimensions of Artwork *
-                    <Image src={InfoCircleLightGreenIcon} alt="" />
-                  </div>
-                  <div className="max-w-[370px] w-full mt-5">
-                    <Select
-                      data={CollectionDimensionList}
-                      selected={dimension}
-                      onChange={item => onChangeDimension(item)}
-                    />
-                  </div> */}
                   <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
                   <div className="mt-5">
                     <Dropzone
@@ -647,18 +621,6 @@ const Step02CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            {/* <div className={`${styles.subTitle} mt-8 flex items-center gap-2`}>
-              Dimensions of Artwork *
-              <Image src={InfoCircleLightGreenIcon} alt="" />
-            </div>
-            <div className="max-w-[370px] w-full mt-5 pl-6">
-              <Radio
-                data={CollectionDimensionList}
-                selected={dimension}
-                onChange={item => onChangeDimension(item)}
-                direction="rtl"
-              />
-            </div> */}
           </div>
           <div className="w-full">
             {!showMore &&
@@ -892,6 +854,7 @@ const Step02CollectionSection = props => {
           close={() => setOpenImageEditorModal(false)}
           nftImage={[selectedCollectionFile.file]}
           getCroppedImage={croppedImage => {
+            setSelectedCollectionFile({ ...selectedCollectionFile, croppedImage: croppedImage })
             onChangeCroppedImage(croppedImage, selectedCollectionFile.id)
             setOpenImageEditorModal(false)
           }}
