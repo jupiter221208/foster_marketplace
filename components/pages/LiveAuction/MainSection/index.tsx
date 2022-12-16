@@ -308,6 +308,7 @@ const MainSection = props => {
                   },
                 ])
                 setShowAlert(true)
+                setHighBidder(publicKey?.toBase58())
               }, 500)
               setAuctionLoading(false)
             }
