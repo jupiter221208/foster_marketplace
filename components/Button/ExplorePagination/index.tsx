@@ -18,10 +18,10 @@ import RowCountList from 'assets/json/dashboard/row-count-list.json'
 import styles from './index.module.scss'
 
 const ExplorePagination = props => {
-  const { handlePrev, handleNext, currentPage, totalCount } = props
+  const { rowCount, handlePrev, handleNext, currentPage, totalCount, setRowCount } = props
   const viewport = useViewport()
 
-  const [rowCount, setRowCount] = useState(12)
+  // const [rowCount, setRowCount] = useState(12)
 
   return (
     <div className={styles.container}>

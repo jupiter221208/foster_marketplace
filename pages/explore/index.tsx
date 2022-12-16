@@ -102,14 +102,14 @@ const Explore = () => {
         setSelectedSort(NFTSortList[0])
         setCurrentPage(nftCurrentPage)
         setCategoryList([])
-        getExploreNFTData(nftCurrentPage, [])
+        getExploreNFTData(nftCurrentPage, [], rowCount)
         break
       case 1:
         setSortData(CollectionSortList)
         setSelectedSort(CollectionSortList[0])
         setCurrentPage(collectionCurrentPage)
         setCategoryList([])
-        getExploreCollectionData(collectionCurrentPage, [])
+        getExploreCollectionData(collectionCurrentPage, [], rowCount)
         break
       case 2:
         setSortData(EcosystemSortList)
@@ -126,7 +126,7 @@ const Explore = () => {
 
   const { metaplex: mx } = useMetaplex()
 
-  const getExploreNFTData = async (curPage, categoryList) => {
+  const getExploreNFTData = async (curPage, categoryList, count) => {
     let categoryLabel = []
     categoryList.map(category => {
       if (category.checked === true) {
@@ -140,6 +140,7 @@ const Explore = () => {
       categories: categoryLabel.length === 0 ? null : categoryLabel,
       sort: null,
       page: curPage + 1,
+      per_page: count,
     }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
@@ -154,7 +155,7 @@ const Explore = () => {
         })
         setCurrentPage(curPage)
         setNftCurrentPage(curPage)
-        setTotalCount(rowCount * curPage + nfts.length)
+        setTotalCount(count * curPage + nfts.length)
         setNftList(nfts)
         window.scrollTo({
           top: 0,
@@ -167,7 +168,7 @@ const Explore = () => {
     )
   }
 
-  const getExploreCollectionData = async (curPage, categoryList) => {
+  const getExploreCollectionData = async (curPage, categoryList, count) => {
     let categoryLabel = []
     categoryList.map(category => {
       if (category.checked === true) {
@@ -181,6 +182,7 @@ const Explore = () => {
       categories: categoryLabel.length === 0 ? null : categoryLabel,
       sort: null,
       page: curPage + 1,
+      per_page: count,
     }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
@@ -196,7 +198,7 @@ const Explore = () => {
         })
         setCurrentPage(curPage)
         setCollectionCurrentPage(curPage)
-        setTotalCount(rowCount * curPage + collections.length)
+        setTotalCount(count * curPage + collections.length)
         setCollectionList(collections)
         window.scrollTo({
           top: 0,
@@ -212,21 +214,27 @@ const Explore = () => {
   const handleNextPage = () => {
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
-    if (exploreTab === 0) getExploreNFTData(nextPage, categoryList)
-    else if (exploreTab === 1) getExploreCollectionData(nextPage, categoryList)
+    if (exploreTab === 0) getExploreNFTData(nextPage, categoryList, rowCount)
+    else if (exploreTab === 1) getExploreCollectionData(nextPage, categoryList, rowCount)
   }
 
   const handlePreviousPage = () => {
     if (currentPage === 0) return
     const prevPage = currentPage - 1
-    if (exploreTab === 0) getExploreNFTData(prevPage, categoryList)
-    else if (exploreTab === 1) getExploreCollectionData(prevPage, categoryList)
+    if (exploreTab === 0) getExploreNFTData(prevPage, categoryList, rowCount)
+    else if (exploreTab === 1) getExploreCollectionData(prevPage, categoryList, rowCount)
   }
 
   const selectCategory = categoryList => {
     setCategoryList(categoryList)
-    if (exploreTab === 0) getExploreNFTData(currentPage, categoryList)
-    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList)
+    if (exploreTab === 0) getExploreNFTData(currentPage, categoryList, rowCount)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, rowCount)
+  }
+
+  const selectRowCount = count => {
+    setRowCount(count)
+    if (exploreTab === 0) getExploreNFTData(currentPage, categoryList, count)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, count)
   }
 
   const setListedNFTs = async () => {
@@ -268,8 +276,8 @@ const Explore = () => {
     let categoryList = params['category']
     let newCateList = JSON.parse(JSON.stringify(categoryList))
     setCategoryList(newCateList)
-    if (exploreTab === 0) getExploreNFTData(currentPage, newCateList)
-    else if (exploreTab === 1) getExploreCollectionData(currentPage, newCateList)
+    if (exploreTab === 0) getExploreNFTData(currentPage, newCateList, rowCount)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, newCateList, rowCount)
   }
 
   return (
@@ -397,6 +405,10 @@ const Explore = () => {
                 <ExplorePagination
                   currentPage={currentPage}
                   totalCount={totalCount}
+                  rowCount={rowCount}
+                  setRowCount={count => {
+                    selectRowCount(count)
+                  }}
                   handleNext={handleNextPage}
                   handlePrev={handlePreviousPage}
                 />
