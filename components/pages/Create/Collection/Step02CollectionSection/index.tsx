@@ -22,8 +22,6 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EditorGrayIcon from 'assets/icons/editor-gray.svg'
-import FullScreenGrayIcon from 'assets/icons/full-screen-gray.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
 import AudioPlayer from 'assets/images/audio-player.png'
@@ -551,7 +549,10 @@ const Step02CollectionSection = props => {
             <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
               {/* banner image */}
               <div className="w-full flex justify-center">
-                <div className={styles.imageArea} style={{ width: artWidth, height: artWidth }}>
+                <div
+                  className={styles.imageArea}
+                  style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
+                >
                   {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                     <video controls className="w-full h-full z-10" id="video">
                       <source
@@ -577,29 +578,26 @@ const Step02CollectionSection = props => {
               </div>
               {collectionFiles.length !== 0 && (
                 <div className="w-full flex justify-between mt-2 z-10" style={{ width: artWidth }}>
-                  {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'image' && (
+                  {selectedCollectionFile !== undefined &&
+                  selectedCollectionFile.type === 'image' &&
+                  selectedCollectionFile.dimensionList !== undefined ? (
+                    <DimensionMenu
+                      dimensionList={selectedCollectionFile.dimensionList}
+                      selectedDimension={selectedCollectionFile.selectedDimension}
+                      onSelect={item => handleChangeDimension(item)}
+                    />
+                  ) : (
+                    <>&nbsp;</>
+                  )}
+                  {selectedCollectionFile !== undefined && (
                     <IconButton
-                      icon={EditorGrayIcon}
-                      onClick={() => setOpenImageEditorModal(true)}
+                      icon={TrashGrayIcon}
+                      onClick={() => {}}
                       backgroundColor="transparent"
                       width="32px"
                       height="32px"
                     />
                   )}
-                  <IconButton
-                    icon={FullScreenGrayIcon}
-                    onClick={() => {}}
-                    backgroundColor="transparent"
-                    width="32px"
-                    height="32px"
-                  />
-                  <IconButton
-                    icon={TrashGrayIcon}
-                    onClick={() => {}}
-                    backgroundColor="transparent"
-                    iconWidth={24}
-                    iconHeight={24}
-                  />
                 </div>
               )}
             </div>
