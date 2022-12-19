@@ -37,14 +37,16 @@ const DashboardNFTCard = props => {
                   }}
                   onClick={() => onClick()}
                 />
-                <div className="absolute z-index:10001">
-                  <Image
-                    src={play ? PauseVideoIcon : PlayVideoIcon}
-                    width={50}
-                    height={50}
-                    alt=""
-                    onClick={() => setPlay(!play)}
-                  />
+                <div className={styles.playButton}>
+                  <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                    <Image
+                      src={play ? PauseVideoIcon : PlayVideoIcon}
+                      width={18}
+                      height={18}
+                      alt=""
+                      onClick={() => setPlay(!play)}
+                    />
+                  </div>
                 </div>
               </div>
             ) : (
