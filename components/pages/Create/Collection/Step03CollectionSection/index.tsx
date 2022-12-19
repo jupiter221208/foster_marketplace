@@ -141,7 +141,7 @@ const Step03CollectionSection = props => {
                   <div key={index} className="w-[100px] h-[100px]">
                     {item.type === 'video' ? (
                       <div className="w-full h-full flex justify-center items-center">
-                        <video loop autoPlay className="w-full" id="video">
+                        <video loop autoPlay className="w-full h-full" id="video">
                           <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                           Your browser does not support the video tag.
                         </video>
@@ -199,7 +199,7 @@ const Step03CollectionSection = props => {
                           }
                         >
                           {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full" id="video">
+                            <video loop autoPlay className="w-full h-full" id="video">
                               <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                               Your browser does not support the video tag.
                             </video>
@@ -307,7 +307,7 @@ const Step03CollectionSection = props => {
                           }
                         >
                           {item.type === 'video' ? (
-                            <video loop autoPlay className="w-full" id="video">
+                            <video loop autoPlay className="w-full h-full" id="video">
                               <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                               Your browser does not support the video tag.
                             </video>
@@ -478,7 +478,7 @@ const Step03CollectionSection = props => {
                         }
                       >
                         {item.type === 'video' ? (
-                          <video loop autoPlay className="w-full" id="video">
+                          <video loop autoPlay className="w-full h-full" id="video">
                             <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                             Your browser does not support the video tag.
                           </video>
@@ -578,7 +578,7 @@ const Step03CollectionSection = props => {
                         }
                       >
                         {item.type === 'video' ? (
-                          <video loop autoPlay className="w-full" id="video">
+                          <video loop autoPlay className="w-full h-full" id="video">
                             <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                             Your browser does not support the video tag.
                           </video>
