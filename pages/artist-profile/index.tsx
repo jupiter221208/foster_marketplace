@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 
 // call apis
 import artistsAPI from 'apis/artists'
+import ArtistLayout from 'components/Layout/ArtistLayout'
 
 const ArtistProfile = () => {
   const router = useRouter()
@@ -99,5 +100,5 @@ const ArtistProfile = () => {
 export default ArtistProfile
 
 ArtistProfile.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <ArtistLayout>{page}</ArtistLayout>
 }
