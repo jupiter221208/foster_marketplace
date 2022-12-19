@@ -105,6 +105,7 @@ const Step02CollectionSection = props => {
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
   const [showMore, setShowMore] = useState(false)
+  const [collectionFilesCount, setCollectionFilesCount] = useState(0)
   const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
@@ -149,16 +150,18 @@ const Step02CollectionSection = props => {
   useEffect(() => {
     if (collectionFiles !== undefined && collectionFiles.length !== 0) {
       if (collectionFiles.length > 5) {
+        if (collectionFilesCount === 0) {
+          setCollectionFilesCount(collectionFiles.length)
+          setShowMore(true)
+        }
         setSubCollectionFiles(collectionFiles.slice(0, 5))
-        setShowMore(true)
       } else {
-        setShowMore(false)
         setSubCollectionFiles(collectionFiles)
       }
     } else {
       setSubCollectionFiles([])
     }
-  }, [collectionFiles])
+  }, [collectionFiles, collectionFilesCount])
 
   const handleChangeCurrentStep = step => {
     handleFormValidate()
