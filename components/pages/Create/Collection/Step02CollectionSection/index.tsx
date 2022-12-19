@@ -152,6 +152,7 @@ const Step02CollectionSection = props => {
         setSubCollectionFiles(collectionFiles.slice(0, 5))
         setShowMore(true)
       } else {
+        setShowMore(false)
         setSubCollectionFiles(collectionFiles)
       }
     } else {
