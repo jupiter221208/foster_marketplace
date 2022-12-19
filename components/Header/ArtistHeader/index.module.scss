@@ -62,3 +62,11 @@
   background: transparent;
   z-index: 10000;
 }
+
+.backButton {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: rgba($background-light-color, 0.3);
+  backdrop-filter: blur(10px);
+}

@@ -19,12 +19,10 @@ import IconButton from 'components/Button/IconButton'
 import { useViewport } from 'utils'
 
 // images and icons
-import LogoTextIcon from 'assets/icons/logo-text-01.svg'
-import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/icons/profile-thumb.svg'
-import SearchGrayIcon from 'assets/icons/search-gray.svg'
-import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
-import LogoIcon from 'assets/icons/logo-color.svg'
+import BackButton from 'assets/icons/artist-back-icon.svg'
+import SearchButton from 'assets/icons/artist-search-icon.svg'
+import MenuButton from 'assets/icons/artist-menu-icon.svg'
 
 // json
 import SearchList from 'assets/json/search-list.json'
@@ -219,20 +217,17 @@ const ArtistHeader = () => {
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-            <Image src={LogoIcon} alt="" />
+            <div className={styles.backButton}>
+              <Image src={BackButton} alt="" />
+            </div>
           </div>
           <div className="flex">
-            <IconButton
-              icon={SearchGrayIcon}
-              onClick={() => handleOpenMobileSearchBox()}
-              backgroundColor="transparent"
-            />
-            <div className="ml-3">
-              <IconButton
-                icon={HamburgerMenuGreenIcon}
-                onClick={() => handleOpenMobileMenu()}
-                backgroundColor="transparent"
-              />
+            <div className={styles.backButton} onClick={() => handleOpenMobileSearchBox()}>
+              <Image src={SearchButton} alt="" />
+            </div>
+
+            <div className={`${styles.backButton} ml-3`} onClick={() => handleOpenMobileMenu()}>
+              <Image src={MenuButton} alt="" />
             </div>
           </div>
         </div>
