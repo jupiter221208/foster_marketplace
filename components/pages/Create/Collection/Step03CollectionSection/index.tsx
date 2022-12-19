@@ -78,16 +78,14 @@ const Step03CollectionSection = props => {
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
-    if (collectionFiles.length !== 0) {
+    if (collectionFiles !== undefined && collectionFiles.length !== 0) {
       setSelectedCollectionFile(collectionFiles[0])
     }
-  }, [collectionFiles])
-
-  useEffect(() => {
-    if (collectionFiles.length !== 0) {
+    if (collectionFiles !== undefined && collectionFiles.length !== 0 && collectionFiles.length > 5) {
+      setShowMore(true)
       setSubCollectionFiles(collectionFiles.slice(0, 5))
     }
-  }, [showMore, collectionFiles])
+  }, [collectionFiles])
 
   useEffect(() => {
     if (subCollectionFiles !== undefined && subCollectionFiles.length !== 0) {
@@ -175,7 +173,7 @@ const Step03CollectionSection = props => {
                   <CollectionStepper currentStep={currentStep} />
                 </div>
                 <div className="w-full mt-[70px]">
-                  {!showMore &&
+                  {showMore &&
                     subCollectionFiles !== undefined &&
                     subCollectionFiles.length !== 0 &&
                     subCollectionFiles.map((item, index) => (
@@ -272,11 +270,11 @@ const Step03CollectionSection = props => {
                         )}
                       </div>
                     ))}
-                  {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
+                  {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
                     <div className="w-full flex justify-center">
                       <IconButton
                         icon={ArrowDownGreenIcon}
-                        onClick={() => setShowMore(true)}
+                        onClick={() => setShowMore(false)}
                         backgroundColor="transparent"
                         iconWidth={32}
                         iconHeight={32}
@@ -284,7 +282,7 @@ const Step03CollectionSection = props => {
                     </div>
                   )}
 
-                  {showMore &&
+                  {!showMore &&
                     collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
                       <div
@@ -462,7 +460,7 @@ const Step03CollectionSection = props => {
               Files Uploaded: {collectionFiles.length}
             </div>
             <div className="w-full mt-[70px]">
-              {!showMore &&
+              {showMore &&
                 subCollectionFiles !== undefined &&
                 subCollectionFiles.length !== 0 &&
                 subCollectionFiles.map((item, index) => (
@@ -552,18 +550,18 @@ const Step03CollectionSection = props => {
                     </div>
                   </div>
                 ))}
-              {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
+              {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
                 <div className="w-full flex justify-center">
                   <IconButton
                     icon={ArrowDownGreenIcon}
-                    onClick={() => setShowMore(true)}
+                    onClick={() => setShowMore(false)}
                     backgroundColor="transparent"
                     iconWidth={32}
                     iconHeight={32}
                   />
                 </div>
               )}
-              {showMore &&
+              {!showMore &&
                 collectionFiles.length !== 0 &&
                 collectionFiles.map((item, index) => (
                   <div
