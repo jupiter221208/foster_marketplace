@@ -172,9 +172,10 @@ const Step02CollectionSection = props => {
         count++
       }
     })
-    if (count === collectionFiles.length) {
+    if (count === collectionFiles.length && collectionFiles.length !== 0) {
       setDisabledNextButton(false)
     } else {
+      setSelectedCollectionFile(undefined)
       setDisabledNextButton(true)
     }
   }, [collectionFiles])
