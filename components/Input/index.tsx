@@ -22,7 +22,7 @@ const Input = props => {
     color = '',
     fullWidth = false,
     backgroundColor = '',
-    borderColor = '',
+    borderColor = 'transparent',
     borderRadius = '',
     width = '',
     height = '',

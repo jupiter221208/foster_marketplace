@@ -128,7 +128,6 @@ const Step02CollectionSection = props => {
   }
 
   const handleSelectedCollectioinFile = (item: any) => {
-    setSelectedCollectionFile(undefined)
     if (item.type !== 'image/gif' && item.type.split('/')[0] === 'image') {
       imageProcess(URL.createObjectURL(item.file)).then((result: any) => {
         let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
@@ -178,7 +177,9 @@ const Step02CollectionSection = props => {
     if (count === collectionFiles.length && collectionFiles.length !== 0) {
       setDisabledNextButton(false)
     } else {
-      setSelectedCollectionFile(undefined)
+      if (collectionFiles.length === 0) {
+        setSelectedCollectionFile(undefined)
+      }
       setDisabledNextButton(true)
     }
   }, [collectionFiles])
@@ -540,7 +541,6 @@ const Step02CollectionSection = props => {
                       label="Next Step"
                       disabled={disabledNextButton}
                       gradientDirection="bottom"
-                      color="#202427"
                       onClick={() => handleChangeCurrentStep(currentStep + 1)}
                     />
                   )}
