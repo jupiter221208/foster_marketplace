@@ -30,6 +30,7 @@ import styles from './index.module.scss'
 // api endpoint
 import artistsAPI from 'apis/artists'
 import SwitchButton from 'components/SwitchButton'
+import ProfileArtistMobileCard from 'components/Card/ProfileArtistMobileCard'
 
 const MainSection = prop => {
   const { artistInfo, categoryList, isOwn } = prop
@@ -98,49 +99,69 @@ const MainSection = prop => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" />
         </div>
         <div className="grid grid-cols-12 items-center mt-[-50px] lg:mt-[-80px]">
-          <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
-            <div className="gap-[15px] mt-[16px] lg:flex">
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(0)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>
-                &nbsp;
-                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
-              </div>
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(1)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>
-                &nbsp;
-                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
+          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+            <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
+              <div className="gap-[15px] mt-[16px] lg:flex">
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(0)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>
+                  &nbsp;
+                  <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
+                </div>
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(1)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>
+                  &nbsp;
+                  <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="col-span-6">
-            <ProfileArtistCard
-              image={
-                artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
-                  ? artistInfo.profile_picture
-                  : Rect512x512Image.src
-              }
-              name={artistInfo.username}
-            />
-            <div className="flex justify-center mt-[9px] lg:mt-[16px]">
-              <AddressButton
-                label={getShortAddress(artistInfo.wallet_id)}
-                onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
+          ) : null}
+          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+            <div className="col-span-6">
+              <ProfileArtistCard
+                image={
+                  artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
+                    ? artistInfo.profile_picture
+                    : Rect512x512Image.src
+                }
+                name={artistInfo.username}
               />
+              <div className="flex justify-center mt-[9px] lg:mt-[16px]">
+                <AddressButton
+                  label={getShortAddress(artistInfo.wallet_id)}
+                  onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
+                />
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="col-span-6">
+              <ProfileArtistMobileCard
+                image={
+                  artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
+                    ? artistInfo.profile_picture
+                    : Rect512x512Image.src
+                }
+                name={artistInfo.username}
+              />
+              <div className="flex justify-center mt-[9px] lg:mt-[16px]">
+                <AddressButton
+                  label={getShortAddress(artistInfo.wallet_id)}
+                  onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
+                />
+              </div>
+            </div>
+          )}
 
           <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-50px]">
             {follow ? (
