@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
 // components
-import DashboardNFTCard from 'components/Card/DashboardNFTCard'
 import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 

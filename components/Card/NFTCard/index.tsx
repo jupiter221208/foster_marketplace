@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -9,6 +9,8 @@ import { useViewport } from 'utils'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.svg'
+import PlayVideoIcon from 'assets/icons/play-video.svg'
+import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -16,23 +18,40 @@ import styles from './index.module.scss'
 const DashboardNFTCard = props => {
   const { image, nftName, artistName, assetType, price, onClick } = props
   const viewport = useViewport()
+  const [play, setPlay] = useState(false)
 
   return (
-    <div className={styles.container} onClick={() => onClick()}>
+    <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {assetType === 'video' ? (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]">
+            <div className="w-full relative flex justify-center items-center">
+              <div
+                className="w-full absolute"
+                dangerouslySetInnerHTML={{
+                  __html: `<video ${
+                    play ? 'autoplay' : ''
+                  } loop muted webkit-playsinline playsinline class="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]">
                     <source src=${image} type="video/mp4" /></video>`,
-              }}
-            />
+                }}
+                onClick={() => onClick()}
+              />
+              <div className="absolute z-index:10001">
+                <Image
+                  src={play ? PauseVideoIcon : PlayVideoIcon}
+                  width={50}
+                  height={50}
+                  alt=""
+                  onClick={() => setPlay(!play)}
+                />
+              </div>
+            </div>
           ) : (
             <img
               src={image !== '' ? image : DefaultNftBG}
               alt=""
               className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+              onClick={() => onClick()}
             />
           )}
         </div>
