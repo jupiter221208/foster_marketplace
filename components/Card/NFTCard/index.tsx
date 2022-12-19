@@ -25,27 +25,37 @@ const DashboardNFTCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {assetType === 'video' ? (
-            <div className="w-full relative flex justify-center items-center">
-              <div
-                className="w-full absolute"
-                dangerouslySetInnerHTML={{
-                  __html: `<video ${
-                    play ? 'autoplay' : ''
-                  } loop muted webkit-playsinline playsinline class="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]">
+            viewport === 'xs' ? (
+              <div className="w-full relative flex justify-center items-center">
+                <div
+                  className="w-full absolute"
+                  dangerouslySetInnerHTML={{
+                    __html: `<video ${
+                      play ? 'autoplay' : ''
+                    } loop muted webkit-playsinline playsinline class="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]">
                     <source src=${image} type="video/mp4" /></video>`,
+                  }}
+                  onClick={() => onClick()}
+                />
+                <div className="absolute z-index:10001">
+                  <Image
+                    src={play ? PauseVideoIcon : PlayVideoIcon}
+                    width={50}
+                    height={50}
+                    alt=""
+                    onClick={() => setPlay(!play)}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  <source src=${image} type="video/mp4" /></video>`,
                 }}
                 onClick={() => onClick()}
               />
-              <div className="absolute z-index:10001">
-                <Image
-                  src={play ? PauseVideoIcon : PlayVideoIcon}
-                  width={50}
-                  height={50}
-                  alt=""
-                  onClick={() => setPlay(!play)}
-                />
-              </div>
-            </div>
+            )
           ) : (
             <img
               src={image !== '' ? image : DefaultNftBG}
