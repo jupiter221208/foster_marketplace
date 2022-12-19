@@ -3,12 +3,16 @@ import React, { useEffect, useState } from 'react'
 // next components
 import Head from 'next/head'
 
+// third party components
+import { useSelector, useDispatch } from 'react-redux'
+
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import SuccessMintCollectionSection from 'components/pages/Create/Collection/SuccessMintCollectionSection'
 import Step01CollectionSection from 'components/pages/Create/Collection/Step01CollectionSection'
 import Step02CollectionSection from 'components/pages/Create/Collection/Step02CollectionSection'
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
+import ProgressingModal from 'components/Modal/ProgressingModal'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
@@ -29,6 +33,8 @@ import axios from 'axios'
 import collectionsAPI from 'apis/collections'
 
 const Collection = () => {
+  const dispatch = useDispatch()
+  const isLoading = useSelector<any>(state => state.isLoading)
   // solana
   const { metaplex: mx } = useMetaplex()
 
@@ -77,6 +83,7 @@ const Collection = () => {
   const [coverImageBuffer, setCoverImageBuffer] = useState(null)
 
   const mintCollection = async () => {
+    dispatch({ type: 'set', isLoading: true })
     let reader = new FileReader()
     const fileData = new Blob([coverImage[0]])
     reader.readAsArrayBuffer(fileData)
@@ -118,6 +125,7 @@ const Collection = () => {
         setCollectionNft(collectionNft)
         setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
       }
+      dispatch({ type: 'set', isLoading: false })
     }
   }
 
@@ -214,6 +222,7 @@ const Collection = () => {
   }
 
   const uploadArtworks = async () => {
+    dispatch({ type: 'set', isLoading: true })
     const categories = categoryList.filter(item => item.checked)
 
     const attributes = categories.map(category => {
@@ -310,6 +319,7 @@ const Collection = () => {
       error => {}
     )
     setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+    dispatch({ type: 'set', isLoading: false })
   }
 
   return (
@@ -376,6 +386,7 @@ const Collection = () => {
           />
         )}
       </div>
+      <ProgressingModal open={isLoading} />
     </div>
   )
 }
