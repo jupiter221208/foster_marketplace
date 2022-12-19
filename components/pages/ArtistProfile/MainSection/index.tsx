@@ -99,61 +99,33 @@ const MainSection = prop => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" />
         </div>
         <div className="grid grid-cols-12 items-center mt-[-50px] lg:mt-[-80px]">
-          {isOwn === false ? (
-            <div className="col-span-3 mt-[-20px] lg:mt-[-50px]">
-              {follow ? (
-                <OutlineButton
-                  label="Following"
-                  onClick={() => unfollowArtist(artistInfo.wallet_id)}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                  fontSize={
-                    viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'
-                  }
-                />
-              ) : (
-                <GradientButton
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                  fontSize={
-                    viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'
-                  }
-                  borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
-                  label="Follow"
-                  direction={'rtl'}
-                  icon={AvatarFollowIcon}
-                  onClick={() => followArtist(artistInfo.wallet_id)}
-                />
-              )}
-            </div>
-          ) : (
-            <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
-              <div className="gap-[15px] mt-[16px] lg:flex">
-                <div
-                  className="cursor-pointer flex hover:opacity-60"
-                  onClick={() => {
-                    setType(0)
-                    setShowFollowModal(true)
-                  }}
-                >
-                  <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>
-                  &nbsp;
-                  <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
-                </div>
-                <div
-                  className="cursor-pointer flex hover:opacity-60"
-                  onClick={() => {
-                    setType(1)
-                    setShowFollowModal(true)
-                  }}
-                >
-                  <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>
-                  &nbsp;
-                  <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
-                </div>
+          <div className="col-span-3 mt-[-20px] lg:mt-[-70px]">
+            <div className="gap-[15px] mt-[16px] lg:flex">
+              <div
+                className="cursor-pointer flex hover:opacity-60"
+                onClick={() => {
+                  setType(0)
+                  setShowFollowModal(true)
+                }}
+              >
+                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.followers}</div>
+                &nbsp;
+                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Followers</div>
+              </div>
+              <div
+                className="cursor-pointer flex hover:opacity-60"
+                onClick={() => {
+                  setType(1)
+                  setShowFollowModal(true)
+                }}
+              >
+                <div className="text-[#EFF0F6] text-[14px] lg:text-[16px] font-bold">{artistInfo.following}</div>
+                &nbsp;
+                <div className="text-[#B5B6BA] text-[14px] lg:text-[16px]">Following</div>
               </div>
             </div>
-          )}
+          </div>
+
           <div className="col-span-6">
             <ProfileArtistCard
               image={
@@ -170,13 +142,28 @@ const MainSection = prop => {
               />
             </div>
           </div>
-          <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-60px]">
-            <div className="lg:flex flex-nowrap gap-[10px]">
-              <div className={`${styles.collectorProfile} hidden lg:flex`}>
-                {artistEnable ? 'ARTIST PROFILE' : 'COLLECTOR PROFILE'}
-              </div>
-              <SwitchButton enabled={artistEnable} onChange={() => setArtistEnable(!artistEnable)} />
-            </div>
+
+          <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-50px]">
+            {follow ? (
+              <OutlineButton
+                label="Following"
+                onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
+              />
+            ) : (
+              <GradientButton
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
+                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
+                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
+                label="Follow"
+                direction={'rtl'}
+                icon={AvatarFollowIcon}
+                onClick={() => followArtist(artistInfo.wallet_id)}
+              />
+            )}
           </div>
         </div>
         <div
@@ -194,65 +181,79 @@ const MainSection = prop => {
           </div>
         </div>
         <div className="flex justify-center mt-[16px]">
-          <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] xs:gap-[24px] lg:gap-[35px]`}>
-            <div className="col-span-3 flex justify-center items-center">
-              <div className="text-center">
-                <div className={styles.nftInfoLabel}>800</div>
-                <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                    ? 'NFTS'
-                    : artistEnable
-                    ? 'NFTS CREATED'
-                    : 'NFTS COLLECTED'}
+          <div className={styles.statesBack}>
+            <div className="w-full flex justify-between">
+              <div className={styles.collectorProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
+              <SwitchButton enabled={artistEnable} onChange={() => setArtistEnable(!artistEnable)} />
+            </div>
+            <div className={`${styles.nftInfo} grid grid-cols-12 gap-[20px] xs:gap-[24px] lg:gap-[35px] mt-[10px]`}>
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className="flex justify-center">
+                    <div className={styles.nftInfoLabel}>800</div>
+                  </div>
+                  <div className={styles.nftInfoValue}>
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                      ? 'NFTS'
+                      : artistEnable
+                      ? 'NFTS CREATED'
+                      : 'NFTS COLLECTED'}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-span-3 flex justify-center items-center">
-              <div className="text-center">
-                <div className={styles.nftInfoLabel}>20</div>
-                <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                    ? 'COLLECTIONS'
-                    : artistEnable
-                    ? 'COLLECTIONS PUBLISHED'
-                    : 'UNIQUE COLLECTIONS'}
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className="flex justify-center">
+                    <div className={styles.nftInfoLabel}>20</div>
+                  </div>
+                  <div className={styles.nftInfoValue}>
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                      ? 'COLLECTIONS'
+                      : artistEnable
+                      ? 'COLLECTIONS PUBLISHED'
+                      : 'UNIQUE COLLECTIONS'}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-span-3 flex justify-center items-center">
-              <div className="text-center">
-                <div className={styles.nftInfoLabel}>1000</div>
-                <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                    ? artistEnable
-                      ? 'VISITORS'
-                      : 'SUPPORTED'
-                    : artistEnable
-                    ? 'MONTHLY VISITORS'
-                    : 'CREATORS SUPPORTED'}
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className="flex justify-center">
+                    <div className={styles.nftInfoLabel}>1000</div>
+                  </div>
+                  <div className={styles.nftInfoValue}>
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                      ? artistEnable
+                        ? 'VISITORS'
+                        : 'SUPPORTED'
+                      : artistEnable
+                      ? 'MONTHLY VISITORS'
+                      : 'CREATORS SUPPORTED'}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-span-3 flex justify-center items-center">
-              <div className="text-center">
-                <div className="flex items-center justify-center">
-                  <Image
-                    src={SolanaLogoIcon}
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                    alt=""
-                  />
-                  <div className={`${styles.nftInfoLabel} ml-[6px]`}>62.3</div>
-                </div>
+              <div className="col-span-3 flex justify-center items-center">
+                <div className="text-center">
+                  <div className="flex items-center justify-center">
+                    <div className={styles.nftInfoLabel}>
+                      <Image
+                        src={SolanaLogoIcon}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                        alt=""
+                      />
+                      <div className={'ml-[6px]'}>62.3</div>
+                    </div>
+                  </div>
 
-                <div className={styles.nftInfoValue}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                    ? artistEnable
-                      ? 'SALES'
-                      : 'PURCHASES'
-                    : artistEnable
-                    ? 'SALES VOLUME'
-                    : 'PURCHASE VOLUME'}
+                  <div className={styles.nftInfoValue}>
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                      ? artistEnable
+                        ? 'SALES'
+                        : 'PURCHASES'
+                      : artistEnable
+                      ? 'SALES VOLUME'
+                      : 'PURCHASE VOLUME'}
+                  </div>
                 </div>
               </div>
             </div>
