@@ -12,10 +12,9 @@ import ReadMoreModal from 'components/Modal/ReadMoreModal'
 import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
-import GradientButton from 'components/Button/GradientButton'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
-import OutlineButton from 'components/Button/OutlineButton'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import PositiveButton from 'components/Button/PositiveButton'
+import NegativeButton from 'components/Button/NegativeButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -145,22 +144,17 @@ const MainSection = prop => {
 
           <div className="col-span-3 flex justify-end mt-[-20px] lg:mt-[-50px]">
             {follow ? (
-              <OutlineButton
+              <NegativeButton
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 80 : 146}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 53}
                 label="Following"
                 onClick={() => unfollowArtist(artistInfo.wallet_id)}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
               />
             ) : (
-              <GradientButton
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '89px' : '146px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '51px'}
-                fontSize={viewport === 'xs' ? '12px' : viewport === 'sm' ? '14px' : viewport === 'md' ? '14px' : '18px'}
-                borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
+              <PositiveButton
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 80 : 146}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 53}
                 label="Follow"
-                direction={'rtl'}
-                icon={AvatarFollowIcon}
                 onClick={() => followArtist(artistInfo.wallet_id)}
               />
             )}
