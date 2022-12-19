@@ -127,6 +127,7 @@ const Step02CollectionSection = props => {
   }
 
   const handleSelectedCollectioinFile = (item: any) => {
+    setSelectedCollectionFile(undefined)
     if (item.type !== 'image/gif' && item.type.split('/')[0] === 'image') {
       imageProcess(URL.createObjectURL(item.file)).then((result: any) => {
         let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
@@ -149,13 +150,14 @@ const Step02CollectionSection = props => {
     if (collectionFiles !== undefined && collectionFiles.length !== 0) {
       if (collectionFiles.length > 5) {
         setSubCollectionFiles(collectionFiles.slice(0, 5))
+        setShowMore(true)
       } else {
         setSubCollectionFiles(collectionFiles)
       }
     } else {
       setSubCollectionFiles([])
     }
-  }, [showMore, collectionFiles])
+  }, [collectionFiles])
 
   const handleChangeCurrentStep = step => {
     handleFormValidate()
@@ -306,7 +308,7 @@ const Step02CollectionSection = props => {
                       )}
                     </Dropzone>
                   </div>
-                  {!showMore &&
+                  {showMore &&
                     subCollectionFiles !== undefined &&
                     subCollectionFiles.length !== 0 &&
                     subCollectionFiles.map((item, index) => (
@@ -401,11 +403,11 @@ const Step02CollectionSection = props => {
                         />
                       </div>
                     ))}
-                  {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
+                  {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
                     <div className="w-full flex justify-center">
                       <IconButton
                         icon={ArrowDownGreenIcon}
-                        onClick={() => setShowMore(true)}
+                        onClick={() => setShowMore(false)}
                         backgroundColor="transparent"
                         iconWidth={64}
                         iconHeight={64}
@@ -413,7 +415,7 @@ const Step02CollectionSection = props => {
                     </div>
                   )}
 
-                  {showMore &&
+                  {!showMore &&
                     collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
                       <div
@@ -653,7 +655,7 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           <div className="w-full">
-            {!showMore &&
+            {showMore &&
               subCollectionFiles !== undefined &&
               subCollectionFiles.length !== 0 &&
               subCollectionFiles.map((item, index) => (
@@ -741,11 +743,11 @@ const Step02CollectionSection = props => {
                   </div>
                 </div>
               ))}
-            {!showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
+            {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
               <div className="w-full flex justify-center">
                 <IconButton
                   icon={ArrowDownGreenIcon}
-                  onClick={() => setShowMore(true)}
+                  onClick={() => setShowMore(false)}
                   backgroundColor="transparent"
                   iconWidth={32}
                   iconHeight={32}
@@ -753,7 +755,7 @@ const Step02CollectionSection = props => {
               </div>
             )}
 
-            {showMore &&
+            {!showMore &&
               collectionFiles.length !== 0 &&
               collectionFiles.map((item, index) => (
                 <div
