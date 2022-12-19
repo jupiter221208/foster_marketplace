@@ -55,7 +55,9 @@
 }
 
 .imageArea {
-  border-radius: 12px;
+  @media (min-width: 1024px) {
+    border-radius: 12px;
+  }
   background-color: $background-dark-color;
   display: flex;
   justify-content: center;

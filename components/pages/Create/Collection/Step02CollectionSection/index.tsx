@@ -246,7 +246,14 @@ const Step02CollectionSection = props => {
                     <>&nbsp;</>
                   )}
                   {selectedCollectionFile !== undefined && (
-                    <IconButton icon={TrashGrayIcon} onClick={() => {}} backgroundColor="transparent" />
+                    <IconButton
+                      icon={TrashGrayIcon}
+                      onClick={() => {
+                        onRemoveCollectionFile(selectedCollectionFile)
+                        setSelectedCollectionFile(undefined)
+                      }}
+                      backgroundColor="transparent"
+                    />
                   )}
                 </div>
               )}
@@ -278,7 +285,7 @@ const Step02CollectionSection = props => {
                   <CollectionStepper currentStep={currentStep} />
                 </div>
                 <div className="w-full">
-                  <div className={`${styles.subTitle} mt-10`}>Collection Files (max. 25) *</div>
+                  <div className={`${styles.subTitle} mt-[76px]`}>Collection Files (max. 25) *</div>
                   <div className="mt-5">
                     <Dropzone
                       onDrop={acceptedFiles => {
@@ -542,7 +549,7 @@ const Step02CollectionSection = props => {
           <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
           </div>
-          <div className={`${styles.title} w-full`}>Artwork Preview</div>
+          {/* <div className={`${styles.title} w-full`}>Artwork Preview</div> */}
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             {/* banner part */}
@@ -570,7 +577,7 @@ const Step02CollectionSection = props => {
                             : URL.createObjectURL(selectedCollectionFile.file)
                         }
                         alt=""
-                        className="w-full h-full object-contain rounded-[6px]"
+                        className="w-full h-full object-contain"
                       />
                     )
                   )}
@@ -592,7 +599,10 @@ const Step02CollectionSection = props => {
                   {selectedCollectionFile !== undefined && (
                     <IconButton
                       icon={TrashGrayIcon}
-                      onClick={() => {}}
+                      onClick={() => {
+                        onRemoveCollectionFile(selectedCollectionFile)
+                        setSelectedCollectionFile(undefined)
+                      }}
                       backgroundColor="transparent"
                       width="32px"
                       height="32px"
@@ -616,7 +626,7 @@ const Step02CollectionSection = props => {
           </div>
 
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-8`}>Collection Files (max. 25) *</div>
+            <div className={`${styles.subTitle} mt-[46px]`}>Collection Files (max. 25) *</div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
