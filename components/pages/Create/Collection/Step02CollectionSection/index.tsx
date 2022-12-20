@@ -127,12 +127,13 @@ const Step02CollectionSection = props => {
     })
   }
 
-  const handleSelectedCollectioinFile = (item: any) => {
+  const handleSelectedCollectionFile = (item: any) => {
     if (item.type !== 'image/gif' && item.type.split('/')[0] === 'image') {
       imageProcess(URL.createObjectURL(item.file)).then((result: any) => {
         let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
         dimensionArray[0].value = [result.width, result.height]
         item.dimensionList = dimensionArray
+        item.selectedDimension = dimensionArray[0]
         setSelectedCollectionFile(item)
       })
     } else {
@@ -320,7 +321,7 @@ const Step02CollectionSection = props => {
                       <div
                         className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
                         key={index}
-                        onClick={() => handleSelectedCollectioinFile(item)}
+                        onClick={() => handleSelectedCollectionFile(item)}
                       >
                         <div
                           className={
@@ -426,7 +427,7 @@ const Step02CollectionSection = props => {
                       <div
                         className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
                         key={index}
-                        onClick={() => handleSelectedCollectioinFile(item)}
+                        onClick={() => handleSelectedCollectionFile(item)}
                       >
                         <div
                           className={
@@ -666,7 +667,7 @@ const Step02CollectionSection = props => {
                 <div
                   className="w-full flex flex-wrap gap-4 mt-10 cursor-pointer"
                   key={index}
-                  onClick={() => handleSelectedCollectioinFile(item)}
+                  onClick={() => handleSelectedCollectionFile(item)}
                 >
                   <div className="w-full flex justify-between items-center">
                     <div
@@ -765,7 +766,7 @@ const Step02CollectionSection = props => {
                 <div
                   className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
                   key={index}
-                  onClick={() => handleSelectedCollectioinFile(item)}
+                  onClick={() => handleSelectedCollectionFile(item)}
                 >
                   <div className="w-full flex justify-between items-center">
                     <div
@@ -890,7 +891,7 @@ const Step02CollectionSection = props => {
           close={() => setOpenImageEditorModal(false)}
           nftImage={[selectedCollectionFile.file]}
           getCroppedImage={croppedImage => {
-            handleSelectedCollectioinFile({ ...selectedCollectionFile, croppedImage: croppedImage })
+            setSelectedCollectionFile({ ...selectedCollectionFile, croppedImage: croppedImage })
             onChangeCroppedImage(croppedImage, selectedCollectionFile.id)
             setOpenImageEditorModal(false)
           }}
