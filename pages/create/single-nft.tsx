@@ -333,8 +333,8 @@ const SingleNft = () => {
               const file = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
               const fileURL = await mx.storage().upload(file)
               metadata.animation_url = fileURL
-              metadata.category = 'video'
               metadata.properties = {
+                category: 'video',
                 files: [
                   {
                     type: 'video/mp4',
