@@ -15,7 +15,6 @@ import Step03CollectionSection from 'components/pages/Create/Collection/Step03Co
 import ProgressingModal from 'components/Modal/ProgressingModal'
 
 // json
-import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 import CategoryList from 'assets/json/popular-category.json'
 
 // solana
@@ -24,9 +23,6 @@ import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFile } from '@me
 
 // images and icons
 import AudioPlayer from 'assets/images/audio-player.png'
-
-// custom functions
-import { useViewport } from 'utils'
 
 // call apis
 import axios from 'axios'
@@ -37,21 +33,6 @@ const Collection = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
   // solana
   const { metaplex: mx } = useMetaplex()
-
-  const viewport = useViewport()
-
-  const [screenWidth, setScreenWidth] = useState(1920)
-
-  useEffect(() => {
-    setScreenWidth(window.innerWidth)
-  }, [])
-
-  useEffect(() => {
-    const resizeFunction = () => {
-      setScreenWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
 
   // variables
   const [currentStep, setCurrentStep] = useState(1)

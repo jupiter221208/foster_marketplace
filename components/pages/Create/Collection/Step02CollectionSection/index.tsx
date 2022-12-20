@@ -133,7 +133,6 @@ const Step02CollectionSection = props => {
         let dimensionArray = JSON.parse(JSON.stringify(NFTDimensionList))
         dimensionArray[0].value = [result.width, result.height]
         item.dimensionList = dimensionArray
-        item.selectedDimension = dimensionArray[0]
         setSelectedCollectionFile(item)
       })
     } else {
