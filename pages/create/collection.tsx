@@ -242,11 +242,16 @@ const Collection = () => {
           description: artworks[i].description,
           attributes: attributes,
         }
-
-        if (artworks[i].type === 'image') {
+        let assetType = artworks[i].type
+        if (assetType === 'image') {
           metadata.image = toMetaplexFile(artworks[i].file, 'metaplex.png')
           metadata.category = 'image'
-        } else if (artworks[i].type === 'video') {
+        } else if (assetType === 'image/gif') {
+          const file = toMetaplexFile(artworks[i].file, 'metaplex.gif', { contentType: 'image/gif' })
+          const fileURL = await mx.storage().upload(file)
+          metadata.animation_url = fileURL
+          metadata.category = 'image'
+        } else if (assetType === 'video') {
           metadata.image = toMetaplexFile(coverImageBuffer, 'metaplex.png')
           const file = toMetaplexFile(artworks[i].file, 'metaplex.mp4', { contentType: 'video/mp4' })
           const fileURL = await mx.storage().upload(file)
@@ -260,7 +265,7 @@ const Collection = () => {
               },
             ],
           }
-        } else if (artworks[i].type === 'audio') {
+        } else if (assetType === 'audio') {
           metadata.image = toMetaplexFile(coverImageBuffer, 'metaplex.png')
           const file = toMetaplexFile(artworks[i].file, 'metaplex.mp3', { contentType: 'audio/mp3' })
           const fileURL = await mx.storage().upload(file)
@@ -278,7 +283,7 @@ const Collection = () => {
 
         const { uri } = await mx.nfts().uploadMetadata(metadata).run()
 
-        const nft = await mx
+        const nft: any = await mx
           .nfts()
           .create({
             uri: uri,
@@ -296,10 +301,27 @@ const Collection = () => {
             isSizedCollection: true,
           })
           .run()
+
+        let assetUrl: any = ''
+        let coverUrl: any = ''
+        if (assetType === 'image') {
+          assetUrl = nft.nft.json.image
+        } else if (assetType === 'image/gif') {
+          assetUrl = metadata.animation_url
+        } else if (assetType === 'audio') {
+          assetUrl = nft.nft.json.animation_url
+          coverUrl = nft.nft.json.image
+        } else if (assetType === 'video') {
+          assetUrl = metadata.animation_url
+        } else {
+          assetUrl = nft.nft.json.image
+        }
         array.push({
           token_id: nft.mintAddress.toString(),
           nft_name: nft.nft.name,
-          asset_url: nft.nft.json.image,
+          asset_type: assetType,
+          asset_url: assetUrl,
+          cover_image_url: coverUrl,
           categories: category.slice(0, -1),
         })
         setUploadedCount(i + 1)
@@ -314,6 +336,7 @@ const Collection = () => {
       categories: category.slice(0, -1),
       nfts: array,
     }
+
     collectionsAPI.mintCollection(collectionInfo).then(
       response => {},
       error => {}
