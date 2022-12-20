@@ -25,15 +25,25 @@
 .headerImage {
   position: relative;
   width: calc(100% + 32px);
-  border-radius: 20px;
   margin-left: -16px;
   margin-right: -16px;
   margin-top: -96px;
   @media (min-width: 1024px) {
     width: 100%;
-    border-radius: 20px;
     margin: 0px;
   }
+}
+
+.whiteText {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  color: $text-gray-200-color;
+}
+
+.grayText {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .description {
@@ -44,6 +54,7 @@
   @media (min-width: 1024px) {
     font-size: 16px;
     word-break: break-all;
+    margin-top: 52px;
   }
   line-height: 24px;
   color: $text-gray-200-color;
@@ -82,6 +93,7 @@
     width: auto;
     padding: 17px 15px 0px 15px;
   }
+  z-index: 10;
 }
 
 .nftInfoLabel {
