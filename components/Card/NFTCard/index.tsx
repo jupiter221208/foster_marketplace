@@ -25,7 +25,7 @@ const DashboardNFTCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {assetType === 'video' ? (
-            viewport === 'xs' ? (
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full relative flex justify-center items-center">
                 <div
                   className="w-full absolute"

@@ -136,6 +136,7 @@ const MarketplaceReleaseSection = props => {
                   <NFTCard
                     image={item.asset_url}
                     nftName={item.nft_name}
+                    assetType={item.asset_type}
                     artistName={item.artist_username}
                     price={item.list_price}
                     onClick={() => {
