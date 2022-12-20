@@ -316,7 +316,6 @@ const SingleNft = () => {
           description: description,
           attributes: attributes,
         }
-
         if (nftType === 'image') {
           metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
           metadata.category = 'image'
@@ -346,8 +345,8 @@ const SingleNft = () => {
               const file = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
               const fileURL = await mx.storage().upload(file)
               metadata.animation_url = fileURL
-              metadata.category = 'audio'
               metadata.properties = {
+                category: 'audio',
                 files: [
                   {
                     type: 'audio/mp3',

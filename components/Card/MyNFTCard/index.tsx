@@ -20,7 +20,7 @@ const MyNFTCard = props => {
   return (
     <div className={styles.container}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data)}>
-        {data.offchainMetadata.category === 'video' ? (
+        {data.offchainMetadata.category === 'video' || data.offchainMetadata.properties?.category === 'video' ? (
           <div
             dangerouslySetInnerHTML={{
               __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">

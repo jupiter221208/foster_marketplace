@@ -81,7 +81,8 @@ const ListNFTModal = props => {
                   </div>
                   <div className={styles.title}>List NFT</div>
                   <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                    {data?.offchainMetadata.category === 'video' ? (
+                    {data?.offchainMetadata.category === 'video' ||
+                    data?.offchainMetadata.properties?.category === 'video' ? (
                       <div
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
@@ -136,7 +137,8 @@ const ListNFTModal = props => {
                   <div className={styles.close} onClick={() => onClose('unlisted')}>
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
-                  {data?.offchainMetadata.category === 'video' ? (
+                  {data?.offchainMetadata.category === 'video' ||
+                  data?.offchainMetadata.properties?.category === 'video' ? (
                     <div
                       className="mt-[20px]"
                       dangerouslySetInnerHTML={{

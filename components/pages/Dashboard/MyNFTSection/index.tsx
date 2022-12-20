@@ -35,7 +35,6 @@ const MyNFTSection = props => {
   const { publicKey } = useWallet()
 
   const { metaplex: mx } = useMetaplex()
-
   const loadMyNFTs = async () => {
     setLoading(true)
     let nfts = await getMyNFTs(mx)

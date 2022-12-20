@@ -22,7 +22,6 @@ const ListedNFTCard = props => {
   const { data, type, onClick, onActionClick, cancelAuction, finalizeSale } = props
   const { startTime, endTime, highestBid } = data
   const viewport = useViewport()
-
   const isStarted = useMemo(() => {
     if (startTime) {
       const start = new Date(Number(startTime) * 1000)

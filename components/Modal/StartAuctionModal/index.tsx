@@ -158,7 +158,8 @@ const StartAuctionModal = props => {
                 </div>
                 <div className={styles.title}>Start Auction</div>
                 <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  {data?.offchainMetadata.category === 'video' ? (
+                  {data?.offchainMetadata.category === 'video' ||
+                  data?.offchainMetadata.properties?.category === 'video' ? (
                     <div
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
