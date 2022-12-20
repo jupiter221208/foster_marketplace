@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 export const useViewport = () => {
-  const [viewport, setViewport] = useState('lg')
+  const [viewport, setViewport] = useState('')
 
   useEffect(() => {
     if (window.innerWidth > 1536) {

@@ -43,18 +43,30 @@ const FreshMintSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getFreshMints(category).then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setAllFreshMintsList(response)
-          setFreshMintsList(response)
+    if (viewport !== '') {
+      let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+      dashboardAPI.getFreshMints(category).then(
+        response => {
+          if (response !== null && response !== undefined) {
+            if (mobileVersion) {
+              let lists = []
+              response.map(item => {
+                if (item.asset_type !== 'video') lists.push(item)
+              })
+              setAllFreshMintsList(lists)
+              setFreshMintsList(lists)
+            } else {
+              setAllFreshMintsList(response)
+              setFreshMintsList(response)
+            }
+          }
+        },
+        error => {
+          console.log(error)
         }
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }, [])
+      )
+    }
+  }, [viewport])
 
   const handleChangeActive = value => {
     setActive(value)

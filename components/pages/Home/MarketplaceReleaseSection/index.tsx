@@ -43,16 +43,28 @@ const MarketplaceReleaseSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getMarketplaceReleases(category).then(response => {
-      if (response !== null && response !== undefined && response.length !== 0) {
-        setMarketplaceReleaseList(response)
-        setAllMarketplaceReleaseList(response)
-      }
-    }),
-      error => {
-        console.log(error)
-      }
-  }, [])
+    if (viewport !== '') {
+      let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+      dashboardAPI.getMarketplaceReleases(category).then(response => {
+        if (response !== null && response !== undefined && response.length !== 0) {
+          if (mobileVersion) {
+            let lists = []
+            response.map(item => {
+              if (item.asset_type !== 'video') lists.push(item)
+            })
+            setMarketplaceReleaseList(lists)
+            setAllMarketplaceReleaseList(lists)
+          } else {
+            setMarketplaceReleaseList(response)
+            setAllMarketplaceReleaseList(response)
+          }
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+    }
+  }, [viewport])
 
   const handleChangeActive = value => {
     setActive(value)

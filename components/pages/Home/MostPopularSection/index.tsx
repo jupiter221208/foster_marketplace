@@ -43,18 +43,30 @@ const MostPopularSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    dashboardAPI.getMostPopular(category).then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setAllMostPopularList(response)
-          setMostPopularList(response)
+    if (viewport !== '') {
+      let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+      dashboardAPI.getMostPopular(category).then(
+        response => {
+          if (response !== null && response !== undefined) {
+            if (mobileVersion) {
+              let lists = []
+              response.map(item => {
+                if (item.asset_type !== 'video') lists.push(item)
+              })
+              setAllMostPopularList(lists)
+              setMostPopularList(lists)
+            } else {
+              setAllMostPopularList(response)
+              setMostPopularList(response)
+            }
+          }
+        },
+        error => {
+          console.log(error)
         }
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }, [])
+      )
+    }
+  }, [viewport])
 
   const handleChangeActive = value => {
     setActive(value)

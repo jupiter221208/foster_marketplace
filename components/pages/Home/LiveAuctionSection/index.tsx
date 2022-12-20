@@ -52,8 +52,12 @@ const LiveAuctionSection = props => {
     } else {
       dashboardAPI.getLiveAuctions(category).then(response => {
         if (response !== null && response !== undefined && response.length !== 0) {
-          setAllLiveAuctionList(response)
-          setLiveAuctionList(response)
+          let lists = []
+          response.map(item => {
+            if (item.asset_url.length > 0) lists.push(item)
+          })
+          setAllLiveAuctionList(lists)
+          setLiveAuctionList(lists)
         }
       }),
         error => {
