@@ -136,7 +136,7 @@ const MainSection = prop => {
             />
           </div>
 
-          <div className="col-span-3 h-full flex justify-end items-center">
+          <div className="col-span-3 h-full flex justify-end items-center pt-[60px]">
             {follow ? (
               <NegativeButton
                 width={146}
@@ -154,7 +154,7 @@ const MainSection = prop => {
             )}
           </div>
         </div>
-        <div className="flex justify-center w-full mt-[12px] z-10">
+        <div className="w-full flex justify-center mt-[12px]">
           <div className="max-w-[678px] w-full flex flex-wrap justify-center mt-[9px] z-10">
             {artistInfo.wallet_id && (
               <AddressButton
@@ -263,10 +263,12 @@ const MainSection = prop => {
         />
       </div>
       <div className="w-full">
-        <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" />
+        <div className="z-0">
+          <div className={styles.topLeftEllipse}>
+            <Image src={EllipseGreen} width={2021} height={2021} alt="" />
+          </div>
         </div>
-        <div className="w-full flex justify-between items-center mt-[-50px]">
+        <div className="w-full flex justify-between items-center mt-[-50px] z-10">
           <ProfileArtistCard
             image={
               artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
@@ -275,7 +277,7 @@ const MainSection = prop => {
             }
             name={artistInfo.username}
           />
-          <div className="mt-[10px]">
+          <div className="mt-10">
             {follow ? (
               <NegativeButton
                 width={80}
@@ -293,7 +295,7 @@ const MainSection = prop => {
             )}
           </div>
         </div>
-        <div className="mt-2">
+        <div className="mt-2 z-10">
           {artistInfo.wallet_id && (
             <AddressButton
               label={getShortAddress(artistInfo.wallet_id)}
@@ -303,7 +305,7 @@ const MainSection = prop => {
         </div>
         <div className="flex gap-[15px] mt-2">
           <div
-            className="cursor-pointer flex hover:opacity-60"
+            className="cursor-pointer flex hover:opacity-60 z-10"
             onClick={() => {
               setType(0)
               setShowFollowModal(true)
@@ -314,7 +316,7 @@ const MainSection = prop => {
             <div className={styles.grayText}>Followers</div>
           </div>
           <div
-            className="cursor-pointer flex hover:opacity-60"
+            className="cursor-pointer flex hover:opacity-60 z-10"
             onClick={() => {
               setType(1)
               setShowFollowModal(true)
@@ -326,7 +328,7 @@ const MainSection = prop => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center w-full flex-wrap mt-[12px]">
+      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
         {artistInfo.bio && (
           <span className={styles.description}>
             {getShortDescription(artistInfo.bio) + ' '}
