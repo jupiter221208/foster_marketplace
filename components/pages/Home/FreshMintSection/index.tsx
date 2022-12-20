@@ -43,30 +43,32 @@ const FreshMintSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    if (viewport !== '') {
-      let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-      dashboardAPI.getFreshMints(category).then(
-        response => {
-          if (response !== null && response !== undefined) {
-            if (mobileVersion) {
-              let lists = []
-              response.map(item => {
-                if (item.asset_type !== 'video') lists.push(item)
-              })
-              setAllFreshMintsList(lists)
-              setFreshMintsList(lists)
-            } else {
-              setAllFreshMintsList(response)
-              setFreshMintsList(response)
-            }
-          }
-        },
-        error => {
-          console.log(error)
+    dashboardAPI.getFreshMints(category).then(
+      response => {
+        if (response !== null && response !== undefined) {
+          setAllFreshMintsList(response)
+          setFreshMintsList(response)
         }
-      )
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [])
+
+  useEffect(() => {
+    if (allFreshMintsList.length === 0) return
+    let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+    if (mobileVersion) {
+      let lists = []
+      allFreshMintsList.map(item => {
+        if (item.asset_type !== 'video') lists.push(item)
+      })
+      setFreshMintsList(lists)
+    } else {
+      setFreshMintsList(allFreshMintsList)
     }
-  }, [viewport])
+  }, [viewport, allFreshMintsList])
 
   const handleChangeActive = value => {
     setActive(value)

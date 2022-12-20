@@ -43,28 +43,29 @@ const MarketplaceReleaseSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    if (viewport !== '') {
-      let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-      dashboardAPI.getMarketplaceReleases(category).then(response => {
-        if (response !== null && response !== undefined && response.length !== 0) {
-          if (mobileVersion) {
-            let lists = []
-            response.map(item => {
-              if (item.asset_type !== 'video') lists.push(item)
-            })
-            setMarketplaceReleaseList(lists)
-            setAllMarketplaceReleaseList(lists)
-          } else {
-            setMarketplaceReleaseList(response)
-            setAllMarketplaceReleaseList(response)
-          }
-        }
-      }),
-        error => {
-          console.log(error)
-        }
+    dashboardAPI.getMarketplaceReleases(category).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        setAllMarketplaceReleaseList(response)
+      }
+    }),
+      error => {
+        console.log(error)
+      }
+  }, [])
+
+  useEffect(() => {
+    if (allMarketplaceReleaseList.length === 0) return
+    let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+    if (mobileVersion) {
+      let lists = []
+      allMarketplaceReleaseList.map(item => {
+        if (item.asset_type !== 'video') lists.push(item)
+      })
+      setMarketplaceReleaseList(lists)
+    } else {
+      setMarketplaceReleaseList(allMarketplaceReleaseList)
     }
-  }, [viewport])
+  }, [viewport, allMarketplaceReleaseList])
 
   const handleChangeActive = value => {
     setActive(value)
