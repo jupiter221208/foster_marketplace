@@ -10,8 +10,8 @@
 
   height: 29px;
   font-size: 12px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 0px;
+  padding-right: 0px;
   gap: 8px;
   background-color: transparent;
 
@@ -25,11 +25,23 @@
   }
 
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.7);
 
   &:hover {
     opacity: 0.8;
   }
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
+  z-index: 10;
+}
+
+.label {
+  border-radius: 6px;
+  background-color: $background-black-color;
+  padding: 5px;
+  color: $text-gray-200-color;
+  @media (min-width: 1024px) {
+    background-color: transparent;
+    color: rgba($text-gray-200-color, 0.7);
+  }
+  z-index: 10;
 }

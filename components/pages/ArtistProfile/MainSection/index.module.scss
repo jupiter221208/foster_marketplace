@@ -16,13 +16,19 @@
 
 .topLeftEllipse {
   position: absolute;
-  top: 458px;
-  left: -662px;
+  top: -300px;
+  left: -300px;
+  @media (min-width: 1024px) {
+    top: 458px;
+    left: -662px;
+  }
+
   z-index: 0;
-  opacity: 0.8;
+  opacity: 0.4;
 }
 
 .headerImage {
+  min-height: 132px;
   position: relative;
   width: calc(100% + 32px);
   margin-left: -16px;
@@ -36,13 +42,19 @@
 
 .whiteText {
   font-family: 'Muli-Bold';
-  font-size: 18px;
+  font-size: 12px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
   color: $text-gray-200-color;
 }
 
 .grayText {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-size: 12px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+  }
   color: rgba($text-gray-200-color, 0.75);
 }
 
@@ -51,6 +63,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   word-break: break-word;
+  margin-top: 20px;
   @media (min-width: 1024px) {
     font-size: 16px;
     word-break: break-all;
@@ -58,7 +71,6 @@
   }
   line-height: 24px;
   color: $text-gray-200-color;
-  opacity: 0.9;
 }
 
 .readMore {
@@ -68,18 +80,7 @@
   text-decoration: underline;
   color: $brand-01-color;
   cursor: pointer;
-}
-
-.nftInfo {
-  display: flex;
-  width: 100%;
-  height: 98px;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 16px;
-  @media (min-width: 1024px) {
-    width: 678px;
-  }
+  z-index: 10;
 }
 
 .statesBack {
@@ -88,10 +89,10 @@
   border-color: rgba($background-light-color, 0.1);
   border-width: 1px;
   border-radius: 8px;
-  padding: 17px 15px 0px 15px;
+  padding: 12px;
   @media (min-width: 1024px) {
-    width: auto;
-    padding: 17px 15px 0px 15px;
+    width: 100%;
+    padding: 15px 15px 17px 15px;
   }
   z-index: 10;
 }

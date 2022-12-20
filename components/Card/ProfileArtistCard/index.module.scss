@@ -5,7 +5,10 @@
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
+  @media (min-width: 1024px) {
+    justify-content: center;
+  }
   align-items: center;
 }
 
@@ -27,12 +30,13 @@
 
 .name {
   width: 100%;
-  text-align: center;
+  text-align: start;
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
   height: 20px;
   @media (min-width: 1024px) {
+    text-align: center;
     font-family: 'Muli-Bold';
     font-size: 32px;
     line-height: 40px;
