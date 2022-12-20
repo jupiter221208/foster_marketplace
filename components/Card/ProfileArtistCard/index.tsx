@@ -19,27 +19,15 @@ const ProfileArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        <div className={styles.avatar}>
-          <img
-            src={image}
-            alt=""
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-            className="rounded-full"
-          />
-        </div>
+        <img
+          src={image}
+          alt=""
+          width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+          height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
+          className="rounded-full"
+        />
       </div>
-      <div className={styles.bottomSection}>
-        <div className={styles.name}>{name}</div>
-        {/* <div className="ml-[5px] flex pl-[9px] pr-[9px]">
-          <Image
-            src={CheckedGreenIcon}
-            alt=""
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 28 : 18}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 28 : 18}
-          />
-        </div> */}
-      </div>
+      <div className={styles.name}>{name}</div>
     </div>
   )
 }
