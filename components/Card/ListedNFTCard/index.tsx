@@ -42,11 +42,19 @@ const ListedNFTCard = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
-      <div
-        className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden"
-        onClick={() => onClick(data.url)}
-      >
-        <Image src={data.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
+      <div className={styles.imageArea}>
+        <div className={styles.imageContent}>
+          {data.category === 'video' ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                  <source src=${data.animation_url} type="video/mp4" /></video>`,
+              }}
+            />
+          ) : (
+            <img src={data.image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+          )}
+        </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">

@@ -73,11 +73,17 @@ const ListedNFTSection = props => {
     let fixedPrice = []
     if (listedNfts) {
       fixedPrice = listedNfts.map(nft => {
+        let category = ''
+        if (nft.asset.json.hasOwnProperty('properties')) {
+          category = nft.asset.json.properties.category
+        } else {
+          category = nft.asset.json.category
+        }
         return {
           mintAddress: nft.asset.address,
           image: nft.asset.json.image,
           name: nft.asset.json.name,
-          category: nft.asset.json.category,
+          category: category,
           animation_url: nft.asset.json.animation_url,
           creator: nft.asset.creators[0].address.toString(),
           url: `/browse-nft?id=${nft.asset.address.toString()}`,
