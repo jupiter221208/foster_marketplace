@@ -13,6 +13,7 @@ import Step01CollectionSection from 'components/pages/Create/Collection/Step01Co
 import Step02CollectionSection from 'components/pages/Create/Collection/Step02CollectionSection'
 import Step03CollectionSection from 'components/pages/Create/Collection/Step03CollectionSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
+import CollectionMintProgressingModal from 'components/Modal/ProgressingModal/CollectionMintProgressingModal'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -31,6 +32,7 @@ import collectionsAPI from 'apis/collections'
 const Collection = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
   // solana
   const { metaplex: mx } = useMetaplex()
 
@@ -203,7 +205,7 @@ const Collection = () => {
   }
 
   const uploadArtworks = async () => {
-    dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isCollectionMinting: true })
     const categories = categoryList.filter(item => item.checked)
 
     const attributes = categories.map(category => {
@@ -323,7 +325,7 @@ const Collection = () => {
       error => {}
     )
     setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
-    dispatch({ type: 'set', isLoading: false })
+    dispatch({ type: 'set', isCollectionMinting: false })
   }
 
   return (
@@ -391,6 +393,11 @@ const Collection = () => {
         )}
       </div>
       <ProgressingModal open={isLoading} />
+      <CollectionMintProgressingModal
+        open={isCollectionMinting}
+        collectionFiles={collectionFiles}
+        uploadedCount={uploadedCount}
+      />
     </div>
   )
 }

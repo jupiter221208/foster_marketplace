@@ -2,6 +2,7 @@ import { createStore } from 'redux'
 
 const initialState = {
   isLoading: false,
+  isCollectionMinting: false,
   expired: false,
   openMobileMenu: false,
   openMobileSearchBox: false,
