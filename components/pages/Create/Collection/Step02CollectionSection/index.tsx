@@ -104,9 +104,9 @@ const Step02CollectionSection = props => {
   // variables
   const [openImageEditorModal, setOpenImageEditorModal] = useState(false)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
-  const [showMore, setShowMore] = useState(false)
-  const [collectionFilesCount, setCollectionFilesCount] = useState(0)
-  const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
+  // const [showMore, setShowMore] = useState(false)
+  // const [collectionFilesCount, setCollectionFilesCount] = useState(0)
+  // const [subCollectionFiles, setSubCollectionFiles] = useState<any>([])
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
   useEffect(() => {
@@ -146,21 +146,22 @@ const Step02CollectionSection = props => {
     setOpenImageEditorModal(true)
   }
 
-  useEffect(() => {
-    if (collectionFiles !== undefined && collectionFiles.length !== 0) {
-      if (collectionFiles.length > 5) {
-        if (collectionFilesCount === 0) {
-          setCollectionFilesCount(collectionFiles.length)
-          setShowMore(true)
-        }
-        setSubCollectionFiles(collectionFiles.slice(0, 5))
-      } else {
-        setSubCollectionFiles(collectionFiles)
-      }
-    } else {
-      setSubCollectionFiles([])
-    }
-  }, [collectionFiles, collectionFilesCount])
+  // useEffect(() => {
+  //   if (collectionFiles !== undefined && collectionFiles.length !== 0) {
+  //     if (collectionFiles.length > 5) {
+  //       if (collectionFilesCount === 0) {
+  //         setCollectionFilesCount(collectionFiles.length)
+  //         setShowMore(true)
+  //       }
+  //       setSubCollectionFiles(collectionFiles.slice(0, 5))
+  //     } else {
+  //       setSubCollectionFiles(collectionFiles)
+  //     }
+  //     setSubCollectionFiles(collectionFiles)
+  //   } else {
+  //     setSubCollectionFiles([])
+  //   }
+  // }, [collectionFiles, collectionFilesCount])
 
   const handleChangeCurrentStep = step => {
     handleFormValidate()
@@ -314,7 +315,7 @@ const Step02CollectionSection = props => {
                       )}
                     </Dropzone>
                   </div>
-                  {showMore &&
+                  {/* {showMore &&
                     subCollectionFiles !== undefined &&
                     subCollectionFiles.length !== 0 &&
                     subCollectionFiles.map((item, index) => (
@@ -419,10 +420,10 @@ const Step02CollectionSection = props => {
                         iconHeight={64}
                       />
                     </div>
-                  )}
+                  )} */}
 
-                  {!showMore &&
-                    collectionFiles.length !== 0 &&
+                  {/* {!showMore && */}
+                  {collectionFiles.length !== 0 &&
                     collectionFiles.map((item, index) => (
                       <div
                         className="w-full flex justify-between items-center gap-4 mt-10 cursor-pointer"
@@ -660,7 +661,7 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           <div className="w-full">
-            {showMore &&
+            {/* {showMore &&
               subCollectionFiles !== undefined &&
               subCollectionFiles.length !== 0 &&
               subCollectionFiles.map((item, index) => (
@@ -758,10 +759,10 @@ const Step02CollectionSection = props => {
                   iconHeight={32}
                 />
               </div>
-            )}
+            )} */}
 
-            {!showMore &&
-              collectionFiles.length !== 0 &&
+            {/* {!showMore && */}
+            {collectionFiles.length !== 0 &&
               collectionFiles.map((item, index) => (
                 <div
                   className="w-full flex flex-wrap justify-between items-center gap-4 mt-10 cursor-pointer"
