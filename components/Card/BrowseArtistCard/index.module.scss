@@ -6,7 +6,10 @@
   border-radius: 20px;
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: left;
+  @media (min-width: 1024px) {
+    justify-content: center;
+  }
   flex-wrap: wrap;
 }
 
@@ -22,7 +25,7 @@
     height: 170px;
   }
   border-radius: 100%;
-  background: linear-gradient(110deg, $brand-01-color 50%, $background-dark-color 100%);
+  background: $background-dark-color;
   z-index: 1;
 }
 
@@ -42,9 +45,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 24px;
-  @media (max-width: 375px) {
-    margin-top: 16px;
+  margin-top: 8px;
+  @media (min-width: 1024px) {
+    margin-top: 24px;
   }
 }
 
@@ -57,8 +60,8 @@
     font-family: 'Muli-Bold';
     font-size: 32px;
     line-height: 36px;
+    text-align: center;
   }
-  text-align: center;
   letter-spacing: 0px;
   color: $text-gray-200-color;
 }
@@ -72,11 +75,11 @@
     font-family: 'Muli-SemiBold';
     font-size: 16px;
     line-height: 20px;
+    text-align: center;
+    margin-top: 12px;
   }
-  text-align: center;
   letter-spacing: 0px;
   color: $text-gray-200-color;
-  margin-top: 12px;
 }
 
 .greenText {

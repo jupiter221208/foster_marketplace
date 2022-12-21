@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 
 // components
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
+import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
 import CollectionSection from 'components/pages/BrowseCollection/CollectionSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
@@ -88,5 +88,5 @@ const BrowseCollection = () => {
 export default BrowseCollection
 
 BrowseCollection.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <ArtistLayout>{page}</ArtistLayout>
 }

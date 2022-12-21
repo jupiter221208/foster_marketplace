@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
+import { getShortDescription } from 'utils/strings'
 
 // custom components
 import ReadMoreModal from 'components/Modal/ReadMoreModal'
@@ -62,20 +63,6 @@ const MainSection = prop => {
     artistsAPI.unfollowArtist(wallet).then(response => {
       setFollow(false)
     })
-  }
-
-  const getShortDescription = description => {
-    if (description === null || description === undefined) return ''
-    if (viewport === 'xs') {
-      if (description.length > 120) return description.slice(0, 120) + '...'
-    } else if (viewport === 'sm') {
-      if (description.length > 200) return description.slice(0, 200) + '...'
-    } else if (viewport === 'md') {
-      if (description.length > 200) return description.slice(0, 200) + '...'
-    } else {
-      if (description.length > 200) return description.slice(0, 220) + '...'
-    }
-    return description
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -166,7 +153,7 @@ const MainSection = prop => {
 
             {artistInfo.bio && (
               <span className={styles.description}>
-                {getShortDescription(artistInfo.bio)}&nbsp;
+                {getShortDescription(viewport, artistInfo.bio)}&nbsp;
                 <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
                   Read&nbsp;more
                 </span>

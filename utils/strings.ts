@@ -54,3 +54,17 @@ export const timeSince = (date: number) => {
   }
   return Math.floor(seconds) + ' seconds ago'
 }
+
+export const getShortDescription = (viewport, description) => {
+  if (description === null || description === undefined) return ''
+  if (viewport === 'xs') {
+    if (description.length > 120) return description.slice(0, 120) + '...'
+  } else if (viewport === 'sm') {
+    if (description.length > 200) return description.slice(0, 200) + '...'
+  } else if (viewport === 'md') {
+    if (description.length > 200) return description.slice(0, 200) + '...'
+  } else {
+    if (description.length > 200) return description.slice(0, 220) + '...'
+  }
+  return description
+}

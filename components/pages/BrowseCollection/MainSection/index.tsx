@@ -8,6 +8,11 @@ import { useRouter } from 'next/router'
 import GradientButton from 'components/Button/GradientButton'
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
 import CategoryChip from 'components/Chip/CategoryChip'
+import PositiveButton from 'components/Button/PositiveButton'
+import NegativeButton from 'components/Button/NegativeButton'
+import ReadMoreModal from 'components/Modal/ReadMoreModal'
+
+import { getShortDescription } from 'utils/strings'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -22,7 +27,6 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
-import OutlineButton from 'components/Button/OutlineButton'
 
 const MainSection = props => {
   const { nfts, data } = props
@@ -34,6 +38,7 @@ const MainSection = props => {
   const [floorPrice, setFloorPrice] = useState<any>()
   const [totalVolume, setTotalVolum] = useState<any>()
   const [saved, setSaved] = useState<boolean>(false)
+  const [showReadMore, setShowReadMore] = useState(false)
 
   useEffect(() => {
     if (data) {
@@ -86,7 +91,7 @@ const MainSection = props => {
     //   error => {}
     // )
   }
-  return (
+  return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       {data !== undefined && data.banner_image !== undefined ? (
         <div className={styles.headerImage}>
@@ -99,23 +104,19 @@ const MainSection = props => {
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
           <div className="col-span-3">
             <div className="w-[89px] lg:w-[146px]">
-              {saved === true ? (
-                <OutlineButton
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 146}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 53}
+              {saved ? (
+                <NegativeButton
+                  width={89}
+                  height={29}
                   label="Saved"
-                  borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 8 : 12}
                   onClick={() => unsaveCollection(data?.collection_id)}
                 />
               ) : (
-                <GradientButton
+                <PositiveButton
+                  width={80}
+                  height={29}
                   label="Save"
-                  icon={SaveDarkBlackIcon}
-                  direction="rtl"
-                  fullWidth
                   onClick={() => saveCollection(data?.collection_id)}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '29px' : '53px'}
-                  borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '6px' : '12px'}
                 />
               )}
             </div>
@@ -183,6 +184,59 @@ const MainSection = props => {
         </div>
       </div>
       <div></div>
+    </div>
+  ) : (
+    // mobile view
+    <div className={styles.container}>
+      <div className={styles.headerImage}>
+        <img
+          src={data.banner_image}
+          alt=""
+          width={1620}
+          height={480}
+          className="w-full h-full object-cover rounded-none"
+        />
+      </div>
+      <div className="w-full">
+        <div className="w-full flex justify-between items-center mt-[-50px] z-10">
+          <BrowseArtistCard
+            image={data?.cover_image}
+            collectionName={data?.collection_name}
+            artistName={data?.minter_id}
+          />
+          <div className="mt-0">
+            {saved ? (
+              <NegativeButton
+                width={89}
+                height={29}
+                label="Saved"
+                onClick={() => unsaveCollection(data?.collection_id)}
+              />
+            ) : (
+              <PositiveButton width={80} height={29} label="Save" onClick={() => saveCollection(data?.collection_id)} />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
+        {data.bio && (
+          <span className={styles.description}>
+            {getShortDescription(viewport, data.bio) + ' '}
+            <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+              Read&nbsp;more
+            </span>
+          </span>
+        )}
+      </div>
+
+      {showReadMore && (
+        <ReadMoreModal
+          open={showReadMore}
+          close={() => setShowReadMore(false)}
+          artistInfo={data}
+          categoryList={data.categories}
+        />
+      )}
     </div>
   )
 }
