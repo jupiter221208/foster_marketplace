@@ -32,7 +32,7 @@ const DashboardNFTCard = props => {
                   dangerouslySetInnerHTML={{
                     __html: `<video ${
                       play ? 'autoplay' : ''
-                    } loop muted webkit-playsinline playsinline class="w-full aspect-[321/378] object-cover rounded-[10px] lg:rounded-[24px]">
+                    } loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
                   }}
                   onClick={() => onClick()}
@@ -52,7 +52,7 @@ const DashboardNFTCard = props => {
             ) : (
               <div
                 dangerouslySetInnerHTML={{
-                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                   <source src=${image} type="video/mp4" /></video>`,
                 }}
                 onClick={() => onClick()}
