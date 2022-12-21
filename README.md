@@ -1,6 +1,4 @@
-
 ![Logo](https://uploads-ssl.webflow.com/61e9ac8c41f3e53272850625/622c1b6a73fd3e4cdd5276d2_Foster%20Logo-p-500.png)
-
 
 # **Foster Marketplace Web App**
 
@@ -9,12 +7,14 @@
 ## **Contacts**
 
 #### Leadership
+
 - CEO - [@StealthofFoster](https://github.com/StealthofFoster)
 - CXO - [@Plumpadoodle](https://github.com/Plumpadoodle)
 - CTO - [@drewburkhart](https://www.github.com/drewburkhart)
 - Director of Technology - @RedPrince on Discord
 
 #### Technical
+
 - Client App - [@nicholas716](https://github.com/nicholas716) / [@nshunt639](https://github.com/nshunt639)
 - Smart Contract - [@rockdev055](https://github.com/rockdev055)
 - Backend/DB/DevOps - [@drewburkhart](https://www.github.com/drewburkhart)
