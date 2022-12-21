@@ -25,6 +25,7 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 // styles
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
+import ArtistLayout from 'components/Layout/ArtistLayout'
 
 const Category = () => {
   const viewport = useViewport()
@@ -68,13 +69,6 @@ const Category = () => {
           {categoryInfo.type === 'video' ? (
             <div className={styles.videoContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                // <div
-                //   className="overflow-hidden w-full"
-                //   dangerouslySetInnerHTML={{
-                //     __html: `<video class="overflow-hidden w-full rounded-[16px]" autoplay loop muted playsinline>
-                //     <source src=${categoryInfo.mobile_banner} type="video/mp4" /></video>`,
-                //   }}
-                // />
                 <img
                   src={categoryInfo.mobile_banner}
                   alt=""
@@ -108,7 +102,7 @@ const Category = () => {
 export default Category
 
 Category.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
+  return <ArtistLayout>{page}</ArtistLayout>
 }
 
 export async function getServerSideProps(context) {
