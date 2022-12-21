@@ -65,7 +65,7 @@ const CollectionMintProgressingModal = props => {
                 </div>
 
                 {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-                  <div className="w-full flex justify-center mt-[30px]">
+                  <div className="w-full flex flex-wrap justify-center mt-[30px]">
                     {collectionFiles.length !== 0 &&
                       collectionFiles.map((item, index) => (
                         <div
@@ -128,7 +128,7 @@ const CollectionMintProgressingModal = props => {
                       ))}
                   </div>
                 ) : (
-                  <div className="w-full flex justify-center mt-[30px]">
+                  <div className="w-full flex flex-wrap justify-center mt-[30px]">
                     {collectionFiles.length !== 0 &&
                       collectionFiles.map((item, index) => (
                         <div
