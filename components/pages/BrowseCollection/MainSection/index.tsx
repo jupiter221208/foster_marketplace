@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // custom components
-import GradientButton from 'components/Button/GradientButton'
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
 import CategoryChip from 'components/Chip/CategoryChip'
 import PositiveButton from 'components/Button/PositiveButton'
@@ -18,7 +17,6 @@ import { getShortDescription } from 'utils/strings'
 import { useViewport } from 'utils'
 
 // images and icons
-import SaveDarkBlackIcon from 'assets/icons/save-dark-black.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 

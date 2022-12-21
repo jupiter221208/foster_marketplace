@@ -321,7 +321,7 @@ const MainSection = prop => {
       <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
         {artistInfo.bio && (
           <span className={styles.description}>
-            {getShortDescription(artistInfo.bio) + ' '}
+            {getShortDescription(viewport, artistInfo.bio) + ' '}
             <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
             </span>
