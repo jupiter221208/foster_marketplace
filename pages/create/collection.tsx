@@ -239,8 +239,8 @@ const Collection = () => {
           const file = toMetaplexFile(artworks[i].file, 'metaplex.mp4', { contentType: 'video/mp4' })
           const fileURL = await mx.storage().upload(file)
           metadata.animation_url = fileURL
-          metadata.category = 'video'
           metadata.properties = {
+            category: 'video',
             files: [
               {
                 type: 'video/mp4',
@@ -253,8 +253,8 @@ const Collection = () => {
           const file = toMetaplexFile(artworks[i].file, 'metaplex.mp3', { contentType: 'audio/mp3' })
           const fileURL = await mx.storage().upload(file)
           metadata.animation_url = fileURL
-          metadata.category = 'audio'
           metadata.properties = {
+            category: 'audio',
             files: [
               {
                 type: 'audio/mp3',

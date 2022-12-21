@@ -135,24 +135,25 @@ const MainSection = prop => {
               name={artistInfo.username}
             />
           </div>
-
-          <div className="col-span-3 h-full flex justify-end items-center pt-[60px]">
-            {follow ? (
-              <NegativeButton
-                width={146}
-                height={53}
-                label="Following"
-                onClick={() => unfollowArtist(artistInfo.wallet_id)}
-              />
-            ) : (
-              <PositiveButton
-                width={146}
-                height={53}
-                label="Follow"
-                onClick={() => followArtist(artistInfo.wallet_id)}
-              />
-            )}
-          </div>
+          {!isOwn && (
+            <div className="col-span-3 h-full flex justify-end items-center pt-[60px]">
+              {follow ? (
+                <NegativeButton
+                  width={146}
+                  height={53}
+                  label="Following"
+                  onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                />
+              ) : (
+                <PositiveButton
+                  width={146}
+                  height={53}
+                  label="Follow"
+                  onClick={() => followArtist(artistInfo.wallet_id)}
+                />
+              )}
+            </div>
+          )}
         </div>
         <div className="w-full flex justify-center mt-[12px]">
           <div className="max-w-[678px] w-full flex flex-wrap justify-center mt-[9px] z-10">
@@ -277,23 +278,25 @@ const MainSection = prop => {
             }
             name={artistInfo.username}
           />
-          <div className="mt-10">
-            {follow ? (
-              <NegativeButton
-                width={80}
-                height={29}
-                label="Following"
-                onClick={() => unfollowArtist(artistInfo.wallet_id)}
-              />
-            ) : (
-              <PositiveButton
-                width={80}
-                height={29}
-                label="Follow"
-                onClick={() => followArtist(artistInfo.wallet_id)}
-              />
-            )}
-          </div>
+          {!isOwn && (
+            <div className="mt-10">
+              {follow ? (
+                <NegativeButton
+                  width={80}
+                  height={29}
+                  label="Following"
+                  onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                />
+              ) : (
+                <PositiveButton
+                  width={80}
+                  height={29}
+                  label="Follow"
+                  onClick={() => followArtist(artistInfo.wallet_id)}
+                />
+              )}
+            </div>
+          )}
         </div>
         <div className="mt-2 z-10">
           {artistInfo.wallet_id && (

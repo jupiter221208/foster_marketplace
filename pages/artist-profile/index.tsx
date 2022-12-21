@@ -57,7 +57,6 @@ const ArtistProfile = () => {
               artist.banner_picture = HeaderImage.src
             }
             setArtistInfo(artist)
-            setIsOwn(artist.wallet_id === publicKey?.toBase58())
           }
           setNfts(response.nfts)
           setCollections(response.collections)
@@ -78,6 +77,10 @@ const ArtistProfile = () => {
       )
     }
   }, [router.query])
+
+  useEffect(() => {
+    if (publicKey) setIsOwn(artistInfo.wallet_id === publicKey?.toBase58())
+  }, [artistInfo, publicKey])
 
   return (
     <div className="g-container">
