@@ -61,7 +61,7 @@ const FreshMintSection = props => {
     let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
     if (mobileVersion) {
       let lists = []
-      allFreshMintsList.map(item => {
+      allFreshMintsList.forEach(item => {
         if (item.asset_type !== 'video') lists.push(item)
       })
       setFreshMintsList(lists)

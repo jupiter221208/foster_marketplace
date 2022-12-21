@@ -58,7 +58,7 @@ const MarketplaceReleaseSection = props => {
     let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
     if (mobileVersion) {
       let lists = []
-      allMarketplaceReleaseList.map(item => {
+      allMarketplaceReleaseList.forEach(item => {
         if (item.asset_type !== 'video') lists.push(item)
       })
       setMarketplaceReleaseList(lists)

@@ -53,7 +53,7 @@ const LiveAuctionSection = props => {
       dashboardAPI.getLiveAuctions(category).then(response => {
         if (response !== null && response !== undefined && response.length !== 0) {
           let lists = []
-          response.map(item => {
+          response.forEach(item => {
             if (item.asset_url.length > 0) lists.push(item)
           })
           setAllLiveAuctionList(lists)
