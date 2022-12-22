@@ -37,6 +37,7 @@ import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import Select from 'components/Select'
 import LoadingModal from 'components/Modal/LoadingModal'
+import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
