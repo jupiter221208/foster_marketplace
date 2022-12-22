@@ -8,6 +8,7 @@ import Dropzone from 'react-dropzone'
 
 // components
 import Alert from 'components/Alert'
+import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import DimensionMenu from 'components/Menu/DimensionMenu'
 import CollectionStepper from 'components/Stepper/CollectionStepper'
 import Input from 'components/Input'
@@ -216,7 +217,9 @@ const Step02CollectionSection = props => {
                         />
                       )}
                     </div>
-                    <div className={styles.blurImage} />
+                    {selectedCollectionFile !== undefined && selectedCollectionFile.type !== 'audio' && (
+                      <div className={styles.blurImage} />
+                    )}
                     {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                       <video controls className="w-full h-full z-10" id="video">
                         <source
@@ -225,6 +228,8 @@ const Step02CollectionSection = props => {
                         />
                         Your browser does not support the video tag.
                       </video>
+                    ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
+                      <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />
                     ) : (
                       selectedCollectionFile !== undefined && (
                         <img
@@ -267,17 +272,6 @@ const Step02CollectionSection = props => {
                 </div>
               )}
 
-              {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
-                <div className="w-full mt-[14px]">
-                  <audio controls className="w-full">
-                    <source
-                      src={URL.createObjectURL(selectedCollectionFile.file)}
-                      type={selectedCollectionFile.file.type}
-                    />
-                    Your browser does not support the video tag.
-                  </audio>
-                </div>
-              )}
               <div className="w-full flex justify-center mt-[90px]">
                 <div className={styles.grayText}>
                   {selectedCollectionFile !== undefined ? selectedCollectionFile.id + 1 : 0}/{collectionFiles.length}
@@ -568,6 +562,19 @@ const Step02CollectionSection = props => {
                   className={styles.imageArea}
                   style={{ width: artWidth, height: artWidth, marginLeft: '-16px', marginRight: '-16px' }}
                 >
+                  <div className="absolute inset-0 flex justify-center items-center">
+                    {selectedCollectionFile !== undefined && (
+                      <img
+                        src={
+                          selectedCollectionFile.croppedImage !== ''
+                            ? selectedCollectionFile.croppedImage
+                            : URL.createObjectURL(selectedCollectionFile.file)
+                        }
+                        alt=""
+                        className="min-w-full min-h-full object-cover"
+                      />
+                    )}
+                  </div>
                   {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'video' ? (
                     <video controls className="w-full h-full z-10" id="video">
                       <source
@@ -576,6 +583,10 @@ const Step02CollectionSection = props => {
                       />
                       Your browser does not support the video tag.
                     </video>
+                  ) : selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' ? (
+                    <div className="z-10">
+                      <MintAudioPlayer src={URL.createObjectURL(selectedCollectionFile.file)} />
+                    </div>
                   ) : (
                     selectedCollectionFile !== undefined && (
                       <img
@@ -619,18 +630,6 @@ const Step02CollectionSection = props => {
                 </div>
               )}
             </div>
-
-            {selectedCollectionFile !== undefined && selectedCollectionFile.type === 'audio' && (
-              <div className="w-full mt-[14px]">
-                <audio controls className="w-full">
-                  <source
-                    src={URL.createObjectURL(selectedCollectionFile.file)}
-                    type={selectedCollectionFile.file.type}
-                  />
-                  Your browser does not support the video tag.
-                </audio>
-              </div>
-            )}
           </div>
 
           <div className="w-full">
