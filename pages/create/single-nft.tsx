@@ -506,7 +506,6 @@ const SingleNft = () => {
                             Your browser does not support the video tag.
                           </video>
                         ) : nftType === 'audio' && nftArt !== null ? (
-                          // <div className="z-10 w-full h-full">
                           <div className="z-10">
                             <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                             {nftImage !== '' && artWidth !== 0 && (
@@ -671,6 +670,13 @@ const SingleNft = () => {
                         <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                         Your browser does not support the video tag.
                       </video>
+                    ) : nftType === 'audio' && nftArt !== null ? (
+                      <div className="z-10">
+                        <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                        {nftImage !== '' && artWidth !== 0 && (
+                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                        )}
+                      </div>
                     ) : nftImage !== '' && artWidth !== 0 ? (
                       <img src={nftImage} alt="" className="w-full h-full rounded-none object-contain" />
                     ) : (
@@ -707,15 +713,6 @@ const SingleNft = () => {
                         height="32px"
                       />
                     </div>
-                  </div>
-                )}
-
-                {nftType === 'audio' && nftArt !== null && (
-                  <div className="w-full mt-[14px]">
-                    <audio controls className="w-full">
-                      <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                      Your browser does not support the video tag.
-                    </audio>
                   </div>
                 )}
               </div>
