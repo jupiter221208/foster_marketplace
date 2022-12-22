@@ -9,13 +9,19 @@
   .bar__time {
     color: $text-gray-200-color;
     font-family: 'Muli-Regular';
-    font-size: 18px;
+    font-size: 12px;
+    @media (min-width: 1024px) {
+      font-size: 18px;
+    }
   }
 
   .bar__progress {
     flex: 1;
     border-radius: 5px;
-    margin: 0 20px;
+    margin: 0 10px;
+    @media (min-width: 1024px) {
+      margin: 0 20px;
+    }
     height: 5px;
     display: flex;
     align-items: center;

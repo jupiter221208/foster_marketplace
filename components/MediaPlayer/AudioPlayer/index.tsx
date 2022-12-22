@@ -6,7 +6,10 @@ import Image from 'next/image'
 // components
 import IconButton from 'components/Button/IconButton'
 import useAudioPlayer from './useAudioPlayer'
-import Bar from './bar'
+import AudioBar from 'components/MediaPlayer/AudioPlayer/AudioBar'
+
+// custom functions
+import { useViewport } from 'utils'
 
 // images and icons
 import AudioPlayerBackground from 'assets/images/audio-player.png'
@@ -20,13 +23,22 @@ import styles from './index.module.scss'
 
 const AudioPlayer = props => {
   const { src, cover } = props
+
+  const viewport = useViewport()
+
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer()
 
   return (
     <div className={styles.container}>
-      {cover.length > 0 ? <img src={cover} width="100%" alt="" /> : <Image src={AudioPlayerBackground} alt="" />}
+      <div className={styles.imageArea}>
+        {cover.length > 0 ? (
+          <img src={cover} alt="" className="rounded-[10px] lg:rounded-6 w-full h-full object-cover" />
+        ) : (
+          <Image src={AudioPlayerBackground} alt="" />
+        )}
+      </div>
 
-      <div className="absolute bottom-[45px] left-9 right-9 z-10">
+      <div className="absolute bottom-5 lg:bottom-[45px] left-4 lg:left-9 right-4 lg:right-9 z-10">
         <div className={styles.contentArea}>
           <audio id="audio">
             <source src={src} />
@@ -37,23 +49,25 @@ const AudioPlayer = props => {
               icon={BackwardWhiteIcon}
               onClick={() => setClickedTime(curTime - 15)}
               backgroundColor="transparent"
-              width="36px"
-              height="36px"
+              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
+              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
             />
             <IconButton
               icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
               onClick={() => setPlaying(!playing)}
               backgroundColor="transparent"
+              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '24px'}
+              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '24px'}
             />
             <IconButton
               icon={ForwardWhiteIcon}
               onClick={() => setClickedTime(curTime + 15)}
               backgroundColor="transparent"
-              width="36px"
-              height="36px"
+              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
+              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
             />
           </div>
-          <Bar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
+          <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
         </div>
       </div>
     </div>

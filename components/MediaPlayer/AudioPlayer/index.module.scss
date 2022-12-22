@@ -2,7 +2,7 @@
 
 .container {
   width: 100%;
-  height: fit-content;
+  height: 100%;
   max-width: 672px;
   max-height: 672px;
   background: linear-gradient(to bottom, rgba($background-dark-color, 0.4), rgba($background-light-color, 0.4));
@@ -10,8 +10,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   border-radius: 12px;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .contentArea {
@@ -19,6 +26,9 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
   padding: 10px;
-  gap: 28px;
+  gap: 12px;
+  @media (min-width: 1024px) {
+    gap: 28px;
+  }
   border-radius: 12px;
 }

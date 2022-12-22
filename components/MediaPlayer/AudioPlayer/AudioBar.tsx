@@ -4,7 +4,7 @@ import React from 'react'
 import * as moment from 'moment'
 import momentDurationFormatSetup from 'moment-duration-format'
 
-import styles from './bar.module.scss'
+import styles from './AudioBar.module.scss'
 
 const Bar = props => {
   const { duration, curTime, onTimeUpdate } = props
