@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // components
+import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import LinkTextButton from 'components/Button/LinkTextButton'
@@ -57,21 +58,18 @@ const SuccessMintSingleNFTSection = props => {
                 <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                 Your browser does not support the video tag.
               </video>
+            ) : nftType === 'audio' ? (
+              <div className="z-10">
+                <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                {nftImage !== '' && artWidth !== 0 && (
+                  <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                )}
+              </div>
             ) : nftImage !== '' && artWidth !== 0 ? (
               <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
             ) : (
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
             )}
-          </div>
-        )}
-      </div>
-      <div className="w-full flex justify-center">
-        {nftType === 'audio' && (
-          <div className="w-full max-w-[392px] mt-4">
-            <audio controls className="w-full">
-              <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-              Your browser does not support the video tag.
-            </audio>
           </div>
         )}
       </div>
@@ -115,11 +113,11 @@ const SuccessMintSingleNFTSection = props => {
     <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
       <div className="w-full flex justify-center items-center z-10 mt-10">
         <div className="z-10">
-          <div className="w-full rounded-[16px] overflow-hidden">
+          <div className="w-full">
             {nftType === 'image' ? (
               <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                 {nftImage !== '' && artWidth !== 0 && artWidth !== 0 ? (
-                  <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
+                  <img src={nftImage} alt="" className="w-full h-full object-contain" />
                 ) : (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                 )}
@@ -131,20 +129,18 @@ const SuccessMintSingleNFTSection = props => {
                     <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                     Your browser does not support the video tag.
                   </video>
+                ) : nftType === 'audio' ? (
+                  <div className="z-10">
+                    <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                    {nftImage !== '' && artWidth !== 0 && (
+                      <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
+                    )}
+                  </div>
                 ) : nftImage !== '' && artWidth !== 0 && artWidth !== 0 ? (
-                  <img src={nftImage} alt="" className="w-full h-full rounded-[6px] object-contain" />
+                  <img src={nftImage} alt="" className="w-full h-full object-contain" />
                 ) : (
                   <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                 )}
-              </div>
-            )}
-
-            {nftType === 'audio' && (
-              <div className="w-full mt-4">
-                <audio controls className="w-full">
-                  <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                  Your browser does not support the video tag.
-                </audio>
               </div>
             )}
           </div>

@@ -506,10 +506,10 @@ const SingleNft = () => {
                             Your browser does not support the video tag.
                           </video>
                         ) : nftType === 'audio' && nftArt !== null ? (
-                          <div className="z-10">
+                          <div className="w-full h-full z-10">
                             <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                             {nftImage !== '' && artWidth !== 0 && (
-                              <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                              <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
                             )}
                           </div>
                         ) : nftImage !== '' && artWidth !== 0 ? (
@@ -671,10 +671,10 @@ const SingleNft = () => {
                         Your browser does not support the video tag.
                       </video>
                     ) : nftType === 'audio' && nftArt !== null ? (
-                      <div className="z-10">
+                      <div className="w-full h-full z-10">
                         <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                         {nftImage !== '' && artWidth !== 0 && (
-                          <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                          <img src={nftImage} alt="" className="w-full h-full object-contain z-10" />
                         )}
                       </div>
                     ) : nftImage !== '' && artWidth !== 0 ? (
