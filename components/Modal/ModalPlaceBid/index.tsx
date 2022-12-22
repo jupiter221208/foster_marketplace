@@ -51,12 +51,16 @@ const ModalPlaceBid = props => {
       setPriceCheckMode(3)
       return
     }
-    if (price < reservePrice || price <= currentPrice) {
+    if (price < parseFloat(reservePrice) || price <= parseFloat(currentPrice)) {
       setPriceCheckMode(1)
       return
     } else {
-      if (price > balance) {
+      console.log('----price---', price)
+      console.log('----balance---', balance)
+      if (price > parseFloat(balance)) {
         setPriceCheckMode(2)
+        console.log('----setPriceCheckMode(2)---')
+
         return
       } else {
         setPriceCheckMode(0)

@@ -34,7 +34,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 import Alert from 'components/Alert'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
-import GradientButton from 'components/Button/GradientButton'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import AuctionCard from 'components/Card/AuctionCard'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
@@ -75,10 +74,10 @@ import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { placeBid } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
-import { getDateString, getPriceValue } from 'utils/strings'
+import { getDateString } from 'utils/strings'
 
 // call apis
-import nftsAPI, { NFT } from 'apis/nfts'
+import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import activityAPI from 'apis/activity'
 
@@ -202,18 +201,8 @@ const MainSection = props => {
 
   const { metaplex: mx } = useMetaplex()
   const { publicKey } = useWallet()
-  const { updateSolBalance } = useWallets()
+  const { updateSolBalance, mainBalance } = useWallets()
   const [isRunning, setIsRunning] = useState(false)
-
-  const [balance, setBalance] = useState<any>(0)
-
-  useEffect(() => {
-    const getWalletBanace = async () => {
-      const walletBalance = await mx.connection.getBalance(publicKey)
-      setBalance(getPriceValue(walletBalance))
-    }
-    getWalletBanace()
-  }, [])
 
   useEffect(() => {
     if (nftDetail !== null) {
@@ -791,7 +780,7 @@ const MainSection = props => {
         </div>
       </div>
       <ModalPlaceBid
-        balance={balance}
+        balance={mainBalance}
         nftName={nftName}
         nftUrl={nftUrl}
         currentPrice={nftCurrentPrice}
