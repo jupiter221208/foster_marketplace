@@ -43,15 +43,15 @@
 .nftName {
   font-family: 'Muli-SemiBold';
   font-size: 12px;
-  line-height: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 22px;
+    font-size: 22px;
+    line-height: 36px;
     margin-top: 4px;
   }
   @media (min-width: 1536px) {
     font-size: 22px;
-    line-height: 28px;
+    line-height: 36px;
     margin-top: 4px;
   }
   letter-spacing: 0;
@@ -62,14 +62,16 @@
 }
 
 .artistName {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 10px;
   line-height: 10px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
     font-size: 16px;
     line-height: 20px;
   }
   @media (min-width: 1536px) {
+    font-family: 'Muli-Bold';
     font-size: 18px;
     line-height: 24px;
   }
@@ -97,8 +99,7 @@
 
 .bidCountContainer {
   display: flex;
-  justify-content: center;
-  margin-top: 4px;
+  margin-top: 2px;
 
   @media (min-width: 414px) {
     font-size: 11px;
@@ -112,43 +113,11 @@
     margin-top: 1px;
   }
   @media (min-width: 1536px) {
-    margin-top: 4px;
+    margin-top: 6px;
   }
   @media (min-width: 1768px) {
-    margin-top: 4px;
+    margin-top: 6px;
   }
-}
-.bidCount {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 9px;
-  margin-left: 4px;
-  @media (min-width: 414px) {
-    font-size: 12px;
-    line-height: 12px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 13px;
-    line-height: 18px;
-  }
-  @media (min-width: 1390px) {
-    font-size: 14px;
-    line-height: 18px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 15px;
-    line-height: 20px;
-  }
-  @media (min-width: 1768px) {
-    font-size: 22px;
-    line-height: 24px;
-  }
-  letter-spacing: 0;
-  color: $brand-03-color;
 }
 
 .bidDesc {
@@ -158,51 +127,12 @@
   font-size: 8px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 11px;
-    line-height: 20px;
-  }
-  @media (min-width: 1390px) {
     font-size: 12px;
-    line-height: 20px;
+    line-height: 24px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
   opacity: 0.7;
-}
-
-.bidName {
-  font-family: 'Muli-Bold';
-  font-size: 8px;
-  line-height: 12px;
-  @media (min-width: 414px) {
-    font-size: 10px;
-    line-height: 12px;
-  }
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 20px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 12px;
-    line-height: 18px;
-  }
-  @media (min-width: 1390px) {
-    font-size: 14px;
-    line-height: 20px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 15px;
-    line-height: 20px;
-  }
-  @media (min-width: 1768px) {
-    font-size: 18px;
-    line-height: 20px;
-  }
-  letter-spacing: 0;
-  color: $text-gray-200-color;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .endTimeContainer {
@@ -224,42 +154,95 @@
   }
 }
 
-.endsIn {
-  font-family: 'Muli-Bold';
-  font-size: 10px;
-  line-height: 12px;
+.bidName {
+  font-family: 'Muli-SemiBold';
+  font-size: 8px;
+  line-height: 16px;
   text-align: center;
   @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 20px;
-  }
-  @media (min-width: 1280px) {
     font-size: 12px;
-    line-height: 18px;
-  }
-  @media (min-width: 1390px) {
-    font-size: 14px;
-    line-height: 20px;
+    line-height: 24px;
   }
   @media (min-width: 1536px) {
-    font-size: 15px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 24px;
   }
   @media (min-width: 1768px) {
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
   }
+  // @media (min-width: 1280px) {
+  //   font-size: 12px;
+  //   line-height: 18px;
+  // }
+  // @media (min-width: 1390px) {
+  //   font-size: 14px;
+  //   line-height: 20px;
+  // }
+  // @media (min-width: 1536px) {
+  //   font-size: 15px;
+  //   line-height: 20px;
+  // }
+  // @media (min-width: 1768px) {
+  //   font-size: 18px;
+  //   line-height: 20px;
+  // }
   letter-spacing: 0;
   color: $text-gray-200-color;
+}
+
+.bidCount {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 9px;
+  margin-left: 4px;
+  color: $text-gray-200-color;
+  @media (min-width: 414px) {
+    font-size: 12px;
+    line-height: 12px;
+  }
+  @media (min-width: 1024px) {
+    margin-left: 9px;
+    margin-top: -3px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  @media (min-width: 1536px) {
+    margin-left: 9px;
+    margin-top: -3px;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  @media (min-width: 1768px) {
+    margin-left: 9px;
+    margin-top: -3px;
+    font-size: 22px;
+    line-height: 24px;
+  }
+  // @media (min-width: 1280px) {
+  //   font-size: 13px;
+  //   line-height: 18px;
+  // }
+  // @media (min-width: 1390px) {
+  //   font-size: 14px;
+  //   line-height: 18px;
+  // }
+  // @media (min-width: 1536px) {
+  //   font-size: 15px;
+  //   line-height: 20px;
+  // }
+  // @media (min-width: 1768px) {
+  //   font-size: 22px;
+  //   line-height: 24px;
+  // }
 }
 
 .endTime {
   display: flex;
   justify-content: center;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Bold';
   font-size: 12px;
   line-height: 11px;
-  margin-top: 3px;
   @media (min-width: 414px) {
     font-size: 12px;
     line-height: 11px;
@@ -270,31 +253,18 @@
   }
   @media (min-width: 1024px) {
     font-size: 18px;
-    line-height: 24px;
-    margin-top: 1px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 13px;
-    line-height: 16px;
-    margin-top: 1px;
-  }
-  @media (min-width: 1390px) {
-    font-size: 14px;
-    line-height: 16px;
-    margin-top: 1px;
+    line-height: 20px;
   }
   @media (min-width: 1536px) {
-    font-size: 15px;
-    line-height: 22px;
-    margin-top: 2px;
+    font-size: 18px;
+    line-height: 24px;
   }
   @media (min-width: 1768px) {
     font-size: 22px;
     line-height: 24px;
-    margin-top: 4px;
   }
   letter-spacing: 0;
-  color: $brand-03-color;
+  color: $text-gray-200-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -304,7 +274,7 @@
   width: 100%;
   height: 56px;
   border-radius: 10px;
-  padding: 8px 10px;
+  padding: 6px 8px;
   margin-top: 6px;
   @media (min-width: 640px) {
     height: 60px;
@@ -322,9 +292,16 @@
     height: 82px;
     margin-top: 11px;
     border-radius: 20px;
-    padding: 8px 19px;
+    padding: 8px 12px;
   }
-  background-color: rgba($brand-02-color, 0.15);
+  @media (min-width: 1768px) {
+    width: 100%;
+    height: 82px;
+    margin-top: 11px;
+    border-radius: 20px;
+    padding: 8px 16px;
+  }
+  background-color: $background-dark-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
