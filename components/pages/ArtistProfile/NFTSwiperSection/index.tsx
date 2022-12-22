@@ -147,7 +147,7 @@ const NFTSwiperSection = props => {
           </div>
         )}
       </div>
-      <div className="w-full flex lg:hidden justify-center">
+      {/* <div className="w-full flex lg:hidden justify-center">
         <div className="w-full max-w-[242px] z-10">
           <OutlineButton
             label="See More"
@@ -157,7 +157,7 @@ const NFTSwiperSection = props => {
             height="40px"
           />
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }
