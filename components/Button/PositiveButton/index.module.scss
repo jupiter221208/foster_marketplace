@@ -1,29 +1,29 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 40px;
   background: linear-gradient(to bottom, rgba($background-black-color, 1), rgba($brand-10-color, 1));
-  font-size: 20px;
-  padding-left: 23px;
-  padding-right: 23px;
+  font-size: 14px;
+
   @media (min-width: 1024px) {
     height: 46px;
-    padding-left: 40px;
-    padding-right: 40px;
-    font-size: 24px;
+    font-size: 18px;
+    line-height: 24px;
+    border-radius: 12px;
   }
   @media (min-width: 1536px) {
     height: 53px;
-    padding-left: 48px;
-    padding-right: 48px;
-    font-size: 30px;
-    line-height: 40px;
+    font-size: 18px;
+    line-height: 24px;
+    border-radius: 12px;
   }
   border-radius: 8px;
-  font-family: 'KCDurhamBoxcar';
+  font-family: 'Muli-Bold';
   letter-spacing: 0;
   color: $brand-09-color;
+  filter: drop-shadow(0px 3px 6px rgba($brand-01-color, 0.16));
 }

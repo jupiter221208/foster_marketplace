@@ -25,6 +25,8 @@ import styles from './index.module.scss'
 
 // apis
 import artistsAPI from 'apis/artists'
+import PositiveButton from 'components/Button/PositiveButton'
+import NegativeButton from 'components/Button/NegativeButton'
 
 const FollowModal = props => {
   const { open, close, type, wallet } = props
@@ -153,26 +155,20 @@ const FollowModal = props => {
                                 <div className={styles.text}>is following you</div>
                               </div>
                             </div>
-                            <div className="w-24 lg:w-[146px]">
+                            <div className="w-[90px] lg:w-[122px]">
                               {item.following === false ? (
-                                <GradientButton
+                                <PositiveButton
                                   label="Follow"
-                                  icon={AvatarFollowIcon}
                                   onClick={() => {
                                     followArtist(item.wallet_id)
                                   }}
-                                  fullWidth
-                                  direction="rtl"
-                                  borderRadius="12px"
                                 />
                               ) : (
-                                <OutlineButton
+                                <NegativeButton
                                   label="Following"
                                   onClick={() => {
                                     unfollowArtist(item.wallet_id)
                                   }}
-                                  fullWidth
-                                  borderRadius="12px"
                                 />
                               )}
                             </div>
@@ -202,24 +198,18 @@ const FollowModal = props => {
                             </div>
                             <div className="w-24 lg:w-[146px]">
                               {item.following === false ? (
-                                <GradientButton
+                                <PositiveButton
                                   label="Follow"
-                                  icon={AvatarFollowIcon}
                                   onClick={() => {
                                     followArtist(item.wallet_id)
                                   }}
-                                  fullWidth
-                                  direction="rtl"
-                                  borderRadius="12px"
                                 />
                               ) : (
-                                <OutlineButton
+                                <NegativeButton
                                   label="Following"
                                   onClick={() => {
                                     unfollowArtist(item.wallet_id)
                                   }}
-                                  fullWidth
-                                  borderRadius="12px"
                                 />
                               )}
                             </div>

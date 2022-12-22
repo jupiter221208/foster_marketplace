@@ -85,9 +85,9 @@ const MainSection = prop => {
         <div className={styles.topLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" />
         </div>
-        <div className="grid grid-cols-12 items-center mt-[-80px] z-10">
+        <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
           <div className="col-span-3 h-full flex items-center">
-            <div className="flex gap-[15px]">
+            <div className="flex gap-[15px] z-10">
               <div
                 className="cursor-pointer flex hover:opacity-60"
                 onClick={() => {
@@ -123,11 +123,13 @@ const MainSection = prop => {
             />
           </div>
           {!isOwn && (
-            <div className="col-span-3 h-full flex justify-end items-center pt-[60px]">
+            <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
               {follow ? (
                 <NegativeButton
                   width={146}
                   height={53}
+                  fontFamily="KCDurhamBoxcar"
+                  fontSize={30}
                   label="Following"
                   onClick={() => unfollowArtist(artistInfo.wallet_id)}
                 />
@@ -135,6 +137,8 @@ const MainSection = prop => {
                 <PositiveButton
                   width={146}
                   height={53}
+                  fontFamily="KCDurhamBoxcar"
+                  fontSize={30}
                   label="Follow"
                   onClick={() => followArtist(artistInfo.wallet_id)}
                 />
@@ -271,6 +275,8 @@ const MainSection = prop => {
                 <NegativeButton
                   width={80}
                   height={29}
+                  fontFamily="KCDurhamBoxcar"
+                  fontSize={18}
                   label="Following"
                   onClick={() => unfollowArtist(artistInfo.wallet_id)}
                 />
@@ -278,6 +284,8 @@ const MainSection = prop => {
                 <PositiveButton
                   width={80}
                   height={29}
+                  fontFamily="KCDurhamBoxcar"
+                  fontSize={18}
                   label="Follow"
                   onClick={() => followArtist(artistInfo.wallet_id)}
                 />

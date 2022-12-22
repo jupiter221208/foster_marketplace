@@ -100,25 +100,7 @@ const MainSection = props => {
       )}
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
-          <div className="col-span-3">
-            <div className="w-[89px] lg:w-[146px]">
-              {saved ? (
-                <NegativeButton
-                  width={89}
-                  height={29}
-                  label="Saved"
-                  onClick={() => unsaveCollection(data?.collection_id)}
-                />
-              ) : (
-                <PositiveButton
-                  width={80}
-                  height={29}
-                  label="Save"
-                  onClick={() => saveCollection(data?.collection_id)}
-                />
-              )}
-            </div>
-          </div>
+          <div className="col-span-3"></div>
           <div className="col-span-6">
             <BrowseArtistCard
               image={data?.cover_image}
@@ -126,7 +108,27 @@ const MainSection = props => {
               artistName={data?.minter_id}
             />
           </div>
-          <div className="col-span-3 flex justify-end"></div>
+          <div className="col-span-3 flex justify-end">
+            <div className="w-[89px] lg:w-[146px]">
+              {saved ? (
+                <NegativeButton
+                  width={146}
+                  fontFamily="KCDurhamBoxcar"
+                  fontSize={30}
+                  label="Saved"
+                  onClick={() => unsaveCollection(data?.collection_id)}
+                />
+              ) : (
+                <PositiveButton
+                  width={146}
+                  fontFamily="KCDurhamBoxcar"
+                  fontSize={30}
+                  label="Save"
+                  onClick={() => saveCollection(data?.collection_id)}
+                />
+              )}
+            </div>
+          </div>
         </div>
         {/* <div className="flex justify-center w-full mt-[32px]">
           <div className="max-w-[734px]">
@@ -205,13 +207,22 @@ const MainSection = props => {
           <div className="mt-0">
             {saved ? (
               <NegativeButton
-                width={89}
+                width={80}
                 height={29}
                 label="Saved"
+                fontFamily="KCDurhamBoxcar"
+                fontSize={18}
                 onClick={() => unsaveCollection(data?.collection_id)}
               />
             ) : (
-              <PositiveButton width={80} height={29} label="Save" onClick={() => saveCollection(data?.collection_id)} />
+              <PositiveButton
+                width={80}
+                height={29}
+                label="Save"
+                fontFamily="KCDurhamBoxcar"
+                fontSize={18}
+                onClick={() => saveCollection(data?.collection_id)}
+              />
             )}
           </div>
         </div>
