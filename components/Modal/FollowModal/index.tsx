@@ -29,7 +29,7 @@ import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
 
 const FollowModal = props => {
-  const { open, close, type, wallet } = props
+  const { open, close, ownWallet, type, wallet } = props
   const router = useRouter()
 
   const closeModal = () => {
@@ -155,23 +155,25 @@ const FollowModal = props => {
                                 <div className={styles.text}>is following you</div>
                               </div>
                             </div>
-                            <div className="w-[90px] lg:w-[122px]">
-                              {item.following === false ? (
-                                <PositiveButton
-                                  label="Follow"
-                                  onClick={() => {
-                                    followArtist(item.wallet_id)
-                                  }}
-                                />
-                              ) : (
-                                <NegativeButton
-                                  label="Following"
-                                  onClick={() => {
-                                    unfollowArtist(item.wallet_id)
-                                  }}
-                                />
-                              )}
-                            </div>
+                            {ownWallet !== item.wallet_id && (
+                              <div className="w-[90px] lg:w-[122px]">
+                                {item.following === false ? (
+                                  <PositiveButton
+                                    label="Follow"
+                                    onClick={() => {
+                                      followArtist(item.wallet_id)
+                                    }}
+                                  />
+                                ) : (
+                                  <NegativeButton
+                                    label="Following"
+                                    onClick={() => {
+                                      unfollowArtist(item.wallet_id)
+                                    }}
+                                  />
+                                )}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>

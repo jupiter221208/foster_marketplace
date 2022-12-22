@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // next components
 import Image from 'next/image'
@@ -36,6 +37,7 @@ const MainSection = prop => {
   const { artistInfo, categoryList, isOwn } = prop
 
   const viewport = useViewport()
+  const { publicKey } = useWallet()
 
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [showReadMore, setShowReadMore] = useState(false)
@@ -222,6 +224,7 @@ const MainSection = prop => {
       {showFollowModal && (
         <FollowModal
           open={showFollowModal}
+          ownWallet={publicKey?.toBase58()}
           close={() => setShowFollowModal(false)}
           type={type}
           wallet={artistInfo.wallet_id}
@@ -386,6 +389,7 @@ const MainSection = prop => {
       {showFollowModal && (
         <FollowModal
           open={showFollowModal}
+          ownWallet={publicKey?.toBase58()}
           close={() => setShowFollowModal(false)}
           type={type}
           wallet={artistInfo.wallet_id}
