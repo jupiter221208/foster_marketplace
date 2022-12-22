@@ -506,6 +506,7 @@ const SingleNft = () => {
                             Your browser does not support the video tag.
                           </video>
                         ) : nftType === 'audio' && nftArt !== null ? (
+                          // <div className="z-10 w-full h-full">
                           <div className="z-10">
                             <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
                             {nftImage !== '' && artWidth !== 0 && (

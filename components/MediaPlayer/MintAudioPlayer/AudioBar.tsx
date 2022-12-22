@@ -43,17 +43,18 @@ const Bar = props => {
   return (
     <div className={styles.bar}>
       <span className={styles.bar__time}>{formatDuration(curTime)}</span>
+      <div className="px-1">/</div>
+      <span className={styles.bar__time}>{formatDuration(duration)}</span>
       <div
         id="bar__progress"
         className={styles.bar__progress}
         style={{
-          background: `linear-gradient(to right, #173639 ${curPercentage}%, #495463 0)`,
+          background: `linear-gradient(to right, #5AC3BA ${curPercentage}%, #707070 0)`,
         }}
         onMouseDown={e => handleTimeDrag(e)}
       >
         <span className={styles.bar__progress__knob} style={{ left: `${curPercentage - 2}%` }} />
       </div>
-      <span className={styles.bar__time}>{formatDuration(duration)}</span>
     </div>
   )
 }
