@@ -46,7 +46,6 @@ import LoadingModal from 'components/Modal/LoadingModal'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaAuctionIcon from 'assets/icons/solana-place-bid.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg'
 import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
@@ -65,7 +64,6 @@ import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
-import ActivityList from 'assets/json/browse-nft/activity-list.json'
 
 // styles
 import styles from './index.module.scss'

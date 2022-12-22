@@ -59,7 +59,6 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
-import ActivityList from 'assets/json/browse-nft/activity-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -67,17 +66,17 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
-import { getNFTDetailsByAddress, getGeneralNFTDetails, getNFTOwner } from 'utils/nfts.utils'
+import { getNFTDetailsByAddress, getNFTOwner } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { getPriceValue, getShortAddress } from 'utils/strings'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { getDateString } from 'utils/strings'
 
 // call apis
 import nftsAPI, { NFT } from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
+import activityAPI from 'apis/activity'
+
 import { useWallets } from 'hooks/useWallets'
-import LoadingButton from 'components/Button/LoadingButton'
 
 const MainSection = props => {
   const { nftDetail, loading } = props
@@ -182,6 +181,7 @@ const MainSection = props => {
   const [mintAddress, setMintAddress] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [nftCategories, setNftCategories] = useState([])
+  const [activityList, setActivityList] = useState([])
 
   const [isRunning, setIsRunning] = useState(false)
   const { id } = router.query
@@ -278,6 +278,13 @@ const MainSection = props => {
           })
         })
       }
+
+      activityAPI.getNFTActivity(nftDetail?.address).then(
+        response => {
+          setActivityList(response)
+        },
+        error => {}
+      )
     }
   }, [nftDetail])
 
@@ -650,7 +657,7 @@ const MainSection = props => {
                             </thead>
                           )}
                           <tbody>
-                            {ActivityList.map((item, index) => (
+                            {activityList.map((item, index) => (
                               <tr
                                 key={index}
                                 className={`${styles.tableText} gap-2`}
@@ -665,7 +672,7 @@ const MainSection = props => {
                                   <div className="flex items-center ml-2">
                                     <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
                                       <Image
-                                        src={item.event === 'Sale' ? SaleGreenIcon : TagGreenIcon}
+                                        src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
                                         alt=""
                                         width={
                                           viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
@@ -675,7 +682,7 @@ const MainSection = props => {
                                         }
                                       />
                                     </div>
-                                    <div className="ml-2">{item.event}</div>
+                                    <div className="ml-2">{item.action_type}</div>
                                   </div>
                                 </td>
                                 <td>
@@ -686,7 +693,7 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div>{item.price.toFixed(2)}</div>
+                                    <div>{item.amount}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -694,10 +701,10 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex items-center justify-center mx-2 gap-2">
-                                      {item.from !== undefined && item.from.slice(0, 4)}
+                                      {item.owner_address !== undefined && item.owner_address.slice(0, 4)}
                                       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                      {item.from !== undefined &&
-                                        item.from.slice(
+                                      {item.owner_address !== undefined &&
+                                        item.owner_address.slice(
                                           viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
                                         )}
                                     </div>
@@ -708,17 +715,19 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex items-center justify-center mx-2 gap-2">
-                                      {item.to !== undefined && item.to.slice(0, 4)}
+                                      {item.minter_address !== undefined && item.minter_address.slice(0, 4)}
                                       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                      {item.to !== undefined &&
-                                        item.to.slice(
+                                      {item.minter_address !== undefined &&
+                                        item.minter_address.slice(
                                           viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
                                         )}
                                     </div>
                                   </td>
                                 )}
                                 <td>
-                                  <div className="w-full flex justify-end items-center ml-2 pr-4">{item.date}</div>
+                                  <div className="w-full flex justify-end items-center ml-2 pr-4">
+                                    {getDateString(item.created_at)}ago
+                                  </div>
                                 </td>
                               </tr>
                             ))}
