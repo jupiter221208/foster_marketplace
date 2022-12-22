@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
+import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
 import { toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
@@ -482,7 +483,7 @@ const SingleNft = () => {
                         }}
                       >
                         <div className="absolute inset-0 flex justify-center items-center">
-                          <img src={nftImage} alt="" className="min-w-full min-h-full object-cover" />
+                          <img src={nftImage} alt="" className="w-full h-full object-cover" />
                         </div>
                         <div className={styles.blurImage} />
                         {nftImage !== '' && artWidth !== 0 ? (
@@ -494,7 +495,9 @@ const SingleNft = () => {
                     ) : (
                       <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }}>
                         <div className="absolute inset-0">
-                          <img src={nftImage} alt="" className="min-w-full min-h-full object-cover" />
+                          {nftImage !== '' && artWidth !== 0 && (
+                            <img src={nftImage} alt="" className="w-full h-full object-cover" />
+                          )}
                         </div>
                         <div className={styles.blurImage} />
                         {nftType === 'video' && nftArt !== null ? (
@@ -502,6 +505,13 @@ const SingleNft = () => {
                             <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
                             Your browser does not support the video tag.
                           </video>
+                        ) : nftType === 'audio' && nftArt !== null ? (
+                          <div className="z-10">
+                            <MintAudioPlayer src={URL.createObjectURL(nftArt[0])} />
+                            {nftImage !== '' && artWidth !== 0 && (
+                              <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
+                            )}
+                          </div>
                         ) : nftImage !== '' && artWidth !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                         ) : (
@@ -535,15 +545,6 @@ const SingleNft = () => {
                         ) : (
                           <>&nbsp;</>
                         )}
-                      </div>
-                    )}
-
-                    {nftType === 'audio' && nftArt !== null && (
-                      <div className="w-full my-10">
-                        <audio controls className="w-full">
-                          <source src={URL.createObjectURL(nftArt[0])} type={nftArt[0].type} />
-                          Your browser does not support the video tag.
-                        </audio>
                       </div>
                     )}
                   </div>
