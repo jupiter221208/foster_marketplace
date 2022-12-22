@@ -1,0 +1,13 @@
+import client from './client'
+
+const API_URL = process.env.BACKEND_URL
+
+class Activity {
+  getNFTActivity(token_id) {
+    return client.get(API_URL + 'v1/activity/nft/' + token_id).then(response => {
+      return response.data
+    })
+  }
+}
+
+export default new Activity()

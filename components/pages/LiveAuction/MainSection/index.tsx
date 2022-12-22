@@ -77,11 +77,12 @@ import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { placeBid } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
-import { getPriceValue } from 'utils/strings'
+import { getDateString, getPriceValue } from 'utils/strings'
 
 // call apis
 import nftsAPI, { NFT } from 'apis/nfts'
 import usersAPI from 'apis/user'
+import activityAPI from 'apis/activity'
 
 const MainSection = props => {
   const { nftDetail, loading } = props
@@ -191,6 +192,7 @@ const MainSection = props => {
   const [shareCount, setShareCount] = useState(0)
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
+  const [activityList, setActivityList] = useState([])
 
   useEffect(() => {
     if (isStarted && !isEnded) {
@@ -206,6 +208,7 @@ const MainSection = props => {
   const [isRunning, setIsRunning] = useState(false)
 
   const [balance, setBalance] = useState<any>(0)
+
   useEffect(() => {
     const getWalletBanace = async () => {
       const walletBalance = await mx.connection.getBalance(publicKey)
@@ -217,6 +220,13 @@ const MainSection = props => {
   useEffect(() => {
     if (nftDetail !== null) {
       getNftDetailInfo()
+
+      activityAPI.getNFTActivity(nftDetail?.address).then(
+        response => {
+          setActivityList(response)
+        },
+        error => {}
+      )
     }
   }, [nftDetail])
 
@@ -345,7 +355,6 @@ const MainSection = props => {
     } else {
       nftsAPI.unlikeNft(id).then(
         response => {
-          console.log(response)
           if (response !== null) {
             setLikeCount(likeCount - 1)
             setLike(newStatus)
@@ -698,7 +707,7 @@ const MainSection = props => {
                             </thead>
                           )}
                           <tbody>
-                            {ActivityList.map((item, index) => (
+                            {activityList.map((item: any, index) => (
                               <tr
                                 key={index}
                                 className={`${styles.tableText} gap-2`}
@@ -713,7 +722,7 @@ const MainSection = props => {
                                   <div className="flex items-center ml-2">
                                     <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
                                       <Image
-                                        src={item.event === 'Sale' ? SaleGreenIcon : TagGreenIcon}
+                                        src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
                                         alt=""
                                         width={
                                           viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
@@ -723,29 +732,29 @@ const MainSection = props => {
                                         }
                                       />
                                     </div>
-                                    <div className="ml-2">{item.event}</div>
+                                    <div className="ml-2">{item.action_type}</div>
                                   </div>
                                 </td>
                                 <td>
-                                  <div className="flex items-center mx-2 gap-1">
+                                  <div className="flex justify-center items-center mx-2 gap-1">
                                     <Image
                                       src={SolanaLogoIcon}
                                       alt=""
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div>{item.price.toFixed(2)}</div>
+                                    <div>{item.amount}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                                   <></>
                                 ) : (
                                   <td>
-                                    <div className="flex items-center mx-2 gap-2">
-                                      {item.from !== undefined && item.from.slice(0, 4)}
+                                    <div className="flex justify-center items-center mx-2 gap-2">
+                                      {item.owner_address !== undefined && item.owner_address.slice(0, 4)}
                                       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                      {item.from !== undefined &&
-                                        item.from.slice(
+                                      {item.owner_address !== undefined &&
+                                        item.owner_address.slice(
                                           viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
                                         )}
                                     </div>
@@ -755,18 +764,20 @@ const MainSection = props => {
                                   <></>
                                 ) : (
                                   <td>
-                                    <div className="flex items-center mx-2 gap-2">
-                                      {item.to !== undefined && item.to.slice(0, 4)}
+                                    <div className="flex justify-center items-center mx-2 gap-2">
+                                      {item.minter_address !== undefined && item.minter_address.slice(0, 4)}
                                       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                      {item.to !== undefined &&
-                                        item.to.slice(
+                                      {item.minter_address !== undefined &&
+                                        item.minter_address.slice(
                                           viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
                                         )}
                                     </div>
                                   </td>
                                 )}
                                 <td>
-                                  <div className="w-full flex justify-end items-center ml-2 pr-4">{item.date} ago</div>
+                                  <div className="w-full flex justify-center items-center ml-2 pr-4">
+                                    {getDateString(item.created_at)}ago
+                                  </div>
                                 </td>
                               </tr>
                             ))}

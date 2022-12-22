@@ -68,3 +68,11 @@ export const getShortDescription = (viewport, description) => {
   }
   return description
 }
+
+export const getDateString = date => {
+  const nowDate: any = new Date()
+  const prevDate: any = new Date(date)
+  const diffTime = Math.abs(nowDate - prevDate)
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  return diffDays + ' days '
+}
