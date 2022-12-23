@@ -35,7 +35,7 @@ const ExploreCollectionSection = props => {
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Explore the Circus</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Active Listings</div>
           </div>
           <div className="hidden lg:flex z-10">
             <OutlineButton
