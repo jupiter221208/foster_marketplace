@@ -89,16 +89,21 @@ const MakeAnOfferModal = props => {
                 <div className={styles.title}>Make Offer</div>
                 <div className="w-full mt-5">
                   <div className={styles.text}>
-                    When you make an offer, the funds are kept in your bidding wallet to allow you to make multiple
-                    offers using the same funds. To view, deposit or withdraw from your bidding wallet, please visit
-                    &quot;offers&quot; on your dashboard.
+                    When you make an offer, the funds are withdrawn from your main wallet and deposited into your
+                    &quot;offer wallet.&quot; If you already have available funds in your &quot;offer wallet,&quot; the
+                    offer will be funded using your available balance.
+                    <br />
+                    <br />
+                    To view the balance, deposit or withdraw from your offer wallet, you can do so from the wallet
+                    adapter in the top navbar.
                   </div>
                 </div>
                 <div className="w-full mt-[30px]">
                   <div className={styles.card}>
-                    <div className={styles.cardTitle}>Fund the offer</div>
+                    <div className={styles.cardTitle}>Cancel Offer</div>
                     <div className={styles.cardText}>
-                      Transfer money from your main wallet to the bidding wallet account.
+                      If you would like to cancel an offer before the seller accepts, you can do so from the
+                      &quot;offers&quot; tab on your dashboard.
                     </div>
                   </div>
                 </div>
@@ -111,6 +116,7 @@ const MakeAnOfferModal = props => {
                       <GradientButton
                         label="Make Offer"
                         fullWidth
+                        gradientDirection="bottom"
                         disabled={offerBtnDisabled}
                         onClick={() => onClick(minimumOffer)}
                         height="50px"
@@ -128,7 +134,7 @@ const MakeAnOfferModal = props => {
                   ></div>
                 </div>
                 <div className="w-full mt-[33px]">
-                  <div className={styles.cardTitle}>NFT Name</div>
+                  <div className={styles.subTitle}>NFT Name</div>
                 </div>
                 <div className="w-full mt-2">
                   <div className={styles.greenText}>Collection Name (if applicable)</div>
