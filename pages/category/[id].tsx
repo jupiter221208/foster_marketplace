@@ -67,7 +67,7 @@ const Category = () => {
             <></>
           )}
           {categoryInfo.type === 'video' ? (
-            <div className={styles.videoContainer}>
+            <div className={styles.imageContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <img
                   src={categoryInfo.mobile_banner}
