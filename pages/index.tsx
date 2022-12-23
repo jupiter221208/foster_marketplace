@@ -1,4 +1,6 @@
+// next components
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -13,11 +15,15 @@ import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
+// custom functions
+import { useDetectRouterPath } from 'utils'
+
 // third party components
 import { useSelector } from 'react-redux'
 
 const Home = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
+  useDetectRouterPath(useRouter())
 
   return (
     <div className="g-container">

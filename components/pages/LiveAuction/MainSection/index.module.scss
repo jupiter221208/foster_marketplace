@@ -90,7 +90,7 @@
 .placeBidBtn {
   font-family: 'KCDurhamBoxcar';
   font-size: 25px;
-  color: #9cedd6;
+  color: $brand-11-color;
   margin: 5px 3px;
   @media (min-width: 1024px) {
     margin: 5px 9px;
@@ -99,7 +99,7 @@
 }
 
 .placeBidEnabledColor {
-  color: #9cedd6;
+  color: $brand-11-color;
 }
 
 .placeBidDisabledColor {

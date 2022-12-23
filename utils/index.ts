@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+import { useDispatch } from 'react-redux'
+
 export const useViewport = () => {
   const [viewport, setViewport] = useState('lg')
 
@@ -69,4 +71,14 @@ export const getBase64FromUrl = async url => {
       resolve(base64data)
     }
   })
+}
+
+export const useDetectRouterPath = router => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch({ type: 'set', isLoading: false })
+    }, 400)
+  }, [router.asPath])
 }
