@@ -42,8 +42,13 @@ const LiveAuctionSection = props => {
     if (artist.length > 0) {
       auctionAPI.getListingsBySeller(category).then(response => {
         if (response !== null && response !== undefined && response.length !== 0) {
-          setAllLiveAuctionList(response)
-          setLiveAuctionList(response)
+          if (response === 'NFT not found') {
+            setAllLiveAuctionList([])
+            setLiveAuctionList([])
+          } else {
+            setAllLiveAuctionList(response)
+            setLiveAuctionList(response)
+          }
         }
       }),
         error => {
