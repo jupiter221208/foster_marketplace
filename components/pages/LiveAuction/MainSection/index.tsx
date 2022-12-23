@@ -635,7 +635,7 @@ const MainSection = props => {
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
-                          <div className="w-[100px] lg:w-[150px]">
+                          <div className="w-[100px] lg:w-[150px] z-10">
                             <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
                           </div>
                           <div className="flex flex-1">
