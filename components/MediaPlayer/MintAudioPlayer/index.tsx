@@ -38,13 +38,13 @@ const MintAudioPlayer = props => {
           iconHeight="10px"
         />
         <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
-        <IconButton
+        {/* <IconButton
           icon={muted ? AudioUnmuteWhiteIcon : AudioMuteWhiteIcon}
           onClick={() => setMuted(!muted)}
           backgroundColor="transparent"
           width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '24px'}
           height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '24px'}
-        />
+        /> */}
       </div>
     </div>
   )
