@@ -8,6 +8,15 @@
   opacity: 0.4;
 }
 
+.turkeyRingLeader {
+  position: absolute;
+  top: 0px;
+  left: -100px;
+  bottom: 0px;
+  z-index: 0;
+  opacity: 1;
+}
+
 .container {
   width: 100%;
   max-width: 964px;
@@ -28,19 +37,36 @@
   font-size: 80px;
   line-height: 53px;
   @media (min-width: 1024px) {
-    font-size: 172px;
-    line-height: 113px;
+    font-size: 78px;
+    line-height: 78px;
   }
-  color: $brand-01-color;
+  color: $brand-09-color;
 }
 
 .subTitle {
-  font-family: 'KCDurhamboxcar';
-  font-size: 32px;
-  line-height: 20px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 49px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 24px;
   }
   color: $text-gray-200-color;
+  margin-top: 70px;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  color: rgba($text-gray-200-color, 0.75);
+  margin-top: 5px;
 }
