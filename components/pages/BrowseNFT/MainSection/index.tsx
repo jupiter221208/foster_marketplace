@@ -57,6 +57,7 @@ import ShareBlankIcon from 'assets/icons/share-blank.svg'
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -78,12 +79,15 @@ import listingsAPI from 'apis/listings'
 import activityAPI from 'apis/activity'
 
 import { useWallets } from 'hooks/useWallets'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 const MainSection = props => {
   const { nftDetail, loading } = props
   const viewport = useViewport()
   const router = useRouter()
-
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [openReportModal, setOpenReportModal] = useState(false)
@@ -198,10 +202,14 @@ const MainSection = props => {
   }
 
   useEffect(() => {
-    if (mx && id) setListedNFT(mx, id)
-  }, [mx, id])
+    if (connected && mx && id) setListedNFT(mx, id)
+  }, [mx, id, connected])
 
   const quickBuy = async () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
     setOpenProgressingModal(true)
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
@@ -500,27 +508,43 @@ const MainSection = props => {
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
                   <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                    {tradeStateAddress ? (
-                      <GradientButton
-                        label={'Quick Buy'}
-                        onClick={() => quickBuy()}
-                        icon={QuickBuyBlackIcon}
-                        direction="rtl"
-                        disabled={!tradeStateAddress}
-                      />
+                    {connected ? (
+                      tradeStateAddress ? (
+                        <GradientButton
+                          label={'Quick Buy'}
+                          onClick={() => quickBuy()}
+                          icon={QuickBuyBlackIcon}
+                          direction="rtl"
+                          disabled={!tradeStateAddress}
+                        />
+                      ) : (
+                        <LoadingButton />
+                      )
                     ) : (
-                      <LoadingButton />
+                      <button
+                        className={styles.connectWallet}
+                        onClick={() => {
+                          setVisible(true)
+                        }}
+                      >
+                        <div>Connect Wallet</div>
+                        <Image src={FosterLightGreenIcon} alt="" />
+                      </button>
                     )}
-                    <OutlineButton
-                      label="Make Offer"
-                      onClick={() => setOpenOfferModal(true)}
-                      icon={TagWhiteIcon}
-                      direction="rtl"
-                      borderWidth={2}
-                      paddingLeft="13px"
-                      paddingRight="13px"
-                      gap="4px"
-                    />
+                    {connected && (
+                      <OutlineButton
+                        label="Make Offer"
+                        onClick={() => {
+                          setOpenOfferModal(true)
+                        }}
+                        icon={TagWhiteIcon}
+                        direction="rtl"
+                        borderWidth={2}
+                        paddingLeft="13px"
+                        paddingRight="13px"
+                        gap="4px"
+                      />
+                    )}
                   </div>
                   <div className="w-full flex content-none mt-[14px]">
                     <p className={styles.whiteDescription}>

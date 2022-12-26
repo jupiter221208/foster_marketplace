@@ -71,6 +71,34 @@
   padding: 20px;
 }
 
+.connectWallet {
+  width: 100%;
+  height: 49px;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, rgba($brand-02-color, 1), rgba(#244246, 1));
+  gap: 13px;
+
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $text-gray-200-color;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+@media (min-width: 1025px) {
+  .connectWallet {
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+  }
+}
+
 .mobileImageArea {
   border-radius: 12px;
   width: 100%;
