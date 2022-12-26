@@ -47,7 +47,7 @@ const MainSection = prop => {
 
   useEffect(() => {
     setFollow(artistInfo ? artistInfo.followed : false)
-  }, artistInfo)
+  }, [artistInfo])
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
