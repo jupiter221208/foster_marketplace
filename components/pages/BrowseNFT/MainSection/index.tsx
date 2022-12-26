@@ -192,7 +192,7 @@ const MainSection = props => {
   const { id } = router.query
 
   const { metaplex: mx } = useMetaplex()
-  const { mainBalance: mainWalletBalance, updateSolBalance } = useWallets()
+  const { mainBalance: mainWalletBalance, offerBalance, updateSolBalance } = useWallets()
 
   const setListedNFT = async (mx, id) => {
     let nft = await getNFTDetailsByAddress(mx, id.toString())
@@ -788,7 +788,9 @@ const MainSection = props => {
           open={openOfferModal}
           close={() => setOpenOfferModal(false)}
           onClick={price => makeOffer(price)}
+          nftName={nftName}
           listingPrice={nftPrice}
+          offerBalance={offerBalance}
           mainWalletBalance={mainWalletBalance}
         />
       )}

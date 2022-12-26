@@ -15,7 +15,7 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import styles from './index.module.scss'
 
 const MakeAnOfferModal = props => {
-  const { open, close, onClick, listingPrice, mainWalletBalance } = props
+  const { open, close, onClick, listingPrice, nftName, offerBalance, mainWalletBalance } = props
 
   const [minimumOffer, setMinimumOffer] = useState<any>(0)
   const [newMainBalance, setNewMainBalance] = useState<any>(0)
@@ -28,7 +28,8 @@ const MakeAnOfferModal = props => {
   useEffect(() => {
     setMinimumOffer50(listingPrice / 2)
     setNewMainBalance(mainWalletBalance)
-  }, [listingPrice, mainWalletBalance])
+    setBiddingWalletBalance(offerBalance)
+  }, [listingPrice, mainWalletBalance, offerBalance])
 
   const onChangeOfferValue = value => {
     setMinimumOffer(value)
@@ -150,7 +151,7 @@ const MakeAnOfferModal = props => {
                   ></div>
                 </div>
                 <div className="w-full mt-[33px]">
-                  <div className={styles.subTitle}>NFT Name</div>
+                  <div className={styles.subTitle}>{nftName}</div>
                 </div>
                 <div className="w-full mt-2">
                   <div className={styles.greenText}>Collection Name (if applicable)</div>
