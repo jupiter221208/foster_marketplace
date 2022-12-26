@@ -2,13 +2,17 @@ import React, { Fragment, useEffect, useState } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
-import RingLoader from 'react-spinners/RingLoader'
 
-import styles from './index.module.scss'
+// custom components
 import PriceInput from 'components/Input/PriceInput'
+import IconButton from 'components/Button/IconButton'
 import GradientButton from 'components/Button/GradientButton'
 
-// json
+// images and icons
+import CloseWhiteIcon from 'assets/icons/close-white.svg'
+
+// styles
+import styles from './index.module.scss'
 
 const MakeAnOfferModal = props => {
   const { open, close, onClick, listingPrice, mainWalletBalance } = props
@@ -86,6 +90,18 @@ const MakeAnOfferModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={styles.modalView}>
+                <div className="absolute top-5 right-5">
+                  <IconButton
+                    icon={CloseWhiteIcon}
+                    onClick={() => close()}
+                    backgroundColor="#585B5D"
+                    width="30px"
+                    height="30px"
+                    borderRadius="15px"
+                    iconWidth={12}
+                    iconHeight={!2}
+                  />
+                </div>
                 <div className={styles.title}>Make Offer</div>
                 <div className="w-full mt-5">
                   <div className={styles.text}>
