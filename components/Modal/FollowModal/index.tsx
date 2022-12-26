@@ -198,23 +198,25 @@ const FollowModal = props => {
                                 </div>
                               </div>
                             </div>
-                            <div className="w-24 lg:w-[146px]">
-                              {item.following === false ? (
-                                <PositiveButton
-                                  label="Follow"
-                                  onClick={() => {
-                                    followArtist(item.wallet_id)
-                                  }}
-                                />
-                              ) : (
-                                <NegativeButton
-                                  label="Following"
-                                  onClick={() => {
-                                    unfollowArtist(item.wallet_id)
-                                  }}
-                                />
-                              )}
-                            </div>
+                            {ownWallet !== item.wallet_id && (
+                              <div className="w-24 lg:w-[146px]">
+                                {item.following === false ? (
+                                  <PositiveButton
+                                    label="Follow"
+                                    onClick={() => {
+                                      followArtist(item.wallet_id)
+                                    }}
+                                  />
+                                ) : (
+                                  <NegativeButton
+                                    label="Following"
+                                    onClick={() => {
+                                      unfollowArtist(item.wallet_id)
+                                    }}
+                                  />
+                                )}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>
