@@ -23,13 +23,11 @@ const ModalPlaceBid = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [priceCheckMode, setPriceCheckMode] = useState(0)
-  const [balancePriceCheck, setBalancePriceCheck] = useState(false)
+  const [price, setPrice] = useState(0)
 
   const closeModal = () => {
     onClose()
   }
-
-  const [price, setPrice] = useState(0)
 
   const onClickPlaceBid = async () => {
     placeBid(price)
@@ -45,6 +43,16 @@ const ModalPlaceBid = props => {
       },
     ])
   }, [])
+
+  useEffect(() => {
+    if (open) {
+      if (currentPrice === 0) {
+        setPrice(reservePrice)
+      } else {
+        setPrice(reservePrice + 0.1)
+      }
+    }
+  }, [open])
 
   useEffect(() => {
     if (price == 0) {

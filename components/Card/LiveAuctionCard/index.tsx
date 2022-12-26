@@ -12,7 +12,6 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
-import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
@@ -54,7 +53,7 @@ const LiveAuctionCard = props => {
       <div className={styles.bidContainer}>
         <div className="w-full flex flex-wrap justify-between">
           <div>
-            <div className={styles.bidName}>CURRENT BID</div>
+            <div className={styles.bidName}>{data.current_bid !== null ? 'CURRENT BID' : 'STARTING BID'}</div>
             <div className={styles.bidCountContainer}>
               <Image
                 src={SolanaLogoIcon}
@@ -68,13 +67,7 @@ const LiveAuctionCard = props => {
           </div>
 
           <div>
-            <div className={styles.bidName}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                ? 'TIME REMAINING'
-                : viewport === 'xl'
-                ? 'TIME REMAINING'
-                : 'TIME REMAINING'}
-            </div>
+            <div className={styles.bidName}>TIME REMAINING</div>
             <div className="flex justify-center">
               <div>
                 <div className={styles.endTime}>
