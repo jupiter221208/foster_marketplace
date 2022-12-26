@@ -131,7 +131,7 @@ const MyWalletSubMenu = props => {
     setBiddingErrorMessage('')
     if (biddingStatus === 'deposit') {
       if (biddingPrice > mainBalance) {
-        setOfferErrorMessage('Not enough balance in the wallet')
+        setBiddingErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(0)
         setNewBiddingWallet(mainBalance + biddingBalance)
       } else {
@@ -142,7 +142,7 @@ const MyWalletSubMenu = props => {
 
     if (biddingStatus === 'withdraw') {
       if (biddingPrice > biddingBalance) {
-        setOfferErrorMessage('Not enough balance in the wallet')
+        setBiddingErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(mainBalance + biddingBalance)
         setNewBiddingWallet(0)
       } else {
@@ -356,11 +356,11 @@ const MyWalletSubMenu = props => {
                     />
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
-                  <div className="w-full flex flex-wrap mt-[14px] gap-1">
+                  {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
                     <p className={styles.cardGrayText}>
                       Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               )}
               {/* bidding wallet part */}
@@ -455,11 +455,11 @@ const MyWalletSubMenu = props => {
                     />
                   </div>
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
-                  <div className="w-full flex flex-wrap mt-[14px] gap-1">
+                  {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
                     <p className={styles.cardGrayText}>
                       Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               )}
             </div>
