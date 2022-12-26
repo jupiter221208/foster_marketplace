@@ -11,10 +11,15 @@
 .turkeyRingLeader {
   position: absolute;
   top: 0px;
-  left: -100px;
-  bottom: 0px;
+  left: -200px;
+  @media (min-width: 1024px) {
+    top: 0px;
+    left: -100px;
+  }
   z-index: 0;
   opacity: 1;
+  min-width: 600px;
+  min-height: 900px;
 }
 
 .container {
@@ -24,7 +29,6 @@
   @media (min-width: 1024px) {
     padding-top: 78px;
   }
-  padding-bottom: 186px;
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -34,8 +38,8 @@
 
 .title {
   font-family: 'KCDurhamboxcar';
-  font-size: 80px;
-  line-height: 53px;
+  font-size: 40px;
+  line-height: 56px;
   @media (min-width: 1024px) {
     font-size: 78px;
     line-height: 78px;
@@ -47,9 +51,11 @@
   width: 100%;
   text-align: center;
   font-family: 'Muli-Bold';
+  max-width: 262px;
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
+    max-width: 100%;
     font-size: 18px;
     line-height: 24px;
   }

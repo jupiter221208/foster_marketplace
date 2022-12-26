@@ -33,7 +33,6 @@ const Dao = () => {
       <div className="relative w-full flex justify-center">
         <div className={styles.topLeftEllipse}>
           <Image src={EllipseGreen} alt="" objectFit="cover" />
-          <Image src={TurkeyRingLeader} alt="" objectFit="cover" className="z-10" />
         </div>
         <div className={styles.turkeyRingLeader}>
           <Image src={TurkeyRingLeader} alt="" objectFit="cover" className="z-10" />
