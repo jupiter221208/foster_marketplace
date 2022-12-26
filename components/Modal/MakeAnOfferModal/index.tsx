@@ -156,7 +156,7 @@ const MakeAnOfferModal = props => {
                     <div className={styles.whiteText}>{mainWalletBalance.toFixed(2)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
-                    <div className={styles.whiteText}>Bidding Wallet Balance</div>
+                    <div className={styles.whiteText}>Offer Wallet Balance</div>
                     <div className={styles.whiteText}>{biddingWalletBalance.toFixed(2)} SOL</div>
                   </div>
                 </div>
@@ -169,7 +169,7 @@ const MakeAnOfferModal = props => {
                     <div className={styles.whiteText}>{newMainBalance.toFixed(2)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
-                    <div className={styles.whiteText}>New Bidding Wallet Balance</div>
+                    <div className={styles.whiteText}>New Offer Wallet Balance</div>
                     <div className={styles.whiteText}>{newBiddingBalance.toFixed(2)} SOL</div>
                   </div>
                 </div>
