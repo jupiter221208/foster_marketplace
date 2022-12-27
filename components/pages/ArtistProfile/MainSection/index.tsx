@@ -44,9 +44,13 @@ const MainSection = prop => {
   const [type, setType] = useState(0)
   const [follow, setFollow] = useState(false)
   const [artistEnable, setArtistEnable] = useState(false)
+  const [artistFollowing, setArtistFollowing] = useState(artistInfo.following)
+  const [artistFollowers, setArtistFollowers] = useState(artistInfo.followers)
 
   useEffect(() => {
     setFollow(artistInfo ? artistInfo.followed : false)
+    setArtistFollowing(artistInfo.following)
+    setArtistFollowers(artistInfo.followers)
   }, [artistInfo])
 
   const copyToClipboard = value => {
@@ -57,6 +61,7 @@ const MainSection = prop => {
     artistsAPI.followArtist(wallet).then(response => {
       if (response && response.followed_wallet_id) {
         setFollow(true)
+        setArtistFollowing(artistFollowing + 1)
       }
     })
   }
@@ -64,6 +69,7 @@ const MainSection = prop => {
   const unfollowArtist = wallet => {
     artistsAPI.unfollowArtist(wallet).then(response => {
       setFollow(false)
+      setArtistFollowing(artistFollowing - 1)
     })
   }
 
@@ -97,7 +103,7 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className={styles.whiteText}>{artistInfo.followers}</div>
+                <div className={styles.whiteText}>{artistFollowers}</div>
                 &nbsp;
                 <div className={styles.grayText}>Followers</div>
               </div>
@@ -108,7 +114,7 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className={styles.whiteText}>{artistInfo.following}</div>
+                <div className={styles.whiteText}>{artistFollowing}</div>
                 &nbsp;
                 <div className={styles.grayText}>Following</div>
               </div>
