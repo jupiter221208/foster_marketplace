@@ -50,7 +50,7 @@ const BrowseNFT = () => {
             if (response.collection_address !== null) {
               setCollectionId(response.collection_address)
             }
-            if (response.creator_address !== null) {
+            if (response.creator_address !== null && response.creator_address.length > 0) {
               setArtistInfo({ address: response.creator_address, name: response.creator_username })
             }
             setLoading(false)

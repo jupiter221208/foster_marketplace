@@ -31,7 +31,17 @@ const LiveAuctionCard = props => {
     <div className={styles.container} onClick={() => onClick()}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          <img src={data.asset_url} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+          {data.asset_type === 'video' ? (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                <source src=${data.asset_url} type="video/mp4" /></video>`,
+              }}
+              onClick={() => onClick()}
+            />
+          ) : (
+            <img src={data.asset_url} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+          )}
         </div>
       </div>
       <div className="w-full flex flex-wrap justify-center items-center px-[9px]">

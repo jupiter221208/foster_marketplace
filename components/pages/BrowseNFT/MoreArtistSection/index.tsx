@@ -38,7 +38,7 @@ const MoreArtistSection = props => {
   const [collectionList, setCollectionList] = useState([])
 
   useEffect(() => {
-    if (artistInfo !== null) {
+    if (artistInfo !== null && artistInfo.address.length > 0) {
       collectionAPI.getOtherCollections(artistInfo.address).then(
         response => {
           setCollectionList(response)
