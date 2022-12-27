@@ -44,24 +44,18 @@ const LiveAuctionCard = props => {
           )}
         </div>
       </div>
-      <div className="w-full flex flex-wrap justify-center items-center px-[9px]">
+      {/* <div className="w-full flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-between items-center">
           <div className={styles.nftName}>{data.nft_name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>{data.artist_username}</div>
-          {/* <div className="pl-[6px] flex items-center">
-            <Image
-              src={CheckedGreenIcon}
-              alt=""
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 22}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 22}
-            />
-          </div> */}
         </div>
-      </div>
+      </div> */}
       <div className={styles.bidContainer}>
-        <div className="w-full flex flex-wrap justify-between">
+        <div className={styles.bidBgView} />
+        <div className={styles.bidGradientBgView} />
+        <div className={styles.bidContentView}>
           <div>
             <div className={styles.bidName}>{data.current_bid !== null ? 'CURRENT BID' : 'STARTING BID'}</div>
             <div className={styles.bidCountContainer}>

@@ -127,12 +127,10 @@ const LiveAuctionSection = props => {
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          {liveAuctionList.length > 4 ? (
+          {liveAuctionList.length > 0 ? (
             <Swiper
               navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
-              }
+              slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.5 : 3}
               spaceBetween={
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
               }
