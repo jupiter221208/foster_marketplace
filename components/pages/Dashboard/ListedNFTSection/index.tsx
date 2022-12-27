@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
+import { useWallets } from 'hooks/useWallets'
+
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -26,7 +28,6 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
-import { useWallets } from 'hooks/useWallets'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -137,6 +138,12 @@ const ListedNFTSection = props => {
     const result = await updateList(mx, nftAddress, tradeStateAddress, price)
     if (result) {
       setShowListNFTModal(false)
+      listingsAPI.updateNft(nftAddress, { amount: price }).then(
+        response => console.log(response),
+        error => {
+          console.log(error)
+        }
+      )
       setMyListedNFTs()
     }
   }

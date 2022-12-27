@@ -8,6 +8,11 @@ class Listings {
       return response.data
     })
   }
+  updateNft(token_id, amount) {
+    return client.put(API_URL + 'v1/nfts/list/' + token_id, amount).then(response => {
+      return response.data
+    })
+  }
   unlistNft(token_id) {
     return client.delete(API_URL + 'v1/nfts/list/' + token_id).then(response => {
       return response.data
