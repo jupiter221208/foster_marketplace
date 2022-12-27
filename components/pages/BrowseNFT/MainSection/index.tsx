@@ -290,7 +290,7 @@ const MainSection = props => {
 
       activityAPI.getNFTActivity(nftDetail?.address).then(
         response => {
-          setActivityList(response)
+          setActivityList(response.reverse())
         },
         error => {}
       )
@@ -695,19 +695,23 @@ const MainSection = props => {
                               >
                                 <td className="mx-2">
                                   <div className="flex items-center ml-2">
-                                    <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
-                                      <Image
-                                        src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
-                                        alt=""
-                                        width={
-                                          viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                        }
-                                        height={
-                                          viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                        }
-                                      />
-                                    </div>
-                                    <div className="ml-2">{item.action_type}</div>
+                                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                      <></>
+                                    ) : (
+                                      <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
+                                        <Image
+                                          src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
+                                          alt=""
+                                          width={
+                                            viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                          }
+                                          height={
+                                            viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                          }
+                                        />
+                                      </div>
+                                    )}
+                                    <div className="ml-2">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                                   </div>
                                 </td>
                                 <td>
