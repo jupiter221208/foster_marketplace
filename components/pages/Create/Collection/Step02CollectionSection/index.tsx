@@ -213,7 +213,7 @@ const Step02CollectionSection = props => {
                               : URL.createObjectURL(selectedCollectionFile.file)
                           }
                           alt=""
-                          className="min-w-full min-h-full object-cover"
+                          className="w-full h-full object-contain"
                         />
                       )}
                     </div>
@@ -571,7 +571,7 @@ const Step02CollectionSection = props => {
                             : URL.createObjectURL(selectedCollectionFile.file)
                         }
                         alt=""
-                        className="min-w-full min-h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     )}
                   </div>
