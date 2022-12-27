@@ -18,6 +18,27 @@
   cursor: pointer;
 }
 
+.avatar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  @media (min-width: 1024px) {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  background-color: rgba(#ffffff, 0.3);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
 .bidContainer {
   position: absolute;
   bottom: 0px;
@@ -85,15 +106,15 @@
   }
   @media (min-width: 1024px) {
     height: 104px;
-    inset: 18px 14px 10px 14px;
+    inset: 24px 14px 10px 14px;
   }
   @media (min-width: 1536px) {
     height: 104px;
-    inset: 20px 12px 8px 12px;
+    inset: 24px 12px 8px 12px;
   }
   @media (min-width: 1768px) {
     height: 104px;
-    inset: 20px 16px 8px 16px;
+    inset: 24px 16px 8px 16px;
   }
 }
 
@@ -198,11 +219,17 @@
   display: flex;
   justify-content: center;
   font-family: 'Muli-Regular';
-  font-size: 8px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 12px;
+
   @media (min-width: 1024px) {
-    font-size: 12px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  @media (min-width: 1768px) {
+    font-size: 22px;
+    line-height: 26px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
@@ -210,7 +237,7 @@
 }
 
 .endTimeContainer {
-  margin-left: 6px;
+  margin-left: 4px;
   @media (min-width: 1024px) {
     margin-left: 12px;
   }
@@ -229,7 +256,7 @@
 }
 
 .bidName {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 8px;
   line-height: 16px;
   text-align: center;
@@ -262,7 +289,7 @@
   //   line-height: 20px;
   // }
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba($brand-09-color, 0.75);
 }
 
 .bidCount {
@@ -316,7 +343,7 @@
   justify-content: center;
   font-family: 'Muli-Bold';
   font-size: 12px;
-  line-height: 11px;
+  line-height: 12px;
   @media (min-width: 414px) {
     font-size: 12px;
     line-height: 11px;

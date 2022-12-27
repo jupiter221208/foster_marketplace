@@ -9,6 +9,7 @@ import { calculateTimeLeft } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -44,6 +45,25 @@ const LiveAuctionCard = props => {
           )}
         </div>
       </div>
+      <div className={styles.avatar}>
+        {data.artist_profile_picture.length === 0 ? (
+          <Image
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+            src={AvatarImage}
+            alt=""
+            className="rounded-full"
+          />
+        ) : (
+          <img
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+            src={data.artist_profile_picture}
+            alt=""
+            className="rounded-full"
+          />
+        )}
+      </div>
       {/* <div className="w-full flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-between items-center">
           <div className={styles.nftName}>{data.nft_name}</div>
@@ -75,30 +95,30 @@ const LiveAuctionCard = props => {
             <div className="flex justify-center">
               <div>
                 <div className={styles.endTime}>
-                  <>{timeLeft['days']}</>
+                  {timeLeft['days']}
+                  <div className={styles.bidDesc}>D</div>
                 </div>
-                <div className={styles.bidDesc}>Day</div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
-                  <>{timeLeft['hours']}</>
+                  {timeLeft['hours']}
+                  <div className={styles.bidDesc}>H</div>
                 </div>
-                <div className={styles.bidDesc}>Hour</div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
-                  <>{timeLeft['minutes']}</>
+                  {timeLeft['minutes']}
+                  <div className={styles.bidDesc}>M</div>
                 </div>
-                <div className={styles.bidDesc}>Min</div>
               </div>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <></>
               ) : (
                 <div className={styles.endTimeContainer}>
                   <div className={styles.endTime}>
-                    <>{timeLeft['seconds']}</>
+                    {timeLeft['seconds']}
+                    <div className={styles.bidDesc}>S</div>
                   </div>
-                  <div className={styles.bidDesc}>Sec</div>
                 </div>
               )}
             </div>
