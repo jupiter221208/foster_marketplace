@@ -724,12 +724,20 @@ const MainSection = props => {
                                 </td>
                                 <td>
                                   <div className="flex justify-center items-center mx-2 gap-1">
-                                    <Image
-                                      src={SolanaLogoIcon}
-                                      alt=""
-                                      width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                                      height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                                    />
+                                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                      <></>
+                                    ) : (
+                                      <Image
+                                        src={SolanaLogoIcon}
+                                        alt=""
+                                        width={
+                                          viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23
+                                        }
+                                        height={
+                                          viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23
+                                        }
+                                      />
+                                    )}
                                     <div>{item.amount}</div>
                                   </div>
                                 </td>
