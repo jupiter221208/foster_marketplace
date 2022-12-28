@@ -83,34 +83,7 @@ const ListedNFTCard = props => {
             />
           ) : (
             <>
-              {isStarted && !isEnded && (
-                <Button
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  label="Cancel Auction"
-                  disabled={true}
-                  backgroundColor="#383838"
-                  color="#202427"
-                  fullWidth
-                />
-              )}
-              {(!isStarted || (isEnded && !highestBid)) && (
-                <GradientButton
-                  label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  backgroundColor01="#63D6CD"
-                  backgroundColor02="#326B67"
-                  gradientDirection="bottom"
-                  fullWidth
-                />
-              )}
-              {isEnded && highestBid && (
+              {highestBid ? (
                 <GradientButton
                   label={'Finalize Sale'}
                   onClick={() =>
@@ -121,6 +94,19 @@ const ListedNFTCard = props => {
                       Number(data?.highestBid.amount)
                     )
                   }
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  backgroundColor01="#63D6CD"
+                  backgroundColor02="#326B67"
+                  gradientDirection="bottom"
+                  fullWidth
+                />
+              ) : (
+                <GradientButton
+                  label={'Cancel Auction'}
+                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
                   height="48px"
                   fontSize="16px"
                   paddingLeft="37px"
@@ -165,34 +151,7 @@ const ListedNFTCard = props => {
             />
           ) : (
             <>
-              {isStarted && !isEnded && (
-                <Button
-                  height="26px"
-                  fontSize="10px"
-                  paddingLeft="7px"
-                  paddingRight="7px"
-                  label="Cancel Auction"
-                  disabled={true}
-                  backgroundColor="#202427"
-                  color="rgba(239,240, 246, 0.6)"
-                  borderRadius="6px"
-                />
-              )}
-              {(!isStarted || (isEnded && !highestBid)) && (
-                <GradientButton
-                  label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
-                  height="26px"
-                  fontSize="10px"
-                  paddingLeft="7px"
-                  paddingRight="7px"
-                  backgroundColor01="#63D6CD"
-                  backgroundColor02="#326B67"
-                  gradientDirection="bottom"
-                  borderRadius="6px"
-                />
-              )}
-              {isEnded && highestBid && (
+              {highestBid ? (
                 <GradientButton
                   label={'Finalize Sale'}
                   onClick={() =>
@@ -203,6 +162,19 @@ const ListedNFTCard = props => {
                       Number(data?.highestBid.amount)
                     )
                   }
+                  height="26px"
+                  fontSize="10px"
+                  paddingLeft="7px"
+                  paddingRight="7px"
+                  backgroundColor01="#63D6CD"
+                  backgroundColor02="#326B67"
+                  gradientDirection="bottom"
+                  borderRadius="6px"
+                />
+              ) : (
+                <GradientButton
+                  label={'Cancel Auction'}
+                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
                   height="26px"
                   fontSize="10px"
                   paddingLeft="7px"
