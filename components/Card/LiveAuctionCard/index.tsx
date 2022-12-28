@@ -91,7 +91,7 @@ const LiveAuctionCard = props => {
           </div>
 
           <div>
-            <div className={styles.bidName}>TIME REMAINING</div>
+            <div className={styles.bidTime}>TIME REMAINING</div>
             <div className="flex justify-center">
               <div>
                 <div className={styles.endTime}>
@@ -111,16 +111,12 @@ const LiveAuctionCard = props => {
                   <div className={styles.bidDesc}>M</div>
                 </div>
               </div>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <></>
-              ) : (
-                <div className={styles.endTimeContainer}>
-                  <div className={styles.endTime}>
-                    {timeLeft['seconds']}
-                    <div className={styles.bidDesc}>S</div>
-                  </div>
+              <div className={styles.endTimeContainer}>
+                <div className={styles.endTime}>
+                  {timeLeft['seconds']}
+                  <div className={styles.bidDesc}>S</div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>
