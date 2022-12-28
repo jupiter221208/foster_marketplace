@@ -56,6 +56,16 @@
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
   }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoArea {
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+  }
   background: linear-gradient(
     to bottom,
     rgba($background-dark-color, 1) 0%,
@@ -68,7 +78,6 @@
   align-items: center;
   border-radius: 12px;
   border: 1px solid #707070;
-  padding: 20px;
 }
 
 .connectWallet {

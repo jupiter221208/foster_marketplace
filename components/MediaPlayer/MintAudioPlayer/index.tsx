@@ -11,8 +11,6 @@ import { useViewport } from 'utils'
 // images and icons
 import PlayWhiteIcon from 'assets/icons/play-video.svg'
 import PauseWhiteIcon from 'assets/icons/pause-video.svg'
-import AudioMuteWhiteIcon from 'assets/icons/audio-mute-white.svg'
-import AudioUnmuteWhiteIcon from 'assets/icons/audio-unmute-white.svg'
 
 const MintAudioPlayer = props => {
   const { src } = props

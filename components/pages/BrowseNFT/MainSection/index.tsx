@@ -389,7 +389,7 @@ const MainSection = props => {
                   <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
               ) : nftType.includes('video') ? (
-                <div className={styles.audioArea}>
+                <div className={styles.videoArea}>
                   <video controls muted>
                     <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
                   </video>

@@ -13,13 +13,14 @@ import { useViewport } from 'utils'
 
 // images and icons
 import AudioPlayerBackground from 'assets/images/audio-player.png'
-import PlayWhiteIcon from 'assets/icons/play-white.svg'
-import PauseWhiteIcon from 'assets/icons/pause-white.svg'
 import BackwardWhiteIcon from 'assets/icons/backward-white.svg'
 import ForwardWhiteIcon from 'assets/icons/forward-white.svg'
+import PlayWhiteIcon from 'assets/icons/play-video.svg'
+import PauseWhiteIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
+import MintAudioPlayer from '../MintAudioPlayer'
 
 const AudioPlayer = props => {
   const { src, cover } = props
@@ -31,44 +32,44 @@ const AudioPlayer = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        {cover.length > 0 ? (
-          <img src={cover} alt="" className="rounded-[10px] lg:rounded-6 w-full h-full object-cover" />
-        ) : (
-          <Image src={AudioPlayerBackground} alt="" />
-        )}
+        <div className={styles.imageContent}>
+          {cover.length > 0 ? (
+            <img src={cover} alt="" className="lg:rounded-tl-6 w-full h-full object-cover" />
+          ) : (
+            <Image src={AudioPlayerBackground} alt="" />
+          )}
+        </div>
       </div>
 
-      <div className="absolute bottom-5 lg:bottom-[45px] left-4 lg:left-9 right-4 lg:right-9 z-10">
-        <div className={styles.contentArea}>
-          <audio id="audio">
-            <source src={src} />
-            Your browser does not support the <code>audio</code> element.
-          </audio>
-          <div className="flex items-center gap-1">
-            <IconButton
-              icon={BackwardWhiteIcon}
-              onClick={() => setClickedTime(curTime - 15)}
-              backgroundColor="transparent"
-              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-            />
-            <IconButton
-              icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
-              onClick={() => setPlaying(!playing)}
-              backgroundColor="transparent"
-              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '24px'}
-              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '24px'}
-            />
-            <IconButton
-              icon={ForwardWhiteIcon}
-              onClick={() => setClickedTime(curTime + 15)}
-              backgroundColor="transparent"
-              width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-              height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-            />
-          </div>
-          <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
+      <div className={styles.contentArea}>
+        <audio id="audio">
+          <source src={src} />
+          Your browser does not support the <code>audio</code> element.
+        </audio>
+        <div className="flex items-center mr-[6px] lg:mr-[20px]">
+          {/* <IconButton
+            icon={BackwardWhiteIcon}
+            onClick={() => setClickedTime(curTime - 15)}
+            backgroundColor="transparent"
+            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
+            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
+          /> */}
+          <IconButton
+            icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
+            onClick={() => setPlaying(!playing)}
+            backgroundColor="transparent"
+            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
+            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
+          />
+          {/* <IconButton
+            icon={ForwardWhiteIcon}
+            onClick={() => setClickedTime(curTime + 15)}
+            backgroundColor="transparent"
+            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
+            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
+          /> */}
         </div>
+        <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
       </div>
     </div>
   )
