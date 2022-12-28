@@ -69,7 +69,7 @@ const AuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>STARTING BID</div>
+        <div className={styles.thinGreenText}>STARTING</div>
         <div className="flex justify-center gap-1 mt-2">
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
@@ -78,7 +78,7 @@ const AuctionCard = props => {
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>CURRENT BID</div>
+        <div className={styles.thinGreenText}>CURRENT</div>
         <div className="flex justify-center gap-1 mt-2">
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
