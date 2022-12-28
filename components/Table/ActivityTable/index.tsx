@@ -9,6 +9,8 @@ import { useViewport } from 'utils'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
+import { getDateString } from 'utils/strings'
+
 const ActivityTable = props => {
   const { data } = props
   const viewport = useViewport()
@@ -20,7 +22,7 @@ const ActivityTable = props => {
           <th></th>
           <th>Name</th>
           <th>Type</th>
-          <th>Transaction ID</th>
+          {/* <th>Transaction ID</th> */}
           <th>Time</th>
           <th>Amount</th>
           <th>Mint Address</th>
@@ -32,8 +34,8 @@ const ActivityTable = props => {
         {data.map((item, index) => (
           <tr key={index}>
             <td className="h-[90px] flex justify-center items-center">
-              <Image
-                src={item.avatar}
+              <img
+                src={item.asset_url}
                 alt=""
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
@@ -42,17 +44,17 @@ const ActivityTable = props => {
             </td>
             <td>
               <div className="block">
-                <div className="flex justify-center">{item.name01}</div>
-                <div className="flex justify-center">{item.name02}</div>
+                <div className="flex justify-center">{item.asset_name}</div>
+                {/* <div className="flex justify-center">{item.name02}</div> */}
               </div>
             </td>
-            <td className="text-center">{item.type}</td>
-            <td className="text-center">
+            <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
+            {/* <td className="text-center">
               {item.transactionID.length > 11
                 ? item.transactionID.slice(0, 5) + '...' + item.transactionID.slice(-3)
                 : item.transactionID}
-            </td>
-            <td className="text-center">{item.time}</td>
+            </td> */}
+            <td className="text-center">{getDateString(item.created_at)}</td>
             <td className="text-center">
               <div className="flex justify-center gap-[5px]">
                 <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
@@ -60,15 +62,19 @@ const ActivityTable = props => {
               </div>
             </td>
             <td className="text-center">
-              {item.mintAddress.length > 11
-                ? item.mintAddress.slice(0, 5) + '...' + item.mintAddress.slice(-3)
-                : item.mintAddress}
+              {item.mint_address.length > 11
+                ? item.mint_address.slice(0, 5) + '...' + item.mint_address.slice(-3)
+                : item.mint_address}
             </td>
             <td className="text-center">
-              {item.buyer.length > 11 ? item.buyer.slice(0, 5) + '...' + item.buyer.slice(-3) : item.buyer}
+              {item.reference_address.length > 11
+                ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
+                : item.reference_address}
             </td>
             <td className="text-center">
-              {item.seller.length > 11 ? item.seller.slice(0, 5) + '...' + item.seller.slice(-3) : item.seller}
+              {item.minter_address.length > 11
+                ? item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
+                : item.minter_address}
             </td>
           </tr>
         ))}

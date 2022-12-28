@@ -719,7 +719,7 @@ const MainSection = props => {
                                         }
                                       />
                                     </div>
-                                    <div className="ml-2">{item.action_type}</div>
+                                    <div className="ml-2">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                                   </div>
                                 </td>
                                 <td>

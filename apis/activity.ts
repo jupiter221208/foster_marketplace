@@ -8,6 +8,11 @@ class Activity {
       return response.data
     })
   }
+  getUserActivity(token_id) {
+    return client.get(API_URL + 'v1/activity/user/' + token_id).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Activity()

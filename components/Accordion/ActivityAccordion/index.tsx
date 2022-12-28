@@ -15,6 +15,7 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // styles
 import styles from './index.module.scss'
+import { getDateString } from 'utils/strings'
 
 const ActivityAccordion = props => {
   const { data } = props
@@ -50,11 +51,11 @@ const ActivityAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.avatar} alt="" width={52} height={52} className="rounded-[4px]" />
+                      <img src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.name01}</div>
-                      <div className={styles.subTitle}>{item.name02}</div>
+                      <div className={styles.subTitle}>{item.asset_name}</div>
+                      {/* <div className={styles.subTitle}>{item.name02}</div> */}
                     </div>
                   </div>
                   <ChevronUpIcon
@@ -65,19 +66,19 @@ const ActivityAccordion = props => {
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Type</div>
-                    <div className={styles.text}>{item.type}</div>
+                    <div className={styles.text}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
-                  <div className={styles.secondRow}>
+                  {/* <div className={styles.secondRow}>
                     <div className={styles.title}>Transaction ID</div>
                     <div className={styles.text}>
                       {item.transactionID.length > 11
                         ? item.transactionID.slice(0, 5) + '...' + item.transactionID.slice(-3)
                         : item.transactionID}
                     </div>
-                  </div>
+                  </div> */}
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Time</div>
-                    <div className={styles.text}>{item.time}</div>
+                    <div className={styles.text}>{getDateString(item.created_at)}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
@@ -86,21 +87,25 @@ const ActivityAccordion = props => {
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Mint Address</div>
                     <div className={styles.text}>
-                      {item.mintAddress.length > 11
-                        ? item.mintAddress.slice(0, 5) + '...' + item.mintAddress.slice(-3)
-                        : item.mintAddress}
+                      {item.mint_address.length > 11
+                        ? item.mint_address.slice(0, 5) + '...' + item.mint_address.slice(-3)
+                        : item.mint_address}
                     </div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Buyer</div>
                     <div className={styles.text}>
-                      {item.buyer.length > 11 ? item.buyer.slice(0, 5) + '...' + item.buyer.slice(-3) : item.buyer}
+                      {item.reference_address.length > 11
+                        ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
+                        : item.reference_address}
                     </div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text}>
-                      {item.seller.length > 11 ? item.seller.slice(0, 5) + '...' + item.seller.slice(-3) : item.seller}
+                      {item.minter_address.length > 11
+                        ? item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
+                        : item.minter_address}
                     </div>
                   </div>
                 </Disclosure.Panel>

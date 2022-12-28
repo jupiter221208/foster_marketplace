@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
 // third party components
+import { useWallet } from '@solana/wallet-adapter-react'
+
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -15,27 +17,33 @@ import ActivityAccordion from 'components/Accordion/ActivityAccordion'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import ActivityList from 'assets/json/dashboard/activity-list.json'
+// api
+import ActivityAPI from 'apis/activity'
 
 const ActivitySection = () => {
   const viewport = useViewport()
 
   const [activityList, setActivityList] = useState<any[]>([])
+  const { publicKey } = useWallet()
 
   useEffect(() => {
-    let newList: any[] = []
-    let tempItem: any[] = []
-    ActivityList.map((item, index) => {
-      tempItem.push(item)
-      if (index % 10 === 9) {
-        newList.push(tempItem)
-        tempItem = []
-      }
-    })
-    if (tempItem.length > 0) newList.push(tempItem)
-    setActivityList(newList)
-  }, [])
+    ActivityAPI.getUserActivity(publicKey?.toBase58()).then(
+      response => {
+        let newList: any[] = []
+        let tempItem: any[] = []
+        response.reverse().map((item, index) => {
+          tempItem.push(item)
+          if (index % 10 === 9) {
+            newList.push(tempItem)
+            tempItem = []
+          }
+        })
+        if (tempItem.length > 0) newList.push(tempItem)
+        setActivityList(newList)
+      },
+      error => {}
+    )
+  }, [publicKey])
 
   return (
     <section className="w-full mt-6 lg:mt-12">

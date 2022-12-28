@@ -73,7 +73,7 @@
     "mobile_banner": "/images/category-banner-mobile-music.png",
     "icon": "/images/category-icon-music.png",
     "name": "Music",
-    "type": "image",
+    "type": "video",
     "nfts": 2131,
     "collections": 287
   },
