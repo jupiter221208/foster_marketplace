@@ -73,7 +73,7 @@ const MyNFTSection = props => {
     setAlertData([
       {
         id: 0,
-        title: 'Successful bid!',
+        title: 'Auction Published!',
         description: `You've successfully published an auction for ${nftName}`,
         type: 'success',
       },

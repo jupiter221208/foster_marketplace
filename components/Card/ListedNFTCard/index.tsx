@@ -84,29 +84,43 @@ const ListedNFTCard = props => {
           ) : (
             <>
               {highestBid ? (
-                <GradientButton
-                  label={'Finalize Sale'}
-                  onClick={() =>
-                    finalizeSale(
-                      data?.mintAddress,
-                      data?.sellerAddress,
-                      new PublicKey(data?.highestBid.buyer_address),
-                      Number(data?.highestBid.amount)
-                    )
-                  }
-                  height="48px"
-                  fontSize="16px"
-                  paddingLeft="37px"
-                  paddingRight="37px"
-                  backgroundColor01="#63D6CD"
-                  backgroundColor02="#326B67"
-                  gradientDirection="bottom"
-                  fullWidth
-                />
+                isEnded ? (
+                  <GradientButton
+                    label={'Finalize Sale'}
+                    onClick={() =>
+                      finalizeSale(
+                        data?.mintAddress,
+                        data?.sellerAddress,
+                        new PublicKey(data?.highestBid.buyer_address),
+                        Number(data?.highestBid.amount)
+                      )
+                    }
+                    height="48px"
+                    fontSize="16px"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    backgroundColor01="#63D6CD"
+                    backgroundColor02="#326B67"
+                    gradientDirection="bottom"
+                    fullWidth
+                  />
+                ) : (
+                  <Button
+                    height="48px"
+                    fontSize="16px"
+                    paddingLeft="37px"
+                    paddingRight="37px"
+                    label="Cancel Auction"
+                    disabled={true}
+                    backgroundColor="#383838"
+                    color="#202427"
+                    fullWidth
+                  />
+                )
               ) : (
                 <GradientButton
                   label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
+                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress, data?.name)}
                   height="48px"
                   fontSize="16px"
                   paddingLeft="37px"
@@ -152,29 +166,43 @@ const ListedNFTCard = props => {
           ) : (
             <>
               {highestBid ? (
-                <GradientButton
-                  label={'Finalize Sale'}
-                  onClick={() =>
-                    finalizeSale(
-                      data?.mintAddress,
-                      data?.sellerAddress,
-                      new PublicKey(data?.highestBid.buyer_address),
-                      Number(data?.highestBid.amount)
-                    )
-                  }
-                  height="26px"
-                  fontSize="10px"
-                  paddingLeft="7px"
-                  paddingRight="7px"
-                  backgroundColor01="#63D6CD"
-                  backgroundColor02="#326B67"
-                  gradientDirection="bottom"
-                  borderRadius="6px"
-                />
+                isEnded ? (
+                  <GradientButton
+                    label={'Finalize Sale'}
+                    onClick={() =>
+                      finalizeSale(
+                        data?.mintAddress,
+                        data?.sellerAddress,
+                        new PublicKey(data?.highestBid.buyer_address),
+                        Number(data?.highestBid.amount)
+                      )
+                    }
+                    height="26px"
+                    fontSize="10px"
+                    paddingLeft="7px"
+                    paddingRight="7px"
+                    backgroundColor01="#63D6CD"
+                    backgroundColor02="#326B67"
+                    gradientDirection="bottom"
+                    borderRadius="6px"
+                  />
+                ) : (
+                  <Button
+                    height="26px"
+                    fontSize="10px"
+                    paddingLeft="7px"
+                    paddingRight="7px"
+                    label="Cancel Auction"
+                    disabled={true}
+                    backgroundColor="#202427"
+                    color="rgba(239,240, 246, 0.6)"
+                    borderRadius="6px"
+                  />
+                )
               ) : (
                 <GradientButton
                   label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress)}
+                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress, data?.name)}
                   height="26px"
                   fontSize="10px"
                   paddingLeft="7px"

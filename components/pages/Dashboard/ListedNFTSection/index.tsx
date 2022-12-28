@@ -28,6 +28,7 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
+import Alert from 'components/Alert'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -148,10 +149,32 @@ const ListedNFTSection = props => {
     }
   }
 
-  const cancelAuction = async (mintAddress, sellerAddress) => {
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([
+    {
+      id: 0,
+      title: 'Aunction Canceled!',
+      description: `You've successfully canceled the auction for The Glass Banana #6921`,
+      type: 'success',
+    },
+  ])
+
+  const cancelAuction = async (mintAddress, sellerAddress, nftName) => {
     const { auction } = await cancelListing(mx, mintAddress, sellerAddress)
     auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
-      if (res) setMyListedNFTs()
+      if (res) {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Aunction Canceled!',
+            description: `You've successfully canceled the auction for ${nftName}`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
+        setMyListedNFTs()
+        dispatch({ type: 'set', isGetMyNFTs: false })
+      }
     })
   }
 
@@ -202,7 +225,9 @@ const ListedNFTSection = props => {
                 type={active === 0 ? 'fixed' : 'auction'}
                 onClick={url => handleGotoDetailPage(url)}
                 onActionClick={item => handleSelectData(item)}
-                cancelAuction={(mintAddress, sellerAddress) => cancelAuction(mintAddress, sellerAddress)}
+                cancelAuction={(mintAddress, sellerAddress, nftName) =>
+                  cancelAuction(mintAddress, sellerAddress, nftName)
+                }
                 finalizeSale={(mintAddress, sellerAddress, buyerAddress, price) =>
                   finalizeSale(mintAddress, sellerAddress, buyerAddress, price)
                 }
@@ -222,6 +247,13 @@ const ListedNFTSection = props => {
         onClose={() => setShowListNFTModal(false)}
         onCancelList={(mintAddress, tradeStateAddress) => onCancelList(mintAddress, tradeStateAddress)}
         onUpdatePrice={(nftAddress, tradeStateAddress, price) => onUpdatePrice(nftAddress, tradeStateAddress, price)}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </section>
   )
