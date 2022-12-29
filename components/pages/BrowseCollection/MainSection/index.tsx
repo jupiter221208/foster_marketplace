@@ -202,7 +202,7 @@ const MainSection = props => {
           <BrowseArtistCard
             image={data?.cover_image}
             collectionName={data?.collection_name}
-            artistName={data?.minter_id}
+            artistName={data?.artist_username}
           />
           <div className="mt-0">
             {saved ? (

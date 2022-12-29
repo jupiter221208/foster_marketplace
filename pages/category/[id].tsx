@@ -60,7 +60,7 @@ const Category = () => {
                 alt=""
                 width={1620}
                 height={480}
-                className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
+                className="w-full object-cover lg:rounded-[30px]"
               />
             </div>
           ) : (
@@ -69,11 +69,7 @@ const Category = () => {
           {categoryInfo.type === 'video' ? (
             <div className={styles.imageContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <img
-                  src={categoryInfo.mobile_banner}
-                  alt=""
-                  className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
-                />
+                <img src={categoryInfo.mobile_banner} alt="" className="w-full object-cover lg:rounded-[30px]" />
               ) : (
                 <video autoPlay loop muted>
                   <source type="video/mp4" src={categoryInfo.banner} />
