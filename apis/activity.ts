@@ -13,6 +13,11 @@ class Activity {
       return response.data
     })
   }
+  getCollectionActivity(token_id) {
+    return client.get(API_URL + 'v1/activity/collection/' + token_id).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Activity()

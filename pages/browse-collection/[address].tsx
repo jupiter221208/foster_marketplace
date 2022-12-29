@@ -78,7 +78,7 @@ const BrowseCollection = () => {
       </Head>
       <div className={styles.container}>
         <MainSection nfts={nfts} data={data} />
-        <CollectionSection nfts={nfts} artistId={data['minter_id']} />
+        <CollectionSection nfts={nfts} collectionId={address} />
       </div>
       <FullScreenLoadingModal open={isLoading} />
     </div>

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-// next components
-import { useRouter } from 'next/router'
-
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -18,27 +15,32 @@ import ActivityAccordion from 'components/Accordion/ActivityAccordion'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import ActivityList from 'assets/json/browse-collection/activity-list.json'
+// api
+import ActivityAPI from 'apis/activity'
 
-const ActivitySection = () => {
+const ActivitySection = props => {
+  const { collectionId } = props
   const viewport = useViewport()
-  const router = useRouter()
 
   const [activityList, setActivityList] = useState<any[]>([])
 
   useEffect(() => {
-    let newList: any[] = []
-    let tempItem: any[] = []
-    ActivityList.map((item, index) => {
-      tempItem.push(item)
-      if (index % 10 === 9) {
-        newList.push(tempItem)
-        tempItem = []
-      }
-    })
-    if (tempItem.length > 0) newList.push(tempItem)
-    setActivityList(newList)
+    ActivityAPI.getCollectionActivity(collectionId).then(
+      response => {
+        let newList: any[] = []
+        let tempItem: any[] = []
+        response.reverse().map((item, index) => {
+          tempItem.push(item)
+          if (index % 10 === 9) {
+            newList.push(tempItem)
+            tempItem = []
+          }
+        })
+        if (tempItem.length > 0) newList.push(tempItem)
+        setActivityList(newList)
+      },
+      error => {}
+    )
   }, [])
 
   return (
