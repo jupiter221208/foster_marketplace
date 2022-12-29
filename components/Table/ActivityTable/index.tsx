@@ -60,13 +60,15 @@ const ActivityTable = props => {
         {data.map((item, index) => (
           <tr key={index}>
             <td className="h-[90px] flex justify-center items-center">
-              <img
-                src={item.asset_url}
-                alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                className="rounded-[15px]"
-              />
+              <div className="w-[60px] h-[60px]">
+                <img
+                  src={item.asset_url}
+                  alt=""
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+                  className="w-full h-full object-cover rounded-[8px]"
+                />
+              </div>
             </td>
             <td>
               <div className="block">
@@ -84,7 +86,7 @@ const ActivityTable = props => {
             <td className="text-center">
               <div className="flex justify-center gap-[5px]">
                 <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                {isVisibleAmount(item.auction_type) ? item.amount : 'N/A'}
+                {isVisibleAmount(item.action_type) ? item.amount : 'N/A'}
               </div>
             </td>
             <td className="text-center">
@@ -93,14 +95,14 @@ const ActivityTable = props => {
                 : item.mint_address}
             </td>
             <td className="text-center">
-              {isVisibleBuyer(item.auction_type)
+              {isVisibleBuyer(item.action_type)
                 ? item.reference_address.length > 11
                   ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
                   : item.reference_address
                 : 'N/A'}
             </td>
             <td className="text-center">
-              {isVisibleSeller(item.auction_type)
+              {isVisibleSeller(item.action_type)
                 ? item.minter_address.length > 11
                   ? item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
                   : item.minter_address

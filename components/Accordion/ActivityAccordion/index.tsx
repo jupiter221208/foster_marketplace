@@ -77,8 +77,8 @@ const ActivityAccordion = props => {
                   onClick={() => clickRecent(index)}
                 >
                   <div className="flex items-center gap-x-4">
-                    <div className={styles.imageArea}>
-                      <img src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
+                    <div className={styles.imageContainer}>
+                      <img src={item.asset_url} alt="" className="w-full h-full rounded-[4px] object-cover" />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
@@ -123,7 +123,7 @@ const ActivityAccordion = props => {
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Buyer</div>
                     <div className={styles.text}>
-                      {isVisibleBuyer(item.auction_type)
+                      {isVisibleBuyer(item.action_type)
                         ? item.reference_address.length > 11
                           ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
                           : item.reference_address
@@ -133,7 +133,7 @@ const ActivityAccordion = props => {
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text}>
-                      {isVisibleSeller(item.auction_type)
+                      {isVisibleSeller(item.action_type)
                         ? item.minter_address.length > 11
                           ? item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
                           : item.minter_address

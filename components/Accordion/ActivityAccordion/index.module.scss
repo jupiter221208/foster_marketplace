@@ -40,7 +40,7 @@
   overflow: hidden;
 }
 
-.imageArea {
+.imageContainer {
   width: 54px;
   height: 54px;
   background-color: #707070;
@@ -48,6 +48,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid #707070;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 321:378 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
 }
 
 .activeImageArea {

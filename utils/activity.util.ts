@@ -71,12 +71,13 @@ export const isSellerExisting = event => {
 export const isBuyerExisting = event => {
   let exist = false
   if (
+    event === 'QuickBuy' ||
     event === 'Purchase' ||
     event === 'Sale' ||
     event === 'OfferPlaced' ||
     event === 'OfferAccepted' ||
     event === 'OfferReceived' ||
-    event === 'PlacedBid' ||
+    event === 'BidPlaced' ||
     event === 'ReceivedBid' ||
     event === 'SaleFinalized'
   )

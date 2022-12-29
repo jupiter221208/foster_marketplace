@@ -737,7 +737,7 @@ const MainSection = props => {
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
 
-                                    <div>{isPriceExisting(item.auction_type) ? item.amount : 'N/A'}</div>
+                                    <div>{isPriceExisting(item.action_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
