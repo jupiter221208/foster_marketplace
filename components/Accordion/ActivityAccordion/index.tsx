@@ -77,17 +77,18 @@ const ActivityAccordion = props => {
                   onClick={() => clickRecent(index)}
                 >
                   <div className="flex items-center gap-x-4">
-                    <div className={open ? styles.activeImageArea : styles.imageArea}>
+                    <div className={styles.imageArea}>
                       <img src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
+                      <div className={styles.subType}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                       {/* <div className={styles.subTitle}>{item.name02}</div> */}
                     </div>
                   </div>
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#5AC3BA' : '#378287' }}
+                    style={{ color: '#95DBD5' }}
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
