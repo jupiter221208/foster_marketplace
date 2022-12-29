@@ -707,37 +707,34 @@ const MainSection = props => {
                               >
                                 <td className="mx-2">
                                   <div className="flex items-center ml-2">
-                                    <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
-                                      <Image
-                                        src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
-                                        alt=""
-                                        width={
-                                          viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                        }
-                                        height={
-                                          viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                        }
-                                      />
-                                    </div>
+                                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                      <></>
+                                    ) : (
+                                      <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
+                                        <Image
+                                          src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
+                                          alt=""
+                                          width={
+                                            viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                          }
+                                          height={
+                                            viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                          }
+                                        />
+                                      </div>
+                                    )}
                                     <div className="ml-2">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                                   </div>
                                 </td>
                                 <td>
                                   <div className="flex justify-center items-center mx-2 gap-1">
-                                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                      <></>
-                                    ) : (
-                                      <Image
-                                        src={SolanaLogoIcon}
-                                        alt=""
-                                        width={
-                                          viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23
-                                        }
-                                        height={
-                                          viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23
-                                        }
-                                      />
-                                    )}
+                                    <Image
+                                      src={SolanaLogoIcon}
+                                      alt=""
+                                      width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                                      height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                                    />
+
                                     <div>{item.amount}</div>
                                   </div>
                                 </td>
