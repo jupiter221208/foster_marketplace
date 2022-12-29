@@ -21,8 +21,7 @@ export async function getMyNFTs(mx: Metaplex) {
   nfts = nfts.filter(
     nft =>
       /* @ts-ignore to get mintAddress*/
-      !listedNFTs.some(listedNFT => listedNFT.toString() === nft.mintAddress.toString()) &&
-      !nft.collectionDetails
+      !listedNFTs.some(listedNFT => listedNFT.toString() === nft.mintAddress.toString()) && !nft.collectionDetails
   )
 
   const myNFTs = (
@@ -89,15 +88,12 @@ export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
 }
 
 export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
-  const nft = await mx
-    .nfts()
-    .findByMint({ mintAddress })
-    .run()
-  
+  const nft = await mx.nfts().findByMint({ mintAddress }).run()
+
   const owner = await getNFTOwner(mx, mintAddress.toString())
-   
+
   return {
     owner,
-    ...nft
+    ...nft,
   }
 }

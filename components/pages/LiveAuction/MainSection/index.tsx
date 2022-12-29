@@ -81,6 +81,8 @@ import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import activityAPI from 'apis/activity'
 
+import { isFromExisting, isToExisting, isPriceExisting } from 'utils/activity.util'
+
 const MainSection = props => {
   const { nftDetail, loading } = props
   const viewport = useViewport()
@@ -735,7 +737,7 @@ const MainSection = props => {
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
 
-                                    <div>{item.amount}</div>
+                                    <div>{isPriceExisting(item.auction_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -743,12 +745,10 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex justify-center items-center mx-2 gap-2">
-                                      {item.owner_address !== undefined && item.owner_address.slice(0, 4)}
-                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                      {item.owner_address !== undefined &&
-                                        item.owner_address.slice(
-                                          viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
-                                        )}
+                                      {isFromExisting(item.action_type)
+                                        ? item.minter_address !== undefined &&
+                                          item.minter_address.slice(0, 4) + '...' + item.minter_address.slice(-4)
+                                        : 'N/A'}
                                     </div>
                                   </td>
                                 )}
@@ -757,12 +757,10 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex justify-center items-center mx-2 gap-2">
-                                      {item.minter_address !== undefined && item.minter_address.slice(0, 4)}
-                                      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '...' : '.'}
-                                      {item.minter_address !== undefined &&
-                                        item.minter_address.slice(
-                                          viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? -4 : -2
-                                        )}
+                                      {isToExisting(item.action_type)
+                                        ? item.reference_address !== undefined &&
+                                          item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+                                        : 'N/A'}
                                     </div>
                                   </td>
                                 )}
