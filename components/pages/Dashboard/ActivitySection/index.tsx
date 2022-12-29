@@ -60,7 +60,7 @@ const ActivitySection = () => {
             ? activityList.length !== 0 &&
               activityList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <ActivityTable data={item} />
+                  <ActivityTable data={item} type={'dashboard'} />
                 </SwiperSlide>
               ))
             : activityList.length !== 0 &&

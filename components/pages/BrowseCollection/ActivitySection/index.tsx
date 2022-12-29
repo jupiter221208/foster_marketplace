@@ -58,7 +58,7 @@ const ActivitySection = props => {
             ? activityList.length !== 0 &&
               activityList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <ActivityTable data={item} />
+                  <ActivityTable data={item} type={'collection'} />
                 </SwiperSlide>
               ))
             : activityList.length !== 0 &&
