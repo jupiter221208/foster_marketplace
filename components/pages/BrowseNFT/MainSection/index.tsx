@@ -214,7 +214,7 @@ const MainSection = props => {
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
     if (result) {
-      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: tradeStateAddress, amount: nftPrice }).then(
+      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: tradeStateAddress, amount: nftPrice.toString() }).then(
         response => console.log(response),
         error => console.log(error)
       )
