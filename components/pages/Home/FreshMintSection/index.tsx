@@ -133,7 +133,7 @@ const FreshMintSection = props => {
             className="navigationSwiper"
             loop
             autoplay={{
-              delay: 500000,
+              delay: 5000,
               disableOnInteraction: false,
             }}
           >
