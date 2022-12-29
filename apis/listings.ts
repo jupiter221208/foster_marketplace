@@ -38,6 +38,11 @@ class Listings {
       return response.data
     })
   }
+  quickBuy(token_id, param) {
+    return client.post(API_URL + 'v1/nfts/offer/quickbuy/' + token_id, param).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Listings()

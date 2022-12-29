@@ -214,6 +214,10 @@ const MainSection = props => {
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
     if (result) {
+      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: tradeStateAddress, amount: nftPrice }).then(
+        response => console.log(response),
+        error => console.log(error)
+      )
       setOpenProgressingModal(false)
       setShowAlert(true)
     }
@@ -534,9 +538,10 @@ const MainSection = props => {
                     {connected && (
                       <OutlineButton
                         label="Make Offer"
-                        onClick={() => {
-                          setOpenOfferModal(true)
-                        }}
+                        // onClick={() => {
+                        //   setOpenOfferModal(true)
+                        // }}
+                        onClick={() => quickBuy()}
                         icon={TagWhiteIcon}
                         direction="rtl"
                         borderWidth={2}

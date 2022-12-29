@@ -34,7 +34,7 @@ const BrowseArtistCard = props => {
         <div className={styles.collectionName}>{collectionName}</div>
         {artistName && (
           <div className={styles.artistName}>
-            Created by <span className={styles.greenText}>{getShortAddress(artistName)}</span>
+            Created by <span className={styles.greenText}>{artistName}</span>
           </div>
         )}
       </div>
