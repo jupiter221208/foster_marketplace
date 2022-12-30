@@ -14,6 +14,7 @@ import ReadMoreModal from 'components/Modal/ReadMoreModal'
 import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
+import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
@@ -393,7 +394,7 @@ const MainSection = prop => {
       </div>
 
       {showFollowModal && (
-        <FollowModal
+        <FollowModalMobile
           open={showFollowModal}
           ownWallet={publicKey?.toBase58()}
           close={() => setShowFollowModal(false)}

@@ -26,7 +26,7 @@ const Tab = props => {
               className={`${styles.container} ${item.selected ? styles.activeTab : ''}`}
               onClick={() => onChange(item)}
             >
-              <div className="mb-2">{item.label}</div>
+              <div>{item.label}</div>
             </button>
           </HTab>
         ))}
