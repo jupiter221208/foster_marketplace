@@ -92,10 +92,10 @@ const ActivityAccordion = props => {
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  <div className={styles.firstRow}>
+                  {/* <div className={styles.firstRow}>
                     <div className={styles.title}>Type</div>
                     <div className={styles.text}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
-                  </div>
+                  </div> */}
                   {/* <div className={styles.secondRow}>
                     <div className={styles.title}>Transaction ID</div>
                     <div className={styles.text}>
