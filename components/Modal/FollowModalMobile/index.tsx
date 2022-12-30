@@ -4,23 +4,16 @@ import React, { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // next components
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // custom components
 import Tab from 'components/Tab'
-import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 import IconButton from 'components/Button/IconButton'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
-import Input from 'components/Input'
 
 // images
 import ArrowLeftIcon from 'assets/icons/arrow-left-white.svg'
-import CloseIcon from 'assets/icons/close-wallet.svg'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 
 // json
 import TabList from 'assets/json/artist-profile/follow-tab-list.json'
@@ -33,7 +26,7 @@ import artistsAPI from 'apis/artists'
 import FollowSearchBox from 'components/Input/FollowSearchBox'
 
 const FollowModalMobile = props => {
-  const { open, close, ownWallet, type, wallet } = props
+  const { open, close, ownWallet, type, wallet, username } = props
   const router = useRouter()
 
   const closeModal = () => {
@@ -58,6 +51,10 @@ const FollowModalMobile = props => {
     setActiveTab(type)
   }, [type])
 
+  useEffect(() => {
+    onSearch(searchKey)
+  }, [activeTab])
+
   const handleSelectedTab = selectedItem => {
     let array: any[] = []
     TabList.map(item => {
@@ -75,8 +72,9 @@ const FollowModalMobile = props => {
 
   const [followersList, setFollowersList] = useState([])
   const [followingList, setFollowingList] = useState([])
-  const [filteredFollowersList, setFilteredFollowersList] = useState([])
-  const [filteredFollowingList, setFilteredFollowingList] = useState([])
+  const [filterFollowersList, setFilterFollowersList] = useState([])
+  const [filterFollowingList, setFilterFollowingList] = useState([])
+  const [searchKey, setSearchKey] = useState('')
 
   useEffect(() => {
     if (open) {
@@ -86,9 +84,11 @@ const FollowModalMobile = props => {
 
   const reloadFollowing = () => {
     artistsAPI.getFollowers(wallet).then(response => {
+      setFilterFollowersList(response)
       setFollowersList(response)
     })
     artistsAPI.getFollowings(wallet).then(response => {
+      setFilterFollowingList(response)
       setFollowingList(response)
     })
   }
@@ -106,6 +106,35 @@ const FollowModalMobile = props => {
       reloadFollowing()
     })
   }
+
+  const onSearch = key => {
+    setSearchKey(key)
+    let filtered = []
+    if (activeTab === 0) {
+      if (key === '') {
+        setFilterFollowersList(followersList)
+      } else {
+        followersList.forEach(item => {
+          if (item.username?.toLowerCase().includes(key.toLowerCase())) {
+            filtered.push(item)
+          }
+        })
+        setFilterFollowersList(filtered)
+      }
+    } else {
+      if (key === '') {
+        setFilterFollowingList(followersList)
+      } else {
+        followingList.forEach(item => {
+          if (item.username?.toLowerCase().includes(key.toLowerCase())) {
+            filtered.push(item)
+          }
+        })
+        setFilterFollowingList(filtered)
+      }
+    }
+  }
+
   return (
     <div>
       <Transition show={open} as={Fragment}>
@@ -143,7 +172,7 @@ const FollowModalMobile = props => {
                       borderRadius="50%"
                       onClick={() => closeModal()}
                     />
-                    <div className={styles.title}>User Name</div>
+                    <div className={styles.title}>{username}</div>
                     <div className="w-[30px] h-[30px]">&nbsp;</div>
                   </div>
                   <div className="w-full flex justify-center mt-[10px]">
@@ -151,13 +180,13 @@ const FollowModalMobile = props => {
                   </div>
 
                   <div className={styles.searchBox}>
-                    <FollowSearchBox />
+                    <FollowSearchBox value={searchKey} onChange={value => onSearch(value)} />
                   </div>
 
                   <div className="w-full h-[calc(100%-220px)] flex justify-between items-start mt-4 overflow-auto">
                     {activeTab === 0 && (
                       <div className="w-full flex flex-wrap gap-[16px] pr-2 lg:pr-4">
-                        {followersList.map((item, index) => (
+                        {filterFollowersList.map((item, index) => (
                           <div
                             className="w-full flex justify-between items-center h-[60px] ml-[30px] mr-[20px]"
                             key={index}
@@ -203,7 +232,7 @@ const FollowModalMobile = props => {
                     )}
                     {activeTab === 1 && (
                       <div className="w-full flex flex-wrap gap-[16px] pr-2 lg:pr-4">
-                        {followingList.map((item, index) => (
+                        {filterFollowingList.map((item, index) => (
                           <div
                             className="w-full flex justify-between items-center h-[60px] ml-[30px] mr-[20px]"
                             key={index}

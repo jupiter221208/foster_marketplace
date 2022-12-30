@@ -398,6 +398,7 @@ const MainSection = prop => {
           open={showFollowModal}
           ownWallet={publicKey?.toBase58()}
           close={() => setShowFollowModal(false)}
+          username={artistInfo.username}
           type={type}
           wallet={artistInfo.wallet_id}
         />
