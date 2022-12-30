@@ -212,7 +212,7 @@ const MainSection = props => {
 
       activityAPI.getNFTActivity(nftDetail?.address).then(
         response => {
-          setActivityList(response)
+          setActivityList(response.reverse())
         },
         error => {}
       )

@@ -137,7 +137,8 @@ const TrendingCollectionSection = props => {
           // </Swiper>
           <Marquee
             gradient={false}
-            pauseOnHover={true}
+            pauseOnHover={false}
+            pauseOnClick={true}
             speed={
               viewport === 'xs'
                 ? 40
