@@ -93,10 +93,10 @@
 
 // w-full flex flex-wrap justify-between
 .bidContentView {
+  -webkit-transform: translate3d(0, 0, 0);
   position: absolute;
   width: auto;
   display: flex;
-  overflow: hidden;
   flex-wrap: wrap;
   justify-content: space-between;
   inset: 10px 8px 6px 8px;
@@ -116,6 +116,7 @@
     height: 104px;
     inset: 24px 16px 8px 16px;
   }
+  z-index: 10;
 }
 
 .imageArea {
