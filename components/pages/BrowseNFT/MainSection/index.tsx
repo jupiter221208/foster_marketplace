@@ -539,10 +539,9 @@ const MainSection = props => {
                     {connected && (
                       <OutlineButton
                         label="Make Offer"
-                        // onClick={() => {
-                        //   setOpenOfferModal(true)
-                        // }}
-                        onClick={() => quickBuy()}
+                        onClick={() => {
+                          setOpenOfferModal(true)
+                        }}
                         icon={TagWhiteIcon}
                         direction="rtl"
                         borderWidth={2}
