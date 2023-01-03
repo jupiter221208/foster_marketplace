@@ -38,8 +38,6 @@ const LiveAuctionSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    if (artist.length === 0) return
-
     dashboardAPI.getLiveAuctions(category, artist).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
