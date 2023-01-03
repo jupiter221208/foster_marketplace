@@ -1,3 +1,4 @@
+import type { AuctionHouse } from '@metaplex-foundation/js'
 import { Metaplex, sol } from '@metaplex-foundation/js'
 import { createDepositInstruction, createWithdrawInstruction, DepositInstructionAccounts, DepositInstructionArgs, WithdrawInstructionAccounts, WithdrawInstructionArgs } from '@metaplex-foundation/mpl-auction-house'
 import { AccountInfo, ParsedAccountData, PublicKey, Transaction } from '@solana/web3.js'
@@ -88,8 +89,13 @@ const bidFilters: any = [
   },
 ]
 
-export async function getAuctionHouse(mx: Metaplex) {
-  const auctionHouse = await mx.auctions().findAuctionHouseByAddress(new PublicKey(AUCTION_HOUSE_PUBLIC_KEY)).run()
+export async function getAuctionHouse(mx: Metaplex): Promise<AuctionHouse> {
+  const auctionHouse = await mx.auctionHouse().findByAddress({
+    address: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY)
+  }).run()
+
+  if(!auctionHouse)
+    throw new Error(`could not load auction house: ${AUCTION_HOUSE_PUBLIC_KEY}`);
 
   return auctionHouse
 }
@@ -99,9 +105,9 @@ export async function listNFT(mx: Metaplex, nftAddress: PublicKey, price: number
     const auctionHouse = await getAuctionHouse(mx)
 
     const listedNFT = await mx
-      .auctions()
-      .for(auctionHouse)
+      .auctionHouse()
       .list({
+        auctionHouse,
         mintAccount: nftAddress,
         price: sol(price),
       })
@@ -140,9 +146,8 @@ export async function getListedNFTsFromAccounts(
     )
     try {
       const retrieveListing = await mx
-        .auctions()
-        .for(auctionHouse)
-        .findListingByAddress(new PublicKey(tradeState))
+        .auctionHouse()
+        .findListingByTradeState({ auctionHouse, tradeStateAddress: new PublicKey(tradeState) })
         .run()
 
       if (retrieveListing.purchaseReceiptAddress == null && retrieveListing.canceledAt == null) {
@@ -190,9 +195,9 @@ export async function cancelList(mx: Metaplex, tradeStateAddress: PublicKey) {
   try {
     const auctionHouse = await getAuctionHouse(mx)
 
-    const listing = await mx.auctions().for(auctionHouse).findListingByAddress(tradeStateAddress).run()
+    const listing = await mx.auctionHouse().findListingByTradeState({ auctionHouse, tradeStateAddress }).run()
 
-    const result = await mx.auctions().for(auctionHouse).cancelListing({ listing: listing }).run()
+    const result = await mx.auctionHouse().cancelListing({ auctionHouse, listing: listing }).run()
 
     if (result) return true
   } catch (e) {
@@ -213,21 +218,21 @@ export async function updateList(mx: Metaplex, nftAddress: PublicKey, tradeState
 }
 
 export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddress: string, price: number) {
-  const auctionHouse = await mx.auctions().findAuctionHouseByAddress(new PublicKey(AUCTION_HOUSE_PUBLIC_KEY)).run()
+  const auctionHouse = await getAuctionHouse(mx)
 
   try {
     const listing = await mx
-      .auctions()
-      .for(auctionHouse)
-      .findListingByAddress(
-        new PublicKey(tradeStateAddress) //TradeState
-      )
+      .auctionHouse()
+      .findListingByTradeState({
+        auctionHouse,
+        tradeStateAddress: new PublicKey(tradeStateAddress) //TradeState
+      })
       .run()
 
     const { bid } = await mx
-      .auctions()
-      .for(auctionHouse)
+      .auctionHouse()
       .bid({
+        auctionHouse,
         mintAccount: new PublicKey(
           mintAddress // NFT mintAddress
         ),
@@ -237,7 +242,7 @@ export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddres
       .run()
 
     if (bid.price.basisPoints.toNumber() >= listing.price.basisPoints.toNumber()) {
-      const tx = await mx.auctions().for(auctionHouse).executeSale({ bid, listing }).run()
+      const tx = await mx.auctionHouse().executeSale({ auctionHouse, bid, listing }).run()
 
       return true
     }
@@ -252,9 +257,9 @@ export async function offerNFT(mx: Metaplex, id: string, price: number) {
     const auctionHouse = await getAuctionHouse(mx)
 
     const result = await mx
-      .auctions()
-      .for(auctionHouse)
+      .auctionHouse()
       .bid({
+        auctionHouse,
         mintAccount: new PublicKey(id),
         price: sol(price),
         printReceipt: true,
@@ -288,7 +293,7 @@ export async function getOffersFromAccounts(
     )
 
     try {
-      const bid = await mx.auctions().for(auctionHouse).findBidByTradeState(new PublicKey(tradeState)).run()
+      const bid = await mx.auctionHouse().findBidByTradeState({ auctionHouse, tradeStateAddress: new PublicKey(tradeState) }).run()
 
       let isListed = false
       let listingTradeStateAddress = null
@@ -340,9 +345,9 @@ export async function cancelOffer(mx: Metaplex, tradeStateAddress: PublicKey) {
   try {
     const auctionHouse = await getAuctionHouse(mx)
 
-    const bid = await mx.auctions().for(auctionHouse).findBidByTradeState(tradeStateAddress).run()
+    const bid = await mx.auctionHouse().findBidByTradeState({ auctionHouse, tradeStateAddress }).run()
 
-    const result = await mx.auctions().for(auctionHouse).cancelBid({ bid: bid }).run()
+    const result = await mx.auctionHouse().cancelBid({ auctionHouse, bid }).run()
 
     if (result) return true
   } catch (e) {
@@ -353,18 +358,18 @@ export async function cancelOffer(mx: Metaplex, tradeStateAddress: PublicKey) {
 }
 
 export async function acceptOffer(mx: Metaplex, tradeStateAddress: PublicKey, listingTradeStateAddress: PublicKey) {
-  const auctionHouse = await mx.auctions().findAuctionHouseByAddress(new PublicKey(AUCTION_HOUSE_PUBLIC_KEY)).run()
+  const auctionHouse = await getAuctionHouse(mx)
 
   try {
-    const bid = await mx.auctions().for(auctionHouse).findBidByTradeState(tradeStateAddress).run()
+    const bid = await mx.auctionHouse().findBidByTradeState({ auctionHouse, tradeStateAddress }).run()
 
     let listing = null
     let isListingCanceled = false
 
     if (listingTradeStateAddress) {
-      listing = await mx.auctions().for(auctionHouse).findListingByAddress(listingTradeStateAddress).run()
+      listing = await mx.auctionHouse().findListingByTradeState({ auctionHouse, tradeStateAddress: listingTradeStateAddress }).run()
       if (bid.price.basisPoints.toNumber() < listing.price.basisPoints.toNumber()) {
-        const result = await mx.auctions().for(auctionHouse).cancelListing({ listing: listing }).run()
+        const result = await mx.auctionHouse().cancelListing({ auctionHouse, listing }).run()
 
         if (result) isListingCanceled = true
       }
@@ -372,9 +377,9 @@ export async function acceptOffer(mx: Metaplex, tradeStateAddress: PublicKey, li
 
     if (!listingTradeStateAddress || isListingCanceled) {
       const { listing: newListing } = await mx
-        .auctions()
-        .for(auctionHouse)
+        .auctionHouse()
         .list({
+          auctionHouse,
           mintAccount: bid.asset.address,
           price: bid.price,
         })
@@ -382,7 +387,7 @@ export async function acceptOffer(mx: Metaplex, tradeStateAddress: PublicKey, li
       listing = newListing
     }
 
-    const tx = await mx.auctions().for(auctionHouse).executeSale({ bid, listing }).run()
+    const tx = await mx.auctionHouse().executeSale({ auctionHouse, bid, listing }).run()
 
     console.log(tx)
 
@@ -407,8 +412,8 @@ export async function getEscrowPaymentAccount(publicKey: PublicKey) {
 export async function getFeePayer() {
   return await PublicKey.findProgramAddress(
     [
-      Buffer.from("auction_house"), 
-      new PublicKey(AUCTION_HOUSE_PUBLIC_KEY).toBuffer(), 
+      Buffer.from("auction_house"),
+      new PublicKey(AUCTION_HOUSE_PUBLIC_KEY).toBuffer(),
       Buffer.from("fee_payer")
     ],
     new PublicKey(AUCTION_HOUSE_ADDRESS)
@@ -432,7 +437,7 @@ export async function depositFunds(mx: Metaplex, price: number) {
     auctionHouse: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY),
     auctionHouseFeeAccount: feePayer,
   };
-  
+
   const args: DepositInstructionArgs = {
     escrowPaymentBump: escrowPaymentBump,
     amount: price * 1000000000,
@@ -468,7 +473,7 @@ export async function withdrawFunds(mx: Metaplex, price: number) {
     auctionHouse: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY),
     auctionHouseFeeAccount: feePayer,
   };
-  
+
   const args: WithdrawInstructionArgs = {
     amount: price * 1000000000,
     escrowPaymentBump: escrowPaymentBump,
