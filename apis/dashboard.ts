@@ -51,24 +51,26 @@ class Dashboard {
       })
   }
 
-  getMarketplaceReleases(category) {
+  getMarketplaceReleases(category, artist) {
     return client
       .get(
         API_URL +
           'v1/dashboard/marketplace-releases' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '')
+          (category !== null && category?.length > 0 ? '?category=' + category : '') +
+          (artist !== null && artist?.length > 0 ? '?artist=' + artist : '')
       )
       .then(response => {
         return response.data
       })
   }
 
-  getLiveAuctions(category) {
+  getLiveAuctions(category, artist) {
     return client
       .get(
         API_URL +
           'v1/dashboard/live-auctions' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '')
+          (category !== null && category?.length > 0 ? '?category=' + category : '') +
+          (artist !== null && artist?.length > 0 ? '?artist=' + artist : '')
       )
       .then(response => {
         return response.data

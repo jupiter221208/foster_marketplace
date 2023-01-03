@@ -25,7 +25,6 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 // call apis
-import auctionAPI from 'apis/auctions'
 import dashboardAPI from 'apis/dashboard'
 
 const LiveAuctionSection = props => {
@@ -39,37 +38,25 @@ const LiveAuctionSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
-    if (artist.length > 0) {
-      auctionAPI.getListingsBySeller(category).then(response => {
-        if (response !== null && response !== undefined && response.length !== 0) {
-          if (response === 'NFT not found') {
-            setAllLiveAuctionList([])
-            setLiveAuctionList([])
-          } else {
-            setAllLiveAuctionList(response)
-            setLiveAuctionList(response)
-          }
-        }
-      }),
-        error => {
-          console.log(error)
-        }
-    } else {
-      dashboardAPI.getLiveAuctions(category).then(response => {
-        if (response !== null && response !== undefined && response.length !== 0) {
-          let lists = []
-          response.forEach(item => {
-            if (item.asset_url.length > 0) lists.push(item)
-          })
-          setAllLiveAuctionList(lists)
-          setLiveAuctionList(lists)
-        }
-      }),
-        error => {
-          console.log(error)
-        }
-    }
-  }, [])
+    if (artist.length === 0) return
+
+    dashboardAPI.getLiveAuctions(category, artist).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        let lists = []
+        response.forEach(item => {
+          if (item.asset_url.length > 0) lists.push(item)
+        })
+        setAllLiveAuctionList(lists)
+        setLiveAuctionList(lists)
+      } else {
+        setAllLiveAuctionList([])
+        setLiveAuctionList([])
+      }
+    }),
+      error => {
+        console.log(error)
+      }
+  }, [artist])
 
   const handleChangeActive = value => {
     setActive(value)
@@ -136,7 +123,7 @@ const LiveAuctionSection = props => {
               }
               modules={[Autoplay, Lazy, Navigation]}
               className="navigationSwiper"
-              loop
+              loop={liveAuctionList.length >= 3}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,

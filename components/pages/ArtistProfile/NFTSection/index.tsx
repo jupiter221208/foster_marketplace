@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 import Tab from 'components/Tab'
 import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import ExploreNFTSection from 'components/pages/ArtistProfile/ExploreNFTSection'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import ExploreCollectionSection from 'components/pages/ArtistProfile/ExploreCollectionSection'
 
@@ -13,9 +12,10 @@ import TabList from 'assets/json/artist-profile/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
+import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 
 const NFTSection = props => {
-  const { nfts, collections, exploreCircus, wallet } = props
+  const { nfts, collections, wallet } = props
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   useEffect(() => {
@@ -45,13 +45,12 @@ const NFTSection = props => {
         <div className="w-full flex flex-wrap">
           <NFTSwiperSection nfts={nfts} />
           <LiveAuctionSection category={''} artist={wallet} />
-          <ExploreNFTSection exploreCircus={exploreCircus} />
+          <ActiveListingSection artist={wallet} />
         </div>
       )}
       {activeTab === 1 && (
         <div className="w-full flex flex-wrap">
           <CollectionSwiperSection collections={collections} />
-          <ExploreCollectionSection exploreCircus={exploreCircus} />
         </div>
       )}
     </div>

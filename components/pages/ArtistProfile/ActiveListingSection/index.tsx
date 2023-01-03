@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // third party components
 // swiper
@@ -21,19 +22,45 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
-const ExploreNFTSection = props => {
-  const { exploreCircus } = props
+// api
+import dashboardAPI from 'apis/dashboard'
+import NFTCard from 'components/Card/DashboardNFTCard'
+
+const ActiveListingSection = props => {
+  const { artist = '' } = props
 
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
+
+  const [exploreList, setExploreList] = useState([])
+
+  useEffect(() => {
+    if (artist.length === 0) return
+
+    dashboardAPI.getMarketplaceReleases('', artist).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        let lists = []
+        response.forEach(item => {
+          if (item.asset_url.length > 0) lists.push(item)
+        })
+        setExploreList(lists)
+      } else {
+        setExploreList([])
+      }
+    }),
+      error => {
+        console.log(error)
+      }
+  }, [artist])
 
   return (
-    exploreCircus.length !== 0 && (
+    exploreList.length !== 0 && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Explore the Circus</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Active Listings</div>
           </div>
           <div className="hidden lg:flex z-10">
             <OutlineButton
@@ -45,7 +72,7 @@ const ExploreNFTSection = props => {
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          {exploreCircus.length > 4 ? (
+          {exploreList.length > 4 ? (
             <Swiper
               navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
               slidesPerView={
@@ -61,17 +88,39 @@ const ExploreNFTSection = props => {
                 disableOnInteraction: false,
               }}
             >
-              {exploreCircus.map((item, index) => (
+              {exploreList.map((item, index) => (
                 <SwiperSlide key={index}>
-                  <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
+                  <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+                    <NFTCard
+                      image={item.asset_url}
+                      nftName={item.nft_name}
+                      assetType={item.asset_type}
+                      artistName={item.artist_username}
+                      price={item.list_price}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push(`/browse-nft?id=${item.token_id}`)
+                      }}
+                    />
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
           ) : (
             <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
-              {exploreCircus.map((item, index) => (
+              {exploreList.map((item, index) => (
                 <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
-                  <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
+                  <NFTCard
+                    image={item.asset_url}
+                    nftName={item.nft_name}
+                    assetType={item.asset_type}
+                    artistName={item.artist_username}
+                    price={item.list_price}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-nft?id=${item.token_id}`)
+                    }}
+                  />
                 </div>
               ))}
             </div>
@@ -93,4 +142,4 @@ const ExploreNFTSection = props => {
   )
 }
 
-export default ExploreNFTSection
+export default ActiveListingSection
