@@ -296,7 +296,7 @@ const SingleNft = () => {
 
   // solana
   const { metaplex: mx } = useMetaplex()
-  const { storage, bundlr, ensureLocalWalletBalance } = useLocalWalletBundlr()
+  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState('')
 
   const createNft = async () => {
