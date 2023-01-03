@@ -75,7 +75,7 @@ const CollectionMintProgressingModal = props => {
                           <div className={styles.text}>{index + 1}</div>
                           <div className={styles.nonSelectedImage}>
                             {item.type === 'video' ? (
-                              <video loop autoPlay className="w-full h-full" id="video">
+                              <video loop autoPlay className="w-[68px] h-[68px]" id="video">
                                 <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                                 Your browser does not support the video tag.
                               </video>
@@ -138,7 +138,7 @@ const CollectionMintProgressingModal = props => {
                           <div className="w-full flex justify-between items-center">
                             <div className={styles.nonSelectedImage}>
                               {item.type === 'video' ? (
-                                <video loop autoPlay className="w-full h-full" id="video">
+                                <video loop autoPlay className="w-[64px] h-[64px]" id="video">
                                   <source src={URL.createObjectURL(item.file)} type={item.file.type} />
                                   Your browser does not support the video tag.
                                 </video>
