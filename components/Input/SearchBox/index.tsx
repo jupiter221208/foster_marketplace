@@ -25,12 +25,6 @@ const SearchBox = props => {
 
   return (
     <div className={styles.container}>
-      <input
-        className={styles.inputArea}
-        value={value}
-        placeholder={placeholder}
-        onChange={event => onChange(event.target.value)}
-      />
       <div className={styles.iconArea}>
         <Image
           src={value !== '' ? CloseGrayIcon : SearchGrayIcon}
@@ -41,6 +35,13 @@ const SearchBox = props => {
           onClick={() => onClick()}
         />
       </div>
+      <input
+        className={styles.inputArea}
+        value={value}
+        placeholder={placeholder}
+        onChange={event => onChange(event.target.value)}
+      />
+
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div>
           <OutlineButton
@@ -53,7 +54,9 @@ const SearchBox = props => {
       ) : (
         <></>
       )}
-      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
+      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? (
+        <div className={styles.emptyArea}></div>
+      ) : (
         <div className={styles.contentArea}>
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[26px]`}>NFTs</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
@@ -69,7 +72,10 @@ const SearchBox = props => {
                 <div className="w-[35px] h-[35px] mr-5">
                   <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
                 </div>
-                <div className={styles.text}>{item.name}</div>
+                <div>
+                  <div className={styles.text}>{item.name}</div>
+                  <div className={styles.username}>{item.name}</div>
+                </div>
               </div>
             ))}
           </div>

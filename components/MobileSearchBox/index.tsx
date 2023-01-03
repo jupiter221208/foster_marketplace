@@ -22,6 +22,7 @@ const MobileSearchBox = () => {
   const [searchKeyword, setSearchKeyword] = useState<any>('')
 
   const [searchList, setSearchList] = useState<any>({ nfts: [], artists: [], collections: [] })
+  const [searchData, setSearchData] = useState<any>({ nfts: [], artists: [], collections: [] })
 
   let timer = null
 
@@ -59,13 +60,21 @@ const MobileSearchBox = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
+  useEffect(() => {
+    if (searchKeyword.length > 0) {
+      setSearchData(searchList)
+    } else {
+      setSearchData({ nfts: [], artists: [], collections: [] })
+    }
+  }, [searchList])
+
   return (
     <div className={styles.menu}>
       <SearchBox
         value={searchKeyword}
         placeholder="Search by NFT, Collection, or Artist"
         onChange={value => setSearchKeyword(value)}
-        searchList={searchList}
+        searchList={searchData}
         onClick={() => handleClear()}
         onClose={() => handleClose()}
       />
