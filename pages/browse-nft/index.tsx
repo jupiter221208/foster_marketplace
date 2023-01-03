@@ -40,7 +40,7 @@ const BrowseNFT = () => {
   const [categories, setCategories] = useState<any>([])
 
   useEffect(() => {
-    if (id !== '') {
+    if (id !== undefined && id !== '') {
       setLoading(true)
       nftsAPI.getDetail(id).then(
         (response: NFT) => {
