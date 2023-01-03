@@ -12,9 +12,10 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
-import { toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
+import { toBigNumber, toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
+import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
 import DimensionMenu from 'components/Menu/DimensionMenu'
 import Step01SingleNFTSection from 'components/pages/Create/SingleNFT/Step01SingleNFTSection'
@@ -295,127 +296,128 @@ const SingleNft = () => {
 
   // solana
   const { metaplex: mx } = useMetaplex()
+  const { storage, bundlr, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState('')
 
   const createNft = async () => {
     try {
-      let reader = new FileReader()
-      const fileData = nftType !== 'image' ? new Blob([nftArt[0]]) : b64toBlob(await getBase64FromUrl(nftImage))
-      reader.readAsArrayBuffer(fileData)
-      reader.onload = async event => {
-        dispatch({ type: 'set', isLoading: true })
-        const arrayBuffer = reader.result as ArrayBuffer
 
-        const categories = categoryList.filter(item => item.checked)
+      dispatch({ type: 'set', isLoading: true })
+      const attributes = categoryList
+        .filter(({ checked }) => checked)
+        .map(({ name }) => ({ trait_type: 'category', value: name }))
 
-        const attributes = categories.map(category => {
-          return { trait_type: 'category', value: category.name }
+      const metadata: JsonMetadata = {
+        name: nftName,
+        description,
+        attributes,
+        properties: {
+          category: nftType.split("/")[0],
+        },
+      }
+
+      const coverFileBlob = await fetch(nftImage).then(r => r.blob())
+      const coverFile = toMetaplexFile(
+        await coverFileBlob.arrayBuffer(),
+        'image.png',
+        { contentType: coverFileBlob.type }
+      )
+
+      let animationFile;
+      if(metadata.properties.category !== 'image')
+        animationFile = toMetaplexFile(
+          await nftArt[0].arrayBuffer(),
+          '',
+          { contentType: nftArt[0].type }
+        )
+
+      // estimate cost
+      let metadataSize = JSON.stringify(metadata).length + 800
+      let metadataCost = await storage.getUploadPriceForBytes(metadataSize)
+
+      let assets = [coverFile]
+      if(animationFile)
+        assets.push(animationFile)
+
+      let assetCost = await storage.getUploadPriceForFiles(assets)
+      if(metadataCost.currency.symbol != assetCost.currency.symbol)
+        throw new Error(`currency symbol mismatch: ${metadataCost.currency.symbol} != ${assetCost.currency.symbol}`)
+
+      let totalCost = metadataCost.basisPoints.add(assetCost.basisPoints)
+
+      // fund local wallet
+      await ensureLocalWalletBalance(totalCost)
+
+      let [imageUrl, animationUrl] = await storage.uploadAll(assets)
+      metadata.image = imageUrl
+      if(animationFile)
+        metadata.animation_url = animationUrl
+
+      metadata.properties.files = [
+        {
+          type: coverFile.contentType!,
+          url: metadata.image,
+        }
+      ]
+      if(animationFile)
+        metadata.properties.files.push({
+          type: animationFile.type,
+          url: metadata.animation_url,
         })
 
-        const metadata: JsonMetadata<MetaplexFile> = {
-          name: nftName,
-          description: description,
-          attributes: attributes,
-        }
-        if (nftType === 'image') {
-          metadata.image = toMetaplexFile(arrayBuffer, 'metaplex.png')
-          metadata.category = 'image'
-          await uploadNft(metadata)
-        } else {
-          let coverReader = new FileReader()
-          const coverFileData = b64toBlob(await getBase64FromUrl(nftImage))
+      let metadataUri = await storage.uploadJson(metadata)
 
-          coverReader.readAsArrayBuffer(coverFileData)
-          coverReader.onload = async function (event) {
-            const coverArrayBuffer = coverReader.result as ArrayBuffer
-            metadata.image = toMetaplexFile(coverArrayBuffer, 'metaplex.png')
-            if (nftType === 'video') {
-              const file = toMetaplexFile(arrayBuffer, 'metaplex.mp4', { contentType: 'video/mp4' })
-              const fileURL = await mx.storage().upload(file)
-              metadata.animation_url = fileURL
-              metadata.properties = {
-                category: 'video',
-                files: [
-                  {
-                    type: 'video/mp4',
-                    url: fileURL,
-                  },
-                ],
-              }
-            } else if (nftType === 'audio') {
-              const file = toMetaplexFile(arrayBuffer, 'metaplex.mp3', { contentType: 'audio/mp3' })
-              const fileURL = await mx.storage().upload(file)
-              metadata.animation_url = fileURL
-              metadata.properties = {
-                category: 'audio',
-                files: [
-                  {
-                    type: 'audio/mp3',
-                    url: fileURL,
-                  },
-                ],
-              }
-            }
-            await uploadNft(metadata)
+      const { nft } = await mx
+        .nfts()
+        .create({
+          uri: metadataUri,
+          name: nftName,
+          sellerFeeBasisPoints: royalties * 100,
+        })
+        .run()
+
+        if (nft) {
+        const address = nft.address.toBase58()
+        setNFTAddress(address)
+
+        const result = categoryList.filter(item => item.checked)
+        let category = ''
+        result.forEach(item => {
+          category += item.name + ','
+        })
+
+        axios.get(nft.uri).then(response => {
+          if (response !== undefined) {
+            const result: any = response.data
+            nftsAPI
+              .create({
+                token_id: address,
+                nft_name: nft.name,
+                categories: category.slice(0, -1),
+                asset_type: nftType === 'image/gif' ? 'image' : nftType,
+                cover_image_url: nftType === 'audio' ? result['image'] : '',
+                asset_url: nftType === 'video' || nftType === 'audio' ? result['animation_url'] : result['image'],
+              })
+              .then(
+                response => {
+                  console.log(response)
+                },
+                error => {
+                  console.log(error)
+                }
+              )
           }
-        }
+        }),
+          error => {
+            console.log(error)
+          }
+        handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
       }
     } catch (error) {
+      console.error(error)
+    } finally {
       dispatch({ type: 'set', isLoading: false })
     }
-  }
-
-  const uploadNft = async metadata => {
-    const { uri } = await mx.nfts().uploadMetadata(metadata).run()
-
-    const { nft } = await mx
-      .nfts()
-      .create({
-        uri,
-        name: nftName,
-        sellerFeeBasisPoints: royalties * 100,
-      })
-      .run()
-
-    if (nft) {
-      const address = nft.address.toBase58()
-      setNFTAddress(address)
-
-      const result = categoryList.filter(item => item.checked)
-      let category = ''
-      result.forEach(item => {
-        category += item.name + ','
-      })
-
-      axios.get(nft.uri).then(response => {
-        if (response !== undefined) {
-          const result: any = response.data
-          nftsAPI
-            .create({
-              token_id: address,
-              nft_name: nft.name,
-              categories: category.slice(0, -1),
-              asset_type: nftType === 'image/gif' ? 'image' : nftType,
-              cover_image_url: nftType === 'audio' ? result['image'] : '',
-              asset_url: nftType === 'video' || nftType === 'audio' ? result['animation_url'] : result['image'],
-            })
-            .then(
-              response => {
-                console.log(response)
-              },
-              error => {
-                console.log(error)
-              }
-            )
-        }
-      }),
-        error => {
-          console.log(error)
-        }
-      handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
-    }
-
-    dispatch({ type: 'set', isLoading: false })
   }
 
   // form validate

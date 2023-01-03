@@ -12,14 +12,7 @@ export const useMetaplex = () => {
 
   const metaplex = useMemo(() => {
     return Metaplex.make(connection)
-      .use(walletAdapterIdentity(wallet))
-      .use(
-        bundlrStorage({
-          address: process.env.BUNDLR_ADDRESS || '',
-          providerUrl: process.env.PROVIDER_URL || '',
-          timeout: 60000,
-        })
-      );
+      .use(walletAdapterIdentity(wallet));
   }, [connection, wallet]);
 
   return { metaplex };
