@@ -1,14 +1,10 @@
 import React from 'react'
 
-// next components
-import Image from 'next/image'
-
 // custom functions
 import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import Avatar from 'components/Avatar'
 
 const HeroCard = props => {
   const { data } = props

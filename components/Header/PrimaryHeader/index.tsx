@@ -24,7 +24,7 @@ import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/icons/profile-thumb.svg'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
-import LogoIcon from 'assets/icons/logo-color.svg'
+import LogoIcon from 'assets/icons/logo-green.svg'
 
 // json
 import SearchList from 'assets/json/search-list.json'

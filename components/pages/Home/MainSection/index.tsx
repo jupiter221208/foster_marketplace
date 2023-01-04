@@ -127,7 +127,7 @@ const MainSection = () => {
               </div> */}
               <Image src={FosterEnhancedMobile} width={278} height={42} alt="" objectFit="cover" />
 
-              <div className={styles.cardText}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
+              <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div>
             </div>
           ) : (
             <></>
