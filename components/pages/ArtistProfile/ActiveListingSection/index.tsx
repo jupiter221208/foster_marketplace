@@ -24,7 +24,7 @@ import styles from './index.module.scss'
 
 // api
 import dashboardAPI from 'apis/dashboard'
-import NFTCard from 'components/Card/DashboardNFTCard'
+import NFTCard from 'components/Card/NFTCard'
 
 const ActiveListingSection = props => {
   const { artist = '' } = props
@@ -61,14 +61,6 @@ const ActiveListingSection = props => {
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Active Listings</div>
-          </div>
-          <div className="hidden lg:flex z-10">
-            <OutlineButton
-              label="See More"
-              onClick={() => router.push('/explore')}
-              borderColor="#ffffff"
-              height="42px"
-            />
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
@@ -125,17 +117,6 @@ const ActiveListingSection = props => {
               ))}
             </div>
           )}
-        </div>
-        <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => router.push('/explore')}
-              borderColor="#ffffff"
-              height="40px"
-            />
-          </div>
         </div>
       </section>
     )
