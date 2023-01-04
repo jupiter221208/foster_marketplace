@@ -8,22 +8,21 @@
 }
 
 .menuBlur {
-  width: 200px;
-  @media (min-width: 1024px) {
-    width: 343px;
-  }
+  width: 320px;
   height: auto;
   position: absolute;
+  top: 32px;
   left: 0;
+  background-color: $background-black-color;
   @media (min-width: 1024px) {
+    width: 343px;
     left: auto;
     right: 0;
+    background-color: rgba($background-dark-color, 0.1);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
-  top: 32px;
   transform-origin: top left;
-  background-color: rgba($background-dark-color, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border-radius: 15px;
   border: 1px solid rgba($text-gray-200-color, 0.1);
   z-index: 10;
@@ -31,11 +30,15 @@
 
 .menuArea {
   background-color: transparent;
-  padding: 25px 24px;
+  padding: 20px 24px;
+  @media (min-width: 1024px) {
+    padding: 25px 24px;
+    gap: 16px;
+  }
+  gap: 12px;
 
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
 
   cursor: pointer;
   z-index: 100;
@@ -43,8 +46,8 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 14px;
-  line-height: 24px;
+  font-size: 20px;
+  line-height: 40px;
   @media (min-width: 1024px) {
     font-size: 24px;
     line-height: 32px;

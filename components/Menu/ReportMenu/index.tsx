@@ -6,6 +6,9 @@ import Image from 'next/image'
 // third party components
 import { Menu, Transition } from '@headlessui/react'
 
+// custom functions
+import { useViewport } from 'utils'
+
 // custom components
 import IconButton from 'components/Button/IconButton'
 
@@ -26,6 +29,8 @@ import { useConnection } from '@solana/wallet-adapter-react'
 
 const ReportMenu = props => {
   const { address, onClick } = props
+  const viewport = useViewport()
+
   const [hover, setHover] = useState(false)
   const [hoverReport, setHoverReport] = useState(false)
 
@@ -74,8 +79,12 @@ const ReportMenu = props => {
                 {({ active }) => (
                   <div
                     className={styles.menuItem}
-                    onMouseEnter={() => setHover(true)}
-                    onMouseLeave={() => setHover(false)}
+                    onMouseEnter={() =>
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHover(true)
+                    }
+                    onMouseLeave={() =>
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHover(false)
+                    }
                   >
                     <Image src={hover ? SolanaSolLogoIcon : SolanaSolLogoGrayIcon} alt="" />
                     <a target="_blank" href={explorerURL} rel="noopener noreferrer">
@@ -89,8 +98,12 @@ const ReportMenu = props => {
                   <div
                     className={styles.menuItem}
                     onClick={() => onClick()}
-                    onMouseEnter={() => setHoverReport(true)}
-                    onMouseLeave={() => setHoverReport(false)}
+                    onMouseEnter={() =>
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHoverReport(true)
+                    }
+                    onMouseLeave={() =>
+                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHoverReport(false)
+                    }
                   >
                     <Image src={hoverReport ? NounProhibitHoverIcon : NounProhibitIcon} alt="" />
                     Report an Issue
