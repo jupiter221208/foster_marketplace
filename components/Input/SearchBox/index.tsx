@@ -54,9 +54,7 @@ const SearchBox = props => {
       ) : (
         <></>
       )}
-      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? (
-        <div className={styles.emptyArea}></div>
-      ) : (
+      {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
         <div className={styles.contentArea}>
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[26px]`}>NFTs</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
