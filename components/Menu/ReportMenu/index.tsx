@@ -13,7 +13,9 @@ import IconButton from 'components/Button/IconButton'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
+import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg'
 import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg'
+import NounProhibitHoverIcon from 'assets/icons/noun-prohibit-dark-red-16x16-hover.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -24,6 +26,8 @@ import { useConnection } from '@solana/wallet-adapter-react'
 
 const ReportMenu = props => {
   const { address, onClick } = props
+  const [hover, setHover] = useState(false)
+  const [hoverReport, setHoverReport] = useState(false)
 
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
@@ -68,18 +72,27 @@ const ReportMenu = props => {
               <div className={styles.divider} />
               <Menu.Item>
                 {({ active }) => (
-                  <div className={styles.menuItem}>
-                    <Image src={SolanaSolLogoIcon} alt="" />
+                  <div
+                    className={styles.menuItem}
+                    onMouseEnter={() => setHover(true)}
+                    onMouseLeave={() => setHover(false)}
+                  >
+                    <Image src={hover ? SolanaSolLogoIcon : SolanaSolLogoGrayIcon} alt="" />
                     <a target="_blank" href={explorerURL} rel="noopener noreferrer">
-                      View on SolanaFM
+                      View on Solana Explorer
                     </a>
                   </div>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <div className={styles.menuItem} onClick={() => onClick()}>
-                    <Image src={NounProhibitIcon} alt="" />
+                  <div
+                    className={styles.menuItem}
+                    onClick={() => onClick()}
+                    onMouseEnter={() => setHoverReport(true)}
+                    onMouseLeave={() => setHoverReport(false)}
+                  >
+                    <Image src={hoverReport ? NounProhibitHoverIcon : NounProhibitIcon} alt="" />
                     Report an Issue
                   </div>
                 )}

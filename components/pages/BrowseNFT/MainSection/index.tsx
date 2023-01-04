@@ -444,9 +444,6 @@ const MainSection = props => {
                   </div>
                 </div>
                 <div className="inline">
-                  <div className="hidden lg:flex justify-end">
-                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
-                  </div>
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer mr-[16px]" onClick={() => changeLikeStatus()}>
                       <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
@@ -466,6 +463,9 @@ const MainSection = props => {
                       setVoteCount={setShareCount}
                       onClick={() => {}}
                     />
+                    <div className="hidden lg:flex justify-end ml-[10px]">
+                      <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
+                    </div>
                   </div>
                 </div>
               </div>

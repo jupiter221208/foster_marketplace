@@ -49,7 +49,7 @@ const MenuSocialShare = props => {
         <Menu.Button>
           <div className="flex justify-between items-center">
             <Image src={vote ? icon02 : icon01} alt="" />
-            <div className={styles.text}>{voteCount}</div>
+            {/* <div className={styles.text}>{voteCount}</div> */}
           </div>
         </Menu.Button>
 
