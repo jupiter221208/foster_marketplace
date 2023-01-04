@@ -3,6 +3,17 @@ name: Canary Tests
 on:
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      tags:
+          description: 'Test scenario tags'
+          required: true
+          type: choice
+          options:
+          - 'smoke'
+          - 'regression'
+          - 'bvt'
+          - 'retarget'
 
 jobs:
   deps:
