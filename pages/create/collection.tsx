@@ -319,7 +319,7 @@ const Collection = () => {
             setBannerCroppedImage={bannerCroppedImage => setBannerCroppedImage(bannerCroppedImage)}
             setBannerAWSUrl={bannerAWSUrl => setBannerAWSUrl(bannerAWSUrl)}
             royalties={royalties}
-            onChangeRoyalties={royalties => setRoyalties(royalties)}
+            onChangeRoyalties={royalties => setRoyalties(royalties * 100)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
             mintCollection={mintCollection}
