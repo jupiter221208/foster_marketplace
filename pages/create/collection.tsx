@@ -22,6 +22,7 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
+import { Keypair } from '@solana/web3.js'
 import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
@@ -231,41 +232,46 @@ const Collection = () => {
 
         const uri = await storage.uploadJson(metadata)
 
-        const nft: any = await mx
+        const nftKeypair = Keypair.generate()
+        const createNftTransaction = await mx
           .nfts()
+          .builders()
           .create({
+            useNewMint: nftKeypair,
             uri: uri,
             name,
             sellerFeeBasisPoints: royalties,
             collection: collectionNft?.mintAddress,
           })
-          .run()
 
-        await mx
+        const verifyCollectionTransaction = await mx
           .nfts()
+          .builders()
           .verifyCollection({
-            mintAddress: nft.mintAddress,
+            mintAddress: nftKeypair.publicKey,
             collectionMintAddress: collectionNft?.mintAddress,
             isSizedCollection: true,
           })
-          .run()
+
+        const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
+        await combinedTransaction.sendAndConfirm(mx)
 
         let assetUrl: any = ''
         let coverUrl: any = ''
         let assetType = metadata.properties.category
         if (assetType === 'image') {
-          assetUrl = nft.nft.json.image
+          assetUrl = metadata.image
         } else if (assetType === 'audio') {
-          assetUrl = nft.nft.json.animation_url
-          coverUrl = nft.nft.json.image
+          assetUrl = metadata.animation_url
+          coverUrl = metadata.image
         } else if (assetType === 'video') {
           assetUrl = metadata.animation_url
         } else {
-          assetUrl = nft.nft.json.image
+          assetUrl = metadata.image
         }
         array.push({
-          token_id: nft.mintAddress.toString(),
-          nft_name: nft.nft.name,
+          token_id: nftKeypair.publicKey.toString(),
+          nft_name: metadata.name,
           asset_type: assetType,
           asset_url: assetUrl,
           cover_image_url: coverUrl,
