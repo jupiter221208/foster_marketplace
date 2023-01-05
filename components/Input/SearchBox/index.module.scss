@@ -89,7 +89,7 @@
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
-  color: $brand-03-color;
+  color: $text-gray-200-color;
 }
 
 .text {
@@ -133,8 +133,10 @@
   padding: 8px;
 
   &:hover {
-    background-color: rgba($brand-02-color, 0.3);
-    border: 1px solid $brand-01-color;
-    border-radius: 8px;
+    @media (min-width: 1024px) {
+      background-color: rgba($brand-02-color, 0.3);
+      border: 1px solid $brand-01-color;
+      border-radius: 8px;
+    }
   }
 }
