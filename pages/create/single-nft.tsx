@@ -84,6 +84,7 @@ const SingleNft = () => {
   const [artWidth, setArtWidth] = useState(0)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
+  const [videoCoverImage, setVideoCoverImage] = useState(null)
 
   useEffect(() => {
     let width = 0
@@ -185,7 +186,30 @@ const SingleNft = () => {
         setNftType('image/gif')
         setNftImage(URL.createObjectURL(nftArt[0]))
       } else {
-        setNftType(nftArt[0].type.split('/')[0])
+        const type = nftArt[0].type.split('/')[0]
+        setNftType(type)
+        if (type === 'video') {
+          let canvas = document.createElement('canvas')
+          let image = ''
+          let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
+          hidden_video.src = URL.createObjectURL(nftArt[0])
+
+          hidden_video.addEventListener('seeked', function () {
+            canvas.width = hidden_video.videoWidth
+            canvas.height = hidden_video.videoHeight
+
+            let ctx = canvas.getContext('2d')
+            ctx.drawImage(hidden_video, 0, 0, canvas.width, canvas.height)
+
+            image = canvas.toDataURL('image/jpeg')
+
+            canvas.toBlob(blob => {
+              setNftImage(URL.createObjectURL(blob))
+            })
+            setVideoCoverImage(image)
+          })
+          hidden_video.currentTime = 5
+        }
       }
     }
   }, [nftArt])
@@ -301,7 +325,6 @@ const SingleNft = () => {
 
   const createNft = async () => {
     try {
-
       dispatch({ type: 'set', isLoading: true })
       const attributes = categoryList
         .filter(({ checked }) => checked)
@@ -312,35 +335,28 @@ const SingleNft = () => {
         description,
         attributes,
         properties: {
-          category: nftType.split("/")[0],
+          category: nftType.split('/')[0],
         },
       }
 
       const coverFileBlob = await fetch(nftImage).then(r => r.blob())
-      const coverFile = toMetaplexFile(
-        await coverFileBlob.arrayBuffer(),
-        'image.png',
-        { contentType: coverFileBlob.type }
-      )
+      const coverFile = toMetaplexFile(await coverFileBlob.arrayBuffer(), 'image.png', {
+        contentType: coverFileBlob.type,
+      })
 
-      let animationFile;
-      if(metadata.properties.category !== 'image')
-        animationFile = toMetaplexFile(
-          await nftArt[0].arrayBuffer(),
-          '',
-          { contentType: nftArt[0].type }
-        )
+      let animationFile
+      if (metadata.properties.category !== 'image')
+        animationFile = toMetaplexFile(await nftArt[0].arrayBuffer(), '', { contentType: nftArt[0].type })
 
       // estimate cost
       let metadataSize = JSON.stringify(metadata).length + 800
       let metadataCost = await storage.getUploadPriceForBytes(metadataSize)
 
       let assets = [coverFile]
-      if(animationFile)
-        assets.push(animationFile)
+      if (animationFile) assets.push(animationFile)
 
       let assetCost = await storage.getUploadPriceForFiles(assets)
-      if(metadataCost.currency.symbol != assetCost.currency.symbol)
+      if (metadataCost.currency.symbol != assetCost.currency.symbol)
         throw new Error(`currency symbol mismatch: ${metadataCost.currency.symbol} != ${assetCost.currency.symbol}`)
 
       let totalCost = metadataCost.basisPoints.add(assetCost.basisPoints)
@@ -350,16 +366,15 @@ const SingleNft = () => {
 
       let [imageUrl, animationUrl] = await storage.uploadAll(assets)
       metadata.image = imageUrl
-      if(animationFile)
-        metadata.animation_url = animationUrl
+      if (animationFile) metadata.animation_url = animationUrl
 
       metadata.properties.files = [
         {
           type: coverFile.contentType!,
           url: metadata.image,
-        }
+        },
       ]
-      if(animationFile)
+      if (animationFile)
         metadata.properties.files.push({
           type: animationFile.type,
           url: metadata.animation_url,
@@ -376,7 +391,7 @@ const SingleNft = () => {
         })
         .run()
 
-        if (nft) {
+      if (nft) {
         const address = nft.address.toBase58()
         setNFTAddress(address)
 
@@ -521,7 +536,10 @@ const SingleNft = () => {
                         )}
                       </div>
                     )}
-
+                    <div>
+                      <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
+                      <img src={videoCoverImage} alt="" />
+                    </div>
                     {nftArt !== null && (
                       <div className="w-full mt-4 flex justify-between" style={{ width: artWidth }}>
                         {currentStep === 1 &&
