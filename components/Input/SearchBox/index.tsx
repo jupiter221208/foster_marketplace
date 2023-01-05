@@ -67,8 +67,8 @@ const SearchBox = props => {
                   onClose()
                 }}
               >
-                <div className="w-[35px] h-[35px] mr-5">
-                  <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
+                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
+                  <img src={item.image_url} alt="" className="object-cover rounded-[10px] w-full h-full" />
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
@@ -89,9 +89,9 @@ const SearchBox = props => {
                   onClose()
                 }}
               >
-                <div className="w-[35px] h-[35px] mr-5">
+                <div className="w-[36px] h-[36px] mr-5">
                   {item.image_url.length > 0 ? (
-                    <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
+                    <img src={item.image_url} alt="" className="object-cover rounded-full w-full h-full" />
                   ) : (
                     <Image
                       src={DefaultAvatar}
@@ -122,8 +122,8 @@ const SearchBox = props => {
                   onClose()
                 }}
               >
-                <div className="w-[35px] h-[35px] mr-5">
-                  <img src={item.image_url} alt="" width={35} height={35} className="object-cover rounded-full" />
+                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
+                  <img src={item.image_url} alt="" className="object-cover rounded-[10px] w-full h-full" />
                 </div>
                 <div className={styles.text}>{item.name}</div>
               </div>
