@@ -8,15 +8,20 @@
 }
 
 .menuBlur {
-  width: 320px;
+  width: 330px;
   height: auto;
   position: absolute;
-  top: 32px;
-  left: 0;
+  top: 0px;
+  left: -10px;
+  right: 0px;
   background-color: $background-black-color;
+  @media (min-width: 414px) {
+    width: 370px;
+  }
   @media (min-width: 1024px) {
     width: 343px;
     left: auto;
+    top: 32px;
     right: 0;
     background-color: rgba($background-dark-color, 0.1);
     backdrop-filter: blur(14px);

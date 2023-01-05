@@ -53,9 +53,9 @@ const MainSection = () => {
       response => {
         if (response !== null && response !== undefined) {
           setHeroList(response.featured_nfts)
-          setArtworkCnt(response.stats.users)
+          setNftCnt(response.stats.users)
           setCollectionCnt(response.stats.collections)
-          setNftCnt(response.stats.nfts)
+          setArtworkCnt(response.stats.nfts)
         }
       },
       error => {
@@ -101,7 +101,7 @@ const MainSection = () => {
               <div className={styles.count}>{artworkCnt}</div>
               <div className={styles.countText}>Artworks</div>
             </div>
-            <div className="block">
+            <div className="block items-center">
               <div className={styles.count}>{collectionCnt}</div>
               <div className={styles.countText}>Collections</div>
             </div>
