@@ -231,7 +231,7 @@
 }
 
 .grayText {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 16px;
   @media (min-width: 1024px) {
@@ -242,14 +242,15 @@
 }
 
 .greenText {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 12px;
   line-height: 16px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
     font-size: 18px;
     line-height: 24px;
   }
-  color: $brand-01-color;
+  color: $brand-08-color;
   &:hover {
     cursor: pointer;
     text-decoration: underline;
