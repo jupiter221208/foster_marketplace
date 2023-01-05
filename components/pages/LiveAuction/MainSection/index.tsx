@@ -681,6 +681,7 @@ const MainSection = props => {
                               <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
+                                <th>From</th>
                                 <th>Date</th>
                               </tr>
                             </thead>
@@ -728,7 +729,7 @@ const MainSection = props => {
                                     <div className="ml-2">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                                   </div>
                                 </td>
-                                <td>
+                                <td className="w-[60px]">
                                   <div className="flex justify-center items-center mx-2 gap-1">
                                     <Image
                                       src={SolanaLogoIcon}
@@ -736,22 +737,21 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-
                                     <div>{isPriceExisting(item.action_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
-                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                  <></>
-                                ) : (
-                                  <td>
-                                    <div className="flex justify-center items-center mx-2 gap-2">
-                                      {isFromExisting(item.action_type)
-                                        ? item.minter_address !== undefined &&
-                                          item.minter_address.slice(0, 4) + '...' + item.minter_address.slice(-4)
-                                        : 'N/A'}
-                                    </div>
-                                  </td>
-                                )}
+
+                                <td>
+                                  <div className="flex justify-center items-center mx-2 gap-2">
+                                    {isFromExisting(item.action_type)
+                                      ? item.minter_address !== undefined &&
+                                        item.minter_address.slice(0, viewport === 'xs' ? 3 : 4) +
+                                          '...' +
+                                          item.minter_address.slice(viewport === 'xs' ? -3 : -4)
+                                      : 'N/A'}
+                                  </div>
+                                </td>
+
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                                   <></>
                                 ) : (
