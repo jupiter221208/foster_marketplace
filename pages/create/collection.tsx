@@ -86,11 +86,11 @@ const Collection = () => {
     setCoverImageUrl(coverImageUrl)
 
     const uri = await storage.uploadJson({
-        name: collectionName,
-        description: description,
-        attributes: attributes,
-        image: coverImageUrl,
-      })
+      name: collectionName,
+      description: description,
+      attributes: attributes,
+      image: coverImageUrl,
+    })
 
     const result = await axios.get(uri).then(response => {
       return response.data
@@ -194,38 +194,33 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
-        let {
-          name,
-          description,
-          attributes,
-          file
-        } = collectionFiles[i]
+        let { name, description, attributes, file } = collectionFiles[i]
 
         const metadata: JsonMetadata = {
           name,
           description,
           attributes,
           properties: {
-            category: file.type.split("/")[0],
-          }
+            category: file.type.split('/')[0],
+          },
         }
 
         let imageFile = {
           type: file.type,
-          url: await storage.upload(await toMetaplexFileFromBrowser(file))
+          url: await storage.upload(await toMetaplexFileFromBrowser(file)),
         }
-        let assetFile = null;
-        if(metadata.properties.category !== 'image'){
+        let assetFile = null
+        if (metadata.properties.category !== 'image') {
           assetFile = imageFile
           imageFile = {
             type: coverImage.type,
-            url: coverImageUrl
+            url: coverImageUrl,
           }
         }
 
         metadata.image = imageFile.url
         metadata.properties.files = [imageFile]
-        if(assetFile){
+        if (assetFile) {
           metadata.animation_url = assetFile.url
           metadata.properties.files.push(assetFile)
         }
@@ -244,14 +239,11 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx
-          .nfts()
-          .builders()
-          .verifyCollection({
-            mintAddress: nftKeypair.publicKey,
-            collectionMintAddress: collectionNft?.mintAddress,
-            isSizedCollection: true,
-          })
+        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
+          mintAddress: nftKeypair.publicKey,
+          collectionMintAddress: collectionNft?.mintAddress,
+          isSizedCollection: true,
+        })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)
@@ -284,6 +276,7 @@ const Collection = () => {
     let collectionInfo = {
       collection_id: collectionNft.mintAddress.toString(),
       collection_name: collectionName,
+      description: description,
       banner_image: bannerAWSUrl,
       cover_image: coverAWSUrl,
       categories: category.slice(0, -1),

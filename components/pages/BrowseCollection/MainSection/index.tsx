@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 // custom components
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
 import CategoryChip from 'components/Chip/CategoryChip'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
-import ReadMoreModal from 'components/Modal/ReadMoreModal'
+import ReadMoreCollectionModal from 'components/Modal/ReadMoreCollectionModal'
 
 import { getShortDescription } from 'utils/strings'
 
@@ -28,8 +27,6 @@ import collectionAPI from 'apis/collections'
 
 const MainSection = props => {
   const { nfts, data } = props
-
-  const router = useRouter()
   const viewport = useViewport()
   const [items, setItems] = useState<any>()
   const [owners, setOwners] = useState<any>()
@@ -130,11 +127,16 @@ const MainSection = props => {
             </div>
           </div>
         </div>
-        {/* <div className="flex justify-center w-full mt-[32px]">
-          <div className="max-w-[734px]">
-            <div className={styles.description}>{json?.description}</div>
-          </div>
-        </div> */}
+        <div className="flex justify-center w-full flex-wrap mt-[30px] mb-[30px] z-10">
+          {data?.description && (
+            <span className={styles.description}>
+              {getShortDescription(viewport, data?.description) + ' '}
+              {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+                Read&nbsp;more
+              </span> */}
+            </span>
+          )}
+        </div>
         <div className="flex justify-center mt-[16px]">
           <div className={`${styles.nftInfo} grid grid-cols-12`}>
             <>
@@ -227,10 +229,10 @@ const MainSection = props => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
-        {data.bio && (
+      <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
+        {data?.description && (
           <span className={styles.description}>
-            {getShortDescription(viewport, data.bio) + ' '}
+            {getShortDescription(viewport, data?.description) + ' '}
             <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
             </span>
@@ -239,11 +241,12 @@ const MainSection = props => {
       </div>
 
       {showReadMore && (
-        <ReadMoreModal
+        <ReadMoreCollectionModal
           open={showReadMore}
           close={() => setShowReadMore(false)}
           artistInfo={data}
-          categoryList={data.categories}
+          stats={{ items, owners, floorPrice, totalVolume }}
+          categoryList={data.categories.split(',')}
         />
       )}
     </div>
