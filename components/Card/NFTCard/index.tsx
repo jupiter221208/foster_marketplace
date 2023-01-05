@@ -28,16 +28,14 @@ const DashboardNFTCard = props => {
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full relative flex justify-center items-center">
                 <div
-                  className="w-full absolute"
+                  className="w-full h-full absolute"
                   dangerouslySetInnerHTML={{
-                    __html: `<video ${
-                      play ? 'autoplay' : ''
-                    } loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
                   }}
                   onClick={() => onClick()}
                 />
-                <div className={styles.playButton}>
+                {/* <div className={styles.playButton}>
                   <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
                     <Image
                       src={play ? PauseVideoIcon : PlayVideoIcon}
@@ -47,7 +45,7 @@ const DashboardNFTCard = props => {
                       onClick={() => setPlay(!play)}
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             ) : (
               <div

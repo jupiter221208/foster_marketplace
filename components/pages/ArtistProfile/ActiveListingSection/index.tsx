@@ -76,7 +76,7 @@ const ActiveListingSection = props => {
               modules={[Autoplay, Lazy, Navigation]}
               className="navigationSwiper"
               autoplay={{
-                delay: 5000,
+                delay: 5000000,
                 disableOnInteraction: false,
               }}
             >
