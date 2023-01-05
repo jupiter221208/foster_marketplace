@@ -102,7 +102,7 @@ const Collection = () => {
         isCollection: true,
         name: collectionName,
         uri: uri,
-        sellerFeeBasisPoints: royalties,
+        sellerFeeBasisPoints: royalties * 100,
       })
       .run()
 
@@ -240,7 +240,7 @@ const Collection = () => {
             useNewMint: nftKeypair,
             uri: uri,
             name,
-            sellerFeeBasisPoints: royalties,
+            sellerFeeBasisPoints: royalties * 100,
             collection: collectionNft?.mintAddress,
           })
 
@@ -325,7 +325,7 @@ const Collection = () => {
             setBannerCroppedImage={bannerCroppedImage => setBannerCroppedImage(bannerCroppedImage)}
             setBannerAWSUrl={bannerAWSUrl => setBannerAWSUrl(bannerAWSUrl)}
             royalties={royalties}
-            onChangeRoyalties={royalties => setRoyalties(royalties * 100)}
+            onChangeRoyalties={royalties => setRoyalties(royalties)}
             categoryList={categoryList}
             onChangeCategoryList={categoryList => setCategoryList(categoryList)}
             mintCollection={mintCollection}
