@@ -60,6 +60,8 @@ const TrendingCollectionSection = props => {
   }
 
   useEffect(() => {
+    setAllTrendingList([])
+    setTrendingList([])
     dashboardAPI.getTrendingCollections(category).then(
       response => {
         if (response !== null && response !== undefined) {
@@ -71,7 +73,7 @@ const TrendingCollectionSection = props => {
         console.log(error)
       }
     )
-  }, [])
+  }, [category])
 
   return (
     <section className={styles.container}>

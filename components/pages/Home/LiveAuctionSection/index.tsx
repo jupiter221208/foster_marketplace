@@ -54,7 +54,7 @@ const LiveAuctionSection = props => {
       error => {
         console.log(error)
       }
-  }, [artist])
+  }, [artist, category])
 
   const handleChangeActive = value => {
     setActive(value)

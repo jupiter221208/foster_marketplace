@@ -43,6 +43,7 @@ const MarketplaceReleaseSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
+    setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '').then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response)
@@ -51,7 +52,7 @@ const MarketplaceReleaseSection = props => {
       error => {
         console.log(error)
       }
-  }, [])
+  }, [category])
 
   useEffect(() => {
     if (allMarketplaceReleaseList.length === 0) return

@@ -54,7 +54,7 @@ const FreshMintSection = props => {
         console.log(error)
       }
     )
-  }, [])
+  }, [category])
 
   useEffect(() => {
     if (allFreshMintsList.length === 0) return

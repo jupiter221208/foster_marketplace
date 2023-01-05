@@ -43,6 +43,7 @@ const MostPopularSection = props => {
   const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
+    setAllMostPopularList([])
     dashboardAPI.getMostPopular(category).then(
       response => {
         if (response !== null && response !== undefined) {
@@ -53,7 +54,7 @@ const MostPopularSection = props => {
         console.log(error)
       }
     )
-  }, [])
+  }, [category])
 
   useEffect(() => {
     if (allMostPopularList.length === 0) return
