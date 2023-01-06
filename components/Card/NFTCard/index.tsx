@@ -40,6 +40,7 @@ const DashboardNFTCard = props => {
                     src={coverImage !== '' ? coverImage : DefaultNftBG}
                     alt=""
                     className="w-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    onClick={() => onClick()}
                   />
                 )}
                 <div className={styles.playButton}>
