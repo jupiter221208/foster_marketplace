@@ -13,6 +13,11 @@ class Explore {
       return response.data
     })
   }
+  getExploreArtists(data) {
+    return client.post(API_URL + 'v1/explore/artists', data).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Explore()

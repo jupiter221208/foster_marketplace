@@ -390,7 +390,6 @@ const SingleNft = () => {
         .run()
 
       if (nft) {
-        console.log('=========nft========', nft)
         const address = nft.address.toBase58()
         setNFTAddress(address)
 

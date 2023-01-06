@@ -69,6 +69,8 @@ const Explore = () => {
   const [categoryList, setCategoryList] = useState<any>([])
   const [nftCurrentPage, setNftCurrentPage] = useState(0)
   const [collectionCurrentPage, setCollectionCurrentPage] = useState(0)
+  const [ecosystemCurrentPage, setEcoSystemCurrentPage] = useState(0)
+
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
@@ -114,7 +116,9 @@ const Explore = () => {
       case 2:
         setSortData(EcosystemSortList)
         setSelectedSort(EcosystemSortList[0])
+        setCurrentPage(ecosystemCurrentPage)
         setEcosystemList([])
+        getExploreArtistData(ecosystemCurrentPage, [], rowCount)
         break
       default:
         break
@@ -211,11 +215,45 @@ const Explore = () => {
     )
   }
 
+  const getExploreArtistData = async (curPage, categoryList, count) => {
+    let categoryLabel = []
+    categoryList.map(category => {
+      if (category.checked === true) {
+        categoryLabel.push(category.query)
+      }
+    })
+
+    dispatch({ type: 'set', isLoading: true })
+    setEcosystemList([])
+    ExploreAPI.getExploreArtists({
+      categories: categoryLabel.length === 0 ? null : categoryLabel,
+      sort: null,
+      page: curPage + 1,
+      per_page: count,
+    }).then(
+      respone => {
+        dispatch({ type: 'set', isLoading: false })
+        setCurrentPage(curPage)
+        setEcoSystemCurrentPage(curPage)
+        setTotalCount(count * curPage + respone.length)
+        setEcosystemList(respone)
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      },
+      error => {
+        dispatch({ type: 'set', isLoading: false })
+      }
+    )
+  }
+
   const handleNextPage = () => {
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
     if (exploreTab === 0) getExploreNFTData(nextPage, categoryList, rowCount)
     else if (exploreTab === 1) getExploreCollectionData(nextPage, categoryList, rowCount)
+    else if (exploreTab === 2) getExploreArtistData(nextPage, categoryList, rowCount)
   }
 
   const handlePreviousPage = () => {
@@ -223,18 +261,21 @@ const Explore = () => {
     const prevPage = currentPage - 1
     if (exploreTab === 0) getExploreNFTData(prevPage, categoryList, rowCount)
     else if (exploreTab === 1) getExploreCollectionData(prevPage, categoryList, rowCount)
+    else if (exploreTab === 2) getExploreArtistData(prevPage, categoryList, rowCount)
   }
 
   const selectCategory = categoryList => {
     setCategoryList(categoryList)
     if (exploreTab === 0) getExploreNFTData(currentPage, categoryList, rowCount)
     else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, rowCount)
+    else if (exploreTab === 2) getExploreArtistData(currentPage, categoryList, rowCount)
   }
 
   const selectRowCount = count => {
     setRowCount(count)
     if (exploreTab === 0) getExploreNFTData(currentPage, categoryList, count)
     else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, count)
+    else if (exploreTab === 2) getExploreArtistData(currentPage, categoryList, count)
   }
 
   const setListedNFTs = async () => {
@@ -396,7 +437,7 @@ const Explore = () => {
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {ecosystemList.map((item, index) => (
                     <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
-                      {item.avatar && <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />}
+                      <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
                     </div>
                   ))}
                 </div>

@@ -17,6 +17,7 @@ import styles from './index.module.scss'
 const EcosystemCard = props => {
   const { data, onClick } = props
   const viewport = useViewport()
+
   return (
     <div className={styles.container} onClick={() => onClick()}>
       <div className="relative flex justify-center">

@@ -1,16 +1,48 @@
 [
-  { "id": 0, "label": "Recently Joined", "value": "Recently Joined", "disabled": false },
-  { "id": 1, "label": "Trending", "value": "Trending", "disabled": false },
-  { "id": 2, "label": "Most Popular", "value": "Most Popular", "disabled": false },
-  { "id": 3, "label": "Alphabetical (A-Z)", "value": "Alphabetical (A-Z)", "disabled": false },
-  { "id": 4, "label": "Alphabetical (Z-A)", "value": "Alphabetical (Z-A)", "disabled": false },
-  { "id": 5, "label": "Floor Price (Highest)", "value": "Floor Price (Highest)", "disabled": false },
-  { "id": 6, "label": "Floor Price (Lowest)", "value": "Floor Price (Lowest)", "disabled": false },
-  { "id": 7, "label": "Total Volume", "value": "Total Volume", "disabled": false },
-  { "id": 8, "label": "Item Count (Highest)", "value": "Item Count (Highest)", "disabled": false },
-  { "id": 9, "label": "Item Count (Lowest)", "value": "Item Count (Lowest)", "disabled": false },
-  { "id": 10, "label": "Collection Count (Highest)", "value": "Collection Count (Highest)", "disabled": false },
-  { "id": 11, "label": "Collection Count (Lowest)", "value": "Collection Count (Lowest)", "disabled": false },
-  { "id": 12, "label": "Unique Collectors", "value": "Unique Collectors", "disabled": false },
-  { "id": 13, "label": "Creators Supported", "value": "Creators Supported", "disabled": false }
+  {
+    "id": 0,
+    "label": "Recently Joined",
+    "value": "Recently Joined",
+    "disabled": false,
+    "number_of_categories": "10",
+    "number_of_nfts": "10",
+    "artist": {
+      "username": "Test123",
+      "banner_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA",
+      "profile_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA"
+    }
+  },
+  {
+    "id": 1,
+    "label": "Trending",
+    "value": "Trending",
+    "disabled": false,
+    "artist": {
+      "username": "Test123",
+      "banner_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA",
+      "profile_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA"
+    }
+  },
+  {
+    "id": 2,
+    "label": "Most Popular",
+    "value": "Most Popular",
+    "disabled": false,
+    "artist": {
+      "username": "Test123",
+      "banner_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA",
+      "profile_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA"
+    }
+  },
+  {
+    "id": 3,
+    "label": "Alphabetical (A-Z)",
+    "value": "Alphabetical (A-Z)",
+    "disabled": false,
+    "artist": {
+      "username": "Test123",
+      "banner_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA",
+      "profile_picture": "https://arweave.net/NHDDTWLTy-uPmbkTXEqg1CtHBzIYFteJJZRG_rAojmA"
+    }
+  }
 ]
