@@ -51,7 +51,7 @@ const Step03CollectionSection = props => {
   }
 
   const uploadArtworks = () => {
-    setStartUpload(true)
+    // setStartUpload(true)
     readFilesAndUplaod()
   }
 

@@ -84,7 +84,6 @@ const SingleNft = () => {
   const [artWidth, setArtWidth] = useState(0)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
-  const [videoCoverImage, setVideoCoverImage] = useState(null)
 
   useEffect(() => {
     let width = 0
@@ -206,7 +205,6 @@ const SingleNft = () => {
             canvas.toBlob(blob => {
               setNftImage(URL.createObjectURL(blob))
             })
-            setVideoCoverImage(image)
           })
           hidden_video.currentTime = 5
         }
@@ -844,7 +842,6 @@ const SingleNft = () => {
           )}
       <div>
         <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
-        <img src={videoCoverImage} alt="" />
       </div>
       {currentStep === 4 && (
         <SuccessMintSingleNFTSection

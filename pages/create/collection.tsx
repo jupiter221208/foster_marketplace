@@ -22,7 +22,7 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
-import { Keypair } from '@solana/web3.js'
+import { Keypair, PublicKey } from '@solana/web3.js'
 import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
@@ -130,8 +130,24 @@ const Collection = () => {
         object.croppedImage = AudioPlayer.src
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
-      }
+      } else if (item.type.split('/')[0] === 'video') {
+        let canvas = document.createElement('canvas')
+        let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
+        hidden_video.src = URL.createObjectURL(item)
 
+        hidden_video.addEventListener('seeked', function () {
+          canvas.width = hidden_video.videoWidth
+          canvas.height = hidden_video.videoHeight
+
+          let ctx = canvas.getContext('2d')
+          ctx.drawImage(hidden_video, 0, 0, canvas.width, canvas.height)
+
+          canvas.toBlob(blob => {
+            object.croppedImage = URL.createObjectURL(blob)
+          })
+        })
+        hidden_video.currentTime = 5
+      }
       array.push(object)
     })
     setCollectionFiles(array)
@@ -194,8 +210,7 @@ const Collection = () => {
 
     if (collectionNft) {
       for (let i = 0; i < collectionFiles.length; i++) {
-        let { name, description, attributes, file } = collectionFiles[i]
-
+        let { name, description, attributes, file, croppedImage } = collectionFiles[i]
         const metadata: JsonMetadata = {
           name,
           description,
@@ -210,11 +225,18 @@ const Collection = () => {
           url: await storage.upload(await toMetaplexFileFromBrowser(file)),
         }
         let assetFile = null
-        if (metadata.properties.category !== 'image') {
+
+        if (metadata.properties.category === 'audio') {
           assetFile = imageFile
           imageFile = {
             type: coverImage.type,
             url: coverImageUrl,
+          }
+        } else if (metadata.properties.category === 'video') {
+          assetFile = imageFile
+          imageFile = {
+            type: 'image/png',
+            url: croppedImage,
           }
         }
 
@@ -336,6 +358,11 @@ const Collection = () => {
             onChangeCroppedImage={(croppedImage, id) => handleChangeCroppedImage(croppedImage, id)}
           />
         )}
+
+        <div>
+          <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
+        </div>
+
         {currentStep === 3 && (
           <Step03CollectionSection
             currentStep={currentStep}
