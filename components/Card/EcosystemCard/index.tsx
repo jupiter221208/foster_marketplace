@@ -10,6 +10,7 @@ import { useViewport } from 'utils'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
+import BannerImage from 'assets/images/avatar-banner.png'
 
 // styles
 import styles from './index.module.scss'
@@ -23,7 +24,7 @@ const EcosystemCard = props => {
       <div className="relative flex justify-center">
         <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
           <Image
-            src={data.artist.banner_picture ?? ''}
+            src={data.artist.banner_picture ?? BannerImage}
             alt=""
             width={321}
             height={321}
