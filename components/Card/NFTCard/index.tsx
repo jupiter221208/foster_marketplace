@@ -16,26 +16,33 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import styles from './index.module.scss'
 
 const DashboardNFTCard = props => {
-  const { image, nftName, artistName, assetType, price, onClick } = props
+  const { image, nftName, coverImage = '', artistName, assetType, price, onClick } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
-
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {assetType === 'video' ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center">
-                <div
-                  className="w-full h-full absolute"
-                  dangerouslySetInnerHTML={{
-                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+              <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                {play ? (
+                  <div
+                    className="w-full h-full absolute"
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
-                  }}
-                  onClick={() => onClick()}
-                />
-                {/* <div className={styles.playButton}>
+                    }}
+                    onClick={() => onClick()}
+                  />
+                ) : (
+                  <Image
+                    src={coverImage !== '' ? coverImage : DefaultNftBG}
+                    alt=""
+                    className="w-full rounded-[10px] lg:rounded-[24px] object-cover"
+                  />
+                )}
+                <div className={styles.playButton}>
                   <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
                     <Image
                       src={play ? PauseVideoIcon : PlayVideoIcon}
@@ -45,7 +52,7 @@ const DashboardNFTCard = props => {
                       onClick={() => setPlay(!play)}
                     />
                   </div>
-                </div> */}
+                </div>
               </div>
             ) : (
               <div

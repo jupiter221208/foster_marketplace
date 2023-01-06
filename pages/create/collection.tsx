@@ -229,13 +229,13 @@ const Collection = () => {
         if (metadata.properties.category === 'audio') {
           assetFile = imageFile
           imageFile = {
-            type: coverImage.type,
+            type: 'audio',
             url: coverImageUrl,
           }
         } else if (metadata.properties.category === 'video') {
           assetFile = imageFile
           imageFile = {
-            type: 'image/png',
+            type: 'video',
             url: croppedImage,
           }
         }
