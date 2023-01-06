@@ -43,12 +43,12 @@ const CollectionSection = props => {
         <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       {activeTab === 0 && (
-        <div className="w-full flex flex-wrap">
+        <div className="w-full flex flex-wrap z-10">
           <NFTSwiperSection nfts={nfts} />
         </div>
       )}
       {activeTab === 1 && (
-        <div className="w-full flex flex-wrap">
+        <div className="w-full flex flex-wrap z-10">
           <ActivitySection collectionId={collectionId} />
         </div>
       )}
