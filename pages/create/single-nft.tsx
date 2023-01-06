@@ -374,7 +374,7 @@ const SingleNft = () => {
       ]
       if (animationFile)
         metadata.properties.files.push({
-          type: animationFile.type,
+          type: animationFile.contentType,
           url: metadata.animation_url,
         })
 
@@ -390,6 +390,7 @@ const SingleNft = () => {
         .run()
 
       if (nft) {
+        console.log('=========nft========', nft)
         const address = nft.address.toBase58()
         setNFTAddress(address)
 
