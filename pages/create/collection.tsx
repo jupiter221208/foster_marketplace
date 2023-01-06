@@ -198,9 +198,6 @@ const Collection = () => {
     dispatch({ type: 'set', isCollectionMinting: true })
     const categories = categoryList.filter(item => item.checked)
 
-    const attributes = categories.map(category => {
-      return { trait_type: 'category', value: category.name }
-    })
     let array = []
 
     let category = ''
@@ -229,13 +226,13 @@ const Collection = () => {
         if (metadata.properties.category === 'audio') {
           assetFile = imageFile
           imageFile = {
-            type: 'audio',
+            type: coverImage[0].type,
             url: coverImageUrl,
           }
         } else if (metadata.properties.category === 'video') {
           assetFile = imageFile
           imageFile = {
-            type: 'video',
+            type: 'image/png',
             url: croppedImage,
           }
         }
