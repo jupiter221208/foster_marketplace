@@ -60,6 +60,7 @@ const DashboardNFTCard = props => {
               </div>
             ) : (
               <div
+                className="w-full"
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                   <source src=${image} type="video/mp4" /></video>`,

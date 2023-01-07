@@ -10,6 +10,9 @@ import { calculateTimeLeft } from 'utils/helpers'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.svg'
+import PlayVideoIcon from 'assets/icons/play-video.svg'
+import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -19,6 +22,7 @@ const LiveAuctionCard = props => {
 
   const viewport = useViewport()
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(Number(data.end_time) * 1000))
+  const [play, setPlay] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -29,25 +33,66 @@ const LiveAuctionCard = props => {
   })
 
   return (
-    <div className={styles.container} onClick={() => onClick()}>
+    <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.asset_type === 'video' ? (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                {play ? (
+                  <div
+                    className="w-full h-full absolute"
+                    dangerouslySetInnerHTML={{
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
-              }}
-              onClick={() => onClick()}
-            />
+                    }}
+                    onClick={() => onClick()}
+                  />
+                ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
+                  <img
+                    src={data.cover_image_url}
+                    alt=""
+                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    onClick={() => onClick()}
+                  />
+                ) : (
+                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                )}
+                <div className={styles.playButton}>
+                  <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                    <Image
+                      src={play ? PauseVideoIcon : PlayVideoIcon}
+                      width={18}
+                      height={18}
+                      alt=""
+                      onClick={() => setPlay(!play)}
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                <source src=${data.asset_url} type="video/mp4" /></video>`,
+                }}
+                onClick={() => onClick()}
+              />
+            )
           ) : data.asset_type === 'audio' ? (
             <img
               src={data.cover_image_url}
               alt=""
               className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+              onClick={() => onClick()}
             />
           ) : (
-            <img src={data.asset_url} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+            <img
+              src={data.asset_url}
+              alt=""
+              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+              onClick={() => onClick()}
+            />
           )}
         </div>
       </div>

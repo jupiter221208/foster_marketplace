@@ -39,6 +39,19 @@
   overflow: hidden;
 }
 
+.playButton {
+  position: absolute;
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($background-light-color, 0.2);
+  backdrop-filter: blur(10px);
+}
+
 .bidContainer {
   position: absolute;
   bottom: 0px;
