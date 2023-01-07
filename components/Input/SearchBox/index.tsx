@@ -14,6 +14,7 @@ import { useViewport } from 'utils'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import CloseGrayIcon from 'assets/icons/close-gray.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -67,8 +68,12 @@ const SearchBox = props => {
                   onClose()
                 }}
               >
-                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
-                  <img src={item.image_url} alt="" className="object-cover rounded-[10px] w-full h-full" />
+                <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5 overflow-hidden rounded-[10px]">
+                  {item.image_url !== null && item.image_url !== '' ? (
+                    <img src={item.image_url} alt="" className="object-cover w-full h-full" />
+                  ) : (
+                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover " />
+                  )}
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
