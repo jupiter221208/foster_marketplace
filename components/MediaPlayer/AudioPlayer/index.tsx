@@ -34,7 +34,7 @@ const AudioPlayer = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {cover.length > 0 ? (
-            <img src={cover} alt="" className="lg:rounded-tl-6 w-full h-full object-cover" />
+            <img src={cover} alt="" className="lg:rounded-tl-6 w-full h-full object-contain" />
           ) : (
             <Image src={AudioPlayerBackground} alt="" />
           )}

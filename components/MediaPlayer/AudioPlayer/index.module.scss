@@ -10,15 +10,16 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 100%;
+  height: 100%;
+  // padding-top: 100%;
 }
 
-.imageContent {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  justify-content: center;
-}
+// .imageContent {
+//   position: absolute;
+//   inset: 0;
+//   display: flex;
+//   justify-content: center;
+// }
 
 .contentArea {
   display: flex;
