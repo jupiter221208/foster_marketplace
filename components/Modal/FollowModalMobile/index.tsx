@@ -193,7 +193,7 @@ const FollowModalMobile = props => {
                           >
                             <div className="flex gap-3 items-center">
                               <div className={styles.avatarArea}>
-                                {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
+                                <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
                               </div>
 
                               <div
@@ -239,7 +239,7 @@ const FollowModalMobile = props => {
                           >
                             <div className="flex gap-3 items-center">
                               <div className={styles.avatarArea}>
-                                {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
+                                <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
                               </div>
                               <div className="flex">
                                 <div
