@@ -19,7 +19,7 @@ const DashboardNFTCard = props => {
   const { image, nftName, coverImage = '', artistName, assetType, price, onClick } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
-
+  console.log(image, nftName, assetType)
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>

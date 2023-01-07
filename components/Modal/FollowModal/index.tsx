@@ -141,7 +141,7 @@ const FollowModal = props => {
                           <div className="w-full flex justify-between items-center h-[60px]" key={index}>
                             <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
-                                {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
+                                <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
                               </div>
 
                               <div
@@ -184,7 +184,7 @@ const FollowModal = props => {
                           <div className="w-full flex justify-between items-center h-[60px]" key={index}>
                             <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
-                                {/* <img src={item.avatar} alt="" className="w-[50px] h-[50px] rounded-full" /> */}
+                                <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
                               </div>
                               <div className="flex">
                                 <div

@@ -16,8 +16,12 @@ const HeroCard = props => {
         <div className={styles.imageContent}>
           <img
             src={
-              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                ? data.asset_url
+              data.asset_type === 'image'
+                ? data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                  ? data.asset_url
+                  : '/images/banner.png'
+                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                ? data.cover_image_url
                 : '/images/banner.png'
             }
             alt=""

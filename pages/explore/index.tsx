@@ -152,6 +152,8 @@ const Explore = () => {
           return {
             image: nft.asset_url,
             name: nft.nft_name,
+            asset_type: nft.asset_type,
+            cover_image_url: nft.cover_image_url,
             creator: nft.artist_username,
             url: `/browse-nft?id=${nft.token_id}`,
             price: nft.list_price,
