@@ -40,6 +40,12 @@ const LiveAuctionCard = props => {
               }}
               onClick={() => onClick()}
             />
+          ) : data.asset_type === 'audio' ? (
+            <img
+              src={data.cover_image_url}
+              alt=""
+              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+            />
           ) : (
             <img src={data.asset_url} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
           )}
