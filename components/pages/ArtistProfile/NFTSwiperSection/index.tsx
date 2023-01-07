@@ -135,9 +135,9 @@ const NFTSwiperSection = props => {
               <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
                 <NFTCard
                   image={item.asset_url}
-                  nftName={item.nft_name}
                   assetType={item.asset_type}
                   coverImage={item.cover_image_url}
+                  nftName={item.nft_name}
                   artistName={item.artist_username}
                   price={item.list_price}
                   onClick={() => {

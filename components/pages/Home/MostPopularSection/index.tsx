@@ -58,16 +58,7 @@ const MostPopularSection = props => {
 
   useEffect(() => {
     if (allMostPopularList.length === 0) return
-    let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-    if (mobileVersion) {
-      let lists = []
-      allMostPopularList.forEach(item => {
-        if (item.asset_type !== 'video') lists.push(item)
-      })
-      setMostPopularList(lists)
-    } else {
-      setMostPopularList(allMostPopularList)
-    }
+    setMostPopularList(allMostPopularList)
   }, [viewport, allMostPopularList])
 
   const handleChangeActive = value => {

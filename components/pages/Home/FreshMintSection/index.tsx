@@ -58,16 +58,7 @@ const FreshMintSection = props => {
 
   useEffect(() => {
     if (allFreshMintsList.length === 0) return
-    let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-    if (mobileVersion) {
-      let lists = []
-      allFreshMintsList.forEach(item => {
-        if (item.asset_type !== 'video') lists.push(item)
-      })
-      setFreshMintsList(lists)
-    } else {
-      setFreshMintsList(allFreshMintsList)
-    }
+    setFreshMintsList(allFreshMintsList)
   }, [viewport, allFreshMintsList])
 
   const handleChangeActive = value => {

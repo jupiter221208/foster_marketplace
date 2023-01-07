@@ -11,25 +11,14 @@
   position: relative;
   width: 100%;
   height: 100%;
-  // padding-top: 100%;
 }
-
-// .imageContent {
-//   position: absolute;
-//   inset: 0;
-//   display: flex;
-//   justify-content: center;
-// }
 
 .contentArea {
   display: flex;
   justify-content: center;
-  background: $background-black-color;
+  background: transparent;
   padding: 20px 20px;
   @media (min-width: 1024px) {
     padding: 30px 56px 30px 26px;
   }
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
-  border: solid 1px rgba($background-light-color, 0.1);
 }

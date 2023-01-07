@@ -56,16 +56,7 @@ const MarketplaceReleaseSection = props => {
 
   useEffect(() => {
     if (allMarketplaceReleaseList.length === 0) return
-    let mobileVersion = viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-    if (mobileVersion) {
-      let lists = []
-      allMarketplaceReleaseList.forEach(item => {
-        if (item.asset_type !== 'video') lists.push(item)
-      })
-      setMarketplaceReleaseList(lists)
-    } else {
-      setMarketplaceReleaseList(allMarketplaceReleaseList)
-    }
+    setMarketplaceReleaseList(allMarketplaceReleaseList)
   }, [viewport, allMarketplaceReleaseList])
 
   const handleChangeActive = value => {
