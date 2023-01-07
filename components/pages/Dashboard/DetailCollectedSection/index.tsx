@@ -42,6 +42,7 @@ const DetailCollectedSection = props => {
               nftName={item.nft_name}
               artistName={item.artist_username}
               assetType={item.asset_type}
+              coverImage={item.cover_image_url}
               price={item.list_price}
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })

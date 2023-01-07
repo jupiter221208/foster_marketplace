@@ -402,6 +402,8 @@ const Explore = () => {
                         <NFTCard
                           image={item.image}
                           nftName={item.name}
+                          assetType={item.asset_type}
+                          coverImage={item.cover_image_url}
                           artistName={item.creator}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })

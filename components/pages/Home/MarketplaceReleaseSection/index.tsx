@@ -140,7 +140,7 @@ const MarketplaceReleaseSection = props => {
             className="navigationSwiper"
             loop
             autoplay={{
-              delay: 5000,
+              delay: 500000,
               disableOnInteraction: false,
             }}
           >
@@ -151,6 +151,7 @@ const MarketplaceReleaseSection = props => {
                     image={item.asset_url}
                     nftName={item.nft_name}
                     assetType={item.asset_type}
+                    coverImage={item.cover_image_url}
                     artistName={item.artist_username}
                     price={item.list_price}
                     onClick={() => {

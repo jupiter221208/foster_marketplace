@@ -113,6 +113,8 @@ const NFTSwiperSection = props => {
                   {item.map((nftItem: any, nftIndex) => (
                     <NFTCard
                       image={nftItem.asset_url}
+                      assetType={nftItem.asset_type}
+                      coverImage={nftItem.cover_image_url}
                       nftName={nftItem.nft_name}
                       artistName={nftItem.artist_username}
                       price={nftItem.list_price}
@@ -134,6 +136,8 @@ const NFTSwiperSection = props => {
                 <NFTCard
                   image={item.asset_url}
                   nftName={item.nft_name}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
                   artistName={item.artist_username}
                   price={item.list_price}
                   onClick={() => {

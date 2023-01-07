@@ -19,6 +19,7 @@ const DashboardNFTCard = props => {
   const { image, nftName, coverImage = '', artistName, assetType, price, onClick } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
+
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
@@ -35,13 +36,15 @@ const DashboardNFTCard = props => {
                     }}
                     onClick={() => onClick()}
                   />
-                ) : (
-                  <Image
-                    src={coverImage !== '' ? coverImage : DefaultNftBG}
+                ) : coverImage != null && coverImage !== '' ? (
+                  <img
+                    src={coverImage}
                     alt=""
-                    className="w-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                     onClick={() => onClick()}
                   />
+                ) : (
+                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
                 )}
                 <div className={styles.playButton}>
                   <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
@@ -64,13 +67,26 @@ const DashboardNFTCard = props => {
                 onClick={() => onClick()}
               />
             )
-          ) : (
+          ) : assetType === 'audio' ? (
+            coverImage !== null && coverImage !== '' ? (
+              <img
+                src={coverImage}
+                alt=""
+                className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                onClick={() => onClick()}
+              />
+            ) : (
+              <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+            )
+          ) : image !== null && image !== '' ? (
             <img
-              src={image !== '' ? image : DefaultNftBG}
+              src={image}
               alt=""
               className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
               onClick={() => onClick()}
             />
+          ) : (
+            <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
           )}
         </div>
       </div>

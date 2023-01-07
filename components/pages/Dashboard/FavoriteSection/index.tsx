@@ -94,6 +94,7 @@ const FavoriteSection = () => {
                 image={item.asset_url}
                 nftName={item.nft_name}
                 assetType={item.asset_type}
+                coverImage={item.cover_image_url}
                 artistName={item.artist_username}
                 price={item.list_price}
                 onClick={() => {
