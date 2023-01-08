@@ -739,20 +739,6 @@ const MainSection = props => {
                                 </td>
 
                                 <td>
-                                  <div className="flex items-center justify-center mx-2 gap-2">
-                                    {isFromExisting(item.action_type)
-                                      ? item.minter_address !== undefined &&
-                                        item.minter_address.slice(0, viewport === 'xs' ? 3 : 4) +
-                                          '...' +
-                                          item.minter_address.slice(viewport === 'xs' ? -3 : -4)
-                                      : 'N/A'}
-                                  </div>
-                                </td>
-
-                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                  <></>
-                                ) : (
-                                  <td>
                                     <div className="flex items-center justify-center mx-2 gap-2">
                                       {isToExisting(item.action_type)
                                         ? item.reference_address !== undefined &&
@@ -760,6 +746,20 @@ const MainSection = props => {
                                         : 'N/A'}
                                     </div>
                                   </td>
+
+                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                                  <></>
+                                ) : (
+                                  <td>
+                                  <div className="flex items-center justify-center mx-2 gap-2">
+                                    {isFromExisting(item.action_type)
+                                      ? item.owner_address !== undefined &&
+                                        item.owner_address.slice(0, viewport === 'xs' ? 3 : 4) +
+                                          '...' +
+                                          item.owner_address.slice(viewport === 'xs' ? -3 : -4)
+                                      : 'N/A'}
+                                  </div>
+                                </td>
                                 )}
                                 <td>
                                   <div className="w-full flex justify-end items-center ml-2 pr-4">

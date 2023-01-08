@@ -134,9 +134,9 @@ const ActivityAccordion = props => {
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text}>
                       {isVisibleSeller(item.action_type)
-                        ? item.minter_address.length > 11
-                          ? item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
-                          : item.minter_address
+                        ? item.owner_address.length > 11
+                          ? item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
+                          : item.owner_address
                         : 'N/A'}
                     </div>
                   </div>

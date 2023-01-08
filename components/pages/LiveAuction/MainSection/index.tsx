@@ -742,14 +742,12 @@ const MainSection = props => {
                                 </td>
 
                                 <td>
-                                  <div className="flex justify-center items-center mx-2 gap-2">
-                                    {isFromExisting(item.action_type)
-                                      ? item.minter_address !== undefined &&
-                                        item.minter_address.slice(0, viewport === 'xs' ? 3 : 4) +
-                                          '...' +
-                                          item.minter_address.slice(viewport === 'xs' ? -3 : -4)
-                                      : 'N/A'}
-                                  </div>
+                                <div className="flex justify-center items-center mx-2 gap-2">
+                                      {isToExisting(item.action_type)
+                                        ? item.reference_address !== undefined &&
+                                          item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+                                        : 'N/A'}
+                                    </div>
                                 </td>
 
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -757,11 +755,13 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex justify-center items-center mx-2 gap-2">
-                                      {isToExisting(item.action_type)
-                                        ? item.reference_address !== undefined &&
-                                          item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
-                                        : 'N/A'}
-                                    </div>
+                                    {isFromExisting(item.action_type)
+                                      ? item.minter_address !== undefined &&
+                                        item.minter_address.slice(0, viewport === 'xs' ? 3 : 4) +
+                                          '...' +
+                                          item.minter_address.slice(viewport === 'xs' ? -3 : -4)
+                                      : 'N/A'}
+                                  </div>
                                   </td>
                                 )}
                                 <td>

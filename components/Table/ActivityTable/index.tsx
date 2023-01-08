@@ -103,9 +103,9 @@ const ActivityTable = props => {
             </td>
             <td className="text-center">
               {isVisibleSeller(item.action_type)
-                ? item.minter_address.length > 11
-                  ? item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
-                  : item.minter_address
+                ? item.owner_address.length > 11
+                  ? item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
+                  : item.owner_address
                 : 'N/A'}
             </td>
           </tr>
