@@ -51,6 +51,7 @@ export const isPriceExisting = event => {
 export const isSellerExisting = event => {
   let exist = false
   if (
+    event === 'QuickBuy' ||
     event === 'OfferPlaced' ||
     event === 'OfferAccepted' ||
     event === 'OfferReceived' ||
