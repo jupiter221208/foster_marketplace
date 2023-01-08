@@ -9,7 +9,6 @@ export async function getCollectionByAddress(mx: Metaplex, address: string) {
       .findByMint({
         mintAddress: new PublicKey(address),
       })
-      .run()
 
     let collection = { ...nft, nfts: [] }
 
@@ -19,7 +18,6 @@ export async function getCollectionByAddress(mx: Metaplex, address: string) {
         .findAllByCreator({
           creator: collection.creators[0].address,
         })
-        .run()
     ).filter(nft => nft.collection?.verified && nft.collection?.address.toBase58() === address)
 
     const listedNFTs = await getListedNFTs(mx)
@@ -60,7 +58,7 @@ export async function getCollectionByAddress(mx: Metaplex, address: string) {
 export async function getMyCollections(mx: Metaplex) {
   try {
     const nfts = await (
-      await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
+      await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey })
     ).filter(nft => nft.collectionDetails)
 
     const collections = (

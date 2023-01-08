@@ -21,7 +21,7 @@ const AUCTIONEER_ADDRESS = process.env.AUCTIONEER_ADDRESS ? new PublicKey(proces
 export async function getAuctioneerAuthority() {
   return await PublicKey.findProgramAddress(
     [
-      Buffer.from("auctioneer"), 
+      Buffer.from("auctioneer"),
       TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer()
     ],
     AUCTIONEER_ADDRESS
@@ -78,8 +78,8 @@ async function getAuctionHouseTradeState(
 export async function getFeePayer() {
   return await PublicKey.findProgramAddress(
     [
-      Buffer.from("auction_house"), 
-      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(), 
+      Buffer.from("auction_house"),
+      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       Buffer.from("fee_payer")
     ],
     AUCTION_HOUSE_ADDRESS
@@ -117,7 +117,7 @@ export async function getEscrowPaymentAccount(publicKey: PublicKey) {
 
 export async function getAuctionHouseTreasury() {
   return await PublicKey.findProgramAddress(
-    [Buffer.from("auction_house"), 
+    [Buffer.from("auction_house"),
     TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
     Buffer.from("treasury")],
     AUCTION_HOUSE_ADDRESS
@@ -143,7 +143,7 @@ export async function startAuction(
 
   const associatedAddress = await getAssociatedTokenAddress(mintAddress, publicKey);
 
-  const [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress) 
+  const [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress)
 
   const [sellerTradeState, sellerTradeStateBump] = await getAuctionHouseTradeState(
     publicKey,
@@ -203,7 +203,7 @@ export async function startAuction(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response,
@@ -251,7 +251,7 @@ export async function cancelListing(
     buyerPrice: new BN("18446744073709551615").toArrayLike(Buffer, "le", 8),
     tokenSize: 1,
   };
-  
+
   const cancelAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
@@ -275,7 +275,7 @@ export async function cancelListing(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response,
@@ -327,7 +327,7 @@ export async function depositFunds(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response
@@ -375,7 +375,7 @@ export async function withdrawFunds(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response
@@ -419,7 +419,7 @@ export async function placeBid(
     buyerPrice: price * 1000000000,
     tokenSize: 1,
   };
-  
+
   const buyAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
@@ -446,7 +446,7 @@ export async function placeBid(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response,
@@ -510,7 +510,7 @@ export async function executeSale(
   const [auctionHouseTreasury] = await getAuctionHouseTreasury()
 
   let remainingAccounts = [];
-  const nft = await mx.nfts().findByMint({ mintAddress }).run();
+  const nft = await mx.nfts().findByMint({ mintAddress });
 
   for (let i = 0; i < nft.creators.length; i++) {
     let creator = { pubkey: nft.creators[i].address, isWritable: true, isSigner: false };
@@ -525,7 +525,7 @@ export async function executeSale(
     buyerPrice: price * 1000000000,
     tokenSize: 1,
   };
-  
+
   const executeSaleAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
@@ -561,7 +561,7 @@ export async function executeSale(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response,

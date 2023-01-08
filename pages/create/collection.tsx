@@ -104,7 +104,6 @@ const Collection = () => {
         uri: uri,
         sellerFeeBasisPoints: royalties * 100,
       })
-      .run()
 
     if (collectionNft) {
       setCollectionNft(collectionNft)

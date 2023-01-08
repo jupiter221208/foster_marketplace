@@ -13,7 +13,7 @@ export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
 }
 
 export async function getMyNFTs(mx: Metaplex) {
-  let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey }).run()
+  let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey })
 
   const res = await nftsAPI.filteredNfts().then(res => res)
   const listedNFTs = res === undefined ? [] : res
@@ -54,7 +54,6 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
     const nft = await mx
       .nfts()
       .findByMint({ mintAddress: new PublicKey(id) })
-      .run()
 
     return {
       asset: {
@@ -77,7 +76,6 @@ export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
   const nft = await mx
     .nfts()
     .findByMint({ mintAddress: new PublicKey(id) })
-    .run()
   const owner = await getNFTOwner(mx, id)
   return {
     asset: {
@@ -88,7 +86,7 @@ export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
 }
 
 export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
-  const nft = await mx.nfts().findByMint({ mintAddress }).run()
+  const nft = await mx.nfts().findByMint({ mintAddress })
 
   const owner = await getNFTOwner(mx, mintAddress.toString())
 

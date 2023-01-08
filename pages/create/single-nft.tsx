@@ -387,7 +387,6 @@ const SingleNft = () => {
           name: nftName,
           sellerFeeBasisPoints: royalties * 100,
         })
-        .run()
 
       if (nft) {
         const address = nft.address.toBase58()
