@@ -81,7 +81,7 @@ import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import activityAPI from 'apis/activity'
 
-import { isFromExisting, isToExisting, isPriceExisting } from 'utils/activity.util'
+import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
 const MainSection = props => {
   const { nftDetail, loading } = props
@@ -737,13 +737,13 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div>{isPriceExisting(item.action_type) ? item.amount : 'N/A'}</div>
+                                    <div>{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
 
                                 <td>
                                 <div className="flex justify-center items-center mx-2 gap-2">
-                                      {isToExisting(item.action_type)
+                                      {isBuyerExisting(item.action_type)
                                         ? item.reference_address !== undefined &&
                                           item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
                                         : 'N/A'}
@@ -755,12 +755,10 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex justify-center items-center mx-2 gap-2">
-                                    {isFromExisting(item.action_type)
-                                      ? item.minter_address !== undefined &&
+                                    {item.minter_address !== undefined &&
                                         item.minter_address.slice(0, viewport === 'xs' ? 3 : 4) +
                                           '...' +
-                                          item.minter_address.slice(viewport === 'xs' ? -3 : -4)
-                                      : 'N/A'}
+                                          item.minter_address.slice(viewport === 'xs' ? -3 : -4)}
                                   </div>
                                   </td>
                                 )}

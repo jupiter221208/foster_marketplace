@@ -11,35 +11,13 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 import { getDateString } from 'utils/strings'
 import {
-  isSellerExisting,
   isBuyerExisting,
   isAmountExisting,
-  isSellerCollection,
-  isBuyerCollection,
-  isAmountCollection,
 } from 'utils/activity.util'
 
 const ActivityTable = props => {
   const { data, type } = props
   const viewport = useViewport()
-
-  const isVisibleSeller = event => {
-    if (type === 'collection') return isSellerCollection(event)
-
-    return isSellerExisting(event)
-  }
-
-  const isVisibleBuyer = event => {
-    if (type === 'collection') return isBuyerCollection(event)
-
-    return isBuyerExisting(event)
-  }
-
-  const isVisibleAmount = event => {
-    if (type === 'collection') return isAmountCollection(event)
-
-    return isAmountExisting(event)
-  }
 
   return (
     <table id="ActivityTable" className="w-full table-auto">
@@ -86,7 +64,7 @@ const ActivityTable = props => {
             <td className="text-center">
               <div className="flex justify-center gap-[5px]">
                 <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                {isVisibleAmount(item.action_type) ? item.amount : 'N/A'}
+                {isAmountExisting(item.action_type) ? item.amount : 'N/A'}
               </div>
             </td>
             <td className="text-center">
@@ -95,18 +73,16 @@ const ActivityTable = props => {
                 : item.mint_address}
             </td>
             <td className="text-center">
-              {isVisibleBuyer(item.action_type)
+              {isBuyerExisting(item.action_type)
                 ? item.reference_address.length > 11
                   ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
                   : item.reference_address
                 : 'N/A'}
             </td>
             <td className="text-center">
-              {isVisibleSeller(item.action_type)
-                ? item.owner_address.length > 11
+              {item.owner_address.length > 11
                   ? item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
-                  : item.owner_address
-                : 'N/A'}
+                  : item.owner_address}
             </td>
           </tr>
         ))}

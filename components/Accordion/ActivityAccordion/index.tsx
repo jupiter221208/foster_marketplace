@@ -18,12 +18,8 @@ import styles from './index.module.scss'
 import { getDateString } from 'utils/strings'
 
 import {
-  isSellerExisting,
   isBuyerExisting,
   isAmountExisting,
-  isSellerCollection,
-  isBuyerCollection,
-  isAmountCollection,
 } from 'utils/activity.util'
 
 const ActivityAccordion = props => {
@@ -41,24 +37,6 @@ const ActivityAccordion = props => {
       openedRef.current?.click()
     }
     openedRef.current = clickedButton
-  }
-
-  const isVisibleSeller = event => {
-    if (type === 'collection') return isSellerCollection(event)
-
-    return isSellerExisting(event)
-  }
-
-  const isVisibleBuyer = event => {
-    if (type === 'collection') return isBuyerCollection(event)
-
-    return isBuyerExisting(event)
-  }
-
-  const isVisibleAmount = event => {
-    if (type === 'collection') return isAmountCollection(event)
-
-    return isAmountExisting(event)
   }
 
   return (
@@ -110,7 +88,7 @@ const ActivityAccordion = props => {
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
-                    <div className={styles.text}>{isVisibleAmount ? item.amount : 'N/A'}</div>
+                    <div className={styles.text}>{isAmountExisting ? item.amount : 'N/A'}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Mint Address</div>
@@ -123,7 +101,7 @@ const ActivityAccordion = props => {
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Buyer</div>
                     <div className={styles.text}>
-                      {isVisibleBuyer(item.action_type)
+                      {isBuyerExisting(item.action_type)
                         ? item.reference_address.length > 11
                           ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
                           : item.reference_address
@@ -133,11 +111,9 @@ const ActivityAccordion = props => {
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text}>
-                      {isVisibleSeller(item.action_type)
-                        ? item.owner_address.length > 11
+                      {item.owner_address.length > 11
                           ? item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
-                          : item.owner_address
-                        : 'N/A'}
+                          : item.owner_address}
                     </div>
                   </div>
                 </Disclosure.Panel>

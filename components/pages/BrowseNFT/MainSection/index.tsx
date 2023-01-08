@@ -81,7 +81,7 @@ import activityAPI from 'apis/activity'
 import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { isFromExisting, isToExisting, isPriceExisting } from 'utils/activity.util'
+import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
 const MainSection = props => {
   const { nftDetail, loading } = props
@@ -678,7 +678,7 @@ const MainSection = props => {
                               <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
-                                <th>From</th>
+                                <th>Buyer</th>
                                 <th>Date</th>
                               </tr>
                             </thead>
@@ -687,8 +687,8 @@ const MainSection = props => {
                               <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
-                                <th>From</th>
-                                <th>To</th>
+                                <th>Buyer</th>
+                                <th>Seller</th>
                                 <th>Date</th>
                               </tr>
                             </thead>
@@ -734,13 +734,13 @@ const MainSection = props => {
                                       width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                       height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                                     />
-                                    <div>{isPriceExisting(item.action_type) ? item.amount : 'N/A'}</div>
+                                    <div>{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
 
                                 <td>
                                     <div className="flex items-center justify-center mx-2 gap-2">
-                                      {isToExisting(item.action_type)
+                                      {isBuyerExisting(item.action_type)
                                         ? item.reference_address !== undefined &&
                                           item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
                                         : 'N/A'}
@@ -752,12 +752,10 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                   <div className="flex items-center justify-center mx-2 gap-2">
-                                    {isFromExisting(item.action_type)
-                                      ? item.owner_address !== undefined &&
+                                    {item.owner_address !== undefined &&
                                         item.owner_address.slice(0, viewport === 'xs' ? 3 : 4) +
                                           '...' +
-                                          item.owner_address.slice(viewport === 'xs' ? -3 : -4)
-                                      : 'N/A'}
+                                          item.owner_address.slice(viewport === 'xs' ? -3 : -4)}
                                   </div>
                                 </td>
                                 )}
