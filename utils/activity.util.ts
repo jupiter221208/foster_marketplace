@@ -61,7 +61,7 @@ export const isSellerExisting = event => {
     event === 'Purchase' ||
     event === 'Sale' ||
     event === 'AuctionStarted' ||
-    event === 'PlacedBid' ||
+    event === 'BidPlaced' ||
     event === 'ReceivedBid' ||
     event === 'SaleFinalized'
   )
