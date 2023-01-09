@@ -59,13 +59,11 @@ async function getOrCreateAuctionHouseAddress(
   creator: Keypair,
   config: CreateAuctionHouseInput
 ): Promise<PublicKey>{
-  let auctionHouseAddress = metaplex
-    .auctionHouse()
-    .pdas()
-    .auctionHouse({
-      creator: creator.publicKey,
-      treasuryMint: config.treasuryMint ?? WRAPPED_SOL_MINT
-    });
+  let auctionHouseAddress = getAuctionHouseAddress(
+    metaplex,
+    creator.publicKey,
+    config.treasuryMint
+  );
   if(await metaplex.connection.getAccountInfo(auctionHouseAddress) !== null){
     console.log(`auction house already exists at ${auctionHouseAddress} with:`);
     console.log(`  creator       ${creator.publicKey}`);
@@ -80,6 +78,20 @@ async function getOrCreateAuctionHouseAddress(
   }
 
   return auctionHouseAddress;
+}
+
+function getAuctionHouseAddress(
+  metaplex: Metaplex,
+  creator: PublicKey,
+  treasuryMint: PublicKey = WRAPPED_SOL_MINT
+): PublicKey{
+  return metaplex
+    .auctionHouse()
+    .pdas()
+    .auctionHouse({
+      creator,
+      treasuryMint
+    });
 }
 
 async function getOrAuthorizeAuctioneerAuctioneer(
@@ -151,15 +163,22 @@ async function main(){
   console.log();
 
   // create timed auction house
-  let timedAuctionHouseConfig = {
+  let timedAuctionHouseConfig: CreateAuctionHouseInput = {
     sellerFeeBasisPoints: 100,
     feeWithdrawalDestination: new PublicKey("BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT"),
     treasuryWithdrawalDestinationOwner: new PublicKey("BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT"),
-    auctioneerAuthority: new PublicKey("BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT")
   };
+
+  let timedAuctionHouseAddress = getAuctionHouseAddress(
+    metaplex,
+    timedAuctionHouseKeypair.publicKey,
+    timedAuctionHouseConfig.treasuryMint
+  );
+  timedAuctionHouseConfig.auctioneerAuthority = getAuctioneerAuthorityPda(auctionHouseAddress);
+
   console.log("creating timed auction house with config:");
   console.log(JSON.stringify(timedAuctionHouseConfig, null, 4));
-  let timedAuctionHouseAddress = await getOrCreateAuctionHouseAddress(
+  await getOrCreateAuctionHouseAddress(
     metaplex,
     timedAuctionHouseKeypair,
     timedAuctionHouseConfig
