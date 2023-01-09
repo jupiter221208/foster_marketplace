@@ -37,7 +37,7 @@ const HeroCard = props => {
             <div className={styles.avatar}>
               <img
                 src={
-                  data.artist_profile_picture !== null &&
+                  data.artist_profile_picture &&
                   data.artist_profile_picture !== '' &&
                   data.artist_profile_picture !== undefined
                     ? data.artist_profile_picture
@@ -58,7 +58,7 @@ const HeroCard = props => {
             <div className={styles.avatar}>
               <img
                 src={
-                  data.artist_profile_picture !== null &&
+                  data.artist_profile_picture &&
                   data.artist_profile_picture !== '' &&
                   data.artist_profile_picture !== undefined
                     ? data.artist_profile_picture
