@@ -680,6 +680,7 @@ const MainSection = props => {
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>Buyer</th>
+                                <th>Seller</th>
                                 <th>Date</th>
                               </tr>
                             </thead>
@@ -748,18 +749,13 @@ const MainSection = props => {
                                   </div>
                                 </td>
 
-                                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                                  <></>
-                                ) : (
-                                  <td>
-                                    <div className="flex items-center justify-center mx-2 gap-2">
-                                      {item.owner_address !== undefined &&
-                                        item.owner_address.slice(0, viewport === 'xs' ? 3 : 4) +
-                                          '...' +
-                                          item.owner_address.slice(viewport === 'xs' ? -3 : -4)}
-                                    </div>
-                                  </td>
-                                )}
+                                <td>
+                                  <div className="flex items-center justify-center mx-2 gap-2">
+                                    {item.owner_address !== undefined &&
+                                      item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)}
+                                  </div>
+                                </td>
+
                                 <td>
                                   <div className="w-full flex justify-end items-center ml-2 pr-4">
                                     {getDateString(item.created_at)}ago
