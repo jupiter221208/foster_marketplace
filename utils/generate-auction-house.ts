@@ -1,8 +1,16 @@
 import fs from "fs/promises";
 import path from "path";
-import { Keypair, PublicKey, Connection, LAMPORTS_PER_SOL } from "@solana/web3.js";
+import {
+  Connection,
+  Keypair,
+  PublicKey,
+  Transaction,
+  sendAndConfirmTransaction,
+  LAMPORTS_PER_SOL
+} from "@solana/web3.js";
 import type { CreateAuctionHouseInput } from "@metaplex-foundation/js";
 import { Metaplex, keypairIdentity, WRAPPED_SOL_MINT } from "@metaplex-foundation/js";
+import { createAuthorizeInstruction, AUCTIONEER_PROGRAM_ID } from "@metaplex-foundation/mpl-auctioneer";
 
 import * as dotenv from "dotenv";
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
@@ -74,6 +82,39 @@ async function getOrCreateAuctionHouseAddress(
   return auctionHouseAddress;
 }
 
+async function getOrAuthorizeAuctioneerAuctioneer(
+  connection: Connection,
+  auctionHouseAddress: PublicKey,
+  auctionHouseAuthority: Keypair
+): Promise<PublicKey>{
+  let auctionHouseAuthorityPda = getAuctioneerAuthorityPda(auctionHouseAddress);
+  if(await connection.getAccountInfo(auctionHouseAuthorityPda) == null){
+    let tx = new Transaction();
+    tx.add(
+      createAuthorizeInstruction({
+        wallet: auctionHouseAuthority.publicKey,
+        auctionHouse: auctionHouseAddress,
+        auctioneerAuthority: auctionHouseAuthorityPda
+      })
+    );
+
+    await sendAndConfirmTransaction(connection, tx, [auctionHouseAuthority]);
+  }
+
+  return auctionHouseAuthorityPda;
+}
+
+function getAuctioneerAuthorityPda(auctionHouseAddress: PublicKey): PublicKey{
+  let [address] = PublicKey.findProgramAddressSync(
+    [
+      Buffer.from("auctioneer"),
+      auctionHouseAddress.toBytes()
+    ],
+    AUCTIONEER_PROGRAM_ID
+  );
+  return address;
+}
+
 async function main(){
   if(!process.env.PROVIDER_URL){
     console.error(`PROVIDER_URL must be set`);
@@ -123,6 +164,15 @@ async function main(){
     timedAuctionHouseKeypair,
     timedAuctionHouseConfig
   );
+
+  console.log(`authorizing auction house (${timedAuctionHouseAddress}) to auctioneer`);
+  let auctioneerAuthorityPda = await getOrAuthorizeAuctioneerAuctioneer(
+    connection,
+    timedAuctionHouseAddress,
+    timedAuctionHouseKeypair
+  );
+  console.log(`auction house authorized at ${auctioneerAuthorityPda}`);
+
   console.log();
   console.log();
 
