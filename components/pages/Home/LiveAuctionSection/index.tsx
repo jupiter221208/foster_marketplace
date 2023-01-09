@@ -80,7 +80,24 @@ const LiveAuctionSection = props => {
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
+            <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <div className="w-full flex justify-between items-center z-10">
+                  <div className={styles.title}>Live Auctions</div>
+                  <div
+                    className={styles.seeMore}
+                    onClick={() => {
+                      dispatch({ type: 'set', exploreTab: 0 })
+                      router.push('/explore')
+                    }}
+                  >
+                    See More
+                  </div>
+                </div>
+              ) : (
+                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
+              )}
+            </div>
             <div className="hidden lg:flex z-10">
               <Button
                 label="Recently Started"

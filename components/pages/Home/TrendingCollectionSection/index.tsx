@@ -5,9 +5,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
+import { useDispatch } from 'react-redux'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -35,6 +34,7 @@ const TrendingCollectionSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [allTrendingList, setAllTrendingList] = useState<any[]>([])
   const [trendingList, setTrendingList] = useState<any[]>([])
@@ -82,7 +82,22 @@ const TrendingCollectionSection = props => {
       </div>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className="w-full flex justify-between items-center z-10">
+              <div className={styles.title}>Trending Collections</div>
+              <div
+                className={styles.seeMore}
+                onClick={() => {
+                  dispatch({ type: 'set', exploreTab: 1 })
+                  router.push('/explore')
+                }}
+              >
+                See More
+              </div>
+            </div>
+          ) : (
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
+          )}
           <div className="hidden lg:flex z-10">
             <Button
               label="24 hrs"
@@ -170,17 +185,6 @@ const TrendingCollectionSection = props => {
             </div>
           </Marquee>
         )}
-      </div>
-      <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
-          <OutlineButton
-            label="See More"
-            fullWidth
-            onClick={() => router.push('/explore')}
-            borderColor="#ffffff"
-            height="40px"
-          />
-        </div>
       </div>
     </section>
   )

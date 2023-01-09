@@ -17,14 +17,16 @@
 }
 
 .title {
-  font-family: 'Muli-Bold';
-  font-size: 24px;
+  font-family: 'Muli-ExtraBold';
+  font-size: 20px;
   line-height: 36px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
     font-size: 32px;
     line-height: 40px;
   }
   @media (min-width: 1280px) {
+    font-family: 'Muli-Bold';
     font-size: 40px;
     line-height: 56px;
   }
