@@ -16,6 +16,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
 import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // json
 import TabList from 'assets/json/artist-profile/follow-tab-list.json'
@@ -141,7 +142,13 @@ const FollowModal = props => {
                           <div className="w-full flex justify-between items-center h-[60px]" key={index}>
                             <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
-                                <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                {item.profile_picture !== null && item.profile_picture.length > 0 ? (
+                                  <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                ) : (
+                                  <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
+                                    <Image src={DefaultAvatar} alt="" />
+                                  </div>
+                                )}
                               </div>
 
                               <div
@@ -184,7 +191,13 @@ const FollowModal = props => {
                           <div className="w-full flex justify-between items-center h-[60px]" key={index}>
                             <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
-                                <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                {item.profile_picture !== null && item.profile_picture.length > 0 ? (
+                                  <img src={item.profile_picture} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                ) : (
+                                  <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
+                                    <Image src={DefaultAvatar} alt="" />
+                                  </div>
+                                )}
                               </div>
                               <div className="flex">
                                 <div

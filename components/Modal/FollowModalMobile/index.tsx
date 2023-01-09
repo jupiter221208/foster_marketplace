@@ -7,10 +7,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
 
 // custom components
+import Image from 'next/image'
 import Tab from 'components/Tab'
 import IconButton from 'components/Button/IconButton'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // images
 import ArrowLeftIcon from 'assets/icons/arrow-left-white.svg'
@@ -123,7 +125,7 @@ const FollowModalMobile = props => {
       }
     } else {
       if (key === '') {
-        setFilterFollowingList(followersList)
+        setFilterFollowingList(followingList)
       } else {
         followingList.forEach(item => {
           if (item.username?.toLowerCase().includes(key.toLowerCase())) {
@@ -193,7 +195,13 @@ const FollowModalMobile = props => {
                           >
                             <div className="flex gap-3 items-center">
                               <div className={styles.avatarArea}>
-                                <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                {item.profile_picture !== null && item.profile_picture.length > 0 ? (
+                                  <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                ) : (
+                                  <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
+                                    <Image src={DefaultAvatar} alt="" />
+                                  </div>
+                                )}
                               </div>
 
                               <div
@@ -239,7 +247,13 @@ const FollowModalMobile = props => {
                           >
                             <div className="flex gap-3 items-center">
                               <div className={styles.avatarArea}>
-                                <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                {item.profile_picture !== null && item.profile_picture.length > 0 ? (
+                                  <img src={item.profile_picture} alt="" className="w-[34px] h-[34px] rounded-full" />
+                                ) : (
+                                  <div className="w-[34px] h-[34px] rounded-full overflow-hidden">
+                                    <Image src={DefaultAvatar} alt="" />
+                                  </div>
+                                )}
                               </div>
                               <div className="flex">
                                 <div
