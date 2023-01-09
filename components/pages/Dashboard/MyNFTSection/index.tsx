@@ -61,7 +61,6 @@ const MyNFTSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [selectedData, setSelectedData] = useState()
-  const [searchKeyword, setSearchKeyword] = useState<any>('')
 
   const handleGotoDetailPage = (data: any) => {
     router.push(`/browse-nft?id=${data.mintAddress.toString()}&type=general`)
@@ -126,7 +125,7 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+      {!loading && <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
           nftList.map((item, index) => (

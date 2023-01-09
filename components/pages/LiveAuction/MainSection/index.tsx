@@ -433,15 +433,27 @@ const MainSection = props => {
                 </div>
               </div>
             ) : nftType === 'audio' ? (
-              <div className={styles.audioArea}>
-                <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+              <div className={styles.blurBackground}>
+                <div className="absolute inset-0">
+                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                </div>
+                <div className={styles.blurImage} />
+                <div className={styles.audioArea}>
+                  <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                </div>
               </div>
             ) : nftType === 'video' ? (
-              <div className={styles.videoArea}>
-                <video controls muted>
-                  <div>{nftUrl}</div>
-                  <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
-                </video>
+              <div className={styles.blurBackground}>
+                <div className="absolute inset-0">
+                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                </div>
+                <div className={styles.blurImage} />
+                <div className={styles.videoArea}>
+                  <video controls muted>
+                    <div>{nftUrl}</div>
+                    <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+                  </video>
+                </div>
               </div>
             ) : (
               <></>
