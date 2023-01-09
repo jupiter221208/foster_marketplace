@@ -166,7 +166,7 @@ const MainSection = props => {
   const [nftName, setNftName] = useState('')
   const [nftType, setNftType] = useState('')
   const [nftDescription, setNftDescription] = useState('')
-  const [nftRoyalties, setNftRoyalties] = useState(1)
+  const [nftRoyalties, setNftRoyalties] = useState(0)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [highBidder, setHighBidder] = useState('')
@@ -228,6 +228,7 @@ const MainSection = props => {
     setNftType(type)
     setNftUrl(nftDetail.asset_url)
     setNftCoverUrl(nftDetail.cover_image_url)
+    setNftRoyalties(nftDetail.royalties !== null && nftDetail.royalties.length > 0 ? nftDetail.royalties : 0)
     setNftName(nftDetail.name)
     setNftCollectionAddress(nftDetail.collection_address)
     setNftCollectionName(nftDetail.collection_name)
@@ -605,7 +606,7 @@ const MainSection = props => {
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
-                                <div className={styles.greenRoyalties}>{nftRoyalties}</div>
+                                <div className={styles.greenRoyalties}>{nftRoyalties}%</div>
                                 <div className={styles.whiteRoyalties}>Royalties</div>
                               </div>
                             </div>
@@ -742,12 +743,12 @@ const MainSection = props => {
                                 </td>
 
                                 <td>
-                                <div className="flex justify-center items-center mx-2 gap-2">
-                                      {isBuyerExisting(item.action_type)
-                                        ? item.reference_address !== undefined &&
-                                          item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
-                                        : 'N/A'}
-                                    </div>
+                                  <div className="flex justify-center items-center mx-2 gap-2">
+                                    {isBuyerExisting(item.action_type)
+                                      ? item.reference_address !== undefined &&
+                                        item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+                                      : 'N/A'}
+                                  </div>
                                 </td>
 
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -755,11 +756,11 @@ const MainSection = props => {
                                 ) : (
                                   <td>
                                     <div className="flex justify-center items-center mx-2 gap-2">
-                                    {item.minter_address !== undefined &&
+                                      {item.minter_address !== undefined &&
                                         item.minter_address.slice(0, viewport === 'xs' ? 3 : 4) +
                                           '...' +
                                           item.minter_address.slice(viewport === 'xs' ? -3 : -4)}
-                                  </div>
+                                    </div>
                                   </td>
                                 )}
                                 <td>

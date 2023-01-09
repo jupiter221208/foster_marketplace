@@ -258,6 +258,7 @@ const MainSection = props => {
       setNftType(type)
       setNftUrl(nftDetail.asset_url)
       setNftName(nftDetail.name)
+      setNftRoyalties(nftDetail.royalties)
       setNftCollectionAddress(nftDetail.collection_address)
       setNftCollectionName(nftDetail.collection_name)
       setNftOwnerAddress(nftDetail.owner_address)
@@ -739,25 +740,25 @@ const MainSection = props => {
                                 </td>
 
                                 <td>
-                                    <div className="flex items-center justify-center mx-2 gap-2">
-                                      {isBuyerExisting(item.action_type)
-                                        ? item.reference_address !== undefined &&
-                                          item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
-                                        : 'N/A'}
-                                    </div>
-                                  </td>
+                                  <div className="flex items-center justify-center mx-2 gap-2">
+                                    {isBuyerExisting(item.action_type)
+                                      ? item.reference_address !== undefined &&
+                                        item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+                                      : 'N/A'}
+                                  </div>
+                                </td>
 
                                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                                   <></>
                                 ) : (
                                   <td>
-                                  <div className="flex items-center justify-center mx-2 gap-2">
-                                    {item.owner_address !== undefined &&
+                                    <div className="flex items-center justify-center mx-2 gap-2">
+                                      {item.owner_address !== undefined &&
                                         item.owner_address.slice(0, viewport === 'xs' ? 3 : 4) +
                                           '...' +
                                           item.owner_address.slice(viewport === 'xs' ? -3 : -4)}
-                                  </div>
-                                </td>
+                                    </div>
+                                  </td>
                                 )}
                                 <td>
                                   <div className="w-full flex justify-end items-center ml-2 pr-4">
