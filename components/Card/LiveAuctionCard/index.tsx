@@ -97,7 +97,7 @@ const LiveAuctionCard = props => {
         </div>
       </div>
       <div className={styles.avatar}>
-        {data.artist_profile_picture.length === 0 ? (
+        {data.artist_profile_picture && data.artist_profile_picture.length === 0 ? (
           <Image
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
