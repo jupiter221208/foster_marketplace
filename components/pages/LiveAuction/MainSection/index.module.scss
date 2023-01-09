@@ -264,6 +264,21 @@
   color: rgba($text-gray-200-color, 0.74);
 }
 
+.videoArea {
+  width: calc(100% + 24px);
+  margin-left: -12px;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+    border-radius: 27px;
+    border: 1px solid rgba($background-light-color, 0.1);
+  }
+  background: $background-black-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
 .greenRoyalties {
   font-family: 'Muli-SemiBold';
   font-size: 12px;

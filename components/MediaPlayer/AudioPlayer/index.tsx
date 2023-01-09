@@ -47,13 +47,6 @@ const AudioPlayer = props => {
           Your browser does not support the <code>audio</code> element.
         </audio>
         <div className="flex items-center mr-[6px] lg:mr-[20px]">
-          {/* <IconButton
-            icon={BackwardWhiteIcon}
-            onClick={() => setClickedTime(curTime - 15)}
-            backgroundColor="transparent"
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-          /> */}
           <IconButton
             icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
             onClick={() => setPlaying(!playing)}
@@ -61,13 +54,6 @@ const AudioPlayer = props => {
             width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
             height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
           />
-          {/* <IconButton
-            icon={ForwardWhiteIcon}
-            onClick={() => setClickedTime(curTime + 15)}
-            backgroundColor="transparent"
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '36px' : '20px'}
-          /> */}
         </div>
         <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
       </div>

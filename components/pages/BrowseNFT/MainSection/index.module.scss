@@ -63,22 +63,17 @@
 }
 
 .videoArea {
-  width: 100%;
+  width: calc(100% + 24px);
+  margin-left: -12px;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
+    border-radius: 27px;
+    border: 1px solid rgba($background-light-color, 0.1);
   }
-  background: linear-gradient(
-    to bottom,
-    rgba($background-dark-color, 1) 0%,
-    rgba($background-dark-color, 0.3) 40%,
-    rgba($background-dark-color, 0.3) 60%,
-    rgba($background-dark-color, 1) 100%
-  );
+  background: $background-black-color;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
-  border: 1px solid #707070;
   overflow: hidden;
 }
 
