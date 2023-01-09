@@ -15,6 +15,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import LoadingModal from 'components/Modal/LoadingModal'
 import Alert from 'components/Alert'
+import SearchBox from 'components/Input/SearchBox'
 
 // custom functions
 import { getTokensByAccount } from 'utils/wallet.util'
@@ -23,6 +24,7 @@ import { getTokensByAccount } from 'utils/wallet.util'
 import styles from './index.module.scss'
 import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
+import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -31,6 +33,8 @@ const MyNFTSection = props => {
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
+  const [allNftList, setAllNftList] = useState<any>([])
+  const [filteredList, setFilteredList] = useState<any>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
 
@@ -56,8 +60,8 @@ const MyNFTSection = props => {
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState<boolean>(false)
-
   const [selectedData, setSelectedData] = useState()
+  const [searchKeyword, setSearchKeyword] = useState<any>('')
 
   const handleGotoDetailPage = (data: any) => {
     router.push(`/browse-nft?id=${data.mintAddress.toString()}&type=general`)
@@ -99,8 +103,30 @@ const MyNFTSection = props => {
     setShowListNFTModal(true)
   }
 
+  useEffect(() => {
+    setAllNftList(myNftList)
+    setFilteredList(myNftList)
+  }, [myNftList])
+
+  const searchNFT = key => {
+    if (key === '') {
+      setFilteredList(allNftList)
+    } else {
+      let filtered = []
+      allNftList.forEach(element => {
+        if (
+          element.offchainMetadata.name.toLowerCase().includes(key.toLowerCase()) ||
+          element.name.toLowerCase().includes(key.toLowerCase())
+        )
+          filtered.push(element)
+      })
+      setFilteredList(filtered)
+    }
+  }
+
   return (
     <section className={styles.container}>
+      <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
           nftList.map((item, index) => (
@@ -118,7 +144,7 @@ const MyNFTSection = props => {
         </div>
       </div>
       <div className="w-full flex justify-end">
-        <Pagination data={myNftList} getCurrentData={data => setNFTList(data)} />
+        <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
       </div>
       <StartAuctionModal
         data={selectedData}
