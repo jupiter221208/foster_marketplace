@@ -61,3 +61,16 @@ When you open a PR, a `canary` action will run. This will check for TypeScript c
 
 When developing UI Components, a corresponding Storybook (`*.stories.tsx`)
 component should be created.
+
+### Generating Auction Houses
+
+To generate an auction house, ensure you have the right network (devnet or
+mainnet) in your .env. Ensure you have at least Node v16.15. If you wish to use
+a pre-existing keypair, place the raw byte string for them at
+`auctionHouseKeypair.json` and `timedAuctionHouseKeypair.json`. If you do not
+have values there, a keypair will be generated for you.
+
+When you are ready run
+```bash
+ts-node utils/generate-auction-house.ts
+```
