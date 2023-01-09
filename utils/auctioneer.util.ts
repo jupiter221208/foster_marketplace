@@ -327,7 +327,7 @@ export async function depositFunds(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, { skipPreflight: true }, [mx.identity()])
 
   return {
     response
