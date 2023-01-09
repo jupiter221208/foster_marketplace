@@ -27,52 +27,72 @@ const HeroCard = props => {
             alt=""
             width={550}
             height={772}
-            className="w-full h-full object-cover md:rounded-[10px] lg:rounded-[30px]"
+            className="w-full h-full object-cover rounded-[30px]"
           />
         </div>
       </div>
-      <div className={styles.cardArea}>
-        <div className="flex justify-between gap-[6px]">
-          <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">
-            <div className={styles.avatar}>
-              <img
-                src={
-                  data.artist_profile_picture &&
-                  data.artist_profile_picture !== '' &&
-                  data.artist_profile_picture !== undefined
-                    ? data.artist_profile_picture
-                    : '/images/avatar.png'
-                }
-                alt=""
-                width={viewport === 'lg' ? 40 : 60}
-                height={viewport === 'lg' ? 40 : 60}
-                className="rounded-full"
-              />
+      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        <div className={styles.avatarArea}>
+          <div className={styles.avatar}>
+            <img
+              src={
+                data.artist_profile_picture &&
+                data.artist_profile_picture !== '' &&
+                data.artist_profile_picture !== undefined
+                  ? data.artist_profile_picture
+                  : '/images/avatar.png'
+              }
+              alt=""
+              width={60}
+              height={60}
+              className="rounded-full"
+            />
+          </div>
+        </div>
+      ) : (
+        <div className={styles.cardArea}>
+          <div className="flex justify-between gap-[6px]">
+            <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">
+              <div className={styles.avatar}>
+                <img
+                  src={
+                    data.artist_profile_picture &&
+                    data.artist_profile_picture !== '' &&
+                    data.artist_profile_picture !== undefined
+                      ? data.artist_profile_picture
+                      : '/images/avatar.png'
+                  }
+                  alt=""
+                  width={viewport === 'lg' ? 40 : 60}
+                  height={viewport === 'lg' ? 40 : 60}
+                  className="rounded-full"
+                />
+              </div>
             </div>
-          </div>
-          <div className="w-full block">
-            <div className={styles.nftName}>{data.nft_name}</div>
-            <div className={`flex ${styles.artistName}`}>{data.artist_username}</div>
-          </div>
-          <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
-            <div className={styles.avatar}>
-              <img
-                src={
-                  data.artist_profile_picture &&
-                  data.artist_profile_picture !== '' &&
-                  data.artist_profile_picture !== undefined
-                    ? data.artist_profile_picture
-                    : '/images/avatar.png'
-                }
-                alt=""
-                width={viewport === 'lg' ? 40 : 60}
-                height={viewport === 'lg' ? 40 : 60}
-                className="rounded-full"
-              />
+            <div className="w-full block">
+              <div className={styles.nftName}>{data.nft_name}</div>
+              <div className={`flex ${styles.artistName}`}>{data.artist_username}</div>
+            </div>
+            <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
+              <div className={styles.avatar}>
+                <img
+                  src={
+                    data.artist_profile_picture &&
+                    data.artist_profile_picture !== '' &&
+                    data.artist_profile_picture !== undefined
+                      ? data.artist_profile_picture
+                      : '/images/avatar.png'
+                  }
+                  alt=""
+                  width={viewport === 'lg' ? 40 : 60}
+                  height={viewport === 'lg' ? 40 : 60}
+                  className="rounded-full"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

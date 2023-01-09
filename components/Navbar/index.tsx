@@ -8,9 +8,6 @@ import { useRouter } from 'next/router'
 
 // images and icons
 import LogoIcon from 'assets/icons/logo-color.svg'
-import AvatarIcon from 'assets/images/avatar.jpg'
-import SpeedGreenIcon from 'assets/icons/speed-green.svg'
-import SpeedGrayIcon from 'assets/icons/speed-gray.svg'
 import DashboardGreenIcon from 'assets/icons/dashboard-green.svg'
 import DashboardGrayIcon from 'assets/icons/dashboard-gray.svg'
 import NotificationGreenIcon from 'assets/icons/notification-green.svg'
@@ -63,26 +60,6 @@ const Navbar = props => {
             <Image src={LogoIcon} alt="" />
           </div>
           <div className={styles.navmenuArea}>
-            {/* <div className={styles.navItemArea}>
-              <div className={styles.avatar}>
-                <Image src={AvatarIcon} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
-              </div>
-            </div> */}
-            {/* <div
-            className={styles.navItemArea}
-            onMouseOver={() => setSelectedNavMenu('speed')}
-            onMouseLeave={() => setSelectedNavMenu('')}
-            onClick={() => router.push('/#speed')}
-          >
-            <Image
-              src={
-                router.asPath === '/#speed' || router.asPath === '/' || selectedNavMenu === 'speed'
-                  ? SpeedGreenIcon
-                  : SpeedGrayIcon
-              }
-              alt=""
-            />
-          </div> */}
             <div
               className={styles.navItemArea}
               onMouseOver={() => setSelectedNavMenu('dashboard')}

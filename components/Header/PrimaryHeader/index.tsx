@@ -22,7 +22,7 @@ import { useViewport } from 'utils'
 import LogoTextIcon from 'assets/icons/logo-text-01.svg'
 import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/icons/profile-thumb.svg'
-import SearchGrayIcon from 'assets/icons/search-gray.svg'
+import SearchWhiteIcon from 'assets/icons/search-white.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
 import LogoIcon from 'assets/icons/logo-green.svg'
 
@@ -179,14 +179,6 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {/* {!connected && (
-              <div
-                className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
-                onClick={() => handleGotoHomepage()}
-              >
-                <Image src={LogoTextIcon} alt="" />
-              </div>
-            )} */}
             <SearchBox
               value={searchKeyword}
               placeholder="Search by NFT, Collection, or Artist"
@@ -223,11 +215,11 @@ const PrimaryHeader = () => {
           </div>
           <div className="flex">
             <IconButton
-              icon={SearchGrayIcon}
+              icon={SearchWhiteIcon}
               onClick={() => handleOpenMobileSearchBox()}
               backgroundColor="transparent"
             />
-            <div className="ml-3">
+            <div>
               <IconButton
                 icon={HamburgerMenuGreenIcon}
                 onClick={() => handleOpenMobileMenu()}
