@@ -445,16 +445,8 @@ const MainSection = props => {
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
-                <div className="flex lg:hidden">
+                <div>
                   <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
-                </div>
-                <div className="hidden lg:flex">
-                  <div
-                    className={styles.collectionName}
-                    onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
-                  >
-                    {nftCollectionName}
-                  </div>
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
@@ -476,13 +468,13 @@ const MainSection = props => {
                       setVoteCount={setShareCount}
                       onClick={() => {}}
                     />
-                    <div className="hidden lg:flex justify-end ml-[10px]">
+                    {/* <div className="hidden lg:flex justify-end ml-[10px]">
                       <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
-              <div className="w-full flex lg:hidden justify-between items-center">
+              <div className="w-full flex justify-between items-center">
                 <div
                   className={styles.collectionName}
                   onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
@@ -490,10 +482,10 @@ const MainSection = props => {
                   {nftCollectionName}
                 </div>
               </div>
-              <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[16px] xl:mt-[24px] 2xl:mt-[30px]">
+              <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[10px]">
                 <div className={styles.title}>{nftName}</div>
               </div>
-              <div className="w-full flex flex-wrap mt-4 lg:mt-5 xl:mt-6 2xl:mt-7 gap-x-[14px] lg:gap-x-[34px]">
+              <div className="w-full flex flex-wrap mt-4 lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Created by</div>
                   <div
