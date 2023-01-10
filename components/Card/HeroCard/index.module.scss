@@ -65,12 +65,14 @@
 
 .avatarArea {
   position: absolute;
-  bottom: 25px;
-  left: 27px;
+  bottom: 23px;
+  left: 25px;
   width: 64px;
   height: 64px;
   border-radius: 32px;
-  background: $background-black-color;
+  background: rgba($background-dark-color, 0.15);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   display: flex;
   justify-content: center;
   align-items: center;
