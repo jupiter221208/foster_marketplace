@@ -258,7 +258,7 @@ const MainSection = props => {
       setNftType(type)
       setNftUrl(nftDetail.asset_url)
       setNftName(nftDetail.name)
-      setNftRoyalties(nftDetail.royalties)
+      setNftRoyalties(nftDetail.royalties !== null && nftDetail.royalties.length > 0 ? nftDetail.royalties / 100 : 0)
       setNftCollectionAddress(nftDetail.collection_address)
       setNftCollectionName(nftDetail.collection_name)
       setNftOwnerAddress(nftDetail.owner_address)

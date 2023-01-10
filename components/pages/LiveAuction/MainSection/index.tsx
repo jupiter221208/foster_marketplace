@@ -228,7 +228,7 @@ const MainSection = props => {
     setNftType(type)
     setNftUrl(nftDetail.asset_url)
     setNftCoverUrl(nftDetail.cover_image_url)
-    setNftRoyalties(nftDetail.royalties !== null && nftDetail.royalties.length > 0 ? nftDetail.royalties : 0)
+    setNftRoyalties(nftDetail.royalties !== null && nftDetail.royalties.length > 0 ? nftDetail.royalties / 100 : 0)
     setNftName(nftDetail.name)
     setNftCollectionAddress(nftDetail.collection_address)
     setNftCollectionName(nftDetail.collection_name)
