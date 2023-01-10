@@ -53,10 +53,10 @@ const Category = () => {
       </Head>
       <div className={styles.container}>
         <div className="relative w-full mt-4 lg:mt-8">
-          {categoryInfo.type === 'image' ? (
+          {categoryInfo?.type === 'image' ? (
             <div className={styles.imageContainer}>
               <img
-                src={viewport === 'xs' ? categoryInfo.mobile_banner : categoryInfo.banner}
+                src={viewport === 'xs' ? categoryInfo?.mobile_banner : categoryInfo?.banner}
                 alt=""
                 width={1620}
                 height={480}
@@ -66,13 +66,13 @@ const Category = () => {
           ) : (
             <></>
           )}
-          {categoryInfo.type === 'video' ? (
+          {categoryInfo?.type === 'video' ? (
             <div className={styles.imageContainer}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <img src={categoryInfo.mobile_banner} alt="" className="w-full object-cover lg:rounded-[30px]" />
+                <img src={categoryInfo?.mobile_banner} alt="" className="w-full object-cover lg:rounded-[30px]" />
               ) : (
                 <video autoPlay loop muted>
-                  <source type="video/mp4" src={categoryInfo.banner} />
+                  <source type="video/mp4" src={categoryInfo?.banner} />
                 </video>
               )}
             </div>
@@ -82,7 +82,7 @@ const Category = () => {
 
           <div className={styles.bottomMask}></div>
 
-          <div className={styles.title}>{categoryInfo.name}</div>
+          <div className={styles.title}>{categoryInfo?.name}</div>
         </div>
         <TrendingCollectionSection category={cateQuery} />
         <MostPopularSection category={cateQuery} />

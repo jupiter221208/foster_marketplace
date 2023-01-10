@@ -24,7 +24,7 @@ import MintAudioPlayer from '../MintAudioPlayer'
 
 const AudioPlayer = props => {
   const { src, cover } = props
-
+  console.log(src, cover)
   const viewport = useViewport()
 
   const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer()

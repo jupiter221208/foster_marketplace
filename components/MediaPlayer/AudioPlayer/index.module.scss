@@ -5,6 +5,7 @@
   max-width: 670px;
   max-height: 870px;
   border-radius: 12px;
+  position: relative;
 }
 
 .imageArea {
@@ -14,6 +15,10 @@
 }
 
 .contentArea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   background: transparent;
