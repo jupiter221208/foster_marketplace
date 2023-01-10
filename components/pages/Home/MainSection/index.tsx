@@ -132,7 +132,7 @@ const MainSection = () => {
           ) : (
             <></>
           )}
-          <div className="max-w-[550px] w-full mt-[110px] lg:mt-[0px]">
+          <div className="max-w-[550px] w-full mt-[85px] lg:mt-[0px]">
             {heroList.length !== 0 && (
               <Swiper
                 slidesPerView={1}
@@ -144,7 +144,7 @@ const MainSection = () => {
                 className="heroSwiper"
                 loop
                 autoplay={{
-                  delay: 5000,
+                  delay: 500000,
                   disableOnInteraction: false,
                 }}
               >
@@ -159,7 +159,7 @@ const MainSection = () => {
         </div>
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[27px]">
+          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GreenGradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton

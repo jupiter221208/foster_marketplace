@@ -177,21 +177,25 @@ h6 {
   .swiper-pagination-bullets.swiper-pagination-horizontal,
   .swiper-pagination-custom,
   .swiper-pagination-fraction {
-    bottom: 0px;
+    bottom: 8px;
     left: 0;
     width: 100%;
+    height: 18px;
     z-index: 10;
+    @media (min-width: 1024px) {
+      bottom: 0px;
+    }
   }
 
   .swiper-pagination-bullet {
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background: $text-gray-200-color;
+    background: rgba($text-gray-200-color, 1);
     @media (max-width: 640px) {
-      width: 6px;
-      height: 6px;
-      border-radius: 3px;
+      width: 4px;
+      height: 4px;
+      border-radius: 2px;
     }
   }
 
@@ -202,9 +206,9 @@ h6 {
     height: 8px;
     border-radius: 4px;
     @media (max-width: 640px) {
-      width: 24px;
-      height: 6px;
-      border-radius: 3px;
+      width: 18px;
+      height: 4px;
+      border-radius: 2px;
     }
   }
 }
