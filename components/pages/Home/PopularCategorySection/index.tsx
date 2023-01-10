@@ -40,7 +40,7 @@ const PopularCategorySection = props => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-center lg:justify-between items-center z-10">
-        <div className={styles.title}>{type === 'home' ? 'Popular Categories' : 'Discover Something New'}</div>
+        <div className={styles.title}>{type === 'home' ? 'Explore the Circus' : 'Discover Something New'}</div>
         {type === 'home' && (
           <div className="hidden lg:flex">
             <OutlineButton

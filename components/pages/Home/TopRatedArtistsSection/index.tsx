@@ -87,7 +87,7 @@ const TopRatedArtistsSection = () => {
                   router.push('/explore')
                 }}
               >
-                See More
+                SEE MORE
               </div>
             </div>
           ) : (

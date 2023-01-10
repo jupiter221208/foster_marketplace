@@ -35,8 +35,10 @@
 
 .seeMore {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 36px;
+  font-size: 14px;
+  line-height: 14px;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
   color: $text-gray-200-color;
   cursor: pointer;
 }

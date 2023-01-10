@@ -96,7 +96,7 @@ const MostPopularSection = props => {
                   router.push('/explore')
                 }}
               >
-                See More
+                SEE MORE
               </div>
             </div>
           ) : (
