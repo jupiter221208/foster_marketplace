@@ -55,11 +55,11 @@ const PopularCategorySection = props => {
           </div>
         )}
       </div>
-      <div className="w-full mt-[32px] lg:mt-[34px] z-10">
+      <div className="w-full mt-[20px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
-            viewport === 'xs' || viewport === 'sm' ? 1.3 : viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
+            viewport === 'xs' || viewport === 'sm' ? 1.8 : viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
           }
           spaceBetween={30}
           modules={[Autoplay, Lazy, Navigation]}
