@@ -207,7 +207,9 @@ const WalletButton = props => {
           type: 'success',
         },
       ])
-      setShowAlert(true)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 1000)
     } else {
       setAlertData([
         {
