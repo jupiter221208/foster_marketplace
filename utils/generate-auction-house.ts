@@ -94,7 +94,7 @@ function getAuctionHouseAddress(
     });
 }
 
-async function getOrAuthorizeAuctioneerAuctioneer(
+async function getOrAuthorizeAuctionHouseAuctioneer(
   connection: Connection,
   auctionHouseAddress: PublicKey,
   auctionHouseAuthority: Keypair
@@ -174,7 +174,7 @@ async function main(){
     timedAuctionHouseKeypair.publicKey,
     timedAuctionHouseConfig.treasuryMint
   );
-  timedAuctionHouseConfig.auctioneerAuthority = getAuctioneerAuthorityPda(auctionHouseAddress);
+  timedAuctionHouseConfig.auctioneerAuthority = getAuctioneerAuthorityPda(timedAuctionHouseAddress);
 
   console.log("creating timed auction house with config:");
   console.log(JSON.stringify(timedAuctionHouseConfig, null, 4));
@@ -185,7 +185,7 @@ async function main(){
   );
 
   console.log(`authorizing auction house (${timedAuctionHouseAddress}) to auctioneer`);
-  let auctioneerAuthorityPda = await getOrAuthorizeAuctioneerAuctioneer(
+  let auctioneerAuthorityPda = await getOrAuthorizeAuctionHouseAuctioneer(
     connection,
     timedAuctionHouseAddress,
     timedAuctionHouseKeypair
