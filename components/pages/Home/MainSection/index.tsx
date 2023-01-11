@@ -163,7 +163,7 @@ const MainSection = () => {
             <div className="w-full flex justify-center gap-8">
               <GreenGradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton
-                borderColor="#fff"
+                // borderColor="#fff"
                 label="Create"
                 borderWidth={2}
                 width={88}

@@ -59,14 +59,14 @@ const PopularCategorySection = props => {
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
-            viewport === 'xs' ? 1.8 : viewport === 'sm' ? 2.5 : viewport === 'md' ? 3 : viewport === 'lg' ? 3 : 4
+            viewport === 'xs' ? 1.7 : viewport === 'sm' ? 2.5 : viewport === 'md' ? 3 : viewport === 'lg' ? 3 : 4
           }
-          spaceBetween={20}
+          spaceBetween={viewport === 'xs' ? 10 : 20}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
           loop
           autoplay={{
-            delay: 500000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
         >
