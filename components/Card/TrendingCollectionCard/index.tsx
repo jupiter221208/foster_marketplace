@@ -26,7 +26,7 @@ const TrendingCollectionCard = props => {
       }}
     >
       <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <img src={image} alt="" width={492} height={492} className="w-full object-cover aspect-square" />
+        <img src={image} alt="" className="w-full h-full object-cover" />
         <div className={styles.bottomMask} />
         <div className="w-full h-[40px] lg:h-[54px] flex justify-between absolute lg:bottom-[28px] bottom-[15px] left-[0px] right-[0px] items-center">
           <div className="px-[15px] lg:px-[28px]">
