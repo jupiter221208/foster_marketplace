@@ -82,17 +82,8 @@ const LiveAuctionSection = props => {
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full flex justify-between items-center z-10">
+                <div className="w-full flex justify-center items-center z-10">
                   <div className={styles.title}>Live Auctions</div>
-                  <div
-                    className={styles.seeMore}
-                    onClick={() => {
-                      dispatch({ type: 'set', exploreTab: 0 })
-                      router.push('/explore')
-                    }}
-                  >
-                    SEE MORE
-                  </div>
                 </div>
               ) : (
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
@@ -132,7 +123,7 @@ const LiveAuctionSection = props => {
           {liveAuctionList.length > 0 ? (
             <Swiper
               navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.5 : 3}
+              slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : 3}
               spaceBetween={
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
               }
@@ -174,17 +165,20 @@ const LiveAuctionSection = props => {
             </div>
           )}
         </div>
-        {/* <div className="w-full flex lg:hidden justify-center">
+        <div className="w-full flex lg:hidden justify-center">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
               label="See More"
               fullWidth
-              onClick={() => router.push('/explore')}
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                router.push('/explore')
+              }}
               borderColor="#ffffff"
               height="40px"
             />
           </div>
-        </div> */}
+        </div>
       </section>
     )
   )

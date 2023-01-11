@@ -87,20 +87,11 @@ const MarketplaceReleaseSection = props => {
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full flex justify-between items-center z-10">
-                <div className={styles.title}>Marketplace Releases</div>
-                <div
-                  className={styles.seeMore}
-                  onClick={() => {
-                    dispatch({ type: 'set', exploreTab: 0 })
-                    router.push('/explore')
-                  }}
-                >
-                  SEE MORE
-                </div>
+              <div className="w-full flex justify-center items-center z-10">
+                <div className={styles.title}>New Releases</div>
               </div>
             ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Marketplace Releases</div>
+              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Releases</div>
             )}
             <div className="hidden lg:flex z-10">
               <Button
@@ -169,6 +160,20 @@ const MarketplaceReleaseSection = props => {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[242px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 1 })
+                router.push('/explore')
+              }}
+              borderColor="#ffffff"
+              height="40px"
+            />
+          </div>
         </div>
       </section>
     )
