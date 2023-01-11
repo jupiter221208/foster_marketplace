@@ -162,11 +162,6 @@ export async function startAuction(
   const [feePayer] = await getFeePayer()
 
   const [metadata] = await getMeatdata(mintAddress)
-  console.log({
-    mintAddress: mintAddress.toBase58(),
-    metadataAddress: metadata.toBase58(),
-    metaplexDerivedMetadataAddress: mx.nfts().pdas().metadata({ mint: mintAddress })
-  });
 
   const [signer, signerBump] = await getSigner()
 
@@ -208,7 +203,7 @@ export async function startAuction(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, { skipPreflight: true }, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response,
@@ -332,7 +327,7 @@ export async function depositFunds(
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, { skipPreflight: true }, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response
