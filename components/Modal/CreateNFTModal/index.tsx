@@ -18,6 +18,7 @@ import { useViewport } from 'utils'
 
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
+import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import AddGrayIcon from 'assets/icons/add-green.svg'
 import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
@@ -116,15 +117,12 @@ const CreateNFTModal = props => {
                 ) : (
                   <>
                     <div className={styles.close} onClick={() => closeModal()}>
-                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                      <Image src={CloseWhiteIcon} alt="" width={17} height={17} />
                     </div>
-                    <div className={styles.title}>Create</div>
-                    <div
-                      className={styles.text}
-                      dangerouslySetInnerHTML={{
-                        __html: `Let's create an NFT or an NFT collection!`,
-                      }}
-                    ></div>
+                    <div className="flex justify-center mt-[30px]">
+                      <div className={styles.title}>Create</div>
+                    </div>
+                    <div className={styles.text}>Would you like to mint a single NFT or collection?</div>
                     <div className="hidden lg:flex w-full">
                       <video autoPlay loop muted>
                         <source type="video/mp4" src="/images/Page-Animation.webm" />
@@ -133,30 +131,33 @@ const CreateNFTModal = props => {
                     <div className="w-full max-w-[221px] mt-[30px]">
                       <GradientButton
                         label="Single"
-                        fullWidth
+                        width={221}
+                        height={45}
                         onClick={() => {
                           closeModal()
                           router.push('/create/single-nft')
                         }}
-                        gradientDirection="bottom"
+                        backgroundColor01="#121212"
+                        backgroundColor02="#2D625D"
+                        gradientDirection="right"
                         fontSize="16px"
-                        height="45px"
+                        color="#95DBD5"
                       />
                     </div>
                     <div className="w-full max-w-[221px] mt-[30px]">
                       <OutlineButton
                         label="Collection"
-                        fullWidth
+                        width={221}
+                        height={45}
                         onClick={() => {
                           closeModal()
                           router.push('/create/collection')
                         }}
                         backgroundColor="#202427"
-                        color="#EFF0F6"
+                        color="#95DBD5"
                         fontSize="16px"
-                        height="45px"
-                        borderColor="#ffffff"
-                        borderWidth="2px"
+                        borderColor="#95DBD5"
+                        borderWidth="1px"
                       />
                     </div>
                   </>

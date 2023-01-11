@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // images and icons
-import LogoIcon from 'assets/icons/logo-color.svg'
+import LogoIcon from 'assets/icons/logo-light-green.svg'
 import DashboardGreenIcon from 'assets/icons/dashboard-green.svg'
 import DashboardGrayIcon from 'assets/icons/dashboard-gray.svg'
 import NotificationGreenIcon from 'assets/icons/notification-green.svg'
