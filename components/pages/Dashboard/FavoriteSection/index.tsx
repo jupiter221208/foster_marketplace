@@ -7,15 +7,10 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // components
-import Button from 'components/Button'
-import EcosystemCard from 'components/Card/EcosystemCard'
 import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
-
-// json
-import ArtistList from 'assets/json/dashboard/artist-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -23,6 +18,7 @@ import styles from './index.module.scss'
 // call apis
 import userAPI from 'apis/user'
 import FilterButton from 'components/Button/FilterButton'
+import NoDataSection from '../NoDataSection'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -36,6 +32,7 @@ const FavoriteSection = () => {
 
   const [active, setActive] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const handleChangeActive = value => {
     setActive(value)
@@ -48,10 +45,16 @@ const FavoriteSection = () => {
       response => {
         setAllNftList(response)
         setLoading(false)
+        setTimeout(() => {
+          setIsLoaded(true)
+        }, 500)
       },
       error => {
         console.log(error)
         setLoading(false)
+        setTimeout(() => {
+          setIsLoaded(true)
+        }, 500)
       }
     )
 
@@ -124,9 +127,21 @@ const FavoriteSection = () => {
           <LoadingModal open={loading} />
         </div>
       </div>
+      {isLoaded && nftList.length === 0 && (
+        <div className="mt-[15px] lg:mt-[30px]">
+          <NoDataSection
+            title="You don't have any saved artwork"
+            description="This tab displays any single items you wish to save by clicking the save icon on the NFT details page "
+          />
+        </div>
+      )}
       <div className="w-full flex justify-end">
-        {active === 0 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
-        {active === 1 && <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />}
+        {active === 0 && nftList.length > 0 && (
+          <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />
+        )}
+        {active === 1 && collectionList.length > 0 && (
+          <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />
+        )}
       </div>
     </section>
   )

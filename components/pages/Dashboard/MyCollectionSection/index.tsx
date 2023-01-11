@@ -76,7 +76,7 @@ const MyCollectionSection = () => {
         <LoadingModal open={isLoading} />
       </div>
       {isLoaded && collectionList.length === 0 && (
-        <div className="mt-[35px] lg:mt-[80px]">
+        <div className="mt-[35px] lg:mt-[65px]">
           <NoDataSection
             title="No collections were created"
             description="This tab displays the collections you have created on Foster Marketplace"

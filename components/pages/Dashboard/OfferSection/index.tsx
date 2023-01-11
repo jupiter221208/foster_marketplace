@@ -19,6 +19,7 @@ import { getMyOffers, cancelOffer, acceptOffer } from 'utils/auction.util'
 
 // call apis
 import listingsAPI from 'apis/listings'
+import NoDataSection from '../NoDataSection'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -28,6 +29,7 @@ const OfferSection = () => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [isLoaded, setIsLoaded] = useState(true)
 
   const updateDataAction = (index, action) => {
     let newList = [...offerList]
@@ -75,6 +77,7 @@ const OfferSection = () => {
     let offers = await getMyOffers(mx)
     setOfferList(offers)
     dispatch({ type: 'set', isLoading: false })
+    setIsLoaded(true)
   }
 
   const onCancel = async tradeStateAddress => {
@@ -120,9 +123,9 @@ const OfferSection = () => {
     }
   }
 
-  useEffect(() => {
-    if (mx) getOffers()
-  }, [mx])
+  // useEffect(() => {
+  //   if (mx) getOffers()
+  // }, [mx])
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
@@ -131,29 +134,41 @@ const OfferSection = () => {
           <LoadingModal open={isLoading} />
         </div>
       ) : (
-        <div className="w-full mt-[15px] lg:mt-[34px]">
-          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-            <OfferTable
-              data={showOfferList}
-              onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
-              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
-                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price)
-              }
-            />
-          ) : (
-            <OfferAccordion
-              data={showOfferList}
-              onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
-              onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
-                onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price)
-              }
-            />
-          )}
+        showOfferList.length > 0 && (
+          <div className="w-full mt-[15px] lg:mt-[34px]">
+            {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+              <OfferTable
+                data={showOfferList}
+                onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
+                onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
+                  onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price)
+                }
+              />
+            ) : (
+              <OfferAccordion
+                data={showOfferList}
+                onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
+                onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
+                  onAccept(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price)
+                }
+              />
+            )}
+          </div>
+        )
+      )}
+      {isLoaded && showOfferList.length === 0 && (
+        <div className="mt-[35px] lg:mt-[105px]">
+          <NoDataSection
+            title="You don't have any active offers right now"
+            description="This tab shows any active offer you made or received on Foster Marketplace"
+          />
         </div>
       )}
-      <div className="w-full flex justify-end">
-        <Pagination data={offerList} getCurrentData={data => setShowOfferList(data)} />
-      </div>
+      {showOfferList.length > 0 && (
+        <div className="w-full flex justify-end">
+          <Pagination data={offerList} getCurrentData={data => setShowOfferList(data)} />
+        </div>
+      )}
       <Alert
         open={showAlert}
         close={() => {

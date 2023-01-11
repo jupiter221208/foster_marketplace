@@ -65,7 +65,7 @@ const CollectedSection = props => {
         </div>
       </div>
       {isLoaded && nftList.length === 0 && (
-        <div className="mt-[35px] lg:mt-[80px]">
+        <div className="mt-[35px] lg:mt-[65px]">
           <NoDataSection
             title="No collectibles detected"
             description="This tab displays the collections you supported when collecting one or more collection items"
