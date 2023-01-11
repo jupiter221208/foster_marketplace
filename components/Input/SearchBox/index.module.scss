@@ -42,10 +42,14 @@
 }
 
 .inputArea::placeholder {
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba($text-gray-200-color, 0.6);
   font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 15px;
+    line-height: 24px;
+  }
 }
 
 .iconArea {
@@ -86,12 +90,13 @@
 }
 
 .title {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 24px;
+  letter-spacing: 0.5px;
   color: $text-gray-200-color;
   @media (min-width: 1024px) {
-    color: $brand-09-color;
+    color: rgba($text-gray-200-color, 0.6);
   }
 }
 
