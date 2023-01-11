@@ -19,7 +19,7 @@ const CategoryCard = props => {
   return (
     <div className={styles.container} onClick={() => onClick()}>
       {type === 'image' ? (
-        <img src={image} alt="" className="rounded-[30px] object-cover" />
+        <img src={image} alt="" className="w-full rounded-[30px] object-cover" />
       ) : viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         // <div
         //   dangerouslySetInnerHTML={{
