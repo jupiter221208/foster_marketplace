@@ -197,7 +197,7 @@ const PrimaryFooter = () => {
             </div>
           </div>
 
-          <div className="w-full block justify-center text-center mt-[84px]">
+          <div className="w-full block justify-center text-center mt-[8 4px]">
             <div className={styles.stayTitle}>Stay Connected</div>
             <div className="mt-[26px] flex justify-center z-10">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
