@@ -162,6 +162,11 @@ export async function startAuction(
   const [feePayer] = await getFeePayer()
 
   const [metadata] = await getMeatdata(mintAddress)
+  console.log({
+    mintAddress: mintAddress.toBase58(),
+    metadataAddress: metadata.toBase58(),
+    metaplexDerivedMetadataAddress: mx.nfts().pdas().metadata({ mint: mintAddress })
+  });
 
   const [signer, signerBump] = await getSigner()
 
