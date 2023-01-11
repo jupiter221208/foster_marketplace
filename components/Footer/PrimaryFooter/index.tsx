@@ -53,11 +53,11 @@ const PrimaryFooter = () => {
                 Turkey Circus
               </a>
             </div>
-            <div className={styles.linkText}>
+            {/* <div className={styles.linkText}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_CAREERS} rel="noopener noreferrer">
                 Careers
               </a>
-            </div>
+            </div> */}
             <div className={styles.linkText}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
                 Terms of Service
