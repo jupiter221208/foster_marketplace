@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollections } from 'utils/collection.util'
+import NoDataSection from '../NoDataSection'
 
 const MyCollectionSection = () => {
   const router = useRouter()
@@ -26,7 +27,7 @@ const MyCollectionSection = () => {
 
   const [collections, setCollections] = useState([])
   const [collectionList, setCollectionList] = useState([])
-
+  const [isLoaded, setIsLoaded] = useState(false)
   const { metaplex: mx } = useMetaplex()
 
   useEffect(() => {
@@ -34,7 +35,9 @@ const MyCollectionSection = () => {
       dispatch({ type: 'set', isLoading: true })
       const collections = await getMyCollections(mx)
       setCollections(collections)
-      console.log(collections)
+      setTimeout(() => {
+        setIsLoaded(true)
+      }, 500)
       dispatch({ type: 'set', isLoading: false })
     }
     if (mx) getCollections()
@@ -72,9 +75,19 @@ const MyCollectionSection = () => {
       <div className="col-span-12">
         <LoadingModal open={isLoading} />
       </div>
-      <div className="w-full flex justify-end">
-        <Pagination data={collections} getCurrentData={data => setCollectionList(data)} />
-      </div>
+      {isLoaded && collectionList.length === 0 && (
+        <div className="mt-[35px] lg:mt-[80px]">
+          <NoDataSection
+            title="No collections were created"
+            description="This tab displays the collections you have created on Foster Marketplace"
+          />
+        </div>
+      )}
+      {collectionList.length > 0 && (
+        <div className="w-full flex justify-end">
+          <Pagination data={collections} getCurrentData={data => setCollectionList(data)} />
+        </div>
+      )}
     </section>
   )
 }

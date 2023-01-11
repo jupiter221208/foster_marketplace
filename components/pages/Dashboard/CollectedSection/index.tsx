@@ -13,6 +13,7 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import CollectionCard from 'components/Card/CollectionCard'
+import NoDataSection from '../NoDataSection'
 
 const CollectedSection = props => {
   const { onClickItem } = props
@@ -20,6 +21,7 @@ const CollectedSection = props => {
   const [nftList, setNFTList] = useState([])
   const [allNftList, setAllNFTList] = useState([])
   const [loading, setLoading] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
     setLoading(true)
@@ -29,9 +31,13 @@ const CollectedSection = props => {
           setAllNFTList(response)
         }
         setLoading(false)
+        setTimeout(() => {
+          setIsLoaded(true)
+        }, 500)
       },
       error => {
         setLoading(false)
+        setIsLoaded(true)
         console.log(error)
       }
     )
@@ -58,9 +64,19 @@ const CollectedSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      <div className="w-full flex justify-end">
-        <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
-      </div>
+      {isLoaded && nftList.length === 0 && (
+        <div className="mt-[35px] lg:mt-[80px]">
+          <NoDataSection
+            title="No collectibles detected"
+            description="This tab displays the collections you supported when collecting one or more collection items"
+          />
+        </div>
+      )}
+      {nftList.length > 0 && (
+        <div className="w-full flex justify-end">
+          <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
+        </div>
+      )}
     </section>
   )
 }

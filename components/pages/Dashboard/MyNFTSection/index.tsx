@@ -25,6 +25,7 @@ import styles from './index.module.scss'
 import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
+import NoDataSection from '../NoDataSection'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -125,7 +126,7 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      {!loading && <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />}
+      {!loading && nftList.length > 0 && <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
           nftList.map((item, index) => (
@@ -142,9 +143,19 @@ const MyNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      <div className="w-full flex justify-end">
-        <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
-      </div>
+      {isGetMyNFTs && nftList.length === 0 && (
+        <div className="mt-[30px] lg:mt-[70px]">
+          <NoDataSection
+            title="There were no NFTs detected in your wallet"
+            description="This tab displays the NFTs you own without an active listing"
+          />
+        </div>
+      )}
+      {nftList.length > 0 && (
+        <div className="w-full flex justify-end">
+          <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
+        </div>
+      )}
       <StartAuctionModal
         data={selectedData}
         open={showStartAuctionModal}

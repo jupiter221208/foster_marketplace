@@ -19,6 +19,7 @@ import { useViewport } from 'utils'
 
 // api
 import ActivityAPI from 'apis/activity'
+import NoDataSection from '../NoDataSection'
 
 const ActivitySection = () => {
   const viewport = useViewport()
@@ -29,6 +30,7 @@ const ActivitySection = () => {
   useEffect(() => {
     ActivityAPI.getUserActivity(publicKey?.toBase58()).then(
       response => {
+        if (response.length === 0) return
         let newList: any[] = []
         let tempItem: any[] = []
         response.reverse().map((item, index) => {
@@ -50,28 +52,37 @@ const ActivitySection = () => {
   return (
     <section className="w-full mt-6 lg:mt-12">
       <div className="w-full z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={1}
-          spaceBetween={4}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="showNavigationSwiper"
-          loop
-        >
-          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-            ? activityList.length !== 0 &&
-              activityList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <ActivityTable data={item} type={'dashboard'} />
-                </SwiperSlide>
-              ))
-            : activityList.length !== 0 &&
-              activityList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <ActivityAccordion data={item} />
-                </SwiperSlide>
-              ))}
-        </Swiper>
+        {activityList.length > 0 ? (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={1}
+            spaceBetween={4}
+            modules={[Autoplay, Lazy, Navigation]}
+            className="showNavigationSwiper"
+            loop
+          >
+            {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
+              ? activityList.length !== 0 &&
+                activityList.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <ActivityTable data={item} type={'dashboard'} />
+                  </SwiperSlide>
+                ))
+              : activityList.length !== 0 &&
+                activityList.map((item, index) => (
+                  <SwiperSlide key={index}>
+                    <ActivityAccordion data={item} />
+                  </SwiperSlide>
+                ))}
+          </Swiper>
+        ) : (
+          <div className="mt-[40px] lg:mt-[110px]">
+            <NoDataSection
+              title="No activity history available"
+              description="This tab displays a log of all your activity on Foster Marketplace"
+            />
+          </div>
+        )}
       </div>
     </section>
   )

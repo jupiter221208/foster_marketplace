@@ -29,6 +29,7 @@ import { PublicKey } from '@solana/web3.js'
 import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
+import NoDataSection from '../NoDataSection'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -238,9 +239,22 @@ const ListedNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      <div className="w-full flex justify-end">
-        <Pagination data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs} getCurrentData={data => setNFTList(data)} />
-      </div>
+      {isGetListedNFTs && nftList.length === 0 && (
+        <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[30px]">
+          <NoDataSection
+            title="You don't have any active fixed-price listings"
+            description="This tab displays your NFTs with an active fixed-price listing"
+          />
+        </div>
+      )}
+      {nftList.length > 0 && (
+        <div className="w-full flex justify-end">
+          <Pagination
+            data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs}
+            getCurrentData={data => setNFTList(data)}
+          />
+        </div>
+      )}
       <UpdateNFTModal
         data={selectedData}
         open={showListNFTModal}
