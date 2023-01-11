@@ -130,8 +130,12 @@ const FavoriteSection = () => {
       {isLoaded && nftList.length === 0 && (
         <div className="mt-[15px] lg:mt-[30px]">
           <NoDataSection
-            title="You don't have any saved artwork"
-            description="This tab displays any single items you wish to save by clicking the save icon on the NFT details page "
+            title={active === 0 ? "You don't have any saved artwork" : "You don't have any saved collections"}
+            description={
+              active === 0
+                ? "You can add artwork to your favorites by clicking the 'save' icon on the NFT detail page"
+                : "You can save a collection by clicking 'save' from the collection page"
+            }
           />
         </div>
       )}

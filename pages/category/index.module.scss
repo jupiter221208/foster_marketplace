@@ -46,32 +46,36 @@
 
 .title {
   position: absolute;
-  font-family: 'KCDurhamBoxcar';
-  line-height: 100%;
-  font-size: 25px;
+  font-family: 'Muli-Bold';
+  line-height: 24px;
+  font-size: 18px;
   bottom: 8px;
   left: 14px;
   @media (min-width: 640px) {
     bottom: 12px;
     left: 20px;
-    font-size: 25px;
+    line-height: 24px;
   }
   @media (min-width: 768px) {
     bottom: 18px;
     left: 28px;
+    font-family: 'KCDurhamBoxcar';
     font-size: 35px;
   }
   @media (min-width: 1024px) {
+    font-family: 'KCDurhamBoxcar';
     bottom: 22px;
     left: 32px;
     font-size: 50px;
   }
   @media (min-width: 1280px) {
+    font-family: 'KCDurhamBoxcar';
     bottom: 26px;
     left: 36px;
     font-size: 60px;
   }
   @media (min-width: 1536px) {
+    font-family: 'KCDurhamBoxcar';
     bottom: 30px;
     left: 40px;
     font-size: 80px;

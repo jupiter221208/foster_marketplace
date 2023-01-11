@@ -68,7 +68,7 @@ const CollectedSection = props => {
         <div className="mt-[35px] lg:mt-[65px]">
           <NoDataSection
             title="No collectibles detected"
-            description="This tab displays the collections you supported when collecting one or more collection items"
+            description="This tab displays the items you collected that are part of a collection"
           />
         </div>
       )}

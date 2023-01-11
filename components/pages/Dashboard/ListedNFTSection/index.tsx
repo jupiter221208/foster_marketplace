@@ -242,8 +242,16 @@ const ListedNFTSection = props => {
       {isGetListedNFTs && nftList.length === 0 && (
         <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[30px]">
           <NoDataSection
-            title="You don't have any active fixed-price listings"
-            description="This tab displays your NFTs with an active fixed-price listing"
+            title={
+              active === 0
+                ? "You don't have any active fixed-price listings"
+                : "You don't have any active live auctions"
+            }
+            description={
+              active === 0
+                ? 'This tab displays your NFTs with an active fixed-price listing'
+                : 'This tab displays your NFTs that are in a live auction'
+            }
           />
         </div>
       )}
