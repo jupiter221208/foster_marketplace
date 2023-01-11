@@ -4,8 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: auto;
-  height: 46px;
+  width: 39px;
+  height: 39px;
+  @media (min-width: 1024px) {
+    width: 46px;
+    height: 46px;
+  }
   border-radius: 12px;
   background-color: $background-dark-color;
   border: 1px solid transparent;

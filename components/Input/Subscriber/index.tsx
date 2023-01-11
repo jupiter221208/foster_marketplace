@@ -31,7 +31,7 @@ const Subscriber = props => {
               id="mce-EMAIL"
               onChange={event => onChange(event.target.value)}
             />
-            <button type="submit" name="subscribe" id="mc-embedded-subscribe">
+            <button type="submit" name="subscribe" id="mc-embedded-subscribe" className="mt-[4px]">
               <Image src={FosterGreenIcon} alt="" className="cursor-pointer" onClick={() => onClick()} />
             </button>
           </div>

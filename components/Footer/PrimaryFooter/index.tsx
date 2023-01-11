@@ -18,8 +18,8 @@ import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
+import TelegramLightGreenIcon from 'assets/icons/telegram-light-green.svg'
 import GithubLightGreenIcon from 'assets/icons/github-light-green.svg'
-import MediumLightGreenIcon from 'assets/icons/medium-light-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -103,27 +103,27 @@ const PrimaryFooter = () => {
             <div className="flex flex-wrap mt-[62px] gap-5">
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                  <IconButton icon={InstagramLightGreenIcon} onClick={() => {}} />
+                  <IconButton iconWidth={20} iconHeight={20} icon={InstagramLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                  <IconButton icon={DiscordLightGreenIcon} onClick={() => {}} />
+                  <IconButton iconWidth={20} iconHeight={20} icon={DiscordLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                  <IconButton icon={TwitterLightGreenIcon} onClick={() => {}} />
+                  <IconButton iconWidth={20} iconHeight={20} icon={TwitterLightGreenIcon} onClick={() => {}} />
+                </a>
+              </div>
+              <div>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TELEGRAM_URL} rel="noopener noreferrer">
+                  <IconButton iconWidth={20} iconHeight={20} icon={TelegramLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
-                </a>
-              </div>
-              <div>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
-                  <IconButton icon={MediumLightGreenIcon} onClick={() => {}} />
+                  <IconButton iconWidth={20} iconHeight={20} icon={GithubLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
             </div>
@@ -197,7 +197,7 @@ const PrimaryFooter = () => {
             </div>
           </div>
 
-          <div className="w-full block justify-center text-center mt-[8 4px]">
+          <div className="w-full block justify-center text-center mt-[84px]">
             <div className={styles.stayTitle}>Stay Connected</div>
             <div className="mt-[26px] flex justify-center z-10">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
@@ -220,12 +220,12 @@ const PrimaryFooter = () => {
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
+                  <IconButton icon={TelegramLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
-                  <IconButton icon={MediumLightGreenIcon} onClick={() => {}} />
+                  <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
             </div>
