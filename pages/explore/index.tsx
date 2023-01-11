@@ -334,8 +334,8 @@ const Explore = () => {
         <div className={styles.topLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <div className={`${styles.title} w-full text-center lg:text-start`}>Explore the Circus</div>
-        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] mt-[37px] xl:mt-[88px] z-10">
+        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore the Circus</div>
+        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] xl:mt-[88px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
             {exploreTab === 0 && (
@@ -354,7 +354,7 @@ const Explore = () => {
               <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
-              <div className="hidden lg:flex max-w-[260px] min-w-[260px] w-full z-20">
+              <div className="hidden lg:flex max-w-[280px] min-w-[280px] w-full z-20">
                 <Select
                   data={sortData}
                   selected={selectedSort}
@@ -368,8 +368,12 @@ const Explore = () => {
                 label="Filter"
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
-                color="#99A3A7"
-                borderColor="#99A3A7"
+                color="#EFF0F6"
+                backgroundColor="#334D4B"
+                borderColor="#ECEEF4"
+                fontFamily="Muli-Regular"
+                fontSize={14}
+                borderRadius={8}
                 icon={FilterGrayIcon}
                 direction="rtl"
               />
@@ -377,8 +381,12 @@ const Explore = () => {
                 label="Sort"
                 onClick={() => setOpenMobileSort(!openMobileSort)}
                 fullWidth
-                color="#99A3A7"
-                borderColor="#99A3A7"
+                fontFamily="Muli-Regular"
+                fontSize={14}
+                color="#EFF0F6"
+                backgroundColor="#334D4B"
+                borderColor="#ECEEF4"
+                borderRadius={8}
                 icon={SortGrayIcon}
                 direction="rtl"
               />

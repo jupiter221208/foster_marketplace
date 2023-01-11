@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="19.5" height="11.5" viewBox="0 0 19.5 11.5">
-  <g id="sort" transform="translate(-2.25 -6.25)" opacity="0.6">
-    <g id="Group_51780" data-name="Group 51780">
-      <path id="Path_105775" data-name="Path 105775" d="M3,7H21" fill="none" stroke="#eff0f6" stroke-linecap="round" stroke-width="1.5"/>
-      <path id="Path_105776" data-name="Path 105776" d="M6,12H18" fill="none" stroke="#eff0f6" stroke-linecap="round" stroke-width="1.5"/>
-      <path id="Path_105777" data-name="Path 105777" d="M10,17h4" fill="none" stroke="#eff0f6" stroke-linecap="round" stroke-width="1.5"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16.673" height="20" viewBox="0 0 16.673 20">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_108388" data-name="Path 108388" d="M285,222.14h16.673v20H285Z" fill="#eff0f6"/>
+    </clipPath>
+  </defs>
+  <g id="noun-sort-1058872" transform="translate(-285 -222.14)" clip-path="url(#clip-path)">
+    <path id="Path_108387" data-name="Path 108387" d="M297.767,239.3V222.98a.833.833,0,1,1,1.667,0V239.3l.941-.941a.833.833,0,0,1,1.178,1.179l-2.368,2.368a.82.82,0,0,1-.581.241l-.006,0a.821.821,0,0,1-.58-.239l-2.368-2.368a.833.833,0,0,1,1.179-1.179Zm-8.617-14.3v16.315a.833.833,0,1,1-1.667,0V224.991l-.941.941a.833.833,0,0,1-1.179-1.179l2.368-2.368a.82.82,0,0,1,.581-.241l.006,0a.821.821,0,0,1,.58.239l2.368,2.368a.833.833,0,0,1-1.179,1.179Z" transform="translate(-0.122 -0.004)" fill="#eff0f6" fill-rule="evenodd"/>
   </g>
 </svg>
