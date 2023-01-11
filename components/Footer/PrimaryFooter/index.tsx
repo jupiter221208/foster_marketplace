@@ -14,6 +14,7 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
+import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
@@ -44,12 +45,12 @@ const PrimaryFooter = () => {
             <div className={styles.title}>About</div>
             <div className={`${styles.linkText} !mt-[49px]`}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
-                About us
+                Foster House
               </a>
             </div>
             <div className={styles.linkText}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
-                Community
+                Turkey Circus
               </a>
             </div>
             <div className={styles.linkText}>
@@ -59,7 +60,7 @@ const PrimaryFooter = () => {
             </div>
             <div className={styles.linkText}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
-                Terms of Use
+                Terms of Service
               </a>
             </div>
             <div className={styles.linkText}>
@@ -80,18 +81,18 @@ const PrimaryFooter = () => {
                 Brand & Design
               </a>
             </div>
-            <div className={styles.linkText}>
+            {/* <div className={styles.linkText}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
                 Development
               </a>
-            </div>
+            </div> */}
             <div className={styles.linkText}>
               <a target="_blank" href={process.env.NEXT_PUBLIC_PRESS_RELEASES} rel="noopener noreferrer">
                 Press Releases
               </a>
             </div>
             <div className={styles.linkText}>
-              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Contact Us</a>
+              <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
@@ -131,35 +132,35 @@ const PrimaryFooter = () => {
         </div>
       ) : (
         <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
-          <div className={styles.topLeftEllipse}>
+          {/* <div className={styles.topLeftEllipse}>
             <Image src={EllipseGreen} width={652} height={652} alt="" />
-          </div>
+          </div> */}
           <div className="w-full flex flex-wrap justify-center">
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={LogoText01Icon} width={176} height={40} alt="" />
+              <Image src={LogoText01MobileIcon} width={176} height={40} alt="" />
             </div>
           </div>
-          <div className="w-full flex justify-around">
+          <div className="w-full flex justify-around mt-[14px]">
             <div className="w-full block justify-center text-center mt-[44px]">
               <div className={styles.title}>About</div>
-              <div className={`${styles.linkText} !mt-[23px]`}>
+              <div className={`${styles.linkText} !mt-[20px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
-                  About us
+                  Foster House
                 </a>
               </div>
               <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
-                  Community
+                  Turkey Circus
                 </a>
               </div>
-              <div className={styles.linkText}>
+              {/* <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_CAREERS} rel="noopener noreferrer">
                   Careers
                 </a>
-              </div>
+              </div> */}
               <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
-                  Terms of Use
+                  Terms of Service
                 </a>
               </div>
               <div className={styles.linkText}>
@@ -180,24 +181,24 @@ const PrimaryFooter = () => {
                   Brand & Design
                 </a>
               </div>
-              <div className={styles.linkText}>
+              {/* <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DEVELOPMENT} rel="noopener noreferrer">
                   Development
                 </a>
-              </div>
+              </div> */}
               <div className={styles.linkText}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_PRESS_RELEASES} rel="noopener noreferrer">
                   Press Releases
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Contact Us</a>
+                <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
               </div>
             </div>
           </div>
 
-          <div className="w-full block justify-center text-center mt-[44px]">
-            <div className={styles.title}>Stay Connected</div>
+          <div className="w-full block justify-center text-center mt-[84px]">
+            <div className={styles.stayTitle}>Stay Connected</div>
             <div className="mt-[26px] flex justify-center z-10">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
             </div>
