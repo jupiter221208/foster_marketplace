@@ -18,8 +18,8 @@ import { useViewport } from 'utils'
 
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
-import AddGrayIcon from 'assets/icons/add-gray.svg'
-import AddWhiteIcon from 'assets/icons/add-white.svg'
+import AddGrayIcon from 'assets/icons/add-green.svg'
+import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -72,45 +72,44 @@ const CreateNFTModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-                  <div className={styles.content}>
+                  <div>
                     <div className={styles.close} onClick={() => closeModal()}>
                       <Image src={CloseIcon} alt="" width={30} height={30} />
                     </div>
                     <div className={styles.title}>Create</div>
-                    <div
-                      className={styles.text}
-                      dangerouslySetInnerHTML={{
-                        __html: 'Trying to mint an NFT single or collection, eh?',
-                      }}
-                    ></div>
-                    <div className="hidden lg:flex w-full">
-                      <video autoPlay loop muted>
-                        <source type="video/mp4" src="/images/Page-Animation.webm" />
-                      </video>
+                    <div className={styles.text}>Would you like to mint a single NFT or collection?</div>
+                    <div className="flex justify-center">
+                      <div className="hidden lg:flex w-2/3">
+                        <video autoPlay loop muted>
+                          <source type="video/mp4" src="/images/Page-Animation.webm" />
+                        </video>
+                      </div>
                     </div>
-                    <div className="w-full mt-[30px]">
+                    <div className="flex justify-around">
                       <GradientButton
-                        label="Single NFT"
-                        fullWidth
+                        label="Single"
+                        width={180}
+                        height={49}
+                        backgroundColor01="#121212"
+                        backgroundColor02="#2D625D"
                         icon={AddGrayIcon}
                         onClick={() => handleClickButton('/create/single-nft')}
-                        gradientDirection="bottom"
-                        fontSize="22px"
-                        height="63px"
+                        gradientDirection="right"
+                        fontSize="18px"
+                        color="#95DBD5"
                       />
-                    </div>
-                    <div className="w-full mt-[30px]">
+
                       <OutlineButton
-                        label="NFT Collection"
-                        fullWidth
+                        label="Collection"
+                        width={180}
+                        height={49}
                         icon={AddWhiteIcon}
                         onClick={() => handleClickButton('/create/collection')}
                         backgroundColor="#202427"
-                        color="#EFF0F6"
-                        fontSize="22px"
-                        height="63px"
-                        borderColor="#ffffff"
-                        borderWidth="2px"
+                        color="#95DBD5"
+                        fontSize="18px"
+                        borderColor="#95DBD5"
+                        borderWidth="1px"
                       />
                     </div>
                   </div>
@@ -133,7 +132,7 @@ const CreateNFTModal = props => {
                     </div>
                     <div className="w-full max-w-[221px] mt-[30px]">
                       <GradientButton
-                        label="Single NFT"
+                        label="Single"
                         fullWidth
                         onClick={() => {
                           closeModal()
@@ -146,7 +145,7 @@ const CreateNFTModal = props => {
                     </div>
                     <div className="w-full max-w-[221px] mt-[30px]">
                       <OutlineButton
-                        label="NFT Collection"
+                        label="Collection"
                         fullWidth
                         onClick={() => {
                           closeModal()
