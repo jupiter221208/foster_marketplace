@@ -33,28 +33,37 @@
 
 .avatarArea {
   position: absolute;
-  bottom: -18px;
-  width: 36px;
-  height: 36px;
-  border-radius: 18px;
-  @media (min-width: 640px) {
-    bottom: -39px;
-    width: 78px;
-    height: 78px;
-    border-radius: 39px;
+  bottom: -53px;
+  width: 106px;
+  height: 106px;
+  border-radius: 53px;
+  @media (min-width: 1024px) {
+    bottom: -78px;
+    width: 156px;
+    height: 156px;
+    border-radius: 78px;
+    padding: 4px;
+  }
+  @media (min-width: 1280px) {
+    bottom: -95px;
+    width: 190px;
+    height: 190px;
+    border-radius: 95px;
   }
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, rgba($brand-02-color, 1), rgba($text-gray-400-color, 1));
+  background: rgba($text-gray-200-color, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .artistName {
   font-family: 'Muli-Bold';
-  font-size: 10px;
-  line-height: 16px;
+  font-size: 16px;
+  line-height: 36px;
   @media (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 24px;
     line-height: 36px;
   }
   letter-spacing: 0;
@@ -64,8 +73,14 @@
   text-overflow: ellipsis;
 }
 
+.line {
+  width: 1px;
+  height: 100%;
+  background: #707070;
+}
+
 .contentCard {
-  margin-top: 12px;
+  margin-top: 4px;
   width: 100%;
   background-color: rgba($background-dark-color, 0.8);
   border-radius: 10px;
@@ -101,9 +116,9 @@
 }
 
 .title {
-  font-family: 'Muli-Bold';
-  font-size: 8px;
-  line-height: 12px;
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 14px;
   margin-right: 1px;
   @media (min-width: 640px) {
     font-size: 10px;
@@ -131,34 +146,34 @@
   }
 
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .text {
-  font-family: 'Muli-Regular';
-  font-size: 8px;
-  line-height: 12px;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 640px) {
-    font-size: 10px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 18px;
   }
   @media (min-width: 768px) {
-    font-size: 12px;
+    font-size: 14px;
     line-height: 18px;
   }
   @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 20px;
+    line-height: 24px;
   }
   @media (min-width: 1280px) {
-    font-size: 15px;
-    line-height: 22px;
+    font-size: 20px;
+    line-height: 24px;
   }
   @media (min-width: 1536px) {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 24px;
   }
 
   letter-spacing: 0;
-  color: $brand-01-color;
+  color: $text-gray-200-color;
 }

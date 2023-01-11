@@ -8,7 +8,6 @@ import { useViewport } from 'utils'
 
 // images and icons
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/avatar-banner.png'
 
@@ -27,7 +26,7 @@ const EcosystemCard = props => {
             src={data.artist.banner_picture ?? BannerImage}
             alt=""
             width={321}
-            height={321}
+            height={256}
             layout="responsive"
             objectFit="cover"
           />
@@ -35,24 +34,24 @@ const EcosystemCard = props => {
         <div className={styles.avatarArea}>
           <Image
             src={data.artist.profile_picture ?? AvatarImage}
-            width={viewport === 'xs' ? 32 : 70}
-            height={viewport === 'xs' ? 32 : 70}
+            width={viewport === 'xs' || viewport === 'sm' ? 100 : 180}
+            height={viewport === 'xs' || viewport === 'sm' ? 100 : 180}
             className="rounded-full"
             alt=""
           />
         </div>
       </div>
-      <div className="w-full sm:mt-[50px] xs:mt-[26px] flex flex-wrap justify-center items-center px-[9px]">
+      <div className="w-full lg:mt-[100px] xs:mt-[50px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-center items-center">
           <div className={styles.artistName}>{data.artist.username ?? 'unknown'}</div>
-          <div className="flex justify-center items-center ml-[4px] lg:ml-[10px]">
+          {/* <div className="flex justify-center items-center ml-[4px] lg:ml-[10px]">
             <Image
               src={CheckedGreenIcon}
               alt=""
               width={viewport === 'xs' ? 11 : viewport === 'sm' ? 16 : 24}
               height={viewport === 'xs' ? 11 : viewport === 'sm' ? 16 : 24}
             />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.contentCard}>
@@ -63,6 +62,7 @@ const EcosystemCard = props => {
             </div>
             <div className={styles.title}>Collections</div>
           </div>
+          <div className={styles.line}></div>
           <div>
             <div className="flex justify-center">
               <div className={styles.text}>{data.number_of_nfts ?? 0}</div>
