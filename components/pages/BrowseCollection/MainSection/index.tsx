@@ -138,18 +138,18 @@ const MainSection = props => {
           )}
         </div>
         <div className="flex justify-center mt-[16px]">
-          <div className={`${styles.nftInfo} grid grid-cols-12`}>
+          <div className={`${styles.nftInfo} grid grid-cols-10`}>
             <>
-              <div className="col-span-3 flex justify-center items-center">
+              <div className="col-span-2 flex justify-center items-center">
                 <div className="text-center">
                   <div className={styles.nftInfoLabel}>{items}</div>
-                  <div className={styles.nftInfoValue}>Items</div>
+                  <div className={styles.nftInfoValue}>ITEMS</div>
                 </div>
               </div>
-              <div className="col-span-3 flex justify-center items-center">
+              <div className="col-span-2 flex justify-center items-center">
                 <div className="text-center">
                   <div className={styles.nftInfoLabel}>{owners}</div>
-                  <div className={styles.nftInfoValue}>Owners</div>
+                  <div className={styles.nftInfoValue}>OWNERS</div>
                 </div>
               </div>
               <div className="col-span-3 flex justify-center items-center">
@@ -158,17 +158,17 @@ const MainSection = props => {
                     <Image src={SolanaLogoIcon} alt="" />
                     <div className={`${styles.nftInfoLabel} ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                   </div>
-                  <div className={styles.nftInfoValue}>Floor Price</div>
+                  <div className={styles.nftInfoValue}>FLOOR PRICE</div>
                 </div>
               </div>
               <div className="col-span-3 flex justify-center items-center">
                 <div className="text-center">
                   <div className="flex items-center justify-center">
-                    <Image src={SolanaSolLogoIcon} alt="" />
+                    <Image src={SolanaLogoIcon} alt="" />
                     <div className={`${styles.nftInfoLabel} ml-[8px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
                   </div>
 
-                  <div className={styles.nftInfoValue}>Total Volume</div>
+                  <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
                 </div>
               </div>
             </>

@@ -25,7 +25,9 @@
     height: 170px;
   }
   border-radius: 100%;
-  background: $background-dark-color;
+  background: rgba($background-dark-color, 0.7);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   z-index: 1;
 }
 
@@ -53,13 +55,13 @@
 
 .collectionName {
   width: 100%;
-  font-family: 'Muli-SemiBold';
-  font-size: 16px;
+  font-family: 'Muli-ExtraBold';
+  font-size: 18px;
   line-height: 20px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-Bold';
-    font-size: 32px;
-    line-height: 36px;
+    font-family: 'Muli-ExtraBold';
+    font-size: 28px;
+    line-height: 44px;
     text-align: center;
   }
   letter-spacing: 0px;
@@ -72,11 +74,11 @@
   font-size: 12px;
   line-height: 24px;
   @media (min-width: 1024px) {
-    font-family: 'Muli-SemiBold';
+    font-family: 'Muli-Bold';
     font-size: 16px;
-    line-height: 20px;
+    line-height: 24px;
     text-align: center;
-    margin-top: 12px;
+    margin-top: 6px;
   }
   letter-spacing: 0px;
   color: $text-gray-200-color;
@@ -88,6 +90,7 @@
   line-height: 24px;
   color: $brand-09-color;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
     font-size: 16px;
   }
 }

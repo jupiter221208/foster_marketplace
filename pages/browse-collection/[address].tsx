@@ -36,22 +36,6 @@ const BrowseCollection = () => {
   const [data, setData] = useState({})
   const [nfts, setNfts] = useState([])
 
-  const [collection, setCollection] = useState<any>({})
-
-  const { metaplex: mx } = useMetaplex()
-
-  // useEffect(() => {
-  //   if (address !== undefined) {
-  //     const getCollection = async () => {
-  //       dispatch({ type: 'set', isLoading: true })
-  //       const collection = await getCollectionByAddress(mx, address.toString())
-  //       setCollection(collection)
-  //       dispatch({ type: 'set', isLoading: false })
-  //     }
-  //     if (mx && address) getCollection()
-  //   }
-  // }, [address])
-
   useEffect(() => {
     if (address !== undefined) {
       collectionsAPI.getCollection(address).then(response => {

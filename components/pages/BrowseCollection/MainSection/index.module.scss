@@ -61,7 +61,7 @@
 }
 
 .nftInfo {
-  width: 499px;
+  width: 566px;
   height: 98px;
   background: rgba($text-gray-800-color, 0.5);
   border-radius: 16px;
@@ -70,11 +70,12 @@
 .nftInfoLabel {
   font-family: 'Muli-SemiBold';
   line-height: 36px;
-  font-size: 16px;
+  font-size: 18px;
   @media (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 20px;
+    line-height: 30px;
   }
-  color: $brand-06-color;
+  color: $text-gray-200-color;
 }
 
 .nftInfoValue {
@@ -82,9 +83,10 @@
   line-height: 24px;
   font-size: 10px;
   @media (min-width: 1024px) {
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 24px;
   }
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .categoryList {
