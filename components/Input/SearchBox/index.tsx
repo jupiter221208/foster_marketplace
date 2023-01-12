@@ -77,7 +77,7 @@ const SearchBox = props => {
                 </div>
                 <div>
                   <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.name}</div>
+                  <div className={styles.username}>{item.artist_name}</div>
                 </div>
               </div>
             ))}
@@ -130,7 +130,10 @@ const SearchBox = props => {
                 <div className="w-[36px] lg:w-[46px] h-[36px] lg:h-[46px] mr-5">
                   <img src={item.image_url} alt="" className="object-cover rounded-[10px] w-full h-full" />
                 </div>
-                <div className={styles.text}>{item.name}</div>
+                <div>
+                  <div className={styles.text}>{item.name}</div>
+                  <div className={styles.username}>{item.artist_name}</div>
+                </div>
               </div>
             ))}
           </div>

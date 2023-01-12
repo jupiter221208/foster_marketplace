@@ -44,7 +44,7 @@ const MainSection = prop => {
   const [showReadMore, setShowReadMore] = useState(false)
   const [type, setType] = useState(0)
   const [follow, setFollow] = useState(false)
-  const [artistEnable, setArtistEnable] = useState(false)
+  const [artistEnable, setArtistEnable] = useState(true)
   const [artistFollowing, setArtistFollowing] = useState(artistInfo.following)
   const [artistFollowers, setArtistFollowers] = useState(artistInfo.followers)
 
