@@ -78,14 +78,14 @@ const MainSection = props => {
   }
 
   const unsaveCollection = collectionId => {
-    setSaved(false)
-    // collectionAPI.saveCollection(collectionId).then(
-    //   response => {
-    //     if (response) setSaved(true)
-    //   },
-    //   error => {}
-    // )
+    collectionAPI.unsaveCollection(collectionId).then(
+      response => {
+        setSaved(false)
+      },
+      error => {}
+    )
   }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       {data !== undefined && data.banner_image !== undefined ? (

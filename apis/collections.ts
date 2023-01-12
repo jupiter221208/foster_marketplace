@@ -27,6 +27,12 @@ class Collections {
     })
   }
 
+  unsaveCollection(collection_id) {
+    return client.delete(API_URL + 'v1/collections/save/' + collection_id).then(response => {
+      return response.data
+    })
+  }
+
   getCollectionNft(collection_id) {
     return client.get(API_URL + 'v1/collections/' + collection_id + '/nfts').then(response => {
       return response.data
