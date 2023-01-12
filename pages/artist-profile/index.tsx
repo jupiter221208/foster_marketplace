@@ -34,53 +34,118 @@ const ArtistProfile = () => {
   dispatch({ type: 'set', isLoading: false })
 
   const [artistInfo, setArtistInfo] = useState<any>({})
+  const [statsInfo, setStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
   const [nfts, setNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [exploreCircus, setExploreCircus] = useState<any>([])
   const [isOwn, setIsOwn] = useState<any>(false)
+  const [artistEnable, setArtistEnable] = useState(true)
 
   useEffect(() => {
     if (router.query.id !== undefined && router.query.id !== null) {
-      artistsAPI.getArtist(router.query.id).then(
-        response => {
-          let artist = response.artist
-          if (artist !== undefined && artist !== null) {
-            if (
-              artist.profile_picture === null ||
-              artist.profile_picture === '' ||
-              artist.profile_picture === undefined
-            ) {
-              artist.profile_picture = AvatarImage.src
-            }
-            if (artist.banner_picture === null || artist.banner_picture === '' || artist.banner_picture === undefined) {
-              artist.banner_picture = HeaderImage.src
-            }
-            setArtistInfo(artist)
-          }
-          setNfts(response.nfts)
-          setCollections(response.collections)
-          setCategoryList(response.categories)
-        },
-        error => {
-          console.log(error)
-        }
-      )
-
-      artistsAPI.getExploreCircus(router.query.id).then(
-        response => {
-          setExploreCircus(response)
-        },
-        error => {
-          console.log(error)
-        }
-      )
+      getArtistData(router.query.id)
+      // getExploreCircusData(router.query.id)
     }
   }, [router.query])
+
+  const getArtistData = id => {
+    artistsAPI.getArtist(id).then(
+      response => {
+        let artist = response.artist
+        if (artist !== undefined && artist !== null) {
+          if (
+            artist.profile_picture === null ||
+            artist.profile_picture === '' ||
+            artist.profile_picture === undefined
+          ) {
+            artist.profile_picture = AvatarImage.src
+          }
+          if (artist.banner_picture === null || artist.banner_picture === '' || artist.banner_picture === undefined) {
+            artist.banner_picture = HeaderImage.src
+          }
+          setArtistInfo(artist)
+        }
+        setStatsInfo(response.stats)
+        setNfts(response.nfts)
+        setCollections(response.collections)
+        setCategoryList(response.categories)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  const getExploreCircusData = id => {
+    artistsAPI.getExploreCircus(id).then(
+      response => {
+        setExploreCircus(response)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  const resetData = () => {
+    setArtistInfo({})
+    setStatsInfo({
+      nfts_collected: 'N/A',
+      collections_collected: 'N/A',
+      unique_artists_owned: 'N/A',
+      purchase_volume: 'N/A',
+      nfts_created: 'N/A',
+      collections_created: 'N/A',
+      unique_collectors: 'N/A',
+      sales_volume: 'N/A',
+    })
+    setNfts([])
+    setCategoryList([])
+  }
+
+  const getCollectorData = id => {
+    artistsAPI.getCollector(id).then(
+      response => {
+        let artist = response.collector
+        if (artist !== undefined && artist !== null) {
+          if (
+            artist.profile_picture === null ||
+            artist.profile_picture === '' ||
+            artist.profile_picture === undefined
+          ) {
+            artist.profile_picture = AvatarImage.src
+          }
+          if (artist.banner_picture === null || artist.banner_picture === '' || artist.banner_picture === undefined) {
+            artist.banner_picture = HeaderImage.src
+          }
+          setArtistInfo(artist)
+        }
+        setStatsInfo(response.stats)
+        setNfts(response.nfts)
+        setCollections(response.collections)
+        setCategoryList(response.categories)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 
   useEffect(() => {
     if (publicKey) setIsOwn(artistInfo.wallet_id === publicKey?.toBase58())
   }, [artistInfo, publicKey])
+
+  useEffect(() => {
+    if (router.query.id !== undefined && router.query.id !== null) {
+      resetData()
+      if (artistEnable) {
+        getArtistData(router.query.id)
+      } else {
+        getCollectorData(router.query.id)
+      }
+    }
+  }, [artistEnable])
 
   return (
     <div className="g-container">
@@ -93,7 +158,14 @@ const ArtistProfile = () => {
         <div className={styles.bottomLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
-        <MainSection artistInfo={artistInfo} categoryList={categoryList} isOwn={isOwn} />
+        <MainSection
+          artistInfo={artistInfo}
+          statsInfo={statsInfo}
+          categoryList={categoryList}
+          isOwn={isOwn}
+          artistEnable={artistEnable}
+          setArtistEnable={enabled => setArtistEnable(enabled)}
+        />
         <NFTSection nfts={nfts} collections={collections} wallet={artistInfo.wallet_id} />
       </div>
     </div>

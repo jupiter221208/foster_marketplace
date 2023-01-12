@@ -35,7 +35,7 @@ import artistsAPI from 'apis/artists'
 import SwitchButton from 'components/SwitchButton'
 
 const MainSection = prop => {
-  const { artistInfo, categoryList, isOwn } = prop
+  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
 
   const viewport = useViewport()
   const { publicKey } = useWallet()
@@ -44,7 +44,6 @@ const MainSection = prop => {
   const [showReadMore, setShowReadMore] = useState(false)
   const [type, setType] = useState(0)
   const [follow, setFollow] = useState(false)
-  const [artistEnable, setArtistEnable] = useState(true)
   const [artistFollowing, setArtistFollowing] = useState(artistInfo.following)
   const [artistFollowers, setArtistFollowers] = useState(artistInfo.followers)
 
@@ -179,13 +178,20 @@ const MainSection = prop => {
             <div className={styles.statesBack}>
               <div className="w-full flex justify-between">
                 <div className={styles.collectorProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
-                <SwitchButton enabled={artistEnable} onChange={() => setArtistEnable(!artistEnable)} />
+                <SwitchButton
+                  enabled={artistEnable}
+                  onChange={() => {
+                    setArtistEnable(!artistEnable)
+                  }}
+                />
               </div>
               <div className="w-full flex justify-between items-center mt-[22px]">
                 <div className="flex justify-center items-center">
                   <div className="text-center">
                     <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>800</div>
+                      <div className={styles.nftInfoLabel}>
+                        {artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}
+                      </div>
                     </div>
                     <div className={styles.nftInfoValue}>{artistEnable ? 'NFTS CREATED' : 'NFTS COLLECTED'}</div>
                   </div>
@@ -193,7 +199,9 @@ const MainSection = prop => {
                 <div className="flex justify-center items-center">
                   <div className="text-center">
                     <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>20</div>
+                      <div className={styles.nftInfoLabel}>
+                        {artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}
+                      </div>
                     </div>
                     <div className={styles.nftInfoValue}>
                       {artistEnable ? 'COLLECTIONS PUBLISHED' : 'UNIQUE COLLECTIONS'}
@@ -203,7 +211,9 @@ const MainSection = prop => {
                 <div className="flex justify-center items-center">
                   <div className="text-center">
                     <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>1000</div>
+                      <div className={styles.nftInfoLabel}>
+                        {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
+                      </div>
                     </div>
                     <div className={styles.nftInfoValue}>
                       {artistEnable ? 'MONTHLY VISITORS' : 'CREATORS SUPPORTED'}
@@ -215,7 +225,9 @@ const MainSection = prop => {
                     <div className="flex items-center justify-center">
                       <div className={styles.nftInfoLabel}>
                         <Image src={SolanaLogoIcon} width={23} height={23} alt="" />
-                        <div className={'ml-[6px]'}>62.3</div>
+                        <div className={'ml-[6px]'}>
+                          {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
+                        </div>
                       </div>
                     </div>
 

@@ -9,6 +9,12 @@ class Artists {
     })
   }
 
+  getCollector(wallet_id) {
+    return client.get(API_URL + 'v1/collectors/' + wallet_id).then(response => {
+      return response.data
+    })
+  }
+
   getExploreCircus(wallet_id) {
     return client.get(API_URL + 'v1/artists/' + wallet_id + '/explore-the-circus').then(response => {
       return response.data
