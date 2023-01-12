@@ -84,7 +84,7 @@ const TopRatedArtistsSection = () => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Top Rated Artists</div>
           )}
-          <div className="hidden lg:flex z-10">
+          {/* <div className="hidden lg:flex z-10">
             <Button
               label="24 hrs"
               onClick={() => handleChangeActive(0)}
@@ -103,7 +103,7 @@ const TopRatedArtistsSection = () => {
               color={active === 2 ? '#000000' : '#979EA2'}
               backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
             />
-          </div>
+          </div> */}
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton

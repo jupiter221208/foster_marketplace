@@ -93,7 +93,7 @@ const MostPopularSection = props => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
           )}
-          <div className="hidden lg:flex z-10">
+          {/* <div className="hidden lg:flex z-10">
             <Button
               label="24 hrs"
               onClick={() => handleChangeActive(0)}
@@ -112,7 +112,7 @@ const MostPopularSection = props => {
               color={active === 2 ? '#202427' : '#979EA2'}
               backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
             />
-          </div>
+          </div> */}
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton

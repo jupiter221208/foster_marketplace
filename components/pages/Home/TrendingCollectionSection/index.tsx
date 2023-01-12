@@ -89,7 +89,7 @@ const TrendingCollectionSection = props => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
           )}
-          <div className="hidden lg:flex z-10">
+          {/* <div className="hidden lg:flex z-10">
             <Button
               label="24 hrs"
               onClick={() => handleChangeActive(0)}
@@ -108,7 +108,7 @@ const TrendingCollectionSection = props => {
               color={active === 2 ? '#000' : '#979EA2'}
               backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
             />
-          </div>
+          </div> */}
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
