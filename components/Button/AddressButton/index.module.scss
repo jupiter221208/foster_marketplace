@@ -38,7 +38,7 @@
   border-radius: 6px;
   background-color: $background-black-color;
   padding: 5px;
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.6);
   @media (min-width: 1024px) {
     background-color: transparent;
     color: rgba($text-gray-200-color, 0.7);

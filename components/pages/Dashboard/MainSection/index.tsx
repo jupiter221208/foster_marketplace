@@ -273,13 +273,13 @@ const MainSection = () => {
             <div className={styles.bottomSection}>
               <div className={styles.artistName}>{profileName.length > 0 ? profileName : 'Username'}</div>
             </div>
-            <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
+            <div className="flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
               <AddressButton label={shortAddress} onClick={() => copyToClipboard(publicKey?.toBase58() || '')} />
             </div>
             <div className="hidden lg:flex justify-center mt-[16px]">
               <AddressButton label={shortAddress} onClick={() => copyToClipboard(publicKey?.toBase58() || '')} />
             </div>
-            <div className="flex lg:hidden w-full justify-center mt-[5px] gap-[10px]">
+            <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
               <div>
                 <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
               </div>
