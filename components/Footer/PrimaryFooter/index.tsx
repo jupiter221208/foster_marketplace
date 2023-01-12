@@ -49,7 +49,7 @@ const PrimaryFooter = () => {
               </a>
             </div>
             <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
                 Turkey Circus
               </a>
             </div>
@@ -87,8 +87,8 @@ const PrimaryFooter = () => {
               </a>
             </div> */}
             <div className={styles.linkText}>
-              <a target="_blank" href={process.env.NEXT_PUBLIC_PRESS_RELEASES} rel="noopener noreferrer">
-                Press Releases
+              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                Community
               </a>
             </div>
             <div className={styles.linkText}>
@@ -96,11 +96,11 @@ const PrimaryFooter = () => {
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
-            <div className={styles.title}>Stay Connected</div>
+            {/* <div className={styles.title}>Stay Connected</div>
             <div className="mt-[29px]">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
-            </div>
-            <div className="flex flex-wrap mt-[62px] gap-5">
+            </div> */}
+            <div className="flex flex-wrap mt-[0px] gap-5">
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
                   <IconButton iconWidth={20} iconHeight={20} icon={InstagramLightGreenIcon} onClick={() => {}} />
@@ -149,7 +149,7 @@ const PrimaryFooter = () => {
                 </a>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
                   Turkey Circus
                 </a>
               </div>
@@ -187,8 +187,8 @@ const PrimaryFooter = () => {
                 </a>
               </div> */}
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_PRESS_RELEASES} rel="noopener noreferrer">
-                  Press Releases
+                <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                  Community
                 </a>
               </div>
               <div className={styles.linkText}>
@@ -197,11 +197,11 @@ const PrimaryFooter = () => {
             </div>
           </div>
 
-          <div className="w-full block justify-center text-center mt-[84px]">
-            <div className={styles.stayTitle}>Stay Connected</div>
+          <div className="w-full block justify-center text-center mt-[42px]">
+            {/* <div className={styles.stayTitle}>Stay Connected</div>
             <div className="mt-[26px] flex justify-center z-10">
               <Subscriber value={email} placeholder="Email" onChange={value => setEmail(value)} onClick={() => {}} />
-            </div>
+            </div> */}
             <div className="flex flex-wrap mt-[44px] gap-[18px] justify-center">
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">

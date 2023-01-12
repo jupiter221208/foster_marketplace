@@ -34,8 +34,8 @@ const EcosystemCard = props => {
         <div className={styles.avatarArea}>
           <Image
             src={data.artist.profile_picture ?? AvatarImage}
-            width={viewport === 'xs' || viewport === 'sm' ? 100 : 180}
-            height={viewport === 'xs' || viewport === 'sm' ? 100 : 180}
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
             className="rounded-full"
             alt=""
           />

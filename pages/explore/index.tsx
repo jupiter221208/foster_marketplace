@@ -238,6 +238,7 @@ const Explore = () => {
         setCurrentPage(curPage)
         setEcoSystemCurrentPage(curPage)
         setTotalCount(count * curPage + respone.length)
+        console.log('====respone===', respone)
         setEcosystemList(respone)
         window.scrollTo({
           top: 0,
@@ -449,7 +450,10 @@ const Explore = () => {
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {ecosystemList.map((item, index) => (
                     <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
-                      <EcosystemCard data={item} onClick={() => router.push('/artist-profile')} />
+                      <EcosystemCard
+                        data={item}
+                        onClick={() => router.push(`/artist-profile?id=${item.artist.wallet_id}`)}
+                      />
                     </div>
                   ))}
                 </div>

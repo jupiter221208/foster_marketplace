@@ -26,12 +26,6 @@ const SearchBox = props => {
 
   return (
     <div className={styles.container}>
-      <input
-        className={styles.inputArea}
-        value={value}
-        placeholder={placeholder}
-        onChange={event => onChange(event.target.value)}
-      />
       <div className={styles.iconArea}>
         <Image
           src={value !== '' ? CloseGrayIcon : SearchGrayIcon}
@@ -42,6 +36,13 @@ const SearchBox = props => {
           onClick={() => onClick()}
         />
       </div>
+      <input
+        className={styles.inputArea}
+        value={value}
+        placeholder={placeholder}
+        onChange={event => onChange(event.target.value)}
+      />
+
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div>
           <OutlineButton
