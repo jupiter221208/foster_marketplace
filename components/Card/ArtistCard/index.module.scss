@@ -42,9 +42,9 @@
     width: 226px;
     height: 226px;
   }
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  background: linear-gradient(110deg, rgba(#4ea19b, 0.2) 0%, rgba(#304e4e, 0.2) 100%);
+  // backdrop-filter: blur(10px);
+  // -webkit-backdrop-filter: blur(10px);
+  background: linear-gradient(110deg, rgba(#4ea19b, 1) 0%, rgba(#304e4e, 1) 80%);
 }
 
 .name {

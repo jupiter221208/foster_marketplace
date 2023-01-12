@@ -156,10 +156,10 @@ const Notifications = () => {
         <div className="hidden lg:flex w-full z-10">
           <div className={styles.title}>Notifications</div>
         </div>
-        <div className="w-full flex justify-between mt-[51px] lg:mt-[38px] gap-8">
+        <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-8">
           <div className="flex flex-1 flex-wrap max-w-[670px] gap-[35px] z-10">
             <NotificationsSearchBox placeholder="Search by keywords" />
-            <div className="lg:hidden w-full">
+            {/* <div className="lg:hidden w-full">
               <OutlineButton
                 label="All Notifications"
                 onClick={() => setShowFilterModal(true)}
@@ -169,7 +169,7 @@ const Notifications = () => {
                 height="48px"
                 justifyContent="flex-start"
               />
-            </div>
+            </div> */}
             <NotificationsCard data={filterNotification} />
           </div>
           <NotificationsFilterCard
