@@ -232,12 +232,49 @@ const MainSection = props => {
       <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
         {data?.description && (
           <span className={styles.description}>
-            {getShortDescription(viewport, data?.description) + ' '}
+            {data?.description}
+            {/* {getShortDescription(viewport, data?.description) + ' '}
             <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
-            </span>
+            </span> */}
           </span>
         )}
+      </div>
+
+      <div className="w-full flex justify-center items-center mt-[24px] mb-[24px]">
+        <div className={`${styles.nftInfo} grid grid-cols-10`}>
+          <div className="col-span-2 flex justify-center items-center">
+            <div className="text-center">
+              <div className={styles.nftInfoLabel}>{items}</div>
+              <div className={styles.nftInfoValue}>ITEMS</div>
+            </div>
+          </div>
+          <div className="col-span-2 flex justify-center items-center">
+            <div className="text-center">
+              <div className={styles.nftInfoLabel}>{owners}</div>
+              <div className={styles.nftInfoValue}>OWNERS</div>
+            </div>
+          </div>
+          <div className="col-span-3 flex justify-center items-center">
+            <div className="text-center">
+              <div className="flex items-center justify-center">
+                <Image src={SolanaLogoIcon} alt="" width={18} />
+                <div className={`${styles.nftInfoLabel} ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+              </div>
+              <div className={styles.nftInfoValue}>FLOOR PRICE</div>
+            </div>
+          </div>
+          <div className="col-span-3 flex justify-center items-center">
+            <div className="text-center">
+              <div className="flex items-center justify-center">
+                <Image src={SolanaLogoIcon} alt="" width={18} />
+                <div className={`${styles.nftInfoLabel} ml-[8px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+              </div>
+
+              <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {showReadMore && (

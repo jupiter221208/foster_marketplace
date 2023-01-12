@@ -61,10 +61,14 @@
 }
 
 .nftInfo {
-  width: 566px;
-  height: 98px;
-  background: rgba($text-gray-800-color, 0.5);
-  border-radius: 16px;
+  width: 345px;
+  height: 45px;
+  @media (min-width: 1024px) {
+    width: 566px;
+    height: 98px;
+    background: rgba($text-gray-800-color, 0.5);
+    border-radius: 16px;
+  }
 }
 
 .nftInfoLabel {

@@ -368,7 +368,9 @@ const MainSection = prop => {
             <div className="flex justify-center items-center">
               <div className="text-center">
                 <div className="flex justify-center">
-                  <div className={styles.nftInfoLabel}>800</div>
+                  <div className={styles.nftInfoLabel}>
+                    {artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}
+                  </div>
                 </div>
                 <div className={styles.nftInfoValue}>NFTS</div>
               </div>
@@ -376,7 +378,9 @@ const MainSection = prop => {
             <div className="flex justify-center items-center">
               <div className="text-center">
                 <div className="flex justify-center">
-                  <div className={styles.nftInfoLabel}>20</div>
+                  <div className={styles.nftInfoLabel}>
+                    {artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}
+                  </div>
                 </div>
                 <div className={styles.nftInfoValue}>COLLECTIONS</div>
               </div>
@@ -384,7 +388,9 @@ const MainSection = prop => {
             <div className="flex justify-center items-center">
               <div className="text-center">
                 <div className="flex justify-center">
-                  <div className={styles.nftInfoLabel}>1000</div>
+                  <div className={styles.nftInfoLabel}>
+                    {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
+                  </div>
                 </div>
                 <div className={styles.nftInfoValue}>{artistEnable ? 'VISITORS' : 'SUPPORTED'}</div>
               </div>
@@ -394,7 +400,9 @@ const MainSection = prop => {
                 <div className="flex items-center justify-center">
                   <div className={styles.nftInfoLabel}>
                     <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
-                    <div className={'ml-[6px]'}>62.3</div>
+                    <div className={'ml-[6px]'}>
+                      {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
+                    </div>
                   </div>
                 </div>
 
