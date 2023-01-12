@@ -213,17 +213,19 @@ const MainSection = () => {
           className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
         />
         <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
-          <IconButton
-            icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
-            onClick={() => inputBannerFile.current.click()}
-            backgroundColor={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#378287' : 'transparent'}
-            borderRadius="100%"
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-            iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-            iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-            disabled={bannerUploadingToS3}
-          />
+          <div className={styles.iconBlurView}>
+            <IconButton
+              icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
+              onClick={() => inputBannerFile.current.click()}
+              backgroundColor={'transparent'}
+              borderRadius="100%"
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+              iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+              iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+              disabled={bannerUploadingToS3}
+            />
+          </div>
           <input
             type="file"
             id="banner-file"
@@ -243,21 +245,21 @@ const MainSection = () => {
                   image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : AvatarImage.src}
                 />
                 <div className="absolute bottom-1 lg:bottom-2 right-1 lg:right-2 cursor-pointer z-20">
-                  <IconButton
-                    icon={
-                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
-                    }
-                    onClick={() => inputAvatarFile.current.click()}
-                    backgroundColor={
-                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#378287' : 'transparent'
-                    }
-                    borderRadius="100%"
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                    disabled={avatarUploadingToS3}
-                  />
+                  <div className={styles.iconProfileBlurView}>
+                    <IconButton
+                      icon={
+                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
+                      }
+                      onClick={() => inputAvatarFile.current.click()}
+                      backgroundColor={'transparent'}
+                      borderRadius="100%"
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                      iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                      iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                      disabled={avatarUploadingToS3}
+                    />
+                  </div>
                   <input
                     type="file"
                     id="avatar-file"

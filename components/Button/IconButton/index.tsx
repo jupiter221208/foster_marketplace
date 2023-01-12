@@ -21,6 +21,7 @@ const IconButton = props => {
     borderColor,
     borderWidth,
     opacity = '1',
+    blured = false,
   } = props
   return (
     <button

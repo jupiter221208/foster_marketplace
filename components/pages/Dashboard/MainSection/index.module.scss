@@ -14,6 +14,35 @@
   }
 }
 
+.iconBlurView {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(#378287, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  @media (min-width: 1024px) {
+    background: transparent;
+    width: 46px;
+    height: 46px;
+  }
+}
+
+.iconProfileBlurView {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba($background-dark-color, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  @media (min-width: 1024px) {
+    background: transparent;
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+  }
+}
+
 .topLeftEllipse {
   position: absolute;
   top: -800px;

@@ -38,9 +38,9 @@ const CategoryCard = props => {
 
         <div className={styles.bottomMask}></div>
 
-        <div className={styles.logoIcon}>
+        {/* <div className={styles.logoIcon}>
           <Image src={LogoGrayIcon} alt="" width={22} height={25} />
-        </div>
+        </div> */}
       </div>
     </div>
   )
