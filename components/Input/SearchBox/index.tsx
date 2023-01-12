@@ -123,7 +123,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  router.push(`/category/${item.id}`)
+                  router.push(`/browse-collection/${item.id}`)
                   onClose()
                 }}
               >
