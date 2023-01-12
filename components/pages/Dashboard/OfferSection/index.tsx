@@ -29,7 +29,7 @@ const OfferSection = () => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
-  const [isLoaded, setIsLoaded] = useState(true)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const updateDataAction = (index, action) => {
     let newList = [...offerList]
@@ -123,9 +123,9 @@ const OfferSection = () => {
     }
   }
 
-  // useEffect(() => {
-  //   if (mx) getOffers()
-  // }, [mx])
+  useEffect(() => {
+    if (mx) getOffers()
+  }, [mx])
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
@@ -164,7 +164,7 @@ const OfferSection = () => {
           />
         </div>
       )}
-      {showOfferList.length > 0 && (
+      {offerList.length > 0 && (
         <div className="w-full flex justify-end">
           <Pagination data={offerList} getCurrentData={data => setShowOfferList(data)} />
         </div>

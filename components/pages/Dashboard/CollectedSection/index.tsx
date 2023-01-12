@@ -72,7 +72,7 @@ const CollectedSection = props => {
           />
         </div>
       )}
-      {nftList.length > 0 && (
+      {allNftList.length > 0 && (
         <div className="w-full flex justify-end">
           <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
         </div>

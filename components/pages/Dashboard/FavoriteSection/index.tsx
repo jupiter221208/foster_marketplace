@@ -140,10 +140,10 @@ const FavoriteSection = () => {
         </div>
       )}
       <div className="w-full flex justify-end">
-        {active === 0 && nftList.length > 0 && (
+        {active === 0 && allNftList.length > 0 && (
           <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />
         )}
-        {active === 1 && collectionList.length > 0 && (
+        {active === 1 && allCollectionList.length > 0 && (
           <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />
         )}
       </div>

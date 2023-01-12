@@ -46,8 +46,8 @@ const ListedNFTSection = props => {
   }
 
   const isGetListedNFTs = useSelector<any>(state => state.isGetListedNFTs)
-  const fixedPriceNFTs = useSelector<any>(state => state.fixedPriceNFTs)
-  const liveAuctionNFTs = useSelector<any>(state => state.liveAuctionNFTs)
+  const fixedPriceNFTs: any = useSelector<any>(state => state.fixedPriceNFTs)
+  const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
 
   useEffect(() => {
@@ -255,13 +255,15 @@ const ListedNFTSection = props => {
           />
         </div>
       )}
-      {nftList.length > 0 && (
+      {(active === 0 && fixedPriceNFTs.length > 0) || (active === 1 && liveAuctionNFTs.length > 0) ? (
         <div className="w-full flex justify-end">
           <Pagination
             data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs}
             getCurrentData={data => setNFTList(data)}
           />
         </div>
+      ) : (
+        <></>
       )}
       <UpdateNFTModal
         data={selectedData}

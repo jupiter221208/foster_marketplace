@@ -126,7 +126,9 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      {!loading && nftList.length > 0 && <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />}
+      {!loading && filteredList.length > 0 && (
+        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+      )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
           nftList.map((item, index) => (
@@ -143,7 +145,7 @@ const MyNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      {isGetMyNFTs && nftList.length === 0 && (
+      {isGetMyNFTs && filteredList.length === 0 && (
         <div className="mt-[30px] lg:mt-[70px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"
@@ -151,7 +153,7 @@ const MyNFTSection = props => {
           />
         </div>
       )}
-      {nftList.length > 0 && (
+      {filteredList.length > 0 && (
         <div className="w-full flex justify-end">
           <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
         </div>
