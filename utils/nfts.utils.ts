@@ -1,4 +1,4 @@
-import { Metaplex } from '@metaplex-foundation/js'
+import { Metaplex, TokenGpaBuilder, UnparsedAccount } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
 import nftsAPI from 'apis/nfts'
@@ -12,36 +12,107 @@ export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
   return largestAccountInfo.value.data.parsed.info.owner
 }
 
+interface TokenAccount{
+  address: PublicKey;
+  mint: PublicKey;
+  owner: PublicKey;
+  amount: bigint;
+  delegate?: PublicKey;
+  state: string;
+  isNative?: bigint;
+  delegatedAmount: bigint;
+  closeAuthority?: PublicKey;
+}
+
+export function parseTokenAccount({ data, publicKey }: UnparsedAccount): TokenAccount{
+  let offset = 0
+
+  let mint = new PublicKey(data.slice(offset, offset += 32))
+  let owner = new PublicKey(data.slice(offset, offset += 32))
+
+  let amount = data.readBigUInt64LE(offset)
+  offset += 8
+
+  let delegate: PublicKey | null = null
+  if(data.readUInt32LE(offset) === 1)
+    delegate = new PublicKey(data.slice(offset + 4, offset + 4 + 32))
+  offset += 4 + 32
+
+  let state: string
+  switch(data.readUInt8(offset)){
+    case 1:
+      state = "uninitialized"
+      break
+    case 2:
+      state = "initialized"
+      break
+    case 3:
+      state = "frozen"
+      break
+    default:
+      throw new Error(`unrecognized token account state ${data.readUInt8(offset)}`)
+  }
+  offset += 1
+
+  let isNative: bigint | null = null
+  if(data.readUInt32LE(offset) === 1)
+    isNative = data.readBigUInt64LE(offset + 4)
+  offset += 4 + 8
+
+  let delegatedAmount = data.readBigUInt64LE(offset)
+  offset += 8
+
+  let closeAuthority: PublicKey | null = null
+  if(data.readUInt32LE(offset) === 1)
+    closeAuthority = new PublicKey(data.slice(offset + 4, offset + 4 + 32))
+  offset += 4 + 32
+
+  return {
+    address: publicKey,
+    mint,
+    owner,
+    amount,
+    delegate,
+    state,
+    isNative,
+    delegatedAmount,
+    closeAuthority
+  }
+}
+
 export async function getMyNFTs(mx: Metaplex) {
-  let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey })
+  let tokenAccounts = await new TokenGpaBuilder(mx)
+    .whereOwner(mx.identity().publicKey)
+    .whereAmount(1)
+    // .whereDoesntHaveDelegate()
+    .getAndMap(parseTokenAccount)
 
-  const res = await nftsAPI.filteredNfts().then(res => res)
-  const listedNFTs = res === undefined ? [] : res
+  let nfts = await mx
+    .nfts()
+    .findAllByMintList({ mints: tokenAccounts.map(({ mint }) => mint) })
 
-  nfts = nfts.filter(
-    nft =>
-      /* @ts-ignore to get mintAddress*/
-      !listedNFTs.some(listedNFT => listedNFT.toString() === nft.mintAddress.toString()) && !nft.collectionDetails
+  let userNfts = [];
+  for(let i = 0; i < tokenAccounts.length; i++){
+    if(!nfts[i] || tokenAccounts[i].delegate)
+      continue;
+
+    userNfts.push(nfts[i]);
+  }
+
+  await Promise.all(
+    userNfts.map(async (nft) => {
+      nft.offchainMetadata = null
+      try{
+        nft.offchainMetadata = await fetch(nft.uri).then((r) => r.json())
+      }
+      catch(e){
+        console.error(`failed to pull off chain metadata for ${nft.mint.address}: ${nft.uri}`)
+        console.error(e)
+      }
+    })
   )
 
-  const myNFTs = (
-    await Promise.all(
-      nfts.map(async nft => {
-        let item = { ...nft, offchainMetadata: null }
-
-        try {
-          item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
-        } catch (e) {
-          console.log('failed to pull off chain metadata for collection')
-          console.log(e)
-        }
-
-        return item
-      })
-    )
-  ).filter(nft => nft.offchainMetadata)
-
-  return myNFTs
+  return userNfts.filter(({ offchainMetadata }) => offchainMetadata)
 }
 
 export async function getMyCollectionNFTs(mx: Metaplex) {
