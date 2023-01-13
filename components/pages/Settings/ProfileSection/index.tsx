@@ -28,6 +28,8 @@ import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
 import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
+import InfoGreenIcon from 'assets/icons/info-green.svg'
+import CloseWhiteIcon from 'assets/icons/close-white.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -35,6 +37,8 @@ import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
+import SwitchButton from 'components/SwitchButton'
+import ProfileViewTooltip from 'components/Tooltip/ProfileViewTooltip'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -55,8 +59,9 @@ const ProfileSection = prop => {
   const [orgUserInfo, setOrgUserInfo] = useState<any>(null)
   const [verificationStatus, setVerificationStatus] = useState('unverified') // unverified, review, verified
   const [enableSave, setEnableSave] = useState(false)
-
+  const [artistEnable, setArtistEnable] = useState(true)
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [showProfileTooltip, setShowProfileTooltip] = useState(false)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -283,6 +288,81 @@ const ProfileSection = prop => {
                 </Link>
               )}
             </div>
+
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="relative flex mt-[45px] ">
+                <div className="w-full flex justify-center">
+                  <div className={styles.subTitle}>Default Profile View</div>
+                  <div
+                    className="pl-[10px] pr-[10px] flex justify-center"
+                    onClick={() => setShowProfileTooltip(!showProfileTooltip)}
+                  >
+                    <Image src={InfoGreenIcon} alt="" />
+                  </div>
+                </div>
+                {showProfileTooltip ? (
+                  <div className={styles.tooltip}>
+                    <div className="absolute top-[8px] right-[8px]">
+                      <IconButton
+                        icon={CloseWhiteIcon}
+                        onClick={() => setShowProfileTooltip(!showProfileTooltip)}
+                        backgroundColor="#4B4B4B"
+                        width="20px"
+                        height="20px"
+                        borderRadius="10px"
+                        iconWidth={10}
+                        iconHeight={10}
+                      />
+                    </div>
+
+                    <div className="mt-[12px]">
+                      This setting allows you to choose the type of artwork and statistics displayed on your profile
+                      page.
+                    </div>
+                    <div className="mt-[20px]">
+                      <span className={styles.tooltipTitle}>Artist View</span> displays your profile as a creator,
+                      showcasing the artwork and collections created by you.
+                    </div>
+                    <div className="mt-[20px]">
+                      <span className={styles.tooltipTitle}>Collector View</span> displays your profile as a collector,
+                      showcasing the artwork and collections you've collected.
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            ) : (
+              <div className="flex mt-[60px]">
+                <div className={styles.subTitle}>Default Profile View</div>
+                <div className="flex items-center justify-center p-[9px] cursor-pointer">
+                  <ProfileViewTooltip />
+                </div>
+              </div>
+            )}
+
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="flex justify-between mt-[30px]">
+                <div className={styles.artistProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
+                <SwitchButton
+                  enabled={artistEnable}
+                  onChange={() => {
+                    setArtistEnable(!artistEnable)
+                  }}
+                />
+              </div>
+            ) : (
+              <div className="flex mt-[30px]">
+                <SwitchButton
+                  enabled={artistEnable}
+                  onChange={() => {
+                    setArtistEnable(!artistEnable)
+                  }}
+                />
+                <div className={styles.artistProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
+              </div>
+            )}
+
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Wallet</div>
             </div>
