@@ -14,6 +14,7 @@ const Button = props => {
     backgroundColor,
     height = '',
     fontSize = '',
+    fontFamily,
     borderRadius = '',
     paddingLeft = '',
     paddingRight = '',
@@ -25,6 +26,7 @@ const Button = props => {
       className={styles.container}
       disabled={disabled}
       style={{
+        fontFamily: fontFamily,
         width: fullWidth ? '100%' : width,
         color: color,
         backgroundColor: backgroundColor,

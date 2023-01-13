@@ -1,8 +1,7 @@
 [
   { "id": 0, "label": "Visual Artist", "value": "Visual Artist" },
   { "id": 1, "label": "Musical Artist", "value": "Musical Artist" },
-  { "id": 2, "label": "Art Patron", "value": "Art Patron" },
+  { "id": 2, "label": "Turkey Circus DAO", "value": "Turkey Circus DAO" },
   { "id": 3, "label": "Foster Partner", "value": "Foster Partner" },
-  { "id": 4, "label": "Sports Affiliate", "value": "Sports Affiliate" },
-  { "id": 5, "label": "House Member / DAO", "value": "House Member / DAO" }
+  { "id": 4, "label": "Sports Affiliate", "value": "Sports Affiliate" }
 ]

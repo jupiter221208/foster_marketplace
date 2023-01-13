@@ -35,7 +35,7 @@
 
 .description {
   margin-top: 6px;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0;
@@ -52,4 +52,5 @@
 
 .link {
   color: $brand-01-color;
+  text-decoration: underline;
 }

@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 
 // json
 import CategoryList from 'assets/json/dashboard/category-list.json'
+import VerificationRadio from 'components/VerificationRadio'
 
 const RequestVerifyModal = props => {
   const { open, onClick, onClose } = props
@@ -40,6 +41,7 @@ const RequestVerifyModal = props => {
 
   // step 1
   const [selectedCategory, setSelectedCategory] = useState<any>({})
+  const [selected, setSelected] = useState(false)
 
   // step 2
   const [email, setEmail] = useState('')
@@ -80,7 +82,7 @@ const RequestVerifyModal = props => {
                   <Image src={CloseIcon} alt="" width={30} height={30} />
                 </div>
                 {currentStep === 1 && (
-                  <div className="w-full flex flex-wrap justify-start text-start">
+                  <div className="w-full flex flex-wrap justify-start text-start mt-[30px]">
                     <div className={styles.title}>Select a category</div>
                     <div className="w-full mt-5">
                       <p className={styles.text}>
@@ -90,25 +92,26 @@ const RequestVerifyModal = props => {
                         </Link>
                       </p>
                     </div>
-                    <div className="w-full mt-12">
-                      <Radio
+                    <div className="w-full mt-[30px] lg:mt-[50px]">
+                      <VerificationRadio
                         data={CategoryList}
                         selected={selectedCategory}
                         onChange={item => setSelectedCategory(item)}
-                        backgroundColor="#202427"
-                        borderRadius="12px"
-                        padding="15px 20px"
                       />
                     </div>
-                    <div className="w-full mt-[60px] lg:mt-[120px]">
+                    <div className="w-full mt-[60px] lg:mt-[120px] flex justify-center">
                       <Button
                         label="Continue"
                         onClick={() => setCurrentStep(2)}
-                        fullWidth
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
                         height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                        backgroundColor={Object.keys(selectedCategory).length === 0 ? '#383838' : ''}
-                        color={Object.keys(selectedCategory).length === 0 ? '#EFF0F6' : ''}
+                        backgroundColor={Object.keys(selectedCategory).length === 0 ? '#202427' : ''}
+                        color={Object.keys(selectedCategory).length === 0 ? '#EFF0F6' : '#202427'}
                         disabled={Object.keys(selectedCategory).length === 0 ? true : false}
+                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
+                        fontFamily={
+                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Muli-Bold' : 'Muli-SemiBold'
+                        }
                       />
                     </div>
                   </div>
@@ -129,7 +132,7 @@ const RequestVerifyModal = props => {
                         opacity="0.7"
                       />
                     </div>
-                    <div className="w-full mt-[42px] flex items-center gap-3">
+                    <div className="w-full mt-[32px] flex items-center gap-3">
                       <div className={styles.title02}>Visual Artist</div>
                       <Image src={CheckedGreenIcon} width={32} height={32} alt="" />
                     </div>

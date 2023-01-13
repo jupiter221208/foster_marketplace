@@ -1,0 +1,55 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  border-radius: 12px;
+  background: $background-dark-color;
+  padding: 15px 20px 15px 20px;
+  margin-top: 15px;
+  box-shadow: 0px 3px 6px rgba(#000000, 0.4);
+  @media (min-width: 1024px) {
+    margin-top: 12px;
+  }
+}
+
+.radio {
+  appearance: none;
+  border: 2px solid white;
+  background-color: transparent;
+  vertical-align: top;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  border-radius: 12px;
+
+  &:checked {
+    border: 2px solid $brand-03-color;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      background-color: $brand-03-color;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+.label {
+  flex: 1;
+  cursor: pointer;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 24px;
+  margin-left: 6px;
+  color: $text-gray-200-color;
+}
