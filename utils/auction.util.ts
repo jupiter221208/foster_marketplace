@@ -89,20 +89,25 @@ const bidFilters: any = [
   },
 ]
 
-export async function getAuctionHouse(mx: Metaplex): Promise<AuctionHouse> {
-  const auctionHouse = await mx.auctionHouse().findByAddress({
-    address: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY)
-  })
+let cachedAuctionHouse: AuctionHouse | null = null;
+export async function getAndCacheAuctionHouse(
+  mx: Metaplex,
+  forceRefresh: boolean = false
+): Promise<AuctionHouse> {
+  if(!cachedAuctionHouse || forceRefresh){
+    cachedAuctionHouse = await mx.auctionHouse().findByAddress({
+      address: AUCTION_HOUSE_PUBLIC_KEY
+    })
+    if(!cachedAuctionHouse)
+      throw new Error(`could not load auction house: ${AUCTION_HOUSE_PUBLIC_KEY}`);
+  }
 
-  if(!auctionHouse)
-    throw new Error(`could not load auction house: ${AUCTION_HOUSE_PUBLIC_KEY}`);
-
-  return auctionHouse
+  return cachedAuctionHouse
 }
 
 export async function listNFT(mx: Metaplex, nftAddress: PublicKey, price: number) {
   try {
-    const auctionHouse = await getAuctionHouse(mx)
+    const auctionHouse = await getAndCacheAuctionHouse(mx)
 
     const listedNFT = await mx
       .auctionHouse()
@@ -134,7 +139,7 @@ export async function getListedNFTsFromAccounts(
     account: AccountInfo<Buffer | ParsedAccountData>
   }[]
 ) {
-  const auctionHouse = await getAuctionHouse(mx)
+  const auctionHouse = await getAndCacheAuctionHouse(mx)
 
   const listedNFTs = []
 
@@ -191,7 +196,7 @@ export async function getMyListedNFTs(mx: Metaplex) {
 
 export async function cancelList(mx: Metaplex, tradeStateAddress: PublicKey) {
   try {
-    const auctionHouse = await getAuctionHouse(mx)
+    const auctionHouse = await getAndCacheAuctionHouse(mx)
 
     const listing = await mx.auctionHouse().findListingByTradeState({ auctionHouse, tradeStateAddress })
 
@@ -216,7 +221,7 @@ export async function updateList(mx: Metaplex, nftAddress: PublicKey, tradeState
 }
 
 export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddress: string, price: number) {
-  const auctionHouse = await getAuctionHouse(mx)
+  const auctionHouse = await getAndCacheAuctionHouse(mx)
 
   try {
     const listing = await mx
@@ -250,7 +255,7 @@ export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddres
 
 export async function offerNFT(mx: Metaplex, id: string, price: number) {
   try {
-    const auctionHouse = await getAuctionHouse(mx)
+    const auctionHouse = await getAndCacheAuctionHouse(mx)
 
     const result = await mx
       .auctionHouse()
@@ -275,7 +280,7 @@ export async function getOffersFromAccounts(
     account: AccountInfo<Buffer | ParsedAccountData>
   }[]
 ) {
-  const auctionHouse = await getAuctionHouse(mx)
+  const auctionHouse = await getAndCacheAuctionHouse(mx)
 
   const bids = []
 
@@ -338,7 +343,7 @@ export async function getMyOffers(mx: Metaplex) {
 
 export async function cancelOffer(mx: Metaplex, tradeStateAddress: PublicKey) {
   try {
-    const auctionHouse = await getAuctionHouse(mx)
+    const auctionHouse = await getAndCacheAuctionHouse(mx)
 
     const bid = await mx.auctionHouse().findBidByTradeState({ auctionHouse, tradeStateAddress })
 
@@ -353,7 +358,7 @@ export async function cancelOffer(mx: Metaplex, tradeStateAddress: PublicKey) {
 }
 
 export async function acceptOffer(mx: Metaplex, tradeStateAddress: PublicKey, listingTradeStateAddress: PublicKey) {
-  const auctionHouse = await getAuctionHouse(mx)
+  const auctionHouse = await getAndCacheAuctionHouse(mx)
 
   try {
     const bid = await mx.auctionHouse().findBidByTradeState({ auctionHouse, tradeStateAddress })
@@ -415,74 +420,23 @@ export async function getFeePayer() {
 }
 
 export async function depositFunds(mx: Metaplex, price: number) {
-  const publicKey = mx.identity().publicKey
+  let auctionHouse = await getAndCacheAuctionHouse(mx);
 
-  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
-
-  const [feePayer] = await getFeePayer()
-
-  const accounts: DepositInstructionAccounts = {
-    wallet: publicKey,
-    paymentAccount: publicKey,
-    transferAuthority: publicKey,
-    escrowPaymentAccount: escrowPaymentAccount,
-    treasuryMint: new PublicKey(WRAPPED_SOL_MINT),
-    authority: new PublicKey(AUCTION_HOUSE_OWNER_ADDRESS),
-    auctionHouse: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY),
-    auctionHouseFeeAccount: feePayer,
-  };
-
-  const args: DepositInstructionArgs = {
-    escrowPaymentBump: escrowPaymentBump,
-    amount: price * 1000000000,
-  };
-
-  const depositeInstruction = await createDepositInstruction(accounts, args);
-
-  let tx = new Transaction();
-  tx.add(depositeInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
-
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
-
-  return {
-    response
-  }
+  return mx
+    .auctionHouse()
+    .depositToBuyerAccount({
+      auctionHouse,
+      amount: sol(price)
+    });
 }
 
 export async function withdrawFunds(mx: Metaplex, price: number) {
-  const publicKey = mx.identity().publicKey
+  let auctionHouse = await getAndCacheAuctionHouse(mx);
 
-  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
-
-  const [feePayer] = await getFeePayer()
-
-  const accounts: WithdrawInstructionAccounts = {
-    wallet: publicKey,
-    receiptAccount: publicKey,
-    escrowPaymentAccount: escrowPaymentAccount,
-    treasuryMint: new PublicKey(WRAPPED_SOL_MINT),
-    authority: new PublicKey(AUCTION_HOUSE_OWNER_ADDRESS),
-    auctionHouse: new PublicKey(AUCTION_HOUSE_PUBLIC_KEY),
-    auctionHouseFeeAccount: feePayer,
-  };
-
-  const args: WithdrawInstructionArgs = {
-    amount: price * 1000000000,
-    escrowPaymentBump: escrowPaymentBump,
-  };
-
-  const withdrawInstruction = await createWithdrawInstruction(accounts, args);
-
-  let tx = new Transaction();
-  tx.add(withdrawInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
-
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
-
-  return {
-    response
-  }
+  return mx
+    .auctionHouse()
+    .withdrawFromBuyerAccount({
+      auctionHouse,
+      amount: sol(price)
+    });
 }
