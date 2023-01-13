@@ -324,7 +324,7 @@ const ProfileSection = prop => {
                     </div>
                     <div className="mt-[20px]">
                       <span className={styles.tooltipTitle}>Collector View</span> displays your profile as a collector,
-                      showcasing the artwork and collections you've collected.
+                      showcasing the artwork and collections you&apos;ve collected.
                     </div>
                   </div>
                 ) : (
@@ -355,7 +355,7 @@ const ProfileSection = prop => {
                         </div>
                         <div className="mt-[20px]">
                           <span className={styles.tooltipTitle}>Collector View</span> displays your profile as a
-                          collector, showcasing the artwork and collections you've collected.
+                          collector, showcasing the artwork and collections you&apos;ve collected.
                         </div>
                       </div>
                     ) : (
