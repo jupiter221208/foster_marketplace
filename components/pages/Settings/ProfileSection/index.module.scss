@@ -54,6 +54,11 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
+  @media (min-width: 1024px) {
+    width: 760px;
+    left: 45px;
+    top: 5px;
+  }
 }
 
 .tooltipTitle {

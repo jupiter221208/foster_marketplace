@@ -38,7 +38,6 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import userAPI from 'apis/user'
 import SwitchButton from 'components/SwitchButton'
-import ProfileViewTooltip from 'components/Tooltip/ProfileViewTooltip'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -335,8 +334,34 @@ const ProfileSection = prop => {
             ) : (
               <div className="flex mt-[60px]">
                 <div className={styles.subTitle}>Default Profile View</div>
-                <div className="flex items-center justify-center p-[9px] cursor-pointer">
-                  <ProfileViewTooltip />
+                <div className="flex items-center justify-center cursor-pointer">
+                  <div
+                    className="relative flex justify-between items-center"
+                    onMouseEnter={() => setShowProfileTooltip(true)}
+                    onMouseLeave={() => setShowProfileTooltip(false)}
+                  >
+                    <div className="p-[9px]">
+                      <Image src={InfoGreenIcon} alt="" />
+                    </div>
+                    {showProfileTooltip ? (
+                      <div className={styles.tooltip}>
+                        <div>
+                          This setting allows you to choose the type of artwork and statistics displayed on your profile
+                          page.
+                        </div>
+                        <div className="mt-[20px]">
+                          <span className={styles.tooltipTitle}>Artist View</span> displays your profile as a creator,
+                          showcasing the artwork and collections created by you.
+                        </div>
+                        <div className="mt-[20px]">
+                          <span className={styles.tooltipTitle}>Collector View</span> displays your profile as a
+                          collector, showcasing the artwork and collections you've collected.
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
