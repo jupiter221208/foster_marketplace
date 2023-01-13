@@ -1,13 +1,11 @@
 import type { AuctionHouse } from '@metaplex-foundation/js'
-import { Metaplex, sol } from '@metaplex-foundation/js'
-import { createDepositInstruction, createWithdrawInstruction, DepositInstructionAccounts, DepositInstructionArgs, WithdrawInstructionAccounts, WithdrawInstructionArgs } from '@metaplex-foundation/mpl-auction-house'
+import { Metaplex, sol, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
+import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 import { AccountInfo, ParsedAccountData, PublicKey, Transaction } from '@solana/web3.js'
 import { getNFTOwner } from './nfts.utils'
 
-const AUCTION_HOUSE_ADDRESS = process.env.AUCTION_HOUSE_ADDRESS
-const AUCTION_HOUSE_PUBLIC_KEY = process.env.AUCTION_HOUSE_PUBLIC_KEY
-const AUCTION_HOUSE_OWNER_ADDRESS = process.env.AUCTION_HOUSE_OWNER_ADDRESS
-const WRAPPED_SOL_MINT = process.env.WRAPPED_SOL_MINT
+const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY!)
+const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS!)
 
 const LISTING_RECEIPT_SIZE =
   8 + //key
