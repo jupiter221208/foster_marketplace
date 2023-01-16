@@ -21,7 +21,7 @@ import Alert from 'components/Alert'
 import { useViewport } from 'utils'
 
 // images and icons
-import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
+import InstagramWhiteIcon from 'assets/icons/instagram-green.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'

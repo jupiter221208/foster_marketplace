@@ -20,10 +20,15 @@ import { useViewport } from 'utils'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import ArrowleftCircleGrayIcon from 'assets/icons/arrow-left-circle-gray.svg'
+import ArrowleftCircleGrayIcon from 'assets/icons/arrow-left-small.svg'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
-import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
-import InstagramBlackIcon from 'assets/icons/instagram-black.svg'
+import TwitterWhiteIcon from 'assets/icons/twitter-background-white.svg'
+import TwitterGreenIcon from 'assets/icons/twitter-background-green.svg'
+import SubmitGreenIcon from 'assets/icons/submit-green.svg'
+
+import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
+import InstagramGreenIcon from 'assets/icons/instagram-green.svg'
+
 import InfoCircleGreenIcon from 'assets/icons/info-circle-green-16x16.svg'
 
 // styles
@@ -32,6 +37,7 @@ import styles from './index.module.scss'
 // json
 import CategoryList from 'assets/json/dashboard/category-list.json'
 import VerificationRadio from 'components/VerificationRadio'
+import VerifyButton from 'components/Button/VerifyButton'
 
 const RequestVerifyModal = props => {
   const { open, onClick, onClose } = props
@@ -42,12 +48,18 @@ const RequestVerifyModal = props => {
   // step 1
   const [selectedCategory, setSelectedCategory] = useState<any>({})
   const [selected, setSelected] = useState(false)
+  const [verifiedTwitter, setVerifiedTwitter] = useState(false)
+  const [verifiedIG, setVerifiedIG] = useState(false)
 
   // step 2
   const [email, setEmail] = useState('')
   const [comment, setComment] = useState('')
 
   const closeModal = () => {
+    setCurrentStep(1)
+    setSelectedCategory({})
+    setVerifiedTwitter(false)
+    setVerifiedIG(false)
     onClose()
   }
 
@@ -108,7 +120,7 @@ const RequestVerifyModal = props => {
                         backgroundColor={Object.keys(selectedCategory).length === 0 ? '#202427' : ''}
                         color={Object.keys(selectedCategory).length === 0 ? '#EFF0F6' : '#202427'}
                         disabled={Object.keys(selectedCategory).length === 0 ? true : false}
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
+                        fontSize={20}
                         fontFamily={
                           viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Muli-Bold' : 'Muli-SemiBold'
                         }
@@ -119,81 +131,65 @@ const RequestVerifyModal = props => {
 
                 {currentStep === 2 && (
                   <div className="w-full flex flex-wrap justify-start text-start">
-                    <div className="w-full flex justify-start">
-                      <IconButton
-                        icon={ArrowleftCircleGrayIcon}
-                        onClick={() => setCurrentStep(1)}
-                        backgroundColor="transparent"
-                        width="36px"
-                        height="36px"
-                        iconWidth={36}
-                        iconHeight={36}
-                        color="red"
-                        opacity="0.7"
-                      />
+                    <div className={styles.back} onClick={() => setCurrentStep(1)}>
+                      <Image src={ArrowleftCircleGrayIcon} alt="" width={8} height={15} />
                     </div>
-                    <div className="w-full mt-[32px] flex items-center gap-3">
+                    <div className="w-full mt-[32px] flex justify-center items-center gap-3">
                       <div className={styles.title02}>Visual Artist</div>
                       <Image src={CheckedGreenIcon} width={32} height={32} alt="" />
                     </div>
-                    <div className="w-full mt-[21px] opacity-80">
-                      <div className={styles.text}>
-                        Verify your profile via at least one social media account to prove the authenticity of your
-                        profile on Foster Marketplace
-                      </div>
-                    </div>
-                    <div className="w-full mt-8">
-                      <div className={styles.subTitle}>Verify your identity *</div>
-                    </div>
                     <div className="w-full mt-[21px]">
                       <div className={styles.text}>
-                        Verify your profile via at least one social media account to prove the authenticity of your
-                        profile on Foster
+                        Connect to at least one social media account to authenticate your identity.
                       </div>
                     </div>
-                    <div className="w-full flex gap-[9px] mt-[15px]">
-                      <div className="w-full">
-                        <GradientButton
-                          icon={TwitterBackgroundBlackIcon}
-                          label="Verify Twitter"
-                          onClick={() => {}}
-                          fullWidth
-                          direction="rtl"
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                        />
-                      </div>
-                      <div className="w-full">
-                        <GradientButton
-                          icon={InstagramBlackIcon}
-                          label="Verify Instagram"
-                          onClick={() => {}}
-                          fullWidth
-                          direction="rtl"
-                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full mt-[50px]">
-                      <Input
-                        value={email}
-                        placeholder="Email Address"
-                        onChange={(value: string) => setEmail(value)}
-                        label="Contact details *"
-                        labelColor="#5AC3BA"
-                        labelIcon={InfoCircleGreenIcon}
+
+                    <div className="w-full mt-[33px]">
+                      <VerifyButton
+                        icon={TwitterWhiteIcon}
+                        icon_verified={TwitterGreenIcon}
+                        label="Verify Twitter"
+                        verified={verifiedTwitter}
+                        onClick={() => setVerifiedTwitter(!verifiedTwitter)}
                       />
                     </div>
-                    <div className="w-full mt-[45px]">
-                      <Textarea
-                        value={comment}
-                        placeholder="Any additional comments"
-                        onChange={(value: string) => setComment(value)}
-                        label="Additional comments (optional)"
-                        labelColor="#5AC3BA"
+                    <div className="w-full mt-[18px]">
+                      <VerifyButton
+                        icon={InstagramWhiteIcon}
+                        icon_verified={InstagramGreenIcon}
+                        label="Verify Instagram"
+                        verified={verifiedIG}
+                        onClick={() => setVerifiedIG(!verifiedIG)}
                       />
                     </div>
-                    <div className="w-full mt-[50px]">
-                      <GradientButton label="Submit Request" onClick={() => {}} fullWidth />
+                    <div className="w-full mt-[56px] lg:mt-[107px]">
+                      <Button
+                        label="Save"
+                        onClick={() => setCurrentStep(3)}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
+                        backgroundColor={verifiedTwitter === true || verifiedIG === true ? '' : '#202427'}
+                        color={verifiedTwitter === true || verifiedIG === true ? '#202427' : '#EFF0F6'}
+                        disabled={verifiedTwitter === true || verifiedIG === true ? false : true}
+                        fontSize={20}
+                        fontFamily={
+                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Muli-Bold' : 'Muli-SemiBold'
+                        }
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {currentStep === 3 && (
+                  <div className="w-full flex flex-wrap justify-start text-start">
+                    <div className="w-full mt-[20px] flex justify-center items-center">
+                      <Image src={SubmitGreenIcon} width={36} height={45} alt="" />
+                    </div>
+                    <div className="w-full mt-[10px] flex justify-center items-center">
+                      <div className={styles.title03}>Verification Request Submitted!</div>
+                    </div>
+                    <div className="w-full mt-[5px] lg:mt-[15px] mb-[5px] lg:mb-[25px] flex justify-center items-center">
+                      <div className={styles.text}>Please allow 3-5 business days for DAO review</div>
                     </div>
                   </div>
                 )}
