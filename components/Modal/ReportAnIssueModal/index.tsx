@@ -96,8 +96,8 @@ const ReportAnIssueModal = props => {
                   <div className="w-full mt-[20px] text-center lg:text-left">
                     <p className={styles.text}>
                       If you believe there&apos;s been a violation of the&nbsp;
-                      <span className={styles.boldText}>Foster Marketplace's Terms of Service</span>, please select the
-                      reason and provide details.
+                      <span className={styles.boldText}>Foster Marketplace&apos;s Terms of Service</span>, please select
+                      the reason and provide details.
                     </p>
                   </div>
                   <div className="w-full mt-[56px]">
