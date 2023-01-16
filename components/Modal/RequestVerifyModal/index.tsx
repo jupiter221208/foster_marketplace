@@ -8,12 +8,7 @@ import Link from 'next/link'
 import { Dialog, Transition } from '@headlessui/react'
 
 // custom components
-import Radio from 'components/Radio'
-import GradientButton from 'components/Button/GradientButton'
 import Button from 'components/Button'
-import IconButton from 'components/Button/IconButton'
-import Input from 'components/Input'
-import Textarea from 'components/Input/Textarea'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -28,8 +23,6 @@ import SubmitGreenIcon from 'assets/icons/submit-green.svg'
 
 import InstagramWhiteIcon from 'assets/icons/instagram-white.svg'
 import InstagramGreenIcon from 'assets/icons/instagram-green.svg'
-
-import InfoCircleGreenIcon from 'assets/icons/info-circle-green-16x16.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -131,15 +124,15 @@ const RequestVerifyModal = props => {
 
                 {currentStep === 2 && (
                   <div className="w-full flex flex-wrap justify-start text-start">
-                    <div className={styles.back} onClick={() => setCurrentStep(1)}>
+                    <div className={styles.backButton} onClick={() => setCurrentStep(1)}>
                       <Image src={ArrowleftCircleGrayIcon} alt="" width={8} height={15} />
                     </div>
                     <div className="w-full mt-[32px] flex justify-center items-center gap-3">
-                      <div className={styles.title02}>{selectedCategory.label}</div>
+                      <div className={styles.title02}>{selectedCategory['label']}</div>
                       <Image src={CheckedGreenIcon} width={32} height={32} alt="" />
                     </div>
                     <div className="w-full mt-[21px]">
-                      <div className={styles.text}>{selectedCategory.description}</div>
+                      <div className={styles.text}>{selectedCategory['description']}</div>
                     </div>
 
                     <div className="w-full mt-[33px]">

@@ -20,23 +20,24 @@
 
 .modalView {
   width: 100%;
-  max-width: 488px;
+  max-width: 520px;
   height: 100%;
-  background-color: #272c30;
-  border: 1px solid $brand-07-color;
+  background: linear-gradient(to bottom, #202427 0%, #0a1615 100%);
+  border: 1px solid rgba($background-light-color, 0.1);
   border-radius: 21px;
-  padding: 69px 17px 24px 17px;
+  padding: 32px 16px 24px 16px;
   @media (min-width: 1024px) {
-    padding: 35px 30px;
+    padding: 54px 30px 35px 30px;
   }
 }
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 25px;
+  font-size: 23px;
   @media (min-width: 1024px) {
     font-size: 32px;
   }
+  text-align: center;
   line-height: 44px;
   color: $text-gray-200-color;
 }
@@ -44,12 +45,17 @@
 .text {
   font-family: 'Muli-Regular';
   font-size: 14px;
+  word-break: break-all;
   @media (min-width: 1024px) {
-    font-size: 15px;
+    font-size: 18px;
   }
   line-height: 24px;
-  letter-spacing: 0px;
+  white-space: pre-line;
   color: $text-gray-200-color;
+}
+
+.boldText {
+  font-family: 'Muli-Bold';
 }
 
 .linkText {
@@ -57,5 +63,29 @@
   text-decoration: underline;
   &:hover {
     color: $brand-01-color;
+  }
+}
+
+.backButton {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  left: 21px;
+  width: 30px;
+  height: 30px;
+  background: rgba($background-light-color, 0.2);
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.title03 {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 44px;
+  color: $text-gray-200-color;
+  @media (min-width: 1024px) {
+    font-size: 26px;
   }
 }

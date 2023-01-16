@@ -3,18 +3,18 @@
 .container {
   width: 100%;
   height: 50px;
-  border-radius: 6px;
+  border-radius: 12px;
   border: 1px solid rgba($text-gray-200-color, 0.4);
   background-color: rgba($white-color, 0.25);
   padding-left: 20px;
   padding-right: 12px;
 
   font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 16px;
+  line-height: 24px;
   @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 18px;
+    line-height: 24px;
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
@@ -26,14 +26,14 @@
 .label {
   margin-bottom: 10px;
   font-family: 'Muli-Regular';
-  font-size: 14px;
+  font-size: 16px;
   line-height: 21px;
   @media (min-width: 1024px) {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 36px;
   }
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.6);
+  color: rgba($text-gray-200-color, 1);
   text-align: start;
   display: flex;
   align-items: center;

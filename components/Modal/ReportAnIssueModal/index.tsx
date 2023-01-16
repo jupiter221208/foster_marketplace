@@ -1,34 +1,37 @@
 import React, { Fragment, useState } from 'react'
 
+// next components
+import Image from 'next/image'
+
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
 // custom components
 import IconButton from 'components/Button/IconButton'
-import Radio from 'components/Radio'
 import Button from 'components/Button'
-import GradientButton from 'components/Button/GradientButton'
-import Input from 'components/Input'
-import Textarea from 'components/Input/Textarea'
 
 // custom functions
 import { useViewport } from 'utils'
 
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import ArrowLeftIcon from 'assets/icons/arrow-left-circle-gray.svg'
-import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
+import ArrowleftCircleGrayIcon from 'assets/icons/arrow-left-small.svg'
+import SubmitGreenIcon from 'assets/icons/submit-green.svg'
 
 // styles
 import styles from './index.module.scss'
 
 // json
 import ReportIssueList from 'assets/json/browse-nft/report-issue-list.json'
+import VerificationRadio from 'components/VerificationRadio'
+import Input from 'components/Input'
+import Textarea from 'components/Input/Textarea'
 
 interface selectedReportProps {
   id: number
   label: string
   value: string
+  description: string
 }
 
 const ReportAnIssueModal = props => {
@@ -37,9 +40,15 @@ const ReportAnIssueModal = props => {
   const viewport = useViewport()
 
   const [step, setStep] = useState(1)
-  const [selectedReport, setSelectedReport] = useState<selectedReportProps>({ id: -1, label: '', value: '' })
+  const [selectedReport, setSelectedReport] = useState<selectedReportProps>({
+    id: -1,
+    label: '',
+    value: '',
+    description: '',
+  })
   const [email, setEmail] = useState('')
   const [comment, setComment] = useState('')
+  const [url, setUrl] = useState('')
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -69,10 +78,10 @@ const ReportAnIssueModal = props => {
             >
               {step === 1 ? (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className="text-center lg:text-left">
+                  <div className="text-center">
                     <div className={styles.title}>Report an Issue</div>
                   </div>
-                  <div className="absolute top-3 right-3 z-20">
+                  <div className="absolute top-[17px] right-[19px] z-20">
                     <IconButton
                       icon={CloseWhiteIcon}
                       onClick={() => close()}
@@ -84,58 +93,138 @@ const ReportAnIssueModal = props => {
                       iconHeight={12}
                     />
                   </div>
-                  <div className="w-full mt-5 text-center lg:text-left">
+                  <div className="w-full mt-[20px] text-center lg:text-left">
                     <p className={styles.text}>
-                      If you believe there&apos;s been a violation of&nbsp;
-                      <a className={styles.linkText}>Foster Marketplace&apos;s Terms</a>&nbsp;of Service or&nbsp;
-                      <a className={styles.linkText}>Community Guidelines</a>, please select the reason and provide
-                      details.
+                      If you believe there&apos;s been a violation of the&nbsp;
+                      <span className={styles.boldText}>Foster Marketplace's Terms of Service</span>, please select the
+                      reason and provide details.
                     </p>
                   </div>
-                  <div className="w-full mt-5">
-                    <Radio
+                  <div className="w-full mt-[56px]">
+                    <VerificationRadio
                       data={ReportIssueList}
                       selected={selectedReport}
                       onChange={item => setSelectedReport(item)}
-                      backgroundColor="#202427"
-                      padding="14px 20px 16px 20px"
-                      borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '12px'}
                     />
                   </div>
-                  <div className="w-full mt-[130px] lg:mt-48 text-center lg:text-left">
-                    {step === 1 && selectedReport.id === -1 && (
-                      <Button
-                        label="Continue"
-                        disabled={true}
-                        fullWidth
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '45px' : '57px'}
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '20px'}
-                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '12px'}
-                        backgroundColor="#4D5256"
-                        color="rgb(239, 240, 246, 0.8)"
-                        onClick={() => {}}
-                      />
-                    )}
-                    {step === 1 && selectedReport.id !== -1 && (
-                      <GradientButton
-                        label="Continue"
-                        disabled={false}
-                        fullWidth
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '45px' : '57px'}
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '20px'}
-                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '12px'}
-                        gradientDirection="bottom"
-                        onClick={() => setStep(2)}
-                      />
-                    )}
+                  <div className="w-full mt-[60px] lg:mt-[120px] flex justify-center">
+                    <Button
+                      label="Continue"
+                      onClick={() => setStep(2)}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
+                      backgroundColor={selectedReport.id === -1 ? '#202427' : ''}
+                      color={selectedReport.id === -1 ? '#EFF0F6' : '#202427'}
+                      disabled={selectedReport.id === -1 ? true : false}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
+                      fontFamily={'Muli-Bold'}
+                    />
+                  </div>
+                </Dialog.Panel>
+              ) : step === 2 ? (
+                <Dialog.Panel className={styles.modalView}>
+                  <div className={styles.backButton} onClick={() => setStep(1)}>
+                    <Image src={ArrowleftCircleGrayIcon} alt="" width={8} height={15} />
+                  </div>
+                  <div className="absolute top-[17px] right-[19px] z-20">
+                    <IconButton
+                      icon={CloseWhiteIcon}
+                      onClick={() => close()}
+                      backgroundColor="#495255"
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '25px' : '30px'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '25px' : '30px'}
+                      borderRadius="15px"
+                      iconWidth={12}
+                      iconHeight={12}
+                    />
+                  </div>
+                  <div className="w-full mt-[50px] text-center lg:text-left">
+                    <div className={styles.title}>{selectedReport.value}</div>
+                  </div>
+                  <div className="w-full mt-5">
+                    <span className={styles.text}>{selectedReport.description}</span>
+                  </div>
+                  {selectedReport.id === 3 ? (
+                    <div>
+                      <div className="w-full mt-[30px]">
+                        <Input
+                          value={email}
+                          placeholder="Email Address"
+                          borderColor="transparent"
+                          onChange={(value: string) => setEmail(value)}
+                          label="Contact details *"
+                        />
+                      </div>
+                      <div className="w-full mt-[30px]">
+                        <Input
+                          value={url}
+                          placeholder="https://"
+                          borderColor="transparent"
+                          onChange={(value: string) => setUrl(value)}
+                          label="URL of Original Artwork *"
+                        />
+                      </div>
+                    </div>
+                  ) : selectedReport.id === 4 ? (
+                    <div>
+                      <div className="w-full mt-[30px]">
+                        <Input
+                          value={email}
+                          placeholder="Email Address"
+                          borderColor="transparent"
+                          onChange={(value: string) => setEmail(value)}
+                          label="Contact details *"
+                        />
+                      </div>
+                      <div className="w-full mt-[30px]">
+                        <Input
+                          value={url}
+                          placeholder="https://"
+                          borderColor="transparent"
+                          onChange={(value: string) => setUrl(value)}
+                          label="URL of Impersonated Artist/Person*"
+                        />
+                      </div>
+                    </div>
+                  ) : selectedReport.id === 5 ? (
+                    <div>
+                      <div className="w-full mt-[30px]">
+                        <Input
+                          value={email}
+                          placeholder="Email Address"
+                          borderColor="transparent"
+                          onChange={(value: string) => setEmail(value)}
+                          label="Contact details *"
+                        />
+                      </div>
+                      <div className="w-full mt-[30px]">
+                        <Textarea
+                          value={comment}
+                          placeholder="Any additional comments regarding the issue"
+                          onChange={(value: string) => setComment(value)}
+                          label="Additional comments"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  <div className="w-full mt-[60px] lg:mt-[100px] mb-[20px] flex justify-center">
+                    <Button
+                      label="Submit Report"
+                      onClick={() => setStep(3)}
+                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
+                      color={'#202427'}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
+                      fontFamily={'Muli-Bold'}
+                    />
                   </div>
                 </Dialog.Panel>
               ) : (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className="absolute top-3 left-3 z-20">
-                    <IconButton icon={ArrowLeftIcon} backgroundColor="transparent" onClick={() => setStep(1)} />
-                  </div>
-                  <div className="absolute top-3 right-3 z-20">
+                  <div className="absolute top-[17px] right-[19px] z-20">
                     <IconButton
                       icon={CloseWhiteIcon}
                       onClick={() => close()}
@@ -147,63 +236,16 @@ const ReportAnIssueModal = props => {
                       iconHeight={12}
                     />
                   </div>
-                  <div className="w-full mt-4 lg:mt-16 text-center lg:text-left">
-                    <div className={styles.title}>{selectedReport.value}</div>
-                  </div>
-                  <div className="w-full mt-5 text-center lg:text-left">
-                    <p className={styles.text}>
-                      Foster Marketplace does not tolerate any form of violent or graphic content. Please provide the
-                      following information so that our DAO can investigate.
-                    </p>
-                  </div>
-                  <div className="w-full mt-6 lg:mt-8">
-                    <Input
-                      value={email}
-                      placeholder="Email Address"
-                      borderColor="transparent"
-                      onChange={(value: string) => setEmail(value)}
-                      label="Contact details *"
-                      labelColor="#DEEFD0"
-                      labelIconWidth="14px"
-                      labelIconHeight="14px"
-                      labelIcon={InfoCircleLightGreenIcon}
-                    />
-                  </div>
-                  <div className="w-full mt-12 lg:mt-14">
-                    <Textarea
-                      value={comment}
-                      placeholder="Any additional comments regarding the issue"
-                      onChange={(value: string) => setComment(value)}
-                      label="Additional comments"
-                      labelColor="#DEEFD0"
-                    />
-                  </div>
-                  <div className="w-full mt-[130px] lg:mt-48 text-center lg:text-left">
-                    {step === 2 && email === '' && (
-                      <Button
-                        label="Submit Report"
-                        disabled={true}
-                        fullWidth
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '45px' : '57px'}
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '20px'}
-                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '12px'}
-                        backgroundColor="#4D5256"
-                        color="rgb(239, 240, 246, 0.8)"
-                        onClick={() => {}}
-                      />
-                    )}
-                    {step === 2 && email !== '' && (
-                      <GradientButton
-                        label="Submit Report"
-                        disabled={false}
-                        fullWidth
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '45px' : '57px'}
-                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '20px'}
-                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '8px' : '12px'}
-                        gradientDirection="bottom"
-                        onClick={() => setStep(2)}
-                      />
-                    )}
+                  <div className="w-full flex flex-wrap justify-start text-start">
+                    <div className="w-full flex justify-center items-center">
+                      <Image src={SubmitGreenIcon} width={36} height={45} alt="" />
+                    </div>
+                    <div className="w-full mt-[10px] flex justify-center items-center">
+                      <div className={styles.title03}>Report Submitted!</div>
+                    </div>
+                    <div className="w-full mt-[5px] lg:mt-[15px] mb-[5px] lg:mb-[25px] flex justify-center items-center">
+                      <div className={styles.text}>Your report has been sent to the DAO to investigate.</div>
+                    </div>
                   </div>
                 </Dialog.Panel>
               )}

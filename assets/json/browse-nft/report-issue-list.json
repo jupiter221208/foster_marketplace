@@ -1,8 +1,38 @@
 [
-  { "id": 0, "label": "Violent or Graphic Content", "value": "Violent or Graphic Content" },
-  { "id": 1, "label": "Hateful or Abusive Content", "value": "Hateful or Abusive Content" },
-  { "id": 2, "label": "Graphic Sexual Content", "value": "Graphic Sexual Content" },
-  { "id": 3, "label": "Counterfeit Artwork", "value": "Counterfeit Artwork" },
-  { "id": 4, "label": "User Misrepresentation", "value": "User Misrepresentation" },
-  { "id": 5, "label": "Other Suspicious Activity", "value": "Other Suspicious Activity" }
+  {
+    "id": 0,
+    "label": "Violent or Graphic Content",
+    "value": "Violent or Graphic Content",
+    "description": "We know that people have different sensitivities with regard to graphic and violent imagery. In the context of art, we allow graphic content (with some limitations) to help people to condemn and raise awareness about important issues such as human rights abuses, etc.\n\nTo protect users from disturbing imagery, we add a warning label to some graphic or violent imagery so that people are aware it may be sensitive before they click through.\n\nIf you believe this artwork be a violent or graphic, please proceed to submit report."
+  },
+  {
+    "id": 1,
+    "label": "Hateful or Abusive Content",
+    "value": "Hateful or Abusive Content",
+    "description": "Foster Marketplace does not tolerate any form of hateful or abusive content.\n\nIf you believe this artwork be a hateful or abusive, please proceed to submit report."
+  },
+  {
+    "id": 2,
+    "label": "Graphic Sexual Content",
+    "value": "Graphic Sexual Content",
+    "description": "We know that people have different sensitivities with regard to graphic sexual content. In consideration of users with these sensitivities, we add a warning label to some graphic sexual content so that people are aware it may be sensitive before they click through.\n\nIf you believe this artwork contains graphic sexual content, please proceed to submit report."
+  },
+  {
+    "id": 3,
+    "label": "Counterfeit Artwork",
+    "value": "Counterfeit Artwork",
+    "description": "Foster Marketplace does not tolerate any form of plagiarism of creator intellectual property or counterfeit artwork. Please provide the following information so that our DAO can investigate."
+  },
+  {
+    "id": 4,
+    "label": "User Misrepresentation",
+    "value": "User Misrepresentation",
+    "description": "Foster Marketplace does not tolerate any form of user misrepresentation. Please provide the following information so that our DAO can investigate."
+  },
+  {
+    "id": 5,
+    "label": "Other Suspicious Activity",
+    "value": "Other Suspicious Activity",
+    "description": "If you suspect any form of suspicious activity, please provide the following information so that our DAO can investigate."
+  }
 ]
