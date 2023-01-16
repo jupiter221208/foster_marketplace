@@ -1,7 +1,32 @@
 [
-  { "id": 0, "label": "Visual Artist", "value": "Visual Artist" },
-  { "id": 1, "label": "Musical Artist", "value": "Musical Artist" },
-  { "id": 2, "label": "Turkey Circus DAO", "value": "Turkey Circus DAO" },
-  { "id": 3, "label": "Foster Partner", "value": "Foster Partner" },
-  { "id": 4, "label": "Sports Affiliate", "value": "Sports Affiliate" }
+  {
+    "id": 0,
+    "label": "Visual Artist",
+    "value": "Visual Artist",
+    "description": "Connect to at least one social media account to authenticate your identity."
+  },
+  {
+    "id": 1,
+    "label": "Musical Artist",
+    "value": "Musical Artist",
+    "description": "Connect to at least one social media account to authenticate your identity."
+  },
+  {
+    "id": 2,
+    "label": "Turkey Circus DAO",
+    "value": "Turkey Circus DAO",
+    "description": "House members can verify their Turkey Circus DAO status by connecting using their wallet holding the Turkey Circus NFT."
+  },
+  {
+    "id": 3,
+    "label": "Foster Partner",
+    "value": "Foster Partner",
+    "description": "Official partners need to verify their social identity to receive verification status."
+  },
+  {
+    "id": 4,
+    "label": "Sports Affiliate",
+    "value": "Sports Affiliate",
+    "description": "Official sports affiliates need to verify their social identity to receive verification status."
+  }
 ]

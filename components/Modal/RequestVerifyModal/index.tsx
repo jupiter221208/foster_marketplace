@@ -135,13 +135,11 @@ const RequestVerifyModal = props => {
                       <Image src={ArrowleftCircleGrayIcon} alt="" width={8} height={15} />
                     </div>
                     <div className="w-full mt-[32px] flex justify-center items-center gap-3">
-                      <div className={styles.title02}>Visual Artist</div>
+                      <div className={styles.title02}>{selectedCategory.label}</div>
                       <Image src={CheckedGreenIcon} width={32} height={32} alt="" />
                     </div>
                     <div className="w-full mt-[21px]">
-                      <div className={styles.text}>
-                        Connect to at least one social media account to authenticate your identity.
-                      </div>
+                      <div className={styles.text}>{selectedCategory.description}</div>
                     </div>
 
                     <div className="w-full mt-[33px]">
