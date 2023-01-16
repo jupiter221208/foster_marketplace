@@ -87,7 +87,7 @@ const MainSection = props => {
   const { nftDetail, loading } = props
   const viewport = useViewport()
   const router = useRouter()
-  const { connected } = useWallet()
+  const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
@@ -215,7 +215,7 @@ const MainSection = props => {
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
     if (result) {
-      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: tradeStateAddress, amount: nftPrice.toString() }).then(
+      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey.toString(), amount: nftPrice.toString() }).then(
         response => console.log(response),
         error => console.log(error)
       )
