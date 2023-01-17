@@ -1,0 +1,100 @@
+@import 'assets/scss/variable.module.scss';
+
+.text {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  line-height: 36px;
+  color: $text-gray-200-color;
+  padding: 8px 32px;
+  &:hover {
+    color: $brand-01-color;
+  }
+}
+
+.menuBlur {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 80px;
+  right: 0px;
+  background-color: $background-black-color;
+  @media (min-width: 1024px) {
+    width: 400px;
+    left: 0px;
+    top: 80px;
+    right: 0;
+  }
+  transform-origin: top left;
+  border-radius: 8px;
+  background-color: rgba($background-dark-color, 0.7);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+  z-index: 10;
+}
+
+.menuArea {
+  background-color: transparent;
+  padding: 10px 0px;
+  display: flex;
+  flex-wrap: wrap;
+
+  cursor: pointer;
+  z-index: 100;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 40px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  color: $text-gray-200-color;
+}
+
+.menuItem {
+  width: 100%;
+  background-image: linear-gradient(to bottom, trasnparent 0%, trasnparent 100%);
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s;
+  transition-timing-function: ease-in-out;
+  white-space: nowrap;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba($text-gray-200-color, 0.75);
+  &:hover {
+    color: $text-gray-200-color;
+  }
+  gap: 10px;
+}
+
+.existingCollection {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 21px;
+  color: $text-gray-200-color;
+  margin-left: 16px;
+}
+
+.collectionArea {
+  width: 100%;
+  max-width: 400px;
+  height: 48px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  padding-left: 30px;
+  border: 1px solid rgba(#eceef4, 0.6);
+  border-radius: 8px;
+  cursor: pointer;
+}

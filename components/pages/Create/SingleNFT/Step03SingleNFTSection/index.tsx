@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+
+// next components
+import Image from 'next/image'
 
 // components
 import Input from 'components/Input'
@@ -11,14 +14,24 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
+// resources
+import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
+
 const Step03SingleNFTSection = props => {
   const { royalties, setRoyalties, disabledNextButton, createNft } = props
-
+  const [collections, setCollections] = useState([
+    { id: 0, name: 'NFT Collection Name1' },
+    { id: 1, name: 'NFT Collection Name2' },
+    { id: 1, name: 'NFT Collection Name3' },
+    { id: 1, name: 'NFT Collection Name4' },
+  ])
   const viewport = useViewport()
+
+  const chooseCollection = index => {}
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>Royalties *</div>
+      <div className={`${styles.subTitle} mt-20`}>Royalties1 *</div>
       <div className="max-w-[370px] w-full mt-5">
         <Input
           value={royalties}
@@ -27,6 +40,10 @@ const Step03SingleNFTSection = props => {
           type="number"
           onChange={value => setRoyalties(value)}
         />
+      </div>
+      <div className="w-full mt-[54px]">
+        <div className={styles.subTitle}>Add to an existing collection (optional)</div>
+        <SelectCollectionMenu collections={collections} onClick={index => chooseCollection(index)} />
       </div>
       <div className="w-full mt-16">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
@@ -53,6 +70,10 @@ const Step03SingleNFTSection = props => {
           type="number"
           onChange={value => setRoyalties(value)}
         />
+      </div>
+      <div className="w-full mt-[54px]">
+        <div className={styles.subTitle}>Add to an existing collection (optional)</div>
+        <SelectCollectionMenu collections={collections} onClick={index => chooseCollection(index)} />
       </div>
       <div className="w-full mt-10">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
