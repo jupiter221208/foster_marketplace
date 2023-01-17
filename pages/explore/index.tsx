@@ -238,7 +238,6 @@ const Explore = () => {
         setCurrentPage(curPage)
         setEcoSystemCurrentPage(curPage)
         setTotalCount(count * curPage + respone.length)
-        console.log('====respone===', respone)
         setEcosystemList(respone)
         window.scrollTo({
           top: 0,
