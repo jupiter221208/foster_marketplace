@@ -105,6 +105,9 @@ const ArtistProfile = () => {
   }
 
   const getCollectorData = id => {
+    setNfts([])
+    setCollections([])
+    setCategoryList([])
     artistsAPI.getCollector(id).then(
       response => {
         let artist = response.collector
