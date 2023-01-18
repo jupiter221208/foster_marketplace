@@ -115,14 +115,6 @@ const LiveAuctionCard = props => {
           />
         )}
       </div>
-      {/* <div className="w-full flex flex-wrap justify-center items-center px-[9px]">
-        <div className="w-full flex justify-between items-center">
-          <div className={styles.nftName}>{data.nft_name}</div>
-        </div>
-        <div className="w-full flex items-center">
-          <div className={styles.artistName}>{data.artist_username}</div>
-        </div>
-      </div> */}
       <div className={styles.bidContainer}>
         <div className={styles.bidBgView} />
         <div className={styles.bidGradientBgView} />
@@ -138,7 +130,6 @@ const LiveAuctionCard = props => {
               />
               <div className={styles.bidCount}>{data.current_bid !== null ? data.current_bid : data.reserve_price}</div>
             </div>
-            {/* <div className={styles.bidDesc}>Reserve Met</div> */}
           </div>
 
           <div>

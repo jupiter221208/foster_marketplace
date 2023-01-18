@@ -99,9 +99,9 @@ const ListedNFTCard = props => {
                     fontSize="16px"
                     paddingLeft="37px"
                     paddingRight="37px"
-                    backgroundColor01="#63D6CD"
-                    backgroundColor02="#326B67"
-                    gradientDirection="bottom"
+                    backgroundColor01="#326B67"
+                    backgroundColor02="#63D6CD"
+                    gradientDirection="right"
                     fullWidth
                   />
                 ) : (
@@ -125,9 +125,9 @@ const ListedNFTCard = props => {
                   fontSize="16px"
                   paddingLeft="37px"
                   paddingRight="37px"
-                  backgroundColor01="#63D6CD"
-                  backgroundColor02="#326B67"
-                  gradientDirection="bottom"
+                  backgroundColor01="#326B67"
+                  backgroundColor02="#63D6CD"
+                  gradientDirection="right"
                   fullWidth
                 />
               )}
