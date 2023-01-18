@@ -24,7 +24,7 @@ import { useViewport } from 'utils'
 
 const Resources = () => {
   const viewport = useViewport()
-  const [selectedCard, setSelectedCard] = useState(0)
+  const [selectedCard, setSelectedCard] = useState(-1)
   const [title, setTitle] = useState('')
   const [searchList, setSearchList] = useState(QAList[0])
   const [searchKeyword, setSearchKeyword] = useState('')
@@ -37,11 +37,13 @@ const Resources = () => {
 
   useEffect(() => {
     if (resourceList.length === 0) return
+    if (selectedCard === -1) return
     setTitle(resourceList[selectedCard].title)
     setSearchList(QAList[selectedCard])
   }, [resourceList, selectedCard])
 
   useEffect(() => {
+    if (selectedCard === -1) return
     if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') return
     searchResearch()
   }, [searchKeyword, selectedCard])
@@ -143,18 +145,6 @@ const Resources = () => {
                     {item.selected === true ? (
                       <div className="flex flex-1 h-fit">
                         <div className={styles.content}>
-                          <div className="w-full hidden lg:flex justify-start gap-6">
-                            <Image
-                              src={resourceList[selectedCard].icon02}
-                              alt=""
-                              width={resourceList[selectedCard].width}
-                              height={resourceList[selectedCard].height}
-                            />
-                            <div className="block">
-                              <div className={styles.subTitle}>{resourceList[selectedCard].title}</div>
-                              <div className={styles.description}>{resourceList[selectedCard].description}</div>
-                            </div>
-                          </div>
                           <div className="w-full flex flex-wrap gap-5">
                             <ResourcesAccordion
                               data={searchList.content}
@@ -181,30 +171,25 @@ const Resources = () => {
                   </div>
                 ))}
               </div>
-              {resourceList.length > 0 && (
-                <div className="flex flex-1 h-fit">
-                  <div className={styles.content}>
-                    <div className="w-full hidden lg:flex justify-start gap-6">
-                      <Image
-                        src={resourceList[selectedCard].icon02}
-                        alt=""
-                        width={resourceList[selectedCard].width}
-                        height={resourceList[selectedCard].height}
-                      />
-                      <div className="block">
-                        <div className={styles.subTitle}>{resourceList[selectedCard].title}</div>
-                        <div className={styles.description}>{resourceList[selectedCard].description}</div>
+
+              <div className="flex flex-1">
+                {selectedCard === -1 ? (
+                  <div className={styles.empty}>Select a category to get started</div>
+                ) : (
+                  <div>
+                    {selectedCard >= 0 && resourceList.length > 0 && (
+                      <div className={styles.content}>
+                        <div className="w-full flex flex-wrap gap-5">
+                          <ResourcesAccordion data={content} onClick={type => handleClickAccordion(type)} />
+                        </div>
+                        <div className="w-full flex justify-end">
+                          <Pagination data={searchList.content} getCurrentData={data => handleGetCurrentData(data)} />
+                        </div>
                       </div>
-                    </div>
-                    <div className="w-full flex flex-wrap gap-5">
-                      <ResourcesAccordion data={content} onClick={type => handleClickAccordion(type)} />
-                    </div>
-                    <div className="w-full flex justify-end">
-                      <Pagination data={searchList.content} getCurrentData={data => handleGetCurrentData(data)} />
-                    </div>
+                    )}
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           )}
         </div>

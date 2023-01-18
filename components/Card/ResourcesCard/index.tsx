@@ -13,9 +13,7 @@ const ResourcesCard = props => {
     <div
       className={styles.container}
       style={{
-        background: selected
-          ? `linear-gradient(to bottom, ${'#378287'}, ${'#121212'})`
-          : `linear-gradient(to bottom, ${'#202427'}, ${'#121212'})`,
+        background: selected ? `linear-gradient(to bottom, ${'#101717'}, ${'#3A6A68'})` : `#121212`,
         borderColor: '#5AC3BA',
         borderWidth: selected ? '2px' : '0px',
       }}

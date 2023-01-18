@@ -2,11 +2,11 @@
   {
     "id": 0,
     "title": "General Inquiries",
-    "description": "New around here? Start with the Business",
+    "description": "New to NFTs? Let's start with the basics",
     "icon01": "/icons/resources/general-inquiries.svg",
     "icon02": "/icons/resources/general-inquiries.svg",
-    "width": 35,
-    "height": 41,
+    "width": 40,
+    "height": 40,
     "bgColor01": "#202427",
     "bgColor02": "#121212",
     "selected": false
@@ -14,11 +14,11 @@
   {
     "id": 1,
     "title": "Marketplace Features",
-    "description": "Learn more about marketplace features and creator tools",
+    "description": "How to buy, sell, and explore the NFTs on Foster Marketplace",
     "icon01": "/icons/resources/marketplace-features.svg",
     "icon02": "/icons/resources/marketplace-features.svg",
-    "width": 35,
-    "height": 41,
+    "width": 40,
+    "height": 40,
     "bgColor01": "#202427",
     "bgColor02": "#121212",
     "selected": false
@@ -26,11 +26,11 @@
   {
     "id": 2,
     "title": "Turkey Circus",
-    "description": "Interested in joining the Foster Marketplace DAO?",
+    "description": "Foster's DAO of artists, builders and collectors",
     "icon01": "/icons/resources/turkey-circus.svg",
     "icon02": "/icons/resources/turkey-circus.svg",
-    "width": 35,
-    "height": 41,
+    "width": 25,
+    "height": 25,
     "bgColor01": "#202427",
     "bgColor02": "#121212",
     "selected": false
@@ -38,11 +38,11 @@
   {
     "id": 3,
     "title": "LIFT Token",
-    "description": "Interested in investing in the Foster Protocol or participate in governance?",
+    "description": "The native utility token powering the Foster Protocol",
     "icon01": "/icons/resources/lift-token.svg",
     "icon02": "/icons/resources/lift-token.svg",
-    "width": 35,
-    "height": 41,
+    "width": 25,
+    "height": 25,
     "bgColor01": "#202427",
     "bgColor02": "#121212",
     "selected": false
@@ -50,11 +50,11 @@
   {
     "id": 4,
     "title": "Support",
-    "description": "Is something not working properly? Or have a product enhancement idea?",
+    "description": "Quick reference articles about the most common problems",
     "icon01": "/icons/resources/support.svg",
     "icon02": "/icons/resources/support.svg",
-    "width": 35,
-    "height": 41,
+    "width": 40,
+    "height": 40,
     "bgColor01": "#202427",
     "bgColor02": "#121212",
     "selected": false
