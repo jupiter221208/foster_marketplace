@@ -15,7 +15,7 @@ import NegativeButton from 'components/Button/NegativeButton'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // images
-import ArrowLeftIcon from 'assets/icons/arrow-left-white.svg'
+import ArrowLeftIcon from 'assets/icons/arrow-left-single.svg'
 
 // json
 import TabList from 'assets/json/artist-profile/follow-tab-list.json'
@@ -166,14 +166,7 @@ const FollowModalMobile = props => {
               >
                 <Dialog.Panel className={styles.modalView}>
                   <div className={styles.headerView}>
-                    <IconButton
-                      icon={ArrowLeftIcon}
-                      width="30px"
-                      height="30px"
-                      backgroundColor="#393E3E"
-                      borderRadius="50%"
-                      onClick={() => closeModal()}
-                    />
+                    <IconButton icon={ArrowLeftIcon} width="30px" height="30px" onClick={() => closeModal()} />
                     <div className={styles.title}>{username}</div>
                     <div className="w-[30px] h-[30px]">&nbsp;</div>
                   </div>

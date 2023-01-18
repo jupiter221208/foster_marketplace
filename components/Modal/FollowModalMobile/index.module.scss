@@ -13,7 +13,9 @@
 .headerView {
   width: 100%;
   height: 80px;
-  background: $background-dark-color;
+  background: rgba($background-black-color, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   justify-content: space-between;
   align-items: center;

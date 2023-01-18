@@ -10,7 +10,6 @@ import { useDispatch } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/ArtistProfile/MainSection'
 import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
