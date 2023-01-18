@@ -31,7 +31,7 @@ const Step03SingleNFTSection = props => {
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-20`}>Royalties1 *</div>
+      <div className={`${styles.subTitle} mt-20`}>Royalties *</div>
       <div className="max-w-[370px] w-full mt-5">
         <Input
           value={royalties}
