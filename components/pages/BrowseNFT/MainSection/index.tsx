@@ -601,12 +601,17 @@ const MainSection = props => {
                         onClick={() => clickRecent(0)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={DescriptionGreenIcon} alt="" />
-                          <div>Description</div>
+                          <Image
+                            src={DescriptionGreenIcon}
+                            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 33 : 46}
+                            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 33 : 46}
+                            alt=""
+                          />
+                          <div className={styles.description}>Description</div>
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#5AC3BA' }}
+                          style={{ color: '#95DBD5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -647,7 +652,7 @@ const MainSection = props => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#5AC3BA' }}
+                          style={{ color: '#95DBD5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -680,7 +685,7 @@ const MainSection = props => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#5AC3BA' }}
+                          style={{ color: '#95DBD5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel
