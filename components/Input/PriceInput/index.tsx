@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // import images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-price.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -43,7 +43,7 @@ const PriceInput = props => {
         onChange={event => onChange(event.target.value)}
         style={{ fontSize }}
       />
-      <Image src={SolanaLogoIcon} alt="" width={16} height={16} />
+      <Image src={SolanaLogoIcon} alt="" width={22} height={22} />
     </div>
   )
 }

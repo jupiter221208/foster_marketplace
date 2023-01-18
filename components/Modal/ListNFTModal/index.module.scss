@@ -16,11 +16,16 @@
 .modalView {
   width: 100%;
   max-width: 488px;
-  background-color: $background-black-color;
+  background-color: rgba($background-black-color, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba($background-light-color, 0.1);
-  border-radius: 30px;
-  padding: 35px 30px 30px 30px;
-
+  border-radius: 15px;
+  padding: 30px 20px;
+  @media (min-width: 1024px) {
+    padding: 35px 30px 30px 30px;
+    border-radius: 30px;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -51,17 +56,25 @@
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 32px;
-  line-height: 36px;
+  font-size: 25px;
+  line-height: 44px;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+    line-height: 36px;
+  }
   text-align: center;
   letter-spacing: 0px;
   color: $text-gray-200-color;
 }
 
 .nftName {
-  font-family: 'Muli-Bold';
-  font-size: 22px;
-  line-height: 22px;
+  font-family: 'Muli-SemiBold';
+  font-size: 17px;
+  line-height: 36px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    line-height: 28px;
+  }
   text-align: center;
   letter-spacing: 0px;
   color: $text-gray-200-color;
@@ -73,15 +86,15 @@
   line-height: 24px;
   text-align: center;
   letter-spacing: 0px;
-  color: rgba($text-gray-200-color, 0.7);
+  color: $text-gray-200-color;
 }
 
-.text {
+.bottomLink {
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
   text-align: center;
   letter-spacing: 0px;
-  color: $brand-06-color;
+  color: #9db2b4;
   cursor: pointer;
 }

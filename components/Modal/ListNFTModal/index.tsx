@@ -80,7 +80,7 @@ const ListNFTModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className={styles.title}>List NFT</div>
-                  <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                  <div className="w-full max-w-[321px] mt-[20px] lg:mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                     {data?.offchainMetadata.category === 'video' ||
                     data?.offchainMetadata.properties?.category === 'video' ? (
                       <div
@@ -101,28 +101,35 @@ const ListNFTModal = props => {
                       />
                     )}
                   </div>
-                  <div className={`${styles.nftName} mt-5 w-full`}>{data?.offchainMetadata.name || data?.name}</div>
-                  <div className="w-full mt-12">
+                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>
+                    {data?.offchainMetadata.name || data?.name}
+                  </div>
+                  <div className="w-full mt-[20px] lg:mt-12">
                     <PriceInput
                       value={price}
-                      placeholder="Enter price value"
+                      placeholder="Enter fixed-price for listing"
                       fullWidth
                       onChange={value => setPrice(value)}
                     />
                   </div>
-                  <div className="w-full mt-[30px]">
+                  <div className="w-full mt-[15px] lg:mt-[30px]">
                     <GradientButton
                       disabled={price !== undefined && price > 0 ? false : true}
                       label="List"
+                      color="#95DBD5"
+                      fontSize={18}
                       fullWidth
+                      backgroundColor01="#121212"
+                      backgroundColor02="#2D625D"
+                      gradientDirection="right"
                       onClick={() => handleListNFTClick()}
                     />
                   </div>
-                  <div className="w-full mt-[30px]">
+                  <div className="w-full mt-[20px] lg:mt-[30px]">
                     <p className={styles.bottomText}>
                       By clicking &quot;List&quot;, you agree to the&nbsp;
                       <span
-                        className={styles.text}
+                        className={styles.bottomLink}
                         onClick={() => {
                           window.open('https://foster-marketplace.gitbook.io/docs/v/legal-documentation/')
                         }}
