@@ -43,7 +43,7 @@ const SelectCollectionMenu = props => {
                 {({ active }) => (
                   <div>
                     {collections?.map((item, index) => (
-                      <div className={styles.text} onClick={() => onClick(index)}>
+                      <div key={index} className={styles.text} onClick={() => onClick(index)}>
                         {item.name}
                       </div>
                     ))}
