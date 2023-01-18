@@ -20,7 +20,7 @@ import { PublicKey } from '@solana/web3.js'
 
 const ListedNFTCard = props => {
   const { data, type, onClick, onActionClick, cancelAuction, finalizeSale } = props
-  const { startTime, endTime, highestBid } = data
+  const { startTime, endTime, highestBid, url } = data
   const viewport = useViewport()
   const isStarted = useMemo(() => {
     if (startTime) {
@@ -43,7 +43,7 @@ const ListedNFTCard = props => {
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent}>
+        <div className={styles.imageContent} onClick={() => onClick(url)}>
           {data.category === 'video' ? (
             <div
               dangerouslySetInnerHTML={{
