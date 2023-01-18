@@ -8,15 +8,15 @@
 }
 
 .menuBlur {
-  width: 330px;
+  width: 343px;
   height: auto;
   position: absolute;
-  top: 0px;
-  left: -10px;
+  top: -28px;
+  left: -17px;
   right: 0px;
   background-color: $background-black-color;
   @media (min-width: 414px) {
-    width: 370px;
+    width: 382px;
   }
   @media (min-width: 1024px) {
     width: 343px;

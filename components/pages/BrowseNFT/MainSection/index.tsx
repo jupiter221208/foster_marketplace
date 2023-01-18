@@ -44,8 +44,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
-import TagWhiteIcon from 'assets/icons/tag-white.svg'
+import QuickBuyBlackIcon from 'assets/icons/quick-buy-white.svg'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg'
 import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
 import NotificationGreenIcon from 'assets/icons/notification-green.svg'
@@ -517,18 +516,32 @@ const MainSection = props => {
                     </div>
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
-                  <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+                  <div className="w-full flex mt-[10px] lg:mt-[14px] gap-6 lg:gap-10">
                     {connected ? (
                       tradeStateAddress ? (
                         <GradientButton
                           label={'Quick Buy'}
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 40}
+                          borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
+                          fontFamily="Muli-SemiBold"
+                          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+                          color="#EFF0F6"
+                          backgroundColor01="#121212"
+                          backgroundColor02="#2D625D"
+                          gradientDirection="right"
+                          paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 20}
+                          paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 20}
                           onClick={() => quickBuy()}
                           icon={QuickBuyBlackIcon}
                           direction="rtl"
-                          disabled={!tradeStateAddress}
                         />
                       ) : (
-                        <LoadingButton />
+                        <LoadingButton
+                          borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
+                          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 112 : 152}
+                          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 40}
+                          mobile={viewport === 'xs' || viewport === 'sm' || viewport === 'md'}
+                        />
                       )
                     ) : (
                       <button
@@ -547,12 +560,18 @@ const MainSection = props => {
                         onClick={() => {
                           setOpenOfferModal(true)
                         }}
-                        icon={TagWhiteIcon}
+                        icon={TagGreenIcon}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 40}
+                        color="#95DBD5"
                         direction="rtl"
-                        borderWidth={2}
-                        paddingLeft="13px"
-                        paddingRight="13px"
-                        gap="4px"
+                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
+                        borderWidth={1}
+                        borderColor="#95DBD5"
+                        fontFamily="Muli-SemiBold"
+                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+                        paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 4 : 13}
+                        paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 4 : 13}
+                        gap={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : 4}
                       />
                     )}
                   </div>

@@ -172,9 +172,9 @@
 }
 
 .greenTitle {
-  font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 20px;
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 24px;
   @media (min-width: 1024px) {
     font-size: 24px;
     line-height: 28px;
@@ -204,8 +204,12 @@
 
 .whiteTitle {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 20px;
+  line-height: 26px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
   color: $white-color;
 }
 
