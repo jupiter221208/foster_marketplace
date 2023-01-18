@@ -173,19 +173,36 @@ const MainSection = prop => {
             )}
           </div>
         </div>
-        <div className="w-full flex justify-center">
-          <div className="max-w-[698px] w-full flex justify-center mt-[16px]">
-            <div className={styles.statesBack}>
-              <div className="w-full flex justify-between">
-                <div className={styles.collectorProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
-                <SwitchButton
-                  enabled={artistEnable}
-                  onChange={() => {
-                    setArtistEnable(!artistEnable)
-                  }}
-                />
+
+        <div className="w-full flex justify-center mt-[30px] cursor-pointer">
+          {artistEnable ? (
+            <div className={styles.switchArea}>
+              <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
+                <div className={styles.switchDisabled}>Collector</div>
               </div>
-              <div className="w-full flex justify-between items-center mt-[22px]">
+              <div className="w-[50%] h-full absolute top-0 right-0">
+                <div className={styles.switchEnabled}>Artist</div>
+              </div>
+            </div>
+          ) : (
+            <div className={styles.switchArea}>
+              <div className="w-[50%] h-full">
+                <div className={styles.switchEnabled}>Collector</div>
+              </div>
+              <div
+                className="w-[50%] h-full absolute top-0 right-0 cursor-pointer"
+                onClick={() => setArtistEnable(true)}
+              >
+                <div className={styles.switchDisabled}>Artist</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="w-full flex justify-center mt-[15px]">
+          <div className="max-w-[698px] w-full flex justify-center">
+            <div className={styles.statesBack}>
+              <div className="w-full flex justify-between items-center mt-[16px]">
                 <div className="flex justify-center items-center">
                   <div className="text-center">
                     <div className="flex justify-center">
@@ -358,13 +375,32 @@ const MainSection = prop => {
           </span>
         )}
       </div>
+
+      <div className="w-full flex justify-center mt-[30px] cursor-pointer">
+        {artistEnable ? (
+          <div className={styles.switchArea}>
+            <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
+              <div className={styles.switchDisabled}>Collector</div>
+            </div>
+            <div className="w-[50%] h-full absolute top-0 right-0">
+              <div className={styles.switchEnabled}>Artist</div>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.switchArea}>
+            <div className="w-[50%] h-full">
+              <div className={styles.switchEnabled}>Collector</div>
+            </div>
+            <div className="w-[50%] h-full absolute top-0 right-0 cursor-pointer" onClick={() => setArtistEnable(true)}>
+              <div className={styles.switchDisabled}>Artist</div>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="w-full flex justify-center mt-5">
         <div className={styles.statesBack}>
-          <div className="w-full flex justify-between">
-            <div className={styles.collectorProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
-            <SwitchButton enabled={artistEnable} onChange={() => setArtistEnable(!artistEnable)} />
-          </div>
-          <div className="w-full flex justify-between items-center mt-[10px]">
+          <div className="w-full flex justify-between items-center">
             <div className="flex justify-center items-center">
               <div className="text-center">
                 <div className="flex justify-center">
