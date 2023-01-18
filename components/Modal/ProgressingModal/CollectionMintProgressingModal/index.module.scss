@@ -6,8 +6,8 @@
 }
 
 .bgView {
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  // -webkit-backdrop-filter: blur(20px);
+  // backdrop-filter: blur(20px);
   background: linear-gradient(
     90deg,
     rgba(#305856, 0.5) 0%,
@@ -22,7 +22,9 @@
 .modalView {
   width: 926px;
   height: 100%;
-  background-color: $background-black-color;
+  background-color: rgba($background-black-color, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid $brand-09-color;
   border-radius: 21px;
   padding: 50px 30px 30px 30px;

@@ -96,14 +96,12 @@ const Collection = () => {
       return response.data
     })
 
-    const collectionNft = await mx
-      .nfts()
-      .create({
-        isCollection: true,
-        name: collectionName,
-        uri: uri,
-        sellerFeeBasisPoints: royalties * 100,
-      })
+    const collectionNft = await mx.nfts().create({
+      isCollection: true,
+      name: collectionName,
+      uri: uri,
+      sellerFeeBasisPoints: royalties * 100,
+    })
 
     if (collectionNft) {
       setCollectionNft(collectionNft)
