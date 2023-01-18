@@ -41,7 +41,8 @@
 
 .profile {
   width: 100%;
-  font-size: 20px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
   line-height: 24px;
   color: $text-gray-200-color;
   text-align: start;
@@ -49,11 +50,14 @@
 
 .bio {
   width: 100%;
+  @media (max-width: 375px) {
+    max-width: 277px;
+  }
   margin-top: 15px;
   font-family: 'Muli-Regular';
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: $text-gray-200-color;
   text-align: start;
 }
 
@@ -68,6 +72,9 @@
 
 .categoryList {
   width: 100%;
+  @media (max-width: 375px) {
+    max-width: 277px;
+  }
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

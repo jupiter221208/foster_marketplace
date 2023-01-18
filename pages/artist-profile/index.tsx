@@ -44,7 +44,6 @@ const ArtistProfile = () => {
   useEffect(() => {
     if (router.query.id !== undefined && router.query.id !== null) {
       getArtistData(router.query.id)
-      // getExploreCircusData(router.query.id)
     }
   }, [router.query])
 
@@ -52,7 +51,7 @@ const ArtistProfile = () => {
     artistsAPI.getArtist(id).then(
       response => {
         let artist = response.artist
-        if (artist !== undefined && artist !== null) {
+        if (Object.keys(artistInfo).length === 0 && artist !== undefined && artist !== null) {
           if (
             artist.profile_picture === null ||
             artist.profile_picture === '' ||
@@ -68,18 +67,7 @@ const ArtistProfile = () => {
         setStatsInfo(response.stats)
         setNfts(response.nfts)
         setCollections(response.collections)
-        setCategoryList(response.categories)
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }
-
-  const getExploreCircusData = id => {
-    artistsAPI.getExploreCircus(id).then(
-      response => {
-        setExploreCircus(response)
+        if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
         console.log(error)
@@ -88,7 +76,6 @@ const ArtistProfile = () => {
   }
 
   const resetData = () => {
-    setArtistInfo({})
     setStatsInfo({
       nfts_collected: 'N/A',
       collections_collected: 'N/A',
@@ -100,17 +87,15 @@ const ArtistProfile = () => {
       sales_volume: 'N/A',
     })
     setNfts([])
+    setCollections([])
     setCategoryList([])
   }
 
   const getCollectorData = id => {
-    setNfts([])
-    setCollections([])
-    setCategoryList([])
     artistsAPI.getCollector(id).then(
       response => {
         let artist = response.collector
-        if (artist !== undefined && artist !== null) {
+        if (Object.keys(artistInfo).length === 0 && artist !== undefined && artist !== null) {
           if (
             artist.profile_picture === null ||
             artist.profile_picture === '' ||
@@ -126,7 +111,7 @@ const ArtistProfile = () => {
         setStatsInfo(response.stats)
         setNfts(response.nfts)
         setCollections(response.collections)
-        setCategoryList(response.categories)
+        if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
         console.log(error)

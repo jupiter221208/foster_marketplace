@@ -32,7 +32,6 @@ import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
-import SwitchButton from 'components/SwitchButton'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
@@ -233,7 +232,7 @@ const MainSection = prop => {
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>
-                      {artistEnable ? 'MONTHLY VISITORS' : 'CREATORS SUPPORTED'}
+                      {artistEnable ? 'MONTHLY COLLECTORS' : 'CREATORS SUPPORTED'}
                     </div>
                   </div>
                 </div>
@@ -428,7 +427,7 @@ const MainSection = prop => {
                     {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
                   </div>
                 </div>
-                <div className={styles.nftInfoValue}>{artistEnable ? 'VISITORS' : 'SUPPORTED'}</div>
+                <div className={styles.nftInfoValue}>{artistEnable ? 'COLLECTORS' : 'SUPPORTED'}</div>
               </div>
             </div>
             <div className="flex justify-center items-center">
