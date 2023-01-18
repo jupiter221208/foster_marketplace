@@ -76,9 +76,9 @@ const ListedNFTCard = props => {
               fontSize="16px"
               paddingLeft="37px"
               paddingRight="37px"
-              backgroundColor01="#63D6CD"
-              backgroundColor02="#326B67"
-              gradientDirection="bottom"
+              backgroundColor01="#326B67"
+              backgroundColor02="#63D6CD"
+              gradientDirection="right"
               fullWidth
             />
           ) : (
@@ -147,6 +147,10 @@ const ListedNFTCard = props => {
         </div>
         <div className="w-full flex justify-between items-center">
           <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
+          <div className="flex items-center gap-[6px]">
+            <Image src={SolanaLogoIcon} width={15} height={15} alt="" />
+            <div className={styles.price}>{getPriceValue(data.price)}</div>
+          </div>
         </div>
 
         <div className="w-full flex justify-between items-center mt-2">
@@ -154,13 +158,14 @@ const ListedNFTCard = props => {
             <GradientButton
               label={'Update'}
               onClick={() => onActionClick(data)}
+              fullWidth
               height="26px"
-              fontSize="10px"
+              fontSize="12px"
               paddingLeft="7px"
               paddingRight="7px"
-              backgroundColor01="#63D6CD"
-              backgroundColor02="#326B67"
-              gradientDirection="bottom"
+              backgroundColor01="#326B67"
+              backgroundColor02="#63D6CD"
+              gradientDirection="right"
               borderRadius="6px"
             />
           ) : (
@@ -177,19 +182,20 @@ const ListedNFTCard = props => {
                         Number(data?.highestBid.amount)
                       )
                     }
+                    fullWidth
                     height="26px"
-                    fontSize="10px"
+                    fontSize="12px"
                     paddingLeft="7px"
                     paddingRight="7px"
-                    backgroundColor01="#63D6CD"
-                    backgroundColor02="#326B67"
-                    gradientDirection="bottom"
+                    backgroundColor01="#326B67"
+                    backgroundColor02="#63D6CD"
+                    gradientDirection="right"
                     borderRadius="6px"
                   />
                 ) : (
                   <Button
                     height="26px"
-                    fontSize="10px"
+                    fontSize="12px"
                     paddingLeft="7px"
                     paddingRight="7px"
                     label="Cancel Auction"
@@ -201,24 +207,21 @@ const ListedNFTCard = props => {
                 )
               ) : (
                 <GradientButton
+                  fullWidth
                   label={'Cancel Auction'}
                   onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress, data?.name)}
                   height="26px"
-                  fontSize="10px"
+                  fontSize="12px"
                   paddingLeft="7px"
                   paddingRight="7px"
-                  backgroundColor01="#63D6CD"
-                  backgroundColor02="#326B67"
-                  gradientDirection="bottom"
+                  backgroundColor01="#326B67"
+                  backgroundColor02="#63D6CD"
+                  gradientDirection="right"
                   borderRadius="6px"
                 />
               )}
             </>
           )}
-          <div className="flex items-center mt-2 gap-[6px]">
-            <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{getPriceValue(data.price)}</div>
-          </div>
         </div>
       </div>
     </div>
