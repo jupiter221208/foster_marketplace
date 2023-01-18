@@ -13,6 +13,7 @@ import Pagination from 'components/Button/Pagination'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import BackImage from 'assets/images/404.png'
 
 // json
 import ResourcesCardList from 'assets/json/resources/resources-card-list.json'
@@ -121,6 +122,9 @@ const Resources = () => {
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+        </div>
+        <div className="w-[115%] absolute top-[325px] left-[-70px] right-[70px] bottom-0 opacity-60">
+          <Image src={BackImage} alt="" objectFit="cover" />
         </div>
         <div className="w-full flex flex-wrap z-10">
           <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>Foster Resources</div>

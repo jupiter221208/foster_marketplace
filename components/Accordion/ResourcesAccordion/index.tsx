@@ -17,7 +17,7 @@ const ResourcesAccordion = props => {
   const { data, onClick } = props
 
   const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any|null>(null)
+  const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -69,7 +69,7 @@ const ResourcesAccordion = props => {
                   >
                     <div className={styles.title}>{item.title}</div>
 
-                    <div className={open ? styles.openButton : styles.closeButton}>
+                    <div className={styles.openButton}>
                       <Image src={open ? MinusBlackIcon : ArrowDownIcon} alt="" />
                     </div>
                   </Disclosure.Button>
