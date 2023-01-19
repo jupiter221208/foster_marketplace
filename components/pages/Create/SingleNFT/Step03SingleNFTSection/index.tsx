@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -7,6 +7,11 @@ import Image from 'next/image'
 import Input from 'components/Input'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
+
+// solana
+import type { Nft } from '@metaplex-foundation/js'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { getMyCollectionNFTs } from 'utils/nfts.utils'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -18,16 +23,16 @@ import styles from './index.module.scss'
 import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
 
 const Step03SingleNFTSection = props => {
-  const { royalties, setRoyalties, disabledNextButton, createNft } = props
-  const [collections, setCollections] = useState([
-    { id: 0, name: 'NFT Collection Name1' },
-    { id: 1, name: 'NFT Collection Name2' },
-    { id: 1, name: 'NFT Collection Name3' },
-    { id: 1, name: 'NFT Collection Name4' },
-  ])
+  const { royalties, setRoyalties, setCollection, disabledNextButton, createNft } = props
   const viewport = useViewport()
+  const { metaplex: mx } = useMetaplex()
 
-  const chooseCollection = index => {}
+  const [collectionList, setCollectionList] = useState([])
+  useEffect(() => {
+    getMyCollectionNFTs(mx).then(setCollectionList)
+  }, [mx])
+
+  const chooseCollection = (index) => setCollection(index === -1 ? null : collectionList[index])
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
@@ -43,7 +48,7 @@ const Step03SingleNFTSection = props => {
       </div>
       <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
-        <SelectCollectionMenu collections={collections} onClick={index => chooseCollection(index)} />
+        <SelectCollectionMenu collections={collectionList} onClick={index => chooseCollection(index)} />
       </div>
       <div className="w-full mt-16">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
@@ -73,7 +78,7 @@ const Step03SingleNFTSection = props => {
       </div>
       <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
-        <SelectCollectionMenu collections={collections} onClick={index => chooseCollection(index)} />
+        <SelectCollectionMenu collections={collectionList} onClick={index => chooseCollection(index)} />
       </div>
       <div className="w-full mt-10">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (

@@ -12,6 +12,7 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
+import { Keypair } from '@solana/web3.js'
 import { toBigNumber, toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -315,6 +316,7 @@ const SingleNft = () => {
 
   // step 3
   const [royalties, setRoyalties] = useState(0)
+  const [collection, setCollection] = useState(null)
 
   // solana
   const { metaplex: mx } = useMetaplex()
@@ -380,51 +382,62 @@ const SingleNft = () => {
 
       let metadataUri = await storage.uploadJson(metadata)
 
-      const { nft } = await mx
+      let nftMint = Keypair.generate()
+      let createNftOperation = await mx
         .nfts()
+        .builders()
         .create({
           uri: metadataUri,
           name: nftName,
           sellerFeeBasisPoints: royalties * 100,
+          useNewMint: nftMint,
+          collection: collection.mintAddress,
         })
+      if (collection)
+        createNftOperation.add(
+          await mx.nfts().builders().verifyCollection({
+            mintAddress: nftMint.publicKey,
+            collectionMintAddress: collection.mintAddress,
+          })
+        )
 
-      if (nft) {
-        const address = nft.address.toBase58()
-        setNFTAddress(address)
+      await createNftOperation.sendAndConfirm(mx)
 
-        const result = categoryList.filter(item => item.checked)
-        let category = ''
-        result.forEach(item => {
-          category += item.name + ','
-        })
+      const address = nftMint.publicKey.toBase58()
+      setNFTAddress(address)
 
-        axios.get(nft.uri).then(response => {
-          if (response !== undefined) {
-            const result: any = response.data
-            nftsAPI
-              .create({
-                token_id: address,
-                nft_name: nft.name,
-                categories: category.slice(0, -1),
-                asset_type: nftType === 'image/gif' ? 'image' : nftType,
-                cover_image_url: nftType === 'audio' || nftType === 'video' ? result['image'] : '',
-                asset_url: nftType === 'video' || nftType === 'audio' ? result['animation_url'] : result['image'],
-              })
-              .then(
-                response => {
-                  console.log(response)
-                },
-                error => {
-                  console.log(error)
-                }
-              )
-          }
-        }),
-          error => {
-            console.log(error)
-          }
-        handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
-      }
+      const result = categoryList.filter(item => item.checked)
+      let category = ''
+      result.forEach(item => {
+        category += item.name + ','
+      })
+
+      axios.get(metadataUri).then(response => {
+        if (response !== undefined) {
+          const result: any = response.data
+          nftsAPI
+            .create({
+              token_id: address,
+              nft_name: name,
+              categories: category.slice(0, -1),
+              asset_type: nftType === 'image/gif' ? 'image' : nftType,
+              cover_image_url: nftType === 'audio' || nftType === 'video' ? result['image'] : '',
+              asset_url: nftType === 'video' || nftType === 'audio' ? result['animation_url'] : result['image'],
+            })
+            .then(
+              response => {
+                console.log(response)
+              },
+              error => {
+                console.log(error)
+              }
+            )
+        }
+      }),
+        error => {
+          console.log(error)
+        }
+      handleChangeCurrentStep((currentStep as any) === 4 ? 4 : currentStep + 1)
     } catch (error) {
       console.error(error)
     } finally {
@@ -610,6 +623,7 @@ const SingleNft = () => {
                       <Step03SingleNFTSection
                         royalties={royalties}
                         setRoyalties={value => setRoyalties(value)}
+                        setCollection={setCollection}
                         disabledNextButton={disabledNextButton}
                         createNft={() => createNft()}
                       />

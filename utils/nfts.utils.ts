@@ -44,6 +44,16 @@ export async function getMyNFTs(mx: Metaplex) {
   return myNFTs
 }
 
+export async function getMyCollectionNFTs(mx: Metaplex) {
+  let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey })
+  let identity = mx.identity().publicKey
+  return nfts.filter(
+    ({ updateAuthorityAddress, collectionDetails }) =>
+      identity.equals(updateAuthorityAddress) &&
+      collectionDetails?.version === 'V1'
+  )
+}
+
 export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
   const res = await getListedNFTs(mx)
   const listedNFTs = (res === undefined ? [] : res).filter(nft => nft.asset.address.toString() === id)
