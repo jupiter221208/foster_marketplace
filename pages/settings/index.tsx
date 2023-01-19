@@ -68,17 +68,18 @@ const Settings = () => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
-            <div className="w-full flex lg:hidden justify-center mt-8">
+            <div className={`mt-[100px] ${styles.subject}`}>Settings</div>
+            {/* <div className="w-full flex lg:hidden justify-center mt-[50px]">
               {selectedTab === 0 && <div className={styles.title}>Profile</div>}
               {selectedTab === 1 && <div className={styles.title}>Notifications</div>}
               {selectedTab === 2 && <div className={styles.title}>Permissions & Privacy</div>}
               {selectedTab === 3 && <div className={styles.title}>Referral Program</div>}
               {selectedTab === 4 && <div className={styles.title}>Security</div>}
-            </div>
-            <div className="w-full mt-8 lg:mt-[100px] mb-[55px] lg:mb-20 overflow-auto">
+            </div> */}
+            <div className="w-full mt-8 lg:mt-[50px] overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div>
-            <div className="w-full">
+            <div className="w-[85%]">
               {selectedTab === 0 && (
                 <ProfileSection
                   success={() => {
@@ -87,7 +88,7 @@ const Settings = () => {
                 />
               )}
             </div>
-            <div className="w-full">
+            <div className="w-[85%]">
               {selectedTab === 1 && (
                 <NotificationSection
                   success={() => {

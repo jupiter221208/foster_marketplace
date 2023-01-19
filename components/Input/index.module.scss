@@ -12,10 +12,6 @@
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
-  }
   letter-spacing: 0;
   color: $text-gray-200-color;
   &:focus {

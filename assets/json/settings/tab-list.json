@@ -1,7 +1,7 @@
 [
   { "id": 0, "label": "PROFILE", "value": "PROFILE" },
   { "id": 1, "label": "NOTIFICATIONS", "value": "NOTIFICATIONS" },
-  { "id": 2, "label": "PERMISSION & PRIVACY", "value": "PERMISSION & PRIVACY" },
+  { "id": 2, "label": "DISPLAY PREFERENCES", "value": "DISPLAY PREFERENCES" },
   { "id": 3, "label": "REFERRAL PROGRAM", "value": "REFERRAL PROGRAM" },
-  { "id": 4, "label": "SECURITY", "value": "SECURITY" }
+  { "id": 4, "label": "STREAMING MEMBERSHIP", "value": "STREAMING MEMBERSHIP" }
 ]

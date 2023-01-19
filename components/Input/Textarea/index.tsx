@@ -15,6 +15,7 @@ const Textarea = props => {
     labelColor = '',
     label01 = '',
     label02 = '',
+    backgroundColor,
     onChange,
     fullWidth = false,
     width = '',
@@ -33,7 +34,7 @@ const Textarea = props => {
         value={value}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
-        style={{ width: fullWidth ? '100%' : width, height: height }}
+        style={{ width: fullWidth ? '100%' : width, height: height, background: backgroundColor }}
       />
       <div className="w-full flex justify-between px-6 gap-6">
         <div className={styles.bottomLabel}>{label01}</div>

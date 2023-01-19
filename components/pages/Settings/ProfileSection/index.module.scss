@@ -108,7 +108,7 @@
 }
 
 .unverifiedTextColor {
-  color: $brand-04-color;
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .reviewTextColor {
@@ -130,6 +130,5 @@
     text-align: start;
   }
   letter-spacing: 0;
-  color: $brand-01-color;
-  text-decoration: underline;
+  color: $brand-09-color;
 }

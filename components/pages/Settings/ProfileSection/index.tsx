@@ -180,23 +180,37 @@ const ProfileSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full hidden lg:flex justify-start">
-        <div className={styles.title}>Profile</div>
-      </div>
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            <div className="mt-[0px] lg:mt-[101px]">
+            <div className="mt-[0px] lg:mt-[77px]">
               <div className={styles.subTitle}>Personal Info</div>
             </div>
             <div className="mt-4 lg:mt-8">
-              <Input value={userName} placeholder="User name" onChange={value => setUsername(value)} />
+              <Input
+                value={userName}
+                backgroundColor="#202427"
+                placeholder="Username"
+                onChange={value => setUsername(value)}
+              />
             </div>
             <div className="mt-[10px] lg:mt-[30px] h-fit">
-              <Textarea value={bio} placeholder="Bio" width="100%" height="100%" onChange={value => setBio(value)} />
+              <Textarea
+                value={bio}
+                backgroundColor="#202427"
+                placeholder="Bio"
+                width="100%"
+                height="100%"
+                onChange={value => setBio(value)}
+              />
             </div>
             <div className="mt-[10px] lg:mt-[30px]">
-              <Input value={userEmail} placeholder="Email Address" onChange={value => setUserEmail(value)} />
+              <Input
+                value={userEmail}
+                backgroundColor="#202427"
+                placeholder="Email Address"
+                onChange={value => setUserEmail(value)}
+              />
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Social Connections & Links</div>
@@ -215,6 +229,7 @@ const ProfileSection = prop => {
               <Input
                 value={igUrl}
                 placeholder="Add Your Account"
+                backgroundColor="#202427"
                 onChange={value => {
                   setIgUrl(value)
                 }}
@@ -231,7 +246,12 @@ const ProfileSection = prop => {
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input value={discordUrl} placeholder="Add Your Account" onChange={value => setDiscordUrl(value)} />
+              <Input
+                value={discordUrl}
+                placeholder="Add Your Account"
+                backgroundColor="#202427"
+                onChange={value => setDiscordUrl(value)}
+              />
             </div>
             <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
               <IconButton
@@ -244,7 +264,12 @@ const ProfileSection = prop => {
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input value={twitterUrl} placeholder="Add Your Account" onChange={value => setTwitterUrl(value)} />
+              <Input
+                value={twitterUrl}
+                placeholder="Add Your Account"
+                backgroundColor="#202427"
+                onChange={value => setTwitterUrl(value)}
+              />
             </div>
             <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
               <IconButton
@@ -257,12 +282,17 @@ const ProfileSection = prop => {
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input value={telegramUrl} placeholder="Add Your Account" onChange={value => setTelegramUrl(value)} />
+              <Input
+                value={telegramUrl}
+                placeholder="Add Your Account"
+                backgroundColor="#202427"
+                onChange={value => setTelegramUrl(value)}
+              />
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Verification Status</div>
             </div>
-            <div className="mt-4 lg:mt-8 flex justify-between">
+            <div className="mt-4 lg:mt-[18px] flex justify-between">
               {verificationStatus === 'unverified' && (
                 <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
                   <div className={styles.unverifiedTextColor}>Unverified</div>
@@ -389,7 +419,7 @@ const ProfileSection = prop => {
             )}
 
             <div className="mt-[45px] lg:mt-[60px]">
-              <div className={styles.subTitle}>Wallet</div>
+              <div className={styles.subTitle}>Associated Wallets</div>
             </div>
             <div className="mt-4 lg:mt-8">
               <CopyWalletInput

@@ -24,9 +24,6 @@ const ReferralSection = prop => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full hidden lg:flex justify-start">
-        <div className={styles.title}>Referral Program</div>
-      </div>
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className="w-full mt-[30px] mb-12">
