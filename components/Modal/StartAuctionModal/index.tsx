@@ -20,6 +20,7 @@ import { useViewport } from 'utils'
 import CloseIcon from 'assets/icons/close-wallet.svg'
 import HelpGrayIcon from 'assets/icons/help-gray.svg'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
+import ArrowDownIcon from 'assets/icons/arrow-down-small.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -83,46 +84,16 @@ const StartAuctionModal = props => {
     })
   }
 
-  // useEffect(() => {
-  //   const position = async () => {
-  //     await navigator.geolocation.getCurrentPosition(
-  //       position => {
-  //         displayLocation(position.coords.latitude, position.coords.longitude)
-  //       },
-  //       err => console.log('error', err)
-  //     )
-  //   }
-  //   position()
-  // }, [startDate])
-
-  // function displayLocation(latitude, longitude) {
-  //   let geocoder
-  //   geocoder = new window.google.maps.Geocoder()
-  //   let latlng = new google.maps.LatLng(latitude, longitude)
-
-  //   geocoder.geocode({ latLng: latlng }, function (results, status) {
-  //     if (status == google.maps.GeocoderStatus.OK) {
-  //       if (results[0]) {
-  //         let add = results[0].formatted_address
-  //         let value = add.split(',')
-  //         let count = value.length
-  //         let country = value[count - 1]
-  //         let state = value[count - 2]
-  //         let city = value[count - 3]
-  //       }
-  //     }
-  //   })
-  // }
-
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
-      <input
-        type="time"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)' }}
-        className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
-      />
+      <div className="relative">
+        <input
+          type="time"
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          className="w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
+        />
+      </div>
     )
   }
 
@@ -179,20 +150,25 @@ const StartAuctionModal = props => {
                   )}
                 </div>
                 <div className="w-full flex justify-center">
-                  <div className={`${styles.nftName} mt-5`}>{data?.offchainMetadata.name}</div>
+                  <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.offchainMetadata.name}</div>
                 </div>
-                <input className="w-0 h-9" />
                 <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">
-                  <DatePicker
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
-                    dateFormat="MM/dd/yyyy h:mm aa"
-                    formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                    showTimeInput
-                    timeInputLabel=""
-                    className={styles.datePicker}
-                    customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
-                  />
+                  <div className="relative">
+                    <DatePicker
+                      selected={startDate}
+                      onChange={date => setStartDate(date)}
+                      dateFormat="MM/dd/yyyy h:mm aa"
+                      formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                      showTimeInput
+                      timeInputLabel=""
+                      className={styles.datePicker}
+                      // customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                    />
+                    <div className="absolute top-[8px] right-4">
+                      <Image src={ArrowDownIcon} alt="" />
+                    </div>
+                  </div>
+
                   <div className="mt-2 w-full text-start">
                     <div className={styles.label}>Schedule auction start date and time</div>
                   </div>
@@ -204,11 +180,12 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
+                      backgroundColor="#202427"
                       borderRadius="9px"
                       type="number"
                       onChange={value => setDays(value)}
                     />
-                    <div className="text-sm">Day(s)</div>
+                    <div className={styles.dateFont}>DAYS</div>
                   </div>
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
@@ -216,17 +193,17 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
+                      backgroundColor="#202427"
                       borderRadius="9px"
                       type="number"
                       onChange={value => setHours(value)}
                     />
-                    <div className="text-sm">Hour(s)</div>
+                    <div className={styles.dateFont}>HOURS</div>
                   </div>
                 </div>
                 <div className="mt-2 w-full text-start">
                   <div className={styles.label}>
-                    The auction is due to end{' '}
-                    <span className="font-bold text-white">{endDate.toLocaleDateString()}</span>
+                    The auction is due to end <span className={styles.dateLabel}>{endDate.toLocaleDateString()}</span>
                     {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
                   </div>
                 </div>

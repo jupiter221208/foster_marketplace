@@ -16,7 +16,9 @@
 .modalView {
   width: 100%;
   max-width: 488px;
-  background-color: $background-black-color;
+  background-color: rgba($background-black-color, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba($background-light-color, 0.1);
   border-radius: 30px;
   padding: 35px 24px 30px 24px;
@@ -55,10 +57,11 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 25px;
+  line-height: 36px;
   @media (min-width: 1024px) {
     font-size: 32px;
+    line-height: 44px;
   }
-  line-height: 36px;
   text-align: center;
   letter-spacing: 0px;
   color: $text-gray-200-color;
@@ -87,14 +90,13 @@
 
 .datePicker {
   width: 100%;
-  max-width: 326px;
+  max-width: 428;
   height: 45px;
   background-color: $text-gray-800-color;
   border-radius: 9px;
-  border: 1px solid rgba($text-gray-200-color, 0.4);
-  font-family: 'Muli-Bold';
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+  font-family: 'Muli-Regular';
   font-size: 14px;
-
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -105,8 +107,27 @@
 .label {
   font-family: 'Muli-Regular';
   font-size: 12px;
+  line-height: 24px;
   color: #aaaaae;
   text-align: start;
+}
+
+.dateFont {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  color: $text-gray-200-color;
+}
+
+.dateLabel {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 24px;
+  color: $text-gray-200-color;
 }
 
 .linkText {
