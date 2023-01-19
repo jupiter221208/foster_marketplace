@@ -5,16 +5,18 @@
   height: 100%;
   background-color: $background-black-color;
   border-radius: 17px;
-  padding: 8px;
+  padding: 9px;
   @media (min-width: 1024px) {
     padding: 15px;
     border-radius: 30px;
+    border-width: 0px;
   }
   @media (min-width: 1536px) {
     padding: 19px;
     border-radius: 30px;
+    border-width: 0px;
   }
-  border: 0.5px solid rgba($text-gray-200-color, 0.15);
+  border: 0.5px solid rgba(#707070, 0.15);
   box-shadow: 0px 3px 6px rgba(black, 0.5);
   cursor: pointer;
 }

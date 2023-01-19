@@ -49,7 +49,7 @@ const ListedNFTSection = props => {
   const fixedPriceNFTs: any = useSelector<any>(state => state.fixedPriceNFTs)
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
-
+  console.log('=============fixedPriceNFTs==========', fixedPriceNFTs)
   useEffect(() => {
     if (filter !== undefined) {
       setActive(Number(filter))
@@ -239,32 +239,27 @@ const ListedNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      {isGetListedNFTs && nftList.length === 0 && (
-        <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[30px]">
-          <NoDataSection
-            title={
-              active === 0
-                ? "You don't have any active fixed-price listings"
-                : "You don't have any active live auctions"
-            }
-            description={
-              active === 0
-                ? 'This tab displays your NFTs with an active fixed-price listing'
-                : 'This tab displays your NFTs that are in a live auction'
-            }
-          />
-        </div>
-      )}
-      {(active === 0 && fixedPriceNFTs.length > 0) || (active === 1 && liveAuctionNFTs.length > 0) ? (
-        <div className="w-full flex justify-end">
-          <Pagination
-            data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs}
-            getCurrentData={data => setNFTList(data)}
-          />
-        </div>
-      ) : (
-        <></>
-      )}
+      {isGetListedNFTs &&
+        ((active === 0 && fixedPriceNFTs.length === 0) || (active === 1 && liveAuctionNFTs.length === 0)) && (
+          <div className="mt-[10px] ml-[-2px] mr-[-2px] lg:mt-[30px]">
+            <NoDataSection
+              title={
+                active === 0
+                  ? "You don't have any active fixed-price listings"
+                  : "You don't have any active live auctions"
+              }
+              description={
+                active === 0
+                  ? 'This tab displays your NFTs with an active fixed-price listing'
+                  : 'This tab displays your NFTs that are in a live auction'
+              }
+            />
+          </div>
+        )}
+      <div className="w-full flex justify-end">
+        <Pagination data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs} getCurrentData={data => setNFTList(data)} />
+      </div>
+
       <UpdateNFTModal
         data={selectedData}
         open={showListNFTModal}

@@ -128,13 +128,11 @@
 .statesBack {
   width: 100%;
   background-color: $background-black-color;
-  border-color: rgba($background-light-color, 0.1);
-  border-width: 1px;
-  border-radius: 8px;
+  border-radius: 15px;
   padding: 12px;
   @media (min-width: 1024px) {
     width: 100%;
-    padding: 15px 15px 17px 15px;
+    padding: 15px 15px 15px 15px;
   }
   z-index: 10;
 }
@@ -143,24 +141,25 @@
   display: flex;
   justify-content: center;
   font-family: 'Muli-SemiBold';
+  font-size: 16px;
   line-height: 36px;
-  font-size: 18px;
   @media (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 40px;
     width: 100px;
-    background-color: $background-dark-color;
-    border-radius: 8px;
+    background-color: #17191a;
+    border-radius: 6px;
   }
   color: $text-gray-200-color;
 }
 
 .nftInfoValue {
   font-family: 'Muli-Regular';
-  line-height: 24px;
   font-size: 12px;
+  line-height: 24px;
   @media (min-width: 1024px) {
     font-size: 14px;
+    margin-top: 8px;
   }
   color: rgba($text-gray-200-color, 0.75);
 }

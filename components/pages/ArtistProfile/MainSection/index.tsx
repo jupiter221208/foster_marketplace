@@ -198,10 +198,10 @@ const MainSection = prop => {
           )}
         </div>
 
-        <div className="w-full flex justify-center mt-[15px]">
+        <div className="w-full flex justify-center mt-[14px] lg:mt-[15px]">
           <div className="max-w-[698px] w-full flex justify-center">
             <div className={styles.statesBack}>
-              <div className="w-full flex justify-between items-center mt-[16px]">
+              <div className="w-full flex justify-between items-center">
                 <div className="flex justify-center items-center">
                   <div className="text-center">
                     <div className="flex justify-center">
