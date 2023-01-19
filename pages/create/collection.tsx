@@ -41,7 +41,7 @@ const Collection = () => {
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
 
   // variables
-  const [currentStep, setCurrentStep] = useState(2)
+  const [currentStep, setCurrentStep] = useState(1)
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')
