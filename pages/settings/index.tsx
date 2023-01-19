@@ -9,7 +9,6 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import Tab01 from 'components/Tab/Tab01'
 import ProfileSection from 'components/pages/Settings/ProfileSection'
 import NotificationSection from 'components/pages/Settings/NotificationSection'
-import PermissionAndPrivacySection from 'components/pages/Settings/PermissionAndPrivacySection'
 import ReferralSection from 'components/pages/Settings/ReferralSection'
 import SecuritySection from 'components/pages/Settings/SecuritySection'
 import Alert from 'components/Alert'
@@ -22,6 +21,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
 // styles
 import styles from './index.module.scss'
+import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
 
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
@@ -81,7 +81,7 @@ const Settings = () => {
                 />
               )}
             </div>
-            <div className="w-[85%]">
+            <div className="w-full lg:w-[85%]">
               {selectedTab === 1 && (
                 <NotificationSection
                   success={() => {
@@ -90,16 +90,16 @@ const Settings = () => {
                 />
               )}
             </div>
-            <div className="w-full">
+            <div className="w-full lg:w-[85%]">
               {selectedTab === 2 && (
-                <PermissionAndPrivacySection
+                <DisplayPreferences
                   success={() => {
                     setShowAlert(true)
                   }}
                 />
               )}
             </div>
-            <div className="w-full">
+            <div className="w-full lg:w-[85%]">
               {selectedTab === 3 && (
                 <ReferralSection
                   success={() => {
@@ -108,7 +108,7 @@ const Settings = () => {
                 />
               )}
             </div>
-            <div className="w-full">
+            <div className="w-full lg:w-[85%]">
               {selectedTab === 4 && (
                 <SecuritySection
                   success={() => {

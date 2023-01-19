@@ -32,16 +32,16 @@
 }
 
 .linkText {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0;
-  color: $brand-01-color;
+  color: $brand-09-color;
   text-align: start;
 }
 
 .text {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
   letter-spacing: 0;
@@ -66,10 +66,10 @@
   font-size: 16px;
   line-height: 20px;
   @media (min-width: 1024px) {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 44px;
   }
   letter-spacing: 0;
-  color: $brand-01-color;
+  color: $text-gray-200-color;
   text-align: start;
 }

@@ -7,13 +7,14 @@ import { Switch as HSwitch } from '@headlessui/react'
 import styles from './index.module.scss'
 
 const Switch = props => {
-  const { title, description, enabled, onChange } = props
+  const { title, description, current = '', enabled, onChange } = props
 
   return (
     <div className={styles.container}>
       <div className="block">
         <div className={styles.title}>{title}</div>
         <div className={styles.description}>{description}</div>
+        {current.length > 0 && <div className={styles.current}>{current}</div>}
       </div>
       <div>
         <HSwitch

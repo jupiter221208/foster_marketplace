@@ -352,7 +352,7 @@ const ProfileSection = prop => {
               )}
             </div>
 
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="relative flex mt-[45px] ">
                 <div className="w-full flex justify-center">
                   <div className={styles.subTitle}>Default Profile View</div>
@@ -428,9 +428,9 @@ const ProfileSection = prop => {
                   </div>
                 </div>
               </div>
-            )}
+            )} */}
 
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="flex justify-between mt-[30px]">
                 <div className={styles.artistProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
                 <SwitchButton
@@ -450,9 +450,9 @@ const ProfileSection = prop => {
                 />
                 <div className={styles.artistProfile}>{artistEnable ? 'Artist Profile' : 'Collector Profile'}</div>
               </div>
-            )}
+            )} */}
 
-            <div className="mt-[45px] lg:mt-[60px]">
+            <div className="mt-[35px] lg:mt-[50px]">
               <div className={styles.subTitle}>Associated Wallets</div>
             </div>
             <div className="mt-4 lg:mt-8">

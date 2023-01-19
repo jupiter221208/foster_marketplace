@@ -86,7 +86,7 @@ const NotificationSection = prop => {
     <div className={styles.container}>
       <div className="w-full flex justify-center">
         <div className={styles.content}>
-          <div className="w-full mt-[30px] mb-12">
+          <div className="w-full mt-[10px] mb-12">
             <GreenLineCard
               content="Select which notifications you would like to receive via email and provide the email address you would like
             the notifications sent to in your profile settings."
