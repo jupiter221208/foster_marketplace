@@ -116,11 +116,11 @@ const ListNFTModal = props => {
                     <GradientButton
                       disabled={price !== undefined && price > 0 ? false : true}
                       label="List"
-                      color="#95DBD5"
+                      color="#202427"
                       fontSize={18}
                       fullWidth
-                      backgroundColor01="#121212"
-                      backgroundColor02="#2D625D"
+                      backgroundColor01="#306963"
+                      backgroundColor02="#5AC3BA"
                       gradientDirection="right"
                       onClick={() => handleListNFTClick()}
                     />

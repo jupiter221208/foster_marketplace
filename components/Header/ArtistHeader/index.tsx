@@ -177,14 +177,6 @@ const ArtistHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {/* {!connected && (
-              <div
-                className="cursor-pointer min-w-[140px] xl:min-w-[176px] flex items-center"
-                onClick={() => handleGotoHomepage()}
-              >
-                <Image src={LogoTextIcon} alt="" />
-              </div>
-            )} */}
             <SearchBox
               value={searchKeyword}
               placeholder="Search by NFT, Collection, or Artist"

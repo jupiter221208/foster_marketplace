@@ -9,6 +9,7 @@
     min-height: 127px;
     padding: 27px 10px 27px 20px;
   }
+  border: 1px solid rgba($text-gray-200-color, 0.1);
   border-radius: 3px;
   display: flex;
   align-items: center;
@@ -29,7 +30,13 @@
     line-height: 32px;
   }
   letter-spacing: 0;
-  color: $brand-01-color;
+}
+
+.selected {
+  color: $brand-09-color;
+}
+.unselected {
+  color: $text-gray-200-color;
 }
 
 .description {

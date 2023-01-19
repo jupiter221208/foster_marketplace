@@ -166,7 +166,13 @@ const FollowModalMobile = props => {
               >
                 <Dialog.Panel className={styles.modalView}>
                   <div className={styles.headerView}>
-                    <IconButton icon={ArrowLeftIcon} width="30px" height="30px" onClick={() => closeModal()} />
+                    <IconButton
+                      icon={ArrowLeftIcon}
+                      backgroundColor="transparent"
+                      width="30px"
+                      height="30px"
+                      onClick={() => closeModal()}
+                    />
                     <div className={styles.title}>{username}</div>
                     <div className="w-[30px] h-[30px]">&nbsp;</div>
                   </div>
