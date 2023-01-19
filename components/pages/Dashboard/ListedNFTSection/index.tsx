@@ -49,7 +49,6 @@ const ListedNFTSection = props => {
   const fixedPriceNFTs: any = useSelector<any>(state => state.fixedPriceNFTs)
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
-  console.log('=============fixedPriceNFTs==========', fixedPriceNFTs)
   useEffect(() => {
     if (filter !== undefined) {
       setActive(Number(filter))
