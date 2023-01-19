@@ -52,6 +52,18 @@ const SearchBox = props => {
             borderColor="transparent"
           />
         </div>
+      ) : value !== '' ? (
+        <div>
+          <OutlineButton
+            label="Cancel"
+            onClick={() => onClose()}
+            fontSize={16}
+            width={60}
+            fontFamily="Muli-Regular"
+            backgroundColor="transparent"
+            borderColor="transparent"
+          />
+        </div>
       ) : (
         <></>
       )}

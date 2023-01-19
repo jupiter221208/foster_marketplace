@@ -27,7 +27,7 @@ const ReferralSection = prop => {
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className="w-full mt-[10px] mb-12">
-            <GreenLineCard content="The referral program allows you to earn a claim on the future issuance of LIFT tokens based on the number of referrals you make for active users." />
+            <GreenLineCard content="The Referral Program allows you to earn LIFT token for marketplace referrals. Each referral type has an associated LIFT reward." />
           </div>
           <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[73px]">
             <div className="w-full flex justify-between">
@@ -74,13 +74,6 @@ const ReferralSection = prop => {
             </div>
           </div>
           <div className="w-full flex justify-end mb-20">
-            {/* <div className="hidden lg:flex gap-[10px] items-center">
-              <div className={styles.middleTitle}>LIFT Rewards Balance:</div>
-              <div className={styles.number}>1000</div>
-              <div className="w-6 h-6">
-                <Image src={LogoImage} alt="" width={22} height={22} layout="responsive" objectFit="cover" />
-              </div>
-            </div> */}
             <div className="w-full lg:w-auto flex justify-end">
               <GradientButton
                 label="Claim"
