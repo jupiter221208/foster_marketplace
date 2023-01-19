@@ -23,7 +23,13 @@
 }
 
 .subject {
+  width: 100%;
   font-family: 'Muli-Bold';
-  font-size: 32px;
+  font-size: 25px;
   line-height: 44px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    text-align: start;
+    font-size: 32px;
+  }
 }

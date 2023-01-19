@@ -22,14 +22,19 @@ import { useViewport } from 'utils'
 
 // images and icons
 import InstagramWhiteIcon from 'assets/icons/instagram-green.svg'
+import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
+import DiscordWhiteSmallIcon from 'assets/icons/discord-green-small.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
+import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
+import TelegramWhiteSmallIcon from 'assets/icons/telegram-green-small.svg'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
 import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
 import InfoGreenIcon from 'assets/icons/info-green.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import CirclePlugGreenIcon from 'assets/icons/circle-plus-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -61,6 +66,7 @@ const ProfileSection = prop => {
   const [artistEnable, setArtistEnable] = useState(true)
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [showProfileTooltip, setShowProfileTooltip] = useState(false)
+  const [showLinkWalletAlert, setShowLinkWalletAlert] = useState(false)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -183,12 +189,13 @@ const ProfileSection = prop => {
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            <div className="mt-[0px] lg:mt-[77px]">
-              <div className={styles.subTitle}>Personal Info</div>
+            <div>
+              <div className={styles.subTitle}>Profile Information</div>
             </div>
-            <div className="mt-4 lg:mt-8">
+            <div className="mt-[15px] lg:mt-8">
               <Input
                 value={userName}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 backgroundColor="#202427"
                 placeholder="Username"
                 onChange={value => setUsername(value)}
@@ -197,6 +204,7 @@ const ProfileSection = prop => {
             <div className="mt-[10px] lg:mt-[30px] h-fit">
               <Textarea
                 value={bio}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 backgroundColor="#202427"
                 placeholder="Bio"
                 width="100%"
@@ -204,9 +212,10 @@ const ProfileSection = prop => {
                 onChange={value => setBio(value)}
               />
             </div>
-            <div className="mt-[10px] lg:mt-[30px]">
+            <div className="mt-[5px] lg:mt-[30px]">
               <Input
                 value={userEmail}
+                fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 backgroundColor="#202427"
                 placeholder="Email Address"
                 onChange={value => setUserEmail(value)}
@@ -215,79 +224,104 @@ const ProfileSection = prop => {
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Social Connections & Links</div>
             </div>
-            <div className="mt-4 lg:mt-8 flex items-center gap-6">
+            <div className="mt-4 lg:mt-8 flex items-center">
               <IconButton
-                icon={InstagramWhiteIcon}
+                icon={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                    ? InstagramWhiteSmallIcon
+                    : InstagramWhiteIcon
+                }
                 backgroundColor="#202427"
                 borderColor="#202427"
                 width="46px"
-                height="46px"
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '46px'}
                 borderRadius="12px"
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input
-                value={igUrl}
-                placeholder="Add Your Account"
-                backgroundColor="#202427"
-                onChange={value => {
-                  setIgUrl(value)
-                }}
-              />
+              <div className="w-full ml-[-16px] lg:ml-[24px]">
+                <Input
+                  value={igUrl}
+                  placeholder="https://www.instagram.com"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  backgroundColor="#202427"
+                  onChange={value => {
+                    setIgUrl(value)
+                  }}
+                />
+              </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
+            <div className="mt-[10px] lg:mt-[30px] flex items-center">
               <IconButton
-                icon={DiscordWhiteIcon}
+                icon={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? DiscordWhiteSmallIcon : DiscordWhiteIcon
+                }
                 backgroundColor="#202427"
                 borderColor="#202427"
                 width="46px"
-                height="46px"
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '46px'}
                 borderRadius="12px"
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input
-                value={discordUrl}
-                placeholder="Add Your Account"
-                backgroundColor="#202427"
-                onChange={value => setDiscordUrl(value)}
-              />
+              <div className="w-full ml-[-16px] lg:ml-[24px]">
+                <Input
+                  value={discordUrl}
+                  placeholder="https://discord.gg/"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  backgroundColor="#202427"
+                  onChange={value => setDiscordUrl(value)}
+                />
+              </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
+            <div className="mt-[10px] lg:mt-[30px] flex items-center">
               <IconButton
-                icon={TwitterWhiteIcon}
+                icon={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? TwitterWhiteSmallIcon : TwitterWhiteIcon
+                }
                 backgroundColor="#202427"
                 borderColor="#202427"
                 width="46px"
-                height="46px"
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '46px'}
                 borderRadius="12px"
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input
-                value={twitterUrl}
-                placeholder="Add Your Account"
-                backgroundColor="#202427"
-                onChange={value => setTwitterUrl(value)}
-              />
+              <div className="w-full ml-[-16px] lg:ml-[24px]">
+                <Input
+                  value={twitterUrl}
+                  placeholder="https://twitter.com"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  backgroundColor="#202427"
+                  onChange={value => setTwitterUrl(value)}
+                />
+              </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex items-center gap-6">
+            <div className="mt-[10px] lg:mt-[30px] flex items-center">
               <IconButton
-                icon={TelegramWhiteIcon}
+                icon={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                    ? TelegramWhiteSmallIcon
+                    : TelegramWhiteIcon
+                }
                 backgroundColor="#202427"
                 borderColor="#202427"
-                width="46px"
-                height="46px"
+                width={'46px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '46px'}
                 borderRadius="12px"
                 borderWidth="0px"
                 onClick={() => {}}
               />
-              <Input
-                value={telegramUrl}
-                placeholder="Add Your Account"
-                backgroundColor="#202427"
-                onChange={value => setTelegramUrl(value)}
-              />
+
+              <div className="w-full ml-[-16px] lg:ml-[24px]">
+                <Input
+                  value={telegramUrl}
+                  placeholder="Add Telegram Account"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  backgroundColor="#202427"
+                  onChange={value => setTelegramUrl(value)}
+                />
+              </div>
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Verification Status</div>
@@ -429,7 +463,25 @@ const ProfileSection = prop => {
                 onClick={() => copyToClipboard(publicKey?.toString() || '')}
               />
             </div>
-            <div className="mt-[49px] lg:mt-[78px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
+            <div className="w-[200%] mt-[31px] flex cursor-pointer">
+              <div
+                className={styles.anotherWalletArea}
+                onMouseEnter={() => setShowLinkWalletAlert(true)}
+                onMouseLeave={() => setShowLinkWalletAlert(false)}
+              >
+                <div className="flex items-center">
+                  <Image src={CirclePlugGreenIcon} alt="" />
+                </div>
+                <div className="ml-[11px] pb-[3px]">Link another wallet</div>
+              </div>
+              {showLinkWalletAlert && (
+                <div className="relative">
+                  <div className={styles.anotherWalletAlert}>This feature is not available but is coming soon.</div>
+                </div>
+              )}
+            </div>
+
+            <div className="mt-[49px] lg:mt-[61px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"
@@ -437,7 +489,7 @@ const ProfileSection = prop => {
                     handleSaveUserInfo()
                   }}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
@@ -448,7 +500,7 @@ const ProfileSection = prop => {
                   label="Save"
                   onClick={() => {}}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '64px'}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
