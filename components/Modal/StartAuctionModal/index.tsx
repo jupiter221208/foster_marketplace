@@ -91,7 +91,7 @@ const StartAuctionModal = props => {
           type="time"
           value={value}
           onChange={e => onChange(e.target.value)}
-          className="w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
+          className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
         />
       </div>
     )
@@ -162,7 +162,7 @@ const StartAuctionModal = props => {
                       showTimeInput
                       timeInputLabel=""
                       className={styles.datePicker}
-                      // customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                      customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
                     />
                     <div className="absolute top-[8px] right-4">
                       <Image src={ArrowDownIcon} alt="" />
@@ -176,7 +176,7 @@ const StartAuctionModal = props => {
                 <div className="mt-[38px] w-full grid grid-cols-2 gap-5 lg:gap-[57px]">
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
-                      placeholder="Days"
+                      placeholder="0"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
@@ -189,7 +189,7 @@ const StartAuctionModal = props => {
                   </div>
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
-                      placeholder="Hours"
+                      placeholder="0"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
@@ -225,13 +225,15 @@ const StartAuctionModal = props => {
                     label="Publish Auction"
                     fullWidth
                     onClick={() => handleStartAuction()}
-                    gradientDirection="bottom"
+                    backgroundColor01="#2D625D"
+                    backgroundColor02="#5AC3BA"
+                    gradientDirection="right"
                   />
                 </div>
                 <div className="mt-[10px] w-full">
-                  <p className={`${styles.label} !text-sm !text-center`}>
-                    By clicking &quot;List&quot;, you agree to the&nbsp;
-                    <span className={styles.linkText}>
+                  <p className={styles.termLabel}>
+                    By clicking &quot;Publish Auction&quot;, you agree to the&nbsp;
+                    <span className={styles.termService}>
                       <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
                         Foster Marketplace Terms of Service
                       </a>

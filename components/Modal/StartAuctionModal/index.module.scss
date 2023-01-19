@@ -112,6 +112,22 @@
   text-align: start;
 }
 
+.termLabel {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+  text-align: center;
+}
+
+.termService {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: #9db2b4;
+  text-align: start;
+}
+
 .dateFont {
   font-family: 'Muli-Regular';
   font-size: 12px;
