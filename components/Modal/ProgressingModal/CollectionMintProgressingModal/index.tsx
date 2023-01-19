@@ -55,7 +55,10 @@ const CollectionMintProgressingModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.ringLoader}>
-                  <RingLoader color="#63D6CD" />
+                  <RingLoader
+                    size={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 60}
+                    color="#63D6CD"
+                  />
                 </div>
                 <div className="w-full flex justify-center mt-[28px]">
                   <div className={styles.greenText}>Do not close this window</div>
