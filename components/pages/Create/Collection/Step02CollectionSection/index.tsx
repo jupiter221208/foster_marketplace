@@ -512,15 +512,15 @@ const Step02CollectionSection = props => {
                     ))}
                 </div>
                 <div className="w-full h-32" />
-                <div className="absolute bottom-0 w-full flex justify-between">
-                  <Button
+                <div className="absolute bottom-0 w-full flex justify-end">
+                  {/* <Button
                     label="Back"
                     onClick={() => handleChangeCurrentStep(currentStep - 1)}
                     width={viewport === '2xl' ? 184 : 175}
                     height={viewport === '2xl' ? 53 : 46}
                     backgroundColor="#378287"
                     color="#EFF0F6"
-                  />
+                  /> */}
                   {disabledNextButton ? (
                     <Button
                       width={viewport === '2xl' ? 184 : 175}
