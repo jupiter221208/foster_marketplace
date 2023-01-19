@@ -83,7 +83,7 @@ const TrendingCollectionSection = props => {
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className="w-full flex justify-center items-center z-10 mt-[5px]">
+            <div className="w-full flex justify-center items-center z-10 lg:mt-[5px]">
               <div className={styles.title}>Trending Collections</div>
             </div>
           ) : (

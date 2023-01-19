@@ -153,7 +153,7 @@ const CreateNFTModal = props => {
                           closeModal()
                           router.push('/create/collection')
                         }}
-                        backgroundColor="#202427"
+                        backgroundColor="transparent"
                         color="#95DBD5"
                         fontSize="16px"
                         borderColor="#95DBD5"
