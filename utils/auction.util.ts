@@ -4,8 +4,8 @@ import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-au
 import { AccountInfo, ParsedAccountData, PublicKey, Transaction } from '@solana/web3.js'
 import { getNFTOwner } from './nfts.utils'
 
-const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY!)
-const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS!)
+const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY ?? 0)
+const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
 
 const LISTING_RECEIPT_SIZE =
   8 + //key
