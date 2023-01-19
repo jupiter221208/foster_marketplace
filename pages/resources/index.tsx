@@ -69,8 +69,12 @@ const Resources = () => {
   }
 
   const setSelectResourceCard = index => {
-    setSelectedCard(index)
     let lists = [...resourceList]
+    if (lists[index].selected === true) {
+      setSelectedCard(-1)
+    } else {
+      setSelectedCard(index)
+    }
     lists.forEach(item => {
       if (item.id === index) {
         item.selected = !item.selected
@@ -128,7 +132,7 @@ const Resources = () => {
         </div>
         <div className="w-full flex flex-wrap z-10">
           <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>Foster Resources</div>
-          <div className="w-full flex justify-end mt-[65px] lg:mt-[61px]">
+          <div className="w-full flex justify-end mt-[15px] lg:mt-[61px]">
             <ResourceSearchBox
               value={searchKeyword}
               placeholder="Search by keywords"
@@ -137,7 +141,7 @@ const Resources = () => {
             />
           </div>
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className="w-full flex flex-wrap gap-[20px] mt-[31px]">
+            <div className="w-full flex flex-wrap gap-[20px] mt-[10px] lg:mt-[31px]">
               <div className="flex flex-wrap w-full lg:w-[366px] lg:min-w-[366px] h-fit gap-[10px]">
                 {resourceList.map((item, index) => (
                   <div key={index} className="w-full">
