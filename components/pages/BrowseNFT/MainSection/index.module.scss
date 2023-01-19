@@ -172,9 +172,9 @@
 }
 
 .greenTitle {
-  font-family: 'Muli-Regular';
-  font-size: 20px;
-  line-height: 24px;
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 20px;
   @media (min-width: 1024px) {
     font-size: 24px;
     line-height: 28px;
@@ -204,12 +204,8 @@
 
 .whiteTitle {
   font-family: 'Muli-Bold';
-  font-size: 20px;
-  line-height: 26px;
-  @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 36px;
-  }
+  font-size: 24px;
+  line-height: 36px;
   color: $white-color;
 }
 
@@ -269,26 +265,11 @@
   }
 }
 
-.description {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 16px;
-  @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 24px;
-  }
-  color: $text-gray-200-color;
-}
-
 .whiteDescription {
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 16px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 24px;
-  }
-  color: $text-gray-200-color;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.74);
 }
 
 .greenRoyalties {
@@ -314,13 +295,9 @@
 
 .greenDiscription {
   font-family: 'Muli-Bold';
-  font-size: 8px;
-  line-height: 10px;
-  @media (min-width: 1024px) {
-    font-size: 14px;
-    line-height: 24px;
-  }
-  color: $brand-09-color;
+  font-size: 14px;
+  line-height: 24px;
+  color: $brand-01-color;
   cursor: pointer;
   &:hover {
     opacity: 0.8;
