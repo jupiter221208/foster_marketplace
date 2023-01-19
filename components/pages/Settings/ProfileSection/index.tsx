@@ -468,6 +468,14 @@ const ProfileSection = prop => {
                 className={styles.anotherWalletArea}
                 onMouseEnter={() => setShowLinkWalletAlert(true)}
                 onMouseLeave={() => setShowLinkWalletAlert(false)}
+                onClick={() => {
+                  if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+                    setShowLinkWalletAlert(true)
+                    setTimeout(() => {
+                      setShowLinkWalletAlert(false)
+                    }, 3000)
+                  }
+                }}
               >
                 <div className="flex items-center">
                   <Image src={CirclePlugGreenIcon} alt="" />
@@ -480,8 +488,13 @@ const ProfileSection = prop => {
                 </div>
               )}
             </div>
+            {showLinkWalletAlert && (
+              <div className="relative flex lg:hidden">
+                <div className={styles.anotherWalletAlertMobile}>This feature is not available but is coming soon.</div>
+              </div>
+            )}
 
-            <div className="mt-[49px] lg:mt-[61px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
+            <div className="mt-[134px] lg:mt-[61px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"
@@ -493,18 +506,19 @@ const ProfileSection = prop => {
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                  opacity={1}
                 />
               ) : (
                 <GradientButton
                   label="Save"
                   onClick={() => {}}
+                  color="#888A8E"
+                  backgroundColor01="#202427"
+                  backgroundColor02="#202427"
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
                   paddingRight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
-                  opacity={0.7}
                 />
               )}
             </div>

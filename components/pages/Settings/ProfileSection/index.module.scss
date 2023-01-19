@@ -159,3 +159,18 @@
   font-size: 14px;
   line-height: 24px;
 }
+
+.anotherWalletAlertMobile {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 58px;
+  top: 5px;
+  background: rgba($text-gray-200-color, 0.15);
+  border-radius: 10px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+}
