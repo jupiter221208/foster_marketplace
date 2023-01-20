@@ -8,6 +8,7 @@ import {
 
   AUCTIONEER_PROGRAM_ID
 } from "@metaplex-foundation/mpl-auctioneer";
+import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house';
 import { PublicKey, Transaction } from "@solana/web3.js";
 import { BN } from "@project-serum/anchor";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
@@ -33,7 +34,7 @@ export async function getPda(auctioneerAuthority) {
       TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       auctioneerAuthority.toBuffer(),
     ],
-    AUCTIONEER_PROGRAM_ID
+    AUCTION_HOUSE_ADDRESS
   );
 }
 
@@ -69,7 +70,7 @@ async function getAuctionHouseTradeState(
       new BN(buyPrice).toArrayLike(Buffer, "le", 8),
       new BN(1).toArrayLike(Buffer, "le", 8),
     ],
-    AUCTIONEER_PROGRAM_ID
+    AUCTION_HOUSE_ADDRESS
   );
 }
 
@@ -80,7 +81,7 @@ export async function getFeePayer() {
       TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       Buffer.from("fee_payer")
     ],
-    AUCTIONEER_PROGRAM_ID
+    AUCTION_HOUSE_ADDRESS
   );
 }
 
@@ -94,7 +95,7 @@ export function getMetadata(mx: Metaplex, mint: PublicKey): PublicKey {
 export async function getSigner() {
   return await PublicKey.findProgramAddress(
     [Buffer.from("auction_house"), Buffer.from("signer")],
-    AUCTIONEER_PROGRAM_ID
+    AUCTION_HOUSE_ADDRESS
   );
 }
 
@@ -105,7 +106,7 @@ export async function getEscrowPaymentAccount(publicKey: PublicKey) {
       TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       publicKey.toBuffer(),
     ],
-    AUCTIONEER_PROGRAM_ID
+    AUCTION_HOUSE_ADDRESS
   )
 }
 
@@ -114,7 +115,7 @@ export async function getAuctionHouseTreasury() {
     [Buffer.from("auction_house"),
     TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
     Buffer.from("treasury")],
-    AUCTIONEER_PROGRAM_ID
+    AUCTION_HOUSE_ADDRESS
   )
 }
 
@@ -158,7 +159,7 @@ export async function startAuction(
   const [signer, signerBump] = await getSigner()
 
   const accounts = {
-    auctionHouseProgram: AUCTIONEER_PROGRAM_ID,
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
     wallet: publicKey,
     tokenAccount: associatedAddress,
@@ -245,7 +246,7 @@ export async function cancelListing(
   };
 
   const cancelAccounts = {
-    auctionHouseProgram: AUCTIONEER_PROGRAM_ID,
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
     seller: sellerAddress,
     wallet: publicKey,
@@ -299,7 +300,7 @@ export async function depositFunds(
   };
 
   const depositAccounts = {
-    auctionHouseProgram: AUCTIONEER_PROGRAM_ID,
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     wallet: publicKey,
     paymentAccount: publicKey,
     transferAuthority: publicKey,
@@ -348,7 +349,7 @@ export async function withdrawFunds(
   };
 
   const withdrawAccounts = {
-    auctionHouseProgram: AUCTIONEER_PROGRAM_ID,
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     wallet: publicKey,
     receiptAccount: publicKey,
     escrowPaymentAccount: escrowPaymentAccount,
@@ -411,7 +412,7 @@ export async function placeBid(
   };
 
   const buyAccounts = {
-    auctionHouseProgram: AUCTIONEER_PROGRAM_ID,
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
     seller: sellerAddress,
     wallet: publicKey,
@@ -515,7 +516,7 @@ export async function executeSale(
   };
 
   const executeSaleAccounts = {
-    auctionHouseProgram: AUCTIONEER_PROGRAM_ID,
+    auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
     listingConfig: listingConfig,
     buyer: buyerAddress,
     seller: sellerAddress,
