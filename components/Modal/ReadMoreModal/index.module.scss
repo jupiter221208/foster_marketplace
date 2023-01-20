@@ -16,10 +16,9 @@
   width: 100%;
   max-height: calc(100vh - 100px);
   height: 100%;
-  background-color: rgba($background-light-color, 0.1);
+  background-color: $background-black-color;
   border-radius: 20px;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(30px);
+
   background-origin: border-box;
   border: 1px solid rgba($background-light-color, 0.1);
   padding: 16px 4px 16px 16px;
@@ -57,8 +56,9 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.8);
   text-align: start;
+  word-break: break-all;
 }
 
 .category {
