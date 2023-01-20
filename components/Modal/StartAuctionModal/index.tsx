@@ -86,14 +86,13 @@ const StartAuctionModal = props => {
 
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
-      <div className="relative">
-        <input
-          type="time"
-          value={value}
-          onChange={e => onChange(e.target.value)}
-          className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
-        />
-      </div>
+      <input
+        type="time"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        style={{ border: 'solid 1px rgba(#EFF0F6, 0.1)' }}
+        className="!w-full h-full rounded-[9px] px-[10px] bg-transparent text-white flex-row-reverse"
+      />
     )
   }
 

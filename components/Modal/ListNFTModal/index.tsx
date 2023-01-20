@@ -50,7 +50,14 @@ const ListNFTModal = props => {
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={() => onClose('unlisted')}>
+      <Dialog
+        as="div"
+        className={styles.container}
+        onClose={() => {
+          setListStatus(false)
+          onClose('unlisted')
+        }}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -76,7 +83,13 @@ const ListNFTModal = props => {
             >
               {!listStatus ? (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className={styles.close} onClick={() => onClose('unlisted')}>
+                  <div
+                    className={styles.close}
+                    onClick={() => {
+                      setListStatus(false)
+                      onClose('unlisted')
+                    }}
+                  >
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className={styles.title}>List NFT</div>
@@ -141,13 +154,19 @@ const ListNFTModal = props => {
                 </Dialog.Panel>
               ) : (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className={styles.close} onClick={() => onClose('unlisted')}>
+                  <div
+                    className={styles.close}
+                    onClick={() => {
+                      setListStatus(false)
+                      onClose('list-close')
+                    }}
+                  >
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   {data?.offchainMetadata.category === 'video' ||
                   data?.offchainMetadata.properties?.category === 'video' ? (
                     <div
-                      className="mt-[20px]"
+                      className="mt-[25px]"
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
                   <source src=${data?.offchainMetadata?.animation_url} type="video/mp4" /></video>`,
@@ -161,7 +180,7 @@ const ListNFTModal = props => {
                           : data?.offchainMetadata?.image
                       }
                       alt={data?.offchainMetadata.name || data?.name}
-                      className="w-full aspect-[321/321] object-cover mt-[20px]"
+                      className="w-full aspect-[321/321] object-cover mt-[25px]"
                     />
                   )}
                   <div className="mt-5">

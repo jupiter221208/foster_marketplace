@@ -104,6 +104,7 @@ const MyNFTSection = props => {
   }
 
   useEffect(() => {
+    console.log('==========myNftList==========', myNftList)
     setAllNftList(myNftList)
     setFilteredList(myNftList)
   }, [myNftList])
@@ -153,11 +154,10 @@ const MyNFTSection = props => {
           />
         </div>
       )}
-      {filteredList.length > 0 && (
-        <div className="w-full flex justify-end">
-          <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
-        </div>
-      )}
+      <div className="w-full flex justify-end">
+        <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
+      </div>
+
       <StartAuctionModal
         data={selectedData}
         open={showStartAuctionModal}

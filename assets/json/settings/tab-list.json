@@ -1,7 +1,1 @@
-[
-  { "id": 0, "label": "PROFILE", "value": "PROFILE", "coming_soon": false },
-  { "id": 1, "label": "NOTIFICATIONS", "value": "NOTIFICATIONS", "coming_soon": true },
-  { "id": 2, "label": "DISPLAY PREFERENCES", "value": "DISPLAY PREFERENCES", "coming_soon": true },
-  { "id": 3, "label": "REFERRAL PROGRAM", "value": "REFERRAL PROGRAM", "coming_soon": true },
-  { "id": 4, "label": "STREAMING MEMBERSHIP", "value": "STREAMING MEMBERSHIP", "coming_soon": true }
-]
+[{ "id": 0, "label": "PROFILE", "value": "PROFILE", "coming_soon": false }]
