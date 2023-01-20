@@ -144,8 +144,7 @@
 
   &:hover {
     @media (min-width: 1024px) {
-      background-color: rgba($brand-02-color, 0.3);
-      border: 1px solid $brand-01-color;
+      background: linear-gradient(to bottom, #202427 0%, rgba(#2d625d, 0.51) 100%);
       border-radius: 8px;
     }
   }

@@ -338,7 +338,6 @@ const SingleNft = () => {
           category: nftType.split('/')[0],
         },
       }
-
       const coverFileBlob = await fetch(nftImage).then(r => r.blob())
       const coverFile = toMetaplexFile(await coverFileBlob.arrayBuffer(), 'image.png', {
         contentType: coverFileBlob.type,
@@ -423,6 +422,7 @@ const SingleNft = () => {
               asset_type: nftType === 'image/gif' ? 'image' : nftType,
               cover_image_url: nftType === 'audio' || nftType === 'video' ? result['image'] : '',
               asset_url: nftType === 'video' || nftType === 'audio' ? result['animation_url'] : result['image'],
+              collection_id: collection?.mintAddress.toBase58(),
             })
             .then(
               response => {
