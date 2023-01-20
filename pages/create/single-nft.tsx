@@ -417,7 +417,7 @@ const SingleNft = () => {
           nftsAPI
             .create({
               token_id: address,
-              nft_name: name,
+              nft_name: nftName,
               categories: category.slice(0, -1),
               asset_type: nftType === 'image/gif' ? 'image' : nftType,
               cover_image_url: nftType === 'audio' || nftType === 'video' ? result['image'] : '',
