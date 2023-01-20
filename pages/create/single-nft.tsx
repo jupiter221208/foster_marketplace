@@ -771,6 +771,7 @@ const SingleNft = () => {
                 <Step03SingleNFTSection
                   createNft={() => createNft()}
                   royalties={royalties}
+                  setCollection={setCollection}
                   setRoyalties={value => setRoyalties(value)}
                   disabledNextButton={disabledNextButton}
                   handleChangeCurrentStep={() =>

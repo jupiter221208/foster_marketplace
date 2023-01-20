@@ -26,13 +26,22 @@ const Step03SingleNFTSection = props => {
   const { royalties, setRoyalties, setCollection, disabledNextButton, createNft } = props
   const viewport = useViewport()
   const { metaplex: mx } = useMetaplex()
+  const [selectedCollectionName, setSelectedCollectionName] = useState(null)
 
   const [collectionList, setCollectionList] = useState([])
   useEffect(() => {
     getMyCollectionNFTs(mx).then(setCollectionList)
   }, [mx])
 
-  const chooseCollection = (index) => setCollection(index === -1 ? null : collectionList[index])
+  const chooseCollection = index => {
+    if (index >= 0) {
+      setCollection(collectionList[index])
+      setSelectedCollectionName(collectionList[index]?.name)
+    } else {
+      setCollection(null)
+      setSelectedCollectionName(null)
+    }
+  }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
@@ -48,7 +57,11 @@ const Step03SingleNFTSection = props => {
       </div>
       <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
-        <SelectCollectionMenu collections={collectionList} onClick={index => chooseCollection(index)} />
+        <SelectCollectionMenu
+          collections={collectionList}
+          name={selectedCollectionName}
+          onClick={index => chooseCollection(index)}
+        />
       </div>
       <div className="w-full mt-16">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
@@ -78,7 +91,11 @@ const Step03SingleNFTSection = props => {
       </div>
       <div className="w-full mt-[54px]">
         <div className={styles.subTitle}>Add to an existing collection (optional)</div>
-        <SelectCollectionMenu collections={collectionList} onClick={index => chooseCollection(index)} />
+        <SelectCollectionMenu
+          collections={collectionList}
+          name={selectedCollectionName}
+          onClick={index => chooseCollection(index)}
+        />
       </div>
       <div className="w-full mt-10">
         {royalties === '' || parseInt(royalties) < 0 || parseInt(royalties) > 10 ? (
