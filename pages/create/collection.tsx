@@ -147,7 +147,9 @@ const Collection = () => {
       }
       array.push(object)
     })
-    setCollectionFiles(array)
+
+    let new_files = [...collectionFiles, ...array]
+    setCollectionFiles(new_files)
   }
 
   const handleRemoveCollectionFile = item => {

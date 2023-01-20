@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 // next components
 import NextImage from 'next/image'
@@ -46,6 +46,8 @@ const Step02CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
+
+  const dropzoneNftEl = useRef(null)
 
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
@@ -146,23 +148,6 @@ const Step02CollectionSection = props => {
     setSelectedCollectionFile({ ...selectedCollectionFile, selectedDimension: item })
     setOpenImageEditorModal(true)
   }
-
-  // useEffect(() => {
-  //   if (collectionFiles !== undefined && collectionFiles.length !== 0) {
-  //     if (collectionFiles.length > 5) {
-  //       if (collectionFilesCount === 0) {
-  //         setCollectionFilesCount(collectionFiles.length)
-  //         setShowMore(true)
-  //       }
-  //       setSubCollectionFiles(collectionFiles.slice(0, 5))
-  //     } else {
-  //       setSubCollectionFiles(collectionFiles)
-  //     }
-  //     setSubCollectionFiles(collectionFiles)
-  //   } else {
-  //     setSubCollectionFiles([])
-  //   }
-  // }, [collectionFiles, collectionFilesCount])
 
   const handleChangeCurrentStep = step => {
     handleFormValidate()
@@ -297,8 +282,11 @@ const Step02CollectionSection = props => {
                       maxFiles={25}
                       maxSize={31457280}
                     >
-                      {({ getRootProps, getInputProps }) => (
+                      {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
+                          <button onClick={open} ref={dropzoneNftEl} style={{ display: 'none' }}>
+                            open
+                          </button>
                           <div {...getRootProps()} className={styles.selectArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
@@ -510,6 +498,17 @@ const Step02CollectionSection = props => {
                         />
                       </div>
                     ))}
+
+                  {collectionFiles.length > 0 && (
+                    <div className="flex mt-[20px]">
+                      <GradientButton
+                        label="Add More"
+                        onClick={() => {
+                          dropzoneNftEl.current.click()
+                        }}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="w-full h-32" />
                 <div className="absolute bottom-0 w-full flex justify-end">

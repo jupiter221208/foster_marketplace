@@ -104,7 +104,6 @@ const MyNFTSection = props => {
   }
 
   useEffect(() => {
-    console.log('==========myNftList==========', myNftList)
     setAllNftList(myNftList)
     setFilteredList(myNftList)
   }, [myNftList])
