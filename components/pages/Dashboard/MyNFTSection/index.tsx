@@ -126,7 +126,7 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      {!loading && filteredList.length > 0 && (
+      {!loading && allNftList.length > 0 && (
         <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
@@ -145,7 +145,7 @@ const MyNFTSection = props => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      {isGetMyNFTs && filteredList.length === 0 && (
+      {isGetMyNFTs && allNftList.length === 0 && (
         <div className="mt-[30px] lg:mt-[70px]">
           <NoDataSection
             title="There were no NFTs detected in your wallet"

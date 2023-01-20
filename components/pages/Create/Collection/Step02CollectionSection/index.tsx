@@ -500,13 +500,20 @@ const Step02CollectionSection = props => {
                     ))}
 
                   {collectionFiles.length > 0 && (
-                    <div className="flex mt-[20px]">
-                      <GradientButton
-                        label="Add More"
-                        onClick={() => {
-                          dropzoneNftEl.current.click()
-                        }}
-                      />
+                    <div
+                      className="flex mt-[20px]"
+                      onClick={() => {
+                        dropzoneNftEl.current.click()
+                      }}
+                    >
+                      <section className={styles.dropzone}>
+                        <div className={styles.selectArea}>
+                          <p className={styles.subTitle}>Add More</p>
+                          <p className={`${styles.text} mt-1`}>
+                            Forgot to select all the collection items? If so, click in this box to upload more items
+                          </p>
+                        </div>
+                      </section>
                     </div>
                   )}
                 </div>
@@ -641,8 +648,11 @@ const Step02CollectionSection = props => {
                 maxFiles={25}
                 maxSize={31457280}
               >
-                {({ getRootProps, getInputProps }) => (
+                {({ getRootProps, getInputProps, open }) => (
                   <section className={styles.dropzone}>
+                    <button onClick={open} ref={dropzoneNftEl} style={{ display: 'none' }}>
+                      open
+                    </button>
                     <div {...getRootProps()} className={styles.selectArea}>
                       <input {...getInputProps()} />
                       <p className={styles.subTitle}>Upload Here</p>
@@ -659,106 +669,6 @@ const Step02CollectionSection = props => {
             </div>
           </div>
           <div className="w-full">
-            {/* {showMore &&
-              subCollectionFiles !== undefined &&
-              subCollectionFiles.length !== 0 &&
-              subCollectionFiles.map((item, index) => (
-                <div
-                  className="w-full flex flex-wrap gap-4 mt-10 cursor-pointer"
-                  key={index}
-                  onClick={() => handleSelectedCollectionFile(item)}
-                >
-                  <div className="w-full flex justify-between items-center">
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.selectedImage
-                          : styles.nonSelectedImage
-                      }
-                    >
-                      {item.type === 'video' ? (
-                        <video loop autoPlay className="w-full h-full" id="video">
-                          <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                          Your browser does not support the video tag.
-                        </video>
-                      ) : (
-                        <NextImage
-                          src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                          alt=""
-                          width={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                          }
-                          height={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                          }
-                          objectFit="cover"
-                          className="rounded-lg"
-                        />
-                      )}
-                    </div>
-                    <IconButton
-                      icon={TrashGrayIcon}
-                      onClick={() => onRemoveCollectionFile(item)}
-                      backgroundColor="transparent"
-                      iconWidth={24}
-                      iconHeight={24}
-                    />
-                  </div>
-                  <div className="w-full block">
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.greenText
-                          : styles.text
-                      }
-                    >
-                      NFT Name *
-                    </div>
-                    <div>
-                      <Input
-                        value={item.name}
-                        placeholder="Give your art name"
-                        label=""
-                        fullWidth
-                        onChange={value => onChangeCollectionName(item, value)}
-                        height="46px"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full block h-[120px]">
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.greenText
-                          : styles.text
-                      }
-                    >
-                      Description
-                    </div>
-                    <div>
-                      <Textarea
-                        value={item.description}
-                        placeholder="Add a short description..."
-                        fullWidth
-                        onChange={value => onChangeCollectionDescription(item, value)}
-                        height="90px"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            {showMore && subCollectionFiles !== undefined && subCollectionFiles.length !== 0 && (
-              <div className="w-full flex justify-center">
-                <IconButton
-                  icon={ArrowDownGreenIcon}
-                  onClick={() => setShowMore(false)}
-                  backgroundColor="transparent"
-                  iconWidth={32}
-                  iconHeight={32}
-                />
-              </div>
-            )} */}
-
             {/* {!showMore && */}
             {collectionFiles.length !== 0 &&
               collectionFiles.map((item, index) => (
@@ -849,17 +759,23 @@ const Step02CollectionSection = props => {
               ))}
           </div>
 
-          <div className="w-full flex justify-between my-10">
-            <div className="w-[161px]">
-              <Button
-                label="Back"
-                onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                fullWidth
-                height="45px"
-                backgroundColor="#378287"
-                color="#EFF0F6"
-              />
+          {collectionFiles.length > 0 && (
+            <div
+              className="flex mt-[20px]"
+              onClick={() => {
+                dropzoneNftEl.current.click()
+              }}
+            >
+              <section className={styles.dropzone}>
+                <div className={styles.selectArea}>
+                  <p className={styles.subTitle}>Add More</p>
+                  <p className={styles.text}>Forgot to select all the collection items?</p>
+                  <p className={styles.text}>If so, click in this box to upload more items</p>
+                </div>
+              </section>
             </div>
+          )}
+          <div className="w-full flex justify-center my-10">
             <div className="w-[161px]">
               {disabledNextButton ? (
                 <Button

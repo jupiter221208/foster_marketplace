@@ -519,7 +519,7 @@ const MainSection = props => {
                   </div>
                   <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                     {connected ? (
-                      !tradeStateAddress ? (
+                      tradeStateAddress ? (
                         <GradientButton
                           label={'Quick Buy'}
                           onClick={() => quickBuy()}

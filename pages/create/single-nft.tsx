@@ -391,7 +391,7 @@ const SingleNft = () => {
           name: nftName,
           sellerFeeBasisPoints: royalties * 100,
           useNewMint: nftMint,
-          collection: collection.mintAddress,
+          collection: collection?.mintAddress,
         })
       if (collection)
         createNftOperation.add(

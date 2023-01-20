@@ -83,11 +83,9 @@ const MyCollectionSection = () => {
           />
         </div>
       )}
-      {collections.length > 0 && (
-        <div className="w-full flex justify-end">
-          <Pagination data={collections} getCurrentData={data => setCollectionList(data)} />
-        </div>
-      )}
+      <div className="w-full flex justify-end">
+        <Pagination data={collections} getCurrentData={data => setCollectionList(data)} />
+      </div>
     </section>
   )
 }

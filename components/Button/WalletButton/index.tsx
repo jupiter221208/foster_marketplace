@@ -239,8 +239,8 @@ const WalletButton = props => {
     authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
       response => {
         dispatch({ type: 'set', profileInfo: response.user })
-        setProfileImage(response.user.profile_picture)
-        setProfileName(response.user.username)
+        setProfileImage(response.user?.profile_picture)
+        setProfileName(response.user?.username)
       },
       error => {
         console.log(error)
