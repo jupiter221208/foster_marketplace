@@ -525,7 +525,10 @@ h6 {
     .react-datepicker__month-container {
       width: 100%;
     }
-    padding: 20px 32px 26px 32px;
+    padding: 12px;
+    @media (min-width: 1024px) {
+      padding: 20px 32px 26px 32px;
+    }
     .react-datepicker__triangle {
       display: none;
     }

@@ -87,6 +87,7 @@ const StartAuctionModal = props => {
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
       <input
+        readOnly
         type="time"
         value={value}
         onChange={e => onChange(e.target.value)}
@@ -151,6 +152,7 @@ const StartAuctionModal = props => {
                 <div className="w-full flex justify-center">
                   <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.offchainMetadata.name}</div>
                 </div>
+                <input className="w-0 h-9" />
                 <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">
                   <div className="relative">
                     <DatePicker
