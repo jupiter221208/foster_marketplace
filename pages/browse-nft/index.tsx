@@ -43,8 +43,10 @@ const BrowseNFT = () => {
     if (id !== undefined && id !== '') {
       setLoading(true)
       nftsAPI.getDetail(id).then(
-        (response: NFT) => {
-          if (response !== null) {
+        (response: any) => {
+          if (response === 'NFT not found') {
+            setLoading(false)
+          } else if (response !== null) {
             setNftDetail(response)
             setCategories(response.categories?.split(','))
             if (response.collection_address !== null) {

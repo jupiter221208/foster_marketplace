@@ -69,10 +69,10 @@ const Settings = () => {
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
             <div className={`mt-[32px] lg:mt-[100px] ${styles.subject}`}>Settings</div>
-            <div className="w-full h-[65px] lg:h-[117px] mt-[32px] lg:mt-[50px] overflow-auto">
+            {/* <div className="w-full h-[65px] lg:h-[117px] mt-[32px] lg:mt-[50px] overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
-            </div>
-            <div className="w-full lg:w-[85%]">
+            </div> */}
+            <div className="w-full lg:w-[85%] mt-[32px] lg:mt-[50px]">
               {selectedTab === 0 && (
                 <ProfileSection
                   success={() => {

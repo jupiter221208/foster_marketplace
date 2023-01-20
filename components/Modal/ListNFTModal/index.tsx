@@ -180,7 +180,7 @@ const ListNFTModal = props => {
                           : data?.offchainMetadata?.image
                       }
                       alt={data?.offchainMetadata.name || data?.name}
-                      className="w-full aspect-[321/321] object-cover mt-[25px]"
+                      className="w-full aspect-[321/321] object-cover mt-[25px] rounded-[16px]"
                     />
                   )}
                   <div className="mt-5">
