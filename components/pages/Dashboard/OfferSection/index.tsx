@@ -167,11 +167,11 @@ const OfferSection = () => {
           />
         </div>
       )}
-      {offerList.length > 0 && (
-        <div className="w-full flex justify-end">
-          <Pagination data={offerList} getCurrentData={data => setShowOfferList(data)} />
-        </div>
-      )}
+
+      <div className="w-full flex justify-end">
+        <Pagination data={offerList} getCurrentData={data => setShowOfferList(data)} />
+      </div>
+
       <Alert
         open={showAlert}
         close={() => {
