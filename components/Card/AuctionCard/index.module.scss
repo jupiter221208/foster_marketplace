@@ -3,12 +3,12 @@
 .container {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
   border-radius: 12px;
-  padding: 8px 0px;
+  padding: 8px 4px;
   @media (min-width: 414px) {
-    padding: 8px 0px;
+    padding: 8px 10px;
   }
   @media (min-width: 1024px) {
     padding-top: 9px;

@@ -175,8 +175,8 @@ const MainSection = props => {
   const [mintAddress, setMintAddress] = useState('')
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
   const [nftCategories, setNftCategories] = useState([])
-  const [endTime, setEndTime] = useState<Date>(new Date())
-  const [startTime, setStartTime] = useState<Date>(new Date())
+  const [endTime, setEndTime] = useState<String>(null)
+  const [startTime, setStartTime] = useState<String>(null)
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
@@ -256,8 +256,8 @@ const MainSection = props => {
       setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
       setHighBidder(highest_bid ? highest_bid.buyer_address : '')
       setSellerAddress(new PublicKey(auction.seller_address))
-      setEndTime(new Date(Number(auction.end_time) * 1000))
-      setStartTime(new Date(Number(auction.start_time) * 1000))
+      setEndTime(auction.end_time)
+      setStartTime(auction.start_time)
     }
 
     if (nftDetail.owner_address === '') {
@@ -269,15 +269,6 @@ const MainSection = props => {
       })
     }
   }
-  // const setListedNFT = async () => {
-  //   const { auction, highest_bid } = await AuctionAPI.getListing(id)
-  //   const nft = await getNFTByAddress(mx, new PublicKey(auction.mint_address))
-  //   setNftRoyalties(nft.sellerFeeBasisPoints / 100)
-  // }
-
-  // useEffect(() => {
-  //   if (mx && id && connected) setListedNFT()
-  // }, [mx, id, connected])
 
   const placeBidAndSave = async price => {
     if (price[0] === '.') {

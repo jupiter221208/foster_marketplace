@@ -21,16 +21,37 @@ const LiveAuctionCard = props => {
   const { data, onClick } = props
 
   const viewport = useViewport()
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(Number(data.end_time) * 1000))
+  const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
+  const [auctionStarted, setAuctionStarted] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft(Number(data.end_time) * 1000))
-    }, 1000)
+    if (
+      data.start_time !== null &&
+      data.start_time !== undefined &&
+      data.end_time !== undefined &&
+      data.end_time !== null
+    ) {
+      setTimeLeft(calculateTimeLeft(getStartTime(data) * 1000))
 
-    return () => clearTimeout(timer)
-  })
+      const timer = setInterval(() => {
+        setTimeLeft(calculateTimeLeft(getStartTime(data) * 1000))
+      }, 1000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [data.start_time, data.end_time])
+
+  const getStartTime = data => {
+    let difference = Number(data.start_time) * 1000 - +new Date()
+    if (difference >= 0) {
+      setAuctionStarted(false)
+      return Number(data.start_time)
+    } else {
+      setAuctionStarted(true)
+      return Number(data.end_time)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -120,7 +141,9 @@ const LiveAuctionCard = props => {
         <div className={styles.bidGradientBgView} />
         <div className={styles.bidContentView}>
           <div>
-            <div className={styles.bidName}>{data.current_bid !== null ? 'CURRENT BID' : 'STARTING BID'}</div>
+            <div className={styles.bidName}>
+              {data.current_bid !== null ? 'CURRENT BID' : auctionStarted ? 'STARTING BID' : 'RESERVE PRICE'}
+            </div>
             <div className={styles.bidCountContainer}>
               <Image
                 src={SolanaLogoIcon}
@@ -133,29 +156,29 @@ const LiveAuctionCard = props => {
           </div>
 
           <div>
-            <div className={styles.bidTime}>TIME REMAINING</div>
+            <div className={styles.bidTime}>{auctionStarted ? 'TIME REMAINING' : 'AUCTION STARTS IN'}</div>
             <div className="flex justify-center">
               <div>
                 <div className={styles.endTime}>
-                  {timeLeft['days']}
+                  {timeLeft && timeLeft['days']}
                   <div className={styles.bidDesc}>D</div>
                 </div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
-                  {timeLeft['hours']}
+                  {timeLeft && timeLeft['hours']}
                   <div className={styles.bidDesc}>H</div>
                 </div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
-                  {timeLeft['minutes']}
+                  {timeLeft && timeLeft['minutes']}
                   <div className={styles.bidDesc}>M</div>
                 </div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
-                  {timeLeft['seconds']}
+                  {timeLeft && timeLeft['seconds']}
                   <div className={styles.bidDesc}>S</div>
                 </div>
               </div>
