@@ -116,12 +116,12 @@ const TabSection = () => {
       )}
       {activeTab === 6 && (
         <div className="w-full flex flex-wrap">
-          <HiddenSection />
+          <OfferSection />
         </div>
       )}
       {activeTab === 7 && (
         <div className="w-full flex flex-wrap">
-          <OfferSection />
+          <HiddenSection />
         </div>
       )}
     </div>

@@ -1,0 +1,35 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  color: rgba($text-gray-200-color, 0.6);
+  border-bottom: 3px solid transparent;
+  &:focus {
+    outline: none;
+  }
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  // margin-bottom: 20px;
+  white-space: nowrap;
+}
+
+.activeTab {
+  border-bottom: 3px solid $brand-03-color;
+  color: $text-gray-200-color;
+}

@@ -11,6 +11,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import IconTabButton from './IconTabButton'
 
 const IconTab = props => {
   const { tabList, onChange } = props
@@ -21,15 +22,7 @@ const IconTab = props => {
       <HTab.List className={viewport === 'xs' || viewport === 'sm' ? styles.mobileScrollbar : styles.scrollbar}>
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
-            <button
-              className={`${styles.container} ${item.selected ? styles.activeTab : ''}`}
-              onClick={() => onChange(item)}
-            >
-              <div className="w-full h-full min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px]">
-                <img src={item.selected ? item.icon01 : item.icon02} alt="" />
-              </div>
-              <div className="ml-3">{item.label}</div>
-            </button>
+            <IconTabButton item={item} onChange={item => onChange(item)} />
           </HTab>
         ))}
       </HTab.List>

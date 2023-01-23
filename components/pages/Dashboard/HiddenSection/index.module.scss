@@ -8,3 +8,17 @@
   }
   width: 100%;
 }
+
+.comingSoon {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 28px;
+  margin-top: 40px;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+    line-height: 44px;
+    margin-top: 80px;
+  }
+  color: $text-gray-200-color;
+  text-align: center;
+}

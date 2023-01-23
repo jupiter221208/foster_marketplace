@@ -25,7 +25,8 @@ const HiddenSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="flex">
+      <div className={styles.comingSoon}>This feature is not available but is coming soon.</div>
+      {/* <div className="flex">
         <Button
           label="Single NFTs"
           onClick={() => handleChangeActive(0)}
@@ -72,7 +73,7 @@ const HiddenSection = () => {
       <div className="w-full flex justify-end">
         {active === 0 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />}
         {active === 1 && <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />}
-      </div>
+      </div> */}
     </section>
   )
 }
