@@ -34,7 +34,7 @@ const MoreCollectionSection = props => {
     if (collectionId !== null) {
       collectionAPI.getCollectionNft(collectionId).then(
         response => {
-          setNftList(response)
+          if (response instanceof Array) setNftList(response)
         },
         error => {}
       )

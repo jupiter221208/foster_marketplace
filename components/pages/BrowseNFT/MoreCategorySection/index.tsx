@@ -38,7 +38,7 @@ const MoreCategorySection = props => {
     if (categories !== null && categories !== undefined && categories[0] !== undefined) {
       dashboardAPI.getTrendingCollections(categories[0]).then(
         response => {
-          setCollectionList(response)
+          if (response instanceof Array) setCollectionList(response)
         },
         error => {}
       )

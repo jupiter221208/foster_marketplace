@@ -183,6 +183,10 @@
   }
   color: rgba($text-gray-200-color, 0.75);
   white-space: nowrap;
+  cursor: pointer;
+  &:hover {
+    color: $brand-01-color;
+  }
 }
 
 .likeTitle {

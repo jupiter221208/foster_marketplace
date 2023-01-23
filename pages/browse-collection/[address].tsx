@@ -45,7 +45,7 @@ const BrowseCollection = () => {
         error => console.log(error)
 
       collectionsAPI.getCollectionNft(address).then(response => {
-        if (Array.isArray(response)) {
+        if (response instanceof Array) {
           setNfts(response)
         }
       }),

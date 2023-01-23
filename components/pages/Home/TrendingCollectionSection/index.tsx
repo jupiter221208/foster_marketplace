@@ -64,7 +64,7 @@ const TrendingCollectionSection = props => {
     setTrendingList([])
     dashboardAPI.getTrendingCollections(category).then(
       response => {
-        if (response !== null && response !== undefined) {
+        if (response instanceof Array) {
           setAllTrendingList(response)
           setTrendingList(response)
         }
