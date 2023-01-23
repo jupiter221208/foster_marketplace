@@ -34,7 +34,11 @@ const AuctionCard = props => {
       setAuctionStarted(false)
       return Number(startTime)
     } else {
+      setIsStarted(true)
       setAuctionStarted(true)
+
+      let end_difference = Number(endTime) * 1000 - +new Date()
+      if (end_difference < 0) setIsEnded(true)
       return Number(endTime)
     }
   }

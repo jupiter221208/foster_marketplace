@@ -23,7 +23,6 @@ import styles from './index.module.scss'
 
 // api
 import nftsAPI, { NFT } from 'apis/nfts'
-import { NftDetailResponse } from 'utils/define.util'
 
 const LiveAuction = () => {
   const dispatch = useDispatch()
