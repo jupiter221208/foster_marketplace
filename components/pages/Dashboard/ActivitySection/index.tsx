@@ -41,9 +41,7 @@ const ActivitySection = () => {
           }
         })
         if (tempItem.length > 0) newList.push(tempItem)
-        const shifted = newList.shift()
-        const reorderedList = [...newList, shifted]
-        setActivityList(reorderedList)
+        setActivityList(newList)
       },
       error => {}
     )
