@@ -41,6 +41,13 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
+import {
+  getNFTCategories,
+  getNFTArtistInfo,
+  getNFTTokenAccount,
+  getNFTSocialInfo
+} from 'utils/nfts.utils'
+import { loadAuctionHouse } from 'utils/auction.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -68,9 +75,19 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
-import { getNFTDetailsByAddress, getNFTOwner } from 'utils/nfts.utils'
+import { getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
+import { PublicKey } from '@solana/web3.js'
+import {
+  type LazyListing,
+
+  toLazyListing,
+  toListingReceiptAccount,
+  toMetadataAccount,
+  GpaBuilder
+} from '@metaplex-foundation/js'
+import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // call apis
 import nftsAPI, { NFT } from 'apis/nfts'
@@ -83,12 +100,19 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
-const MainSection = props => {
-  const { nftDetail, loading } = props
+export interface MainSectionProps{
+  nftDetail: Sft | Nft;
+  artistInfo: NFTArtistInfo | null;
+}
+
+const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
+
+  const [loading, setLoading] = useState<boolean>(false)
+
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [openReportModal, setOpenReportModal] = useState(false)
@@ -171,22 +195,27 @@ const MainSection = props => {
     ])
   }, [])
 
-  const [nftType, setNftType] = useState('')
-  const [nftUrl, setNftUrl] = useState('')
-  const [nftCoverUrl, setNftCoverUrl] = useState('')
-  const [nftName, setNftName] = useState('')
+  const nftType: string = nftDetail.json?.properties?.category as string ?? 'image'
+  // TODO: set default image link for broken images
+  const nftCoverUrl = nftDetail.json?.image ?? ''
+  const nftUrl: string = nftDetail.json?.animation_url as string ?? nftCoverUrl
+
+  const nftName = nftDetail.name
+  const nftDescription = nftDetail.json?.description ?? ''
+  const nftRoyalties = (nftDetail.sellerFeeBasisPoints/100).toString() + '%'
+  const nftCategories = getNFTCategories(nftDetail)
+
+  const mintAddress = nftDetail.address.toString()
+  const nftCollectionAddress = nftDetail.collection?.address.toString()
+
   const [nftCollectionName, setNftCollectionName] = useState('')
-  const [nftCollectionAddress, setNftCollectionAddress] = useState('')
-  const [nftDescription, setNftDescription] = useState('')
-  const [nftRoyalties, setNftRoyalties] = useState(0)
   const [nftPrice, setNftPrice] = useState(0)
   const [nftCreatorAddress, setNftCreatorAddress] = useState('')
   const [nftCreatorUsername, setNftCreatorUsername] = useState('')
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
-  const [mintAddress, setMintAddress] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
-  const [nftCategories, setNftCategories] = useState([])
+  const [listing, setListing] = useState<LazyListing | null>(null)
   const [activityList, setActivityList] = useState([])
 
   const [isRunning, setIsRunning] = useState(false)
@@ -194,17 +223,6 @@ const MainSection = props => {
 
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, offerBalance, updateSolBalance } = useWallets()
-
-  const setListedNFT = async (mx, id) => {
-    let nft = await getNFTDetailsByAddress(mx, id.toString())
-    if (nft.tradeStateAddress) {
-      setTradeStateAddress(nft.tradeStateAddress?.toBase58())
-    }
-  }
-
-  useEffect(() => {
-    if (connected && mx && id) setListedNFT(mx, id)
-  }, [mx, id, connected])
 
   const quickBuy = async () => {
     if (!connected) {
@@ -249,58 +267,83 @@ const MainSection = props => {
   }
 
   useEffect(() => {
-    if (nftDetail !== null) {
-      let type = 'image'
-      if (nftDetail.asset_type === 'image') type = 'image'
-      else if (nftDetail.asset_type.includes('video')) type = 'video'
-      else if (nftDetail.asset_type.includes('audio')) type = 'audio'
+    (async () => {
+      if (!nftDetail) return
 
-      setNftType(type)
-      setNftUrl(nftDetail.asset_url)
-      setNftName(nftDetail.name)
-      setNftRoyalties(nftDetail.royalties !== null && nftDetail.royalties.length > 0 ? nftDetail.royalties / 100 : 0)
-      setNftCollectionAddress(nftDetail.collection_address)
-      setNftCollectionName(nftDetail.collection_name)
-      setNftOwnerAddress(nftDetail.owner_address)
-      setNftOwnerUsername(nftDetail.owner_username)
-      setNftCoverUrl(nftDetail.cover_image_url)
-      setNftCreatorAddress(nftDetail.creator_address)
-      setNftCreatorUsername(nftDetail.creator_username)
-      setNftDescription(nftDetail.description)
-      setNftCategories(nftDetail.categories?.split(','))
-      if (nftDetail.listing_status === 'listed') {
-        if (nftDetail.listing) setNftPrice(parseFloat(nftDetail.listing.list_price))
-      }
-      setMintAddress(nftDetail.address)
-      setLikeCount(nftDetail.likes >= 0 ? nftDetail.likes : 0)
-      setShareCount(nftDetail.shares >= 0 ? nftDetail.shares : 0)
-      setSaveCount(nftDetail.saves >= 0 ? nftDetail.saves : 0)
-      setLike(nftDetail.liked)
-      setSave(nftDetail.saved)
-      let shared = nftDetail.shared
-      if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
-      else setShare(false)
+      setLoading(true)
 
-      if (nftDetail.listing_status === 'listed') {
-        setListedNFT(mx, nftDetail.address)
-      }
+      let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+      let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+      setNftOwnerUsername(ownerUsername)
 
-      if (nftDetail.owner_address === '') {
-        getNFTOwner(mx, id as string).then(owner => {
-          setNftOwnerAddress(owner.address)
-          usersAPI.get(owner).then(user => {
-            setNftOwnerUsername(user.username)
-          })
-        })
+      if(tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())){
+        const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231,]
+        let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
+          .where(0, Buffer.from(listingConfigDiscriminator))
+          .where(8 + 32 * 4, new PublicKey(nftDetail.metadataAddress))
+          .where(169, Buffer.from([0])) // purchaseReceipt == null
+          .where(196, Buffer.from([0])) // canceledAt == null
+          .getAndMap((account) => toListingReceiptAccount(account))
+
+        if(openListings.length != 1){
+          console.warn(`irregular number of listing recipts for ${nftDetail.address}`)
+          console.warn(JSON.parse(JSON.stringify(openListings)))
+        }
+
+        let listingReceipt = openListings[0]
+        if(listingReceipt){
+          let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
+          let listing = toLazyListing(listingReceipt, auctionHouse)
+          let {
+            tradeStateAddress,
+            price: {
+              basisPoints,
+              currency: { decimals }
+            }
+          } = listing
+          setNftPrice(parseFloat(basisPoints.toString())/(10 ** decimals))
+          setListing(listing)
+          setTradeStateAddress(tradeStateAddress.toBase58())
+        }
       }
 
-      activityAPI.getNFTActivity(nftDetail?.address).then(
+      if(nftDetail.collection?.verified){
+        let collectionMint = new PublicKey(nftDetail.collection.address)
+        let collectionMetadata = toMetadataAccount(
+          await mx
+            .rpc()
+            .getAccount(
+              mx
+                .nfts()
+                .pdas()
+                .metadata({ mint: collectionMint })
+            )
+        )
+        setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
+      }
+
+      if(artistInfo){
+        setNftCreatorAddress(artistInfo.address.toString())
+        setNftCreatorUsername(artistInfo.name)
+      }
+
+      let { likes, shares, saves } = await getNFTSocialInfo(new PublicKey(nftDetail.address))
+      setLikeCount(likes)
+      setShareCount(shares)
+      setSaveCount(saves)
+      setLike(likes > 0)
+      setSave(saves > 0)
+      setShare(shares > 0)
+
+      activityAPI.getNFTActivity(mintAddress).then(
         response => {
           setActivityList(response.reverse())
         },
         error => {}
       )
-    }
+
+      setLoading(false)
+    })()
   }, [nftDetail])
 
   const changeLikeStatus = () => {
