@@ -86,8 +86,8 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
         </div>
         <div className="z-10">
           {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} />}
-          {collectionId !== null && <MoreCollectionSection collectionId={collectionId} />}
-          {artistInfo !== null && <MoreArtistSection artistInfo={artistInfo} />}
+          {collectionId && <MoreCollectionSection collectionId={collectionId} />}
+          {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />
         </div>
       </div>
