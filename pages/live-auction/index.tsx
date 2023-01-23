@@ -23,6 +23,7 @@ import styles from './index.module.scss'
 
 // api
 import nftsAPI, { NFT } from 'apis/nfts'
+import { NftDetailResponse } from 'utils/define.util'
 
 const LiveAuction = () => {
   const dispatch = useDispatch()
@@ -40,8 +41,10 @@ const LiveAuction = () => {
     if (id !== undefined && id !== '') {
       setLoading(true)
       nftsAPI.getDetail(id).then(
-        (response: NFT) => {
-          if (response !== null) {
+        (response: any) => {
+          if (response === 'NFT not found') {
+            setLoading(false)
+          } else if (response !== null) {
             setNftDetail(response)
             setCategories(response.categories?.split(','))
             if (response.collection_address !== null) {

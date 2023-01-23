@@ -250,14 +250,16 @@ const MainSection = props => {
     else setShare(false)
 
     if (nftDetail.listing_status === 'auctioned') {
-      const auction = nftDetail.auction.auction
-      const highest_bid = nftDetail.auction.highest_bid
-      setNftReservePrice(Number(auction.reserve_price))
-      setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
-      setHighBidder(highest_bid ? highest_bid.buyer_address : '')
-      setSellerAddress(new PublicKey(auction.seller_address))
-      setEndTime(auction.end_time)
-      setStartTime(auction.start_time)
+      const auction = nftDetail.auction?.auction
+      if (auction) {
+        const highest_bid = nftDetail.auction.highest_bid
+        setNftReservePrice(Number(auction.reserve_price))
+        setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+        setHighBidder(highest_bid ? highest_bid.buyer_address : '')
+        setSellerAddress(new PublicKey(auction.seller_address))
+        setEndTime(auction.end_time)
+        setStartTime(auction.start_time)
+      }
     }
 
     if (nftDetail.owner_address === '') {
