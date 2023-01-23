@@ -9,6 +9,7 @@ import OfferAccordion from 'components/Accordion/OfferAccordion'
 import Pagination from 'components/Button/Pagination'
 import Alert from 'components/Alert'
 import LoadingModal from 'components/Modal/LoadingModal'
+import FilterButton from 'components/Button/FilterButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -25,47 +26,13 @@ const OfferSection = () => {
   const viewport = useViewport()
 
   const [showOfferList, setShowOfferList] = useState<any[]>([])
+  const [allList, setAllList] = useState<any[]>([])
   const [offerList, setOfferList] = useState<any[]>([])
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
-
-  const updateDataAction = (index, action) => {
-    let newList = [...offerList]
-    newList[index].action = action
-    switch (action) {
-      case 'accept':
-        setAlertData([
-          {
-            id: 0,
-            title: 'Success',
-            description: `You're offer was successfully cancelled!`,
-            type: 'success',
-            item: newList[index].name01,
-            amount: newList[index].amount,
-          },
-        ])
-        setShowAlert(true)
-        break
-      case 'cancel':
-        setAlertData([
-          {
-            id: 0,
-            title: 'Success',
-            description: `You've successfully accepted an offer!`,
-            type: 'success',
-            item: newList[index].name01,
-            amount: newList[index].amount,
-          },
-        ])
-        setShowAlert(true)
-        break
-      default:
-        break
-    }
-    setOfferList(newList)
-  }
+  const [active, setActive] = useState(0)
 
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -75,10 +42,22 @@ const OfferSection = () => {
   const getOffers = async () => {
     dispatch({ type: 'set', isLoading: true })
     let offers = await getMyOffers(mx)
-    setOfferList(offers)
+    setAllList(offers)
     dispatch({ type: 'set', isLoading: false })
     setIsLoaded(true)
   }
+
+  useEffect(() => {
+    if (allList.length === 0) return
+
+    if (active === 0) {
+      const new_list = allList.filter(item => item.isOutgoing === true)
+      setOfferList(new_list)
+    } else {
+      const new_list = allList.filter(item => item.isOutgoing === false)
+      setOfferList(new_list)
+    }
+  }, [allList, active])
 
   const onCancel = async tradeStateAddress => {
     const result = await cancelOffer(mx, tradeStateAddress)
@@ -123,12 +102,34 @@ const OfferSection = () => {
     }
   }
 
+  const handleChangeActive = value => {
+    setActive(value)
+  }
+
   useEffect(() => {
     if (mx) getOffers()
   }, [mx])
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
+      <div className="flex">
+        <FilterButton
+          label="Offers Made"
+          onClick={() => handleChangeActive(0)}
+          color={active === 0 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 0 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
+        />
+        <FilterButton
+          label="Offers Received"
+          onClick={() => handleChangeActive(1)}
+          color={active === 1 ? '#5AC3BA' : '#979EA2'}
+          background={
+            active === 1 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
+          }
+        />
+      </div>
       {isLoading ? (
         <div className="col-span-12">
           <LoadingModal open={isLoading} />
@@ -138,6 +139,7 @@ const OfferSection = () => {
           <div className="w-full mt-[15px] lg:mt-[34px]">
             {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
               <OfferTable
+                offerType={active === 0 ? 'Made' : 'Received'}
                 data={showOfferList}
                 onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
                 onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>
@@ -146,6 +148,7 @@ const OfferSection = () => {
               />
             ) : (
               <OfferAccordion
+                offerType={active === 0 ? 'Made' : 'Received'}
                 data={showOfferList}
                 onCancel={tradeStateAddress => onCancel(tradeStateAddress)}
                 onAccept={(mintAddress, tradeStateAddress, listingTradeStateAddress, buyerAddress, price) =>

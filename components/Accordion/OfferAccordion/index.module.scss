@@ -23,6 +23,7 @@
   padding-right: 14px;
   border-radius: 15px;
   background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
+  border: 1px solid #292929;
 
   display: flex;
   justify-content: space-between;
@@ -33,7 +34,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid $brand-01-color;
+  border: 1px solid $brand-09-color;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   border-style: none solid solid solid;
@@ -53,7 +54,7 @@
 .activeImageArea {
   width: 54px;
   height: 54px;
-  background-color: $brand-01-color;
+  background-color: #707070;
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -68,7 +69,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba($brand-02-color, 0.2);
+  background-color: rgba($background-dark-color, 0.8);
 }
 
 .secondRow {
@@ -82,6 +83,15 @@
   background-color: transparent;
 }
 
+.thirdRow {
+  width: 100%;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
 .title {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
@@ -90,15 +100,30 @@
 }
 
 .subTitle {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 18px;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 24px;
   color: $text-gray-200-color;
+}
+
+.amount {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 20px;
+  text-align: start;
+  color: rgba($text-gray-200-color, 0.75);
 }
 
 .text {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: $brand-06-color;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.help {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba($text-gray-200-color, 0.8);
 }

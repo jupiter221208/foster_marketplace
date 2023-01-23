@@ -18,22 +18,22 @@ import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 
 const OfferTable = props => {
-  const { data, onCancel, onAccept } = props
+  const { data, onCancel, onAccept, offerType } = props
   const viewport = useViewport()
 
   return (
     <table id="ActivityTable" className="w-full table-auto">
       <thead>
         <tr>
-          <th>
+          <th className="w-[25%]">
             <div className="text-start pl-[35px]">Name</div>
           </th>
-          <th>Offer</th>
-          <th>Listing</th>
-          <th>Time</th>
-          <th>Amount</th>
-          <th>Member</th>
-          <th>Action</th>
+          {/* <th>Offer</th> */}
+          {/* <th>Listing</th> */}
+          <th className="w-[20%]">Time</th>
+          <th className="w-[20%]">Amount</th>
+          <th className="w-[20%]">{offerType === 'Made' ? 'Buyer' : 'Seller'}</th>
+          <th className="w-[15%]">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -51,11 +51,11 @@ const OfferTable = props => {
               </div>
               <div className="block">
                 <div className="flex justify-center">{item.asset.json.name}</div>
-                <div className="flex justify-center">{getShortAddress(item.asset.mint.address.toString())}</div>
+                {/* <div className="flex justify-center">{getShortAddress(item.asset.mint.address.toString())}</div> */}
               </div>
             </td>
-            {item.isOutgoing ? <td className="text-center">Outgoing</td> : <td className="text-center">Incoming</td>}
-            {item.isListed ? <td className="text-center">Listed</td> : <td className="text-center">Unlisted</td>}
+            {/* {item.isOutgoing ? <td className="text-center">Outgoing</td> : <td className="text-center">Incoming</td>} */}
+            {/* {item.isListed ? <td className="text-center">Listed</td> : <td className="text-center">Unlisted</td>} */}
             <td className="text-center">{timeSince(item.createdAt.toNumber())}</td>
             <td className="text-center">
               <div className="flex justify-center gap-[5px]">
@@ -63,7 +63,7 @@ const OfferTable = props => {
                 {getPriceValue(item.price.basisPoints.toNumber())}
               </div>
             </td>
-            {item.isOutgoing ? (
+            {offerType === 'Made' ? (
               <td className="text-center">{getShortAddress(item.owner)}</td>
             ) : (
               <td className="text-center">{getShortAddress(item.buyer)}</td>
@@ -74,8 +74,10 @@ const OfferTable = props => {
                   <OutlineButton
                     label="Cancel"
                     onClick={() => onCancel(item.tradeStateAddress)}
-                    color="#DEEFD0"
-                    borderColor="#DEEFD0"
+                    background="transparent"
+                    color="#95DBD5"
+                    borderColor="#95DBD5"
+                    width="138px"
                     height="48px"
                   />
                 ) : (
@@ -90,6 +92,11 @@ const OfferTable = props => {
                         getPriceValue(item.price.basisPoints.toNumber())
                       )
                     }
+                    gradientDirection="right"
+                    backgroundColor01="#172120"
+                    backgroundColor02="#2C5E5A"
+                    color="#95DBD5"
+                    width="138px"
                     height="48px"
                   />
                 )}

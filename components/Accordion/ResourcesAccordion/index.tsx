@@ -67,7 +67,7 @@ const ResourcesAccordion = props => {
                       clickRecent(index)
                     }}
                   >
-                    <div className={styles.title}>{item.title}</div>
+                    <div className={`${styles.title} ${open ? styles.selected : ''}`}>{item.title}</div>
 
                     <div className={styles.openButton}>
                       <Image src={open ? MinusBlackIcon : ArrowDownIcon} alt="" />

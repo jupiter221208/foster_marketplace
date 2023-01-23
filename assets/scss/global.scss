@@ -365,11 +365,11 @@ h6 {
 }
 
 #ActivityTable td {
-  border: 1px solid rgba($white-color, 0.1);
+  border: 1px solid #272a2c;
   border-style: solid none solid none;
   padding: 4px;
   height: 70px;
-  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
+  background: linear-gradient(to bottom, rgba(#378287, 0.35), rgba(#202427, 0.35));
 
   font-family: 'Muli-Bold';
   font-size: 9px;
@@ -393,7 +393,7 @@ h6 {
 
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.6);
+  color: rgba($text-gray-200-color, 0.8);
 }
 
 #ActivityTable tr td:first-child {
