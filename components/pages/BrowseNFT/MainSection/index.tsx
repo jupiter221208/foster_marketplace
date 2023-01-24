@@ -229,12 +229,12 @@ const MainSection = props => {
     const result = await offerNFT(mx, mintAddress, price)
     await updateSolBalance()
     if (result) {
-      listingsAPI.makeOffer(mintAddress, { amount: price }).then(response => {
+      listingsAPI.makeOffer(mintAddress, { amount: price.toString() }).then(response => {
         setAlertData([
           {
             id: 0,
             title: 'Successful offered!',
-            description: 'NFT is offered successfully.',
+            description: `You've successfully placed an offer on ${nftName}`,
             type: 'success',
           },
         ])
@@ -794,6 +794,7 @@ const MainSection = props => {
           close={() => setOpenOfferModal(false)}
           onClick={price => makeOffer(price)}
           nftName={nftName}
+          collectionName={nftCollectionName}
           listingPrice={nftPrice}
           offerBalance={offerBalance}
           mainWalletBalance={mainWalletBalance}
