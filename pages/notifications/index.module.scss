@@ -12,10 +12,17 @@
 
 .topLeftEllipse {
   position: absolute;
-  top: -1000px;
-  left: -1000px;
+  left: -150px;
+  top: -200px;
+  width: 800px;
+  height: 800px;
+  @media (min-width: 1024px) {
+    top: -1000px;
+    left: -1000px;
+    opacity: 0.4;
+  }
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 
 .title {

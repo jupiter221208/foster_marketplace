@@ -237,7 +237,7 @@ const NotificationsCard = props => {
     <div className={styles.container}>
       <div className={styles.content}>
         {list.map((item: any, index) => (
-          <div className="w-full pl-[15px]" key={index}>
+          <div className="w-full lg:pl-[15px]" key={index}>
             {item.date === 'NEW' ? (
               <div className="flex justify-between">
                 <div className={styles.title}>{item.date}</div>
@@ -253,13 +253,11 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <Image
+                      <img
                         src={
                           elem.reference_user_profile_picture !== null ? elem.reference_user_profile_picture : <div />
                         }
                         alt=""
-                        width={56}
-                        height={56}
                         className="rounded-full"
                       />
                     </div>
@@ -291,15 +289,33 @@ const NotificationsCard = props => {
                     {elem.notification_type === 'follow' ? (
                       <GradientButton
                         label="Follow"
-                        direction="rtl"
-                        icon={AvatarFollowIcon}
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 52}
+                        gradientDirection="bottom"
+                        backgroundColor01={
+                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#213D3B' : '#121212'
+                        }
+                        backgroundColor02={
+                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#2D615C' : '#2D625D'
+                        }
+                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
+                        color="#EFF0F6"
+                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'following')}
                       />
                     ) : elem.notification_type === 'following' ? (
-                      <OutlineButton label="Following" onClick={() => handleClickButton(item.id, elem, 'follow')} />
+                      <OutlineButton
+                        label="Following"
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 52}
+                        fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
+                        color="#95DBD5"
+                        borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
+                        onClick={() => handleClickButton(item.id, elem, 'follow')}
+                      />
                     ) : (
                       isShowAvatar(elem) && (
-                        <div>
+                        <div className={styles.assetUrl}>
                           <Image
                             src={elem.reference_asset_url !== null ? elem.reference_asset_url : DefaultAvatar}
                             alt=""

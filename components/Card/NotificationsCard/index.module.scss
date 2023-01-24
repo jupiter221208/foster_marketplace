@@ -6,7 +6,8 @@
   @media (min-width: 1024px) {
     max-height: 512px;
     padding: 10px 5px 48px 14px;
-    background-color: rgba($text-gray-200-color, 0.075);
+    background-color: rgba($text-gray-200-color, 0.12);
+    border: 1px solid rgba(#707070, 0.1);
   }
   border-radius: 20px;
 }
@@ -38,11 +39,15 @@
 
 .mark {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
   text-decoration: underline;
-  color: rgba($brand-06-color, 1);
+  color: rgba($brand-09-color, 1);
   margin-top: 20px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
 }
 
 .dot {
@@ -80,9 +85,12 @@
   @media (min-width: 1024px) {
     width: 52px;
     height: 52px;
+    min-width: 52px;
+    min-height: 52px;
     margin-right: 25px;
   }
   border-radius: 100%;
+  padding: 1px;
   background: linear-gradient(
     110deg,
     $brand-06-color -60%,
@@ -95,16 +103,24 @@
 
 .username {
   font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 22px;
+  }
   color: $text-gray-200-color;
   cursor: pointer;
 }
 
 .description {
   font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 22px;
+  }
   color: $text-gray-200-color;
 }
 
@@ -125,9 +141,21 @@
 
 .viewDetails {
   font-family: 'Muli-Regular';
-  text-decoration: underline;
   font-size: 16px;
   line-height: 20px;
-  color: $brand-01-color;
+  color: $brand-09-color;
   cursor: pointer;
+}
+
+.assetUrl {
+  width: 39px;
+  height: 39px;
+  min-width: 39px;
+  min-height: 39px;
+  @media (min-width: 1024px) {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+  }
 }

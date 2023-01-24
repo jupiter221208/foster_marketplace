@@ -1,18 +1,18 @@
 [
   {
     "id": 0,
-    "name": "Purchases",
-    "value": "purchase"
+    "name": "Follows",
+    "value": "follow"
   },
   {
     "id": 1,
-    "name": "Sales",
-    "value": "sale"
+    "name": "Offers",
+    "value": "offer"
   },
   {
     "id": 2,
-    "name": "Offers",
-    "value": "offer"
+    "name": "Saves",
+    "value": "save"
   },
   {
     "id": 3,
@@ -21,22 +21,22 @@
   },
   {
     "id": 4,
-    "name": "Likes",
-    "value": "like"
+    "name": "Purchases",
+    "value": "purchase"
   },
   {
     "id": 5,
-    "name": "Follows",
-    "value": "follow"
+    "name": "Sales",
+    "value": "sale"
   },
   {
     "id": 6,
-    "name": "Saves",
-    "value": "save"
+    "name": "Aunction Status",
+    "value": "auction"
   },
   {
     "id": 7,
-    "name": "Aunction Status",
-    "value": "auction"
+    "name": "Likes",
+    "value": "like"
   }
 ]

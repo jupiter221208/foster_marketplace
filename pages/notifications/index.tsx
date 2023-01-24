@@ -9,16 +9,13 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import NotificationsSearchBox from 'components/Input/NotificationsSearchBox'
 import NotificationsCard from 'components/Card/NotificationsCard'
 import NotificationsFilterCard from 'components/Card/NotificationsFilterCard'
-import OutlineButton from 'components/Button/OutlineButton'
 import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 
 // json
-import NotificationsList from 'assets/json/notifications/notifications-list.json'
 import NotificationsFilterList from 'assets/json/notifications/filter-list.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import SortGreenIcon from 'assets/icons/sort-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -158,18 +155,7 @@ const Notifications = () => {
         </div>
         <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-8">
           <div className="flex flex-1 flex-wrap max-w-[670px] gap-[35px] z-10">
-            <NotificationsSearchBox placeholder="Search by keywords" />
-            {/* <div className="lg:hidden w-full">
-              <OutlineButton
-                label="All Notifications"
-                onClick={() => setShowFilterModal(true)}
-                icon={SortGreenIcon}
-                fullWidth
-                direction="rtl"
-                height="48px"
-                justifyContent="flex-start"
-              />
-            </div> */}
+            <NotificationsSearchBox placeholder="Search" />
             <NotificationsCard data={filterNotification} />
           </div>
           <NotificationsFilterCard
