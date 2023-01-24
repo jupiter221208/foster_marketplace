@@ -195,14 +195,16 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     ])
   }, [])
 
-  const nftType: string = nftDetail.json?.properties?.category as string ?? 'image'
+  const nftType: string = nftDetail.json?.properties?.category as string ??
+    nftDetail.json?.category as string ??
+    'image'
   // TODO: set default image link for broken images
   const nftCoverUrl = nftDetail.json?.image ?? ''
   const nftUrl: string = nftDetail.json?.animation_url as string ?? nftCoverUrl
 
   const nftName = nftDetail.name
   const nftDescription = nftDetail.json?.description ?? ''
-  const nftRoyalties = (nftDetail.sellerFeeBasisPoints/100).toString() + '%'
+  const nftRoyalties = (nftDetail.sellerFeeBasisPoints/100).toString()
   const nftCategories = getNFTCategories(nftDetail)
 
   const mintAddress = nftDetail.address.toString()
@@ -210,8 +212,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftPrice, setNftPrice] = useState(0)
-  const [nftCreatorAddress, setNftCreatorAddress] = useState('')
-  const [nftCreatorUsername, setNftCreatorUsername] = useState('')
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
@@ -320,11 +320,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
             )
         )
         setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
-      }
-
-      if(artistInfo){
-        setNftCreatorAddress(artistInfo.address.toString())
-        setNftCreatorUsername(artistInfo.name)
       }
 
       let { likes, shares, saves } = await getNFTSocialInfo(new PublicKey(nftDetail.address))
@@ -529,15 +524,18 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 <div className={styles.title}>{nftName}</div>
               </div>
               <div className="w-full flex flex-wrap mt-4 lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
-                <div className="flex gap-1 lg:gap-3">
-                  <div className={styles.grayText}>Created by</div>
-                  <div
-                    className={styles.greenText}
-                    onClick={() => router.push(`/artist-profile?id=${nftCreatorAddress}`)}
-                  >
-                    {nftCreatorUsername}
+                {
+                  artistInfo &&
+                  <div className="flex gap-1 lg:gap-3">
+                    <div className={styles.grayText}>Created by</div>
+                    <div
+                      className={styles.greenText}
+                      onClick={() => router.push(`/artist-profile?id=${artistInfo.address}`)}
+                    >
+                      {artistInfo.name}
+                    </div>
                   </div>
-                </div>
+                }
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Fostered by</div>
                   <div
