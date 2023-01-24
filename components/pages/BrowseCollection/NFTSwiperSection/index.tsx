@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 // next components
 import { useRouter } from 'next/router'
@@ -24,6 +25,7 @@ import styles from './index.module.scss'
 const NFTSwiperSection = ({ nfts }) => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const [nftList, setNFTList] = useState<any[]>([])
 
@@ -75,7 +77,14 @@ const NFTSwiperSection = ({ nfts }) => {
                         coverImage={item.cover_image_url}
                         artistName={nftItem.artist_username}
                         price={nftItem.list_price}
-                        onClick={() => router.push(`/browse-nft?id=${nftItem.mintAddress.toString()}`)}
+                        onClick={() => {
+                          let token_id = nftItem.mintAddress
+                          if (token_id === null || token_id === undefined) token_id = nftItem.token_id
+                          if (token_id !== null && token_id !== undefined) {
+                            dispatch({ type: 'set', isLoading: true })
+                            router.push(`/browse-nft?id=${token_id.toString()}`)
+                          }
+                        }}
                         key={nftIndex}
                       />
                     ))}
@@ -94,7 +103,14 @@ const NFTSwiperSection = ({ nfts }) => {
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
                     price={item.list_price}
-                    onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                    onClick={() => {
+                      let token_id = item.mintAddress
+                      if (token_id === null || token_id === undefined) token_id = item.token_id
+                      if (token_id !== null && token_id !== undefined) {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push(`/browse-nft?id=${token_id.toString()}`)
+                      }
+                    }}
                   />
                 </div>
               ))}

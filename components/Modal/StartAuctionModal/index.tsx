@@ -87,7 +87,6 @@ const StartAuctionModal = props => {
   const CustomTimeInput = ({ date, value, onChange }) => {
     return (
       <input
-        readOnly
         type="time"
         value={value}
         onChange={e => onChange(e.target.value)}
