@@ -33,7 +33,7 @@ import styles from './index.module.scss'
 import collectionAPI from 'apis/collections'
 
 const OtherCollectionSection = props => {
-  const { artistId } = props
+  const { artistId, artistName } = props
 
   const viewport = useViewport()
   const router = useRouter()
@@ -82,7 +82,7 @@ const OtherCollectionSection = props => {
                 image={item.cover_image}
                 nftName={item.collection_name}
                 category={item.categories.split(',')}
-                artistName={''}
+                artistName={artistName}
                 artistAddress={artistId}
                 mintAddress={item.collection_id}
                 onClick={() => {

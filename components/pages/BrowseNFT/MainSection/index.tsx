@@ -251,7 +251,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
         setAlertData([
           {
             id: 0,
-            title: 'Successful offered!',
+            title: 'Offer Placed!',
             description: `You've successfully placed an offer on ${nftName}`,
             type: 'success',
           },
