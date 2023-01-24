@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 // call apis
 import artistsAPI from 'apis/artists'
 import ArtistLayout from 'components/Layout/ArtistLayout'
+import { isString } from 'utils/helpers'
 
 const ArtistProfile = () => {
   const router = useRouter()
@@ -50,6 +51,7 @@ const ArtistProfile = () => {
   const getArtistData = id => {
     artistsAPI.getArtist(id).then(
       response => {
+        if (isString(response)) return
         let artist = response.artist
         if (Object.keys(artistInfo).length === 0 && artist !== undefined && artist !== null) {
           if (
@@ -94,6 +96,7 @@ const ArtistProfile = () => {
   const getCollectorData = id => {
     artistsAPI.getCollector(id).then(
       response => {
+        if (isString(response)) return
         let artist = response.collector
         if (Object.keys(artistInfo).length === 0 && artist !== undefined && artist !== null) {
           if (

@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // call apis
 import collectionsAPI from 'apis/collections'
+import { isString } from 'utils/helpers'
 
 const BrowseCollection = () => {
   const router = useRouter()
@@ -39,7 +40,7 @@ const BrowseCollection = () => {
   useEffect(() => {
     if (address !== undefined) {
       collectionsAPI.getCollection(address).then(response => {
-        setData(response)
+        if (!isString(response)) setData(response)
         dispatch({ type: 'set', isLoading: false })
       }),
         error => console.log(error)

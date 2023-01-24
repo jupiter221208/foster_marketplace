@@ -23,6 +23,7 @@ import styles from './index.module.scss'
 
 // api
 import nftsAPI, { NFT } from 'apis/nfts'
+import { isString } from 'utils/helpers'
 
 const LiveAuction = () => {
   const dispatch = useDispatch()
@@ -41,7 +42,7 @@ const LiveAuction = () => {
       setLoading(true)
       nftsAPI.getDetail(id).then(
         (response: any) => {
-          if (response === 'NFT not found') {
+          if (isString(response)) {
             setLoading(false)
           } else if (response !== null) {
             setNftDetail(response)

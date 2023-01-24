@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 
 // api
 import nftsAPI, { NFT } from 'apis/nfts'
+import { isString } from 'utils/helpers'
 
 const BrowseNFT = () => {
   const dispatch = useDispatch()
@@ -44,7 +45,7 @@ const BrowseNFT = () => {
       setLoading(true)
       nftsAPI.getDetail(id).then(
         (response: any) => {
-          if (response === 'NFT not found') {
+          if (isString(response)) {
             setLoading(false)
           } else if (response !== null) {
             setNftDetail(response)

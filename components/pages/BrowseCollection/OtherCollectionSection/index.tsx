@@ -44,7 +44,7 @@ const OtherCollectionSection = props => {
     if (artistId !== null) {
       collectionAPI.getOtherCollections(artistId).then(
         response => {
-          setCollectionList(response)
+          if (response instanceof Array) setCollectionList(response)
         },
         error => {}
       )
