@@ -17,7 +17,10 @@ const Checkbox = props => {
               checked={item.checked}
               onChange={() => onChange(index)}
             />
-            <label className={styles.checkmark} onClick={() => onChange(index)}>
+            <label
+              className={`${styles.checkmark} ${item.checked ? styles.selected : ''}`}
+              onClick={() => onChange(index)}
+            >
               {item.name}
             </label>
           </div>
@@ -25,7 +28,10 @@ const Checkbox = props => {
       {direction === 'rtl' &&
         categoryList.map((item, index) => (
           <div key={index} className="w-full flex items-center justify-between">
-            <label className={styles.checkmark} onClick={() => onChange(index)}>
+            <label
+              className={`${styles.checkmark} ${item.checked ? styles.selected : ''}`}
+              onClick={() => onChange(index)}
+            >
               {item.name}
             </label>
             <input

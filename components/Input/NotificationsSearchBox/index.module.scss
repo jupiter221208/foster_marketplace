@@ -2,18 +2,20 @@
 
 .container {
   width: 100%;
-  height: 50px;
+  height: 35px;
   padding-left: 16px;
-  padding-right: 25px;
-  border-radius: 12px;
+  padding-right: 16px;
+  border-radius: 8px;
   background-color: $background-dark-color;
   @media (min-width: 1024px) {
+    height: 50px;
     max-width: 540px;
     min-width: 200px;
     border: 1px solid rgba($text-gray-200-color, 0.1);
     background-color: $background-black-color;
     padding-left: 20px;
     padding-right: 15px;
+    border-radius: 12px;
   }
   display: flex;
   justify-content: center;
@@ -25,8 +27,12 @@
   flex: 1;
   margin-right: 20px;
   font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
   color: $text-gray-200-color;
   background-color: transparent;
   outline: none;

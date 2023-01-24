@@ -30,3 +30,22 @@
   font-size: 32px;
   color: $text-gray-200-color;
 }
+
+.searchArea {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  background: $background-black-color;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
+  padding: 12px;
+}

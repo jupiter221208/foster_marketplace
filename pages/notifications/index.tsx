@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useViewport } from 'utils'
 
 // next images
 import Head from 'next/head'
@@ -28,6 +29,7 @@ const Notifications = () => {
   const [filterList, setFilterList] = useState<any[]>([])
   const [allNotification, setAllNotification] = useState<any[]>([])
   const [filterNotification, setFilterNotification] = useState<any[]>([])
+  const viewport = useViewport()
 
   function getDateLabel(date) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -154,8 +156,19 @@ const Notifications = () => {
           <div className={styles.title}>Notifications</div>
         </div>
         <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-8">
-          <div className="flex flex-1 flex-wrap max-w-[670px] gap-[35px] z-10">
-            <NotificationsSearchBox placeholder="Search" />
+          <div className="flex flex-1 flex-wrap max-w-[670px] gap-[16px] lg:gap-[35px] z-10">
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className={styles.searchArea}>
+                <div className="flex w-full">
+                  <NotificationsSearchBox placeholder="Search" onChange={() => {}} />
+                </div>
+                <div className={styles.filter} onClick={() => setShowFilterModal(true)}>
+                  Filter
+                </div>
+              </div>
+            ) : (
+              <NotificationsSearchBox placeholder="Search" onChange={() => {}} />
+            )}
             <NotificationsCard data={filterNotification} />
           </div>
           <NotificationsFilterCard

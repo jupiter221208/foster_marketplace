@@ -141,8 +141,12 @@
 
 .viewDetails {
   font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 12px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
   color: $brand-09-color;
   cursor: pointer;
 }
