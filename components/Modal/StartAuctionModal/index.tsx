@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import moment from 'moment'
 
 // custom components
 import Input from 'components/Input'
@@ -46,6 +47,7 @@ const StartAuctionModal = props => {
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
   const [price, setPrice] = useState()
+  const [buttonDisabled, setButtonDisabled] = useState(false)
 
   const endDate = useMemo(() => {
     var plusDays = days
@@ -159,6 +161,7 @@ const StartAuctionModal = props => {
                       onChange={date => setStartDate(date)}
                       dateFormat="MM/dd/yyyy h:mm aa"
                       formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                      minDate={moment().toDate()}
                       showTimeInput
                       timeInputLabel=""
                       className={styles.datePicker}
@@ -183,7 +186,10 @@ const StartAuctionModal = props => {
                       backgroundColor="#202427"
                       borderRadius="9px"
                       type="number"
-                      onChange={value => setDays(value)}
+                      onChange={value => {
+                        setButtonDisabled(value < 0 || value > 30)
+                        setDays(value)
+                      }}
                     />
                     <div className={styles.dateFont}>DAYS</div>
                   </div>
@@ -228,6 +234,8 @@ const StartAuctionModal = props => {
                     backgroundColor01="#2D625D"
                     backgroundColor02="#5AC3BA"
                     gradientDirection="right"
+                    disabled={buttonDisabled}
+                    opacity={buttonDisabled ? 0.5 : 1}
                   />
                 </div>
                 <div className="mt-[10px] w-full">
