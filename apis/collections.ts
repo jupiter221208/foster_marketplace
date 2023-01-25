@@ -35,6 +35,7 @@ class Collections {
 
   getCollectionNft(collection_id) {
     return client.get(API_URL + 'v1/collections/' + collection_id + '/nfts').then(response => {
+      if (typeof response.data === 'string') throw new Error(response.data)
       return response.data
     })
   }
