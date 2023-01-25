@@ -43,7 +43,7 @@ const PriceInput = props => {
         onChange={event => onChange(event.target.value)}
         style={{ fontSize }}
       />
-      <Image src={SolanaLogoIcon} alt="" width={22} height={22} />
+      <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
     </div>
   )
 }

@@ -17,15 +17,17 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const UpdateNFTModal = props => {
   const { data, open, onClose, onCancelList, onUpdatePrice } = props
 
   const closeModal = () => {
+    setPrice(null)
     onClose()
   }
 
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState()
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -70,11 +72,11 @@ const UpdateNFTModal = props => {
                   <img
                     src={data?.image === undefined || data?.image === null ? AudioPlayerBackground.src : data?.image}
                     alt={data?.name}
-                    className="w-full aspect-[321/321] object-cover mt-[10px]"
+                    className="w-full aspect-[321/321] mx-[30px] object-cover mt-[10px] lg:mt-[20px] rounded-[20px]"
                   />
                 )}
-                <div className={`${styles.nftName} mt-5 w-full`}>{data?.name}</div>
-                <div className="w-full mt-12">
+                <div className={`${styles.nftName} mt-4 w-full`}>{data?.name}</div>
+                <div className={styles.priceArea}>
                   <PriceInput
                     value={price}
                     placeholder="Enter price value"
@@ -82,20 +84,25 @@ const UpdateNFTModal = props => {
                     onChange={value => setPrice(value)}
                   />
                 </div>
-                <div className="w-full mt-[30px]">
+                <div className="w-full mt-[15px] lg:mt-[30px]">
                   <GradientButton
                     label="Update Price"
                     fullWidth
+                    gradientDirection="right"
+                    backgroundColor01="#34706B"
+                    backgroundColor02="#63D6CD"
                     onClick={() => onUpdatePrice(data?.mintAddress, data?.tradeStateAddress, price)}
                   />
                 </div>
-                <div className="w-full mt-[30px]">
-                  <Button
+                <div className="w-full mt-[15px] lg:mt-[30px]">
+                  <OutlineButton
                     label="Cancel Listing"
                     fullWidth
                     onClick={() => onCancelList(data?.mintAddress, data?.tradeStateAddress)}
-                    backgroundColor="#202427"
-                    color="#EFF0F6"
+                    backgroundColor="transparent"
+                    color="#5AC3BA"
+                    borderColor="#5AC3BA"
+                    borderWidth={1}
                   />
                 </div>
                 <div className={styles.text}>
