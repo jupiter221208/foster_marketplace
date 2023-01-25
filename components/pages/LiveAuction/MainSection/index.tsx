@@ -180,6 +180,7 @@ const MainSection = props => {
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
+  const [isOwnNft, setIsOwnNft] = useState(false)
   const [nftCollectionAddress, setNftCollectionAddress] = useState('')
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
@@ -249,6 +250,12 @@ const MainSection = props => {
     if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
     else setShare(false)
 
+    console.log(nftDetail.owner_address, publicKey?.toBase58())
+    if (nftDetail.owner_address === publicKey?.toBase58()) {
+      setIsOwnNft(true)
+    } else {
+      setIsOwnNft(false)
+    }
     if (nftDetail.listing_status === 'auctioned') {
       const auction = nftDetail.auction?.auction
       if (auction) {
@@ -520,7 +527,9 @@ const MainSection = props => {
 
             <div className="w-full flex flex-wrap mt-10">
               <div
-                className={`w-full ${showPlaceBidButton ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'} relative`}
+                className={`w-full ${
+                  showPlaceBidButton && !isOwnNft ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
+                } relative`}
               >
                 <div className={styles.auctionBG}>
                   <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} />
@@ -534,7 +543,7 @@ const MainSection = props => {
                     setIsEnded={setIsEnded}
                     setIsStarted={setIsStarted}
                   />
-                  {showPlaceBidButton && (
+                  {showPlaceBidButton && !isOwnNft && (
                     <div>
                       <div
                         className={`${styles.placeBidBG} ${
