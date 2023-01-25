@@ -22,8 +22,8 @@ import CategoryList from 'assets/json/popular-category.json'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 
-import { Keypair, PublicKey } from '@solana/web3.js'
-import { CreateNftOutput, JsonMetadata, MetaplexFile, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
+import { Keypair } from '@solana/web3.js'
+import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
 import AudioPlayer from 'assets/images/audio-player.png'

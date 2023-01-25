@@ -5,7 +5,6 @@ import Image from 'next/image'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
-import RingLoader from 'react-spinners/RingLoader'
 import Lottie from 'lottie-react'
 
 // custom components
@@ -21,6 +20,7 @@ import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'
+import { FadeLoader } from 'react-spinners'
 
 const CollectionMintProgressingModal = props => {
   const { open, collectionFiles, uploadedCount } = props
@@ -54,11 +54,8 @@ const CollectionMintProgressingModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={styles.modalView}>
-                <div className={styles.ringLoader}>
-                  <RingLoader
-                    size={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 40 : 60}
-                    color="#63D6CD"
-                  />
+                <div className="flex justify-center">
+                  <FadeLoader color="#63D6CD" height="10" />
                 </div>
                 <div className="w-full flex justify-center mt-[28px]">
                   <div className={styles.greenText}>Do not close this window</div>
@@ -123,7 +120,7 @@ const CollectionMintProgressingModal = props => {
                               {index < uploadedCount ? (
                                 <Lottie animationData={CheckLottery} loop={true} />
                               ) : (
-                                <Lottie animationData={LoaderLottery} loop={true} />
+                                <FadeLoader margin="0" height={10} speedMultiplier={2} color="#63D6CD" />
                               )}
                             </div>
                           </div>
@@ -160,7 +157,7 @@ const CollectionMintProgressingModal = props => {
                               {index < uploadedCount ? (
                                 <Lottie animationData={CheckLottery} loop={true} />
                               ) : (
-                                <Lottie animationData={LoaderLottery} loop={true} />
+                                <FadeLoader margin="0" height={10} speedMultiplier={1} color="#63D6CD" />
                               )}
                             </div>
                           </div>
