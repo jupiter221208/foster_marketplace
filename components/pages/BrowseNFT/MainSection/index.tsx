@@ -198,9 +198,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const nftType: string = nftDetail.json?.properties?.category as string ??
     nftDetail.json?.category as string ??
     'image'
-  // TODO: set default image link for broken images
+  // TODO: set default links for broken images and assets
   const nftCoverUrl = nftDetail.json?.image ?? ''
-  const nftUrl: string = nftDetail.json?.animation_url as string ?? nftCoverUrl
+  const nftAssetUrl: string = nftDetail.json?.animation_url as string
 
   const nftName = nftDetail.name
   const nftDescription = nftDetail.json?.description ?? ''
@@ -425,18 +425,18 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType === 'image' ? (
                 <div className={styles.mobileImageArea}>
-                  <img src={nftUrl} alt="" />
+                  <img src={nftCoverUrl} alt="" />
                   <div className={styles.mobileImageBackground} />
                 </div>
               ) : nftType.includes('audio') ? (
                 <div className={styles.audioArea}>
-                  <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                  <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
               ) : nftType.includes('video') ? (
                 <div className={styles.videoArea}>
                   <video controls muted>
-                    <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
                   </video>
+                    <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                 </div>
               ) : (
                 <></>
@@ -444,11 +444,11 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
             ) : nftType === 'image' ? (
               <div className={styles.blurBackground}>
                 <div className="absolute inset-0">
-                  <img src={nftUrl} alt="" className="min-w-full min-h-full object-cover" />
+                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <img src={nftUrl} alt="" className="h-full" />
+                  <img src={nftCoverUrl} alt="" className="h-full" />
                 </div>
               </div>
             ) : nftType === 'audio' ? (
@@ -458,7 +458,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.audioArea}>
-                  <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                  <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
               </div>
             ) : nftType === 'video' ? (
@@ -469,7 +469,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 <div className={styles.blurImage} />
                 <div className={styles.videoArea}>
                   <video controls muted className="max-w-full max-h-full">
-                    <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+                    <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                   </video>
                 </div>
               </div>
