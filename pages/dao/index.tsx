@@ -18,10 +18,12 @@ import TurkeyLogo from 'assets/icons/turkey-logo.svg'
 
 // styles
 import styles from './index.module.scss'
+import DaoSetupModal from 'components/Modal/DaoSetupModal'
 
 const Dao = () => {
   const [showCircus, setShowCircus] = useState(false)
   const [showLift, setShowLift] = useState(false)
+  const [daoSetup, setDaoSetup] = useState(false)
 
   return (
     <div className="g-container">
@@ -55,7 +57,9 @@ const Dao = () => {
                 color="#95DBD5"
                 fontFamily="KCDurhamboxcar"
                 fontSize="30px"
-                onClick={() => {}}
+                onClick={() => {
+                  setDaoSetup(true)
+                }}
               />
             </div>
           </div>
@@ -63,6 +67,7 @@ const Dao = () => {
       </div>
       <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
       <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />
+      <DaoSetupModal open={daoSetup} close={() => setDaoSetup(false)} />
     </div>
   )
 }
