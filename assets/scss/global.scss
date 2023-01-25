@@ -514,8 +514,10 @@ h6 {
 
 .startAuctionDatePicker {
   .react-datepicker {
-    background-color: $background-black-color;
-    border: 1px solid rgba($text-gray-200-color, 0.5);
+    background: rgba($background-light-color, 0.13);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid transparent;
     border-radius: 9px;
     width: 100%;
     max-width: 432px;
@@ -527,7 +529,7 @@ h6 {
     }
     padding: 12px;
     @media (min-width: 1024px) {
-      padding: 20px 32px 26px 32px;
+      padding: 20px 27px 12px 27px;
     }
     .react-datepicker__triangle {
       display: none;
@@ -590,7 +592,7 @@ h6 {
     }
   }
   .react-datepicker__header {
-    background-color: $background-black-color;
+    background: transparent;
     border-bottom: none;
     .react-datepicker__current-month {
       color: $text-gray-200-color;
@@ -599,8 +601,10 @@ h6 {
       line-height: 1;
     }
     .react-datepicker__day-names {
-      color: $brand-06-color;
-      margin-top: 40px;
+      color: $brand-09-color;
+      font-family: 'Muli-SemiBold';
+      font-size: 14px;
+      margin-top: 20px;
       display: flex;
       justify-content: space-between;
       .react-datepicker__day-name {
@@ -610,7 +614,7 @@ h6 {
           width: 45px;
         }
         justify-content: center;
-        color: $brand-06-color;
+        color: $brand-09-color;
       }
     }
   }
@@ -621,19 +625,21 @@ h6 {
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
-    gap: 0px;
+    gap: 3px;
     @media (min-width: 1024px) {
-      margin-top: 24px;
-      gap: 8px;
+      margin-top: 8px;
+      gap: 15px;
     }
   }
   .react-datepicker__day {
     color: $text-gray-200-color;
     width: 35px;
     height: 35px;
+    font-family: 'Muli-Regular';
+    font-size: 16px;
     @media (min-width: 1024px) {
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
     }
     border-radius: 9px;
     display: flex;
@@ -646,7 +652,7 @@ h6 {
     }
   }
   .react-datepicker__day--selected {
-    background: linear-gradient(to bottom, rgba($brand-02-color, 50%), rgba(#1c4144, 35%));
+    background: $background-dark-color;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -670,7 +676,9 @@ h6 {
   }
 
   .react-datepicker__input-time-container {
-    margin: 25px 0px 0px 0px;
+    margin: 10px 0px 0px 0px;
+    background: $background-dark-color;
+    border-radius: 9px;
   }
   .react-datepicker__input-time-container .react-datepicker-time__input-container {
     width: 100%;
@@ -680,7 +688,6 @@ h6 {
     margin-left: 0px !important;
     height: 40px;
     border-radius: 9px;
-    border: 1px solid rgba($text-gray-200-color, 0.1);
     input[type='time']::-webkit-calendar-picker-indicator {
       cursor: pointer;
       background: url('../../assets/icons/timer-gray.svg') no-repeat;
