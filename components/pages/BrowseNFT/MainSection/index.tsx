@@ -124,8 +124,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     try {
       setIsOwnNft(artistInfo?.address?.toBase58() === publicKey?.toBase58())
     } catch (e) {
-      if (artistInfo?.address instanceof String) {
-        setIsOwnNft(artistInfo?.address === publicKey?.toBase58())
+      if (artistInfo?.address) {
+        setIsOwnNft(artistInfo?.address?.equals(publicKey))
       }
     }
   }, [artistInfo, publicKey])

@@ -269,8 +269,9 @@ const MainSection = props => {
     }
 
     if (nftDetail.owner_address === '') {
-      getNFTOwner(mx, id as string).then(owner => {
-        setNftOwnerAddress(owner.address)
+      getNFTOwner(mx, new PublicKey(id)).then(owner => {
+        if(!owner) return
+        setNftOwnerAddress(owner.toBase58())
         usersAPI.get(owner).then(user => {
           setNftOwnerUsername(user.username)
         })

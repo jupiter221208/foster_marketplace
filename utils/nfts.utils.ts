@@ -1,4 +1,8 @@
-import { Metaplex, TokenGpaBuilder, UnparsedAccount } from '@metaplex-foundation/js'
+import {
+  Metaplex,
+  TokenGpaBuilder,
+  UnparsedAccount,
+} from '@metaplex-foundation/js'
 import type { Metadata, Nft, Sft } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { unpackAccount, Account } from '@solana/spl-token'
@@ -7,17 +11,37 @@ import { getShortAddress } from 'utils/wallet.util'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 
-export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
-  /* @ts-ignore to get mintAddress*/
-  const largestAccounts = await mx.connection.getTokenLargestAccounts(new PublicKey(mintAddress))
-  const largestAccountInfo = await mx.connection.getParsedAccountInfo(largestAccounts.value[0].address)
+export async function getNFTOwner(
+  metaplex: Metaplex,
+  mintAddress: PublicKey
+): Promise<PublicKey | null> {
+  let tokenAccounts = await new TokenGpaBuilder(metaplex)
+    .whereMint(mintAddress)
+    .whereAmount(1)
+    .getAndMap(account =>
+      unpackAccount(account.publicKey, {
+        ...account,
+        lamports: parseInt(account.lamports.basisPoints.toString()),
+      })
+    )
 
-  /* @ts-ignore to get Parsed Account Info*/
-  return largestAccountInfo.value.data.parsed.info.owner
+  if (tokenAccounts.length === 0) return null
+  else {
+    if (tokenAccounts.length > 1) {
+      console.warn(
+        `unexpected number of token accounts for ${mintAddress}: ${tokenAccounts.length}`
+      )
+      console.warn(tokenAccounts)
+    }
+    return tokenAccounts[0].owner
+  }
 }
 
-export async function getNFTTokenAccount(mx: Metaplex, mint: PublicKey): Promise<Account> {
-  let tokenAccounts = await new TokenGpaBuilder(mx)
+export async function getNFTTokenAccount(
+  metaplex: Metaplex,
+  mint: PublicKey
+): Promise<Account> {
+  let tokenAccounts = await new TokenGpaBuilder(metaplex)
     .whereAmount(1)
     .whereMint(mint)
     .getAndMap(account =>
@@ -83,47 +107,10 @@ export async function getMyCollectionNFTs(mx: Metaplex) {
   )
 }
 
-export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
-  const res = await getListedNFTs(mx)
-  const listedNFTs = (res === undefined ? [] : res).filter(nft => nft.asset.address.toString() === id)
-
-  const owner = await getNFTOwner(mx, id)
-
-  if (listedNFTs.length <= 0) {
-    const nft = await mx.nfts().findByMint({ mintAddress: new PublicKey(id) })
-
-    return {
-      asset: {
-        ...nft,
-        owner,
-      },
-    }
-  }
-
-  return {
-    ...listedNFTs[0],
-    asset: {
-      ...listedNFTs[0].asset,
-      owner,
-    },
-  }
-}
-
-export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
-  const nft = await mx.nfts().findByMint({ mintAddress: new PublicKey(id) })
-  const owner = await getNFTOwner(mx, id)
-  return {
-    asset: {
-      ...nft,
-      owner,
-    },
-  }
-}
-
 export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
   const nft = await mx.nfts().findByMint({ mintAddress })
 
-  const owner = await getNFTOwner(mx, mintAddress.toString())
+  const owner = await getNFTOwner(mx, mintAddress)
 
   return {
     owner,
@@ -132,25 +119,34 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
 }
 
 export function getNFTCategories(nft: Sft | Nft | null): string[] {
-  return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
+  return (
+    nft?.json?.attributes
+      ?.filter(({ trait_type }) => trait_type === 'category')
+      .map(({ value }) => value) ?? []
+  )
 }
 
-export function getNFTArtistPublicKey({ creators }: Sft | Nft): PublicKey | null {
+export function getNFTArtistPublicKey({
+  creators,
+}: Sft | Nft): PublicKey | null {
   // try first creator as artist
   // if it's a pda (candy machine) then use second creator as artist
   // else return null
-  if (creators[0] && PublicKey.isOnCurve(creators[0].address)) return creators[0].address
+  if (creators[0] && PublicKey.isOnCurve(creators[0].address))
+    return creators[0].address
   else if (creators[1]) return creators[1].address
 
   return null
 }
 
 export interface NFTArtistInfo {
-  address: any
+  address: PublicKey
   name: string
 }
 
-export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
+export async function getNFTArtistInfo(
+  nft: Sft | Nft
+): Promise<NFTArtistInfo | null> {
   let artist = getNFTArtistPublicKey(nft)
   if (!artist) return null
 
