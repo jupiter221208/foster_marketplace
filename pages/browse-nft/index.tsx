@@ -21,11 +21,7 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 
 // custom functions
 import { useViewport } from 'utils'
-import {
-  getNFTCategories,
-  getNFTArtistInfo,
-  NFTArtistInfo
-} from 'utils/nfts.utils'
+import { getNFTCategories, getNFTArtistInfo, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -54,8 +50,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
 
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   useEffect(() => {
-    getNFTArtistInfo(nftDetail)
-      .then(setArtistInfo)
+    getNFTArtistInfo(nftDetail).then(setArtistInfo)
   }, [nftDetail])
 
   const collectionId = nftDetail.collection?.address.toString()
@@ -91,7 +86,9 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="z-10">
-          {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} />}
+          {nftDetail !== null && nftDetail !== undefined && (
+            <MainSection nftDetail={nftDetail} artistInfo={artistInfo} />
+          )}
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />
@@ -116,10 +113,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
   }
 
   try {
-    let nftDetail = await Metaplex
-      .make(new Connection(process.env.PROVIDER_URL))
-      .nfts()
-      .findByMint({ mintAddress })
+    let nftDetail = await Metaplex.make(new Connection(process.env.PROVIDER_URL)).nfts().findByMint({ mintAddress })
 
     if (!nftDetail) {
       console.log(`could not load nft: ${mintAddress}`)

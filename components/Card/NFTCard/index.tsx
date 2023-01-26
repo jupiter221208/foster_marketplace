@@ -79,14 +79,9 @@ const DashboardNFTCard = props => {
               <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
             )
           ) : image !== null && image !== '' ? (
-            <img
-              src={image}
-              alt=""
-              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-              onClick={() => onClick()}
-            />
+            <img src={image} alt="" className={styles.imageNft} onClick={() => onClick()} />
           ) : (
-            <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+            <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
           )}
         </div>
       </div>
