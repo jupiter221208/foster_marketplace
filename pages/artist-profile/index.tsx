@@ -38,7 +38,6 @@ const ArtistProfile = () => {
   const [categoryList, setCategoryList] = useState<any>([])
   const [nfts, setNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
-  const [exploreCircus, setExploreCircus] = useState<any>([])
   const [isOwn, setIsOwn] = useState<any>(false)
   const [artistEnable, setArtistEnable] = useState(true)
 

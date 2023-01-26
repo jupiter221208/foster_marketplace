@@ -91,14 +91,40 @@ const FollowModal = props => {
   const followArtist = wallet => {
     artistsAPI.followArtist(wallet).then(response => {
       if (response && response.followed_wallet_id) {
-        reloadFollowing()
+        let new_list = []
+        if (activeTab === 0) {
+          new_list = [...followersList]
+          new_list.forEach(item => {
+            if (item.wallet_id === wallet) item.follow = true
+          })
+          setFollowersList(new_list)
+        } else {
+          new_list = [...followingList]
+          new_list.forEach(item => {
+            if (item.wallet_id === wallet) item.following = true
+          })
+          setFollowingList(new_list)
+        }
       }
     })
   }
 
   const unfollowArtist = wallet => {
     artistsAPI.unfollowArtist(wallet).then(response => {
-      reloadFollowing()
+      let new_list = []
+      if (activeTab === 0) {
+        new_list = [...followersList]
+        new_list.forEach(item => {
+          if (item.wallet_id === wallet) item.follow = false
+        })
+        setFollowersList(new_list)
+      } else {
+        new_list = [...followingList]
+        new_list.forEach(item => {
+          if (item.wallet_id === wallet) item.following = false
+        })
+        setFollowingList(new_list)
+      }
     })
   }
   return (

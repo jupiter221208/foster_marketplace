@@ -60,7 +60,8 @@ const MainSection = prop => {
     artistsAPI.followArtist(wallet).then(response => {
       if (response && response.followed_wallet_id) {
         setFollow(true)
-        setArtistFollowing(artistFollowing + 1)
+        // setArtistFollowing(artistFollowing + 1)
+        setArtistFollowers(artistFollowers + 1)
       }
     })
   }
@@ -68,7 +69,8 @@ const MainSection = prop => {
   const unfollowArtist = wallet => {
     artistsAPI.unfollowArtist(wallet).then(response => {
       setFollow(false)
-      setArtistFollowing(artistFollowing - 1)
+      setArtistFollowers(artistFollowers - 1)
+      // setArtistFollowing(artistFollowing - 1)
     })
   }
 
