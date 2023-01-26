@@ -122,6 +122,11 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const [shareCount, setShareCount] = useState(0)
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
+  const [isOwnNft, setIsOwnNft] = useState(false)
+
+  useEffect(() => {
+    setIsOwnNft(artistInfo?.address?.toBase58() === publicKey?.toBase58())
+  }, [artistInfo, publicKey])
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -233,7 +238,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
     if (result) {
-      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey.toString(), amount: nftPrice.toString() }).then(
+      listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
         response => console.log(response),
         error => console.log(error)
       )
@@ -558,6 +563,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                     </div>
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
+
+                  {!isOwnNft &&
                   <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                     {connected ? (
                       tradeStateAddress ? (
@@ -596,7 +603,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                         gap="4px"
                       />
                     )}
-                  </div>
+                  </div>}
+
                   <div className="w-full flex content-none mt-[14px]">
                     <p className={styles.whiteDescription}>
                       By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;

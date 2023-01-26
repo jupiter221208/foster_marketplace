@@ -250,7 +250,6 @@ const MainSection = props => {
     if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
     else setShare(false)
 
-    console.log(nftDetail.owner_address, publicKey?.toBase58())
     if (nftDetail.owner_address === publicKey?.toBase58()) {
       setIsOwnNft(true)
     } else {
