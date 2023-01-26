@@ -25,4 +25,7 @@
   letter-spacing: 0;
   color: $brand-09-color;
   filter: drop-shadow(0px 3px 6px rgba($brand-01-color, 0.16));
+  &:hover {
+    box-shadow: 0px 3px 6px $brand-09-color;
+  }
 }
