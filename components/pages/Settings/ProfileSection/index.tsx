@@ -32,8 +32,6 @@ import TelegramWhiteSmallIcon from 'assets/icons/telegram-green-small.svg'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
 import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
-import InfoGreenIcon from 'assets/icons/info-green.svg'
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import CirclePlugGreenIcon from 'assets/icons/circle-plus-green.svg'
 
 // styles
@@ -42,7 +40,6 @@ import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
-import SwitchButton from 'components/SwitchButton'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -63,10 +60,9 @@ const ProfileSection = prop => {
   const [orgUserInfo, setOrgUserInfo] = useState<any>(null)
   const [verificationStatus, setVerificationStatus] = useState('unverified') // unverified, review, verified
   const [enableSave, setEnableSave] = useState(false)
-  const [artistEnable, setArtistEnable] = useState(true)
   const [showAlert, setShowAlert] = useState<boolean>(false)
-  const [showProfileTooltip, setShowProfileTooltip] = useState(false)
   const [showLinkWalletAlert, setShowLinkWalletAlert] = useState(false)
+  const [showVerificationAlert, setShowVerificationAlert] = useState(false)
 
   const copyToClipboard = value => {
     navigator.clipboard.writeText(value)
@@ -326,31 +322,59 @@ const ProfileSection = prop => {
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Verification Status</div>
             </div>
-            <div className="mt-4 lg:mt-[18px] flex justify-between">
-              {verificationStatus === 'unverified' && (
-                <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
-                  <div className={styles.unverifiedTextColor}>Unverified</div>
-                  <Image src={UnverifiedLightBrownIcon} alt="" />
+            <div className="w-[200%] mt-4 lg:mt-[18px] flex cursor-pointer">
+              <div className="w-[50%] flex justify-between">
+                {verificationStatus === 'unverified' && (
+                  <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
+                    <div className={styles.unverifiedTextColor}>Unverified</div>
+                    <Image src={UnverifiedLightBrownIcon} alt="" />
+                  </div>
+                )}
+                {verificationStatus === 'review' && (
+                  <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
+                    <div className={styles.reviewTextColor}>Under Review</div>
+                    <Image src={ReviewLightGreenIcon} alt="" />
+                  </div>
+                )}
+                {verificationStatus === 'verified' && (
+                  <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
+                    <div className={styles.verifiedTextColor}>Verified</div>
+                    <Image src={VerifiedGreenIcon} alt="" />
+                  </div>
+                )}
+                {verificationStatus === 'unverified' && (
+                  <div /*Link href="/settings/user-verification"*/
+                    onMouseEnter={() => {
+                      setShowVerificationAlert(true)
+                    }}
+                    onMouseLeave={() => {
+                      setShowVerificationAlert(false)
+                    }}
+                    onClick={() => {
+                      if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+                        setShowVerificationAlert(true)
+                        setTimeout(() => {
+                          setShowVerificationAlert(false)
+                        }, 3000)
+                      }
+                    }}
+                  >
+                    <a className={styles.linkText}>Request Verification</a>
+                  </div>
+                )}
+              </div>
+              {showVerificationAlert && (
+                <div className="relative">
+                  <div className={styles.anotherWalletAlert}>This feature is not available but is coming soon.</div>
                 </div>
-              )}
-              {verificationStatus === 'review' && (
-                <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
-                  <div className={styles.reviewTextColor}>Under Review</div>
-                  <Image src={ReviewLightGreenIcon} alt="" />
-                </div>
-              )}
-              {verificationStatus === 'verified' && (
-                <div className={`flex gap-[10px] items-center ${styles.verifyText}`}>
-                  <div className={styles.verifiedTextColor}>Verified</div>
-                  <Image src={VerifiedGreenIcon} alt="" />
-                </div>
-              )}
-              {verificationStatus === 'unverified' && (
-                <Link href="/settings/user-verification">
-                  <a className={styles.linkText}>Request Verification</a>
-                </Link>
               )}
             </div>
+
+            {showVerificationAlert && (
+              <div className="relative flex lg:hidden h-[40px]">
+                <div className={styles.anotherWalletAlertMobile}>This feature is not available but is coming soon.</div>
+              </div>
+            )}
 
             {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="relative flex mt-[45px] ">
