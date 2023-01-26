@@ -16,24 +16,18 @@ export async function getNFTOwner(mx: Metaplex, mintAddress: string) {
   return largestAccountInfo.value.data.parsed.info.owner
 }
 
-export async function getNFTTokenAccount(
-  mx: Metaplex,
-  mint: PublicKey
-): Promise<Account>{
+export async function getNFTTokenAccount(mx: Metaplex, mint: PublicKey): Promise<Account> {
   let tokenAccounts = await new TokenGpaBuilder(mx)
     .whereAmount(1)
     .whereMint(mint)
-    .getAndMap(
-      (account) => unpackAccount(
-        account.publicKey,
-        {
-          ...account,
-          lamports: parseInt(account.lamports.basisPoints.toString())
-        }
-      )
+    .getAndMap(account =>
+      unpackAccount(account.publicKey, {
+        ...account,
+        lamports: parseInt(account.lamports.basisPoints.toString()),
+      })
     )
 
-  if(tokenAccounts.length !== 1){
+  if (tokenAccounts.length !== 1) {
     console.log(tokenAccounts)
     throw new Error(`could not find token account for nft: ${mint}`)
   }
@@ -41,7 +35,7 @@ export async function getNFTTokenAccount(
   return tokenAccounts[0]
 }
 
-type GetMyNFTsOutputElement = ((Metadata | Nft | Sft) & { offchainMetadata?: any })
+type GetMyNFTsOutputElement = (Metadata | Nft | Sft) & { offchainMetadata?: any }
 type GetMyNFTsOutput = GetMyNFTsOutputElement[]
 
 export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
@@ -49,35 +43,28 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
     .whereOwner(mx.identity().publicKey)
     .whereAmount(1)
     .whereDoesntHaveDelegate()
-    .getAndMap(
-      (account) => unpackAccount(
-        account.publicKey,
-        {
-          ...account,
-          lamports: parseInt(account.lamports.basisPoints.toString())
-        }
-      )
+    .getAndMap(account =>
+      unpackAccount(account.publicKey, {
+        ...account,
+        lamports: parseInt(account.lamports.basisPoints.toString()),
+      })
     )
 
-  let nfts = await mx
-    .nfts()
-    .findAllByMintList({ mints: tokenAccounts.map(({ mint }) => mint) })
+  let nfts = await mx.nfts().findAllByMintList({ mints: tokenAccounts.map(({ mint }) => mint) })
 
   let userNfts: GetMyNFTsOutput = []
-  for(let i = 0; i < tokenAccounts.length; i++){
-    if(!nfts[i] || tokenAccounts[i].isFrozen)
-      continue;
+  for (let i = 0; i < tokenAccounts.length; i++) {
+    if (!nfts[i] || tokenAccounts[i].isFrozen) continue
 
     userNfts.push(nfts[i])
   }
 
   await Promise.all(
-    userNfts.map(async (nft) => {
+    userNfts.map(async nft => {
       nft.offchainMetadata = null
-      try{
-        nft.offchainMetadata = await fetch(nft.uri).then((r) => r.json())
-      }
-      catch(e){
+      try {
+        nft.offchainMetadata = await fetch(nft.uri).then(r => r.json())
+      } catch (e) {
         console.error(`failed to pull off chain metadata for ${nft.address}: ${nft.uri}`)
         console.error(e)
       }
@@ -92,8 +79,7 @@ export async function getMyCollectionNFTs(mx: Metaplex) {
   let identity = mx.identity().publicKey
   return nfts.filter(
     ({ updateAuthorityAddress, collectionDetails }) =>
-      identity.equals(updateAuthorityAddress) &&
-      collectionDetails?.version === 'V1'
+      identity.equals(updateAuthorityAddress) && collectionDetails?.version === 'V1'
   )
 }
 
@@ -104,9 +90,7 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
   const owner = await getNFTOwner(mx, id)
 
   if (listedNFTs.length <= 0) {
-    const nft = await mx
-      .nfts()
-      .findByMint({ mintAddress: new PublicKey(id) })
+    const nft = await mx.nfts().findByMint({ mintAddress: new PublicKey(id) })
 
     return {
       asset: {
@@ -126,9 +110,7 @@ export async function getNFTDetailsByAddress(mx: Metaplex, id: string) {
 }
 
 export async function getGeneralNFTDetails(mx: Metaplex, id: string) {
-  const nft = await mx
-    .nfts()
-    .findByMint({ mintAddress: new PublicKey(id) })
+  const nft = await mx.nfts().findByMint({ mintAddress: new PublicKey(id) })
   const owner = await getNFTOwner(mx, id)
   return {
     asset: {
@@ -149,51 +131,45 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
   }
 }
 
-export function getNFTCategories(nft: Sft | Nft | null): string[]{
-  return nft
-    ?.json
-    ?.attributes
-    ?.filter(({ trait_type }) => trait_type === 'category')
-    .map(({ value }) => value) ?? []
+export function getNFTCategories(nft: Sft | Nft | null): string[] {
+  return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 
-export function getNFTArtistPublicKey({ creators }: Sft | Nft): PublicKey | null{
+export function getNFTArtistPublicKey({ creators }: Sft | Nft): PublicKey | null {
   // try first creator as artist
   // if it's a pda (candy machine) then use second creator as artist
   // else return null
-  if(creators[0] && PublicKey.isOnCurve(creators[0].address))
-    return creators[0].address
-  else if(creators[1])
-    return creators[1].address
+  if (creators[0] && PublicKey.isOnCurve(creators[0].address)) return creators[0].address
+  else if (creators[1]) return creators[1].address
 
   return null
 }
 
-export interface NFTArtistInfo{
-  address: PublicKey;
-  name: string;
+export interface NFTArtistInfo {
+  address: any
+  name: string
 }
 
-export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null>{
+export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
   let artist = getNFTArtistPublicKey(nft)
-  if(!artist) return null;
+  if (!artist) return null
 
   let { username } = await userAPI.get(artist.toString())
   let name = username ?? getShortAddress(artist)
 
   return {
     address: artist,
-    name
+    name,
   }
 }
 
-export interface NFTSocialInfo{
-  likes: number;
-  shares: number;
-  saves: number;
+export interface NFTSocialInfo {
+  likes: number
+  shares: number
+  saves: number
 }
 
-export async function getNFTSocialInfo(mint: PublicKey): Promise<NFTSocialInfo>{
+export async function getNFTSocialInfo(mint: PublicKey): Promise<NFTSocialInfo> {
   let { likes, shares, saves } = await nftsAPI.get(mint.toBase58())
-  return { likes, shares, saves };
+  return { likes, shares, saves }
 }

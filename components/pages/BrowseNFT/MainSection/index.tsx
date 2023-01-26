@@ -125,7 +125,14 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const [isOwnNft, setIsOwnNft] = useState(false)
 
   useEffect(() => {
-    setIsOwnNft(artistInfo?.address?.toBase58() === publicKey?.toBase58())
+    try {
+      setIsOwnNft(artistInfo?.address?.toBase58() === publicKey?.toBase58())
+    } catch (e) {
+      if (artistInfo?.address instanceof String) {
+        setIsOwnNft(artistInfo?.address === publicKey?.toBase58())
+      } 
+    }
+    
   }, [artistInfo, publicKey])
 
   const clickRecent = index => {

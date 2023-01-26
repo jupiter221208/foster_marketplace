@@ -56,7 +56,7 @@ const ProgressingModal = props => {
                     Did you know:&nbsp;
                     <span>
                       <strong>
-                        The idea for Foster Marketplace was conceived during a drunken&apos; game of pool in June 2022.
+                        Wild turkeys can see 3 times sharper than a hunter with 20/20 vision and nearly 8 times farther.
                       </strong>
                     </span>
                   </div>
