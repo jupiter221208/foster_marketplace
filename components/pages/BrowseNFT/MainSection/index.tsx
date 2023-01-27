@@ -75,7 +75,7 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
-import { getNFTOwner, NFTArtistInfo } from 'utils/nfts.utils'
+import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
@@ -110,7 +110,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const router = useRouter()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-
   const [loading, setLoading] = useState<boolean>(false)
 
   const buttonRefs = useRef<any[]>([])
@@ -285,8 +284,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
-      let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+      let { username: ownerUsername, wallet_id: ownerAddress } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername)
+      setNftOwnerAddress(ownerAddress)
 
       if(tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())){
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231,]
