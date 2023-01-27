@@ -6,12 +6,15 @@ import Image from 'next/image'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
+import { useViewport } from 'utils'
 
 // images and icons
 import FileCopyIcon from 'assets/icons/copy-alt-white-32x32.svg'
 import TwitterUnfilledWhiteIcon from 'assets/icons/twitter-unfilled-white-32x32.svg'
 import FacebookWhiteIcon from 'assets/icons/facebook-white-32x32.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg'
+import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
+import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -24,11 +27,12 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const MenuSocialShare = props => {
-  const { address, icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
+  const { type = 'icon', address, icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
   const router = useRouter()
   const { id } = router.query
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
+  const viewport = useViewport()
 
   function shareNFTSocial(type) {
     nftsAPI.shareNft(type, id).then(
@@ -44,11 +48,23 @@ const MenuSocialShare = props => {
     )
   }
   return (
-    <div className="relative mt-[4px]">
+    <div className="relative">
       <Menu>
         <Menu.Button>
           <div className="flex justify-between items-center">
-            <Image src={vote ? icon02 : icon01} alt="" />
+            {type === 'ellipse' ? (
+              <div className={styles.ellipseArea}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <Image src={ThreeEllipseMobileIcon} alt="" width="15px" height="4px" />
+                ) : (
+                  <Image src={ThreeEllipseIcon} alt="" width="23px" height="6px" />
+                )}
+              </div>
+            ) : (
+              <div className="mt-[4px]">
+                <Image src={vote ? icon02 : icon01} alt="" />
+              </div>
+            )}
             {/* <div className={styles.text}>{voteCount}</div> */}
           </div>
         </Menu.Button>

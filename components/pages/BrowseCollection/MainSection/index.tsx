@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
+import MenuSocialShare from 'components/Menu/MenuSocialShare'
 
 const MainSection = props => {
   const { nfts, data } = props
@@ -106,6 +107,9 @@ const MainSection = props => {
             />
           </div>
           <div className="col-span-3 flex justify-end">
+            <div className="mr-[24px]">
+              <MenuSocialShare type="ellipse" address={data?.collection_id} vote={true} onClick={() => {}} />
+            </div>
             <div className="w-[89px] lg:w-[146px]">
               {saved ? (
                 <NegativeButton
@@ -129,12 +133,7 @@ const MainSection = props => {
         </div>
         <div className="flex justify-center w-full flex-wrap mt-[30px] mb-[30px] z-10">
           {data?.description && (
-            <span className={styles.description}>
-              {getShortDescription(viewport, data?.description) + ' '}
-              {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
-                Read&nbsp;more
-              </span> */}
-            </span>
+            <span className={styles.description}>{getShortDescription(viewport, data?.description) + ' '}</span>
           )}
         </div>
         <div className="flex justify-center mt-[16px]">
@@ -206,7 +205,10 @@ const MainSection = props => {
             collectionName={data?.collection_name}
             artistName={data?.artist_username}
           />
-          <div className="mt-0">
+          <div className="mt-0 flex">
+            <div className="mr-[11px] lg:mr-[24px]">
+              <MenuSocialShare type="ellipse" address={data?.collection_id} vote={true} onClick={() => {}} />
+            </div>
             {saved ? (
               <NegativeButton
                 width={80}
