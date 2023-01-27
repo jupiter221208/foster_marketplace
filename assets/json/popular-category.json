@@ -284,5 +284,18 @@
     "type": "image",
     "nfts": 2131,
     "collections": 287
+  },
+  {
+    "id": 23,
+    "query": "PixelArt",
+    "image": "/images/popular-category-pixel.png",
+    "banner": "/images/category-banner-pixel.png",
+    "mobile": "/images/popular-category-pixel-mobile.png",
+    "mobile_banner": "/images/category-banner-pixel-mobile.png",
+    "icon": "/images/category-icon-pixel.png",
+    "name": "Pixel Art",
+    "type": "image",
+    "nfts": 2131,
+    "collections": 287
   }
 ]
