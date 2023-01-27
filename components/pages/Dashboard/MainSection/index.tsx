@@ -283,13 +283,13 @@ const MainSection = () => {
               <div>
                 <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
               </div>
-              <div>
+              {/* <div>
                 <SocialButton
                   icon={DiscordWhiteIcon}
                   iconHover={DiscordHoverIcon}
                   onClick={() => window.open(discordUrl)}
                 />
-              </div>
+              </div> */}
               <div>
                 <SocialButton
                   icon={TwitterWhiteIcon}
@@ -297,13 +297,13 @@ const MainSection = () => {
                   onClick={() => window.open(twitterUrl)}
                 />
               </div>
-              <div>
+              {/* <div>
                 <SocialButton
                   icon={TelegramWhiteIcon}
                   iconHover={TelegramHoverIcon}
                   onClick={() => window.open(telegramUrl)}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-span-3 flex justify-end">
@@ -325,8 +325,7 @@ const MainSection = () => {
               <div>
                 <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
               </div>
-
-              <div>
+              {/* <div>
                 <SocialButton
                   icon={DiscordWhiteIcon}
                   iconHover={DiscordHoverIcon}
@@ -334,7 +333,7 @@ const MainSection = () => {
                     window.open(discordUrl)
                   }}
                 />
-              </div>
+              </div> */}
               <div>
                 <SocialButton
                   icon={TwitterWhiteIcon}
@@ -342,13 +341,13 @@ const MainSection = () => {
                   onClick={() => window.open(twitterUrl)}
                 />
               </div>
-              <div>
+              {/* <div>
                 <SocialButton
                   icon={TelegramWhiteIcon}
                   iconHover={TelegramHoverIcon}
                   onClick={() => window.open(telegramUrl)}
                 />
-              </div>
+              </div> */}
               <div>
                 <IconButton
                   icon={SettingWhiteIcon}

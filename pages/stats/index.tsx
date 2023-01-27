@@ -81,7 +81,13 @@ const Stats = () => {
           </div>
         </div>
       </div>
-      <StatsPreviewModal open={previewMode} close={() => setPreviewMode(false)} />
+      <StatsPreviewModal
+        open={previewMode}
+        close={() => {
+          window.history.go(-1)
+          setPreviewMode(false)
+        }}
+      />
     </div>
   )
 }
