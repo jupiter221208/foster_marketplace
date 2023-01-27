@@ -15,18 +15,15 @@
 
 .modalView {
   position: relative;
-  // overflow: hidden;
   width: 960px;
   height: 100%;
   background-origin: border-box;
-  border: 1px solid rgba($background-light-color, 0.25);
   box-shadow: 0px 13px 36px #061a1c;
-  // padding: 21px;
   background: linear-gradient(to bottom, $background-black-color, #173639);
   border-radius: 21px;
   @media (min-width: 1024px) {
     background: linear-gradient(to bottom, #326f74, #202a2c);
-    // padding: 35px 25px;
+    border: 1px solid rgba($background-light-color, 0.25);
     border-radius: 30px;
   }
 }
@@ -89,6 +86,7 @@
 
 .link {
   color: $brand-09-color;
+  cursor: pointer;
 }
 
 .rightBack {
@@ -146,16 +144,23 @@
   width: fit-content;
   margin-top: 18px;
   font-family: 'Muli-Bold';
-  font-size: 24px;
+  font-size: 14px;
   line-height: 24px;
   color: $text-gray-200-color;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+  }
 }
 
 .subTitle {
   width: fit-content;
-  margin-top: 20px;
+  margin-top: 15px;
   font-family: 'Muli-Bold';
-  font-size: 24px;
+  font-size: 14px;
   line-height: 24px;
+  @media (min-width: 1024px) {
+    margin-top: 20px;
+    font-size: 24px;
+  }
   color: $brand-09-color;
 }

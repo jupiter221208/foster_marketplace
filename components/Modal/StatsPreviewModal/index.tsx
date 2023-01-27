@@ -59,18 +59,35 @@ const StatsPreviewModal = props => {
                     <div className={styles.close} onClick={() => close()}>
                       <Image src={CloseIcon} alt="" width={30} height={30} />
                     </div>
-                    <div className="w-full h-[353px]">
-                      <div className="w-full flex justify-center mt-[67px]">
-                        <div className="w-[294px] h-[83px]">
-                          <Image src={TcDAOLogo} alt="" />
-                        </div>
+                    <div className="w-full h-[507px] mt-[10px] p-[21px]">
+                      <div className={styles.comingSoon}>COMING SOON</div>
+                      <div className={styles.title}>House Stats</div>
+                      <div className={`${styles.text}`}>
+                        House Stats is an all-in-one hub that provides real-time data for artists and collectors. Find
+                        out how your artwork and collectibles are performing, understand purchase habits, and much more.
                       </div>
-                      <div className={styles.text}>
-                        Turkey Circus holders inherit a 5% revenue share of Foster House Collections and an autonomous
-                        vote in the DAO governing Foster Protocol provisions.
+                      <div className={styles.subTitle}>Creators</div>
+                      <div className={`${styles.text}`}>
+                        Get insights into the marketplace trends, so you invest less time analyzing and more time
+                        strategizing.
                       </div>
-                      <div className={styles.learnMore} onClick={() => router.push('https://mint.turkeycircus.io/ ')}>
-                        Learn more
+                      <div className={styles.subTitle}>Collectors</div>
+                      <div className={`${styles.text}`}>
+                        Easily discover new and emerging artists, artwork, collections, and how they rank in their
+                        genre.
+                      </div>
+                      <div className={styles.subTitle}>Get Early Access</div>
+                      <div className={`${styles.text}`}>
+                        Join the{' '}
+                        <span
+                          className={styles.link}
+                          onClick={() => {
+                            window.open('https://www.turkeycircus.io')
+                          }}
+                        >
+                          Turkey Circus DAO
+                        </span>{' '}
+                        to get early access..
                       </div>
                     </div>
                   </Dialog.Panel>
@@ -138,7 +155,11 @@ const StatsPreviewModal = props => {
                           </div>
                           <div className={styles.subTitle}>Get Early Access</div>
                           <div className={`${styles.text} mt-[10px]`}>
-                            Join the <span className={styles.link}>Turkey Circus DAO</span> to get early access..
+                            Join the{' '}
+                            <span className={styles.link} onClick={() => window.open('https://www.turkeycircus.io')}>
+                              Turkey Circus DAO
+                            </span>{' '}
+                            to get early access..
                           </div>
                         </div>
                       </div>
