@@ -32,6 +32,7 @@ import styles from './index.module.scss'
 
 // api endpoint
 import artistsAPI from 'apis/artists'
+import MenuSocialShare from 'components/Menu/MenuSocialShare'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
@@ -133,25 +134,30 @@ const MainSection = prop => {
           </div>
           {!isOwn && (
             <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
-              {follow ? (
-                <NegativeButton
-                  width={146}
-                  height={53}
-                  fontFamily="KCDurhamBoxcar"
-                  fontSize={30}
-                  label="Following"
-                  onClick={() => unfollowArtist(artistInfo.wallet_id)}
-                />
-              ) : (
-                <PositiveButton
-                  width={146}
-                  height={53}
-                  fontFamily="KCDurhamBoxcar"
-                  fontSize={30}
-                  label="Follow"
-                  onClick={() => followArtist(artistInfo.wallet_id)}
-                />
-              )}
+              <div className="mr-[11px] lg:mr-[24px]">
+                <MenuSocialShare type="ellipse" address={artistInfo?.wallet_id} vote={true} onClick={() => {}} />
+              </div>
+              <div>
+                {follow ? (
+                  <NegativeButton
+                    width={146}
+                    height={53}
+                    fontFamily="KCDurhamBoxcar"
+                    fontSize={30}
+                    label="Following"
+                    onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                  />
+                ) : (
+                  <PositiveButton
+                    width={146}
+                    height={53}
+                    fontFamily="KCDurhamBoxcar"
+                    fontSize={30}
+                    label="Follow"
+                    onClick={() => followArtist(artistInfo.wallet_id)}
+                  />
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -310,26 +316,31 @@ const MainSection = prop => {
             name={artistInfo.username}
           />
           {!isOwn && (
-            <div className="mt-10">
-              {follow ? (
-                <NegativeButton
-                  width={80}
-                  height={29}
-                  fontFamily="KCDurhamBoxcar"
-                  fontSize={18}
-                  label="Following"
-                  onClick={() => unfollowArtist(artistInfo.wallet_id)}
-                />
-              ) : (
-                <PositiveButton
-                  width={80}
-                  height={29}
-                  fontFamily="KCDurhamBoxcar"
-                  fontSize={18}
-                  label="Follow"
-                  onClick={() => followArtist(artistInfo.wallet_id)}
-                />
-              )}
+            <div className="mt-10 flex">
+              <div className="mr-[11px] lg:mr-[24px]">
+                <MenuSocialShare type="ellipse" address={artistInfo?.wallet_id} vote={true} onClick={() => {}} />
+              </div>
+              <div>
+                {follow ? (
+                  <NegativeButton
+                    width={80}
+                    height={29}
+                    fontFamily="KCDurhamBoxcar"
+                    fontSize={18}
+                    label="Following"
+                    onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                  />
+                ) : (
+                  <PositiveButton
+                    width={80}
+                    height={29}
+                    fontFamily="KCDurhamBoxcar"
+                    fontSize={18}
+                    label="Follow"
+                    onClick={() => followArtist(artistInfo.wallet_id)}
+                  />
+                )}
+              </div>
             </div>
           )}
         </div>
