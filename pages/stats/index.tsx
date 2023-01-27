@@ -26,12 +26,14 @@ import TabList from 'assets/json/stats/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
+import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 
 const Stats = () => {
   const viewport = useViewport()
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
+  const [previewMode, setPreviewMode] = useState(true)
 
   useEffect(() => {
     let array: any[] = []
@@ -79,6 +81,7 @@ const Stats = () => {
           </div>
         </div>
       </div>
+      <StatsPreviewModal open={previewMode} close={() => setPreviewMode(false)} />
     </div>
   )
 }

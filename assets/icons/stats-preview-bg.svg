@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1005.75" height="278" viewBox="0 0 1005.75 278">
+  <defs>
+    <filter id="Shape" x="0" y="18.531" width="1005.75" height="186.871" filterUnits="userSpaceOnUse">
+      <feOffset dx="1.251" dy="7.902" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="7.5" result="blur"/>
+      <feFlood flood-color="#95dbd5"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_52740" data-name="Group 52740" transform="translate(21.297 0.5)">
+    <g id="Group_52738" data-name="Group 52738" transform="translate(0)">
+      <g id="Group_52737" data-name="Group 52737">
+        <g id="Group_52736" data-name="Group 52736">
+          <g id="Group_52734" data-name="Group 52734" transform="translate(0 35)">
+            <g id="Group_52732" data-name="Group 52732" transform="translate(0 137)">
+              <path id="Line_Copy_2" data-name="Line Copy 2" d="M0,.5H960" transform="translate(0 104.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.55"/>
+              <path id="Line_Copy_3" data-name="Line Copy 3" d="M0,.5H960" transform="translate(0 69.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.55"/>
+              <path id="Line_Copy_4" data-name="Line Copy 4" d="M0,.5H960" transform="translate(0 34.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.6"/>
+              <path id="Line_Copy_5" data-name="Line Copy 5" d="M0,.5H960" transform="translate(0 -0.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.6"/>
+            </g>
+            <g id="Group_52733" data-name="Group 52733">
+              <path id="Line_Copy_2-2" data-name="Line Copy 2" d="M0,.5H960" transform="translate(0 104.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.55"/>
+              <path id="Line_Copy_3-2" data-name="Line Copy 3" d="M0,.5H960" transform="translate(0 69.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.55"/>
+              <path id="Line_Copy_4-2" data-name="Line Copy 4" d="M0,.5H960" transform="translate(0 34.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.6"/>
+              <path id="Line_Copy_5-2" data-name="Line Copy 5" d="M0,.5H960" transform="translate(0 -0.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.6"/>
+            </g>
+          </g>
+          <path id="Line_Copy_5-3" data-name="Line Copy 5" d="M0,.5H960" transform="translate(0 -0.5)" fill="none" stroke="#eff0f6" stroke-linecap="square" stroke-miterlimit="10" stroke-width="1" stroke-dasharray="1 6" opacity="0.6"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Shape)">
+    <path id="Shape-2" data-name="Shape" d="M443,691s20.433-.5,32.98-23c0,0,8.962-9,21.509,1,0,0,10.754,7.5,24.376,4,0,0,7.17,0,16.49,9,0,0,20.792,16,39.432,4,0,0,12.188-6,22.942,1,0,0,23.3,31.5,26.527-41,0,0,5.377-37,32.98-11a34.667,34.667,0,0,0,27.961,2s8.962-4,16.49-8c0,0,9.32-4,17.207,6,0,0,9.679,11.5,17.924-14,0,0,1.434-14.25,30.829-8,0,0,15.952,2.25,22.943,6,0,0,12.547,5,20.075,11A30.285,30.285,0,0,0,828,634s4.481-1,11.471,7c0,0,41.046,58.75,60.941-30,0,0,5.556-22.25,19.358-14,0,0,7.886,9.25,18.641-6,0,0,1.649-2.3,10.754-14,0,0,8.424-5.5,10.754,9,0,0,11.292,109.75,13.622,113,0,0,.717,9.75,10.754-3,0,0,10.4-12.75,18.641,0,0,0,13.98,45,22.225-8,0,0,12.009-46,27.244-53,0,0,8.066-5,12.905,10,0,0,8.962,48.75,23.66,7a25.287,25.287,0,0,1,27.244-13s6.273-2.75,10.754,18c0,0,6.632,23.75,7.886,30,0,0,1.972,10.75,15.773-4,0,0,23.3-21,27.244-23,0,0,15.415-2.75,17.207-4,0,0,6.273-2.5,12.905-21,0,0,3.406-16.5,19.358-21,0,0,13.622-3,21.509,1,0,0,7.349,7.75,27.961-1,0,0,11.471-6.75,18.641,25,0,0,4.122,20.25,24.376,40,0,0,16.849,38.75,50.9,32,0,0,7.17.25,15.056-6,0,0,9.858-14.75,17.207-12" transform="translate(-421.7 -540.82)" fill="none" stroke="#95dbd5" stroke-width="4"/>
+  </g>
+</svg>
