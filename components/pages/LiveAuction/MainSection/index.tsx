@@ -787,7 +787,7 @@ const MainSection = props => {
       <ModalPlaceBid
         balance={mainBalance}
         nftName={nftName}
-        nftUrl={nftUrl}
+        nftUrl={nftType === 'image' ? nftUrl : nftCoverUrl}
         currentPrice={nftCurrentPrice}
         reservePrice={nftReservePrice}
         placeBid={placeBidAndSave}
