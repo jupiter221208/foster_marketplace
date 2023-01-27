@@ -1,11 +1,42 @@
-import type { AuctionHouse } from '@metaplex-foundation/js'
-import { Metaplex, sol, toAuctioneerAccount, toAuctionHouseAccount, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
+import bs58 from 'bs58'
+import {
+  AccountInfo,
+  ParsedAccountData,
+  PublicKey,
+  Transaction,
+  sendAndConfirmRawTransaction,
+} from '@solana/web3.js'
+import { unpackAccount, getAssociatedTokenAddressSync } from '@solana/spl-token'
+import {
+  WRAPPED_SOL_MINT,
+  Metaplex,
+  sol,
+  TokenGpaBuilder,
+  GmaBuilder,
+  isKeypairSigner,
+  toAuctioneerAccount,
+  toAuctionHouseAccount,
+  toBidReceiptAccount,
+  toLazyBid,
+  toMetadata,
+  toMetadataAccount,
+  toToken,
+  toTokenAccount,
+  type AuctionHouse,
+  type Listing,
+  type LazyListing,
+  type LazyBid,
+  type Metadata,
+  type NftWithToken,
+  type TransactionBuilder,
+} from '@metaplex-foundation/js'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
-import { AccountInfo, ParsedAccountData, PublicKey, Transaction } from '@solana/web3.js'
 import { getNFTOwner } from './nfts.utils'
 
 export const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY ?? 0)
 const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
+
+export type LazyBidWithAsset = LazyBid & { asset: Metadata }
 
 const LISTING_RECEIPT_SIZE =
   8 + //key
@@ -33,34 +64,6 @@ const ListingReceiptPosition = {
   Metadata: 8 + 32 + 32 + 32 + 32,
 }
 
-const BID_RECEIPT_SIZE =
-  8 + //key
-  32 + // trade_state
-  32 + // bookkeeper
-  32 + // auction_house
-  32 + // buyer
-  32 + // metadata
-  1 +
-  32 + // token_account
-  1 +
-  32 + // purchase_receipt
-  8 + // price
-  8 + // token_size
-  1 + // bump
-  1 + // trade_state_bump
-  8 + // created_at
-  1 +
-  8 // canceled_at
-
-const BidReceiptPosition = {
-  Key: 0,
-  TradeState: 8,
-  BookKeeper: 8 + 32,
-  AuctionHouse: 8 + 32 + 32,
-  Buyer: 8 + 32 + 32 + 32,
-  Metadata: 8 + 32 + 32 + 32 + 32,
-}
-
 const listingFilters: any = [
   {
     memcmp: {
@@ -71,19 +74,6 @@ const listingFilters: any = [
 
   {
     dataSize: LISTING_RECEIPT_SIZE,
-  },
-]
-
-const bidFilters: any = [
-  {
-    memcmp: {
-      offset: BidReceiptPosition.AuctionHouse,
-      bytes: AUCTION_HOUSE_PUBLIC_KEY.toBase58(),
-    },
-  },
-
-  {
-    dataSize: BID_RECEIPT_SIZE,
   },
 ]
 
@@ -141,9 +131,12 @@ export async function listNFT(mx: Metaplex, nftAddress: PublicKey, price: number
 }
 
 export async function getProgramAccounts(mx: Metaplex, filters: any) {
-  const accounts = await mx.connection.getParsedProgramAccounts(new PublicKey(AUCTION_HOUSE_ADDRESS), {
-    filters: filters,
-  })
+  const accounts = await mx.connection.getParsedProgramAccounts(
+    new PublicKey(AUCTION_HOUSE_ADDRESS),
+    {
+      filters: filters,
+    }
+  )
 
   return accounts
 }
@@ -225,7 +218,12 @@ export async function cancelList(mx: Metaplex, tradeStateAddress: PublicKey) {
   return false
 }
 
-export async function updateList(mx: Metaplex, nftAddress: PublicKey, tradeStateAddress: PublicKey, price: number) {
+export async function updateList(
+  mx: Metaplex,
+  nftAddress: PublicKey,
+  tradeStateAddress: PublicKey,
+  price: number
+) {
   try {
     const isCanceled = await cancelList(mx, tradeStateAddress)
     const isListed = await listNFT(mx, nftAddress, price)
@@ -236,7 +234,12 @@ export async function updateList(mx: Metaplex, nftAddress: PublicKey, tradeState
   return false
 }
 
-export async function buyNFT(mx: Metaplex, mintAddress: string, tradeStateAddress: string, price: number) {
+export async function buyNFT(
+  mx: Metaplex,
+  mintAddress: string,
+  tradeStateAddress: string,
+  price: number
+) {
   const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
   try {
@@ -289,74 +292,114 @@ export async function offerNFT(mx: Metaplex, id: string, price: number) {
   return false
 }
 
-export async function getOffersFromAccounts(
-  mx: Metaplex,
-  accounts: {
-    pubkey: PublicKey
-    account: AccountInfo<Buffer | ParsedAccountData>
-  }[]
-) {
-  const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
+export async function getMyBids(mx: Metaplex): Promise<LazyBidWithAsset[]> {
+  let auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
+  let bids = (await mx.auctionHouse().findBids({
+    auctionHouse,
+    buyer: mx.identity().publicKey,
+  })) as LazyBid[]
+  bids = bids.filter(({ purchaseReceiptAddress }) => purchaseReceiptAddress === null)
 
-  const bids = []
-
-  const listedNFTs = await getListedNFTs(mx)
-
-  for (let i = 0; i < accounts.length; i++) {
-    const tradeState = new PublicKey(
-      /*@ts-ignore*/
-      accounts[i].account.data.slice(BidReceiptPosition.TradeState, BidReceiptPosition.BookKeeper)
-    )
-
-    try {
-      const bid = await mx
-        .auctionHouse()
-        .findBidByTradeState({ auctionHouse, tradeStateAddress: new PublicKey(tradeState) })
-
-      let isListed = false
-      let listingTradeStateAddress = null
-      const myListedNFTs = listedNFTs.filter(
-        nft => nft.asset.mint.address.toString() === bid.asset.mint.address.toString()
-      )
-      if (myListedNFTs.length > 0) {
-        isListed = true
-        listingTradeStateAddress = myListedNFTs[0].tradeStateAddress
-      }
-      const owner = await getNFTOwner(mx, bid.asset.mint.address.toString())
-      const buyer = bid.buyerAddress.toBase58()
-      const isIncoming = owner === mx.identity().publicKey.toBase58()
-      const isOutgoing = buyer === mx.identity().publicKey.toBase58()
-
-      if ((isIncoming || isOutgoing) && bid.purchaseReceiptAddress == null && bid.canceledAt == null) {
-        bids.push({
-          ...bid,
-          owner,
-          buyer,
-          isIncoming,
-          isOutgoing,
-          isListed,
-          listingTradeStateAddress,
-        })
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  /*@ts-ignore*/
-  bids.sort((bid1, bid2) => (bid1.createdAt.toNumber() < bid2.createdAt.toNumber() ? 1 : -1))
-
-  return bids
+  return populateLazyBidsWithAssets(mx, bids)
 }
 
-export async function getMyOffers(mx: Metaplex) {
-  try {
-    const accounts = await getProgramAccounts(mx, bidFilters)
-    const bids = await getOffersFromAccounts(mx, accounts)
-    return bids
-  } catch (error) {
-    console.log(error)
-  }
+export async function populateLazyBidsWithAssets(
+  mx: Metaplex,
+  bids: LazyBid[]
+): Promise<LazyBidWithAsset[]> {
+  let metadatas: (Metadata | null)[] = await new GmaBuilder(
+    mx,
+    bids.map(({ metadataAddress }) => metadataAddress)
+  ).getAndMap(account => (account.exists ? toMetadata(toMetadataAccount(account)) : null))
+
+  return bids
+    .map((bid, index) => {
+      if (metadatas[index]) {
+        let bidWithAsset = bid as LazyBidWithAsset
+        bidWithAsset.asset = metadatas[index]
+        return bidWithAsset
+      } else {
+        console.warn(
+          `could not load metadata for bid ${bid.receiptAddress}: ${bid.metadataAddress}`
+        )
+        return null
+      }
+    })
+    .filter(bid => bid != null)
+    .sort((a, b) => a.createdAt.toNumber() - b.createdAt.toNumber())
+}
+
+export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]> {
+  let auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
+
+  let tokenAccounts = await new TokenGpaBuilder(mx)
+    .whereOwner(mx.identity().publicKey)
+    .whereAmount(1)
+    .where(108, Buffer.from([1])) // state is initialized, not frozen
+    .getAndMap(account =>
+      unpackAccount(account.publicKey, {
+        ...account,
+        lamports: parseInt(account.lamports.basisPoints.toString()),
+      })
+    )
+
+  const bidReceiptDiscriminator = [186, 150, 141, 135, 59, 122, 39, 99]
+  let batchRequest = tokenAccounts.map(({ mint }, index) => ({
+    jsonrpc: '2.0',
+    id: index,
+    method: 'getProgramAccounts',
+    params: [
+      AUCTION_HOUSE_ADDRESS.toBase58(),
+      {
+        encoding: 'base64',
+        filters: [
+          {
+            memcmp: {
+              offset: 0,
+              bytes: bs58.encode(bidReceiptDiscriminator),
+            },
+          },
+          {
+            memcmp: {
+              offset: 72,
+              bytes: auctionHouse.address.toBase58(),
+            },
+          },
+          {
+            memcmp: {
+              offset: 136,
+              bytes: mx.nfts().pdas().metadata({ mint }).toBase58(),
+            },
+          },
+        ],
+      },
+    ],
+  }))
+
+  let batchResponse = await fetch(mx.connection.rpcEndpoint, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(batchRequest),
+  }).then(r => r.json())
+
+  let bids = batchResponse
+    .flatMap(({ result }) => result)
+    .map(({ pubkey, account: { data, executable, owner, lamports } }) =>
+      toLazyBid(
+        toBidReceiptAccount({
+          publicKey: new PublicKey(pubkey),
+          executable,
+          owner: new PublicKey(owner),
+          data: Buffer.from(data[0], 'base64'),
+          lamports: sol(lamports),
+        }),
+        auctionHouse
+      )
+    )
+
+  return populateLazyBidsWithAssets(mx, bids)
 }
 
 export async function cancelOffer(mx: Metaplex, tradeStateAddress: PublicKey) {
@@ -375,46 +418,111 @@ export async function cancelOffer(mx: Metaplex, tradeStateAddress: PublicKey) {
   return false
 }
 
-export async function acceptOffer(mx: Metaplex, tradeStateAddress: PublicKey, listingTradeStateAddress: PublicKey) {
-  const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
-
+export async function acceptOffer(mx: Metaplex, bid: LazyBid): Promise<boolean> {
   try {
-    const bid = await mx.auctionHouse().findBidByTradeState({ auctionHouse, tradeStateAddress })
+    const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
-    let listing = null
-    let isListingCanceled = false
+    let listings = (await mx
+      .auctionHouse()
+      .findListings({
+        auctionHouse,
+        seller: mx.identity().publicKey,
+        metadata: bid.metadataAddress,
+      })) as LazyListing[]
+    let activeListings: Listing[] = await Promise.all(
+      listings
+        .filter(
+          ({ canceledAt, purchaseReceiptAddress }) =>
+            canceledAt === null && purchaseReceiptAddress === null
+        )
+        .map(lazyListing => mx.auctionHouse().loadListing({ lazyListing }))
+    )
 
-    if (listingTradeStateAddress) {
-      listing = await mx
-        .auctionHouse()
-        .findListingByTradeState({ auctionHouse, tradeStateAddress: listingTradeStateAddress })
-      if (bid.price.basisPoints.toNumber() < listing.price.basisPoints.toNumber()) {
-        const result = await mx.auctionHouse().cancelListing({ auctionHouse, listing })
+    let matchinglisting: Listing | null = null
+    // cancel all active listings
+    let operations: TransactionBuilder[] = []
+    for (let listing of activeListings)
+      if (
+        matchinglisting === null &&
+        bid.price.currency.symbol === listing.price.currency.symbol &&
+        bid.price.basisPoints.eq(listing.price.basisPoints)
+      )
+        matchinglisting = listing
+      else
+        operations.push(
+          mx
+            .auctionHouse()
+            .builders()
+            .cancelListing({
+              auctionHouse,
+              listing,
+            })
+        )
 
-        if (result) isListingCanceled = true
-      }
+    let loadedBid = await mx
+      .auctionHouse()
+      .loadBid({
+        lazyBid: bid,
+        loadJsonMetadata: false,
+      });
+
+    let [sellerToken] = await new TokenGpaBuilder(mx)
+      .whereMint(loadedBid.asset.mint.address)
+      .whereAmount(1)
+      .getAndMap(account => toToken(toTokenAccount(account)))
+
+    console.log({loadedBid, sellerToken, operations})
+
+    // if matching listing exists, execute sale
+    if (matchinglisting) {
+      operations.push(
+        mx
+          .auctionHouse()
+          .builders()
+          .executeSale({
+            auctionHouse,
+            bid: loadedBid,
+            listing: matchinglisting,
+          })
+      )
     }
+    // else, list and sell nft
+    else
+      operations.push(
+        await mx
+          .auctionHouse()
+          .builders()
+          .sell({
+            auctionHouse,
+            sellerToken,
+            bid: loadedBid,
+          })
+      )
 
-    if (!listingTradeStateAddress || isListingCanceled) {
-      const { listing: newListing } = await mx
-        .auctionHouse()
-        .list({
-          auctionHouse,
-          mintAccount: bid.asset.address,
-          price: bid.price,
-        })
-      listing = newListing
-    }
-
-    const tx = await mx.auctionHouse().executeSale({ auctionHouse, bid, listing })
-
-    console.log(tx)
+    let blockhashWithExpiryBlockHeight = await mx.connection.getLatestBlockhash()
+    let txs = await mx.identity().signAllTransactions(
+      operations.map(operation => {
+        let tx = operation.toTransaction(blockhashWithExpiryBlockHeight)
+        for (let signer of operation.getSigners())
+          if (isKeypairSigner(signer))
+            tx.partialSign(signer)
+        return tx
+      })
+    )
+    await Promise.all(
+      txs.map(tx =>
+        sendAndConfirmRawTransaction(
+          mx.connection,
+          tx.serialize({ requireAllSignatures: false })
+        )
+      )
+    )
 
     return true
-  } catch (error) {
-    console.log(error)
+  } catch (e) {
+    console.error(e)
+    return false
   }
-  return false
 }
 
 export async function getEscrowPaymentAccount(publicKey: PublicKey) {
@@ -423,17 +531,6 @@ export async function getEscrowPaymentAccount(publicKey: PublicKey) {
       Buffer.from('auction_house'),
       AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       publicKey.toBuffer()
-    ],
-    new PublicKey(AUCTION_HOUSE_ADDRESS)
-  )
-}
-
-export async function getFeePayer() {
-  return await PublicKey.findProgramAddress(
-    [
-      Buffer.from('auction_house'),
-      AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
-      Buffer.from('fee_payer')
     ],
     new PublicKey(AUCTION_HOUSE_ADDRESS)
   )

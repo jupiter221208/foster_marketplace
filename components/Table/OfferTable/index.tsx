@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+
+// web3
+import { type PublicKey } from '@solana/web3.js'
+import { type JsonMetadata } from '@metaplex-foundation/js'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { type LazyBidWithAsset } from 'utils/auction.util'
+import { getNFTOwner } from 'utils/nfts.utils'
 
 // components
 import GradientButton from 'components/Button/GradientButton'
@@ -17,10 +24,96 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 
-const OfferTable = props => {
-  const { data, onCancel, onAccept, offerType } = props
-  const viewport = useViewport()
+export interface OfferTableProps {
+  data: LazyBidWithAsset[]
+  onAccept: (listing: LazyBidWithAsset) => any
+  onCancel: (listing: LazyBidWithAsset) => any
+  offerType: 'made' | 'received'
+}
 
+type OfferTableRowProps = Omit<OfferTableProps, 'data'> & { listing: OfferTableProps['data'][number] }
+
+const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRowProps) => {
+  const viewport = useViewport()
+  const { metaplex } = useMetaplex()
+
+  const [ownerOrBuyerAddress, setOwnerOrBuyerAddress] = useState<PublicKey | null>(null)
+  useEffect(() => {
+    if (offerType === 'made') getNFTOwner(metaplex, listing.asset.mintAddress).then(setOwnerOrBuyerAddress)
+    else setOwnerOrBuyerAddress(listing.buyerAddress)
+  }, [offerType, metaplex, listing])
+
+  const [assetImageUrl, setAssetImageUrl] = useState<string>('')
+  useEffect(() => {
+    if (listing.asset.json?.image) return
+    // TODO: use loading image as placeholder
+    setAssetImageUrl('')
+
+    fetch(listing.asset.uri)
+      .then(e => e.json())
+      .then(({ image }) => setAssetImageUrl(image))
+      .catch(e => {
+        console.error(e)
+        // TODO: use error image
+        setAssetImageUrl('')
+      })
+  }, [listing.asset])
+
+  return (
+    <>
+      <td className="h-[90px] flex justify-start items-center gap-[25px]">
+        <div className="ml-[10px]">
+          <Image
+            src={assetImageUrl}
+            alt=""
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
+            className="rounded-[15px]"
+          />
+        </div>
+        <div className="block">
+          <div className="flex justify-center">{listing.asset.name}</div>
+        </div>
+      </td>
+      <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>
+      <td className="text-center">
+        <div className="flex justify-center gap-[5px]">
+          <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+          {getPriceValue(listing.price.basisPoints.toNumber())}
+        </div>
+      </td>
+      <td className="text-center">{ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}</td>
+      <td className="">
+        <div className="w-full flex justify-center">
+          {offerType === 'made' ? (
+            <OutlineButton
+              label="Cancel"
+              onClick={() => onCancel(listing)}
+              background="transparent"
+              color="#95DBD5"
+              borderColor="#95DBD5"
+              width="138px"
+              height="48px"
+            />
+          ) : (
+            <GradientButton
+              label="Accept"
+              onClick={() => onAccept(listing)}
+              gradientDirection="right"
+              backgroundColor01="#172120"
+              backgroundColor02="#2C5E5A"
+              color="#95DBD5"
+              width="138px"
+              height="48px"
+            />
+          )}
+        </div>
+      </td>
+    </>
+  )
+}
+
+const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) => {
   return (
     <table id="ActivityTable" className="w-full table-auto">
       <thead>
@@ -32,76 +125,14 @@ const OfferTable = props => {
           {/* <th>Listing</th> */}
           <th className="w-[20%]">Time</th>
           <th className="w-[20%]">Amount</th>
-          <th className="w-[20%]">{offerType === 'Made' ? 'Buyer' : 'Seller'}</th>
+          <th className="w-[20%]">{offerType === 'made' ? 'Seller' : 'Buyer'}</th>
           <th className="w-[15%]">Action</th>
         </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => (
+        {data.map((listing, index) => (
           <tr key={index}>
-            <td className="h-[90px] flex justify-start items-center gap-[25px]">
-              <div className="ml-[10px]">
-                <Image
-                  src={item.asset.json.image}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  className="rounded-[15px]"
-                />
-              </div>
-              <div className="block">
-                <div className="flex justify-center">{item.asset.json.name}</div>
-                {/* <div className="flex justify-center">{getShortAddress(item.asset.mint.address.toString())}</div> */}
-              </div>
-            </td>
-            {/* {item.isOutgoing ? <td className="text-center">Outgoing</td> : <td className="text-center">Incoming</td>} */}
-            {/* {item.isListed ? <td className="text-center">Listed</td> : <td className="text-center">Unlisted</td>} */}
-            <td className="text-center">{timeSince(item.createdAt.toNumber())}</td>
-            <td className="text-center">
-              <div className="flex justify-center gap-[5px]">
-                <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                {getPriceValue(item.price.basisPoints.toNumber())}
-              </div>
-            </td>
-            {offerType === 'Made' ? (
-              <td className="text-center">{getShortAddress(item.owner)}</td>
-            ) : (
-              <td className="text-center">{getShortAddress(item.buyer)}</td>
-            )}
-            <td className="">
-              <div className="w-full flex justify-center">
-                {item.isOutgoing ? (
-                  <OutlineButton
-                    label="Cancel"
-                    onClick={() => onCancel(item.tradeStateAddress)}
-                    background="transparent"
-                    color="#95DBD5"
-                    borderColor="#95DBD5"
-                    width="138px"
-                    height="48px"
-                  />
-                ) : (
-                  <GradientButton
-                    label="Accept"
-                    onClick={() =>
-                      onAccept(
-                        item.asset.mint.address.toString(),
-                        item.tradeStateAddress,
-                        item.listingTradeStateAddress,
-                        item.buyer,
-                        getPriceValue(item.price.basisPoints.toNumber())
-                      )
-                    }
-                    gradientDirection="right"
-                    backgroundColor01="#172120"
-                    backgroundColor02="#2C5E5A"
-                    color="#95DBD5"
-                    width="138px"
-                    height="48px"
-                  />
-                )}
-              </div>
-            </td>
+            <OfferTableRow listing={listing} onAccept={onAccept} onCancel={onCancel} offerType={offerType} />
           </tr>
         ))}
       </tbody>
