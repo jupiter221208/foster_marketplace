@@ -34,7 +34,8 @@ const MakeAnOfferModal = props => {
 
   const onChangeOfferValue = value => {
     setMinimumOffer(value)
-    setNewMainBalance(mainWalletBalance - value)
+    let newMainWalletBalance = mainWalletBalance - value
+    setNewMainBalance(newMainWalletBalance)
     let newBiddingValue = parseFloat(biddingWalletBalance) + parseFloat(value)
     setNewBiddingBalance(newBiddingValue)
     setErrorMessage('')
@@ -57,7 +58,9 @@ const MakeAnOfferModal = props => {
     }
 
     if (value > listingPrice) {
-      setErrorMessage('<div>Offer must be lower than the listing price.</div>')
+      if (newMainWalletBalance <= 0)
+        setErrorMessage('<div>Not enough balance in wallet. Offer must be lower than the listing price.</div>')
+      else setErrorMessage('<div>Offer must be lower than the listing price.</div>')
       setOfferBtnDisabled(true)
       return
     }
