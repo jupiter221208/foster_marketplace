@@ -238,7 +238,7 @@ const ProfileSection = prop => {
               <div className="w-full ml-[-16px] lg:ml-[24px]">
                 <Input
                   value={igUrl}
-                  placeholder="https://www.instagram.com"
+                  placeholder="Add Instagram Account"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   backgroundColor="#202427"
                   onChange={value => {
@@ -247,7 +247,7 @@ const ProfileSection = prop => {
                 />
               </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex items-center">
+            {/* <div className="mt-[10px] lg:mt-[30px] flex items-center">
               <IconButton
                 icon={
                   viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? DiscordWhiteSmallIcon : DiscordWhiteIcon
@@ -269,7 +269,7 @@ const ProfileSection = prop => {
                   onChange={value => setDiscordUrl(value)}
                 />
               </div>
-            </div>
+            </div> */}
             <div className="mt-[10px] lg:mt-[30px] flex items-center">
               <IconButton
                 icon={
@@ -286,14 +286,14 @@ const ProfileSection = prop => {
               <div className="w-full ml-[-16px] lg:ml-[24px]">
                 <Input
                   value={twitterUrl}
-                  placeholder="https://twitter.com"
+                  placeholder="Add Twitter Account"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   backgroundColor="#202427"
                   onChange={value => setTwitterUrl(value)}
                 />
               </div>
             </div>
-            <div className="mt-[10px] lg:mt-[30px] flex items-center">
+            {/* <div className="mt-[10px] lg:mt-[30px] flex items-center">
               <IconButton
                 icon={
                   viewport === 'xs' || viewport === 'sm' || viewport === 'md'
@@ -318,7 +318,7 @@ const ProfileSection = prop => {
                   onChange={value => setTelegramUrl(value)}
                 />
               </div>
-            </div>
+            </div> */}
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Verification Status</div>
             </div>
