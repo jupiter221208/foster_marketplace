@@ -223,7 +223,7 @@ const StartAuctionModal = props => {
                   />
                 </div>
                 <div className="mt-2 w-full flex gap-2 items-center">
-                  <div className={styles.label}>Minimum bid increment: 0.05 SOL</div>
+                  <div className={styles.label}>Minimum bid increment: 0.1 SOL</div>
                   <Image src={HelpGrayIcon} alt="" />
                 </div>
                 <div className="w-full mt-12">

@@ -14,6 +14,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
+import { formattedAmount } from 'utils/helpers'
 
 const DashboardNFTCard = props => {
   const { image, nftName, coverImage = '', artistName, assetType, price, onClick } = props
@@ -99,7 +100,7 @@ const DashboardNFTCard = props => {
                 width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
                 height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
               />
-              <div className={styles.price}>{price}</div>
+              <div className={styles.price}>{formattedAmount(price)}</div>
             </div>
           )}
         </div>

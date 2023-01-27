@@ -70,3 +70,15 @@ export const countDecimals = value => {
 export const isString = obj => {
   return obj !== undefined && obj !== null && obj.constructor == String
 }
+
+export const formattedAmount = value => {
+  const floatValue = parseFloat(value)
+  if (Math.floor(floatValue) === floatValue) return value
+  let length = value.toString().split('.')[0].length
+  if (length === 0) {
+    value = '0' + value
+  }
+  length = value.toString().split('.')[1].length
+  if (length > 1) return parseFloat(value).toFixed(2)
+  else return value
+}

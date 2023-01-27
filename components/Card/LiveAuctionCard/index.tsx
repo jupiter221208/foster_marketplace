@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
-import { calculateTimeLeft, countDecimals } from 'utils/helpers'
+import { calculateTimeLeft, countDecimals, formattedAmount } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -148,17 +148,11 @@ const LiveAuctionCard = props => {
               <Image
                 src={SolanaLogoIcon}
                 alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 18 : 23}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 18 : 23}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : viewport === 'xl' ? 18 : 23}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : viewport === 'xl' ? 18 : 23}
               />
               <div className={styles.bidCount}>
-                {data.current_bid !== null
-                  ? countDecimals(parseFloat(data.current_bid)) > 1
-                    ? parseFloat(data.current_bid).toFixed(2)
-                    : data.current_bid
-                  : countDecimals(parseFloat(data.reserve_price)) > 1
-                  ? parseFloat(data.reserve_price).toFixed()
-                  : data.reserve_price}
+                {data.current_bid !== null ? formattedAmount(data.current_bid) : formattedAmount(data.reserve_price)}
               </div>
             </div>
           </div>
