@@ -41,12 +41,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
-import {
-  getNFTCategories,
-  getNFTArtistInfo,
-  getNFTTokenAccount,
-  getNFTSocialInfo
-} from 'utils/nfts.utils'
+import { getNFTCategories, getNFTArtistInfo, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 
 // images and icons
@@ -80,12 +75,11 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
 import {
-  type LazyListing,
-
+  LazyListing,
   toLazyListing,
   toListingReceiptAccount,
   toMetadataAccount,
-  GpaBuilder
+  GpaBuilder,
 } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
@@ -100,9 +94,9 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
-export interface MainSectionProps{
-  nftDetail: Sft | Nft;
-  artistInfo: NFTArtistInfo | null;
+export interface MainSectionProps {
+  nftDetail: Sft | Nft
+  artistInfo: NFTArtistInfo | null
 }
 
 const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
@@ -129,9 +123,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     } catch (e) {
       if (artistInfo?.address instanceof String) {
         setIsOwnNft(artistInfo?.address === publicKey?.toBase58())
-      } 
+      }
     }
-    
   }, [artistInfo, publicKey])
 
   const clickRecent = index => {
@@ -206,16 +199,15 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     ])
   }, [])
 
-  const nftType: string = nftDetail.json?.properties?.category as string ??
-    nftDetail.json?.category as string ??
-    'image'
+  const nftType: string =
+    (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
   // TODO: set default links for broken images and assets
   const nftCoverUrl = nftDetail.json?.image ?? ''
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
 
   const nftName = nftDetail.name
   const nftDescription = nftDetail.json?.description ?? ''
-  const nftRoyalties = (nftDetail.sellerFeeBasisPoints/100).toString()
+  const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
 
   const mintAddress = nftDetail.address.toString()
@@ -278,7 +270,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   }
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (!nftDetail) return
 
       setLoading(true)
@@ -288,48 +280,41 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
       setNftOwnerUsername(ownerUsername)
       setNftOwnerAddress(ownerAddress)
 
-      if(tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())){
-        const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231,]
+      if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
+        const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
         let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
           .where(0, Buffer.from(listingConfigDiscriminator))
           .where(8 + 32 * 4, new PublicKey(nftDetail.metadataAddress))
           .where(169, Buffer.from([0])) // purchaseReceipt == null
           .where(196, Buffer.from([0])) // canceledAt == null
-          .getAndMap((account) => toListingReceiptAccount(account))
+          .getAndMap(account => toListingReceiptAccount(account))
 
-        if(openListings.length != 1){
+        if (openListings.length != 1) {
           console.warn(`irregular number of listing recipts for ${nftDetail.address}`)
           console.warn(JSON.parse(JSON.stringify(openListings)))
         }
 
         let listingReceipt = openListings[0]
-        if(listingReceipt){
+        if (listingReceipt) {
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
           let listing = toLazyListing(listingReceipt, auctionHouse)
           let {
             tradeStateAddress,
             price: {
               basisPoints,
-              currency: { decimals }
-            }
+              currency: { decimals },
+            },
           } = listing
-          setNftPrice(parseFloat(basisPoints.toString())/(10 ** decimals))
+          setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
           setListing(listing)
           setTradeStateAddress(tradeStateAddress.toBase58())
         }
       }
 
-      if(nftDetail.collection?.verified){
+      if (nftDetail.collection?.verified) {
         let collectionMint = new PublicKey(nftDetail.collection.address)
         let collectionMetadata = toMetadataAccount(
-          await mx
-            .rpc()
-            .getAccount(
-              mx
-                .nfts()
-                .pdas()
-                .metadata({ mint: collectionMint })
-            )
+          await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
         )
         setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
       }
@@ -446,9 +431,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 </div>
               ) : nftType.includes('video') ? (
                 <div className={styles.videoArea}>
-                  <video controls muted>
-                  </video>
-                    <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
+                  <video controls muted></video>
+                  <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                 </div>
               ) : (
                 <></>
@@ -536,8 +520,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 <div className={styles.title}>{nftName}</div>
               </div>
               <div className="w-full flex flex-wrap mt-4 lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
-                {
-                  artistInfo &&
+                {artistInfo && (
                   <div className="flex gap-1 lg:gap-3">
                     <div className={styles.grayText}>Created by</div>
                     <div
@@ -547,7 +530,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                       {artistInfo.name}
                     </div>
                   </div>
-                }
+                )}
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Fostered by</div>
                   <div
@@ -571,57 +554,62 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
 
-                  {!isOwnNft &&
-                  <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                    {connected ? (
-                      tradeStateAddress ? (
-                        <GradientButton
-                          label={'Quick Buy'}
-                          onClick={() => quickBuy()}
-                          icon={QuickBuyBlackIcon}
-                          direction="rtl"
-                          disabled={!tradeStateAddress}
-                        />
+                  {!isOwnNft && (
+                    <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+                      {connected ? (
+                        tradeStateAddress ? (
+                          <GradientButton
+                            label={'Quick Buy'}
+                            onClick={() => quickBuy()}
+                            icon={QuickBuyBlackIcon}
+                            direction="rtl"
+                            disabled={!tradeStateAddress}
+                          />
+                        ) : (
+                          <LoadingButton />
+                        )
                       ) : (
-                        <LoadingButton />
-                      )
-                    ) : (
-                      <button
-                        className={styles.connectWallet}
-                        onClick={() => {
-                          setVisible(true)
-                        }}
-                      >
-                        <div>Connect Wallet</div>
-                        <Image src={FosterLightGreenIcon} alt="" />
-                      </button>
-                    )}
-                    {connected && (
-                      <OutlineButton
-                        label="Make Offer"
-                        onClick={() => {
-                          setOpenOfferModal(true)
-                        }}
-                        icon={TagWhiteIcon}
-                        direction="rtl"
-                        borderWidth={2}
-                        paddingLeft="13px"
-                        paddingRight="13px"
-                        gap="4px"
-                      />
-                    )}
-                  </div>}
+                        <button
+                          className={styles.connectWallet}
+                          onClick={() => {
+                            setVisible(true)
+                          }}
+                        >
+                          <div>Connect Wallet</div>
+                          <Image src={FosterLightGreenIcon} alt="" />
+                        </button>
+                      )}
+                      {connected && (
+                        <OutlineButton
+                          label="Make Offer"
+                          onClick={() => {
+                            setOpenOfferModal(true)
+                          }}
+                          icon={TagWhiteIcon}
+                          direction="rtl"
+                          borderWidth={2}
+                          paddingLeft="13px"
+                          paddingRight="13px"
+                          gap="4px"
+                        />
+                      )}
+                    </div>
+                  )}
 
                   <div className="w-full flex content-none mt-[14px]">
-                    <p className={styles.whiteDescription}>
-                      By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                      <span
-                        className={styles.greenDiscription}
-                        onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
-                      >
-                        Terms of Service
-                      </span>
-                    </p>
+                    {isOwnNft ? (
+                      <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
+                    ) : (
+                      <p className={styles.whiteDescription}>
+                        By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
+                        <span
+                          className={styles.greenDiscription}
+                          onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
+                        >
+                          Terms of Service
+                        </span>
+                      </p>
+                    )}
                   </div>
                 </>
               )}
