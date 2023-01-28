@@ -55,25 +55,29 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
 
   const collectionId = nftDetail?.collection?.address.toString()
 
-  let nftTitle = nftDetail?.name
+  let nftTitle = `${nftDetail.name} | Foster Marketplace`
   // TODO: add default image url for broken images
-  let nftImageUrl = nftDetail?.json?.image ?? ''
-  let nftDescription = nftDetail?.json?.description
+  let nftImageUrl = nftDetail.json?.image ?? ''
+  let nftDescription =
+    "Solana's first DAO governed NFT marketplace for art and music.\n" +
+    'Create, collect and curate the flavor.\n' +
+    '\n' +
+    (nftDetail.json?.description ?? '')
 
   return (
     <div className="g-container">
       <Head>
-        <title>{`Foster Marketplace - ${nftTitle}`}</title>
-        {nftDescription && <meta property="description" content={nftDescription} />}
+        <title>{nftTitle}</title>
+        <meta property="description" content={nftDescription} />
 
         <meta name="og:title" content={nftTitle} />
-        {nftDescription && <meta property="og:description" content={nftDescription} />}
+        <meta property="og:description" content={nftDescription} />
         {nftType && <meta name="og:type" content={nftType} />}
         <meta name="og:image" content={nftImageUrl} />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content={nftTitle} />
-        {nftDescription && <meta property="twitter:description" content={nftDescription} />}
+        <meta property="twitter:description" content={nftDescription} />
         <meta property="twitter:image" content={nftImageUrl} />
 
         <link rel="icon" href="/logo.svg" />
@@ -86,9 +90,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="z-10">
-          {nftDetail !== null && nftDetail !== undefined && (
-            <MainSection nftDetail={nftDetail} artistInfo={artistInfo} />
-          )}
+          {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} />}
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />
@@ -98,40 +100,31 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   )
 }
 
+export default BrowseNFT
+
+BrowseNFT.getLayout = function getLayout(page) {
+  return <PrimaryLayout>{page}</PrimaryLayout>
+}
+
 BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
   let mintAddress
   try {
     mintAddress = new PublicKey(query.id)
   } catch (e: any) {
-    console.error(`could not parse as public key: ${query.id}: ${e.message}`)
     console.error(e)
-
-    res.redirect('/')
     return {
-      error: e.toString(),
+      error: `could not parse as public key: ${query.id}: ${e.message}`,
     }
   }
 
   try {
-    let nftDetail = await Metaplex.make(new Connection(process.env.PROVIDER_URL)).nfts().findByMint({ mintAddress })
-
-    if (!nftDetail) {
-      console.log(`could not load nft: ${mintAddress}`)
-      res.redirect('/')
-      return {}
-    }
     return {
-      nftDetail,
+      nftDetail: await Metaplex.make(new Connection(process.env.PROVIDER_URL)).nfts().findByMint({ mintAddress }),
     }
   } catch (e: any) {
+    console.error(e)
     return {
-      error: e.toString(),
+      error: `could not load nft: ${query.id}: ${e.message}`,
     }
   }
-}
-
-export default BrowseNFT
-
-BrowseNFT.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
 }
