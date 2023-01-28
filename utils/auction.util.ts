@@ -298,7 +298,10 @@ export async function getMyBids(mx: Metaplex): Promise<LazyBidWithAsset[]> {
     auctionHouse,
     buyer: mx.identity().publicKey,
   })) as LazyBid[]
-  bids = bids.filter(({ purchaseReceiptAddress }) => purchaseReceiptAddress === null)
+  bids = bids.filter(
+    ({ canceledAt, purchaseReceiptAddress }) =>
+      canceledAt === null && purchaseReceiptAddress === null
+  )
 
   return populateLazyBidsWithAssets(mx, bids)
 }
