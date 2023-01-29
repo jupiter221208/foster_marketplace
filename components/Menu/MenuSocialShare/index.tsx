@@ -91,8 +91,8 @@ const MenuSocialShare = props => {
             <Menu.Item>
               {({ active }) => (
                 <TwitterShareButton
-                  url={explorerURL}
-                  title={'Share foster NFT'}
+                  title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
+                  url={`${window?.origin}/browse-nft?id=${id}`}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('twitter')
@@ -110,8 +110,8 @@ const MenuSocialShare = props => {
             <Menu.Item>
               {({ active }) => (
                 <FacebookShareButton
-                  url={explorerURL}
-                  quote={'Share foster NFT'}
+                  quote="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
+                  url={`${window?.origin}/browse-nft?id=${id}`}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('facebook')
@@ -128,8 +128,8 @@ const MenuSocialShare = props => {
             <Menu.Item>
               {({ active }) => (
                 <TelegramShareButton
-                  url={explorerURL}
-                  title={'Share foster NFT'}
+                  title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
+                  url={`${window?.origin}/browse-nft?id=${id}`}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('telegram')
