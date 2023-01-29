@@ -120,16 +120,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const [isOwnNft, setIsOwnNft] = useState(false)
   const [play, setPlay] = useState(false)
 
-  useEffect(() => {
-    try {
-      setIsOwnNft(artistInfo?.address?.toBase58() === publicKey?.toBase58())
-    } catch (e) {
-      if (artistInfo?.address) {
-        setIsOwnNft(artistInfo?.address?.equals(publicKey))
-      }
-    }
-  }, [artistInfo, publicKey])
-
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -279,9 +269,11 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
-      let { username: ownerUsername, wallet_id: ownerAddress } = await usersAPI.get(tokenAccount.owner.toBase58())
+      setIsOwnNft(publicKey?.equals(tokenAccount.owner))
+
+      let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername)
-      setNftOwnerAddress(ownerAddress)
+      setNftOwnerAddress(tokenAccount.owner.toBase58())
 
       if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
