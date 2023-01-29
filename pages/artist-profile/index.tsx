@@ -202,7 +202,7 @@ ArtistProfile.getLayout = function getLayout(page) {
 ArtistProfile.getInitialProps = async function ({ res, query }): Promise<ArtistProfileProps> {
   let artistPublicKey = query.id
   try {
-    let artistData = await fetch(`${process.env.BACKEND_URL}v1/artists/public/${artistPublicKey}`).then(r => r.json())
+    let artistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistPublicKey}/public`).then(r => r.json())
     artistData.artist.profile_picture ||= AvatarImage.src
     artistData.artist.banner_picture ||= HeaderImage.src
 

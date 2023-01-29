@@ -121,7 +121,7 @@ BrowseCollection.getInitialProps = async function ({ query }): Promise<BrowseCol
   let collectionId = query.address
   try {
     return {
-      collectionData: await fetch(`${process.env.BACKEND_URL}v1/collections/public/${collectionId}`).then(r =>
+      collectionData: await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`).then(r =>
         r.json()
       ),
     }
