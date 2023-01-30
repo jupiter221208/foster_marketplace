@@ -154,9 +154,11 @@ const WalletButton = props => {
         setBiddingErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(0)
         setNewBiddingWallet(mainBalance + biddingBalance)
+        setIsBidLocked(true)
       } else {
         setNewMainWallet(mainBalance - biddingPrice)
         setNewBiddingWallet(biddingBalance + biddingPrice)
+        setIsBidLocked(false)
       }
     }
 
@@ -546,7 +548,12 @@ const WalletButton = props => {
               <div className={styles.walletCard}>
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                  onClick={() => setBiddingStatus('deposit')}
+                  onClick={() => {
+                    setBiddingStatus('deposit')
+                    setWalletAmount('')
+                    setBiddingPrice(0)
+                    setBiddingErrorMessage('')
+                  }}
                 >
                   <Image src={biddingStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
                   <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
@@ -555,7 +562,12 @@ const WalletButton = props => {
                 </div>
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer mt-[16px]"
-                  onClick={() => setBiddingStatus('withdraw')}
+                  onClick={() => {
+                    setBiddingStatus('withdraw')
+                    setWalletAmount('')
+                    setBiddingPrice(0)
+                    setBiddingErrorMessage('')
+                  }}
                 >
                   <Image
                     src={biddingStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon}
@@ -578,20 +590,30 @@ const WalletButton = props => {
                 </div> */}
                 <div className="w-full flex justify-between items-center">
                   <div className="">
-                    <div className={styles.subText}>Bidding Wallet Balance Lockup</div>
+                    <div className={styles.subText}>
+                      {biddingStatus === 'deposit' ? 'New Main Wallet Balance' : 'Bidding Wallet Balance Lockup'}
+                    </div>
                   </div>
                   <div className="flex gap-1">
                     <Image src={SolanaLogoIcon} alt="" />
-                    <div className={styles.cardWhiteText}>{bidWalletLock.toFixed(2)}</div>
+                    <div className={styles.cardWhiteText}>
+                      {biddingStatus === 'deposit' ? newMainWallet.toFixed(2) : bidWalletLock.toFixed(2)}
+                    </div>
                   </div>
                 </div>
                 <div className="w-full flex justify-between items-center mt-1">
                   <div className="">
-                    <div className={styles.subText}>Available Bidding Wallet Balance</div>
+                    <div className={styles.subText}>
+                      {biddingStatus === 'deposit' ? 'new Bidding Wallet Balance' : 'Available Bidding Wallet Balance'}
+                    </div>
                   </div>
                   <div className="flex gap-1">
                     <Image src={SolanaLogoIcon} alt="" />
-                    <div className={styles.cardWhiteText}>{(biddingBalance - bidWalletLock).toFixed(2)}</div>
+                    <div className={styles.cardWhiteText}>
+                      {biddingStatus === 'deposit'
+                        ? newBiddingWallet.toFixed(2)
+                        : (biddingBalance - bidWalletLock).toFixed(2)}
+                    </div>
                   </div>
                 </div>
 
@@ -621,7 +643,7 @@ const WalletButton = props => {
                 <div className="w-full mt-1">
                   {isBidLocked ? (
                     <GradientButton
-                      label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                      label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                       fullWidth
                       height="53px"
                       fontSize="18px"
@@ -635,7 +657,7 @@ const WalletButton = props => {
                     />
                   ) : (
                     <GradientButton
-                      label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                      label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
                       fullWidth
                       height="53px"
                       fontSize="18px"
