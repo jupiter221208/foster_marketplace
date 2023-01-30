@@ -410,40 +410,42 @@ const MainSection = prop => {
         )}
       </div>
 
-      <div className="w-full flex justify-center mt-5">
+      <div className="w-full flex justify-center mt-2">
         <div className={styles.statesBack}>
-          <div className="w-full flex justify-between items-center">
-            <div className="flex justify-center items-center">
+          <div className="w-full flex justify-between items-center gap-[5px]">
+            <div className={styles.statsArea}>
               <div className="text-center">
                 <div className="flex justify-center">
                   <div className={styles.nftInfoLabel}>
                     {artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}
                   </div>
                 </div>
-                <div className={styles.nftInfoValue}>NFTS</div>
+                <div className={styles.nftInfoValue}>{artistEnable ? 'NFTS CREATED' : 'NFTS COLLECTED'}</div>
               </div>
             </div>
-            <div className="flex justify-center items-center">
+            <div className={styles.statsArea}>
               <div className="text-center">
                 <div className="flex justify-center">
                   <div className={styles.nftInfoLabel}>
                     {artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}
                   </div>
                 </div>
-                <div className={styles.nftInfoValue}>COLLECTIONS</div>
+                <div className={styles.nftInfoValue}>{artistEnable ? 'COLLECTIONS CREATED' : 'UNIQUE COLLECTIONS'}</div>
               </div>
             </div>
-            <div className="flex justify-center items-center">
+          </div>
+          <div className="w-full flex justify-between items-center gap-[5px] mt-[5px]">
+            <div className={styles.statsArea}>
               <div className="text-center">
                 <div className="flex justify-center">
                   <div className={styles.nftInfoLabel}>
                     {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
                   </div>
                 </div>
-                <div className={styles.nftInfoValue}>{artistEnable ? 'COLLECTORS' : 'SUPPORTED'}</div>
+                <div className={styles.nftInfoValue}>{artistEnable ? 'UNIQUE COLLECTORS' : 'CREATORS SUPPORTED'}</div>
               </div>
             </div>
-            <div className="flex justify-center items-center">
+            <div className={styles.statsArea}>
               <div className="text-center">
                 <div className="flex items-center justify-center">
                   <div className={styles.nftInfoLabel}>
@@ -454,7 +456,7 @@ const MainSection = prop => {
                   </div>
                 </div>
 
-                <div className={styles.nftInfoValue}>{artistEnable ? 'SALES' : 'PURCHASES'}</div>
+                <div className={styles.nftInfoValue}>{artistEnable ? 'SALES VOLUME' : 'PURCHASES VOLUME'}</div>
               </div>
             </div>
           </div>
