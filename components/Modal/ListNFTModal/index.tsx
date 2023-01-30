@@ -129,7 +129,6 @@ const ListNFTModal = props => {
                     <GradientButton
                       disabled={price !== undefined && price > 0 ? false : true}
                       label="List"
-                      color="#202427"
                       fontSize={18}
                       fullWidth
                       backgroundColor01="#306963"

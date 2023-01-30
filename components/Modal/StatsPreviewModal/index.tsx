@@ -59,7 +59,7 @@ const StatsPreviewModal = props => {
                     <div className={styles.close} onClick={() => close()}>
                       <Image src={CloseIcon} alt="" width={30} height={30} />
                     </div>
-                    <div className="w-full h-[507px] mt-[10px] p-[21px]">
+                    <div className="w-full h-[507px] mt-[10px] p-[18px]">
                       <div className={styles.comingSoon}>COMING SOON</div>
                       <div className={styles.title}>House Stats</div>
                       <div className={`${styles.text}`}>
@@ -87,7 +87,7 @@ const StatsPreviewModal = props => {
                         >
                           Turkey Circus DAO
                         </span>{' '}
-                        to get early access..
+                        to get early access.
                       </div>
                     </div>
                   </Dialog.Panel>

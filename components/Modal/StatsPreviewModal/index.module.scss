@@ -30,7 +30,7 @@
 
 .modalBody {
   position: relative;
-  padding: 21px;
+  padding: 18px;
   @media (min-width: 1024px) {
     padding: 35px 25px;
   }
@@ -73,14 +73,15 @@
 }
 
 .text {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
     font-size: 16px;
+    line-height: 24px;
   }
   text-align: start;
-  line-height: 24px;
   color: rgba($text-gray-200-color, 0.9);
 }
 
@@ -142,13 +143,14 @@
 
 .title {
   width: fit-content;
-  margin-top: 18px;
+  margin-top: 15px;
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
   color: $text-gray-200-color;
   @media (min-width: 1024px) {
     font-size: 24px;
+    margin-top: 18px;
   }
 }
 

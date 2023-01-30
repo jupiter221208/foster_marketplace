@@ -188,6 +188,7 @@ const WalletButton = props => {
   const [buttonClicked, setButtonClicked] = useState(false)
 
   const profileInfo = useSelector(state => (state as any).profileInfo)
+  const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const [profileName, setProfileName] = useState('')
   const [profileImage, setProfileImage] = useState('')
 
@@ -241,6 +242,8 @@ const WalletButton = props => {
         dispatch({ type: 'set', profileInfo: response.user })
         setProfileImage(response.user?.profile_picture)
         setProfileName(response.user?.username)
+        dispatch({ type: 'set', bidWalletLock: response.user?.bid_wallet_lock })
+        dispatch({ type: 'set', offerWalletLock: response.user?.offer_wallet_lock })
       },
       error => {
         console.log(error)

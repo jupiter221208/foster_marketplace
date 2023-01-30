@@ -74,21 +74,21 @@ const ReadMoreModal = props => {
                               <Image src={InstagramIcon} alt="" onClick={() => router.push(artistInfo.ig_url)} />
                             </div>
                           )}
-                          {artistInfo.discord_url !== null && (
+                          {/* {artistInfo.discord_url !== null && (
                             <div>
                               <Image src={DiscordIcon} onClick={() => router.push(artistInfo.discord_url)} />
                             </div>
-                          )}
+                          )} */}
                           {artistInfo.twitter_url !== null && (
                             <div>
                               <Image src={TwitterIcon} onClick={() => router.push(artistInfo.twitter_url)} />
                             </div>
                           )}
-                          {artistInfo.telegram_url !== null && (
+                          {/* {artistInfo.telegram_url !== null && (
                             <div>
                               <Image src={TelegramIcon} onClick={() => router.push(artistInfo.telegram_url)} />
                             </div>
-                          )}
+                          )} */}
                         </div>
                       </div>
                       <div className="w-full mt-[30px] lg:mt-[50px]">

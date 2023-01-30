@@ -16,6 +16,8 @@ const initialState = {
   isGetListedNFTs: false,
   fixedPriceNFTs: [],
   liveAuctionNFTs: [],
+  bidWalletLock: 0,
+  offerWalletLock: 0,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
