@@ -36,6 +36,10 @@ const PriceInput = props => {
         paddingRight: paddingRight,
       }}
     >
+      <div className="mx-[8px] flex items-center">
+        <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
+      </div>
+
       <input
         className={styles.inputArea}
         value={value}
@@ -43,7 +47,6 @@ const PriceInput = props => {
         onChange={event => onChange(event.target.value)}
         style={{ fontSize }}
       />
-      <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
     </div>
   )
 }

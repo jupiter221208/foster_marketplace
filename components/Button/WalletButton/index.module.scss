@@ -56,7 +56,7 @@
 }
 
 .menuBlur {
-  width: 264px;
+  width: 478px;
   height: auto;
   position: absolute;
   right: 0;
@@ -85,16 +85,24 @@
 
 .errorMessage {
   font-family: 'Muli-Bold';
-  font-size: 12px;
+  font-size: 14px;
   line-height: 24px;
   letter-spacing: 0;
   color: $brand-06-color;
 }
 
+.priceText {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: rgba($text-gray-200-color, 1);
+}
+
 .grayText {
   font-family: 'Muli-Bold';
   font-size: 12px;
-  line-height: 12px;
+  line-height: 16px;
   letter-spacing: 0;
   color: rgba($text-gray-200-color, 0.48);
 }
@@ -128,9 +136,39 @@
   align-items: center;
 }
 
+.subText {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
+.maxText {
+  position: absolute;
+  right: 10px;
+  padding: 4px;
+  top: 8px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.8);
+  cursor: pointer;
+}
+
+.viewActiveOffer {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 36px;
+  color: $brand-01-color;
+  cursor: pointer;
+}
+
 .cardGrayText {
   font-family: 'Muli-Bold';
-  font-size: 12px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
   color: rgba($text-gray-200-color, 0.8);
@@ -138,7 +176,7 @@
 
 .cardWhiteText {
   font-family: 'Muli-Bold';
-  font-size: 12px;
+  font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
   color: $text-gray-200-color;
@@ -154,9 +192,10 @@
 
 .walletCard {
   width: 100%;
-  border-radius: 8px;
-  border: 1px solid rgba($text-gray-200-color, 0.1);
-  background: linear-gradient(to bottom, rgba($background-dark-color, 100%), rgba($background-black-color, 100%));
+  border-radius: 12px;
+  // border: 1px solid rgba($text-gray-200-color, 0.1);
+  // background: linear-gradient(to bottom, rgba($background-dark-color, 100%), rgba($background-black-color, 100%));
+  background: rgba($background-light-color, 0.05);
   padding: 13px;
 
   display: flex;

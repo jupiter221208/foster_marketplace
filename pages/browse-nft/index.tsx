@@ -45,20 +45,20 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
 
-  const nftType = nftDetail.json?.properties?.category as string
+  const nftType = nftDetail?.json?.properties?.category as string
   const categories = getNFTCategories(nftDetail)
 
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   useEffect(() => {
-    getNFTArtistInfo(nftDetail).then(setArtistInfo)
+    if (nftDetail) getNFTArtistInfo(nftDetail).then(setArtistInfo)
   }, [nftDetail])
 
-  const collectionId = nftDetail.collection?.address.toString()
+  const collectionId = nftDetail?.collection?.address.toString()
 
-  let nftTitle = nftDetail.name
+  let nftTitle = nftDetail?.name
   // TODO: add default image url for broken images
-  let nftImageUrl = nftDetail.json?.image ?? ''
-  let nftDescription = nftDetail.json?.description
+  let nftImageUrl = nftDetail?.json?.image ?? ''
+  let nftDescription = nftDetail?.json?.description
 
   return (
     <div className="g-container">
@@ -120,7 +120,6 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
       res.redirect('/')
       return {}
     }
-
     return {
       nftDetail,
     }

@@ -180,7 +180,7 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {routePath !== '/' && (
+            {!connected && routePath !== '/' && (
               <div className={styles.logoArea} onClick={() => router.push('/')}>
                 <Image src={LogoIcon} alt="" />
               </div>
