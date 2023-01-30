@@ -81,6 +81,8 @@ const WalletButton = props => {
   const [newBiddingWallet, setNewBiddingWallet] = useState(0)
   const [offerErrorMessage, setOfferErrorMessage] = useState('')
   const [biddingErrorMessage, setBiddingErrorMessage] = useState('')
+  const [isOfferLocked, setIsOfferLocked] = useState(false)
+  const [isBidLocked, setIsBidLocked] = useState(false)
 
   const shortOfferAddress = useMemo(
     () => getShortAddress(offerWalletAddress || ('' as unknown as PublicKey)),
@@ -115,13 +117,15 @@ const WalletButton = props => {
     }
 
     if (offerStatus === 'withdraw') {
-      if (offerPrice > offerBalance) {
+      if (offerPrice > offerBalance - offerWalletLock) {
         setOfferErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(mainBalance + offerBalance)
         setNewOfferWallet(0)
+        setIsOfferLocked(true)
       } else {
         setNewMainWallet(mainBalance + offerPrice)
         setNewOfferWallet(offerBalance - offerPrice)
+        setIsOfferLocked(false)
       }
     }
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
@@ -150,13 +154,15 @@ const WalletButton = props => {
     }
 
     if (biddingStatus === 'withdraw') {
-      if (biddingPrice > biddingBalance) {
+      if (biddingPrice > biddingBalance - bidWalletLock) {
         setBiddingErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(mainBalance + biddingBalance)
         setNewBiddingWallet(0)
+        setIsBidLocked(true)
       } else {
         setNewMainWallet(mainBalance + biddingPrice)
         setNewBiddingWallet(biddingBalance - biddingPrice)
+        setIsBidLocked(false)
       }
     }
   }, [mainBalance, biddingBalance, biddingStatus, biddingPrice])
@@ -164,6 +170,7 @@ const WalletButton = props => {
   const { metaplex: mx } = useMetaplex()
 
   const onClickOfferButton = async () => {
+    if (offerPrice === 0) return
     if (offerStatus === 'deposit') {
       await depositOfferFunds(mx, offerPrice)
     } else {
@@ -174,6 +181,7 @@ const WalletButton = props => {
   }
 
   const onClickBiddingButton = async () => {
+    if (biddingPrice === 0) return
     if (biddingStatus === 'deposit') {
       await depositBiddingFunds(mx, biddingPrice)
     } else {
@@ -189,6 +197,7 @@ const WalletButton = props => {
 
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
+  const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
   const [profileName, setProfileName] = useState('')
   const [profileImage, setProfileImage] = useState('')
 
@@ -416,18 +425,33 @@ const WalletButton = props => {
                     paddingLeft="10px"
                     paddingRight="10px"
                   />
-                  <GradientButton
-                    label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                    height="30px"
-                    fontSize="12px"
-                    backgroundColor01="#378287"
-                    backgroundColor02="#1C4144"
-                    color="#EFF0F6"
-                    gradientDirection="bottom"
-                    borderRadius="6px"
-                    borderColor="rgba(255, 255, 255, 0.1)"
-                    onClick={() => onClickOfferButton()}
-                  />
+                  {isOfferLocked && offerStatus === 'withdraw' ? (
+                    <GradientButton
+                      label={'Withdraw'}
+                      height="30px"
+                      fontSize="12px"
+                      backgroundColor01="#1f1287"
+                      backgroundColor02="#1C4144"
+                      color="#EFF0F6"
+                      gradientDirection="bottom"
+                      borderRadius="6px"
+                      borderColor="rgba(255, 255, 255, 0.1)"
+                      onClick={() => {}}
+                    />
+                  ) : (
+                    <GradientButton
+                      label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                      height="30px"
+                      fontSize="12px"
+                      backgroundColor01="#378287"
+                      backgroundColor02="#1C4144"
+                      color="#EFF0F6"
+                      gradientDirection="bottom"
+                      borderRadius="6px"
+                      borderColor="rgba(255, 255, 255, 0.1)"
+                      onClick={() => onClickOfferButton()}
+                    />
+                  )}
                 </div>
                 {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
                 {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
@@ -515,18 +539,34 @@ const WalletButton = props => {
                     paddingLeft="10px"
                     paddingRight="10px"
                   />
-                  <GradientButton
-                    label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                    height="30px"
-                    fontSize="12px"
-                    backgroundColor01="#378287"
-                    backgroundColor02="#1C4144"
-                    color="#EFF0F6"
-                    gradientDirection="bottom"
-                    borderRadius="6px"
-                    borderColor="rgba(255, 255, 255, 0.1)"
-                    onClick={() => onClickBiddingButton()}
-                  />
+
+                  {isBidLocked && biddingStatus === 'withdraw' ? (
+                    <GradientButton
+                      label={'Withdraw'}
+                      height="30px"
+                      fontSize="12px"
+                      backgroundColor01="#178287"
+                      backgroundColor02="#1C4144"
+                      color="#EFF0F6"
+                      gradientDirection="bottom"
+                      borderRadius="6px"
+                      borderColor="rgba(255, 255, 255, 0.1)"
+                      onClick={() => {}}
+                    />
+                  ) : (
+                    <GradientButton
+                      label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                      height="30px"
+                      fontSize="12px"
+                      backgroundColor01="#378287"
+                      backgroundColor02="#1C4144"
+                      color="#EFF0F6"
+                      gradientDirection="bottom"
+                      borderRadius="6px"
+                      borderColor="rgba(255, 255, 255, 0.1)"
+                      onClick={() => onClickBiddingButton()}
+                    />
+                  )}
                 </div>
                 {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
                 {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">

@@ -48,7 +48,7 @@ const ArtistProfile = () => {
   }, [router.query])
 
   const getArtistData = id => {
-    artistsAPI.getArtist(id).then(
+    artistsAPI.getArtistPublic(id).then(
       response => {
         if (isString(response)) return
         let artist = response.artist
@@ -93,7 +93,7 @@ const ArtistProfile = () => {
   }
 
   const getCollectorData = id => {
-    artistsAPI.getCollector(id).then(
+    artistsAPI.getCollectorPublic(id).then(
       response => {
         if (isString(response)) return
         let artist = response.collector

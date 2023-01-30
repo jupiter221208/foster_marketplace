@@ -9,8 +9,20 @@ class Artists {
     })
   }
 
+  getArtistPublic(wallet_id) {
+    return client.get(API_URL + 'v1/artists/' + wallet_id + '/public').then(response => {
+      return response.data
+    })
+  }
+
   getCollector(wallet_id) {
     return client.get(API_URL + 'v1/collectors/' + wallet_id).then(response => {
+      return response.data
+    })
+  }
+
+  getCollectorPublic(wallet_id) {
+    return client.get(API_URL + 'v1/collector/' + wallet_id + '/public').then(response => {
       return response.data
     })
   }

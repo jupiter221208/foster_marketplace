@@ -39,7 +39,7 @@ const BrowseCollection = () => {
 
   useEffect(() => {
     if (address !== undefined) {
-      collectionsAPI.getCollection(address).then(response => {
+      collectionsAPI.getCollectionPublic(address).then(response => {
         if (!isString(response)) setData(response)
         dispatch({ type: 'set', isLoading: false })
       }),
