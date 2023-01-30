@@ -23,6 +23,7 @@ import AvatarImage from 'assets/icons/profile-thumb.svg'
 import BackButton from 'assets/icons/artist-back-icon.svg'
 import SearchButton from 'assets/icons/artist-search-icon.svg'
 import MenuButton from 'assets/icons/artist-menu-icon.svg'
+import LogoIcon from 'assets/icons/logo-light-green.svg'
 
 // json
 import SearchList from 'assets/json/search-list.json'
@@ -177,6 +178,9 @@ const ArtistHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
+            <div className={styles.logoArea} onClick={() => router.push('/')}>
+              <Image src={LogoIcon} alt="" />
+            </div>
             <SearchBox
               value={searchKeyword}
               placeholder="Search by NFT, Collection, or Artist"

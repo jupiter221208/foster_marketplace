@@ -74,3 +74,20 @@
   background-color: rgba($background-light-color, 0.3);
   backdrop-filter: blur(10px);
 }
+
+.logoArea {
+  margin-left: -80px;
+  @media (min-width: 1536px) {
+    margin-left: -110px;
+  }
+  @media (min-width: 1920px) {
+    margin-left: -130px;
+  }
+  width: 80px;
+  min-width: 80px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

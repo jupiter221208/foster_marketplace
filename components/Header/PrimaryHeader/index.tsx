@@ -89,6 +89,7 @@ const PrimaryHeader = () => {
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
   const profileInfo = useSelector(state => (state as any).profileInfo)
+  const routePath = router.pathname
 
   // update profile menu list
   const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
@@ -179,6 +180,11 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
+            {routePath !== '/' && (
+              <div className={styles.logoArea} onClick={() => router.push('/')}>
+                <Image src={LogoIcon} alt="" />
+              </div>
+            )}
             <SearchBox
               value={searchKeyword}
               placeholder="Search by NFT, Collection, or Artist"
