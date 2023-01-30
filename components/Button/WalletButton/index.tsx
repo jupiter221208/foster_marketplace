@@ -251,8 +251,8 @@ const WalletButton = props => {
         dispatch({ type: 'set', profileInfo: response.user })
         setProfileImage(response.user?.profile_picture)
         setProfileName(response.user?.username)
-        dispatch({ type: 'set', bidWalletLock: response.user?.bid_wallet_lock })
-        dispatch({ type: 'set', offerWalletLock: response.user?.offer_wallet_lock })
+        dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+        dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
       },
       error => {
         console.log(error)
@@ -298,17 +298,18 @@ const WalletButton = props => {
             </Menu.Item>
             <div className={styles.divider}></div>
             {/* main wallet part */}
-            <div className="w-full flex justify-between">
-              <div className="block">
+            <div className="w-full ">
+              <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Main wallet</div>
                 <div className="flex items-center gap-1">
                   <Image src={SolanaLogoIcon} alt="" />
                   <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
                 </div>
               </div>
-              <div className="flex flex-wrap">
+
+              <div className="w-full flex justify-between items-center mt-[4px]">
                 <div
-                  className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
+                  className="flex gap-2 items-center cursor-pointer hover:opacity-80"
                   onClick={() => copyToClipboard(publicKey?.toString() || '')}
                 >
                   <Image src={CopyAltLightGreenIcon} alt="" />
@@ -317,7 +318,7 @@ const WalletButton = props => {
                   </div>
                 </div>
                 <div
-                  className="w-full flex justify-end pt-4 cursor-pointer"
+                  className="flex justify-end pt-[6px] cursor-pointer"
                   onClick={() => setShowMainWallet(!showMainWallet)}
                 >
                   <Image src={EllipseGroupWhiteIcon} />
@@ -401,33 +402,47 @@ const WalletButton = props => {
             )}
             {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
               <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                <div className="w-full text-end">
+                {/* <div className="w-full text-end">
                   <div className={styles.greenText}>New main wallet balance</div>
                 </div>
                 <div className="w-full flex justify-end gap-1">
                   <Image src={SolanaLogoIcon} alt="" />
                   <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                </div> */}
+                <div className="w-full flex justify-between itmes-center">
+                  <div className="">
+                    <div className={styles.greenText}>Offer Wallet Balance Lockup</div>
+                  </div>
+                  <div className="flex gap-1">
+                    <Image src={SolanaLogoIcon} alt="" />
+                    <div className={styles.cardWhiteText}>{offerWalletLock?.toFixed(2)}</div>
+                  </div>
                 </div>
-                <div className="w-full text-end">
-                  <div className={styles.greenText}>New offer wallet balance</div>
+
+                <div className="w-full flex justify-between itmes-center">
+                  <div className="">
+                    <div className={styles.greenText}>Available Offer Wallet Balance</div>
+                  </div>
+                  <div className="flex gap-1">
+                    <Image src={SolanaLogoIcon} alt="" />
+                    <div className={styles.cardWhiteText}>{(offerBalance - offerWalletLock).toFixed(2)}</div>
+                  </div>
                 </div>
-                <div className="w-full flex justify-end gap-1">
-                  <Image src={SolanaLogoIcon} alt="" />
-                  <div className={styles.cardWhiteText}>{newOfferWallet.toFixed(2)}</div>
-                </div>
-                <div className="w-full flex justify-between gap-2 mt-1">
-                  <PriceInput
-                    onChange={value => onChangeOfferPrice(value)}
-                    height="30px"
-                    fontSize="12px"
-                    borderColor="rgba(255, 255, 255, 0.1)"
-                    borderRadius="6px"
-                    paddingLeft="10px"
-                    paddingRight="10px"
-                  />
+
+                <PriceInput
+                  onChange={value => onChangeOfferPrice(value)}
+                  height="30px"
+                  fontSize="12px"
+                  borderColor="rgba(255, 255, 255, 0.1)"
+                  borderRadius="6px"
+                  paddingLeft="10px"
+                  paddingRight="10px"
+                />
+                <div className="w-full mt-1">
                   {isOfferLocked && offerStatus === 'withdraw' ? (
                     <GradientButton
                       label={'Withdraw'}
+                      fullWidth
                       height="30px"
                       fontSize="12px"
                       backgroundColor01="#1f1287"
@@ -441,6 +456,7 @@ const WalletButton = props => {
                   ) : (
                     <GradientButton
                       label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                      fullWidth
                       height="30px"
                       fontSize="12px"
                       backgroundColor01="#378287"
@@ -515,19 +531,30 @@ const WalletButton = props => {
             )}
             {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
               <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                <div className="w-full text-end">
+                {/* <div className="w-full text-end">
                   <div className={styles.greenText}>New main wallet balance</div>
                 </div>
                 <div className="w-full flex justify-end gap-1">
                   <Image src={SolanaLogoIcon} alt="" />
                   <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                </div> */}
+                <div className="w-full flex justify-between items-center">
+                  <div className="">
+                    <div className={styles.greenText}>Bidding Wallet Balance Lockup</div>
+                  </div>
+                  <div className="flex gap-1">
+                    <Image src={SolanaLogoIcon} alt="" />
+                    <div className={styles.cardWhiteText}>{bidWalletLock.toFixed(2)}</div>
+                  </div>
                 </div>
-                <div className="w-full text-end">
-                  <div className={styles.greenText}>New bidding wallet balance</div>
-                </div>
-                <div className="w-full flex justify-end gap-1">
-                  <Image src={SolanaLogoIcon} alt="" />
-                  <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
+                <div className="w-full flex justify-between items-center">
+                  <div className="">
+                    <div className={styles.greenText}>Available Bidding Wallet Balance</div>
+                  </div>
+                  <div className="flex gap-1">
+                    <Image src={SolanaLogoIcon} alt="" />
+                    <div className={styles.cardWhiteText}>{(biddingBalance - bidWalletLock).toFixed(2)}</div>
+                  </div>
                 </div>
                 <div className="w-full flex justify-between gap-2 mt-1">
                   <PriceInput

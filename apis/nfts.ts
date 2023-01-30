@@ -80,7 +80,7 @@ class Nfts {
     })
   }
   get(token_id) {
-    return client.get(API_URL + 'v1/nfts/' + token_id).then(response => {
+    return client.get(API_URL + 'v1/nfts/public/' + token_id).then(response => {
       return response.data
     })
   }
