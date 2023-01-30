@@ -366,7 +366,7 @@ const WalletButton = props => {
                 <div className={styles.whiteText}>Offer wallet</div>
                 <div className="flex items-center gap-1">
                   <Image src={SolanaLogoIcon} alt="" />
-                  <div className={styles.grayText}>{offerBalance.toFixed(2)}</div>
+                  <div className={styles.priceText}>{offerBalance.toFixed(2)}</div>
                 </div>
               </div>
               <div className="w-full flex justify-between items-center mt-[8px]">
@@ -523,7 +523,7 @@ const WalletButton = props => {
                 <div className={styles.whiteText}>Bidding wallet</div>
                 <div className="flex items-center gap-1">
                   <Image src={SolanaLogoIcon} alt="" />
-                  <div className={styles.grayText}>{biddingBalance.toFixed(2)}</div>
+                  <div className={styles.priceText}>{biddingBalance.toFixed(2)}</div>
                 </div>
               </div>
               <div className="w-full flex justify-between items-center mt-[8px]">
