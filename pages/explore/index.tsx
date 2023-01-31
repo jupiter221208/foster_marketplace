@@ -354,14 +354,14 @@ const Explore = () => {
               <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
-              <div className="hidden lg:flex max-w-[280px] min-w-[280px] w-full z-20">
+              {/* <div className="hidden lg:flex max-w-[280px] min-w-[280px] w-full z-20">
                 <Select
                   data={sortData}
                   selected={selectedSort}
                   onChange={item => setSelectedSort(item)}
                   maxHeight="none"
                 />
-              </div>
+              </div> */}
             </div>
             <div className="flex lg:hidden w-full justify-between items-center gap-[11px] z-10 my-6">
               <OutlineButton
@@ -377,7 +377,7 @@ const Explore = () => {
                 icon={FilterGrayIcon}
                 direction="rtl"
               />
-              <OutlineButton
+              {/* <OutlineButton
                 label="Sort"
                 onClick={() => setOpenMobileSort(!openMobileSort)}
                 fullWidth
@@ -389,7 +389,7 @@ const Explore = () => {
                 borderRadius={8}
                 icon={SortGrayIcon}
                 direction="rtl"
-              />
+              /> */}
             </div>
             <div className="w-full relative -z-10">
               <div className={styles.topRightEllipse}>
