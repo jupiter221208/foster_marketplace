@@ -382,6 +382,15 @@ const MyWalletSubMenu = props => {
                     <PriceInput
                       value={walletAmount}
                       onChange={value => onChangeOfferPrice(value)}
+                      onMax={() => {
+                        if (offerStatus === 'deposit') {
+                          setWalletAmount(mainBalance)
+                          onChangeOfferPrice(mainBalance)
+                        } else {
+                          setWalletAmount((offerBalance - offerWalletLock).toFixed(2))
+                          onChangeOfferPrice((offerBalance - offerWalletLock).toFixed(2))
+                        }
+                      }}
                       placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                       height="42px"
                       fontSize="12px"
@@ -391,14 +400,6 @@ const MyWalletSubMenu = props => {
                       paddingLeft="10px"
                       paddingRight="10px"
                     />
-                    <div
-                      className={styles.maxText}
-                      onClick={() => {
-                        setWalletAmount((offerBalance - offerWalletLock).toFixed(2))
-                      }}
-                    >
-                      Max
-                    </div>
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
                   <div className="w-full mt-2">
@@ -537,7 +538,16 @@ const MyWalletSubMenu = props => {
                       value={walletAmount}
                       fullWidth
                       onChange={value => onChangeBiddingPrice(value)}
-                      placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
+                      onMax={() => {
+                        if (biddingStatus === 'deposit') {
+                          setWalletAmount(mainBalance)
+                          onChangeBiddingPrice(mainBalance)
+                        } else {
+                          setWalletAmount((biddingBalance - bidWalletLock).toFixed(2))
+                          onChangeBiddingPrice((biddingBalance - bidWalletLock).toFixed(2))
+                        }
+                      }}
+                      placeholder={biddingStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                       height="42px"
                       fontSize="12px"
                       backgroundColor="#242627"
@@ -546,14 +556,6 @@ const MyWalletSubMenu = props => {
                       paddingLeft="10px"
                       paddingRight="10px"
                     />
-                    <div
-                      className={styles.maxText}
-                      onClick={() => {
-                        setWalletAmount((biddingBalance - bidWalletLock).toFixed(2))
-                      }}
-                    >
-                      Max
-                    </div>
                   </div>
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
 
