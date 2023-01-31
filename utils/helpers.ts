@@ -84,6 +84,7 @@ export const formattedAmount = value => {
 }
 
 export const isLoggedIn = () => {
+  if (typeof window === 'undefined') return false
   const jwt_token = localStorage.getItem('token') || ''
   return jwt_token.length > 0
 }

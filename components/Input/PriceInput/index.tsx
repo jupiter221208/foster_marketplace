@@ -24,6 +24,7 @@ const PriceInput = props => {
     borderRadius = '',
     paddingLeft = '',
     paddingRight = '',
+    showMax = false,
   } = props
   return (
     <div
@@ -52,9 +53,11 @@ const PriceInput = props => {
         style={{ fontSize }}
       />
 
-      <div className={styles.maxText} onClick={() => onMax()}>
-        Max
-      </div>
+      {showMax && (
+        <div className={styles.maxText} onClick={() => onMax()}>
+          Max
+        </div>
+      )}
     </div>
   )
 }

@@ -153,7 +153,7 @@ const ListedNFTSection = props => {
   const [alertData, setAlertData] = useState<any[]>([
     {
       id: 0,
-      title: 'Aunction Canceled!',
+      title: 'Auction Canceled!',
       description: `You've successfully canceled the auction for The Glass Banana #6921`,
       type: 'success',
     },
@@ -166,7 +166,7 @@ const ListedNFTSection = props => {
         setAlertData([
           {
             id: 0,
-            title: 'Aunction Canceled!',
+            title: 'Auction Canceled!',
             description: `You've successfully canceled the auction for ${nftName}`,
             type: 'success',
           },

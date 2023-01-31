@@ -89,7 +89,7 @@ const LiveAuctionSection = props => {
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
             </div>
-            <div className="hidden lg:flex z-10">
+            {/* <div className="hidden lg:flex z-10">
               <Button
                 label="Recently Started"
                 onClick={() => handleChangeActive(0)}
@@ -108,7 +108,7 @@ const LiveAuctionSection = props => {
                 color={active === 2 ? '#202427' : '#979EA2'}
                 backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
               />
-            </div>
+            </div> */}
           </div>
           {/* <div className="hidden lg:flex z-10">
             <OutlineButton

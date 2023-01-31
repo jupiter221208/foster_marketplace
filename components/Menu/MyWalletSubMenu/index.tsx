@@ -407,6 +407,7 @@ const MyWalletSubMenu = props => {
                       borderRadius="8px"
                       paddingLeft="10px"
                       paddingRight="10px"
+                      showMax={true}
                     />
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
@@ -576,6 +577,7 @@ const MyWalletSubMenu = props => {
                       borderRadius="8px"
                       paddingLeft="10px"
                       paddingRight="10px"
+                      showMax={true}
                     />
                   </div>
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}

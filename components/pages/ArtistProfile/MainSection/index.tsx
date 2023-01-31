@@ -456,7 +456,7 @@ const MainSection = prop => {
                   </div>
                 </div>
 
-                <div className={styles.nftInfoValue}>{artistEnable ? 'SALES VOLUME' : 'PURCHASES VOLUME'}</div>
+                <div className={styles.nftInfoValue}>{artistEnable ? 'SALES VOLUME' : 'PURCHASE VOLUME'}</div>
               </div>
             </div>
           </div>

@@ -37,6 +37,7 @@ import styles from './index.module.scss'
 // call apis
 import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
+import { isLoggedIn } from 'utils/helpers'
 
 const ArtistHeader = () => {
   const viewport = useViewport()
@@ -178,9 +179,11 @@ const ArtistHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            <div className={styles.logoArea} onClick={() => router.push('/')}>
-              <Image src={LogoIcon} alt="" />
-            </div>
+            {!connected && (
+              <div className={styles.logoArea} onClick={() => router.push('/')}>
+                <Image src={LogoIcon} alt="" />
+              </div>
+            )}
             <SearchBox
               value={searchKeyword}
               placeholder="Search by NFT, Collection, or Artist"

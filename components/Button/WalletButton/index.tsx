@@ -484,6 +484,7 @@ const WalletButton = props => {
                     borderRadius="6px"
                     paddingLeft="10px"
                     paddingRight="10px"
+                    showMax={true}
                   />
                 </div>
                 {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
@@ -654,6 +655,7 @@ const WalletButton = props => {
                     borderRadius="6px"
                     paddingLeft="10px"
                     paddingRight="10px"
+                    showMax={true}
                   />
                 </div>
                 {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
@@ -697,51 +699,6 @@ const WalletButton = props => {
                 >
                   View active bids
                 </div>
-                {/* <div className="w-full flex justify-between gap-2 mt-1">
-                   <PriceInput
-                    value={walletAmount}
-                    onChange={value => onChangeBiddingPrice(value)}
-                    height="50px"
-                    fontSize="16px"
-                    borderColor="rgba(255, 255, 255, 0.2)"
-                    borderRadius="6px"
-                    paddingLeft="10px"
-                    paddingRight="10px"
-                  />
-
-                  {isBidLocked && biddingStatus === 'withdraw' ? (
-                    <GradientButton
-                      label={'Withdraw'}
-                      height="30px"
-                      fontSize="12px"
-                      backgroundColor01="#178287"
-                      backgroundColor02="#1C4144"
-                      color="#EFF0F6"
-                      gradientDirection="bottom"
-                      borderRadius="6px"
-                      borderColor="rgba(255, 255, 255, 0.1)"
-                      onClick={() => {}}
-                    />
-                  ) : (
-                    <GradientButton
-                      label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                      height="30px"
-                      fontSize="12px"
-                      backgroundColor01="#378287"
-                      backgroundColor02="#1C4144"
-                      color="#EFF0F6"
-                      gradientDirection="bottom"
-                      borderRadius="6px"
-                      borderColor="rgba(255, 255, 255, 0.1)"
-                      onClick={() => onClickBiddingButton()}
-                    />
-                  )}
-                </div> */}
-                {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                  <p className={styles.cardGrayText}>
-                    Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
-                  </p>
-                </div> */}
               </div>
             )}
           </div>
