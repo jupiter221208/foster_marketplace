@@ -96,9 +96,10 @@ const WalletButton = props => {
 
   const onChangeOfferPrice = value => {
     setOfferErrorMessage('')
+    console.log(value)
     if (value.length === 0) {
       setOfferPrice(0)
-      setWalletAmount(0)
+      setWalletAmount('')
       return
     }
     let price = parseFloat(value)
@@ -139,7 +140,7 @@ const WalletButton = props => {
     setBiddingErrorMessage('')
     if (value.length === 0) {
       setBiddingPrice(0)
-      setWalletAmount(0)
+      setWalletAmount('')
       return
     }
     let price = parseFloat(value)
@@ -186,6 +187,7 @@ const WalletButton = props => {
       await withdrawOfferFunds(mx, offerPrice)
     }
     setOfferPrice(0)
+    setWalletAmount('')
     await updateSolBalance()
   }
 
@@ -197,6 +199,7 @@ const WalletButton = props => {
       await withdrawBiddingFunds(mx, biddingPrice)
     }
     setBiddingPrice(0)
+    setWalletAmount('')
     await updateSolBalance()
   }
 
@@ -453,14 +456,28 @@ const WalletButton = props => {
                     <div className={styles.cardWhiteText}>
                       {offerStatus === 'deposit'
                         ? newOfferWallet.toFixed(2)
-                        : (offerBalance - offerWalletLock).toFixed(2)}
+                        : (offerBalance - offerWalletLock - offerPrice >= 0
+                            ? offerBalance - offerWalletLock - offerPrice
+                            : 0
+                          ).toFixed(2)}
                     </div>
                   </div>
                 </div>
                 <div className="relative w-full mt-[20px]">
                   <PriceInput
                     value={walletAmount}
-                    onChange={value => onChangeOfferPrice(value)}
+                    onChange={value => {
+                      onChangeOfferPrice(value)
+                    }}
+                    onMax={() => {
+                      if (offerStatus === 'deposit') {
+                        setWalletAmount(newMainWallet)
+                        onChangeOfferPrice(newMainWallet)
+                      } else {
+                        setWalletAmount((offerBalance - offerWalletLock).toFixed(2))
+                        onChangeOfferPrice((offerBalance - offerWalletLock).toFixed(2))
+                      }
+                    }}
                     placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                     height="50px"
                     fontSize="16px"
@@ -469,14 +486,6 @@ const WalletButton = props => {
                     paddingLeft="10px"
                     paddingRight="10px"
                   />
-                  <div
-                    className={styles.maxText}
-                    onClick={() => {
-                      setWalletAmount((offerBalance - offerWalletLock).toFixed(2))
-                    }}
-                  >
-                    Max
-                  </div>
                 </div>
                 {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
                 <div className="w-full mt-1">
@@ -581,13 +590,6 @@ const WalletButton = props => {
             )}
             {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
               <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                {/* <div className="w-full text-end">
-                  <div className={styles.greenText}>New main wallet balance</div>
-                </div>
-                <div className="w-full flex justify-end gap-1">
-                  <Image src={SolanaLogoIcon} alt="" />
-                  <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
-                </div> */}
                 <div className="w-full flex justify-between items-center">
                   <div className="">
                     <div className={styles.subText}>
@@ -612,7 +614,10 @@ const WalletButton = props => {
                     <div className={styles.cardWhiteText}>
                       {biddingStatus === 'deposit'
                         ? newBiddingWallet.toFixed(2)
-                        : (biddingBalance - bidWalletLock).toFixed(2)}
+                        : (biddingBalance - bidWalletLock - biddingPrice >= 0
+                            ? biddingBalance - bidWalletLock - biddingPrice
+                            : 0
+                          ).toFixed(2)}
                     </div>
                   </div>
                 </div>

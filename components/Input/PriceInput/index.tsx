@@ -14,11 +14,13 @@ const PriceInput = props => {
     value,
     placeholder,
     onChange,
+    onMax,
     fullWidth,
     width = '',
     height = '',
     fontSize = '',
     borderColor = '',
+    backgroundColor = '',
     borderRadius = '',
     paddingLeft = '',
     paddingRight = '',
@@ -29,6 +31,7 @@ const PriceInput = props => {
       style={{
         width: fullWidth ? '100%' : width,
         height: height,
+        backgroundColor: backgroundColor,
         fontSize: fontSize,
         borderColor: borderColor,
         borderRadius: borderRadius,
@@ -41,12 +44,17 @@ const PriceInput = props => {
       </div>
 
       <input
+        type="number"
         className={styles.inputArea}
         value={value}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
         style={{ fontSize }}
       />
+
+      <div className={styles.maxText} onClick={() => onMax()}>
+        Max
+      </div>
     </div>
   )
 }

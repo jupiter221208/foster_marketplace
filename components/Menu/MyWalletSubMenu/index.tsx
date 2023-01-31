@@ -72,6 +72,11 @@ const MyWalletSubMenu = props => {
   const [newBiddingWallet, setNewBiddingWallet] = useState(0)
   const [offerErrorMessage, setOfferErrorMessage] = useState('')
   const [biddingErrorMessage, setBiddingErrorMessage] = useState('')
+  const [isOfferLocked, setIsOfferLocked] = useState(false)
+  const [isBidLocked, setIsBidLocked] = useState(false)
+  const [walletAmount, setWalletAmount] = useState<any>()
+  const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
+  const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
   const shortOfferAddress = useMemo(
     () => getShortAddress(offerWalletAddress || ('' as unknown as PublicKey)),
@@ -86,10 +91,12 @@ const MyWalletSubMenu = props => {
     setOfferErrorMessage('')
     if (value.length === 0) {
       setOfferPrice(0)
+      setWalletAmount('')
       return
     }
     let price = parseFloat(value)
     setOfferPrice(price)
+    setWalletAmount(price)
   }
 
   useEffect(() => {
@@ -99,20 +106,24 @@ const MyWalletSubMenu = props => {
         setOfferErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(0)
         setNewOfferWallet(mainBalance + offerBalance)
+        setIsOfferLocked(true)
       } else {
         setNewMainWallet(mainBalance - offerPrice)
         setNewOfferWallet(offerBalance + offerPrice)
+        setIsOfferLocked(false)
       }
     }
 
     if (offerStatus === 'withdraw') {
-      if (offerPrice > offerBalance) {
+      if (offerPrice > offerBalance - offerWalletLock) {
         setOfferErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(mainBalance + offerBalance)
         setNewOfferWallet(0)
+        setIsOfferLocked(true)
       } else {
         setNewMainWallet(mainBalance + offerPrice)
         setNewOfferWallet(offerBalance - offerPrice)
+        setIsOfferLocked(false)
       }
     }
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
@@ -121,10 +132,12 @@ const MyWalletSubMenu = props => {
     setBiddingErrorMessage('')
     if (value.length === 0) {
       setBiddingPrice(0)
+      setWalletAmount('')
       return
     }
     let price = parseFloat(value)
     setBiddingPrice(price)
+    setWalletAmount(price)
   }
 
   useEffect(() => {
@@ -134,20 +147,24 @@ const MyWalletSubMenu = props => {
         setBiddingErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(0)
         setNewBiddingWallet(mainBalance + biddingBalance)
+        setIsBidLocked(true)
       } else {
         setNewMainWallet(mainBalance - biddingPrice)
         setNewBiddingWallet(biddingBalance + biddingPrice)
+        setIsBidLocked(false)
       }
     }
 
     if (biddingStatus === 'withdraw') {
-      if (biddingPrice > biddingBalance) {
+      if (biddingPrice > biddingBalance - bidWalletLock) {
         setBiddingErrorMessage('Not enough balance in the wallet')
         setNewMainWallet(mainBalance + biddingBalance)
         setNewBiddingWallet(0)
+        setIsBidLocked(true)
       } else {
         setNewMainWallet(mainBalance + biddingPrice)
         setNewBiddingWallet(biddingBalance - biddingPrice)
+        setIsBidLocked(false)
       }
     }
   }, [mainBalance, biddingBalance, biddingStatus, biddingPrice])
@@ -161,6 +178,7 @@ const MyWalletSubMenu = props => {
       await withdrawOfferFunds(mx, offerPrice)
     }
     setOfferPrice(0)
+    setWalletAmount('')
     await updateSolBalance()
   }
 
@@ -171,6 +189,7 @@ const MyWalletSubMenu = props => {
       await withdrawBiddingFunds(mx, biddingPrice)
     }
     setBiddingPrice(0)
+    setWalletAmount('')
     await updateSolBalance()
   }
 
@@ -223,10 +242,10 @@ const MyWalletSubMenu = props => {
               {/* main wallet part */}
               <div className="w-full flex justify-between">
                 <div className="block">
-                  <div className={styles.whiteText}>Main wallet</div>
-                  <div className="flex items-center gap-1">
+                  <div className={styles.whiteText}>Main Wallet</div>
+                  <div className="flex items-center gap-1 mt-1">
                     <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.grayText}>{mainBalance.toFixed(2)}</div>
+                    <div className={styles.priceText}>{mainBalance.toFixed(2)}</div>
                   </div>
                 </div>
                 <div className="flex flex-wrap">
@@ -267,10 +286,10 @@ const MyWalletSubMenu = props => {
               {/* offer wallet part */}
               <div className="flex justify-between my-3">
                 <div className="block">
-                  <div className={styles.whiteText}>Offer wallet</div>
-                  <div className="flex items-center gap-1">
+                  <div className={styles.whiteText}>Offer Wallet</div>
+                  <div className="flex items-center gap-1 mt-1">
                     <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.grayText}>{offerBalance.toFixed(2)}</div>
+                    <div className={styles.priceText}>{offerBalance.toFixed(2)}</div>
                   </div>
                 </div>
                 <div className="flex flex-wrap">
@@ -295,7 +314,12 @@ const MyWalletSubMenu = props => {
                 <div className={styles.walletCard}>
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => setOfferStatus('deposit')}
+                    onClick={() => {
+                      setOfferStatus('deposit')
+                      setWalletAmount('')
+                      setOfferPrice(0)
+                      setOfferErrorMessage('')
+                    }}
                   >
                     <Image src={offerStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
                     <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
@@ -304,7 +328,12 @@ const MyWalletSubMenu = props => {
                   </div>
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => setOfferStatus('withdraw')}
+                    onClick={() => {
+                      setOfferStatus('withdraw')
+                      setWalletAmount('')
+                      setOfferPrice(0)
+                      setOfferErrorMessage('')
+                    }}
                   >
                     <Image
                       src={offerStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon}
@@ -317,59 +346,101 @@ const MyWalletSubMenu = props => {
                 </div>
               )}
               {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                  <div className="w-full text-end">
-                    <div className={styles.greenText}>New main wallet balance</div>
+                <div className="w-full mt-[14px] gap-1">
+                  <div className="w-full flex justify-between">
+                    <div>
+                      <div className={styles.subText}>
+                        {offerStatus === 'deposit' ? 'New Main Wallet Balance' : 'Offer Wallet Balance Lockup'}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
+                      <div className={styles.cardWhiteText}>
+                        {offerStatus === 'deposit' ? newMainWallet.toFixed(2) : offerWalletLock?.toFixed(2)}
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-full flex justify-end gap-1">
-                    <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                  <div className="w-full flex justify-between">
+                    <div>
+                      <div className={styles.subText}>
+                        {offerStatus === 'deposit' ? 'New Offer Wallet Balance' : 'Available Offer Wallet Balance'}
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
+                      <div className={styles.cardWhiteText}>
+                        {offerStatus === 'deposit'
+                          ? newOfferWallet.toFixed(2)
+                          : (offerBalance - offerWalletLock - offerPrice >= 0
+                              ? offerBalance - offerWalletLock - offerPrice
+                              : 0
+                            ).toFixed(2)}
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-full text-end">
-                    <div className={styles.greenText}>New offer wallet balance</div>
-                  </div>
-                  <div className="w-full flex justify-end gap-1">
-                    <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.cardWhiteText}>{newOfferWallet.toFixed(2)}</div>
-                  </div>
-                  <div className="w-full flex justify-between gap-2 mt-1">
+                  <div className="relative w-full mt-1">
                     <PriceInput
+                      value={walletAmount}
                       onChange={value => onChangeOfferPrice(value)}
-                      height="30px"
+                      placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
+                      height="42px"
                       fontSize="12px"
+                      backgroundColor="#242627"
                       borderColor="rgba(255, 255, 255, 0.1)"
-                      borderRadius="6px"
+                      borderRadius="8px"
                       paddingLeft="10px"
                       paddingRight="10px"
                     />
-                    <GradientButton
-                      label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                      height="30px"
-                      fontSize="12px"
-                      backgroundColor01="#378287"
-                      backgroundColor02="#1C4144"
-                      color="#EFF0F6"
-                      gradientDirection="bottom"
-                      borderRadius="6px"
-                      borderColor="rgba(255, 255, 255, 0.1)"
-                      onClick={() => onClickOfferButton()}
-                    />
+                    <div
+                      className={styles.maxText}
+                      onClick={() => {
+                        setWalletAmount((offerBalance - offerWalletLock).toFixed(2))
+                      }}
+                    >
+                      Max
+                    </div>
                   </div>
                   {offerErrorMessage.length > 0 && <div className={styles.errorMessage}>{offerErrorMessage}</div>}
-                  {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                    <p className={styles.cardGrayText}>
-                      Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
-                    </p>
-                  </div> */}
+                  <div className="w-full mt-2">
+                    {isOfferLocked ? (
+                      <GradientButton
+                        label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        fullWidth
+                        height="42px"
+                        fontSize="14px"
+                        color="#CBCCD2"
+                        backgroundColor01="#202427"
+                        backgroundColor02="#202427"
+                        gradientDirection="bottom"
+                        borderRadius="6px"
+                        borderColor="rgba(255, 255, 255, 0.1)"
+                        onClick={() => {}}
+                      />
+                    ) : (
+                      <GradientButton
+                        label={offerStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        fullWidth
+                        height="42px"
+                        fontSize="14px"
+                        backgroundColor01="#2B4142"
+                        backgroundColor02="#59BFB7"
+                        gradientDirection="right"
+                        borderRadius="6px"
+                        borderColor="rgba(255, 255, 255, 0.1)"
+                        onClick={() => onClickOfferButton()}
+                      />
+                    )}
+                  </div>
+                  <div className={styles.viewActiveOffer}>View active offers</div>
                 </div>
               )}
               {/* bidding wallet part */}
-              <div className="flex justify-between my-3">
+              <div className="flex justify-between mt-6 mb-3">
                 <div className="block">
-                  <div className={styles.whiteText}>Bidding wallet</div>
-                  <div className="flex items-center gap-1">
+                  <div className={styles.whiteText}>Bidding Wallet</div>
+                  <div className="flex items-center gap-1 mt-1">
                     <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.grayText}>{biddingBalance.toFixed(2)}</div>
+                    <div className={styles.priceText}>{biddingBalance.toFixed(2)}</div>
                   </div>
                 </div>
                 <div className="flex flex-wrap">
@@ -394,7 +465,12 @@ const MyWalletSubMenu = props => {
                 <div className={styles.walletCard}>
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => setBiddingStatus('deposit')}
+                    onClick={() => {
+                      setBiddingStatus('deposit')
+                      setWalletAmount('')
+                      setBiddingPrice(0)
+                      setBiddingErrorMessage('')
+                    }}
                   >
                     <Image src={biddingStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
                     <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
@@ -403,7 +479,12 @@ const MyWalletSubMenu = props => {
                   </div>
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
-                    onClick={() => setBiddingStatus('withdraw')}
+                    onClick={() => {
+                      setBiddingStatus('withdraw')
+                      setWalletAmount('')
+                      setBiddingPrice(0)
+                      setBiddingErrorMessage('')
+                    }}
                   >
                     <Image
                       src={biddingStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon}
@@ -416,45 +497,98 @@ const MyWalletSubMenu = props => {
                 </div>
               )}
               {showBiddingWallet && (biddingStatus === 'deposit' || biddingStatus === 'withdraw') && (
-                <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                  <div className="w-full text-end">
-                    <div className={styles.greenText}>New main wallet balance</div>
+                <div className="w-full mt-[14px]">
+                  <div className="w-full flex justify-between">
+                    <div>
+                      <div className={styles.subText}>
+                        {biddingStatus === 'deposit' ? 'New Main Wallet Balance' : 'Bidding Wallet Balance Lockup'}
+                      </div>
+                    </div>
+                    <div className="flex gap-1 mt-1">
+                      <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
+                      <div className={styles.cardWhiteText}>
+                        {biddingStatus === 'deposit' ? newMainWallet.toFixed(2) : bidWalletLock.toFixed(2)}
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-full flex justify-end gap-1">
-                    <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
+                  <div className="w-full flex justify-between">
+                    <div className="">
+                      <div className={styles.subText}>
+                        {biddingStatus === 'deposit'
+                          ? 'new Bidding Wallet Balance'
+                          : 'Available Bidding Wallet Balance'}
+                      </div>
+                    </div>
+                    <div className="flex gap-1">
+                      <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
+                      <div className={styles.cardWhiteText}>
+                        {biddingStatus === 'deposit'
+                          ? newBiddingWallet.toFixed(2)
+                          : (biddingBalance - bidWalletLock - biddingPrice >= 0
+                              ? biddingBalance - bidWalletLock - biddingPrice
+                              : 0
+                            ).toFixed(2)}
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-full text-end">
-                    <div className={styles.greenText}>New bidding wallet balance</div>
-                  </div>
-                  <div className="w-full flex justify-end gap-1">
-                    <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
-                    <div className={styles.cardWhiteText}>{newBiddingWallet.toFixed(2)}</div>
-                  </div>
-                  <div className="w-full flex justify-between gap-2 mt-1">
+
+                  <div className="relative w-full mt-[20px]">
                     <PriceInput
+                      value={walletAmount}
+                      fullWidth
                       onChange={value => onChangeBiddingPrice(value)}
-                      height="30px"
+                      placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
+                      height="42px"
                       fontSize="12px"
+                      backgroundColor="#242627"
                       borderColor="rgba(255, 255, 255, 0.1)"
-                      borderRadius="6px"
+                      borderRadius="8px"
                       paddingLeft="10px"
                       paddingRight="10px"
                     />
-                    <GradientButton
-                      label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
-                      height="30px"
-                      fontSize="12px"
-                      backgroundColor01="#378287"
-                      backgroundColor02="#1C4144"
-                      color="#EFF0F6"
-                      gradientDirection="bottom"
-                      borderRadius="6px"
-                      borderColor="rgba(255, 255, 255, 0.1)"
-                      onClick={() => onClickBiddingButton()}
-                    />
+                    <div
+                      className={styles.maxText}
+                      onClick={() => {
+                        setWalletAmount((biddingBalance - bidWalletLock).toFixed(2))
+                      }}
+                    >
+                      Max
+                    </div>
                   </div>
                   {biddingErrorMessage.length > 0 && <div className={styles.errorMessage}>{biddingErrorMessage}</div>}
+
+                  <div className="w-full mt-2">
+                    {isBidLocked ? (
+                      <GradientButton
+                        label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        fullWidth
+                        height="42px"
+                        fontSize="14px"
+                        color="#CBCCD2"
+                        backgroundColor01="#202427"
+                        backgroundColor02="#202427"
+                        gradientDirection="bottom"
+                        borderRadius="6px"
+                        borderColor="rgba(255, 255, 255, 0.1)"
+                        onClick={() => {}}
+                      />
+                    ) : (
+                      <GradientButton
+                        label={biddingStatus === 'deposit' ? 'Deposit' : 'Withdraw'}
+                        fullWidth
+                        height="42px"
+                        fontSize="14px"
+                        backgroundColor01="#2B4142"
+                        backgroundColor02="#59BFB7"
+                        gradientDirection="right"
+                        borderRadius="6px"
+                        borderColor="rgba(255, 255, 255, 0.1)"
+                        onClick={() => onClickBiddingButton()}
+                      />
+                    )}
+                  </div>
+                  <div className={styles.viewActiveOffer}>View active bids</div>
+
                   {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
                     <p className={styles.cardGrayText}>
                       Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
