@@ -154,6 +154,7 @@ const MobileMenu = () => {
               onClick={() => {
                 setButtonClicked(true)
                 disconnect()
+                localStorage.removeItem('token')
               }}
             >
               <div>Logout</div>

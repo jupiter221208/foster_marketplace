@@ -71,6 +71,28 @@
   }
 }
 
+.statesBack {
+  width: 100%;
+  background-color: $background-black-color;
+  border-radius: 15px;
+  @media (min-width: 1024px) {
+    width: 100%;
+    padding: 15px 15px 15px 15px;
+  }
+  z-index: 10;
+}
+
+.statsArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #1b1b1b;
+  border-radius: 5px;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
 .nftInfoLabel {
   font-family: 'Muli-SemiBold';
   line-height: 36px;

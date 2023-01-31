@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // custom components
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
@@ -25,6 +26,7 @@ import styles from './index.module.scss'
 // api
 import collectionAPI from 'apis/collections'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
+import { isLoggedIn } from 'utils/helpers'
 
 const MainSection = props => {
   const { nfts, data } = props
@@ -35,6 +37,7 @@ const MainSection = props => {
   const [totalVolume, setTotalVolum] = useState<any>()
   const [saved, setSaved] = useState<boolean>(false)
   const [showReadMore, setShowReadMore] = useState(false)
+  const { setVisible } = useWalletModal()
 
   useEffect(() => {
     if (data) {
@@ -70,12 +73,16 @@ const MainSection = props => {
   }, [nfts])
 
   const saveCollection = collectionId => {
-    collectionAPI.saveCollection(collectionId).then(
-      response => {
-        if (response) setSaved(true)
-      },
-      error => {}
-    )
+    if (isLoggedIn()) {
+      collectionAPI.saveCollection(collectionId).then(
+        response => {
+          if (response) setSaved(true)
+        },
+        error => {}
+      )
+    } else {
+      setVisible(true)
+    }
   }
 
   const unsaveCollection = collectionId => {
@@ -243,37 +250,49 @@ const MainSection = props => {
         )}
       </div>
 
-      <div className="w-full flex justify-center items-center mt-[24px] mb-[24px]">
-        <div className={`${styles.nftInfo} grid grid-cols-10`}>
-          <div className="col-span-2 flex justify-center items-center">
-            <div className="text-center">
-              <div className={styles.nftInfoLabel}>{items}</div>
-              <div className={styles.nftInfoValue}>ITEMS</div>
-            </div>
-          </div>
-          <div className="col-span-2 flex justify-center items-center">
-            <div className="text-center">
-              <div className={styles.nftInfoLabel}>{owners}</div>
-              <div className={styles.nftInfoValue}>OWNERS</div>
-            </div>
-          </div>
-          <div className="col-span-3 flex justify-center items-center">
-            <div className="text-center">
-              <div className="flex items-center justify-center">
-                <Image src={SolanaLogoIcon} alt="" width={18} />
-                <div className={`${styles.nftInfoLabel} ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+      <div className="w-full flex justify-center mt-2">
+        <div className={styles.statesBack}>
+          <div className="w-full flex justify-between items-center gap-[5px]">
+            <div className={styles.statsArea}>
+              <div className="text-center">
+                <div className="flex justify-center">
+                  <div className={styles.nftInfoLabel}>{items}</div>
+                </div>
+                <div className={styles.nftInfoValue}>ITEMS</div>
               </div>
-              <div className={styles.nftInfoValue}>FLOOR PRICE</div>
+            </div>
+            <div className={styles.statsArea}>
+              <div className="text-center">
+                <div className="flex justify-center">
+                  <div className={styles.nftInfoLabel}>{owners}</div>
+                </div>
+                <div className={styles.nftInfoValue}>OWNERS</div>
+              </div>
             </div>
           </div>
-          <div className="col-span-3 flex justify-center items-center">
-            <div className="text-center">
-              <div className="flex items-center justify-center">
-                <Image src={SolanaLogoIcon} alt="" width={18} />
-                <div className={`${styles.nftInfoLabel} ml-[8px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+          <div className="w-full flex justify-between items-center gap-[5px] mt-[5px]">
+            <div className={styles.statsArea}>
+              <div className="text-center">
+                <div className="flex justify-center">
+                  <div className="flex gap-2">
+                    <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
+                    <div className={styles.nftInfoLabel}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                  </div>
+                </div>
+                <div className={styles.nftInfoValue}>FLOOR PRICE</div>
               </div>
+            </div>
+            <div className={styles.statsArea}>
+              <div className="text-center">
+                <div className="flex items-center justify-center">
+                  <div className="flex gap-2">
+                    <Image src={SolanaLogoIcon} alt="" width={18} />
+                    <div className={styles.nftInfoLabel}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                  </div>
+                </div>
 
-              <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
+                <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
+              </div>
             </div>
           </div>
         </div>

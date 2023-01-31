@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
 import Image from 'next/image'
@@ -33,12 +34,14 @@ import styles from './index.module.scss'
 // api endpoint
 import artistsAPI from 'apis/artists'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
+import { isLoggedIn } from 'utils/helpers'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
 
   const viewport = useViewport()
   const { publicKey } = useWallet()
+  const { setVisible } = useWalletModal()
 
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [showReadMore, setShowReadMore] = useState(false)
@@ -58,13 +61,17 @@ const MainSection = prop => {
   }
 
   const followArtist = wallet => {
-    artistsAPI.followArtist(wallet).then(response => {
-      if (response && response.followed_wallet_id) {
-        setFollow(true)
-        // setArtistFollowing(artistFollowing + 1)
-        setArtistFollowers(artistFollowers + 1)
-      }
-    })
+    if (isLoggedIn()) {
+      artistsAPI.followArtist(wallet).then(response => {
+        if (response && response.followed_wallet_id) {
+          setFollow(true)
+          // setArtistFollowing(artistFollowing + 1)
+          setArtistFollowers(artistFollowers + 1)
+        }
+      })
+    } else {
+      setVisible(true)
+    }
   }
 
   const unfollowArtist = wallet => {

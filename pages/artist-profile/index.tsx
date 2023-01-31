@@ -28,7 +28,7 @@ import { isString } from 'utils/helpers'
 
 const ArtistProfile = () => {
   const router = useRouter()
-  const { publicKey } = useWallet()
+  const { connected, publicKey } = useWallet()
 
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })

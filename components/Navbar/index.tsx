@@ -226,6 +226,7 @@ const Navbar = props => {
         className={showMenu ? styles.logoutShow : styles.logoutHide}
         onClick={() => {
           disconnect()
+          localStorage.removeItem('token')
           router.push('/')
         }}
       >
