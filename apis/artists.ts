@@ -21,7 +21,7 @@ class Artists {
         return response.data
       })
     else
-      return client.get(API_URL + 'v1/collector/' + wallet_id + '/public').then(response => {
+      return client.get(API_URL + 'v1/collectors/' + wallet_id + '/public').then(response => {
         return response.data
       })
   }
