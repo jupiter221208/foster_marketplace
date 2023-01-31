@@ -321,7 +321,8 @@ const MyWalletSubMenu = props => {
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
                     onClick={() => {
-                      setOfferStatus('deposit')
+                      if (offerStatus === 'deposit') setOfferStatus('')
+                      else setOfferStatus('deposit')
                       setWalletAmount('')
                       setOfferPrice(0)
                       setOfferErrorMessage('')
@@ -335,7 +336,8 @@ const MyWalletSubMenu = props => {
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
                     onClick={() => {
-                      setOfferStatus('withdraw')
+                      if (offerStatus === 'withdraw') setOfferStatus('')
+                      else setOfferStatus('withdraw')
                       setWalletAmount('')
                       setOfferPrice(0)
                       setOfferErrorMessage('')
@@ -484,7 +486,8 @@ const MyWalletSubMenu = props => {
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
                     onClick={() => {
-                      setBiddingStatus('deposit')
+                      if (biddingStatus === 'deposit') setBiddingStatus('')
+                      else setBiddingStatus('deposit')
                       setWalletAmount('')
                       setBiddingPrice(0)
                       setBiddingErrorMessage('')
@@ -498,7 +501,8 @@ const MyWalletSubMenu = props => {
                   <div
                     className="w-full flex justify-start items-center gap-2 cursor-pointer"
                     onClick={() => {
-                      setBiddingStatus('withdraw')
+                      if (biddingStatus === 'withdraw') setBiddingStatus('')
+                      else setBiddingStatus('withdraw')
                       setWalletAmount('')
                       setBiddingPrice(0)
                       setBiddingErrorMessage('')

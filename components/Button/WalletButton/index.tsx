@@ -398,7 +398,9 @@ const WalletButton = props => {
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setOfferStatus('deposit')
+                    if (offerStatus === 'deposit') setOfferStatus('')
+                    else setOfferStatus('deposit')
+
                     setWalletAmount('')
                     setOfferPrice(0)
                     setOfferErrorMessage('')
@@ -412,7 +414,8 @@ const WalletButton = props => {
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer mt-[8px]"
                   onClick={() => {
-                    setOfferStatus('withdraw')
+                    if (offerStatus === 'withdraw') setOfferStatus('')
+                    else setOfferStatus('withdraw')
                     setWalletAmount('')
                     setOfferPrice(0)
                     setOfferErrorMessage('')
@@ -427,13 +430,6 @@ const WalletButton = props => {
             )}
             {showOfferWallet && (offerStatus === 'deposit' || offerStatus === 'withdraw') && (
               <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                {/* <div className="w-full text-end">
-                  <div className={styles.greenText}>New main wallet balance</div>
-                </div>
-                <div className="w-full flex justify-end gap-1">
-                  <Image src={SolanaLogoIcon} alt="" />
-                  <div className={styles.cardWhiteText}>{newMainWallet.toFixed(2)}</div>
-                </div> */}
                 <div className="w-full flex justify-between itmes-center">
                   <div className="">
                     <div className={styles.subText}>
@@ -572,7 +568,8 @@ const WalletButton = props => {
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer"
                   onClick={() => {
-                    setBiddingStatus('deposit')
+                    if (biddingStatus === 'deposit') setBiddingStatus('')
+                    else setBiddingStatus('deposit')
                     setWalletAmount('')
                     setBiddingPrice(0)
                     setBiddingErrorMessage('')
@@ -586,7 +583,8 @@ const WalletButton = props => {
                 <div
                   className="w-full flex justify-start items-center gap-2 cursor-pointer mt-[16px]"
                   onClick={() => {
-                    setBiddingStatus('withdraw')
+                    if (biddingStatus === 'withdraw') setBiddingStatus('')
+                    else setBiddingStatus('withdraw')
                     setWalletAmount('')
                     setBiddingPrice(0)
                     setBiddingErrorMessage('')
