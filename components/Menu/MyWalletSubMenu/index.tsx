@@ -1,4 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -47,6 +48,8 @@ import { useWallets } from 'hooks/useWallets'
 
 const MyWalletSubMenu = props => {
   const { icon, label, type = '', data } = props
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
@@ -435,7 +438,15 @@ const MyWalletSubMenu = props => {
                       />
                     )}
                   </div>
-                  <div className={styles.viewActiveOffer}>View active offers</div>
+                  <div
+                    className={styles.viewActiveOffer}
+                    onClick={() => {
+                      router.push(`/dashboard?tab=6`)
+                      dispatch({ type: 'set', isLoading: true })
+                    }}
+                  >
+                    View active offers
+                  </div>
                 </div>
               )}
               {/* bidding wallet part */}
@@ -595,7 +606,15 @@ const MyWalletSubMenu = props => {
                       />
                     )}
                   </div>
-                  <div className={styles.viewActiveOffer}>View active bids</div>
+                  <div
+                    className={styles.viewActiveOffer}
+                    onClick={() => {
+                      router.push(`/dashboard?tab=6`)
+                      dispatch({ type: 'set', isLoading: true })
+                    }}
+                  >
+                    View active bids
+                  </div>
 
                   {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
                     <p className={styles.cardGrayText}>

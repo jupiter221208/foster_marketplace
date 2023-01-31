@@ -521,7 +521,15 @@ const WalletButton = props => {
                     />
                   )}
                 </div>
-                <div className={styles.viewActiveOffer}>View active offers</div>
+                <div
+                  className={styles.viewActiveOffer}
+                  onClick={() => {
+                    router.push(`/dashboard?tab=6`)
+                    dispatch({ type: 'set', isLoading: true })
+                  }}
+                >
+                  View active offers
+                </div>
                 {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
                   <p className={styles.cardGrayText}>
                     Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
@@ -682,7 +690,15 @@ const WalletButton = props => {
                     />
                   )}
                 </div>
-                <div className={styles.viewActiveOffer}>View active bids</div>
+                <div
+                  className={styles.viewActiveOffer}
+                  onClick={() => {
+                    router.push(`/dashboard?tab=2`)
+                    dispatch({ type: 'set', isLoading: true })
+                  }}
+                >
+                  View active bids
+                </div>
                 {/* <div className="w-full flex justify-between gap-2 mt-1">
                    <PriceInput
                     value={walletAmount}
