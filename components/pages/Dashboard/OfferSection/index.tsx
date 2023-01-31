@@ -71,8 +71,8 @@ const OfferSection = () => {
   }, [shownOfferType, fetchOffersMade, fetchOffersReceived])
 
   useEffect(() => {
-    if (shownOfferType === 'made' && offersMade) setShownOfferList(offersMade)
-    else if (shownOfferType === 'received' && offersReceived) setShownOfferList(offersReceived)
+    if (shownOfferType === 'made') setShownOfferList(offersMade ?? [])
+    else if (shownOfferType === 'received') setShownOfferList(offersReceived ?? [])
   }, [shownOfferType, offersMade, offersReceived])
 
   const onCancel = async ({ tradeStateAddress }: LazyBidWithAsset) => {
