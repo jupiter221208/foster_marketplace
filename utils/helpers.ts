@@ -82,3 +82,8 @@ export const formattedAmount = value => {
   if (length > 1) return parseFloat(value).toFixed(2)
   else return value
 }
+
+export const isLoggedIn = () => {
+  const jwt_token = localStorage.getItem('token') || ''
+  return jwt_token.length > 0
+}

@@ -1,3 +1,4 @@
+import { isLoggedIn } from 'utils/helpers'
 import client from './client'
 
 const API_URL = process.env.BACKEND_URL
@@ -10,15 +11,14 @@ class Collections {
   }
 
   getCollection(collection_id) {
-    return client.get(API_URL + 'v1/collections/' + collection_id).then(response => {
-      return response.data
-    })
-  }
-
-  getCollectionPublic(collection_id) {
-    return client.get(API_URL + 'v1/collections/' + collection_id + '/public').then(response => {
-      return response.data
-    })
+    if (isLoggedIn())
+      return client.get(API_URL + 'v1/collections/' + collection_id).then(response => {
+        return response.data
+      })
+    else
+      return client.get(API_URL + 'v1/collections/' + collection_id + '/public').then(response => {
+        return response.data
+      })
   }
 
   likeCollection(collection_id) {
@@ -40,17 +40,16 @@ class Collections {
   }
 
   getCollectionNft(collection_id) {
-    return client.get(API_URL + 'v1/collections/' + collection_id + '/nfts').then(response => {
-      if (typeof response.data === 'string') throw new Error(response.data)
-      return response.data
-    })
-  }
-
-  getCollectionNftPublic(collection_id) {
-    return client.get(API_URL + 'v1/collections/' + collection_id + '/public/nfts').then(response => {
-      if (typeof response.data === 'string') throw new Error(response.data)
-      return response.data
-    })
+    if (isLoggedIn())
+      return client.get(API_URL + 'v1/collections/' + collection_id + '/nfts').then(response => {
+        if (typeof response.data === 'string') throw new Error(response.data)
+        return response.data
+      })
+    else
+      return client.get(API_URL + 'v1/collections/' + collection_id + '/public/nfts').then(response => {
+        if (typeof response.data === 'string') throw new Error(response.data)
+        return response.data
+      })
   }
 
   getOtherCollections(artist_id) {

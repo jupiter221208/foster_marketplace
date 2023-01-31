@@ -32,7 +32,7 @@ const MoreCollectionSection = props => {
 
   useEffect(() => {
     if (collectionId !== null) {
-      collectionAPI.getCollectionNftPublic(collectionId).then(
+      collectionAPI.getCollectionNft(collectionId).then(
         response => {
           if (response instanceof Array) setNftList(response)
         },

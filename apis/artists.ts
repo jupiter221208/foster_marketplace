@@ -1,30 +1,29 @@
+import { isLoggedIn } from 'utils/helpers'
 import client from './client'
 
 const API_URL = process.env.BACKEND_URL
 
 class Artists {
   getArtist(wallet_id) {
-    return client.get(API_URL + 'v1/artists/' + wallet_id).then(response => {
-      return response.data
-    })
-  }
-
-  getArtistPublic(wallet_id) {
-    return client.get(API_URL + 'v1/artists/' + wallet_id + '/public').then(response => {
-      return response.data
-    })
+    if (isLoggedIn())
+      return client.get(API_URL + 'v1/artists/' + wallet_id).then(response => {
+        return response.data
+      })
+    else
+      return client.get(API_URL + 'v1/artists/' + wallet_id + '/public').then(response => {
+        return response.data
+      })
   }
 
   getCollector(wallet_id) {
-    return client.get(API_URL + 'v1/collectors/' + wallet_id).then(response => {
-      return response.data
-    })
-  }
-
-  getCollectorPublic(wallet_id) {
-    return client.get(API_URL + 'v1/collector/' + wallet_id + '/public').then(response => {
-      return response.data
-    })
+    if (isLoggedIn())
+      return client.get(API_URL + 'v1/collectors/' + wallet_id).then(response => {
+        return response.data
+      })
+    else
+      return client.get(API_URL + 'v1/collector/' + wallet_id + '/public').then(response => {
+        return response.data
+      })
   }
 
   getExploreCircus(wallet_id) {

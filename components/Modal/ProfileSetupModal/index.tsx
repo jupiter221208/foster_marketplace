@@ -54,13 +54,13 @@ const ProfileSetupModal = props => {
 
   const { publicKey } = useWallet()
 
-  useEffect(() => {
-    if (displayName === '') {
-      setErrorMessage('The display name you have entered is already taken')
-    } else {
-      setErrorMessage('')
-    }
-  }, [displayName])
+  // useEffect(() => {
+  //   if (displayName === '') {
+  //     setErrorMessage('The display name you have entered is already taken')
+  //   } else {
+  //     setErrorMessage('')
+  //   }
+  // }, [displayName])
 
   const handleChangeAvatar = event => {
     const file = event.target.files

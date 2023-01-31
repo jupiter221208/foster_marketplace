@@ -39,13 +39,13 @@ const BrowseCollection = () => {
 
   useEffect(() => {
     if (address !== undefined) {
-      collectionsAPI.getCollectionPublic(address).then(response => {
+      collectionsAPI.getCollection(address).then(response => {
         if (!isString(response)) setData(response)
         dispatch({ type: 'set', isLoading: false })
       }),
         error => console.log(error)
 
-      collectionsAPI.getCollectionNftPublic(address).then(response => {
+      collectionsAPI.getCollectionNft(address).then(response => {
         if (response instanceof Array) {
           setNfts(response)
         }

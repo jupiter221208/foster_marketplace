@@ -116,6 +116,8 @@ const MobileMenu = () => {
         dispatch({ type: 'set', profileInfo: response.user })
         setProfileImage(response.user.profile_picture)
         setProfileName(response.user.username)
+        dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+        dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
       },
       error => {
         console.log(error)
