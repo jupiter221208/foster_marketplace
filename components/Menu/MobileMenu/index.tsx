@@ -177,9 +177,9 @@ const MobileMenu = () => {
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
             <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
             <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
-            <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
-            <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
-            <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
+            {/* <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" /> */}
+            {/* <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" /> */}
+            {/* <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" /> */}
           </div>
           <div className="w-full flex items-end mt-5">
             <WalletButton fullWidth />
