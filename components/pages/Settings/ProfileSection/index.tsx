@@ -86,22 +86,22 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
-    if (igUrl && igUrl !== orgUserInfo.ig_url) {
+    if (igUrl !== orgUserInfo.ig_url) {
       setEnableSave(true)
       return
     }
-    if (twitterUrl && twitterUrl !== orgUserInfo.twitter_url) {
+    if (twitterUrl !== orgUserInfo.twitter_url) {
       setEnableSave(true)
       return
     }
-    if (discordUrl && discordUrl !== orgUserInfo.discord_url) {
-      setEnableSave(true)
-      return
-    }
-    if (telegramUrl && telegramUrl !== orgUserInfo.telegram_url) {
-      setEnableSave(true)
-      return
-    }
+    // if (discordUrl && discordUrl !== orgUserInfo.discord_url) {
+    //   setEnableSave(true)
+    //   return
+    // }
+    // if (telegramUrl && telegramUrl !== orgUserInfo.telegram_url) {
+    //   setEnableSave(true)
+    //   return
+    // }
     if (profilePictureUrl && profilePictureUrl !== orgUserInfo.profile_picture && profilePictureUrl !== '') {
       setEnableSave(true)
       return
