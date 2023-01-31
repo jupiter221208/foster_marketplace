@@ -43,6 +43,7 @@ const ArtistHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
@@ -150,13 +151,15 @@ const ArtistHeader = () => {
 
   useEffect(() => {
     if (connected) {
-      if (!profileInfo) {
+      if (!profileInfo && !loginAndRefresh) {
         authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
           response => {
             if (response.new_user === true) {
               dispatch({ type: 'set', profileSetup: true })
             }
             dispatch({ type: 'set', profileInfo: response.user })
+            dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+            dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
           },
           error => {
             console.log(error)

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -31,6 +32,7 @@ import { isLoggedIn } from 'utils/helpers'
 const MainSection = props => {
   const { nfts, data } = props
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const [items, setItems] = useState<any>()
   const [owners, setOwners] = useState<any>()
   const [floorPrice, setFloorPrice] = useState<any>()
@@ -81,6 +83,7 @@ const MainSection = props => {
         error => {}
       )
     } else {
+      dispatch({ type: 'set', loginAndRefresh: true })
       setVisible(true)
     }
   }

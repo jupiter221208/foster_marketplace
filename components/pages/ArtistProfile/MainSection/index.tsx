@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
@@ -39,6 +40,7 @@ import { isLoggedIn } from 'utils/helpers'
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
 
+  const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()
   const { setVisible } = useWalletModal()
@@ -70,6 +72,7 @@ const MainSection = prop => {
         }
       })
     } else {
+      dispatch({ type: 'set', loginAndRefresh: true })
       setVisible(true)
     }
   }

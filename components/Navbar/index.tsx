@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -28,7 +29,8 @@ import styles from './index.module.scss'
 
 const Navbar = props => {
   const router = useRouter()
-  const { connected, publicKey, disconnect } = useWallet()
+  const dispatch = useDispatch()
+  const { disconnect } = useWallet()
 
   const [selectedNavMenu, setSelectedNavMenu] = useState('')
   const [showMenu, setShowMenu] = useState(false)
@@ -227,6 +229,7 @@ const Navbar = props => {
         onClick={() => {
           disconnect()
           localStorage.removeItem('token')
+          dispatch({ type: 'set', profileInfo: null })
           router.push('/')
         }}
       >

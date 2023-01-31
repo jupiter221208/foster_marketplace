@@ -217,6 +217,7 @@ const MyWalletSubMenu = props => {
     setShowAlert(true)
     disconnect()
     localStorage.removeItem('token')
+    dispatch({ type: 'set', profileInfo: null })
   }
 
   return (

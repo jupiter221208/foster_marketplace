@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -15,44 +16,67 @@ import styles from './index.module.scss'
 // router
 import { useRouter } from 'next/router'
 
-// solana
-import { getCollectionByAddress } from 'utils/collection.util'
-
 // redux
-import { useMetaplex } from 'hooks/useMetaplex'
-import { useDispatch, useSelector } from 'react-redux'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
+import authAPI from 'apis/auth'
 import collectionsAPI from 'apis/collections'
 import { isString } from 'utils/helpers'
 
 const BrowseCollection = () => {
   const router = useRouter()
   const { address } = router.query
+  const { connected, publicKey } = useWallet()
 
   const dispatch = useDispatch()
 
   const isLoading = useSelector<any>(state => state.isLoading)
+  const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [data, setData] = useState({})
   const [nfts, setNfts] = useState([])
 
   useEffect(() => {
     if (address !== undefined) {
-      collectionsAPI.getCollection(address).then(response => {
-        if (!isString(response)) setData(response)
-        dispatch({ type: 'set', isLoading: false })
-      }),
-        error => console.log(error)
-
-      collectionsAPI.getCollectionNft(address).then(response => {
-        if (response instanceof Array) {
-          setNfts(response)
-        }
-      }),
-        error => console.log(error)
+      getCollectionData()
     }
   }, [address])
+
+  useEffect(() => {
+    if (connected && loginAndRefresh) {
+      dispatch({ type: 'set', loginAndRefresh: false })
+      authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+        response => {
+          if (response.new_user === true) {
+            dispatch({ type: 'set', profileSetup: true })
+          }
+          dispatch({ type: 'set', profileInfo: response.user })
+          dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+          dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+          getCollectionData()
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }, [connected, loginAndRefresh])
+
+  const getCollectionData = () => {
+    collectionsAPI.getCollection(address).then(response => {
+      if (!isString(response)) setData(response)
+      dispatch({ type: 'set', isLoading: false })
+    }),
+      error => console.log(error)
+
+    collectionsAPI.getCollectionNft(address).then(response => {
+      if (response instanceof Array) {
+        setNfts(response)
+      }
+    }),
+      error => console.log(error)
+  }
 
   return (
     <div className="g-container">

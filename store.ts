@@ -1,6 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
+  profileInfo: null,
   isLoading: false,
   isCollectionMinting: false,
   expired: false,
@@ -18,6 +19,7 @@ const initialState = {
   liveAuctionNFTs: [],
   bidWalletLock: 0,
   offerWalletLock: 0,
+  loginAndRefresh: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

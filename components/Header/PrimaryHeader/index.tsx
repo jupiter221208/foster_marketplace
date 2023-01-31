@@ -19,15 +19,12 @@ import IconButton from 'components/Button/IconButton'
 import { useViewport } from 'utils'
 
 // images and icons
-import LogoTextIcon from 'assets/icons/logo-text-01.svg'
-import LogoTextMobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import AvatarImage from 'assets/icons/profile-thumb.svg'
 import SearchWhiteIcon from 'assets/icons/search-white.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
 import LogoIcon from 'assets/icons/logo-green.svg'
 
 // json
-import SearchList from 'assets/json/search-list.json'
 import ExploreMenuList from 'assets/json/explore-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
@@ -43,6 +40,7 @@ const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
@@ -151,13 +149,15 @@ const PrimaryHeader = () => {
 
   useEffect(() => {
     if (connected) {
-      if (!profileInfo) {
+      if (!profileInfo && !loginAndRefresh) {
         authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
           response => {
             if (response.new_user === true) {
               dispatch({ type: 'set', profileSetup: true })
             }
             dispatch({ type: 'set', profileInfo: response.user })
+            dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+            dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
           },
           error => {
             console.log(error)

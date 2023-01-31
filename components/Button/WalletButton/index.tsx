@@ -210,6 +210,7 @@ const WalletButton = props => {
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
+
   const [profileName, setProfileName] = useState('')
   const [profileImage, setProfileImage] = useState('')
 
@@ -218,7 +219,7 @@ const WalletButton = props => {
       return
     }
 
-    setButtonClicked(true)
+    setButtonClicked(false)
 
     if (connected) {
       setAlertData([
@@ -275,6 +276,7 @@ const WalletButton = props => {
   const handleDisconnect = () => {
     disconnect()
     localStorage.removeItem('token')
+    dispatch({ type: 'set', profileInfo: null })
   }
 
   return connected ? (
@@ -709,7 +711,7 @@ const WalletButton = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          handleLogin()
+          // handleLogin()
         }}
         data={alertData}
       />

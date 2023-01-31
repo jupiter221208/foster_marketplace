@@ -155,6 +155,7 @@ const MobileMenu = () => {
                 setButtonClicked(true)
                 disconnect()
                 localStorage.removeItem('token')
+                dispatch({ type: 'set', profileInfo: null })
               }}
             >
               <div>Logout</div>

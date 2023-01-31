@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -23,6 +24,7 @@ import styles from './index.module.scss'
 
 // call apis
 import artistsAPI from 'apis/artists'
+import authAPI from 'apis/auth'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString } from 'utils/helpers'
 
@@ -32,6 +34,7 @@ const ArtistProfile = () => {
 
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
+  const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [artistInfo, setArtistInfo] = useState<any>({})
   const [statsInfo, setStatsInfo] = useState<any>({})
@@ -43,16 +46,53 @@ const ArtistProfile = () => {
 
   useEffect(() => {
     if (router.query.id !== undefined && router.query.id !== null) {
-      getArtistData(router.query.id)
+      getArtistData(router.query.id, true)
     }
   }, [router.query])
 
-  const getArtistData = id => {
+  useEffect(() => {
+    if (connected && loginAndRefresh) {
+      dispatch({ type: 'set', loginAndRefresh: false })
+      authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+        response => {
+          if (response.new_user === true) {
+            dispatch({ type: 'set', profileSetup: true })
+          }
+          dispatch({ type: 'set', profileInfo: response.user })
+          dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+          dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+
+          if (artistEnable) {
+            getArtistData(router.query.id, true)
+          } else {
+            getCollectorData(router.query.id, true)
+          }
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }, [connected, loginAndRefresh])
+
+  useEffect(() => {
+    if (router.query.id !== undefined && router.query.id !== null) {
+      resetData()
+      if (artistEnable) {
+        getArtistData(router.query.id, false)
+      } else {
+        getCollectorData(router.query.id, false)
+      }
+    }
+  }, [artistEnable])
+
+  const getArtistData = (id, refresh) => {
     artistsAPI.getArtist(id).then(
       response => {
         if (isString(response)) return
         let artist = response.artist
-        if (Object.keys(artistInfo).length === 0 && artist !== undefined && artist !== null) {
+
+        if (refresh && artist !== undefined && artist !== null) {
           if (
             artist.profile_picture === null ||
             artist.profile_picture === '' ||
@@ -92,12 +132,12 @@ const ArtistProfile = () => {
     setCategoryList([])
   }
 
-  const getCollectorData = id => {
+  const getCollectorData = (id, refresh) => {
     artistsAPI.getCollector(id).then(
       response => {
         if (isString(response)) return
         let artist = response.collector
-        if (Object.keys(artistInfo).length === 0 && artist !== undefined && artist !== null) {
+        if (refresh && artist !== undefined && artist !== null) {
           if (
             artist.profile_picture === null ||
             artist.profile_picture === '' ||
@@ -124,17 +164,6 @@ const ArtistProfile = () => {
   useEffect(() => {
     if (publicKey) setIsOwn(artistInfo.wallet_id === publicKey?.toBase58())
   }, [artistInfo, publicKey])
-
-  useEffect(() => {
-    if (router.query.id !== undefined && router.query.id !== null) {
-      resetData()
-      if (artistEnable) {
-        getArtistData(router.query.id)
-      } else {
-        getCollectorData(router.query.id)
-      }
-    }
-  }, [artistEnable])
 
   return (
     <div className="g-container">
