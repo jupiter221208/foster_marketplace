@@ -304,7 +304,10 @@ const MyWalletSubMenu = props => {
                   </div>
                   <div
                     className="w-full flex justify-end pt-4 cursor-pointer"
-                    onClick={() => setShowOfferWallet(!showOfferWallet)}
+                    onClick={() => {
+                      setShowOfferWallet(!showOfferWallet)
+                      setShowBiddingWallet(false)
+                    }}
                   >
                     <Image src={EllipseGroupWhiteIcon} />
                   </div>
@@ -456,7 +459,10 @@ const MyWalletSubMenu = props => {
                   </div>
                   <div
                     className="w-full flex justify-end pt-4 cursor-pointer"
-                    onClick={() => setShowBiddingWallet(!showBiddingWallet)}
+                    onClick={() => {
+                      setShowBiddingWallet(!showBiddingWallet)
+                      setShowOfferWallet(false)
+                    }}
                   >
                     <Image src={EllipseGroupWhiteIcon} />
                   </div>
