@@ -82,7 +82,7 @@ const StatsPreviewModal = props => {
                         <span
                           className={styles.link}
                           onClick={() => {
-                            window.open('https://www.turkeycircus.io')
+                            window.open('https://mint.turkeycircus.io')
                           }}
                         >
                           Turkey Circus DAO
@@ -156,7 +156,7 @@ const StatsPreviewModal = props => {
                           <div className={styles.subTitle}>Get Early Access</div>
                           <div className={`${styles.text} mt-[10px]`}>
                             Join the{' '}
-                            <span className={styles.link} onClick={() => window.open('https://www.turkeycircus.io')}>
+                            <span className={styles.link} onClick={() => window.open('https://mint.turkeycircus.io')}>
                               Turkey Circus DAO
                             </span>{' '}
                             to get early access..
