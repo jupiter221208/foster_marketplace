@@ -154,7 +154,7 @@ const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProp
 
   let artistName = `${artistData?.artist.username} | Foster Marketplace`
   // TODO: add default image url for broken images
-  let artistImageUrl = artistData?.profile_picture ?? ''
+  let artistImageUrl = artistData?.artist.profile_picture ?? ''
   let artistDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
