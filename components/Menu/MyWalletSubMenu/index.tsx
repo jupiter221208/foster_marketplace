@@ -81,6 +81,8 @@ const MyWalletSubMenu = props => {
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
+  const errorMsg = 'Insufficient Funds in Wallet'
+
   const shortOfferAddress = useMemo(
     () => getShortAddress(offerWalletAddress || ('' as unknown as PublicKey)),
     [offerWalletAddress]
@@ -111,7 +113,7 @@ const MyWalletSubMenu = props => {
     setOfferErrorMessage('')
     if (offerStatus === 'deposit') {
       if (offerPrice > mainBalance) {
-        setOfferErrorMessage('Not enough balance in the wallet')
+        setOfferErrorMessage(errorMsg)
         setNewMainWallet(0)
         setNewOfferWallet(mainBalance + offerBalance)
         setIsOfferLocked(true)
@@ -124,7 +126,7 @@ const MyWalletSubMenu = props => {
 
     if (offerStatus === 'withdraw') {
       if (offerPrice > offerBalance - offerWalletLock) {
-        setOfferErrorMessage('Not enough balance in the wallet')
+        setOfferErrorMessage(errorMsg)
         setNewMainWallet(mainBalance + offerBalance)
         setNewOfferWallet(0)
         setIsOfferLocked(true)
@@ -157,7 +159,7 @@ const MyWalletSubMenu = props => {
     setBiddingErrorMessage('')
     if (biddingStatus === 'deposit') {
       if (biddingPrice > mainBalance) {
-        setBiddingErrorMessage('Not enough balance in the wallet')
+        setBiddingErrorMessage(errorMsg)
         setNewMainWallet(0)
         setNewBiddingWallet(mainBalance + biddingBalance)
         setIsBidLocked(true)
@@ -170,7 +172,7 @@ const MyWalletSubMenu = props => {
 
     if (biddingStatus === 'withdraw') {
       if (biddingPrice > biddingBalance - bidWalletLock) {
-        setBiddingErrorMessage('Not enough balance in the wallet')
+        setBiddingErrorMessage(errorMsg)
         setNewMainWallet(mainBalance + biddingBalance)
         setNewBiddingWallet(0)
         setIsBidLocked(true)
@@ -549,7 +551,7 @@ const MyWalletSubMenu = props => {
                     <div className="">
                       <div className={styles.subText}>
                         {biddingStatus === 'deposit'
-                          ? 'new Bidding Wallet Balance'
+                          ? 'New Bidding Wallet Balance'
                           : 'Available Bidding Wallet Balance'}
                       </div>
                     </div>

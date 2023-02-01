@@ -85,6 +85,8 @@ const WalletButton = props => {
   const [isBidLocked, setIsBidLocked] = useState(false)
   const [walletAmount, setWalletAmount] = useState<any>()
 
+  const errorMsg = 'Insufficient Funds in Wallet'
+
   const shortOfferAddress = useMemo(
     () => getShortAddress(offerWalletAddress || ('' as unknown as PublicKey)),
     [offerWalletAddress]
@@ -115,7 +117,7 @@ const WalletButton = props => {
     setOfferErrorMessage('')
     if (offerStatus === 'deposit') {
       if (offerPrice > mainBalance) {
-        setOfferErrorMessage('Not enough balance in the wallet')
+        setOfferErrorMessage(errorMsg)
         setNewMainWallet(0)
         setNewOfferWallet(mainBalance + offerBalance)
         setIsOfferLocked(true)
@@ -128,7 +130,7 @@ const WalletButton = props => {
 
     if (offerStatus === 'withdraw') {
       if (offerPrice > offerBalance - offerWalletLock) {
-        setOfferErrorMessage('Not enough balance in the wallet')
+        setOfferErrorMessage(errorMsg)
         setNewMainWallet(mainBalance + offerBalance)
         setNewOfferWallet(0)
         setIsOfferLocked(true)
@@ -161,7 +163,7 @@ const WalletButton = props => {
     setBiddingErrorMessage('')
     if (biddingStatus === 'deposit') {
       if (biddingPrice > mainBalance) {
-        setBiddingErrorMessage('Not enough balance in the wallet')
+        setBiddingErrorMessage(errorMsg)
         setNewMainWallet(0)
         setNewBiddingWallet(mainBalance + biddingBalance)
         setIsBidLocked(true)
@@ -174,7 +176,7 @@ const WalletButton = props => {
 
     if (biddingStatus === 'withdraw') {
       if (biddingPrice > biddingBalance - bidWalletLock) {
-        setBiddingErrorMessage('Not enough balance in the wallet')
+        setBiddingErrorMessage(errorMsg)
         setNewMainWallet(mainBalance + biddingBalance)
         setNewBiddingWallet(0)
         setIsBidLocked(true)
@@ -630,7 +632,7 @@ const WalletButton = props => {
                 <div className="w-full flex justify-between items-center mt-1">
                   <div className="">
                     <div className={styles.subText}>
-                      {biddingStatus === 'deposit' ? 'new Bidding Wallet Balance' : 'Available Bidding Wallet Balance'}
+                      {biddingStatus === 'deposit' ? 'New Bidding Wallet Balance' : 'Available Bidding Wallet Balance'}
                     </div>
                   </div>
                   <div className="flex gap-1">
