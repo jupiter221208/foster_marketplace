@@ -30,7 +30,7 @@ const CollectionCard = props => {
           </div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1 max-h-[16px] lg:max-h-[28px] overflow-hidden">
             {category?.map((item, index) => (
               <SmallCategoryChip data={item} key={index} />
             ))}
