@@ -50,6 +50,7 @@
     "react-redux": "^8.0.2",
     "react-share": "^4.4.1",
     "react-spinners": "^0.13.4",
+    "react-tooltip": "^5.7.3",
     "redux": "^4.2.0",
     "sass": "^1.52.0",
     "swiper": "^8.3.0",

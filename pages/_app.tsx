@@ -3,6 +3,7 @@ import React from 'react'
 // styles
 import '@solana/wallet-adapter-react-ui/styles.css'
 import 'assets/scss/global.scss'
+import 'react-tooltip/dist/react-tooltip.css'
 
 import Providers from 'providers'
 

@@ -44,13 +44,13 @@
   letter-spacing: 0;
   color: $brand-11-color;
 
-  box-shadow: 0px 5px 15px $brand-03-color;
+  // box-shadow: 0px 5px 15px $brand-03-color;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   &:not([disabled]):hover {
-    box-shadow: 0px 5px 15px $background-light-color;
+    box-shadow: 0px 5px 15px rgba($brand-09-color, 0.6);
   }
 }
 
