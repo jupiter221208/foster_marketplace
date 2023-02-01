@@ -8,7 +8,7 @@ import styles from './index.module.scss'
 
 const ResourcesCard = props => {
   const { data, onClick, selected } = props
-
+  console.log(data)
   return (
     <div
       className={styles.container}
@@ -18,7 +18,7 @@ const ResourcesCard = props => {
       }}
       onClick={() => onClick(data.id)}
     >
-      <div className="min-w-[35px]">
+      <div className={`min-w-[50px]`}>
         <Image src={data.icon01} alt="" width={data.width} height={data.height} />
       </div>
       <div className="block">
