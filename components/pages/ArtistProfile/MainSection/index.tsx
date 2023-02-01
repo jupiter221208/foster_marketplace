@@ -250,7 +250,7 @@ const MainSection = prop => {
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>
-                      {artistEnable ? 'MONTHLY COLLECTORS' : 'CREATORS SUPPORTED'}
+                      {artistEnable ? 'UNIQUE COLLECTORS' : 'CREATORS SUPPORTED'}
                     </div>
                   </div>
                 </div>

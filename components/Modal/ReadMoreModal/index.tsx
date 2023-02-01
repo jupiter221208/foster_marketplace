@@ -19,11 +19,10 @@ import TelegramIcon from 'assets/icons/social-telegram.svg'
 
 // styles
 import styles from './index.module.scss'
+import { validUrl } from 'utils/helpers'
 
 const ReadMoreModal = props => {
   const { open, close, artistInfo, categoryList } = props
-
-  const router = useRouter()
 
   const closeModal = () => {
     close()
@@ -71,7 +70,11 @@ const ReadMoreModal = props => {
                         <div className="flex w-full h-8 justify-start mt-[20px] gap-[18px]">
                           {artistInfo.ig_url !== null && (
                             <div>
-                              <Image src={InstagramIcon} alt="" onClick={() => router.push(artistInfo.ig_url)} />
+                              <Image
+                                src={InstagramIcon}
+                                alt=""
+                                onClick={() => window.open(validUrl(artistInfo.ig_url))}
+                              />
                             </div>
                           )}
                           {/* {artistInfo.discord_url !== null && (
@@ -81,7 +84,7 @@ const ReadMoreModal = props => {
                           )} */}
                           {artistInfo.twitter_url !== null && (
                             <div>
-                              <Image src={TwitterIcon} onClick={() => router.push(artistInfo.twitter_url)} />
+                              <Image src={TwitterIcon} onClick={() => window.open(validUrl(artistInfo.twitter_url))} />
                             </div>
                           )}
                           {/* {artistInfo.telegram_url !== null && (

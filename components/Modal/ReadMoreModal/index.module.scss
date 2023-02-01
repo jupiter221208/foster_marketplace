@@ -16,7 +16,9 @@
   width: 100%;
   max-height: calc(100vh - 100px);
   height: 100%;
-  background-color: $background-black-color;
+  background: rgba($background-black-color, 0.8);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border-radius: 20px;
 
   background-origin: border-box;

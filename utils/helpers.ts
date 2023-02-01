@@ -88,3 +88,12 @@ export const isLoggedIn = () => {
   const jwt_token = localStorage.getItem('token') || ''
   return jwt_token.length > 0
 }
+
+export const validUrl = url => {
+  if (!url.includes('http')) {
+    return 'https://' + url
+  }
+  if (!url.includes('https')) {
+    return url.replace(/^http:\/\//i, 'https://')
+  }
+}
