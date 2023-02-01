@@ -11,9 +11,6 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 // apis
 import AuctionAPI from 'apis/auctions'
 
-// solana
-import { getNFTOwner } from 'utils/nfts.utils'
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -72,9 +69,12 @@ import Select from 'components/Select'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { placeBid } from 'utils/auctioneer.util'
+import { toMetadataAccount, type Nft, type LazyBid } from '@metaplex-foundation/js'
+import { TIMED_AUCTION_HOUSE_PUBLIC_KEY, placeBid } from 'utils/auctioneer.util'
+import { loadAuctionHouse } from 'utils/auction.util'
 import { useWallets } from 'hooks/useWallets'
 import { getDateString } from 'utils/strings'
+import { getNFTOwner, getNFTCategories, getNFTArtistInfo, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
 
 // call apis
 import nftsAPI from 'apis/nfts'
@@ -83,8 +83,12 @@ import activityAPI from 'apis/activity'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
-const MainSection = props => {
-  const { nftDetail, loading } = props
+export interface MainSectionProps {
+  nftDetail: Nft
+  loading: boolean
+}
+
+const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
 
@@ -160,28 +164,32 @@ const MainSection = props => {
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
 
   const { id } = router.query
+  const nftType: string =
+    (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
+  // TODO: set default links for broken images and assets
+  const nftCoverUrl = nftDetail.json?.image ?? ''
+  const nftAssetUrl: string = nftDetail.json?.animation_url as string
 
-  const [nftUrl, setNftUrl] = useState('')
-  const [nftCoverUrl, setNftCoverUrl] = useState('')
-  const [nftName, setNftName] = useState('')
-  const [nftType, setNftType] = useState('')
-  const [nftDescription, setNftDescription] = useState('')
-  const [nftRoyalties, setNftRoyalties] = useState(0)
+  const nftName = nftDetail.name
+  const nftDescription = nftDetail.json?.description ?? ''
+  const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
+  const nftCategories = getNFTCategories(nftDetail)
+
+  const mintAddress = nftDetail.address.toString()
+  const nftCollectionAddress = nftDetail.collection?.address.toString()
+
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [highBidder, setHighBidder] = useState('')
   const [nftCreatorAddress, setNftCreatorAddress] = useState('')
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
-  const [mintAddress, setMintAddress] = useState('')
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
-  const [nftCategories, setNftCategories] = useState([])
   const [endTime, setEndTime] = useState<String>(null)
   const [startTime, setStartTime] = useState<String>(null)
   const [isEnded, setIsEnded] = useState(false)
   const [isStarted, setIsStarted] = useState(false)
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(false)
-  const [nftCollectionAddress, setNftCollectionAddress] = useState('')
   const [nftCollectionName, setNftCollectionName] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [nftCreatorUsername, setNftCreatorUsername] = useState('')
@@ -208,7 +216,7 @@ const MainSection = props => {
   const [isRunning, setIsRunning] = useState(false)
 
   useEffect(() => {
-    if (nftDetail !== null) {
+    if (nftDetail) {
       getNftDetailInfo()
 
       activityAPI.getNFTActivity(nftDetail?.address).then(
@@ -220,63 +228,44 @@ const MainSection = props => {
     }
   }, [nftDetail])
 
-  function getNftDetailInfo() {
-    let type = 'image'
-    if (nftDetail.asset_type === 'image') type = 'image'
-    else if (nftDetail.asset_type.includes('video')) type = 'video'
-    else if (nftDetail.asset_type.includes('audio')) type = 'audio'
+  async function getNftDetailInfo() {
+    if (!nftDetail) return
 
-    setNftType(type)
-    setNftUrl(nftDetail.asset_url)
-    setNftCoverUrl(nftDetail.cover_image_url)
-    setNftRoyalties(nftDetail.royalties !== null && nftDetail.royalties.length > 0 ? nftDetail.royalties / 100 : 0)
-    setNftName(nftDetail.name)
-    setNftCollectionAddress(nftDetail.collection_address)
-    setNftCollectionName(nftDetail.collection_name)
-    setNftOwnerAddress(nftDetail.owner_address)
-    setNftOwnerUsername(nftDetail.owner_username)
-    setNftCreatorAddress(nftDetail.creator_address)
-    setNftCreatorUsername(nftDetail.creator_username)
-    setNftDescription(nftDetail.description)
-    setNftCategories(nftDetail.categories?.split(','))
+    let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+    setIsOwnNft(publicKey?.equals(tokenAccount.owner))
+    setSellerAddress(tokenAccount.owner)
 
-    setMintAddress(nftDetail.address)
-    setLikeCount(nftDetail.likes >= 0 ? nftDetail.likes : 0)
-    setShareCount(nftDetail.shares >= 0 ? nftDetail.shares : 0)
-    setSaveCount(nftDetail.saves >= 0 ? nftDetail.saves : 0)
-    setLike(nftDetail.liked)
-    setSave(nftDetail.saved)
-    let shared = nftDetail.shared
-    if (shared?.facebook || shared?.twitter || shared?.telegram) setShare(true)
-    else setShare(false)
-
-    if (nftDetail.owner_address === publicKey?.toBase58()) {
-      setIsOwnNft(true)
-    } else {
-      setIsOwnNft(false)
-    }
-    if (nftDetail.listing_status === 'auctioned') {
-      const auction = nftDetail.auction?.auction
-      if (auction) {
-        const highest_bid = nftDetail.auction.highest_bid
-        setNftReservePrice(Number(auction.reserve_price))
-        setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
-        setHighBidder(highest_bid ? highest_bid.buyer_address : '')
-        setSellerAddress(new PublicKey(auction.seller_address))
-        setEndTime(auction.end_time)
-        setStartTime(auction.start_time)
-      }
+    let { creator_username, auction } = (await nftsAPI.getDetail(id)) || {}
+    if (creator_username) setNftCreatorUsername(creator_username)
+    if (auction?.auction) {
+      let { highest_bid, reserve_price, seller_address, start_time, end_time } = auction
+      setNftReservePrice(Number(reserve_price))
+      setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+      setHighBidder(highest_bid ? highest_bid.buyer_address : '')
+      setSellerAddress(new PublicKey(seller_address))
+      setEndTime(end_time)
+      setStartTime(start_time)
     }
 
-    if (nftDetail.owner_address === '') {
-      getNFTOwner(mx, new PublicKey(id)).then(owner => {
-        if(!owner) return
-        setNftOwnerAddress(owner.toBase58())
-        usersAPI.get(owner).then(user => {
-          setNftOwnerUsername(user.username)
-        })
-      })
+    let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+    setNftOwnerUsername(ownerUsername)
+    setNftOwnerAddress(tokenAccount.owner.toBase58())
+
+    if (nftDetail.collection?.verified) {
+      let collectionMint = new PublicKey(nftDetail.collection.address)
+      let collectionMetadata = toMetadataAccount(
+        await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
+      )
+      setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
     }
+
+    let { likes, shares, saves } = await getNFTSocialInfo(new PublicKey(nftDetail.address))
+    setLikeCount(likes)
+    setShareCount(shares)
+    setSaveCount(saves)
+    setLike(likes > 0)
+    setSave(saves > 0)
+    setShare(shares > 0)
   }
 
   const placeBidAndSave = async price => {
@@ -406,17 +395,17 @@ const MainSection = props => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType === 'image' ? (
                 <div className={styles.mobileImageArea}>
-                  <img src={nftUrl} alt="" />
+                  <img src={nftCoverUrl} alt="" />
                   <div className={styles.mobileImageBackground} />
                 </div>
               ) : nftType.includes('audio') ? (
                 <div className={styles.audioArea}>
-                  <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                  <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
               ) : nftType.includes('video') ? (
                 <div className={styles.videoArea}>
                   <video controls muted>
-                    <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+                    <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                   </video>
                 </div>
               ) : (
@@ -425,11 +414,11 @@ const MainSection = props => {
             ) : nftType === 'image' ? (
               <div className={styles.blurBackground}>
                 <div className="absolute inset-0">
-                  <img src={nftUrl} alt="" className="min-w-full min-h-full object-cover" />
+                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <img src={nftUrl} alt="" className="h-full" />
+                  <img src={nftCoverUrl} alt="" className="h-full" />
                 </div>
               </div>
             ) : nftType === 'audio' ? (
@@ -439,7 +428,7 @@ const MainSection = props => {
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.audioArea}>
-                  <AudioPlayer src={nftUrl !== '' ? nftUrl : '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                  <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
               </div>
             ) : nftType === 'video' ? (
@@ -450,8 +439,8 @@ const MainSection = props => {
                 <div className={styles.blurImage} />
                 <div className={styles.videoArea}>
                   <video controls muted>
-                    <div>{nftUrl}</div>
-                    <source type="video/mp4" src={nftUrl !== '' ? nftUrl : '/images/Page-Animation.webm'} />
+                    <div>{nftAssetUrl}</div>
+                    <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                   </video>
                 </div>
               </div>
@@ -480,14 +469,14 @@ const MainSection = props => {
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
-                      address={id}
                       icon01={ShareBlankIcon}
                       icon02={ShareWhiteIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}
                       setVoteCount={setShareCount}
-                      onClick={() => {}}
+                      message={'New live auction released on Foster Marketplace @foster_protocol #fostermarketplace'}
+                      url={`/live-auction?id=${id}`}
                     />
                   </div>
                 </div>
@@ -788,7 +777,7 @@ const MainSection = props => {
       <ModalPlaceBid
         balance={mainBalance}
         nftName={nftName}
-        nftUrl={nftType === 'image' ? nftUrl : nftCoverUrl}
+        nftUrl={nftCoverUrl}
         currentPrice={nftCurrentPrice}
         reservePrice={nftReservePrice}
         placeBid={placeBidAndSave}
