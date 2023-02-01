@@ -26,17 +26,25 @@ const MakeAnOfferModal = props => {
   const [offerBtnDisabled, setOfferBtnDisabled] = useState<any>(false)
 
   useEffect(() => {
-    setMinimumOffer50(listingPrice / 2)
-    setMinimumOffer(listingPrice / 2)
-    setNewMainBalance(mainWalletBalance)
+    const newValue = listingPrice / 2
+    setMinimumOffer50(newValue)
+    setMinimumOffer(newValue)
+    let newMainWalletBalance = mainWalletBalance - newValue
+    setNewMainBalance(newMainWalletBalance)
     setBiddingWalletBalance(offerBalance)
+    let newBiddingValue = offerBalance + newValue
+    setNewBiddingBalance(newBiddingValue)
   }, [listingPrice, mainWalletBalance, offerBalance])
 
   const onChangeOfferValue = value => {
-    setMinimumOffer(value)
-    let newMainWalletBalance = mainWalletBalance - value
+    let newValue = value
+    setMinimumOffer(newValue)
+
+    if (value.length === 0) newValue = 0
+
+    let newMainWalletBalance = mainWalletBalance - newValue
     setNewMainBalance(newMainWalletBalance)
-    let newBiddingValue = parseFloat(biddingWalletBalance) + parseFloat(value)
+    let newBiddingValue = parseFloat(biddingWalletBalance) + parseFloat(newValue)
     setNewBiddingBalance(newBiddingValue)
     setErrorMessage('')
 
@@ -130,7 +138,13 @@ const MakeAnOfferModal = props => {
                 </div>
                 <div className="w-full flex justify-between gap-4 mt-10">
                   <div className={styles.inputArea}>
-                    <PriceInput value={minimumOffer} fullWidth onChange={value => onChangeOfferValue(value)} />
+                    <PriceInput
+                      value={minimumOffer}
+                      fullWidth
+                      borderColor="#202427"
+                      borderWidth={1}
+                      onChange={value => onChangeOfferValue(value)}
+                    />
                   </div>
                   <div className="w-full max-w-[126px] min-w-[126px]">
                     <div style={{ opacity: offerBtnDisabled ? 0.7 : 1 }}>

@@ -22,7 +22,9 @@
   width: 100%;
   max-width: 488px;
   height: 100%;
-  background-color: $background-black-color;
+  background: rgba($background-black-color, 0.7);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid $brand-07-color;
   border-radius: 21px;
   padding: 35px 30px;
