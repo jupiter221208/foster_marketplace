@@ -76,6 +76,20 @@
   align-items: center;
   z-index: 10;
   overflow: hidden;
+  position: relative;
+}
+
+.playButton {
+  position: absolute;
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($background-light-color, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .connectWallet {
@@ -116,8 +130,8 @@
   z-index: 1;
   overflow: hidden;
   position: relative;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  // margin-top: 30px;
+  // margin-bottom: 30px;
 }
 
 .mobileImageBackground {

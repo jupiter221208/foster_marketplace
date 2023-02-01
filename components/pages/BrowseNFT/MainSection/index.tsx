@@ -60,6 +60,8 @@ import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
+import PlayVideoIcon from 'assets/icons/play-video.svg'
+import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -116,6 +118,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
   const [isOwnNft, setIsOwnNft] = useState(false)
+  const [play, setPlay] = useState(false)
 
   useEffect(() => {
     try {
@@ -431,8 +434,30 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 </div>
               ) : nftType.includes('video') ? (
                 <div className={styles.videoArea}>
-                  <video controls muted></video>
-                  <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
+                  <div className={styles.mobileImageArea}>
+                    <img src={nftCoverUrl} alt="" />
+                    {play && (
+                      <div
+                        className="w-full h-full absolute"
+                        dangerouslySetInnerHTML={{
+                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                      <source src=${nftAssetUrl} type="video/mp4" /></video>`,
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  <div className={styles.playButton}>
+                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                      <Image
+                        src={play ? PauseVideoIcon : PlayVideoIcon}
+                        width={18}
+                        height={18}
+                        alt=""
+                        onClick={() => setPlay(!play)}
+                      />
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <></>
