@@ -69,7 +69,7 @@ const ReadMoreModal = props => {
                         <div className={styles.profile}>SOCIALS</div>
                         <div className="flex w-full h-8 justify-start mt-[20px] gap-[18px]">
                           {artistInfo.ig_url !== null && (
-                            <div>
+                            <div className={styles.iconShadow}>
                               <Image
                                 src={InstagramIcon}
                                 alt=""
@@ -83,7 +83,7 @@ const ReadMoreModal = props => {
                             </div>
                           )} */}
                           {artistInfo.twitter_url !== null && (
-                            <div>
+                            <div className={styles.iconShadow}>
                               <Image src={TwitterIcon} onClick={() => window.open(validUrl(artistInfo.twitter_url))} />
                             </div>
                           )}

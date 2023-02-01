@@ -40,6 +40,15 @@
   z-index: 20;
 }
 
+.iconShadow {
+  &:hover {
+    @media (min-width: 1024px) {
+      filter: drop-shadow(0px 3px 6px $brand-01-color);
+    }
+  }
+  cursor: pointer;
+}
+
 .profile {
   width: 100%;
   font-family: 'Muli-Regular';
