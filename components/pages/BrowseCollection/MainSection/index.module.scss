@@ -94,9 +94,11 @@
 }
 
 .nftInfoLabel {
+  display: flex;
+  justify-content: center;
   font-family: 'Muli-SemiBold';
-  line-height: 36px;
   font-size: 18px;
+  line-height: 24px;
   @media (min-width: 1024px) {
     font-size: 20px;
     line-height: 30px;
@@ -106,8 +108,8 @@
 
 .nftInfoValue {
   font-family: 'Muli-Regular';
-  line-height: 24px;
-  font-size: 10px;
+  font-size: 12px;
+  line-height: 18px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
