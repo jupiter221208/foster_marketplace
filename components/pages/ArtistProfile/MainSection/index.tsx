@@ -141,7 +141,12 @@ const MainSection = prop => {
           {!isOwn && (
             <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
               <div className="mr-[11px] lg:mr-[24px]">
-                <MenuSocialShare type="ellipse" address={artistInfo?.wallet_id} vote={true} onClick={() => {}} />
+                <MenuSocialShare
+                  type="ellipse"
+                  vote={true}
+                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                  url={`/artist-profile?id=${artistInfo?.wallet_id}`}
+                />
               </div>
               <div>
                 {follow ? (
@@ -324,7 +329,12 @@ const MainSection = prop => {
           {!isOwn && (
             <div className="mt-10 flex">
               <div className="mr-[11px] lg:mr-[24px]">
-                <MenuSocialShare type="ellipse" address={artistInfo?.wallet_id} vote={true} onClick={() => {}} />
+                <MenuSocialShare
+                  type="ellipse"
+                  vote={true}
+                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                  url={`/artist-profile?id=${artistInfo?.wallet_id}`}
+                />
               </div>
               <div>
                 {follow ? (

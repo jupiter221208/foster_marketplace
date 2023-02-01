@@ -510,14 +510,14 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
-                      address={id}
                       icon01={ShareBlankIcon}
                       icon02={ShareWhiteIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}
                       setVoteCount={setShareCount}
-                      onClick={() => {}}
+                      message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                      url={`/browse-nft?id=${id}`}
                     />
                     {/* <div className="hidden lg:flex justify-end ml-[10px]">
                       <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />

@@ -118,7 +118,12 @@ const MainSection = props => {
           </div>
           <div className="col-span-3 flex justify-end">
             <div className="mr-[24px]">
-              <MenuSocialShare type="ellipse" address={data?.collection_id} vote={true} onClick={() => {}} />
+              <MenuSocialShare
+                type="ellipse"
+                vote={true}
+                message={'Check out this collection on @foster_protocol #fostermarketplace'}
+                url={`/browse-collection/${data?.collection_id}`}
+              />
             </div>
             <div className="w-[89px] lg:w-[146px]">
               {saved ? (
@@ -217,7 +222,12 @@ const MainSection = props => {
           />
           <div className="mt-0 flex">
             <div className="mr-[11px] lg:mr-[24px]">
-              <MenuSocialShare type="ellipse" address={data?.collection_id} vote={true} onClick={() => {}} />
+              <MenuSocialShare
+                type="ellipse"
+                vote={true}
+                message={'Check out this collection on @foster_protocol #fostermarketplace'}
+                url={`/browse-collection/${data?.collection_id}`}
+              />
             </div>
             {saved ? (
               <NegativeButton

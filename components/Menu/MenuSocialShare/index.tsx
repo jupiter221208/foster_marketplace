@@ -21,26 +21,43 @@ import styles from './index.module.scss'
 
 // call apis
 import nftsAPI from 'apis/nfts'
-
-// solana
-import { getExplorerUrl } from 'utils/explorer'
-import { useConnection } from '@solana/wallet-adapter-react'
 import { copyToClipboard } from 'utils/helpers'
 
-const MenuSocialShare = props => {
-  const { type = 'icon', address, icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
+interface MenuSocialShareProps {
+  type?: 'icon' | 'ellipse'
+  icon01?: string
+  icon02?: string
+  vote: boolean
+  voteCount?: number
+  setVote?: (boolean) => any
+  setVoteCount?: (number) => any
+  message: string
+  url: string
+}
+
+const MenuSocialShare = ({
+  type = 'icon',
+  icon01,
+  icon02,
+  vote,
+  voteCount,
+  setVote,
+  setVoteCount,
+  message,
+  url,
+}: MenuSocialShareProps) => {
   const router = useRouter()
   const { id } = router.query
-  const { connection } = useConnection()
-  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
   const viewport = useViewport()
+
+  const fullUrl = globalThis.window?.origin + url
 
   function shareNFTSocial(type) {
     nftsAPI.shareNft(type, id).then(
       response => {
         if (response !== null) {
-          setVoteCount(voteCount + 1)
-          setVote(true)
+          setVoteCount && setVoteCount(voteCount + 1)
+          setVote && setVote(true)
         }
       },
       error => {
@@ -82,7 +99,7 @@ const MenuSocialShare = props => {
           <Menu.Items className={styles.menuArea}>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem} onClick={() => copyToClipboard(address)}>
+                <div className={styles.menuItem} onClick={() => copyToClipboard(fullUrl)}>
                   <Image src={FileCopyIcon} alt="" />
                   Copy to Clipboard
                 </div>
@@ -91,8 +108,8 @@ const MenuSocialShare = props => {
             <Menu.Item>
               {({ active }) => (
                 <TwitterShareButton
-                  title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
-                  url={`${window?.origin}/browse-nft?id=${id}`}
+                  title={message}
+                  url={fullUrl}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('twitter')
@@ -110,8 +127,8 @@ const MenuSocialShare = props => {
             <Menu.Item>
               {({ active }) => (
                 <FacebookShareButton
-                  quote="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
-                  url={`${window?.origin}/browse-nft?id=${id}`}
+                  quote={message}
+                  url={fullUrl}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('facebook')
@@ -128,8 +145,8 @@ const MenuSocialShare = props => {
             <Menu.Item>
               {({ active }) => (
                 <TelegramShareButton
-                  title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
-                  url={`${window?.origin}/browse-nft?id=${id}`}
+                  title={message}
+                  url={fullUrl}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('telegram')
