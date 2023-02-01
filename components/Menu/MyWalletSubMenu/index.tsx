@@ -45,6 +45,7 @@ import {
   getEscrowPaymentAccount as getBiddingEscrowAddress,
 } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
+import { copyToClipboard } from 'utils/helpers'
 
 const MyWalletSubMenu = props => {
   const { icon, label, type = '', data } = props
@@ -58,10 +59,6 @@ const MyWalletSubMenu = props => {
     useWallets()
 
   const shortMainAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
-
-  const copyToClipboard = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   const [showMainWallet, setShowMainWallet] = useState(false)
   const [showOfferWallet, setShowOfferWallet] = useState(false)

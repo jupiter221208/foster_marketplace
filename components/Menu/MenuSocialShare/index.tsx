@@ -25,6 +25,7 @@ import nftsAPI from 'apis/nfts'
 // solana
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
+import { copyToClipboard } from 'utils/helpers'
 
 const MenuSocialShare = props => {
   const { type = 'icon', address, icon01, icon02, vote, voteCount, setVote, setVoteCount, onClick } = props
@@ -81,7 +82,7 @@ const MenuSocialShare = props => {
           <Menu.Items className={styles.menuArea}>
             <Menu.Item>
               {({ active }) => (
-                <div className={styles.menuItem}>
+                <div className={styles.menuItem} onClick={() => copyToClipboard(address)}>
                   <Image src={FileCopyIcon} alt="" />
                   Copy to Clipboard
                 </div>

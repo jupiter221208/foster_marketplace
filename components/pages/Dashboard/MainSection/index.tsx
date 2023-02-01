@@ -43,6 +43,7 @@ import styles from './index.module.scss'
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
+import { copyToClipboard } from 'utils/helpers'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -119,10 +120,6 @@ const MainSection = () => {
     const file = event.target.files
     setAvatar(file)
     setOpenAvatarEditorModal(true)
-  }
-
-  const copyToClipboard = value => {
-    navigator.clipboard.writeText(value)
   }
 
   useEffect(() => {

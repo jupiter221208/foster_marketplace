@@ -40,6 +40,7 @@ import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
+import { copyToClipboard } from 'utils/helpers'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -63,11 +64,6 @@ const ProfileSection = prop => {
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [showLinkWalletAlert, setShowLinkWalletAlert] = useState(false)
   const [showVerificationAlert, setShowVerificationAlert] = useState(false)
-
-  const copyToClipboard = value => {
-    navigator.clipboard.writeText(value)
-    setShowAlert(true)
-  }
 
   const checkEnableSave = () => {
     if (orgUserInfo === null) {
@@ -484,7 +480,10 @@ const ProfileSection = prop => {
                 value={shortAddress}
                 placeholder="Add Your Account"
                 disabled
-                onClick={() => copyToClipboard(publicKey?.toString() || '')}
+                onClick={() => {
+                  copyToClipboard(publicKey?.toString() || '')
+                  setShowAlert(true)
+                }}
               />
             </div>
             <div className="w-[200%] mt-[31px] flex cursor-pointer">

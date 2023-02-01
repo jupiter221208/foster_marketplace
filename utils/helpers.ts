@@ -97,3 +97,7 @@ export const validUrl = url => {
     return url.replace(/^http:\/\//i, 'https://')
   }
 }
+
+export const copyToClipboard = value => {
+  navigator.clipboard.writeText(value)
+}

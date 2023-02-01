@@ -35,7 +35,7 @@ import styles from './index.module.scss'
 // api endpoint
 import artistsAPI from 'apis/artists'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
-import { isLoggedIn } from 'utils/helpers'
+import { copyToClipboard, isLoggedIn } from 'utils/helpers'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
@@ -57,10 +57,6 @@ const MainSection = prop => {
     setArtistFollowing(artistInfo.following)
     setArtistFollowers(artistInfo.followers)
   }, [artistInfo])
-
-  const copyToClipboard = value => {
-    navigator.clipboard.writeText(value)
-  }
 
   const followArtist = wallet => {
     if (isLoggedIn()) {
