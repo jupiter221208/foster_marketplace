@@ -96,7 +96,11 @@ const WalletButton = props => {
 
   const onChangeOfferPrice = value => {
     setOfferErrorMessage('')
-    console.log(value)
+    if (value < 0) {
+      setOfferPrice(0)
+      setWalletAmount(0)
+      return
+    }
     if (value.length === 0) {
       setOfferPrice(0)
       setWalletAmount('')
@@ -138,6 +142,11 @@ const WalletButton = props => {
 
   const onChangeBiddingPrice = value => {
     setBiddingErrorMessage('')
+    if (value < 0) {
+      setBiddingPrice(0)
+      setWalletAmount(0)
+      return
+    }
     if (value.length === 0) {
       setBiddingPrice(0)
       setWalletAmount('')

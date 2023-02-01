@@ -92,6 +92,11 @@ const MyWalletSubMenu = props => {
 
   const onChangeOfferPrice = value => {
     setOfferErrorMessage('')
+    if (value < 0) {
+      setOfferPrice(0)
+      setWalletAmount(0)
+      return
+    }
     if (value.length === 0) {
       setOfferPrice(0)
       setWalletAmount('')
@@ -133,6 +138,11 @@ const MyWalletSubMenu = props => {
 
   const onChangeBiddingPrice = value => {
     setBiddingErrorMessage('')
+    if (value < 0) {
+      setBiddingPrice(0)
+      setWalletAmount(0)
+      return
+    }
     if (value.length === 0) {
       setBiddingPrice(0)
       setWalletAmount('')
