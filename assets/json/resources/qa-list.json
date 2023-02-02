@@ -272,17 +272,11 @@
         "title": "How are the funds from the Turkey Circus sale being allocated?",
         "description": [
           "The proceeds of the Turkey Circus mint will be distributed to each entity (both the core team and community) contributing to its success, as well as the long-term initiative of the project. The allocation breakdown is as follows: ",
-          "• 20% Foster Liquidity",
-          "• 10% Turkey DAO Treasury",
-          "• 25% Artist & Core Team",
-          "• 10% Development",
-          "• 2.5 % Whitelist Management",
-          "• 2.5 % Discord Management",
-          "• 2.5 % Security & Testing",
-          "• 12.5% Marketing",
-          "• 7.5 % Operations",
-          "• 2.5% Emissions",
-          "• 5 % Unexpected Expenses"
+          "• 20% Foster Foundation",
+          "• 20% Turkey Circus DAO Treasury",
+          "• 15% Artist",
+          "• 12.5% Marketing & Community Management",
+          "• 12.5% Development"
         ]
       },
       {
@@ -474,7 +468,13 @@
       {
         "id": 8,
         "title": "Why can't I see my NFTs in my account?",
-        "description": [""]
+        "description": [
+          "If you are unable to see your NFTs on the user dashboard, please take the following steps to troubleshoot:",
+          "• Confirm that your wallet is connected to the application.",
+          "• Confirm you have the correct wallet address active in your wallet extension.",
+          "• If this was an NFT you just purchased, confirm that you can see the NFT in your Solana wallet. If so, disconnect your wallet and reconnect.",
+          "• If you are still unable to see your NFTs on the user dashboard, open a ‘Product Support’ ticket in the Foster Marketplace Discord."
+        ]
       },
       {
         "id": 9,
@@ -489,7 +489,9 @@
       {
         "id": 11,
         "title": "How can I report an NFT I suspect is fake?",
-        "description": [""]
+        "description": [
+          "If you would like to report a suspected fake, you can do so by opening a ‘Product Support’ ticket in the Foster Marketplace Discord."
+        ]
       },
       {
         "id": 12,
