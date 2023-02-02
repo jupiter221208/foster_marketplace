@@ -11,15 +11,18 @@ const Checkbox = props => {
         categoryList.map((item, index) => (
           <div key={index} className="w-full flex items-center gap-4">
             <input
-              className={styles.checkbox}
+              className={`${styles.checkbox} ${item.disabled ? `opacity-60` : ``}`}
               type="checkbox"
               id={item.id}
               checked={item.checked}
+              disabled={item.disabled}
               onChange={() => onChange(index)}
             />
             <label
-              className={`${styles.checkmark} ${item.checked ? styles.selected : ''}`}
-              onClick={() => onChange(index)}
+              className={`${styles.selected} ${item.disabled ? `opacity-60` : ``}`}
+              onClick={() => {
+                if (item.disabled === false) onChange(index)
+              }}
             >
               {item.name}
             </label>
@@ -29,14 +32,17 @@ const Checkbox = props => {
         categoryList.map((item, index) => (
           <div key={index} className="w-full flex items-center justify-between">
             <label
-              className={`${styles.checkmark} ${item.checked ? styles.selected : ''}`}
-              onClick={() => onChange(index)}
+              className={`${styles.selected} ${item.disabled ? `opacity-60` : ``}`}
+              onClick={() => {
+                if (item.disabled === false) onChange(index)
+              }}
             >
               {item.name}
             </label>
             <input
-              className={styles.checkbox}
+              className={`${styles.checkbox} ${item.disabled ? `opacity-60` : ``}`}
               type="checkbox"
+              disabled={item.disabled}
               id={item.id}
               checked={item.checked}
               onChange={() => onChange(index)}
