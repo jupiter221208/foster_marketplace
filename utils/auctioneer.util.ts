@@ -9,10 +9,12 @@ import {
   AUCTIONEER_PROGRAM_ID
 } from "@metaplex-foundation/mpl-auctioneer";
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house';
-import { PublicKey, Transaction } from "@solana/web3.js";
+import { PublicKey, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { BN } from "@project-serum/anchor";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { Metaplex, WRAPPED_SOL_MINT } from "@metaplex-foundation/js";
+
+import authAPI from 'apis/auth'
 
 export const TIMED_AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY ?? 0)
 const TIMED_AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
@@ -282,6 +284,20 @@ export async function depositFunds(
   mx: Metaplex,
   price: number
 ) {
+  let tx = await createDepositFundsTransaction(mx, price)
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+
+  return {
+    response
+  }
+}
+
+export async function createDepositFundsTransaction(
+  mx: Metaplex,
+  price: number
+) {
 
   const publicKey = mx.identity().publicKey;
 
@@ -317,14 +333,9 @@ export async function depositFunds(
 
   let tx = new Transaction();
   tx.add(depositInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
-
-  return {
-    response
-  }
+  return tx
 }
 
 export async function withdrawFunds(
@@ -384,6 +395,15 @@ export async function placeBid(
 
   const publicKey = mx.identity().publicKey;
 
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey);
+  let currentBalance = await mx.connection.getBalance(escrowPaymentAccount) / LAMPORTS_PER_SOL;
+
+  // TODO: replace with endpoint to only fetch lockups
+  let { bid_wallet_lock } = await authAPI.login({ wallet_id: publicKey.toBase58() });
+  let fundTx: Transaction | null = null;
+  let delta = (bid_wallet_lock + price + 0.0001) - currentBalance;
+  if (delta > 0) fundTx = await createDepositFundsTransaction(mx, delta);
+
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
   const [pda] = await getPda(auctioneerAuthority)
@@ -393,8 +413,6 @@ export async function placeBid(
   const [listingConfig] = await getListingConfig(sellerAddress, associatedAddress, mintAddress)
 
   const [feePayer] = await getFeePayer()
-
-  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
 
   const [buyerTradeState, buyerTradeStateBump] = await getAuctionHouseTradeState(
     publicKey,
@@ -432,7 +450,7 @@ export async function placeBid(
 
   const buyInstruction = await createBuyInstruction(buyAccounts, buyArgs);
 
-  let tx = new Transaction();
+  let tx = fundTx ?? new Transaction();
   tx.add(buyInstruction);
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
