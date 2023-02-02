@@ -1,5 +1,7 @@
 import bs58 from 'bs58'
 import {
+  LAMPORTS_PER_SOL,
+
   AccountInfo,
   ParsedAccountData,
   PublicKey,
@@ -32,6 +34,8 @@ import {
 } from '@metaplex-foundation/js'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 import { getNFTOwner } from './nfts.utils'
+
+import authAPI from 'apis/auth'
 
 export const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY ?? 0)
 const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
@@ -250,15 +254,15 @@ export async function buyNFT(
         tradeStateAddress: new PublicKey(tradeStateAddress), //TradeState
       })
 
-    const { bid } = await mx
+    const receipt = await offerNFT(mx, mintAddress, price)
+    if(!receipt)
+      throw new Error(`could not place bid on ${mintAddress} for ${price}`)
+    const bid = await mx
       .auctionHouse()
-      .bid({
+      .findBidByReceipt({
         auctionHouse,
-        mintAccount: new PublicKey(
-          mintAddress // NFT mintAddress
-        ),
-        price: sol(price),
-        printReceipt: true,
+        receiptAddress: receipt,
+        loadJsonMetadata: false,
       })
 
     if (bid.price.basisPoints.toNumber() >= listing.price.basisPoints.toNumber()) {
@@ -276,16 +280,41 @@ export async function offerNFT(mx: Metaplex, id: string, price: number) {
   try {
     const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
-    const result = await mx
+    const operation = await mx
       .auctionHouse()
+      .builders()
       .bid({
         auctionHouse,
         mintAccount: new PublicKey(id),
         price: sol(price),
-        printReceipt: true,
       })
 
-    if (result) return true
+    let publicKey = mx.identity().publicKey
+    let escrowPaymentAccount = mx
+      .auctionHouse()
+      .pdas()
+      .buyerEscrow({
+        auctionHouse: auctionHouse.address,
+        buyer: publicKey
+      })
+    let currentBalance = await mx.connection.getBalance(escrowPaymentAccount) / LAMPORTS_PER_SOL
+    // TODO: replace with endpoint to only fetch lockups
+    let { offer_wallet_lock } = await authAPI.login({ wallet_id: publicKey.toBase58() })
+    let delta = (offer_wallet_lock + price + 0.0001) - currentBalance;
+    if (delta > 0)
+      operation.prepend(
+        mx
+          .auctionHouse()
+          .builders()
+          .depositToBuyerAccount({
+            auctionHouse,
+            amount: sol(delta)
+          })
+      )
+
+    const { response, receipt } = await operation.sendAndConfirm(mx)
+
+    if (response) return receipt
   } catch (e) {
     console.log(e)
   }

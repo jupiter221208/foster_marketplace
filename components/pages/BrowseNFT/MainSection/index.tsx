@@ -233,9 +233,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
         response => console.log(response),
         error => console.log(error)
       )
-      setOpenProgressingModal(false)
       setShowAlert(true)
     }
+    setOpenProgressingModal(false)
   }
 
   const makeOffer = async price => {
@@ -257,9 +257,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
         error => {
           console.log(error)
         }
-      setOpenProgressingModal(false)
-      setOpenOfferModal(false)
     }
+    setOpenOfferModal(false)
+    setOpenProgressingModal(false)
   }
 
   useEffect(() => {
