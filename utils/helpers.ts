@@ -101,3 +101,10 @@ export const validUrl = url => {
 export const copyToClipboard = value => {
   navigator.clipboard.writeText(value)
 }
+
+export const copyClipboardAlert = identifier => {
+  document.getElementById(identifier).style.display = 'flex'
+  setTimeout(function () {
+    document.getElementById(identifier).style.display = 'none'
+  }, 1000)
+}

@@ -45,7 +45,8 @@ import {
   getEscrowPaymentAccount as getBiddingEscrowAddress,
 } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
-import { copyToClipboard } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MyWalletSubMenu = props => {
   const { icon, label, type = '', data } = props
@@ -253,28 +254,31 @@ const MyWalletSubMenu = props => {
           <Disclosure.Panel className="w-full relative px-4 pt-4 pb-2 text-sm text-gray-500">
             <div className="w-full">
               {/* main wallet part */}
-              <div className="w-full flex justify-between">
-                <div className="block">
+              <div className="w-full justify-between">
+                <div className="w-full flex justify-between">
                   <div className={styles.whiteText}>Main Wallet</div>
                   <div className="flex items-center gap-1 mt-1">
                     <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
                     <div className={styles.priceText}>{mainBalance.toFixed(2)}</div>
                   </div>
                 </div>
-                <div className="flex flex-wrap">
+                <div className="w-full flex justify-between">
                   <div
-                    className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
-                    onClick={() => copyToClipboard(publicKey?.toString() || '')}
+                    className="relative flex gap-2 items-center cursor-pointer hover:opacity-80"
+                    onClick={() => {
+                      copyToClipboard(publicKey?.toString() || '')
+                      copyClipboardAlert('main-wallet')
+                    }}
                   >
-                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <div className="w-[16px] h-[18px]">
+                      <Image src={CopyAltLightGreenIcon} alt="" />
+                    </div>
                     <div className={styles.grayCard}>
                       <div className={styles.greenText}>{shortMainAddress}</div>
                     </div>
+                    <CopyClipboardChip identifier="main-wallet" />
                   </div>
-                  <div
-                    className="w-full flex justify-end py-4 cursor-pointer"
-                    onClick={() => setShowMainWallet(!showMainWallet)}
-                  >
+                  <div className="py-2 cursor-pointer" onClick={() => setShowMainWallet(!showMainWallet)}>
                     <Image src={EllipseGroupWhiteIcon} />
                   </div>
                 </div>
@@ -297,26 +301,32 @@ const MyWalletSubMenu = props => {
                 </div>
               )}
               {/* offer wallet part */}
-              <div className="flex justify-between my-3">
-                <div className="block">
+              <div className="my-3">
+                <div className="w-full flex justify-between">
                   <div className={styles.whiteText}>Offer Wallet</div>
                   <div className="flex items-center gap-1 mt-1">
                     <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
                     <div className={styles.priceText}>{offerBalance.toFixed(2)}</div>
                   </div>
                 </div>
-                <div className="flex flex-wrap">
+                <div className="w-full flex justify-between">
                   <div
-                    className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
-                    onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                    className="relative flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
+                    onClick={() => {
+                      copyToClipboard(offerWalletAddress?.toString() || '')
+                      copyClipboardAlert('offer-wallet')
+                    }}
                   >
-                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <div className="w-[16px] h-[18px]">
+                      <Image src={CopyAltLightGreenIcon} alt="" />
+                    </div>
                     <div className={styles.grayCard}>
                       <div className={styles.greenText}>{shortOfferAddress}</div>
                     </div>
+                    <CopyClipboardChip identifier="offer-wallet" />
                   </div>
                   <div
-                    className="w-full flex justify-end pt-4 cursor-pointer"
+                    className="pt-2 cursor-pointer"
                     onClick={() => {
                       setShowOfferWallet(!showOfferWallet)
                       setShowBiddingWallet(false)
@@ -463,26 +473,30 @@ const MyWalletSubMenu = props => {
                 </div>
               )}
               {/* bidding wallet part */}
-              <div className="flex justify-between mt-6 mb-3">
-                <div className="block">
+              <div className="mt-4 mb-3">
+                <div className="w-full flex justify-between">
                   <div className={styles.whiteText}>Bidding Wallet</div>
                   <div className="flex items-center gap-1 mt-1">
                     <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
                     <div className={styles.priceText}>{biddingBalance.toFixed(2)}</div>
                   </div>
                 </div>
-                <div className="flex flex-wrap">
+                <div className="w-full flex justify-between">
                   <div
-                    className="w-full flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
-                    onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                    className="relative flex gap-2 justify-end items-center cursor-pointer hover:opacity-80"
+                    onClick={() => {
+                      copyToClipboard(biddingWalletAddress?.toString() || '')
+                      copyClipboardAlert('bidding-wallet')
+                    }}
                   >
                     <Image src={CopyAltLightGreenIcon} alt="" />
                     <div className={styles.grayCard}>
                       <div className={styles.greenText}>{shortBiddingAddress}</div>
                     </div>
+                    <CopyClipboardChip identifier="bidding-wallet" />
                   </div>
                   <div
-                    className="w-full flex justify-end pt-4 cursor-pointer"
+                    className="pt-2 cursor-pointer"
                     onClick={() => {
                       setShowBiddingWallet(!showBiddingWallet)
                       setShowOfferWallet(false)

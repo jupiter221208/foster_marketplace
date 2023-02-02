@@ -51,7 +51,8 @@ import {
   getEscrowPaymentAccount as getBiddingEscrowAddress,
 } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
-import { copyToClipboard } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -331,13 +332,17 @@ const WalletButton = props => {
 
               <div className="w-full flex justify-between items-center mt-[8px]">
                 <div
-                  className="flex gap-2 items-center cursor-pointer hover:opacity-80"
-                  onClick={() => copyToClipboard(publicKey?.toString() || '')}
+                  className="relative flex gap-2 items-center cursor-pointer hover:opacity-80"
+                  onClick={() => {
+                    copyToClipboard(publicKey?.toString() || '')
+                    copyClipboardAlert('main-wallet')
+                  }}
                 >
                   <Image src={CopyAltLightGreenIcon} alt="" />
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortMainAddress}</div>
                   </div>
+                  <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
                 </div>
                 <div
                   className="flex justify-end pt-[6px] py-2 cursor-pointer"
@@ -384,13 +389,19 @@ const WalletButton = props => {
               </div>
               <div className="w-full flex justify-between items-center mt-[8px]">
                 <div
-                  className="w-full flex gap-2 items-center cursor-pointer hover:opacity-80"
-                  onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                  className="relative flex gap-2 items-center cursor-pointer hover:opacity-80"
+                  onClick={() => {
+                    copyToClipboard(offerWalletAddress?.toString() || '')
+                    copyClipboardAlert('offer-wallet')
+                  }}
                 >
-                  <Image src={CopyAltLightGreenIcon} alt="" />
+                  <div className="w-[16px] h-[18px]">
+                    <Image src={CopyAltLightGreenIcon} alt="" />
+                  </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortOfferAddress}</div>
                   </div>
+                  <CopyClipboardChip identifier="offer-wallet" height={24} fontSize={14} />
                 </div>
                 <div
                   className="w-full flex justify-end cursor-pointer py-2"
@@ -555,13 +566,19 @@ const WalletButton = props => {
               </div>
               <div className="w-full flex justify-between items-center mt-[8px]">
                 <div
-                  className="w-full flex gap-2 items-center cursor-pointer hover:opacity-80"
-                  onClick={() => copyToClipboard(biddingWalletAddress?.toString() || '')}
+                  className="relative flex gap-2 items-center cursor-pointer hover:opacity-80"
+                  onClick={() => {
+                    copyToClipboard(biddingWalletAddress?.toString() || '')
+                    copyClipboardAlert('bidding-wallet')
+                  }}
                 >
-                  <Image src={CopyAltLightGreenIcon} alt="" />
+                  <div className="w-[16px] h-[18px]">
+                    <Image src={CopyAltLightGreenIcon} alt="" />
+                  </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortBiddingAddress}</div>
                   </div>
+                  <CopyClipboardChip identifier="bidding-wallet" height={24} fontSize={14} />
                 </div>
                 <div
                   className="w-full flex justify-end py-2 cursor-pointer"

@@ -35,7 +35,8 @@ import styles from './index.module.scss'
 // api endpoint
 import artistsAPI from 'apis/artists'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
-import { copyToClipboard, isLoggedIn } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
@@ -175,10 +176,16 @@ const MainSection = prop => {
         <div className="w-full flex justify-center mt-[12px]">
           <div className="max-w-[678px] w-full flex flex-wrap justify-center mt-[9px] z-10">
             {artistInfo.wallet_id && (
-              <AddressButton
-                label={getShortAddress(artistInfo.wallet_id)}
-                onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
-              />
+              <div className="relative">
+                <AddressButton
+                  label={getShortAddress(artistInfo.wallet_id)}
+                  onClick={() => {
+                    copyToClipboard(artistInfo.wallet_id || '')
+                    copyClipboardAlert('wallet-address')
+                  }}
+                />
+                <CopyClipboardChip identifier="wallet-address" />
+              </div>
             )}
 
             {artistInfo.bio && (
