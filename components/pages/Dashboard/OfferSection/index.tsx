@@ -17,7 +17,7 @@ import { getPriceValue } from 'utils/strings'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
-import { getMyBids, getReceivedBids, cancelOffer, acceptOffer, type LazyBidWithAsset } from 'utils/auction.util'
+import { getMyBids, getReceivedBids, cancelOffer, acceptOffer, LazyBidWithAsset } from 'utils/auction.util'
 
 // call apis
 import listingsAPI from 'apis/listings'
@@ -58,7 +58,7 @@ const OfferSection = () => {
   )
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       dispatch({ type: 'set', isLoading: true })
       try {
         if (shownOfferType === 'made') await fetchOffersMade()
@@ -75,19 +75,24 @@ const OfferSection = () => {
     else if (shownOfferType === 'received') setShownOfferList(offersReceived ?? [])
   }, [shownOfferType, offersMade, offersReceived])
 
-  const onCancel = async ({ tradeStateAddress }: LazyBidWithAsset) => {
+  const onCancel = async (listing: LazyBidWithAsset) => {
+    const { tradeStateAddress, asset } = listing
     const result = await cancelOffer(mx, tradeStateAddress)
     if (result) {
-      fetchOffersMade(true)
-      setAlertData([
-        {
-          id: 0,
-          title: 'Success',
-          description: `Your offer was successfully cancelled!`,
-          type: 'success',
-        },
-      ])
-      setShowAlert(true)
+      listingsAPI.deleteOffer(asset.mintAddress.toBase58()).then(res => {
+        if (res) {
+          fetchOffersMade(true)
+          setAlertData([
+            {
+              id: 0,
+              title: 'Listing Removed',
+              description: `You've successfully removed your fixed-price listing!`,
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+        }
+      })
     }
   }
 

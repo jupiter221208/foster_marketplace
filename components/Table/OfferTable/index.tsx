@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -36,6 +37,7 @@ type OfferTableRowProps = Omit<OfferTableProps, 'data'> & { listing: OfferTableP
 const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRowProps) => {
   const viewport = useViewport()
   const { metaplex } = useMetaplex()
+  const router = useRouter()
 
   const [ownerOrBuyerAddress, setOwnerOrBuyerAddress] = useState<PublicKey | null>(null)
   useEffect(() => {
@@ -58,7 +60,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
         setAssetImageUrl('')
       })
   }, [listing.asset])
-
+  
   return (
     <>
       <td className="h-[90px] flex justify-start items-center gap-[25px]">
@@ -72,7 +74,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
           />
         </div>
         <div className="block">
-          <div className="flex justify-center">{listing.asset.name}</div>
+          <div className={styles.nftName} onClick={() => router.push(`/browse-nft?id=${listing.asset.mintAddress.toBase58()}`)}>{listing.asset.name}</div>
         </div>
       </td>
       <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>

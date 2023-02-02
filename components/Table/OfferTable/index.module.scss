@@ -1,1 +1,9 @@
 @import 'assets/scss/variable.module.scss';
+.nftName {
+  display: flex;
+  justify-items: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

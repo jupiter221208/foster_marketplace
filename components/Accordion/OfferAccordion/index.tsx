@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { type PublicKey } from '@solana/web3.js'
 import { type JsonMetadata } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { type LazyBidWithAsset } from 'utils/auction.util'
+import { LazyBidWithAsset } from 'utils/auction.util'
 import { getNFTOwner } from 'utils/nfts.utils'
 
 // components
