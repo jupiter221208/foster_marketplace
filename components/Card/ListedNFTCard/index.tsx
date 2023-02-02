@@ -21,6 +21,7 @@ import { PublicKey } from '@solana/web3.js'
 const ListedNFTCard = props => {
   const { data, type, onClick, onActionClick, cancelAuction, finalizeSale } = props
   const { startTime, endTime, highestBid, url } = data
+  console.log(data)
   const viewport = useViewport()
   const isStarted = useMemo(() => {
     if (startTime) {
@@ -64,7 +65,7 @@ const ListedNFTCard = props => {
           <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{getPriceValue(data.price)}</div>
+            <div className={styles.nftName}>{highestBid ? highestBid.amount : getPriceValue(data.price)}</div>
           </div>
         </div>
         <div className="mt-[7px] w-full">
