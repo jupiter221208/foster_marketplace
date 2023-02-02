@@ -311,6 +311,7 @@ export async function offerNFT(mx: Metaplex, id: string, price: number) {
             amount: sol(delta)
           })
       )
+    console.log({ offer_wallet_lock, price, currentBalance, delta })
 
     const { response, receipt } = await operation.sendAndConfirm(mx)
 

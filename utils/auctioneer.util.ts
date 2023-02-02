@@ -403,6 +403,7 @@ export async function placeBid(
   let fundTx: Transaction | null = null;
   let delta = (bid_wallet_lock + price + 0.0001) - currentBalance;
   if (delta > 0) fundTx = await createDepositFundsTransaction(mx, delta);
+  console.log({ bid_wallet_lock, price, currentBalance, delta })
 
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
