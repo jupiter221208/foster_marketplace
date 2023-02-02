@@ -25,16 +25,23 @@
   background: rgba($background-black-color, 0.7);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  border: 1px solid $brand-07-color;
-  border-radius: 21px;
-  padding: 35px 30px;
+  border-radius: 16px;
+  padding: 18px 13px;
   position: relative;
+  @media (min-width: 1024px) {
+    border-radius: 12px;
+    padding: 35px 30px;
+  }
 }
 
 .title {
   font-family: 'Muli-Bold';
-  font-size: 32px;
-  line-height: 44px;
+  font-size: 20px;
+  line-height: 36px;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+    line-height: 44px;
+  }
   color: $text-gray-200-color;
 }
 
@@ -69,7 +76,7 @@
 }
 
 .inputArea {
-  width: calc(100% - 150px);
+  width: 100%;
 }
 
 .greenText {

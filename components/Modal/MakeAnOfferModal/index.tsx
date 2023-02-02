@@ -125,30 +125,38 @@ const MakeAnOfferModal = props => {
                   </div>
                 </div>
 
-                <div className="w-full flex justify-between gap-4 mt-10">
+                <div className="w-full mt-4 lg:mt-5">
                   <div className={styles.inputArea}>
                     <PriceInput
                       value={minimumOffer}
+                      placeholder="Enter offer amount"
                       fullWidth
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
+                      backgroundColor="#151718"
                       borderColor="#202427"
                       borderWidth={1}
                       onChange={value => onChangeOfferValue(value)}
                     />
                   </div>
-                  <div className="w-full max-w-[126px] min-w-[126px]">
-                    <div style={{ opacity: offerBtnDisabled ? 0.7 : 1 }}>
-                      <GradientButton
-                        label="Make Offer"
-                        fullWidth
-                        gradientDirection="bottom"
-                        disabled={offerBtnDisabled}
-                        onClick={() => onClick(minimumOffer)}
-                        height="50px"
-                        fontSize="16px"
-                      />
-                    </div>
+                </div>
+
+                <div className="w-full mt-[8px] lg:mt-[14px]">
+                  <div style={{ opacity: offerBtnDisabled ? 0.7 : 1 }}>
+                    <GradientButton
+                      label="Make Offer"
+                      fullWidth
+                      gradientDirection="right"
+                      backgroundColor01="#2A4142"
+                      backgroundColor02="#58BDB5"
+                      disabled={offerBtnDisabled}
+                      onClick={() => onClick(minimumOffer)}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 42 : 53}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
+                      borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
+                    />
                   </div>
                 </div>
+
                 <div className="w-full flex mt-[20px]">
                   <div
                     className={styles.termText}
@@ -196,9 +204,6 @@ const MakeAnOfferModal = props => {
                     <div className={styles.whiteText}>New Offer Wallet Balance</div>
                     <div className={styles.whiteText}>{newBiddingBalance.toFixed(2)} SOL</div>
                   </div>
-                </div>
-                <div className="w-full flex justify-center text-center mt-[31px]">
-                  <div className={styles.termText}>By selecting “Make offer” you agree to Terms of Services</div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
