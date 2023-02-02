@@ -126,12 +126,24 @@ const ListedNFTSection = props => {
     const result = await cancelList(mx, tradeStateAddress)
     if (result) {
       setShowListNFTModal(false)
-      listingsAPI.unlistNft(mintAddress).then(response => console.log(response)),
+      listingsAPI.unlistNft(mintAddress).then(response => {
+        if (response) {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Listing Removed!',
+              description: `You've successfully removed your fixed-price listing!`,
+              type: 'success',
+            },
+          ])
+          setShowAlert(true)
+          setMyListedNFTs()
+          dispatch({ type: 'set', isGetMyNFTs: false })
+        }
+      }),
         error => {
           console.log(error)
         }
-      setMyListedNFTs()
-      dispatch({ type: 'set', isGetMyNFTs: false })
     }
   }
 
@@ -140,12 +152,24 @@ const ListedNFTSection = props => {
     if (result) {
       setShowListNFTModal(false)
       listingsAPI.updateNft(nftAddress, { amount: price }).then(
-        response => console.log(response),
+        response => {
+          if (response) {
+            setAlertData([
+              {
+                id: 0,
+                title: 'Listing Updated!',
+                description: `You've successfully updated your fixed-price listing!`,
+                type: 'success',
+              },
+            ])
+            setShowAlert(true)
+            setMyListedNFTs()
+          }
+        },
         error => {
           console.log(error)
         }
       )
-      setMyListedNFTs()
     }
   }
 
