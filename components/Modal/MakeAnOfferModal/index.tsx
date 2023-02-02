@@ -13,9 +13,11 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 
 // styles
 import styles from './index.module.scss'
+import { useViewport } from 'utils'
 
 const MakeAnOfferModal = props => {
   const { open, close, onClick, listingPrice, nftName, collectionName, offerBalance, mainWalletBalance } = props
+  const viewport = useViewport()
 
   const [minimumOffer, setMinimumOffer] = useState<any>(0)
   const [newMainBalance, setNewMainBalance] = useState<any>(0)
@@ -116,26 +118,13 @@ const MakeAnOfferModal = props => {
                   />
                 </div>
                 <div className={styles.title}>Make Offer</div>
-                <div className="w-full mt-5">
+
+                <div className="w-full mt-3 lg:mt-5">
                   <div className={styles.text}>
-                    When you make an offer, the funds are withdrawn from your main wallet and deposited into your
-                    &quot;offer wallet.&quot; If you already have available funds in your &quot;offer wallet,&quot; the
-                    offer will be funded using your available balance.
-                    <br />
-                    <br />
-                    To view the balance, deposit or withdraw from your offer wallet, you can do so from the wallet
-                    adapter in the top navbar.
+                    When you make an offer, the funds are transferred from your main wallet to your offer wallet.
                   </div>
                 </div>
-                <div className="w-full mt-[30px]">
-                  <div className={styles.card}>
-                    <div className={styles.cardTitle}>Cancel Offer</div>
-                    <div className={styles.cardText}>
-                      If you would like to cancel an offer before the seller accepts, you can do so from the
-                      &quot;offers&quot; tab on your dashboard.
-                    </div>
-                  </div>
-                </div>
+
                 <div className="w-full flex justify-between gap-4 mt-10">
                   <div className={styles.inputArea}>
                     <PriceInput
