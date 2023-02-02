@@ -23,7 +23,7 @@ import { validUrl } from 'utils/helpers'
 
 const ReadMoreModal = props => {
   const { open, close, artistInfo, categoryList } = props
-
+  console.log('======artistInfo=======', artistInfo)
   const closeModal = () => {
     close()
   }

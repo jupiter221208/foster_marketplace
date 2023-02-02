@@ -96,6 +96,7 @@ export const validUrl = url => {
   if (!url.includes('https')) {
     return url.replace(/^http:\/\//i, 'https://')
   }
+  return url
 }
 
 export const copyToClipboard = value => {
