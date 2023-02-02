@@ -64,7 +64,7 @@ const StatsPreviewModal = props => {
                       <div className={styles.title}>House Stats</div>
                       <div className={`${styles.text}`}>
                         House Stats is an all-in-one hub that provides real-time data for artists and collectors. Find
-                        out how your artwork and collectibles are performing, understand purchase habits, and much more.
+                        out how your artwork and collectibles are performing, understand purchase habits and much more.
                       </div>
                       <div className={styles.subTitle}>Creators</div>
                       <div className={`${styles.text}`}>
@@ -140,7 +140,7 @@ const StatsPreviewModal = props => {
                           <div className={styles.title}>House Stats</div>
                           <div className={`${styles.text} mt-[15px]`}>
                             House Stats is an all-in-one hub that provides real-time data for artists and collectors.
-                            Find out how your artwork and collectibles are performing, understand purchase habits, and
+                            Find out how your artwork and collectibles are performing, understand purchase habits and
                             much more.
                           </div>
                           <div className={styles.subTitle}>Creators</div>
@@ -159,7 +159,7 @@ const StatsPreviewModal = props => {
                             <span className={styles.link} onClick={() => window.open('https://mint.turkeycircus.io')}>
                               Turkey Circus DAO
                             </span>{' '}
-                            to get early access..
+                            to get early access.
                           </div>
                         </div>
                       </div>

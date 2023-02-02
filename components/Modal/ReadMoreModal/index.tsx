@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -13,9 +13,9 @@ import CategoryChip from 'components/Chip/CategoryChip'
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
 import InstagramIcon from 'assets/icons/social-ig.svg'
-import DiscordIcon from 'assets/icons/social-discord.svg'
+// import DiscordIcon from 'assets/icons/social-discord.svg'
 import TwitterIcon from 'assets/icons/social-twitter.svg'
-import TelegramIcon from 'assets/icons/social-telegram.svg'
+// import TelegramIcon from 'assets/icons/social-telegram.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -23,7 +23,6 @@ import { validUrl } from 'utils/helpers'
 
 const ReadMoreModal = props => {
   const { open, close, artistInfo, categoryList } = props
-  console.log('======artistInfo=======', artistInfo)
   const closeModal = () => {
     close()
   }

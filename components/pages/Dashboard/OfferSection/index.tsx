@@ -85,8 +85,8 @@ const OfferSection = () => {
           setAlertData([
             {
               id: 0,
-              title: 'Listing Removed',
-              description: `You've successfully removed your fixed-price listing!`,
+              title: 'Offer Canceled',
+              description: `You've successfully canceled your offer on ${listing.asset.name}`,
               type: 'success',
             },
           ])
