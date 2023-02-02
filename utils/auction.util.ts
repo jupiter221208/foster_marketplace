@@ -401,6 +401,10 @@ export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]>
         auctionHouse
       )
     )
+    .filter(
+      ({ canceledAt, purchaseReceiptAddress }) =>
+        canceledAt === null && purchaseReceiptAddress === null
+    )
 
   return populateLazyBidsWithAssets(mx, bids)
 }
