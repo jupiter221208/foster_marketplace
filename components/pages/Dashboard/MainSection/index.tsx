@@ -43,7 +43,8 @@ import styles from './index.module.scss'
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
-import { copyToClipboard } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -270,11 +271,29 @@ const MainSection = () => {
             <div className={styles.bottomSection}>
               <div className={styles.artistName}>{profileName.length > 0 ? profileName : 'Username'}</div>
             </div>
-            <div className="flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
-              <AddressButton label={shortAddress} onClick={() => copyToClipboard(publicKey?.toBase58() || '')} />
+            <div className="relative flex lg:hidden w-full justify-center mt-[3px] gap-[10px]">
+              <div className="relative">
+                <AddressButton
+                  label={shortAddress}
+                  onClick={() => {
+                    copyToClipboard(publicKey?.toBase58() || '')
+                    copyClipboardAlert('wallet-address-mobile')
+                  }}
+                />
+                <CopyClipboardChip identifier="wallet-address-mobile" />
+              </div>
             </div>
             <div className="hidden lg:flex justify-center mt-[16px]">
-              <AddressButton label={shortAddress} onClick={() => copyToClipboard(publicKey?.toBase58() || '')} />
+              <div className="relative">
+                <AddressButton
+                  label={shortAddress}
+                  onClick={() => {
+                    copyToClipboard(publicKey?.toBase58() || '')
+                    copyClipboardAlert('wallet-address')
+                  }}
+                />
+                <CopyClipboardChip identifier="wallet-address" />
+              </div>
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
               <div>

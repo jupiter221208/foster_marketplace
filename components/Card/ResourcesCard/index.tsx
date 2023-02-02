@@ -8,7 +8,6 @@ import styles from './index.module.scss'
 
 const ResourcesCard = props => {
   const { data, onClick, selected } = props
-  console.log(data)
   return (
     <div
       className={styles.container}

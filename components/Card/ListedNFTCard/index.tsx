@@ -21,7 +21,6 @@ import { PublicKey } from '@solana/web3.js'
 const ListedNFTCard = props => {
   const { data, type, onClick, onActionClick, cancelAuction, finalizeSale } = props
   const { startTime, endTime, highestBid, url } = data
-  console.log(data)
   const viewport = useViewport()
   const isStarted = useMemo(() => {
     if (startTime) {
