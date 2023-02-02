@@ -45,7 +45,7 @@ const LiveAuction = ({ nftDetail }: LiveAuctionProps) => {
   const [loading, setLoading] = useState(false)
   const [artistInfo, setArtistInfo] = useState(null)
   const categories = getNFTCategories(nftDetail)
-  const collectionId = nftDetail.collection?.address.toBase58()
+  const collectionId = nftDetail.collection?.address.toString()
 
   useEffect(() => {
     if (!nftDetail) return

@@ -238,7 +238,10 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
     let { creator_username, auction } = (await nftsAPI.getDetail(id)) || {}
     if (creator_username) setNftCreatorUsername(creator_username)
     if (auction?.auction) {
-      let { highest_bid, reserve_price, seller_address, start_time, end_time } = auction
+      let {
+        highest_bid,
+        auction: { reserve_price, seller_address, start_time, end_time },
+      } = auction
       setNftReservePrice(Number(reserve_price))
       setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
       setHighBidder(highest_bid ? highest_bid.buyer_address : '')
