@@ -14,7 +14,6 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // image
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 
 // styles
 import styles from './index.module.scss'

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
-import { calculateTimeLeft, countDecimals, formattedAmount } from 'utils/helpers'
+import { calculateTimeLeft, formattedAmount } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -19,8 +21,9 @@ import styles from './index.module.scss'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
-
+  const router = useRouter()
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
@@ -117,7 +120,13 @@ const LiveAuctionCard = props => {
           )}
         </div>
       </div>
-      <div className={styles.avatar}>
+      <div
+        className={styles.avatar}
+        onClick={() => {
+          router.push(`/artist-profile?id=${data.artist_id}`)
+          dispatch({ type: 'set', isLoading: true })
+        }}
+      >
         {data.artist_profile_picture === null || data.artist_profile_picture.length === 0 ? (
           <Image
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
