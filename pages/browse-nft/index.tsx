@@ -59,10 +59,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   // TODO: add default image url for broken images
   let nftImageUrl = nftDetail.json?.image ?? ''
   let nftDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" +
-    'Create, collect and curate the flavor.\n' +
-    '\n' +
-    (nftDetail.json?.description ?? '')
+    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
   return (
     <div className="g-container">

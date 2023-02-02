@@ -74,10 +74,7 @@ const BrowseCollection = ({ collectionData }: BrowseCollectionProps) => {
   // TODO: add default image url for broken images
   let collectionImageUrl = collectionData?.cover_image ?? ''
   let collectionDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" +
-    'Create, collect and curate the flavor.\n' +
-    '\n' +
-    (collectionData?.description ?? '')
+    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
   return (
     <div className="g-container">

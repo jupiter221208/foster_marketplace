@@ -63,6 +63,20 @@ const LiveAuction = () => {
     }
   }, [id])
 
+  let nftName = `${nftDetail?.name} | Foster Marketplace`
+  if (bids?.length > 0) {
+    let {
+      basisPoints,
+      currency: { decimals },
+    } = bids[0].price
+    let highestBidAmount = basisPoints.divn(10 ** decimals).toNumber()
+    nftName = `${nftDetail?.name} at ◎ ${highestBidAmount.toFixed(2)} | Foster Marketplace`
+  }
+  // TODO: add default image url for broken images
+  let nftImageUrl = nftDetail?.json?.image ?? ''
+  let nftDescription =
+    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+
   return (
     <div className="g-container">
       <Head>
