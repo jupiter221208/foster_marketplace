@@ -122,7 +122,7 @@ const Collection = () => {
       object.name = ''
       object.description = ''
       if (item.type.split('/')[0] === 'audio') {
-        object.croppedImage = coverCroppedImage
+        object.croppedImage = URL.createObjectURL(coverImage[0])
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
       } else if (item.type.split('/')[0] === 'video') {
