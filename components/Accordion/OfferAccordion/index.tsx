@@ -5,7 +5,6 @@ import Image from 'next/image'
 
 // web3
 import { type PublicKey } from '@solana/web3.js'
-import { type JsonMetadata } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { LazyBidWithAsset } from 'utils/auction.util'
 import { getNFTOwner } from 'utils/nfts.utils'
@@ -21,6 +20,8 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 // styles
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
+
+import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 export interface OfferAccordionProps {
   data: LazyBidWithAsset[]
@@ -87,7 +88,10 @@ const OfferAccordionItem = ({
 
                 <div className="block">
                   <div className={styles.subTitle}>{listing.asset.name}</div>
-                  <div className={styles.amount}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
+                  <div className='flex gap-1 mt-1'>
+                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                    <div className={styles.amount}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
+                    </div>
                 </div>
               </div>
 
