@@ -103,11 +103,12 @@ const OfferSection = () => {
       setAlertData([
         {
           id: 0,
-          title: 'Success',
-          description: `You've successfully accepted an offer!`,
+          title: 'Offer Accepted!',
+          description: `You've successfully accepted an offer for ${bid.asset.name}`,
           type: 'success',
         },
       ])
+      setShowAlert(true)
       listingsAPI
         .acceptOffer(bid.asset.mintAddress.toBase58(), {
           buyer_wallet_id: bid.buyerAddress.toBase58(),
@@ -119,6 +120,15 @@ const OfferSection = () => {
         error => {
           console.log(error)
         }
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Offer Accept Failed!',
+          description: `Failed to send the transaction, please check the validation for ${bid.asset.name}`,
+          type: 'failure',
+        },
+      ])
       setShowAlert(true)
     }
   }
