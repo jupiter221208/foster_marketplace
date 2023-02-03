@@ -28,45 +28,44 @@ import authAPI from 'apis/auth'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString } from 'utils/helpers'
 
-interface ArtistProfileProps {
-  artistPublicKey?: string
-  artistData?: any
-  error?: string
-}
-
-const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProps) => {
+const ArtistProfile = () => {
+  const router = useRouter()
   const { connected, publicKey } = useWallet()
 
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
-  const [artistInfo, setArtistInfo] = useState<any>(artistData)
+  const [artistInfo, setArtistInfo] = useState<any>({})
   const [statsInfo, setStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
   const [nfts, setNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
+  const [isOwn, setIsOwn] = useState<any>(false)
   const [artistEnable, setArtistEnable] = useState(true)
 
-  const [isOwn, setIsOwn] = useState<any>(false)
   useEffect(() => {
-    if (publicKey) setIsOwn(artistInfo.wallet_id === publicKey?.toBase58())
-  }, [artistInfo, publicKey])
+    if (router.query.id !== undefined && router.query.id !== null) {
+      getArtistData(router.query.id, true)
+    }
+  }, [router.query])
 
   useEffect(() => {
     if (connected && loginAndRefresh) {
       dispatch({ type: 'set', loginAndRefresh: false })
       authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
         response => {
-          if (response.new_user) dispatch({ type: 'set', profileSetup: true })
+          if (response.new_user === true) {
+            dispatch({ type: 'set', profileSetup: true })
+          }
           dispatch({ type: 'set', profileInfo: response.user })
           dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
           dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
 
           if (artistEnable) {
-            getArtistData(artistPublicKey, true)
+            getArtistData(router.query.id, true)
           } else {
-            getCollectorData(artistPublicKey, true)
+            getCollectorData(router.query.id, true)
           }
         },
         error => {
@@ -76,15 +75,34 @@ const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProp
     }
   }, [connected, loginAndRefresh])
 
-  const getArtistData = (id, refresh = false) => {
+  useEffect(() => {
+    if (router.query.id !== undefined && router.query.id !== null) {
+      resetData()
+      if (artistEnable) {
+        getArtistData(router.query.id, false)
+      } else {
+        getCollectorData(router.query.id, false)
+      }
+    }
+  }, [artistEnable])
+
+  const getArtistData = (id, refresh) => {
     artistsAPI.getArtist(id).then(
       response => {
         if (isString(response)) return
         let artist = response.artist
 
-        if (refresh && artist) {
-          artist.profile_picture ||= AvatarImage.src
-          artist.banner_picture ||= HeaderImage.src
+        if (refresh && artist !== undefined && artist !== null) {
+          if (
+            artist.profile_picture === null ||
+            artist.profile_picture === '' ||
+            artist.profile_picture === undefined
+          ) {
+            artist.profile_picture = AvatarImage.src
+          }
+          if (artist.banner_picture === null || artist.banner_picture === '' || artist.banner_picture === undefined) {
+            artist.banner_picture = HeaderImage.src
+          }
           setArtistInfo(artist)
         }
         setStatsInfo(response.stats)
@@ -114,14 +132,22 @@ const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProp
     setCategoryList([])
   }
 
-  const getCollectorData = (id, refresh = false) => {
+  const getCollectorData = (id, refresh) => {
     artistsAPI.getCollector(id).then(
       response => {
         if (isString(response)) return
         let artist = response.collector
-        if (refresh && artist) {
-          artist.profile_picture ||= AvatarImage.src
-          artist.banner_picture ||= HeaderImage.src
+        if (refresh && artist !== undefined && artist !== null) {
+          if (
+            artist.profile_picture === null ||
+            artist.profile_picture === '' ||
+            artist.profile_picture === undefined
+          ) {
+            artist.profile_picture = AvatarImage.src
+          }
+          if (artist.banner_picture === null || artist.banner_picture === '' || artist.banner_picture === undefined) {
+            artist.banner_picture = HeaderImage.src
+          }
           setArtistInfo(artist)
         }
         setStatsInfo(response.stats)
@@ -136,43 +162,14 @@ const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProp
   }
 
   useEffect(() => {
-    if (!artistPublicKey) return
-    resetData()
-
-    if (artistEnable) {
-      setArtistInfo(artistData?.artist ?? {})
-      setStatsInfo(artistData?.stats ?? {})
-      setCategoryList(artistData?.categories ?? [])
-      setNfts(artistData?.nfts ?? [])
-      setCollections(artistData?.collections ?? [])
-
-      getArtistData(artistPublicKey)
-    } else {
-      getCollectorData(artistPublicKey)
-    }
-  }, [artistPublicKey])
-
-  let artistName = `${artistData?.artist.username} | Foster Marketplace`
-  // TODO: add default image url for broken images
-  let artistImageUrl = artistData?.artist.profile_picture ?? ''
-  let artistDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+    if (publicKey) setIsOwn(artistInfo.wallet_id === publicKey?.toBase58())
+  }, [artistInfo, publicKey])
 
   return (
     <div className="g-container">
       <Head>
-        <title>{artistName}</title>
-        <meta property="description" content={artistDescription} />
-
-        <meta name="og:title" content={artistName} />
-        <meta property="og:description" content={artistDescription} />
-        <meta name="og:image" content={artistImageUrl} />
-
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={artistName} />
-        <meta property="twitter:description" content={artistDescription} />
-        <meta property="twitter:image" content={artistImageUrl} />
-
+        <title>Artist Profile</title>
+        <meta name="description" content="Generated by create next app" />
         <link rel="icon" href="/logo.svg" />
       </Head>
       <div className={styles.container}>
@@ -197,23 +194,4 @@ export default ArtistProfile
 
 ArtistProfile.getLayout = function getLayout(page) {
   return <ArtistLayout>{page}</ArtistLayout>
-}
-
-ArtistProfile.getInitialProps = async function ({ res, query }): Promise<ArtistProfileProps> {
-  let artistPublicKey = query.id
-  try {
-    let artistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistPublicKey}/public`).then(r => r.json())
-    artistData.artist.profile_picture ||= AvatarImage.src
-    artistData.artist.banner_picture ||= HeaderImage.src
-
-    return {
-      artistPublicKey,
-      artistData,
-    }
-  } catch (e: any) {
-    console.error(e)
-    return {
-      error: `could not load artist details: ${artistPublicKey}: ${e.message}`,
-    }
-  }
 }
