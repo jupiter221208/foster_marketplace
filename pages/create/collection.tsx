@@ -26,10 +26,8 @@ import { Keypair } from '@solana/web3.js'
 import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
 
 // images and icons
-import AudioPlayer from 'assets/images/audio-player.png'
 
 // call apis
-import axios from 'axios'
 import collectionsAPI from 'apis/collections'
 
 const Collection = () => {
@@ -92,9 +90,9 @@ const Collection = () => {
       image: coverImageUrl,
     })
 
-    const result = await axios.get(uri).then(response => {
-      return response.data
-    })
+    // const result = await axios.get(uri).then(response => {
+    //   return response.data
+    // })
 
     const collectionNft = await mx.nfts().create({
       isCollection: true,
@@ -124,7 +122,7 @@ const Collection = () => {
       object.name = ''
       object.description = ''
       if (item.type.split('/')[0] === 'audio') {
-        object.croppedImage = AudioPlayer.src
+        object.croppedImage = coverCroppedImage
       } else if (item.type.split('/')[0] === 'image') {
         object.croppedImage = URL.createObjectURL(item)
       } else if (item.type.split('/')[0] === 'video') {
@@ -345,6 +343,7 @@ const Collection = () => {
         {currentStep === 2 && (
           <Step02CollectionSection
             currentStep={currentStep}
+            coverCroppedImage={coverCroppedImage}
             onChangeCurrentStep={step => setCurrentStep(step)}
             collectionFiles={collectionFiles}
             onChangeCollectionFiles={collectionFiles => onChangeCollectionFiles(collectionFiles)}

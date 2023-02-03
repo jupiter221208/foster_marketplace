@@ -169,16 +169,23 @@ const SuccessMintCollectionSection = props => {
             </div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
-                <GradientButton
-                  icon={TwitterBackgroundBlackIcon}
-                  fullWidth
-                  label="Tweet your Mint"
-                  color="#202427"
-                  backgroundColor="#378287"
-                  height="45px"
-                  onClick={() => {}}
-                  direction="rtl"
-                />
+                <TwitterShareButton
+                  title="Just minted a fresh collection on @foster_protocol #fostermarketplace"
+                  url={explorerURL}
+                  beforeOnClick={() => {}}
+                  onShareWindowClose={() => {}}
+                  className="w-full"
+                >
+                  <TweetMintButton
+                    icon={TwitterBackgroundBlackIcon}
+                    fullWidth
+                    label="Tweet your Mint"
+                    color="#202427"
+                    backgroundColor="#378287"
+                    onClick={() => {}}
+                    direction="rtl"
+                  />
+                </TwitterShareButton>
               </div>
               <div className="w-[221px]">
                 <MintOutlineButton
