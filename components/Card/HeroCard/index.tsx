@@ -16,7 +16,7 @@ const HeroCard = props => {
         <div className={styles.imageContent}>
           <img
             src={
-              data.asset_type === 'image'
+              data.asset_type.includes('image')
                 ? data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                   ? data.asset_url
                   : '/images/banner.png'
@@ -71,7 +71,7 @@ const HeroCard = props => {
             </div>
             <div className="w-full block">
               <div className={styles.nftName}>{data.nft_name}</div>
-              <div className={`flex ${styles.artistName}`}>{data.artist_username}</div>
+              <div className={`flex ${styles.artistName}`}>{data.artist_username || 'Uknown Artist'}</div>
             </div>
             <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
               <div className={styles.avatar}>

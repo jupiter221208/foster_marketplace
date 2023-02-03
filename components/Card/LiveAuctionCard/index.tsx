@@ -60,7 +60,7 @@ const LiveAuctionCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          {data.asset_type === 'video' ? (
+          {data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {play ? (
@@ -103,7 +103,7 @@ const LiveAuctionCard = props => {
                 onClick={() => onClick()}
               />
             )
-          ) : data.asset_type === 'audio' ? (
+          ) : data.asset_type.includes('audio') ? (
             <img
               src={data.cover_image_url}
               alt=""
