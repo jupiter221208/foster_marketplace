@@ -69,7 +69,7 @@ import Select from 'components/Select'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { toMetadataAccount, type Nft, type LazyBid } from '@metaplex-foundation/js'
+import { toMetadataAccount, Nft, LazyBid } from '@metaplex-foundation/js'
 import { TIMED_AUCTION_HOUSE_PUBLIC_KEY, placeBid } from 'utils/auctioneer.util'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { useWallets } from 'hooks/useWallets'
@@ -728,12 +728,9 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                                 </td>
                                 <td className="w-[60px]">
                                   <div className="flex justify-center items-center mx-2 gap-1">
-                                    <Image
-                                      src={SolanaLogoIcon}
-                                      alt=""
-                                      width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                                      height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                                    />
+                                    <div className="w-[18px] min-w-[18px]">
+                                      <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
+                                    </div>
                                     <div>{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
