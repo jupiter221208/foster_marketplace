@@ -190,8 +190,8 @@ const MainSection = props => {
         </div>
         <div className="flex justify-center mt-[30px]">
           <div className={styles.categoryList}>
-            {data.categories &&
-              data.categories.split(',').map((item, index) => (
+            {data?.categories &&
+              data?.categories.split(',').map((item, index) => (
                 <div key={index}>
                   <CategoryChip data={{ value: item }} />
                 </div>
@@ -206,7 +206,7 @@ const MainSection = props => {
     <div className={styles.container}>
       <div className={styles.headerImage}>
         <img
-          src={data.banner_image}
+          src={data?.banner_image}
           alt=""
           width={1620}
           height={480}
@@ -317,7 +317,7 @@ const MainSection = props => {
           close={() => setShowReadMore(false)}
           artistInfo={data}
           stats={{ items, owners, floorPrice, totalVolume }}
-          categoryList={data.categories.split(',')}
+          categoryList={data?.categories.split(',')}
         />
       )}
     </div>
