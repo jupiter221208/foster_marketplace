@@ -361,6 +361,7 @@ const Step02CollectionSection = props => {
                               height="46px"
                             />
                           </div>
+                          <div className={styles.fileName}>{item.file?.name}</div>
                         </div>
                         <div className="flex-1 block h-[120px]">
                           <div
@@ -563,32 +564,35 @@ const Step02CollectionSection = props => {
                   onClick={() => handleSelectedCollectionFile(item)}
                 >
                   <div className="w-full flex justify-between items-center">
-                    <div
-                      className={
-                        selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
-                          ? styles.selectedImage
-                          : styles.nonSelectedImage
-                      }
-                    >
-                      {item.type === 'video' ? (
-                        <video loop autoPlay className="w-full h-full" id="video">
-                          <source src={URL.createObjectURL(item.file)} type={item.file.type} />
-                          Your browser does not support the video tag.
-                        </video>
-                      ) : (
-                        <NextImage
-                          src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
-                          alt=""
-                          width={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                          }
-                          height={
-                            selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
-                          }
-                          objectFit="cover"
-                          className="rounded-lg"
-                        />
-                      )}
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={
+                          selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id
+                            ? styles.selectedImage
+                            : styles.nonSelectedImage
+                        }
+                      >
+                        {item.type === 'video' ? (
+                          <video loop autoPlay className="w-full h-full" id="video">
+                            <source src={URL.createObjectURL(item.file)} type={item.file.type} />
+                            Your browser does not support the video tag.
+                          </video>
+                        ) : (
+                          <NextImage
+                            src={item.croppedImage !== '' ? item.croppedImage : URL.createObjectURL(item.file)}
+                            alt=""
+                            width={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                            }
+                            height={
+                              selectedCollectionFile !== undefined && selectedCollectionFile.id === item.id ? 64 : 68
+                            }
+                            objectFit="cover"
+                            className="rounded-lg"
+                          />
+                        )}
+                      </div>
+                      <div className={styles.fileName}>{item.file?.name}</div>
                     </div>
                     <IconButton
                       icon={TrashGrayIcon}
