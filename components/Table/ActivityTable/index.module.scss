@@ -12,3 +12,12 @@
   display: flex;
   justify-content: center;
 }
+
+.nftName {
+  display: flex;
+  justify-items: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
