@@ -48,9 +48,6 @@ import { getNFTByAddress } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { PublicKey } from '@solana/web3.js'
 
-// custom functions
-import { getShortAddress } from 'utils/strings'
-
 // apis
 import AuctionAPI from 'apis/auctions'
 import ExploreAPI from 'apis/explore'
