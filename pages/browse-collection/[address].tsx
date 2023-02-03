@@ -47,6 +47,7 @@ const BrowseCollection = ({ collectionData }: BrowseCollectionProps) => {
         .then(response => {
           if (response instanceof Array) {
             setNfts(response)
+            dispatch({ type: 'set', isLoading: false })
           }
         })
         .catch(console.error)
