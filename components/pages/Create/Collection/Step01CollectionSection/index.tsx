@@ -403,6 +403,7 @@ const Step01CollectionSection = props => {
                       placeholder="Insert a royalty percentage"
                       label="From 0 to 10%"
                       type="number"
+                      min="0"
                       onChange={value => onChangeRoyalties(value)}
                     />
                   </div>
@@ -581,6 +582,7 @@ const Step01CollectionSection = props => {
                 placeholder="Insert a royalty percentage"
                 label="From 0 to 10%"
                 type="number"
+                min={0}
                 onChange={value => onChangeRoyalties(value)}
               />
             </div>

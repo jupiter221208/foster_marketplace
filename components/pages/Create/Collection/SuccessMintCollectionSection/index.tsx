@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 // solana
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
+import { TwitterShareButton } from 'react-share'
 
 const SuccessMintCollectionSection = props => {
   const { coverCroppedImage, bannerCroppedImage, collectionNft } = props
@@ -87,16 +88,23 @@ const SuccessMintCollectionSection = props => {
             </div>
             <div className="max-w-[758px] w-full flex justify-between gap-[30px] mt-[60px]">
               <div className="w-full">
-                <TweetMintButton
-                  icon={TwitterBackgroundBlackIcon}
-                  fullWidth
-                  height="68px"
-                  label="Tweet your Mint"
-                  color="#202427"
-                  backgroundColor="#378287"
-                  onClick={() => {}}
-                  direction="rtl"
-                />
+                <TwitterShareButton
+                  title="Just minted a fresh collection on @foster_protocol #fostermarketplace"
+                  url={explorerURL}
+                  beforeOnClick={() => {}}
+                  onShareWindowClose={() => {}}
+                  className="w-full"
+                >
+                  <TweetMintButton
+                    icon={TwitterBackgroundBlackIcon}
+                    fullWidth
+                    label="Tweet your Mint"
+                    color="#202427"
+                    backgroundColor="#378287"
+                    onClick={() => {}}
+                    direction="rtl"
+                  />
+                </TwitterShareButton>
               </div>
               <div className="w-full">
                 <OutlineButton

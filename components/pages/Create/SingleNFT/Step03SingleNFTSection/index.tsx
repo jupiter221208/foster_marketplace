@@ -52,6 +52,7 @@ const Step03SingleNFTSection = props => {
           placeholder="Insert a royalty percentage"
           label="From 0 to 10%"
           type="number"
+          min={0}
           onChange={value => setRoyalties(value)}
         />
       </div>
@@ -86,6 +87,7 @@ const Step03SingleNFTSection = props => {
           placeholder="Insert a royalty percentage"
           label="From 0 to 10%"
           type="number"
+          min={0}
           onChange={value => setRoyalties(value)}
         />
       </div>

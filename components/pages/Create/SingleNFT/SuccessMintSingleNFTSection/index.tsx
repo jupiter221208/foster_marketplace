@@ -26,6 +26,10 @@ import styles from './index.module.scss'
 //explorer
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
+import { TwitterShareButton } from 'react-share'
+
+// api
+import nftsAPI from 'apis/nfts'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftType, nftArt, nftImage, artWidth, nftAddress } = props
@@ -84,15 +88,23 @@ const SuccessMintSingleNFTSection = props => {
         </div>
         <div className="w-full flex justify-between gap-[30px] mt-[60px]">
           <div className="w-full">
-            <TweetMintButton
-              icon={TwitterBackgroundBlackIcon}
-              fullWidth
-              label="Tweet your Mint"
-              color="#202427"
-              backgroundColor="#378287"
-              onClick={() => {}}
-              direction="rtl"
-            />
+            <TwitterShareButton
+              title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
+              url={explorerURL}
+              beforeOnClick={() => {}}
+              onShareWindowClose={() => {}}
+              className="w-full"
+            >
+              <TweetMintButton
+                icon={TwitterBackgroundBlackIcon}
+                fullWidth
+                label="Tweet your Mint"
+                color="#202427"
+                backgroundColor="#378287"
+                onClick={() => {}}
+                direction="rtl"
+              />
+            </TwitterShareButton>
           </div>
           <div className="w-full">
             <MintOutlineButton
