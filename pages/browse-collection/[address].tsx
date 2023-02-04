@@ -22,37 +22,45 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // call apis
 import authAPI from 'apis/auth'
 import collectionsAPI from 'apis/collections'
-import { isString } from 'utils/helpers'
+import { isString, isLoggedIn } from 'utils/helpers'
 
 type BrowseCollectionProps = {
-  collectionData?: any
+  publicCollectionData?: any
   error?: string
 }
 
-const BrowseCollection = ({ collectionData }: BrowseCollectionProps) => {
+const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
 
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
+  const [collectionData, setCollectionData] = useState(publicCollectionData)
   const [nfts, setNfts] = useState([])
 
   const address = collectionData?.collection_id
 
   useEffect(() => {
-    if (address) {
-      collectionsAPI
-        .getCollectionNft(address)
-        .then(response => {
-          if (response instanceof Array) {
-            setNfts(response)
-            dispatch({ type: 'set', isLoading: false })
-          }
-        })
-        .catch(console.error)
-    }
-  }, [address])
+    ;(async () => {
+      if (!address) return
+
+      try {
+        dispatch({ type: 'set', isLoading: true })
+        let collectionNfts = await collectionsAPI.getCollectionNft(address)
+        if (!isString(collectionNfts)) setNfts(collectionNfts)
+
+        if (isLoggedIn()) {
+          let collectionData = await collectionsAPI.getCollection(address)
+          if (!isString(collectionData)) setCollectionData(collectionData)
+        }
+      } catch (e: any) {
+        console.error(e)
+      } finally {
+        dispatch({ type: 'set', isLoading: false })
+      }
+    })()
+  }, [address, publicCollectionData])
 
   useEffect(() => {
     if (connected && loginAndRefresh) {
@@ -119,7 +127,7 @@ BrowseCollection.getInitialProps = async function ({ query }): Promise<BrowseCol
   let collectionId = query.address
   try {
     return {
-      collectionData: await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`).then(r =>
+      publicCollectionData: await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`).then(r =>
         r.json()
       ),
     }

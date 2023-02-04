@@ -30,11 +30,11 @@ import { isString } from 'utils/helpers'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
-  artistData?: any
+  publicArtistData?: any
   error?: string
 }
 
-const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProps) => {
+const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
   const { connected, publicKey } = useWallet()
 
   const dispatch = useDispatch()
@@ -63,7 +63,7 @@ const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProp
           dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
           dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
 
-          if (artistEnable) {
+          if (artistEnable || isLoggedIn()) {
             getArtistData(artistPublicKey, true)
           } else {
             getCollectorData(artistPublicKey, true)
@@ -74,7 +74,7 @@ const ArtistProfile = ({ artistPublicKey, artistData, error }: ArtistProfileProp
         }
       )
     }
-  }, [connected, loginAndRefresh])
+  }, [connected, loginAndRefresh, publicArtistData])
 
   const getArtistData = (id, refresh = false) => {
     artistsAPI.getArtist(id).then(
@@ -208,7 +208,7 @@ ArtistProfile.getInitialProps = async function ({ res, query }): Promise<ArtistP
 
     return {
       artistPublicKey,
-      artistData,
+      publicArtistData,
     }
   } catch (e: any) {
     console.error(e)
