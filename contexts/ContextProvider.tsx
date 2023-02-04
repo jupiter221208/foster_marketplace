@@ -10,6 +10,7 @@ import {
   // LedgerWalletAdapter,
   // SlopeWalletAdapter,
 } from '@solana/wallet-adapter-wallets'
+import { clusterApiUrl } from '@solana/web3.js'
 import { FC, ReactNode, useCallback, useMemo } from 'react'
 import { AutoConnectProvider, useAutoConnect } from './AutoConnectProvider'
 
@@ -32,7 +33,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
       break
   }
 
-  const endpoint = process.env.PROVIDER_URL
+  const endpoint = process.env.PROVIDER_URL ?? clusterApiUrl(network)
 
   const wallets = useMemo(
     () => [
