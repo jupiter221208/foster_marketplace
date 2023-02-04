@@ -26,7 +26,7 @@ import styles from './index.module.scss'
 import artistsAPI from 'apis/artists'
 import authAPI from 'apis/auth'
 import ArtistLayout from 'components/Layout/ArtistLayout'
-import { isString } from 'utils/helpers'
+import { isString, isLoggedIn } from 'utils/helpers'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -41,7 +41,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   dispatch({ type: 'set', isLoading: false })
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
-  const [artistInfo, setArtistInfo] = useState<any>(artistData)
+  const [artistInfo, setArtistInfo] = useState<any>(publicArtistData)
   const [statsInfo, setStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
   const [nfts, setNfts] = useState<any>([])
@@ -140,11 +140,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     resetData()
 
     if (artistEnable) {
-      setArtistInfo(artistData?.artist ?? {})
-      setStatsInfo(artistData?.stats ?? {})
-      setCategoryList(artistData?.categories ?? [])
-      setNfts(artistData?.nfts ?? [])
-      setCollections(artistData?.collections ?? [])
+      setArtistInfo(publicArtistData?.artist ?? {})
+      setStatsInfo(publicArtistData?.stats ?? {})
+      setCategoryList(publicArtistData?.categories ?? [])
+      setNfts(publicArtistData?.nfts ?? [])
+      setCollections(publicArtistData?.collections ?? [])
 
       getArtistData(artistPublicKey)
     } else {
@@ -152,9 +152,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     }
   }, [artistPublicKey])
 
-  let artistName = `${artistData?.artist.username} | Foster Marketplace`
+  let artistName = `${artistInfo?.artist.username} | Foster Marketplace`
   // TODO: add default image url for broken images
-  let artistImageUrl = artistData?.artist.profile_picture ?? ''
+  let artistImageUrl = artistInfo?.artist.profile_picture ?? ''
   let artistDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
@@ -202,9 +202,11 @@ ArtistProfile.getLayout = function getLayout(page) {
 ArtistProfile.getInitialProps = async function ({ res, query }): Promise<ArtistProfileProps> {
   let artistPublicKey = query.id
   try {
-    let artistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistPublicKey}/public`).then(r => r.json())
-    artistData.artist.profile_picture ||= AvatarImage.src
-    artistData.artist.banner_picture ||= HeaderImage.src
+    let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistPublicKey}/public`).then(r =>
+      r.json()
+    )
+    publicArtistData.artist.profile_picture ||= AvatarImage.src
+    publicArtistData.artist.banner_picture ||= HeaderImage.src
 
     return {
       artistPublicKey,
