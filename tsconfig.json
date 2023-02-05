@@ -24,6 +24,7 @@
     "tsBuildInfoFile": "./.next/tsconfig.tsbuildinfo",
     "strictNullChecks" : false,
     "types": [
+      "webpack-env",
       "@types/moment-duration-format",
       "@types/jest"
     ]
