@@ -125,7 +125,7 @@ const MainSection = props => {
                 url={`/browse-collection/${data?.collection_id}`}
               />
             </div>
-            <div className="w-[89px] lg:w-[146px]">
+            <div>
               {saved ? (
                 <NegativeButton
                   width={146}
@@ -231,8 +231,9 @@ const MainSection = props => {
             </div>
             {saved ? (
               <NegativeButton
-                width={80}
+                width={70}
                 height={29}
+                borderRadius={6}
                 label="Saved"
                 fontFamily="KCDurhamBoxcar"
                 fontSize={18}
@@ -240,8 +241,9 @@ const MainSection = props => {
               />
             ) : (
               <PositiveButton
-                width={80}
+                width={70}
                 height={29}
+                borderRadius={6}
                 label="Save"
                 fontFamily="KCDurhamBoxcar"
                 fontSize={18}
