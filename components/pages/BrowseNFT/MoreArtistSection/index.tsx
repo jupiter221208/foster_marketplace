@@ -60,7 +60,10 @@ const MoreArtistSection = props => {
           <div className="hidden lg:flex">
             <OutlineButton
               label="See More"
-              onClick={() => router.push('/explore')}
+              onClick={() => {
+                dispatch({ type: 'set', isLoading: true })
+                router.push(`/artist-profile?id=${artistInfo}`)
+              }}
               borderColor="#ffffff"
               height="42px"
             />
@@ -104,7 +107,10 @@ const MoreArtistSection = props => {
             <OutlineButton
               label="See More"
               fullWidth
-              onClick={() => router.push('/explore')}
+              onClick={() => {
+                dispatch({ type: 'set', isLoading: true })
+                router.push(`/artist-profile?id=${artistInfo}`)
+              }}
               borderColor="#ffffff"
               height="40px"
             />

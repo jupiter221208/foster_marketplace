@@ -55,7 +55,12 @@ const MoreCategorySection = props => {
           <div className="hidden lg:flex">
             <OutlineButton
               label="See More"
-              onClick={() => router.push('/explore')}
+              onClick={() => {
+                if (categories && categories.length > 0) {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/category/${categories[0]}`)
+                }
+              }}
               borderColor="#ffffff"
               height="42px"
             />
@@ -99,7 +104,12 @@ const MoreCategorySection = props => {
             <OutlineButton
               label="See More"
               fullWidth
-              onClick={() => router.push('/explore')}
+              onClick={() => {
+                if (categories && categories.length > 0) {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/category/${categories[0]}`)
+                }
+              }}
               borderColor="#ffffff"
               height="40px"
             />
