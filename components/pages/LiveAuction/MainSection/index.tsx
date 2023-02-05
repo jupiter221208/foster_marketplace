@@ -235,8 +235,9 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
     setIsOwnNft(publicKey?.equals(tokenAccount.owner))
     setSellerAddress(tokenAccount.owner)
 
-    let { creator_username, auction } = (await nftsAPI.getDetail(id)) || {}
+    let { creator_username, creator_address, auction } = (await nftsAPI.getDetail(id)) || {}
     if (creator_username) setNftCreatorUsername(creator_username)
+    if (creator_address) setNftCreatorAddress(creator_address)
     if (auction?.auction) {
       let {
         highest_bid,

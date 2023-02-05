@@ -187,7 +187,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           artistEnable={artistEnable}
           setArtistEnable={enabled => setArtistEnable(enabled)}
         />
-        <NFTSection nfts={nfts} collections={collections} wallet={artistInfo.wallet_id} />
+        <NFTSection nfts={nfts} collections={collections} wallet={artistInfo?.wallet_id} />
       </div>
     </div>
   )
