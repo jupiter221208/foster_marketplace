@@ -114,6 +114,7 @@ const MainSection = props => {
               image={data?.cover_image}
               collectionName={data?.collection_name}
               artistName={data?.artist_username}
+              artistAddress={data?.minter_id}
             />
           </div>
           <div className="col-span-3 flex justify-end">
@@ -219,6 +220,7 @@ const MainSection = props => {
             image={data?.cover_image}
             collectionName={data?.collection_name}
             artistName={data?.artist_username}
+            artistAddress={data?.minter_id}
           />
           <div className="mt-0 flex">
             <div className="mr-[11px] lg:mr-[24px]">
