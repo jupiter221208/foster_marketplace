@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux'
 import Head from 'next/head'
 
 // components
-import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import TrendingCollectionSection from 'components/pages/Home/TrendingCollectionSection'
 import MostPopularSection from 'components/pages/Home/MostPopularSection'
 import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
@@ -34,6 +33,7 @@ const Category = () => {
   dispatch({ type: 'set', isLoading: false })
 
   const cateQuery: any = router.query.id
+  const urlQuery = cateQuery === 'Black&White' ? 'Black' : cateQuery
 
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
@@ -84,11 +84,11 @@ const Category = () => {
 
           <div className={styles.title}>{categoryInfo?.name}</div>
         </div>
-        <TrendingCollectionSection category={cateQuery} />
-        <MostPopularSection category={cateQuery} />
-        <MarketplaceReleaseSection category={cateQuery} />
-        <LiveAuctionSection category={cateQuery} />
-        <FreshMintSection category={cateQuery} />
+        <TrendingCollectionSection category={urlQuery} />
+        <MostPopularSection category={urlQuery} />
+        <MarketplaceReleaseSection category={urlQuery} />
+        <LiveAuctionSection category={urlQuery} />
+        <FreshMintSection category={urlQuery} />
         <PopularCategorySection type="category" />
       </div>
     </div>
