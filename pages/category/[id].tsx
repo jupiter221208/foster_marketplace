@@ -37,7 +37,7 @@ const Category = () => {
   dispatch({ type: 'set', isLoading: false })
 
   const cateQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
-
+  ;('')
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
   useEffect(() => {

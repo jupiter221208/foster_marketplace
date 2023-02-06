@@ -51,6 +51,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
 
   let nftTitle = `${(nftDetail?.name || nftDetail?.json?.name) ?? ''} | Foster Marketplace`
   let nftImageUrl = nftDetail?.json?.image ?? DefaultNftBG.src
+
   let nftDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
