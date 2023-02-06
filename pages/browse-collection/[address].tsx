@@ -16,7 +16,9 @@ import styles from './index.module.scss'
 // router
 import { useRouter } from 'next/router'
 
-// redux
+// solana
+import { Connection, PublicKey } from '@solana/web3.js'
+import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
@@ -126,15 +128,43 @@ BrowseCollection.getLayout = function getLayout(page) {
 BrowseCollection.getInitialProps = async function ({ query }): Promise<BrowseCollectionProps> {
   let collectionId = query.address
   try {
+    let publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`)
+      .then(r => r.json())
+      .catch(() => null)
+
+    if (!publicCollectionData) {
+      let { name, json } = await Metaplex.make(new Connection(process.env.PROVIDER_URL))
+        .nfts()
+        .findByMint({ mintAddress: new PublicKey(collectionId) })
+      publicCollectionData = {
+        id: -1,
+        collection_id: collectionId,
+        minter_id: '',
+        artist_username: '',
+        collection_name: (name || json?.name) ?? '',
+        description: json?.description ?? '',
+        // TODO: use default banner image for collections not minted on foster
+        banner_image: '',
+        // TODO: use default cover image for collections with broken images
+        cover_image: json?.image || '',
+        minted_on_foster: false,
+        views: 0,
+        likes: 0,
+        shares: 0,
+        saves: 0,
+        saved: null,
+        categories: '',
+        created_at: '',
+      }
+    }
+
     return {
-      publicCollectionData: await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`).then(r =>
-        r.json()
-      ),
+      publicCollectionData,
     }
   } catch (e: any) {
-    console.error(`could not load collection: ${collectionId}: ${e.message}`)
+    console.error(e)
     return {
-      error: e.toString(),
+      error: `could not load collection: ${collectionId}: ${e.message}`,
     }
   }
 }
