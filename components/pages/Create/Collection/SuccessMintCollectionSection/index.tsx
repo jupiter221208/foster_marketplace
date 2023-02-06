@@ -38,6 +38,7 @@ const SuccessMintCollectionSection = props => {
     () => getExplorerUrl(connection.rpcEndpoint, collectionNft.mintAddress.toBase58()),
     [collectionNft, connection]
   )
+  const collectionDetailUrl = globalThis.window?.origin + '/browse-collection/' + collectionNft.mintAddress.toBase58()
 
   return (
     <div className="w-full">
@@ -90,7 +91,7 @@ const SuccessMintCollectionSection = props => {
               <div className="w-full">
                 <TwitterShareButton
                   title="Just minted a fresh collection on @foster_protocol #fostermarketplace"
-                  url={explorerURL}
+                  url={collectionDetailUrl}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {}}
                   className="w-full"
@@ -171,7 +172,7 @@ const SuccessMintCollectionSection = props => {
               <div className="w-[221px]">
                 <TwitterShareButton
                   title="Just minted a fresh collection on @foster_protocol #fostermarketplace"
-                  url={explorerURL}
+                  url={collectionDetailUrl}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {}}
                   className="w-full"

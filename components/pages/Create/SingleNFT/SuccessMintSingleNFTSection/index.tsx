@@ -40,6 +40,7 @@ const SuccessMintSingleNFTSection = props => {
 
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, nftAddress), [nftAddress, connection])
+  const nftDetailUrl = globalThis.window?.origin + '/browse-nft?id=' + nftAddress
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
@@ -90,7 +91,7 @@ const SuccessMintSingleNFTSection = props => {
           <div className="w-full">
             <TwitterShareButton
               title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
-              url={explorerURL}
+              url={nftDetailUrl}
               beforeOnClick={() => {}}
               onShareWindowClose={() => {}}
               className="w-full"
@@ -171,7 +172,7 @@ const SuccessMintSingleNFTSection = props => {
           <div className="w-[221px]">
             <TwitterShareButton
               title="Just dropped a fresh new mint on @foster_protocol #fostermarketplace"
-              url={explorerURL}
+              url={nftDetailUrl}
               beforeOnClick={() => {}}
               onShareWindowClose={() => {}}
               className="w-full"
