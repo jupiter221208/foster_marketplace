@@ -431,6 +431,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                     {play && (
                       <div
                         className="w-full h-full absolute"
+                        onClick={() => {
+                          if (play) setPlay(false)
+                        }}
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                       <source src=${nftAssetUrl} type="video/mp4" /></video>`,
@@ -439,17 +442,13 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                     )}
                   </div>
 
-                  <div className={styles.playButton}>
-                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                      <Image
-                        src={play ? PauseVideoIcon : PlayVideoIcon}
-                        width={18}
-                        height={18}
-                        alt=""
-                        onClick={() => setPlay(!play)}
-                      />
+                  {!play && (
+                    <div className={styles.playButton}>
+                      <div className="w-[22px] h-[18px] flex justify-end">
+                        <Image src={PlayVideoIcon} width={18} height={18} alt="" onClick={() => setPlay(!play)} />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ) : (
                 <></>
