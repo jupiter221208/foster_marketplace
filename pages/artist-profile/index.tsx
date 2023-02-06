@@ -150,7 +150,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     } else {
       getCollectorData(artistPublicKey)
     }
-  }, [artistPublicKey])
+  }, [artistPublicKey, artistEnable])
 
   let artistName = `${artistInfo?.artist?.username} | Foster Marketplace`
   // TODO: add default image url for broken images
