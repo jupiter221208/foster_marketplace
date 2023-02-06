@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // components
 import IconButton from 'components/Button/IconButton'
@@ -14,10 +14,13 @@ import PauseWhiteIcon from 'assets/icons/pause-video.svg'
 
 const MintAudioPlayer = props => {
   const { src } = props
-
   const viewport = useViewport()
+  const { curTime, duration, playing, setPlaying, setClickedTime } = useAudioPlayer()
 
-  const { curTime, duration, playing, setPlaying, setClickedTime, muted, setMuted } = useAudioPlayer()
+  useEffect(() => {
+    const audio = document.getElementById('audio') as HTMLMediaElement
+    audio.load()
+  }, [src])
 
   return (
     <div className="absolute bottom-2 left-4 lg:left-8 right-4 lg:right-8 z-10">
