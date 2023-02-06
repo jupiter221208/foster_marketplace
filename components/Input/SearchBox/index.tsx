@@ -14,7 +14,7 @@ import { useViewport } from 'utils'
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
 import CloseGrayIcon from 'assets/icons/close-gray.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
-import DefaultNftBG from 'assets/images/default-nft-bg.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
