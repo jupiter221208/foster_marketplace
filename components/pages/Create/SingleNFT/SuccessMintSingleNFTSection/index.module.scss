@@ -34,15 +34,16 @@
 
 .mintTitle {
   width: 100%;
-  font-family: 'Muli-SemiBold';
-  font-size: 24px;
-  line-height: 30px;
+  font-family: 'KCDurhamBoxcar';
+  font-family: 'KCDurhamboxcar';
+  font-size: 51px;
+  line-height: 51px;
   @media (min-width: 1024px) {
-    font-size: 40px;
-    line-height: 56px;
+    font-size: 74px;
+    line-height: 158px;
   }
   letter-spacing: 0;
-  color: $brand-06-color;
+  color: $brand-09-color;
   text-align: center;
 }
 
