@@ -1,34 +1,80 @@
 import React from 'react'
 
+// next components
+import Image from 'next/image'
+
 // custom functions
 import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
 
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
+
 const HeroCard = props => {
   const { data } = props
   const viewport = useViewport()
+
+  const onClick = () => {}
 
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
-          <img
-            src={
-              data.asset_type.includes('image')
-                ? data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                  ? data.asset_url
+          {data.asset_type.includes('image') ? (
+            <img
+              src={
+                data.asset_type.includes('image')
+                  ? data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                    ? data.asset_url
+                    : '/images/banner.png'
+                  : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                  ? data.cover_image_url
                   : '/images/banner.png'
-                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                ? data.cover_image_url
-                : '/images/banner.png'
-            }
-            alt=""
-            width={550}
-            height={772}
-            className="w-full h-full object-cover rounded-[30px]"
-          />
+              }
+              alt=""
+              width={550}
+              height={772}
+              className="w-full h-full object-cover rounded-[30px]"
+            />
+          ) : data.asset_type.includes('video') ? (
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                {data.cover_image_url != null && data.cover_image_url !== '' ? (
+                  <img
+                    src={data.cover_image_url}
+                    alt=""
+                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    onClick={() => onClick()}
+                  />
+                ) : (
+                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                )}
+              </div>
+            ) : (
+              <div
+                className="w-full h-full object-cover"
+                dangerouslySetInnerHTML={{
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+              <source src=${data.asset_url} type="video/mp4" /></video>`,
+                }}
+                onClick={() => onClick()}
+              />
+            )
+          ) : data.asset_type.includes('audio') ? (
+            data.cover_image_url !== null && data.cover_image_url !== '' ? (
+              <img
+                src={data.cover_image_url}
+                alt=""
+                className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                onClick={() => onClick()}
+              />
+            ) : (
+              <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+            )
+          ) : (
+            <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+          )}
         </div>
       </div>
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
