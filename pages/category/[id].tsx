@@ -37,7 +37,6 @@ const Category = () => {
   dispatch({ type: 'set', isLoading: false })
 
   const cateQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
-  const urlQuery = cateQuery === 'Black&White' ? 'Black' : cateQuery
 
   const [categoryInfo, setCategoryInfo] = useState<any>('')
 
@@ -106,11 +105,11 @@ const Category = () => {
 
           <div className={styles.title}>{categoryInfo?.name}</div>
         </div>
-        <TrendingCollectionSection category={urlQuery} />
-        <MostPopularSection category={urlQuery} />
-        <MarketplaceReleaseSection category={urlQuery} />
-        <LiveAuctionSection category={urlQuery} />
-        <FreshMintSection category={urlQuery} />
+        <TrendingCollectionSection category={cateQuery} />
+        <MostPopularSection category={cateQuery} />
+        <MarketplaceReleaseSection category={cateQuery} />
+        <LiveAuctionSection category={cateQuery} />
+        <FreshMintSection category={cateQuery} />
         <PopularCategorySection type="category" />
       </div>
     </div>
