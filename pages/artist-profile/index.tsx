@@ -150,6 +150,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     } else {
       getCollectorData(artistPublicKey)
     }
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
   }, [artistPublicKey, artistEnable])
 
   let artistName = `${artistInfo?.artist?.username} | Foster Marketplace`

@@ -47,7 +47,6 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
 
   const nftType = nftDetail?.json?.properties?.category as string
   const categories = getNFTCategories(nftDetail)
-
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   useEffect(() => {
     if (nftDetail) getNFTArtistInfo(nftDetail).then(setArtistInfo)
