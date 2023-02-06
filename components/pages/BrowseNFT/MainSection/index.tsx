@@ -198,7 +198,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const nftCoverUrl = nftDetail.json?.image ?? ''
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
 
-  const nftName = nftDetail.name
+  const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
   const nftCategories = getNFTCategories(nftDetail)
