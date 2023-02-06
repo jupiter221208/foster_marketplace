@@ -11,6 +11,7 @@ const initialState = {
   exploreTab: 0,
   connectWalletStatus: false,
   openCreateNFTModal: false,
+  openSellNFTModal: false,
   profileSetup: false,
   isGetMyNFTs: false,
   myNftList: [],
