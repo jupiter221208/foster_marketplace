@@ -19,12 +19,16 @@ import { useRouter } from 'next/router'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex } from '@metaplex-foundation/js'
+// redux
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import authAPI from 'apis/auth'
 import collectionsAPI from 'apis/collections'
 import { isString, isLoggedIn } from 'utils/helpers'
+
+// resources
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -82,8 +86,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   }, [connected, loginAndRefresh])
 
   let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
-  // TODO: add default image url for broken images
-  let collectionImageUrl = collectionData?.cover_image ?? ''
+  let collectionImageUrl = collectionData?.cover_image ?? DefaultNftBG.src
   let collectionDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 

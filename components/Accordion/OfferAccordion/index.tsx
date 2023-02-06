@@ -21,7 +21,9 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 
+// resources
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 export interface OfferAccordionProps {
   data: LazyBidWithAsset[]
@@ -57,16 +59,14 @@ const OfferAccordionItem = ({
   const [assetImageUrl, setAssetImageUrl] = useState<string>('')
   useEffect(() => {
     if (listing.asset.json?.image) return
-    // TODO: use loading image as placeholder
-    setAssetImageUrl('')
+    setAssetImageUrl(DefaultNftBG.src)
 
     fetch(listing.asset.uri)
       .then(e => e.json())
       .then(({ image }) => setAssetImageUrl(image))
       .catch(e => {
         console.error(e)
-        // TODO: use error image
-        setAssetImageUrl('')
+        setAssetImageUrl(DefaultNftBG.src)
       })
   }, [listing.asset])
 

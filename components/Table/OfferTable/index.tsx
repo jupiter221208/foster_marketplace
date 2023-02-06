@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 // web3
 import { type PublicKey } from '@solana/web3.js'
-import { type JsonMetadata } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { type LazyBidWithAsset } from 'utils/auction.util'
 import { getNFTOwner } from 'utils/nfts.utils'
@@ -20,6 +19,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -48,16 +48,14 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
   const [assetImageUrl, setAssetImageUrl] = useState<string>('')
   useEffect(() => {
     if (listing.asset.json?.image) return
-    // TODO: use loading image as placeholder
-    setAssetImageUrl('')
+    setAssetImageUrl(DefaultNftBG.src)
 
     fetch(listing.asset.uri)
       .then(e => e.json())
       .then(({ image }) => setAssetImageUrl(image))
       .catch(e => {
         console.error(e)
-        // TODO: use error image
-        setAssetImageUrl('')
+        setAssetImageUrl(DefaultNftBG.src)
       })
   }, [listing.asset])
   

@@ -41,7 +41,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
-import { getNFTCategories, getNFTArtistInfo, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
+import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 
 // images and icons
@@ -61,7 +61,7 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
-import PauseVideoIcon from 'assets/icons/pause-video.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -194,8 +194,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
   const nftType: string =
     (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
-  // TODO: set default links for broken images and assets
-  const nftCoverUrl = nftDetail.json?.image ?? ''
+
+  const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
 
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'

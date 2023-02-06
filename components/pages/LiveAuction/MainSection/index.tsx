@@ -57,6 +57,7 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import AuctionBGIcon from 'assets/icons/auction-bg-icon.svg'
 import PlaceBidIcon from 'assets/icons/place-bid-icon.svg'
 import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -166,8 +167,7 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
   const { id } = router.query
   const nftType: string =
     (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
-  // TODO: set default links for broken images and assets
-  const nftCoverUrl = nftDetail.json?.image ?? ''
+  const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
 
   const nftName = nftDetail.name

@@ -9,8 +9,6 @@ import Image from 'next/image'
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, type Nft, type LazyBid } from '@metaplex-foundation/js'
 import { getNFTCategories } from 'utils/nfts.utils'
-import { TIMED_AUCTION_HOUSE_PUBLIC_KEY } from 'utils/auctioneer.util'
-import { loadAuctionHouse } from 'utils/auction.util'
 
 // third party components
 import { useDispatch } from 'react-redux'
@@ -24,6 +22,7 @@ import MoreCategorySection from 'components/pages/LiveAuction/MoreCategorySectio
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -65,8 +64,7 @@ const LiveAuction = ({ nftDetail }: LiveAuctionProps) => {
   }, [nftDetail])
 
   let nftName = `${nftDetail?.name} | Foster Marketplace`
-  // TODO: add default image url for broken images
-  let nftImageUrl = nftDetail?.json?.image ?? ''
+  let nftImageUrl = nftDetail?.json?.image ?? DefaultNftBG.src
   let nftDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 

@@ -18,6 +18,7 @@ import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import HeaderImage from 'assets/images/alexander-ant.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
 import styles from './index.module.scss'
@@ -157,8 +158,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [artistPublicKey, artistEnable])
 
   let artistName = `${artistInfo?.artist?.username} | Foster Marketplace`
-  // TODO: add default image url for broken images
-  let artistImageUrl = artistInfo?.artist?.profile_picture ?? ''
+  let artistImageUrl = artistInfo?.artist?.profile_picture ?? DefaultNftBG.src
   let artistDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 

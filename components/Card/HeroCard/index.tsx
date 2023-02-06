@@ -9,6 +9,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
+// resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 const HeroCard = props => {

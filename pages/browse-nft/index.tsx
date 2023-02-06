@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 
 // next components
 import Head from 'next/head'
 import Image from 'next/image'
-
-import type { GetServerSideProps } from 'next'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
@@ -20,7 +17,6 @@ import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 
 // custom functions
-import { useViewport } from 'utils'
 import { getNFTCategories, getNFTArtistInfo, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
@@ -32,9 +28,8 @@ import { useDispatch } from 'react-redux'
 // styles
 import styles from './index.module.scss'
 
-// api
-import nftsAPI, { NFT } from 'apis/nfts'
-import { isString } from 'utils/helpers'
+// resources
+import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 export interface BrowseNFTProps {
   nftDetail?: Sft | Nft
