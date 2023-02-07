@@ -804,16 +804,11 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                                   </div>
                                 </td>
                                 <td className="w-[60px]">
-                                  <div className="flex items-center justify-center mx-2 gap-1 ">
-                                    <div className="min-w-[18px] lg:min-w-[23px]">
-                                      <Image
-                                        src={SolanaLogoIcon}
-                                        alt=""
-                                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                                      />
+                                  <div className="flex items-center mx-2 gap-1 ">
+                                    <div className="min-w-[18px] flex items-center">
+                                      <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
                                     </div>
-                                    <div>{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
+                                    <div className="">{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
                                   </div>
                                 </td>
 

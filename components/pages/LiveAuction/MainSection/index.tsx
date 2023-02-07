@@ -745,8 +745,8 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                                   </div>
                                 </td>
                                 <td className="w-[60px]">
-                                  <div className="flex justify-center items-center mx-2 gap-1">
-                                    <div className="w-[18px] min-w-[18px]">
+                                  <div className="flex items-center mx-2 gap-1">
+                                    <div className="w-[18px] min-w-[18px] flex items-center">
                                       <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
                                     </div>
                                     <div>{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
