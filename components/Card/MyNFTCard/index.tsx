@@ -20,31 +20,29 @@ const MyNFTCard = props => {
   return (
     <div className={styles.container}>
       <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data)}>
-        {data.offchainMetadata.category === 'video' || data.offchainMetadata.properties?.category === 'video' ? (
+        {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
           <div
             dangerouslySetInnerHTML={{
               __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.offchainMetadata.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
             }}
           />
         ) : (
           // <video autoPlay loop muted webkit-playsInline playsInline className="w-full aspect-[321/321] object-cover">
-          //   <source src={data.offchainMetadata.animation_url} type="video/mp4" />
+          //   <source src={data.json.animation_url} type="video/mp4" />
           // </video>
           <img
             src={
-              data.offchainMetadata.image === undefined || data.offchainMetadata.image === null
-                ? AudioPlayerBackground.src
-                : data.offchainMetadata.image
+              data.json.image === undefined || data.json.image === null ? AudioPlayerBackground.src : data.json.image
             }
-            alt={data.offchainMetadata.name || data.name}
+            alt={data.json.name || data.name}
             className="w-full aspect-[321/321] object-cover"
           />
         )}
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.offchainMetadata.name || data.name}</div>
+          <div className={styles.nftName}>{data.json.name || data.name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>

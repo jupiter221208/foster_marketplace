@@ -59,9 +59,9 @@ const MyCollectionSection = () => {
           collectionList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3" key={index}>
               <CollectionCard
-                image={item.offchainMetadata.image}
-                nftName={item.offchainMetadata.name}
-                category={getCategory(item.offchainMetadata.attributes)}
+                image={item.json?.image}
+                nftName={item.json?.name}
+                category={getCategory(item.json?.attributes)}
                 artistAddress={item.creators[0].address.toString()}
                 mintAddress={item.mintAddress.toBase58()}
                 onClick={() => {

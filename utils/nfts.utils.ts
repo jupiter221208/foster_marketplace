@@ -59,7 +59,7 @@ export async function getNFTTokenAccount(
   return tokenAccounts[0]
 }
 
-type GetMyNFTsOutputElement = (Metadata | Nft | Sft) & { offchainMetadata?: any }
+type GetMyNFTsOutputElement = (Metadata | Nft | Sft)
 type GetMyNFTsOutput = GetMyNFTsOutputElement[]
 
 export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
@@ -85,9 +85,11 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
 
   await Promise.all(
     userNfts.map(async nft => {
-      nft.offchainMetadata = null
       try {
-        nft.offchainMetadata = await fetch(nft.uri).then(r => r.json())
+        return {
+          ...nft,
+          json: await fetch(nft.uri).then(r => r.json()),
+        }
       } catch (e) {
         console.error(`failed to pull off chain metadata for ${nft.address}: ${nft.uri}`)
         console.error(e)
@@ -95,7 +97,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
     })
   )
 
-  return userNfts.filter(({ offchainMetadata }) => offchainMetadata)
+  return userNfts.filter(({ json }) => json)
 }
 
 export async function getMyCollectionNFTs(mx: Metaplex) {

@@ -80,7 +80,7 @@ const StartAuctionModal = props => {
       sold_at: null,
     }).then(res => {
       if (res) {
-        onSuccess(data?.offchainMetadata.name)
+        onSuccess(data?.json.name)
         dispatch({ type: 'set', isGetListedNFTs: false })
       }
     })
@@ -130,28 +130,27 @@ const StartAuctionModal = props => {
                 </div>
                 <div className={styles.title}>Start Auction</div>
                 <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  {data?.offchainMetadata.category === 'video' ||
-                  data?.offchainMetadata.properties?.category === 'video' ? (
+                  {data?.json.category === 'video' || data?.json.properties?.category === 'video' ? (
                     <div
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.offchainMetadata.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.json.animation_url} type="video/mp4" /></video>`,
                       }}
                     />
                   ) : (
                     <img
                       src={
-                        data?.offchainMetadata.image === undefined || data?.offchainMetadata.image === null
+                        data?.json.image === undefined || data?.json.image === null
                           ? AudioPlayerBackground.src
-                          : data?.offchainMetadata.image
+                          : data?.json.image
                       }
-                      alt={data?.offchainMetadata.name || data?.name}
+                      alt={data?.json.name || data?.name}
                       className="w-full aspect-[321/321] object-cover"
                     />
                   )}
                 </div>
                 <div className="w-full flex justify-center">
-                  <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.offchainMetadata.name}</div>
+                  <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.json.name}</div>
                 </div>
                 <input className="w-0 h-9" />
                 <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">

@@ -25,9 +25,9 @@ export async function getCollectionByAddress(mx: Metaplex, address: string) {
     collection.nfts = (
       await Promise.all(
         nfts.map(async nft => {
-          let item = { ...nft, owner: null, offchainMetadata: null, price: null }
+          let item = { ...nft, owner: null, json: null, price: null }
 
-          item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
+          item.json = await fetch(nft.uri).then(r => r.json())
 
           listedNFTs.map(listedNFT => {
             /* @ts-ignore to get mintAddress*/
@@ -45,7 +45,7 @@ export async function getCollectionByAddress(mx: Metaplex, address: string) {
           return item
         })
       )
-    ).filter(nft => nft.offchainMetadata)
+    ).filter(nft => nft.json)
 
     return collection
   } catch (e) {
@@ -64,16 +64,16 @@ export async function getMyCollections(mx: Metaplex) {
     const collections = (
       await Promise.all(
         nfts.map(async nft => {
-          let item = { ...nft, offchainMetadata: null }
+          let item = { ...nft, json: null }
           try {
-            item.offchainMetadata = await fetch(nft.uri).then(r => r.json())
+            item.json = await fetch(nft.uri).then(r => r.json())
           } catch (e) {
             console.log('failed to pull off chain metadata for collection', e)
           }
           return item
         })
       )
-    ).filter(collection => collection.offchainMetadata)
+    ).filter(collection => collection.json)
 
     return collections
   } catch (e) {

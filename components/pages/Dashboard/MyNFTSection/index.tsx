@@ -116,7 +116,7 @@ const MyNFTSection = props => {
       let filtered = []
       allNftList.forEach(element => {
         if (
-          element.offchainMetadata.name.toLowerCase().includes(key.toLowerCase()) ||
+          element.json?.name?.toLowerCase().includes(key.toLowerCase()) ||
           element.name.toLowerCase().includes(key.toLowerCase())
         )
           filtered.push(element)

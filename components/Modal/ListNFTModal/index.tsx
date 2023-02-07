@@ -94,29 +94,26 @@ const ListNFTModal = props => {
                   </div>
                   <div className={styles.title}>List NFT</div>
                   <div className="w-full max-w-[321px] mt-[20px] lg:mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                    {data?.offchainMetadata.category === 'video' ||
-                    data?.offchainMetadata.properties?.category === 'video' ? (
+                    {data?.json.category === 'video' || data?.json.properties?.category === 'video' ? (
                       <div
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.offchainMetadata.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.json.animation_url} type="video/mp4" /></video>`,
                         }}
                       />
                     ) : (
                       <img
                         src={
-                          data?.offchainMetadata.image === undefined || data?.offchainMetadata.image === null
+                          data?.json.image === undefined || data?.json.image === null
                             ? AudioPlayerBackground.src
-                            : data?.offchainMetadata.image
+                            : data?.json.image
                         }
-                        alt={data?.offchainMetadata.name || data?.name}
+                        alt={data?.json.name || data?.name}
                         className="w-full aspect-[321/321] object-cover"
                       />
                     )}
                   </div>
-                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>
-                    {data?.offchainMetadata.name || data?.name}
-                  </div>
+                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>{data?.json.name || data?.name}</div>
                   <div className="w-full mt-[20px] lg:mt-12">
                     <PriceInput
                       value={price}
@@ -162,23 +159,22 @@ const ListNFTModal = props => {
                   >
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
-                  {data?.offchainMetadata.category === 'video' ||
-                  data?.offchainMetadata.properties?.category === 'video' ? (
+                  {data?.json.category === 'video' || data?.json.properties?.category === 'video' ? (
                     <div
                       className="mt-[25px]"
                       dangerouslySetInnerHTML={{
                         __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.offchainMetadata?.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.json?.animation_url} type="video/mp4" /></video>`,
                       }}
                     />
                   ) : (
                     <img
                       src={
-                        data?.offchainMetadata?.image === undefined || data?.offchainMetadata?.image === null
+                        data?.json?.image === undefined || data?.json?.image === null
                           ? AudioPlayerBackground.src
-                          : data?.offchainMetadata?.image
+                          : data?.json?.image
                       }
-                      alt={data?.offchainMetadata.name || data?.name}
+                      alt={data?.json.name || data?.name}
                       className="w-full aspect-[321/321] object-cover mt-[25px] rounded-[16px]"
                     />
                   )}
