@@ -369,10 +369,16 @@ const MainSection = prop => {
         </div>
         <div className="mt-2 z-10">
           {artistInfo.wallet_id && (
-            <AddressButton
-              label={getShortAddress(artistInfo.wallet_id)}
-              onClick={() => copyToClipboard(artistInfo.wallet_id || '')}
-            />
+            <div className="relative w-[110px]">
+              <AddressButton
+                label={getShortAddress(artistInfo.wallet_id)}
+                onClick={() => {
+                  copyToClipboard(artistInfo.wallet_id || '')
+                  copyClipboardAlert('wallet-address-mobile')
+                }}
+              />
+              <CopyClipboardChip identifier="wallet-address-mobile" />
+            </div>
           )}
         </div>
         <div className="flex gap-[15px] mt-2">
