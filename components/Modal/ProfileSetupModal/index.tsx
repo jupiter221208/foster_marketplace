@@ -19,7 +19,7 @@ import { useViewport, namePublicFile } from 'utils'
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import ConnectLogo from 'assets/images/connect_wallet_logo.png'
+import ConnectLogo from 'assets/images/profile_setup_logo.png'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import CameraIcon from 'assets/icons/camera-white.svg'
 
@@ -28,14 +28,12 @@ import styles from './index.module.scss'
 import IconButton from 'components/Button/IconButton'
 
 import { useWallet } from '@solana/wallet-adapter-react'
-import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 
-const ProfileSetupModal = props => {
-  // const {open} =props
+const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
   const viewport = useViewport()
 
@@ -53,14 +51,6 @@ const ProfileSetupModal = props => {
   const inputFile = useRef<any>(null)
 
   const { publicKey } = useWallet()
-
-  // useEffect(() => {
-  //   if (displayName === '') {
-  //     setErrorMessage('The display name you have entered is already taken')
-  //   } else {
-  //     setErrorMessage('')
-  //   }
-  // }, [displayName])
 
   const handleChangeAvatar = event => {
     const file = event.target.files
@@ -95,8 +85,17 @@ const ProfileSetupModal = props => {
     dispatch({ type: 'set', profileSetup: !profileSetup })
   }
 
-  const handleSaveUsermame = () => {
+  const handleSaveUsermame = async () => {
     if (uploadingToS3) return
+    if (displayName.length === 0) {
+      setErrorMessage("The display name can't be empty.")
+      return
+    }
+    let validate_check = await userAPI.validateUsername({ username: displayName })
+    if (!validate_check) {
+      setErrorMessage('This display name is already taken.')
+      return
+    }
 
     userAPI
       .update({ wallet_id: publicKey?.toBase58() || '', username: displayName, profile_picture: profilePictureUrl })
@@ -166,19 +165,25 @@ const ProfileSetupModal = props => {
                         <div className={styles.leftPanel}>
                           <div className={styles.title}>Welcome to Foster Marketplace!</div>
                           <p className={styles.text}>
-                            You can edit your display name and profile image now, or do so at a later time from your
-                            user dashboard.
+                            {
+                              'You can edit your display name and profile image now or do so at a later time from your user dashboard.'
+                            }
                           </p>
                           <div className="mt-[16px]">
+                            <div className={styles.displayName}>Display Name</div>
                             <Input
-                              label="Display Name"
                               error={errorMessage}
-                              placeholder="User name"
-                              onChange={(value: string) => setDisplayName(value)}
+                              placeholder="Choose your display name"
+                              backgroundColor="#202427"
+                              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+                              onChange={(value: string) => {
+                                if (errorMessage.length > 0) setErrorMessage('')
+                                setDisplayName(value)
+                              }}
                               value={displayName}
                             />
                           </div>
-                          <div className="relative w-full flex justify-center mt-[17px]">
+                          <div className="relative w-full flex justify-center mt-[41px]">
                             <div className={styles.avatarArea}>
                               <Image
                                 src={
@@ -214,7 +219,9 @@ const ProfileSetupModal = props => {
                                 label="Save"
                                 fullWidth
                                 onClick={() => handleSaveUsermame()}
-                                gradientDirection="bottom"
+                                gradientDirection="right"
+                                backgroundColor01="#377771"
+                                backgroundColor02="#5AC3BA"
                               />
                             </div>
                           </div>
@@ -222,11 +229,8 @@ const ProfileSetupModal = props => {
                       </div>
                       <div className="col-span-0 lg:col-span-5 relative rounded-[24px]">
                         <div className={styles.rightPanel}>
-                          <div className="flex justify-center">
-                            <div className={styles.rightTitle}>Foster the Flavor</div>
-                          </div>
-                          <div className="mt-[108px]">
-                            <Image src={ConnectLogo} alt="" width={320} height={320} />
+                          <div className="mt-[235px] ml-[60px] min-w-[348px]">
+                            <Image src={ConnectLogo} alt="" width={348} height={348} />
                           </div>
                         </div>
                       </div>

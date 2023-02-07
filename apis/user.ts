@@ -40,6 +40,12 @@ class User {
       return response.data
     })
   }
+
+  validateUsername(userInfo) {
+    return client.post(API_URL + 'v1/users/username', userInfo).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()

@@ -266,22 +266,6 @@ const WalletButton = props => {
     }
   }, [profileInfo])
 
-  // handle login
-  const handleLogin = () => {
-    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
-      response => {
-        dispatch({ type: 'set', profileInfo: response.user })
-        setProfileImage(response.user?.profile_picture)
-        setProfileName(response.user?.username)
-        dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
-        dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }
-
   const handleDisconnect = () => {
     disconnect()
     localStorage.removeItem('token')
@@ -736,7 +720,6 @@ const WalletButton = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          // handleLogin()
         }}
         data={alertData}
       />

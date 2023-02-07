@@ -52,9 +52,13 @@
 .error {
   margin-top: 5px;
   font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 21px;
+  font-size: 12px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 21px;
+  }
   letter-spacing: 0;
-  color: $brand-04-color;
+  color: $brand-09-color;
   text-align: start;
 }
