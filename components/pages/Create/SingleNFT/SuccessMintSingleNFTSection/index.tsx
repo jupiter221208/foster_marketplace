@@ -36,14 +36,17 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import Alert from 'components/Alert'
 
 const SuccessMintSingleNFTSection = props => {
-  const { nftType, nftArt, nftImage, artWidth, nftAddress } = props
+  const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
   const openSellNFTModal = useSelector<any>(state => state.openSellNFTModal)
   const { connection } = useConnection()
-  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, nftAddress), [nftAddress, connection])
+  const explorerURL = useMemo(
+    () => getExplorerUrl(connection.rpcEndpoint, nftAddress?.toBase58()),
+    [nftAddress, connection]
+  )
   const nftDetailUrl = globalThis.window?.origin + '/browse-nft?id=' + nftAddress
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
@@ -249,21 +252,26 @@ const SuccessMintSingleNFTSection = props => {
       <SellNFTModal
         open={openSellNFTModal}
         close={() => handleCloseSellNFTModal()}
-        onList={() => {
-          setTimeout(() => {
-            setShowListNFTModal(true)
-          }, 500)
-        }}
+        onList={() => setTimeout(() => setShowListNFTModal(true), 500)}
+        onAuction={() => setTimeout(() => setShowStartAuctionModal(true), 500)}
       />
       <ListNFTModal
-        data={null}
+        data={{
+          mintAddress: nftAddress,
+          name: nftName,
+          json: nftMetadata,
+        }}
         open={showListNFTModal}
         onClose={(status: string) => {
           setShowListNFTModal(false)
         }}
       />
       <StartAuctionModal
-        data={null}
+        data={{
+          mintAddress: nftAddress,
+          name: nftName,
+          json: nftMetadata,
+        }}
         open={showStartAuctionModal}
         onSuccess={nft => handleSuccessAuction(nft)}
         onClose={() => setShowStartAuctionModal(false)}

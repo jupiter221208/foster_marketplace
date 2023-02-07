@@ -12,7 +12,7 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
-import { Keypair } from '@solana/web3.js'
+import { Keypair, type PublicKey } from '@solana/web3.js'
 import { toBigNumber, toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -321,7 +321,8 @@ const SingleNft = () => {
   // solana
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
-  const [nftAddress, setNFTAddress] = useState('')
+  const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
+  const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
 
   const createNft = async () => {
     try {
@@ -379,6 +380,7 @@ const SingleNft = () => {
           url: metadata.animation_url,
         })
 
+      setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
       let nftMint = Keypair.generate()
@@ -402,8 +404,7 @@ const SingleNft = () => {
 
       await createNftOperation.sendAndConfirm(mx)
 
-      const address = nftMint.publicKey.toBase58()
-      setNFTAddress(address)
+      setNFTAddress(nftMint.publicKey)
 
       const result = categoryList.filter(item => item.checked)
       let category = ''
@@ -416,7 +417,7 @@ const SingleNft = () => {
           const result: any = response.data
           nftsAPI
             .create({
-              token_id: address,
+              token_id: nftMint.publicKey.toBase58(),
               nft_name: nftName,
               categories: category.slice(0, -1),
               asset_type: nftType === 'image/gif' ? 'image' : nftType,
@@ -859,11 +860,13 @@ const SingleNft = () => {
       </div>
       {currentStep === 4 && (
         <SuccessMintSingleNFTSection
+          nftName={nftName}
           nftType={nftType}
           nftArt={nftArt}
           nftImage={nftImage}
           artWidth={artWidth}
           nftAddress={nftAddress}
+          nftMetadata={nftMetadata}
         />
       )}
       <NftImageEditorModal
