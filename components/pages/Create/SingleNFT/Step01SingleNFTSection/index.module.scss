@@ -218,3 +218,20 @@
   color: $text-gray-200-color;
   text-align: center;
 }
+
+.infoText {
+  background: rgba($background-light-color, 0.2);
+  border-radius: 10px;
+  margin-left: 8px;
+  padding: 8px;
+  font-family: 'Muli-Regular';
+  font-size: 10px;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    margin-left: 15px;
+    padding: 15px;
+    font-family: 'Muli-Regular';
+    font-size: 14px;
+    line-height: 24px;
+  }
+}

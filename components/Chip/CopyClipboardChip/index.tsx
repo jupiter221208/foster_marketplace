@@ -4,10 +4,10 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const CopyClipboardChip = props => {
-  const { identifier, height, fontSize } = props
+  const { identifier, height, fontSize, message = 'Copied' } = props
   return (
     <div id={identifier} className={styles.container} style={{ height: height, fontSize: fontSize }}>
-      Copied!
+      {message}
     </div>
   )
 }

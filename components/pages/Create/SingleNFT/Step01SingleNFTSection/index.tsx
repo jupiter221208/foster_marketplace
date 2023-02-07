@@ -18,6 +18,10 @@ import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg'
 // styles
 import styles from './index.module.scss'
 
+// resources
+import InfoGrayIcon from 'assets/icons/info-gray.svg'
+import InfoGreenIcon from 'assets/icons/info-green.svg'
+
 const Step01SingleNFTSection = props => {
   const { nftType, setNftArt, setNftCover } = props
 
@@ -25,6 +29,7 @@ const Step01SingleNFTSection = props => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [infoFocus, setInfoFocus] = useState(false)
 
   const handleShowAlert = () => {
     setAlertData([
@@ -62,6 +67,18 @@ const Step01SingleNFTSection = props => {
                 </section>
               )}
             </Dropzone>
+          </div>
+          <div className="mt-[20px] h-[54px] flex items-center">
+            <div
+              className="h-[54px] flex justify-center items-center cursor-pointer"
+              onMouseEnter={() => setInfoFocus(true)}
+              onMouseLeave={() => setInfoFocus(false)}
+            >
+              <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" />
+            </div>
+            {infoFocus && (
+              <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
+            )}
           </div>
           {nftType === 'audio' && (
             <>
@@ -117,6 +134,22 @@ const Step01SingleNFTSection = props => {
                 </section>
               )}
             </Dropzone>
+            <div className="mt-[12px] h-[30px] flex items-center">
+              <div
+                className="w-[20px] flex justify-center items-center cursor-pointer"
+                onClick={() => {
+                  setInfoFocus(true)
+                  setTimeout(() => {
+                    setInfoFocus(false)
+                  }, 2000)
+                }}
+              >
+                <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" />
+              </div>
+              {infoFocus && (
+                <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
+              )}
+            </div>
           </div>
           {nftType === 'audio' && (
             <>
