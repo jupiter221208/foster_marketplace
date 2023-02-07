@@ -235,7 +235,7 @@ const SuccessMintSingleNFTSection = props => {
                   fullWidth
                   label="List or Start Auction"
                   height="45px"
-                  onClick={() => router.push('/dashboard')}
+                  onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
                   borderColor="#5AC3BA"
                 />
               </div>
