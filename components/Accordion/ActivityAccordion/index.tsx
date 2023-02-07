@@ -17,10 +17,7 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 import styles from './index.module.scss'
 import { getDateString } from 'utils/strings'
 
-import {
-  isBuyerExisting,
-  isAmountExisting,
-} from 'utils/activity.util'
+import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
 const ActivityAccordion = props => {
   const { data, type } = props
@@ -37,6 +34,39 @@ const ActivityAccordion = props => {
       openedRef.current?.click()
     }
     openedRef.current = clickedButton
+  }
+
+  const getOwnerName = item => {
+    if (item.owner_username !== null && item.owner_username.length > 0) {
+      return item.owner_username
+    }
+
+    if (item.owner_address !== null && item.owner_address.length > 11) {
+      return item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
+    }
+    return 'N/A'
+  }
+
+  const getReferenceName = item => {
+    if (item.reference_username !== null && item.reference_username.length > 0) {
+      return item.reference_username
+    }
+
+    if (item.reference_address !== null && item.reference_address.length > 11) {
+      return item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
+    }
+    return 'N/A'
+  }
+
+  const getMinterName = item => {
+    if (item.minter_username !== null && item.minter_username.length > 0) {
+      return item.minter_username
+    }
+
+    if (item.minter_address !== null && item.minter_address.length > 11) {
+      return item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
+    }
+    return 'N/A'
   }
 
   return (
@@ -92,29 +122,17 @@ const ActivityAccordion = props => {
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Mint Address</div>
-                    <div className={styles.text}>
-                      {item.mint_address.length > 11
-                        ? item.mint_address.slice(0, 5) + '...' + item.mint_address.slice(-3)
-                        : item.mint_address}
-                    </div>
+                    <div className={styles.text}>{getMinterName(item)}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Buyer</div>
                     <div className={styles.text}>
-                      {isBuyerExisting(item.action_type)
-                        ? item.reference_address.length > 11
-                          ? item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
-                          : item.reference_address
-                        : 'N/A'}
+                      {isBuyerExisting(item.action_type) ? getReferenceName(item) : 'N/A'}
                     </div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
-                    <div className={styles.text}>
-                      {item.owner_address.length > 11
-                          ? item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
-                          : item.owner_address}
-                    </div>
+                    <div className={styles.text}>{getOwnerName(item)}</div>
                   </div>
                 </Disclosure.Panel>
               </>

@@ -405,6 +405,23 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     }
   }
 
+  const getOwnerName = item => {
+    if (item.owner_username !== null && item.owner_username !== '') return item.owner_username
+
+    if (item.owner_address !== null) return item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)
+
+    return 'N/A'
+  }
+
+  const getBuyerName = item => {
+    if (item.reference_username !== null && item.reference_username !== '') return item.reference_username
+
+    if (item.reference_address !== null)
+      return item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+
+    return 'N/A'
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -801,18 +818,14 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                                 </td>
 
                                 <td>
-                                  <div className="flex items-center justify-center mx-2 gap-2">
-                                    {isBuyerExisting(item.action_type)
-                                      ? item.reference_address !== undefined &&
-                                        item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
-                                      : 'N/A'}
+                                  <div className="flex items-center justify-center mx-2 gap-2 text-center">
+                                    {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
                                   </div>
                                 </td>
 
                                 <td>
-                                  <div className="flex items-center justify-center mx-2 gap-2">
-                                    {item.owner_address !== undefined &&
-                                      item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)}
+                                  <div className="flex items-center justify-center mx-2 gap-2 text-center">
+                                    {getOwnerName(item)}
                                   </div>
                                 </td>
 
