@@ -47,7 +47,7 @@ const StartAuctionModal = props => {
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
   const [price, setPrice] = useState()
-  const [buttonDisabled, setButtonDisabled] = useState(false)
+  const [buttonDisabled, setButtonDisabled] = useState(true)
 
   const endDate = useMemo(() => {
     var plusDays = days
@@ -97,6 +97,16 @@ const StartAuctionModal = props => {
       />
     )
   }
+
+  useEffect(() => {
+    let disabled = false
+    if (days < 0 || days > 30) disabled = true
+    else if (days === 0 && hours === 0) disabled = true
+    else if (hours > 23) disabled = true
+    else if (price === undefined || price === '' || parseFloat(price) === 0) disabled = true
+
+    setButtonDisabled(disabled)
+  }, [days, hours, price])
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -186,7 +196,7 @@ const StartAuctionModal = props => {
                       borderRadius="9px"
                       type="number"
                       onChange={value => {
-                        setButtonDisabled(value < 0 || value > 30)
+                        setButtonDisabled(value < 0 || value > 30 || price === undefined)
                         setDays(value)
                       }}
                     />
@@ -218,7 +228,9 @@ const StartAuctionModal = props => {
                     placeholder="Enter starting bid"
                     fullWidth
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
-                    onChange={value => setPrice(value)}
+                    onChange={value => {
+                      setPrice(value)
+                    }}
                   />
                 </div>
                 <div className="mt-2 w-full flex gap-2 items-center">

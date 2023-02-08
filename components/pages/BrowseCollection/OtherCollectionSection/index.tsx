@@ -107,7 +107,7 @@ const OtherCollectionSection = props => {
             <OutlineButton
               label="See More"
               fullWidth
-              onClick={() => router.push('/explore')}
+              onClick={() => router.push(`/artist-profile?id=${artistId}`)}
               borderColor="#ffffff"
               height="40px"
             />
