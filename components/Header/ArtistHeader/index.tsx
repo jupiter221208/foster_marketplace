@@ -19,7 +19,7 @@ import IconButton from 'components/Button/IconButton'
 import { useViewport } from 'utils'
 
 // images and icons
-import AvatarImage from 'assets/icons/profile-thumb.svg'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 import BackButton from 'assets/icons/artist-back-icon.svg'
 import SearchButton from 'assets/icons/artist-search-icon.svg'
 import MenuButton from 'assets/icons/artist-menu-icon.svg'

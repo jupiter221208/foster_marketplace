@@ -21,7 +21,7 @@ import GradientButton from 'components/Button/GradientButton'
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
-import avatar from 'assets/icons/profile-thumb.svg'
+import avatar from 'assets/images/dashboard-avatar.png'
 import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
 import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'

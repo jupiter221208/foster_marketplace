@@ -16,7 +16,7 @@ import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
 import EllipseGreenKingsizeIcon from 'assets/icons/ellipse-green-kingsize.svg'
-import AvatarIcon from 'assets/icons/profile-thumb.svg'
+import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
 import PlusWhiteIcon from 'assets/icons/plus-green.svg'
 import WalletWhiteIcon from 'assets/icons/wallet-green.svg'
