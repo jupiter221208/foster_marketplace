@@ -64,6 +64,7 @@ const ProfileSection = prop => {
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [showLinkWalletAlert, setShowLinkWalletAlert] = useState(false)
   const [showVerificationAlert, setShowVerificationAlert] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const checkEnableSave = () => {
     if (orgUserInfo === null) {
@@ -106,7 +107,17 @@ const ProfileSection = prop => {
     return
   }
 
-  const handleSaveUserInfo = () => {
+  const handleSaveUserInfo = async () => {
+    let validate_check = await userAPI.validateUsername({ username: userName })
+    if (!validate_check) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+      setErrorMessage('This display name is already taken.')
+      return
+    }
+
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
@@ -186,11 +197,15 @@ const ProfileSection = prop => {
             </div>
             <div className="mt-[15px] lg:mt-8">
               <Input
+                error={errorMessage}
                 value={userName}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 backgroundColor="#202427"
                 placeholder="Username"
-                onChange={value => setUsername(value)}
+                onChange={value => {
+                  if (errorMessage.length > 0) setErrorMessage('')
+                  setUsername(value)
+                }}
               />
             </div>
             <div className="mt-[10px] lg:mt-[30px] h-fit">
