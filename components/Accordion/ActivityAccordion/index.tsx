@@ -10,6 +10,7 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 // components
 
 // images and icons
+import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // json
 
@@ -118,19 +119,22 @@ const ActivityAccordion = props => {
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
-                    <div className={styles.text}>{isAmountExisting ? item.amount : 'N/A'}</div>
+                    <div className="flex gap-[4px]">
+                      <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
+                      <div className={styles.text}>{isAmountExisting ? item.amount : 'N/A'}</div>
+                    </div>
                   </div>
-                  <div className={styles.firstRow}>
+                  {/* <div className={styles.firstRow}>
                     <div className={styles.title}>Mint Address</div>
                     <div className={styles.text}>{getMinterName(item)}</div>
-                  </div>
-                  <div className={styles.secondRow}>
+                  </div> */}
+                  <div className={styles.firstRow}>
                     <div className={styles.title}>Buyer</div>
                     <div className={styles.text}>
                       {isBuyerExisting(item.action_type) ? getReferenceName(item) : 'N/A'}
                     </div>
                   </div>
-                  <div className={styles.firstRow}>
+                  <div className={styles.secondRow}>
                     <div className={styles.title}>Seller</div>
                     <div className={styles.text}>{getOwnerName(item)}</div>
                   </div>

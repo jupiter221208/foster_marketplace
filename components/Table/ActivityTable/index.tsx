@@ -65,7 +65,7 @@ const ActivityTable = props => {
           {/* <th>Transaction ID</th> */}
           <th>Time</th>
           <th>Amount</th>
-          <th>Mint Address</th>
+          {/* <th>Mint Address</th> */}
           <th>Buyer</th>
           <th>Seller</th>
         </tr>
@@ -109,7 +109,7 @@ const ActivityTable = props => {
                   : 'N/A'}
               </div>
             </td>
-            <td className="text-center">{getMinterName(item)}</td>
+            {/* <td className="text-center">{getMinterName(item)}</td> */}
             <td className="text-center">{isBuyerExisting(item.action_type) ? getReferenceName(item) : 'N/A'}</td>
             <td className="text-center">{getOwnerName(item)}</td>
           </tr>
