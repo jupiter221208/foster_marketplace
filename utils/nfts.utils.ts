@@ -86,10 +86,10 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
   await Promise.all(
     userNfts.map(async nft => {
       try {
-        return {
-          ...nft,
-          json: await fetch(nft.uri).then(r => r.json()),
-        }
+        // @ts-ignore
+        nft.json = await fetch(nft.uri).then(r => r.json())
+        // @ts-ignore
+        nft.jsonLoaded = true
       } catch (e) {
         console.error(`failed to pull off chain metadata for ${nft.address}: ${nft.uri}`)
         console.error(e)
