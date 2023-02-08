@@ -19,6 +19,10 @@
   }
 }
 
+.container::placeholder {
+  color: rgba($text-gray-200-color, 0.5);
+}
+
 .label {
   margin-bottom: 10px;
   font-family: 'Muli-Regular';

@@ -166,7 +166,7 @@ const ProfileSetupModal = () => {
                           <div className={styles.title}>Welcome to Foster Marketplace!</div>
                           <p className={styles.text}>
                             {
-                              'You can edit your display name and profile image now or do so at a later time from your user dashboard.'
+                              'You can edit your display name and profile image now or at a later time from your dashboard.'
                             }
                           </p>
                           <div className="mt-[16px]">
@@ -175,7 +175,7 @@ const ProfileSetupModal = () => {
                               error={errorMessage}
                               placeholder="Choose your display name"
                               backgroundColor="#202427"
-                              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+                              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
                               onChange={(value: string) => {
                                 if (errorMessage.length > 0) setErrorMessage('')
                                 setDisplayName(value)
@@ -198,12 +198,11 @@ const ProfileSetupModal = () => {
                                 alt=""
                                 className="object-cover rounded-full"
                               />
-                              <div className="absolute bottom-0 right-2">
+                              <div className={styles.cameraArea}>
                                 <IconButton
                                   icon={CameraIcon}
                                   onClick={() => inputFile?.current?.click()}
-                                  borderRadius="23px"
-                                  backgroundColor="#2C2E2E"
+                                  backgroundColor="transparent"
                                 />
                                 <input
                                   type="file"
