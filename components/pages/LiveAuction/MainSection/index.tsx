@@ -83,6 +83,7 @@ import usersAPI from 'apis/user'
 import activityAPI from 'apis/activity'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
+import { useDispatch } from 'react-redux'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -92,6 +93,7 @@ export interface MainSectionProps {
 const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any>(null)
@@ -404,6 +406,11 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
     return 'N/A'
   }
 
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/artist-profile?id=${link}`)
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -516,19 +523,13 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
               <div className="w-full flex flex-wrap mt-4 lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Created by</div>
-                  <div
-                    className={styles.greenText}
-                    onClick={() => router.push(`/artist-profile?id=${nftCreatorAddress}`)}
-                  >
+                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorAddress)}>
                     {nftCreatorUsername}
                   </div>
                 </div>
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Fostered by</div>
-                  <div
-                    className={styles.greenText}
-                    onClick={() => router.push(`/artist-profile?id=${nftOwnerAddress}`)}
-                  >
+                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerAddress)}>
                     {nftOwnerUsername}
                   </div>
                 </div>
@@ -754,7 +755,10 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                                 </td>
 
                                 <td>
-                                  <div className="flex justify-center items-center mx-2 gap-2 text-center">
+                                  <div
+                                    className={styles.activityUser}
+                                    onClick={() => gotoUserDetail(item.reference_address)}
+                                  >
                                     {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
                                   </div>
                                 </td>
@@ -763,7 +767,10 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                                   <></>
                                 ) : (
                                   <td>
-                                    <div className="flex justify-center items-center mx-2 gap-2 text-center">
+                                    <div
+                                      className={styles.activityUser}
+                                      onClick={() => gotoUserDetail(item.owner_address)}
+                                    >
                                       {getOwnerName(item)}
                                     </div>
                                   </td>

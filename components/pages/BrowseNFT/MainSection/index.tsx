@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -104,6 +105,7 @@ export interface MainSectionProps {
 const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(false)
@@ -422,6 +424,11 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
     return 'N/A'
   }
 
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/artist-profile?id=${link}`)
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -556,20 +563,14 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 {artistInfo && (
                   <div className="flex gap-1 lg:gap-3">
                     <div className={styles.grayText}>Created by</div>
-                    <div
-                      className={styles.greenText}
-                      onClick={() => router.push(`/artist-profile?id=${artistInfo.address}`)}
-                    >
+                    <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.address)}>
                       {artistInfo.name}
                     </div>
                   </div>
                 )}
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Fostered by</div>
-                  <div
-                    className={styles.greenText}
-                    onClick={() => router.push(`/artist-profile?id=${nftOwnerAddress}`)}
-                  >
+                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerAddress)}>
                     {nftOwnerUsername}
                   </div>
                 </div>
@@ -813,13 +814,19 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                                 </td>
 
                                 <td>
-                                  <div className="flex items-center justify-center mx-2 gap-2 text-center">
+                                  <div
+                                    className={styles.activityUser}
+                                    onClick={() => gotoUserDetail(item.reference_address)}
+                                  >
                                     {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
                                   </div>
                                 </td>
 
                                 <td>
-                                  <div className="flex items-center justify-center mx-2 gap-2 text-center">
+                                  <div
+                                    className={styles.activityUser}
+                                    onClick={() => gotoUserDetail(item.owner_address)}
+                                  >
                                     {getOwnerName(item)}
                                   </div>
                                 </td>

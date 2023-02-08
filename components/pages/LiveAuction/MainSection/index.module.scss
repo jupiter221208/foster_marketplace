@@ -427,3 +427,17 @@
   margin-left: 12px;
   color: rgba($text-gray-200-color, 0.8);
 }
+
+.activityUser {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  margin-right: 8px;
+  gap: 2px;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
