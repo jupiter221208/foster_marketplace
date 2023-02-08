@@ -52,60 +52,69 @@ const OtherCollectionSection = props => {
   }, [artistId])
 
   return (
-    <section className={styles.container}>
-      <div className={styles.topRightEllipse}>
-        <Image src={EllipseGreen} alt="" objectFit="cover" />
-      </div>
-      <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Other Collections by Artist</div>
+    collectionList.length > 0 && (
+      <section className={styles.container}>
+        <div className={styles.topRightEllipse}>
+          <Image src={EllipseGreen} alt="" objectFit="cover" />
         </div>
-        <div className="hidden lg:flex z-10">
-          <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
+        <div className="w-full flex justify-between items-center z-10">
+          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Other Collections by Artist</div>
+          </div>
+          <div className="hidden lg:flex z-10">
+            <OutlineButton
+              label="See More"
+              onClick={() => router.push(`/artist-profile?id=${artistId}`)}
+              borderColor="#ffffff"
+              height="42px"
+            />
+          </div>
         </div>
-      </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {collectionList.map((item: any, index) => (
-            <SwiperSlide key={index}>
-              <CollectionCard
-                image={item.cover_image}
-                nftName={item.collection_name}
-                category={item.categories.split(',')}
-                artistName={artistName}
-                artistAddress={artistId}
-                mintAddress={item.collection_id}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  router.push(`/browse-collection/${item.collection_id}`)
-                }}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
-          <OutlineButton
-            label="See More"
-            fullWidth
-            onClick={() => router.push('/explore')}
-            borderColor="#ffffff"
-            height="40px"
-          />
+        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
+            {collectionList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <CollectionCard
+                  image={item.cover_image}
+                  nftName={item.collection_name}
+                  category={item.categories.split(',')}
+                  artistName={artistName}
+                  artistAddress={artistId}
+                  mintAddress={item.collection_id}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push(`/browse-collection/${item.collection_id}`)
+                  }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-      </div>
-    </section>
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[242px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => router.push('/explore')}
+              borderColor="#ffffff"
+              height="40px"
+            />
+          </div>
+        </div>
+      </section>
+    )
   )
 }
 
