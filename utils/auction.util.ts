@@ -254,15 +254,15 @@ export async function buyNFT(
         tradeStateAddress: new PublicKey(tradeStateAddress), //TradeState
       })
 
-    const receipt = await offerNFT(mx, mintAddress, price)
-    if(!receipt)
-      throw new Error(`could not place bid on ${mintAddress} for ${price}`)
-    const bid = await mx
+    const { bid } = await mx
       .auctionHouse()
-      .findBidByReceipt({
+      .bid({
         auctionHouse,
-        receiptAddress: receipt,
-        loadJsonMetadata: false,
+        mintAccount: new PublicKey(
+          mintAddress // NFT mintAddress
+        ),
+        price: sol(price),
+        printReceipt: true,
       })
 
     if (bid.price.basisPoints.toNumber() >= listing.price.basisPoints.toNumber()) {
