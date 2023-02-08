@@ -232,7 +232,7 @@ const ProfileSetupModal = () => {
                       </div>
                       <div className="col-span-0 lg:col-span-5 relative rounded-[24px]">
                         <div className={styles.rightPanel}>
-                          <div className="mt-[235px] ml-[60px] min-w-[348px]">
+                          <div className="w-[348px] min-w-[348px]">
                             <Image src={ConnectLogo} alt="" width={348} height={348} />
                           </div>
                         </div>
