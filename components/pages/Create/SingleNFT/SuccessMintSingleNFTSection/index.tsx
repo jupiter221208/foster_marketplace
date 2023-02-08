@@ -264,6 +264,15 @@ const SuccessMintSingleNFTSection = props => {
         open={showListNFTModal}
         onClose={(status: string) => {
           setShowListNFTModal(false)
+          setTimeout(() => {
+            if (status === 'list-close') {
+              dispatch({ type: 'set', isLoading: true })
+              router.push('/')
+            } else if (status === 'listed') {
+              dispatch({ type: 'set', isLoading: true })
+              router.push(`/dashboard?tab=1&filter=0`)
+            }
+          }, 500)
         }}
       />
       <StartAuctionModal

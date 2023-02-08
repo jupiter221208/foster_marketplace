@@ -153,8 +153,10 @@ const ListNFTModal = props => {
                   <div
                     className={styles.close}
                     onClick={() => {
-                      setListStatus(false)
                       onClose('list-close')
+                      setTimeout(() => {
+                        setListStatus(false)
+                      }, 1000)
                     }}
                   >
                     <Image src={CloseIcon} alt="" width={30} height={30} />
@@ -186,8 +188,10 @@ const ListNFTModal = props => {
                       label="View Listing"
                       fullWidth
                       onClick={() => {
-                        setListStatus(false)
                         onClose('listed')
+                        setTimeout(() => {
+                          setListStatus(false)
+                        }, 1000)
                       }}
                     />
                   </div>
