@@ -19,6 +19,8 @@ import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg'
 import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg'
 import NounProhibitHoverIcon from 'assets/icons/noun-prohibit-dark-red-16x16-hover.svg'
+import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
+import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -42,7 +44,13 @@ const ReportMenu = props => {
       <Menu>
         <Menu.Button>
           <div className="flex justify-between items-center py-2">
-            <Image src={EllipseGroupWhiteIcon} alt="" />
+            <div className={styles.ellipseArea}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <Image src={ThreeEllipseMobileIcon} alt="" width="15px" height="4px" />
+              ) : (
+                <Image src={ThreeEllipseIcon} alt="" width="23px" height="6px" />
+              )}
+            </div>
           </div>
         </Menu.Button>
 

@@ -497,7 +497,7 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
-                      icon01={ShareBlankIcon}
+                      icon01={ShareWhiteIcon}
                       icon02={ShareWhiteIcon}
                       vote={share}
                       setVote={setShare}
@@ -590,7 +590,7 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                 </div>
               </div>
               <div className="mx-auto w-full mt-4">
-                <Disclosure>
+                <Disclosure defaultOpen={nftDescription.length > 0}>
                   {({ open }) => (
                     <>
                       <Disclosure.Button
