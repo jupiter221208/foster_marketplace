@@ -183,17 +183,20 @@ const ProfileSetupModal = () => {
                               value={displayName}
                             />
                           </div>
-                          <div className="relative w-full flex justify-center mt-[41px]">
+                          <div className="w-full flex justify-center mt-[41px]">
                             <div className={styles.avatarArea}>
-                              <Image
+                              <img
                                 src={
-                                  croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar
+                                  croppedAvatar !== ''
+                                    ? croppedAvatar
+                                    : avatar !== undefined
+                                    ? avatar.src
+                                    : DefaultAvatar.src
                                 }
                                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 152}
                                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 90 : 152}
                                 alt=""
-                                objectFit="cover"
-                                className="rounded-full"
+                                className="object-cover rounded-full"
                               />
                               <div className="absolute bottom-0 right-2">
                                 <IconButton
