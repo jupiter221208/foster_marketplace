@@ -96,8 +96,3 @@ jobs:
           key: ${{ github.sha }}
       - name: BVT
         run: npm run build
-      # - name: Upload Artifact
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: nextjs-build
-      #     path: ./.next
