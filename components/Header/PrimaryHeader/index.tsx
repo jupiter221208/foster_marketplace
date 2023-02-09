@@ -23,6 +23,7 @@ import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
 import LogoIcon from 'assets/icons/logo-green.svg'
+import alphaGreenIcon from 'assets/icons/alpha-green-mobile.svg'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -216,8 +217,13 @@ const PrimaryHeader = () => {
     <div className={styles.mobileBlurContainer}>
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
-          <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-            <Image src={LogoIcon} alt="" />
+          <div className="flex">
+            <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
+              <Image src={LogoIcon} alt="" />
+            </div>
+            <div className={styles.alphaArea}>
+              <Image src={alphaGreenIcon} alt="" />
+            </div>
           </div>
           <div className="flex">
             <IconButton

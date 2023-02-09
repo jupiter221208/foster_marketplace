@@ -44,12 +44,7 @@
   height: 80px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
-  );
+  background: linear-gradient(90deg, rgba(#346763, 1) 0%, rgba(#121919, 1) 100%);
   z-index: 9999;
   &:hover {
     opacity: 1;
@@ -85,4 +80,15 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+}
+
+.alphaArea {
+  width: 98px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $brand-09-color;
+  border-radius: 12px;
+  margin-left: 14px;
 }
