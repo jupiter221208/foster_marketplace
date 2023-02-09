@@ -278,6 +278,14 @@ const Step02CollectionSection = props => {
                       onDrop={acceptedFiles => {
                         acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert()
                       }}
+                      accept={{
+                        'image/jpeg': [],
+                        'image/png': [],
+                        'image/gif': [],
+                        'video/mp4': [],
+                        'audio/mpeg': [],
+                        'audio/wav': [],
+                      }}
                       maxFiles={25}
                       maxSize={31457280}
                     >
@@ -530,6 +538,14 @@ const Step02CollectionSection = props => {
               <Dropzone
                 onDrop={acceptedFiles => {
                   acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert()
+                }}
+                accept={{
+                  'image/jpeg': [],
+                  'image/png': [],
+                  'image/gif': [],
+                  'video/mp4': [],
+                  'audio/mpeg': [],
+                  'audio/wav': [],
                 }}
                 maxFiles={25}
                 maxSize={31457280}

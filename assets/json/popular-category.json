@@ -170,7 +170,7 @@
   {
     "id": 12,
     "disabled": true,
-    "query": "Foster&House",
+    "query": "FosterHouse",
     "image": "/images/popular-category-fosterlabs.webm",
     "banner": "/images/category-banner-fosterlabs.webm",
     "mobile": "/images/popular-category-fosterlabs-mobile.png",
@@ -310,7 +310,7 @@
   {
     "id": 22,
     "disabled": true,
-    "query": "Turkey&Circus",
+    "query": "TurkeyCircus",
     "image": "/images/popular-category-turkey.png",
     "banner": "/images/category-banner-turkey.png",
     "mobile": "/images/popular-category-turkey-mobile.png",

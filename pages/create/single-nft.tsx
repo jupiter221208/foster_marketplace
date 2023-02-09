@@ -12,7 +12,7 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
-import { Keypair, type PublicKey } from '@solana/web3.js'
+import { Keypair, PublicKey } from '@solana/web3.js'
 import { toBigNumber, toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -49,6 +49,7 @@ import nftsAPI from 'apis/nfts'
 
 // styles
 import styles from './single-nft.module.scss'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -85,6 +86,7 @@ const SingleNft = () => {
   const [artWidth, setArtWidth] = useState(0)
   const [openNftImageEditorModal, setOpenNftImageEditorModal] = useState(false)
   const [nftImage, setNftImage] = useState('')
+  const [coverImageProcessing, setCoverImageProcessing] = useState(false)
 
   useEffect(() => {
     let width = 0
@@ -189,8 +191,8 @@ const SingleNft = () => {
         const type = nftArt[0].type.split('/')[0]
         setNftType(type)
         if (type === 'video') {
+          setCoverImageProcessing(true)
           let canvas = document.createElement('canvas')
-          let image = ''
           let hidden_video: HTMLVideoElement = document.getElementById('hidden_video') as HTMLVideoElement
           hidden_video.src = URL.createObjectURL(nftArt[0])
 
@@ -201,10 +203,9 @@ const SingleNft = () => {
             let ctx = canvas.getContext('2d')
             ctx.drawImage(hidden_video, 0, 0, canvas.width, canvas.height)
 
-            image = canvas.toDataURL('image/jpeg')
-
             canvas.toBlob(blob => {
               setNftImage(URL.createObjectURL(blob))
+              setCoverImageProcessing(false)
             })
           })
           hidden_video.currentTime = 5
@@ -652,6 +653,8 @@ const SingleNft = () => {
                             disabled={disabledNextButton}
                             backgroundColor="#888A8E"
                           />
+                        ) : coverImageProcessing ? (
+                          <LoadingButton width={viewport === '2xl' ? 124 : 117} />
                         ) : (
                           <GradientButton
                             width={viewport === '2xl' ? 124 : 117}
@@ -672,7 +675,6 @@ const SingleNft = () => {
               <div className="w-full">
                 <Stepper currentStep={currentStep} />
               </div>
-              {/* <div className={`${styles.title} w-full`}>Artwork Preview</div> */}
 
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 {nftType === 'image' ? (

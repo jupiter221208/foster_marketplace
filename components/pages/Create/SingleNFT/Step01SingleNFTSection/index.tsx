@@ -53,6 +53,14 @@ const Step01SingleNFTSection = props => {
               onDrop={acceptedFiles => {
                 acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert()
               }}
+              accept={{
+                'image/jpeg': [],
+                'image/png': [],
+                'image/gif': [],
+                'video/mp4': [],
+                'audio/mpeg': [],
+                'audio/wav': [],
+              }}
               maxFiles={1}
               maxSize={31457280}
             >
@@ -114,6 +122,14 @@ const Step01SingleNFTSection = props => {
             <Dropzone
               onDrop={acceptedFiles => {
                 acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert()
+              }}
+              accept={{
+                'image/jpeg': [],
+                'image/png': [],
+                'image/gif': [],
+                'video/mp4': [],
+                'audio/mpeg': [],
+                'audio/wav': [],
               }}
               maxFiles={1}
               maxSize={31457280}
