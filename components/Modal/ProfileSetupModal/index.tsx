@@ -154,9 +154,9 @@ const ProfileSetupModal = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className={styles.modalView}>
-                    <div className={styles.close} onClick={() => closeModal()}>
+                    {/* <div className={styles.close} onClick={() => closeModal()}>
                       <Image src={CloseIcon} alt="" width={30} height={30} />
-                    </div>
+                    </div> */}
                     <div className={styles.rightBack}>
                       <Image src={LogoBigIcon} alt="" width={566} height={657} />
                     </div>
