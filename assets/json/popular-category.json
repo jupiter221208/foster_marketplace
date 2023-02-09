@@ -86,7 +86,7 @@
   {
     "id": 6,
     "disabled": false,
-    "query": "black",
+    "query": "black&white",
     "image": "/images/popular-category-black-white.png",
     "banner": "/images/category-banner-black-white.png",
     "mobile": "/images/popular-category-black-white-mobile.png",
