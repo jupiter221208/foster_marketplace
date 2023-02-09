@@ -30,7 +30,7 @@
   {
     "id": 2,
     "disabled": false,
-    "query": "ai",
+    "query": "ai art",
     "image": "/images/popular-category-ai.png",
     "banner": "/images/category-banner-ai.png",
     "mobile": "/images/popular-category-mobile-ai.png",
@@ -86,7 +86,7 @@
   {
     "id": 6,
     "disabled": false,
-    "query": "black&white",
+    "query": "black white",
     "image": "/images/popular-category-black-white.png",
     "banner": "/images/category-banner-black-white.png",
     "mobile": "/images/popular-category-black-white-mobile.png",
@@ -170,7 +170,7 @@
   {
     "id": 12,
     "disabled": true,
-    "query": "house",
+    "query": "foster house",
     "image": "/images/popular-category-fosterlabs.webm",
     "banner": "/images/category-banner-fosterlabs.webm",
     "mobile": "/images/popular-category-fosterlabs-mobile.png",
@@ -198,7 +198,7 @@
   {
     "id": 14,
     "disabled": false,
-    "query": "glitch",
+    "query": "gitch",
     "image": "/images/popular-category-glitch.webm",
     "banner": "/images/category-banner-glitch.webm",
     "mobile": "/images/popular-category-mobile-glitch-mobile.png",
@@ -268,7 +268,7 @@
   {
     "id": 19,
     "disabled": false,
-    "query": "pixel",
+    "query": "pixel art",
     "image": "/images/popular-category-pixel.png",
     "banner": "/images/category-banner-pixel.png",
     "mobile": "/images/popular-category-pixel-mobile.png",
@@ -310,7 +310,7 @@
   {
     "id": 22,
     "disabled": true,
-    "query": "turkey",
+    "query": "turkey circus",
     "image": "/images/popular-category-turkey.png",
     "banner": "/images/category-banner-turkey.png",
     "mobile": "/images/popular-category-turkey-mobile.png",
