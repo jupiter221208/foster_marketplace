@@ -15,10 +15,8 @@ import IconButton from 'components/Button/IconButton'
 // images
 import AlertSuccessGreenIcon from 'assets/icons/alert-success-green.svg'
 import AlertErrorBlackRedIcon from 'assets/icons/alert-error-black-red.svg'
-import CloseBlackRedIcon from 'assets/icons/close-black-red.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-
 import LogoText from 'assets/icons/logo-text-01.svg'
 
 // styles
@@ -142,8 +140,7 @@ const Alert = props => {
                           />
                         </div>
                         <div className={item.type === 'success' ? styles.mobileTitle : styles.mobileErrorTitle}>
-                          {item.type[0].toUpperCase()}
-                          {item.type.slice(1)}
+                          {item.title}
                         </div>
                         <div className={styles.mobileDescription}>{item.description}</div>
                         {item.item && (
@@ -165,7 +162,7 @@ const Alert = props => {
                       <div className="w-full h-[66px] flex flex-wrap justify-center">
                         <div className={styles.mobileDivier} />
                         <div className="w-full flex justify-center items-center">
-                          <div className={item.type === 'success' ? 'opacity-100' : 'opacity-20'}>
+                          <div className="mt-[25px]">
                             <Image src={LogoText} alt="" />
                           </div>
                         </div>
