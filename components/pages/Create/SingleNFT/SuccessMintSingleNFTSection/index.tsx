@@ -289,6 +289,8 @@ const SuccessMintSingleNFTSection = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          dispatch({ type: 'set', isLoading: true })
+          router.push('/')
         }}
         data={alertData}
       />
