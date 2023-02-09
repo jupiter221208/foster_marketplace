@@ -60,7 +60,7 @@ const MoreArtistSection = props => {
               label="See More"
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
-                router.push(`/artist-profile?id=${artistInfo}`)
+                router.push(`/artist-profile?id=${artistInfo.address}`)
               }}
               borderColor="#ffffff"
               height="42px"
@@ -107,7 +107,7 @@ const MoreArtistSection = props => {
               fullWidth
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
-                router.push(`/artist-profile?id=${artistInfo}`)
+                router.push(`/artist-profile?id=${artistInfo.address}`)
               }}
               borderColor="#ffffff"
               height="40px"
