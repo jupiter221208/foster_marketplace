@@ -90,14 +90,9 @@
 }
 
 .ellipseArea {
-  width: 28px;
-  height: 28px;
-  border-radius: 14px;
-  @media (min-width: 1024px) {
-    width: 52px;
-    height: 52px;
-    border-radius: 26px;
-  }
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
   background: #1b1b1b;
   display: flex;
   justify-content: center;

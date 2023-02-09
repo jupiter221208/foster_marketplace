@@ -46,9 +46,9 @@ const ReportMenu = props => {
           <div className="flex justify-between items-center py-2">
             <div className={styles.ellipseArea}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <Image src={ThreeEllipseMobileIcon} alt="" width="15px" height="4px" />
+                <Image src={ThreeEllipseMobileIcon} alt="" width="16px" height="4px" />
               ) : (
-                <Image src={ThreeEllipseIcon} alt="" width="23px" height="6px" />
+                <Image src={ThreeEllipseIcon} alt="" width="16px" height="4px" />
               )}
             </div>
           </div>
