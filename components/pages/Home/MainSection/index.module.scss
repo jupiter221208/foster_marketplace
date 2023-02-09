@@ -33,6 +33,20 @@
   opacity: 0.4;
 }
 
+.alpha {
+  height: 47px;
+  border: 1px solid $brand-09-color;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 0.8);
+}
+
 .whiteTitle {
   font-family: 'KCDurhamBoxcar';
   letter-spacing: 0;

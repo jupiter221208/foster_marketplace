@@ -26,6 +26,8 @@ import { useViewport } from 'utils'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
+import InfoGreenIcon from 'assets/icons/info-green.svg'
+import alphaGreenIcon from 'assets/icons/alpha-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -43,6 +45,7 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
+  const [alphaExpand, setAlphaExpand] = useState(false)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -84,7 +87,7 @@ const MainSection = () => {
           <div className={styles.text}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
-            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[85px] flex justify-center lg:justify-start gap-8">
+            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
               <GreenGradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
@@ -96,7 +99,7 @@ const MainSection = () => {
           ) : (
             <></>
           )}
-          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[140px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
+          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[200px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
             <div className="block">
               <div className={styles.count}>{artworkCnt}</div>
               <div className={styles.countText}>Artworks</div>
@@ -109,6 +112,19 @@ const MainSection = () => {
               <div className={styles.count}>{nftCnt}</div>
               <div className={styles.countText}>Ecosystem</div>
             </div>
+          </div>
+          <div className="mt-[146px] hidden lg:flex cursor-pointer">
+            {alphaExpand ? (
+              <div className={styles.alpha} onClick={() => setAlphaExpand(!alphaExpand)}>
+                <Image src={InfoGreenIcon} width="18" height="18" alt="" />
+                <div>Foster Marketplace is currently in ALPHA, we expect some performance issues.</div>
+              </div>
+            ) : (
+              <div className={styles.alpha} onClick={() => setAlphaExpand(!alphaExpand)}>
+                <Image src={InfoGreenIcon} width="18" height="18" alt="" />
+                <Image src={alphaGreenIcon} alt="" />
+              </div>
+            )}
           </div>
         </div>
         <div
