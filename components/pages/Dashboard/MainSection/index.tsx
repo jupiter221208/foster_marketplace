@@ -36,6 +36,7 @@ import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
 import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
+import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
@@ -75,6 +76,9 @@ const MainSection = () => {
   const [avatarUploadingToS3, setAvatarUploadingToS3] = useState<boolean>(false)
   const [avatarPictureUrl, setAvatarPictureUrl] = useState('')
 
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+
   useEffect(() => {
     if (
       profileInfo?.banner_picture !== null &&
@@ -111,14 +115,34 @@ const MainSection = () => {
   const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
   const telegramUrl = profileInfo?.telegram_url ? getPrefixUrl(profileInfo?.telegram_url) : ''
 
+  const showAlertModal = () => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Max File Size Exceeded',
+        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+        type: 'error',
+      },
+    ])
+    setShowAlert(true)
+  }
+
   const handleChangeBannerImage = event => {
     const file = event.target.files
+    if (file[0].size > 31457280) {
+      showAlertModal()
+      return
+    }
     setBanner(file)
     setOpenBannerEditorModal(true)
   }
 
   const handleChangeAvatar = event => {
     const file = event.target.files
+    if (file[0].size > 31457280) {
+      showAlertModal()
+      return
+    }
     setAvatar(file)
     setOpenAvatarEditorModal(true)
   }
@@ -227,6 +251,7 @@ const MainSection = () => {
           <input
             type="file"
             id="banner-file"
+            // accept="image/png, image/jepg, image/gif"
             ref={inputBannerFile}
             style={{ display: 'none' }}
             onChange={event => handleChangeBannerImage(event)}
@@ -403,6 +428,13 @@ const MainSection = () => {
           setOpenAvatarEditorModal(false)
         }}
         dimension={{ value: [512, 512] }}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
       />
     </div>
   )
