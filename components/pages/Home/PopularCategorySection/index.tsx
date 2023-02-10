@@ -78,7 +78,7 @@ const PopularCategorySection = props => {
                 type={item.type}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/category/${item.query}`)
+                  router.push(`/category/${item.query.toLowerCase()}`)
                 }}
               />
             </SwiperSlide>

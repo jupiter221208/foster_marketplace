@@ -22,7 +22,7 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import BannerImage from 'assets/images/alexander-ant.png'
+import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'

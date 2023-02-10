@@ -20,7 +20,7 @@ const StatsMarketplaceCard = props => {
     <div
       className={styles.container}
       onClick={() => {
-        router.push(`/category/${data.id}`)
+        router.push(`/category/${data.id.toLowerCase()}`)
       }}
     >
       <div className={styles.imageArea}>

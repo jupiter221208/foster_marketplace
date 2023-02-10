@@ -58,7 +58,7 @@ const MoreCategorySection = props => {
               onClick={() => {
                 if (categories && categories.length > 0) {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/category/${categories[0]}`)
+                  router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}
               borderColor="#ffffff"
@@ -107,7 +107,7 @@ const MoreCategorySection = props => {
               onClick={() => {
                 if (categories && categories.length > 0) {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/category/${categories[0]}`)
+                  router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}
               borderColor="#ffffff"

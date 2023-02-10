@@ -20,6 +20,7 @@ import { useViewport } from 'utils'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
+import bannerImage from 'assets/images/banner-image.png'
 
 // styles
 import styles from './index.module.scss'
@@ -97,14 +98,15 @@ const MainSection = props => {
     )
   }
 
+  console.log(data)
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
-      {data !== undefined && data.banner_image !== undefined ? (
+      {data !== undefined && data.banner_image !== undefined && data.banner_image.length > 0 ? (
         <div className={styles.headerImage}>
           <img src={data.banner_image} alt="" className="w-full rounded-[20px]" />
         </div>
       ) : (
-        <div className={styles.headerLoading} />
+        <img src={bannerImage.src} alt="" className="w-full lg:h-[412px] rounded-[20px] object-cover mb-[12px]" />
       )}
       <div className="w-full">
         <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
@@ -206,13 +208,19 @@ const MainSection = props => {
     // mobile view
     <div className={styles.container}>
       <div className={styles.headerImage}>
-        <img
-          src={data?.banner_image}
-          alt=""
-          width={1620}
-          height={480}
-          className="w-full h-full object-cover rounded-none"
-        />
+        {data?.banner_image !== null && data?.banner_image.length > 0 ? (
+          <img
+            src={data?.banner_image}
+            alt=""
+            width={1620}
+            height={480}
+            className="w-full h-full object-cover rounded-none"
+          />
+        ) : (
+          <div className="h-[132px]">
+            <img src={bannerImage.src} alt="" className="w-full h-full rounded-[20px] object-cover" />
+          </div>
+        )}
       </div>
       <div className="w-full">
         <div className="w-full flex justify-between items-center mt-[-50px] z-10">
