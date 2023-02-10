@@ -21,35 +21,27 @@ const CollectionsTable = props => {
     <table id="ArtworksTable" className="w-full table-auto">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Collection</th>
+          <th className="w-[20%] text-start">
+            <div className="ml-3">Collection</div>
+          </th>
           <th>Total Sale</th>
-          <th>% Volume</th>
           <th>Floor Price</th>
           <th>Average Price</th>
           <th>Highest Sale</th>
-          <th>Collectors</th>
-          <th>NFTs Sold</th>
+          <th>Creator</th>
+          <th>Unique Holders</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, index) => {
           return (
             <tr key={index}>
-              <td className="h-[90px] flex justify-center items-center gap-[21px]">
-                <div>{item.rank}</div>
-                <Image
-                  src={item.rankImage}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  className="rounded-[15px]"
-                />
-              </td>
               <td>
-                <div className="block">
+                <div className="flex gap-2 mx-3 items-center">
+                  <div className="min-w-[38px] w-[38x]">
+                    <Image src={item.rankImage} alt="" width={38} height={38} className="rounded-[8px]" />
+                  </div>
                   <div className="flex justify-center">{item.collectionName01}</div>
-                  <div className="flex justify-center">{item.collectionName02}</div>
                 </div>
               </td>
               <td className="text-center">
@@ -58,7 +50,6 @@ const CollectionsTable = props => {
                   {item.totalSale.toFixed(2)}
                 </div>
               </td>
-              <td className={`text-center ${styles.greenText}`}>{getPercentValue(item.volume)}</td>
               <td className="text-center">
                 <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />

@@ -1,7 +1,7 @@
 [
   {
     "id": 0,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -9,7 +9,7 @@
   },
   {
     "id": 1,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": -9.72,
@@ -17,7 +17,7 @@
   },
   {
     "id": 2,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -25,7 +25,7 @@
   },
   {
     "id": 3,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -33,7 +33,7 @@
   },
   {
     "id": 4,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": -9.72,
@@ -41,7 +41,7 @@
   },
   {
     "id": 5,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -49,7 +49,7 @@
   },
   {
     "id": 6,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -57,7 +57,7 @@
   },
   {
     "id": 7,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -65,7 +65,7 @@
   },
   {
     "id": 8,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -73,7 +73,7 @@
   },
   {
     "id": 9,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
@@ -81,7 +81,7 @@
   },
   {
     "id": 0,
-    "image": "/images/stats-collection.png",
+    "image": "/images/banner.png",
     "collectionName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
