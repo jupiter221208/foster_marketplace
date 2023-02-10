@@ -23,7 +23,8 @@ import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg'
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
 import LogoIcon from 'assets/icons/logo-green.svg'
-import alphaGreenIcon from 'assets/icons/alpha-green-mobile.svg'
+import alphaGreenIcon from 'assets/icons/alpha-green.svg'
+import alphaGreenMobileIcon from 'assets/icons/alpha-green-mobile.svg'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -186,15 +187,20 @@ const PrimaryHeader = () => {
                 <Image src={LogoIcon} alt="" />
               </div>
             )}
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search by NFT, Collection, or Artist"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              onClick={() => handleClear()}
-              onClose={() => handleClose()}
-            />
-            <div className="cursor-pointer min-w-[80px] xl:min-w-[120px] 2xl:min-w-[376px] flex items-center" />
+            <div className="w-full max-w-[708px] min-w-[448px] flex items-center">
+              <SearchBox
+                value={searchKeyword}
+                placeholder="Search by NFT, Collection, or Artist"
+                onChange={value => setSearchKeyword(value)}
+                searchList={searchList}
+                onClick={() => handleClear()}
+                onClose={() => handleClose()}
+              />
+              <div className={styles.alphaArea}>
+                <Image src={alphaGreenIcon} alt="" />
+              </div>
+            </div>
+            <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[280px] flex items-center" />
             <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
             <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
@@ -222,7 +228,7 @@ const PrimaryHeader = () => {
               <Image src={LogoIcon} alt="" />
             </div>
             <div className={styles.alphaArea}>
-              <Image src={alphaGreenIcon} alt="" />
+              <Image src={alphaGreenMobileIcon} alt="" />
             </div>
           </div>
           <div className="flex">

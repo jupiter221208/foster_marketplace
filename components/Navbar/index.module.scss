@@ -230,10 +230,10 @@
   height: 50px;
   margin-bottom: 30px;
   cursor: pointer;
-  background: url('../../assets/icons/logout-gray.svg');
-  &:hover {
-    background: url('../../assets/icons/logout-green.svg');
-  }
+  background: url('../../assets/icons/logout-green.svg');
+  // &:hover {
+  //   background: url('../../assets/icons/logout-green.svg');
+  // }
 }
 
 @keyframes menu_open {
