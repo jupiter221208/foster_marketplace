@@ -42,7 +42,7 @@ const StatsCollectionCard = props => {
       </div>
       <div className="absolute bottom-[8px] w-full ml-[5px] flex justify-between items-end z-10">
         <div className="block">
-          <div className={styles.nftName}>{data.collectionName}</div>
+          <div className={styles.nftName}>{data.nftName}</div>
           <div className="flex gap-[4px]">
             <div className={styles.price}>Sale Price:</div>
             <Image src={SolanaLogoIcon} width={18} height={18} alt="" />

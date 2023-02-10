@@ -2,7 +2,7 @@
   {
     "id": 0,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -10,7 +10,7 @@
   {
     "id": 1,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": -9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -18,7 +18,7 @@
   {
     "id": 2,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -26,7 +26,7 @@
   {
     "id": 3,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -34,7 +34,7 @@
   {
     "id": 4,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": -9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -42,7 +42,7 @@
   {
     "id": 5,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -50,7 +50,7 @@
   {
     "id": 6,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -58,7 +58,7 @@
   {
     "id": 7,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -66,7 +66,7 @@
   {
     "id": 8,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -74,7 +74,7 @@
   {
     "id": 9,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"
@@ -82,7 +82,7 @@
   {
     "id": 0,
     "image": "/images/banner.png",
-    "collectionName": "Collection Name",
+    "nftName": "Collection Name",
     "artistName": "Artist Name",
     "volume": 9.72,
     "avatar": "/images/paul-theodor-oja.png"

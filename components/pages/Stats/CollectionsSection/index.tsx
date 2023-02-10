@@ -48,7 +48,7 @@ const CollectionsSection = () => {
     <div className={styles.container}>
       <div className={styles.title}>Highest Total Sales</div>
 
-      <div className="w-full mt-[25px] mb-[20px]">
+      <div className="w-full mt-[25px]">
         <CollectionSection list={CollectionsCollectionList} />
       </div>
       <SearchSection

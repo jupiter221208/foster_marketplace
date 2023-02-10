@@ -248,6 +248,19 @@ h6 {
     }
   }
 }
+.hideNavigationSwiper {
+  padding-bottom: 30px !important;
+  @media (min-width: 1024px) {
+    padding-bottom: 80px !important;
+  }
+  .swiper-button-prev {
+    display: none;
+  }
+
+  .swiper-button-next {
+    display: none;
+  }
+}
 
 .showNavigationSwiper {
   padding-bottom: 30px !important;

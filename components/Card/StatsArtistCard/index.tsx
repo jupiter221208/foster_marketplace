@@ -9,6 +9,9 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 // styles
 import styles from './index.module.scss'
 
+// icons
+import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+
 const StatsArtistCard = props => {
   const { data } = props
   return (
@@ -18,6 +21,12 @@ const StatsArtistCard = props => {
       </div>
 
       <div className={styles.name}>{data.name}</div>
+      <div className="flex justify-center">
+        <div className="flex gap-[4px]">
+          <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
+          <div className={styles.value}>87</div>
+        </div>
+      </div>
     </div>
   )
 }

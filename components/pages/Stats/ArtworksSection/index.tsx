@@ -47,7 +47,7 @@ const ArtworksSection = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Highest Sales</div>
-      <div className="w-full mt-[25px] mb-[20px]">
+      <div className="w-full mt-[25px]">
         <CollectionSection list={ArtworksCollectionList} />
       </div>
       <SearchSection

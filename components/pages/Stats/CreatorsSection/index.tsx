@@ -46,16 +46,20 @@ const CreatorsSection = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.title}>Total Sales Volume</div>
+
+      <div className="w-full mt-[25px]">
+        <CollectionSection list={CreatorsCollectionList} />
+      </div>
+
       <SearchSection
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         list={allList}
         getList={list => setCreatorsList(list)}
       />
-      <div className="mt-8 w-full">
-        <CollectionSection list={CreatorsCollectionList} />
-      </div>
-      <div>
+
+      <div className="mt-[20px]">
         <TableSections data={list} />
       </div>
     </div>
