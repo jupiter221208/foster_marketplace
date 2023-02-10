@@ -50,7 +50,7 @@ const AuctionCard = props => {
           <div className="w-4 h-4 lg:w-6 lg:h-6">
             <Image src={SolanaLogoIcon} alt="" />
           </div>
-          <div className={styles.whiteText}>{reservePrice}</div>
+          <div className={styles.whiteText}>{Math.round(reservePrice * 1000) / 1000}</div>
         </div>
       </div>
       {auctionStarted && (
@@ -60,7 +60,7 @@ const AuctionCard = props => {
             <div className="w-4 h-4 lg:w-6 lg:h-6">
               <Image src={SolanaLogoIcon} alt="" />
             </div>
-            <div className={styles.whiteText}>{currentPrice}</div>
+            <div className={styles.whiteText}>{Math.round(currentPrice * 1000) / 1000}</div>
           </div>
         </div>
       )}
