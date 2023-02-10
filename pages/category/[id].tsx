@@ -36,16 +36,12 @@ const Category = () => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
 
-  const cateQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id
-  ;('')
-  const [categoryInfo, setCategoryInfo] = useState<any>('')
-
+  const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
+  const cateQuery = rawQuery.toLowerCase()
   useEffect(() => {
-    let category = PopularCategoryList.filter(function (category) {
-      return category.query === cateQuery
-    })[0]
-    setCategoryInfo(category)
-  }, [cateQuery])
+    if (rawQuery !== cateQuery) router.replace(`/category/${cateQuery}`, undefined, { shallow: true, scroll: false })
+  }, [rawQuery, cateQuery, router])
+  const categoryInfo = PopularCategoryList.find(({ query }) => query === cateQuery)
 
   let categoryTitle = `${cateQuery} | Foster Marketplace`
   let categoryImageUrl = getCategoryPreviewImage(cateQuery)
@@ -122,8 +118,15 @@ Category.getLayout = function getLayout(page) {
   return <ArtistLayout>{page}</ArtistLayout>
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
   return {
     props: {},
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: PopularCategoryList.map(({ query }) => ({ params: { id: query } })),
+    fallback: true,
   }
 }
