@@ -33,7 +33,7 @@ const Stats = () => {
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
-  const [previewMode, setPreviewMode] = useState(true)
+  const [previewMode, setPreviewMode] = useState(false)
 
   useEffect(() => {
     let array: any[] = []

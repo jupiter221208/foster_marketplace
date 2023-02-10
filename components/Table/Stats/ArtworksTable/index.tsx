@@ -20,35 +20,27 @@ const ArtworksTable = props => {
     <table id="ArtworksTable" className="w-full table-auto">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Artwork</th>
+          <th className="w-[20%] text-start">
+            <div className="ml-3">Artwork</div>
+          </th>
           <th>Sale Price</th>
-          <th>Category</th>
-          <th>Views</th>
-          <th>Shares</th>
-          <th>Likes</th>
-          <th>Saves</th>
-          <th>Offers</th>
+          <th>Method of Sale</th>
+          <th>Date</th>
+          <th>Creator</th>
+          <th>Collector</th>
+          <th>Market</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, index) => {
           return (
             <tr key={index}>
-              <td className="h-[90px] flex justify-center items-center gap-[21px]">
-                <div>{item.rank}</div>
-                <Image
-                  src={item.rankImage}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  className="rounded-[15px]"
-                />
-              </td>
               <td>
-                <div className="block">
+                <div className="flex gap-2 mx-3 items-center">
+                  <div className="min-w-[38px] w-[38x]">
+                    <Image src={item.rankImage} alt="" width={38} height={38} className="rounded-[8px]" />
+                  </div>
                   <div className="flex justify-center">{item.artworkName01}</div>
-                  <div className="flex justify-center">{item.artworkName02}</div>
                 </div>
               </td>
               <td className="text-center">
@@ -61,7 +53,6 @@ const ArtworksTable = props => {
               <td className="text-center">{item.views}</td>
               <td className="text-center">{item.shares}</td>
               <td className="text-center">{item.likes}</td>
-              <td className="text-center">{item.saves}</td>
               <td className="text-center">{item.offers}</td>
             </tr>
           )
