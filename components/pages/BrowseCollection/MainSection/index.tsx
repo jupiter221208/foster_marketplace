@@ -98,7 +98,6 @@ const MainSection = props => {
     )
   }
 
-  console.log(data)
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       {data !== undefined && data.banner_image !== undefined && data.banner_image.length > 0 ? (
