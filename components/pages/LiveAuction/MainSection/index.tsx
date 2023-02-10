@@ -74,7 +74,7 @@ import { toMetadataAccount, Nft, LazyBid } from '@metaplex-foundation/js'
 import { TIMED_AUCTION_HOUSE_PUBLIC_KEY, placeBid } from 'utils/auctioneer.util'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { useWallets } from 'hooks/useWallets'
-import { getDateString } from 'utils/strings'
+import { getDateString, getShortAddress } from 'utils/strings'
 import { getNFTOwner, getNFTCategories, getNFTArtistInfo, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
 
 // call apis
@@ -524,7 +524,7 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Created by</div>
                   <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorAddress)}>
-                    {nftCreatorUsername}
+                    {nftCreatorUsername || getShortAddress(nftCreatorAddress)}
                   </div>
                 </div>
                 <div className="flex gap-1 lg:gap-3">
