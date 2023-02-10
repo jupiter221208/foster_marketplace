@@ -113,7 +113,7 @@ const MainSection = () => {
               <div className={styles.countText}>Ecosystem</div>
             </div>
           </div>
-          <div className="mt-[146px] hidden lg:flex cursor-pointer">
+          {/* <div className="mt-[146px] hidden lg:flex cursor-pointer">
             {alphaExpand ? (
               <div className={styles.alpha} onClick={() => setAlphaExpand(!alphaExpand)}>
                 <Image src={InfoGreenIcon} width="18" height="18" alt="" />
@@ -125,7 +125,7 @@ const MainSection = () => {
                 <Image src={alphaGreenIcon} alt="" />
               </div>
             )}
-          </div>
+          </div> */}
         </div>
         <div
           className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end lg:py-6"
