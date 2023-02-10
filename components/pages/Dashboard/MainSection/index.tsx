@@ -129,6 +129,8 @@ const MainSection = () => {
 
   const handleChangeBannerImage = event => {
     const file = event.target.files
+    if (file?.length === 0) return
+
     if (file[0].size > 31457280) {
       showAlertModal()
       return
@@ -139,6 +141,8 @@ const MainSection = () => {
 
   const handleChangeAvatar = event => {
     const file = event.target.files
+    if (file?.length === 0) return
+
     if (file[0].size > 31457280) {
       showAlertModal()
       return
@@ -251,7 +255,7 @@ const MainSection = () => {
           <input
             type="file"
             id="banner-file"
-            // accept="image/png, image/jepg, image/gif"
+            accept="image/png, image/jepg, image/gif"
             ref={inputBannerFile}
             style={{ display: 'none' }}
             onChange={event => handleChangeBannerImage(event)}
@@ -286,6 +290,7 @@ const MainSection = () => {
                   <input
                     type="file"
                     id="avatar-file"
+                    accept="image/png, image/jepg, image/gif"
                     ref={inputAvatarFile}
                     style={{ display: 'none' }}
                     onChange={event => handleChangeAvatar(event)}

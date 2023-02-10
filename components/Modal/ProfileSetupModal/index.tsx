@@ -32,6 +32,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // call apis
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
+import Alert from 'components/Alert'
 
 const ProfileSetupModal = () => {
   const profileSetup: boolean = useSelector((state: any) => state.profileSetup)
@@ -49,11 +50,27 @@ const ProfileSetupModal = () => {
   const [croppedAvatar, setCroppedAvatar] = useState('')
   const [avatar, setAvatar] = useState<any>()
   const inputFile = useRef<any>(null)
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
 
   const { publicKey } = useWallet()
 
   const handleChangeAvatar = event => {
     const file = event.target.files
+    if (file?.length === 0) return
+
+    if (file[0].size > 31457280) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Max File Size Exceeded',
+          description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+          type: 'error',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
     setAvatar(file)
     setOpenNftImageEditorModal(true)
   }
@@ -114,6 +131,13 @@ const ProfileSetupModal = () => {
 
   return (
     <div>
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
       {openNftImageEditorModal ? (
         <NftImageEditorModal
           style={{ zIndex: 100001 }}
