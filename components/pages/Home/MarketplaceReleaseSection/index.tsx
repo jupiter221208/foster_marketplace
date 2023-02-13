@@ -139,7 +139,7 @@ const MarketplaceReleaseSection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
+            className={lightMode ? 'lightNavigationSwiper' : 'navigationSwiper'}
             loop
             autoplay={{
               delay: 5000,

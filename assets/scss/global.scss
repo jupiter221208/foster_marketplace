@@ -248,6 +248,43 @@ h6 {
     }
   }
 }
+
+.lightNavigationSwiper {
+  padding-bottom: 30px !important;
+  @media (min-width: 1024px) {
+    padding-bottom: 80px !important;
+  }
+  .swiper-button-prev {
+    display: flex;
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    right: 55px;
+    color: $background-dark-color;
+    opacity: 1;
+    &::after {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+
+  .swiper-button-next {
+    display: flex;
+    position: absolute;
+    top: auto;
+    left: auto;
+    bottom: 0px;
+    right: 0px;
+    color: $background-dark-color;
+    opacity: 1;
+    &::after {
+      font-size: 40px;
+      font-weight: 700;
+    }
+  }
+}
+
 .hideNavigationSwiper {
   padding-bottom: 30px !important;
   @media (min-width: 1024px) {

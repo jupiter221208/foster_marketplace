@@ -127,7 +127,7 @@ const TopRatedArtistsSection = () => {
               : 24
           }
           modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
+          className={lightMode ? 'lightNavigationSwiper' : 'navigationSwiper'}
           loop
           autoplay={{
             delay: 5000,
