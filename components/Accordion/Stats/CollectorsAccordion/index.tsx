@@ -59,7 +59,7 @@ const CollectorsAccordion = props => {
                   </div>
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#5AC3BA' : '#378287' }}
+                    style={{ color: open ? '#95dbd5' : '#95dbd5' }}
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
