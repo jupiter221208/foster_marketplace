@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -8,21 +9,23 @@ import { Menu as HMenu, Transition } from '@headlessui/react'
 
 // images and icons
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
+import ArrowDownGreenLightIcon from 'assets/icons/arrow-down-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const Menu = props => {
   const { label, menuList, onSelect } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="relative flex items-center">
       <HMenu>
         <HMenu.Button>
-          <div className={styles.container}>
+          <div className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}>
             <div className="mr-[9px]">{label}</div>
             <div className="w-3 h-3 flex justify-center items-center mt-1">
-              <Image src={ArrowDownGreenIcon} alt="" />
+              <Image src={lightMode ? ArrowDownGreenLightIcon : ArrowDownGreenIcon} alt="" />
             </div>
           </div>
         </HMenu.Button>

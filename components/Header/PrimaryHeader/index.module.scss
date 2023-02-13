@@ -19,6 +19,11 @@
     opacity: 1;
   }
 }
+
+.lightBlurContainer {
+  background: linear-gradient(90deg, rgba(#616264, 0.5) 0%, rgba(#b8b9bf, 0.5) 50%, rgba(#d6d7dd, 1) 100%);
+}
+
 .container {
   position: fixed;
   top: 0;

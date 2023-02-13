@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -8,22 +9,32 @@ import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
 import UserAccountWhiteIcon from 'assets/icons/user-account-white.svg'
+import UserAccountLightIcon from 'assets/icons/user-account-white-light.svg'
 
 // styles
 import styles from './index.module.scss'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="relative flex items-center">
       <Menu>
         <Menu.Button>
-          <div className={connectWalletStatus ? styles.activeContainer : styles.container}>
+          <div
+            className={
+              connectWalletStatus
+                ? styles.activeContainer
+                : lightMode
+                ? `${styles.container} ${styles.lightContainer}`
+                : styles.container
+            }
+          >
             {connectWalletStatus ? (
               <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
             ) : (
-              <Image src={UserAccountWhiteIcon} alt="" />
+              <Image src={lightMode ? UserAccountLightIcon : UserAccountWhiteIcon} alt="" />
             )}
           </div>
         </Menu.Button>

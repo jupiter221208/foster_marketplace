@@ -29,9 +29,10 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}>
       <>
         {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />}
         <PrimaryHeader />

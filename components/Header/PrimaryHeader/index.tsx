@@ -177,9 +177,11 @@ const PrimaryHeader = () => {
     }
   }
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div>
-      <div className={styles.blurContainer}>
+      <div className={`${styles.blurContainer} ${lightMode === true ? styles.lightBlurContainer : ''}`}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
             {!connected && routePath !== '/' && (

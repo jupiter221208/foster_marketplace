@@ -24,6 +24,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
 import InfoGreenIcon from 'assets/icons/info-green.svg'
@@ -67,13 +68,15 @@ const MainSection = () => {
     )
   }, [])
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <section id="main-section" className={styles.container}>
       <div className={styles.topLeftEllipse}>
-        <Image src={EllipseGreen} alt="" objectFit="cover" />
+        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className={styles.topRightEllipse}>
-        <Image src={EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
+        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">

@@ -10,6 +10,10 @@
   align-items: center;
 }
 
+.lightContainer {
+  border: 2px solid rgba($background-dark-color, 1);
+}
+
 .activeContainer {
   width: 46px;
   height: 46px;

@@ -1,6 +1,7 @@
 import { createStore } from 'redux'
 
 const initialState = {
+  lightMode: true,
   profileInfo: null,
   isLoading: false,
   isCollectionMinting: false,
