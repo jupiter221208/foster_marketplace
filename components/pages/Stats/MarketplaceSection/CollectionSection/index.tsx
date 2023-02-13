@@ -31,7 +31,7 @@ const CollectionSection = props => {
           }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 20 : 30}
           modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
+          className="hideNavigationSwiper"
           loop
           autoplay={{
             delay: 5000,

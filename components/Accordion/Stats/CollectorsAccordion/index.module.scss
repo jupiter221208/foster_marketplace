@@ -22,8 +22,8 @@
   padding-left: 14px;
   padding-right: 14px;
   border-radius: 15px;
-  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
-
+  background: $background-black-color;
+  border: 1px solid rgba($background-light-color, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,10 +41,10 @@
 }
 
 .imageArea {
-  width: 54px;
-  height: 54px;
-  background-color: #707070;
-  border-radius: 4px;
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(to right, rgba(#5ac3ba, 1), rgba(#2d625d, 1));
+  border-radius: 19px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +53,7 @@
 .activeImageArea {
   width: 54px;
   height: 54px;
-  background-color: $brand-01-color;
+  background-color: transparent;
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -68,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba($brand-02-color, 0.2);
+  background-color: rgba($background-dark-color, 0.8);
 }
 
 .secondRow {
@@ -86,19 +86,34 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: $text-gray-200-color;
+  color: rgba($text-gray-200-color, 0.8);
 }
 
 .subTitle {
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
+  font-size: 16px;
+  line-height: 20px;
+  color: $text-gray-200-color;
+  text-align: start;
+}
+
+.text {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
   line-height: 18px;
   color: $text-gray-200-color;
 }
 
-.text {
-  font-family: 'Muli-SemiBold';
+.priceText {
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: $brand-06-color;
+  color: rgba($text-gray-200-color, 0.75);
+}
+
+.priceValue {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: $text-gray-200-color;
 }

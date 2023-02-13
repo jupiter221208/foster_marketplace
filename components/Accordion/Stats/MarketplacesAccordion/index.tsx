@@ -23,7 +23,7 @@ const MarketplacesAccordion = props => {
   const router = useRouter()
 
   const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any|null>(null)
+  const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -52,18 +52,22 @@ const MarketplacesAccordion = props => {
                   onClick={() => clickRecent(index)}
                 >
                   <div className="flex items-center gap-x-4">
-                    <div className={open ? styles.activeImageArea : styles.imageArea}>
+                    <div className={styles.imageArea}>
                       <Image src={item.category[0].icon} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
-                    <div className="block text-left">
+                    <div className="block">
                       <div className={styles.subTitle}>{item.category[0].name}</div>
-                      <div className={`${styles.greenText} mt-1`}>{getPercentValue(item.volume)}</div>
+                      <div className="flex gap-1 mt-1 items-center">
+                        <div className={styles.priceText}>Total Sales</div>
+                        <Image src={SolanaLogoIcon} width={16} height={16} alt="" />
+                        <div className={styles.priceValue}>1200</div>
+                      </div>
                     </div>
                   </div>
                   {!open && (
                     <ChevronUpIcon
                       className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                      style={{ color: open ? '#5AC3BA' : '#378287' }}
+                      style={{ color: open ? '#95DBD5' : '#95DBD5' }}
                     />
                   )}
                   {open && (
@@ -73,19 +77,6 @@ const MarketplacesAccordion = props => {
                   )}
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Total Volume</div>
-                    <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.totalVolume}
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Transactions</div>
-                    <div className={styles.text}>{item.transactions}</div>
-                  </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Active Listings</div>
                     <div className={styles.text}>{item.activeListings}</div>

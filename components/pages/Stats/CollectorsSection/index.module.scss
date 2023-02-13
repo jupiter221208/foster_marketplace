@@ -2,3 +2,16 @@
 
 .container {
 }
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  line-height: 54px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+    line-height: 54px;
+    text-align: start;
+  }
+  color: $text-gray-200-color;
+}

@@ -46,16 +46,18 @@ const CollectorsSection = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.title}>Total Purchase Volume</div>
+
+      <div className="w-full mt-[25px]">
+        <CollectionSection list={CollectorsCollectionList} />
+      </div>
       <SearchSection
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         list={allList}
         getList={list => setCollectorsList(list)}
       />
-      <div className="mt-8 w-full">
-        <CollectionSection list={CollectorsCollectionList} />
-      </div>
-      <div>
+      <div className="mt-[20px]">
         <TableSections data={list} />
       </div>
     </div>

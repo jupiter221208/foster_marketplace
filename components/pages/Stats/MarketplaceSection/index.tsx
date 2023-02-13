@@ -45,16 +45,16 @@ const MarketplaceSection = () => {
 
   return (
     <div className={styles.container}>
+      <div className="w-full mt-[25px]">
+        <CollectionSection list={categoryList} />
+      </div>
       <SearchSection
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value)}
         list={allList}
         getList={list => setMarketplacesList(list)}
       />
-      <div className="mt-8 w-full">
-        <CollectionSection list={categoryList} />
-      </div>
-      <div>
+      <div className="mt-[20px]">
         <TableSections data={list} />
       </div>
     </div>

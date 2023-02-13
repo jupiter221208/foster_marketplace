@@ -17,7 +17,7 @@ const CollectorsAccordion = props => {
   const { data } = props
 
   const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any|null>(null)
+  const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -46,12 +46,15 @@ const CollectorsAccordion = props => {
                   onClick={() => clickRecent(index)}
                 >
                   <div className="flex items-center gap-x-4">
-                    <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.rankImage} alt="" width={52} height={52} className="rounded-[4px]" />
+                    <div className={styles.imageArea}>
+                      <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.collectorName01}</div>
-                      <div className={styles.subTitle}>{item.collectorName02}</div>
+                      <div className="flex gap-1 mt-1 items-center">
+                        <div className={styles.priceText}>Unique Collectors</div>
+                        <div className={styles.priceValue}>12,000</div>
+                      </div>
                     </div>
                   </div>
                   <ChevronUpIcon
