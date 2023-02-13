@@ -20,7 +20,7 @@ const CollectionsAccordion = props => {
   const { data } = props
 
   const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any|null>(null)
+  const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -53,13 +53,17 @@ const CollectionsAccordion = props => {
                       <Image src={item.rankImage} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.collectionName01}</div>
-                      <div className={styles.subTitle}>{item.collectionName02}</div>
+                      <div className={styles.subTitle}>Collection Name</div>
+                      <div className="flex gap-1 mt-1 items-center">
+                        <div className={styles.priceText}>Sale Price</div>
+                        <Image src={SolanaLogoIcon} width={16} height={16} alt="" />
+                        <div className={styles.priceValue}>1200</div>
+                      </div>
                     </div>
                   </div>
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#5AC3BA' : '#378287' }}
+                    style={{ color: open ? '#95DBD5' : '#95DBD5' }}
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>

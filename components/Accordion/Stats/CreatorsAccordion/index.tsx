@@ -17,7 +17,7 @@ const CreatorsAccordion = props => {
   const { data } = props
 
   const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any|null>(null)
+  const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -46,17 +46,20 @@ const CreatorsAccordion = props => {
                   onClick={() => clickRecent(index)}
                 >
                   <div className="flex items-center gap-x-4">
-                    <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.rankImage} alt="" width={52} height={52} className="rounded-[4px]" />
+                    <div className={styles.imageArea}>
+                      <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.artistName01}</div>
-                      <div className={styles.subTitle}>{item.artistName02}</div>
+                      <div className={styles.subTitle}>Collection Name</div>
+                      <div className="flex gap-1 mt-1 items-center">
+                        <div className={styles.priceText}>Unique Collectors</div>
+                        <div className={styles.priceValue}>12,000</div>
+                      </div>
                     </div>
                   </div>
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#5AC3BA' : '#378287' }}
+                    style={{ color: open ? '#95DBD5' : '#95DBD5' }}
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>

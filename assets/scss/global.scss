@@ -482,11 +482,11 @@ h6 {
 }
 
 #ArtworksTable td {
-  border: 1px solid rgba($white-color, 0.1);
+  // border: 1px solid rgba($white-color, 0.1);
   border-style: solid none solid none;
   padding: 4px;
   height: 70px;
-  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
+  background-color: transparent;
 
   font-family: 'Muli-Bold';
   font-size: 9px;
@@ -511,6 +511,12 @@ h6 {
   line-height: 24px;
   letter-spacing: 0;
   color: rgba($text-gray-200-color, 0.8);
+}
+
+#ArtworksTable tr {
+  &:hover {
+    background: linear-gradient(to bottom, rgba($background-dark-color, 35%), rgba($brand-02-color, 35%));
+  }
 }
 
 #ArtworksTable tr td:first-child {

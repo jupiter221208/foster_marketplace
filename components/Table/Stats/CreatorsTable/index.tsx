@@ -36,19 +36,13 @@ const CreatorsTable = props => {
           return (
             <tr key={index}>
               <td className="h-[90px] flex justify-center items-center gap-[21px]">
-                <div>{item.rank}</div>
-                <Image
-                  src={item.rankImage}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  className="rounded-[15px]"
-                />
+                <div className={styles.avatarArea}>
+                  <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
+                </div>
               </td>
               <td>
                 <div className="block">
                   <div className="flex justify-center">{item.artistName01}</div>
-                  <div className="flex justify-center">{item.artistName02}</div>
                 </div>
               </td>
               <td className="text-center">{item.uniqueCollectors}</td>
