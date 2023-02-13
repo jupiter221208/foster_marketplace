@@ -17,7 +17,7 @@ const ArtworksAccordion = props => {
   const { data } = props
 
   const buttonRefs = useRef<any>([])
-  const openedRef = useRef<any|null>(null)
+  const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -51,47 +51,38 @@ const ArtworksAccordion = props => {
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.artworkName01}</div>
-                      <div className={styles.subTitle}>{item.artworkName02}</div>
+                      <div className="flex gap-1 mt-1 items-center">
+                        <div className={styles.priceText}>Sale Price</div>
+                        <Image src={SolanaLogoIcon} width={16} height={16} alt="" />
+                        <div className={styles.priceValue}>{item.salePrice.toFixed(2)}</div>
+                      </div>
                     </div>
                   </div>
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#5AC3BA' : '#378287' }}
+                    style={{ color: open ? '#95DBD5' : '#95DBD5' }}
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Sale Price</div>
-                    <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.salePrice.toFixed(2)}
-                      </div>
-                    </div>
+                    <div className={styles.title}>Method of Sale</div>
+                    <div className={styles.text}>Quick Buy</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Category</div>
-                    <div className={styles.text}>{item.category[0]?.name}</div>
+                    <div className={styles.title}>Date</div>
+                    <div className={styles.text}>12/24/2023</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Views</div>
-                    <div className={styles.text}>{item.views}</div>
+                    <div className={styles.title}>Creator</div>
+                    <div className={styles.text}>Plumpadoodle</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Shares</div>
-                    <div className={styles.text}>{item.shares}</div>
+                    <div className={styles.title}>Collector</div>
+                    <div className={styles.text}>Circus Dragon</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Likes</div>
-                    <div className={styles.text}>{item.likes}</div>
-                  </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Saves</div>
-                    <div className={styles.text}>{item.saves}</div>
-                  </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Offers</div>
-                    <div className={styles.text}>{item.offers}</div>
+                    <div className={styles.title}>Primary</div>
+                    <div className={styles.text}>Primary</div>
                   </div>
                 </Disclosure.Panel>
               </>

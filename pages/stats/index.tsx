@@ -65,7 +65,7 @@ const Stats = () => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="w-full flex flex-wrap">
-          <div className={`${styles.title} z-10`}>House Stats</div>
+          <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
           <div className="mt-[10px] lg:mt-[84px] w-full flex relative overflow-hidden justify-between z-10 h-[42px]">
             <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
             {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && (

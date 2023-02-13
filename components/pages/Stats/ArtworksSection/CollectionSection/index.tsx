@@ -28,7 +28,7 @@ const CollectionSection = props => {
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
             viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-              ? 1.4
+              ? 1.8
               : viewport === 'lg'
               ? 5
               : viewport === 'xl'
