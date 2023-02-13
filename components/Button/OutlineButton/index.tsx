@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -27,11 +28,14 @@ const OutlineButton = props => {
     justifyContent = 'center',
     gap = '',
   } = props
+
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <button
       type="button"
       onClick={() => onClick()}
-      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
+      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap ${lightMode ? styles.lightContainer : ''}`}
       style={{
         backgroundColor: backgroundColor,
         color: color,

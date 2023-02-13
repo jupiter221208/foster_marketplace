@@ -28,6 +28,10 @@
   }
 }
 
+.lightContainer {
+  background: linear-gradient(to bottom, $background-black-color, #2d625d);
+}
+
 .connectedContainer {
   min-width: 180px;
   width: 180px;
@@ -43,9 +47,6 @@
   line-height: 24px;
   letter-spacing: 0;
   color: $brand-09-color;
-
-  // box-shadow: 0px 5px 15px $brand-03-color;
-
   display: flex;
   justify-content: space-between;
   align-items: center;

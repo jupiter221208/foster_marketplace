@@ -35,6 +35,7 @@ import styles from './index.module.scss'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
+import GradientButton from 'components/Button/GradientButton'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -87,11 +88,21 @@ const MainSection = () => {
           </p> */}
           <Image src={FosterEnhancedIcon} width={610} height={94} alt="" objectFit="cover" />
 
-          <div className={styles.text}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
+          <div className={`${styles.text} ${lightMode ? styles.lightText : ''}`}>
+            CREATED FOR ARTISTS. CURATED BY YOU.
+          </div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
-              <GreenGradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
+              <GradientButton
+                backgroundColor01={lightMode ? '#202427' : '#5ac3ba'}
+                backgroundColor02={lightMode ? '#2D625D' : '#378287'}
+                gradientDirection={lightMode ? 'bottom' : 'left'}
+                color={lightMode ? '#eff0f6' : ''}
+                label="Explore"
+                width={124}
+                onClick={() => router.push('/explore')}
+              />
               <OutlineButton
                 label="Create"
                 width={124}
@@ -104,16 +115,16 @@ const MainSection = () => {
           )}
           <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[200px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
             <div className="block">
-              <div className={styles.count}>{artworkCnt}</div>
-              <div className={styles.countText}>Artworks</div>
+              <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{artworkCnt}</div>
+              <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Artworks</div>
             </div>
             <div className="block items-center">
-              <div className={styles.count}>{collectionCnt}</div>
-              <div className={styles.countText}>Collections</div>
+              <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{collectionCnt}</div>
+              <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Collections</div>
             </div>
             <div className="block">
-              <div className={styles.count}>{nftCnt}</div>
-              <div className={styles.countText}>Ecosystem</div>
+              <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{nftCnt}</div>
+              <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Ecosystem</div>
             </div>
           </div>
           {/* <div className="mt-[146px] hidden lg:flex cursor-pointer">

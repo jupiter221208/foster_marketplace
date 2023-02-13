@@ -272,6 +272,8 @@ const WalletButton = props => {
     dispatch({ type: 'set', profileInfo: null })
   }
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return connected ? (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -727,7 +729,7 @@ const WalletButton = props => {
   ) : (
     <div className="w-full">
       <button
-        className={styles.container}
+        className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}
         onClick={() => {
           setButtonClicked(true)
           setVisible(true)

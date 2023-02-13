@@ -37,3 +37,8 @@
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
 }
+
+.lightContainer {
+  border: 1px solid $background-dark-color;
+  color: $background-dark-color;
+}
