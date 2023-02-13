@@ -32,6 +32,10 @@
   }
 }
 
+.lightTitle {
+  color: $background-dark-color;
+}
+
 .stayTitle {
   font-family: 'Muli-Bold';
   font-size: 24px;
@@ -69,6 +73,10 @@
     font-family: 'Muli-SemiBold';
     margin-top: 14px;
   }
+}
+
+.lightLinkText {
+  color: $background-dark-color;
 }
 
 .greenText {

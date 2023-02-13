@@ -171,7 +171,7 @@ const MainSection = () => {
                   clickable: true,
                 }}
                 modules={[Autoplay, Pagination]}
-                className="heroSwiper"
+                className={lightMode ? 'lightHeroSwiper' : 'heroSwiper'}
                 loop
                 autoplay={{
                   delay: 5000,
