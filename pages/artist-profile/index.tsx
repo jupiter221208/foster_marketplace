@@ -141,7 +141,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     resetData()
 
     if (artistEnable) {
-      setArtistInfo(publicArtistData?.artist ?? {})
+      setArtistInfo(publicArtistData ?? {})
       setStatsInfo(publicArtistData?.stats ?? {})
       setCategoryList(publicArtistData?.categories ?? [])
       setNfts(publicArtistData?.nfts ?? [])
