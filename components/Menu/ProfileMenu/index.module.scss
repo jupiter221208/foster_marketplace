@@ -30,7 +30,9 @@
   min-width: 200px;
   width: auto;
   padding: 8px;
-  background-color: $background-dark-color;
+  background-color: rgba($background-black-color, 0.8);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border-radius: 15px;
   border: 1px solid rgba($text-gray-200-color, 0.1);
 }
