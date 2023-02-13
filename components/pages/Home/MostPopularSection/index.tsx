@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -79,6 +79,9 @@ const MostPopularSection = props => {
         break
     }
   }
+
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
@@ -88,10 +91,12 @@ const MostPopularSection = props => {
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">
-              <div className={styles.title}>Most Popular</div>
+              <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>Most Popular</div>
             </div>
           ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
+            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
+              Most Popular
+            </div>
           )}
           {/* <div className="hidden lg:flex z-10">
             <Button
@@ -121,7 +126,7 @@ const MostPopularSection = props => {
               dispatch({ type: 'set', exploreTab: 0 })
               router.push('/explore')
             }}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="42px"
           />
         </div>
@@ -173,7 +178,7 @@ const MostPopularSection = props => {
               dispatch({ type: 'set', exploreTab: 1 })
               router.push('/explore')
             }}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="40px"
           />
         </div>

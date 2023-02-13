@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -23,6 +23,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -75,19 +76,23 @@ const TrendingCollectionSection = props => {
     )
   }, [category])
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <section className={styles.container}>
       <div className={styles.topRightEllipse}>
-        <Image src={EllipseGreen} alt="" />
+        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" />
       </div>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10 lg:mt-[5px]">
-              <div className={styles.title}>Trending Collections</div>
+              <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>Trending Collections</div>
             </div>
           ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
+            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
+              Trending Collections
+            </div>
           )}
           {/* <div className="hidden lg:flex z-10">
             <Button
@@ -111,7 +116,12 @@ const TrendingCollectionSection = props => {
           </div> */}
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton label="See More" onClick={() => router.push('/explore')} borderColor="#ffffff" height="42px" />
+          <OutlineButton
+            label="See More"
+            onClick={() => router.push('/explore')}
+            borderColor={lightMode ? '#202427' : '#ffffff'}
+            height="42px"
+          />
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10 pb-[30px]">
@@ -186,7 +196,7 @@ const TrendingCollectionSection = props => {
               dispatch({ type: 'set', exploreTab: 1 })
               router.push('/explore')
             }}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="40px"
           />
         </div>

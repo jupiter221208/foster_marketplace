@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -73,16 +73,20 @@ const TopRatedArtistsSection = () => {
     }
   }
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">
-              <div className={styles.title}>Top Rated Artists</div>
+              <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>Top Rated Artists</div>
             </div>
           ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Top Rated Artists</div>
+            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
+              Top Rated Artists
+            </div>
           )}
         </div>
         <div className="hidden lg:flex z-10">
@@ -92,7 +96,7 @@ const TopRatedArtistsSection = () => {
               dispatch({ type: 'set', exploreTab: 2 })
               router.push('/explore')
             }}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="42px"
           />
         </div>
