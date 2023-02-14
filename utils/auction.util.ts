@@ -409,13 +409,19 @@ export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]>
     ],
   }))
 
-  let batchResponse = await fetch(mx.connection.rpcEndpoint, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify(batchRequest),
-  }).then(r => r.json())
+  // set max request entires to 100 for public devnet rpc, 1000 otherwise
+  let MAX_BATCH_REQUEST_ENTRIES = mx.connection.rpcEndpoint.includes('api.devnet.solana.com') ? 100 : 1000
+  let batchResponse = []
+  while (batchRequest.length > 0)
+    batchResponse.push(
+      await fetch(mx.connection.rpcEndpoint, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(batchRequest.slice(0, MAX_BATCH_REQUEST_ENTRIES)),
+      }).then(r => r.json())
+    )
 
   let bids = batchResponse
     .flatMap(({ result }) => result)
