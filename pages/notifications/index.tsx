@@ -29,6 +29,8 @@ const Notifications = () => {
   const [filterList, setFilterList] = useState<any[]>([])
   const [allNotification, setAllNotification] = useState<any[]>([])
   const [filterNotification, setFilterNotification] = useState<any[]>([])
+  const [searchedNotification, setSearchedNotification] = useState<any[]>([])
+  const [searchWord, setSearchWord] = useState('')
   const viewport = useViewport()
 
   function getDateLabel(date) {
@@ -86,7 +88,9 @@ const Notifications = () => {
           if (response.notifications.length > 0) {
             let notifications = response.notifications
             setAllNotification(notifications)
-            setFilterNotification(getSortedNotification(notifications))
+            const sorted = getSortedNotification(notifications)
+            setFilterNotification(sorted)
+            setSearchedNotification(sorted)
           }
         }
       },
@@ -116,8 +120,9 @@ const Notifications = () => {
         types.push(item.value)
       }
     })
+    let newFiltered = []
     if (types.length === 0) {
-      setFilterNotification(getSortedNotification(allNotification))
+      newFiltered = getSortedNotification(allNotification)
     } else {
       let filtered = []
       allNotification.forEach(item => {
@@ -125,7 +130,14 @@ const Notifications = () => {
           filtered.push(item)
         }
       })
-      setFilterNotification(getSortedNotification(filtered))
+      newFiltered = getSortedNotification(filtered)
+    }
+    setFilterNotification(newFiltered)
+
+    if (searchWord.length > 0) {
+      searchNotification(newFiltered, searchWord)
+    } else {
+      setSearchedNotification(newFiltered)
     }
   }
 
@@ -139,6 +151,24 @@ const Notifications = () => {
       }
     })
     setFilterList(array)
+  }
+
+  const searchNotification = (notifications, keyword) => {
+    setSearchWord(keyword)
+    let newItem = []
+    let keyValue = keyword.toLowerCase()
+
+    notifications.forEach(items => {
+      let newItems = items.data.filter(item => {
+        return (
+          item.reference_username?.toLowerCase().includes(keyValue) ||
+          item.reference_token_name?.toLowerCase().includes(keyValue)
+        )
+      })
+      newItem.push({ id: items.id, date: items.date, data: newItems })
+    })
+
+    setSearchedNotification(newItem)
   }
 
   return (
@@ -167,9 +197,12 @@ const Notifications = () => {
                 </div>
               </div>
             ) : (
-              <NotificationsSearchBox placeholder="Search" onChange={() => {}} />
+              <NotificationsSearchBox
+                placeholder="Search"
+                onChange={value => searchNotification(filterNotification, value)}
+              />
             )}
-            <NotificationsCard data={filterNotification} />
+            <NotificationsCard data={searchedNotification} />
           </div>
           <NotificationsFilterCard
             filterList={filterList}
