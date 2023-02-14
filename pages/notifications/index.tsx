@@ -151,6 +151,12 @@ const Notifications = () => {
       }
     })
     setFilterList(array)
+    let newFiltered = getSortedNotification(allNotification)
+    if (searchWord.length > 0) {
+      searchNotification(newFiltered, searchWord)
+    } else {
+      setSearchedNotification(newFiltered)
+    }
   }
 
   const searchNotification = (notifications, keyword) => {
@@ -208,6 +214,7 @@ const Notifications = () => {
             filterList={filterList}
             onChange={index => handleSelectFilter(index)}
             onClickSelectAll={status => handleSelectAllFilters(status)}
+            onClickApply={() => {}}
           />
         </div>
       </div>
