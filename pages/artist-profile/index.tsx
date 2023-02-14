@@ -42,7 +42,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   dispatch({ type: 'set', isLoading: false })
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
-  const [artistInfo, setArtistInfo] = useState<any>(publicArtistData)
+  const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const [statsInfo, setStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
   const [nfts, setNfts] = useState<any>([])
@@ -158,8 +158,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     })
   }, [artistPublicKey, artistEnable])
 
-  let artistName = `${artistInfo?.artist?.username} | Foster Marketplace`
-  let artistImageUrl = artistInfo?.artist?.profile_picture ?? DefaultNftBG.src
+  let artistName = `${artistInfo?.username} | Foster Marketplace`
+  let artistImageUrl = artistInfo?.profile_picture ?? DefaultNftBG.src
   let artistDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
