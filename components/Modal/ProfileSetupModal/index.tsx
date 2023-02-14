@@ -57,8 +57,21 @@ const ProfileSetupModal = () => {
 
   const handleChangeAvatar = event => {
     const file = event.target.files
+
     if (file?.length === 0) return
 
+    if (file[0].type.includes('audio') || file[0].type.includes('video')) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'File Format Not Supported',
+          description: `Supported file formats for profile image include .png and .jpeg`,
+          type: 'error',
+        },
+      ])
+      setShowAlert(true)
+      return
+    }
     if (file[0].size > 31457280) {
       setAlertData([
         {
@@ -231,7 +244,7 @@ const ProfileSetupModal = () => {
                                 <input
                                   type="file"
                                   id="file"
-                                  accept="image/png, image/jepg, image/gif"
+                                  accept="image/png, image/jepg"
                                   ref={inputFile}
                                   style={{ display: 'none' }}
                                   onChange={event => handleChangeAvatar(event)}
