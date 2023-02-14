@@ -22,7 +22,7 @@ import styles from './index.module.scss'
 import artistsAPI from 'apis/artists'
 
 const NotificationsCard = props => {
-  const { data } = props
+  const { data, onClickMarkAsRead } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
@@ -240,7 +240,9 @@ const NotificationsCard = props => {
             {item.date === 'NEW' ? (
               <div className="flex justify-between">
                 <div className={styles.title}>{item.date}</div>
-                <div className={styles.mark}>Mark as read</div>
+                <div className={styles.mark} onClick={() => onClickMarkAsRead()}>
+                  Mark as read
+                </div>
               </div>
             ) : (
               <div className={styles.title}>{item.date}</div>

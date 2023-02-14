@@ -43,8 +43,10 @@ const Notifications = () => {
 
   function getSortedNotification(notifications) {
     let today = new Date().setHours(0, 0, 0, 0)
-    let weekStart = today - 3600 * 24 * 1000
-    let weekEnd = today - 3600 * 168 * 1000
+    let yestarday = today - 3600 * 24 * 1000
+    let weekEnd = today - 3600 * 48 * 1000
+    let weekStart = today - 3600 * 168 * 1000
+    let monthStart = today - 3600 * 24 * 30 * 1000
     let sortedByDate = {}
     let newNotifications = []
     notifications.map(notification => {
@@ -60,7 +62,7 @@ const Notifications = () => {
       }
     })
     let sortedNotification = []
-    sortedNotification.push({ id: 0, date: 'NEW', data: newNotifications })
+    if (newNotifications.length > 0) sortedNotification.push({ id: 0, date: 'NEW', data: newNotifications })
 
     let index = 1
     Object.keys(sortedByDate)
@@ -69,10 +71,14 @@ const Notifications = () => {
       .forEach(function (key) {
         let createDate = new Date(parseInt(key))
         let strDate = getDateLabel(createDate)
-        if (parseInt(key) == today) {
+        if (parseInt(key) === today) {
           strDate = 'TODAY'
-        } else if (parseInt(key) <= weekStart && parseInt(key) >= weekEnd) {
+        } else if (parseInt(key) <= today && parseInt(key) >= yestarday) {
+          strDate = 'YESTERDAY'
+        } else if (parseInt(key) <= yestarday && parseInt(key) >= weekStart) {
           strDate = 'THIS WEEK'
+        } else if (parseInt(key) <= weekStart && parseInt(key) >= monthStart) {
+          strDate = 'THIS MONTH'
         }
         let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
         sortedNotification.push(dayNotifications)
@@ -177,6 +183,28 @@ const Notifications = () => {
     setSearchedNotification(newItem)
   }
 
+  const onClickMarkAsRead = async () => {
+    let result = await userAPI.setMarkAsReadNotification()
+    if (!result) return
+    userAPI.getNotifications().then(
+      response => {
+        if (response !== null) {
+          if (response.notifications.length > 0) {
+            let notifications = response.notifications
+            const reversed = notifications.reverse()
+            setAllNotification(reversed)
+            const sorted = getSortedNotification(reversed)
+            setFilterNotification(sorted)
+            setSearchedNotification(sorted)
+          }
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -208,7 +236,7 @@ const Notifications = () => {
                 onChange={value => searchNotification(filterNotification, value)}
               />
             )}
-            <NotificationsCard data={searchedNotification} />
+            <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
           </div>
           <NotificationsFilterCard
             filterList={filterList}

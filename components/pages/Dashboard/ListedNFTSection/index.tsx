@@ -203,8 +203,7 @@ const ListedNFTSection = props => {
   }
 
   const finalizeSale = async (mintAddress, sellerAddress, buyerAddress, price) => {
-    const { response, sale } = await executeSale(mx, mintAddress, sellerAddress, buyerAddress, price)
-    console.log('======response========', response)
+    const { sale } = await executeSale(mx, mintAddress, sellerAddress, buyerAddress, price)
     await updateSolBalance()
     auctionAPI
       .executeSale(sale.mintAddress.toBase58(), {

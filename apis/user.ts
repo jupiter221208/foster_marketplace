@@ -18,6 +18,11 @@ class User {
       return response.data
     })
   }
+  setMarkAsReadNotification() {
+    return client.put(API_URL + 'v1/users/notifications').then(response => {
+      return response.data
+    })
+  }
   getCollected() {
     return client.get(API_URL + 'v1/users/collected').then(response => {
       return response.data
