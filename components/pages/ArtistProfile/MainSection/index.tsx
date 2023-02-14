@@ -28,6 +28,8 @@ import { useViewport } from 'utils'
 import Rect1620x480Image from 'assets/icons/rect-1620x480.svg'
 import Rect512x512Image from 'assets/icons/rect-512x512.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
+import BannerImage from 'assets/images/banner-image.png'
 
 // styles
 import styles from './index.module.scss'
@@ -40,7 +42,7 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
-
+  console.log(artistInfo)
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()
@@ -50,13 +52,15 @@ const MainSection = prop => {
   const [showReadMore, setShowReadMore] = useState(false)
   const [type, setType] = useState(0)
   const [follow, setFollow] = useState(false)
-  const [artistFollowing, setArtistFollowing] = useState(artistInfo.following)
-  const [artistFollowers, setArtistFollowers] = useState(artistInfo.followers)
+  const [artistFollowing, setArtistFollowing] = useState(artistInfo?.following)
+  const [artistFollowers, setArtistFollowers] = useState(artistInfo?.followers)
 
   useEffect(() => {
-    setFollow(artistInfo ? artistInfo.followed : false)
-    setArtistFollowing(artistInfo.following)
-    setArtistFollowers(artistInfo.followers)
+    if (artistInfo) {
+      setFollow(artistInfo ? artistInfo.followed : false)
+      setArtistFollowing(artistInfo.following)
+      setArtistFollowers(artistInfo.followers)
+    }
   }, [artistInfo])
 
   const followArtist = wallet => {
@@ -88,9 +92,9 @@ const MainSection = prop => {
       <div className={styles.headerImage}>
         <img
           src={
-            artistInfo.banner_picture !== undefined && artistInfo.banner_picture !== null
-              ? artistInfo.banner_picture
-              : Rect1620x480Image.src
+            artistInfo && artistInfo.banner_picture !== undefined && artistInfo.banner_picture !== null
+              ? artistInfo?.banner_picture
+              : BannerImage.src
           }
           alt=""
           width={1620}
@@ -132,11 +136,11 @@ const MainSection = prop => {
           <div className="col-span-6">
             <ProfileArtistCard
               image={
-                artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
-                  ? artistInfo.profile_picture
-                  : Rect512x512Image.src
+                artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null
+                  ? artistInfo?.profile_picture
+                  : DefaultAvatar.src
               }
-              name={artistInfo.username}
+              name={artistInfo?.username}
             />
           </div>
           {!isOwn && (
@@ -157,7 +161,7 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={30}
                     label="Following"
-                    onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                    onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
                   <PositiveButton
@@ -166,7 +170,7 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={30}
                     label="Follow"
-                    onClick={() => followArtist(artistInfo.wallet_id)}
+                    onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
                 )}
               </div>
@@ -175,12 +179,12 @@ const MainSection = prop => {
         </div>
         <div className="w-full flex justify-center mt-[12px]">
           <div className="max-w-[678px] w-full flex flex-wrap justify-center mt-[9px] z-10">
-            {artistInfo.wallet_id && (
+            {artistInfo?.wallet_id && (
               <div className="relative">
                 <AddressButton
-                  label={getShortAddress(artistInfo.wallet_id)}
+                  label={getShortAddress(artistInfo?.wallet_id)}
                   onClick={() => {
-                    copyToClipboard(artistInfo.wallet_id || '')
+                    copyToClipboard(artistInfo?.wallet_id || '')
                     copyClipboardAlert('wallet-address')
                   }}
                 />
@@ -188,9 +192,9 @@ const MainSection = prop => {
               </div>
             )}
 
-            {artistInfo.bio && (
+            {artistInfo?.bio && (
               <span className={styles.description}>
-                {getShortDescription(viewport, artistInfo.bio)}&nbsp;
+                {getShortDescription(viewport, artistInfo?.bio)}&nbsp;
                 <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
                   Read&nbsp;more
                 </span>
@@ -308,9 +312,9 @@ const MainSection = prop => {
       <div className={styles.headerImage}>
         <img
           src={
-            artistInfo.banner_picture !== undefined && artistInfo.banner_picture !== null
-              ? artistInfo.banner_picture
-              : Rect1620x480Image.src
+            artistInfo?.banner_picture !== undefined && artistInfo?.banner_picture !== null
+              ? artistInfo?.banner_picture
+              : BannerImage.src
           }
           alt=""
           width={1620}
@@ -327,11 +331,11 @@ const MainSection = prop => {
         <div className="w-full flex justify-between items-center mt-[-50px] z-10">
           <ProfileArtistCard
             image={
-              artistInfo.profile_picture !== undefined && artistInfo.profile_picture !== null
-                ? artistInfo.profile_picture
-                : Rect512x512Image.src
+              artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null
+                ? artistInfo?.profile_picture
+                : DefaultAvatar.src
             }
-            name={artistInfo.username}
+            name={artistInfo?.username}
           />
           {!isOwn && (
             <div className="mt-10 flex">
@@ -351,7 +355,7 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={18}
                     label="Following"
-                    onClick={() => unfollowArtist(artistInfo.wallet_id)}
+                    onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
                   <PositiveButton
@@ -360,7 +364,7 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={18}
                     label="Follow"
-                    onClick={() => followArtist(artistInfo.wallet_id)}
+                    onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
                 )}
               </div>
@@ -368,12 +372,12 @@ const MainSection = prop => {
           )}
         </div>
         <div className="mt-2 z-10">
-          {artistInfo.wallet_id && (
+          {artistInfo?.wallet_id && (
             <div className="relative w-[110px]">
               <AddressButton
-                label={getShortAddress(artistInfo.wallet_id)}
+                label={getShortAddress(artistInfo?.wallet_id)}
                 onClick={() => {
-                  copyToClipboard(artistInfo.wallet_id || '')
+                  copyToClipboard(artistInfo?.wallet_id || '')
                   copyClipboardAlert('wallet-address-mobile')
                 }}
               />
@@ -389,7 +393,7 @@ const MainSection = prop => {
               setShowFollowModal(true)
             }}
           >
-            <div className={styles.whiteText}>{artistInfo.followers}</div>
+            <div className={styles.whiteText}>{artistInfo?.followers}</div>
             &nbsp;
             <div className={styles.grayText}>Followers</div>
           </div>
@@ -400,16 +404,16 @@ const MainSection = prop => {
               setShowFollowModal(true)
             }}
           >
-            <div className={styles.whiteText}>{artistInfo.following}</div>
+            <div className={styles.whiteText}>{artistInfo?.following}</div>
             &nbsp;
             <div className={styles.grayText}>Following</div>
           </div>
         </div>
       </div>
       <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
-        {artistInfo.bio && (
+        {artistInfo?.bio && (
           <span className={styles.description}>
-            {getShortDescription(viewport, artistInfo.bio) + ' '}
+            {getShortDescription(viewport, artistInfo?.bio) + ' '}
             <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
             </span>
@@ -497,9 +501,9 @@ const MainSection = prop => {
           open={showFollowModal}
           ownWallet={publicKey?.toBase58()}
           close={() => setShowFollowModal(false)}
-          username={artistInfo.username}
+          username={artistInfo?.username}
           type={type}
-          wallet={artistInfo.wallet_id}
+          wallet={artistInfo?.wallet_id}
         />
       )}
 

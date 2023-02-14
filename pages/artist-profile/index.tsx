@@ -51,7 +51,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   const [isOwn, setIsOwn] = useState<any>(false)
   useEffect(() => {
-    if (publicKey) setIsOwn(artistInfo.wallet_id === publicKey?.toBase58())
+    if (publicKey) setIsOwn(artistInfo?.wallet_id === publicKey?.toBase58())
   }, [artistInfo, publicKey])
 
   useEffect(() => {
@@ -141,7 +141,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     resetData()
 
     if (artistEnable) {
-      setArtistInfo(publicArtistData ?? {})
+      // setArtistInfo(publicArtistData ?? {})
+      setArtistInfo(publicArtistData?.artist ?? {})
       setStatsInfo(publicArtistData?.stats ?? {})
       setCategoryList(publicArtistData?.categories ?? [])
       setNfts(publicArtistData?.nfts ?? [])
