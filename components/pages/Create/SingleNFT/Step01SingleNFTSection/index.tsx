@@ -31,15 +31,38 @@ const Step01SingleNFTSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [infoFocus, setInfoFocus] = useState(false)
 
-  const handleShowAlert = () => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Max File Size Exceeded',
-        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
-        type: 'error',
-      },
-    ])
+  const handleShowAlert = (type, error) => {
+    if (error === 'file-invalid-type') {
+      let description = ''
+      if (type === 'nft') description = `Supported file formats .png, .jpeg, .mp3, .mp4 and .gif`
+      else if (type === 'audio') description = `Supported file formats for cover image include .png, .jpeg and .gif`
+      setAlertData([
+        {
+          id: 0,
+          title: 'File Format Not Supported',
+          description,
+          type: 'error',
+        },
+      ])
+    } else if (error === 'file-too-large') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Max File Size Exceeded',
+          description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+          type: 'error',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Unknown Error',
+          description: `Unknown Error`,
+          type: 'error',
+        },
+      ])
+    }
     setShowAlert(true)
   }
 
@@ -50,8 +73,12 @@ const Step01SingleNFTSection = props => {
           <div className={`${styles.subTitle} mt-20`}>Art *</div>
           <div className="mt-5">
             <Dropzone
-              onDrop={acceptedFiles => {
-                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert()
+              onDropAccepted={acceptedFiles => {
+                console.log(acceptedFiles)
+                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
+              }}
+              onDropRejected={rejectedFiles => {
+                handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
               }}
               accept={{
                 'image/jpeg': [],
@@ -93,8 +120,12 @@ const Step01SingleNFTSection = props => {
               <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
               <div className="mt-5">
                 <Dropzone
-                  onDrop={acceptedFiles => {
-                    acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert()
+                  onDropAccepted={acceptedFiles => {
+                    console.log(acceptedFiles)
+                    acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
+                  }}
+                  onDropRejected={rejectedFiles => {
+                    handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)
                   }}
                   maxFiles={1}
                   accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
@@ -120,8 +151,11 @@ const Step01SingleNFTSection = props => {
           {nftType === 'audio' && <div className={`${styles.subTitle} mt-20`}>Art *</div>}
           <div className="mt-5">
             <Dropzone
-              onDrop={acceptedFiles => {
-                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert()
+              onDropAccepted={acceptedFiles => {
+                acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
+              }}
+              onDropRejected={rejectedFiles => {
+                handleShowAlert('nft', rejectedFiles[0]?.errors[0]?.code)
               }}
               accept={{
                 'image/jpeg': [],
@@ -172,8 +206,11 @@ const Step01SingleNFTSection = props => {
               <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
               <div className="mt-5">
                 <Dropzone
-                  onDrop={acceptedFiles => {
-                    acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert()
+                  onDropAccepted={acceptedFiles => {
+                    acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
+                  }}
+                  onDropRejected={rejectedFiles => {
+                    handleShowAlert('audio', rejectedFiles[0]?.errors[0]?.code)
                   }}
                   maxFiles={1}
                   accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}

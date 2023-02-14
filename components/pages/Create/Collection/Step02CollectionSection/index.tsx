@@ -52,15 +52,35 @@ const Step02CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
 
-  const handleShowAlert = () => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Max File Size Exceeded',
-        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
-        type: 'error',
-      },
-    ])
+  const handleShowAlert = error => {
+    if (error === 'file-invalid-type') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'File Format Not Supported',
+          description: `Supported file formats .png, .jpeg, .mp3, .mp4 and .gif`,
+          type: 'error',
+        },
+      ])
+    } else if (error === 'file-too-large') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Max File Size Exceeded',
+          description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+          type: 'error',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Unknown Error',
+          description: `Unknown Error`,
+          type: 'error',
+        },
+      ])
+    }
     setShowAlert(true)
   }
 
@@ -275,8 +295,11 @@ const Step02CollectionSection = props => {
                   <div className={`${styles.subTitle} mt-[76px]`}>Collection Files (max. 25) *</div>
                   <div className="mt-5">
                     <Dropzone
-                      onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert()
+                      onDropAccepted={acceptedFiles => {
+                        acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert('unknown')
+                      }}
+                      onDropRejected={rejectedFiles => {
+                        handleShowAlert(rejectedFiles[0]?.errors[0]?.code)
                       }}
                       accept={{
                         'image/jpeg': [],
@@ -537,7 +560,10 @@ const Step02CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
-                  acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert()
+                  acceptedFiles.length !== 0 ? onChangeCollectionFiles(acceptedFiles) : handleShowAlert('uknown')
+                }}
+                onDropRejected={rejectedFiles => {
+                  handleShowAlert(rejectedFiles[0]?.errors[0]?.code)
                 }}
                 accept={{
                   'image/jpeg': [],

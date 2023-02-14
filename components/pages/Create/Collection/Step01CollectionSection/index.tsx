@@ -73,15 +73,35 @@ const Step01CollectionSection = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
 
-  const handleShowAlert = () => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Max File Size Exceeded',
-        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
-        type: 'error',
-      },
-    ])
+  const handleShowAlert = (type, error) => {
+    if (error === 'file-invalid-type') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'File Format Not Supported',
+          description: `Supported file formats for ${type} image include .png, .jpeg and .gif`,
+          type: 'error',
+        },
+      ])
+    } else if (error === 'file-too-large') {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Max File Size Exceeded',
+          description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+          type: 'error',
+        },
+      ])
+    } else {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Unknown Error',
+          description: `Unknown Error`,
+          type: 'error',
+        },
+      ])
+    }
     setShowAlert(true)
   }
 
@@ -345,8 +365,13 @@ const Step01CollectionSection = props => {
                   </div>
                   <div className="mt-5">
                     <Dropzone
-                      onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert()
+                      onDropAccepted={acceptedFiles => {
+                        acceptedFiles.length !== 0
+                          ? onChangeCoverImage(acceptedFiles)
+                          : handleShowAlert('cover', 'unknown')
+                      }}
+                      onDropRejected={rejectedFiles => {
+                        handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
@@ -373,7 +398,12 @@ const Step01CollectionSection = props => {
                   <div className="mt-5">
                     <Dropzone
                       onDrop={acceptedFiles => {
-                        acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert()
+                        acceptedFiles.length !== 0
+                          ? onChangeBannerImage(acceptedFiles)
+                          : handleShowAlert('banner', 'uknown')
+                      }}
+                      onDropRejected={rejectedFiles => {
+                        handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
                       }}
                       maxFiles={1}
                       accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
@@ -519,7 +549,10 @@ const Step01CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
-                  acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert()
+                  acceptedFiles.length !== 0 ? onChangeCoverImage(acceptedFiles) : handleShowAlert('cover', 'unknown')
+                }}
+                onDropRejected={rejectedFiles => {
+                  handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
                 }}
                 maxFiles={1}
                 accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
@@ -548,7 +581,10 @@ const Step01CollectionSection = props => {
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
-                  acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert()
+                  acceptedFiles.length !== 0 ? onChangeBannerImage(acceptedFiles) : handleShowAlert('banner', 'uknown')
+                }}
+                onDropRejected={rejectedFiles => {
+                  handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
                 }}
                 maxFiles={1}
                 accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
