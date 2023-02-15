@@ -15,9 +15,10 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 // styles
 import styles from './index.module.scss'
 import { formattedAmount } from 'utils/helpers'
+import GradientButton from 'components/Button/GradientButton'
 
 const DashboardNFTCard = props => {
-  const { image, nftName, coverImage = '', artistName, assetType, price, onClick } = props
+  const { image, nftName, coverImage = '', artistName, assetType, price, onClick, unSave = null } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
   return (
@@ -105,6 +106,11 @@ const DashboardNFTCard = props => {
           )}
         </div>
       </div>
+      {unSave !== null && (
+        <div className="mt-[10px]">
+          <GradientButton fullWidth label="Unsave" onClick={() => unSave()} />
+        </div>
+      )}
     </div>
   )
 }

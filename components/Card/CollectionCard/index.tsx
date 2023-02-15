@@ -8,12 +8,13 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 
 // styles
 import styles from './index.module.scss'
+import GradientButton from 'components/Button/GradientButton'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick } = props
+  const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
   return (
-    <div className={styles.container} onClick={() => onClick()}>
-      <div className={styles.imageArea}>
+    <div className={styles.container}>
+      <div className={styles.imageArea} onClick={() => onClick()}>
         <div className={styles.imageContent}>
           {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}
           <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
@@ -37,6 +38,11 @@ const CollectionCard = props => {
           </div>
         </div>
       </div>
+      {unSave !== null && (
+        <div className="mt-[10px]">
+          <GradientButton fullWidth label="Unsave" onClick={() => unSave()} />
+        </div>
+      )}
     </div>
   )
 }

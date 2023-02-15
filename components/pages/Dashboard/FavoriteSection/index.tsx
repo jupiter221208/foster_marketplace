@@ -11,14 +11,16 @@ import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
+import FilterButton from 'components/Button/FilterButton'
+import NoDataSection from '../NoDataSection'
 
 // styles
 import styles from './index.module.scss'
 
 // call apis
 import userAPI from 'apis/user'
-import FilterButton from 'components/Button/FilterButton'
-import NoDataSection from '../NoDataSection'
+import nftAPI from 'apis/nfts'
+import collectionAPI from 'apis/collections'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -41,6 +43,11 @@ const FavoriteSection = () => {
   useEffect(() => {
     setLoading(true)
 
+    getFavoriteNftData()
+    getFavoriteCollectionData()
+  }, [])
+
+  const getFavoriteNftData = () => {
     userAPI.getFavoriteNFT().then(
       response => {
         setAllNftList(response)
@@ -57,7 +64,9 @@ const FavoriteSection = () => {
         }, 500)
       }
     )
+  }
 
+  const getFavoriteCollectionData = () => {
     userAPI.getFavoriteCollection().then(
       response => {
         setAllCollectionList(response)
@@ -66,7 +75,26 @@ const FavoriteSection = () => {
         console.log(error)
       }
     )
-  }, [])
+  }
+
+  const unSaveNft = tokenId => {
+    nftAPI.unsaveNft(tokenId).then(
+      response => {
+        getFavoriteNftData()
+      },
+      error => {}
+    )
+  }
+
+  const unSaveCollection = collectionId => {
+    console.log(collectionId)
+    collectionAPI.unsaveCollection(collectionId).then(
+      response => {
+        getFavoriteCollectionData()
+      },
+      error => {}
+    )
+  }
 
   return (
     <section className={styles.container}>
@@ -103,6 +131,7 @@ const FavoriteSection = () => {
                 onClick={() => {
                   router.push(`/browse-nft?id=${item.token_id}`)
                 }}
+                unSave={() => unSaveNft(item.token_id)}
               />
             </div>
           ))}
@@ -120,6 +149,7 @@ const FavoriteSection = () => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/browse-collection/${item.collection_id}`)
                 }}
+                unSave={() => unSaveCollection(item.collection_id)}
               />
             </div>
           ))}

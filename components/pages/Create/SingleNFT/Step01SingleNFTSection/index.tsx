@@ -74,7 +74,6 @@ const Step01SingleNFTSection = props => {
           <div className="mt-5">
             <Dropzone
               onDropAccepted={acceptedFiles => {
-                console.log(acceptedFiles)
                 acceptedFiles.length !== 0 ? setNftArt(acceptedFiles) : handleShowAlert('nft', 'unknown')
               }}
               onDropRejected={rejectedFiles => {
@@ -121,7 +120,6 @@ const Step01SingleNFTSection = props => {
               <div className="mt-5">
                 <Dropzone
                   onDropAccepted={acceptedFiles => {
-                    console.log(acceptedFiles)
                     acceptedFiles.length !== 0 ? setNftCover(acceptedFiles) : handleShowAlert('audio', 'unknown')
                   }}
                   onDropRejected={rejectedFiles => {
