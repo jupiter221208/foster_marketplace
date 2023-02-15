@@ -244,7 +244,7 @@ const ProfileSetupModal = () => {
                                 <input
                                   type="file"
                                   id="file"
-                                  accept="image/png, image/jepg"
+                                  accept="image/png, image/jpeg"
                                   ref={inputFile}
                                   style={{ display: 'none' }}
                                   onChange={event => handleChangeAvatar(event)}

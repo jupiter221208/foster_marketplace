@@ -255,7 +255,7 @@ const MainSection = () => {
           <input
             type="file"
             id="banner-file"
-            accept="image/png, image/jepg, image/gif"
+            accept="image/png, image/jpeg, image/gif"
             ref={inputBannerFile}
             style={{ display: 'none' }}
             onChange={event => handleChangeBannerImage(event)}
@@ -290,7 +290,7 @@ const MainSection = () => {
                   <input
                     type="file"
                     id="avatar-file"
-                    accept="image/png, image/jepg, image/gif"
+                    accept="image/png, image/jpeg, image/gif"
                     ref={inputAvatarFile}
                     style={{ display: 'none' }}
                     onChange={event => handleChangeAvatar(event)}
