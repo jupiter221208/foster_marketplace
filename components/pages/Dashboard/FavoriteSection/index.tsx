@@ -87,7 +87,6 @@ const FavoriteSection = () => {
   }
 
   const unSaveCollection = collectionId => {
-    console.log(collectionId)
     collectionAPI.unsaveCollection(collectionId).then(
       response => {
         getFavoriteCollectionData()
