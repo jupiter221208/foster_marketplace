@@ -209,7 +209,7 @@ const NotificationsCard = props => {
     switch (type) {
       case 'offer':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=7`)
+        router.push(`/dashboard?tab=6`)
         break
       case 'bid':
       case 'save_nft':
