@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useViewport } from 'utils'
 
+import * as moment from 'moment'
+
 // next images
 import Head from 'next/head'
 import Image from 'next/image'
@@ -53,7 +55,10 @@ const Notifications = () => {
       if (notification.acknowledged === false) {
         newNotifications.push(notification)
       } else {
-        const createdDate = new Date(notification.created_at).setHours(0, 0, 0, 0)
+        var utcDate = moment.utc(notification.created_at)
+        var fmt = 'YYYY-MMMM-DD'
+        var localDate = utcDate.local().format(fmt)
+        const createdDate = new Date(localDate).setHours(0, 0, 0, 0)
         const strCreatedDate = createdDate.toString()
         if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
           sortedByDate[strCreatedDate] = []
