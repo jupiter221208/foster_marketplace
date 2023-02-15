@@ -42,7 +42,6 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
-  console.log(artistInfo)
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()

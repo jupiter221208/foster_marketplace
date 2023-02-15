@@ -87,14 +87,19 @@ const Notifications = () => {
     return sortedNotification
   }
 
+  function comp(a, b) {
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  }
+
   useEffect(() => {
     userAPI.getNotifications().then(
       response => {
         if (response !== null) {
           if (response.notifications.length > 0) {
             let notifications = response.notifications
-            setAllNotification(notifications)
-            const sorted = getSortedNotification(notifications)
+            let dateSorted = notifications.sort(comp)
+            setAllNotification(dateSorted)
+            const sorted = getSortedNotification(dateSorted)
             setFilterNotification(sorted)
             setSearchedNotification(sorted)
           }
@@ -191,9 +196,9 @@ const Notifications = () => {
         if (response !== null) {
           if (response.notifications.length > 0) {
             let notifications = response.notifications
-            const reversed = notifications.reverse()
-            setAllNotification(reversed)
-            const sorted = getSortedNotification(reversed)
+            let dateSorted = notifications.sort(comp)
+            setAllNotification(dateSorted)
+            const sorted = getSortedNotification(dateSorted)
             setFilterNotification(sorted)
             setSearchedNotification(sorted)
           }

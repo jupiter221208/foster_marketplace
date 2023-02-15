@@ -213,13 +213,16 @@ const NotificationsCard = props => {
         break
       case 'bid':
       case 'save_nft':
-      case 'save_collection':
       case 'like':
       case 'sale':
       case 'outbid':
       case 'purchase':
         dispatch({ type: 'set', isLoading: true })
         router.push(`/browse-nft?id=${notification.reference_token_id}`)
+        break
+      case 'save_collection':
+        dispatch({ type: 'set', isLoading: true })
+        router.push(`/browse-collection/${notification.reference_token_id}`)
         break
       case 'winner':
         dispatch({ type: 'set', isLoading: true })
