@@ -131,11 +131,16 @@ const ArtistHeader = () => {
   }
 
   const [offset, setOffset] = useState([0, 0])
+  const [profileOffset, setProfileOffset] = useState([0, 0])
 
   useEffect(() => {
     if (document.getElementById('walletButton') !== null) {
       let offsets = document?.getElementById('walletButton')?.getBoundingClientRect() || { top: 0, left: 0 }
       setOffset([offsets.top, offsets.left])
+    }
+    if (document.getElementById('profileButton') !== null) {
+      let offsets = document?.getElementById('profileButton')?.getBoundingClientRect() || { top: 0, left: 0 }
+      setProfileOffset([offsets.top, offsets.left])
     }
   }, [connected])
 
@@ -144,6 +149,10 @@ const ArtistHeader = () => {
       if (document.getElementById('walletButton') !== null) {
         let offsets = document?.getElementById('walletButton')?.getBoundingClientRect() || { top: 0, left: 0 }
         setOffset([offsets.top, offsets.left])
+      }
+      if (document.getElementById('profileButton') !== null) {
+        let offsets = document?.getElementById('profileButton')?.getBoundingClientRect() || { top: 0, left: 0 }
+        setProfileOffset([offsets.top, offsets.left])
       }
     }
     window.addEventListener('resize', resizeFunction)
@@ -196,21 +205,48 @@ const ArtistHeader = () => {
               onClose={() => handleClose()}
             />
             <div className="cursor-pointer min-w-[80px] xl:min-w-[120px] 2xl:min-w-[376px] flex items-center" />
-            <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
-            <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+            <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
+            <div id="createButton" className="h-full min-w-[80px]" />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
-            <ProfileMenu
-              avatar={profileImage.length > 0 ? profileImage : AvatarImage}
-              menuList={profileMenuList}
-              onSelect={item => router.push(item.path)}
-              connectWalletStatus={connected}
-            />
+            <div id="profileButton" className="h-full min-w-[40px]" />
           </div>
         </div>
       </div>
       {offset[1] !== 0 && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 262}px` }}>
+          <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
+        </div>
+      )}
+      {offset[1] !== 0 && (
         <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
           <WalletButton />
+        </div>
+      )}
+      {offset[1] !== 0 && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 130}px` }}>
+          <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
+        </div>
+      )}
+      {offset[1] !== 0 && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
+          <WalletButton />
+        </div>
+      )}
+      {profileOffset[1] !== 0 && (
+        <div
+          style={{
+            zIndex: 10000,
+            position: 'fixed',
+            top: `${profileOffset[0] + 27}px`,
+            left: `${profileOffset[1] - 5}px`,
+          }}
+        >
+          <ProfileMenu
+            avatar={profileImage.length > 0 ? profileImage : AvatarImage}
+            menuList={profileMenuList}
+            onSelect={item => router.push(item.path)}
+            connectWalletStatus={connected}
+          />{' '}
         </div>
       )}
     </div>
