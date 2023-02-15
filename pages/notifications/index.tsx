@@ -56,7 +56,7 @@ const Notifications = () => {
         newNotifications.push(notification)
       } else {
         var utcDate = moment.utc(notification.created_at)
-        var fmt = 'YYYY-MMMM-DD'
+        var fmt = 'YYYY MM DD'
         var localDate = utcDate.local().format(fmt)
         const createdDate = new Date(localDate).setHours(0, 0, 0, 0)
         const strCreatedDate = createdDate.toString()
@@ -84,6 +84,8 @@ const Notifications = () => {
           strDate = 'THIS WEEK'
         } else if (parseInt(key) <= weekStart && parseInt(key) >= monthStart) {
           strDate = 'THIS MONTH'
+        } else {
+          strDate = '1 MONTH AGO'
         }
         let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
         sortedNotification.push(dayNotifications)
