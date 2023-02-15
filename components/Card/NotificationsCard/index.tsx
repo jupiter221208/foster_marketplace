@@ -256,7 +256,9 @@ const NotificationsCard = props => {
                     <div className={styles.avatarArea}>
                       <img
                         src={
-                          elem.reference_user_profile_picture !== null ? elem.reference_user_profile_picture : <div />
+                          elem.reference_user_profile_picture !== null && elem.reference_user_profile_picture !== ''
+                            ? elem.reference_user_profile_picture
+                            : DefaultAvatar.src
                         }
                         alt=""
                         className="rounded-full"
@@ -318,7 +320,11 @@ const NotificationsCard = props => {
                       isShowAvatar(elem) && (
                         <div className={styles.assetUrl}>
                           <Image
-                            src={elem.reference_asset_url !== null ? elem.reference_asset_url : DefaultAvatar}
+                            src={
+                              elem.reference_asset_url !== null && elem.reference_asset_url !== ''
+                                ? elem.reference_asset_url
+                                : DefaultAvatar
+                            }
                             alt=""
                             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
                             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
