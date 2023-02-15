@@ -665,7 +665,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#5AC3BA' }}
+                          style={{ color: '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -706,7 +706,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#5AC3BA' }}
+                          style={{ color: '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -739,7 +739,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#5AC3BA' }}
+                          style={{ color: '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel

@@ -118,7 +118,7 @@ const HeroCard = props => {
             </div>
             <div className="w-full block">
               <div className={styles.nftName}>{data.nft_name}</div>
-              <div className={`flex ${styles.artistName}`}>{data.artist_username || 'Uknown Artist'}</div>
+              <div className={`flex ${styles.artistName}`}>{data.artist_username || 'Ecosystem Artist'}</div>
             </div>
             <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
               <div className={styles.avatar}>
