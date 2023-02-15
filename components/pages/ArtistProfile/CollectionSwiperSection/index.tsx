@@ -100,7 +100,7 @@ const CollectionSwiperSection = props => {
                   icon={item.artist_profile_picture}
                   onClick={() => {
                     dispatch({ type: 'set', isLoading: true })
-                    router.push(`/browse-collection/${item.artist_id}`)
+                    router.push(`/browse-collection/${item.collection_id}`)
                   }}
                 />
               </div>
