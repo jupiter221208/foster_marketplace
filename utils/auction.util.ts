@@ -368,7 +368,6 @@ export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]>
   let tokenAccounts = await new TokenGpaBuilder(mx)
     .whereOwner(mx.identity().publicKey)
     .whereAmount(1)
-    .where(108, Buffer.from([1])) // state is initialized, not frozen
     .getAndMap(account =>
       unpackAccount(account.publicKey, {
         ...account,
