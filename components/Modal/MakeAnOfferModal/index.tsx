@@ -30,7 +30,7 @@ const MakeAnOfferModal = props => {
   useEffect(() => {
     const newValue = listingPrice / 2
     setMinimumOffer50(newValue)
-    setMinimumOffer(newValue)
+    setMinimumOffer(newValue.toFixed(2))
     let newMainWalletBalance = mainWalletBalance - newValue
     setNewMainBalance(newMainWalletBalance)
     setBiddingWalletBalance(offerBalance)

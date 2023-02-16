@@ -47,10 +47,11 @@ const ModalPlaceBid = props => {
   useEffect(() => {
     if (open) {
       if (parseFloat(currentPrice) === 0) {
-        setPrice(reservePrice)
+        setPrice(reservePrice.toFixed(2))
       } else {
         let newPrice = (parseFloat(currentPrice) * 10 + 1) / 10
-        setPrice(newPrice)
+        let fixedPrice = newPrice.toFixed(2)
+        setPrice(parseFloat(fixedPrice))
       }
     }
   }, [open])
