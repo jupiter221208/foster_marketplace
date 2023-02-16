@@ -418,11 +418,12 @@ export async function getReceivedBids(mx: Metaplex): Promise<LazyBidWithAsset[]>
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify(batchRequest.slice(0, MAX_BATCH_REQUEST_ENTRIES)),
+        body: JSON.stringify(batchRequest.splice(0, MAX_BATCH_REQUEST_ENTRIES)),
       }).then(r => r.json())
     )
 
   let bids = batchResponse
+    .flat()
     .flatMap(({ result }) => result)
     .map(({ pubkey, account: { data, executable, owner, lamports } }) =>
       toLazyBid(
