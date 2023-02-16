@@ -40,6 +40,7 @@ const StartAuctionModal = props => {
   const dispatch = useDispatch()
 
   const closeModal = () => {
+    setPrice(null)
     onClose()
   }
 

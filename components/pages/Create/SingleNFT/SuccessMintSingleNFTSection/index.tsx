@@ -80,7 +80,7 @@ const SuccessMintSingleNFTSection = props => {
         setOpenProgressingModal(false)
         setTimeout(() => {
           setShowAlert(true)
-        }, 500)
+        }, 1000)
       }, 3000)
     }
   }, [openProgressingModal])

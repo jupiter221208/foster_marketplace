@@ -95,7 +95,6 @@ const WalletButton = props => {
   )
 
   const onChangeOfferPrice = value => {
-    setOfferErrorMessage('')
     if (value < 0) {
       setOfferPrice(0)
       setWalletAmount(0)
@@ -141,7 +140,6 @@ const WalletButton = props => {
   }, [mainBalance, offerBalance, offerStatus, offerPrice])
 
   const onChangeBiddingPrice = value => {
-    setBiddingErrorMessage('')
     if (value < 0) {
       setBiddingPrice(0)
       setWalletAmount(0)
