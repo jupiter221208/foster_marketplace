@@ -750,7 +750,9 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
                                     <div className="w-[18px] min-w-[18px] flex items-center">
                                       <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
                                     </div>
-                                    <div>{isAmountExisting(item.action_type) ? item.amount : 'N/A'}</div>
+                                    <div>
+                                      {isAmountExisting(item.action_type) ? Number(item.amount).toFixed(2) : 'N/A'}
+                                    </div>
                                   </div>
                                 </td>
 
