@@ -29,7 +29,6 @@ import { useConnection } from '@solana/wallet-adapter-react'
 import { TwitterShareButton } from 'react-share'
 
 // api
-import nftsAPI from 'apis/nfts'
 import SellNFTModal from 'components/Modal/SellNFTModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'

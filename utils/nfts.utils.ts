@@ -1,8 +1,4 @@
-import {
-  Metaplex,
-  TokenGpaBuilder,
-  UnparsedAccount,
-} from '@metaplex-foundation/js'
+import { Metaplex, TokenGpaBuilder, UnparsedAccount } from '@metaplex-foundation/js'
 import type { Metadata, Nft, Sft } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { unpackAccount, Account } from '@solana/spl-token'
@@ -10,11 +6,9 @@ import { getListedNFTs, getMyListedNFTs } from './auction.util'
 import { getShortAddress } from 'utils/wallet.util'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
+import { bool } from 'aws-sdk/clients/signer'
 
-export async function getNFTOwner(
-  metaplex: Metaplex,
-  mintAddress: PublicKey
-): Promise<PublicKey | null> {
+export async function getNFTOwner(metaplex: Metaplex, mintAddress: PublicKey): Promise<PublicKey | null> {
   let tokenAccounts = await new TokenGpaBuilder(metaplex)
     .whereMint(mintAddress)
     .whereAmount(1)
@@ -28,19 +22,14 @@ export async function getNFTOwner(
   if (tokenAccounts.length === 0) return null
   else {
     if (tokenAccounts.length > 1) {
-      console.warn(
-        `unexpected number of token accounts for ${mintAddress}: ${tokenAccounts.length}`
-      )
+      console.warn(`unexpected number of token accounts for ${mintAddress}: ${tokenAccounts.length}`)
       console.warn(tokenAccounts)
     }
     return tokenAccounts[0].owner
   }
 }
 
-export async function getNFTTokenAccount(
-  metaplex: Metaplex,
-  mint: PublicKey
-): Promise<Account> {
+export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): Promise<Account> {
   let tokenAccounts = await new TokenGpaBuilder(metaplex)
     .whereAmount(1)
     .whereMint(mint)
@@ -59,7 +48,7 @@ export async function getNFTTokenAccount(
   return tokenAccounts[0]
 }
 
-type GetMyNFTsOutputElement = (Metadata | Nft | Sft)
+type GetMyNFTsOutputElement = Metadata | Nft | Sft
 type GetMyNFTsOutput = GetMyNFTsOutputElement[]
 
 export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
@@ -121,21 +110,14 @@ export async function getNFTByAddress(mx: Metaplex, mintAddress: PublicKey) {
 }
 
 export function getNFTCategories(nft: Sft | Nft | null): string[] {
-  return (
-    nft?.json?.attributes
-      ?.filter(({ trait_type }) => trait_type === 'category')
-      .map(({ value }) => value) ?? []
-  )
+  return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 
-export function getNFTArtistPublicKey({
-  creators,
-}: Sft | Nft): PublicKey | null {
+export function getNFTArtistPublicKey({ creators }: Sft | Nft): PublicKey | null {
   // try first creator as artist
   // if it's a pda (candy machine) then use second creator as artist
   // else return null
-  if (creators[0] && PublicKey.isOnCurve(creators[0].address))
-    return creators[0].address
+  if (creators[0] && PublicKey.isOnCurve(creators[0].address)) return creators[0].address
   else if (creators[1]) return creators[1].address
 
   return null
@@ -146,9 +128,7 @@ export interface NFTArtistInfo {
   name: string
 }
 
-export async function getNFTArtistInfo(
-  nft: Sft | Nft
-): Promise<NFTArtistInfo | null> {
+export async function getNFTArtistInfo(nft: Sft | Nft): Promise<NFTArtistInfo | null> {
   let artist = getNFTArtistPublicKey(nft)
   if (!artist) return null
 
@@ -165,9 +145,13 @@ export interface NFTSocialInfo {
   likes: number
   shares: number
   saves: number
+  liked: bool
+  saved: bool
+  sharedSocial: bool
 }
 
 export async function getNFTSocialInfo(mint: PublicKey): Promise<NFTSocialInfo> {
-  let { likes, shares, saves } = await nftsAPI.get(mint.toBase58())
-  return { likes, shares, saves }
+  let { likes, shares, saves, liked, saved, shared } = await nftsAPI.getDetail(mint.toBase58())
+  let sharedSocial = shared.facebook || shared.twitter || shared.telegram
+  return { likes, shares, saves, liked, saved, sharedSocial }
 }

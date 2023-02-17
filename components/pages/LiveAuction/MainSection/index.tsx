@@ -265,13 +265,13 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
       setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
     }
 
-    let { likes, shares, saves } = await getNFTSocialInfo(new PublicKey(nftDetail.address))
+    let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(new PublicKey(nftDetail.address))
     setLikeCount(likes)
     setShareCount(shares)
     setSaveCount(saves)
-    setLike(likes > 0)
-    setSave(saves > 0)
-    setShare(shares > 0)
+    setLike(liked)
+    setSave(saved)
+    setShare(sharedSocial)
   }
 
   const placeBidAndSave = async price => {
