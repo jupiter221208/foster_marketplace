@@ -801,7 +801,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                                         />
                                       </div>
                                     )}
-                                    <div className="ml-2">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
+                                    <div className={`ml-2 ${styles.activityInline}`}>
+                                      {item.action_type.replace(/([A-Z])/g, ' $1').trim()}
+                                    </div>
                                   </div>
                                 </td>
                                 <td className="w-[60px]">
@@ -817,7 +819,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
                                 <td>
                                   <div
-                                    className={styles.activityUser}
+                                    className={`${styles.activityUser} ${styles.activityInline}`}
                                     onClick={() => gotoUserDetail(item.reference_address)}
                                   >
                                     {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
@@ -826,7 +828,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
                                 <td>
                                   <div
-                                    className={styles.activityUser}
+                                    className={`${styles.activityUser} ${styles.activityInline}`}
                                     onClick={() => gotoUserDetail(item.owner_address)}
                                   >
                                     {getOwnerName(item)}
@@ -834,7 +836,9 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                                 </td>
 
                                 <td>
-                                  <div className="w-full flex justify-end items-center ml-2 pr-4">
+                                  <div
+                                    className={`w-full flex justify-end items-center ml-2 pr-4  ${styles.activityInline}`}
+                                  >
                                     {getDateString(item.created_at)}ago
                                   </div>
                                 </td>
