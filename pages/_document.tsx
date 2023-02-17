@@ -6,7 +6,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="/logo.svg" />
+          <link rel="icon" href="/logo.png" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
         </Head>

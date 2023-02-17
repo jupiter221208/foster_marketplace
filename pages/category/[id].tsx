@@ -66,7 +66,7 @@ const Category = () => {
         <meta property="twitter:title" content={categoryTitle} />
         <meta property="twitter:description" content={categoryDescription} />
         <meta property="twitter:image" content={categoryImageUrl} />
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
         <div className="relative w-full mt-4 lg:mt-8">

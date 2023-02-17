@@ -71,7 +71,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
         <meta property="twitter:description" content={nftDescription} />
         <meta property="twitter:image" content={nftImageUrl} />
 
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
         <div className={styles.topRightEllipse}>

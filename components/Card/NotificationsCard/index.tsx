@@ -33,13 +33,6 @@ const NotificationsCard = props => {
     setList(data)
   }, [data])
 
-  const followArtist = wallet => {
-    artistsAPI.followArtist(wallet).then(response => {
-      if (response && response.followed_wallet_id) {
-      }
-    })
-  }
-
   const handleClickButton = (itemID, notification, status) => {
     if (status === 'follow') {
       artistsAPI.followArtist(notification.reference_wallet_id).then(response => {
@@ -61,7 +54,8 @@ const NotificationsCard = props => {
       if (item.id === itemID) {
         item.data.map((elem, idx) => {
           if (elem.id === elemID) {
-            array[index].data[idx].notification_type = status
+            array[index].data[idx].followed = status === 'follow'
+            console.log(status, array[index])
           }
         })
       }
@@ -292,7 +286,7 @@ const NotificationsCard = props => {
                     </div>
                   </div>
                   <div className="flex justify-end">
-                    {elem.notification_type === 'follow' ? (
+                    {elem.notification_type === 'follow' && elem.followed === false ? (
                       <GradientButton
                         label="Follow"
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
@@ -307,9 +301,9 @@ const NotificationsCard = props => {
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
                         color="#EFF0F6"
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
-                        onClick={() => handleClickButton(item.id, elem, 'following')}
+                        onClick={() => handleClickButton(item.id, elem, 'follow')}
                       />
-                    ) : elem.notification_type === 'following' ? (
+                    ) : elem.notification_type === 'follow' && elem.followed === true ? (
                       <OutlineButton
                         label="Following"
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
@@ -317,7 +311,7 @@ const NotificationsCard = props => {
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
                         color="#95DBD5"
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
-                        onClick={() => handleClickButton(item.id, elem, 'follow')}
+                        onClick={() => handleClickButton(item.id, elem, 'following')}
                       />
                     ) : (
                       isShowAvatar(elem) && (

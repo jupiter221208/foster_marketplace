@@ -178,7 +178,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         <meta property="twitter:description" content={artistDescription} />
         <meta property="twitter:image" content={artistImageUrl} />
 
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
         <div className={styles.bottomLeftEllipse}>

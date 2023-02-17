@@ -48,7 +48,7 @@ const Home = () => {
         <meta property="twitter:description" content={pageDescription} />
         <meta property="twitter:image" content={pageImageUrl} />
 
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/logo.png" />
       </Head>
 
       <MainSection />

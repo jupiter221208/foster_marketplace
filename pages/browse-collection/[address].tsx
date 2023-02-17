@@ -105,7 +105,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         <meta property="twitter:description" content={collectionDescription} />
         <meta property="twitter:image" content={collectionImageUrl} />
 
-        <link rel="icon" href="/logo.svg" />
+        <link rel="icon" href="/logo.png" />
       </Head>
 
       <div className={styles.container}>
