@@ -26,15 +26,18 @@ import { useMetaplex } from 'hooks/useMetaplex'
 
 // call apis
 import listingsAPI from 'apis/listings'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
   const dispatch = useDispatch()
   const [price, setPrice] = useState<number>()
   const [listStatus, setListStatus] = useState(false)
+  const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
 
   const handleListNFTClick = async () => {
+    setShowLoading(true)
     const result: any = await listNFT(mx, data.mintAddress, price)
     if (result) {
       listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
@@ -45,6 +48,9 @@ const ListNFTModal = props => {
         }
       dispatch({ type: 'set', isGetListedNFTs: false })
       setListStatus(true)
+      setShowLoading(false)
+    } else {
+      setShowLoading(false)
     }
   }
 
@@ -55,6 +61,8 @@ const ListNFTModal = props => {
         className={styles.container}
         onClose={() => {
           setListStatus(false)
+          setShowLoading(false)
+          setPrice(null)
           onClose('unlisted')
         }}
       >
@@ -87,6 +95,8 @@ const ListNFTModal = props => {
                     className={styles.close}
                     onClick={() => {
                       setListStatus(false)
+                      setShowLoading(false)
+                      setPrice(null)
                       onClose('unlisted')
                     }}
                   >
@@ -123,16 +133,20 @@ const ListNFTModal = props => {
                     />
                   </div>
                   <div className="w-full mt-[15px] lg:mt-[30px]">
-                    <GradientButton
-                      disabled={price !== undefined && price > 0 ? false : true}
-                      label="List"
-                      fontSize={18}
-                      fullWidth
-                      backgroundColor01="#306963"
-                      backgroundColor02="#5AC3BA"
-                      gradientDirection="right"
-                      onClick={() => handleListNFTClick()}
-                    />
+                    {showLoading ? (
+                      <LoadingButton fullWidth />
+                    ) : (
+                      <GradientButton
+                        disabled={price !== undefined && price > 0 ? false : true}
+                        label="List"
+                        fontSize={18}
+                        fullWidth
+                        backgroundColor01="#306963"
+                        backgroundColor02="#5AC3BA"
+                        gradientDirection="right"
+                        onClick={() => handleListNFTClick()}
+                      />
+                    )}
                   </div>
                   <div className="w-full mt-[20px] lg:mt-[30px]">
                     <p className={styles.bottomText}>
@@ -153,6 +167,8 @@ const ListNFTModal = props => {
                   <div
                     className={styles.close}
                     onClick={() => {
+                      setShowLoading(false)
+                      setPrice(null)
                       onClose('list-close')
                       setTimeout(() => {
                         setListStatus(false)
@@ -188,6 +204,8 @@ const ListNFTModal = props => {
                       label="View Listing"
                       fullWidth
                       onClick={() => {
+                        setShowLoading(false)
+                        setPrice(null)
                         onClose('listed')
                         setTimeout(() => {
                           setListStatus(false)
