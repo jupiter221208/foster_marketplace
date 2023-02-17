@@ -236,7 +236,10 @@ const Notifications = () => {
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className={styles.searchArea}>
                 <div className="flex w-full">
-                  <NotificationsSearchBox placeholder="Search" onChange={() => {}} />
+                  <NotificationsSearchBox
+                    placeholder="Search"
+                    onChange={value => searchNotification(filterNotification, value)}
+                  />
                 </div>
                 <div className={styles.filter} onClick={() => setShowFilterModal(true)}>
                   Filter

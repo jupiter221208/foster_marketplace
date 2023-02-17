@@ -121,7 +121,7 @@ const ActivityAccordion = props => {
                     <div className={styles.title}>Amount</div>
                     <div className="flex gap-[4px]">
                       <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
-                      <div className={styles.text}>{isAmountExisting ? item.amount : 'N/A'}</div>
+                      <div className={styles.text}>{isAmountExisting ? parseFloat(item.amount).toFixed(2) : 'N/A'}</div>
                     </div>
                   </div>
                   {/* <div className={styles.firstRow}>
