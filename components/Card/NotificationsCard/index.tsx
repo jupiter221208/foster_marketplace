@@ -55,7 +55,6 @@ const NotificationsCard = props => {
         item.data.map((elem, idx) => {
           if (elem.id === elemID) {
             array[index].data[idx].followed = status === 'follow'
-            console.log(status, array[index])
           }
         })
       }

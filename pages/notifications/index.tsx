@@ -111,13 +111,21 @@ const Notifications = () => {
       followingUsers = await artistsAPI.getFollowings(profileInfo.wallet_id)
     }
 
-    notifications.forEach(notification => {
-      if (notification.notification_type === 'follow') {
+    // notifications.forEach(notification => {
+    //   if (notification.notification_type === 'follow') {
+    //     if (followingUsers.some(item => item.wallet_id === notification.reference_wallet_id))
+    //       notification.followed = true
+    //     else notification.followed = false
+    //   }
+    // })
+
+    notifications
+      .filter(notification => notification.notification_type === 'follow')
+      .forEach(notification => {
         if (followingUsers.some(item => item.wallet_id === notification.reference_wallet_id))
           notification.followed = true
         else notification.followed = false
-      }
-    })
+      })
 
     let dateSorted = notifications.sort(comp)
     setAllNotification(dateSorted)
