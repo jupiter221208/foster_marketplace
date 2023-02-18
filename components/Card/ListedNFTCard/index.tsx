@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -18,9 +18,32 @@ import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
 
-const ListedNFTCard = props => {
-  const { data, type, onClick, onActionClick, cancelAuction, finalizeSale } = props
-  const { startTime, endTime, highestBid, url } = data
+export interface ListedNFTCardData {
+  address: PublicKey
+  name: string
+  uri: string
+  sellerAddress: PublicKey
+  price: number
+  creatorAddress: string
+  startTime?: number
+  endTime?: number
+  highestBid?: {
+    buyer_address: string
+  }
+}
+
+export interface ListedNFTCardProps {
+  data: ListedNFTCardData
+  type: 'fixed' | 'auction'
+  onClick: (uri: string) => any
+  onActionClick: (data: ListedNFTCardData) => void
+  cancelAuction: (data: ListedNFTCardData) => void
+  finalizeSale: (data: ListedNFTCardData) => void
+}
+
+const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
+  const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
+
   const viewport = useViewport()
   const isStarted = useMemo(() => {
     if (startTime) {
@@ -40,31 +63,46 @@ const ListedNFTCard = props => {
     return false
   }, [endTime])
 
+  const [assetJson, setAssetJson] = useState<any>({})
+  useEffect(() => {
+    if (!uri) return
+    fetch(uri)
+      .then(r => r.json())
+      .then(setAssetJson)
+  }, [uri])
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(url)}>
-          {data.category === 'video' ? (
+        <div
+          className={styles.imageContent}
+          onClick={() => onClick(type === 'fixed' ? `/browse-nft?id=${address}` : `live-auction?id=${address}`)}
+        >
+          {assetJson?.animation_url ? (
             <div
               dangerouslySetInnerHTML={{
                 __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  <source src=${data.animation_url} type="video/mp4" /></video>`,
+                  <source src=${assetJson.animation_url} type="video/mp4" /></video>`,
               }}
             />
           ) : (
-            <img src={data.image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+            <img
+              src={assetJson?.image ?? 'TODO: add placeholder for loading image'}
+              alt=""
+              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+            />
           )}
         </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.name}</div>
+          <div className={styles.nftName}>{name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
+          <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
           <div className="flex items-center mt-2 gap-[6px]">
             <Image src={SolanaLogoIcon} alt="" />
-            <div className={styles.nftName}>{highestBid ? highestBid.amount : getPriceValue(data.price)}</div>
+            <div className={styles.nftName}>{getPriceValue(price)}</div>
           </div>
         </div>
         <div className="mt-[7px] w-full">
@@ -87,14 +125,7 @@ const ListedNFTCard = props => {
                 isEnded ? (
                   <GradientButton
                     label={'Finalize Sale'}
-                    onClick={() =>
-                      finalizeSale(
-                        data?.mintAddress,
-                        data?.sellerAddress,
-                        new PublicKey(data?.highestBid.buyer_address),
-                        Number(data?.highestBid.amount)
-                      )
-                    }
+                    onClick={() => finalizeSale(data)}
                     height="48px"
                     fontSize="16px"
                     paddingLeft="37px"
@@ -120,7 +151,7 @@ const ListedNFTCard = props => {
               ) : (
                 <GradientButton
                   label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress, data?.name)}
+                  onClick={() => cancelAuction(data)}
                   height="48px"
                   fontSize="16px"
                   paddingLeft="37px"
@@ -139,17 +170,17 @@ const ListedNFTCard = props => {
   ) : (
     <div className={styles.container}>
       <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={data.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
+        <Image src={assetJson?.image} alt="" width={321} height={378} layout="responsive" objectFit="cover" />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.name}</div>
+          <div className={styles.nftName}>{name}</div>
         </div>
         <div className="w-full flex justify-between items-center">
-          <div className={styles.artistName}>{getShortAddress(data.creator.toString())}</div>
+          <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
           <div className="flex items-center gap-[6px]">
             <Image src={SolanaLogoIcon} width={15} height={15} alt="" />
-            <div className={styles.price}>{getPriceValue(data.price)}</div>
+            <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>
 
@@ -174,14 +205,7 @@ const ListedNFTCard = props => {
                 isEnded ? (
                   <GradientButton
                     label={'Finalize Sale'}
-                    onClick={() =>
-                      finalizeSale(
-                        data?.mintAddress,
-                        data?.sellerAddress,
-                        new PublicKey(data?.highestBid.buyer_address),
-                        Number(data?.highestBid.amount)
-                      )
-                    }
+                    onClick={() => finalizeSale(data)}
                     fullWidth
                     height="26px"
                     fontSize="12px"
@@ -209,7 +233,7 @@ const ListedNFTCard = props => {
                 <GradientButton
                   fullWidth
                   label={'Cancel Auction'}
-                  onClick={() => cancelAuction(data?.mintAddress, data?.sellerAddress, data?.name)}
+                  onClick={() => cancelAuction(data)}
                   height="26px"
                   fontSize="12px"
                   paddingLeft="7px"

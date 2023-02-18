@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 // components
 import Pagination from 'components/Button/Pagination'
-import ListedNFTCard from 'components/Card/ListedNFTCard'
+import ListedNFTCard, { type ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
 import FilterButton from 'components/Button/FilterButton'
@@ -22,7 +22,7 @@ import styles from './index.module.scss'
 import { getMyListedNFTs, cancelList, updateList } from 'utils/auction.util'
 import { cancelListing, executeSale } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { getNFTByAddress } from 'utils/nfts.utils'
+import { getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { PublicKey } from '@solana/web3.js'
 
 // call apis
@@ -72,47 +72,33 @@ const ListedNFTSection = props => {
   const setMyListedNFTs = async () => {
     setLoading(true)
     const listedNfts = await getMyListedNFTs(mx)
-    let fixedPrice = []
     if (listedNfts) {
-      fixedPrice = listedNfts.map(nft => {
-        let category = ''
-        if (nft.asset.json.hasOwnProperty('properties')) {
-          category = nft.asset.json.properties.category
-        } else {
-          category = nft.asset.json.category
-        }
-        return {
-          mintAddress: nft.asset.address,
-          image: nft.asset.json.image,
-          name: nft.asset.json.name,
-          category: category,
-          animation_url: nft.asset.json.animation_url,
-          creator: nft.asset.creators[0].address.toString(),
-          url: `/browse-nft?id=${nft.asset.address.toString()}`,
-          price: nft.price.basisPoints,
-          tradeStateAddress: nft.tradeStateAddress,
-        }
-      })
-      dispatch({ type: 'set', fixedPriceNFTs: fixedPrice })
+      let fixedPriceNFTs: ListedNFTCardData[] = listedNfts.map(({ asset, sellerAddress, price }) => ({
+        address: asset?.address,
+        name: asset?.name,
+        uri: asset?.uri,
+        sellerAddress,
+        price: Number(price.basisPoints.toString()),
+        creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
+      }))
+      dispatch({ type: 'set', fixedPriceNFTs })
     }
+
     const listings = await auctionAPI.getListingsBySeller(mx.identity().publicKey.toBase58())
-    const liveAuction = await Promise.all(
-      listings.map(async listing => {
-        const nft = await getNFTByAddress(mx, new PublicKey(listing.auction.mint_address))
-        return {
-          mintAddress: nft.address,
-          image: nft.json.image,
-          name: nft.json.name,
-          creator: nft.creators[0].address.toString(),
-          url: `/live-auction?id=${nft.address.toString()}`,
-          startTime: listing.auction.start_time,
-          endTime: listing.auction.end_time,
-          highestBid: listing.highest_bid,
-          sellerAddress: new PublicKey(listing.auction.seller_address),
-          price: Number(listing.auction.reserve_price) * 1000000000,
-        }
-      })
-    )
+    const nfts = await mx
+      .nfts()
+      .findAllByMintList({ mints: listings.map(({ auction }) => new PublicKey(auction.mint_address)) })
+    const liveAuction: ListedNFTCardData[] = listings.map(({ auction, highest_bid }, index) => ({
+      address: nfts[index].address,
+      name: nfts[index].name,
+      uri: nfts[index].uri,
+      sellerAddress: new PublicKey(auction.seller_address),
+      price: Number(auction.reserve_price) * 1000000000,
+      creatorAddress: getNFTArtistPublicKey(nfts[index])?.toString(),
+      startTime: auction.start_time,
+      endTime: auction.end_time,
+      highestBid: highest_bid,
+    }))
     dispatch({ type: 'set', isGetListedNFTs: true })
     dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
     setLoading(false)
@@ -183,15 +169,15 @@ const ListedNFTSection = props => {
     },
   ])
 
-  const cancelAuction = async (mintAddress, sellerAddress, nftName) => {
-    const { auction } = await cancelListing(mx, mintAddress, sellerAddress)
+  const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
+    const { auction } = await cancelListing(mx, address, sellerAddress)
     auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
       if (res) {
         setAlertData([
           {
             id: 0,
             title: 'Auction Canceled!',
-            description: `You've successfully canceled the auction for ${nftName}`,
+            description: `You've successfully canceled the auction for ${name}`,
             type: 'success',
           },
         ])
@@ -202,8 +188,8 @@ const ListedNFTSection = props => {
     })
   }
 
-  const finalizeSale = async (mintAddress, sellerAddress, buyerAddress, price) => {
-    const { sale } = await executeSale(mx, mintAddress, sellerAddress, buyerAddress, price)
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }: ListedNFTCardData) => {
+    const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
     await updateSolBalance()
     auctionAPI
       .executeSale(sale.mintAddress.toBase58(), {
@@ -249,12 +235,8 @@ const ListedNFTSection = props => {
                 type={active === 0 ? 'fixed' : 'auction'}
                 onClick={url => handleGotoDetailPage(url)}
                 onActionClick={item => handleSelectData(item)}
-                cancelAuction={(mintAddress, sellerAddress, nftName) =>
-                  cancelAuction(mintAddress, sellerAddress, nftName)
-                }
-                finalizeSale={(mintAddress, sellerAddress, buyerAddress, price) =>
-                  finalizeSale(mintAddress, sellerAddress, buyerAddress, price)
-                }
+                cancelAuction={cancelAuction}
+                finalizeSale={finalizeSale}
               />
             </div>
           ))}

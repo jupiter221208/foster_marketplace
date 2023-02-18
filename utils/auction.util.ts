@@ -41,6 +41,7 @@ export const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_
 const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
 
 export type LazyBidWithAsset = LazyBid & { asset: Metadata }
+export type LazyListingWithAsset = LazyListing & { asset: Metadata }
 
 const LISTING_RECEIPT_SIZE =
   8 + //key
@@ -188,23 +189,52 @@ export async function getListedNFTs(mx: Metaplex) {
   }
 }
 
-export async function getMyListedNFTs(mx: Metaplex) {
+export async function getMyListedNFTs(mx: Metaplex): Promise<LazyListingWithAsset[]> {
   try {
-    const accounts = await (
-      await getProgramAccounts(mx, listingFilters)
-    ).filter(account => {
-      const seller = new PublicKey(
-        /*@ts-ignore to use slice function in Buffer*/
-        account.account.data.slice(ListingReceiptPosition.Seller, ListingReceiptPosition.Metadata)
-      )
-      return seller.toBase58() === mx.identity().publicKey.toBase58()
-    })
-    const listedNFTs = await getListedNFTsFromAccounts(mx, accounts)
+    const auctionHouse = await loadAuctionHouse(mx, AUCTION_HOUSE_PUBLIC_KEY)
 
-    return listedNFTs
+    let listings = await mx
+      .auctionHouse()
+      .findListings({
+        auctionHouse,
+        seller: new PublicKey("9psHNg12zVStC4CHbXS6WTYtLyRhZKdKY9YgdRLHFeYN") // mx.identity().publicKey
+      }) as LazyListing[]
+
+    listings = listings.filter(({ canceledAt, purchaseReceiptAddress }) =>
+      canceledAt === null && purchaseReceiptAddress === null)
+
+    return populateLazyListingsWithAssets(mx, listings)
   } catch (error) {
     console.log(error)
   }
+}
+
+export async function populateLazyListingsWithAssets(
+  mx: Metaplex,
+  lazyListings: LazyListing[]
+): Promise<LazyListingWithAsset[]> {
+  let metadatas: (Metadata | null)[] = await new GmaBuilder(
+    mx,
+    lazyListings.map(({ metadataAddress }) => metadataAddress)
+  ).getAndMap(account => (account.exists ? toMetadata(toMetadataAccount(account)) : null))
+
+  return lazyListings
+    .map((lazyListing, index) => {
+      if (metadatas[index]) {
+        return {
+          ...lazyListing,
+          asset: metadatas[index]
+        } as LazyListingWithAsset
+      } else {
+        console.warn(
+          `could not load metadata for listing ${lazyListing.tradeStateAddress}: ` +
+          lazyListing.metadataAddress.toBase58()
+        )
+        return null
+      }
+    })
+    .filter(listing => listing != null)
+    .sort((a, b) => a.createdAt.toNumber() - b.createdAt.toNumber())
 }
 
 export async function cancelList(mx: Metaplex, tradeStateAddress: PublicKey) {
