@@ -1,5 +1,5 @@
 import { Metaplex, TokenGpaBuilder, UnparsedAccount } from '@metaplex-foundation/js'
-import type { Metadata, Nft, Sft } from '@metaplex-foundation/js'
+import type { Creator, Metadata, Nft, Sft } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
 import { unpackAccount, Account } from '@solana/spl-token'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
@@ -113,7 +113,7 @@ export function getNFTCategories(nft: Sft | Nft | null): string[] {
   return nft?.json?.attributes?.filter(({ trait_type }) => trait_type === 'category').map(({ value }) => value) ?? []
 }
 
-export function getNFTArtistPublicKey({ creators }: Sft | Nft): PublicKey | null {
+export function getNFTArtistPublicKey({ creators }: { creators: Creator[] }): PublicKey | null {
   // try first creator as artist
   // if it's a pda (candy machine) then use second creator as artist
   // else return null

@@ -81,13 +81,13 @@ const listingFilters: any = [
   },
 ]
 
-const loadAuctionHousePromiseCache: Map<PublicKey, Promise<AuctionHouse>> = new Map()
+const loadAuctionHousePromiseCache: Map<string, Promise<AuctionHouse>> = new Map()
 export async function loadAuctionHouse(
   metaplex: Metaplex,
   auctionHouseAddress: PublicKey,
   force: boolean = false
 ): Promise<AuctionHouse> {
-  let auctionHousePromise = loadAuctionHousePromiseCache.get(auctionHouseAddress)
+  let auctionHousePromise = loadAuctionHousePromiseCache.get(auctionHouseAddress.toBase58())
   if (!auctionHousePromise || force) {
     // TODO: remove once PR is merged: https://github.com/metaplex-foundation/js/pull/451
     let auctionHouseAccount = await metaplex
@@ -109,7 +109,7 @@ export async function loadAuctionHouse(
     })
 
     if (!auctionHousePromise) throw new Error(`could not load auction house: ${auctionHouseAddress}`)
-    loadAuctionHousePromiseCache.set(auctionHouseAddress, auctionHousePromise)
+    loadAuctionHousePromiseCache.set(auctionHouseAddress.toBase58(), auctionHousePromise)
   }
 
   return auctionHousePromise
