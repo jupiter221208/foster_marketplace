@@ -197,7 +197,7 @@ export async function getMyListedNFTs(mx: Metaplex): Promise<LazyListingWithAsse
       .auctionHouse()
       .findListings({
         auctionHouse,
-        seller: new PublicKey("9psHNg12zVStC4CHbXS6WTYtLyRhZKdKY9YgdRLHFeYN") // mx.identity().publicKey
+        seller: mx.identity().publicKey
       }) as LazyListing[]
 
     listings = listings.filter(({ canceledAt, purchaseReceiptAddress }) =>
