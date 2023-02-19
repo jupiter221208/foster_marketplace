@@ -88,17 +88,22 @@ const ListedNFTSection = props => {
     const nfts = await mx
       .nfts()
       .findAllByMintList({ mints: listings.map(({ auction }) => new PublicKey(auction.mint_address)) })
-    const liveAuction: ListedNFTCardData[] = listings.map(({ auction, highest_bid }, index) => ({
-      address: nfts[index].address,
-      name: nfts[index].name,
-      uri: nfts[index].uri,
-      sellerAddress: new PublicKey(auction.seller_address),
-      price: Number(auction.reserve_price) * 1000000000,
-      creatorAddress: getNFTArtistPublicKey(nfts[index])?.toString(),
-      startTime: auction.start_time,
-      endTime: auction.end_time,
-      highestBid: highest_bid,
-    }))
+    const liveAuction: ListedNFTCardData[] = listings
+      .map(
+        ({ auction, highest_bid }, index) =>
+          nfts[index] && {
+            address: nfts[index].address,
+            name: nfts[index].name,
+            uri: nfts[index].uri,
+            sellerAddress: new PublicKey(auction.seller_address),
+            price: Number(auction.reserve_price) * 1000000000,
+            creatorAddress: getNFTArtistPublicKey(nfts[index])?.toString(),
+            startTime: auction.start_time,
+            endTime: auction.end_time,
+            highestBid: highest_bid,
+          }
+      )
+      .filter(listing => listing != null)
     dispatch({ type: 'set', isGetListedNFTs: true })
     dispatch({ type: 'set', liveAuctionNFTs: liveAuction })
     setLoading(false)
