@@ -13,6 +13,7 @@ import {
   WRAPPED_SOL_MINT,
   Metaplex,
   sol,
+  lamports,
   TokenGpaBuilder,
   GmaBuilder,
   isKeypairSigner,
@@ -125,7 +126,7 @@ export async function listNFT(mx: Metaplex, nftAddress: PublicKey, price: number
       .list({
         auctionHouse,
         mintAccount: nftAddress,
-        price: sol(price),
+        price: lamports(price),
       })
 
     if (listedNFT) return true
