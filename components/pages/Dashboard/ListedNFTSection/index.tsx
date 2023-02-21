@@ -24,6 +24,7 @@ import { cancelListing, executeSale } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { PublicKey } from '@solana/web3.js'
+import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
 
 // call apis
 import listingsAPI from 'apis/listings'
@@ -69,18 +70,26 @@ const ListedNFTSection = props => {
 
   const [nftList, setNFTList] = useState([])
 
+  function getMintAddress(asset: Nft | Sft | Metadata): PublicKey {
+    if ('mintAddress' in asset) return asset.mintAddress
+    else return asset.mint.address
+  }
+
   const setMyListedNFTs = async () => {
     setLoading(true)
     const listedNfts = await getMyListedNFTs(mx)
     if (listedNfts) {
-      let fixedPriceNFTs: ListedNFTCardData[] = listedNfts.map(({ asset, sellerAddress, price }) => ({
-        address: asset?.address,
-        name: asset?.name,
-        uri: asset?.uri,
-        sellerAddress,
-        price: Number(price.basisPoints.toString()),
-        creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
-      }))
+      let fixedPriceNFTs: ListedNFTCardData[] = listedNfts.map(
+        ({ asset, sellerAddress, tradeStateAddress, price }) => ({
+          address: getMintAddress(asset),
+          name: asset?.name,
+          uri: asset?.uri,
+          sellerAddress,
+          tradeStateAddress,
+          price: Number(price.basisPoints.toString()),
+          creatorAddress: getNFTArtistPublicKey(asset)?.toString(),
+        })
+      )
       dispatch({ type: 'set', fixedPriceNFTs })
     }
 
@@ -92,10 +101,11 @@ const ListedNFTSection = props => {
       .map(
         ({ auction, highest_bid }, index) =>
           nfts[index] && {
-            address: nfts[index].address,
+            address: getMintAddress(nfts[index]),
             name: nfts[index].name,
             uri: nfts[index].uri,
             sellerAddress: new PublicKey(auction.seller_address),
+            tradeStateAddress: new PublicKey(auction.free_trade_state),
             price: Number(auction.reserve_price) * 1000000000,
             creatorAddress: getNFTArtistPublicKey(nfts[index])?.toString(),
             startTime: auction.start_time,
@@ -113,11 +123,11 @@ const ListedNFTSection = props => {
     if (mx && !isGetListedNFTs) setMyListedNFTs()
   }, [mx, isGetListedNFTs])
 
-  const onCancelList = async (mintAddress, tradeStateAddress) => {
+  const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
     const result = await cancelList(mx, tradeStateAddress)
     if (result) {
       setShowListNFTModal(false)
-      listingsAPI.unlistNft(mintAddress).then(response => {
+      listingsAPI.unlistNft(address.toBase58()).then(response => {
         if (response) {
           setAlertData([
             {
@@ -138,11 +148,11 @@ const ListedNFTSection = props => {
     }
   }
 
-  const onUpdatePrice = async (nftAddress, tradeStateAddress, price) => {
-    const result = await updateList(mx, nftAddress, tradeStateAddress, price)
+  const onUpdatePrice = async ({ address, tradeStateAddress, price }: ListedNFTCardData) => {
+    const result = await updateList(mx, address, tradeStateAddress, price)
     if (result) {
       setShowListNFTModal(false)
-      listingsAPI.updateNft(nftAddress, { amount: price }).then(
+      listingsAPI.updateNft(address.toBase58(), { amount: price }).then(
         response => {
           if (response) {
             setAlertData([
@@ -274,8 +284,8 @@ const ListedNFTSection = props => {
         data={selectedData}
         open={showListNFTModal}
         onClose={() => setShowListNFTModal(false)}
-        onCancelList={(mintAddress, tradeStateAddress) => onCancelList(mintAddress, tradeStateAddress)}
-        onUpdatePrice={(nftAddress, tradeStateAddress, price) => onUpdatePrice(nftAddress, tradeStateAddress, price)}
+        onCancelList={onCancelList}
+        onUpdatePrice={onUpdatePrice}
       />
       <Alert
         open={showAlert}

@@ -17,12 +17,14 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
+import type { JsonMetadata } from '@metaplex-foundation/js'
 
 export interface ListedNFTCardData {
   address: PublicKey
   name: string
   uri: string
   sellerAddress: PublicKey
+  tradeStateAddress: PublicKey
   price: number
   creatorAddress: string
   startTime?: number
@@ -32,11 +34,13 @@ export interface ListedNFTCardData {
   }
 }
 
+export type ListedNFTCardDataWithJson = ListedNFTCardData & { json: JsonMetadata }
+
 export interface ListedNFTCardProps {
   data: ListedNFTCardData
   type: 'fixed' | 'auction'
   onClick: (uri: string) => any
-  onActionClick: (data: ListedNFTCardData) => void
+  onActionClick: (data: ListedNFTCardDataWithJson) => void
   cancelAuction: (data: ListedNFTCardData) => void
   finalizeSale: (data: ListedNFTCardData) => void
 }
@@ -63,7 +67,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     return false
   }, [endTime])
 
-  const [assetJson, setAssetJson] = useState<any>({})
+  const [assetJson, setAssetJson] = useState<JsonMetadata>({})
   useEffect(() => {
     if (!uri) return
     fetch(uri)
@@ -109,7 +113,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           {type === 'fixed' ? (
             <GradientButton
               label={'Update'}
-              onClick={() => onActionClick(data)}
+              onClick={() => onActionClick({ ...data, json: assetJson })}
               height="48px"
               fontSize="16px"
               paddingLeft="37px"
@@ -188,7 +192,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           {type === 'fixed' ? (
             <GradientButton
               label={'Update'}
-              onClick={() => onActionClick(data)}
+              onClick={() => onActionClick({ ...data, json: assetJson })}
               fullWidth
               height="26px"
               fontSize="12px"

@@ -60,17 +60,17 @@ const UpdateNFTModal = props => {
                   <Image src={CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Update NFT</div>
-                {data?.category === 'video' ? (
+                {data?.json?.animation_url ? (
                   <div
                     className="mt-[10px]"
                     dangerouslySetInnerHTML={{
                       __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
                     }}
                   />
                 ) : (
                   <img
-                    src={data?.image === undefined || data?.image === null ? AudioPlayerBackground.src : data?.image}
+                    src={data?.json?.image ?? AudioPlayerBackground.src}
                     alt={data?.name}
                     className="w-full aspect-[321/321] mx-[30px] object-cover mt-[10px] lg:mt-[20px] rounded-[20px]"
                   />
@@ -91,14 +91,14 @@ const UpdateNFTModal = props => {
                     gradientDirection="right"
                     backgroundColor01="#34706B"
                     backgroundColor02="#63D6CD"
-                    onClick={() => onUpdatePrice(data?.mintAddress, data?.tradeStateAddress, price)}
+                    onClick={() => onUpdatePrice(data)}
                   />
                 </div>
                 <div className="w-full mt-[15px] lg:mt-[30px]">
                   <OutlineButton
                     label="Cancel Listing"
                     fullWidth
-                    onClick={() => onCancelList(data?.mintAddress, data?.tradeStateAddress)}
+                    onClick={() => onCancelList(data)}
                     backgroundColor="transparent"
                     color="#5AC3BA"
                     borderColor="#5AC3BA"
