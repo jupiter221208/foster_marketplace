@@ -50,11 +50,13 @@ const Notifications = () => {
   }
 
   function getSortedNotification(notifications) {
-    let today = new Date().setHours(0, 0, 0, 0)
-    let yestarday = today - 3600 * 24 * 1000
-    let weekEnd = today - 3600 * 48 * 1000
-    let weekStart = today - 3600 * 168 * 1000
-    let monthStart = today - 3600 * 24 * 30 * 1000
+    let today = new Date().getTime()
+    let today0 = new Date().setHours(0, 0, 0, 0)
+    let yestarday = today0 - 3600 * 24 * 1000
+    let weekEnd = today0 - 3600 * 48 * 1000
+    let weekStart = today0 - 3600 * 168 * 1000
+    let monthStart = today0 - 3600 * 24 * 30 * 1000
+
     let sortedByDate = {}
     let newNotifications = []
     notifications.map(notification => {
@@ -62,9 +64,10 @@ const Notifications = () => {
         newNotifications.push(notification)
       } else {
         var utcDate = moment.utc(notification.created_at)
-        var fmt = 'YYYY MM DD'
-        var localDate = utcDate.local().format(fmt)
-        const createdDate = new Date(localDate).setHours(0, 0, 0, 0)
+        var fmt = 'MM/DD/YYYY'
+        const localDate = utcDate.local().format(fmt)
+        const localDateTime = localDate + ' 00:00:00'
+        const createdDate = new Date(localDateTime).getTime()
         const strCreatedDate = createdDate.toString()
         if (!sortedByDate.hasOwnProperty(strCreatedDate)) {
           sortedByDate[strCreatedDate] = []
@@ -93,8 +96,15 @@ const Notifications = () => {
         } else {
           strDate = '1 MONTH AGO'
         }
-        let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
-        sortedNotification.push(dayNotifications)
+
+        let existingNotification = sortedNotification.filter(notification => notification.date === strDate)
+        if (existingNotification.length > 0) {
+          console.log(existingNotification)
+          existingNotification[0]['data'].push(...sortedByDate[key].reverse())
+        } else {
+          let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
+          sortedNotification.push(dayNotifications)
+        }
         index++
       })
     return sortedNotification
