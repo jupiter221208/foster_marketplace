@@ -241,7 +241,7 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
           highest_bid,
           auction: { reserve_price, start_time, end_time },
         } = auction
-        console.log(auction)
+
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')

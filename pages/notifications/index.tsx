@@ -99,7 +99,6 @@ const Notifications = () => {
 
         let existingNotification = sortedNotification.filter(notification => notification.date === strDate)
         if (existingNotification.length > 0) {
-          console.log(existingNotification)
           existingNotification[0]['data'].push(...sortedByDate[key].reverse())
         } else {
           let dayNotifications = { id: index, date: strDate, data: sortedByDate[key].reverse() }
