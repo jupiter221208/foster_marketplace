@@ -43,19 +43,23 @@ const LiveAuction = ({ nftDetail }: LiveAuctionProps) => {
 
   const [loading, setLoading] = useState(false)
   const [artistInfo, setArtistInfo] = useState(null)
+  const [nftInfo, setNftInfo] = useState(null)
   const categories = getNFTCategories(nftDetail)
   const collectionId = nftDetail.collection?.address.toString()
-
+  
   useEffect(() => {
+    console.log(nftDetail)
+
     if (!nftDetail) return
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
         if (!isString(response)) {
+          setNftInfo(response)
           if (response.creator_address !== null) {
             setArtistInfo({ address: response.creator_address, name: response.creator_username })
           }
-          setLoading(false)
         }
+        setLoading(false)
       },
       error => {
         setLoading(false)
@@ -93,7 +97,7 @@ const LiveAuction = ({ nftDetail }: LiveAuctionProps) => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="z-10">
-          <MainSection nftDetail={nftDetail} loading={loading} />
+          <MainSection nftDetail={nftDetail} nftInfo={nftInfo} loading={loading} />
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />

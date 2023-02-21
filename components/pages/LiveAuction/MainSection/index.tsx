@@ -50,7 +50,6 @@ import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
-import ShareBlankIcon from 'assets/icons/share-blank.svg'
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
@@ -72,10 +71,9 @@ import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { toMetadataAccount, Nft, LazyBid } from '@metaplex-foundation/js'
 import { TIMED_AUCTION_HOUSE_PUBLIC_KEY, placeBid } from 'utils/auctioneer.util'
-import { loadAuctionHouse } from 'utils/auction.util'
 import { useWallets } from 'hooks/useWallets'
 import { getDateString, getShortAddress } from 'utils/strings'
-import { getNFTOwner, getNFTCategories, getNFTArtistInfo, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
+import { getNFTCategories, getNFTTokenAccount } from 'utils/nfts.utils'
 
 // call apis
 import nftsAPI from 'apis/nfts'
@@ -87,10 +85,11 @@ import { useDispatch } from 'react-redux'
 
 export interface MainSectionProps {
   nftDetail: Nft
+  nftInfo: any
   loading: boolean
 }
 
-const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
+const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -230,28 +229,41 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
     }
   }, [nftDetail])
 
+  useEffect(() => {
+    if (nftInfo) {
+      let { creator_username, creator_address, auction, likes, shares, saves, liked, saved, shared } = nftInfo
+      let sharedSocial = shared.facebook || shared.twitter || shared.telegram
+
+      if (creator_username) setNftCreatorUsername(creator_username)
+      if (creator_address) setNftCreatorAddress(creator_address)
+      if (auction?.auction) {
+        let {
+          highest_bid,
+          auction: { reserve_price, start_time, end_time },
+        } = auction
+        console.log(auction)
+        setNftReservePrice(Number(reserve_price))
+        setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+        setHighBidder(highest_bid ? highest_bid.buyer_address : '')
+        setEndTime(end_time)
+        setStartTime(start_time)
+      }
+
+      setLikeCount(likes)
+      setShareCount(shares)
+      setSaveCount(saves)
+      setLike(liked)
+      setSave(saved)
+      setShare(sharedSocial)
+    }
+  }, [nftInfo])
+
   async function getNftDetailInfo() {
     if (!nftDetail) return
 
     let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
     setIsOwnNft(publicKey?.equals(tokenAccount.owner))
     setSellerAddress(tokenAccount.owner)
-
-    let { creator_username, creator_address, auction } = (await nftsAPI.getDetail(id)) || {}
-    if (creator_username) setNftCreatorUsername(creator_username)
-    if (creator_address) setNftCreatorAddress(creator_address)
-    if (auction?.auction) {
-      let {
-        highest_bid,
-        auction: { reserve_price, seller_address, start_time, end_time },
-      } = auction
-      setNftReservePrice(Number(reserve_price))
-      setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
-      setHighBidder(highest_bid ? highest_bid.buyer_address : '')
-      setSellerAddress(new PublicKey(seller_address))
-      setEndTime(end_time)
-      setStartTime(start_time)
-    }
 
     let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
     setNftOwnerUsername(ownerUsername)
@@ -264,14 +276,6 @@ const MainSection = ({ nftDetail, loading }: MainSectionProps) => {
       )
       setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
     }
-
-    let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(new PublicKey(nftDetail.address))
-    setLikeCount(likes)
-    setShareCount(shares)
-    setSaveCount(saves)
-    setLike(liked)
-    setSave(saved)
-    setShare(sharedSocial)
   }
 
   const placeBidAndSave = async price => {
