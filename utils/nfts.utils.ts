@@ -80,8 +80,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
         // @ts-ignore
         nft.jsonLoaded = true
       } catch (e) {
-        console.error(`failed to pull off chain metadata for ${nft.address}: ${nft.uri}`)
-        console.error(e)
+        console.warn(`failed to pull off chain metadata for ${nft.address}: ${nft.uri}\n`, e)
       }
     })
   )
