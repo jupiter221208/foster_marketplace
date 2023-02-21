@@ -48,11 +48,16 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [nfts, setNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
+  const [isMounted, setIsMounted] = useState(false)
 
   const [isOwn, setIsOwn] = useState<any>(false)
   useEffect(() => {
     if (publicKey) setIsOwn(artistInfo?.wallet_id === publicKey?.toBase58())
   }, [artistInfo, publicKey])
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   useEffect(() => {
     if (connected && loginAndRefresh) {
@@ -137,6 +142,16 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   useEffect(() => {
+    if (isMounted) {
+      if (artistEnable) {
+        getArtistData(artistPublicKey)
+      } else {
+        getCollectorData(artistPublicKey)
+      }
+    }
+  }, [artistEnable])
+
+  useEffect(() => {
     if (!artistPublicKey) return
     resetData()
 
@@ -148,15 +163,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       setNfts(publicArtistData?.nfts ?? [])
       setCollections(publicArtistData?.collections ?? [])
 
-      getArtistData(artistPublicKey)
+      getArtistData(artistPublicKey, true)
     } else {
-      getCollectorData(artistPublicKey)
+      getCollectorData(artistPublicKey, true)
     }
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
-  }, [artistPublicKey, artistEnable])
+  }, [artistPublicKey])
 
   let artistName = `${artistInfo?.username} | Foster Marketplace`
   let artistImageUrl = artistInfo?.profile_picture ?? DefaultNftBG.src
