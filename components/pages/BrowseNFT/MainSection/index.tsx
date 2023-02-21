@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -56,7 +56,6 @@ import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
-import ShareBlankIcon from 'assets/icons/share-blank.svg'
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
@@ -106,6 +105,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const profileInfo = useSelector(state => (state as any).profileInfo)
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(false)
@@ -266,6 +266,23 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
   useEffect(() => {
     ;(async () => {
+      if (profileInfo) {
+        console.log('=========', nftDetail.address)
+        let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
+          new PublicKey(nftDetail.address)
+        )
+        setLikeCount(likes)
+        setShareCount(shares)
+        setSaveCount(saves)
+        setLike(liked)
+        setSave(saved)
+        setShare(sharedSocial)
+      }
+    })()
+  }, [profileInfo])
+
+  useEffect(() => {
+    ;(async () => {
       if (!nftDetail) return
 
       setLoading(true)
@@ -315,16 +332,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
         )
         setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
       }
-
-      let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
-        new PublicKey(nftDetail.address)
-      )
-      setLikeCount(likes)
-      setShareCount(shares)
-      setSaveCount(saves)
-      setLike(liked)
-      setSave(saved)
-      setShare(sharedSocial)
 
       activityAPI.getNFTActivity(mintAddress).then(
         response => {
