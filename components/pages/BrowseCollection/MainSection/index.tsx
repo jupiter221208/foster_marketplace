@@ -20,7 +20,8 @@ import { useViewport } from 'utils'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
-import bannerImage from 'assets/images/banner-image.png'
+import bannerImage from 'assets/images/collection-banner.png'
+import avatarImage from 'assets/images/collection-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -112,7 +113,7 @@ const MainSection = props => {
           <div className="col-span-3"></div>
           <div className="col-span-6">
             <BrowseArtistCard
-              image={data?.cover_image}
+              image={data?.cover_image ?? avatarImage.src}
               collectionName={data?.collection_name}
               artistName={data?.artist_username}
               artistAddress={data?.minter_id}
@@ -224,7 +225,7 @@ const MainSection = props => {
       <div className="w-full">
         <div className="w-full flex justify-between items-center mt-[-50px] z-10">
           <BrowseArtistCard
-            image={data?.cover_image}
+            image={data?.cover_image ?? avatarImage.src}
             collectionName={data?.collection_name}
             artistName={data?.artist_username}
             artistAddress={data?.minter_id}

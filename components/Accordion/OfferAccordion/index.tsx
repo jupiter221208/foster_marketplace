@@ -128,7 +128,7 @@ const OfferAccordionItem = ({
                     <div className={styles.text}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
                   </div> */}
               <div className={styles.secondRow}>
-                <div className={styles.title}>{offerType === 'made' ? 'Buyer' : 'Seller'}</div>
+                <div className={styles.title}>{offerType === 'made' ? 'Seller' : 'Buyer'}</div>
                 {ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}
               </div>
               <div className={styles.firstRow}>
