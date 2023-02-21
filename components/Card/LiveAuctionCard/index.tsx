@@ -129,10 +129,10 @@ const LiveAuctionCard = props => {
         }}
       >
         {data.artist_profile_picture === null || data.artist_profile_picture.length === 0 ? (
-          <Image
+          <img
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-            src={AvatarImage}
+            src={AvatarImage.src}
             alt=""
             className="rounded-full"
           />
