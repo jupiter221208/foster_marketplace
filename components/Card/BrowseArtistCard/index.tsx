@@ -15,7 +15,7 @@ const BrowseArtistCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
-
+  console.log(collectionName, artistName)
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
@@ -32,8 +32,12 @@ const BrowseArtistCard = props => {
         </div>
       </div>
       <div className={styles.bottomSection}>
-        <div className={styles.collectionName}>{collectionName}</div>
-        {artistName && (
+        {collectionName ? (
+          <div className={styles.collectionName}>{collectionName}</div>
+        ) : (
+          <div className="w-full h-[22px]"></div>
+        )}
+        {artistName ? (
           <div
             className={styles.artistName}
             onClick={() => {
@@ -43,6 +47,8 @@ const BrowseArtistCard = props => {
           >
             Created by <span className={styles.greenText}>{artistName}</span>
           </div>
+        ) : (
+          <div className="w-full h-[22px]"></div>
         )}
       </div>
     </div>

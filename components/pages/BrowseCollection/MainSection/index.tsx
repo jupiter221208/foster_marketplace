@@ -209,17 +209,9 @@ const MainSection = props => {
     <div className={styles.container}>
       <div className={styles.headerImage}>
         {data?.banner_image !== null && data?.banner_image.length > 0 ? (
-          <img
-            src={data?.banner_image}
-            alt=""
-            width={1620}
-            height={480}
-            className="w-full h-full object-cover rounded-none"
-          />
+          <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
         ) : (
-          <div className="h-[132px]">
-            <img src={bannerImage.src} alt="" className="w-full h-full rounded-[20px] object-cover" />
-          </div>
+          <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
         )}
       </div>
       <div className="w-full">
@@ -230,7 +222,7 @@ const MainSection = props => {
             artistName={data?.artist_username}
             artistAddress={data?.minter_id}
           />
-          <div className="mt-0 flex">
+          <div className="flex">
             <div className="mr-[11px] lg:mr-[24px]">
               <MenuSocialShare
                 type="ellipse"
