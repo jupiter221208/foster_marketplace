@@ -267,7 +267,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   useEffect(() => {
     ;(async () => {
       if (profileInfo) {
-        console.log('=========', nftDetail.address)
         let { likes, shares, saves, liked, saved, sharedSocial } = await getNFTSocialInfo(
           new PublicKey(nftDetail.address)
         )

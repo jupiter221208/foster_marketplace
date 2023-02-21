@@ -39,7 +39,6 @@ interface LiveAuctionProps {
 const LiveAuction = ({ nftDetail }: LiveAuctionProps) => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
-  const router = useRouter()
 
   const [loading, setLoading] = useState(false)
   const [artistInfo, setArtistInfo] = useState(null)
@@ -48,8 +47,6 @@ const LiveAuction = ({ nftDetail }: LiveAuctionProps) => {
   const collectionId = nftDetail.collection?.address.toString()
   
   useEffect(() => {
-    console.log(nftDetail)
-
     if (!nftDetail) return
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
