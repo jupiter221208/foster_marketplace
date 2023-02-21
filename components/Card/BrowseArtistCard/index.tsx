@@ -15,7 +15,7 @@ const BrowseArtistCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
-  console.log(collectionName, artistName)
+
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>

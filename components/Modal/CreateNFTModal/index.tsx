@@ -133,10 +133,7 @@ const CreateNFTModal = props => {
                         label="Single"
                         width={221}
                         height={45}
-                        onClick={() => {
-                          closeModal()
-                          router.push('/create/single-nft')
-                        }}
+                        onClick={() => handleClickButton('/create/single-nft')}
                         backgroundColor01="#121212"
                         backgroundColor02="#2D625D"
                         gradientDirection="right"
@@ -149,10 +146,7 @@ const CreateNFTModal = props => {
                         label="Collection"
                         width={221}
                         height={45}
-                        onClick={() => {
-                          closeModal()
-                          router.push('/create/collection')
-                        }}
+                        onClick={() => handleClickButton('/create/collection')}
                         backgroundColor="transparent"
                         color="#95DBD5"
                         fontSize="16px"

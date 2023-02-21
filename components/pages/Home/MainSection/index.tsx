@@ -27,8 +27,6 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
-import InfoGreenIcon from 'assets/icons/info-green.svg'
-import alphaGreenIcon from 'assets/icons/alpha-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -47,7 +45,6 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
-  const [alphaExpand, setAlphaExpand] = useState(false)
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
