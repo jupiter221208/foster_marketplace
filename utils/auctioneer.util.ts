@@ -496,7 +496,7 @@ export async function executeSale(
     buyerAddress,
     associatedAddress,
     mintAddress,
-    price * 1000000000
+    price
   )
 
   const [sellerTradeState] = await getAuctionHouseTradeState(
@@ -530,7 +530,7 @@ export async function executeSale(
     freeTradeStateBump: freeTradeBump,
     programAsSignerBump: signerBump,
     auctioneerAuthorityBump: auctioneerAuthorityBump,
-    buyerPrice: price * 1000000000,
+    buyerPrice: price,
     tokenSize: 1,
   };
 
@@ -576,7 +576,7 @@ export async function executeSale(
     sale: {
       mintAddress,
       buyerAddress,
-      price
+      price: price / 1000000000
     }
   }
 }
