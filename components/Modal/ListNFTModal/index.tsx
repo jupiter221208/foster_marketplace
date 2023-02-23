@@ -21,6 +21,7 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 
 // solana
+import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { listNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 
@@ -31,14 +32,14 @@ import LoadingButton from 'components/Button/LoadingButton'
 const ListNFTModal = props => {
   const { data, open, onClose } = props
   const dispatch = useDispatch()
-  const [price, setPrice] = useState<number>()
+  const [price, setPrice] = useState<string>()
   const [listStatus, setListStatus] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
 
   const handleListNFTClick = async () => {
     setShowLoading(true)
-    const result: any = await listNFT(mx, data.mintAddress, price)
+    const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
     if (result) {
       listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
         console.log(response)
@@ -137,7 +138,7 @@ const ListNFTModal = props => {
                       <LoadingButton fullWidth />
                     ) : (
                       <GradientButton
-                        disabled={price !== undefined && price > 0 ? false : true}
+                        disabled={parseFloat(price ?? '0') <= 0}
                         label="List"
                         fontSize={18}
                         fullWidth
