@@ -23,7 +23,7 @@ const ModalPlaceBid = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [priceCheckMode, setPriceCheckMode] = useState(0)
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState<number>(0)
 
   const closeModal = () => {
     onClose()
@@ -47,7 +47,7 @@ const ModalPlaceBid = props => {
   useEffect(() => {
     if (open) {
       if (parseFloat(currentPrice) === 0) {
-        setPrice(reservePrice.toFixed(2))
+        setPrice(parseFloat(reservePrice.toFixed(2)))
       } else {
         let newPrice = (parseFloat(currentPrice) * 10 + 1) / 10
         let fixedPrice = newPrice.toFixed(2)
@@ -116,7 +116,7 @@ const ModalPlaceBid = props => {
                     value={price}
                     placeholder="Enter bid amount"
                     fullWidth
-                    onChange={value => setPrice(value)}
+                    onChange={value => setPrice(parseFloat(value))}
                   />
                 </div>
                 <div className="w-full mt-[30px]">

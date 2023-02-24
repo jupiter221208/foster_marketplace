@@ -278,14 +278,14 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
     }
   }
 
-  const placeBidAndSave = async price => {
+  const placeBidAndSave = async (price: string) => {
     if (price[0] === '.') {
       price = '0' + price
     }
 
     setAuctionLoading(true)
     try {
-      const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, price)
+      const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
       if (bid) {
         updateSolBalance()
         AuctionAPI.placeBid(mintAddress, {
