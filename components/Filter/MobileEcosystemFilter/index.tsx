@@ -34,7 +34,7 @@ const MobileEcosystemFilter = props => {
             <IconButton icon={CloseWhiteIcon} onClick={() => onClose()} />
           </div>
         </div>
-        <Disclosure>
+        {/* <Disclosure>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between">
@@ -54,7 +54,7 @@ const MobileEcosystemFilter = props => {
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
         <Disclosure>
           {({ open }) => (
             <>

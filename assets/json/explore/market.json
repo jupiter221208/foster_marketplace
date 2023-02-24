@@ -1,5 +1,5 @@
 [
-  { "id": "market-0", "label": "Primary", "value": "Primary", "disabled": true },
-  { "id": "market-1", "label": "Secondary", "value": "Secondary", "disabled": true },
-  { "id": "market-2", "label": "All", "value": "All" }
+  { "id": "market-0", "label": "Primary", "value": "primary" },
+  { "id": "market-1", "label": "Secondary", "value": "secondary" },
+  { "id": "market-2", "label": "All", "value": "all" }
 ]

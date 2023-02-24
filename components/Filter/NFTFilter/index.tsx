@@ -18,11 +18,19 @@ import styles from './index.module.scss'
 import RoyaltyRange from 'components/Range/RoyaltyRange'
 
 const NFTFilter = props => {
-  const { selectedAvailability, setSelectedAvailability, selectCategory } = props
+  const {
+    selectedAvailability,
+    setSelectedAvailability,
+    selectCategory,
+    selectedMedium,
+    setSelectedMedium,
+    selectedMarket,
+    setSelectedMarket,
+  } = props
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
-  const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
-  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
+  // const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
+  // const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -52,16 +60,16 @@ const NFTFilter = props => {
       />
       <div className={`${styles.title} mt-[52px]`}>AVAILABILITY</div>
       <Radio data={AvailabilityList} selected={selectedAvailability} onChange={item => setSelectedAvailability(item)} />
-      <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
-      <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} />
+      {/* <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
+      <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} /> */}
       <div className={`${styles.title} mt-[52px]`}>MARKET</div>
       <Radio data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />
       <div className={`${styles.title} mt-[52px]`}>MEDIUM</div>
       <Radio data={MediumList} selected={selectedMedium} onChange={item => setSelectedMedium(item)} />
-      <div className={`${styles.title} mt-[52px]`}>PRICE</div>
+      {/* <div className={`${styles.title} mt-[52px]`}>PRICE</div>
       <PriceRange />
       <div className={`${styles.title} mt-[52px]`}>ROYALTIES</div>
-      <RoyaltyRange />
+      <RoyaltyRange /> */}
       <div className={`${styles.title} mt-[52px]`}>CATEGORIES</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />

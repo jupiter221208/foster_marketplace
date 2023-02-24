@@ -12,6 +12,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
+import { getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 
 const ArtworksAccordion = props => {
   const { data } = props
@@ -47,14 +48,14 @@ const ArtworksAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.rankImage} alt="" width={52} height={52} className="rounded-[4px]" />
+                      <Image src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.artworkName01}</div>
+                      <div className={styles.subTitle}>{item.asset_name}</div>
                       <div className="flex gap-1 mt-1 items-center">
                         <div className={styles.priceText}>Sale Price</div>
                         <Image src={SolanaLogoIcon} width={16} height={16} alt="" />
-                        <div className={styles.priceValue}>{item.salePrice.toFixed(2)}</div>
+                        <div className={styles.priceValue}>{item.amount}</div>
                       </div>
                     </div>
                   </div>
@@ -66,23 +67,23 @@ const ArtworksAccordion = props => {
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Method of Sale</div>
-                    <div className={styles.text}>Quick Buy</div>
+                    <div className={styles.text}>{item.action_type}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Date</div>
-                    <div className={styles.text}>12/24/2023</div>
+                    <div className={styles.text}>{getLocalDate(item.created_at)}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Creator</div>
-                    <div className={styles.text}>Plumpadoodle</div>
+                    <div className={styles.text}>{getOwnerName(item)}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Collector</div>
-                    <div className={styles.text}>Circus Dragon</div>
+                    <div className={styles.text}>{getBuyerName(item)}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Primary</div>
-                    <div className={styles.text}>Primary</div>
+                    <div className={styles.text}>{item.market}</div>
                   </div>
                 </Disclosure.Panel>
               </>

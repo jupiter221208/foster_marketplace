@@ -1,7 +1,6 @@
 [
-  { "id": "availability-0", "label": "Fixed Price", "value": "Fixed Price", "disabled": true },
-  { "id": "availability-1", "label": "Live Auction", "value": "Live Auction", "disabled": true },
-  { "id": "availability-2", "label": "Reserve Met", "value": "Reserve Met", "disabled": true },
-  { "id": "availability-3", "label": "Not Listed", "value": "Not Listed", "disabled": true },
-  { "id": "availability-4", "label": "All", "value": "All" }
+  { "id": "availability-0", "label": "Fixed Price", "value": "fixed" },
+  { "id": "availability-1", "label": "Live Auction", "value": "timed" },
+  { "id": "availability-2", "label": "Not Listed", "value": "none" },
+  { "id": "availability-3", "label": "All", "value": "all" }
 ]

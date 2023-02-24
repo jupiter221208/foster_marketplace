@@ -26,7 +26,7 @@ const BrowseArtistCard = props => {
               alt=""
               width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
               height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
-              className="object-cover rounded-full"
+              className="w-full h-full object-cover rounded-full"
             />
           )}
         </div>

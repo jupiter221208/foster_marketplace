@@ -5,6 +5,8 @@ import SearchSection from '../SearchSection'
 import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
 
+import { useDispatch } from 'react-redux'
+
 // json
 import ArtworksList from 'assets/json/stats/artworks-list.json'
 import PopularCategoryList from 'assets/json/popular-category.json'
@@ -16,48 +18,105 @@ import { stringLengthValidate } from 'utils/strings'
 // styles
 import styles from './index.module.scss'
 
+// apis
+import StatsAPI from 'apis/stats'
+import ExplorePagination from 'components/Button/ExplorePagination'
+
 const ArtworksSection = () => {
-  const [searchWord, setSearchWord] = useState<any>('')
-  const [artWorksList, setArtworksList] = useState<any[]>([])
-  const [allList, setAllList] = useState<any[]>([])
+  const dispatch = useDispatch()
+
+  const [isMounted, setIsMounted] = useState(false)
+  const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
+  const [currentPage, setCurrentPage] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
+  const [rowCount, setRowCount] = useState(10)
+  const [period, setPeriod] = useState('all')
+
   useEffect(() => {
-    let array: any = [...ArtworksList]
-    array.map(item => {
-      item.category = PopularCategoryList.filter(elem => elem.id === item.categoryID)
-    })
-    setAllList(array)
-    setArtworksList(array)
-    setList(array)
+    getArtworkData(currentPage, period, searchWord, rowCount)
+    setIsMounted(true)
   }, [])
 
   useEffect(() => {
-    if (artWorksList.length !== 0 || stringLengthValidate(searchWord, 2)) {
-      const results = artWorksList.filter(elem => {
-        return (
-          elem.artworkName01.toLowerCase().includes(searchWord) ||
-          elem.artworkName02.toLowerCase().includes(searchWord) ||
-          elem.rank.toLowerCase().includes(searchWord)
-        )
-      })
-      setList(results)
-    }
-  }, [artWorksList, searchWord])
+    if (!isMounted) return
+    getArtworkData(currentPage, period, searchWord, rowCount)
+  }, [period])
+
+  const getSearchData = () => {
+    getArtworkData(currentPage, period, searchWord, rowCount)
+  }
+
+  const getArtworkData = (curPage, curDate, search, count) => {
+    dispatch({ type: 'set', isLoading: true })
+
+    StatsAPI.getStatsArtwork({
+      period: curDate,
+      search: search?.length === 0 ? null : search,
+      page: curPage + 1,
+      per_page: count,
+    }).then(
+      respone => {
+        dispatch({ type: 'set', isLoading: false })
+        const nfts = respone
+        setCurrentPage(curPage)
+        setTotalCount(count * curPage + nfts.length)
+        setList(nfts)
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        })
+      },
+      error => {
+        dispatch({ type: 'set', isLoading: false })
+      }
+    )
+  }
+
+  const selectRowCount = count => {
+    setRowCount(count)
+    getArtworkData(currentPage, period, searchWord, count)
+  }
+
+  const handleNextPage = () => {
+    if (totalCount < (currentPage + 1) * rowCount) return
+    const nextPage = currentPage + 1
+    getArtworkData(nextPage, period, searchWord, rowCount)
+  }
+
+  const handlePreviousPage = () => {
+    if (currentPage === 0) return
+    const prevPage = currentPage - 1
+    getArtworkData(prevPage, period, searchWord, rowCount)
+  }
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Highest Sales</div>
+      {/* <div className={styles.title}>Highest Sales</div>
       <div className="w-full mt-[25px]">
-        <CollectionSection list={ArtworksCollectionList} />
-      </div>
+        <CollectionSection list={ArtworksCollectionList} />{' '}
+      </div> */}
       <SearchSection
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
-        list={allList}
-        getList={list => setArtworksList(list)}
+        period={period}
+        setPeriod={setPeriod}
+        onSearch={() => getSearchData()}
       />
       <div className="mt-[20px]">
         <TableSections data={list} />
+      </div>
+      <div className="w-full flex justify-end">
+        <ExplorePagination
+          currentPage={currentPage}
+          totalCount={totalCount}
+          rowCount={rowCount}
+          setRowCount={count => {
+            selectRowCount(count)
+          }}
+          handleNext={handleNextPage}
+          handlePrev={handlePreviousPage}
+        />
       </div>
     </div>
   )

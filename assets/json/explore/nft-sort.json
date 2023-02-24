@@ -1,8 +1,7 @@
 [
-  { "id": 0, "label": "Recently Minted", "value": "Recently Minted", "disabled": false },
-  { "id": 1, "label": "Most Popular", "value": "Most Popular", "disabled": false },
-  { "id": 2, "label": "Alphabetical (A-Z)", "value": "Alphabetical (A-Z)", "disabled": false },
-  { "id": 3, "label": "Alphabetical (Z-A)", "value": "Alphabetical (Z-A)", "disabled": false },
-  { "id": 4, "label": "Least Expensive", "value": "Least Expensive", "disabled": true },
-  { "id": 5, "label": "Most Expensive", "value": "Most Expensive", "disabled": true }
+  { "id": 0, "label": "Newest Mint", "value": "newest", "disabled": false },
+  { "id": 1, "label": "Oldest Mint", "value": "oldest", "disabled": false },
+  { "id": 2, "label": "Most Popular", "value": "trending", "disabled": false },
+  { "id": 3, "label": "Alphabetical (A-Z)", "value": "alpha", "disabled": false },
+  { "id": 4, "label": "Alphabetical (Z-A)", "value": "alpha_rev", "disabled": false }
 ]

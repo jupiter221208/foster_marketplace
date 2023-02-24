@@ -60,7 +60,10 @@ const MobileCollectionFilter = props => {
             <>
               <Disclosure.Button className="flex w-full justify-between">
                 <div className={styles.subTitle}>ARTIST VERIFICATION</div>
-                <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                <ChevronUpIcon
+                  className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
+                  style={{ color: '#95DBD5' }}
+                />
               </Disclosure.Button>
               <Disclosure.Panel>
                 <Radio
@@ -80,7 +83,7 @@ const MobileCollectionFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>CATEGORIES</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>

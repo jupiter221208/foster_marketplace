@@ -11,6 +11,8 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 // apis
 import AuctionAPI from 'apis/auctions'
 
+import { getBuyerName, getOwnerName } from 'utils/helpers'
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -391,23 +393,6 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
         }
       )
     }
-  }
-
-  const getOwnerName = item => {
-    if (item.owner_username !== null && item.owner_username !== '') return item.owner_username
-
-    if (item.owner_address !== null) return item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)
-
-    return 'N/A'
-  }
-
-  const getBuyerName = item => {
-    if (item.reference_username !== null && item.reference_username !== '') return item.reference_username
-
-    if (item.reference_address !== null)
-      return item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
-
-    return 'N/A'
   }
 
   const gotoUserDetail = link => {

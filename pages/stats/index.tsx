@@ -27,13 +27,14 @@ import TabList from 'assets/json/stats/tab-list.json'
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
+import HouseStatsTab from 'components/Tab/HouseStatsTab'
 
 const Stats = () => {
   const viewport = useViewport()
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
-  const [previewMode, setPreviewMode] = useState(true)
+  const [previewMode, setPreviewMode] = useState(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -50,7 +51,7 @@ const Stats = () => {
   }, [activeTab])
 
   const handleSelectedTab = item => {
-    setActiveTab(item.id)
+    if (item.id === 0) setActiveTab(item.id)
   }
 
   return (
@@ -66,18 +67,19 @@ const Stats = () => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
-          <div className="mt-[10px] lg:mt-[84px] w-full flex relative overflow-hidden justify-between z-10 h-[42px]">
-            <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px]">
+            <HouseStatsTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+
             {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && (
               <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
             )}
           </div>
-          <div className="mt-8 lg:mt-16 w-full z-10">
+          <div className="mt-0 lg:mt-8 lg:mt-16 w-full z-10">
             {activeTab === 0 && <ArtworksSection />}
-            {activeTab === 1 && <CollectionsSection />}
+            {/* {activeTab === 1 && <CollectionsSection />}
             {activeTab === 2 && <CreatorsSection />}
             {activeTab === 3 && <CollectorsSection />}
-            {activeTab === 4 && <MarketplaceSection />}
+            {activeTab === 4 && <MarketplaceSection />} */}
           </div>
         </div>
       </div>

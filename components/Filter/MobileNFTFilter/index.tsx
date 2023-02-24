@@ -27,13 +27,13 @@ import CategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 
 const MobileNFTFilter = props => {
-  const { category, onClose, onFilter } = props
+  const { category, availability, medium, market, onClose, onFilter } = props
 
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
-  const [selectedAvailability, setSelectedAvailability] = useState<any>(AvailabilityList[4])
+  const [selectedAvailability, setSelectedAvailability] = useState<any>(availability)
   const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
-  const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
-  const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
+  const [selectedMarket, setSelectedMarket] = useState<any>(market)
+  const [selectedMedium, setSelectedMedium] = useState<any>(medium)
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const MobileNFTFilter = props => {
                 <div className={styles.subTitle}>ARTIST VERIFICATION</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -93,7 +93,7 @@ const MobileNFTFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>AVAILABILITY</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -108,7 +108,7 @@ const MobileNFTFilter = props => {
           )}
         </Disclosure>
 
-        <Disclosure>
+        {/* <Disclosure>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
@@ -128,7 +128,7 @@ const MobileNFTFilter = props => {
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
 
         <Disclosure>
           {({ open }) => (
@@ -137,7 +137,7 @@ const MobileNFTFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>MARKET</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -158,7 +158,7 @@ const MobileNFTFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>MEDIUM</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -172,7 +172,7 @@ const MobileNFTFilter = props => {
             </>
           )}
         </Disclosure>
-        <Disclosure>
+        {/* <Disclosure>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
@@ -187,7 +187,7 @@ const MobileNFTFilter = props => {
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
         <Disclosure>
           {({ open }) => (
             <>
@@ -195,7 +195,7 @@ const MobileNFTFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>CATEGORIES</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -223,7 +223,19 @@ const MobileNFTFilter = props => {
           />
         </div>
         <div className="w-[94px]">
-          <GradientButton label="Done" onClick={() => onFilter({ category: categoryList })} color="#202427" fullWidth />
+          <GradientButton
+            label="Done"
+            onClick={() =>
+              onFilter({
+                category: categoryList,
+                availability: selectedAvailability,
+                medium: selectedMedium,
+                market: selectedMarket,
+              })
+            }
+            color="#202427"
+            fullWidth
+          />
         </div>
       </div>
     </div>

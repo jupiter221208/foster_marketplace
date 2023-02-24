@@ -11,6 +11,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
+import { getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
 
 const ArtworksTable = props => {
   const { data } = props
@@ -38,22 +39,22 @@ const ArtworksTable = props => {
               <td>
                 <div className="flex gap-2 mx-3 items-center">
                   <div className="min-w-[38px] w-[38x]">
-                    <Image src={item.rankImage} alt="" width={38} height={38} className="rounded-[8px]" />
+                    <Image src={item.asset_url} alt="" width={38} height={38} className="rounded-[8px]" />
                   </div>
-                  <div className="flex justify-center">{item.artworkName01}</div>
+                  <div className="flex justify-center">{item.asset_name}</div>
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                  {item.salePrice.toFixed(2)}
+                  {item.amount}
                 </div>
               </td>
-              <td className={`text-center ${styles.brand06Text}`}>{item.category[0]?.name}</td>
-              <td className="text-center">{item.views}</td>
-              <td className="text-center">{item.shares}</td>
-              <td className="text-center">{item.likes}</td>
-              <td className="text-center">{item.offers}</td>
+              <td className={`text-center ${styles.brand06Text}`}>{item.action_type}</td>
+              <td className="text-center">{getLocalDate(item.created_at)}</td>
+              <td className="text-center">{getOwnerName(item)}</td>
+              <td className="text-center">{getBuyerName(item)}</td>
+              <td className="text-center">{item.market}</td>
             </tr>
           )
         })}

@@ -15,45 +15,12 @@ import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 
 // styles
 import styles from './index.module.scss'
-import { countDecimals } from 'utils/helpers'
+import { countDecimals, getBuyerName, getOwnerName } from 'utils/helpers'
 
 const ActivityTable = props => {
   const { data, type } = props
   const viewport = useViewport()
   const router = useRouter()
-
-  const getOwnerName = item => {
-    if (item.owner_username !== null && item.owner_username.length > 0) {
-      return item.owner_username
-    }
-
-    if (item.owner_address !== null && item.owner_address.length > 11) {
-      return item.owner_address.slice(0, 5) + '...' + item.owner_address.slice(-3)
-    }
-    return 'N/A'
-  }
-
-  const getReferenceName = item => {
-    if (item.reference_username !== null && item.reference_username.length > 0) {
-      return item.reference_username
-    }
-
-    if (item.reference_address !== null && item.reference_address.length > 11) {
-      return item.reference_address.slice(0, 5) + '...' + item.reference_address.slice(-3)
-    }
-    return 'N/A'
-  }
-
-  const getMinterName = item => {
-    if (item.minter_username !== null && item.minter_username.length > 0) {
-      return item.minter_username
-    }
-
-    if (item.minter_address !== null && item.minter_address.length > 11) {
-      return item.minter_address.slice(0, 5) + '...' + item.minter_address.slice(-3)
-    }
-    return 'N/A'
-  }
 
   return (
     <table id="ActivityTable" className="w-full table-auto">
@@ -110,7 +77,7 @@ const ActivityTable = props => {
               </div>
             </td>
             {/* <td className="text-center">{getMinterName(item)}</td> */}
-            <td className="text-center">{isBuyerExisting(item.action_type) ? getReferenceName(item) : 'N/A'}</td>
+            <td className="text-center">{isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}</td>
             <td className="text-center">{getOwnerName(item)}</td>
           </tr>
         ))}

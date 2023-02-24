@@ -8,78 +8,51 @@ import GradientButton from 'components/Button/GradientButton'
 import styles from './index.module.scss'
 
 const SearchSection = props => {
-  const { searchWord, setSearchWord, list, getList } = props
-
-  const [searchList, setSearchList] = useState(list)
-
-  const [active, setActive] = useState(3)
-
-  useEffect(() => {
-    setSearchList(list)
-  }, [])
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setSearchList(list.slice(0, 5))
-        break
-      case 1:
-        setSearchList(list.slice(0, 10))
-        break
-      case 2:
-        setSearchList(list.slice(0, 15))
-        break
-      default:
-        setSearchList(list)
-        break
-    }
-  }
-
-  useEffect(() => {
-    getList(searchList)
-  }, [searchList])
+  const { searchWord, period, setPeriod, setSearchWord, onSearch } = props
 
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-between gap-[20px]">
-        <StatsSearchBox
-          value={searchWord}
-          placeholder="Search by artwork name"
-          onChange={value => setSearchWord(value)}
-        />
+        <div className="w-[500px] flex items-center gap-2">
+          <StatsSearchBox
+            value={searchWord}
+            placeholder="Search by artwork name"
+            onChange={value => setSearchWord(value)}
+          />
+          <GradientButton label="Search" height="45px" onClick={() => onSearch()} />
+        </div>
+
         <div className="sm:w-auto xs:w-full flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
           <GradientButton
             label="24 hrs"
-            onClick={() => handleChangeActive(0)}
-            color={active === 0 ? '#202427' : '#979EA2'}
-            backgroundColor01={active === 0 ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={active === 0 ? '#2D625D' : 'transparent'}
+            onClick={() => setPeriod('day')}
+            color={period === 'day' ? '#202427' : '#979EA2'}
+            backgroundColor01={period === 'day' ? '#5ac3ba' : 'transparent'}
+            backgroundColor02={period === 'day' ? '#2D625D' : 'transparent'}
             gradientDirection="bottom"
           />
           <GradientButton
             label="7 days"
-            onClick={() => handleChangeActive(1)}
-            color={active === 1 ? '#202427' : '#979EA2'}
-            backgroundColor01={active === 1 ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={active === 1 ? '#2D625D' : 'transparent'}
+            onClick={() => setPeriod('week')}
+            color={period === 'week' ? '#202427' : '#979EA2'}
+            backgroundColor01={period === 'week' ? '#5ac3ba' : 'transparent'}
+            backgroundColor02={period === 'week' ? '#2D625D' : 'transparent'}
             gradientDirection="bottom"
           />
           <GradientButton
             label="30 days"
-            onClick={() => handleChangeActive(2)}
-            color={active === 2 ? '#202427' : '#979EA2'}
-            backgroundColor01={active === 2 ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={active === 2 ? '#2D625D' : 'transparent'}
+            onClick={() => setPeriod('month')}
+            color={period === 'month' ? '#202427' : '#979EA2'}
+            backgroundColor01={period === 'month' ? '#5ac3ba' : 'transparent'}
+            backgroundColor02={period === 'month' ? '#2D625D' : 'transparent'}
             gradientDirection="bottom"
           />
           <GradientButton
             label="All Time"
-            onClick={() => handleChangeActive(3)}
-            color={active === 3 ? '#202427' : '#979EA2'}
-            backgroundColor01={active === 3 ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={active === 3 ? '#2D625D' : 'transparent'}
+            onClick={() => setPeriod('all')}
+            color={period === 'all' ? '#202427' : '#979EA2'}
+            backgroundColor01={period === 'all' ? '#5ac3ba' : 'transparent'}
+            backgroundColor02={period === 'all' ? '#2D625D' : 'transparent'}
             gradientDirection="bottom"
           />
         </div>

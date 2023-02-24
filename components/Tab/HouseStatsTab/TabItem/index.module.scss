@@ -1,0 +1,64 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  color: rgba($text-gray-200-color, 0.8);
+  &:focus {
+    outline: none;
+  }
+  font-size: 13px;
+  @media (min-width: 1280px) {
+    font-size: 18px;
+    height: 40px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 20px;
+    height: 40px;
+  }
+  white-space: nowrap;
+}
+
+.activeTab {
+  font-family: 'Muli-ExtraBold';
+  color: $text-gray-200-color;
+}
+
+.underline {
+  width: auto;
+  height: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  background-color: $brand-09-color;
+}
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 250px;
+  background: rgba($background-light-color, 0.2);
+  border: 1px solid rgba($background-light-color, 0.1);
+  border-radius: 8px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-family: 'Muli-Regular';
+
+  padding: 4px 4px;
+  font-size: 12px;
+  line-height: 18px;
+
+  @media (min-width: 1024px) {
+    top: 40px;
+    width: 360px;
+    padding: 10px 10px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  color: $text-gray-200-color;
+}

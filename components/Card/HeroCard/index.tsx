@@ -5,6 +5,8 @@ import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -15,8 +17,20 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 const HeroCard = props => {
   const { data } = props
   const viewport = useViewport()
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   const onClick = () => {}
+
+  const gotoAristPage = () => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/artist-profile?id=${data.artist_id}`)
+  }
+
+  const gotoNftDetailPage = () => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/browse-nft?id=${data.token_id}`)
+  }
 
   return (
     <div className={styles.container}>
@@ -37,6 +51,7 @@ const HeroCard = props => {
               width={550}
               height={772}
               className="w-full h-full object-cover rounded-[30px]"
+              onClick={() => gotoNftDetailPage()}
             />
           ) : data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -46,7 +61,7 @@ const HeroCard = props => {
                     src={data.cover_image_url}
                     alt=""
                     className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    onClick={() => onClick()}
+                    onClick={() => gotoNftDetailPage()}
                   />
                 ) : (
                   <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
@@ -59,7 +74,7 @@ const HeroCard = props => {
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
               <source src=${data.asset_url} type="video/mp4" /></video>`,
                 }}
-                onClick={() => onClick()}
+                onClick={() => gotoNftDetailPage()}
               />
             )
           ) : data.asset_type.includes('audio') ? (
@@ -68,7 +83,7 @@ const HeroCard = props => {
                 src={data.cover_image_url}
                 alt=""
                 className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                onClick={() => onClick()}
+                onClick={() => gotoNftDetailPage()}
               />
             ) : (
               <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
@@ -80,7 +95,7 @@ const HeroCard = props => {
       </div>
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div className={styles.avatarArea}>
-          <div className={styles.avatar}>
+          <div className={styles.avatar} onClick={() => gotoAristPage()}>
             <img
               src={
                 data.artist_profile_picture &&
@@ -99,29 +114,16 @@ const HeroCard = props => {
       ) : (
         <div className={styles.cardArea}>
           <div className="flex justify-between gap-[6px]">
-            <div className="flex lg:hidden justify-start items-center lg:mt-[10px]">
-              <div className={styles.avatar}>
-                <img
-                  src={
-                    data.artist_profile_picture &&
-                    data.artist_profile_picture !== '' &&
-                    data.artist_profile_picture !== undefined
-                      ? data.artist_profile_picture
-                      : '/images/avatar.png'
-                  }
-                  alt=""
-                  width={viewport === 'lg' ? 40 : 60}
-                  height={viewport === 'lg' ? 40 : 60}
-                  className="rounded-full"
-                />
+            <div className="w-full block">
+              <div className={styles.nftName} onClick={() => gotoNftDetailPage()}>
+                {data.nft_name}
+              </div>
+              <div className={`flex ${styles.artistName}`} onClick={() => gotoAristPage()}>
+                {data.artist_username || 'Ecosystem Artist'}
               </div>
             </div>
-            <div className="w-full block">
-              <div className={styles.nftName}>{data.nft_name}</div>
-              <div className={`flex ${styles.artistName}`}>{data.artist_username || 'Ecosystem Artist'}</div>
-            </div>
-            <div className="hidden lg:flex justify-start items-center lg:mt-[10px]">
-              <div className={styles.avatar}>
+            <div className="justify-start items-center lg:mt-[10px]">
+              <div className={styles.avatar} onClick={() => gotoAristPage()}>
                 <img
                   src={
                     data.artist_profile_picture &&

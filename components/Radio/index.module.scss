@@ -11,7 +11,7 @@
   border-radius: 12px;
 
   &:checked {
-    border: 2px solid $brand-03-color;
+    border: 2px solid $brand-09-color;
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@
       width: 16px;
       height: 16px;
       border-radius: 8px;
-      background-color: $brand-03-color;
+      background-color: $brand-09-color;
     }
   }
   &:focus {

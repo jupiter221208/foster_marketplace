@@ -1,10 +1,7 @@
 [
-  { "id": 0, "label": "Recently Minted", "value": "Recently Minted", "disabled": false },
-  { "id": 1, "label": "Most Collectors", "value": "Most Collectors", "disabled": true },
-  { "id": 2, "label": "Trending", "value": "Trending", "disabled": false },
-  { "id": 3, "label": "Total Volume", "value": "Total Volume", "disabled": true },
-  { "id": 4, "label": "Alphabetical (A-Z)", "value": "Alphabetical (A-Z)", "disabled": false },
-  { "id": 5, "label": "Alphabetical (Z-A)", "value": "Alphabetical (Z-A)", "disabled": false },
-  { "id": 6, "label": "Floor Price (Highest)", "value": "Floor Price (Highest)", "disabled": true },
-  { "id": 7, "label": "Floor Price (Lowest)", "value": "Floor Price (Lowest)", "disabled": true }
+  { "id": 0, "label": "Newest Collection", "value": "newest", "disabled": false },
+  { "id": 1, "label": "Oldest Collection", "value": "oldest", "disabled": false },
+  { "id": 2, "label": "Trending", "value": "trending", "disabled": false },
+  { "id": 3, "label": "Alphabetical (A-Z)", "value": "alpha", "disabled": false },
+  { "id": 4, "label": "Alphabetical (Z-A)", "value": "alpha_rev", "disabled": false }
 ]

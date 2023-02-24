@@ -1,6 +1,6 @@
 [
-  { "id": "medium-0", "label": "Image/GIF", "value": "Image/GIF", "disabled": true },
-  { "id": "medium-1", "label": "Video", "value": "Video", "disabled": true },
-  { "id": "medium-2", "label": "Audio", "value": "Audio", "disabled": true },
-  { "id": "medium-3", "label": "All", "value": "All" }
+  { "id": "medium-0", "label": "Image/GIF", "value": "image" },
+  { "id": "medium-1", "label": "Video", "value": "video" },
+  { "id": "medium-2", "label": "Audio", "value": "audio" },
+  { "id": "medium-3", "label": "All", "value": "all" }
 ]

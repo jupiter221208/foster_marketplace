@@ -240,35 +240,16 @@
       },
       {
         "id": 3,
-        "title": "How can I get on the Turkey Circus Whitelist?",
-        "description": [
-          "Our core team will be providing various opportunities in the <u><a href='https://discord.com/invite/fostermarketplace'>Foster Marketplace Discord</a></u> to earn a Turkey Circus whitelist spot."
-        ]
-      },
-      {
-        "id": 4,
-        "title": "What is the date for the Turkey Circus whitelist mint?",
-        "description": ["Thursday, November 24 – Thanksgiving 2022"]
-      },
-      {
-        "id": 5,
-        "title": "How can I purchase a Turkey Circus NFT if I did not get on the whitelist?",
-        "description": [
-          "If you were not able to get a whitelist spot in time, you can purchase a Turkey Circus NFT from secondary sales on any NFT marketplace the NFT is listed."
-        ]
-      },
-      {
-        "id": 6,
         "title": "Are there secondary sales royalties?",
         "description": ["Yes, secondary royalties are 5%"]
       },
       {
-        "id": 7,
+        "id": 4,
         "title": "Who receives the royalties from secondary sales?",
         "description": ["The artist, core team, and development team"]
       },
       {
-        "id": 8,
+        "id": 5,
         "title": "How are the funds from the Turkey Circus sale being allocated?",
         "description": [
           "The proceeds of the Turkey Circus mint will be distributed to each entity (both the core team and community) contributing to its success, as well as the long-term initiative of the project. The allocation breakdown is as follows: ",
@@ -281,26 +262,26 @@
         ]
       },
       {
-        "id": 9,
+        "id": 6,
         "title": "When will the Turkey Circus DAO launch?",
         "description": ["Turkey Circus governance will be enabled during the beta release of Foster Marketplace."]
       },
       {
-        "id": 10,
+        "id": 7,
         "title": "What types of proposals will be governed by Turkey Circus holders?",
         "description": [
           "The Turkey Circus DAO governs Foster community initiatives as well as the curation of Foster House Art, and various marketplace product features."
         ]
       },
       {
-        "id": 11,
+        "id": 8,
         "title": "How can I participate in governance activities by the Turkey Circus DAO?",
         "description": [
           "Turkey Circus DAO activities can be accessed directly from the marketplace. The team will be deploying a DAO user-interface that can only be accessed by wallets holding Turkey Circus NFTs."
         ]
       },
       {
-        "id": 12,
+        "id": 9,
         "title": "What is the Turkey Circus website?",
         "description": [
           "You can learn more about Turkey Circus by visiting <u><a href='https://mint.turkeycircus.io'>https://mint.turkeycircus.io</a></u>"

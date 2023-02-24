@@ -10,14 +10,14 @@ import GradientButton from 'components/Button/GradientButton'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 
 // json
-import ProfileList from 'assets/json/explore/profile.json'
+import NFTSortList from 'assets/json/explore/nft-sort.json'
 
 // styles
 import styles from './index.module.scss'
 
 const MobileSort = props => {
-  const { data, onClose } = props
-  const [selectedSort, setSelectedSort] = useState(ProfileList[0])
+  const { data, sort, onSort, onClose } = props
+  const [selectedSort, setSelectedSort] = useState(sort)
 
   return (
     <div className={styles.container}>
@@ -42,7 +42,16 @@ const MobileSort = props => {
           />
         </div>
         <div className="w-[94px]">
-          <GradientButton label="Done" onClick={() => onClose()} color="#202427" fullWidth />
+          <GradientButton
+            label="Done"
+            onClick={() => {
+              onSort({
+                sort: selectedSort,
+              })
+            }}
+            color="#202427"
+            fullWidth
+          />
         </div>
       </div>
     </div>

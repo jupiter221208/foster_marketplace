@@ -1,3 +1,5 @@
+import * as moment from 'moment'
+
 export const calculateTimeLeft = endDate => {
   let difference = +new Date(endDate) - +new Date()
 
@@ -108,4 +110,28 @@ export const copyClipboardAlert = identifier => {
   setTimeout(function () {
     document.getElementById(identifier).style.display = 'none'
   }, 1000)
+}
+
+export const getOwnerName = item => {
+  if (item.owner_username !== null && item.owner_username !== '') return item.owner_username
+
+  if (item.owner_address !== null) return item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)
+
+  return 'N/A'
+}
+
+export const getBuyerName = item => {
+  if (item.reference_username !== null && item.reference_username !== '') return item.reference_username
+
+  if (item.reference_address !== null)
+    return item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
+
+  return 'N/A'
+}
+
+export const getLocalDate = dateString => {
+  var utcDate = moment.utc(dateString)
+  var fmt = 'MM/DD/YYYY hh:mm:ss'
+  const localDate = utcDate.local().format(fmt)
+  return localDate
 }

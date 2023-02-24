@@ -95,6 +95,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
+import { getBuyerName, getOwnerName } from 'utils/helpers'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -413,23 +414,6 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
         }
       )
     }
-  }
-
-  const getOwnerName = item => {
-    if (item.owner_username !== null && item.owner_username !== '') return item.owner_username
-
-    if (item.owner_address !== null) return item.owner_address.slice(0, 4) + '...' + item.owner_address.slice(-4)
-
-    return 'N/A'
-  }
-
-  const getBuyerName = item => {
-    if (item.reference_username !== null && item.reference_username !== '') return item.reference_username
-
-    if (item.reference_address !== null)
-      return item.reference_address.slice(0, 4) + '...' + item.reference_address.slice(-4)
-
-    return 'N/A'
   }
 
   const gotoUserDetail = link => {
