@@ -701,7 +701,7 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
                               <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
-                                <th>From</th>
+                                <th>Buyer</th>
                                 <th>Date</th>
                               </tr>
                             </thead>
@@ -710,8 +710,8 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
                               <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
-                                <th>From</th>
-                                <th>To</th>
+                                <th>Buyer</th>
+                                <th>Seller</th>
                                 <th>Date</th>
                               </tr>
                             </thead>
