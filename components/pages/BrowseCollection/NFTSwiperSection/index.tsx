@@ -118,7 +118,7 @@ const NFTSwiperSection = ({ nfts }) => {
           )}
         </div>
 
-        <div className="w-full flex lg:hidden justify-center">
+        {/* <div className="w-full flex lg:hidden justify-center">
           <div className="w-full max-w-[242px] z-10 mt-[30px]">
             <OutlineButton
               label="See More"
@@ -128,7 +128,7 @@ const NFTSwiperSection = ({ nfts }) => {
               height="40px"
             />
           </div>
-        </div>
+        </div> */}
       </section>
     )
   )
