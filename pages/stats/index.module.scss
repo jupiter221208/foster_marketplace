@@ -36,3 +36,21 @@
     line-height: 54px;
   }
 }
+
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 100%;
+  background: rgba($background-light-color, 0.2);
+
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-family: 'Muli-Regular';
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 12px;
+  line-height: 18px;
+
+  color: $text-gray-200-color;
+}

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { useViewport } from 'utils'
+
 // third party component
 import { Tab as HTab } from '@headlessui/react'
 
@@ -8,6 +10,7 @@ import styles from './index.module.scss'
 
 const TabItem = props => {
   const { item, onChange } = props
+  const viewport = useViewport()
   const [hover, setHover] = useState(false)
   return (
     <div className="relative">
@@ -20,7 +23,8 @@ const TabItem = props => {
         {item.label}
       </button>
       {item.selected && <div className={styles.underline}></div>}
-      {item?.coming_soon && hover && (
+
+      {viewport !== 'xs' && viewport !== 'md' && viewport !== 'sm' && item?.coming_soon && hover && (
         <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
       )}
     </div>

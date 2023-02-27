@@ -35,6 +35,7 @@ const Stats = () => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
+  const [comingSoon, setComingSoon] = useState(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -67,9 +68,21 @@ const Stats = () => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
-          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px]">
-            <HouseStatsTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-
+          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px] lg:h-[90px]">
+            <HouseStatsTab
+              tabList={tabList}
+              onChange={item => {
+                if (item.coming_soon === true) {
+                  setComingSoon(true)
+                  setTimeout(() => {
+                    setComingSoon(false)
+                  }, 3000)
+                } else handleSelectedTab(item)
+              }}
+            />
+            {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && comingSoon && (
+              <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
+            )}
             {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && (
               <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
             )}
