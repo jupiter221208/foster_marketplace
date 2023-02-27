@@ -28,6 +28,7 @@ const ArtworksSection = () => {
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
+  const [feedList, setFeedList] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(10)
@@ -62,6 +63,7 @@ const ArtworksSection = () => {
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
+        if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({
           top: 0,
           behavior: 'smooth',
@@ -92,10 +94,10 @@ const ArtworksSection = () => {
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.title}>Highest Sales</div>
+      <div className={styles.title}>Highest Sales</div>
       <div className="w-full mt-[25px]">
-        <CollectionSection list={ArtworksCollectionList} />{' '}
-      </div> */}
+        <CollectionSection list={feedList} />
+      </div>
       <SearchSection
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
