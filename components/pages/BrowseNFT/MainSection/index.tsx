@@ -857,6 +857,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
       />
       {openReportModal && (
         <ReportAnIssueModal
+          siteUrl={`/browse-nft?id=${id}`}
+          wallet={connected ? publicKey?.toString() : null}
           open={openReportModal}
           close={() => {
             setOpenReportModal(false)

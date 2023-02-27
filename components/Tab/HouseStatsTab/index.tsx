@@ -4,7 +4,6 @@ import React, { Fragment } from 'react'
 import { Tab as HTab } from '@headlessui/react'
 
 // styles
-import styles from './index.module.scss'
 import TabItem from './TabItem'
 
 const HouseStatsTab = props => {

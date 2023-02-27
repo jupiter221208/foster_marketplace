@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react'
+import bs58 from 'bs58'
 
 // next components
 import Image from 'next/image'
@@ -35,9 +36,11 @@ interface selectedReportProps {
 }
 
 const ReportAnIssueModal = props => {
-  const { open, close } = props
+  const { open, close, siteUrl, wallet } = props
 
   const viewport = useViewport()
+
+  const fullSiteUrl = globalThis.window?.origin + siteUrl
 
   const [step, setStep] = useState(1)
   const [selectedReport, setSelectedReport] = useState<selectedReportProps>({
@@ -49,6 +52,64 @@ const ReportAnIssueModal = props => {
   const [email, setEmail] = useState('')
   const [comment, setComment] = useState('')
   const [url, setUrl] = useState('')
+
+  function encode(data) {
+    console.log(data)
+
+    console.log(Object.keys(data))
+    return Object.keys(data)
+      .map(key => {
+        encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
+      })
+      .join('&')
+  }
+
+  function makeBodyPart() {
+    let body = {
+      'form-name': 'report',
+      url: fullSiteUrl,
+      wallet_id: wallet,
+    }
+    switch (selectedReport.id) {
+      case 0:
+        body['event-type'] = 'Violent'
+        break
+      case 1:
+        body['event-type'] = 'Hateful'
+        break
+      case 2:
+        body['event-type'] = 'Graphic Sexual Content'
+        break
+      case 3:
+        body['event-type'] = 'Counterfeit Artwork'
+        body['email'] = email
+        body['original-url'] = url
+        break
+      case 4:
+        body['event-type'] = 'User Misrepresentation'
+        body['email'] = email
+        body['artist-url'] = url
+        break
+      case 5:
+        body['event-type'] = 'Other Suspicious Activity'
+        body['email'] = email
+        body['artist-url'] = comment
+        break
+      default:
+        body['event-type'] = 'Violent'
+    }
+    return body
+  }
+
+  const handleSubmit = event => {
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encode(makeBodyPart()),
+    })
+      .then(() => setStep(3))
+      .catch(error => alert(error))
+  }
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -123,94 +184,103 @@ const ReportAnIssueModal = props => {
                 </Dialog.Panel>
               ) : step === 2 ? (
                 <Dialog.Panel className={styles.modalView}>
-                  <div className={styles.backButton} onClick={() => setStep(1)}>
-                    <Image src={ArrowleftCircleGrayIcon} alt="" width={8} height={15} />
-                  </div>
-                  <div className="absolute top-[17px] right-[19px] z-20">
-                    <IconButton
-                      icon={CloseWhiteIcon}
-                      onClick={() => close()}
-                      backgroundColor="#495255"
-                      width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '25px' : '30px'}
-                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '25px' : '30px'}
-                      borderRadius="15px"
-                      iconWidth={12}
-                      iconHeight={12}
-                    />
-                  </div>
-                  <div className="w-full mt-[50px] text-center lg:text-left">
-                    <div className={styles.title}>{selectedReport.value}</div>
-                  </div>
-                  <div className="w-full mt-5">
-                    <span className={styles.text}>{selectedReport.description}</span>
-                  </div>
-                  {selectedReport.id === 3 ? (
-                    <div>
-                      <div className="w-full mt-[30px]">
-                        <Input
-                          value={email}
-                          placeholder="Email Address"
-                          borderColor="transparent"
-                          onChange={(value: string) => setEmail(value)}
-                          label="Contact details *"
-                        />
-                      </div>
-                      <div className="w-full mt-[30px]">
-                        <Input
-                          value={url}
-                          placeholder="https://"
-                          borderColor="transparent"
-                          onChange={(value: string) => setUrl(value)}
-                          label="URL of Original Artwork *"
-                        />
-                      </div>
-                    </div>
-                  ) : selectedReport.id === 4 ? (
-                    <div>
-                      <div className="w-full mt-[30px]">
-                        <Input
-                          value={email}
-                          placeholder="Email Address"
-                          borderColor="transparent"
-                          onChange={(value: string) => setEmail(value)}
-                          label="Contact details *"
-                        />
-                      </div>
-                      <div className="w-full mt-[30px]">
-                        <Input
-                          value={url}
-                          placeholder="https://"
-                          borderColor="transparent"
-                          onChange={(value: string) => setUrl(value)}
-                          label="URL of Impersonated Artist/Person*"
-                        />
-                      </div>
-                    </div>
-                  ) : selectedReport.id === 5 ? (
-                    <div>
-                      <div className="w-full mt-[30px]">
-                        <Input
-                          value={email}
-                          placeholder="Email Address"
-                          borderColor="transparent"
-                          onChange={(value: string) => setEmail(value)}
-                          label="Contact details *"
-                        />
-                      </div>
-                      <div className="w-full mt-[30px]">
-                        <Textarea
-                          value={comment}
-                          placeholder="Any additional comments regarding the issue"
-                          onChange={(value: string) => setComment(value)}
-                          label="Additional comments"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+                  <form name="report" data-netlify="true" method="post" onSubmit={handleSubmit}>
+                    <input type="hidden" name="form-name" value="report" />
 
-                  <div className="w-full mt-[60px] lg:mt-[100px] mb-[20px] flex justify-center">
+                    <div className={styles.backButton} onClick={() => setStep(1)}>
+                      <Image src={ArrowleftCircleGrayIcon} alt="" width={8} height={15} />
+                    </div>
+                    <div className="absolute top-[17px] right-[19px] z-20">
+                      <IconButton
+                        icon={CloseWhiteIcon}
+                        onClick={() => close()}
+                        backgroundColor="#495255"
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '25px' : '30px'}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '25px' : '30px'}
+                        borderRadius="15px"
+                        iconWidth={12}
+                        iconHeight={12}
+                      />
+                    </div>
+                    <div className="w-full mt-[50px] text-center lg:text-left">
+                      <div className={styles.title}>{selectedReport.value}</div>
+                    </div>
+                    <div className="w-full mt-5">
+                      <span className={styles.text}>{selectedReport.description}</span>
+                    </div>
+                    {selectedReport.id === 3 ? (
+                      <div>
+                        <div className="w-full mt-[30px]">
+                          <Input
+                            value={email}
+                            placeholder="Email Address"
+                            borderColor="transparent"
+                            onChange={(value: string) => setEmail(value)}
+                            label="Contact details *"
+                          />
+                        </div>
+                        <div className="w-full mt-[30px]">
+                          <Input
+                            value={url}
+                            placeholder="https://"
+                            borderColor="transparent"
+                            onChange={(value: string) => setUrl(value)}
+                            label="URL of Original Artwork *"
+                          />
+                        </div>
+                      </div>
+                    ) : selectedReport.id === 4 ? (
+                      <div>
+                        <div className="w-full mt-[30px]">
+                          <Input
+                            value={email}
+                            placeholder="Email Address"
+                            borderColor="transparent"
+                            onChange={(value: string) => setEmail(value)}
+                            label="Contact details *"
+                          />
+                        </div>
+                        <div className="w-full mt-[30px]">
+                          <Input
+                            value={url}
+                            placeholder="https://"
+                            borderColor="transparent"
+                            onChange={(value: string) => setUrl(value)}
+                            label="URL of Impersonated Artist/Person*"
+                          />
+                        </div>
+                      </div>
+                    ) : selectedReport.id === 5 ? (
+                      <div>
+                        <div className="w-full mt-[30px]">
+                          <Input
+                            value={email}
+                            placeholder="Email Address"
+                            borderColor="transparent"
+                            onChange={(value: string) => setEmail(value)}
+                            label="Contact details *"
+                          />
+                        </div>
+                        <div className="w-full mt-[30px]">
+                          <Textarea
+                            value={comment}
+                            placeholder="Any additional comments regarding the issue"
+                            onChange={(value: string) => setComment(value)}
+                            label="Additional comments"
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+
+                    <div className="w-full mt-[60px] lg:mt-[100px] mb-[20px] flex justify-center">
+                      <button type="submit" className={styles.submit}>
+                        Submit Report
+                      </button>
+                    </div>
+                  </form>
+                  {/* <div className="w-full mt-[60px] lg:mt-[100px] mb-[20px] flex justify-center">
                     <Button
                       label="Submit Report"
                       onClick={() => setStep(3)}
@@ -220,7 +290,7 @@ const ReportAnIssueModal = props => {
                       fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
                       fontFamily={'Muli-Bold'}
                     />
-                  </div>
+                  </div> */}
                 </Dialog.Panel>
               ) : (
                 <Dialog.Panel className={styles.modalView}>
