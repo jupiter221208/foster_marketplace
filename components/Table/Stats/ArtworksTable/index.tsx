@@ -20,7 +20,7 @@ const ArtworksTable = props => {
   return (
     <table id="ArtworksTable" className="w-full table-auto">
       <thead>
-        <tr>
+        <tr className={styles.tableHeader}>
           <th className="w-[20%] text-start">
             <div className="ml-3">Artwork</div>
           </th>
@@ -45,12 +45,12 @@ const ArtworksTable = props => {
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                <div className={`flex justify-center gap-[5px]`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
                   {item.amount}
                 </div>
               </td>
-              <td className={`text-center ${styles.brand06Text}`}>{item.action_type}</td>
+              <td className="text-center">{item.action_type}</td>
               <td className="text-center">{getLocalDate(item.created_at)}</td>
               <td className="text-center">{getOwnerName(item)}</td>
               <td className="text-center">{getBuyerName(item)}</td>

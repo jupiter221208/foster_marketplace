@@ -83,9 +83,6 @@ const Stats = () => {
             {(viewport === 'xs' || viewport === 'sm' || viewport === 'md') && comingSoon && (
               <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
             )}
-            {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && (
-              <OutlineButton label="See All" onClick={() => {}} borderColor="#ffffff" height="42px" />
-            )}
           </div>
           <div className="mt-0 lg:mt-8 lg:mt-16 w-full z-10">
             {activeTab === 0 && <ArtworksSection />}
