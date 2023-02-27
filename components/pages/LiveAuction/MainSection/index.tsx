@@ -11,7 +11,7 @@ import { ChevronUpIcon } from '@heroicons/react/solid'
 // apis
 import AuctionAPI from 'apis/auctions'
 
-import { getBuyerName, getOwnerName } from 'utils/helpers'
+import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 
 import {
   Chart as ChartJS,
@@ -224,7 +224,8 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
 
       activityAPI.getNFTActivity(nftDetail?.address).then(
         response => {
-          setActivityList(response.reverse())
+          let dateSorted = response.sort(compareDate)
+          setActivityList(dateSorted)
         },
         error => {}
       )

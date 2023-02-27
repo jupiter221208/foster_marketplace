@@ -30,6 +30,7 @@ import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
 import notification from 'apis/notification'
 import { useSelector } from 'react-redux'
+import { compareDate } from 'utils/helpers'
 
 const Notifications = () => {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
@@ -109,10 +110,6 @@ const Notifications = () => {
     return sortedNotification
   }
 
-  function comp(a, b) {
-    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-  }
-
   async function getNotifications(notifications) {
     let followingUsers = []
 
@@ -128,7 +125,7 @@ const Notifications = () => {
         else notification.followed = false
       })
 
-    let dateSorted = notifications.sort(comp)
+    let dateSorted = notifications.sort(compareDate)
     setAllNotification(dateSorted)
     const sorted = getSortedNotification(dateSorted)
     setFilterNotification(sorted)

@@ -95,7 +95,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { getBuyerName, getOwnerName } from 'utils/helpers'
+import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -335,7 +335,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
       activityAPI.getNFTActivity(mintAddress).then(
         response => {
-          setActivityList(response.reverse())
+          let dateSorted = response.sort(compareDate)
+          setActivityList(dateSorted)
         },
         error => {}
       )

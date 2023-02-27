@@ -139,3 +139,7 @@ export const getLocalDate = dateString => {
 export const getFirstUpperString = word => {
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
+
+export const compareDate = (a, b) => {
+  return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+}
