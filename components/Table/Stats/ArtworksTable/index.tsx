@@ -50,7 +50,7 @@ const ArtworksTable = props => {
                   {item.amount}
                 </div>
               </td>
-              <td className="text-center">{item.action_type}</td>
+              <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
               <td className="text-center">{getLocalDate(item.created_at)}</td>
               <td className="text-center">{getOwnerName(item)}</td>
               <td className="text-center">{getBuyerName(item)}</td>

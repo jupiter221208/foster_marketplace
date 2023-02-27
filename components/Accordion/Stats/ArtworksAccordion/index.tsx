@@ -67,7 +67,7 @@ const ArtworksAccordion = props => {
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Method of Sale</div>
-                    <div className={styles.text}>{item.action_type}</div>
+                    <div className={styles.text}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Date</div>
