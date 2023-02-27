@@ -12,7 +12,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
-import { getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
+import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
 
 const ArtworksAccordion = props => {
   const { data } = props
@@ -83,7 +83,7 @@ const ArtworksAccordion = props => {
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Primary</div>
-                    <div className={styles.text}>{item.market}</div>
+                    <div className={styles.text}>{getFirstUpperString(item.market)}</div>
                   </div>
                 </Disclosure.Panel>
               </>

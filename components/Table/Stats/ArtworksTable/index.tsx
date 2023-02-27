@@ -11,7 +11,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
-import { getBuyerName, getLocalDate, getOwnerName } from 'utils/helpers'
+import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
 
 const ArtworksTable = props => {
   const { data } = props
@@ -54,7 +54,7 @@ const ArtworksTable = props => {
               <td className="text-center">{getLocalDate(item.created_at)}</td>
               <td className="text-center">{getOwnerName(item)}</td>
               <td className="text-center">{getBuyerName(item)}</td>
-              <td className="text-center">{item.market}</td>
+              <td className="text-center">{getFirstUpperString(item.market)}</td>
             </tr>
           )
         })}

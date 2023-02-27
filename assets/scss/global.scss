@@ -563,13 +563,19 @@ h6 {
   text-indent: -99999px;
 }
 
+#ArtworksTable tr:hover {
+  color: rgba($text-gray-200-color, 1);
+}
+#ArtworksTable tr {
+  color: rgba($text-gray-200-color, 0.8);
+}
+
 #ArtworksTable td {
   // border: 1px solid rgba($white-color, 0.1);
   border-style: solid none solid none;
   padding: 4px;
   height: 70px;
   background-color: transparent;
-  color: rgba($text-gray-200-color, 0.8);
   font-family: 'Muli-SemiBold';
   font-size: 9px;
   @media (min-width: 640px) {
@@ -592,7 +598,6 @@ h6 {
 
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.8);
 }
 
 #ArtworksTable tr {

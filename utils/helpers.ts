@@ -135,3 +135,7 @@ export const getLocalDate = dateString => {
   const localDate = utcDate.local().format(fmt)
   return localDate
 }
+
+export const getFirstUpperString = word => {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}
