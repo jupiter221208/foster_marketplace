@@ -7,6 +7,7 @@ import {
   SolletExtensionWalletAdapter,
   SolletWalletAdapter,
   TorusWalletAdapter,
+  GlowWalletAdapter,
   // LedgerWalletAdapter,
   // SlopeWalletAdapter,
 } from '@solana/wallet-adapter-wallets'
@@ -21,7 +22,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   let network = WalletAdapterNetwork.Mainnet
 
-  switch(WALLET_ADAPTER_NETWORK) {
+  switch (WALLET_ADAPTER_NETWORK) {
     case 'devnet':
       network = WalletAdapterNetwork.Devnet
       break
@@ -42,6 +43,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
       new SolletWalletAdapter({ network }),
       new SolletExtensionWalletAdapter({ network }),
       new TorusWalletAdapter(),
+      new GlowWalletAdapter(),
       // new LedgerWalletAdapter(),
       // new SlopeWalletAdapter(),
     ],
