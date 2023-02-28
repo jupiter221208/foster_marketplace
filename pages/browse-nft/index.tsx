@@ -31,6 +31,9 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
+import nftsAPI from 'apis/nfts'
+import { isString } from 'utils/helpers'
+
 export interface BrowseNFTProps {
   nftDetail?: Sft | Nft
   error?: string
@@ -42,9 +45,29 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
 
   const nftType = nftDetail?.json?.properties?.category as string
   const categories = getNFTCategories(nftDetail)
+  const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
+  const [loading, setLoading] = useState(false)
+
   useEffect(() => {
-    if (nftDetail) getNFTArtistInfo(nftDetail).then(setArtistInfo)
+    console.log('====nftDetail====', nftDetail)
+    if (!nftDetail) return
+
+    nftsAPI.getDetail(nftDetail.address).then(
+      (response: any) => {
+        console.log('====response====', response)
+        if (!isString(response)) {
+          setNftInfo(response)
+          if (response.creator_address !== null) {
+            setArtistInfo({ address: response.creator_address, name: response.creator_username })
+          }
+        }
+        setLoading(false)
+      },
+      error => {
+        setLoading(false)
+      }
+    )
   }, [nftDetail])
 
   const collectionId = nftDetail?.collection?.address.toString()
@@ -81,7 +104,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
         </div>
         <div className="z-10">
-          {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} />}
+          {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} nftInfo={nftInfo} />}
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />

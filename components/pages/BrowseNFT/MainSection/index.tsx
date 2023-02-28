@@ -44,6 +44,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { useViewport } from 'utils'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
+import { placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -62,6 +63,9 @@ import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import AuctionBGIcon from 'assets/icons/auction-bg-icon.svg'
+import PlaceBidIcon from 'assets/icons/place-bid-icon.svg'
+import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -90,19 +94,23 @@ import nftsAPI, { NFT } from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
 import activityAPI from 'apis/activity'
+import AuctionAPI from 'apis/auctions'
 
 import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
+import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
+import AuctionCard from 'components/Card/AuctionCard'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
+  nftInfo: any
   artistInfo: NFTArtistInfo | null
 }
 
-const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
+const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -113,7 +121,20 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
+  const [nftReservePrice, setNftReservePrice] = useState(0)
+  const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
+  const [sellerAddress, setSellerAddress] = useState<PublicKey>()
+  const [highBidder, setHighBidder] = useState('')
+  const [endTime, setEndTime] = useState<String>(null)
+  const [startTime, setStartTime] = useState<String>(null)
+  const [isEnded, setIsEnded] = useState(false)
+  const [isStarted, setIsStarted] = useState(false)
+  const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
+  const [liveAuction, setLiveAuction] = useState(false)
+
+  const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
+  const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
   const [share, setShare] = useState<boolean>(false)
@@ -194,6 +215,14 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
       },
     ])
   }, [])
+
+  useEffect(() => {
+    if (isStarted && !isEnded) {
+      setShowPlaceBIdButton(true)
+    } else {
+      setShowPlaceBIdButton(false)
+    }
+  }, [isEnded, isStarted])
 
   const nftType: string =
     (nftDetail.json?.properties?.category as string) ?? (nftDetail.json?.category as string) ?? 'image'
@@ -282,6 +311,37 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
   }, [profileInfo])
 
   useEffect(() => {
+    if (nftInfo) {
+      let { auction, likes, shares, saves, liked, saved, shared } = nftInfo
+      let sharedSocial = shared.facebook || shared.twitter || shared.telegram
+
+      // if (creator_username) setNftCreatorUsername(creator_username)
+      // if (creator_address) setNftCreatorAddress(creator_address)
+      setLiveAuction(false)
+      if (auction?.auction) {
+        setLiveAuction(true)
+        let {
+          highest_bid,
+          auction: { reserve_price, start_time, end_time },
+        } = auction
+
+        setNftReservePrice(Number(reserve_price))
+        setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
+        setHighBidder(highest_bid ? highest_bid.buyer_address : '')
+        setEndTime(end_time)
+        setStartTime(start_time)
+      }
+
+      setLikeCount(likes)
+      setShareCount(shares)
+      setSaveCount(saves)
+      setLike(liked)
+      setSave(saved)
+      setShare(sharedSocial)
+    }
+  }, [nftInfo])
+
+  useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
 
@@ -289,6 +349,7 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
       setIsOwnNft(publicKey?.equals(tokenAccount.owner))
+      setSellerAddress(tokenAccount.owner)
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername)
@@ -344,6 +405,50 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
       setLoading(false)
     })()
   }, [nftDetail])
+
+  const placeBidAndSave = async (price: string) => {
+    if (price[0] === '.') {
+      price = '0' + price
+    }
+
+    setAuctionLoading(true)
+    try {
+      const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
+      if (bid) {
+        updateSolBalance()
+        AuctionAPI.placeBid(mintAddress, {
+          mint_address: bid.mintAddress.toBase58(),
+          buyer_address: bid.buyerAddress.toBase58(),
+          amount: bid.amount.toString(),
+        })
+          .then(res => {
+            if (res) {
+              setShowModalPlaceBid(false)
+              setNftCurrentPrice(Number(bid.amount.toString()))
+              setTimeout(() => {
+                setAlertData([
+                  {
+                    id: 0,
+                    title: 'Successful bid!',
+                    description: `You've successfully placed a bid on ${nftName}`,
+                    type: 'success',
+                  },
+                ])
+                setShowAlert(true)
+                setHighBidder(publicKey?.toBase58())
+              }, 500)
+              setAuctionLoading(false)
+            }
+          })
+          .catch(rejected => {
+            setAuctionLoading(false)
+            setShowModalPlaceBid(false)
+          })
+      }
+    } catch (error) {
+      setAuctionLoading(false)
+    }
+  }
 
   const changeLikeStatus = () => {
     if (isRunning) return
@@ -569,9 +674,8 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                 </div>
               </div>
             </div>
-
             <div className="w-full flex flex-wrap">
-              {nftPrice > 0 && (
+              {nftPrice > 0 && !liveAuction && (
                 <>
                   <div className="w-full flex items-center mt-[77px] lg:mt-4">
                     <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
@@ -639,6 +743,60 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
                     )}
                   </div>
                 </>
+              )}
+              {liveAuction && (
+                <div
+                  className={`mt-10 w-full ${
+                    showPlaceBidButton && !isOwnNft ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
+                  } relative`}
+                >
+                  <div className={styles.auctionBG}>
+                    <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} />
+                  </div>
+                  <div className={styles.auctionContainer}>
+                    <AuctionCard
+                      currentPrice={nftCurrentPrice}
+                      reservePrice={nftReservePrice}
+                      endTime={endTime}
+                      startTime={startTime}
+                      setIsEnded={setIsEnded}
+                      setIsStarted={setIsStarted}
+                    />
+                    {showPlaceBidButton && !isOwnNft && (
+                      <div>
+                        <div
+                          className={`${styles.placeBidBG} ${
+                            publicKey?.toBase58() === highBidder || isEnded
+                              ? styles.placeBidDisabledBG
+                              : styles.placeBidEnabledBG
+                          }`}
+                          onClick={() =>
+                            publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
+                          }
+                        >
+                          <div className="flex">
+                            <div
+                              className={`${styles.placeBidBtn} ${
+                                publicKey?.toBase58() === highBidder || isEnded
+                                  ? styles.placeBidDisabledColor
+                                  : styles.placeBidEnabledColor
+                              }`}
+                            >
+                              Place Bid
+                            </div>
+                            <Image
+                              src={publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon}
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        {publicKey?.toBase58() === highBidder ? (
+                          <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                        ) : null}
+                      </div>
+                    )}
+                  </div>
+                </div>
               )}
               <div className="mx-auto w-full mt-4">
                 <Disclosure defaultOpen={nftDescription.length > 0}>
@@ -849,6 +1007,21 @@ const MainSection = ({ nftDetail, artistInfo }: MainSectionProps) => {
         </div>
       </div>
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
+
+      <ModalPlaceBid
+        balance={mainWalletBalance}
+        nftName={nftName}
+        nftUrl={nftCoverUrl}
+        currentPrice={nftCurrentPrice}
+        reservePrice={nftReservePrice}
+        placeBid={placeBidAndSave}
+        open={showModalPlaceBid}
+        loading={auctionLoading}
+        onClose={() => {
+          setShowModalPlaceBid(false)
+        }}
+      />
+
       <Alert
         open={showAlert}
         close={() => {
