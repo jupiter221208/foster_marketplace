@@ -110,7 +110,7 @@ const ArtworksSection = () => {
         >
           <div className="w-full flex mb-8 gap-4 lg:gap-7 mx-[10px] lg:mx-5">
             {feedList.map((item: any, index) => (
-              <StatsCollectionCard data={item} type="artworks" />
+              <StatsCollectionCard key={index} data={item} type="artworks" />
             ))}
           </div>
         </Marquee>
