@@ -99,7 +99,7 @@ const ArtworksSection = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Highest Sales</div>
-      <div className="w-full mb-20  mt-[25px]">
+      <div className="w-full mb-20 mt-[25px]">
         <Marquee
           gradient={false}
           pauseOnHover={false}
