@@ -99,7 +99,7 @@ const ArtworksSection = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>Highest Sales</div>
-      <div className="w-full mt-[25px]">
+      <div className="w-full mb-20  mt-[25px]">
         <Marquee
           gradient={false}
           pauseOnHover={false}
@@ -108,7 +108,7 @@ const ArtworksSection = () => {
             viewport === 'xs' ? 20 : viewport === 'sm' ? 20 : viewport === 'md' ? 20 : viewport === 'lg' ? 100 : 70
           }
         >
-          <div className="w-full flex mb-8 gap-4 lg:gap-7 mx-[10px] lg:mx-5">
+          <div className="w-full flex gap-4 lg:gap-7 mx-[10px] lg:mx-5">
             {feedList.map((item: any, index) => (
               <StatsCollectionCard key={index} data={item} type="artworks" />
             ))}
