@@ -23,8 +23,8 @@ const SearchSection = props => {
             placeholder="Search by artwork name"
             onChange={value => setSearchWord(value)}
           />
-          <div className={styles.search} onClick={() => onSearch()}>
-            <Image src={SearchLargeIcon} alt="search" style={{ opacity: 0.6 }} />
+          <div className={searchWord?.length > 0 ? styles.search_enabled : styles.search} onClick={() => onSearch()}>
+            <Image src={SearchLargeIcon} alt="search" style={{ opacity: searchWord?.length > 0 ? 1 : 0.6 }} />
           </div>
         </div>
 

@@ -21,9 +21,13 @@ import styles from './index.module.scss'
 // apis
 import StatsAPI from 'apis/stats'
 import ExplorePagination from 'components/Button/ExplorePagination'
+import StatsCollectionCard from 'components/Card/StatsCollectionCard'
+import Marquee from 'react-fast-marquee'
+import { useViewport } from 'utils'
 
 const ArtworksSection = () => {
   const dispatch = useDispatch()
+  const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
@@ -96,7 +100,20 @@ const ArtworksSection = () => {
     <div className={styles.container}>
       <div className={styles.title}>Highest Sales</div>
       <div className="w-full mt-[25px]">
-        <CollectionSection list={feedList} />
+        <Marquee
+          gradient={false}
+          pauseOnHover={false}
+          pauseOnClick={true}
+          speed={viewport === 'xs' ? 40 : viewport === 'sm' ? 50 : viewport === 'md' ? 60 : viewport === 'lg' ? 70 : 70}
+        >
+          <div className="w-full flex mb-8 gap-4 lg:gap-7 mx-[10px] lg:mx-5">
+            {feedList.map((item: any, index) => (
+              <StatsCollectionCard data={item} type="artworks" />
+            ))}
+          </div>
+        </Marquee>
+
+        {/* <CollectionSection list={feedList} /> */}
       </div>
       <SearchSection
         searchWord={searchWord}

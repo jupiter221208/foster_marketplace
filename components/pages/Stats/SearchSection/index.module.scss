@@ -12,5 +12,21 @@
   height: 45px;
   border: 1px solid rgba($background-light-color, 0.75);
   border-radius: 10px;
+  background: rgba($background-black-color, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
+}
+
+.search_enabled {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
+  border: 1px solid rgba($brand-09-color, 0.75);
+  border-radius: 10px;
+  cursor: pointer;
+  background: linear-gradient(to bottom, $background-dark-color, $brand-10-color);
 }
