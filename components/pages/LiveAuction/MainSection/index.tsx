@@ -494,7 +494,7 @@ const MainSection = ({ nftDetail, nftInfo, loading }: MainSectionProps) => {
                       voteCount={shareCount}
                       setVoteCount={setShareCount}
                       message={'New live auction released on Foster Marketplace @foster_protocol #fostermarketplace'}
-                      url={`/live-auction?id=${id}`}
+                      url={`/browse-nft?id=${id}`}
                     />
                   </div>
                 </div>

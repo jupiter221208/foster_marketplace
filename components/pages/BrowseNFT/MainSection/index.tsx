@@ -315,8 +315,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
       let { auction, likes, shares, saves, liked, saved, shared } = nftInfo
       let sharedSocial = shared.facebook || shared.twitter || shared.telegram
 
-      // if (creator_username) setNftCreatorUsername(creator_username)
-      // if (creator_address) setNftCreatorAddress(creator_address)
       setLiveAuction(false)
       if (auction?.auction) {
         setLiveAuction(true)
@@ -344,6 +342,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
+
+      if (nftInfo && nftInfo.auction?.auction) return
 
       setLoading(true)
 
@@ -675,7 +675,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
               </div>
             </div>
             <div className="w-full flex flex-wrap">
-              {nftPrice > 0 && !liveAuction && (
+              {nftPrice > 0 && !liveAuction ? (
                 <>
                   <div className="w-full flex items-center mt-[77px] lg:mt-4">
                     <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
@@ -743,61 +743,79 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                     )}
                   </div>
                 </>
-              )}
-              {liveAuction && (
-                <div
-                  className={`mt-10 w-full ${
-                    showPlaceBidButton && !isOwnNft ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
-                  } relative`}
-                >
-                  <div className={styles.auctionBG}>
-                    <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} />
-                  </div>
-                  <div className={styles.auctionContainer}>
-                    <AuctionCard
-                      currentPrice={nftCurrentPrice}
-                      reservePrice={nftReservePrice}
-                      endTime={endTime}
-                      startTime={startTime}
-                      setIsEnded={setIsEnded}
-                      setIsStarted={setIsStarted}
-                    />
-                    {showPlaceBidButton && !isOwnNft && (
-                      <div>
-                        <div
-                          className={`${styles.placeBidBG} ${
-                            publicKey?.toBase58() === highBidder || isEnded
-                              ? styles.placeBidDisabledBG
-                              : styles.placeBidEnabledBG
-                          }`}
-                          onClick={() =>
-                            publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
-                          }
-                        >
-                          <div className="flex">
-                            <div
-                              className={`${styles.placeBidBtn} ${
-                                publicKey?.toBase58() === highBidder || isEnded
-                                  ? styles.placeBidDisabledColor
-                                  : styles.placeBidEnabledColor
-                              }`}
-                            >
-                              Place Bid
+              ) : liveAuction === true ? (
+                <>
+                  <div
+                    className={`mt-10 w-full ${
+                      showPlaceBidButton && !isOwnNft ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
+                    } relative`}
+                  >
+                    <div className={styles.auctionBG}>
+                      <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} />
+                    </div>
+                    <div className={styles.auctionContainer}>
+                      <AuctionCard
+                        currentPrice={nftCurrentPrice}
+                        reservePrice={nftReservePrice}
+                        endTime={endTime}
+                        startTime={startTime}
+                        setIsEnded={setIsEnded}
+                        setIsStarted={setIsStarted}
+                      />
+                      {showPlaceBidButton && !isOwnNft && (
+                        <div>
+                          <div
+                            className={`${styles.placeBidBG} ${
+                              publicKey?.toBase58() === highBidder || isEnded
+                                ? styles.placeBidDisabledBG
+                                : styles.placeBidEnabledBG
+                            }`}
+                            onClick={() =>
+                              publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
+                            }
+                          >
+                            <div className="flex">
+                              <div
+                                className={`${styles.placeBidBtn} ${
+                                  publicKey?.toBase58() === highBidder || isEnded
+                                    ? styles.placeBidDisabledColor
+                                    : styles.placeBidEnabledColor
+                                }`}
+                              >
+                                Place Bid
+                              </div>
+                              <Image
+                                src={
+                                  publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon
+                                }
+                                alt=""
+                              />
                             </div>
-                            <Image
-                              src={publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon}
-                              alt=""
-                            />
                           </div>
+                          {publicKey?.toBase58() === highBidder ? (
+                            <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                          ) : null}
                         </div>
-                        {publicKey?.toBase58() === highBidder ? (
-                          <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                        ) : null}
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
-                </div>
+                </>
+              ) : (
+                !connected && (
+                  <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+                    <button
+                      className={styles.connectWallet}
+                      onClick={() => {
+                        setVisible(true)
+                      }}
+                    >
+                      <div>Connect Wallet</div>
+                      <Image src={FosterLightGreenIcon} alt="" />
+                    </button>
+                  </div>
+                )
               )}
+
               <div className="mx-auto w-full mt-4">
                 <Disclosure defaultOpen={nftDescription.length > 0}>
                   {({ open }) => (

@@ -78,10 +78,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div
-          className={styles.imageContent}
-          onClick={() => onClick(type === 'fixed' ? `/browse-nft?id=${address}` : `live-auction?id=${address}`)}
-        >
+        <div className={styles.imageContent} onClick={() => onClick(`/browse-nft?id=${address}`)}>
           {assetJson?.animation_url ? (
             <div
               dangerouslySetInnerHTML={{

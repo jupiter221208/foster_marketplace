@@ -388,7 +388,7 @@ const Explore = () => {
           image: nft.json.image,
           name: nft.json.name,
           creator: nft.creators[0].address.toString(),
-          url: `/live-auction?id=${nft.address.toString()}`,
+          url: `/browse-nft?id=${nft.address.toString()}`,
           price: Number(listing.auction.reserve_price) * 1000000000,
         }
       })

@@ -141,7 +141,7 @@ const LiveAuctionSection = props => {
                     data={item}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push('/live-auction?id=' + item.token_id)
+                      router.push('/browse-nft?id=' + item.token_id)
                     }}
                     key={index}
                   />
@@ -156,7 +156,7 @@ const LiveAuctionSection = props => {
                     data={item}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push('/live-auction?id=' + item.token_id)
+                      router.push('/browse-nft?id=' + item.token_id)
                     }}
                     key={index}
                   />

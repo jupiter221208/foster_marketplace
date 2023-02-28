@@ -18,12 +18,13 @@ import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 
 // custom functions
 import { getNFTCategories, getNFTArtistInfo, NFTArtistInfo } from 'utils/nfts.utils'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -42,20 +43,19 @@ export interface BrowseNFTProps {
 const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
-
   const nftType = nftDetail?.json?.properties?.category as string
   const categories = getNFTCategories(nftDetail)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const [loading, setLoading] = useState(false)
+  const profileInfo = useSelector(state => (state as any).profileInfo)
 
   useEffect(() => {
-    console.log('====nftDetail====', nftDetail)
-    if (!nftDetail) return
+    console.log('======nftDetail=======', nftDetail)
 
+    if (!nftDetail) return
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
-        console.log('====response====', response)
         if (!isString(response)) {
           setNftInfo(response)
           if (response.creator_address !== null) {
@@ -68,7 +68,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
         setLoading(false)
       }
     )
-  }, [nftDetail])
+  }, [nftDetail, profileInfo])
 
   const collectionId = nftDetail?.collection?.address.toString()
 
