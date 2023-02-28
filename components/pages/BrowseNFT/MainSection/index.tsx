@@ -815,6 +815,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                   </div>
                 )
               )}
+
               <div className="mx-auto w-full mt-4">
                 <Disclosure defaultOpen={nftDescription.length > 0}>
                   {({ open }) => (
