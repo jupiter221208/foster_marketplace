@@ -51,8 +51,6 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const profileInfo = useSelector(state => (state as any).profileInfo)
 
   useEffect(() => {
-    console.log('======nftDetail=======', nftDetail)
-
     if (!nftDetail) return
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
