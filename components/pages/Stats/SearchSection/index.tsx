@@ -4,8 +4,12 @@ import React, { useEffect, useState } from 'react'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
 import GradientButton from 'components/Button/GradientButton'
 
+// resources
+import SearchLargeIcon from 'assets/icons/search-large.svg'
+
 // styles
 import styles from './index.module.scss'
+import Image from 'next/image'
 
 const SearchSection = props => {
   const { searchWord, period, setPeriod, setSearchWord, onSearch } = props
@@ -19,7 +23,9 @@ const SearchSection = props => {
             placeholder="Search by artwork name"
             onChange={value => setSearchWord(value)}
           />
-          <GradientButton label="Search" height="45px" onClick={() => onSearch()} />
+          <div className={styles.search} onClick={() => onSearch()}>
+            <Image src={SearchLargeIcon} alt="search" style={{ opacity: 0.6 }} />
+          </div>
         </div>
 
         <div className="sm:w-auto xs:w-full flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">

@@ -2,3 +2,15 @@
 
 .container {
 }
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
+  border: 1px solid rgba($background-light-color, 0.75);
+  border-radius: 10px;
+  cursor: pointer;
+}
