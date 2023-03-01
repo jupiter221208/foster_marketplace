@@ -23,6 +23,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
         data.blockhash = blockhash;
         data.lastValidBlockHeight = lastValidBlockHeight;
 
+        console.log(`attempting to send transaction: attempt ${i + 1} of ${retryCount}`);
         signature = await currency.wallet.sendTransaction(data, connection, {
           skipPreflight: true,
         });
@@ -39,10 +40,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
           break;
         } catch (e) {
           if (i == retryCount - 1)
-            console.error(
-              `failed to confirm transaction ${signature} files: retry attempts exceeded`,
-              e
-            );
+            console.error(`failed to confirm transaction ${signature}: retry attempts exceeded`, e);
           else
             console.warn(
               `failed to confirm transaction ${signature}: attempt ${i + 1} of ${retryCount}`,
