@@ -35,7 +35,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
               blockhash: data.blockhash,
               lastValidBlockHeight: data.lastValidBlockHeight,
             },
-            "finalized"
+            "max"
           );
           break;
         } catch (e) {
