@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -23,6 +23,7 @@ const LiveAuctionCard = props => {
   const { data, onClick } = props
   const router = useRouter()
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
   const dispatch = useDispatch()
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
@@ -57,7 +58,7 @@ const LiveAuctionCard = props => {
   }
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${lightMode ? styles.lightColor : ''}`}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (
