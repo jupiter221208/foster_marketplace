@@ -1,6 +1,10 @@
 import { type Connection, Transaction } from "@solana/web3.js";
 import { BundlrStorageDriver } from "@metaplex-foundation/js";
 
+async function sleep(time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
 export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
   async bundlr() {
     this._bundlr ??= await this.initBundlr();
@@ -37,6 +41,17 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
             },
             "max"
           );
+
+          for (let j = 0; j < 10; j++)
+            if (await connection.getTransaction(signature, "finalized")) break;
+            else {
+              console.warn(`failed to get confirmed transaction ${signature}: attempt ${i}`, e);
+              await sleep(2000);
+            }
+
+          // if tx failed once before, wait for 5s before returning
+          if (i !== 0) await sleep(5000);
+
           break;
         } catch (e) {
           if (i == retryCount - 1)
