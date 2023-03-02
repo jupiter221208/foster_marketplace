@@ -14,7 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import ArtistCard from 'components/Card/ArtistCard'
 
@@ -35,16 +34,12 @@ const TopRatedArtistsSection = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [allArtistsList, setAllArtistsList] = useState<any[]>([])
   const [artistsList, setArtistsList] = useState<any[]>([])
-
-  const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
     dashboardAPI.getTopRatedArtists().then(
       response => {
         if (response !== undefined && response !== null) {
-          setAllArtistsList(response)
           setArtistsList(response)
         }
       },
@@ -53,25 +48,6 @@ const TopRatedArtistsSection = () => {
       }
     )
   }, [])
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setArtistsList(allArtistsList.slice(0, 5))
-        break
-      case 1:
-        setArtistsList(allArtistsList.slice(0, 10))
-        break
-      case 2:
-        setArtistsList(allArtistsList.slice(0, 15))
-        break
-      default:
-        setArtistsList(allArtistsList)
-        break
-    }
-  }
 
   const lightMode = useSelector(state => (state as any).lightMode)
 

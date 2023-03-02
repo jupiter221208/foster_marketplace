@@ -26,6 +26,7 @@ import { useViewport } from 'utils'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
+import FosterEnhancedLightIcon from 'assets/icons/foster-enhanced-dark.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
 
 // styles
@@ -70,10 +71,10 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className={styles.topLeftEllipse}>
+      <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : 'opacity-40'}`}>
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
-      <div className={styles.topRightEllipse}>
+      <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : 'opacity-40'}`}>
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
@@ -83,7 +84,13 @@ const MainSection = () => {
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
             <span className={styles.whiteTitle}>Solana Deserves</span>
           </p> */}
-          <Image src={FosterEnhancedIcon} width={610} height={94} alt="" objectFit="cover" />
+          <Image
+            src={lightMode ? FosterEnhancedLightIcon : FosterEnhancedIcon}
+            width={610}
+            height={94}
+            alt=""
+            objectFit="cover"
+          />
 
           <div className={`${styles.text} ${lightMode ? styles.lightText : ''}`}>
             CREATED FOR ARTISTS. CURATED BY YOU.
@@ -93,9 +100,9 @@ const MainSection = () => {
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
               <GradientButton
                 backgroundColor01={lightMode ? '#202427' : '#5ac3ba'}
-                backgroundColor02={lightMode ? '#2D625D' : '#378287'}
+                backgroundColor02={lightMode ? '#121212' : '#378287'}
                 gradientDirection={lightMode ? 'bottom' : 'left'}
-                color={lightMode ? '#eff0f6' : ''}
+                color={lightMode ? '#95DBD5' : ''}
                 label="Explore"
                 width={124}
                 onClick={() => router.push('/explore')}

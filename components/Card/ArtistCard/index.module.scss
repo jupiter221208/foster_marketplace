@@ -47,6 +47,10 @@
   background: linear-gradient(110deg, rgba(#4ea19b, 1) 0%, rgba(#304e4e, 1) 80%);
 }
 
+.avatarLightBG {
+  background: linear-gradient(to bottom, rgba($background-dark-color, 1) 0%, rgba(#6a6c6e, 1) 100%);
+}
+
 .name {
   width: 100%;
   text-align: center;

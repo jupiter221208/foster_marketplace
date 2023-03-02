@@ -29,7 +29,8 @@
 }
 
 .lightContainer {
-  background: linear-gradient(to bottom, $background-black-color, #2d625d);
+  background: linear-gradient(to bottom, $background-black-color, $background-dark-color);
+  color: $brand-09-color;
 }
 
 .connectedContainer {

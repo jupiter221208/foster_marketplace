@@ -19,6 +19,11 @@
   cursor: pointer;
 }
 
+.lightColor {
+  background: linear-gradient(to bottom, $background-light-color, $background-dark-color) !important;
+  border-width: 0px;
+}
+
 .imageArea {
   position: relative;
   width: 100%;

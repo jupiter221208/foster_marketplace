@@ -44,19 +44,6 @@ const PopularCategorySection = props => {
         <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>
           {type === 'home' ? 'Explore the Circus' : 'Discover Something New'}
         </div>
-        {/* {type === 'home' && (
-          <div className="hidden lg:flex">
-            <OutlineButton
-              label="See More"
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                router.push('/explore')
-              }}
-              borderColor="#ffffff"
-              height="42px"
-            />
-          </div>
-        )} */}
       </div>
       <div className="w-full mt-[20px] lg:mt-[34px] z-10">
         <Swiper
@@ -66,7 +53,7 @@ const PopularCategorySection = props => {
           }
           spaceBetween={viewport === 'xs' ? 10 : 20}
           modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
+          className={lightMode ? 'lightNavigationSwiper' : 'navigationSwiper'}
           loop
           autoplay={{
             delay: 5000,

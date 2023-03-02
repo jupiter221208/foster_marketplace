@@ -21,6 +21,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import { useViewport } from 'utils'
+import { useSelector } from 'react-redux'
 
 const ExploreCollectionSection = props => {
   const viewport = useViewport()
@@ -40,6 +41,8 @@ const ExploreCollectionSection = props => {
       }
     )
   }, [])
+
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <section className={styles.container}>
@@ -61,7 +64,7 @@ const ExploreCollectionSection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
+            className={lightMode ? 'lightNavigationSwiper' : 'navigationSwiper'}
             loop
             autoplay={{
               delay: 5000,
