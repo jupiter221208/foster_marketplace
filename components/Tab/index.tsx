@@ -8,10 +8,12 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const Tab = props => {
   const { tabList, onChange } = props
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <HTab.Group>
@@ -23,7 +25,15 @@ const Tab = props => {
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
             <button
-              className={`${styles.container} ${item.selected ? styles.activeTab : ''}`}
+              className={`${styles.container} ${
+                item.selected
+                  ? lightMode
+                    ? styles.lightActiveTab
+                    : styles.activeTab
+                  : lightMode
+                  ? styles.lightInactiveTab
+                  : ''
+              }`}
               onClick={() => onChange(item)}
             >
               <div>{item.label}</div>

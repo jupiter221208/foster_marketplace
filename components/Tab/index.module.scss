@@ -69,3 +69,11 @@
   border-bottom: 2px solid $brand-01-color;
   color: $text-gray-200-color;
 }
+
+.lightActiveTab {
+  color: $background-dark-color;
+}
+
+.lightInactiveTab {
+  color: rgba($background-dark-color, 0.6);
+}

@@ -206,7 +206,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
             objectFit="cover"
           />
         </div>
-        <div className={styles.topRightEllipse}>
+        <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
           <Image
             src={lightMode ? EllipseGreenLight : EllipseGreen}
             width={2021}
@@ -215,7 +215,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
             objectFit="cover"
           />
         </div>
-        <div className={styles.bottomLeftEllipse}>
+        <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''} `}>
           <Image
             src={lightMode ? EllipseGreenLight : EllipseGreen}
             width={2021}
