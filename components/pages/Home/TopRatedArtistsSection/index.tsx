@@ -139,7 +139,7 @@ const TopRatedArtistsSection = () => {
               dispatch({ type: 'set', exploreTab: 2 })
               router.push('/explore')
             }}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="40px"
           />
         </div>

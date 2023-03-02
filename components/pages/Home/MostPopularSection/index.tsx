@@ -24,6 +24,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -84,8 +85,8 @@ const MostPopularSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className={styles.bottomLeftEllipse}>
-        <Image src={EllipseGreen} width={1399} height={1399} alt="" />
+      <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={1399} height={1399} alt="" />
       </div>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">

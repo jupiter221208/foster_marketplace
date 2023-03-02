@@ -28,6 +28,7 @@ import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedLightIcon from 'assets/icons/foster-enhanced-dark.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
+import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-dark.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -75,7 +76,7 @@ const MainSection = () => {
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : 'opacity-40'}`}>
-        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
+        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
@@ -131,19 +132,6 @@ const MainSection = () => {
               <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Ecosystem</div>
             </div>
           </div>
-          {/* <div className="mt-[146px] hidden lg:flex cursor-pointer">
-            {alphaExpand ? (
-              <div className={styles.alpha} onClick={() => setAlphaExpand(!alphaExpand)}>
-                <Image src={InfoGreenIcon} width="18" height="18" alt="" />
-                <div>Foster Marketplace is currently in ALPHA, we expect some performance issues.</div>
-              </div>
-            ) : (
-              <div className={styles.alpha} onClick={() => setAlphaExpand(!alphaExpand)}>
-                <Image src={InfoGreenIcon} width="18" height="18" alt="" />
-                <Image src={alphaGreenIcon} alt="" />
-              </div>
-            )}
-          </div> */}
         </div>
         <div
           className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end lg:py-6"
@@ -159,9 +147,15 @@ const MainSection = () => {
                 <div className={styles.cardGreenTitle}>House of Art,</div>
                 <div className={styles.cardTitle}>&nbsp;Solana Deserves</div>
               </div> */}
-              <Image src={FosterEnhancedMobile} width={278} height={42} alt="" objectFit="cover" />
+              <Image
+                src={lightMode ? FosterEnhancedLightMobile : FosterEnhancedMobile}
+                width={278}
+                height={42}
+                alt=""
+                objectFit="cover"
+              />
 
-              <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div>
+              <div className={lightMode ? styles.lightCardText : styles.cardText}>CREATE. COLLECT. CURATE.</div>
             </div>
           ) : (
             <></>

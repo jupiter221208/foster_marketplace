@@ -10,8 +10,16 @@
 
 .topRightEllipse {
   position: absolute;
-  top: -800px;
-  right: -1260px;
+  width: 652px;
+  height: 652px;
+  top: -330px;
+  left: -320px;
+  @media (min-width: 1024px) {
+    width: 2021px;
+    height: 2021px;
+    top: -800px;
+    right: -1260px;
+  }
   z-index: 0;
   opacity: 0.4;
 }

@@ -17,6 +17,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
 import LogoText01LightIcon from 'assets/icons/logo-text-01-light.svg'
 import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
+import LogoText01MobileLightIcon from 'assets/icons/logo-text-01-mobile-light.svg'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
@@ -140,18 +141,23 @@ const PrimaryFooter = () => {
           </div> */}
           <div className="w-full flex flex-wrap justify-center">
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={LogoText01MobileIcon} width={176} height={40} alt="" />
+              <Image
+                src={lightMode ? LogoText01MobileLightIcon : LogoText01MobileIcon}
+                width={176}
+                height={40}
+                alt=""
+              />
             </div>
           </div>
           <div className="w-full flex justify-around mt-[14px]">
             <div className="w-full block justify-center text-center mt-[44px]">
-              <div className={styles.title}>About</div>
-              <div className={`${styles.linkText} !mt-[20px]`}>
+              <div className={lightMode ? styles.lightTitle : styles.title}>About</div>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''} !mt-[20px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
                   Foster House
                 </a>
               </div>
-              <div className={styles.linkText}>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''}`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
                   Turkey Circus
                 </a>
@@ -161,25 +167,25 @@ const PrimaryFooter = () => {
                   Careers
                 </a>
               </div> */}
-              <div className={styles.linkText}>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''}`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
                   Terms of Service
                 </a>
               </div>
-              <div className={styles.linkText}>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''}`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
                   Privacy Policy
                 </a>
               </div>
             </div>
             <div className="w-full block justify-center text-center mt-[44px]">
-              <div className={styles.title}>Resources</div>
-              <div className={`${styles.linkText} !mt-[23px]`}>
+              <div className={lightMode ? styles.lightTitle : styles.title}>Resources</div>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''} !mt-[23px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
                   Whitepaper
                 </a>
               </div>
-              <div className={styles.linkText}>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''}`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_BRAND_DESIGN} rel="noopener noreferrer">
                   Brand & Design
                 </a>
@@ -189,12 +195,12 @@ const PrimaryFooter = () => {
                   Development
                 </a>
               </div> */}
-              <div className={styles.linkText}>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''}`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
                   Community
                 </a>
               </div>
-              <div className={styles.linkText}>
+              <div className={`${styles.linkText} ${lightMode ? styles.lightLinkText : ''}`}>
                 <a href={`mailto:${process.env.NEXT_PUBLIC_CONTACT_US}`}>Media Inquiries</a>
               </div>
             </div>
@@ -233,7 +239,7 @@ const PrimaryFooter = () => {
               </div>
             </div>
           </div>
-          <div className={styles.greenText}>© All Rights Reserved</div>
+          <div className={`${styles.greenText} ${lightMode ? styles.lightGreenText : ''}`}>© All Rights Reserved</div>
         </div>
       )}
     </div>

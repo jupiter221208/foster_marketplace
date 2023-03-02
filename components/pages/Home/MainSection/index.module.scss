@@ -19,16 +19,32 @@
 
 .topLeftEllipse {
   position: absolute;
-  top: -856px;
-  left: -850px;
+  width: 652px;
+  height: 652px;
+  top: -280px;
+  left: -388px;
+  @media (min-width: 1024px) {
+    width: 2021px;
+    height: 2021px;
+    top: -856px;
+    left: -850px;
+  }
   z-index: 0;
   opacity: 0.5;
 }
 
 .topRightEllipse {
   position: absolute;
-  top: 0px;
-  right: -440px;
+  width: 652px;
+  height: 652px;
+  top: -32px;
+  left: -31px;
+  @media (min-width: 1024px) {
+    width: 1705px;
+    height: 1705px;
+    top: 0px;
+    right: -440px;
+  }
   z-index: 0;
   opacity: 0.5;
 }
@@ -235,4 +251,13 @@
   margin-top: 5px;
   color: $text-gray-200-color;
   text-shadow: 0px 3px 6px rgba($background-black-color, 0.4);
+}
+
+.lightCardText {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 3px;
+  margin-top: 5px;
+  color: #414144;
 }
