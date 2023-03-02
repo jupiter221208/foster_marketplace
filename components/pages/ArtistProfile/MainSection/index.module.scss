@@ -91,6 +91,10 @@
   color: $text-gray-200-color;
 }
 
+.whiteLightText {
+  color: $background-dark-color;
+}
+
 .grayText {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
@@ -98,6 +102,10 @@
     font-size: 18px;
   }
   color: rgba($text-gray-200-color, 0.75);
+}
+
+.grayLightText {
+  color: $background-dark-color;
 }
 
 .description {

@@ -28,6 +28,10 @@
   z-index: 1;
 }
 
+.lightAvatarArea {
+  background: linear-gradient(to bottom, $background-dark-color, $background-light-color);
+}
+
 .name {
   width: 100%;
   text-align: start;
@@ -48,6 +52,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.lightName {
+  color: $background-dark-color;
 }
 
 .bottomSection {

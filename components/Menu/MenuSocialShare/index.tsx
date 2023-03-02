@@ -22,6 +22,7 @@ import styles from './index.module.scss'
 // call apis
 import nftsAPI from 'apis/nfts'
 import { copyToClipboard } from 'utils/helpers'
+import { useSelector } from 'react-redux'
 
 interface MenuSocialShareProps {
   type?: 'icon' | 'ellipse'
@@ -49,6 +50,7 @@ const MenuSocialShare = ({
   const router = useRouter()
   const { id } = router.query
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const fullUrl = globalThis.window?.origin + url
 
@@ -71,7 +73,7 @@ const MenuSocialShare = ({
         <Menu.Button>
           <div className="flex justify-between items-center">
             {type === 'ellipse' ? (
-              <div className={styles.ellipseArea}>
+              <div className={`${styles.ellipseArea} ${lightMode ? styles.lightEllipseArea : ''}`}>
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                   <Image src={ThreeEllipseMobileIcon} alt="" width="15px" height="4px" />
                 ) : (

@@ -96,7 +96,7 @@ const MoreCollectionSection = props => {
             label="See More"
             fullWidth
             onClick={() => router.push(`/browse-collection/${collectionId}`)}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="40px"
           />
         </div>

@@ -14,7 +14,6 @@ import SearchBox from 'components/Input/SearchBox'
 import Menu from 'components/Menu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
-import IconButton from 'components/Button/IconButton'
 // custom functions
 import { useViewport } from 'utils'
 
@@ -24,6 +23,7 @@ import BackButton from 'assets/icons/artist-back-icon.svg'
 import SearchButton from 'assets/icons/artist-search-icon.svg'
 import MenuButton from 'assets/icons/artist-menu-icon.svg'
 import LogoIcon from 'assets/icons/logo-light-green.svg'
+import LogoDarkIcon from 'assets/icons/logo-dark.svg'
 
 // json
 import SearchList from 'assets/json/search-list.json'
@@ -186,14 +186,16 @@ const ArtistHeader = () => {
     }
   }
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div>
-      <div className={styles.blurContainer}>
+      <div className={`${styles.blurContainer} ${lightMode === true ? styles.lightBlurContainer : ''}`}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
             {!connected && (
               <div className={styles.logoArea} onClick={() => router.push('/')}>
-                <Image src={LogoIcon} alt="" />
+                <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" />
               </div>
             )}
             <SearchBox
@@ -251,7 +253,7 @@ const ArtistHeader = () => {
       )}
     </div>
   ) : (
-    <div className={styles.mobileBlurContainer}>
+    <div className={`${styles.mobileBlurContainer} ${lightMode === true ? styles.lightMobileBlurContainer : ''}`}>
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>

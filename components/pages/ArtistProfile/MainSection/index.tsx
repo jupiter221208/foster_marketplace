@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
@@ -25,8 +25,6 @@ import NegativeButton from 'components/Button/NegativeButton'
 import { useViewport } from 'utils'
 
 // images and icons
-import Rect1620x480Image from 'assets/icons/rect-1620x480.svg'
-import Rect512x512Image from 'assets/icons/rect-512x512.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
@@ -46,6 +44,7 @@ const MainSection = prop => {
   const viewport = useViewport()
   const { publicKey } = useWallet()
   const { setVisible } = useWalletModal()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [showReadMore, setShowReadMore] = useState(false)
@@ -67,7 +66,6 @@ const MainSection = prop => {
       artistsAPI.followArtist(wallet).then(response => {
         if (response && response.followed_wallet_id) {
           setFollow(true)
-          // setArtistFollowing(artistFollowing + 1)
           setArtistFollowers(artistFollowers + 1)
         }
       })
@@ -81,7 +79,6 @@ const MainSection = prop => {
     artistsAPI.unfollowArtist(wallet).then(response => {
       setFollow(false)
       setArtistFollowers(artistFollowers - 1)
-      // setArtistFollowing(artistFollowing - 1)
     })
   }
 
@@ -115,9 +112,9 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className={styles.whiteText}>{artistFollowers}</div>
+                <div className={`${styles.whiteText} ${lightMode ? styles.whiteLightText : ''}`}>{artistFollowers}</div>
                 &nbsp;
-                <div className={styles.grayText}>Followers</div>
+                <div className={`${styles.grayText} ${lightMode ? styles.grayLightText : ''}`}>Followers</div>
               </div>
               <div
                 className="cursor-pointer flex hover:opacity-60"
@@ -126,9 +123,9 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className={styles.whiteText}>{artistFollowing}</div>
+                <div className={`${styles.whiteText} ${lightMode ? styles.whiteLightText : ''}`}>{artistFollowing}</div>
                 &nbsp;
-                <div className={styles.grayText}>Following</div>
+                <div className={`${styles.grayText} ${lightMode ? styles.grayLightText : ''}`}>Following</div>
               </div>
             </div>
           </div>

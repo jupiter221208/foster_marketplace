@@ -92,7 +92,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+        <div className={styles.topLeftEllipse}>
           <Image
             src={lightMode ? EllipseGreenLight : EllipseGreen}
             width={2021}
@@ -101,7 +101,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
             objectFit="cover"
           />
         </div>
-        <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+        <div className={styles.topRightEllipse}>
           <Image
             src={lightMode ? EllipseGreenLight : EllipseGreen}
             width={2021}
@@ -110,7 +110,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
             objectFit="cover"
           />
         </div>
-        <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''} `}>
+        <div className={styles.bottomLeftEllipse}>
           <Image
             src={lightMode ? EllipseGreenLight : EllipseGreen}
             width={2021}

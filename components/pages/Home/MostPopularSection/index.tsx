@@ -85,7 +85,7 @@ const MostPopularSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+      <div className={styles.bottomLeftEllipse}>
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={1399} height={1399} alt="" />
       </div>
       <div className="w-full flex justify-between items-center z-10">

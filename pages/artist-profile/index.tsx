@@ -16,6 +16,7 @@ import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import HeaderImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -41,6 +42,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const [statsInfo, setStatsInfo] = useState<any>({})
@@ -156,7 +158,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     resetData()
 
     if (artistEnable) {
-      // setArtistInfo(publicArtistData ?? {})
       setArtistInfo(publicArtistData?.artist ?? {})
       setStatsInfo(publicArtistData?.stats ?? {})
       setCategoryList(publicArtistData?.categories ?? [])
@@ -196,8 +197,32 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
+        <div className={styles.topLeftEllipse}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
+        </div>
+        <div className={styles.topRightEllipse}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
+        </div>
         <div className={styles.bottomLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
         <MainSection
           artistInfo={artistInfo}

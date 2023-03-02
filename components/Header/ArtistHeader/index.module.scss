@@ -23,6 +23,11 @@
     opacity: 1;
   }
 }
+
+.lightBlurContainer {
+  background: linear-gradient(90deg, rgba(#737578, 0.8) 0%, rgba(#85878b, 0.8) 50%, rgba(#8d8e93, 1) 100%);
+}
+
 .container {
   position: fixed;
   top: 0;
@@ -51,6 +56,10 @@
   &:hover {
     opacity: 1;
   }
+}
+
+.lightMobileBlurContainer {
+  background: linear-gradient(90deg, rgba(#838488, 0.8) 0%, rgba(#797b7e, 0.8) 50%, rgba(#8c8e92, 1) 100%) !important;
 }
 
 .mobileContainer {
