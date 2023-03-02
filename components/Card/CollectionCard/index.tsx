@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 // custom functions
 import { getShortAddress } from 'utils/strings'
@@ -12,8 +13,10 @@ import GradientButton from 'components/Button/GradientButton'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}>
       <div className={styles.imageArea} onClick={() => onClick()}>
         <div className={styles.imageContent}>
           {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}

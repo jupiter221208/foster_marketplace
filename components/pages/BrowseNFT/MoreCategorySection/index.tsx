@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -31,6 +31,7 @@ const MoreCategorySection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [collectionList, setCollectionList] = useState([])
 
@@ -50,7 +51,9 @@ const MoreCategorySection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Category</div>
+            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
+              More from this Category
+            </div>
           </div>
           <div className="hidden lg:flex">
             <OutlineButton
@@ -61,7 +64,7 @@ const MoreCategorySection = props => {
                   router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}
-              borderColor="#ffffff"
+              borderColor={lightMode ? '#202427' : '#ffffff'}
               height="42px"
             />
           </div>
@@ -110,7 +113,7 @@ const MoreCategorySection = props => {
                   router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}
-              borderColor="#ffffff"
+              borderColor={lightMode ? '#202427' : '#ffffff'}
               height="40px"
             />
           </div>

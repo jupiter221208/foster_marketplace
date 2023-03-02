@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // third party components
 // swiper
@@ -30,6 +30,8 @@ const MoreCollectionSection = props => {
   const viewport = useViewport()
   const dispatch = useDispatch()
   const router = useRouter()
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   const [nftList, setNftList] = useState([])
 
   useEffect(() => {
@@ -47,7 +49,9 @@ const MoreCollectionSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More in this Collection</div>
+          <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
+            More in this Collection
+          </div>
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton
@@ -56,7 +60,7 @@ const MoreCollectionSection = props => {
               dispatch({ type: 'set', isLoading: true })
               router.push(`/browse-collection/${collectionId}`)
             }}
-            borderColor="#ffffff"
+            borderColor={lightMode ? '#202427' : '#ffffff'}
             height="42px"
           />
         </div>

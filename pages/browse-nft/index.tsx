@@ -17,8 +17,7 @@ import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
 
 // custom functions
-import { getNFTCategories, getNFTArtistInfo, NFTArtistInfo } from 'utils/nfts.utils'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
@@ -48,7 +47,6 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const categories = getNFTCategories(nftDetail)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
-  const [loading, setLoading] = useState(false)
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const lightMode = useSelector(state => (state as any).lightMode)
 
@@ -62,11 +60,8 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
             setArtistInfo({ address: response.creator_address, name: response.creator_username })
           }
         }
-        setLoading(false)
       },
-      error => {
-        setLoading(false)
-      }
+      error => {}
     )
   }, [nftDetail, profileInfo])
 
