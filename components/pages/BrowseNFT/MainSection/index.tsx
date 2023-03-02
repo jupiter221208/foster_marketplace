@@ -56,10 +56,17 @@ import NotificationGreenIcon from 'assets/icons/notification-green.svg'
 import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
+import HeartEmptyLightIcon from 'assets/icons/heart-empty-light.svg'
+
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
+import HeartFilledLightIcon from 'assets/icons/heart-filled-light.svg'
+
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
+import TicketWhiteLightIcon from 'assets/icons/ticket-white-light.svg'
+
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import TicketGreenLightIcon from 'assets/icons/ticket-green-light.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -115,6 +122,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const lightMode = useSelector(state => (state as any).lightMode)
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
@@ -601,7 +609,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
-                <div className={styles.blurImage} />
+                <div className={lightMode ? styles.lightBlurImage : styles.blurImage} />
                 <div className={styles.imageArea}>
                   <img src={nftCoverUrl} alt="" className="h-full" />
                 </div>
@@ -611,7 +619,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
-                <div className={styles.blurImage} />
+                <div className={lightMode ? styles.lightBlurImage : styles.blurImage} />
                 <div className={styles.audioArea}>
                   <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
@@ -621,7 +629,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
-                <div className={styles.blurImage} />
+                <div className={lightMode ? styles.lightBlurImage : styles.blurImage} />
                 <div className={styles.videoArea}>
                   <video controls className="max-w-full max-h-full">
                     <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
@@ -635,7 +643,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
         )}
 
         <div className="col-span-2 lg:col-span-1 z-10">
-          <div className={styles.nftDetailCard}>
+          <div className={`${styles.nftDetailCard} ${lightMode ? styles.nftLightDetailCard : ''}`}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
                 <div>
@@ -644,11 +652,35 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer mr-[16px]" onClick={() => changeLikeStatus()}>
-                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                      <Image
+                        src={
+                          like
+                            ? lightMode
+                              ? HeartFilledLightIcon
+                              : HeartFilledRedIcon
+                            : lightMode
+                            ? HeartEmptyLightIcon
+                            : HeartFilledWhiteIcon
+                        }
+                        alt=""
+                        className=""
+                      />
                       <div className={styles.text}>{likeCount}</div>
                     </div>
                     <div className="flex items-center cursor-pointer mr-[12px]" onClick={() => changeSaveStatus()}>
-                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                      <Image
+                        src={
+                          save
+                            ? lightMode
+                              ? TicketGreenLightIcon
+                              : TicketGreenIcon
+                            : lightMode
+                            ? TicketWhiteLightIcon
+                            : TicketWhiteIcon
+                        }
+                        alt=""
+                        className=""
+                      />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare

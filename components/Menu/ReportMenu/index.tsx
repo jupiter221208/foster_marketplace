@@ -28,10 +28,12 @@ import styles from './index.module.scss'
 // solana
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
+import { useSelector } from 'react-redux'
 
 const ReportMenu = props => {
   const { address, onClick } = props
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [hover, setHover] = useState(false)
   const [hoverReport, setHoverReport] = useState(false)
@@ -44,7 +46,7 @@ const ReportMenu = props => {
       <Menu>
         <Menu.Button>
           <div className="flex justify-between items-center py-2">
-            <div className={styles.ellipseArea}>
+            <div className={`${styles.ellipseArea} ${lightMode ? styles.lightEllipseArea : ''}`}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <Image src={ThreeEllipseMobileIcon} alt="" width="16px" height="4px" />
               ) : (

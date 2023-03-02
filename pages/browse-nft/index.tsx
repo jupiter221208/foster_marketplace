@@ -22,6 +22,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -49,6 +50,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const [loading, setLoading] = useState(false)
   const profileInfo = useSelector(state => (state as any).profileInfo)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     if (!nftDetail) return
@@ -95,11 +97,32 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topRightEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
-        <div className={styles.bottomLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+        <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
+        </div>
+        <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''} `}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
         <div className="z-10">
           {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} nftInfo={nftInfo} />}

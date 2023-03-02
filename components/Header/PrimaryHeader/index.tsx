@@ -21,8 +21,12 @@ import { useViewport } from 'utils'
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg'
+import SearchDarkIcon from 'assets/icons/search-dark.svg'
+
 import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
+import HamburgerMenuDarkIcon from 'assets/icons/hamburger-menu-dark.svg'
 import LogoIcon from 'assets/icons/logo-green.svg'
+import LogoDarkIcon from 'assets/icons/logo-dark.svg'
 import alphaGreenIcon from 'assets/icons/alpha-green.svg'
 import alphaGreenMobileIcon from 'assets/icons/alpha-green-mobile.svg'
 
@@ -253,12 +257,12 @@ const PrimaryHeader = () => {
       )}
     </div>
   ) : (
-    <div className={styles.mobileBlurContainer}>
+    <div className={`${styles.mobileBlurContainer} ${lightMode === true ? styles.lightMobileBlurContainer : ''}`}>
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="flex">
             <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
-              <Image src={LogoIcon} alt="" />
+              <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" />
             </div>
             <div className={styles.alphaArea}>
               <Image src={alphaGreenMobileIcon} alt="" />
@@ -266,13 +270,13 @@ const PrimaryHeader = () => {
           </div>
           <div className="flex">
             <IconButton
-              icon={SearchWhiteIcon}
+              icon={lightMode ? SearchDarkIcon : SearchWhiteIcon}
               onClick={() => handleOpenMobileSearchBox()}
               backgroundColor="transparent"
             />
             <div>
               <IconButton
-                icon={HamburgerMenuGreenIcon}
+                icon={lightMode ? HamburgerMenuDarkIcon : HamburgerMenuGreenIcon}
                 onClick={() => handleOpenMobileMenu()}
                 backgroundColor="transparent"
               />

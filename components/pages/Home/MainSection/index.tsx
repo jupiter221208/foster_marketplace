@@ -142,11 +142,6 @@ const MainSection = () => {
         >
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
-              {/* <div className="flex justify-center">
-                <div className={styles.cardTitle}>The&nbsp;</div>
-                <div className={styles.cardGreenTitle}>House of Art,</div>
-                <div className={styles.cardTitle}>&nbsp;Solana Deserves</div>
-              </div> */}
               <Image
                 src={lightMode ? FosterEnhancedLightMobile : FosterEnhancedMobile}
                 width={278}
@@ -154,7 +149,6 @@ const MainSection = () => {
                 alt=""
                 objectFit="cover"
               />
-
               <div className={lightMode ? styles.lightCardText : styles.cardText}>CREATE. COLLECT. CURATE.</div>
             </div>
           ) : (
@@ -189,9 +183,16 @@ const MainSection = () => {
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
-              <GreenGradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
+              <GradientButton
+                backgroundColor01={lightMode ? '#202427' : '#5ac3ba'}
+                backgroundColor02={lightMode ? '#121212' : '#378287'}
+                gradientDirection={lightMode ? 'bottom' : 'left'}
+                color={lightMode ? '#95DBD5' : ''}
+                width={88}
+                label="Explore"
+                onClick={() => router.push('/explore')}
+              />
               <OutlineButton
-                // borderColor="#fff"
                 label="Create"
                 borderWidth={2}
                 width={88}

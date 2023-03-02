@@ -50,6 +50,7 @@ const SearchBox = props => {
             onClick={() => onClose()}
             backgroundColor="transparent"
             borderColor="transparent"
+            color="#eff0f6"
           />
         </div>
       ) : value !== '' ? (
@@ -60,6 +61,7 @@ const SearchBox = props => {
             fontSize={16}
             width={60}
             fontFamily="Muli-Regular"
+            color="#eff0f6"
             backgroundColor="transparent"
             borderColor="transparent"
           />

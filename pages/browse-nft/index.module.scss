@@ -4,10 +4,18 @@
   position: relative;
 }
 
+.topLeftEllipse {
+  position: absolute;
+  top: -856px;
+  left: -890px;
+  z-index: 0;
+  opacity: 0.4;
+}
+
 .topRightEllipse {
   position: absolute;
-  top: 70vh;
-  right: -860px;
+  top: 0px;
+  right: -440px;
   z-index: 0;
   opacity: 0.4;
 }
