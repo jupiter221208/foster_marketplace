@@ -80,7 +80,7 @@ const TrendingCollectionSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className={styles.topRightEllipse}>
+      <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" />
       </div>
       <div className="w-full flex justify-between items-center z-10">

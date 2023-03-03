@@ -84,7 +84,7 @@ const MarketplaceReleaseSection = props => {
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className={styles.bottomLeftEllipse}>
+        <div className={`${styles.bottomLeftEllipse}  ${lightMode ? '!opacity-100' : ''}`}>
           <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" />
         </div>
         <div className="w-full flex justify-between items-center z-10">

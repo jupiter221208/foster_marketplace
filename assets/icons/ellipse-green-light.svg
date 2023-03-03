@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2321" height="2321" viewBox="0 0 2321 2321">
   <defs>
     <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#78787b" stop-opacity="0.4"/>
+      <stop offset="0" stop-color="#78787b" stop-opacity="0.212"/>
       <stop offset="1" stop-color="#202427" stop-opacity="0"/>
     </radialGradient>
   </defs>

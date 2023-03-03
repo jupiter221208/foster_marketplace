@@ -72,10 +72,10 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      <div className={styles.topLeftEllipse}>
+      <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
-      <div className={styles.topRightEllipse}>
+      <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
         <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
