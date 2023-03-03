@@ -11,11 +11,13 @@
   border-color: $brand-09-color;
   font-size: 14px;
   @media (min-width: 1024px) {
+    border-width: 2px;
     height: 46px;
     font-size: 18px;
     border-radius: 12px;
   }
   @media (min-width: 1536px) {
+    border-width: 2px;
     height: 53px;
     font-size: 18px;
     border-radius: 12px;
@@ -30,4 +32,9 @@
       box-shadow: 0px 3px 6px $brand-09-color;
     }
   }
+}
+
+.lightColor {
+  border-color: $background-black-color;
+  color: $background-dark-color;
 }

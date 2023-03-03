@@ -60,6 +60,10 @@
   color: rgba($text-gray-200-color, 1);
 }
 
+.lightColor {
+  color: $background-dark-color;
+}
+
 .nftInfo {
   width: 345px;
   height: 45px;
@@ -71,9 +75,13 @@
   }
 }
 
+.lightNftInfo {
+  background: $background-dark-color;
+}
+
 .statesBack {
   width: 100%;
-  background-color: $background-black-color;
+  background-color: transparent;
   border-radius: 15px;
   @media (min-width: 1024px) {
     width: 100%;

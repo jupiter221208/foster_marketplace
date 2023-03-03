@@ -31,6 +31,10 @@
   z-index: 1;
 }
 
+.lightAvatarArea {
+  background: linear-gradient(to bottom, $background-dark-color, #eeeff4);
+}
+
 .avatar {
   width: 90px;
   height: 90px;
@@ -68,6 +72,10 @@
   color: $text-gray-200-color;
 }
 
+.lightColor {
+  color: $background-dark-color;
+}
+
 .artistName {
   width: 100%;
   font-family: 'Muli-Bold';
@@ -84,6 +92,11 @@
   color: $text-gray-200-color;
 }
 
+.lightArtistName {
+  font-family: 'Muli';
+  color: rgba($background-dark-color, 0.75);
+}
+
 .greenText {
   font-family: 'Muli-Regular';
   font-size: 12px;
@@ -93,4 +106,8 @@
     font-family: 'Muli-Bold';
     font-size: 16px;
   }
+}
+
+.lightGreenText {
+  color: $background-dark-color;
 }

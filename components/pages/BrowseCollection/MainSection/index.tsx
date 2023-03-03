@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -42,6 +42,7 @@ const MainSection = props => {
   const [saved, setSaved] = useState<boolean>(false)
   const [showReadMore, setShowReadMore] = useState(false)
   const { setVisible } = useWalletModal()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     if (data) {
@@ -151,11 +152,13 @@ const MainSection = props => {
         </div>
         <div className="flex justify-center w-full flex-wrap mt-[30px] mb-[30px] z-10">
           {data?.description && (
-            <span className={styles.description}>{getShortDescription(viewport, data?.description) + ' '}</span>
+            <span className={`${styles.description} ${lightMode ? styles.lightColor : ''} `}>
+              {getShortDescription(viewport, data?.description)}
+            </span>
           )}
         </div>
         <div className="flex justify-center mt-[16px]">
-          <div className={`${styles.nftInfo} grid grid-cols-10`}>
+          <div className={`${styles.nftInfo} ${lightMode ? styles.lightNftInfo : ''} grid grid-cols-10`}>
             <>
               <div className="col-span-2 flex justify-center items-center">
                 <div className="text-center">
