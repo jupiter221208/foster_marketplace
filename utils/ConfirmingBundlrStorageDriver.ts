@@ -7,6 +7,8 @@ async function sleep(time) {
 
 export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
   async bundlr() {
+    const nodeAddress = this._options.address;
+
     this._bundlr ??= await this.initBundlr();
 
     this._bundlr.currencyConfig.sendTx = async function (data) {
@@ -42,12 +44,23 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
             "max"
           );
 
-          for (let j = 0; j < 10; j++)
-            if (await connection.getTransaction(signature, "finalized")) break;
+          for (let j = 0; j < 25; j++) {
+            let response = await fetch(`${nodeAddress}/account/balance/solana`, {
+              method: "POST",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify({ tx_id: signature }),
+            });
+            if (response.ok) break;
             else {
-              console.warn(`failed to get confirmed transaction ${signature}: attempt ${i}`, e);
+              console.warn(
+                `failed to post fund transaction ${signature} to bundlr: attempt ${i}`,
+                await response.text()
+              );
               await sleep(2000);
             }
+          }
 
           // if tx failed once before, wait for 5s before returning
           if (i !== 0) await sleep(5000);
