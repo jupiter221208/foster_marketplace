@@ -51,7 +51,7 @@ export const useLocalWalletBundlr = () => {
 
     // ensure minimum balance for rent-exemption
     const MINIMUM_BALANCE = 900_000;
-    if(currentBalance < MINIMUM_BALANCE)
+    if(difference.neg().toNumber() < MINIMUM_BALANCE)
       difference.iadd(toBigNumber(MINIMUM_BALANCE));
 
     return fundLocalWallet(difference);
