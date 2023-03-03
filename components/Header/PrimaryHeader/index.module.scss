@@ -95,12 +95,13 @@
   width: 98px;
   height: 36px;
   margin-left: 14px;
+  background: rgba($background-black-color, 0.3);
+
   @media (min-width: 1024px) {
     width: 140px;
     min-width: 140px;
     height: 47px;
     margin-left: 28px;
-    background: rgba($background-black-color, 0.4);
   }
   display: flex;
   justify-content: center;

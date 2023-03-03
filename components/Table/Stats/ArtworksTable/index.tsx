@@ -12,13 +12,15 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
+import { useSelector } from 'react-redux'
 
 const ArtworksTable = props => {
   const { data } = props
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
-    <table id="ArtworksTable" className="w-full table-auto">
+    <table id={lightMode ? 'ArtworksLightTable' : 'ArtworksTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
           <th className="w-[20%] text-start">

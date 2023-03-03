@@ -28,9 +28,10 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${lightMode ? styles.lightColor : ''}`}>
       <>
         {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />}
         <PrimaryHeader />

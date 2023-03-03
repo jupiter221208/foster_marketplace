@@ -29,6 +29,10 @@
   color: $text-gray-200-color;
 }
 
+.lightColor {
+  color: $background-dark-color;
+}
+
 .underline {
   width: auto;
   height: 2px;
@@ -61,4 +65,31 @@
   }
 
   color: $text-gray-200-color;
+}
+
+.lightTooltip {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 250px;
+  background: rgba($background-dark-color, 0.1);
+  border: 1px solid rgba($background-dark-color, 0.1);
+  border-radius: 8px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-family: 'Muli-Regular';
+
+  padding: 4px 4px;
+  font-size: 12px;
+  line-height: 18px;
+
+  @media (min-width: 1024px) {
+    top: 40px;
+    width: 360px;
+    padding: 10px 10px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  color: $background-dark-color;
 }

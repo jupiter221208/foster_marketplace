@@ -5,7 +5,7 @@ import SearchSection from '../SearchSection'
 import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // json
 import ArtworksList from 'assets/json/stats/artworks-list.json'
@@ -95,6 +95,8 @@ const ArtworksSection = () => {
     const prevPage = currentPage - 1
     getArtworkData(prevPage, period, searchWord, rowCount)
   }
+
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>

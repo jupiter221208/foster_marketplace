@@ -10,9 +10,11 @@ import SearchLargeIcon from 'assets/icons/search-large.svg'
 // styles
 import styles from './index.module.scss'
 import Image from 'next/image'
+import { useSelector } from 'react-redux'
 
 const SearchSection = props => {
   const { searchWord, period, setPeriod, setSearchWord, onSearch } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
@@ -32,33 +34,33 @@ const SearchSection = props => {
           <GradientButton
             label="24 hrs"
             onClick={() => setPeriod('day')}
-            color={period === 'day' ? '#202427' : '#979EA2'}
-            backgroundColor01={period === 'day' ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={period === 'day' ? '#2D625D' : 'transparent'}
+            color={period === 'day' ? (lightMode ? '#95DBD5' : '#202427') : '#979EA2'}
+            backgroundColor01={period === 'day' ? (lightMode ? '#202427' : '#5ac3ba') : 'transparent'}
+            backgroundColor02={period === 'day' ? (lightMode ? '#202427' : '#2D625D') : 'transparent'}
             gradientDirection="bottom"
           />
           <GradientButton
             label="7 days"
             onClick={() => setPeriod('week')}
-            color={period === 'week' ? '#202427' : '#979EA2'}
-            backgroundColor01={period === 'week' ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={period === 'week' ? '#2D625D' : 'transparent'}
+            color={period === 'week' ? (lightMode ? '#95DBD5' : '#202427') : '#979EA2'}
+            backgroundColor01={period === 'week' ? (lightMode ? '#202427' : '#5ac3ba') : 'transparent'}
+            backgroundColor02={period === 'week' ? (lightMode ? '#202427' : '#2D625D') : 'transparent'}
             gradientDirection="bottom"
           />
           <GradientButton
             label="30 days"
             onClick={() => setPeriod('month')}
-            color={period === 'month' ? '#202427' : '#979EA2'}
-            backgroundColor01={period === 'month' ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={period === 'month' ? '#2D625D' : 'transparent'}
+            color={period === 'month' ? (lightMode ? '#95DBD5' : '#202427') : '#979EA2'}
+            backgroundColor01={period === 'month' ? (lightMode ? '#202427' : '#5ac3ba') : 'transparent'}
+            backgroundColor02={period === 'month' ? (lightMode ? '#202427' : '#2D625D') : 'transparent'}
             gradientDirection="bottom"
           />
           <GradientButton
             label="All Time"
             onClick={() => setPeriod('all')}
-            color={period === 'all' ? '#202427' : '#979EA2'}
-            backgroundColor01={period === 'all' ? '#5ac3ba' : 'transparent'}
-            backgroundColor02={period === 'all' ? '#2D625D' : 'transparent'}
+            color={period === 'all' ? (lightMode ? '#95DBD5' : '#202427') : '#979EA2'}
+            backgroundColor01={period === 'all' ? (lightMode ? '#202427' : '#5ac3ba') : 'transparent'}
+            backgroundColor02={period === 'all' ? (lightMode ? '#202427' : '#2D625D') : 'transparent'}
             gradientDirection="bottom"
           />
         </div>

@@ -20,6 +20,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // json
 import TabList from 'assets/json/stats/tab-list.json'
@@ -28,6 +29,7 @@ import TabList from 'assets/json/stats/tab-list.json'
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
+import { useSelector } from 'react-redux'
 
 const Stats = () => {
   const viewport = useViewport()
@@ -54,6 +56,7 @@ const Stats = () => {
   const handleSelectedTab = item => {
     if (item.id === 0) setActiveTab(item.id)
   }
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="g-container">
@@ -63,11 +66,17 @@ const Stats = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
         <div className="w-full flex flex-wrap">
-          <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
+          <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} z-10 hidden lg:flex`}>House Stats</div>
           <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px] lg:h-[90px]">
             <HouseStatsTab
               tabList={tabList}
