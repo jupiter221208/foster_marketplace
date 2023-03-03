@@ -158,6 +158,7 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={30}
                     label="Following"
+                    lightMode={true}
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
@@ -192,7 +193,10 @@ const MainSection = prop => {
             {artistInfo?.bio && (
               <span className={`${styles.description} ${lightMode ? styles.lightDesc : ''}`}>
                 {getShortDescription(viewport, artistInfo?.bio)}&nbsp;
-                <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+                <span
+                  className={lightMode ? styles.lightReadMore : styles.readMore}
+                  onClick={() => setShowReadMore(!showReadMore)}
+                >
                   Read&nbsp;more
                 </span>
               </span>
@@ -204,7 +208,7 @@ const MainSection = prop => {
           {artistEnable ? (
             <div className={styles.switchArea}>
               <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
-                <div className={styles.switchDisabled}>Collector</div>
+                <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Collector</div>
               </div>
               <div className="w-[50%] h-full absolute top-0 right-0">
                 <div className={styles.switchEnabled}>Artist</div>
@@ -219,7 +223,7 @@ const MainSection = prop => {
                 className="w-[50%] h-full absolute top-0 right-0 cursor-pointer"
                 onClick={() => setArtistEnable(true)}
               >
-                <div className={styles.switchDisabled}>Artist</div>
+                <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Artist</div>
               </div>
             </div>
           )}
@@ -352,6 +356,7 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={18}
                     label="Following"
+                    lightMode={true}
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
@@ -425,7 +430,7 @@ const MainSection = prop => {
         {artistEnable ? (
           <div className={styles.switchArea}>
             <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
-              <div className={styles.switchDisabled}>Collector</div>
+              <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Collector</div>
             </div>
             <div className="w-[50%] h-full absolute top-0 right-0">
               <div className={styles.switchEnabled}>Artist</div>
@@ -437,7 +442,7 @@ const MainSection = prop => {
               <div className={styles.switchEnabled}>Collector</div>
             </div>
             <div className="w-[50%] h-full absolute top-0 right-0 cursor-pointer" onClick={() => setArtistEnable(true)}>
-              <div className={styles.switchDisabled}>Artist</div>
+              <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Artist</div>
             </div>
           </div>
         )}

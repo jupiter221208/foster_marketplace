@@ -39,7 +39,7 @@ const NFTSection = props => {
   return (
     <div>
       <div className={styles.tabContainer}>
-        <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+        <Tab lightMode={true} tabList={tabList} onChange={item => handleSelectedTab(item)} />
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">

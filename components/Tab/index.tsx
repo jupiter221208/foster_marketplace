@@ -11,9 +11,8 @@ import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
 
 const Tab = props => {
-  const { tabList, onChange } = props
+  const { tabList, onChange, lightMode } = props
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <HTab.Group>
@@ -27,10 +26,10 @@ const Tab = props => {
             <button
               className={`${styles.container} ${
                 item.selected
-                  ? lightMode
+                  ? lightMode === true
                     ? styles.lightActiveTab
                     : styles.activeTab
-                  : lightMode
+                  : lightMode === true
                   ? styles.lightInactiveTab
                   : ''
               }`}
