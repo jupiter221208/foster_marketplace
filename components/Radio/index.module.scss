@@ -29,6 +29,35 @@
   }
 }
 
+.lightRadio {
+  appearance: none;
+  border: 2px solid rgba($background-dark-color, 0.6);
+  background-color: transparent;
+  vertical-align: top;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+
+  &:checked {
+    border: 2px solid $background-dark-color;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:before {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      background-color: $background-dark-color;
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 .label {
   flex: 1;
   cursor: pointer;
@@ -37,4 +66,8 @@
   line-height: 24px;
   color: $text-gray-200-color;
   letter-spacing: 0;
+}
+
+.lightLabel {
+  color: $background-dark-color;
 }

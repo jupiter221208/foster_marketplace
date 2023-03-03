@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
@@ -14,6 +15,7 @@ const Radio = props => {
     padding = '',
     gap = '',
   } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return data.map((item, index) => (
     <div
@@ -23,7 +25,7 @@ const Radio = props => {
     >
       {direction === 'ltr' && (
         <input
-          className={styles.radio}
+          className={lightMode ? styles.lightRadio : styles.radio}
           style={{ opacity: item.disabled ? 0.5 : 1 }}
           type="radio"
           id={item.id}
@@ -33,7 +35,7 @@ const Radio = props => {
         />
       )}
       <label
-        className={styles.label}
+        className={`${styles.label} ${lightMode ? styles.lightLabel : ''}`}
         htmlFor={item.id}
         onClick={() => (item.disabled !== undefined && item.disabled ? {} : onChange(item))}
         style={{ opacity: item.disabled ? 0.5 : 1 }}

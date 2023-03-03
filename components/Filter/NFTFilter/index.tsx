@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 // components
 import Radio from 'components/Radio'
@@ -27,6 +28,8 @@ const NFTFilter = props => {
     selectedMarket,
     setSelectedMarket,
   } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
   // const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
@@ -52,25 +55,25 @@ const NFTFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>ARTIST VERIFICATION</div>
+      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>ARTIST VERIFICATION</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}
         onChange={item => setSelectedVerifyType(item)}
       />
-      <div className={`${styles.title} mt-[52px]`}>AVAILABILITY</div>
+      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mt-[52px]`}>AVAILABILITY</div>
       <Radio data={AvailabilityList} selected={selectedAvailability} onChange={item => setSelectedAvailability(item)} />
       {/* <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
       <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} /> */}
-      <div className={`${styles.title} mt-[52px]`}>MARKET</div>
+      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mt-[52px]`}>MARKET</div>
       <Radio data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />
-      <div className={`${styles.title} mt-[52px]`}>MEDIUM</div>
+      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mt-[52px]`}>MEDIUM</div>
       <Radio data={MediumList} selected={selectedMedium} onChange={item => setSelectedMedium(item)} />
       {/* <div className={`${styles.title} mt-[52px]`}>PRICE</div>
       <PriceRange />
       <div className={`${styles.title} mt-[52px]`}>ROYALTIES</div>
       <RoyaltyRange /> */}
-      <div className={`${styles.title} mt-[52px]`}>CATEGORIES</div>
+      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mt-[52px]`}>CATEGORIES</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       )}
