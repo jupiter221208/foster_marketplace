@@ -41,7 +41,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
               blockhash: data.blockhash,
               lastValidBlockHeight: data.lastValidBlockHeight,
             },
-            "max"
+            "confirmed"
           );
 
           for (let j = 0; j < 25; j++) {
