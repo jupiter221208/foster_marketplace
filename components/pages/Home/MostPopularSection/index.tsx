@@ -128,6 +128,7 @@ const MostPopularSection = props => {
               router.push('/explore')
             }}
             borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderWidth={2}
             height="42px"
           />
         </div>

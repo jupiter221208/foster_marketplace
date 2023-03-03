@@ -199,7 +199,7 @@ const PrimaryHeader = () => {
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
             {!connected && routePath !== '/' && (
               <div className={styles.logoArea} onClick={() => router.push('/')}>
-                <Image src={LogoIcon} alt="" />
+                <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" />
               </div>
             )}
             <div className="w-full max-w-[708px] min-w-[448px] flex items-center">

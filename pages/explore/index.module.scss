@@ -36,24 +36,24 @@
 
 .topRightEllipse {
   position: absolute;
-  top: -519px;
-  right: -400px;
+  top: 40px;
+  right: -440px;
   z-index: 0;
   opacity: 0.4;
 }
 
-.bottomRightEllipse {
+.middleRightEllipse {
   position: absolute;
-  bottom: -290px;
-  right: -900px;
+  top: 1124px;
+  right: -1096px;
   z-index: 0;
   opacity: 0.4;
 }
 
 .bottomLeftEllipse {
   position: absolute;
-  bottom: -800px;
-  left: -1399px;
+  top: 2400px;
+  left: -1224px;
   z-index: 0;
   opacity: 0.4;
 }
@@ -71,4 +71,8 @@
     line-height: 67px;
   }
   color: $text-gray-200-color;
+}
+
+.lightTitle {
+  color: $background-dark-color;
 }

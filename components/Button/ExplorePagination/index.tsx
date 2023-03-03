@@ -16,15 +16,16 @@ import RowCountList from 'assets/json/dashboard/row-count-list.json'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const ExplorePagination = props => {
   const { rowCount, handlePrev, handleNext, currentPage, totalCount, setRowCount } = props
   const viewport = useViewport()
-
+  const lightMode = useSelector(state => (state as any).lightMode)
   // const [rowCount, setRowCount] = useState(12)
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}>
       <div>Rows per page:</div>
       <div className="relative">
         <Accordion label={rowCount.toString()} data={RowCountList} onClick={item => setRowCount(item.value)} />

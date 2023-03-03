@@ -29,6 +29,11 @@
   color: $text-gray-200-color;
 }
 
+.lightContainer {
+  border: 1px solid $background-dark-color;
+  color: $background-dark-color;
+}
+
 .menuBlur {
   width: 100%;
   height: auto;

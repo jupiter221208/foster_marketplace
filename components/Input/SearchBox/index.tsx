@@ -3,6 +3,7 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -12,7 +13,9 @@ import { useViewport } from 'utils'
 
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg'
+import SearchDarkIcon from 'assets/icons/search-dark.svg'
 import CloseGrayIcon from 'assets/icons/close-gray.svg'
+import CloseDarkIcon from 'assets/icons/close-dark.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
@@ -23,12 +26,13 @@ const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
   const viewport = useViewport()
   const router = useRouter()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
       <div className={styles.iconArea}>
         <Image
-          src={value !== '' ? CloseGrayIcon : SearchGrayIcon}
+          src={value !== '' ? (lightMode ? CloseDarkIcon : CloseGrayIcon) : lightMode ? SearchDarkIcon : SearchGrayIcon}
           alt=""
           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
@@ -37,7 +41,7 @@ const SearchBox = props => {
         />
       </div>
       <input
-        className={styles.inputArea}
+        className={lightMode ? styles.lightInputArea : styles.inputArea}
         value={value}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
@@ -50,7 +54,7 @@ const SearchBox = props => {
             onClick={() => onClose()}
             backgroundColor="transparent"
             borderColor="transparent"
-            color="#eff0f6"
+            color={lightMode ? '#202427' : '#eff0f6'}
           />
         </div>
       ) : value !== '' ? (
@@ -61,7 +65,7 @@ const SearchBox = props => {
             fontSize={16}
             width={60}
             fontFamily="Muli-Regular"
-            color="#eff0f6"
+            color={lightMode ? '#202427' : '#eff0f6'}
             backgroundColor="transparent"
             borderColor="transparent"
           />

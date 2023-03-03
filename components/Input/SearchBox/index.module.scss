@@ -54,6 +54,37 @@
   }
 }
 
+.lightInputArea {
+  flex: 1;
+  height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 4px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: $background-dark-color;
+  background-color: #313233;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  @media (min-width: 1024px) {
+    background-color: transparent;
+    border-radius: 12px;
+  }
+  outline: none;
+}
+
+.lightInputArea::placeholder {
+  color: rgba($background-dark-color, 0.6);
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
+
 .iconArea {
   height: 40px;
   padding-left: 12px;

@@ -22,6 +22,10 @@
   color: $text-gray-200-color;
 }
 
+.lightColor {
+  color: $background-dark-color;
+}
+
 .menuItem {
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -37,5 +41,23 @@
   white-space: nowrap;
   &:hover {
     background-color: rgba($text-gray-200-color, 0.3);
+  }
+}
+
+.lightMenuItem {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: $background-dark-color;
+  padding: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  &:hover {
+    background-color: rgba($background-dark-color, 0.3);
   }
 }

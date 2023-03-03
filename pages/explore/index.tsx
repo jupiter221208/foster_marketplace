@@ -38,6 +38,8 @@ import MarketList from 'assets/json/explore/market.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
+
 import FilterGrayIcon from 'assets/icons/filter-gray.svg'
 import SortGrayIcon from 'assets/icons/sort-gray.svg'
 // styles
@@ -432,6 +434,8 @@ const Explore = () => {
     }
   }
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <div className="g-container">
       <Head>
@@ -440,10 +444,31 @@ const Explore = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
-        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore the Circus</div>
+        <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={1705}
+            height={1705}
+            alt=""
+            objectFit="cover"
+          />
+        </div>
+        <div
+          className={`${styles.title} ${
+            lightMode ? styles.lightTitle : ''
+          } w-full text-center hidden lg:flex lg:text-start`}
+        >
+          Explore the Circus
+        </div>
         <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] xl:mt-[88px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
@@ -505,15 +530,24 @@ const Explore = () => {
               />
             </div>
             <div className="w-full relative -z-10">
-              <div className={styles.topRightEllipse}>
-                <Image src={EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
+              <div className={`${styles.middleRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+                <Image
+                  src={lightMode ? EllipseGreenLight : EllipseGreen}
+                  width={2021}
+                  height={2021}
+                  alt=""
+                  objectFit="cover"
+                />
               </div>
 
-              <div className={styles.bottomRightEllipse}>
-                <Image src={EllipseGreen} width={1705} height={1705} alt="" objectFit="cover" />
-              </div>
-              <div className={styles.bottomLeftEllipse}>
-                <Image src={EllipseGreen} width={1399} height={1399} alt="" objectFit="cover" />
+              <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+                <Image
+                  src={lightMode ? EllipseGreenLight : EllipseGreen}
+                  width={1399}
+                  height={1399}
+                  alt=""
+                  objectFit="cover"
+                />
               </div>
             </div>
             <div className="w-full relative z-10">
