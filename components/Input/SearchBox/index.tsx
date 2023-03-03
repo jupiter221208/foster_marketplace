@@ -30,16 +30,34 @@ const SearchBox = props => {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.iconArea} ${lightMode ? styles.lightIconArea : ''}`}>
-        <Image
-          src={value !== '' ? (lightMode ? CloseDarkIcon : CloseGrayIcon) : lightMode ? SearchDarkIcon : SearchGrayIcon}
-          alt=""
-          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
-          className="cursor-pointer"
-          onClick={() => onClick()}
-        />
-      </div>
+      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        <div className={`${styles.iconArea} ${lightMode ? styles.lightIconArea : ''}`}>
+          <Image
+            src={
+              value !== '' ? (lightMode ? CloseDarkIcon : CloseGrayIcon) : lightMode ? SearchDarkIcon : SearchGrayIcon
+            }
+            alt=""
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+            className="cursor-pointer"
+            onClick={() => onClick()}
+          />
+        </div>
+      ) : (
+        <div className={styles.iconArea}>
+          <Image
+            src={
+              value !== '' ? (lightMode ? CloseDarkIcon : CloseGrayIcon) : lightMode ? SearchDarkIcon : SearchGrayIcon
+            }
+            alt=""
+            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
+            className="cursor-pointer"
+            onClick={() => onClick()}
+          />
+        </div>
+      )}
+
       <input
         className={lightMode ? styles.lightInputArea : styles.inputArea}
         value={value}

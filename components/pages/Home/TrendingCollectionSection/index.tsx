@@ -172,7 +172,7 @@ const TrendingCollectionSection = props => {
                 : 110
             }
           >
-            <div className="w-full flex gap-5 lg:gap-10 mx-[10px] lg:mx-5">
+            <div className="w-full flex gap-5 lg:gap-10 mx-[10px] py-2 lg:mx-5">
               {trendingList.map((item: any, index) => (
                 <TrendingCollectionCard
                   collectionID={item.collection_id}
