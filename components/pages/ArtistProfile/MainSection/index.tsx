@@ -18,6 +18,7 @@ import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
 
@@ -99,8 +100,8 @@ const MainSection = prop => {
         />
       </div>
       <div className="w-full">
-        <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" />
+        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+          <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={2021} height={2021} alt="" />
         </div>
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
           <div className="col-span-3 h-full flex items-center">
@@ -320,8 +321,8 @@ const MainSection = prop => {
       </div>
       <div className="w-full">
         <div className="z-0">
-          <div className={styles.topLeftEllipse}>
-            <Image src={EllipseGreen} width={2021} height={2021} alt="" />
+          <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
+            <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={2021} height={2021} alt="" />
           </div>
         </div>
         <div className="w-full flex justify-between items-center mt-[-50px] z-10">
@@ -389,9 +390,9 @@ const MainSection = prop => {
               setShowFollowModal(true)
             }}
           >
-            <div className={styles.whiteText}>{artistInfo?.followers}</div>
+            <div className={`${styles.whiteText} ${lightMode ? styles.lightDesc : ''}`}>{artistInfo?.followers}</div>
             &nbsp;
-            <div className={styles.grayText}>Followers</div>
+            <div className={`${styles.grayText} ${lightMode ? styles.lightDesc : ''}`}>Followers</div>
           </div>
           <div
             className="cursor-pointer flex hover:opacity-60 z-10"
@@ -400,9 +401,9 @@ const MainSection = prop => {
               setShowFollowModal(true)
             }}
           >
-            <div className={styles.whiteText}>{artistInfo?.following}</div>
+            <div className={`${styles.whiteText} ${lightMode ? styles.lightDesc : ''}`}>{artistInfo?.following}</div>
             &nbsp;
-            <div className={styles.grayText}>Following</div>
+            <div className={`${styles.grayText} ${lightMode ? styles.lightDesc : ''}`}>Following</div>
           </div>
         </div>
       </div>
@@ -410,7 +411,10 @@ const MainSection = prop => {
         {artistInfo?.bio && (
           <span className={`${styles.description} ${lightMode ? styles.lightDesc : ''}`}>
             {getShortDescription(viewport, artistInfo?.bio) + ' '}
-            <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+            <span
+              className={lightMode ? styles.lightReadMore : styles.readMore}
+              onClick={() => setShowReadMore(!showReadMore)}
+            >
               Read&nbsp;more
             </span>
           </span>

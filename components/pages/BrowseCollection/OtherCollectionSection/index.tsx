@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -25,6 +25,7 @@ import ExploreList from 'assets/json/explore/collection-explore-list.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -39,6 +40,7 @@ const OtherCollectionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [collectionList, setCollectionList] = useState([])
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     if (artistId !== null) {
@@ -55,7 +57,7 @@ const OtherCollectionSection = props => {
     collectionList.length > 0 && (
       <section className={styles.container}>
         <div className={styles.topRightEllipse}>
-          <Image src={EllipseGreen} alt="" objectFit="cover" />
+          <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
         </div>
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
@@ -108,7 +110,7 @@ const OtherCollectionSection = props => {
               label="See More"
               fullWidth
               onClick={() => router.push(`/artist-profile?id=${artistId}`)}
-              borderColor="#ffffff"
+              borderColor={lightMode ? '#202427' : '#ffffff'}
               height="40px"
             />
           </div>

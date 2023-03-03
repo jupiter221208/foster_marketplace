@@ -64,7 +64,7 @@
   font-size: 16px;
   line-height: 24px;
   color: $background-dark-color;
-  background-color: #313233;
+  background-color: rgba($background-light-color, 0.8);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   @media (min-width: 1024px) {
@@ -98,6 +98,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.lightIconArea {
+  background: rgba($background-light-color, 0.8);
 }
 
 .contentArea {
@@ -145,6 +149,10 @@
   flex: 1 auto;
 }
 
+.lightColor {
+  color: $background-dark-color;
+}
+
 .searchDetailIcon {
   padding-left: 12px;
   padding-right: 0px;
@@ -163,6 +171,10 @@
   }
   color: rgba($text-gray-200-color, 0.75);
   flex: 1 auto;
+}
+
+.lightUsername {
+  color: $background-dark-color;
 }
 
 .selection {

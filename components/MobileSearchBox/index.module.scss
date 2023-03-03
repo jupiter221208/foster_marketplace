@@ -23,6 +23,10 @@
   overflow: hidden;
 }
 
+.lightMenu {
+  background: $background-light-color;
+}
+
 .menuOpen {
   width: 100vw;
   min-height: 100vh;

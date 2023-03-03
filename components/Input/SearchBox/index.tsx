@@ -30,7 +30,7 @@ const SearchBox = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.iconArea}>
+      <div className={`${styles.iconArea} ${lightMode ? styles.lightIconArea : ''}`}>
         <Image
           src={value !== '' ? (lightMode ? CloseDarkIcon : CloseGrayIcon) : lightMode ? SearchDarkIcon : SearchGrayIcon}
           alt=""
@@ -75,7 +75,9 @@ const SearchBox = props => {
       )}
       {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
         <div className={styles.contentArea}>
-          {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>ARTWORK</div>}
+          {searchList.nfts.length !== 0 && (
+            <div className={`${styles.title} ${lightMode ? styles.lightColor : ''} mb-[18px]`}>ARTWORK</div>
+          )}
           <div className="w-full flex flex-wrap">
             {searchList.nfts.map((item, index) => (
               <div
@@ -94,14 +96,18 @@ const SearchBox = props => {
                   )}
                 </div>
                 <div>
-                  <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.artist_name}</div>
+                  <div className={`${styles.text} ${lightMode ? styles.lightColor : ''}`}>{item.name}</div>
+                  <div className={`${styles.username} ${lightMode ? styles.lightUsername : ''}`}>
+                    {item.artist_name}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
           {searchList.nfts.length !== 0 && searchList.artists.length !== 0 && <div className="w-full h-10" />}
-          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>ARTIST</div>}
+          {searchList.artists.length !== 0 && (
+            <div className={`${styles.title} ${lightMode ? styles.lightColor : ''} mb-[18px]`}>ARTIST</div>
+          )}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.artists.map((item, index) => (
               <div
@@ -127,14 +133,16 @@ const SearchBox = props => {
                     />
                   )}
                 </div>
-                <div className={styles.text}>{item.name}</div>
+                <div className={`${styles.text} ${lightMode ? styles.lightColor : ''}`}>{item.name}</div>
               </div>
             ))}
           </div>
           {(searchList.nfts.length !== 0 || searchList.artists.length !== 0) && searchList.collections.length !== 0 && (
             <div className="w-full h-10" />
           )}
-          {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[18px]`}>COLLECTION</div>}
+          {searchList.collections.length !== 0 && (
+            <div className={`${styles.title} ${lightMode ? styles.lightColor : ''} mb-[18px]`}>COLLECTION</div>
+          )}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.collections.map((item, index) => (
               <div
@@ -149,8 +157,10 @@ const SearchBox = props => {
                   <img src={item.image_url} alt="" className="object-cover rounded-[10px] w-full h-full" />
                 </div>
                 <div>
-                  <div className={styles.text}>{item.name}</div>
-                  <div className={styles.username}>{item.artist_name}</div>
+                  <div className={`${styles.text} ${lightMode ? styles.lightColor : ''}`}>{item.name}</div>
+                  <div className={`${styles.username} ${lightMode ? styles.lightUsername : ''}`}>
+                    {item.artist_name}
+                  </div>
                 </div>
               </div>
             ))}

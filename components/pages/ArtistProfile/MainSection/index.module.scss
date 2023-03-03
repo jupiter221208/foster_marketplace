@@ -137,9 +137,19 @@
   z-index: 10;
 }
 
+.lightReadMore {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  text-decoration: underline;
+  color: $background-dark-color;
+  cursor: pointer;
+  z-index: 10;
+}
+
 .statesBack {
   width: 100%;
-  background-color: $background-black-color;
+  background-color: transparent;
   border-radius: 15px;
   @media (min-width: 1024px) {
     width: 100%;
@@ -150,6 +160,7 @@
 
 .statsArea {
   width: 100%;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;

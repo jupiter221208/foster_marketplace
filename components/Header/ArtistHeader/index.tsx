@@ -248,12 +248,12 @@ const ArtistHeader = () => {
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
-          />{' '}
+          />
         </div>
       )}
     </div>
   ) : (
-    <div className={`${styles.mobileBlurContainer} ${lightMode === true ? styles.lightMobileBlurContainer : ''}`}>
+    <div className={`${styles.mobileBlurContainer} ${lightMode ? styles.lightMobileBlurContainer : ''}`}>
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>

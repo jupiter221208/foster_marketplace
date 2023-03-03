@@ -68,8 +68,10 @@ const MobileSearchBox = () => {
     }
   }, [searchList])
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
-    <div className={styles.menu}>
+    <div className={`${styles.menu} ${lightMode ? styles.lightMenu : ''}`}>
       <SearchBox
         value={searchKeyword}
         placeholder="Search by NFT, Collection, or Artist"
