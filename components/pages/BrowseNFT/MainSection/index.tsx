@@ -557,7 +557,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                           if (play) setPlay(false)
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                          __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                       <source src=${nftAssetUrl} type="video/mp4" /></video>`,
                         }}
                       />
@@ -602,7 +602,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.videoArea}>
-                  <video controls muted className="max-w-full max-h-full">
+                  <video controls className="max-w-full max-h-full">
                     <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                   </video>
                 </div>
