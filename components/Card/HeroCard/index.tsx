@@ -50,7 +50,7 @@ const HeroCard = props => {
               alt=""
               width={550}
               height={772}
-              className="w-full h-full object-cover rounded-[30px]"
+              className="w-full h-full object-cover rounded-[24px]"
               onClick={() => gotoNftDetailPage()}
             />
           ) : data.asset_type.includes('video') ? (
@@ -60,7 +60,7 @@ const HeroCard = props => {
                   <img
                     src={data.cover_image_url}
                     alt=""
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />
                 ) : (

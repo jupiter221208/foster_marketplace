@@ -55,11 +55,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  // border: 1px solid rgba($text-gray-200-color, 0.1);
-  border-radius: 10px;
+  border-radius: 24px;
   @media (min-width: 1024px) {
     border-radius: 24px;
   }
+  overflow: hidden;
 }
 
 .avatarArea {
