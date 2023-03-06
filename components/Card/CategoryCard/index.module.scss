@@ -13,7 +13,7 @@
     max-width: 359px;
     max-height: 490px;
   }
-  background-color: $background-dark-color;
+  background-color: var(--background-dark-color);
   border-radius: 29px;
   position: relative;
   // border: 1px solid rgba(white, 0.1);
@@ -56,7 +56,7 @@
     line-height: 36px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   z-index: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -76,7 +76,7 @@
     font-size: 16px;
     line-height: 20px;
   }
-  color: $text-gray-800-color;
+  color: var(--text-gray-800-color);
 }
 
 .nftValue {
@@ -87,5 +87,5 @@
     font-size: 16px;
     line-height: 20px;
   }
-  color: $brand-02-color;
+  color: var(--brand-02-color);
 }

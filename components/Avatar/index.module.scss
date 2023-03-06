@@ -15,5 +15,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to left, rgba($brand-02-color, 1), rgba($text-gray-400-color, 1));
+  background: linear-gradient(to left, rgba(var(--brand-02-color), 1), rgba(var(--text-gray-400-color), 1));
 }

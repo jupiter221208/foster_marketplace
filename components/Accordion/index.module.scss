@@ -19,11 +19,11 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightColor {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .menuItem {
@@ -31,7 +31,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   padding: 4px;
   cursor: pointer;
   border-radius: 4px;
@@ -40,7 +40,7 @@
   align-items: center;
   white-space: nowrap;
   &:hover {
-    background-color: rgba($text-gray-200-color, 0.3);
+    background-color: rgba(var(--text-gray-200-color), 0.3);
   }
 }
 
@@ -49,7 +49,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $background-dark-color;
+  color: var(--background-dark-color);
   padding: 4px;
   cursor: pointer;
   border-radius: 4px;
@@ -58,6 +58,6 @@
   align-items: center;
   white-space: nowrap;
   &:hover {
-    background-color: rgba($background-dark-color, 0.3);
+    background-color: rgba(var(--background-dark-color), 0.3);
   }
 }

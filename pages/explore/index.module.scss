@@ -70,9 +70,9 @@
     font-size: 67px;
     line-height: 67px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightTitle {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }

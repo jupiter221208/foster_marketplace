@@ -23,13 +23,13 @@
     height: 170px;
   }
   border-radius: 100%;
-  // background: linear-gradient(110deg, $brand-01-color 50%, $background-dark-color 100%);
-  background: $background-dark-color;
+  // background: linear-gradient(110deg, var(--brand-01-color) 50%, var(--background-dark-color) 100%);
+  background: var(--background-dark-color);
   z-index: 1;
 }
 
 .lightAvatarArea {
-  background: linear-gradient(to bottom, $background-dark-color, $background-light-color 70%);
+  background: linear-gradient(to bottom, var(--background-dark-color), var(--background-light-color) 70%);
 }
 
 .name {
@@ -48,14 +48,14 @@
     margin-top: 16px;
   }
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .lightName {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .bottomSection {

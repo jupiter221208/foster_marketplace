@@ -11,7 +11,7 @@
 .line {
   width: 2px;
   height: 40px;
-  background-color: $brand-03-color;
+  background-color: var(--brand-03-color);
 }
 
 .icon {
@@ -30,7 +30,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  color: $brand-06-color;
+  color: var(--brand-06-color);
   cursor: pointer;
   &:hover {
     opacity: 0.8;

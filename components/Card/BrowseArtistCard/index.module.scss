@@ -25,14 +25,14 @@
     height: 170px;
   }
   border-radius: 100%;
-  background: rgba($background-dark-color, 0.7);
+  background: rgba(var(--background-dark-color), 0.7);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   z-index: 1;
 }
 
 .lightAvatarArea {
-  background: linear-gradient(to bottom, $background-dark-color, #eeeff4);
+  background: linear-gradient(to bottom, var(--background-dark-color), #eeeff4);
 }
 
 .avatar {
@@ -69,11 +69,11 @@
     text-align: center;
   }
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightColor {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .artistName {
@@ -89,19 +89,19 @@
     margin-top: 6px;
   }
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightArtistName {
   font-family: 'Muli';
-  color: rgba($background-dark-color, 0.75);
+  color: rgba(var(--background-dark-color), 0.75);
 }
 
 .greenText {
   font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 24px;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 16px;
@@ -109,5 +109,5 @@
 }
 
 .lightGreenText {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }

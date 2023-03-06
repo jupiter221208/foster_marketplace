@@ -12,7 +12,7 @@
     90deg,
     rgba(#305856, 0.5) 0%,
     rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
+    rgba(var(--background-dark-color), 0.5) 100%
   );
   position: fixed;
   inset: 0;
@@ -23,7 +23,7 @@
   max-width: 520px;
   height: 100%;
   background: linear-gradient(to bottom, #202427 0%, #0a1615 100%);
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   border-radius: 21px;
   padding: 32px 16px 24px 16px;
   @media (min-width: 1024px) {
@@ -39,7 +39,7 @@
   }
   text-align: center;
   line-height: 44px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .text {
@@ -51,7 +51,7 @@
   }
   line-height: 24px;
   white-space: pre-line;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .boldText {
@@ -62,7 +62,7 @@
   cursor: pointer;
   text-decoration: underline;
   &:hover {
-    color: $brand-01-color;
+    color: var(--brand-01-color);
   }
 }
 
@@ -75,7 +75,7 @@
   left: 21px;
   width: 30px;
   height: 30px;
-  background: rgba($background-light-color, 0.2);
+  background: rgba(var(--background-light-color), 0.2);
   border-radius: 15px;
   cursor: pointer;
 }
@@ -84,7 +84,7 @@
   font-family: 'Muli-Bold';
   font-size: 20px;
   line-height: 44px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-size: 26px;
   }
@@ -100,7 +100,7 @@
     height: 53px;
     font-size: 20px;
   }
-  background-color: $brand-01-color;
-  color: $background-dark-color;
+  background-color: var(--brand-01-color);
+  color: var(--background-dark-color);
   border-radius: 12px;
 }

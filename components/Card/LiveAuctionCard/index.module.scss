@@ -5,7 +5,7 @@
   width: 100%;
   max-height: 516px;
   height: 100%;
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   border-radius: 13px;
   @media (min-width: 1024px) {
     border-radius: 24px;
@@ -13,7 +13,7 @@
   @media (min-width: 1536px) {
     border-radius: 24px;
   }
-  border: 0.5px solid rgba($text-gray-200-color, 0.15);
+  border: 0.5px solid rgba(var(--text-gray-200-color), 0.15);
   box-shadow: 0px 3px 6px rgba(black, 0.5);
   cursor: pointer;
 }
@@ -52,7 +52,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba($background-light-color, 0.2);
+  background-color: rgba(var(--background-light-color), 0.2);
   backdrop-filter: blur(10px);
 }
 
@@ -169,7 +169,7 @@
     margin-top: 4px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -190,7 +190,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $brand-03-color;
+  color: var(--brand-03-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -205,7 +205,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $brand-03-color;
+  color: var(--brand-03-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -250,7 +250,7 @@
     line-height: 26px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   opacity: 0.7;
 }
 
@@ -291,7 +291,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: rgba($brand-09-color, 1);
+  color: rgba(var(--brand-09-color), 1);
 }
 
 .bidTime {
@@ -312,7 +312,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: rgba($brand-09-color, 1);
+  color: rgba(var(--brand-09-color), 1);
 }
 
 .bidCount {
@@ -320,7 +320,7 @@
   font-size: 12px;
   line-height: 9px;
   margin-left: 4px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   @media (min-width: 414px) {
     font-size: 12px;
     line-height: 12px;
@@ -388,7 +388,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

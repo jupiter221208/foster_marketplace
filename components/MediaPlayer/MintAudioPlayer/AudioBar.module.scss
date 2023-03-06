@@ -7,7 +7,7 @@
   align-items: center;
 
   .bar__time {
-    color: $text-gray-200-color;
+    color: var(--text-gray-200-color);
     font-family: 'Muli-Regular';
     font-size: 12px;
   }
@@ -28,7 +28,7 @@
       position: relative;
       height: 16px;
       width: 16px;
-      border: 2px solid $background-dark-color;
+      border: 2px solid var(--background-dark-color);
       border-radius: 50%;
       background-color: #378287;
     }

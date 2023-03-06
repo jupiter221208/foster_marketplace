@@ -15,7 +15,7 @@
     font-size: 32px;
     line-height: 44px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
@@ -27,7 +27,7 @@
     font-size: 28px;
     line-height: 44px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   text-align: center;
   word-break: break-word;
 }

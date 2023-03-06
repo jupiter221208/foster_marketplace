@@ -2,11 +2,11 @@
 
 .checkbox {
   appearance: none;
-  border: 1px solid $text-gray-200-color;
+  border: 1px solid var(--text-gray-200-color);
   background-color: transparent;
   &:checked {
-    border: 2px solid $brand-03-color;
-    background-color: $brand-03-color;
+    border: 2px solid var(--brand-03-color);
+    background-color: var(--brand-03-color);
     position: relative;
     &:before {
       content: '';
@@ -19,10 +19,10 @@
       /* setting the checkbox */
       /* short arm */
       width: 7px;
-      border-bottom: 3px solid $text-gray-800-color;
+      border-bottom: 3px solid var(--text-gray-800-color);
       /* long arm */
       height: 15px;
-      border-right: 3px solid $text-gray-800-color;
+      border-right: 3px solid var(--text-gray-800-color);
 
       /* rotate the mirrored L to make it a checkbox */
       transform: rotate(45deg);
@@ -47,7 +47,7 @@
   flex: 1;
   font-size: 15px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   letter-spacing: 0;
 }
 
@@ -57,6 +57,6 @@
   flex: 1;
   font-size: 15px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.4);
+  color: rgba(var(--text-gray-200-color), 0.4);
   letter-spacing: 0;
 }

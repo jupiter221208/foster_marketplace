@@ -23,7 +23,7 @@
     font-size: 16px;
     line-height: 24px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   background-color: transparent;
   outline: none;
 }

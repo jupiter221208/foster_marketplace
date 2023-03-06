@@ -16,7 +16,7 @@
     90deg,
     rgba(#305856, 0.5) 0%,
     rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
+    rgba(var(--background-dark-color), 0.5) 100%
   );
   z-index: 9999;
   &:hover {
@@ -80,7 +80,7 @@
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: rgba($background-light-color, 0.3);
+  background-color: rgba(var(--background-light-color), 0.3);
   backdrop-filter: blur(10px);
 }
 

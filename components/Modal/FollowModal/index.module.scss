@@ -16,12 +16,12 @@
   width: 100%;
   max-height: calc(100vh - 200px);
   height: 100%;
-  background: rgba($background-black-color, 0.8);
+  background: rgba(var(--background-black-color), 0.8);
   border-radius: 20px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   background-origin: border-box;
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   padding: 16px;
   @media (min-width: 1024px) {
     padding: 43px 32px 39px 32px;
@@ -52,11 +52,11 @@
   border-radius: 100%;
   background: linear-gradient(
     110deg,
-    $brand-06-color -60%,
+    var(--brand-06-color) -60%,
     #5e2028 20%,
-    $brand-01-color 50%,
-    $brand-04-color 80%,
-    $brand-01-color 140%
+    var(--brand-01-color) 50%,
+    var(--brand-04-color) 80%,
+    var(--brand-01-color) 140%
   );
 }
 
@@ -68,7 +68,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: start;
   cursor: pointer;
 }
@@ -82,5 +82,5 @@
     line-height: 20px;
   }
 
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

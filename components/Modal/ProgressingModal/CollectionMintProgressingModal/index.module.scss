@@ -12,9 +12,9 @@
     90deg,
     rgba(#305856, 0.5) 0%,
     rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
+    rgba(var(--background-dark-color), 0.5) 100%
   );
-  // background-color: rgba($background-dark-color, 0.8);
+  // background-color: rgba(var(--background-dark-color), 0.8);
   position: fixed;
   inset: 0;
 }
@@ -22,13 +22,13 @@
 .modalView {
   width: 926px;
   height: 100%;
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   @media (min-width: 1024px) {
-    background-color: rgba($background-black-color, 0.6);
+    background-color: rgba(var(--background-black-color), 0.6);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
-  border: 1px solid $brand-09-color;
+  border: 1px solid var(--brand-09-color);
   border-radius: 21px;
   padding: 50px 30px 30px 30px;
 }
@@ -37,33 +37,33 @@
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
-  color: $brand-01-color;
+  color: var(--brand-01-color);
 }
 
 .whiteText {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .grayText {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
   text-align: start;
   margin-bottom: 12px;
 }
 
 .darkBackground {
   width: 100%;
-  background-color: $background-dark-color;
+  background-color: var(--background-dark-color);
   border-radius: 12px;
   padding: 15px;
 
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

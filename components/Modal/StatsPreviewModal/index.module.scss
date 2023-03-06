@@ -6,7 +6,7 @@
 }
 
 .bgView {
-  background-color: rgba($background-dark-color, 0.6);
+  background-color: rgba(var(--background-dark-color), 0.6);
   position: fixed;
   inset: 0;
   backdrop-filter: blur(20px);
@@ -19,11 +19,11 @@
   height: 100%;
   background-origin: border-box;
   box-shadow: 0px 13px 36px #061a1c;
-  background: linear-gradient(to bottom, $background-black-color, #173639);
+  background: linear-gradient(to bottom, var(--background-black-color), #173639);
   border-radius: 21px;
   @media (min-width: 1024px) {
     background: linear-gradient(to bottom, #326f74, #202a2c);
-    border: 1px solid rgba($background-light-color, 0.25);
+    border: 1px solid rgba(var(--background-light-color), 0.25);
     border-radius: 30px;
   }
 }
@@ -54,7 +54,7 @@
   height: 577px;
   max-width: 488px;
   text-align: center;
-  background: linear-gradient(to bottom, $background-black-color, #173639);
+  background: linear-gradient(to bottom, var(--background-black-color), #173639);
   border-radius: 21px;
   box-shadow: 0px 13px 36px rgba(#061a1c, 0.5);
   @media (min-width: 1024px) {
@@ -68,7 +68,7 @@
   @media (min-width: 1024px) {
     font-size: 39px;
   }
-  color: $brand-01-color;
+  color: var(--brand-01-color);
   line-height: 44px;
 }
 
@@ -82,11 +82,11 @@
     line-height: 24px;
   }
   text-align: start;
-  color: rgba($text-gray-200-color, 0.9);
+  color: rgba(var(--text-gray-200-color), 0.9);
 }
 
 .link {
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   cursor: pointer;
 }
 
@@ -112,7 +112,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 36px;
-  color: $brand-11-color;
+  color: var(--brand-11-color);
   text-decoration: underline;
   cursor: pointer;
   @media (min-width: 1024px) {
@@ -132,13 +132,13 @@
 
 .comingSoon {
   width: fit-content;
-  background: rgba($background-light-color, 0.1);
+  background: rgba(var(--background-light-color), 0.1);
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
   padding: 7px;
   border-radius: 12px;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
 }
 
 .title {
@@ -147,7 +147,7 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-size: 24px;
     margin-top: 18px;
@@ -164,5 +164,5 @@
     margin-top: 20px;
     font-size: 24px;
   }
-  color: $brand-09-color;
+  color: var(--brand-09-color);
 }

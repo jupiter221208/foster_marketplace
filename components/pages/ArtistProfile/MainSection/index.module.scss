@@ -51,9 +51,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba($text-gray-200-color, 0.5);
+  color: rgba(var(--text-gray-200-color), 0.5);
   @media (min-width: 1024px) {
-    color: rgba($text-gray-200-color, 0.75);
+    color: rgba(var(--text-gray-200-color), 0.75);
   }
 }
 
@@ -63,10 +63,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   background-color: #c8cacf;
   @media (min-width: 1024px) {
-    color: rgba($text-gray-200-color, 1);
+    color: rgba(var(--text-gray-200-color), 1);
     background-color: #65666c;
   }
 }
@@ -74,13 +74,13 @@
 .switchEnabled {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to right, $background-black-color 0%, #173437 100%);
+  background: linear-gradient(to right, var(--background-black-color) 0%, #173437 100%);
   border-radius: 10px;
   box-shadow: 0px 3px 6px rgba(#000, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
 }
 
 .headerImage {
@@ -102,11 +102,11 @@
   @media (min-width: 1024px) {
     font-size: 18px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .whiteLightText {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .grayText {
@@ -115,11 +115,11 @@
   @media (min-width: 1024px) {
     font-size: 18px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
 }
 
 .grayLightText {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .description {
@@ -134,11 +134,11 @@
     margin-top: 52px;
   }
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightDesc {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .readMore {
@@ -146,7 +146,7 @@
   font-size: 16px;
   line-height: 24px;
   text-decoration: underline;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   cursor: pointer;
   z-index: 10;
 }
@@ -156,7 +156,7 @@
   font-size: 16px;
   line-height: 24px;
   text-decoration: underline;
-  color: $background-dark-color;
+  color: var(--background-dark-color);
   cursor: pointer;
   z-index: 10;
 }
@@ -166,7 +166,7 @@
   background-color: transparent;
   border-radius: 15px;
   @media (min-width: 1024px) {
-    background-color: $background-black-color;
+    background-color: var(--background-black-color);
     width: 100%;
     padding: 15px 15px 15px 15px;
   }
@@ -198,7 +198,7 @@
     background-color: #17191a;
     border-radius: 6px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .nftInfoValue {
@@ -209,7 +209,7 @@
     font-size: 14px;
     margin-top: 8px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
 }
 
 .categoryList {
@@ -228,6 +228,6 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 24px;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   white-space: nowrap;
 }

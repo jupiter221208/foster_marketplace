@@ -7,7 +7,7 @@
   cursor: pointer;
   border-radius: 8px;
   background-color: transparent;
-  border: 1px solid rgba($text-gray-200-color, 0.6);
+  border: 1px solid rgba(var(--text-gray-200-color), 0.6);
   padding-left: 12px;
   padding-right: 25px;
   @media (min-width: 1024px) {
@@ -26,12 +26,12 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightContainer {
-  border: 1px solid $background-dark-color;
-  color: $background-dark-color;
+  border: 1px solid var(--background-dark-color);
+  color: var(--background-dark-color);
 }
 
 .menuBlur {
@@ -41,7 +41,7 @@
   right: 0;
   margin-top: 4px;
   transform-origin: top right;
-  background-color: rgba($background-black-color, 0.4);
+  background-color: rgba(var(--background-black-color), 0.4);
   border-radius: 8px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
@@ -51,7 +51,7 @@
   width: 100%;
   cursor: pointer;
   border-radius: 8px;
-  border: 1px solid rgba($text-gray-200-color, 0.05);
+  border: 1px solid rgba(var(--text-gray-200-color), 0.05);
   background-color: transparent;
 
   &:focus {
@@ -62,7 +62,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   z-index: 1;
   padding: 8px 8px 8px 8px;
   @media (min-width: 1024px) {
@@ -81,15 +81,15 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .activeMenuItem {
   font-family: 'Muli-SemiBold';
-  color: $brand-09-color;
+  color: var(--brand-09-color);
 }
 
 .disabledMenuItem {
   cursor: default;
-  color: rgba($text-gray-200-color, 0.6);
+  color: rgba(var(--text-gray-200-color), 0.6);
 }

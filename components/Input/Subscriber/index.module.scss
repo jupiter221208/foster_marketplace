@@ -8,7 +8,7 @@
   border-radius: 12px;
   border-width: 1px;
   border-color: rgba(white, 0.25);
-  background: $background-dark-color;
+  background: var(--background-dark-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +24,7 @@
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: $brand-06-color;
+  color: var(--brand-06-color);
   background-color: transparent;
   outline: none;
 }

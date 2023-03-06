@@ -5,7 +5,7 @@
   padding: 12px 14px;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid rgba($white-color, 0.1);
+  border: 1px solid rgba(var(--white-color), 0.1);
   border-radius: 7px;
   // width: 287px;
   width: 287px;
@@ -41,7 +41,7 @@
   width: 100%;
   height: 80px;
   border-radius: 7px;
-  background: linear-gradient(to top, transparent, $black-color);
+  background: linear-gradient(to top, transparent, var(--black-color));
 }
 
 .bottomMask {
@@ -51,7 +51,7 @@
   width: 100%;
   height: 80px;
   border-radius: 7px;
-  background: linear-gradient(to bottom, transparent, $black-color);
+  background: linear-gradient(to bottom, transparent, var(--black-color));
 }
 
 .volume {
@@ -68,20 +68,20 @@
   font-family: 'Muli-Bold';
   font-size: 15px;
   line-height: 19px;
-  color: $white-color;
+  color: var(--white-color);
 }
 
 .artistName {
   font-family: 'Muli-Bold';
   font-size: 20px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 .avatarArea {
   width: 36px;
   height: 36px;
   border-radius: 18px;
-  background-color: rgba($white-color, 0.1);
+  background-color: rgba(var(--white-color), 0.1);
   display: flex;
   justify-content: center;
   align-items: center;

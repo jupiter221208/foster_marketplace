@@ -27,10 +27,10 @@
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba($text-gray-800-color, 0.5) 0%,
-    rgba($text-gray-800-color, 0.1) 40%,
-    rgba($text-gray-800-color, 0.15) 60%,
-    rgba($text-gray-800-color, 0.5) 100%
+    rgba(var(--text-gray-800-color), 0.5) 0%,
+    rgba(var(--text-gray-800-color), 0.1) 40%,
+    rgba(var(--text-gray-800-color), 0.15) 60%,
+    rgba(var(--text-gray-800-color), 0.5) 100%
   );
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -42,10 +42,10 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba($background-dark-color, 0.5) 0%,
-    rgba($background-dark-color, 0.3) 40%,
-    rgba($background-dark-color, 0.2) 60%,
-    rgba($background-dark-color, 0.5) 100%
+    rgba(var(--background-dark-color), 0.5) 0%,
+    rgba(var(--background-dark-color), 0.3) 40%,
+    rgba(var(--background-dark-color), 0.2) 60%,
+    rgba(var(--background-dark-color), 0.5) 100%
   );
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -56,7 +56,11 @@
   margin: 11px;
   border-radius: 12px;
   padding: 8px;
-  background: linear-gradient(to bottom, rgba($background-dark-color, 0.4), rgba($background-light-color, 0.4));
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--background-dark-color), 0.4),
+    rgba(var(--background-light-color), 0.4)
+  );
   overflow: hidden;
   max-width: calc(100% - 32px);
   max-height: calc(100% - 32px);
@@ -84,7 +88,7 @@
     margin-left: 0px;
     height: calc(100vh - 100px - 60px);
     border-radius: 27px;
-    border: 1px solid rgba($background-light-color, 0.1);
+    border: 1px solid rgba(var(--background-light-color), 0.1);
   }
   display: flex;
   justify-content: center;
@@ -103,7 +107,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba($background-light-color, 0.2);
+  background-color: rgba(var(--background-light-color), 0.2);
   backdrop-filter: blur(10px);
 }
 
@@ -111,14 +115,14 @@
   width: 100%;
   height: 49px;
   border-radius: 12px;
-  background: linear-gradient(to bottom, rgba($brand-02-color, 1), rgba(#244246, 1));
+  background: linear-gradient(to bottom, rgba(var(--brand-02-color), 1), rgba(#244246, 1));
   gap: 13px;
 
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 
   display: flex;
   justify-content: center;
@@ -182,13 +186,13 @@
     padding: 40px 65px 40px 65px;
   }
 
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   border-radius: 27px;
-  border: 1px solid rgba($text-gray-200-color, 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color), 0.1);
 }
 
 .nftLightDetailCard {
-  background: linear-gradient(to bottom, #78787b, $background-dark-color);
+  background: linear-gradient(to bottom, #78787b, var(--background-dark-color));
 }
 
 .collectionName {
@@ -201,11 +205,11 @@
     font-size: 24px;
     line-height: 28px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   white-space: nowrap;
   cursor: pointer;
   &:hover {
-    color: $brand-01-color;
+    color: var(--brand-01-color);
   }
 }
 
@@ -217,7 +221,7 @@
     font-size: 24px;
     line-height: 28px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   white-space: nowrap;
 }
 
@@ -226,7 +230,7 @@
   font-size: 18px;
   line-height: 24px;
   margin-left: 12px;
-  color: rgba($text-gray-200-color, 0.9);
+  color: rgba(var(--text-gray-200-color), 0.9);
 }
 
 .likeTitle {
@@ -237,14 +241,14 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: $brand-01-color;
+  color: var(--brand-01-color);
 }
 
 .whiteTitle {
   font-family: 'Muli-Bold';
   font-size: 24px;
   line-height: 36px;
-  color: $white-color;
+  color: var(--white-color);
 }
 
 .title {
@@ -272,7 +276,7 @@
     line-height: 60px;
   }
 
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .grayText {
@@ -284,7 +288,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
 }
 
 .greenText {
@@ -296,7 +300,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: $brand-08-color;
+  color: var(--brand-08-color);
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -307,7 +311,7 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.74);
+  color: rgba(var(--text-gray-200-color), 0.74);
 }
 
 .greenRoyalties {
@@ -318,7 +322,7 @@
     font-size: 16px;
     line-height: 24px;
   }
-  color: rgba($brand-01-color, 0.8);
+  color: rgba(var(--brand-01-color), 0.8);
 }
 
 .whiteRoyalties {
@@ -328,14 +332,14 @@
     font-size: 12px;
   }
   line-height: 12px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 .greenDiscription {
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: $brand-01-color;
+  color: var(--brand-01-color);
   cursor: pointer;
   &:hover {
     opacity: 0.8;
@@ -369,11 +373,11 @@
   padding-right: 12px;
   border-radius: 12px;
   border: 1px solid rgba(#eceef4, 0.1);
-  background-color: rgba($background-dark-color, 1);
+  background-color: rgba(var(--background-dark-color), 1);
 
   font-family: 'Muli-Bold';
   font-size: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .accordionOpenButton {
@@ -402,7 +406,7 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
-  border: 2px solid rgba($text-gray-200-color, 0.1);
+  border: 2px solid rgba(var(--text-gray-200-color), 0.1);
   background: linear-gradient(to bottom, #212626, #253c3a);
 
   font-family: 'Muli-Bold';
@@ -428,14 +432,14 @@
   font-family: 'Muli-Bold';
   font-size: 12px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .tableText {
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.74);
+  color: rgba(var(--text-gray-200-color), 0.74);
 }
 
 .activityUser {
@@ -465,7 +469,7 @@
   padding: 5px;
   border-radius: 12px;
   backdrop-filter: blur(16px);
-  box-shadow: 0px 3px 6px rgba($brand-01-color, 0.23);
+  box-shadow: 0px 3px 6px rgba(var(--brand-01-color), 0.23);
 }
 
 .auctionBG {
@@ -478,7 +482,7 @@
   left: 0;
   top: 0;
   border-radius: 12px;
-  background: linear-gradient(to bottom, $background-black-color, $background-dark-color);
+  background: linear-gradient(to bottom, var(--background-black-color), var(--background-dark-color));
   overflow: hidden;
 }
 
@@ -501,17 +505,17 @@
 }
 
 .placeBidEnabledBG {
-  background: linear-gradient(to bottom, $background-black-color, $brand-10-color);
+  background: linear-gradient(to bottom, var(--background-black-color), var(--brand-10-color));
 }
 
 .placeBidDisabledBG {
-  background: $background-black-color;
+  background: var(--background-black-color);
 }
 
 .placeBidBtn {
   font-family: 'KCDurhamBoxcar';
   font-size: 25px;
-  color: $brand-11-color;
+  color: var(--brand-11-color);
   margin: 5px 3px;
   @media (min-width: 1024px) {
     margin: 5px 9px;
@@ -520,11 +524,11 @@
 }
 
 .placeBidEnabledColor {
-  color: $brand-11-color;
+  color: var(--brand-11-color);
 }
 
 .placeBidDisabledColor {
-  color: rgba($text-gray-200-color, 0.5);
+  color: rgba(var(--text-gray-200-color), 0.5);
 }
 
 .highBidText {

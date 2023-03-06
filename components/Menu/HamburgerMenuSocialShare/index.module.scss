@@ -4,7 +4,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 .menuArea {
@@ -14,9 +14,9 @@
     top: 30px;
   }
   right: 0px;
-  background-color: $background-dark-color;
+  background-color: var(--background-dark-color);
   border-radius: 15px;
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   width: 172px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -36,9 +36,9 @@
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   &:hover {
-    background-image: linear-gradient(to bottom, rgba($brand-01-color, 30%) 0%, rgba(#2d625d, 30%) 100%);
-    border-top: 1px solid rgba($background-light-color, 0.5);
-    border-bottom: 1px solid rgba($background-light-color, 0.5);
+    background-image: linear-gradient(to bottom, rgba(var(--brand-01-color), 30%) 0%, rgba(#2d625d, 30%) 100%);
+    border-top: 1px solid rgba(var(--background-light-color), 0.5);
+    border-bottom: 1px solid rgba(var(--background-light-color), 0.5);
   }
   transition: all 0.2s;
   transition-timing-function: ease-in-out;
@@ -51,5 +51,5 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

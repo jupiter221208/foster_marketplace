@@ -6,7 +6,7 @@
 }
 
 .bgView {
-  background-color: rgba($background-dark-color, 0.8);
+  background-color: rgba(var(--background-dark-color), 0.8);
   position: fixed;
   inset: 0;
 }
@@ -16,13 +16,13 @@
   overflow: hidden;
   width: 960px;
   height: 100%;
-  border: 1px solid rgba($background-black-color, 0.5);
+  border: 1px solid rgba(var(--background-black-color), 0.5);
   background-origin: border-box;
   border-radius: 16px;
   box-shadow: 0px 13px 36px #061a1c;
   @media (min-width: 1024px) {
     background: linear-gradient(to bottom, rgba(#264e51, 1), rgba(#131516, 1));
-    border: 1px solid rgba($background-light-color, 0.25);
+    border: 1px solid rgba(var(--background-light-color), 0.25);
     padding: 35px 25px;
     border-radius: 30px;
   }
@@ -47,7 +47,7 @@
     padding: 30px 46px;
   }
   text-align: center;
-  background: linear-gradient(to bottom, rgba($background-black-color, 1), rgba(#173538, 1));
+  background: linear-gradient(to bottom, rgba(var(--background-black-color), 1), rgba(#173538, 1));
   border-radius: 21px;
   box-shadow: 0px 13px 36px rgba(#061a1c, 0.5);
 }
@@ -58,7 +58,7 @@
   @media (min-width: 1024px) {
     font-size: 14px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   line-height: 18px;
   text-align: start;
   padding: 11px 0px;
@@ -72,7 +72,7 @@
     margin-top: 4px;
     font-size: 24px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   line-height: 44px;
 }
 
@@ -86,7 +86,7 @@
     line-height: 24px;
     margin-top: 10px;
   }
-  color: rgba($text-gray-200-color, 0.9);
+  color: rgba(var(--text-gray-200-color), 0.9);
 }
 
 .avatarArea {
@@ -98,7 +98,7 @@
     height: 170px;
   }
   border-radius: 100%;
-  background: linear-gradient(300deg, #4a9791 55%, $background-dark-color 100%);
+  background: linear-gradient(300deg, #4a9791 55%, var(--background-dark-color) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,7 +111,7 @@
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background: rgba($background-black-color, 0.5);
+  background: rgba(var(--background-black-color), 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -134,6 +134,6 @@
   margin-top: 36px;
   font-family: 'KCDurhamboxcar';
   font-size: 53px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   line-height: 36px;
 }

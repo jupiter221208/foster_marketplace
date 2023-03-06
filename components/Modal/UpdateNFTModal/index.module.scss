@@ -8,7 +8,7 @@
 .bgView {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  background-color: rgba($background-dark-color, 0.8);
+  background-color: rgba(var(--background-dark-color), 0.8);
   position: fixed;
   inset: 0;
 }
@@ -16,11 +16,11 @@
 .modalView {
   width: 100%;
   max-width: 488px;
-  // background-color: $background-black-color;
-  background: rgba($background-black-color, 0.6);
+  // background-color: var(--background-black-color);
+  background: rgba(var(--background-black-color), 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   border-radius: 20px;
   padding: 30px;
   @media (min-width: 1024px) {
@@ -65,7 +65,7 @@
   }
   text-align: center;
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .nftName {
@@ -78,7 +78,7 @@
   }
   text-align: center;
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .text {
@@ -100,7 +100,7 @@
   @media (min-width: 1024px) {
     margin-top: 40px;
   }
-  border: 1px solid rgba($background-light-color, 0.4);
+  border: 1px solid rgba(var(--background-light-color), 0.4);
   border-radius: 12px;
 }
 

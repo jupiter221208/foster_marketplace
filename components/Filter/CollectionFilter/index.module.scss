@@ -5,17 +5,17 @@
   height: fit-content;
   border-radius: 23px;
   padding: 80px 40px 80px 40px;
-  // background-color: rgba($background-black-color, 0.6);
+  // background-color: rgba(var(--background-black-color), 0.6);
 }
 
 .title {
   font-family: 'Muli-Bold';
   font-size: 20px;
   line-height: 25px;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   margin-bottom: 26px;
 }
 
 .lightTitle {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }

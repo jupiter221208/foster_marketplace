@@ -34,7 +34,7 @@
     font-size: 82px;
     line-height: 82px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .content {
@@ -55,14 +55,14 @@
   font-family: 'Muli-SemiBold';
   font-size: 22px;
   line-height: 28px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .description {
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 .empty {

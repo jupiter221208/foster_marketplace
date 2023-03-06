@@ -8,7 +8,7 @@
   justify-content: center;
   align-items: center;
   font-family: 'Muli-SemiBold';
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
   &:focus {
     outline: none;
   }
@@ -26,11 +26,11 @@
 
 .activeTab {
   font-family: 'Muli-ExtraBold';
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightColor {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .underline {
@@ -38,15 +38,15 @@
   height: 2px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: $brand-09-color;
+  background-color: var(--brand-09-color);
 }
 .tooltip {
   position: absolute;
   left: 0;
   top: 25px;
   width: 250px;
-  background: rgba($background-light-color, 0.2);
-  border: 1px solid rgba($background-light-color, 0.1);
+  background: rgba(var(--background-light-color), 0.2);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   border-radius: 8px;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
@@ -64,7 +64,7 @@
     line-height: 24px;
   }
 
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .lightTooltip {
@@ -72,8 +72,8 @@
   left: 0;
   top: 25px;
   width: 250px;
-  background: rgba($background-dark-color, 0.1);
-  border: 1px solid rgba($background-dark-color, 0.1);
+  background: rgba(var(--background-dark-color), 0.1);
+  border: 1px solid rgba(var(--background-dark-color), 0.1);
   border-radius: 8px;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
@@ -91,5 +91,5 @@
     line-height: 24px;
   }
 
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }

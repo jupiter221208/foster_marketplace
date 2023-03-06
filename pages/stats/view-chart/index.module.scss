@@ -19,7 +19,7 @@
   @media (min-width: 1024px) {
     font-size: 35px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .subTitle {
@@ -29,5 +29,5 @@
   @media (min-width: 1024px) {
     font-size: 18px;
   }
-  color: $brand-06-color;
+  color: var(--brand-06-color);
 }

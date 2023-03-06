@@ -9,17 +9,17 @@
 }
 
 .active {
-  background: $brand-08-color;
+  background: var(--brand-08-color);
 }
 
 .inactive {
-  background-color: $background-dark-color;
+  background-color: var(--background-dark-color);
 }
 
 .activeToggle {
-  background: $background-dark-color;
+  background: var(--background-dark-color);
 }
 
 .inactiveToggle {
-  background-color: $brand-08-color;
+  background-color: var(--brand-08-color);
 }

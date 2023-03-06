@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   min-height: 100vh;
   position: relative;
 }
@@ -12,7 +12,7 @@
   @media (min-width: 1024px) {
     font-size: 308px;
   }
-  color: $brand-11-color;
+  color: var(--brand-11-color);
 }
 
 .text {
@@ -21,5 +21,5 @@
   @media (min-width: 1024px) {
     font-size: 32px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

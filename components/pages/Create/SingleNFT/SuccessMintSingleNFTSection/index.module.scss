@@ -43,7 +43,7 @@
     line-height: 158px;
   }
   letter-spacing: 0;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   text-align: center;
 }
 
@@ -59,11 +59,11 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
 .mintLinkText {
-  color: $brand-01-color;
+  color: var(--brand-01-color);
   text-decoration: underline;
 }

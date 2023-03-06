@@ -46,6 +46,34 @@
   font-style: normal;
 }
 
+:root {
+  --brand-01-color: #5ac3ba;
+  --brand-02-color: #378287;
+  --brand-03-color: #63d6cd;
+  --brand-04-color: #865554;
+  --brand-06-color: #deefd0;
+  --brand-07-color: #41d0c6;
+  --brand-08-color: #93bfbb;
+  --brand-09-color: #95dbd5;
+  --brand-10-color: #2d625d;
+  --brand-11-color: #9cedd6;
+
+  --background-black-color: #121212;
+  --background-dark-color: #202427;
+  --background-light-color: #eff0f6;
+
+  --error-color: #a21f23;
+  --success-color: #5ac3ba;
+
+  --text-gray-800-color: #202427;
+  --text-gray-600-color: rgba(#202427, 0.8);
+  --text-gray-400-color: rgba(#202427, 0.6);
+  --text-gray-200-color: #eff0f6;
+
+  --white-color: #ffffff;
+  --black-color: #000000;
+}
+
 html,
 body {
   padding: 0;
@@ -165,7 +193,7 @@ h6 {
   @media (min-width: 1536px) {
     padding-right: 150px;
   }
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
 }
 
 .heroSwiper {
@@ -191,7 +219,7 @@ h6 {
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background: rgba($text-gray-200-color, 1);
+    background: rgba(var(--text-gray-200-color), 1);
     @media (max-width: 640px) {
       width: 4px;
       height: 4px;
@@ -200,8 +228,8 @@ h6 {
   }
 
   .swiper-pagination-bullet-active {
-    color: $white-color;
-    background: $brand-01-color;
+    color: var(--white-color);
+    background: var(--brand-01-color);
     width: 35px;
     height: 8px;
     border-radius: 4px;
@@ -236,7 +264,7 @@ h6 {
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background: rgba($text-gray-200-color, 1);
+    background: rgba(var(--text-gray-200-color), 1);
     @media (max-width: 640px) {
       width: 4px;
       height: 4px;
@@ -245,8 +273,8 @@ h6 {
   }
 
   .swiper-pagination-bullet-active {
-    color: $white-color;
-    background: $background-dark-color;
+    color: var(--white-color);
+    background: var(--background-dark-color);
     width: 35px;
     height: 8px;
     border-radius: 4px;
@@ -270,7 +298,7 @@ h6 {
     left: auto;
     bottom: 0px;
     right: 55px;
-    color: $text-gray-200-color;
+    color: var(--text-gray-200-color);
     opacity: 0.7;
     &::after {
       font-size: 40px;
@@ -285,7 +313,7 @@ h6 {
     left: auto;
     bottom: 0px;
     right: 0px;
-    color: $text-gray-200-color;
+    color: var(--text-gray-200-color);
     opacity: 0.7;
     &::after {
       font-size: 40px;
@@ -306,7 +334,7 @@ h6 {
     left: auto;
     bottom: 0px;
     right: 55px;
-    color: $background-dark-color;
+    color: var(--background-dark-color);
     opacity: 1;
     &::after {
       font-size: 40px;
@@ -321,7 +349,7 @@ h6 {
     left: auto;
     bottom: 0px;
     right: 0px;
-    color: $background-dark-color;
+    color: var(--background-dark-color);
     opacity: 1;
     &::after {
       font-size: 40px;
@@ -355,7 +383,7 @@ h6 {
     left: auto;
     bottom: 0px;
     right: 55px;
-    color: $text-gray-200-color;
+    color: var(--text-gray-200-color);
     opacity: 0.7;
     &::after {
       font-size: 40px;
@@ -369,7 +397,7 @@ h6 {
     left: auto;
     bottom: 0px;
     right: 0px;
-    color: $text-gray-200-color;
+    color: var(--text-gray-200-color);
     opacity: 0.7;
     &::after {
       font-size: 40px;
@@ -382,7 +410,7 @@ h6 {
 ::-webkit-scrollbar {
   width: 8px;
   height: 0px;
-  background-color: $text-gray-800-color;
+  background-color: var(--text-gray-800-color);
 }
 
 /* Track */
@@ -406,10 +434,10 @@ h6 {
 }
 
 #ActivityTable th {
-  border: 1px solid $brand-01-color;
+  border: 1px solid var(--brand-01-color);
   border-style: solid none solid none;
   padding: 4px;
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   height: 30px;
 
   font-family: 'Muli-Bold';
@@ -437,7 +465,7 @@ h6 {
   }
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 #ActivityTable th:first-child {
@@ -488,7 +516,7 @@ h6 {
 
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 #ActivityTable tr td:first-child {
@@ -511,10 +539,10 @@ h6 {
 }
 
 #ArtworksTable th {
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   border-style: solid none solid none;
   padding: 4px;
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   height: 30px;
 
   font-family: 'Muli-Bold';
@@ -542,7 +570,7 @@ h6 {
   }
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 #ArtworksTable th:first-child {
   border-top-left-radius: 20px;
@@ -564,14 +592,14 @@ h6 {
 }
 
 #ArtworksTable tr:hover {
-  color: rgba($text-gray-200-color, 1);
+  color: rgba(var(--text-gray-200-color), 1);
 }
 #ArtworksTable tr {
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 #ArtworksTable td {
-  // border: 1px solid rgba($white-color, 0.1);
+  // border: 1px solid rgba(var(--white-color), 0.1);
   border-style: solid none solid none;
   padding: 4px;
   height: 70px;
@@ -602,8 +630,8 @@ h6 {
 
 #ArtworksTable tr {
   &:hover {
-    background: linear-gradient(to bottom, rgba($background-dark-color, 35%), rgba($brand-02-color, 35%));
-    color: $text-gray-200-color;
+    background: linear-gradient(to bottom, rgba(var(--background-dark-color), 35%), rgba(var(--brand-02-color), 35%));
+    color: var(--text-gray-200-color);
   }
 }
 
@@ -627,10 +655,10 @@ h6 {
 }
 
 #ArtworksLightTable th {
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   border-style: solid none solid none;
   padding: 4px;
-  background-color: $background-black-color;
+  background-color: var(--background-black-color);
   height: 30px;
 
   font-family: 'Muli-Bold';
@@ -658,7 +686,7 @@ h6 {
   }
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 #ArtworksLightTable th:first-child {
   border-top-left-radius: 20px;
@@ -680,10 +708,10 @@ h6 {
 }
 
 #ArtworksLightTable tr:hover {
-  color: rgba($text-gray-200-color, 1);
+  color: rgba(var(--text-gray-200-color), 1);
 }
 #ArtworksLightTable tr {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 #ArtworksLightTable td {
@@ -717,8 +745,8 @@ h6 {
 
 #ArtworksLightTable tr {
   &:hover {
-    background: $background-dark-color;
-    color: $brand-09-color;
+    background: var(--background-dark-color);
+    color: var(--brand-09-color);
   }
 }
 
@@ -736,7 +764,7 @@ h6 {
 
 .startAuctionDatePicker {
   .react-datepicker {
-    background: rgba($background-dark-color, 0.9);
+    background: rgba(var(--background-dark-color), 0.9);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid transparent;
@@ -764,7 +792,7 @@ h6 {
       justify-content: center;
       align-items: center;
       &:hover {
-        background-color: $brand-01-color;
+        background-color: var(--brand-01-color);
       }
     }
     .react-datepicker__navigation--previous {
@@ -817,13 +845,13 @@ h6 {
     background: transparent;
     border-bottom: none;
     .react-datepicker__current-month {
-      color: $text-gray-200-color;
+      color: var(--text-gray-200-color);
       text-align: start;
       font-size: 22px;
       line-height: 1;
     }
     .react-datepicker__day-names {
-      color: $brand-09-color;
+      color: var(--brand-09-color);
       font-family: 'Muli-SemiBold';
       font-size: 14px;
       margin-top: 20px;
@@ -836,7 +864,7 @@ h6 {
           width: 45px;
         }
         justify-content: center;
-        color: $brand-09-color;
+        color: var(--brand-09-color);
       }
     }
   }
@@ -854,7 +882,7 @@ h6 {
     }
   }
   .react-datepicker__day {
-    color: $text-gray-200-color;
+    color: var(--text-gray-200-color);
     width: 35px;
     height: 35px;
     font-family: 'Muli-Regular';
@@ -870,36 +898,36 @@ h6 {
     margin: 0px;
     &:hover {
       border-radius: 9px;
-      color: $background-dark-color;
+      color: var(--background-dark-color);
     }
   }
   .react-datepicker__day--selected {
-    background: $background-dark-color;
+    background: var(--background-dark-color);
     display: flex;
     justify-content: center;
     align-items: center;
     &:hover {
       border-radius: 9px;
-      color: $background-dark-color;
+      color: var(--background-dark-color);
     }
   }
   .react-datepicker__day--keyboard-selected {
-    background: linear-gradient(to bottom, rgba($brand-02-color, 50%), rgba(#1c4144, 35%));
+    background: linear-gradient(to bottom, rgba(var(--brand-02-color), 50%), rgba(#1c4144, 35%));
     display: flex;
     justify-content: center;
     align-items: center;
     &:hover {
       border-radius: 9px;
-      color: $background-dark-color;
+      color: var(--background-dark-color);
     }
   }
   .react-datepicker__day--outside-month {
-    color: rgba($text-gray-200-color, 0.5);
+    color: rgba(var(--text-gray-200-color), 0.5);
   }
 
   .react-datepicker__input-time-container {
     margin: 10px 0px 0px 0px;
-    background: $background-dark-color;
+    background: var(--background-dark-color);
     border-radius: 9px;
   }
   .react-datepicker__input-time-container .react-datepicker-time__input-container {

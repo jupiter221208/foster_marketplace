@@ -30,12 +30,12 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: start;
 }
 
 .selected {
-  color: $brand-09-color;
+  color: var(--brand-09-color);
 }
 
 .closeButton {
@@ -51,7 +51,7 @@
     min-height: 36px;
     border-radius: 14px;
   }
-  background-color: $brand-01-color;
+  background-color: var(--brand-01-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,6 +87,6 @@
     font-size: 16px;
     line-height: 24px;
   }
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
   padding-bottom: 6px;
 }

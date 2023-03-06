@@ -28,7 +28,7 @@
   font-family: 'KCDurhamboxcar';
   font-size: 144px;
   line-height: 158px;
-  color: $brand-01-color;
+  color: var(--brand-01-color);
   text-align: center;
   text-shadow: 0px 3px 6px rgba(#5e2028, 0.5);
 }
@@ -41,7 +41,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 23px;
   line-height: 36px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
   text-align: start;
 }
 
@@ -53,7 +53,11 @@
     height: 96px;
   }
   border-radius: 16px;
-  background: linear-gradient(225deg, rgba($brand-01-color, 100%) 0%, rgba($background-light-color, 100%) 100%);
+  background: linear-gradient(
+    225deg,
+    rgba(var(--brand-01-color), 100%) 0%,
+    rgba(var(--background-light-color), 100%) 100%
+  );
 
   display: flex;
   justify-content: center;
@@ -67,11 +71,11 @@
     font-size: 24px;
   }
   line-height: 36px;
-  color: $text-gray-800-color;
+  color: var(--text-gray-800-color);
   cursor: pointer;
   margin-left: 12px;
   &:hover {
-    color: rgba($text-gray-800-color, 0.6);
+    color: rgba(var(--text-gray-800-color), 0.6);
   }
 
   transition: color 0.2s;
@@ -86,7 +90,7 @@
     90deg,
     rgba(#305856, 0.5) 0%,
     rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
+    rgba(var(--background-dark-color), 0.5) 100%
   );
   position: fixed;
   inset: 0;
@@ -110,7 +114,7 @@
   font-family: 'KCDurhamboxcar';
   font-size: 56px;
   line-height: 69px;
-  color: $brand-01-color;
+  color: var(--brand-01-color);
   text-align: center;
   text-shadow: 0px 3px 6px rgba(#5e2028, 0.5);
 }
@@ -124,6 +128,6 @@
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
   text-align: start;
 }

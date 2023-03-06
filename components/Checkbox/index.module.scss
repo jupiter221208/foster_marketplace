@@ -2,11 +2,11 @@
 
 .checkbox {
   appearance: none;
-  border: 1px solid $text-gray-200-color;
+  border: 1px solid var(--text-gray-200-color);
   background-color: transparent;
   &:checked {
-    border: 2px solid $brand-09-color;
-    background-color: $brand-09-color;
+    border: 2px solid var(--brand-09-color);
+    background-color: var(--brand-09-color);
     position: relative;
     &:before {
       content: '';
@@ -19,10 +19,10 @@
       /* setting the checkbox */
       /* short arm */
       width: 7px;
-      border-bottom: 3px solid $text-gray-800-color;
+      border-bottom: 3px solid var(--text-gray-800-color);
       /* long arm */
       height: 15px;
-      border-right: 3px solid $text-gray-800-color;
+      border-right: 3px solid var(--text-gray-800-color);
 
       /* rotate the mirrored L to make it a checkbox */
       transform: rotate(45deg);
@@ -43,7 +43,7 @@
 
 .lightCheckbox {
   appearance: none;
-  border: 1px solid $background-dark-color;
+  border: 1px solid var(--background-dark-color);
   background-color: transparent;
   &:checked {
     position: relative;
@@ -58,10 +58,10 @@
       /* setting the checkbox */
       /* short arm */
       width: 7px;
-      border-bottom: 3px solid $text-gray-800-color;
+      border-bottom: 3px solid var(--text-gray-800-color);
       /* long arm */
       height: 15px;
-      border-right: 3px solid $text-gray-800-color;
+      border-right: 3px solid var(--text-gray-800-color);
 
       /* rotate the mirrored L to make it a checkbox */
       transform: rotate(45deg);
@@ -86,19 +86,19 @@
   flex: 1;
   font-size: 16px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   letter-spacing: 0;
 }
 
 .selected {
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   font-family: 'Muli-SemiBold';
   font-size: 20px;
   line-height: 24px;
 }
 
 .lightSelected {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
   font-family: 'Muli-SemiBold';
   font-size: 20px;
   line-height: 24px;

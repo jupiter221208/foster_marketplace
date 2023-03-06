@@ -32,7 +32,7 @@
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background: rgba($background-dark-color, 0.6);
+  background: rgba(var(--background-dark-color), 0.6);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   @media (min-width: 1024px) {
@@ -79,7 +79,7 @@
   }
   text-align: center;
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .description {
@@ -91,13 +91,13 @@
     font-size: 16px;
   }
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.7);
+  color: rgba(var(--text-gray-200-color), 0.7);
 }
 
 .nftInfo {
   width: 499px;
   height: 98px;
-  background: rgba($text-gray-800-color, 0.5);
+  background: rgba(var(--text-gray-800-color), 0.5);
   border-radius: 16px;
 }
 
@@ -108,7 +108,7 @@
   @media (min-width: 1024px) {
     font-size: 22px;
   }
-  color: $brand-06-color;
+  color: var(--brand-06-color);
 }
 
 .nftInfoValue {
@@ -118,7 +118,7 @@
   @media (min-width: 1024px) {
     font-size: 14px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .userType {

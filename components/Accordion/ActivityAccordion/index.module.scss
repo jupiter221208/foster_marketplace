@@ -7,8 +7,8 @@
   padding-right: 14px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-color: $background-black-color;
-  border: 1px solid $brand-09-color;
+  background-color: var(--background-black-color);
+  border: 1px solid var(--brand-09-color);
   border-style: solid solid none solid;
 
   display: flex;
@@ -22,7 +22,7 @@
   padding-left: 14px;
   padding-right: 14px;
   border-radius: 15px;
-  background: linear-gradient(to bottom, rgba($brand-02-color, 35%), rgba($background-dark-color, 35%));
+  background: linear-gradient(to bottom, rgba(var(--brand-02-color), 35%), rgba(var(--background-dark-color), 35%));
 
   display: flex;
   justify-content: space-between;
@@ -33,7 +33,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid $brand-09-color;
+  border: 1px solid var(--brand-09-color);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   border-style: none solid solid solid;
@@ -68,7 +68,7 @@
 .activeImageArea {
   width: 54px;
   height: 54px;
-  background-color: $brand-09-color;
+  background-color: var(--brand-09-color);
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -101,7 +101,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 .subTitle {
@@ -109,14 +109,14 @@
   font-size: 16px;
   line-height: 20px;
   text-align: start;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .subType {
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
   text-align: start;
   margin-top: 2px;
 }
@@ -125,5 +125,5 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

@@ -10,9 +10,9 @@
   width: 45px;
   min-width: 45px;
   height: 45px;
-  border: 1px solid rgba($background-light-color, 0.75);
+  border: 1px solid rgba(var(--background-light-color), 0.75);
   border-radius: 10px;
-  background: rgba($background-black-color, 0.2);
+  background: rgba(var(--background-black-color), 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
@@ -25,8 +25,8 @@
   width: 45px;
   min-width: 45px;
   height: 45px;
-  border: 1px solid rgba($brand-09-color, 0.75);
+  border: 1px solid rgba(var(--brand-09-color), 0.75);
   border-radius: 10px;
   cursor: pointer;
-  background: linear-gradient(to bottom, $background-dark-color, $brand-10-color);
+  background: linear-gradient(to bottom, var(--background-dark-color), var(--brand-10-color));
 }

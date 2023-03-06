@@ -9,8 +9,8 @@
   border-radius: 15px;
   padding-left: 25px;
   padding-right: 25px;
-  background-color: $background-dark-color;
-  border-color: rgba($background-light-color, 0.1);
+  background-color: var(--background-dark-color);
+  border-color: rgba(var(--background-light-color), 0.1);
   border-width: 1px;
   &:focus {
     outline: none;
@@ -26,8 +26,8 @@
   border-radius: 15px;
   padding-left: 25px;
   padding-right: 25px;
-  background: linear-gradient(to bottom, $brand-02-color, $background-dark-color);
-  border-color: rgba($background-light-color, 0.1);
+  background: linear-gradient(to bottom, var(--brand-02-color), var(--background-dark-color));
+  border-color: rgba(var(--background-light-color), 0.1);
   border-width: 1px;
   background-origin: border-box;
   &:focus {
@@ -41,7 +41,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .menuItem {
@@ -49,7 +49,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   padding: 8px;
   cursor: pointer;
   border-radius: 12px;
@@ -58,7 +58,7 @@
   align-items: center;
   white-space: nowrap;
   &:hover {
-    background-color: rgba($text-gray-200-color, 0.3);
+    background-color: rgba(var(--text-gray-200-color), 0.3);
   }
 }
 
@@ -66,5 +66,5 @@
   width: 24px;
   height: 24px;
   border-radius: 14px;
-  border: 2px solid $brand-07-color;
+  border: 2px solid var(--brand-07-color);
 }

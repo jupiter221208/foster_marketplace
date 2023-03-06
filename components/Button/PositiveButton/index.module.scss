@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 40px;
-  background: linear-gradient(to bottom, rgba($background-black-color, 1), rgba($brand-10-color, 1));
+  background: linear-gradient(to bottom, rgba(var(--background-black-color), 1), rgba(var(--brand-10-color), 1));
   font-size: 14px;
 
   @media (min-width: 1024px) {
@@ -24,11 +24,11 @@
   border-radius: 8px;
   font-family: 'Muli-Bold';
   letter-spacing: 0;
-  color: $brand-09-color;
-  filter: drop-shadow(0px 3px 6px rgba($brand-01-color, 0.16));
+  color: var(--brand-09-color);
+  filter: drop-shadow(0px 3px 6px rgba(var(--brand-01-color), 0.16));
   &:hover {
     @media (min-width: 1024px) {
-      box-shadow: 0px 3px 6px $brand-09-color;
+      box-shadow: 0px 3px 6px var(--brand-09-color);
     }
   }
 }

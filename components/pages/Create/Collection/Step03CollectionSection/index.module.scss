@@ -38,7 +38,7 @@
     line-height: 158px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
@@ -49,7 +49,7 @@
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  background-color: rgba($white-color, 0.1);
+  background-color: rgba(var(--white-color), 0.1);
 }
 
 .coverImageArea {
@@ -72,7 +72,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .uploadedImageArea {
@@ -86,7 +86,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
-  background-color: rgba($text-gray-200-color, 0.075);
+  background-color: rgba(var(--text-gray-200-color), 0.075);
   padding: 5px 12px;
 }
 
@@ -99,7 +99,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.7);
+  color: rgba(var(--text-gray-200-color), 0.7);
 }
 
 // right part
@@ -125,7 +125,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .greenText {
@@ -137,7 +137,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $brand-03-color;
+  color: var(--brand-03-color);
 }
 
 .selectedImage {
@@ -146,9 +146,9 @@
   align-items: center;
   width: 68px;
   height: 68px;
-  border: 2px solid $brand-03-color;
+  border: 2px solid var(--brand-03-color);
   border-radius: 8px;
-  filter: drop-shadow(0px 0px 4px $brand-03-color);
+  filter: drop-shadow(0px 0px 4px var(--brand-03-color));
 }
 
 .nonSelectedImage {

@@ -79,7 +79,7 @@
 }
 
 .textGreenColor {
-  color: $brand-03-color;
+  color: var(--brand-03-color);
 }
 
 .textGrayColor {
@@ -221,7 +221,7 @@
   width: 46px;
   height: 46px;
   border-radius: 10px;
-  border: 2px solid $brand-03-color;
+  border: 2px solid var(--brand-03-color);
   overflow: hidden;
 }
 

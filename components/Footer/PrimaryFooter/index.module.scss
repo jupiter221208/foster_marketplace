@@ -26,14 +26,14 @@
   font-size: 24px;
   line-height: 36px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   @media (max-width: 576px) {
     font-size: 18px;
   }
 }
 
 .lightTitle {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .stayTitle {
@@ -41,7 +41,7 @@
   font-size: 24px;
   line-height: 36px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   @media (max-width: 576px) {
     font-size: 25px;
   }
@@ -53,7 +53,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .linkText {
@@ -64,7 +64,7 @@
   line-height: 24px;
   letter-spacing: 0;
   opacity: 0.8;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   &:hover {
     opacity: 0.6;
   }
@@ -76,7 +76,7 @@
 }
 
 .lightLinkText {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
 }
 
 .greenText {
@@ -92,11 +92,11 @@
   font-family: 'Muli-Bold';
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   opacity: 0.6;
 }
 
 .lightGreenText {
-  color: $background-dark-color;
+  color: var(--background-dark-color);
   opacity: 1;
 }

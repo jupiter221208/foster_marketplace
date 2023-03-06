@@ -50,7 +50,7 @@
     line-height: 36px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
@@ -64,7 +64,7 @@
     height: auto;
   }
   border-radius: 12px;
-  border: 2px dashed rgba($text-gray-200-color, 0.6);
+  border: 2px dashed rgba(var(--text-gray-200-color), 0.6);
 }
 
 .mediaDropzone {
@@ -77,7 +77,7 @@
     height: 128px;
   }
   border-radius: 12px;
-  border: 2px dashed rgba($text-gray-200-color, 0.6);
+  border: 2px dashed rgba(var(--text-gray-200-color), 0.6);
   // background-image: url('../../../../../assets/images/art-bg-gray.svg');
   background-color: #1d1d1d;
   background-position: top 5px left 10px;
@@ -100,7 +100,7 @@
   font-size: 22px;
   line-height: 36px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
@@ -118,7 +118,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .descriptionText {
@@ -127,7 +127,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   word-break: break-all;
 }
 
@@ -154,7 +154,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .text {
@@ -166,18 +166,18 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
 }
 
 .greenText {
   font-family: 'Muli-Regular';
   font-size: 11px;
   line-height: 19px;
-  color: $brand-09-color;
+  color: var(--brand-09-color);
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 24px;
-    color: $brand-09-color;
+    color: var(--brand-09-color);
   }
   letter-spacing: 0;
 }
@@ -199,7 +199,7 @@
     line-height: 56px;
   }
   letter-spacing: 0;
-  color: $brand-06-color;
+  color: var(--brand-06-color);
   text-align: center;
 }
 
@@ -215,12 +215,12 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: center;
 }
 
 .infoText {
-  background: rgba($background-light-color, 0.2);
+  background: rgba(var(--background-light-color), 0.2);
   border-radius: 10px;
   margin-left: 8px;
   padding: 8px;

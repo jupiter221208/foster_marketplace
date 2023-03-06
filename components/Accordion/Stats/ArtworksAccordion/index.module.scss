@@ -7,8 +7,8 @@
   padding-right: 14px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  background-color: $background-black-color;
-  border: 1px solid $brand-01-color;
+  background-color: var(--background-black-color);
+  border: 1px solid var(--brand-01-color);
   border-style: solid solid none solid;
 
   display: flex;
@@ -22,8 +22,8 @@
   padding-left: 14px;
   padding-right: 14px;
   border-radius: 15px;
-  background: $background-black-color;
-  border: 1px solid rgba($background-light-color, 0.1);
+  background: var(--background-black-color);
+  border: 1px solid rgba(var(--background-light-color), 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -33,7 +33,7 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  border: 1px solid $brand-01-color;
+  border: 1px solid var(--brand-01-color);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
   border-style: none solid solid solid;
@@ -68,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba($background-dark-color, 0.8);
+  background-color: rgba(var(--background-dark-color), 0.8);
 }
 
 .secondRow {
@@ -86,14 +86,14 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }
 
 .subTitle {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   text-align: start;
 }
 
@@ -101,19 +101,19 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .priceText {
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color), 0.75);
 }
 
 .priceValue {
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

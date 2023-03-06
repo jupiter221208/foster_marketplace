@@ -42,7 +42,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: $brand-09-color;
+  color: var(--brand-09-color);
 }
 
 .whiteText {
@@ -55,7 +55,7 @@
     font-size: 20px;
     line-height: 25px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .grayText {
@@ -68,5 +68,5 @@
     font-size: 12px;
     line-height: 12px;
   }
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color), 0.8);
 }

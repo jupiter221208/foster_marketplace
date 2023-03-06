@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .brand03Text {
-  color: $brand-03-color !important;
+  color: var(--brand-03-color) !important;
 }
 
 .greenText {
