@@ -4,12 +4,8 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  background-color: #0c1013;
+  background-color: var(--background-main-color);
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
-
-.lightColor {
-  background-color: var(--background-light-color);
 }

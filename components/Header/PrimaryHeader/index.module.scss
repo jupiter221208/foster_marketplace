@@ -8,12 +8,7 @@
   height: 100px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba(var(--background-dark-color), 0.5) 100%
-  );
+  background: var(--header-bg);
   z-index: 9999;
   &:hover {
     opacity: 1;

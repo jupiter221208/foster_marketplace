@@ -7,7 +7,7 @@ import Link from 'next/link'
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
 import Input from 'components/Input'
@@ -41,6 +41,7 @@ import { PublicKey } from '@solana/web3.js'
 // call apis
 import userAPI from 'apis/user'
 import { copyToClipboard } from 'utils/helpers'
+import Switch from 'components/Switch'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -187,6 +188,29 @@ const ProfileSection = prop => {
     checkEnableSave()
   }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, profilePictureUrl])
 
+  const [lightMode, setLightMode] = useState(false) // = useSelector(state => (state as any).lightMode)
+
+  const handleThemeMode = () => {
+    const doc = document.documentElement
+
+    if (lightMode) {
+      // Dark Mode
+      doc.style.setProperty('--background-main-color', '#0c1013')
+      doc.style.setProperty('--text-gray-200-color', '#eff0f6')
+      doc.style.setProperty('--header-bg-color1', '48, 98, 96')
+      doc.style.setProperty('--header-bg-color2', '20, 32, 33')
+      doc.style.setProperty('--header-bg-color3', '32, 36, 39')
+    } else {
+      // Light Mode
+      doc.style.setProperty('--background-main-color', '#eff0f6')
+      doc.style.setProperty('--text-gray-200-color', '#202427')
+      doc.style.setProperty('--header-bg-color1', '185, 186, 192')
+      doc.style.setProperty('--header-bg-color2', '227, 228, 235')
+      doc.style.setProperty('--header-bg-color3', '228, 229, 236')
+    }
+    setLightMode(!lightMode)
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-center">
@@ -195,6 +219,16 @@ const ProfileSection = prop => {
             <div>
               <div className={styles.subTitle}>Profile Information</div>
             </div>
+
+            <div className="mt-10">
+              <Switch
+                title="Light/Dark Mode"
+                description="This toggle is to switch between light and dark mode."
+                enabled={lightMode}
+                onChange={handleThemeMode}
+              />
+            </div>
+
             <div className="mt-[15px] lg:mt-8">
               <Input
                 error={errorMessage}
