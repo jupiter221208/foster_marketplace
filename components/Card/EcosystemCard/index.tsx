@@ -32,13 +32,23 @@ const EcosystemCard = props => {
           />
         </div>
         <div className={styles.avatarArea}>
-          <img
-            src={data.artist.profile_picture ?? AvatarImage}
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
-            className="rounded-full"
-            alt=""
-          />
+          {data.artist.profile_picture ? (
+            <img
+              src={data.artist.profile_picture}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+              className="rounded-full"
+              alt=""
+            />
+          ) : (
+            <Image
+              src={AvatarImage}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+              className="rounded-full"
+              alt=""
+            />
+          )}
         </div>
       </div>
       <div className="w-full lg:mt-[100px] xs:mt-[50px] flex flex-wrap justify-center items-center px-[9px]">
