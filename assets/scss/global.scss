@@ -73,6 +73,9 @@
     rgba(var(--header-bg-color3), 0.7) 100%
   );
 
+  --avatar-border-color1: #4ea19b;
+  --avatar-border-color2: #304e4e;
+
   --error-color: #a21f23;
   --success-color: #5ac3ba;
 
@@ -83,6 +86,9 @@
 
   --white-color: #ffffff;
   --black-color: #000000;
+
+  --outline-button-border: #5ac3ba;
+  --outline-button-color: #eff0f6;
 }
 
 html,

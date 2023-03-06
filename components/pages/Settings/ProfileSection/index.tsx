@@ -188,25 +188,31 @@ const ProfileSection = prop => {
     checkEnableSave()
   }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, profilePictureUrl])
 
-  const [lightMode, setLightMode] = useState(false) // = useSelector(state => (state as any).lightMode)
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode)) // =
 
   const handleThemeMode = () => {
     const doc = document.documentElement
 
     if (lightMode) {
       // Dark Mode
+      dispatch({ type: 'set', lightMode: false })
       doc.style.setProperty('--background-main-color', '#0c1013')
       doc.style.setProperty('--text-gray-200-color', '#eff0f6')
       doc.style.setProperty('--header-bg-color1', '48, 98, 96')
       doc.style.setProperty('--header-bg-color2', '20, 32, 33')
       doc.style.setProperty('--header-bg-color3', '32, 36, 39')
+      doc.style.setProperty('--outline-button-border', '#5ac3ba')
+      doc.style.setProperty('--outline-button-color', '#eff0f6')
     } else {
       // Light Mode
+      dispatch({ type: 'set', lightMode: true })
       doc.style.setProperty('--background-main-color', '#eff0f6')
       doc.style.setProperty('--text-gray-200-color', '#202427')
       doc.style.setProperty('--header-bg-color1', '185, 186, 192')
       doc.style.setProperty('--header-bg-color2', '227, 228, 235')
       doc.style.setProperty('--header-bg-color3', '228, 229, 236')
+      doc.style.setProperty('--outline-button-border', '#202427')
+      doc.style.setProperty('--outline-button-color', '#202427')
     }
     setLightMode(!lightMode)
   }

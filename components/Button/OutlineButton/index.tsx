@@ -29,13 +29,11 @@ const OutlineButton = props => {
     gap = '',
   } = props
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     <button
       type="button"
       onClick={() => onClick()}
-      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap ${lightMode ? styles.lightContainer : ''}`}
+      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
       style={{
         backgroundColor: backgroundColor,
         color: color,

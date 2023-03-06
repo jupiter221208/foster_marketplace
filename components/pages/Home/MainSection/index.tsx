@@ -28,7 +28,7 @@ import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedLightIcon from 'assets/icons/foster-enhanced-dark.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
-import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-dark.svg'
+import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-dark.png'
 
 // styles
 import styles from './index.module.scss'
@@ -100,10 +100,8 @@ const MainSection = () => {
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
               <GradientButton
-                backgroundColor01={lightMode ? '#202427' : '#5ac3ba'}
-                backgroundColor02={lightMode ? '#121212' : '#378287'}
-                gradientDirection={lightMode ? 'bottom' : 'left'}
-                color={lightMode ? '#95DBD5' : ''}
+                backgroundColor01={lightMode ? '#95DBD5' : '#5ac3ba'}
+                backgroundColor02={lightMode ? '#4B6E6B' : '#378287'}
                 label="Explore"
                 width={124}
                 onClick={() => router.push('/explore')}
@@ -121,15 +119,15 @@ const MainSection = () => {
           <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[200px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
             <div className="block">
               <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{artworkCnt}</div>
-              <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Artworks</div>
+              <div className={styles.countText}>Artworks</div>
             </div>
             <div className="block items-center">
               <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{collectionCnt}</div>
-              <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Collections</div>
+              <div className={styles.countText}>Collections</div>
             </div>
             <div className="block">
               <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{nftCnt}</div>
-              <div className={`${styles.countText} ${lightMode ? styles.lightCountText : ''}`}>Ecosystem</div>
+              <div className={styles.countText}>Ecosystem</div>
             </div>
           </div>
         </div>
@@ -184,10 +182,8 @@ const MainSection = () => {
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton
-                backgroundColor01={lightMode ? '#202427' : '#5ac3ba'}
-                backgroundColor02={lightMode ? '#121212' : '#378287'}
-                gradientDirection={lightMode ? 'bottom' : 'left'}
-                color={lightMode ? '#95DBD5' : ''}
+                backgroundColor01={lightMode ? '#95DBD5' : '#5ac3ba'}
+                backgroundColor02={lightMode ? '#4B6E6B' : '#378287'}
                 width={88}
                 label="Explore"
                 onClick={() => router.push('/explore')}

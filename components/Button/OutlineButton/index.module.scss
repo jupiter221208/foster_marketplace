@@ -6,7 +6,7 @@
   align-items: center;
   height: 40px;
   background: transparent;
-  border: 1px solid var(--brand-01-color);
+  border: 1px solid var(--outline-button-border);
   font-size: 14px;
   padding-left: 8px;
   padding-right: 8px;
@@ -15,21 +15,19 @@
     padding-left: 12px;
     padding-right: 12px;
     font-size: 16px;
-    border: 1px solid var(--brand-01-color);
   }
   @media (min-width: 1536px) {
     height: 53px;
     padding-left: 16px;
     padding-right: 16px;
     font-size: 18px;
-    border: 1px solid var(--brand-01-color);
   }
   border-radius: 12px;
 
   font-family: 'Muli-Bold';
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: var(--outline-button-color);
 
   &:hover {
     color: var(--brand-01-color);
@@ -39,6 +37,6 @@
 }
 
 .lightContainer {
-  border: 1px solid var(--background-dark-color);
-  color: var(--background-dark-color);
+  border: 1px solid var(--outline-button-border);
+  color: var(--outline-button-color);
 }

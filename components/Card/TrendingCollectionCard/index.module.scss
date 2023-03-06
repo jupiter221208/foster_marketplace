@@ -27,7 +27,7 @@
 
   background-color: var(--background-dark-color);
   border-radius: 10px;
-  border: 1px solid rgba(white, 0.1);
+  // border: 1px solid rgba(white, 0.1);
   @media (min-width: 1024px) {
     border-radius: 24px;
     height: 100%;
@@ -63,7 +63,7 @@
     margin-right: 10px;
   }
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: $text-white-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -107,7 +107,7 @@
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: var(--text-trending-card-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
