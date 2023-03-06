@@ -143,3 +143,34 @@ export const getFirstUpperString = word => {
 export const compareDate = (a, b) => {
   return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
 }
+
+export const setColorTheme = lightMode => {
+  const doc = document.documentElement
+  if (lightMode) {
+    // Light Mode
+    doc.style.setProperty('--background-main-color', '#eff0f6')
+    doc.style.setProperty('--text-gray-200-color', '#202427')
+    doc.style.setProperty('--header-bg-color1', '185, 186, 192')
+    doc.style.setProperty('--header-bg-color2', '227, 228, 235')
+    doc.style.setProperty('--header-bg-color3', '228, 229, 236')
+    doc.style.setProperty('--outline-button-border', '#202427')
+    doc.style.setProperty('--outline-button-color', '#202427')
+    doc.style.setProperty('--avatar-border-color1', '#202427')
+    doc.style.setProperty('--avatar-border-color2', '#6a6c6e')
+    doc.style.setProperty('--text-trending-card-color', 'rgba(149, 219, 213, 1)')
+    doc.style.setProperty('--dashboard-tab-color', 'rgba(32, 36, 39, 0.6)')
+  } else {
+    // Dark Mode
+    doc.style.setProperty('--background-main-color', '#0c1013')
+    doc.style.setProperty('--text-gray-200-color', '#eff0f6')
+    doc.style.setProperty('--header-bg-color1', '48, 98, 96')
+    doc.style.setProperty('--header-bg-color2', '20, 32, 33')
+    doc.style.setProperty('--header-bg-color3', '32, 36, 39')
+    doc.style.setProperty('--outline-button-border', '#5ac3ba')
+    doc.style.setProperty('--outline-button-color', '#eff0f6')
+    doc.style.setProperty('--avatar-border-color1', '#4ea19b')
+    doc.style.setProperty('--avatar-border-color2', '#304e4e')
+    doc.style.setProperty('--text-trending-card-color', 'rgba(239, 240, 247, 0.75)')
+    doc.style.setProperty('--dashboard-tab-color', 'rgba(239, 240, 247, 0.6)')
+  }
+}

@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 // third party components
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom components
@@ -17,6 +17,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import { setColorTheme } from 'utils/helpers'
 
 interface SecondaryLayoutProps {
   children?: any
@@ -28,6 +29,17 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
+  const lightMode = useSelector(state => (state as any).lightMode)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setColorTheme(lightMode)
+    if (lightMode) {
+      dispatch({ type: 'set', lightMode: true })
+    } else {
+      dispatch({ type: 'set', lightMode: false })
+    }
+  }, [])
 
   return (
     <div className={styles.container}>
