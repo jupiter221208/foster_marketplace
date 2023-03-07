@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import OfferTable from 'components/Table/OfferTable'
@@ -22,9 +23,11 @@ import { getMyBids, getReceivedBids, cancelOffer, acceptOffer, LazyBidWithAsset 
 // call apis
 import listingsAPI from 'apis/listings'
 import NoDataSection from '../NoDataSection'
+import authAPI from 'apis/auth'
 
 const OfferSection = () => {
   const viewport = useViewport()
+  const { publicKey } = useWallet()
 
   const [shownOfferType, setShownOfferType] = useState<'made' | 'received'>('made')
   const [offersMade, setOffersMade] = useState<LazyBidWithAsset[] | null>(null)
@@ -91,6 +94,16 @@ const OfferSection = () => {
             },
           ])
           setShowAlert(true)
+
+          authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+            response => {
+              dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+              dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+            },
+            error => {
+              console.log(error)
+            }
+          )
         }
       })
     }
