@@ -30,15 +30,9 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
   const lightMode = useSelector(state => (state as any).lightMode)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     setColorTheme(lightMode)
-    if (lightMode) {
-      dispatch({ type: 'set', lightMode: true })
-    } else {
-      dispatch({ type: 'set', lightMode: false })
-    }
   }, [])
 
   return (

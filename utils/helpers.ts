@@ -163,6 +163,10 @@ export const setColorTheme = lightMode => {
       '--card-bg-color',
       'linear-gradient(to bottom, rgba(239, 240, 246, 1) 0%, rgba(145, 148, 152, 1) 50%, rgba(34, 38, 41, 1) 100%)'
     )
+    doc.style.setProperty('--activity-bg-color', 'rgb(239, 240, 247)')
+    doc.style.setProperty('--activity-td-color', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--activity-border-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--activity-box-color', 'rgba(32, 36, 39, 0.1)')
   } else {
     // Dark Mode
     doc.style.setProperty('--background-main-color', '#0c1013')
@@ -177,5 +181,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-trending-card-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--dashboard-tab-color', 'rgba(239, 240, 247, 0.6)')
     doc.style.setProperty('--card-bg-color', '#121212')
+    doc.style.setProperty('--activity-bg-color', 'linear-gradient(to bottom, rgba(#378287, 0.35), rgba(#202427, 0.35))')
+    doc.style.setProperty('--activity-td-color', 'rgba(239, 240, 247, 0.8)')
+    doc.style.setProperty('--activity-border-color', '#5ac3ba')
+    doc.style.setProperty('--activity-box-color', 'transparent')
   }
 }
