@@ -25,10 +25,7 @@ const CollectionCard = props => {
           <div className={styles.nftName}>{nftName}</div>
         </div>
         <div className="w-full flex justify-start items-center">
-          <div className={styles.artistName}>
-            {artistName && artistName.length > 0 ? artistName : getShortAddress(artistAddress)}
-            {/* {getShortAddress(mintAddress)} */}
-          </div>
+          <div className={styles.artistName}>{artistName && artistName.length > 0 ? artistName : nftName}</div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">
           <div className="flex flex-wrap gap-1 max-h-[16px] lg:max-h-[28px] overflow-hidden">

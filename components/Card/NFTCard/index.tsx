@@ -89,7 +89,7 @@ const DashboardNFTCard = props => {
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{nftName}</div>
+          <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
         </div>
         <div className="w-full flex justify-between items-center mt-[2px]">
           <div className={styles.artistName}>{artistName || 'Ecosystem Artist'}</div>
