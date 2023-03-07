@@ -17,7 +17,7 @@ const AddressButton = props => {
 
   return (
     <button type="button" onClick={() => onClick()} className={styles.container}>
-      <div className={`${styles.label} ${lightMode ? styles.lightLabel : ''}`}>{label}</div>
+      <div className={styles.label}>{label}</div>
       <Image src={lightMode ? FileCopyDarkIcon : FileCopyIcon} alt="" width={20} height={20} />
     </button>
   )

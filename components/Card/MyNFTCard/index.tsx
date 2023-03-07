@@ -13,10 +13,16 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 // styles
 import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
+import { useSelector } from 'react-redux'
 
 const MyNFTCard = props => {
+<<<<<<< HEAD
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
+=======
+  const { data, onClick, onClickStartAuction, onClickListNFT } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
+>>>>>>> 0e0a5d4e... Update My Nfts section
 
   return (
     <div className={styles.container}>

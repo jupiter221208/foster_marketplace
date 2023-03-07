@@ -159,6 +159,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--avatar-border-color2', '#6a6c6e')
     doc.style.setProperty('--text-trending-card-color', 'rgba(149, 219, 213, 1)')
     doc.style.setProperty('--dashboard-tab-color', 'rgba(32, 36, 39, 0.6)')
+    doc.style.setProperty(
+      '--card-bg-color',
+      'linear-gradient(to bottom, rgba(239, 240, 246, 1) 0%, rgba(145, 148, 152, 1) 50%, rgba(34, 38, 41, 1) 100%)'
+    )
   } else {
     // Dark Mode
     doc.style.setProperty('--background-main-color', '#0c1013')
@@ -172,5 +176,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--avatar-border-color2', '#304e4e')
     doc.style.setProperty('--text-trending-card-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--dashboard-tab-color', 'rgba(239, 240, 247, 0.6)')
+    doc.style.setProperty('--card-bg-color', '#121212')
   }
 }

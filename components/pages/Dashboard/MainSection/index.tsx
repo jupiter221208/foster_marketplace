@@ -22,6 +22,7 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
@@ -52,6 +53,7 @@ const MainSection = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const profileInfo = useSelector(state => (state as any).profileInfo)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
@@ -228,7 +230,7 @@ const MainSection = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topLeftEllipse}>
-        <Image src={EllipseGreen} alt="" objectFit="cover" />
+        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
       </div>
       <div className={styles.bannerImage}>
         <img
