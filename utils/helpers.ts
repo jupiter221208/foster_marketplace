@@ -178,6 +178,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--step-circle-mobile-color', '#202427')
     doc.style.setProperty('--dimension-bg-color', '239, 240, 247')
     doc.style.setProperty('--radio-check-color', '#202427')
+    doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
+    doc.style.setProperty('--switch-01-color', '149, 219, 213')
+    doc.style.setProperty('--switch-02-color', '75, 110, 107')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -209,5 +212,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--step-circle-mobile-color', '#95dbd5')
     doc.style.setProperty('--dimension-bg-color', '12, 12, 12')
     doc.style.setProperty('--radio-check-color', '#95dbd5')
+    doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
+    doc.style.setProperty('--switch-01-color', '55, 130, 135')
+    doc.style.setProperty('--switch-02-color', '12, 65, 68')
   }
 }

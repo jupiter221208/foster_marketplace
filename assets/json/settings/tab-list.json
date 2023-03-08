@@ -1,1 +1,4 @@
-[{ "id": 0, "label": "PROFILE", "value": "PROFILE", "coming_soon": false }]
+[
+  { "id": 0, "label": "PROFILE", "value": "PROFILE" },
+  { "id": 2, "label": "DISPLAY PREFERENCES", "value": "DISPLAY PREFERENCES" }
+]

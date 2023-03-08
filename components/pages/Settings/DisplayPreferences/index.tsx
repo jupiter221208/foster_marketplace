@@ -7,12 +7,24 @@ import GradientButton from 'components/Button/GradientButton'
 
 // styles
 import styles from './index.module.scss'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { setColorTheme } from 'utils/helpers'
 
 const DisplayPreferences = prop => {
   const { success } = prop
+  const dispatch = useDispatch()
 
   const [apperance, setApperance] = useState(false)
   const [defaultProfile, setDefaultProfile] = useState(true)
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode)) // =
+
+  const handleThemeMode = () => {
+    const doc = document.documentElement
+    setColorTheme(!lightMode)
+    dispatch({ type: 'set', lightMode: !lightMode })
+    setLightMode(!lightMode)
+  }
 
   return (
     <div className={styles.container}>
@@ -25,9 +37,9 @@ const DisplayPreferences = prop => {
             <Switch
               title="Application Appearance"
               description="Choose between dark mode and light mode"
-              current={apperance ? 'Currently Selected: Light Mode' : 'Currently Selected: Dark Mode'}
-              enabled={apperance}
-              onChange={() => setApperance(!apperance)}
+              current={lightMode ? 'Currently Selected: Light Mode' : 'Currently Selected: Dark Mode'}
+              enabled={lightMode}
+              onChange={handleThemeMode}
             />
             <Switch
               title="Default Profile Display"
@@ -37,7 +49,7 @@ const DisplayPreferences = prop => {
               onChange={() => setDefaultProfile(!defaultProfile)}
             />
           </div>
-          <div className="w-full flex justify-end mb-20">
+          {/* <div className="w-full flex justify-end mb-20">
             <GradientButton
               label="Save"
               onClick={() => {
@@ -48,7 +60,7 @@ const DisplayPreferences = prop => {
               paddingRight="41px"
               fontSize="18px"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

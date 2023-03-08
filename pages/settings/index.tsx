@@ -18,10 +18,12 @@ import TabList from 'assets/json/settings/tab-list.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
 import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
+import { useSelector } from 'react-redux'
 
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
@@ -55,6 +57,8 @@ const Settings = () => {
     },
   ]
 
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   return (
     <div className="g-container">
       <Head>
@@ -64,14 +68,20 @@ const Settings = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
             <div className={`mt-[32px] lg:mt-[100px] ${styles.subject}`}>Settings</div>
-            {/* <div className="w-full h-[65px] lg:h-[117px] mt-[32px] lg:mt-[50px] overflow-auto">
+            <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
-            </div> */}
+            </div>
             <div className="w-full lg:w-[85%] mt-[32px] lg:mt-[50px]">
               {selectedTab === 0 && (
                 <ProfileSection
