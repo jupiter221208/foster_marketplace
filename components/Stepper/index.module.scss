@@ -17,7 +17,7 @@
 .grayLine {
   flex: 1;
   height: 1px;
-  background-color: rgba(var(--white-color), 0.1);
+  background-color: rgba(var(--white-color-rgb), 0.1);
 }
 
 .greenLine {
@@ -30,12 +30,14 @@
   font-family: 'Muli-Bold';
   font-size: 12px;
   line-height: 15px;
+  color: var(--brand-09-color);
+
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
+    color: var(--brand-09-color);
   }
   letter-spacing: 0;
-  color: var(--brand-09-color);
 }
 
 .grayText {
@@ -47,6 +49,6 @@
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 24px;
-    color: rgba(var(--text-gray-200-color), 0.6);
+    color: rgba($text-white-color, 0.6);
   }
 }

@@ -60,6 +60,8 @@
 
   --background-main-color: #0c1013;
   --background-black-color: #121212;
+  --background-black-color-rgb: 18, 18, 18;
+
   --background-dark-color: #202427;
   --background-light-color: #eff0f6;
 
@@ -96,12 +98,19 @@
   --text-gray-400-color: rgba(#202427, 0.6);
   --text-gray-200-color: #eff0f6;
   --text-gray-200-color-rgb: 239, 240, 247;
-
+  
   --white-color: #ffffff;
+  --white-color-rgb: 255, 255, 255;
+
   --black-color: #000000;
 
   --outline-button-border: #5ac3ba;
   --outline-button-color: #eff0f6;
+
+  --g-left-container-bg: #0f1316
+  --artwork-bg-color: #202427;
+  --step-circle-mobile-color: #95dbd5;
+  --step-next-mobile-color: #202427;
 }
 
 html,
@@ -200,7 +209,7 @@ h6 {
   @media (min-width: 1536px) {
     padding-left: 150px;
   }
-  background-color: #0f1316;
+  background-color: var(--g-left-container-bg);
 }
 
 .g-right-container {

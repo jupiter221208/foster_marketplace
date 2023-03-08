@@ -38,6 +38,7 @@ import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
+import TrashGrayLightIcon from 'assets/icons/trash-gray-light.svg'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
@@ -54,6 +55,8 @@ import LoadingButton from 'components/Button/LoadingButton'
 const SingleNft = () => {
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -567,7 +570,7 @@ const SingleNft = () => {
                         )}
                         {currentStep === 1 ? (
                           <IconButton
-                            icon={TrashGrayIcon}
+                            icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
                             onClick={() => handleDeleteNftArt()}
                             backgroundColor="transparent"
                           />
@@ -737,7 +740,7 @@ const SingleNft = () => {
                         <>&nbsp;</>
                       )}
                       <IconButton
-                        icon={TrashGrayIcon}
+                        icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
                         onClick={() => handleDeleteNftArt()}
                         backgroundColor="transparent"
                         width="32px"

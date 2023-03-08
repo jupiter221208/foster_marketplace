@@ -148,8 +148,10 @@ export const setColorTheme = lightMode => {
   const doc = document.documentElement
   if (lightMode) {
     // Light Mode
+    doc.style.setProperty('--g-left-container-bg', '#E4E5EB')
     doc.style.setProperty('--background-main-color', '#eff0f6')
-    doc.style.setProperty('--background-black-color', '#eff0f6')
+    doc.style.setProperty('--background-black-color', '#202427')
+    doc.style.setProperty('--background-black-color-rgb', '32, 36, 39')
     doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
@@ -172,10 +174,16 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--activity-box-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--accordion-first-row-bg', '#87898D')
     doc.style.setProperty('--accordion-second-row-bg', '#202427')
+    doc.style.setProperty('--artwork-bg-color', '#C8C9CF')
+    doc.style.setProperty('--step-circle-mobile-color', '#202427')
   } else {
     // Dark Mode
+    doc.style.setProperty('--g-left-container-bg', '#0f1316')
+
     doc.style.setProperty('--background-main-color', '#0c1013')
     doc.style.setProperty('--background-black-color', '#121212')
+    doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
+
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
@@ -195,5 +203,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--activity-box-color', 'transparent')
     doc.style.setProperty('--accordion-first-row-bg', '#1b1b1b')
     doc.style.setProperty('--accordion-second-row-bg', 'transparent')
+    doc.style.setProperty('--artwork-bg-color', '#202427')
+    doc.style.setProperty('--step-circle-mobile-color', '#95dbd5')
   }
 }
