@@ -25,7 +25,7 @@ const Radio = props => {
     >
       {direction === 'ltr' && (
         <input
-          className={lightMode ? styles.lightRadio : styles.radio}
+          className={styles.radio}
           style={{ opacity: item.disabled ? 0.5 : 1 }}
           type="radio"
           id={item.id}

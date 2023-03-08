@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 
 // third party components
 import { useSelector } from 'react-redux'
@@ -18,6 +18,7 @@ import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
 
 // styles
 import styles from './index.module.scss'
+import { setColorTheme } from 'utils/helpers'
 
 interface PrimaryLayoutProps {
   children?: any
@@ -29,6 +30,11 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
+  const lightMode = useSelector(state => (state as any).lightMode)
+
+  useEffect(() => {
+    setColorTheme(lightMode)
+  }, [])
 
   return (
     <div className={styles.container}>

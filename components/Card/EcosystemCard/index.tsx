@@ -13,13 +13,15 @@ import BannerImage from 'assets/images/avatar-banner.png'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const EcosystemCard = props => {
   const { data, onClick } = props
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
-    <div className={styles.container} onClick={() => onClick()}>
+    <div className={`${styles.container} ${lightMode ? styles.lightColor : ''}`} onClick={() => onClick()}>
       <div className="relative flex justify-center">
         <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
           <Image
@@ -53,7 +55,7 @@ const EcosystemCard = props => {
       </div>
       <div className="w-full lg:mt-[100px] xs:mt-[50px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-center items-center">
-          <div className={styles.artistName}>{data.artist.username ?? 'unknown'}</div>
+          <div className={styles.artistName}>{data.artist.username ?? 'Ecosystem'}</div>
           {/* <div className="flex justify-center items-center ml-[4px] lg:ml-[10px]">
             <Image
               src={CheckedGreenIcon}

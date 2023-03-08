@@ -2,7 +2,7 @@
 
 .radio {
   appearance: none;
-  border: 2px solid rgba(var(--text-gray-200-color), 0.6);
+  border: 2px solid rgba(var(--text-gray-200-color-rgb), 0.6);
   background-color: transparent;
   vertical-align: top;
   cursor: pointer;
@@ -11,7 +11,7 @@
   border-radius: 12px;
 
   &:checked {
-    border: 2px solid var(--brand-09-color);
+    border: 2px solid var(--radio-check-color);
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@
       width: 16px;
       height: 16px;
       border-radius: 8px;
-      background-color: var(--brand-09-color);
+      background-color: var(--radio-check-color);
     }
   }
   &:focus {
