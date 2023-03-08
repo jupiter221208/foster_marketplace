@@ -20,10 +20,12 @@ import { useViewport } from 'utils'
 import CloseIcon from 'assets/icons/close-black.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import AddGrayIcon from 'assets/icons/add-green.svg'
+import AddBlackIcon from 'assets/icons/add-black.svg'
 import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const CreateNFTModal = props => {
   const { open, close } = props
@@ -31,6 +33,7 @@ const CreateNFTModal = props => {
   const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     close()
@@ -91,13 +94,13 @@ const CreateNFTModal = props => {
                         label="Single"
                         width={180}
                         height={49}
-                        backgroundColor01="#121212"
-                        backgroundColor02="#2D625D"
-                        icon={AddGrayIcon}
+                        backgroundColor01={lightMode ? '#4D706D' : '#121212'}
+                        backgroundColor02={lightMode ? '#95DBD5' : '#2D625D'}
+                        icon={lightMode ? AddBlackIcon : AddGrayIcon}
                         onClick={() => handleClickButton('/create/single-nft')}
                         gradientDirection="right"
                         fontSize="18px"
-                        color="#95DBD5"
+                        color={lightMode ? '#202427' : '#95DBD5'}
                       />
 
                       <OutlineButton
