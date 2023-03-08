@@ -8,7 +8,7 @@
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   background-color: var(--background-black-color);
-  border: 1px solid var(--brand-09-color);
+  border: 1px solid var(--active-btn-border-color);
   border-style: solid solid none solid;
 
   display: flex;
@@ -23,6 +23,9 @@
   padding-right: 14px;
   border-radius: 15px;
   background: linear-gradient(to bottom, rgba(var(--brand-02-color), 35%), rgba(var(--background-dark-color), 35%));
+  border: 1px solid var(--activity-box-color);
+  box-shadow: 0px 3px 6px var(--activity-box-color);
+  border-radius: 12px;
 
   display: flex;
   justify-content: space-between;
@@ -83,7 +86,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #1b1b1b;
+  background: var(--accordion-first-row-bg);
 }
 
 .secondRow {
@@ -94,14 +97,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;
+  background-color: var(--accordion-second-row-bg);
 }
 
 .title {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba($text-white-color, 0.8);
 }
 
 .subTitle {
@@ -116,7 +119,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-align: start;
   margin-top: 2px;
 }
@@ -125,5 +128,5 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: var(--text-gray-200-color);
+  color: $text-white-color;
 }

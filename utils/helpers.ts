@@ -149,7 +149,10 @@ export const setColorTheme = lightMode => {
   if (lightMode) {
     // Light Mode
     doc.style.setProperty('--background-main-color', '#eff0f6')
+    doc.style.setProperty('--background-black-color', '#eff0f6')
+    doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--text-gray-200-color', '#202427')
+    doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty('--header-bg-color1', '185, 186, 192')
     doc.style.setProperty('--header-bg-color2', '227, 228, 235')
     doc.style.setProperty('--header-bg-color3', '228, 229, 236')
@@ -167,10 +170,15 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--activity-td-color', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--activity-border-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--activity-box-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--accordion-first-row-bg', '#87898D')
+    doc.style.setProperty('--accordion-second-row-bg', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--background-main-color', '#0c1013')
+    doc.style.setProperty('--background-black-color', '#121212')
+    doc.style.setProperty('--active-btn-border-color', '#95dbd5')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
+    doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
     doc.style.setProperty('--header-bg-color1', '48, 98, 96')
     doc.style.setProperty('--header-bg-color2', '20, 32, 33')
     doc.style.setProperty('--header-bg-color3', '32, 36, 39')
@@ -185,5 +193,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--activity-td-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--activity-border-color', '#5ac3ba')
     doc.style.setProperty('--activity-box-color', 'transparent')
+    doc.style.setProperty('--accordion-first-row-bg', '#1b1b1b')
+    doc.style.setProperty('--accordion-second-row-bg', 'transparent')
   }
 }
