@@ -26,11 +26,11 @@
   min-width: 200px;
   width: auto;
   padding: 8px;
-  background-color: rgba(var(--background-black-color), 0.8);
+  background-color: rgba($background-black-color, 0.8);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-radius: 15px;
-  border: 1px solid rgba(var(--text-gray-200-color), 0.1);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
 }
 
 .menuItem {
@@ -38,7 +38,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
   padding: 8px;
   cursor: pointer;
   border-radius: 12px;
