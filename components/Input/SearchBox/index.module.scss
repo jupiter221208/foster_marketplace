@@ -145,7 +145,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
   flex: 1 auto;
 }
 
@@ -169,7 +169,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba($text-gray-200-color, 0.75);
   flex: 1 auto;
 }
 
