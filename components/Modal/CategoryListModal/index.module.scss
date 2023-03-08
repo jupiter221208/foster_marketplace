@@ -4,7 +4,7 @@
   width: 100vw;
   min-height: calc(100vh - 80px);
   height: 100%;
-  background-color: #0f1316;
+  background-color: var(--menu-bg-color);
   z-index: 100;
   display: flex;
   flex-wrap: wrap;
@@ -86,7 +86,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
+  color: var(--text-gray-200-color);
   padding-left: 15px;
   overflow: auto;
   width: 100%;
@@ -109,5 +109,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #2b2f32;
+  background-color: var(--menu-footer-color);
 }
