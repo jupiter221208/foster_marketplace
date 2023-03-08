@@ -4,7 +4,7 @@
   font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 36px;
-  color: var(--text-gray-200-color);
+  color: $text-white-color;
   padding: 8px 32px;
   &:hover {
     color: var(--brand-01-color);
@@ -84,7 +84,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 21px;
-  color: var(--text-gray-200-color);
+  color: $text-white-color;
   margin-left: 16px;
 }
 

@@ -16,6 +16,7 @@ const Button = props => {
     fontSize = '',
     fontFamily,
     borderRadius = '',
+    borderColor = '',
     paddingLeft = '',
     paddingRight = '',
   } = props
@@ -32,6 +33,7 @@ const Button = props => {
         backgroundColor: backgroundColor,
         height: height,
         fontSize: fontSize,
+        borderColor: borderColor,
         borderRadius: borderRadius,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,

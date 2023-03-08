@@ -11,12 +11,12 @@
     line-height: 20px;
   }
   border-radius: 12px;
-  background-color: rgba(var(--white-color), 0.25);
+  background-color: rgba(var(--white-color-rgb), 0.25);
   padding: 20px 24px;
 
   font-family: 'Muli-Regular';
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: $text-white-color;
 
   &:focus {
     outline: none;
@@ -50,5 +50,5 @@
     line-height: 20px;
   }
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color), 0.5);
+  color: rgba($text-white-color, 0.5);
 }

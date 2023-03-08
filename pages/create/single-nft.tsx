@@ -639,7 +639,8 @@ const SingleNft = () => {
                         <Button
                           label="Back"
                           onClick={() => handleChangeCurrentStep(currentStep - 1)}
-                          backgroundColor="#378287"
+                          backgroundColor={lightMode ? 'transparent' : '#378287'}
+                          borderColor={lightMode ? '#95DBD5' : ''}
                           color="#EFF0F6"
                           width={viewport === '2xl' ? 124 : 117}
                           height={viewport === '2xl' ? 53 : 46}
