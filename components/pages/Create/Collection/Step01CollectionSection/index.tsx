@@ -26,10 +26,12 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import BannerImage from 'assets/images/banner-image.svg'
+import BannerLightImage from 'assets/images/banner-image-light.svg'
 import CoverImage from 'assets/images/cover-image.svg'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import AddChangeWhiteIcon from 'assets/icons/add-change-white-46x46.svg'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
+import InfoCircleDarkGreenIcon from 'assets/icons/info-circle-light-dark-20x20.svg'
 
 // json
 import CategoryList from 'assets/json/popular-category.json'
@@ -39,6 +41,7 @@ import styles from './index.module.scss'
 
 // call apis
 import uploadFileToS3API from 'apis/aws'
+import { useSelector } from 'react-redux'
 
 const Step01CollectionSection = props => {
   const {
@@ -65,6 +68,7 @@ const Step01CollectionSection = props => {
     mintCollection,
   } = props
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const dropzoneBannerEl = useRef(null)
   const dropzoneCoverEl = useRef(null)
@@ -265,7 +269,9 @@ const Step01CollectionSection = props => {
                         bannerCroppedImage !== undefined
                           ? bannerCroppedImage
                           : bannerImage === undefined
-                          ? BannerImage
+                          ? lightMode
+                            ? BannerLightImage
+                            : BannerImage
                           : URL.createObjectURL(bannerImage[0])
                       }
                       width={758}
@@ -361,7 +367,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-                    Cover Image * <Image src={InfoCircleLightGreenIcon} alt="" />
+                    Cover Image * <Image src={lightMode ? InfoCircleDarkGreenIcon : InfoCircleLightGreenIcon} alt="" />
                   </div>
                   <div className="mt-5">
                     <Dropzone
@@ -479,7 +485,9 @@ const Step01CollectionSection = props => {
             <div className="w-full">
               <div className={styles.bannerImageArea}>
                 <Image
-                  src={bannerCroppedImage !== undefined ? bannerCroppedImage : BannerImage}
+                  src={
+                    bannerCroppedImage !== undefined ? bannerCroppedImage : lightMode ? BannerLightImage : BannerImage
+                  }
                   width={758}
                   height={194}
                   alt=""
@@ -525,27 +533,29 @@ const Step01CollectionSection = props => {
           </div>
           {/* upload artwork part */}
           <div className="w-full">
-            <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
+            <div className={`${lightMode ? styles.lightSubTitle : styles.subTitle} mt-5`}>Collection Name *</div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
                 value={limit(collectionName, 20)}
                 placeholder="Give your art name"
+                backgroundColor={lightMode ? '#202427' : ''}
                 label01="Max Characters 20"
                 label02={20 - collectionName.length === 20 ? '' : `${20 - collectionName.length} Characters left`}
                 onChange={value => onChangeCollectionName(limit(value, 20))}
               />
             </div>
-            <div className={`${styles.subTitle} mt-5`}>Description *</div>
+            <div className={`${lightMode ? styles.lightSubTitle : styles.subTitle} mt-5`}>Description *</div>
             <div className="w-full mt-5">
               <Textarea
                 value={limit(description, 150)}
+                backgroundColor={lightMode ? '#202427' : ''}
                 placeholder="Add a short description..."
                 label01="Max Characters 150"
                 label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
+            <div className={`${styles.subTitle} ${lightMode ? styles.lightSubTitle : ''} mt-10`}>Cover Image *</div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
@@ -559,7 +569,7 @@ const Step01CollectionSection = props => {
                 maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
-                  <section className={styles.dropzone}>
+                  <section className={`${styles.dropzone} ${lightMode ? styles.lightDropzone : ''}`}>
                     <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
                       open
                     </button>
@@ -577,7 +587,7 @@ const Step01CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            <div className={`${styles.subTitle} mt-10`}>Banner Image *</div>
+            <div className={`${styles.subTitle} ${lightMode ? styles.lightSubTitle : ''} mt-10`}>Banner Image *</div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
@@ -591,7 +601,7 @@ const Step01CollectionSection = props => {
                 maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
-                  <section className={styles.dropzone}>
+                  <section className={`${styles.dropzone} ${lightMode ? styles.lightDropzone : ''}`}>
                     <button onClick={open} ref={dropzoneBannerEl} style={{ display: 'none' }}>
                       open
                     </button>
@@ -609,7 +619,11 @@ const Step01CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
+            <div
+              className={`${styles.subTitle} ${
+                lightMode ? styles.lightSubTitle : ''
+              } mt-10 flex justify-start items-center gap-2`}
+            >
               Royalties * <Image src={InfoCircleLightGreenIcon} alt="" />
             </div>
             <div className="max-w-[370px] w-full mt-5">
@@ -617,6 +631,8 @@ const Step01CollectionSection = props => {
                 value={royalties}
                 placeholder="Insert a royalty percentage"
                 label="From 0 to 10%"
+                labelColor={lightMode ? '#202427' : ''}
+                backgroundColor={lightMode ? '#202427' : ''}
                 type="number"
                 min={0}
                 onChange={value => onChangeRoyalties(value)}
