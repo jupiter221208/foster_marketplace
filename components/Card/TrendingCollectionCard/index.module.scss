@@ -58,8 +58,8 @@
     margin-right: 8px;
   }
   @media (min-width: 1536px) {
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 20px;
+    line-height: 28px;
     margin-right: 10px;
   }
   letter-spacing: 0;
@@ -103,11 +103,11 @@
     line-height: 18px;
   }
   @media (min-width: 1536px) {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
   }
   letter-spacing: 0;
-  color: var(--text-trending-card-color);
+  color: $brand-09-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

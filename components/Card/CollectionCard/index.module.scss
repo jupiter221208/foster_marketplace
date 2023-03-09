@@ -57,7 +57,7 @@
 
 .nftName {
   font-family: 'Muli-Bold';
-  font-size: 10px;
+  font-size: 12px;
   line-height: 16px;
   white-space: nowrap;
   overflow: hidden;
@@ -79,7 +79,7 @@
     line-height: 32px;
   }
   @media (min-width: 1536px) {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 36px;
   }
 
@@ -121,7 +121,7 @@
 }
 
 .artistName {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 8px;
   line-height: 8px;
   @media (min-width: 640px) {
@@ -141,12 +141,12 @@
     line-height: 21px;
   }
   @media (min-width: 1536px) {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
   }
 
   letter-spacing: 0;
-  color: var(--brand-09-color);
+  color: $brand-09-color;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
