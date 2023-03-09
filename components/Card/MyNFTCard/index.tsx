@@ -103,7 +103,7 @@ const MyNFTCard = props => {
       </div>
 
       {blurMode && (
-        <div className={styles.noAuction} onClick={() => setBlurMode(false)}>
+        <div className={styles.noAuction} onMouseLeave={() => setBlurMode(false)}>
           Auctions can only be
           <br />
           started by the creator.
