@@ -63,6 +63,8 @@
   --background-black-color-rgb: 18, 18, 18;
 
   --background-dark-color: #202427;
+  --background-dark-color-rgb: 32, 36, 39;
+
   --background-light-color: #eff0f6;
 
   --header-bg-color1: 48, 98, 96; // #305856
@@ -124,6 +126,8 @@
   --hero-artist-color: #63d6cd;
   --twitter-btn-color1: #5ac3ba;
   --twitter-btn-color2: #2d625d;
+
+  --notification-card-bg: rgba(var(--text-gray-200-color-rgb), 0.15)
 }
 
 html,

@@ -111,6 +111,7 @@ import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
+import DateSelect from 'components/DateSelect'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -934,7 +935,11 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
                           <div className="w-[100px] lg:w-[150px] z-10">
-                            <Select data={TimeList} selected={selectedTime} onChange={item => setSelectedTime(item)} />
+                            <DateSelect
+                              data={TimeList}
+                              selected={selectedTime}
+                              onChange={item => setSelectedTime(item)}
+                            />
                           </div>
                           <div className="flex flex-1">
                             <Line options={options as any} data={data} height="100px" width="150px" />
