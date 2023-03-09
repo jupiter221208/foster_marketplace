@@ -75,7 +75,12 @@ const MyNFTCard = props => {
           {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
             <OutlineButton
               label="Start Auction"
-              onClick={() => setBlurMode(true)}
+              onClick={() => {
+                setBlurMode(true)
+                setTimeout(() => {
+                  setBlurMode(false)
+                }, 3000)
+              }}
               height="26px"
               fontSize="10px"
               borderRadius="6px"
