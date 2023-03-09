@@ -15,7 +15,7 @@ import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
 
 const MyNFTCard = props => {
-  const { data, onClick, onClickStartAuction, onClickListNFT } = props
+  const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
 
   return (
     <div className={styles.container}>
@@ -53,6 +53,7 @@ const MyNFTCard = props => {
             onClick={() => onClickStartAuction(data)}
             height="40px"
             fontSize="14px"
+            disabled={publicKey?.toBase58() !== data.creators[0].address.toString()}
           />
           <OutlineButton label="List NFT" onClick={() => onClickListNFT(data)} height="40px" fontSize="14px" />
         </div>
