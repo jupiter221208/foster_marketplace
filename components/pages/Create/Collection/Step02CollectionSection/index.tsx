@@ -30,6 +30,7 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const Step02CollectionSection = props => {
   const {
@@ -45,8 +46,8 @@ const Step02CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
-
   const dropzoneNftEl = useRef(null)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
@@ -659,6 +660,7 @@ const Step02CollectionSection = props => {
                       <Input
                         value={item.name}
                         placeholder="Give your art name"
+                        backgroundColor={lightMode ? '#202427' : ''}
                         label=""
                         fullWidth
                         onChange={value => onChangeCollectionName(item, value)}
@@ -680,6 +682,7 @@ const Step02CollectionSection = props => {
                       <Textarea
                         value={item.description}
                         placeholder="Add a short description..."
+                        backgroundColor={lightMode ? '#202427' : ''}
                         fullWidth
                         onChange={value => onChangeCollectionDescription(item, value)}
                         height="90px"

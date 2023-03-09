@@ -28,6 +28,7 @@ import LoaderLottery from 'assets/lottery/loader.json'
 // styles
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
+import { useSelector } from 'react-redux'
 
 const Step03CollectionSection = props => {
   const {
@@ -41,6 +42,7 @@ const Step03CollectionSection = props => {
   } = props
 
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   // variables
   const [disabledNextButton, setDisabledNextButton] = useState(true)
@@ -624,6 +626,7 @@ const Step03CollectionSection = props => {
                           placeholder="Give your art name"
                           label=""
                           fullWidth
+                          backgroundColor={lightMode ? '#202427' : ''}
                           onChange={() => {}}
                           height="46px"
                         />
@@ -643,6 +646,7 @@ const Step03CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
+                          backgroundColor={lightMode ? '#202427' : ''}
                           fullWidth
                           onChange={() => {}}
                           height="90px"
@@ -662,9 +666,9 @@ const Step03CollectionSection = props => {
                   onClick={() => handleChangeCurrentStep(currentStep - 1)}
                   fullWidth
                   height="45px"
-                  color="#EFF0F6"
+                  // color="#EFF0F6"
                   borderWidth={2}
-                  borderColor="#5AC3BA"
+                  // borderColor="#5AC3BA"
                 />
               </div>
               <div className="col-span-1">
