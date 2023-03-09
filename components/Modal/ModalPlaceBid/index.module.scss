@@ -14,11 +14,12 @@
 .modalView {
   width: 100%;
   max-width: 488px;
-  background-color: var(--background-black-color);
-  border: 1px solid rgba(var(--text-gray-200-color), 0.1);
+  background-color: rgba($background-black-color, 0.8);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 30px;
   padding: 35px 30px 30px 30px;
-
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -62,7 +63,7 @@
   line-height: 22px;
   text-align: center;
   letter-spacing: 0px;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 }
 
 .text {
