@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux'
 const MyNFTCard = props => {
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
@@ -70,7 +71,16 @@ const MyNFTCard = props => {
               disabled={publicKey?.toBase58() !== data.creators[0].address.toString()}
             />
           )}
-          <OutlineButton label="List NFT" onClick={() => onClickListNFT(data)} height="40px" fontSize="14px" />
+          <OutlineButton
+            backgroundColor="transparent"
+            color="#EFF0F6"
+            borderColor={lightMode ? '#95DBD5' : '#5ac3ba'}
+            borderWidth="2"
+            label="List NFT"
+            onClick={() => onClickListNFT(data)}
+            height="40px"
+            fontSize="14px"
+          />
         </div>
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
           {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
@@ -93,6 +103,8 @@ const MyNFTCard = props => {
             <OutlineButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
+              borderColor={lightMode ? '#95DBD5' : '#5ac3ba'}
+              color={lightMode ? '#EFF0F6' : ''}
               height="26px"
               fontSize="10px"
               borderRadius="6px"
