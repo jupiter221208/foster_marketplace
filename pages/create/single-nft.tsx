@@ -641,6 +641,7 @@ const SingleNft = () => {
                           onClick={() => handleChangeCurrentStep(currentStep - 1)}
                           backgroundColor={lightMode ? 'transparent' : '#378287'}
                           borderColor={lightMode ? '#95DBD5' : ''}
+                          borderWidth={lightMode ? 2 : ''}
                           color="#EFF0F6"
                           width={viewport === '2xl' ? 124 : 117}
                           height={viewport === '2xl' ? 53 : 46}

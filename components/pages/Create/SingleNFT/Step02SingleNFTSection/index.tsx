@@ -18,6 +18,7 @@ import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const Step02SingleNFTSection = props => {
   const {
@@ -33,6 +34,7 @@ const Step02SingleNFTSection = props => {
   } = props
 
   const viewport = useViewport()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
@@ -63,21 +65,23 @@ const Step02SingleNFTSection = props => {
     </div>
   ) : (
     <div className="w-full">
-      <div className={`${styles.subTitle} mt-5`}>NFT Name *</div>
+      <div className={`${styles.mobileSubTitle} mt-5`}>NFT Name *</div>
       <div className="max-w-[370px] w-full mt-4">
         <Input
           value={limit(nftName, 20)}
           placeholder="Give your art name"
+          backgroundColor={lightMode ? '#202427' : ''}
           label01="Max Characters 20"
           label02={20 - nftName.length === 20 ? '' : `${20 - nftName.length} Characters left`}
           onChange={value => setNftName(limit(value, 20))}
         />
       </div>
-      <div className={`${styles.subTitle} mt-5`}>Description *</div>
+      <div className={`${styles.mobileSubTitle} mt-5`}>Description *</div>
       <div className="w-full mt-5">
         <Textarea
           value={limit(description, 150)}
           placeholder="Add a short description..."
+          backgroundColor={lightMode ? '#202427' : ''}
           label01="Max Characters 150"
           label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
           onChange={value => setDescription(value)}
