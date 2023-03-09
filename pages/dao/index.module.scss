@@ -44,7 +44,7 @@
     font-size: 78px;
     line-height: 78px;
   }
-  color: var(--brand-09-color);
+  color: var(--dao-title-color);
 }
 
 .subTitle {
@@ -73,6 +73,6 @@
     font-size: 14px;
     line-height: 18px;
   }
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   margin-top: 5px;
 }

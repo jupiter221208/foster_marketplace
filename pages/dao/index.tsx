@@ -14,16 +14,19 @@ import OutlineButton from 'components/Button/OutlineButton'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
 import TcDAOLogo from 'assets/images/TC_DAO_Logo.png'
+import TcDAODarkLogo from 'assets/images/TC_DAO_Dark_Logo.png'
 import TurkeyLogo from 'assets/icons/turkey-logo.svg'
 
 // styles
 import styles from './index.module.scss'
 import DaoSetupModal from 'components/Modal/DaoSetupModal'
+import { useSelector } from 'react-redux'
 
 const Dao = () => {
   const [showCircus, setShowCircus] = useState(false)
   const [showLift, setShowLift] = useState(false)
   const [daoSetup, setDaoSetup] = useState(false)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="g-container">
@@ -43,7 +46,7 @@ const Dao = () => {
         <div className={styles.container}>
           <div className={styles.title}>Connect To</div>
           <div className="w-full flex justify-center mt-[30px]">
-            <Image src={TcDAOLogo} alt="" />
+            <Image src={lightMode ? TcDAODarkLogo : TcDAOLogo} alt="" />
           </div>
           <div className={styles.subTitle}>Connect your wallet to verify your Turkey Circus NFT</div>
           <div className={styles.text}>The official governance portal for the Turkey Circus DAO</div>
@@ -54,6 +57,7 @@ const Dao = () => {
                 icon={TurkeyLogo}
                 direction="rtl"
                 fullWidth
+                backgroundColor={lightMode ? '#202427' : ''}
                 color="#95DBD5"
                 fontFamily="KCDurhamboxcar"
                 fontSize="30px"
