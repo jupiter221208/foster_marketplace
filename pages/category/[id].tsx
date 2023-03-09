@@ -43,7 +43,7 @@ const Category = () => {
   }, [rawQuery, cateQuery, router])
   const categoryInfo = PopularCategoryList.find(({ query }) => query === cateQuery)
 
-  let categoryTitle = `${categoryInfo.name} | Foster Marketplace`
+  let categoryTitle = `${categoryInfo?.name} | Foster Marketplace`
   let categoryImageUrl = getCategoryPreviewImage(cateQuery)
   if (!categoryImageUrl) {
     categoryTitle = 'Foster Marketplace'
