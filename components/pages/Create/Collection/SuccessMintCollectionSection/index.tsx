@@ -17,6 +17,7 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
+import TwitterBackgroundGreenIcon from 'assets/icons/twitter-background-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -25,9 +26,11 @@ import styles from './index.module.scss'
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 import { TwitterShareButton } from 'react-share'
+import { useSelector } from 'react-redux'
 
 const SuccessMintCollectionSection = props => {
   const { coverCroppedImage, bannerCroppedImage, collectionNft } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const router = useRouter()
 
@@ -97,7 +100,7 @@ const SuccessMintCollectionSection = props => {
                   className="w-full"
                 >
                   <TweetMintButton
-                    icon={TwitterBackgroundBlackIcon}
+                    icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
                     color="#202427"
@@ -115,7 +118,7 @@ const SuccessMintCollectionSection = props => {
                   height="68px"
                   fontSize="22px"
                   onClick={() => router.push('/dashboard')}
-                  borderColor="#5AC3BA"
+                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
                 />
               </div>
             </div>
@@ -178,7 +181,7 @@ const SuccessMintCollectionSection = props => {
                   className="w-full"
                 >
                   <TweetMintButton
-                    icon={TwitterBackgroundBlackIcon}
+                    icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
                     color="#202427"
@@ -194,7 +197,7 @@ const SuccessMintCollectionSection = props => {
                   label="View Dashboard"
                   backgroundColor="#63D6CD"
                   onClick={() => router.push('/dashboard')}
-                  borderColor="#5AC3BA"
+                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
                 />
               </div>
             </div>

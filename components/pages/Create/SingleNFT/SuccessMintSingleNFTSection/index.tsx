@@ -19,6 +19,7 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
+import TwitterBackgroundGreenIcon from 'assets/icons/twitter-background-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -36,6 +37,7 @@ import Alert from 'components/Alert'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const router = useRouter()
   const dispatch = useDispatch()
@@ -141,11 +143,10 @@ const SuccessMintSingleNFTSection = props => {
                   className="w-full"
                 >
                   <TweetMintButton
-                    icon={TwitterBackgroundBlackIcon}
+                    icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color="#202427"
-                    backgroundColor="#378287"
+                    color={lightMode ? '#95dbd5' : '#202427'}
                     onClick={() => {}}
                     direction="rtl"
                   />
@@ -157,7 +158,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   backgroundColor="#63D6CD"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor="#5AC3BA"
+                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
                 />
               </div>
             </div>
@@ -222,11 +223,10 @@ const SuccessMintSingleNFTSection = props => {
                   className="w-full"
                 >
                   <TweetMintButton
-                    icon={TwitterBackgroundBlackIcon}
+                    icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color="#202427"
-                    backgroundColor="#378287"
+                    color={lightMode ? '#95dbd5' : '#202427'}
                     onClick={() => {}}
                     direction="rtl"
                   />
@@ -238,7 +238,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   height="45px"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor="#5AC3BA"
+                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
                 />
               </div>
             </div>

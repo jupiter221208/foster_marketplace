@@ -184,6 +184,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-bg-color', '#eff0f6')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')
     doc.style.setProperty('--hero-artist-color', 'rgba(239, 240, 246, 0.75)')
+    doc.style.setProperty('--twitter-btn-color1', '#202427')
+    doc.style.setProperty('--twitter-btn-color2', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -220,5 +222,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-bg-color', '#0f1316')
     doc.style.setProperty('--menu-footer-color', '#2b2f32')
     doc.style.setProperty('--hero-artist-color', '#63d6cd')
+    doc.style.setProperty('--twitter-btn-color1', '#5ac3ba')
+    doc.style.setProperty('--twitter-btn-color2', '#2d625d')
   }
 }
