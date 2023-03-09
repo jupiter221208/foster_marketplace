@@ -68,7 +68,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(var(--background-dark-color), 0.8);
+  background-color: rgba(var(--background-dark-color-rgb), 0.8);
 }
 
 .secondRow {
@@ -86,14 +86,14 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .subTitle {
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
   text-align: start;
 }
 
