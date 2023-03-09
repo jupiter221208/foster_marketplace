@@ -90,7 +90,7 @@
   max-height: 114px;
   height: 74px;
   padding: 18px 30px 18px 14px;
-  background: rgba(var(--background-black-color), 0.6);
+  background: rgba($background-black-color, 0.4);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   @media (min-width: 1024px) {
@@ -117,16 +117,14 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
   @media (min-width: 1024px) {
     font-size: 20px;
     line-height: 36px;
-    color: var(--text-gray-200-color);
   }
   @media (min-width: 1536px) {
     font-size: 22px;
     line-height: 36px;
-    color: var(--text-gray-200-color);
   }
   letter-spacing: 0;
   white-space: nowrap;
@@ -185,7 +183,7 @@
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0;
-  color: var(--brand-03-color);
+  color: var(--hero-artist-color);
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 18px;

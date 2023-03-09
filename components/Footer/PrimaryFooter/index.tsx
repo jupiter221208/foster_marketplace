@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 // custom components
 import IconButton from 'components/Button/IconButton'
@@ -14,7 +15,9 @@ import { useViewport } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg'
+import LogoText01LightIcon from 'assets/icons/logo-text-01-light.svg'
 import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
+import LogoText01MobileLightIcon from 'assets/icons/logo-text-01-mobile-light.svg'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
@@ -27,7 +30,7 @@ import styles from './index.module.scss'
 const PrimaryFooter = () => {
   const viewport = useViewport()
   const router = useRouter()
-
+  const lightMode = useSelector(state => (state as any).lightMode)
   const [email, setEmail] = useState('')
   return (
     <div className={styles.container} data-testid="footer-container">
@@ -35,7 +38,7 @@ const PrimaryFooter = () => {
         <div className="g-container flex flex-wrap justify-between gap-4 z-10">
           <div className="max-w-[347px] block justify-start">
             <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={LogoText01Icon} alt="" />
+              <Image src={lightMode ? LogoText01LightIcon : LogoText01Icon} alt="" />{' '}
             </div>
             {/* <div className={styles.text}>
               Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
@@ -137,7 +140,12 @@ const PrimaryFooter = () => {
           </div> */}
           <div className="w-full flex flex-wrap justify-center">
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={LogoText01MobileIcon} width={176} height={40} alt="" />
+              <Image
+                src={lightMode ? LogoText01MobileLightIcon : LogoText01MobileIcon}
+                width={176}
+                height={40}
+                alt=""
+              />
             </div>
           </div>
           <div className="w-full flex justify-around mt-[14px]">

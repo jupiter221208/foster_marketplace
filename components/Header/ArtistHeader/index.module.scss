@@ -12,12 +12,7 @@
 
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba(var(--background-dark-color), 0.5) 100%
-  );
+  background: var(--header-bg);
   z-index: 9999;
   &:hover {
     opacity: 1;
@@ -25,7 +20,7 @@
 }
 
 .lightBlurContainer {
-  background: linear-gradient(90deg, rgba(#737578, 0.8) 0%, rgba(#85878b, 0.8) 50%, rgba(#8d8e93, 1) 100%);
+  background: linear-gradient(90deg, rgba(#b9bac0, 0.8) 0%, rgba(#e3e4eb, 0.8) 50%, rgba(#e4e5ec, 1) 100%);
 }
 
 .container {

@@ -183,6 +183,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-02-color', '75, 110, 107')
     doc.style.setProperty('--menu-bg-color', '#eff0f6')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')
+    doc.style.setProperty('--hero-artist-color', 'rgba(239, 240, 246, 0.75)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -218,5 +219,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-02-color', '12, 65, 68')
     doc.style.setProperty('--menu-bg-color', '#0f1316')
     doc.style.setProperty('--menu-footer-color', '#2b2f32')
+    doc.style.setProperty('--hero-artist-color', '#63d6cd')
   }
 }
