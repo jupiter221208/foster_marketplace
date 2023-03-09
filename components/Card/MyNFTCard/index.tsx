@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -16,6 +16,7 @@ import { getShortAddress } from 'utils/strings'
 
 const MyNFTCard = props => {
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
+  const [blurMode, setBlurMode] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -48,23 +49,49 @@ const MyNFTCard = props => {
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
-          <GradientButton
-            label="Start Auction"
-            onClick={() => onClickStartAuction(data)}
-            height="40px"
-            fontSize="14px"
-            disabled={publicKey?.toBase58() !== data.creators[0].address.toString()}
-          />
+          {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
+            <OutlineButton
+              label="Start Auction"
+              onClick={() => setBlurMode(true)}
+              height="40px"
+              fontSize="14px"
+              borderRadius="12px"
+              backgroundColor="#1E2225"
+              borderColor="#1E2225"
+              color="#727478"
+            />
+          ) : (
+            <GradientButton
+              label="Start Auction"
+              onClick={() => onClickStartAuction(data)}
+              height="40px"
+              fontSize="14px"
+              disabled={publicKey?.toBase58() !== data.creators[0].address.toString()}
+            />
+          )}
           <OutlineButton label="List NFT" onClick={() => onClickListNFT(data)} height="40px" fontSize="14px" />
         </div>
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
-          <OutlineButton
-            label="Start Auction"
-            onClick={() => onClickStartAuction(data)}
-            height="26px"
-            fontSize="10px"
-            borderRadius="6px"
-          />
+          {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
+            <OutlineButton
+              label="Start Auction"
+              onClick={() => setBlurMode(true)}
+              height="26px"
+              fontSize="10px"
+              borderRadius="6px"
+              backgroundColor="#1E2225"
+              borderColor="#1E2225"
+              color="#727478"
+            />
+          ) : (
+            <OutlineButton
+              label="Start Auction"
+              onClick={() => onClickStartAuction(data)}
+              height="26px"
+              fontSize="10px"
+              borderRadius="6px"
+            />
+          )}
           <GradientButton
             label="List NFT"
             onClick={() => onClickListNFT(data)}
@@ -74,6 +101,14 @@ const MyNFTCard = props => {
           />
         </div>
       </div>
+
+      {blurMode && (
+        <div className={styles.noAuction} onClick={() => setBlurMode(false)}>
+          Auctions can only be
+          <br />
+          started by the creator.
+        </div>
+      )}
     </div>
   )
 }

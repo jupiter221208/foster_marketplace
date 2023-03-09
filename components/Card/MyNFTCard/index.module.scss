@@ -1,6 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
+  position: relative;
   width: 100%;
   height: 100%;
   background-color: $background-black-color;
@@ -64,4 +65,32 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.noAuction {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba($background-dark-color, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 17px;
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    border-radius: 30px;
+    font-family: 'Muli-SemiBold';
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  text-align: center;
+  color: $text-gray-200-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $brand-01-color;
 }
