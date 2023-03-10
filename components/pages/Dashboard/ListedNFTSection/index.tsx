@@ -213,6 +213,15 @@ const ListedNFTSection = props => {
         sale_price: sale.price.toString(),
       })
       .then(res => {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Finalized Auction!',
+            description: `You've successfully finalized your auction!`,
+            type: 'success',
+          },
+        ])
+        setShowAlert(true)
         setMyListedNFTs()
       })
   }
