@@ -108,7 +108,7 @@ const ListedNFTSection = props => {
             uri: nfts[index].uri,
             sellerAddress: new PublicKey(auction.seller_address),
             tradeStateAddress: new PublicKey(auction.free_trade_state),
-            price: Number(auction.reserve_price) * 1000000000,
+            price: Number(highest_bid?.amount ?? auction.reserve_price) * 1000000000,
             creatorAddress: getNFTArtistPublicKey(nfts[index])?.toString(),
             startTime: auction.start_time,
             endTime: auction.end_time,
