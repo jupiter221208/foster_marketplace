@@ -30,7 +30,7 @@
   color: var(--outline-button-color);
 
   &:hover {
-    color: var(--brand-01-color);
+    color: $brand-09-color;
   }
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
