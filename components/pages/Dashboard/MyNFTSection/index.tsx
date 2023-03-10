@@ -73,6 +73,10 @@ const MyNFTSection = props => {
     setShowStartAuctionModal(true)
   }
 
+  const handleStartProgress = () => {
+    setOpenProgressingModal(true)
+  }
+
   const handleSuccessAuction = nftName => {
     setShowStartAuctionModal(false)
     setAlertData([
@@ -83,21 +87,23 @@ const MyNFTSection = props => {
         type: 'success',
       },
     ])
+    setOpenProgressingModal(false)
+
     setTimeout(() => {
-      setOpenProgressingModal(true)
+      setShowAlert(true)
     }, 500)
   }
 
-  useEffect(() => {
-    if (openProgressingModal) {
-      setTimeout(() => {
-        setOpenProgressingModal(false)
-        setTimeout(() => {
-          setShowAlert(true)
-        }, 500)
-      }, 3000)
-    }
-  }, [openProgressingModal])
+  // useEffect(() => {
+  //   if (openProgressingModal) {
+  //     setTimeout(() => {
+  //       setOpenProgressingModal(false)
+  //       setTimeout(() => {
+  //         setShowAlert(true)
+  //       }, 500)
+  //     }, 3000)
+  //   }
+  // }, [openProgressingModal])
 
   const handleListNFT = item => {
     setSelectedData(item)
@@ -163,6 +169,7 @@ const MyNFTSection = props => {
         data={selectedData}
         open={showStartAuctionModal}
         onSuccess={nft => handleSuccessAuction(nft)}
+        onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
       />
       <ProgressingModal open={openProgressingModal} />

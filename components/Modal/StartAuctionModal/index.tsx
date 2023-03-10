@@ -35,7 +35,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch } from 'react-redux'
 
 const StartAuctionModal = props => {
-  const { data, open, onSuccess, onClose } = props
+  const { data, open, onSuccess, onClose, onStartProgress } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
 
@@ -66,6 +66,8 @@ const StartAuctionModal = props => {
   const { metaplex: mx } = useMetaplex()
 
   const handleStartAuction = async () => {
+    onStartProgress()
+
     const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, price)
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
