@@ -190,6 +190,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-dark-color-rgb', '135, 137, 141')
     doc.style.setProperty('--dao-title-color', '#202427')
     doc.style.setProperty('--nft-detail-artist', '#202427')
+    doc.style.setProperty('--dropdown-bg-color', 'rgba(205, 205, 205, 0.8)')
+    doc.style.setProperty('--dropdown-border-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--dropdown-menu-bg', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--dropdown-menu-hover-color', '#95DBD5')
+    doc.style.setProperty('--dropdown-menu-hover-border', '')
+    doc.style.setProperty('--wallet-green-text', '#202427')
+    doc.style.setProperty('--wallet-error-text', '#202427')
+    doc.style.setProperty('--wallet-active-text', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -232,5 +240,13 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
     doc.style.setProperty('--dao-title-color', '#95dbd5')
     doc.style.setProperty('--nft-detail-artist', '#93bfbb')
+    doc.style.setProperty('--dropdown-bg-color', 'rgba(14, 14, 14, 0.8)')
+    doc.style.setProperty('--dropdown-border-color', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--dropdown-menu-bg', 'rgba(55, 130, 135, 0.3)')
+    doc.style.setProperty('--dropdown-menu-hover-color', '')
+    doc.style.setProperty('--dropdown-menu-hover-border', '#5ac3ba')
+    doc.style.setProperty('--wallet-green-text', '#5ac3ba')
+    doc.style.setProperty('--wallet-error-text', '#deefd0')
+    doc.style.setProperty('--wallet-active-text', '#5ac3ba')
   }
 }

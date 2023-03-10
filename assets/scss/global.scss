@@ -130,6 +130,17 @@
   --notification-card-bg: rgba(var(--text-gray-200-color-rgb), 0.15);
   --dao-title-color: #95dbd5;
   --nft-detail-artist: #93bfbb;
+
+  --dropdown-bg-color: 14, 14, 14;
+  --dropdown-border-color: rgba(239, 240, 247, 0.1);
+  --dropdown-menu-bg: rgba(55, 130, 135, 0.3);
+  --dropdown-menu-hover-color: $text-gray-200-color;
+  --dropdown-menu-hover-border: $brand-01-color;
+
+  --wallet-green-text: #5ac3ba;
+  --wallet-error-text: #deefd0;
+  --wallet-active-text: #202427;
+
 }
 
 html,

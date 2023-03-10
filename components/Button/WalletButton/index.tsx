@@ -26,11 +26,15 @@ import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
 import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-light-green.svg'
+import CopyAltLightBlueIcon from 'assets/icons/copy-alt-light-blue.svg'
+
 import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import NounAddGrayIcon from 'assets/icons/noun-add-gray.svg'
+import NounAddGreenIcon from 'assets/icons/noun-add-green.svg'
 import NounAddLightGreenIcon from 'assets/icons/noun-add-light-green.svg'
 import NounSubtractGrayIcon from 'assets/icons/noun-subtract-gray.svg'
 import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.svg'
+import NounSubtractLightBlueIcon from 'assets/icons/noun-subtract-light-blue.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -326,7 +330,7 @@ const WalletButton = props => {
                     copyClipboardAlert('main-wallet')
                   }}
                 >
-                  <Image src={CopyAltLightGreenIcon} alt="" />
+                  <Image src={lightMode ? CopyAltLightBlueIcon : CopyAltLightGreenIcon} alt="" />
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortMainAddress}</div>
                   </div>
@@ -384,7 +388,7 @@ const WalletButton = props => {
                   }}
                 >
                   <div className="w-[16px] h-[18px]">
-                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <Image src={lightMode ? CopyAltLightBlueIcon : CopyAltLightGreenIcon} alt="" />
                   </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortOfferAddress}</div>
@@ -415,7 +419,16 @@ const WalletButton = props => {
                     setOfferErrorMessage('')
                   }}
                 >
-                  <Image src={offerStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                  <Image
+                    src={
+                      offerStatus === 'deposit'
+                        ? lightMode
+                          ? NounAddGreenIcon
+                          : NounAddLightGreenIcon
+                        : NounAddGrayIcon
+                    }
+                    alt=""
+                  />
                   <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                     Deposit from Main Wallet
                   </div>
@@ -430,7 +443,16 @@ const WalletButton = props => {
                     setOfferErrorMessage('')
                   }}
                 >
-                  <Image src={offerStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon} alt="" />
+                  <Image
+                    src={
+                      offerStatus === 'withdraw'
+                        ? lightMode
+                          ? NounSubtractLightBlueIcon
+                          : NounSubtractLightGreenIcon
+                        : NounSubtractGrayIcon
+                    }
+                    alt=""
+                  />
                   <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                     Withdraw to Main Wallet
                   </div>
@@ -518,8 +540,8 @@ const WalletButton = props => {
                       fullWidth
                       height="53px"
                       fontSize="18px"
-                      backgroundColor01="#2B4142"
-                      backgroundColor02="#59BFB7"
+                      backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
+                      backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
                       gradientDirection="right"
                       borderRadius="15px"
                       borderColor="rgba(255, 255, 255, 0.1)"
@@ -561,7 +583,7 @@ const WalletButton = props => {
                   }}
                 >
                   <div className="w-[16px] h-[18px]">
-                    <Image src={CopyAltLightGreenIcon} alt="" />
+                    <Image src={lightMode ? CopyAltLightBlueIcon : CopyAltLightGreenIcon} alt="" />
                   </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortBiddingAddress}</div>
@@ -579,6 +601,7 @@ const WalletButton = props => {
                 </div>
               </div>
             </div>
+
             {showBiddingWallet && (
               <div className={styles.walletCard}>
                 <div
@@ -591,7 +614,16 @@ const WalletButton = props => {
                     setBiddingErrorMessage('')
                   }}
                 >
-                  <Image src={biddingStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                  <Image
+                    src={
+                      biddingStatus === 'deposit'
+                        ? lightMode
+                          ? NounAddGreenIcon
+                          : NounAddLightGreenIcon
+                        : NounAddGrayIcon
+                    }
+                    alt=""
+                  />
                   <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                     Deposit to Bidding Wallet
                   </div>
@@ -607,7 +639,13 @@ const WalletButton = props => {
                   }}
                 >
                   <Image
-                    src={biddingStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon}
+                    src={
+                      biddingStatus === 'withdraw'
+                        ? lightMode
+                          ? NounSubtractLightBlueIcon
+                          : NounSubtractLightGreenIcon
+                        : NounSubtractGrayIcon
+                    }
                     alt=""
                   />
                   <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
@@ -696,8 +734,8 @@ const WalletButton = props => {
                       fullWidth
                       height="53px"
                       fontSize="18px"
-                      backgroundColor01="#2B4142"
-                      backgroundColor02="#59BFB7"
+                      backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
+                      backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
                       gradientDirection="right"
                       borderRadius="15px"
                       borderColor="rgba(255, 255, 255, 0.1)"
