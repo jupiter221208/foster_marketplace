@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 // components
 import Pagination from 'components/Button/Pagination'
-import ListedNFTCard, { type ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import ListedNFTCard, { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
 import FilterButton from 'components/Button/FilterButton'
@@ -31,6 +31,7 @@ import listingsAPI from 'apis/listings'
 import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
+import ProgressingModal from 'components/Modal/ProgressingModal'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -39,6 +40,7 @@ const ListedNFTSection = props => {
   const dispatch = useDispatch()
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
+  const [openProgressingModal, setOpenProgressingModal] = useState(false)
 
   const [selectedData, setSelectedData] = useState()
   const handleSelectData = item => {
@@ -124,53 +126,79 @@ const ListedNFTSection = props => {
   }, [mx, isGetListedNFTs])
 
   const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
-    const result = await cancelList(mx, tradeStateAddress)
-    if (result) {
-      setShowListNFTModal(false)
-      listingsAPI.unlistNft(address.toBase58()).then(response => {
-        if (response) {
-          setAlertData([
-            {
-              id: 0,
-              title: 'Listing Removed!',
-              description: `You've successfully removed your fixed-price listing!`,
-              type: 'success',
-            },
-          ])
-          setShowAlert(true)
-          setMyListedNFTs()
-          dispatch({ type: 'set', isGetMyNFTs: false })
-        }
-      }),
-        error => {
-          console.log(error)
-        }
-    }
-  }
-
-  const onUpdatePrice = async ({ address, tradeStateAddress, price }: ListedNFTCardData) => {
-    const result = await updateList(mx, address, tradeStateAddress, price)
-    if (result) {
-      setShowListNFTModal(false)
-      listingsAPI.updateNft(address.toBase58(), { amount: price }).then(
-        response => {
+    setOpenProgressingModal(true)
+    try {
+      const result = await cancelList(mx, tradeStateAddress)
+      if (result) {
+        listingsAPI.unlistNft(address.toBase58()).then(response => {
           if (response) {
             setAlertData([
               {
                 id: 0,
-                title: 'Listing Updated!',
-                description: `You've successfully updated your fixed-price listing!`,
+                title: 'Listing Removed!',
+                description: `You've successfully removed your fixed-price listing!`,
                 type: 'success',
               },
             ])
-            setShowAlert(true)
-            setMyListedNFTs()
+            setOpenProgressingModal(false)
+            setTimeout(() => {
+              setShowListNFTModal(false)
+              setTimeout(() => {
+                setShowAlert(true)
+                setTimeout(() => {
+                  setMyListedNFTs()
+                  dispatch({ type: 'set', isGetMyNFTs: false })
+                }, 500)
+              }, 500)
+            }, 500)
           }
-        },
-        error => {
-          console.log(error)
-        }
-      )
+        }),
+          error => {
+            console.log(error)
+            setOpenProgressingModal(false)
+          }
+      }
+    } catch (e) {
+      setOpenProgressingModal(false)
+    }
+  }
+
+  const onUpdatePrice = async ({ address, tradeStateAddress, price }: ListedNFTCardData) => {
+    setOpenProgressingModal(true)
+    try {
+      const result = await updateList(mx, address, tradeStateAddress, price)
+      if (result) {
+        listingsAPI.updateNft(address.toBase58(), { amount: (price / 1000000000).toString() }).then(
+          response => {
+            if (response) {
+              setAlertData([
+                {
+                  id: 0,
+                  title: 'Listing Updated!',
+                  description: `You've successfully updated your fixed-price listing!`,
+                  type: 'success',
+                },
+              ])
+              setOpenProgressingModal(false)
+              setTimeout(() => {
+                setShowListNFTModal(false)
+                setTimeout(() => {
+                  setShowAlert(true)
+                  setTimeout(() => {
+                    setMyListedNFTs()
+                  }, 500)
+                }, 500)
+              }, 500)
+            }
+          },
+          error => {
+            console.log(error)
+            setOpenProgressingModal(false)
+          }
+        )
+      }
+    } catch (e) {
+      setOpenProgressingModal(false)
     }
   }
 
@@ -185,45 +213,69 @@ const ListedNFTSection = props => {
   ])
 
   const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
-    const { auction } = await cancelListing(mx, address, sellerAddress)
-    auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
-      if (res) {
-        setAlertData([
-          {
-            id: 0,
-            title: 'Auction Canceled!',
-            description: `You've successfully canceled the auction for ${name}`,
-            type: 'success',
-          },
-        ])
-        setShowAlert(true)
-        setMyListedNFTs()
-        dispatch({ type: 'set', isGetMyNFTs: false })
-      }
-    })
+    setOpenProgressingModal(true)
+    try {
+      const { auction } = await cancelListing(mx, address, sellerAddress)
+      auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
+        if (res) {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Auction Canceled!',
+              description: `You've successfully canceled the auction for ${name}`,
+              type: 'success',
+            },
+          ])
+          setOpenProgressingModal(false)
+          setTimeout(() => {
+            setShowAlert(true)
+            setTimeout(() => {
+              setMyListedNFTs()
+              dispatch({ type: 'set', isGetMyNFTs: false })
+            }, 500)
+          }, 500)
+        }
+      })
+    } catch (e) {
+      setOpenProgressingModal(false)
+    }
   }
 
   const finalizeSale = async ({ address, sellerAddress, price, highestBid }: ListedNFTCardData) => {
-    const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
-    await updateSolBalance()
-    auctionAPI
-      .executeSale(sale.mintAddress.toBase58(), {
-        token_address: sale.mintAddress.toBase58(),
-        buyer_wallet_id: sale.buyerAddress.toBase58(),
-        sale_price: sale.price.toString(),
-      })
-      .then(res => {
-        setAlertData([
-          {
-            id: 0,
-            title: 'Auction Finalized!',
-            description: `You've successfully finalized your auction!`,
-            type: 'success',
-          },
-        ])
-        setShowAlert(true)
-        setMyListedNFTs()
-      })
+    setTimeout(() => {
+      setOpenProgressingModal(true)
+    }, 500)
+
+    try {
+      const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
+      await updateSolBalance()
+      auctionAPI
+        .executeSale(sale.mintAddress.toBase58(), {
+          token_address: sale.mintAddress.toBase58(),
+          buyer_wallet_id: sale.buyerAddress.toBase58(),
+          sale_price: sale.price.toString(),
+        })
+        .then(res => {
+          setAlertData([
+            {
+              id: 0,
+              title: 'Auction Finalized!',
+              description: `You've successfully finalized your auction!`,
+              type: 'success',
+            },
+          ])
+          setOpenProgressingModal(false)
+          setTimeout(() => {
+            setShowAlert(true)
+            setTimeout(() => {
+              setMyListedNFTs()
+              dispatch({ type: 'set', isGetMyNFTs: false })
+            }, 500)
+          }, 500)
+        })
+    } catch (e) {
+      setOpenProgressingModal(false)
+    }
   }
 
   const handleGotoDetailPage = url => {
@@ -303,6 +355,7 @@ const ListedNFTSection = props => {
         }}
         data={alertData}
       />
+      <ProgressingModal open={openProgressingModal} />
     </section>
   )
 }
