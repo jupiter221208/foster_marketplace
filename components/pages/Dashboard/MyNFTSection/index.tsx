@@ -87,23 +87,14 @@ const MyNFTSection = props => {
         type: 'success',
       },
     ])
-    setOpenProgressingModal(false)
 
     setTimeout(() => {
-      setShowAlert(true)
+      setOpenProgressingModal(false)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 500)
     }, 500)
   }
-
-  // useEffect(() => {
-  //   if (openProgressingModal) {
-  //     setTimeout(() => {
-  //       setOpenProgressingModal(false)
-  //       setTimeout(() => {
-  //         setShowAlert(true)
-  //       }, 500)
-  //     }, 3000)
-  //   }
-  // }, [openProgressingModal])
 
   const handleListNFT = item => {
     setSelectedData(item)
