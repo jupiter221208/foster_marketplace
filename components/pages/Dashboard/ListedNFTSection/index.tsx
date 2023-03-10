@@ -216,7 +216,7 @@ const ListedNFTSection = props => {
         setAlertData([
           {
             id: 0,
-            title: 'Finalized Auction!',
+            title: 'Auction Finalized!',
             description: `You've successfully finalized your auction!`,
             type: 'success',
           },
