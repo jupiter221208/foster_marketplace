@@ -8,7 +8,6 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const Tab = props => {
   const { tabList, onChange } = props

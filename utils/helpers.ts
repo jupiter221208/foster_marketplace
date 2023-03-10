@@ -198,6 +198,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-green-text', '#202427')
     doc.style.setProperty('--wallet-error-text', '#202427')
     doc.style.setProperty('--wallet-active-text', '#202427')
+    doc.style.setProperty('--follow-text-color', '#202427')
+    doc.style.setProperty('--follow-bg-color', 'linear-gradient(to right, #4C706C, #95DBD5)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -248,5 +250,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-green-text', '#5ac3ba')
     doc.style.setProperty('--wallet-error-text', '#deefd0')
     doc.style.setProperty('--wallet-active-text', '#5ac3ba')
+    doc.style.setProperty('--follow-text-color', '#95dbd5')
+    doc.style.setProperty('--follow-bg-color', 'linear-gradient(to bottom, #121212, #2d625d)')
   }
 }

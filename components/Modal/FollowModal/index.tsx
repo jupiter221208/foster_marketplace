@@ -28,6 +28,7 @@ import styles from './index.module.scss'
 import artistsAPI from 'apis/artists'
 import PositiveButton from 'components/Button/PositiveButton'
 import NegativeButton from 'components/Button/NegativeButton'
+import FollowTab from 'components/Tab/FollowTab'
 
 const FollowModal = props => {
   const { open, close, ownWallet, type, wallet } = props
@@ -159,7 +160,7 @@ const FollowModal = props => {
                     <Image src={CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className="w-full flex justify-start -ml-4">
-                    <Tab tabList={tabList} lightMode={false} onChange={item => handleSelectedTab(item)} />
+                    <FollowTab tabList={tabList} lightMode={false} onChange={item => handleSelectedTab(item)} />
                   </div>
                   <div className="w-full h-full flex justify-between items-center mt-4 lg:mt-[30px] overflow-auto">
                     {activeTab === 0 && (

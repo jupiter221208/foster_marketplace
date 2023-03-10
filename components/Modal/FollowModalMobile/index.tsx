@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 // apis
 import artistsAPI from 'apis/artists'
 import FollowSearchBox from 'components/Input/FollowSearchBox'
+import FollowTab from 'components/Tab/FollowTab'
 
 const FollowModalMobile = props => {
   const { open, close, ownWallet, type, wallet, username } = props
@@ -177,7 +178,7 @@ const FollowModalMobile = props => {
                     <div className="w-[30px] h-[30px]">&nbsp;</div>
                   </div>
                   <div className="w-full flex justify-center mt-[10px]">
-                    <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+                    <FollowTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                   </div>
 
                   <div className={styles.searchBox}>

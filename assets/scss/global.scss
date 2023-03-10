@@ -66,6 +66,7 @@
   --background-dark-color-rgb: 32, 36, 39;
 
   --background-light-color: #eff0f6;
+  --background-light-color-rgb: 239, 240, 247;
 
   --header-bg-color1: 48, 98, 96; // #305856
   --header-bg-color2: 20, 32, 33; //#142021;
@@ -140,6 +141,10 @@
   --wallet-green-text: #5ac3ba;
   --wallet-error-text: #deefd0;
   --wallet-active-text: #202427;
+
+  --follow-text-color: #95dbd5;
+  --follow-bg-color: linear-gradient(to bottom, rgba(#121212, 0.35), rgba(#2d625d, 0.35))
+
 
 }
 

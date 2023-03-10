@@ -16,12 +16,12 @@
   width: 100%;
   max-height: calc(100vh - 200px);
   height: 100%;
-  background: rgba(var(--background-black-color), 0.8);
+  background: rgba(var(--background-black-color-rgb), 0.8);
   border-radius: 20px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   background-origin: border-box;
-  border: 1px solid rgba(var(--background-light-color), 0.1);
+  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
   padding: 16px;
   @media (min-width: 1024px) {
     padding: 43px 32px 39px 32px;
@@ -68,7 +68,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
   text-align: start;
   cursor: pointer;
 }
@@ -82,5 +82,5 @@
     line-height: 20px;
   }
 
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 }

@@ -1,0 +1,79 @@
+@import 'assets/scss/variable.module.scss';
+
+.scrollbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.mobileScrollbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
+  overflow-x: auto;
+}
+
+.container {
+  width: auto;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  color: rgba($text-gray-200-color, 0.6);
+  border-bottom: 3px solid transparent;
+  &:focus {
+    outline: none;
+  }
+  font-size: 16px;
+  padding-left: 14px;
+  padding-right: 14px;
+  margin-left: 12px;
+  margin-right: 12px;
+  @media (min-width: 640px) {
+    font-size: 16px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  @media (min-width: 768px) {
+    font-size: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 24px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 28px;
+    margin-right: 28px;
+  }
+}
+
+.activeTab {
+  border-bottom: 2px solid var(--brand-01-color);
+  color: $text-gray-200-color;
+}
+
+.lightActiveTab {
+  color: var(--background-dark-color);
+}
+
+.lightInactiveTab {
+  color: rgba(var(--background-dark-color), 0.6);
+}
