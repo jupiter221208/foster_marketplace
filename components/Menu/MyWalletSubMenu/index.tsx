@@ -55,6 +55,7 @@ const MyWalletSubMenu = props => {
 
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const { mainBalance, offerBalance, biddingBalance, offerWalletAddress, biddingWalletAddress, updateSolBalance } =
     useWallets()
@@ -239,7 +240,7 @@ const MyWalletSubMenu = props => {
               ) : (
                 <Image src={icon} alt="" />
               )}
-              <div className={styles.label}>{label}</div>
+              <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
             {data.length !== 0 && (
               <ChevronRightIcon
@@ -450,8 +451,8 @@ const MyWalletSubMenu = props => {
                         fullWidth
                         height="42px"
                         fontSize="14px"
-                        backgroundColor01="#2B4142"
-                        backgroundColor02="#59BFB7"
+                        backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
+                        backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
                         gradientDirection="right"
                         borderRadius="6px"
                         borderColor="rgba(255, 255, 255, 0.1)"
@@ -625,8 +626,8 @@ const MyWalletSubMenu = props => {
                         fullWidth
                         height="42px"
                         fontSize="14px"
-                        backgroundColor01="#2B4142"
-                        backgroundColor02="#59BFB7"
+                        backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
+                        backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
                         gradientDirection="right"
                         borderRadius="6px"
                         borderColor="rgba(255, 255, 255, 0.1)"

@@ -4,7 +4,7 @@
   width: 100vw;
   min-height: calc(100vh - 80px);
   height: 100%;
-  background-color: #0f1316;
+  background-color: var(--menu-bg-color);
   z-index: 100;
   display: flex;
   flex-wrap: wrap;

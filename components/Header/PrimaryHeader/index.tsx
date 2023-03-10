@@ -252,7 +252,7 @@ const PrimaryHeader = () => {
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
-          />{' '}
+          />
         </div>
       )}
     </div>

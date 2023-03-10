@@ -53,7 +53,7 @@ const AccordionMenu = props => {
               ) : (
                 <Image src={icon} alt="" />
               )}
-              <div className={styles.label}>{label}</div>
+              <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
             {data.length !== 0 && (
               <ChevronRightIcon
