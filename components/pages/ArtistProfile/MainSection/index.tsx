@@ -193,10 +193,7 @@ const MainSection = prop => {
             {artistInfo?.bio && (
               <span className={`${styles.description} ${lightMode ? styles.lightDesc : ''}`}>
                 {getShortDescription(viewport, artistInfo?.bio)}&nbsp;
-                <span
-                  className={lightMode ? styles.lightReadMore : styles.readMore}
-                  onClick={() => setShowReadMore(!showReadMore)}
-                >
+                <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
                   Read&nbsp;more
                 </span>
               </span>
@@ -426,7 +423,7 @@ const MainSection = prop => {
         )}
       </div>
 
-      <div className="w-full flex justify-center mt-[30px] cursor-pointer">
+      {/* <div className="w-full flex justify-center mt-[30px] cursor-pointer">
         {artistEnable ? (
           <div className={styles.switchArea}>
             <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
@@ -446,7 +443,7 @@ const MainSection = prop => {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="w-full flex justify-center mt-2">
         <div className={styles.statesBack}>

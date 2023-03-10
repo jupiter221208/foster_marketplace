@@ -200,6 +200,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-active-text', '#202427')
     doc.style.setProperty('--follow-text-color', '#202427')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to right, #4C706C, #95DBD5)')
+    doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #4B6E6B, #95DBD5)')
+    doc.style.setProperty('--artist-switch-bg', '#CACBD1')
+    doc.style.setProperty('--address-btn-color', '#95DBD5')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -252,5 +255,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-active-text', '#5ac3ba')
     doc.style.setProperty('--follow-text-color', '#95dbd5')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to bottom, #121212, #2d625d)')
+    doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
+    doc.style.setProperty('--artist-switch-bg', '#1c2121')
+    doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.6)')
   }
 }

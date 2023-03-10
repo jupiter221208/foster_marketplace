@@ -38,10 +38,9 @@
   border-radius: 6px;
   background-color: var(--background-black-color);
   padding: 5px;
-  color: rgba($text-gray-200-color, 0.6);
+  color: var(--address-btn-color);
   @media (min-width: 1024px) {
     background-color: transparent;
-    color: rgba($text-gray-200-color, 0.7);
   }
   z-index: 10;
 }
