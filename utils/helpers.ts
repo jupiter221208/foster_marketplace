@@ -189,6 +189,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--notification-card-bg', 'rgba(32, 36, 39, 0.5)')
     doc.style.setProperty('--background-dark-color-rgb', '135, 137, 141')
     doc.style.setProperty('--dao-title-color', '#202427')
+    doc.style.setProperty('--nft-detail-artist', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -230,5 +231,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--notification-card-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
     doc.style.setProperty('--dao-title-color', '#95dbd5')
+    doc.style.setProperty('--nft-detail-artist', '#93bfbb')
   }
 }

@@ -192,7 +192,7 @@
 }
 
 .nftLightDetailCard {
-  background: linear-gradient(to bottom, #78787b, var(--background-dark-color));
+  background: linear-gradient(to bottom, #eaebf2, #202427);
 }
 
 .collectionName {
@@ -205,7 +205,7 @@
     font-size: 24px;
     line-height: 28px;
   }
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   white-space: nowrap;
   cursor: pointer;
   &:hover {
@@ -230,7 +230,7 @@
   font-size: 18px;
   line-height: 24px;
   margin-left: 12px;
-  color: rgba(var(--text-gray-200-color), 0.9);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .likeTitle {
@@ -276,7 +276,7 @@
     line-height: 60px;
   }
 
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .grayText {
@@ -288,7 +288,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 1);
 }
 
 .greenText {
@@ -300,7 +300,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: var(--brand-08-color);
+  color: var(--nft-detail-artist);
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -508,6 +508,10 @@
   background: linear-gradient(to bottom, var(--background-black-color), var(--brand-10-color));
 }
 
+.placeBidEnabledLightBG {
+  background: linear-gradient(to right, $brand-12-color, $brand-09-color);
+}
+
 .placeBidDisabledBG {
   background: var(--background-black-color);
 }
@@ -525,6 +529,10 @@
 
 .placeBidEnabledColor {
   color: var(--brand-11-color);
+}
+
+.placeBidEnabledLightColor {
+  color: $background-dark-color;
 }
 
 .placeBidDisabledColor {

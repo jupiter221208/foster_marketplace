@@ -62,6 +62,8 @@ import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import HeartFilledLightIcon from 'assets/icons/heart-filled-light.svg'
 
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
+import ShareBlackIcon from 'assets/icons/share-black.svg'
+
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketWhiteLightIcon from 'assets/icons/ticket-white-light.svg'
 
@@ -73,6 +75,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import AuctionBGIcon from 'assets/icons/auction-bg-icon.svg'
 import PlaceBidIcon from 'assets/icons/place-bid-icon.svg'
 import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
+import PlaceBidBlackIcon from 'assets/icons/place-bid-icon-black.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -685,8 +688,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
-                      icon01={ShareWhiteIcon}
-                      icon02={ShareWhiteIcon}
+                      icon01={lightMode ? ShareBlackIcon : ShareWhiteIcon}
+                      icon02={lightMode ? ShareBlackIcon : ShareWhiteIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}
@@ -822,6 +825,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                             className={`${styles.placeBidBG} ${
                               publicKey?.toBase58() === highBidder || isEnded
                                 ? styles.placeBidDisabledBG
+                                : lightMode
+                                ? styles.placeBidEnabledLightBG
                                 : styles.placeBidEnabledBG
                             }`}
                             onClick={() =>
@@ -833,6 +838,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                 className={`${styles.placeBidBtn} ${
                                   publicKey?.toBase58() === highBidder || isEnded
                                     ? styles.placeBidDisabledColor
+                                    : lightMode
+                                    ? styles.placeBidEnabledLightColor
                                     : styles.placeBidEnabledColor
                                 }`}
                               >
@@ -840,7 +847,11 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                               </div>
                               <Image
                                 src={
-                                  publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon
+                                  publicKey?.toBase58() === highBidder || isEnded
+                                    ? PlaceBidDisableIcon
+                                    : lightMode
+                                    ? PlaceBidBlackIcon
+                                    : PlaceBidIcon
                                 }
                                 alt=""
                               />
