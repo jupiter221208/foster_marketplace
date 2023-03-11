@@ -372,7 +372,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
           .where(0, Buffer.from(listingConfigDiscriminator))
           .where(8 + 32 * 4, new PublicKey(nftDetail.metadataAddress))
           .where(169, Buffer.from([0])) // purchaseReceipt == null
-          .where(196, Buffer.from([0])) // canceledAt == null
+          .where(195, Buffer.from([0])) // canceledAt == null
           .getAndMap(account => toListingReceiptAccount(account))
 
         if (openListings.length != 1) {
