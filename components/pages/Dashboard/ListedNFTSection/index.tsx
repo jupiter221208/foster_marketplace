@@ -163,7 +163,7 @@ const ListedNFTSection = props => {
     }
   }
 
-  const onUpdatePrice = async ({ address, tradeStateAddress, price }: ListedNFTCardData) => {
+  const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
     setOpenProgressingModal(true)
     try {
       const result = await updateList(mx, address, tradeStateAddress, price)

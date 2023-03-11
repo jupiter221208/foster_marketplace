@@ -91,7 +91,7 @@ const UpdateNFTModal = props => {
                     gradientDirection="right"
                     backgroundColor01="#34706B"
                     backgroundColor02="#63D6CD"
-                    onClick={() => onUpdatePrice(data)}
+                    onClick={() => onUpdatePrice(data, price)}
                   />
                 </div>
                 <div className="w-full mt-[15px] lg:mt-[30px]">
