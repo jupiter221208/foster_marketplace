@@ -6,6 +6,9 @@ import { Dialog, Transition } from '@headlessui/react'
 // next components
 import Image from 'next/image'
 
+// solana
+import { LAMPORTS_PER_SOL } from '@solana/web3.js'
+
 // custom components
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
@@ -91,7 +94,7 @@ const UpdateNFTModal = props => {
                     gradientDirection="right"
                     backgroundColor01="#34706B"
                     backgroundColor02="#63D6CD"
-                    onClick={() => onUpdatePrice(data, price)}
+                    onClick={() => onUpdatePrice(data, parseFloat(price) * LAMPORTS_PER_SOL)}
                   />
                 </div>
                 <div className="w-full mt-[15px] lg:mt-[30px]">
