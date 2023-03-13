@@ -16,6 +16,8 @@ import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
 import EllipseGreenKingsizeIcon from 'assets/icons/ellipse-green-kingsize.svg'
+import EllipseLightIcon from 'assets/icons/ellipse-light-kingsize.svg'
+
 import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
 import PlusWhiteIcon from 'assets/icons/plus-green.svg'
@@ -42,6 +44,7 @@ const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { connected, publicKey, disconnect } = useWallet()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -128,7 +131,7 @@ const MobileMenu = () => {
   return (
     <div className={styles.menu}>
       <div className={styles.bgImage}>
-        <Image src={EllipseGreenKingsizeIcon} width={549} height={1005} alt="" />
+        <Image src={lightMode ? EllipseLightIcon : EllipseGreenKingsizeIcon} width={549} height={1005} alt="" />
       </div>
       {connected ? (
         <div className={styles.container}>

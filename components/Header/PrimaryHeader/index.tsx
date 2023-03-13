@@ -270,7 +270,7 @@ const PrimaryHeader = () => {
           </div>
           <div className="flex">
             <IconButton
-              icon={lightMode ? SearchDarkIcon : SearchWhiteIcon}
+              icon={SearchWhiteIcon}
               onClick={() => handleOpenMobileSearchBox()}
               backgroundColor="transparent"
             />
