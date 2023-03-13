@@ -245,9 +245,9 @@ const StartAuctionModal = props => {
                     label="Publish Auction"
                     fullWidth
                     onClick={() => handleStartAuction()}
-                    backgroundColor01="#2D625D"
-                    backgroundColor02="#5AC3BA"
-                    gradientDirection="right"
+                    // backgroundColor01="#2D625D"
+                    // backgroundColor02="#5AC3BA"
+                    // gradientDirection="right"
                     disabled={buttonDisabled}
                     opacity={buttonDisabled ? 0.5 : 1}
                   />

@@ -16,14 +16,18 @@ import Button from 'components/Button'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseBlckIcon from 'assets/icons/close-wallet-black.svg'
+
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
+import { useSelector } from 'react-redux'
 
 const UpdateNFTModal = props => {
   const { data, open, onClose, onCancelList, onUpdatePrice } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     setPrice(null)
@@ -60,7 +64,7 @@ const UpdateNFTModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={CloseIcon} alt="" width={30} height={30} />
+                  <Image src={lightMode ? CloseBlckIcon : CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Update NFT</div>
                 {data?.json?.animation_url ? (

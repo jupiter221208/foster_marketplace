@@ -142,9 +142,9 @@ const ListNFTModal = props => {
                         label="List"
                         fontSize={18}
                         fullWidth
-                        backgroundColor01="#306963"
-                        backgroundColor02="#5AC3BA"
-                        gradientDirection="right"
+                        // backgroundColor01="#306963"
+                        // backgroundColor02="#5AC3BA"
+                        // gradientDirection="right"
                         onClick={() => handleListNFTClick()}
                       />
                     )}
