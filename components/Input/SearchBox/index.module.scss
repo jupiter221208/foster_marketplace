@@ -145,7 +145,6 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: var(--text-gray-200-color);
   flex: 1 auto;
 }
 
@@ -169,7 +168,7 @@
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  // color: rgba(var(--text-gray-200-color-rgb), 0.75);
   flex: 1 auto;
 }
 
@@ -184,10 +183,12 @@
   align-items: center;
   cursor: pointer;
   padding: 8px;
+  color: var(--text-gray-200-color);
 
   &:hover {
     @media (min-width: 1024px) {
-      background: linear-gradient(to bottom, #202427 0%, rgba(#2d625d, 0.51) 100%);
+      background: var(--search-item-bg);
+      color: var(--search-item-color);
       border-radius: 8px;
     }
   }

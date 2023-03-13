@@ -210,6 +210,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-open-color', '#95DBD5')
     doc.style.setProperty('--menu-item-border', 'transparent')
     doc.style.setProperty('--menu-item-right-icon', '#202427')
+    doc.style.setProperty('--search-item-bg', '#202427')
+    doc.style.setProperty('--search-item-color', '#95DBD5')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -272,5 +274,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-open-color', '#202427')
     doc.style.setProperty('--menu-item-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--menu-item-right-icon', '#5AC3BA')
+    doc.style.setProperty('--search-item-bg', 'linear-gradient(to bottom, #202427, rgba(45, 98, 93, 0.5))')
+    doc.style.setProperty('--search-item-color', '#eff0f6')
   }
 }
