@@ -37,6 +37,7 @@ import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
 import TrashGrayLightIcon from 'assets/icons/trash-gray-light.svg'
 
@@ -501,7 +502,7 @@ const SingleNft = () => {
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
                 <div className={styles.topLeftEllipse}>
-                  <NextImage src={EllipseGreen} alt="" objectFit="cover" />
+                  <NextImage src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
                 </div>
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Artwork Preview</div>

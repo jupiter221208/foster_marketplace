@@ -9,9 +9,10 @@
   border-radius: 15px;
   padding-left: 25px;
   padding-right: 25px;
-  background-color: var(--menu-item-bg);
-  border-color: rgba($background-light-color, 0.1);
-  border-width: 1px;
+  background: var(--menu-item-bg);
+  box-shadow: 0px 3px 3px rgba(#202427, 0.15);
+  // border-color: rgba($background-light-color, 0.1);
+  // border-width: 1px;
   &:focus {
     outline: none;
   }
@@ -182,4 +183,12 @@
   line-height: 36px;
   color: var(--brand-01-color);
   cursor: pointer;
+}
+
+.rightIcon {
+  color: var(--menu-item-right-icon);
+}
+
+.openRightIcon {
+  color: #95dbd5;
 }

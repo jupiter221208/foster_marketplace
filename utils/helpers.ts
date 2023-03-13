@@ -205,9 +205,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--address-btn-color', '#95DBD5')
     doc.style.setProperty('--search-bg-color', '#EFF0F6')
     doc.style.setProperty('--search-category-color', '#202427')
-    doc.style.setProperty('--menu-item-bg', '#EFF0F6')
+    doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #EFF0F5, #78787B)')
     doc.style.setProperty('--menu-item-open-bg', '#121212')
     doc.style.setProperty('--menu-item-open-color', '#95DBD5')
+    doc.style.setProperty('--menu-item-border', 'transparent')
+    doc.style.setProperty('--menu-item-right-icon', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -268,5 +270,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-open-bg', 'linear-gradient(to bottom, #378287, #202427)')
     doc.style.setProperty('--search-category-color', 'rgba(239, 240, 247, 0.6)')
     doc.style.setProperty('--menu-item-open-color', '#202427')
+    doc.style.setProperty('--menu-item-border', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--menu-item-right-icon', '#5AC3BA')
   }
 }

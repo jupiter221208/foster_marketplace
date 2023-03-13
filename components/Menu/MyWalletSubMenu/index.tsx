@@ -244,8 +244,7 @@ const MyWalletSubMenu = props => {
             </div>
             {data.length !== 0 && (
               <ChevronRightIcon
-                className={`${open ? 'rotate-90 transform' : ''} h-6 w-6`}
-                style={{ color: '#5AC3BA' }}
+                className={`${open ? `${styles.openRightIcon} rotate-90 transform` : `${styles.rightIcon}`} h-6 w-6`}
               />
             )}
           </Disclosure.Button>
