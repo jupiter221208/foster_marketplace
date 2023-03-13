@@ -111,14 +111,14 @@
   font-size: 14px;
   line-height: 20px;
   text-align: start;
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .text {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .help {

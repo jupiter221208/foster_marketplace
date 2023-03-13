@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -38,6 +39,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
   const viewport = useViewport()
   const { metaplex } = useMetaplex()
   const router = useRouter()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [ownerOrBuyerAddress, setOwnerOrBuyerAddress] = useState<PublicKey | null>(null)
   useEffect(() => {
@@ -89,9 +91,9 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
             <OutlineButton
               label="Cancel"
               onClick={() => onCancel(listing)}
-              background="transparent"
-              color="#95DBD5"
-              borderColor="#95DBD5"
+              // background="transparent"
+              color={lightMode ? "#202427" : "#95DBD5"}
+              borderColor={lightMode ? "#202427" :"#95DBD5"}
               width="138px"
               height="48px"
             />
