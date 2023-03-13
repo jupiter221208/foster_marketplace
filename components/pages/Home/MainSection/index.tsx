@@ -99,13 +99,7 @@ const MainSection = () => {
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
-              <GradientButton
-                backgroundColor01={lightMode ? '#95DBD5' : '#5ac3ba'}
-                backgroundColor02={lightMode ? '#4B6E6B' : '#378287'}
-                label="Explore"
-                width={124}
-                onClick={() => router.push('/explore')}
-              />
+              <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
                 width={124}

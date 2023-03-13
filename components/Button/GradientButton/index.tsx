@@ -5,18 +5,15 @@ import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const GradientButton = props => {
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   const {
     label,
     onClick,
     fullWidth,
     color,
-    backgroundColor01 = lightMode ? '#4B6E6B' : '#5ac3ba',
-    backgroundColor02 = lightMode ? '#95DBD5' : '#326B67',
+    backgroundColor01 = '#95DBD5',
+    backgroundColor02 = '#4B6E6B',
     width = '',
     height = '',
     direction = 'ltr',

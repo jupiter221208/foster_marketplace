@@ -6,7 +6,7 @@
   align-items: center;
   height: 40px;
   background: transparent;
-  border: 1px solid var(--outline-button-border);
+  border: 1px solid $brand-09-color;
   font-size: 14px;
   padding-left: 8px;
   padding-right: 8px;
@@ -27,16 +27,11 @@
   font-family: 'Muli-Bold';
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--outline-button-color);
+  color: $text-gray-200-color;
 
   &:hover {
     color: $brand-09-color;
   }
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
-}
-
-.lightContainer {
-  border: 1px solid var(--outline-button-border);
-  color: var(--outline-button-color);
 }

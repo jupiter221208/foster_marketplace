@@ -30,7 +30,7 @@
   min-width: 200px;
   width: auto;
   padding: 8px;
-  background-color: rgba($background-black-color, 0.8);
+  background-color: var(--dropdown-bg-color);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-radius: 15px;
@@ -42,7 +42,7 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   padding: 8px;
   cursor: pointer;
   border-radius: 12px;
