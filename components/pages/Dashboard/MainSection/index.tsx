@@ -32,6 +32,8 @@ import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
 import IGWhiteIcon from 'assets/icons/instagram-green.svg'
 import SettingWhiteIcon from 'assets/icons/setting-white.svg'
+import SettingBlackIcon from 'assets/icons/setting-black.svg'
+
 import IGHoverIcon from 'assets/icons/instagram-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
 import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
@@ -358,7 +360,7 @@ const MainSection = () => {
             <div className="flex lg:hidden justify-center mt-[-45px]">
               <div>
                 <IconButton
-                  icon={SettingWhiteIcon}
+                  icon={lightMode ? SettingBlackIcon : SettingWhiteIcon}
                   iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
@@ -398,7 +400,7 @@ const MainSection = () => {
               </div> */}
               <div>
                 <IconButton
-                  icon={SettingWhiteIcon}
+                  icon={lightMode ? SettingBlackIcon : SettingWhiteIcon}
                   iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
