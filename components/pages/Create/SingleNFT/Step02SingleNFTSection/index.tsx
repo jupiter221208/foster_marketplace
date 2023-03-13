@@ -51,11 +51,11 @@ const Step02SingleNFTSection = props => {
       <div className={`${styles.subTitle} mt-20`}>Description *</div>
       <div className="w-full mt-5">
         <Textarea
-          value={limit(description, 150)}
+          value={limit(description, 1000)}
           placeholder="Add a short description..."
-          label01="Max Characters 150"
-          label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
-          onChange={value => setDescription(limit(value, 150))}
+          label01="Max Characters 1000"
+          label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
+          onChange={value => setDescription(limit(value, 1000))}
         />
       </div>
       <div className={`${styles.subTitle} mt-20`}>Categories (max. 3) *</div>
@@ -79,11 +79,11 @@ const Step02SingleNFTSection = props => {
       <div className={`${styles.mobileSubTitle} mt-5`}>Description *</div>
       <div className="w-full mt-5">
         <Textarea
-          value={limit(description, 150)}
+          value={limit(description, 1000)}
           placeholder="Add a short description..."
           backgroundColor={lightMode ? '#202427' : ''}
-          label01="Max Characters 150"
-          label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
+          label01="Max Characters 1000"
+          label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
           onChange={value => setDescription(value)}
         />
       </div>
