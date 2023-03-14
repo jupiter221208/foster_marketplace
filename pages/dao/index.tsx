@@ -12,6 +12,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
 import TcDAOLogo from 'assets/images/TC_DAO_Logo.png'
 import TcDAODarkLogo from 'assets/images/TC_DAO_Dark_Logo.png'
@@ -37,7 +38,7 @@ const Dao = () => {
       </Head>
       <div className="relative w-full flex justify-center">
         <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} alt="" objectFit="cover" />
+          <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
         </div>
         <div className={styles.turkeyRingLeader}>
           <Image src={TurkeyRingLeader} alt="" objectFit="cover" className="z-10" />
