@@ -423,7 +423,7 @@ const MainSection = prop => {
         )}
       </div>
 
-      {/* <div className="w-full flex justify-center mt-[30px] cursor-pointer">
+      <div className="w-full flex justify-center mt-[30px] cursor-pointer">
         {artistEnable ? (
           <div className={styles.switchArea}>
             <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
@@ -443,7 +443,7 @@ const MainSection = prop => {
             </div>
           </div>
         )}
-      </div> */}
+      </div>
 
       <div className="w-full flex justify-center mt-2">
         <div className={styles.statesBack}>

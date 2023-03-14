@@ -62,12 +62,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: rgba($text-gray-200-color, 1);
   background: var(--artist-switch-bg);
-  @media (min-width: 1024px) {
-    color: rgba($text-gray-200-color, 1);
-    // background-color: #65666c;
-  }
 }
 
 .switchEnabled {
