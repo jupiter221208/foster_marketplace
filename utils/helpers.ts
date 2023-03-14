@@ -213,6 +213,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', '#202427')
     doc.style.setProperty('--search-item-color', '#95DBD5')
     doc.style.setProperty('--resource-card-title', '#eff0f6')
+    doc.style.setProperty('--nft-detail-section-bg', 'linear-gradient(to bottom, #95DBD5, #4B6E6B)')
+    doc.style.setProperty('--nft-detail-section-border', '#95dbd5')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -278,5 +280,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', 'linear-gradient(to bottom, #202427, rgba(45, 98, 93, 0.5))')
     doc.style.setProperty('--search-item-color', '#eff0f6')
     doc.style.setProperty('--resource-card-title', '#95dbd5')
+    doc.style.setProperty('--nft-detail-section-bg', 'linear-gradient(to bottom, #212626, #253c3a)')
+    doc.style.setProperty('--nft-detail-section-border', 'rgba($text-gray-200-color, 0.1)')
   }
 }

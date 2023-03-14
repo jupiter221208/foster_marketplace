@@ -51,8 +51,11 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg'
+import DescriptionBlackIcon from 'assets/icons/description-black.svg'
 import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
+import PriceHistoryBlackIcon from 'assets/icons/price-history-black.svg'
 import NotificationGreenIcon from 'assets/icons/notification-green.svg'
+import NotificationBlackIcon from 'assets/icons/notification-black.svg'
 import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
@@ -894,12 +897,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         onClick={() => clickRecent(0)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={DescriptionGreenIcon} alt="" />
+                          <Image src={lightMode && open ? DescriptionBlackIcon : DescriptionGreenIcon} alt="" />
                           <div>Description</div>
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#95dbd5' }}
+                          style={{ color: lightMode && open ? '#202427' : '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -935,12 +938,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         onClick={() => clickRecent(1)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={PriceHistoryGreenIcon} alt="" />
+                          <Image src={lightMode && open ? PriceHistoryBlackIcon : PriceHistoryGreenIcon} alt="" />
                           <div>Price History</div>
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#95dbd5' }}
+                          style={{ color: lightMode && open ? '#202427' : '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -972,12 +975,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         onClick={() => clickRecent(2)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={NotificationGreenIcon} alt="" />
+                          <Image src={lightMode ? NotificationBlackIcon : NotificationGreenIcon} alt="" />
                           <div>Activity</div>
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: '#95dbd5' }}
+                          style={{ color: lightMode && open ? '#202427' : '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel
