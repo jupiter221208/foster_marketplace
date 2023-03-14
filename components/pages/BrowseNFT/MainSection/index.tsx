@@ -781,6 +781,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                           icon={TagWhiteIcon}
                           direction="rtl"
                           borderWidth={2}
+                          color="#eff0f6"
+                          borderColor="#95dbd5"
                           paddingLeft="13px"
                           paddingRight="13px"
                           gap="4px"
