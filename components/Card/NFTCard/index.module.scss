@@ -6,9 +6,13 @@
   background-color: var(--background-black-color);
   border-radius: 17px;
   padding: 9px;
+  margin: 2px;
+  box-shadow: 0px 2px 4px rgba(black, 0.5);
   @media (min-width: 1024px) {
     padding: 15px;
     margin: 3px;
+    box-shadow: 0px 3px 6px rgba(black, 0.5);
+
     border-radius: 30px;
   }
   @media (min-width: 1536px) {
@@ -16,7 +20,6 @@
     border-radius: 30px;
   }
   border: 1px solid rgba(#707070, 0.15);
-  box-shadow: 0px 3px 6px rgba(black, 0.5);
   cursor: pointer;
 }
 
