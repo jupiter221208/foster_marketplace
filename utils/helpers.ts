@@ -223,6 +223,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-border', '')
     doc.style.setProperty('--profile-menu-item-color', '#95dbd5')
     doc.style.setProperty('--follow-box-shadow', 'rgba(32, 36, 39, 0.3)')
+    doc.style.setProperty('--read-more-bg', 'rgba(180, 180, 180, 0.9)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -298,5 +299,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-border', '#5ac3ba')
     doc.style.setProperty('--profile-menu-item-color', '#eff0f6')
     doc.style.setProperty('--follow-box-shadow', '#95dbd5')
+    doc.style.setProperty('--read-more-bg', 'rgba(18, 18, 18, 0.8)')
   }
 }

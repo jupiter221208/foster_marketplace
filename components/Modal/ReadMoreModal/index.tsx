@@ -61,8 +61,18 @@ const ReadMoreModal = props => {
                   <div className="w-full h-full overflow-auto">
                     <div className="w-full max-h-[calc(100vh_-_200px)] pl-1 pt-1">
                       <div className="w-full mt-[30px]">
-                        <div className={styles.profile}>BIO</div>
+                        <div className={styles.profile}>PROFILE</div>
                         <div className={styles.bio}>{artistInfo.bio}</div>
+                      </div>
+                      <div className="w-full mt-[30px] lg:mt-[50px]">
+                        <div className={styles.profile}>TOP CATEGORIES</div>
+                        <div className="flex justify-start mt-[20px] mb-[10px]">
+                          <div className={styles.categoryList}>
+                            {categoryList.map((item, index) => (
+                              <div key={index}>{item.length > 0 && <CategoryChip data={{ value: item }} />}</div>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                       <div className="w-full mt-[30px] lg:mt-[50px]">
                         <div className={styles.profile}>SOCIALS</div>
@@ -91,16 +101,6 @@ const ReadMoreModal = props => {
                               <Image src={TelegramIcon} onClick={() => router.push(artistInfo.telegram_url)} />
                             </div>
                           )} */}
-                        </div>
-                      </div>
-                      <div className="w-full mt-[30px] lg:mt-[50px]">
-                        <div className={styles.profile}>TOP CATEGORIES</div>
-                        <div className="flex justify-start mt-[20px] mb-[10px]">
-                          <div className={styles.categoryList}>
-                            {categoryList.map((item, index) => (
-                              <div key={index}>{item.length > 0 && <CategoryChip data={{ value: item }} />}</div>
-                            ))}
-                          </div>
                         </div>
                       </div>
                     </div>
