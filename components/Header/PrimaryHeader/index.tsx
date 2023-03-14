@@ -28,7 +28,7 @@ import HamburgerMenuDarkIcon from 'assets/icons/hamburger-menu-dark.svg'
 import LogoIcon from 'assets/icons/logo-green.svg'
 import LogoDarkIcon from 'assets/icons/logo-dark.svg'
 import alphaGreenIcon from 'assets/icons/alpha-green.svg'
-import alphaBlackIcon from 'assets/icons/alpha-black.svg'
+import alphaBlackIcon from 'assets/icons/alpha-black.png'
 import alphaGreenMobileIcon from 'assets/icons/alpha-green-mobile.svg'
 import alphaBlackMobileIcon from 'assets/icons/alpha-black-mobile.png'
 
@@ -214,7 +214,7 @@ const PrimaryHeader = () => {
                 onClose={() => handleClose()}
               />
               <div className={styles.alphaArea}>
-                <Image src={lightMode ? alphaBlackIcon : alphaGreenIcon} alt="" />
+                <Image src={lightMode ? alphaBlackIcon : alphaGreenIcon} alt="" width="105" height="17" />
               </div>
             </div>
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[280px] flex items-center" />
