@@ -28,6 +28,7 @@ import CollectionWhiteIcon from 'assets/icons/dashboard-green-menu.svg'
 import StatisticWhiteIcon from 'assets/icons/statistic-green-menu.svg'
 import ResourceWhiteIcon from 'assets/icons/resource-green-menu.svg'
 import LogoutDarkRedIcon from 'assets/icons/logout-dark-red.svg'
+import LogoutDarkIcon from 'assets/icons/logout-dark.svg'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu.json'
@@ -167,7 +168,7 @@ const MobileMenu = () => {
             >
               <div>Logout</div>
               <div className="flex items-center ml-2">
-                <Image src={LogoutDarkRedIcon} alt="" />
+                <Image src={lightMode ? LogoutDarkIcon : LogoutDarkRedIcon} alt="" />
               </div>
             </div>
           </div>
