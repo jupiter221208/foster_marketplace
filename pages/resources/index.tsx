@@ -13,6 +13,8 @@ import Pagination from 'components/Button/Pagination'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
+
 import BackImage from 'assets/images/404.png'
 
 // json
@@ -22,6 +24,7 @@ import QAList from 'assets/json/resources/qa-list.json'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
+import { useSelector } from 'react-redux'
 
 const Resources = () => {
   const viewport = useViewport()
@@ -31,6 +34,7 @@ const Resources = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [content, setContent] = useState<any[]>([])
   const [resourceList, setResourceList] = useState<any[]>([])
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     setResourceList(ResourcesCardList)
@@ -125,7 +129,13 @@ const Resources = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} width={2021} height={2021} alt="" objectFit="cover" />
+          <Image
+            src={lightMode ? EllipseGreenLight : EllipseGreen}
+            width={2021}
+            height={2021}
+            alt=""
+            objectFit="cover"
+          />
         </div>
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <></>

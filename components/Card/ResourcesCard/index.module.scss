@@ -17,8 +17,9 @@
   gap: 22px;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    opacity: 0.85;
   }
+  box-shadow: 0px 3px 6px rgba($background-black-color, 0.1);
 }
 
 .title {
@@ -33,7 +34,7 @@
 }
 
 .selected {
-  color: var(--brand-09-color);
+  color: var(--resource-card-title);
 }
 .unselected {
   color: var(--text-gray-200-color);
@@ -51,4 +52,18 @@
   }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
+}
+
+.lightDescription {
+  padding-right: 22px;
+  font-family: 'Muli-Regular';
+  font-size: 13px;
+  line-height: 19px;
+
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  letter-spacing: 0;
+  color: $text-gray-200-color;
 }

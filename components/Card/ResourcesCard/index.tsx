@@ -16,7 +16,7 @@ const ResourcesCard = props => {
       className={styles.container}
       style={{
         background: selected
-          ? `linear-gradient(to bottom, ${'#101717'}, ${'#3A6A68'})`
+          ? `linear-gradient(to bottom, ${lightMode ? '#72A4A0' : '#101717'}, ${lightMode ? '#202427' : '#3A6A68'})`
           : lightMode
           ? `#EFF0F6`
           : `#121212`,
@@ -29,7 +29,7 @@ const ResourcesCard = props => {
       </div>
       <div className="block">
         <div className={`${styles.title} ${selected ? styles.selected : styles.unselected}`}>{data.title}</div>
-        <div className={styles.description}>{data.description}</div>
+        <div className={lightMode && selected ? styles.lightDescription : styles.description}>{data.description}</div>
       </div>
     </div>
   )

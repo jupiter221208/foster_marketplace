@@ -8,13 +8,17 @@ import { Disclosure } from '@headlessui/react'
 
 // images and icons
 import ArrowDownIcon from 'assets/icons/arrow-down-black.svg'
+import ArrowDownLightIcon from 'assets/icons/arrow-down-light.svg'
 import MinusBlackIcon from 'assets/icons/minus-black.svg'
+import MinusLightIcon from 'assets/icons/minus-light.svg'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const ResourcesAccordion = props => {
   const { data, onClick } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -70,7 +74,18 @@ const ResourcesAccordion = props => {
                     <div className={`${styles.title} ${open ? styles.selected : ''}`}>{item.title}</div>
 
                     <div className={styles.openButton}>
-                      <Image src={open ? MinusBlackIcon : ArrowDownIcon} alt="" />
+                      <Image
+                        src={
+                          open
+                            ? lightMode
+                              ? MinusLightIcon
+                              : MinusBlackIcon
+                            : lightMode
+                            ? ArrowDownLightIcon
+                            : ArrowDownIcon
+                        }
+                        alt=""
+                      />
                     </div>
                   </Disclosure.Button>
                   <Disclosure.Panel className={styles.panel}>
