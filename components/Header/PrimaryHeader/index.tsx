@@ -30,7 +30,7 @@ import LogoDarkIcon from 'assets/icons/logo-dark.svg'
 import alphaGreenIcon from 'assets/icons/alpha-green.svg'
 import alphaBlackIcon from 'assets/icons/alpha-black.svg'
 import alphaGreenMobileIcon from 'assets/icons/alpha-green-mobile.svg'
-import alphaBlackMobileIcon from 'assets/icons/alpha-black-mobile.svg'
+import alphaBlackMobileIcon from 'assets/icons/alpha-black-mobile.png'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -267,7 +267,7 @@ const PrimaryHeader = () => {
               <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" />
             </div>
             <div className={styles.alphaArea}>
-              <Image src={lightMode ? alphaBlackMobileIcon : alphaGreenMobileIcon} alt="" />
+              <Image src={lightMode ? alphaBlackMobileIcon : alphaGreenMobileIcon} alt="" width="71" height="12" />
             </div>
           </div>
           <div className="flex">
