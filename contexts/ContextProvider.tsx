@@ -59,16 +59,17 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
   // for quiknode endpoints, use a session hash to avoid race conditions
   // see: https://github.com/metaplex-foundation/js/issues/381#issuecomment-1318106234
-  const QUIKNODE_SESSION_STRING: string | undefined = endpoint.includes('quiknode.pro')
-    ? new Array(32)
-        .fill(0)
-        .map(() => Math.ceil(Math.random() * 16).toString(16))
-        .join('')
-    : undefined
+//  const QUIKNODE_SESSION_STRING: string | undefined = endpoint.includes('quiknode.pro')
+//    ? new Array(32)
+//        .fill(0)
+//        .map(() => Math.ceil(Math.random() * 16).toString(16))
+//        .join('')
+//    : undefined
 
   return (
     // TODO: updates needed for updating and referencing endpoint: wallet adapter rework
-    <ConnectionProvider endpoint={endpoint} config={{ httpHeaders: { 'x-session-hash': QUIKNODE_SESSION_STRING } }}>
+//    <ConnectionProvider endpoint={endpoint} config={{ httpHeaders: { 'x-session-hash': QUIKNODE_SESSION_STRING } }}>
+    <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} onError={onError} autoConnect={autoConnect}>
         <ReactUIWalletModalProvider>{children}</ReactUIWalletModalProvider>
       </WalletProvider>
