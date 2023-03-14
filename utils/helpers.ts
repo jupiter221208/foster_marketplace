@@ -215,6 +215,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-card-title', '#eff0f6')
     doc.style.setProperty('--nft-detail-section-bg', 'linear-gradient(to bottom, #95DBD5, #4B6E6B)')
     doc.style.setProperty('--nft-detail-section-border', '#95dbd5')
+    doc.style.setProperty('--outline-btn-border', '#202427')
+    doc.style.setProperty('--nft-detail-bg', 'linear-gradient(to bottom, #eaebf2, #202427)')
+    doc.style.setProperty('--nft-detail-border', '#C5C7CC')
+    doc.style.setProperty('--alpha-area-border', '#eff0f6')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -282,5 +286,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-card-title', '#95dbd5')
     doc.style.setProperty('--nft-detail-section-bg', 'linear-gradient(to bottom, #212626, #253c3a)')
     doc.style.setProperty('--nft-detail-section-border', 'rgba($text-gray-200-color, 0.1)')
+    doc.style.setProperty('--outline-btn-border', '#95dbd5')
+    doc.style.setProperty('--nft-detail-bg', '#121212')
+    doc.style.setProperty('--nft-detail-border', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--alpha-area-border', '#95dbd5')
   }
 }

@@ -652,7 +652,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
         )}
 
         <div className="col-span-2 lg:col-span-1 z-10">
-          <div className={`${styles.nftDetailCard} ${lightMode ? styles.nftLightDetailCard : ''}`}>
+          <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
                 <div>

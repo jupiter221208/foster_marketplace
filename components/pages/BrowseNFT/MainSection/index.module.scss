@@ -186,13 +186,9 @@
     padding: 40px 65px 40px 65px;
   }
 
-  background-color: var(--background-black-color);
+  background: var(--nft-detail-bg);
   border-radius: 27px;
-  border: 1px solid rgba(var(--text-gray-200-color), 0.1);
-}
-
-.nftLightDetailCard {
-  background: linear-gradient(to bottom, #eaebf2, #202427);
+  border: 1px solid var(--nft-detail-border);
 }
 
 .collectionName {
@@ -221,7 +217,7 @@
     font-size: 24px;
     line-height: 28px;
   }
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   white-space: nowrap;
 }
 
