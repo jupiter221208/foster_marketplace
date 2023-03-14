@@ -289,16 +289,9 @@ const NotificationsCard = props => {
                       <GradientButton
                         label="Follow"
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 52}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 52}
                         gradientDirection="bottom"
-                        backgroundColor01={
-                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#213D3B' : '#121212'
-                        }
-                        backgroundColor02={
-                          viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '#2D615C' : '#2D625D'
-                        }
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
-                        color="#EFF0F6"
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'follow')}
                       />
@@ -306,9 +299,9 @@ const NotificationsCard = props => {
                       <OutlineButton
                         label="Following"
                         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 89 : 122}
-                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 29 : 52}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 52}
                         fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 18}
-                        color="#95DBD5"
+                        // color="#95DBD5"
                         borderRadius={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 6 : 12}
                         onClick={() => handleClickButton(item.id, elem, 'following')}
                       />
