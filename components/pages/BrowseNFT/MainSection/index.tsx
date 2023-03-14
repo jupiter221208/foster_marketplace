@@ -57,7 +57,9 @@ import PriceHistoryBlackIcon from 'assets/icons/price-history-black.svg'
 import NotificationGreenIcon from 'assets/icons/notification-green.svg'
 import NotificationBlackIcon from 'assets/icons/notification-black.svg'
 import SaleGreenIcon from 'assets/icons/sale-green.svg'
+import SaleLightIcon from 'assets/icons/sale-light.svg'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
+import TagLightIcon from 'assets/icons/tag-light.svg'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartEmptyLightIcon from 'assets/icons/heart-empty-light.svg'
 
@@ -975,7 +977,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         onClick={() => clickRecent(2)}
                       >
                         <div className="flex items-center gap-3">
-                          <Image src={lightMode ? NotificationBlackIcon : NotificationGreenIcon} alt="" />
+                          <Image src={lightMode && open ? NotificationBlackIcon : NotificationGreenIcon} alt="" />
                           <div>Activity</div>
                         </div>
                         <ChevronUpIcon
@@ -1020,7 +1022,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                 style={{
                                   background:
                                     index % 2 === 1
-                                      ? `linear-gradient(to bottom, rgba(55, 130, 135, 0.35), rgba(28, 65, 68, 0.35))`
+                                      ? lightMode
+                                        ? `rgba(239, 240, 247, 0.25)`
+                                        : `linear-gradient(to bottom, rgba(55, 130, 135, 0.35), rgba(28, 65, 68, 0.35))`
                                       : 'transparent',
                                 }}
                               >
@@ -1031,7 +1035,15 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                     ) : (
                                       <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
                                         <Image
-                                          src={item.action_type === 'AuctionStarted' ? SaleGreenIcon : TagGreenIcon}
+                                          src={
+                                            item.action_type === 'AuctionStarted'
+                                              ? lightMode
+                                                ? SaleLightIcon
+                                                : SaleGreenIcon
+                                              : lightMode
+                                              ? TagLightIcon
+                                              : TagGreenIcon
+                                          }
                                           alt=""
                                           width={
                                             viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
