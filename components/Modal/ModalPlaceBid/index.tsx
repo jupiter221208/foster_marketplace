@@ -14,9 +14,11 @@ import Alert from 'components/Alert'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseLightIcon from 'assets/icons/close-wallet-light.svg'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const ModalPlaceBid = props => {
   const { balance, nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
@@ -24,6 +26,7 @@ const ModalPlaceBid = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [priceCheckMode, setPriceCheckMode] = useState(0)
   const [price, setPrice] = useState<number>(0)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     onClose()
@@ -102,7 +105,7 @@ const ModalPlaceBid = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={CloseIcon} alt="" width={30} height={30} />
+                  <Image src={lightMode ? CloseLightIcon : CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Place Bid</div>
                 <div className="w-full mt-10">
