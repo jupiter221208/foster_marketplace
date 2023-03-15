@@ -230,6 +230,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--datepicker-date-bg', 'rgba(255, 255, 255, 1)')
     doc.style.setProperty('--price-input-bg', '#DEDEE4')
     doc.style.setProperty('--modal-terms-service', '#202427')
+    doc.style.setProperty('--step-text-color', '#95DBD5')
+    doc.style.setProperty('--select-collection-text', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -312,5 +314,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--datepicker-date-bg', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--price-input-bg', '#121212')
     doc.style.setProperty('--modal-terms-service', '#9db2b4')
+    doc.style.setProperty('--step-text-color', '#202427')
+    doc.style.setProperty('--select-collection-text', '#eff0f6')
   }
 }

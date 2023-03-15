@@ -137,11 +137,11 @@ const CreateNFTModal = props => {
                         width={221}
                         height={45}
                         onClick={() => handleClickButton('/create/single-nft')}
-                        backgroundColor01="#121212"
-                        backgroundColor02="#2D625D"
-                        gradientDirection="right"
+                        // backgroundColor01="#121212"
+                        // backgroundColor02="#2D625D"
+                        // gradientDirection="right"
                         fontSize="16px"
-                        color="#95DBD5"
+                        // color="#95DBD5"
                       />
                     </div>
                     <div className="w-full max-w-[221px] mt-[30px]">

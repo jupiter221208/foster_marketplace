@@ -18,6 +18,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
 import TwitterBackgroundGreenIcon from 'assets/icons/twitter-background-green.svg'
 
@@ -91,7 +92,7 @@ const SuccessMintSingleNFTSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
           <div className={styles.topLeftEllipse}>
-            <Image src={EllipseGreen} alt="" objectFit="cover" />
+            <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
           </div>
           <div className="w-full flex flex-wrap justify-center items-center mt-10 lg:mt-20 z-10">
             {nftType === 'image' ? (
@@ -131,7 +132,6 @@ const SuccessMintSingleNFTSection = props => {
               <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress + '&type=general'}>
                 NFT page
               </a>
-              !
             </div>
             <div className="w-full flex justify-between gap-[30px] mt-[60px]">
               <div className="w-full">
@@ -211,7 +211,6 @@ const SuccessMintSingleNFTSection = props => {
               <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress + '&type=general'}>
                 NFT page
               </a>
-              !
             </div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
