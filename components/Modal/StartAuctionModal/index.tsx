@@ -19,7 +19,9 @@ import { useViewport } from 'utils'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseLightIcon from 'assets/icons/close-wallet-light.svg'
 import HelpGrayIcon from 'assets/icons/help-gray.svg'
+import HelpDarkIcon from 'assets/icons/help-dark.svg'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg'
 
@@ -32,12 +34,13 @@ import AuctionsAPI from 'apis/auctions'
 // solana
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose, onStartProgress } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     setPrice(null)
@@ -139,7 +142,7 @@ const StartAuctionModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={CloseIcon} alt="" width={30} height={30} />
+                  <Image src={lightMode ? CloseLightIcon : CloseIcon} alt="" width={30} height={30} />
                 </div>
                 <div className={styles.title}>Start Auction</div>
                 <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
@@ -195,7 +198,8 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor="#202427"
+                      backgroundColor={lightMode ? '#DEDEE4' : '#202427'}
+                      color={lightMode ? '#202427' : '#eff0f6'}
                       borderRadius="9px"
                       type="number"
                       onChange={value => {
@@ -211,7 +215,8 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor="#202427"
+                      backgroundColor={lightMode ? '#DEDEE4' : '#202427'}
+                      color={lightMode ? '#202427' : '#eff0f6'}
                       borderRadius="9px"
                       type="number"
                       onChange={value => setHours(value)}
@@ -238,7 +243,7 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="mt-2 w-full flex gap-2 items-center">
                   <div className={styles.label}>Minimum bid increment: 0.1 SOL</div>
-                  <Image src={HelpGrayIcon} alt="" />
+                  <Image src={lightMode ? HelpDarkIcon : HelpGrayIcon} alt="" />
                 </div>
                 <div className="w-full mt-12">
                   <GradientButton

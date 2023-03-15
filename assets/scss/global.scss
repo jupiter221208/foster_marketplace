@@ -172,7 +172,11 @@
   --profile-menu-item-color: #eff0f6;
   --follow-box-shadow: #95dbd5;
   --read-more-bg: rgba(18, 18, 18, 0.8);
-
+  --madal-bg-color: rgba(18, 18, 18, 0.5);
+  --datepicker-bg-color: rgba(32, 36, 39, 0.9);
+  --datepicker-button-bg: rgba(32, 36, 39, 1);
+  --datepicker-date-bg: rgba(32, 36, 39, 1);
+  --price-input-bg: #121212
 }
 
 html,
@@ -870,7 +874,7 @@ h6 {
 
 .startAuctionDatePicker {
   .react-datepicker {
-    background: rgba(var(--background-dark-color), 0.9);
+    background: var(--datepicker-bg-color);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid transparent;
@@ -1008,7 +1012,7 @@ h6 {
     }
   }
   .react-datepicker__day--selected {
-    background: var(--background-dark-color);
+    background: var(--datepicker-date-bg);
     display: flex;
     justify-content: center;
     align-items: center;

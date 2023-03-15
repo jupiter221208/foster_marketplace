@@ -9,7 +9,7 @@
   }
   height: 45px;
   border-radius: 12px;
-  background: var(--background-black-color);
+  background: var(--price-input-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,11 +20,11 @@
 
 .inputArea {
   flex: 1;
-  min-width: 35px;
+  min-width: 45px;
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   background-color: transparent;
   outline: none;
 }

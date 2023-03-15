@@ -224,6 +224,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-color', '#95dbd5')
     doc.style.setProperty('--follow-box-shadow', 'rgba(32, 36, 39, 0.3)')
     doc.style.setProperty('--read-more-bg', 'rgba(180, 180, 180, 0.9)')
+    doc.style.setProperty('--madal-bg-color', 'rgba(239, 240, 247, 0.4)')
+    doc.style.setProperty('--datepicker-bg-color', 'rgba(239, 240, 247, 0.8)')
+    doc.style.setProperty('--datepicker-button-bg', 'rgba(239, 240, 247, 1)')
+    doc.style.setProperty('--datepicker-date-bg', 'rgba(255, 255, 255, 1)')
+    doc.style.setProperty('--price-input-bg', '#DEDEE4')
+    doc.style.setProperty('--modal-terms-service', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -300,5 +306,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-color', '#eff0f6')
     doc.style.setProperty('--follow-box-shadow', '#95dbd5')
     doc.style.setProperty('--read-more-bg', 'rgba(18, 18, 18, 0.8)')
+    doc.style.setProperty('--madal-bg-color', 'rgba(18, 18, 18, 0.5)')
+    doc.style.setProperty('--datepicker-bg-color', 'rgba(32, 36, 39, 0.9)')
+    doc.style.setProperty('--datepicker-button-bg', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--datepicker-date-bg', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--price-input-bg', '#121212')
+    doc.style.setProperty('--modal-terms-service', '#9db2b4')
   }
 }
