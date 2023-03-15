@@ -21,6 +21,7 @@ import NotificationsFilterList from 'assets/json/notifications/filter-list.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -28,7 +29,6 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
-import notification from 'apis/notification'
 import { useSelector } from 'react-redux'
 import { compareDate } from 'utils/helpers'
 
@@ -41,6 +41,7 @@ const Notifications = () => {
   const [searchWord, setSearchWord] = useState('')
   const viewport = useViewport()
   const profileInfo = useSelector(state => (state as any).profileInfo)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   function getDateLabel(date) {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -252,7 +253,7 @@ const Notifications = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
-          <Image src={EllipseGreen} alt="" objectFit="cover" />
+          <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
         </div>
         <div className="hidden lg:flex w-full z-10">
           <div className={styles.title}>Notifications</div>
