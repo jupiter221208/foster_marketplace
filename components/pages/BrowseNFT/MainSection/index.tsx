@@ -997,7 +997,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         <table className="w-full table-auto">
                           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                             <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(32, 36, 39, 1)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>Buyer</th>
@@ -1007,7 +1007,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                             </thead>
                           ) : (
                             <thead>
-                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(55, 130, 135, 0.35)' }}>
+                              <tr className={styles.tableTitle} style={{ backgroundColor: 'rgba(32, 36, 39, 1)' }}>
                                 <th>Event</th>
                                 <th>Price</th>
                                 <th>Buyer</th>
