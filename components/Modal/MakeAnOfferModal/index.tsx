@@ -132,8 +132,8 @@ const MakeAnOfferModal = props => {
                       placeholder="Enter offer amount"
                       fullWidth
                       fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
-                      backgroundColor="#151718"
-                      borderColor="#202427"
+                      // backgroundColor="#151718"
+                      // borderColor="#202427"
                       borderWidth={1}
                       onChange={value => onChangeOfferValue(value)}
                     />
@@ -145,9 +145,9 @@ const MakeAnOfferModal = props => {
                     <GradientButton
                       label="Make Offer"
                       fullWidth
-                      gradientDirection="right"
-                      backgroundColor01="#2A4142"
-                      backgroundColor02="#58BDB5"
+                      // gradientDirection="right"
+                      // backgroundColor01="#2A4142"
+                      // backgroundColor02="#58BDB5"
                       disabled={offerBtnDisabled}
                       onClick={() => onClick(minimumOffer)}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 42 : 53}
