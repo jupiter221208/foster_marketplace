@@ -266,6 +266,11 @@ const WalletButton = props => {
 
   const handleDisconnect = () => {
     disconnect()
+    if (localStorage.getItem('walletName') === '"Phantom"') {
+      localStorage.removeItem('walletName')
+      router.reload()
+    }
+
     localStorage.removeItem('token')
     dispatch({ type: 'set', profileInfo: null })
   }
