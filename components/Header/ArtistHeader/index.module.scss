@@ -14,9 +14,6 @@
   backdrop-filter: blur(20px);
   background: var(--header-bg);
   z-index: 9999;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .lightBlurContainer {
@@ -48,9 +45,6 @@
   height: 60px;
   background: transparent;
   z-index: 9999;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .lightMobileBlurContainer {

@@ -25,10 +25,6 @@
   }
 
   letter-spacing: 0;
-
-  &:hover {
-    opacity: 0.8;
-  }
   transition: opacity 0.2s;
   transition-timing-function: ease-in-out;
   z-index: 10;

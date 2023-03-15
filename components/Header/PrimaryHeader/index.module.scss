@@ -10,9 +10,6 @@
   backdrop-filter: blur(20px);
   background: var(--header-bg);
   z-index: 9999;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .lightBlurContainer {
@@ -46,9 +43,6 @@
   backdrop-filter: blur(20px);
   background: linear-gradient(90deg, rgba(#346763, 80%) 0%, rgba(#121919, 80%) 100%);
   z-index: 9999;
-  &:hover {
-    opacity: 1;
-  }
 }
 
 .lightMobileBlurContainer {
