@@ -46,7 +46,7 @@ const AudioPlayer = props => {
           <source src={src} />
           Your browser does not support the <code>audio</code> element.
         </audio>
-        <div className="flex items-center mr-[6px] lg:mr-[20px]">
+        <div className={styles.playButton}>
           <IconButton
             icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
             onClick={() => setPlaying(!playing)}
