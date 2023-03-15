@@ -45,7 +45,7 @@ export default class ConfirmingBundlrStorageDriver extends BundlrStorageDriver {
           );
 
           for (let j = 0; j < 25; j++) {
-            let response = await fetch(`${nodeAddress}/account/balance/solana?_=${j * 10 + i}`, {
+            let response = await fetch(new URL("account/balance/solana", nodeAddress), {
               method: "POST",
               headers: {
                 "content-type": "application/json",
