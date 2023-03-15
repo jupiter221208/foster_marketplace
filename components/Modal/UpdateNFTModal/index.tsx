@@ -95,9 +95,9 @@ const UpdateNFTModal = props => {
                   <GradientButton
                     label="Update Price"
                     fullWidth
-                    gradientDirection="right"
-                    backgroundColor01="#34706B"
-                    backgroundColor02="#63D6CD"
+                    // gradientDirection="right"
+                    // backgroundColor01="#34706B"
+                    // backgroundColor02="#63D6CD"
                     onClick={() => onUpdatePrice(data, parseFloat(price) * LAMPORTS_PER_SOL)}
                   />
                 </div>
@@ -107,8 +107,8 @@ const UpdateNFTModal = props => {
                     fullWidth
                     onClick={() => onCancelList(data)}
                     backgroundColor="transparent"
-                    color="#5AC3BA"
-                    borderColor="#5AC3BA"
+                    // color="#5AC3BA"
+                    // borderColor="#5AC3BA"
                     borderWidth={1}
                   />
                 </div>
