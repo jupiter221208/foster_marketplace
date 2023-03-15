@@ -4,6 +4,8 @@
   background: rgba(var(--text-gray-200-color-rgb), 0.2);
   padding-left: 18px;
   padding-right: 18px;
+  display: flex;
+  align-items: center;
   height: 28px;
   font-size: 14px;
   color: $text-gray-200-color;
