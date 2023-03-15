@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -14,6 +14,7 @@ import PriceInput from 'components/Input/PriceInput'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseLightIcon from 'assets/icons/close-wallet-light.svg'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
@@ -36,6 +37,7 @@ const ListNFTModal = props => {
   const [listStatus, setListStatus] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const handleListNFTClick = async () => {
     setShowLoading(true)
@@ -101,7 +103,7 @@ const ListNFTModal = props => {
                       onClose('unlisted')
                     }}
                   >
-                    <Image src={CloseIcon} alt="" width={30} height={30} />
+                    <Image src={lightMode ? CloseLightIcon : CloseIcon} alt="" width={30} height={30} />
                   </div>
                   <div className={styles.title}>List NFT</div>
                   <div className="w-full max-w-[321px] mt-[20px] lg:mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">

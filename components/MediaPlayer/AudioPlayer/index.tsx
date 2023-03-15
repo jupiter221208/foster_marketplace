@@ -15,7 +15,7 @@ import { useViewport } from 'utils'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 import BackwardWhiteIcon from 'assets/icons/backward-white.svg'
 import ForwardWhiteIcon from 'assets/icons/forward-white.svg'
-import PlayWhiteIcon from 'assets/icons/play-video.svg'
+import PlayWhiteIcon from 'assets/icons/play-video-border.svg'
 import PauseWhiteIcon from 'assets/icons/pause-video.svg'
 
 // styles
