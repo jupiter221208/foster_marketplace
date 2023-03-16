@@ -74,12 +74,12 @@
   align-items: center;
   &:hover {
     @media (min-width: 1024px) {
-      background: transparent;
-      box-shadow: 0px 3px 6px $brand-09-color;
+      opacity: 0.3;
+      box-shadow: 0px 3px 6px var(--outline-btn-border);
     }
   }
 }
 
 .lightEllipseArea {
-  background: #c9cacf;
+  background: #202427;
 }
