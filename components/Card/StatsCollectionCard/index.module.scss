@@ -6,8 +6,8 @@
   // border: 1px solid rgba(var(--white-color), 0.1);
   border-radius: 16px;
   // width: 287px;
-  width: 180px;
-  height: 180px;
+  width: 360px;
+  height: 360px;
   overflow: hidden;
 }
 
@@ -36,6 +36,8 @@
   height: 80px;
   border-radius: 7px;
   background: linear-gradient(to bottom, transparent, var(--black-color));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .volume {
@@ -49,11 +51,11 @@
 }
 
 .nftName {
-  font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 20px;
-  margin-bottom: 4px;
-  color: var(--text-gray-200-color);
+  font-family: 'Muli-ExtraBold';
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 8px;
+  color: $text-gray-200-color;
 }
 
 .artistName {
@@ -84,8 +86,8 @@
 }
 
 .value {
-  font-family: 'Muli-Bold';
-  font-size: 14px;
-  line-height: 18px;
-  color: var(--text-gray-200-color);
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba($text-gray-200-color, 80%);
 }

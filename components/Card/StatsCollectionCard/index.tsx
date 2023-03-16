@@ -40,11 +40,10 @@ const StatsCollectionCard = props => {
           className="rounded-full"
         />
       </div> */}
-      <div className="absolute bottom-[8px] w-full ml-[5px] flex justify-between items-end z-10">
+      <div className="absolute bottom-[14px] w-full ml-[20px] flex justify-between items-end z-10">
         <div className="block">
           <div className={styles.nftName}>{data.asset_name}</div>
           <div className="flex gap-[4px]">
-            <div className={styles.price}>Sale Price:</div>
             <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
             <div className={styles.value}>{data.amount}</div>
           </div>
