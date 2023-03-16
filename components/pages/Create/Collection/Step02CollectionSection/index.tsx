@@ -23,7 +23,9 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import TrashGrayIcon from 'assets/icons/trash-gray.svg'
+import TrashGrayLightIcon from 'assets/icons/trash-gray-light.svg'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'
@@ -200,7 +202,7 @@ const Step02CollectionSection = props => {
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
           <div className={styles.topLeftEllipse}>
-            <NextImage src={EllipseGreen} alt="" objectFit="cover" />
+            <NextImage src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
           </div>
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
@@ -266,7 +268,7 @@ const Step02CollectionSection = props => {
                   )}
                   {selectedCollectionFile !== undefined && (
                     <IconButton
-                      icon={TrashGrayIcon}
+                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
                       onClick={() => {
                         onRemoveCollectionFile(selectedCollectionFile)
                         setSelectedCollectionFile(undefined)
@@ -475,7 +477,6 @@ const Step02CollectionSection = props => {
           <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
           </div>
-          {/* <div className={`${styles.title} w-full`}>Artwork Preview</div> */}
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             {/* banner part */}
@@ -541,14 +542,14 @@ const Step02CollectionSection = props => {
                   )}
                   {selectedCollectionFile !== undefined && (
                     <IconButton
-                      icon={TrashGrayIcon}
+                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
                       onClick={() => {
                         onRemoveCollectionFile(selectedCollectionFile)
                         setSelectedCollectionFile(undefined)
                       }}
                       backgroundColor="transparent"
-                      width="32px"
-                      height="32px"
+                      width="24px"
+                      height="24px"
                     />
                   )}
                 </div>
@@ -638,7 +639,7 @@ const Step02CollectionSection = props => {
                       <div className={styles.fileName}>{item.file?.name}</div>
                     </div>
                     <IconButton
-                      icon={TrashGrayIcon}
+                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
                       onClick={() => onRemoveCollectionFile(item)}
                       backgroundColor="transparent"
                       iconWidth={24}
@@ -717,7 +718,7 @@ const Step02CollectionSection = props => {
                   height={viewport === '2xl' ? 53 : 46}
                   fullWidth
                   disabled={disabledNextButton}
-                  backgroundColor="#888A8E"
+                  backgroundColor={'#888A8E'}
                 />
               ) : (
                 <GradientButton
@@ -726,7 +727,9 @@ const Step02CollectionSection = props => {
                   fullWidth
                   disabled={disabledNextButton}
                   gradientDirection="bottom"
-                  color="#202427"
+                  backgroundColor01={lightMode ? '#202427' : '#95DBD5'}
+                  backgroundColor02={lightMode ? '#202427' : '#4B6E6B'}
+                  color={lightMode ? '#95DBD5' : '#202427'}
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
                 />
               )}

@@ -20,6 +20,7 @@ import { useViewport } from 'utils'
 // images and icons
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // json
 import CheckLottery from 'assets/lottery/check.json'
@@ -101,11 +102,11 @@ const Step03CollectionSection = props => {
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
           <div className={styles.topLeftEllipse}>
-            <Image src={EllipseGreen} alt="" objectFit="cover" />
+            <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
           </div>
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
-              <div className={`${styles.title} w-full`}>Collection Preview</div>
+              <div className={`${styles.title} w-full`}>Review Collection</div>
               <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
                 {/* banner image */}
                 <div className={styles.bannerImageArea}>
@@ -688,6 +689,9 @@ const Step03CollectionSection = props => {
                       fullWidth
                       label="Mint Collection"
                       gradientDirection="bottom"
+                      backgroundColor01={lightMode ? '#202427' : '#95DBD5'}
+                      backgroundColor02={lightMode ? '#202427' : '#4B6E6B'}
+                      color={lightMode ? '#95DBD5' : '#202427'}
                       onClick={() => uploadArtworks()}
                       height="45px"
                     />

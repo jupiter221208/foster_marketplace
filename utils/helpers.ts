@@ -232,6 +232,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--modal-terms-service', '#202427')
     doc.style.setProperty('--step-text-color', '#95DBD5')
     doc.style.setProperty('--select-collection-text', '#202427')
+    doc.style.setProperty('--collection-mint-progress-bg', 'rgba(32, 36, 39, 0.6')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -316,5 +317,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--modal-terms-service', '#9db2b4')
     doc.style.setProperty('--step-text-color', '#202427')
     doc.style.setProperty('--select-collection-text', '#eff0f6')
+    doc.style.setProperty(
+      '--collection-mint-progress-bg',
+      'linear-gradient( 90deg, rgba(48, 88, 86, 0.5) 0%, rgba(20, 32, 33, 0.5) 50%, rgba(32, 36, 39, 0.5) 100%)'
+    )
   }
 }

@@ -8,12 +8,7 @@
 .bgView {
   // -webkit-backdrop-filter: blur(20px);
   // backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba(var(--background-dark-color), 0.5) 100%
-  );
+  background: var(--collection-mint-progress-bg);
   // background-color: rgba(var(--background-dark-color), 0.8);
   position: fixed;
   inset: 0;
@@ -22,9 +17,8 @@
 .modalView {
   width: 926px;
   height: 100%;
-  background-color: rgba(var(--background-black-color-rgb), 0.9);
+  background-color: rgba($background-black-color, 0.8);
   @media (min-width: 1024px) {
-    background-color: rgba(var(--background-black-color-rgb), 0.6);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
   }
