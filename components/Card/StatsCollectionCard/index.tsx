@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 
 // icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoLightIcon from 'assets/icons/solana-logo-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -43,8 +44,8 @@ const StatsCollectionCard = props => {
       <div className="absolute bottom-[14px] w-full ml-[20px] flex justify-between items-end z-10">
         <div className="block">
           <div className={styles.nftName}>{data.asset_name}</div>
-          <div className="flex gap-[4px]">
-            <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
+          <div className="flex gap-[4px] items-center">
+            <Image src={SolanaLogoLightIcon} width={18} height={18} alt="" />
             <div className={styles.value}>{data.amount}</div>
           </div>
         </div>
