@@ -195,7 +195,7 @@ const MainSection = props => {
             </>
           </div>
         </div>
-        <div className="flex justify-center mt-[30px]">
+        {/* <div className="flex justify-center mt-[30px]">
           <div className={styles.categoryList}>
             {data?.categories &&
               data?.categories.split(',').map((item, index) => (
@@ -204,7 +204,7 @@ const MainSection = props => {
                 </div>
               ))}
           </div>
-        </div>
+        </div> */}
       </div>
       <div></div>
     </div>
