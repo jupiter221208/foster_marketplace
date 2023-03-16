@@ -6,6 +6,8 @@ import GradientButton from 'components/Button/GradientButton'
 
 // resources
 import SearchLargeIcon from 'assets/icons/search-large.svg'
+import SearchLargeDarkIcon from 'assets/icons/search-large-dark.svg'
+
 import SearchLargeEnableIcon from 'assets/icons/search-large-enable.svg'
 
 // styles
@@ -31,7 +33,7 @@ const SearchSection = props => {
               className="w-full h-full"
               width={50}
               height={50}
-              src={searchWord?.length > 0 ? SearchLargeEnableIcon : SearchLargeIcon}
+              src={searchWord?.length > 0 ? SearchLargeEnableIcon : lightMode ? SearchLargeIcon : SearchLargeDarkIcon}
               alt="search"
             />
           </div>
