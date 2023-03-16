@@ -440,7 +440,13 @@ const Step01CollectionSection = props => {
                       label="From 0 to 10%"
                       type="number"
                       min="0"
-                      onChange={value => onChangeRoyalties(value)}
+                      onChange={value => {
+                        if (value > 10) {
+                          onChangeRoyalties(10)
+                        } else {
+                          onChangeRoyalties(value)
+                        }
+                      }}
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10`}>Categories (max. 3) *</div>
@@ -635,7 +641,11 @@ const Step01CollectionSection = props => {
                 backgroundColor={lightMode ? '#202427' : ''}
                 type="number"
                 min={0}
-                onChange={value => onChangeRoyalties(value)}
+                onChange={value => {
+                  if (value > 10) {
+                    onChangeRoyalties(10)
+                  } else onChangeRoyalties(value)
+                }}
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>Categories *</div>

@@ -55,7 +55,10 @@ const Step03SingleNFTSection = props => {
           label="From 0 to 10%"
           type="number"
           min={0}
-          onChange={value => setRoyalties(value)}
+          onChange={value => {
+            if (value > 10) setRoyalties(10)
+            else setRoyalties(value)
+          }}
         />
       </div>
       <div className="w-full mt-[54px]">
@@ -91,7 +94,10 @@ const Step03SingleNFTSection = props => {
           label="From 0 to 10%"
           type="number"
           min={0}
-          onChange={value => setRoyalties(value)}
+          onChange={value => {
+            if (value > 10) setRoyalties(10)
+            else setRoyalties(value)
+          }}
         />
       </div>
       <div className="w-full mt-[54px]">
