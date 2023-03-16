@@ -655,7 +655,7 @@ h6 {
 }
 
 #ArtworksTable th {
-  border: 1px solid rgba(var(--background-light-color), 0.1);
+  border: 1px solid rgba($background-light-color, 0.1);
   border-style: solid none solid none;
   padding: 4px;
   background-color: var(--background-black-color);
@@ -771,7 +771,7 @@ h6 {
 }
 
 #ArtworksLightTable th {
-  border: 1px solid rgba(var(--background-light-color), 0.1);
+  // border: 1px solid rgba(var(--background-light-color), 0.1);
   border-style: solid none solid none;
   padding: 4px;
   background-color: var(--background-black-color);
