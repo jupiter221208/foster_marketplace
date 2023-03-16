@@ -308,7 +308,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-menu-item-color', '#eff0f6')
     doc.style.setProperty('--follow-box-shadow', '#95dbd5')
     doc.style.setProperty('--read-more-bg', 'rgba(18, 18, 18, 0.8)')
-    doc.style.setProperty('--mdal-bg-color', 'rgba(18, 18, 18, 0.5)')
+    doc.style.setProperty('--modal-bg-color', 'rgba(18, 18, 18, 0.5)')
     doc.style.setProperty('--datepicker-bg-color', 'rgba(32, 36, 39, 0.9)')
     doc.style.setProperty('--datepicker-button-bg', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--datepicker-date-bg', 'rgba(32, 36, 39, 1)')
