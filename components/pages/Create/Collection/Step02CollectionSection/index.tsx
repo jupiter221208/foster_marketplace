@@ -710,7 +710,7 @@ const Step02CollectionSection = props => {
               </section>
             </div>
           )}
-          <div className="w-full flex justify-center my-10">
+          <div className="w-full flex justify-end my-10">
             <div className="w-[161px]">
               {disabledNextButton ? (
                 <Button
