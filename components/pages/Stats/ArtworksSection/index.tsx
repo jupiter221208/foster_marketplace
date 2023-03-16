@@ -96,8 +96,6 @@ const ArtworksSection = () => {
     getArtworkData(prevPage, period, searchWord, rowCount)
   }
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     <div className={styles.container}>
       <div className={styles.title}>Highest Sales</div>
