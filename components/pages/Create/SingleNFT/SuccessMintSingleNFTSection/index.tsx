@@ -35,6 +35,7 @@ import SellNFTModal from 'components/Modal/SellNFTModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import Alert from 'components/Alert'
+import ProgressingModal from 'components/Modal/ProgressingModal'
 
 const SuccessMintSingleNFTSection = props => {
   const { nftName, nftType, nftArt, nftImage, artWidth, nftAddress, nftMetadata } = props
@@ -61,6 +62,10 @@ const SuccessMintSingleNFTSection = props => {
     dispatch({ type: 'set', openSellNFTModal: false })
   }
 
+  const handleStartProgress = () => {
+    setOpenProgressingModal(true)
+  }
+
   const handleSuccessAuction = nftName => {
     setShowStartAuctionModal(false)
     setAlertData([
@@ -71,21 +76,25 @@ const SuccessMintSingleNFTSection = props => {
         type: 'success',
       },
     ])
+
     setTimeout(() => {
-      setOpenProgressingModal(true)
+      setOpenProgressingModal(false)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 500)
     }, 500)
   }
 
-  useEffect(() => {
-    if (openProgressingModal) {
-      setTimeout(() => {
-        setOpenProgressingModal(false)
-        setTimeout(() => {
-          setShowAlert(true)
-        }, 1000)
-      }, 3000)
-    }
-  }, [openProgressingModal])
+  // useEffect(() => {
+  //   if (openProgressingModal) {
+  //     setTimeout(() => {
+  //       setOpenProgressingModal(false)
+  //       setTimeout(() => {
+  //         setShowAlert(true)
+  //       }, 1000)
+  //     }, 3000)
+  //   }
+  // }, [openProgressingModal])
 
   return (
     <div>
@@ -281,8 +290,12 @@ const SuccessMintSingleNFTSection = props => {
         }}
         open={showStartAuctionModal}
         onSuccess={nft => handleSuccessAuction(nft)}
+        onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
       />
+
+      <ProgressingModal open={openProgressingModal} />
+
       <Alert
         open={showAlert}
         close={() => {
