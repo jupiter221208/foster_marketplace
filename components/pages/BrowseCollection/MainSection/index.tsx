@@ -136,6 +136,7 @@ const MainSection = props => {
                   fontFamily="KCDurhamBoxcar"
                   fontSize={30}
                   label="Saved"
+                  lightMode={lightMode}
                   onClick={() => unsaveCollection(data?.collection_id)}
                 />
               ) : (
@@ -239,6 +240,7 @@ const MainSection = props => {
                 width={70}
                 height={29}
                 borderRadius={6}
+                lightMode={lightMode}
                 label="Saved"
                 fontFamily="KCDurhamBoxcar"
                 fontSize={18}

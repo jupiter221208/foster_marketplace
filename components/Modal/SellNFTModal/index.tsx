@@ -77,7 +77,7 @@ const SellNFTModal = props => {
                     <div className={styles.close} onClick={() => closeModal()}>
                       <Image src={CloseIcon} alt="" width={30} height={30} />
                     </div>
-                    <div className={styles.title}>Create</div>
+                    <div className={styles.title}>Sell NFT</div>
                     <div className={styles.text}>Would you like to sell your artwork?</div>
                     <div className="flex justify-center">
                       <div className="hidden lg:flex w-2/3">
@@ -118,7 +118,7 @@ const SellNFTModal = props => {
                       <Image src={CloseWhiteIcon} alt="" width={17} height={17} />
                     </div>
                     <div className="flex justify-center mt-[30px]">
-                      <div className={styles.title}>Create</div>
+                      <div className={styles.title}>Sell NFT</div>
                     </div>
                     <div className={styles.text}>Would you like to sell your artwork?</div>
                     <div className="hidden lg:flex w-full">

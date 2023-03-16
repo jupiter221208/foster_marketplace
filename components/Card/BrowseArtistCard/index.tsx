@@ -40,7 +40,7 @@ const BrowseArtistCard = props => {
         )}
         {artistName ? (
           <div
-            className={`${styles.artistName} ${lightMode ? styles.lightArtistName : ''}`}
+            className={styles.artistName}
             onClick={() => {
               router.push(`/artist-profile?id=${artistAddress}`)
               dispatch({ type: 'set', isLoading: true })
