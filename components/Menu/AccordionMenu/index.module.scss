@@ -76,9 +76,13 @@
   width: 24px;
   height: 24px;
   border-radius: 14px;
-  border: 2px solid var(--brand-07-color);
+  border: 2px solid var(--brand-09-color);
 }
 
 .rightIcon {
   color: var(--menu-item-right-icon);
+}
+
+.lightIconColor {
+  color: #95dbd5;
 }

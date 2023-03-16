@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 
 const AccordionMenu = props => {
   const { icon, label, type = '', data, path = '' } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -56,7 +57,11 @@ const AccordionMenu = props => {
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
             {data.length !== 0 && (
-              <ChevronRightIcon className={`${styles.rightIcon} ${open ? 'rotate-90 transform' : ''} h-6 w-6`} />
+              <ChevronRightIcon
+                className={`${styles.rightIcon} ${
+                  open ? (lightMode ? `${styles.lightIconColor} rotate-90 transform` : 'rotate-90 transform') : ''
+                } h-6 w-6`}
+              />
             )}
           </Disclosure.Button>
           {data.length !== 0 && (
