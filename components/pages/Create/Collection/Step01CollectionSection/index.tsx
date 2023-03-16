@@ -359,10 +359,10 @@ const Step01CollectionSection = props => {
                   <div className={`${styles.subTitle} mt-10`}>Description *</div>
                   <div className="w-full mt-5">
                     <Textarea
-                      value={limit(description, 150)}
+                      value={limit(description, 1000)}
                       placeholder="Add a short description..."
-                      label01="Max Characters 150"
-                      label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
+                      label01="Max Characters 1000"
+                      label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
                       onChange={value => onChangeDescription(value)}
                     />
                   </div>
@@ -554,11 +554,11 @@ const Step01CollectionSection = props => {
             <div className={`${lightMode ? styles.lightSubTitle : styles.subTitle} mt-5`}>Description *</div>
             <div className="w-full mt-5">
               <Textarea
-                value={limit(description, 150)}
+                value={limit(description, 1000)}
                 backgroundColor={lightMode ? '#202427' : ''}
                 placeholder="Add a short description..."
-                label01="Max Characters 150"
-                label02={150 - description.length === 150 ? '' : `${150 - description.length} Characters left`}
+                label01="Max Characters 1000"
+                label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
                 onChange={value => onChangeDescription(value)}
               />
             </div>
