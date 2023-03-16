@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <g id="Group_51990" data-name="Group 51990" transform="translate(-331.073 -207.073)">
+  <defs>
+    <filter id="f1" x="0" y="0">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    </filter>
+  </defs>
+    <rect id="Background_NFT_Info_Group" data-name="Background NFT Info Group" width="160" height="160" rx="10" transform="translate(331.073 207.073)" fill="#2D3134" opacity="0.8" filter="url(#f1)"/>
+  </g>
+</svg>

@@ -25,9 +25,12 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import BannerImage from 'assets/images/banner-image.svg'
 import BannerLightImage from 'assets/images/banner-image-light.svg'
-import CoverImage from 'assets/images/cover-image.svg'
+import DefaultCoverImage from 'assets/images/cover-image.svg'
+import DefaultCoverLightImage from 'assets/images/cover-light-image.svg'
+
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import AddChangeWhiteIcon from 'assets/icons/add-change-white-46x46.svg'
 import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
@@ -257,7 +260,7 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.topLeftEllipse}>
-              <Image src={EllipseGreen} alt="" objectFit="cover" />
+              <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
             </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
@@ -298,7 +301,9 @@ const Step01CollectionSection = props => {
                         coverCroppedImage !== undefined
                           ? coverCroppedImage
                           : coverImage === undefined
-                          ? CoverImage
+                          ? lightMode
+                            ? DefaultCoverLightImage
+                            : DefaultCoverImage
                           : URL.createObjectURL(coverImage[0])
                       }
                       width={160}
@@ -517,7 +522,7 @@ const Step01CollectionSection = props => {
             <div className="w-full flex justify-center -mt-16">
               <div className={styles.coverImageArea}>
                 <Image
-                  src={coverCroppedImage !== undefined ? coverCroppedImage : CoverImage}
+                  src={coverCroppedImage !== undefined ? coverCroppedImage : DefaultCoverLightImage}
                   width={98}
                   height={98}
                   alt=""
