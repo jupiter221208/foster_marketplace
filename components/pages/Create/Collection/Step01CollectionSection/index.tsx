@@ -296,22 +296,18 @@ const Step01CollectionSection = props => {
                 </div>
                 <div className="w-full flex justify-center -mt-16">
                   <div className={styles.coverImageArea}>
-                    <Image
-                      src={
-                        coverCroppedImage !== undefined
-                          ? coverCroppedImage
-                          : coverImage === undefined
-                          ? lightMode
-                            ? DefaultCoverLightImage
-                            : DefaultCoverImage
-                          : URL.createObjectURL(coverImage[0])
-                      }
-                      width={160}
-                      height={160}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
+                    {coverCroppedImage === undefined && coverImage === undefined ? (
+                      <div className={styles.defaultCoverLight} />
+                    ) : (
+                      <Image
+                        src={coverCroppedImage !== undefined ? coverCroppedImage : URL.createObjectURL(coverImage[0])}
+                        width={160}
+                        height={160}
+                        alt=""
+                        objectFit="cover"
+                        className="rounded-[20px]"
+                      />
+                    )}
                     <div className="absolute top-2 right-[10px]">
                       <IconButton
                         icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}

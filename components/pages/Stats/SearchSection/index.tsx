@@ -6,6 +6,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // resources
 import SearchLargeIcon from 'assets/icons/search-large.svg'
+import SearchLargeEnableIcon from 'assets/icons/search-large-enable.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -25,8 +26,8 @@ const SearchSection = props => {
             placeholder="Search by artwork name"
             onChange={value => setSearchWord(value)}
           />
-          <div className={searchWord?.length > 0 ? styles.search_enabled : styles.search} onClick={() => onSearch()}>
-            <Image src={SearchLargeIcon} alt="search" style={{ opacity: searchWord?.length > 0 ? 1 : 0.6 }} />
+          <div className="flex justify-center items-center" onClick={() => onSearch()}>
+            <Image src={searchWord?.length > 0 ? SearchLargeEnableIcon : SearchLargeIcon} alt="search" />
           </div>
         </div>
 
