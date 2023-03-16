@@ -104,7 +104,7 @@ const ArtworksSection = () => {
           gradient={false}
           pauseOnHover={false}
           pauseOnClick={true}
-          speed={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'lg' ? 100 : 70}
+          speed={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'lg' ? 30 : 30}
         >
           <div className="w-full flex gap-4 lg:gap-7 mx-[10px] lg:mx-5">
             {feedList.map((item: any, index) => (
