@@ -154,6 +154,11 @@ const MobileMenu = () => {
               onClick={() => {
                 setButtonClicked(true)
                 disconnect()
+                if (localStorage.getItem('walletName') === '"Phantom"') {
+                  localStorage.removeItem('walletName')
+                  router.reload()
+                }
+
                 localStorage.removeItem('token')
                 dispatch({ type: 'set', profileInfo: null })
               }}

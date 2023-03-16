@@ -228,6 +228,11 @@ const Navbar = props => {
         className={showMenu ? styles.logoutShow : styles.logoutHide}
         onClick={() => {
           disconnect()
+          if (localStorage.getItem('walletName') === '"Phantom"') {
+            localStorage.removeItem('walletName')
+            router.reload()
+          }
+
           localStorage.removeItem('token')
           dispatch({ type: 'set', profileInfo: null })
           router.push('/')
