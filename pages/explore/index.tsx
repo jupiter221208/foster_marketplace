@@ -487,7 +487,7 @@ const Explore = () => {
             {exploreTab === 2 && <EcosystemFilter />}
           </div>
           {/* content part */}
-          <div className="flex-1 flex-wrap">
+          <div className="w-full flex-1 flex-wrap">
             <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-6 lg:mb-[88px] z-10">
               <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
@@ -507,8 +507,8 @@ const Explore = () => {
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
                 color="#EFF0F6"
-                backgroundColor="#334D4B"
-                borderColor="#ECEEF4"
+                backgroundColor={lightMode ? '#BBBCC1' : '#334D4B'}
+                borderColor={lightMode ? '#EFF0F6' : '#ECEEF4'}
                 fontFamily="Muli-Regular"
                 fontSize={14}
                 borderRadius={8}
@@ -522,8 +522,8 @@ const Explore = () => {
                 fontFamily="Muli-Regular"
                 fontSize={14}
                 color="#EFF0F6"
-                backgroundColor="#334D4B"
-                borderColor="#ECEEF4"
+                backgroundColor={lightMode ? '#BBBCC1' : '#334D4B'}
+                borderColor={lightMode ? '#EFF0F6' : '#ECEEF4'}
                 borderRadius={8}
                 icon={SortGrayIcon}
                 direction="rtl"

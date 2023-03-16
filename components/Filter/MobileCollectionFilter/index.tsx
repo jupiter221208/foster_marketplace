@@ -13,6 +13,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import CloseWhiteLightIcon from 'assets/icons/close-white-light.svg'
 
 // json
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
@@ -20,9 +21,12 @@ import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const MobileCollectionFilter = props => {
   const { category, onClose, onFilter } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
@@ -52,7 +56,11 @@ const MobileCollectionFilter = props => {
         <div className="w-full flex justify-between items-center mb-8">
           <div className={styles.title}>Filters</div>
           <div className="-mr-3">
-            <IconButton icon={CloseWhiteIcon} onClick={() => onClose()} />
+            <IconButton
+              backgroundColor="transparent"
+              icon={lightMode ? CloseWhiteLightIcon : CloseWhiteIcon}
+              onClick={() => onClose()}
+            />
           </div>
         </div>
         <Disclosure>
@@ -62,7 +70,7 @@ const MobileCollectionFilter = props => {
                 <div className={styles.subTitle}>ARTIST VERIFICATION</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#95DBD5' }}
+                  style={{ color: lightMode ? '#202427' : '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -83,7 +91,7 @@ const MobileCollectionFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>CATEGORIES</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#95DBD5' }}
+                  style={{ color: lightMode ? '#202427' : '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>

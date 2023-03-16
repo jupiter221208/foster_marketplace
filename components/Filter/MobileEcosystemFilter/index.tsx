@@ -12,6 +12,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import CloseWhiteLightIcon from 'assets/icons/close-white-light.svg'
 
 // json
 import ProfileList from 'assets/json/explore/profile.json'
@@ -19,9 +20,12 @@ import ArtistVerificationList from 'assets/json/explore/artist-verification.json
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const MobileEcosystemFilter = props => {
   const { onClose } = props
+  const lightMode = useSelector(state => (state as any).lightMode)
+
   const [selectedProfile, setSelectedProfile] = useState(ProfileList[0])
   const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[2])
 
@@ -31,7 +35,11 @@ const MobileEcosystemFilter = props => {
         <div className="w-full flex justify-between items-center mb-8">
           <div className={styles.title}>Filters</div>
           <div className="-mr-3">
-            <IconButton icon={CloseWhiteIcon} onClick={() => onClose()} />
+            <IconButton
+              backgroundColor="transparent"
+              icon={lightMode ? CloseWhiteLightIcon : CloseWhiteIcon}
+              onClick={() => onClose()}
+            />
           </div>
         </div>
         {/* <Disclosure>
@@ -62,7 +70,7 @@ const MobileEcosystemFilter = props => {
                 <div className={`${styles.subTitle} mt-[12px]`}>VERIFICATION STATUS</div>
                 <ChevronUpIcon
                   className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
+                  style={{ color: lightMode ? '#202427' : '#95DBD5' }}
                 />
               </Disclosure.Button>
               <Disclosure.Panel>

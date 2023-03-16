@@ -1,5 +1,5 @@
 [
-  { "id": 0, "label": "NFT", "value": "NFT" },
+  { "id": 0, "label": "Artwork", "value": "Artwork" },
   { "id": 1, "label": "Collection", "value": "Collection" },
   { "id": 2, "label": "Ecosystem", "value": "Ecosystem" }
 ]
