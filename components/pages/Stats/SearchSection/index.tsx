@@ -26,8 +26,14 @@ const SearchSection = props => {
             placeholder="Search by artwork name"
             onChange={value => setSearchWord(value)}
           />
-          <div className="flex justify-center items-center" onClick={() => onSearch()}>
-            <Image src={searchWord?.length > 0 ? SearchLargeEnableIcon : SearchLargeIcon} alt="search" />
+          <div className="w-[50px] h-[50px] flex justify-center items-center" onClick={() => onSearch()}>
+            <Image
+              className="w-full h-full"
+              width={50}
+              height={50}
+              src={searchWord?.length > 0 ? SearchLargeEnableIcon : SearchLargeIcon}
+              alt="search"
+            />
           </div>
         </div>
 
