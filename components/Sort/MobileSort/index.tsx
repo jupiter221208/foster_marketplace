@@ -8,16 +8,19 @@ import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import CloseWhiteLightIcon from 'assets/icons/close-white-light.svg'
 
 // json
 import NFTSortList from 'assets/json/explore/nft-sort.json'
 
 // styles
 import styles from './index.module.scss'
+import { useSelector } from 'react-redux'
 
 const MobileSort = props => {
   const { data, sort, onSort, onClose } = props
   const [selectedSort, setSelectedSort] = useState(sort)
+  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
@@ -25,7 +28,11 @@ const MobileSort = props => {
         <div className="w-full flex justify-between items-center mb-8">
           <div className={styles.title}>Sort</div>
           <div className="-mr-3">
-            <IconButton icon={CloseWhiteIcon} onClick={() => onClose()} />
+            <IconButton
+              backgroundColor="transparent"
+              icon={lightMode ? CloseWhiteLightIcon : CloseWhiteIcon}
+              onClick={() => onClose()}
+            />
           </div>
         </div>
         <Radio data={data} selected={selectedSort} onChange={item => setSelectedSort(item)} direction="rtl" />
