@@ -58,7 +58,7 @@ const Step03SingleNFTSection = props => {
           min={0}
           onChange={value => {
             if (value > 10) setRoyalties(10)
-            else setRoyalties(value)
+            else setRoyalties(Math.floor(value))
           }}
         />
       </div>
@@ -97,7 +97,7 @@ const Step03SingleNFTSection = props => {
           min={0}
           onChange={value => {
             if (value > 10) setRoyalties(10)
-            else setRoyalties(value)
+            else setRoyalties(Math.floor(value))
           }}
         />
       </div>

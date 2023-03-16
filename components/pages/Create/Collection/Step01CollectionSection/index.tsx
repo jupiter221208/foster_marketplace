@@ -445,7 +445,7 @@ const Step01CollectionSection = props => {
                         if (value > 10) {
                           onChangeRoyalties(10)
                         } else {
-                          onChangeRoyalties(value)
+                          onChangeRoyalties(Math.floor(value))
                         }
                       }}
                     />
@@ -645,7 +645,7 @@ const Step01CollectionSection = props => {
                 onChange={value => {
                   if (value > 10) {
                     onChangeRoyalties(10)
-                  } else onChangeRoyalties(value)
+                  } else onChangeRoyalties(Math.floor(value))
                 }}
               />
             </div>
