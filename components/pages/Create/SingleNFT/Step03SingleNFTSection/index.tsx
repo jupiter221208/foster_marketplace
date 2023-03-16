@@ -53,6 +53,7 @@ const Step03SingleNFTSection = props => {
           value={royalties}
           placeholder="Insert a royalty percentage"
           label="From 0 to 10%"
+          labelColor="#eff0f6"
           type="number"
           min={0}
           onChange={value => {
