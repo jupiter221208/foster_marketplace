@@ -70,7 +70,8 @@ const ArtworksSection = () => {
     }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
-        const nfts = respone
+        const nfts = respone.filter(elem => elem.asset_url.length > 0)
+        console.log(nfts)
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
