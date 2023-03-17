@@ -21,7 +21,9 @@
   align-items: center;
 
   &:hover {
-    color: #14f195;
+    @media (min-width: 1024px) {
+      color: #14f195;
+    }
   }
 }
 @media (min-width: 1025px) {
