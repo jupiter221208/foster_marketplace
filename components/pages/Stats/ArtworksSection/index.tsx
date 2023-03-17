@@ -7,6 +7,13 @@ import TableSections from './TableSection'
 
 import { useDispatch, useSelector } from 'react-redux'
 
+// swiper
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Lazy, Navigation } from 'swiper'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+
 // json
 import ArtworksList from 'assets/json/stats/artworks-list.json'
 import PopularCategoryList from 'assets/json/popular-category.json'
@@ -100,7 +107,33 @@ const ArtworksSection = () => {
     <div className={styles.container}>
       <div className={styles.title}>Highest Sales</div>
       <div className="w-full mb-5 lg:mb-20 mt-[25px]">
-        <Marquee
+        <Swiper
+          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          slidesPerView={
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 1.6
+              : viewport === 'lg'
+              ? 2
+              : viewport === 'xl'
+              ? 3
+              : 4
+          }
+          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25}
+          modules={[Autoplay, Lazy, Navigation]}
+          className="navigationSwiper"
+          loop
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+        >
+          {feedList.map((item: any, index) => (
+            <SwiperSlide key={index}>
+              <StatsCollectionCard key={index} data={item} type="artworks" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/* <Marquee
           gradient={false}
           pauseOnHover={false}
           pauseOnClick={true}
@@ -111,7 +144,7 @@ const ArtworksSection = () => {
               <StatsCollectionCard key={index} data={item} type="artworks" />
             ))}
           </div>
-        </Marquee>
+        </Marquee> */}
 
         {/* <CollectionSection list={feedList} /> */}
       </div>
