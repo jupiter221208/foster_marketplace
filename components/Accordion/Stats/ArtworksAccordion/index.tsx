@@ -13,10 +13,11 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 // styles
 import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
+import { useSelector } from 'react-redux'
 
 const ArtworksAccordion = props => {
   const { data } = props
-
+  const lightMode = useSelector(state => (state as any).lightMode)
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
@@ -61,7 +62,7 @@ const ArtworksAccordion = props => {
                   </div>
                   <ChevronUpIcon
                     className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#95DBD5' : '#95DBD5' }}
+                    style={{ color: lightMode ? '#202427' : '#95DBD5' }}
                   />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
@@ -70,16 +71,16 @@ const ArtworksAccordion = props => {
                     <div className={styles.text}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Date</div>
-                    <div className={styles.text}>{getLocalDate(item.created_at)}</div>
+                    <div className={styles.secondTitle}>Date</div>
+                    <div className={styles.secondText}>{getLocalDate(item.created_at)}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Creator</div>
                     <div className={styles.text}>{getOwnerName(item)}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Collector</div>
-                    <div className={styles.text}>{getBuyerName(item)}</div>
+                    <div className={styles.secondTitle}>Collector</div>
+                    <div className={styles.secondText}>{getBuyerName(item)}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Primary</div>

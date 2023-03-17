@@ -30,7 +30,7 @@ const StatsCollectionCard = props => {
         <Image src={data.asset_url} width={180} height={180} alt="" layout="fill" objectFit="cover" />
       </div>
       <div className={styles.bottomMask} />
-      <div className="absolute bottom-[14px] w-full ml-[20px] flex justify-between items-end z-10">
+      <div className="absolute bottom-[9px] lg:bottom-[14px] w-full ml-[14px] lg:ml-[24px] flex justify-between items-end z-10">
         <div className="block">
           <div className={styles.nftName}>{data.asset_name}</div>
           <div className="flex gap-[4px] items-center">

@@ -2,12 +2,15 @@
 
 .container {
   position: relative;
-  padding: 8px 8px;
   // border: 1px solid rgba(var(--white-color), 0.1);
   border-radius: 16px;
-  // width: 287px;
-  width: 360px;
-  height: 360px;
+  width: 200px;
+  height: 200px;
+  @media (min-width: 1024px) {
+    border-radius: 16px;
+    width: 360px;
+    height: 360px;
+  }
   overflow: hidden;
 }
 
@@ -23,7 +26,10 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
+  @media (min-width: 1024px) {
+    height: 80px;
+  }
   border-radius: 7px;
   background: linear-gradient(to top, transparent, var(--black-color));
 }
@@ -34,7 +40,10 @@
   right: 0px;
   bottom: 0;
   width: 100%;
-  height: 80px;
+  height: 60px;
+  @media (min-width: 1024px) {
+    height: 80px;
+  }
   background: linear-gradient(to bottom, transparent, rgba($background-dark-color, 0.2));
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -52,8 +61,12 @@
 
 .nftName {
   font-family: 'Muli-ExtraBold';
-  font-size: 20px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
   margin-bottom: 8px;
   color: $text-gray-200-color;
 }
@@ -87,7 +100,11 @@
 
 .value {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
   color: rgba($text-gray-200-color, 80%);
 }
