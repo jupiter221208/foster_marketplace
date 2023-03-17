@@ -38,8 +38,9 @@ const Collection = () => {
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
 
-  // variables
+  // --------------variables------------
   const [currentStep, setCurrentStep] = useState(1)
+
   // step 1
   const [collectionName, setCollectionName] = useState<any>('')
   const [description, setDescription] = useState<any>('')

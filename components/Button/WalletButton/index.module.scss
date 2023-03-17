@@ -5,7 +5,9 @@
   height: 49px;
   border-radius: 12px;
   background: $background-black-color;
-  box-shadow: 0px -4px 10px rgba(#14f195, 0.3);
+  @media (min-width: 1024px) {
+    box-shadow: 0px -1px 10px rgba(#14f195, 0.3);
+  }
   gap: 13px;
 
   font-family: 'Muli-Bold';
@@ -33,7 +35,7 @@
 .lightContainer {
   background: linear-gradient(to bottom, $background-dark-color, $background-dark-color);
   &:hover {
-    color: #95dbd5;
+    color: $brand-09-color;
   }
   box-shadow: 0px -4px 10px transparent;
 }

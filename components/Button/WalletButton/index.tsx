@@ -61,6 +61,7 @@ import {
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import { useViewport } from 'utils'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -69,6 +70,7 @@ const WalletButton = props => {
 
   const { connected, publicKey, disconnect } = useWallet()
   const { setVisible } = useWalletModal()
+  const viewport = useViewport()
 
   const { mainBalance, offerBalance, biddingBalance, offerWalletAddress, biddingWalletAddress, updateSolBalance } =
     useWallets()
@@ -783,7 +785,12 @@ const WalletButton = props => {
         onMouseLeave={() => setWalletHover(false)}
         style={{ width: fullWidth ? '100%' : '' }}
       >
-        <Image src={lightMode ? (walletHover ? SolanaGreenIcon : SolanaLightIcon) : SolanaDarkIcon} alt="" />
+        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+          <Image src={lightMode ? SolanaGreenIcon : SolanaDarkIcon} alt="" />
+        ) : (
+          <Image src={lightMode ? (walletHover ? SolanaGreenIcon : SolanaLightIcon) : SolanaDarkIcon} alt="" />
+        )}
+
         <div className="mb-1">Connect Wallet</div>
       </button>
       {/* disconnect wallet alert */}
