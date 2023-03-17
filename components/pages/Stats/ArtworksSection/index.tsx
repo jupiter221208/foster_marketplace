@@ -109,15 +109,7 @@ const ArtworksSection = () => {
       <div className="w-full mb-5 lg:mb-20 mt-[25px]">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-              ? 1.6
-              : viewport === 'lg'
-              ? 2
-              : viewport === 'xl'
-              ? 3
-              : 4
-          }
+          slidesPerView={viewport === 'xs' ? 1.7 : viewport === 'sm' ? 2 : viewport === 'md' ? 3 : 4}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"

@@ -786,7 +786,7 @@ const WalletButton = props => {
         style={{ width: fullWidth ? '100%' : '' }}
       >
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <Image src={lightMode ? SolanaGreenIcon : SolanaGreenIcon} alt="" />
+          <Image src={lightMode ? SolanaGreenIcon : SolanaDarkIcon} alt="" />
         ) : (
           <Image src={lightMode ? (walletHover ? SolanaGreenIcon : SolanaLightIcon) : SolanaDarkIcon} alt="" />
         )}
