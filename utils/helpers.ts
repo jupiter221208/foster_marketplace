@@ -237,6 +237,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--connect-wallet-text', '#95dbd5')
     doc.style.setProperty('--connect-wallet-bg', '#202427')
     doc.style.setProperty('--mint-progress-bg', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -329,5 +330,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--connect-wallet-text', '#eff0f6')
     doc.style.setProperty('--connect-wallet-bg', 'linear-gradient(to bottom, rgba(55, 130, 135, 1), rgba(#244246, 1))')
     doc.style.setProperty('--mint-progress-bg', 'rgba(12, 12, 12, 0.5)')
+    doc.style.setProperty(
+      '--connected-wallet-bg',
+      'linear-gradient(to bottom, rgba(12, 12, 12, 1), rgba(45, 98, 93, 1))'
+    )
   }
 }
