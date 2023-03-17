@@ -83,7 +83,7 @@ const ArtworksAccordion = props => {
                     <div className={styles.secondText}>{getBuyerName(item)}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Primary</div>
+                    <div className={styles.title}>Market</div>
                     <div className={styles.text}>{getFirstUpperString(item.market)}</div>
                   </div>
                 </Disclosure.Panel>
