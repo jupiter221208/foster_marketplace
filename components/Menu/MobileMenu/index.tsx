@@ -153,11 +153,10 @@ const MobileMenu = () => {
               className={styles.logout}
               onClick={() => {
                 setButtonClicked(true)
-                disconnect()
                 if (localStorage.getItem('walletName') === '"Phantom"') {
                   localStorage.removeItem('walletName')
-                  router.reload()
-                }
+                  ;(window as any).solana.disconnect()
+                } else disconnect()
 
                 localStorage.removeItem('token')
                 dispatch({ type: 'set', profileInfo: null })

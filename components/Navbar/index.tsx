@@ -227,11 +227,10 @@ const Navbar = props => {
       <div
         className={showMenu ? styles.logoutShow : styles.logoutHide}
         onClick={() => {
-          disconnect()
           if (localStorage.getItem('walletName') === '"Phantom"') {
             localStorage.removeItem('walletName')
-            router.reload()
-          }
+            ;(window as any).solana.disconnect()
+          } else disconnect()
 
           localStorage.removeItem('token')
           dispatch({ type: 'set', profileInfo: null })
