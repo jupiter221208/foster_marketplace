@@ -18,10 +18,9 @@
   width: 926px;
   height: 100%;
   background-color: var(--mint-progress-bg);
-  @media (min-width: 1024px) {
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-  }
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+
   border: 1px solid var(--brand-09-color);
   border-radius: 21px;
   padding: 50px 30px 30px 30px;
