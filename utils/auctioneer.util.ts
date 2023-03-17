@@ -11,7 +11,10 @@ import {
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house';
 import { PublicKey, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { BN } from "@project-serum/anchor";
-import { getAssociatedTokenAddress } from "@solana/spl-token";
+import {
+  getAssociatedTokenAddress,
+  createAssociatedTokenAccountInstruction
+} from "@solana/spl-token";
 import { Metaplex, WRAPPED_SOL_MINT } from "@metaplex-foundation/js";
 
 import authAPI from 'apis/auth'
@@ -565,6 +568,17 @@ export async function executeSale(
   })
 
   let tx = new Transaction();
+
+  if ((await mx.connection.getAccountInfo(buyerAssociatedAddress)) === null)
+    tx.add(
+      createAssociatedTokenAccountInstruction(
+        publicKey,
+        buyerAssociatedAddress,
+        buyerAddress,
+        mintAddress
+      )
+    );
+
   tx.add(executeSale);
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
   tx.feePayer = publicKey;
