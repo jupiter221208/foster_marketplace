@@ -28,8 +28,7 @@
   padding-left: 25px;
   padding-right: 25px;
   background: var(--menu-item-open-bg);
-  border-color: var(--menu-item-border);
-  border-width: 1px;
+  border: 1px solid var(--menu-item-border);
   background-origin: border-box;
   &:focus {
     outline: none;
