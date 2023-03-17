@@ -110,3 +110,41 @@
   }
   color: rgba($text-gray-200-color, 80%);
 }
+
+.dataContainer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  @media (min-width: 1024px) {
+    height: 80px;
+  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dataGradientBgView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  background-color: rgba(#121212, 0.2);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.dataContentView {
+  -webkit-transform: translate3d(0, 0, 0);
+  width: auto;
+  display: block;
+  margin-left: 14px;
+  margin-top: 6px;
+  @media (min-width: 1024px) {
+    margin-left: 20px;
+    margin-top: 14px;
+  }
+  z-index: 10;
+}

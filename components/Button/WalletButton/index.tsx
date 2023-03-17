@@ -787,8 +787,10 @@ const WalletButton = props => {
       >
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <Image src={lightMode ? SolanaGreenIcon : SolanaDarkIcon} alt="" />
+        ) : lightMode ? (
+          <Image src={walletHover ? SolanaGreenIcon : SolanaLightIcon} alt="" />
         ) : (
-          <Image src={lightMode ? (walletHover ? SolanaGreenIcon : SolanaLightIcon) : SolanaDarkIcon} alt="" />
+          <Image src={SolanaDarkIcon} alt="" />
         )}
 
         <div className="mb-1">Connect Wallet</div>
