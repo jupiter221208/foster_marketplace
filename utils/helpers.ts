@@ -244,6 +244,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-border-color', '#eff0f6')
     doc.style.setProperty('--stats-accordion-bg', '#eff0f6')
     doc.style.setProperty('--stats-accordion-border', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--stats-accordion-normal-border', 'rgba(32, 36, 39, 0.1)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -344,7 +345,8 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(12, 12, 12, 1), rgba(45, 98, 93, 1))'
     )
     doc.style.setProperty('--profile-border-color', '#121212')
-    doc.style.setProperty('--stats-accordion-bg', '#202427')
+    doc.style.setProperty('--stats-accordion-bg', '#121212')
     doc.style.setProperty('--stats-accordion-border', '#95dbd5')
+    doc.style.setProperty('--stats-accordion-normal-border', 'rgba(239, 240, 247, 0.1)')
   }
 }

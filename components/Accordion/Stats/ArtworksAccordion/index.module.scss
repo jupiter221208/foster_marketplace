@@ -23,7 +23,7 @@
   padding-right: 14px;
   border-radius: 15px;
   background: var(--stats-accordion-bg);
-  border: 1px solid rgba($background-dark-color, 0.1);
+  border: 1px solid var(--stats-accordion-normal-border);
   box-shadow: 0px 5px 5px rgba($background-dark-color, 0.15);
   display: flex;
   justify-content: space-between;
