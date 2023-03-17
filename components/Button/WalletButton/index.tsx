@@ -21,6 +21,10 @@ import GradientButton from 'components/Button/GradientButton'
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
+import SolanaDarkIcon from 'assets/icons/solana-dark-icon.svg'
+import SolanaLightIcon from 'assets/icons/solana-light-icon.svg'
+import SolanaGreenIcon from 'assets/icons/solana-green-icon.svg'
+
 import avatar from 'assets/images/dashboard-avatar.png'
 import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
 import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
@@ -86,6 +90,7 @@ const WalletButton = props => {
   const [isOfferLocked, setIsOfferLocked] = useState(false)
   const [isBidLocked, setIsBidLocked] = useState(false)
   const [walletAmount, setWalletAmount] = useState<any>()
+  const [walletHover, setWalletHover] = useState(false)
 
   const errorMsg = 'Insufficient Funds in Wallet'
 
@@ -774,10 +779,12 @@ const WalletButton = props => {
           setButtonClicked(true)
           setVisible(true)
         }}
+        onMouseEnter={() => setWalletHover(true)}
+        onMouseLeave={() => setWalletHover(false)}
         style={{ width: fullWidth ? '100%' : '' }}
       >
-        <div>Connect Wallet</div>
-        <Image src={FosterLightGreenIcon} alt="" />
+        <Image src={lightMode ? (walletHover ? SolanaGreenIcon : SolanaLightIcon) : SolanaDarkIcon} alt="" />
+        <div className="mb-1">Connect Wallet</div>
       </button>
       {/* disconnect wallet alert */}
       <Alert
