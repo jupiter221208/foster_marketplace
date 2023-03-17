@@ -14,11 +14,15 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:hover {
+    color: #14f195;
+  }
 }
 @media (min-width: 1025px) {
   .container {
@@ -30,7 +34,9 @@
 
 .lightContainer {
   background: linear-gradient(to bottom, $background-dark-color, $background-dark-color);
-  color: var(--brand-09-color);
+  &:hover {
+    color: $brand-09-color;
+  }
   box-shadow: 0px 0px 0px transparent;
 }
 
@@ -39,7 +45,7 @@
   width: 180px;
   height: 49px;
   border-radius: 12px;
-  background: linear-gradient(to bottom, var(--background-black-color), #2d625d);
+  background: var(--connected-wallet-bg);
   padding-left: 20px;
   padding-right: 20px;
   gap: 13px;
