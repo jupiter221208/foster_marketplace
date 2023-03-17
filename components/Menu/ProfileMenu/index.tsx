@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import UserAccountWhiteIcon from 'assets/icons/user-account-white.svg'
+import UserAccountWhiteIcon from 'assets/icons/user-account-green.svg'
 import UserAccountLightIcon from 'assets/icons/user-account-white-light.svg'
 
 // styles
@@ -22,15 +22,7 @@ const ProfileMenu = props => {
     <div className="relative flex items-center">
       <Menu>
         <Menu.Button>
-          <div
-            className={
-              connectWalletStatus
-                ? styles.activeContainer
-                : lightMode
-                ? `${styles.container} ${styles.lightContainer}`
-                : styles.container
-            }
-          >
+          <div className={connectWalletStatus ? styles.activeContainer : styles.container}>
             {connectWalletStatus ? (
               <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
             ) : (

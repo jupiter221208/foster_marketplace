@@ -4,14 +4,10 @@
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  border: 2px solid rgba(var(--white-color), 0.5);
+  border: 2px solid var(--profile-border-color);
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.lightContainer {
-  border: 2px solid rgba(var(--background-dark-color), 1);
 }
 
 .activeContainer {
