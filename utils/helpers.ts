@@ -258,6 +258,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-box-shadow', '0px 0px 0px transparent')
     doc.style.setProperty('--wallet-btn-bg', '#202427')
     doc.style.setProperty('--wallet-btn-hover', '#95DBD5')
+    doc.style.setProperty(
+      '--collection-card-bg',
+      'linear-gradient(to bottom, rgba(239, 240, 247, 1), rgba(32, 36, 39, 1)'
+    )
+    doc.style.setProperty('--collection-card-border', '0px')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -374,5 +379,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--wallet-btn-bg', '#121212')
     doc.style.setProperty('--wallet-btn-hover', '#14f195')
+    doc.style.setProperty('--collection-card-bg', '#121212')
+    doc.style.setProperty('--collection-card-border', '1px')
   }
 }

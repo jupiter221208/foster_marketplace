@@ -16,7 +16,7 @@ const CollectionCard = props => {
   const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
-    <div className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}>
+    <div className={styles.container}>
       <div className={styles.imageArea} onClick={() => onClick()}>
         <div className={styles.imageContent}>
           {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}
