@@ -18,10 +18,9 @@ import { useSelector } from 'react-redux'
 const EcosystemCard = props => {
   const { data, onClick } = props
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
-    <div className={`${styles.container} ${lightMode ? styles.lightColor : ''}`} onClick={() => onClick()}>
+    <div className={styles.container} onClick={() => onClick()}>
       <div className="relative flex justify-center">
         <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
           <Image

@@ -1,24 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 
-// next components
-import Image from 'next/image'
-
 // third party components
 import { Disclosure } from '@headlessui/react'
 
-// images and icons
-import ArrowDownIcon from 'assets/icons/arrow-down-black.svg'
-import ArrowDownLightIcon from 'assets/icons/arrow-down-light.svg'
-import MinusBlackIcon from 'assets/icons/minus-black.svg'
-import MinusLightIcon from 'assets/icons/minus-light.svg'
-
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const ResourcesAccordion = props => {
   const { data, onClick } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -74,7 +63,7 @@ const ResourcesAccordion = props => {
                     <div className={`${styles.title} ${open ? styles.selected : ''}`}>{item.title}</div>
 
                     <div className={styles.openButton}>
-                      <Image
+                      {/* <Image
                         src={
                           open
                             ? lightMode
@@ -85,7 +74,45 @@ const ResourcesAccordion = props => {
                             : ArrowDownIcon
                         }
                         alt=""
-                      />
+                      /> */}
+                      {open ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="2" viewBox="0 0 18 2">
+                          <line
+                            id="Line_405"
+                            data-name="Line 405"
+                            x2="18"
+                            transform="translate(0 1)"
+                            fill="none"
+                            stroke="var(--resource-accordion-dropdown-color)"
+                            stroke-width="2"
+                            opacity="1"
+                          />
+                        </svg>
+                      ) : (
+                        <svg
+                          id="Desktop_Collapsed"
+                          data-name="Desktop Collapsed"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="37"
+                          height="37"
+                          viewBox="0 0 37 37"
+                        >
+                          <g
+                            id="Component_2300_6"
+                            data-name="Component 2300 – 6"
+                            transform="translate(9.5 23.754) rotate(-90)"
+                          >
+                            <g id="Component_2299_9" data-name="Component 2299 – 9">
+                              <path
+                                id="noun-left-4606382"
+                                d="M22.17,27.4a1.5,1.5,0,0,0,0-2.129l-6.445-6.43,6.445-6.43a1.505,1.505,0,0,0-2.129-2.129l-7.493,7.493h0a1.5,1.5,0,0,0,0,2.127L20.041,27.4h0a1.5,1.5,0,0,0,2.129,0Z"
+                                transform="translate(-12.104 -9.844)"
+                                fill="var(--resource-accordion-close-color)"
+                              />
+                            </g>
+                          </g>
+                        </svg>
+                      )}
                     </div>
                   </Disclosure.Button>
                   <Disclosure.Panel className={styles.panel}>
