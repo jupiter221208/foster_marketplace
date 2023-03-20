@@ -58,7 +58,7 @@ const LiveAuctionCard = props => {
   }
 
   return (
-    <div className={`${styles.container} ${lightMode ? styles.lightColor : ''}`}>
+    <div className={styles.container}>
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (

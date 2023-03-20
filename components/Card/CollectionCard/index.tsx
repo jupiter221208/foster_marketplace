@@ -1,8 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-
-// custom functions
-import { getShortAddress } from 'utils/strings'
 
 // custom components
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
@@ -13,7 +9,6 @@ import GradientButton from 'components/Button/GradientButton'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
