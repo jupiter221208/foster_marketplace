@@ -4,9 +4,9 @@
   width: 100%;
   height: 49px;
   border-radius: 12px;
-  background: $background-black-color;
+  background: var(--wallet-btn-bg);
   @media (min-width: 1024px) {
-    box-shadow: 0px 5px 10px rgba(#9945ff, 0.2), 0px -5px 10px rgba(#14f195, 0.2);
+    box-shadow: var(--wallet-box-shadow);
   }
   gap: 13px;
 
@@ -22,7 +22,7 @@
 
   &:hover {
     @media (min-width: 1024px) {
-      color: #14f195;
+      color: var(--wallet-btn-hover);
     }
   }
 }
@@ -32,14 +32,6 @@
     min-width: 220px;
     max-width: 220px;
   }
-}
-
-.lightContainer {
-  background: linear-gradient(to bottom, $background-dark-color, $background-dark-color);
-  &:hover {
-    color: $brand-09-color;
-  }
-  box-shadow: 0px 0px 0px transparent;
 }
 
 .connectedContainer {

@@ -253,6 +253,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-accordion-dropdown-color', '#95dbd5')
     doc.style.setProperty('--resource-accordion-close-color', '#eff0f6')
     doc.style.setProperty('--chevron-up-icon-color', '#202427')
+    doc.style.setProperty('--deposit-btn-bg-1', '#4B6E6B')
+    doc.style.setProperty('--deposit-btn-bg-2', '#95DBD5')
+    doc.style.setProperty('--wallet-box-shadow', '0px 0px 0px transparent')
+    doc.style.setProperty('--wallet-btn-bg', '#202427')
+    doc.style.setProperty('--wallet-btn-hover', '#95DBD5')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -301,7 +306,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dropdown-menu-bg', 'rgba(55, 130, 135, 0.3)')
     doc.style.setProperty('--dropdown-menu-hover-color', '')
     doc.style.setProperty('--dropdown-menu-hover-border', '#5ac3ba')
-    doc.style.setProperty('--wallet-green-text', '#5ac3ba')
+    doc.style.setProperty('--wallet-green-text', '#95dbd5')
     doc.style.setProperty('--wallet-error-text', '#deefd0')
     doc.style.setProperty('--wallet-active-text', '#5ac3ba')
     doc.style.setProperty('--follow-text-color', '#95dbd5')
@@ -361,5 +366,13 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-accordion-dropdown-color', '#eff0f6')
     doc.style.setProperty('--resource-accordion-close-color', '#95dbd5')
     doc.style.setProperty('--chevron-up-icon-color', '#95DBD5')
+    doc.style.setProperty('--deposit-btn-bg-1', '#2B4142')
+    doc.style.setProperty('--deposit-btn-bg-2', '#59BFB7')
+    doc.style.setProperty(
+      '--wallet-box-shadow',
+      '0px 5px 10px rgba(153, 69, 255, 0.2), 0px -5px 10px rgba(20, 241, 149, 0.2)'
+    )
+    doc.style.setProperty('--wallet-btn-bg', '#121212')
+    doc.style.setProperty('--wallet-btn-hover', '#14f195')
   }
 }

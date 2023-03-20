@@ -323,7 +323,7 @@ const WalletButton = props => {
             <div className="w-full">
               <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Main wallet</div>
-                <div className="flex items-center gap-[14px]">
+                <div className="flex items-center gap-[4px]">
                   <Image src={SolanaLogoIcon} alt="" />
                   <div className={styles.priceText}>{mainBalance.toFixed(2)}</div>
                 </div>
@@ -337,7 +337,7 @@ const WalletButton = props => {
                     copyClipboardAlert('main-wallet')
                   }}
                 >
-                  <Image src={lightMode ? CopyAltLightBlueIcon : CopyAltLightGreenIcon} alt="" />
+                  <Image src={CopyAltLightBlueIcon} alt="" />
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortMainAddress}</div>
                   </div>
@@ -395,7 +395,7 @@ const WalletButton = props => {
                   }}
                 >
                   <div className="w-[16px] h-[18px]">
-                    <Image src={lightMode ? CopyAltLightBlueIcon : CopyAltLightGreenIcon} alt="" />
+                    <Image src={CopyAltLightBlueIcon} alt="" />
                   </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortOfferAddress}</div>
@@ -547,8 +547,8 @@ const WalletButton = props => {
                       fullWidth
                       height="53px"
                       fontSize="18px"
-                      backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
-                      backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
+                      backgroundColor01={'var(--deposit-btn-bg-1)'}
+                      backgroundColor02={'var(--deposit-btn-bg-2)'}
                       gradientDirection="right"
                       borderRadius="15px"
                       borderColor="rgba(255, 255, 255, 0.1)"
@@ -590,7 +590,7 @@ const WalletButton = props => {
                   }}
                 >
                   <div className="w-[16px] h-[18px]">
-                    <Image src={lightMode ? CopyAltLightBlueIcon : CopyAltLightGreenIcon} alt="" />
+                    <Image src={CopyAltLightBlueIcon} alt="" />
                   </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortBiddingAddress}</div>
@@ -741,8 +741,8 @@ const WalletButton = props => {
                       fullWidth
                       height="53px"
                       fontSize="18px"
-                      backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
-                      backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
+                      backgroundColor01={'var(--deposit-btn-bg-1)'}
+                      backgroundColor02={'var(--deposit-btn-bg-2)'}
                       gradientDirection="right"
                       borderRadius="15px"
                       borderColor="rgba(255, 255, 255, 0.1)"
@@ -776,7 +776,7 @@ const WalletButton = props => {
   ) : (
     <div className="w-full">
       <button
-        className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}
+        className={styles.container}
         onClick={() => {
           setButtonClicked(true)
           setVisible(true)
