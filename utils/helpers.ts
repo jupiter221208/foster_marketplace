@@ -273,6 +273,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mynft-outline-border', '#95DBD5')
     doc.style.setProperty('--mynft-outline-color', '#EFF0F6')
     doc.style.setProperty('--filter-close-color', '#202427')
+    doc.style.setProperty('--negative-btn-border', '#121212')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -402,5 +403,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mynft-outline-border', '#5ac3ba')
     doc.style.setProperty('--mynft-outline-color', '')
     doc.style.setProperty('--filter-close-color', '#eff0f6')
+    doc.style.setProperty('--negative-btn-border', '#95DBD5')
   }
 }

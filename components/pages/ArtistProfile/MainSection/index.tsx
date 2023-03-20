@@ -158,7 +158,6 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={30}
                     label="Following"
-                    lightMode={true}
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
@@ -353,7 +352,6 @@ const MainSection = prop => {
                     fontFamily="KCDurhamBoxcar"
                     fontSize={18}
                     label="Following"
-                    lightMode={true}
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (

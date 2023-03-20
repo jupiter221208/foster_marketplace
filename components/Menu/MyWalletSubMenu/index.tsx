@@ -8,7 +8,6 @@ import Image from 'next/image'
 import { Disclosure } from '@headlessui/react'
 import { ChevronRightIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux'
-import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
 import { PublicKey } from '@solana/web3.js'
@@ -54,8 +53,6 @@ const MyWalletSubMenu = props => {
   const dispatch = useDispatch()
 
   const { connected, publicKey, disconnect } = useWallet()
-  const { setVisible } = useWalletModal()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const { mainBalance, offerBalance, biddingBalance, offerWalletAddress, biddingWalletAddress, updateSolBalance } =
     useWallets()
@@ -450,8 +447,8 @@ const MyWalletSubMenu = props => {
                         fullWidth
                         height="42px"
                         fontSize="14px"
-                        backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
-                        backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
+                        backgroundColor01={'var(--deposit-btn-bg-1)'}
+                        backgroundColor02={'var(--deposit-btn-bg-2)'}
                         gradientDirection="right"
                         borderRadius="6px"
                         borderColor="rgba(255, 255, 255, 0.1)"
@@ -625,8 +622,8 @@ const MyWalletSubMenu = props => {
                         fullWidth
                         height="42px"
                         fontSize="14px"
-                        backgroundColor01={lightMode ? '#4B6E6B' : '#2B4142'}
-                        backgroundColor02={lightMode ? '#95DBD5' : '#59BFB7'}
+                        backgroundColor01={'var(--deposit-btn-bg-1)'}
+                        backgroundColor02={'var(--deposit-btn-bg-2)'}
                         gradientDirection="right"
                         borderRadius="6px"
                         borderColor="rgba(255, 255, 255, 0.1)"

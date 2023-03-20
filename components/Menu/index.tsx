@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -7,25 +6,27 @@ import Image from 'next/image'
 // third party components
 import { Menu as HMenu, Transition } from '@headlessui/react'
 
-// images and icons
-import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
-import ArrowDownGreenLightIcon from 'assets/icons/arrow-down-green-light.svg'
-
 // styles
 import styles from './index.module.scss'
 
 const Menu = props => {
   const { label, menuList, onSelect } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="relative flex items-center">
       <HMenu>
         <HMenu.Button>
-          <div className={`${styles.container} ${lightMode ? styles.lightContainer : ''}`}>
+          <div className={styles.container}>
             <div className="mr-[9px]">{label}</div>
             <div className="w-3 h-3 flex justify-center items-center mt-1">
-              <Image src={lightMode ? ArrowDownGreenLightIcon : ArrowDownGreenIcon} alt="" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
+                <path
+                  id="angle-down-9"
+                  d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
+                  transform="translate(-6.754 -8.879)"
+                  fill="var(--chevron-up-icon-color)"
+                />
+              </svg>
             </div>
           </div>
         </HMenu.Button>

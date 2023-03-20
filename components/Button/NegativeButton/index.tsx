@@ -7,7 +7,7 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 
 const NegativeButton = props => {
-  const { label, width, height, borderRadius, fontFamily, fontSize, fontColor, onClick, lightMode } = props
+  const { label, width, height, borderRadius, fontFamily, fontSize, fontColor, onClick } = props
 
   return (
     <button
@@ -21,7 +21,7 @@ const NegativeButton = props => {
         color: fontColor,
       }}
       onClick={() => onClick()}
-      className={`${styles.container} ${lightMode === true ? styles.lightColor : ''} gap-2 xl:gap-4 whitespace-nowrap`}
+      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
     >
       {label !== '' && <div>{label}</div>}
     </button>
