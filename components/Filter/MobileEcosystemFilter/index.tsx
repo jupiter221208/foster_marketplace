@@ -20,11 +20,9 @@ import ArtistVerificationList from 'assets/json/explore/artist-verification.json
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const MobileEcosystemFilter = props => {
   const { onClose } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [selectedProfile, setSelectedProfile] = useState(ProfileList[0])
   const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[2])

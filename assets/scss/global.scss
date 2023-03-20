@@ -68,15 +68,9 @@
   --background-light-color: #eff0f6;
   --background-light-color-rgb: 239, 240, 247;
 
-  --header-bg-color1: 48, 98, 96; // #305856
-  --header-bg-color2: 20, 32, 33; //#142021;
-  --header-bg-color3: 32, 36, 39; //#202427;
-  --header-bg: linear-gradient(
-    90deg,
-    rgba(var(--header-bg-color1), 0.7) 0%,
-    rgba(var(--header-bg-color2), 0.7) 50%,
-    rgba(var(--header-bg-color3), 0.7) 100%
-  );
+  --header-bg-color:
+  linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)
+  --header-mobile-bg-color: rgba(206, 208, 213, 0.8)
 
   --avatar-border-color1: #4ea19b;
   --avatar-border-color2: #304e4e;
@@ -208,7 +202,7 @@
   --mynft-outline-border: #5ac3ba;
   --mynft-outline-color: '';
   --filter-close-color: #eff0f6;
-
+  --collection-filter-title: #95DBD5;
 }
 
 html,

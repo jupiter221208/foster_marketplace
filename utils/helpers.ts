@@ -155,9 +155,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
-    doc.style.setProperty('--header-bg-color1', '185, 186, 192')
-    doc.style.setProperty('--header-bg-color2', '227, 228, 235')
-    doc.style.setProperty('--header-bg-color3', '228, 229, 236')
+    doc.style.setProperty(
+      '--header-bg-color',
+      'linear-gradient(90deg, rgba(185, 186, 192, 0.7) 0%, rgba(227, 228, 235, 0.7) 50%, rgba(228, 229, 236, 0.7) 100%)'
+    )
+    doc.style.setProperty('--header-mobile-bg-color', 'rgba(206, 208, 213, 0.8)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
     doc.style.setProperty('--avatar-border-color1', '#202427')
@@ -281,9 +283,15 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
-    doc.style.setProperty('--header-bg-color1', '48, 98, 96')
-    doc.style.setProperty('--header-bg-color2', '20, 32, 33')
-    doc.style.setProperty('--header-bg-color3', '32, 36, 39')
+    doc.style.setProperty(
+      '--header-bg-color',
+      'linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)'
+    )
+    doc.style.setProperty(
+      '--header-mobile-bg-color',
+      'linear-gradient(90deg, rgba(52, 103, 99, 0.8) 0%, rgba(18, 25, 25, 0.8) 100%)'
+    )
+
     doc.style.setProperty('--outline-button-border', '#5ac3ba')
     doc.style.setProperty('--outline-button-color', '#eff0f6')
     doc.style.setProperty('--avatar-border-color1', '#4ea19b')
