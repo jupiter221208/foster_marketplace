@@ -263,6 +263,12 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(239, 240, 247, 1), rgba(32, 36, 39, 1)'
     )
     doc.style.setProperty('--collection-card-border', '0px')
+    doc.style.setProperty(
+      '--profile-card-bg',
+      'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(239, 240, 247, 1) 70%)'
+    )
+    doc.style.setProperty('--mynft-outline-border', '#95DBD5')
+    doc.style.setProperty('--mynft-outline-color', '#EFF0F6')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -381,5 +387,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-btn-hover', '#14f195')
     doc.style.setProperty('--collection-card-bg', '#121212')
     doc.style.setProperty('--collection-card-border', '1px')
+    doc.style.setProperty('--profile-card-bg', '#202427')
+    doc.style.setProperty('--mynft-outline-border', '#5ac3ba')
+    doc.style.setProperty('--mynft-outline-color', '')
   }
 }

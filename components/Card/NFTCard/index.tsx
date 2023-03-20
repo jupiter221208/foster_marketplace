@@ -16,13 +16,11 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import styles from './index.module.scss'
 import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
-import { useSelector } from 'react-redux'
 
 const DashboardNFTCard = props => {
   const { image, nftName, coverImage = '', artistName, assetType, price, onClick, unSave = null } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>

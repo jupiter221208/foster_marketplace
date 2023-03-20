@@ -13,12 +13,10 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 // styles
 import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
-import { useSelector } from 'react-redux'
 
 const MyNFTCard = props => {
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
@@ -74,7 +72,7 @@ const MyNFTCard = props => {
           <OutlineButton
             backgroundColor="transparent"
             color="#EFF0F6"
-            borderColor={lightMode ? '#95DBD5' : '#5ac3ba'}
+            borderColor={'var(--mynft-outline-border)'}
             borderWidth="2"
             label="List NFT"
             onClick={() => onClickListNFT(data)}
@@ -103,8 +101,8 @@ const MyNFTCard = props => {
             <OutlineButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
-              borderColor={lightMode ? '#95DBD5' : '#5ac3ba'}
-              color={lightMode ? '#EFF0F6' : ''}
+              borderColor={'var(--mynft-outline-border)'}
+              color={'var(--mynft-outline-color)'}
               height="26px"
               fontSize="10px"
               borderRadius="6px"

@@ -23,13 +23,8 @@
     height: 170px;
   }
   border-radius: 100%;
-  // background: linear-gradient(110deg, var(--brand-01-color) 50%, var(--background-dark-color) 100%);
-  background: var(--background-dark-color);
+  background: var(--profile-card-bg);
   z-index: 1;
-}
-
-.lightAvatarArea {
-  background: linear-gradient(to bottom, var(--background-dark-color), var(--background-light-color) 70%);
 }
 
 .name {
@@ -52,10 +47,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.lightName {
-  color: var(--background-dark-color);
 }
 
 .bottomSection {

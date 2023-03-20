@@ -23,7 +23,6 @@ const LiveAuctionCard = props => {
   const { data, onClick } = props
   const router = useRouter()
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
   const dispatch = useDispatch()
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
