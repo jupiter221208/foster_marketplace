@@ -252,6 +252,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--resource-accordion-dropdown-color', '#95dbd5')
     doc.style.setProperty('--resource-accordion-close-color', '#eff0f6')
+    doc.style.setProperty('--chevron-up-icon-color', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -359,5 +360,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(255, 255, 255, 0.2)')
     doc.style.setProperty('--resource-accordion-dropdown-color', '#eff0f6')
     doc.style.setProperty('--resource-accordion-close-color', '#95dbd5')
+    doc.style.setProperty('--chevron-up-icon-color', '#95DBD5')
   }
 }

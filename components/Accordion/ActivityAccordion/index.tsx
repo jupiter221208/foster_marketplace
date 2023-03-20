@@ -20,11 +20,9 @@ import { getDateString } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { getBuyerName, getOwnerName } from 'utils/helpers'
-import { useSelector } from 'react-redux'
 
 const ActivityAccordion = props => {
   const { data, type } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -65,10 +63,7 @@ const ActivityAccordion = props => {
                       {/* <div className={styles.subTitle}>{item.name02}</div> */}
                     </div>
                   </div>
-                  <ChevronUpIcon
-                    className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: lightMode ? '#202427' : '#95DBD5' }}
-                  />
+                  <ChevronUpIcon className={`${styles.chevronUpIcon} ${!open ? 'rotate-180 transform' : ''} h-6 w-6`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   {/* <div className={styles.firstRow}>

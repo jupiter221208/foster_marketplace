@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -10,7 +9,6 @@ import styles from './index.module.scss'
 
 const Accordion = props => {
   const { label, data, onClick } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <Disclosure>
@@ -18,13 +16,10 @@ const Accordion = props => {
         <>
           <Disclosure.Button className={styles.container}>
             <div className="flex items-center">
-              <div className={`${styles.label} ${lightMode ? styles.lightColor : ''}`}>{label}</div>
+              <div className={styles.label}>{label}</div>
             </div>
             {data.length !== 0 && (
-              <ChevronDownIcon
-                className={`${open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                style={{ color: lightMode ? '#202427' : '#5AC3BA' }}
-              />
+              <ChevronDownIcon className={`${styles.chevronUpIcon} ${open ? 'rotate-180 transform' : ''} h-6 w-6`} />
             )}
           </Disclosure.Button>
           {data.length !== 0 && (
@@ -33,7 +28,7 @@ const Accordion = props => {
                 data.map((item, index) => (
                   <div
                     key={index}
-                    className={lightMode ? styles.lightMenuItem : styles.menuItem}
+                    className={styles.menuItem}
                     onClick={() => {
                       close()
                       onClick(item)

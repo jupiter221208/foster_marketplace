@@ -63,18 +63,6 @@ const ResourcesAccordion = props => {
                     <div className={`${styles.title} ${open ? styles.selected : ''}`}>{item.title}</div>
 
                     <div className={styles.openButton}>
-                      {/* <Image
-                        src={
-                          open
-                            ? lightMode
-                              ? MinusLightIcon
-                              : MinusBlackIcon
-                            : lightMode
-                            ? ArrowDownLightIcon
-                            : ArrowDownIcon
-                        }
-                        alt=""
-                      /> */}
                       {open ? (
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="2" viewBox="0 0 18 2">
                           <line
