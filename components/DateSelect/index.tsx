@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
 
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
+import { SelectorIcon } from '@heroicons/react/solid'
 
 // styles
 import styles from './index.module.scss'
 
 const DateSelect = props => {
   const { data, selected, onChange } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="w-full">

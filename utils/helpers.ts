@@ -253,6 +253,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-accordion-dropdown-color', '#95dbd5')
     doc.style.setProperty('--resource-accordion-close-color', '#eff0f6')
     doc.style.setProperty('--chevron-up-icon-color', '#202427')
+    doc.style.setProperty('--collection-filter-title', '#202427')
     doc.style.setProperty('--deposit-btn-bg-1', '#4B6E6B')
     doc.style.setProperty('--deposit-btn-bg-2', '#95DBD5')
     doc.style.setProperty('--wallet-box-shadow', '0px 0px 0px transparent')
@@ -269,6 +270,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--mynft-outline-border', '#95DBD5')
     doc.style.setProperty('--mynft-outline-color', '#EFF0F6')
+    doc.style.setProperty('--filter-close-color', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -377,6 +379,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-accordion-dropdown-color', '#eff0f6')
     doc.style.setProperty('--resource-accordion-close-color', '#95dbd5')
     doc.style.setProperty('--chevron-up-icon-color', '#95DBD5')
+    doc.style.setProperty('--collection-filter-title', '#95DBD5')
     doc.style.setProperty('--deposit-btn-bg-1', '#2B4142')
     doc.style.setProperty('--deposit-btn-bg-2', '#59BFB7')
     doc.style.setProperty(
@@ -390,5 +393,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-card-bg', '#202427')
     doc.style.setProperty('--mynft-outline-border', '#5ac3ba')
     doc.style.setProperty('--mynft-outline-color', '')
+    doc.style.setProperty('--filter-close-color', '#eff0f6')
   }
 }

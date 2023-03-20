@@ -10,11 +10,9 @@ import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const CollectionFilter = props => {
   const { selectCategory } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [categoryList, setCategoryList] = useState<any[]>([])
 
@@ -37,13 +35,13 @@ const CollectionFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>ARTIST VERIFICATION</div>
+      <div className={styles.title}>ARTIST VERIFICATION</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}
         onChange={item => setSelectedVerifyType(item)}
       />
-      <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mt-[52px]`}>CATEGORIES</div>
+      <div className={`${styles.title} mt-[52px]`}>CATEGORIES</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       )}
