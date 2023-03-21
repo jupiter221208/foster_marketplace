@@ -278,6 +278,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--checkbox-border', 'transparent')
     doc.style.setProperty('--checkbox-border-color', '#302427')
     doc.style.setProperty('--checkbox-bg-color', 'transparent')
+    doc.style.setProperty('--ellipse-menu-bg', '#c1c2c7')
+    doc.style.setProperty('--ellipse-report-bg', '#c4c6cc')
+    doc.style.setProperty('--mobile-serachbox-bg', '#eff0f6')
+    doc.style.setProperty('--mobile-serach-area-bg', 'rgba(239, 240, 247, 0.8')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -411,5 +415,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--negative-btn-border', '#95DBD5')
     doc.style.setProperty('--checkbox-border-color', '#95DBD5')
     doc.style.setProperty('--checkbox-bg-color', '#95DBD5')
+    doc.style.setProperty('--ellipse-menu-bg', '#1b1b1b')
+    doc.style.setProperty('--ellipse-report-bg', '#1b1b1b')
+    doc.style.setProperty('--mobile-serachbox-bg', '#121212')
+    doc.style.setProperty('--mobile-serach-area-bg', '#313233')
   }
 }

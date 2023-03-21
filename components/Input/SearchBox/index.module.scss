@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   height: 80px;
-  background: rgba(var(--background-black-color), 0.2);
+  background: rgba(var(--background-black-color-rgb), 0.2);
   // -webkit-backdrop-filter: blur(10px);
   // backdrop-filter: blur(10px);
   padding-left: 16px;
@@ -33,7 +33,7 @@
   font-size: 16px;
   line-height: 24px;
   color: var(--text-gray-200-color);
-  background-color: #313233;
+  background-color: var(--mobile-serach-area-bg);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   @media (min-width: 1024px) {
@@ -54,42 +54,11 @@
   }
 }
 
-.lightInputArea {
-  flex: 1;
-  height: 40px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-bottom: 4px;
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 24px;
-  color: var(--background-dark-color);
-  background-color: rgba($background-light-color, 0.8);
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-  @media (min-width: 1024px) {
-    background-color: transparent;
-    border-radius: 12px;
-  }
-  outline: none;
-}
-
-.lightInputArea::placeholder {
-  color: rgba(var(--background-dark-color), 0.6);
-  font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 14px;
-  @media (min-width: 1024px) {
-    font-size: 15px;
-    line-height: 24px;
-  }
-}
-
 .iconArea {
   height: 40px;
   padding-left: 12px;
   padding-right: 0px;
-  background-color: #313233;
+  background-color: var(--mobile-serach-area-bg);
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   @media (min-width: 1024px) {
@@ -98,10 +67,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.lightIconArea {
-  background: rgba(var(--background-light-color), 0.8);
 }
 
 .contentArea {

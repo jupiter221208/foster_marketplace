@@ -4,7 +4,7 @@
   width: 100vw;
   min-height: 100vh;
   height: 100%;
-  background: var(--background-black-color); //rgba(var(--background-dark-color), 0.6);
+  background: var(--mobile-serachbox-bg); //rgba(var(--background-dark-color), 0.6);
   // -webkit-backdrop-filter: blur(12px);
   // backdrop-filter: blur(12px);
   z-index: 100;
@@ -21,10 +21,6 @@
   bottom: 0;
   z-index: 10000;
   overflow: hidden;
-}
-
-.lightMenu {
-  background: var(--background-light-color);
 }
 
 .menuOpen {

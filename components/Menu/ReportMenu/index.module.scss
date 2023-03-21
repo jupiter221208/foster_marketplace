@@ -93,7 +93,7 @@
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background: #1b1b1b;
+  background: var(--ellipse-report-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -103,8 +103,4 @@
       box-shadow: 0px 3px 6px var(--brand-09-color);
     }
   }
-}
-
-.lightEllipseArea {
-  background: #c4c6cc;
 }

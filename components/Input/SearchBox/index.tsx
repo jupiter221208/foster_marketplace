@@ -31,7 +31,7 @@ const SearchBox = props => {
   return (
     <div className={styles.container}>
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-        <div className={`${styles.iconArea} ${lightMode ? styles.lightIconArea : ''}`} onClick={() => onClick()}>
+        <div className={styles.iconArea} onClick={() => onClick()}>
           {value !== '' ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,16 +62,6 @@ const SearchBox = props => {
               />
             </svg>
           )}
-          {/* <Image
-            src={
-              value !== '' ? (lightMode ? CloseDarkIcon : CloseGrayIcon) : lightMode ? SearchDarkIcon : SearchGrayIcon
-            }
-            alt=""
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 16}
-            className="cursor-pointer"
-            onClick={() => onClick()}
-          /> */}
         </div>
       ) : (
         <div className={styles.iconArea}>
@@ -89,7 +79,7 @@ const SearchBox = props => {
       )}
 
       <input
-        className={lightMode ? styles.lightInputArea : styles.inputArea}
+        className={styles.inputArea}
         value={value}
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
@@ -102,7 +92,7 @@ const SearchBox = props => {
             onClick={() => onClose()}
             backgroundColor="transparent"
             borderColor="transparent"
-            color={lightMode ? '#202427' : '#eff0f6'}
+            color={'var(--text-gray-200-color)'}
           />
         </div>
       ) : value !== '' ? (
@@ -113,7 +103,7 @@ const SearchBox = props => {
             fontSize={16}
             width={60}
             fontFamily="Muli-Regular"
-            color={lightMode ? '#202427' : '#eff0f6'}
+            color={'var(--text-gray-200-color)'}
             backgroundColor="transparent"
             borderColor="transparent"
           />
