@@ -92,12 +92,10 @@ const FreshMintSection = props => {
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">
-              <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>Fresh Mints</div>
+              <div className={styles.title}>Fresh Mints</div>
             </div>
           ) : (
-            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
-              Fresh Mints
-            </div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
           )}
           {/* <div className="hidden lg:flex z-10">
             <Button
@@ -124,7 +122,7 @@ const FreshMintSection = props => {
           <OutlineButton
             label="See More"
             onClick={() => router.push('/explore')}
-            borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderColor={'var(--see-more-border)'}
             borderWidth={2}
             height="42px"
           />
@@ -139,7 +137,7 @@ const FreshMintSection = props => {
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
             }
             modules={[Autoplay, Lazy, Navigation]}
-            className={lightMode ? 'lightNavigationSwiper' : 'navigationSwiper'}
+            className={'navigationSwiper'}
             loop
             autoplay={{
               delay: 5000,
@@ -177,7 +175,7 @@ const FreshMintSection = props => {
               dispatch({ type: 'set', exploreTab: 1 })
               router.push('/explore')
             }}
-            borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderColor={'var(--see-more-border)'}
             height="40px"
           />
         </div>

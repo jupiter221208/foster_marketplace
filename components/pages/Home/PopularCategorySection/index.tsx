@@ -33,7 +33,6 @@ const PopularCategorySection = props => {
   const dispatch = useDispatch()
 
   const [categoryList, setCategoryList] = useState<any[]>([])
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     setCategoryList(PopularCategoryList)
@@ -41,9 +40,7 @@ const PopularCategorySection = props => {
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-center lg:justify-between items-center z-10">
-        <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>
-          {type === 'home' ? 'Explore the Circus' : 'Discover Something New'}
-        </div>
+        <div className={styles.title}>{type === 'home' ? 'Explore the Circus' : 'Discover Something New'}</div>
       </div>
       <div className="w-full mt-[20px] lg:mt-[34px] z-10">
         <Swiper
@@ -53,7 +50,7 @@ const PopularCategorySection = props => {
           }
           spaceBetween={viewport === 'xs' ? 10 : 20}
           modules={[Autoplay, Lazy, Navigation]}
-          className={lightMode ? 'lightNavigationSwiper' : 'navigationSwiper'}
+          className={'navigationSwiper'}
           loop
           autoplay={{
             delay: 5000,

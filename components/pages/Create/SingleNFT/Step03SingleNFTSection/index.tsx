@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-// next components
-import Image from 'next/image'
-
 // components
 import Input from 'components/Input'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
 
 // solana
-import type { Nft } from '@metaplex-foundation/js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollectionNFTs } from 'utils/nfts.utils'
 
@@ -21,12 +17,10 @@ import styles from './index.module.scss'
 
 // resources
 import SelectCollectionMenu from 'components/Menu/SelectCollectionMenu'
-import { useSelector } from 'react-redux'
 
 const Step03SingleNFTSection = props => {
   const { royalties, setRoyalties, setCollection, disabledNextButton, createNft } = props
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
   const { metaplex: mx } = useMetaplex()
   const [selectedCollectionName, setSelectedCollectionName] = useState(null)
 
@@ -91,7 +85,7 @@ const Step03SingleNFTSection = props => {
         <Input
           value={royalties}
           placeholder="Insert a royalty percentage"
-          backgroundColor={lightMode ? '#202427' : ''}
+          backgroundColor={'var(--input-bg)'}
           label="From 0 to 10%"
           type="number"
           min={0}

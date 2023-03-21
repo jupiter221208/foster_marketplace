@@ -155,7 +155,7 @@ const SuccessMintSingleNFTSection = props => {
                     icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color={lightMode ? '#95dbd5' : '#202427'}
+                    color={'var(--mint-btn-color)'}
                     onClick={() => {}}
                     direction="rtl"
                   />
@@ -167,7 +167,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   backgroundColor="#63D6CD"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
+                  borderColor={'var(--outline-button-border)'}
                 />
               </div>
             </div>
@@ -234,7 +234,7 @@ const SuccessMintSingleNFTSection = props => {
                     icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color={lightMode ? '#95dbd5' : '#202427'}
+                    color={'var(--mint-btn-color)'}
                     onClick={() => {}}
                     direction="rtl"
                   />
@@ -246,7 +246,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   height="45px"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
+                  borderColor={'var(--outline-button-border)'}
                 />
               </div>
             </div>
