@@ -16,7 +16,6 @@ import styles from './index.module.scss'
 
 const AccordionMenu = props => {
   const { icon, label, type = '', data, path = '' } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()

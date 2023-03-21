@@ -68,7 +68,7 @@
     height: 52px;
     border-radius: 26px;
   }
-  background: #1b1b1b;
+  background: var(--ellipse-menu-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,8 +78,4 @@
       background: #202427;
     }
   }
-}
-
-.lightEllipseArea {
-  background: #c1c2c7;
 }
