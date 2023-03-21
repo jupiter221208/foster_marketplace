@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // next components
 
@@ -15,11 +15,10 @@ const BrowseArtistCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
-      <div className={`${styles.avatarArea} ${lightMode ? styles.lightAvatarArea : ''}`}>
+      <div className={styles.avatarArea}>
         <div className={styles.avatar}>
           {image && (
             <img
@@ -34,7 +33,7 @@ const BrowseArtistCard = props => {
       </div>
       <div className={styles.bottomSection}>
         {collectionName ? (
-          <div className={`${styles.collectionName} ${lightMode ? styles.lightColor : ''}`}>{collectionName}</div>
+          <div className={styles.collectionName}>{collectionName}</div>
         ) : (
           <div className="w-full h-[22px]"></div>
         )}
@@ -46,8 +45,7 @@ const BrowseArtistCard = props => {
               dispatch({ type: 'set', isLoading: true })
             }}
           >
-            Created by{' '}
-            <span className={`${styles.greenText} ${lightMode ? styles.lightGreenText : ''}`}>{artistName}</span>
+            Created by <span className={styles.greenText}>{artistName}</span>
           </div>
         ) : (
           <div className="w-full h-[22px]"></div>

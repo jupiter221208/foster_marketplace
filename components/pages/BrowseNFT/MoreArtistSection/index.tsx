@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // third party components
 // swiper
@@ -33,7 +33,6 @@ const MoreArtistSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [collectionList, setCollectionList] = useState([])
 
@@ -55,9 +54,7 @@ const MoreArtistSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
-              More from this Artist
-            </div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Artist</div>
           </div>
           <div className="hidden lg:flex">
             <OutlineButton
@@ -66,7 +63,7 @@ const MoreArtistSection = props => {
                 dispatch({ type: 'set', isLoading: true })
                 router.push(`/artist-profile?id=${artistInfo.address}`)
               }}
-              borderColor={lightMode ? '#202427' : '#ffffff'}
+              borderColor={'var(--see-more-border)'}
               height="42px"
             />
           </div>
@@ -113,7 +110,7 @@ const MoreArtistSection = props => {
                 dispatch({ type: 'set', isLoading: true })
                 router.push(`/artist-profile?id=${artistInfo.address}`)
               }}
-              borderColor={lightMode ? '#202427' : '#ffffff'}
+              borderColor={'var(--see-more-border)'}
               height="40px"
             />
           </div>

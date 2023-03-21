@@ -60,23 +60,15 @@
   color: rgba(var(--text-gray-200-color), 1);
 }
 
-.lightColor {
-  color: var(--background-dark-color);
-}
-
 .nftInfo {
   width: 345px;
   height: 45px;
+  background: var(--nft-info-bg);
   @media (min-width: 1024px) {
     width: 566px;
     height: 98px;
-    background: rgba(var(--text-gray-800-color), 0.5);
     border-radius: 16px;
   }
-}
-
-.lightNftInfo {
-  background: var(--background-dark-color);
 }
 
 .statesBack {

@@ -276,7 +276,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--filter-close-color', '#202427')
     doc.style.setProperty('--negative-btn-border', '#121212')
     doc.style.setProperty('--checkbox-border', 'transparent')
-    doc.style.setProperty('--checkbox-border-color', '#302427')
+    doc.style.setProperty('--checkbox-border-color', '#202427')
     doc.style.setProperty('--checkbox-bg-color', 'transparent')
     doc.style.setProperty('--ellipse-menu-bg', '#c1c2c7')
     doc.style.setProperty('--ellipse-report-bg', '#c4c6cc')
@@ -284,6 +284,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', 'rgba(239, 240, 247, 0.8')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(241, 255, 255, 1)')
     doc.style.setProperty('--auction-input-bg', '#DEDEE4')
+    doc.style.setProperty('--see-more-border', '#202427')
+    doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
+    doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 1)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -423,5 +426,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', '#313233')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--auction-input-bg', '#202427')
+    doc.style.setProperty('--see-more-border', '#ffffff')
+    doc.style.setProperty('--artist-card-bg', 'rgba(32, 36, 39, 0.7)')
+    doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 0.5)')
   }
 }

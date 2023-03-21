@@ -25,14 +25,10 @@
     height: 170px;
   }
   border-radius: 100%;
-  background: rgba(var(--background-dark-color), 0.7);
+  background: var(--artist-card-bg);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   z-index: 1;
-}
-
-.lightAvatarArea {
-  background: linear-gradient(to bottom, var(--background-dark-color), #eeeff4);
 }
 
 .avatar {
@@ -72,10 +68,6 @@
   color: var(--text-gray-200-color);
 }
 
-.lightColor {
-  color: var(--background-dark-color);
-}
-
 .artistName {
   width: 100%;
   font-family: 'Muli-Bold';
@@ -101,13 +93,9 @@
   font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 24px;
-  color: var(--brand-09-color);
+  color: var(--checkbox-border-color);
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 16px;
   }
-}
-
-.lightGreenText {
-  color: var(--background-dark-color);
 }
