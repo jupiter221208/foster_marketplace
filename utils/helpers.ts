@@ -299,6 +299,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #72A4A0, #202427)')
     doc.style.setProperty('--resource-card-default-bg', '#eff0f6')
+    doc.style.setProperty('--home-swiper-bg', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -456,5 +457,6 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #101717, #3A6A68)')
     doc.style.setProperty('--resource-card-default-bg', '#202427')
+    doc.style.setProperty('--home-swiper-bg', '#5ac3ba')
   }
 }

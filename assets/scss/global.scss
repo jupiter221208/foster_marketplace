@@ -230,6 +230,7 @@
   );
   --resource-card-bg: linear-gradient(to bottom, #101717, #3A6A68);
   --resource-card-default-bg: #202427;
+  --home-swiper-bg: #5ac3ba;
 }
 
 html,
@@ -377,7 +378,7 @@ h6 {
     width: 8px;
     height: 8px;
     border-radius: 4px;
-    background: rgba(var(--text-gray-200-color), 1);
+    background: var(--text-gray-200-color);
     @media (max-width: 640px) {
       width: 4px;
       height: 4px;
@@ -387,7 +388,7 @@ h6 {
 
   .swiper-pagination-bullet-active {
     color: var(--white-color);
-    background: var(--brand-01-color);
+    background: var(--home-swiper-bg);
     width: 35px;
     height: 8px;
     border-radius: 4px;

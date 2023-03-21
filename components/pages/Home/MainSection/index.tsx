@@ -93,9 +93,7 @@ const MainSection = () => {
             objectFit="cover"
           />
 
-          <div className={`${styles.text} ${lightMode ? styles.lightText : ''}`}>
-            CREATED FOR ARTISTS. CURATED BY YOU.
-          </div>
+          <div className={styles.text}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
@@ -112,15 +110,15 @@ const MainSection = () => {
           )}
           <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[200px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
             <div className="block">
-              <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{artworkCnt}</div>
+              <div className={styles.count}>{artworkCnt}</div>
               <div className={styles.countText}>Artworks</div>
             </div>
             <div className="block items-center">
-              <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{collectionCnt}</div>
+              <div className={styles.count}>{collectionCnt}</div>
               <div className={styles.countText}>Collections</div>
             </div>
             <div className="block">
-              <div className={`${styles.count} ${lightMode ? styles.lightCount : ''}`}>{nftCnt}</div>
+              <div className={styles.count}>{nftCnt}</div>
               <div className={styles.countText}>Ecosystem</div>
             </div>
           </div>
@@ -155,7 +153,7 @@ const MainSection = () => {
                   clickable: true,
                 }}
                 modules={[Autoplay, Pagination]}
-                className={lightMode ? 'lightHeroSwiper' : 'heroSwiper'}
+                className={'heroSwiper'}
                 loop
                 autoplay={{
                   delay: 5000,
@@ -176,8 +174,8 @@ const MainSection = () => {
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton
-                backgroundColor01={lightMode ? '#95DBD5' : '#5ac3ba'}
-                backgroundColor02={lightMode ? '#4B6E6B' : '#378287'}
+                backgroundColor01={'var(--explore-btn-bg-1)'}
+                backgroundColor02={'var(--explore-btn-bg-2)'}
                 width={88}
                 label="Explore"
                 onClick={() => router.push('/explore')}
