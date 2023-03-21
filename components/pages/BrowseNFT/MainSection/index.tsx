@@ -618,7 +618,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
-                <div className={lightMode ? styles.lightBlurImage : styles.blurImage} />
+                <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
                   <img src={nftCoverUrl} alt="" className="h-full" />
                 </div>
@@ -628,7 +628,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
-                <div className={lightMode ? styles.lightBlurImage : styles.blurImage} />
+                <div className={styles.blurImage} />
                 <div className={styles.audioArea}>
                   <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
@@ -638,7 +638,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
-                <div className={lightMode ? styles.lightBlurImage : styles.blurImage} />
+                <div className={styles.blurImage} />
                 <div className={styles.videoArea}>
                   <video controls className="max-w-full max-h-full">
                     <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />

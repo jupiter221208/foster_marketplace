@@ -5,21 +5,15 @@ import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const ResourcesCard = props => {
   const { data, onClick, selected } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div
       className={styles.container}
       style={{
-        background: selected
-          ? `linear-gradient(to bottom, ${lightMode ? '#72A4A0' : '#101717'}, ${lightMode ? '#202427' : '#3A6A68'})`
-          : lightMode
-          ? `#EFF0F6`
-          : `#121212`,
+        background: selected ? 'var(--resource-card-bg)' : 'var(--resource-card-default-bg)',
         borderWidth: selected ? '0px' : '1px',
       }}
       onClick={() => onClick(data.id)}
@@ -29,7 +23,7 @@ const ResourcesCard = props => {
       </div>
       <div className="block">
         <div className={`${styles.title} ${selected ? styles.selected : styles.unselected}`}>{data.title}</div>
-        <div className={lightMode && selected ? styles.lightDescription : styles.description}>{data.description}</div>
+        <div className={selected ? styles.lightDescription : styles.description}>{data.description}</div>
       </div>
     </div>
   )

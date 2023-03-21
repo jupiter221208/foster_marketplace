@@ -221,6 +221,15 @@
   --mint-btn-bg-1: #95DBD5;
   --mint-btn-bg-2: #4B6E6B;
   --mint-btn-color: #202427;
+  --browse-nft-blur-bg: linear-gradient(
+    to top,
+    rgba(32, 36, 39, 0.5) 0%,
+    rgba(32, 36, 39, 0.1) 40%,
+    rgba(32, 36, 39, 0.15) 60%,
+    rgba(32, 36, 39, 0.5) 100%
+  );
+  --resource-card-bg: linear-gradient(to bottom, #101717, #3A6A68);
+  --resource-card-default-bg: #202427;
 }
 
 html,
@@ -464,42 +473,6 @@ h6 {
     right: 0px;
     color: var(--text-gray-200-color);
     opacity: 0.7;
-    &::after {
-      font-size: 40px;
-      font-weight: 700;
-    }
-  }
-}
-
-.lightNavigationSwiper {
-  padding-bottom: 30px !important;
-  @media (min-width: 1024px) {
-    padding-bottom: 80px !important;
-  }
-  .swiper-button-prev {
-    display: flex;
-    position: absolute;
-    top: auto;
-    left: auto;
-    bottom: 0px;
-    right: 55px;
-    color: var(--background-dark-color);
-    opacity: 1;
-    &::after {
-      font-size: 40px;
-      font-weight: 700;
-    }
-  }
-
-  .swiper-button-next {
-    display: flex;
-    position: absolute;
-    top: auto;
-    left: auto;
-    bottom: 0px;
-    right: 0px;
-    color: var(--background-dark-color);
-    opacity: 1;
     &::after {
       font-size: 40px;
       font-weight: 700;

@@ -293,6 +293,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-close-rect', '#DDF2F5')
     doc.style.setProperty('--place-bid-close-path', '#202427')
     doc.style.setProperty('--input-bg', '#202427')
+    doc.style.setProperty(
+      '--browse-nft-blur-bg',
+      'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.3) 40%,rgba(32, 36, 39, 0.2) 60%,rgba(32, 36, 39, 0.5) 100%)'
+    )
+    doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #72A4A0, #202427)')
+    doc.style.setProperty('--resource-card-default-bg', '#eff0f6')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -444,5 +450,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-close-rect', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--place-bid-close-path', '#eff0f6')
     doc.style.setProperty('--input-bg', 'rgba(255, 255, 255, 0.25)')
+    doc.style.setProperty(
+      '--browse-nft-blur-bg',
+      'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.1) 40%,rgba(32, 36, 39, 0.15) 60%,rgba(32, 36, 39, 0.5) 100%)'
+    )
+    doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #101717, #3A6A68)')
+    doc.style.setProperty('--resource-card-default-bg', '#202427')
   }
 }
