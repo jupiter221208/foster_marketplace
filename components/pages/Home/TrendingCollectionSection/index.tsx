@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -20,10 +20,6 @@ import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -76,23 +72,35 @@ const TrendingCollectionSection = props => {
     )
   }, [category])
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     <section className={styles.container}>
-      <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" />
+      <div className={styles.topRightEllipse}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+          <defs>
+            <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+              <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+              <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle
+            id="Ellipse_4322"
+            data-name="Ellipse 4322"
+            cx="1010.5"
+            cy="1010.5"
+            r="1010.5"
+            transform="translate(150 150)"
+            fill="url(#radial-gradient)"
+          />
+        </svg>
       </div>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10 lg:mt-[5px]">
-              <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>Trending Collections</div>
+              <div className={styles.title}>Trending Collections</div>
             </div>
           ) : (
-            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
-              Trending Collections
-            </div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
           )}
           {/* <div className="hidden lg:flex z-10">
             <Button
@@ -119,7 +127,7 @@ const TrendingCollectionSection = props => {
           <OutlineButton
             label="See More"
             onClick={() => router.push('/explore')}
-            borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderColor={'var(--see-more-border'}
             borderWidth={2}
             height="42px"
           />
@@ -197,7 +205,7 @@ const TrendingCollectionSection = props => {
               dispatch({ type: 'set', exploreTab: 1 })
               router.push('/explore')
             }}
-            borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderColor={'var(--see-more-border)'}
             height="40px"
           />
         </div>

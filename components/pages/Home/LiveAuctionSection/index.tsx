@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -14,8 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import OutlineButton from 'components/Button/OutlineButton'
-import Button from 'components/Button'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // custom functions
@@ -74,8 +72,6 @@ const LiveAuctionSection = props => {
     }
   }
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     allListAuctionList.length !== 0 && (
       <section className={styles.container}>
@@ -85,12 +81,10 @@ const LiveAuctionSection = props => {
             <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <div className="w-full flex justify-center items-center z-10">
-                  <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''}`}>Live Auctions</div>
+                  <div className={styles.title}>Live Auctions</div>
                 </div>
               ) : (
-                <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
-                  Live Auctions
-                </div>
+                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
             </div>
             {/* <div className="hidden lg:flex z-10">

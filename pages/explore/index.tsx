@@ -443,7 +443,7 @@ const Explore = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="2021" height="2021" viewBox="0 0 2021 2021">
+          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
             <defs>
               <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
                 <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
@@ -462,7 +462,7 @@ const Explore = () => {
           </svg>
         </div>
         <div className={styles.topRightEllipse}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="1705" height="1705" viewBox="0 0 1705 1705">
+          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
             <defs>
               <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
                 <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
@@ -543,7 +543,7 @@ const Explore = () => {
             </div>
             <div className="w-full relative -z-10">
               <div className={styles.middleRightEllipse}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1705" height="1705" viewBox="0 0 1705 1705">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
                   <defs>
                     <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
                       <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
@@ -563,7 +563,7 @@ const Explore = () => {
               </div>
 
               <div className={styles.bottomLeftEllipse}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1399" height="1399" viewBox="0 0 1399 1399">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
                   <defs>
                     <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
                       <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
