@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // third party components
 // swiper
@@ -30,7 +30,6 @@ const ActiveListingSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [exploreList, setExploreList] = useState([])
 
@@ -59,9 +58,7 @@ const ActiveListingSection = props => {
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
-              Active Listings
-            </div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Active Listings</div>
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">

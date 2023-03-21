@@ -282,6 +282,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--ellipse-report-bg', '#c4c6cc')
     doc.style.setProperty('--mobile-serachbox-bg', '#eff0f6')
     doc.style.setProperty('--mobile-serach-area-bg', 'rgba(239, 240, 247, 0.8')
+    doc.style.setProperty('--modal-close-btn-bg', 'rgba(241, 255, 255, 1)')
+    doc.style.setProperty('--auction-input-bg', '#DEDEE4')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -419,5 +421,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--ellipse-report-bg', '#1b1b1b')
     doc.style.setProperty('--mobile-serachbox-bg', '#121212')
     doc.style.setProperty('--mobile-serach-area-bg', '#313233')
+    doc.style.setProperty('--modal-close-btn-bg', 'rgba(239, 240, 246, 0.2)')
+    doc.style.setProperty('--auction-input-bg', '#202427')
   }
 }

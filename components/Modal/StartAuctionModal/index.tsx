@@ -18,10 +18,6 @@ import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
 
 // images
-import CloseIcon from 'assets/icons/close-wallet.svg'
-import CloseLightIcon from 'assets/icons/close-wallet-light.svg'
-import HelpGrayIcon from 'assets/icons/help-gray.svg'
-import HelpDarkIcon from 'assets/icons/help-dark.svg'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg'
 
@@ -34,13 +30,12 @@ import AuctionsAPI from 'apis/auctions'
 // solana
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose, onStartProgress } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     setPrice(null)
@@ -142,7 +137,25 @@ const StartAuctionModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={lightMode ? CloseLightIcon : CloseIcon} alt="" width={30} height={30} />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                    <g id="Group_51239" data-name="Group 51239" transform="translate(-1164 -333)">
+                      <rect
+                        id="Rectangle_20877"
+                        data-name="Rectangle 20877"
+                        width="30"
+                        height="30"
+                        rx="15"
+                        transform="translate(1164 333)"
+                        fill="var(--modal-close-btn-bg)"
+                      />
+                      <path
+                        id="times-7"
+                        d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,1,0,1.42,1.42L12,13.41l4.29,4.3a1,1,0,1,0,1.42-1.42Z"
+                        transform="translate(1167 335.999)"
+                        fill="var(--text-gray-200-color)"
+                      />
+                    </g>
+                  </svg>
                 </div>
                 <div className={styles.title}>Start Auction</div>
                 <div className="w-full max-w-[321px] mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
@@ -198,8 +211,8 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor={lightMode ? '#DEDEE4' : '#202427'}
-                      color={lightMode ? '#202427' : '#eff0f6'}
+                      backgroundColor={'var(--auction-input-bg)'}
+                      color={'var(--text-gray-200-color)'}
                       borderRadius="9px"
                       type="number"
                       onChange={value => {
@@ -215,8 +228,8 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor={lightMode ? '#DEDEE4' : '#202427'}
-                      color={lightMode ? '#202427' : '#eff0f6'}
+                      backgroundColor={'var(--auction-input-bg)'}
+                      color={'var(--text-gray-200-color)'}
                       borderRadius="9px"
                       type="number"
                       onChange={value => setHours(value)}
@@ -243,16 +256,20 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="mt-2 w-full flex gap-2 items-center">
                   <div className={styles.label}>Minimum bid increment: 0.1 SOL</div>
-                  <Image src={lightMode ? HelpDarkIcon : HelpGrayIcon} alt="" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 9 9">
+                    <path
+                      id="noun-help-2123682"
+                      d="M13.332,8.855a4.477,4.477,0,1,0,4.477,4.477A4.482,4.482,0,0,0,13.332,8.855Zm-.6,1.806a.113.113,0,0,1,.113-.113h.964a.113.113,0,0,1,.113.113v3.571a.113.113,0,0,1-.113.113H12.85a.113.113,0,0,1-.113-.113Zm.6,5.455a.737.737,0,1,1,.737-.737A.737.737,0,0,1,13.332,16.116Z"
+                      transform="translate(-8.855 -8.855)"
+                      fill="var(--text-gray-200-color)"
+                    />
+                  </svg>
                 </div>
                 <div className="w-full mt-12">
                   <GradientButton
                     label="Publish Auction"
                     fullWidth
                     onClick={() => handleStartAuction()}
-                    // backgroundColor01="#2D625D"
-                    // backgroundColor02="#5AC3BA"
-                    // gradientDirection="right"
                     disabled={buttonDisabled}
                     opacity={buttonDisabled ? 0.5 : 1}
                   />

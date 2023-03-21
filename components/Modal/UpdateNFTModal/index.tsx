@@ -3,31 +3,21 @@ import { Fragment, useState } from 'react'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
-// next components
-import Image from 'next/image'
-
 // solana
 import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 // custom components
 import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
-import Button from 'components/Button'
-
-// images
-import CloseIcon from 'assets/icons/close-wallet.svg'
-import CloseBlckIcon from 'assets/icons/close-wallet-black.svg'
 
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
-import { useSelector } from 'react-redux'
 
 const UpdateNFTModal = props => {
   const { data, open, onClose, onCancelList, onUpdatePrice } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     setPrice(null)
@@ -64,7 +54,25 @@ const UpdateNFTModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={lightMode ? CloseBlckIcon : CloseIcon} alt="" width={30} height={30} />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                    <g id="Group_51239" data-name="Group 51239" transform="translate(-1164 -333)">
+                      <rect
+                        id="Rectangle_20877"
+                        data-name="Rectangle 20877"
+                        width="30"
+                        height="30"
+                        rx="15"
+                        transform="translate(1164 333)"
+                        fill="var(--modal-close-btn-bg)"
+                      />
+                      <path
+                        id="times-7"
+                        d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,1,0,1.42,1.42L12,13.41l4.29,4.3a1,1,0,1,0,1.42-1.42Z"
+                        transform="translate(1167 335.999)"
+                        fill="var(--text-gray-200-color)"
+                      />
+                    </g>
+                  </svg>
                 </div>
                 <div className={styles.title}>Update NFT</div>
                 {data?.json?.animation_url ? (
