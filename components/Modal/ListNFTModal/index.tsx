@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -37,7 +37,6 @@ const ListNFTModal = props => {
   const [listStatus, setListStatus] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const handleListNFTClick = async () => {
     setShowLoading(true)
@@ -103,7 +102,25 @@ const ListNFTModal = props => {
                       onClose('unlisted')
                     }}
                   >
-                    <Image src={lightMode ? CloseLightIcon : CloseIcon} alt="" width={30} height={30} />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+                      <g id="Group_51239" data-name="Group 51239" transform="translate(-1164 -333)">
+                        <rect
+                          id="Rectangle_20877"
+                          data-name="Rectangle 20877"
+                          width="30"
+                          height="30"
+                          rx="15"
+                          transform="translate(1164 333)"
+                          fill="var(--modal-close-btn-bg)"
+                        />
+                        <path
+                          id="times-7"
+                          d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,1,0,1.42,1.42L12,13.41l4.29,4.3a1,1,0,1,0,1.42-1.42Z"
+                          transform="translate(1167 335.999)"
+                          fill="var(--text-gray-200-color)"
+                        />
+                      </g>
+                    </svg>
                   </div>
                   <div className={styles.title}>List NFT</div>
                   <div className="w-full max-w-[321px] mt-[20px] lg:mt-10 flex justify-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
@@ -144,9 +161,6 @@ const ListNFTModal = props => {
                         label="List"
                         fontSize={18}
                         fullWidth
-                        // backgroundColor01="#306963"
-                        // backgroundColor02="#5AC3BA"
-                        // gradientDirection="right"
                         onClick={() => handleListNFTClick()}
                       />
                     )}

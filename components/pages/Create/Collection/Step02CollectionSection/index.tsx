@@ -661,7 +661,7 @@ const Step02CollectionSection = props => {
                       <Input
                         value={item.name}
                         placeholder="Give your art name"
-                        backgroundColor={lightMode ? '#202427' : ''}
+                        backgroundColor={'var(--input-bg)'}
                         label=""
                         fullWidth
                         onChange={value => onChangeCollectionName(item, value)}
@@ -683,7 +683,7 @@ const Step02CollectionSection = props => {
                       <Textarea
                         value={item.description}
                         placeholder="Add a short description..."
-                        backgroundColor={lightMode ? '#202427' : ''}
+                        backgroundColor={'var(--input-bg)'}
                         fullWidth
                         onChange={value => onChangeCollectionDescription(item, value)}
                         height="90px"
@@ -727,9 +727,9 @@ const Step02CollectionSection = props => {
                   fullWidth
                   disabled={disabledNextButton}
                   gradientDirection="bottom"
-                  backgroundColor01={lightMode ? '#202427' : '#95DBD5'}
-                  backgroundColor02={lightMode ? '#202427' : '#4B6E6B'}
-                  color={lightMode ? '#95DBD5' : '#202427'}
+                  backgroundColor01={'var(--mint-btn-bg-1)'}
+                  backgroundColor02={'var(--mint-btn-bg-2)'}
+                  color={'var(--mint-btn-color)'}
                   onClick={() => handleChangeCurrentStep(currentStep + 1)}
                 />
               )}

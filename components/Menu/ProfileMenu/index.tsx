@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import { useSelector } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -7,16 +6,11 @@ import Image from 'next/image'
 // third party components
 import { Menu, Transition } from '@headlessui/react'
 
-// images and icons
-import UserAccountWhiteIcon from 'assets/icons/user-account-green.svg'
-import UserAccountLightIcon from 'assets/icons/user-account-white-light.svg'
-
 // styles
 import styles from './index.module.scss'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className="relative flex items-center">
@@ -26,7 +20,15 @@ const ProfileMenu = props => {
             {connectWalletStatus ? (
               <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
             ) : (
-              <Image src={lightMode ? UserAccountLightIcon : UserAccountWhiteIcon} alt="" />
+              // <Image src={lightMode ? UserAccountLightIcon : UserAccountWhiteIcon} alt="" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012" viewBox="0 0 19.902 20.012">
+                <path
+                  id="user-19"
+                  d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1.006,1.006,0,1,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1,10,10,0,0,0-6.25-8.19ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z"
+                  transform="translate(-2.064 -1.995)"
+                  fill="var(--profile-user-color)"
+                />
+              </svg>
             )}
           </div>
         </Menu.Button>

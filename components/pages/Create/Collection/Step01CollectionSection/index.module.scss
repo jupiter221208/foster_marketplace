@@ -121,11 +121,7 @@
   }
   border-radius: 12px;
   border: 2px dashed rgba($text-gray-200-color, 0.6);
-  background-color: rgba(var(--white-color-rgb), 0.05);
-}
-
-.lightDropzone {
-  background-color: $background-dark-color;
+  background-color: var(--drop-zone-bg);
 }
 
 .selectArea {
@@ -150,10 +146,6 @@
   }
   letter-spacing: 0;
   color: $text-gray-200-color;
-}
-
-.lightSubTitle {
-  color: $background-dark-color;
 }
 
 .text {

@@ -104,7 +104,7 @@ const SuccessMintCollectionSection = props => {
                     icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color={lightMode ? '#95dbd5' : '#202427'}
+                    color={'var(--mint-btn-color)'}
                     backgroundColor="#378287"
                     onClick={() => {}}
                     direction="rtl"
@@ -119,7 +119,7 @@ const SuccessMintCollectionSection = props => {
                   height="68px"
                   fontSize="22px"
                   onClick={() => router.push('/dashboard')}
-                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
+                  borderColor={'var(--outline-button-border)'}
                 />
               </div>
             </div>
@@ -184,7 +184,7 @@ const SuccessMintCollectionSection = props => {
                     icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
-                    color={lightMode ? '#95dbd5' : '#202427'}
+                    color={'var(--mint-btn-color)'}
                     backgroundColor="#378287"
                     onClick={() => {}}
                     direction="rtl"
@@ -197,7 +197,7 @@ const SuccessMintCollectionSection = props => {
                   label="View Dashboard"
                   backgroundColor="#63D6CD"
                   onClick={() => router.push('/dashboard')}
-                  borderColor={lightMode ? '#202427' : '#5AC3BA'}
+                  borderColor={'var(--outline-button-border)'}
                 />
               </div>
             </div>

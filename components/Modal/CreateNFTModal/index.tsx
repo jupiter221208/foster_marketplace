@@ -94,13 +94,13 @@ const CreateNFTModal = props => {
                         label="Single"
                         width={180}
                         height={49}
-                        backgroundColor01={lightMode ? '#4D706D' : '#121212'}
-                        backgroundColor02={lightMode ? '#95DBD5' : '#2D625D'}
+                        backgroundColor01={'var(--single-nft-btn-bg-1)'}
+                        backgroundColor02={'var(--single-nft-btn-bg-2)'}
                         icon={lightMode ? AddBlackIcon : AddGrayIcon}
                         onClick={() => handleClickButton('/create/single-nft')}
                         gradientDirection="right"
                         fontSize="18px"
-                        color={lightMode ? '#202427' : '#95DBD5'}
+                        color={'var(--single-nft-btn-color)'}
                       />
 
                       <OutlineButton

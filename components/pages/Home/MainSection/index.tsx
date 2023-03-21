@@ -139,7 +139,7 @@ const MainSection = () => {
                 alt=""
                 objectFit="cover"
               />
-              <div className={lightMode ? styles.lightCardText : styles.cardText}>CREATE. COLLECT. CURATE.</div>
+              <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div>
             </div>
           ) : (
             <></>

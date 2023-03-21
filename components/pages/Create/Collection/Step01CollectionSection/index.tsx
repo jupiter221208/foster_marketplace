@@ -546,29 +546,29 @@ const Step01CollectionSection = props => {
           </div>
           {/* upload artwork part */}
           <div className="w-full">
-            <div className={`${lightMode ? styles.lightSubTitle : styles.subTitle} mt-5`}>Collection Name *</div>
+            <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
                 value={limit(collectionName, 20)}
                 placeholder="Give your art name"
-                backgroundColor={lightMode ? '#202427' : ''}
+                backgroundColor={'var(--input-bg)'}
                 label01="Max Characters 20"
                 label02={20 - collectionName.length === 20 ? '' : `${20 - collectionName.length} Characters left`}
                 onChange={value => onChangeCollectionName(limit(value, 20))}
               />
             </div>
-            <div className={`${lightMode ? styles.lightSubTitle : styles.subTitle} mt-5`}>Description *</div>
+            <div className={`${styles.subTitle} mt-5`}>Description *</div>
             <div className="w-full mt-5">
               <Textarea
                 value={limit(description, 1000)}
-                backgroundColor={lightMode ? '#202427' : ''}
+                backgroundColor={'var(--input-bg)'}
                 placeholder="Add a short description..."
                 label01="Max Characters 1000"
                 label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} ${lightMode ? styles.lightSubTitle : ''} mt-10`}>Cover Image *</div>
+            <div className={`${styles.subTitle} mt-10`}>Cover Image *</div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
@@ -582,7 +582,7 @@ const Step01CollectionSection = props => {
                 maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
-                  <section className={`${styles.dropzone} ${lightMode ? styles.lightDropzone : ''}`}>
+                  <section className={styles.dropzone}>
                     <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
                       open
                     </button>
@@ -600,7 +600,7 @@ const Step01CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            <div className={`${styles.subTitle} ${lightMode ? styles.lightSubTitle : ''} mt-10`}>Banner Image *</div>
+            <div className={`${styles.subTitle} mt-10`}>Banner Image *</div>
             <div className="mt-5">
               <Dropzone
                 onDrop={acceptedFiles => {
@@ -614,7 +614,7 @@ const Step01CollectionSection = props => {
                 maxSize={31457280}
               >
                 {({ getRootProps, getInputProps, open }) => (
-                  <section className={`${styles.dropzone} ${lightMode ? styles.lightDropzone : ''}`}>
+                  <section className={styles.dropzone}>
                     <button onClick={open} ref={dropzoneBannerEl} style={{ display: 'none' }}>
                       open
                     </button>
@@ -632,11 +632,7 @@ const Step01CollectionSection = props => {
                 )}
               </Dropzone>
             </div>
-            <div
-              className={`${styles.subTitle} ${
-                lightMode ? styles.lightSubTitle : ''
-              } mt-10 flex justify-start items-center gap-2`}
-            >
+            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
               Royalties * <Image src={InfoCircleLightGreenIcon} alt="" />
             </div>
             <div className="max-w-[370px] w-full mt-5">
@@ -644,8 +640,8 @@ const Step01CollectionSection = props => {
                 value={royalties}
                 placeholder="Insert a royalty percentage"
                 label="From 0 to 10%"
-                labelColor={lightMode ? '#202427' : ''}
-                backgroundColor={lightMode ? '#202427' : ''}
+                labelColor={'var(--input-bg)'}
+                backgroundColor={'var(--input-bg)'}
                 type="number"
                 min={0}
                 onChange={value => {

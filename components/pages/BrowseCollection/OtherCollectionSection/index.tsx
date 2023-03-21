@@ -110,7 +110,7 @@ const OtherCollectionSection = props => {
               label="See More"
               fullWidth
               onClick={() => router.push(`/artist-profile?id=${artistId}`)}
-              borderColor={lightMode ? '#202427' : '#ffffff'}
+              borderColor={'var(--see-more-border)'}
               height="40px"
             />
           </div>

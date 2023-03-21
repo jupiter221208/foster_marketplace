@@ -300,6 +300,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #72A4A0, #202427)')
     doc.style.setProperty('--resource-card-default-bg', '#eff0f6')
     doc.style.setProperty('--home-swiper-bg', '#202427')
+    doc.style.setProperty('--explore-btn-bg-1', '#95DBD5')
+    doc.style.setProperty('--explore-btn-bg-2', '#4B6E6B')
+    doc.style.setProperty('--home-hero-title', '#414144')
+    doc.style.setProperty('--profile-user-color', '#202427')
+    doc.style.setProperty('--single-nft-btn-bg-1', '#4D706D')
+    doc.style.setProperty('--single-nft-btn-bg-2', '#95DBD5')
+    doc.style.setProperty('--single-nft-btn-color', '#202427')
+    doc.style.setProperty('--drop-zone-bg', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -458,5 +466,13 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #101717, #3A6A68)')
     doc.style.setProperty('--resource-card-default-bg', '#202427')
     doc.style.setProperty('--home-swiper-bg', '#5ac3ba')
+    doc.style.setProperty('--explore-btn-bg-1', '#5ac3ba')
+    doc.style.setProperty('--explore-btn-bg-2', '#378287')
+    doc.style.setProperty('--home-hero-title', '#eff0f6')
+    doc.style.setProperty('--profile-user-color', '#14F195')
+    doc.style.setProperty('--single-nft-btn-bg-1', '#121212')
+    doc.style.setProperty('--single-nft-btn-bg-2', '#2D625D')
+    doc.style.setProperty('--single-nft-btn-color', '#95DBD5')
+    doc.style.setProperty('--drop-zone-bg', 'rgba(255, 255, 255, 0.05)')
   }
 }
