@@ -308,6 +308,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--single-nft-btn-bg-2', '#95DBD5')
     doc.style.setProperty('--single-nft-btn-color', '#202427')
     doc.style.setProperty('--drop-zone-bg', '#202427')
+    doc.style.setProperty('--filter-btn-bg', '#BBBCC1')
+    doc.style.setProperty('--filter-btn-border', '#EFF0F6')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -474,5 +476,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--single-nft-btn-bg-2', '#2D625D')
     doc.style.setProperty('--single-nft-btn-color', '#95DBD5')
     doc.style.setProperty('--drop-zone-bg', 'rgba(255, 255, 255, 0.05)')
+    doc.style.setProperty('--filter-btn-bg', '#334D4B')
+    doc.style.setProperty('--filter-btn-border', '#ECEEF4')
   }
 }

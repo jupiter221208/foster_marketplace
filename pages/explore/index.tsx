@@ -462,13 +462,7 @@ const Explore = () => {
             objectFit="cover"
           />
         </div>
-        <div
-          className={`${styles.title} ${
-            lightMode ? styles.lightTitle : ''
-          } w-full text-center hidden lg:flex lg:text-start`}
-        >
-          Explore the Circus
-        </div>
+        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore the Circus</div>
         <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] xl:mt-[88px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
@@ -507,8 +501,8 @@ const Explore = () => {
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
                 color="#EFF0F6"
-                backgroundColor={lightMode ? '#BBBCC1' : '#334D4B'}
-                borderColor={lightMode ? '#EFF0F6' : '#ECEEF4'}
+                backgroundColor={'var(--filter-btn-bg)'}
+                borderColor={'var(--filter-btn-border'}
                 fontFamily="Muli-Regular"
                 fontSize={14}
                 borderRadius={8}
@@ -522,8 +516,8 @@ const Explore = () => {
                 fontFamily="Muli-Regular"
                 fontSize={14}
                 color="#EFF0F6"
-                backgroundColor={lightMode ? '#BBBCC1' : '#334D4B'}
-                borderColor={lightMode ? '#EFF0F6' : '#ECEEF4'}
+                backgroundColor={'var(--filter-btn-bg)'}
+                borderColor={'var(--filter-btn-border'}
                 borderRadius={8}
                 icon={SortGrayIcon}
                 direction="rtl"

@@ -58,7 +58,7 @@ const Dao = () => {
                 icon={TurkeyLogo}
                 direction="rtl"
                 fullWidth
-                backgroundColor={lightMode ? '#202427' : ''}
+                backgroundColor={'var(--see-more-border)'}
                 color="#95DBD5"
                 fontFamily="KCDurhamboxcar"
                 fontSize="30px"
