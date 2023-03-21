@@ -58,9 +58,7 @@ const AccordionMenu = props => {
             </div>
             {data.length !== 0 && (
               <ChevronRightIcon
-                className={`${styles.rightIcon} ${
-                  open ? (lightMode ? `${styles.lightIconColor} rotate-90 transform` : 'rotate-90 transform') : ''
-                } h-6 w-6`}
+                className={`${styles.rightIcon} ${open ? `${styles.openIconColor} rotate-90 transform` : ''} h-6 w-6`}
               />
             )}
           </Disclosure.Button>

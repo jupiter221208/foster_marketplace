@@ -186,8 +186,6 @@ const ArtistHeader = () => {
     }
   }
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div>
       <div className={styles.blurContainer}>

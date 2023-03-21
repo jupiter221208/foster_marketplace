@@ -5,47 +5,8 @@
   border: 1px solid var(--text-gray-200-color);
   background-color: transparent;
   &:checked {
-    border: 2px solid var(--brand-09-color);
-    background-color: var(--brand-09-color);
-    position: relative;
-    &:before {
-      content: '';
-      background-color: transparent;
-      /* position the checkbox */
-      position: absolute;
-      left: 7px;
-      top: 2px;
-
-      /* setting the checkbox */
-      /* short arm */
-      width: 7px;
-      border-bottom: 3px solid var(--text-gray-800-color);
-      /* long arm */
-      height: 15px;
-      border-right: 3px solid var(--text-gray-800-color);
-
-      /* rotate the mirrored L to make it a checkbox */
-      transform: rotate(45deg);
-      -o-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      -webkit-transform: rotate(45deg);
-    }
-  }
-  &:focus {
-    outline: none;
-  }
-  vertical-align: top;
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-}
-
-.lightCheckbox {
-  appearance: none;
-  border: 1px solid var(--background-dark-color);
-  background-color: transparent;
-  &:checked {
+    border: 1px solid var(--checkbox-border-color);
+    background-color: var(--checkbox-bg-color);
     position: relative;
     &:before {
       content: '';
@@ -86,19 +47,12 @@
   flex: 1;
   font-size: 16px;
   line-height: 24px;
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   letter-spacing: 0;
 }
 
 .selected {
   color: var(--text-gray-200-color);
-  font-family: 'Muli-SemiBold';
-  font-size: 20px;
-  line-height: 24px;
-}
-
-.lightSelected {
-  color: var(--background-dark-color);
   font-family: 'Muli-SemiBold';
   font-size: 20px;
   line-height: 24px;
