@@ -310,6 +310,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--drop-zone-bg', '#202427')
     doc.style.setProperty('--filter-btn-bg', '#BBBCC1')
     doc.style.setProperty('--filter-btn-border', '#EFF0F6')
+    doc.style.setProperty('--ellipse-svg-1', '#78787b')
+    doc.style.setProperty('--ellipse-svg-2', '#202427')
+    doc.style.setProperty('--tooltip-bg', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--tooltip-border', 'rgba(32, 36, 39, 0.1)')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -478,5 +482,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--drop-zone-bg', 'rgba(255, 255, 255, 0.05)')
     doc.style.setProperty('--filter-btn-bg', '#334D4B')
     doc.style.setProperty('--filter-btn-border', '#ECEEF4')
+    doc.style.setProperty('--ellipse-svg-1', '#63d6cd')
+    doc.style.setProperty('--ellipse-svg-2', '#63d6cd')
+    doc.style.setProperty('--tooltip-bg', 'rgba(239, 240, 247, 0.2)')
+    doc.style.setProperty('--tooltip-border', 'rgba(239, 240, 247, 0.1)')
   }
 }

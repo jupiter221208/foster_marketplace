@@ -39,7 +39,6 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
   const viewport = useViewport()
   const { metaplex } = useMetaplex()
   const router = useRouter()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [ownerOrBuyerAddress, setOwnerOrBuyerAddress] = useState<PublicKey | null>(null)
   useEffect(() => {
@@ -92,8 +91,8 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
               label="Cancel"
               onClick={() => onCancel(listing)}
               // background="transparent"
-              color={lightMode ? "#202427" : "#95DBD5"}
-              borderColor={lightMode ? "#202427" :"#95DBD5"}
+              color={'var(--checkbox-border-color)'}
+              borderColor={'var(--checkbox-border-color)'}
               width="138px"
               height="48px"
             />

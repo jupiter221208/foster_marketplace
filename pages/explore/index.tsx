@@ -434,8 +434,6 @@ const Explore = () => {
     }
   }
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     <div className="g-container">
       <Head>
@@ -444,23 +442,43 @@ const Explore = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-          <Image
-            src={lightMode ? EllipseGreenLight : EllipseGreen}
-            width={2021}
-            height={2021}
-            alt=""
-            objectFit="cover"
-          />
+        <div className={styles.topLeftEllipse}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="2021" height="2021" viewBox="0 0 2021 2021">
+            <defs>
+              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle
+              id="Ellipse_4322"
+              data-name="Ellipse 4322"
+              cx="1010.5"
+              cy="1010.5"
+              r="1010.5"
+              transform="translate(150 150)"
+              fill="url(#radial-gradient)"
+            />
+          </svg>
         </div>
-        <div className={`${styles.topRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-          <Image
-            src={lightMode ? EllipseGreenLight : EllipseGreen}
-            width={1705}
-            height={1705}
-            alt=""
-            objectFit="cover"
-          />
+        <div className={styles.topRightEllipse}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="1705" height="1705" viewBox="0 0 1705 1705">
+            <defs>
+              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle
+              id="Ellipse_4322"
+              data-name="Ellipse 4322"
+              cx="1010.5"
+              cy="1010.5"
+              r="1010.5"
+              transform="translate(150 150)"
+              fill="url(#radial-gradient)"
+            />
+          </svg>
         </div>
         <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore the Circus</div>
         <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] xl:mt-[88px] z-10">
@@ -524,24 +542,44 @@ const Explore = () => {
               />
             </div>
             <div className="w-full relative -z-10">
-              <div className={`${styles.middleRightEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-                <Image
-                  src={lightMode ? EllipseGreenLight : EllipseGreen}
-                  width={2021}
-                  height={2021}
-                  alt=""
-                  objectFit="cover"
-                />
+              <div className={styles.middleRightEllipse}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1705" height="1705" viewBox="0 0 1705 1705">
+                  <defs>
+                    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                      <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                      <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <circle
+                    id="Ellipse_4322"
+                    data-name="Ellipse 4322"
+                    cx="1010.5"
+                    cy="1010.5"
+                    r="1010.5"
+                    transform="translate(150 150)"
+                    fill="url(#radial-gradient)"
+                  />
+                </svg>
               </div>
 
-              <div className={`${styles.bottomLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-                <Image
-                  src={lightMode ? EllipseGreenLight : EllipseGreen}
-                  width={1399}
-                  height={1399}
-                  alt=""
-                  objectFit="cover"
-                />
+              <div className={styles.bottomLeftEllipse}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1399" height="1399" viewBox="0 0 1399 1399">
+                  <defs>
+                    <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                      <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                      <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <circle
+                    id="Ellipse_4322"
+                    data-name="Ellipse 4322"
+                    cx="1010.5"
+                    cy="1010.5"
+                    r="1010.5"
+                    transform="translate(150 150)"
+                    fill="url(#radial-gradient)"
+                  />
+                </svg>
               </div>
             </div>
             <div className="w-full relative z-10">
