@@ -259,6 +259,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--collection-filter-title', '#202427')
     doc.style.setProperty('--deposit-btn-bg-1', '#4B6E6B')
     doc.style.setProperty('--deposit-btn-bg-2', '#95DBD5')
+    doc.style.setProperty('--mint-btn-bg-1', '#202427')
+    doc.style.setProperty('--mint-btn-bg-2', '#202427')
+    doc.style.setProperty('--mint-btn-color', '#95DBD5')
     doc.style.setProperty('--wallet-box-shadow', '0px 0px 0px transparent')
     doc.style.setProperty('--wallet-btn-bg', '#202427')
     doc.style.setProperty('--wallet-btn-hover', '#95DBD5')
@@ -287,6 +290,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--see-more-border', '#202427')
     doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
     doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--place-bid-close-rect', '#DDF2F5')
+    doc.style.setProperty('--place-bid-close-path', '#202427')
+    doc.style.setProperty('--input-bg', '#202427')
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -386,7 +392,10 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--collection-mint-left-bg', '#121212')
     doc.style.setProperty('--connect-wallet-text', '#eff0f6')
-    doc.style.setProperty('--connect-wallet-bg', 'linear-gradient(to bottom, rgba(55, 130, 135, 1), rgba(#244246, 1))')
+    doc.style.setProperty(
+      '--connect-wallet-bg',
+      'linear-gradient(to bottom, rgba(55, 130, 135, 1), rgba(36, 66, 70, 1))'
+    )
     doc.style.setProperty('--mint-progress-bg', 'rgba(12, 12, 12, 0.5)')
     doc.style.setProperty('--mint-progress-mobile-bg', 'rgba(12, 12, 12, 0.5)')
     doc.style.setProperty(
@@ -405,6 +414,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--collection-filter-title', '#95DBD5')
     doc.style.setProperty('--deposit-btn-bg-1', '#2B4142')
     doc.style.setProperty('--deposit-btn-bg-2', '#59BFB7')
+    doc.style.setProperty('--mint-btn-bg-1', '#95DBD5')
+    doc.style.setProperty('--mint-btn-bg-2', '#4B6E6B')
+    doc.style.setProperty('--mint-btn-color', '#202427')
     doc.style.setProperty(
       '--wallet-box-shadow',
       '0px 5px 10px rgba(153, 69, 255, 0.2), 0px -5px 10px rgba(20, 241, 149, 0.2)'
@@ -429,5 +441,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--see-more-border', '#ffffff')
     doc.style.setProperty('--artist-card-bg', 'rgba(32, 36, 39, 0.7)')
     doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 0.5)')
+    doc.style.setProperty('--place-bid-close-rect', 'rgba(239, 240, 246, 0.2)')
+    doc.style.setProperty('--place-bid-close-path', '#eff0f6')
+    doc.style.setProperty('--input-bg', 'rgba(255, 255, 255, 0.25)')
   }
 }

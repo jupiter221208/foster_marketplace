@@ -18,7 +18,6 @@ import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const Step02SingleNFTSection = props => {
   const {
@@ -34,7 +33,6 @@ const Step02SingleNFTSection = props => {
   } = props
 
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className="w-full">
@@ -70,7 +68,7 @@ const Step02SingleNFTSection = props => {
         <Input
           value={limit(nftName, 20)}
           placeholder="Give your art name"
-          backgroundColor={lightMode ? '#202427' : ''}
+          backgroundColor={'var(--input-bg)'}
           label01="Max Characters 20"
           label02={20 - nftName.length === 20 ? '' : `${20 - nftName.length} Characters left`}
           onChange={value => setNftName(limit(value, 20))}
@@ -81,7 +79,7 @@ const Step02SingleNFTSection = props => {
         <Textarea
           value={limit(description, 1000)}
           placeholder="Add a short description..."
-          backgroundColor={lightMode ? '#202427' : ''}
+          backgroundColor={'var(--input-bg)'}
           label01="Max Characters 1000"
           label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
           onChange={value => setDescription(value)}

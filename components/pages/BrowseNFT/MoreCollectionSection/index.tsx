@@ -23,13 +23,11 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
-import { useSelector } from 'react-redux'
 
 const MoreCollectionSection = props => {
   const { collectionId } = props
   const viewport = useViewport()
   const router = useRouter()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [nftList, setNftList] = useState([])
 
@@ -48,15 +46,13 @@ const MoreCollectionSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className={`${styles.title} ${lightMode ? styles.lightTitle : ''} mr-0 lg:mr-6 xl:mr-8`}>
-            More from this Collection
-          </div>
+          <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Collection</div>
         </div>
         <div className="hidden lg:flex z-10">
           <OutlineButton
             label="See More"
             onClick={() => router.push(`/browse-collection/${collectionId}`)}
-            borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderColor={'var(--see-more-border)'}
             height="42px"
           />
         </div>
@@ -96,7 +92,7 @@ const MoreCollectionSection = props => {
             label="See More"
             fullWidth
             onClick={() => router.push(`/browse-collection/${collectionId}`)}
-            borderColor={lightMode ? '#202427' : '#ffffff'}
+            borderColor={'var(--see-more-border)'}
             height="40px"
           />
         </div>

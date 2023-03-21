@@ -80,22 +80,6 @@ const Step03CollectionSection = props => {
 
   const [selectedCollectionFile, setSelectedCollectionFile] = useState<any>()
 
-  // useEffect(() => {
-  //   if (collectionFiles !== undefined && collectionFiles.length !== 0) {
-  //     setSelectedCollectionFile(collectionFiles[0])
-  //   }
-  //   if (collectionFiles !== undefined && collectionFiles.length !== 0 && collectionFiles.length > 5) {
-  //     setShowMore(true)
-  //     setSubCollectionFiles(collectionFiles.slice(0, 5))
-  //   }
-  // }, [collectionFiles])
-
-  // useEffect(() => {
-  //   if (subCollectionFiles !== undefined && subCollectionFiles.length !== 0) {
-  //     setSelectedCollectionFile(subCollectionFiles[0])
-  //   }
-  // }, [subCollectionFiles])
-
   return (
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -627,7 +611,7 @@ const Step03CollectionSection = props => {
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          backgroundColor={lightMode ? '#202427' : ''}
+                          backgroundColor={'var(--input-bg)'}
                           onChange={() => {}}
                           height="46px"
                         />
@@ -647,7 +631,7 @@ const Step03CollectionSection = props => {
                         <Textarea
                           value={item.description}
                           placeholder="Add a short description..."
-                          backgroundColor={lightMode ? '#202427' : ''}
+                          backgroundColor={'var(--input-bg)'}
                           fullWidth
                           onChange={() => {}}
                           height="90px"
@@ -689,9 +673,9 @@ const Step03CollectionSection = props => {
                       fullWidth
                       label="Mint Collection"
                       gradientDirection="bottom"
-                      backgroundColor01={lightMode ? '#202427' : '#95DBD5'}
-                      backgroundColor02={lightMode ? '#202427' : '#4B6E6B'}
-                      color={lightMode ? '#95DBD5' : '#202427'}
+                      backgroundColor01={'var(--mint-btn-bg-1)'}
+                      backgroundColor02={'var(--mint-btn-bg-2)'}
+                      color={'var(--mint-btn-color)'}
                       onClick={() => uploadArtworks()}
                       height="45px"
                     />

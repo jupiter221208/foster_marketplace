@@ -12,13 +12,8 @@ import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
 import Alert from 'components/Alert'
 
-// images
-import CloseIcon from 'assets/icons/close-wallet.svg'
-import CloseLightIcon from 'assets/icons/close-wallet-light.svg'
-
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const ModalPlaceBid = props => {
   const { balance, nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
@@ -26,7 +21,6 @@ const ModalPlaceBid = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [priceCheckMode, setPriceCheckMode] = useState(0)
   const [price, setPrice] = useState<number>(0)
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     onClose()
@@ -105,7 +99,29 @@ const ModalPlaceBid = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={lightMode ? CloseLightIcon : CloseIcon} alt="" width={30} height={30} />
+                  <svg
+                    id="Group_51239"
+                    data-name="Group 51239"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                  >
+                    <rect
+                      id="Rectangle_20877"
+                      data-name="Rectangle 20877"
+                      width="30"
+                      height="30"
+                      rx="15"
+                      fill="var(--place-bid-close-rect)"
+                    />
+                    <path
+                      id="times-7"
+                      d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,1,0,1.42,1.42L12,13.41l4.29,4.3a1,1,0,1,0,1.42-1.42Z"
+                      transform="translate(3 2.999)"
+                      fill="var(--place-bid-close-path)"
+                    />
+                  </svg>
                 </div>
                 <div className={styles.title}>Place Bid</div>
                 <div className="w-full mt-10">
