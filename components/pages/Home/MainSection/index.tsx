@@ -127,15 +127,15 @@ const MainSection = () => {
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
             <span className={styles.whiteTitle}>Solana Deserves</span>
           </p> */}
-          {/* <Image
+          <Image
             src={lightMode ? FosterEnhancedLightIcon : FosterEnhancedIcon}
             width={624}
             height={141}
             alt=""
             objectFit="cover"
-          /> */}
+          />
 
-          {lightMode ? <FosterEnhancedLightIcon /> : <FosterEnhancedIcon />}
+          {/* {lightMode ? <FosterEnhancedLightIcon /> : <FosterEnhancedIcon />} */}
 
           <div className={styles.text}>Home to the Next Generation of Digital Creators.</div>
 
