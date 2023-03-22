@@ -12,12 +12,9 @@ import SearchLargeEnableIcon from 'assets/icons/search-large-enable.svg'
 
 // styles
 import styles from './index.module.scss'
-import Image from 'next/image'
-import { useSelector } from 'react-redux'
 
 const SearchSection = props => {
   const { searchWord, period, setPeriod, setSearchWord, onSearch } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>

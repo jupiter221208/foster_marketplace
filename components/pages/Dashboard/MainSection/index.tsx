@@ -49,13 +49,13 @@ import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const profileInfo = useSelector(state => (state as any).profileInfo)
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
@@ -375,8 +375,18 @@ const MainSection = () => {
           <div className="col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center mt-[-45px]">
               <div>
-                <IconButton
-                  icon={lightMode ? SettingBlackIcon : SettingWhiteIcon}
+                <IconButtonWithSVG
+                  // icon={lightMode ? SettingBlackIcon : SettingWhiteIcon}
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
+                      <path
+                        id="setting-8"
+                        d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
+                        transform="translate(-1.857 -1.999)"
+                        fill="var(--text-gray-200-color)"
+                      />
+                    </svg>
+                  }
                   iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
@@ -415,8 +425,17 @@ const MainSection = () => {
                 />
               </div> */}
               <div>
-                <IconButton
-                  icon={lightMode ? SettingBlackIcon : SettingWhiteIcon}
+                <IconButtonWithSVG
+                  icon={
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
+                      <path
+                        id="setting-8"
+                        d="M23.893,15.019a1.221,1.221,0,0,1,0-1.612l1.563-1.759A1.221,1.221,0,0,0,25.6,10.22L23.16,5.994a1.221,1.221,0,0,0-1.307-.586l-2.3.464a1.221,1.221,0,0,1-1.4-.806l-.745-2.235A1.221,1.221,0,0,0,16.248,2H11.362a1.221,1.221,0,0,0-1.221.83L9.457,5.066a1.221,1.221,0,0,1-1.4.806L5.7,5.408a1.221,1.221,0,0,0-1.221.586L2.032,10.22a1.221,1.221,0,0,0,.122,1.429L3.7,13.407a1.221,1.221,0,0,1,0,1.612L2.154,16.778a1.221,1.221,0,0,0-.122,1.429l2.443,4.226a1.221,1.221,0,0,0,1.307.586l2.3-.464a1.221,1.221,0,0,1,1.4.806l.745,2.235a1.221,1.221,0,0,0,1.221.83h4.885a1.221,1.221,0,0,0,1.16-.83l.745-2.235a1.221,1.221,0,0,1,1.4-.806l2.3.464a1.221,1.221,0,0,0,1.307-.586l2.443-4.226a1.221,1.221,0,0,0-.147-1.429Zm-1.82,1.637.977,1.1-1.563,2.711-1.441-.293a3.664,3.664,0,0,0-4.213,2.443l-.464,1.368H12.242l-.44-1.392a3.664,3.664,0,0,0-4.213-2.443l-1.441.293-1.588-2.7.977-1.1a3.664,3.664,0,0,0,0-4.885l-.977-1.1L6.123,7.972l1.441.293a3.664,3.664,0,0,0,4.213-2.443l.464-1.38h3.127l.464,1.392a3.664,3.664,0,0,0,4.213,2.443l1.441-.293L23.05,10.7l-.977,1.1a3.664,3.664,0,0,0,0,4.861ZM13.8,9.328a4.885,4.885,0,1,0,4.885,4.885A4.885,4.885,0,0,0,13.8,9.328Zm0,7.328a2.443,2.443,0,1,1,2.443-2.443A2.443,2.443,0,0,1,13.8,16.656Z"
+                        transform="translate(-1.857 -1.999)"
+                        fill="var(--text-gray-200-color)"
+                      />
+                    </svg>
+                  }
                   iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
