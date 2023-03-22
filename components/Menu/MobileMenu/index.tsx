@@ -45,7 +45,6 @@ const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { connected, publicKey, disconnect } = useWallet()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -184,7 +183,15 @@ const MobileMenu = () => {
             >
               <div>Logout</div>
               <div className="flex items-center ml-2">
-                <Image src={lightMode ? LogoutDarkIcon : LogoutDarkRedIcon} alt="" />
+                {/* <Image src={lightMode ? LogoutDarkIcon : LogoutDarkRedIcon} alt="" /> */}
+                <svg xmlns="http://www.w3.org/2000/svg" width="18.057" height="18.063" viewBox="0 0 18.057 18.063">
+                  <path
+                    id="sign-out-alt"
+                    d="M3.359,13.83a.9.9,0,0,1,1.21.406,7.225,7.225,0,1,0,0-6.412.909.909,0,1,1-1.626-.813,9.031,9.031,0,1,1,0,8.037.9.9,0,0,1,.415-1.219Zm-.452-3.7h8.661L9.491,8.06a.907.907,0,0,1,1.282-1.282l3.612,3.612a.934.934,0,0,1,0,1.282l-3.612,3.612A.907.907,0,1,1,9.491,14l2.077-2.068H2.908a.9.9,0,0,1,0-1.806Z"
+                    transform="translate(-2.005 -1.999)"
+                    fill="var(--logout-icon-color)"
+                  />
+                </svg>
               </div>
             </div>
           </div>

@@ -29,10 +29,10 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
   const { connected } = useWallet()
-  const lightMode = useSelector(state => (state as any).lightMode)
+  const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
-    setColorTheme(lightMode)
+    setColorTheme(lightDarkMode)
   }, [])
 
   return (

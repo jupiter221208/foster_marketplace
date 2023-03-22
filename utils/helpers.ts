@@ -334,6 +334,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-icon-light-bg-4', '#eff0f6')
     doc.style.setProperty('--wallet-icon-light-bg-5', '#eff0f6')
     doc.style.setProperty('--wallet-icon-light-bg-6', '#eff0f6')
+    doc.style.setProperty('--logout-icon-color', '#202427')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -532,5 +533,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-icon-light-bg-4', '#43b4ca')
     doc.style.setProperty('--wallet-icon-light-bg-5', '#28e0b9')
     doc.style.setProperty('--wallet-icon-light-bg-6', '#19fb9b')
+    doc.style.setProperty('--logout-icon-color', '#5e2028')
   }
 }

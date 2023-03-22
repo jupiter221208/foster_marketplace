@@ -68,17 +68,21 @@
   --background-light-color: #eff0f6;
   --background-light-color-rgb: 239, 240, 247;
 
-  --header-bg-color:
-  linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)
-  --header-mobile-bg-color: rgba(206, 208, 213, 0.8)
+  --header-bg-color: linear-gradient(
+    90deg,
+    rgba(48, 98, 96, 0.7) 0%,
+    rgba(20, 32, 33, 0.7) 50%,
+    rgba(32, 36, 39, 0.7) 100%
+  );
+  --header-mobile-bg-color: rgba(206, 208, 213, 0.8);
 
   --avatar-border-color1: #4ea19b;
   --avatar-border-color2: #304e4e;
 
-  --dashboard-tab-color: rgba(239, 240, 247, 0.6)
-  --card-bg-color: #121212
+  --dashboard-tab-color: rgba(239, 240, 247, 0.6);
+  --card-bg-color: #121212;
 
-  --activity-bg-color: linear-gradient(to bottom, rgba(#378287, 0.35), rgba(#202427, 0.35))
+  --activity-bg-color: linear-gradient(to bottom, rgba(#378287, 0.35), rgba(#202427, 0.35));
   --activity-td-color: 39, 240, 247;
   --activity-border-color: #5ac3ba;
   --activity-box-color: transparent;
@@ -101,7 +105,7 @@
   --text-gray-400-color: rgba(#202427, 0.6);
   --text-gray-200-color: #eff0f6;
   --text-gray-200-color-rgb: 239, 240, 247;
-  
+
   --white-color: #ffffff;
   --white-color-rgb: 255, 255, 255;
   --profile-border-color: #121212;
@@ -111,7 +115,7 @@
   --outline-button-border: #5ac3ba;
   --outline-button-color: #eff0f6;
 
-  --g-left-container-bg: #0f1316
+  --g-left-container-bg: #0f1316;
   --artwork-bg-color: #202427;
   --step-circle-mobile-color: #95dbd5;
   --step-next-mobile-color: #202427;
@@ -139,10 +143,10 @@
   --wallet-active-text: #202427;
 
   --follow-text-color: #95dbd5;
-  --follow-bg-color: linear-gradient(to bottom, rgba(#121212, 0.35), rgba(#2d625d, 0.35))
+  --follow-bg-color: linear-gradient(to bottom, rgba(#121212, 0.35), rgba(#2d625d, 0.35));
   --artist-switch-color: linear-gradient(to right, #202427, #173437);
   --artist-switch-bg: #1c2121;
-  --address-btn-color: rgba(239, 240, 247, 0.6)
+  --address-btn-color: rgba(239, 240, 247, 0.6);
 
   --search-bg-color: #121212;
   --search-category-color: #eff0f6;
@@ -150,16 +154,16 @@
   --menu-item-open-bg: linear-gradient(to bottom, #378287, #202427);
   --menu-item-open-color: #202427;
   --menu-item-border: rgba(239, 240, 247, 0.1);
-  --menu-item-right-icon: #5AC3BA;
+  --menu-item-right-icon: #5ac3ba;
 
-  --search-item-bg: linear-gradient(to bottom, #202427 0%, rgba(#2d625d, 0.51) 100%)
+  --search-item-bg: linear-gradient(to bottom, #202427 0%, rgba(#2d625d, 0.51) 100%);
   --search-item-color: #eff0f6;
 
   --resource-card-title: #95dbd5;
-  --nft-detail-section-bg: linear-gradient(to bottom, #212626, #253c3a)
-  --nft-detail-section-border: rgba($text-gray-200-color, 0.1)
+  --nft-detail-section-bg: linear-gradient(to bottom, #212626, #253c3a);
+  --nft-detail-section-border: rgba($text-gray-200-color, 0.1);
   --nft-detail-bg: $background-black-color;
-  --nft-detail-border: rgba(239, 240, 247, 0.1)
+  --nft-detail-border: rgba(239, 240, 247, 0.1);
 
   --outline-btn-border: #95dbd5;
   --alpha-area-border: #95dbd5;
@@ -175,7 +179,12 @@
   --price-input-bg: #121212;
   --step-text-color: #202427;
   --select-collection-text: #eff0f6;
-  --collection-mint-progress-bg: linear-gradient( 90deg, rgba(48, 88, 86, 0.5) 0%, rgba(20, 32, 33, 0.5) 50%, rgba(32, 36, 39, 0.5) 100%);
+  --collection-mint-progress-bg: linear-gradient(
+    90deg,
+    rgba(48, 88, 86, 0.5) 0%,
+    rgba(20, 32, 33, 0.5) 50%,
+    rgba(32, 36, 39, 0.5) 100%
+  );
   --connect-wallet-text: #eff0f6;
   --connect-wallet-bg: linear-gradient(to bottom, rgba(55, 130, 135, 1), rgba(#244246, 1));
   --ellipse-btn-shadow: #95dbd5;
@@ -191,10 +200,10 @@
   --resource-accordion-dropdown-bg: rgba(#fff, 0.2);
   --resource-accordion-dropdown-color: #eff0f6;
   --resource-accordion-close-color: #95dbd5;
-  --chevron-up-icon-color: #95DBD5;
-  --deposit-btn-bg-1: #2B4142;
-  --deposit-btn-bg-2: #59BFB7;
-  --wallet-box-shadow: 0px 5px 10px rgba(#9945ff, 0.2), 0px -5px 10px rgba(#14f195, 0.2)
+  --chevron-up-icon-color: #95dbd5;
+  --deposit-btn-bg-1: #2b4142;
+  --deposit-btn-bg-2: #59bfb7;
+  --wallet-box-shadow: 0px 5px 10px rgba(#9945ff, 0.2), 0px -5px 10px rgba(#14f195, 0.2);
   --wallet-btn-bg: #121212;
   --wallet-btn-hover: #14f195;
   --collection-card-bg: #121212;
@@ -203,11 +212,11 @@
   --mynft-outline-border: #5ac3ba;
   --mynft-outline-color: '';
   --filter-close-color: #eff0f6;
-  --collection-filter-title: #95DBD5;
-  --negative-btn-border: #95DBD5;
-  --checkbox-border: #95DBD5;
-  --checkbox-border-color: #95DBD5;
-  --checkbox-bg-color: #95DBD5;
+  --collection-filter-title: #95dbd5;
+  --negative-btn-border: #95dbd5;
+  --checkbox-border: #95dbd5;
+  --checkbox-border-color: #95dbd5;
+  --checkbox-bg-color: #95dbd5;
   --menu-item-right-open-icon: #95dbd5;
   --ellipse-menu-bg: #1b1b1b;
   --ellipse-report-bg: #1b1b1b;
@@ -218,8 +227,8 @@
   --see-more-border: #ffffff;
   --artist-card-bg: rgba(32, 36, 39, 0.7);
   --input-bg: rgba(255, 255, 255, 0.25);
-  --mint-btn-bg-1: #95DBD5;
-  --mint-btn-bg-2: #4B6E6B;
+  --mint-btn-bg-1: #95dbd5;
+  --mint-btn-bg-2: #4b6e6b;
   --mint-btn-color: #202427;
   --browse-nft-blur-bg: linear-gradient(
     to top,
@@ -228,19 +237,19 @@
     rgba(32, 36, 39, 0.15) 60%,
     rgba(32, 36, 39, 0.5) 100%
   );
-  --resource-card-bg: linear-gradient(to bottom, #101717, #3A6A68);
+  --resource-card-bg: linear-gradient(to bottom, #101717, #3a6a68);
   --resource-card-default-bg: #202427;
   --home-swiper-bg: #5ac3ba;
   --explore-btn-bg-1: #5ac3ba;
   --explore-btn-bg-2: #378287;
-  --home-hero-title: #eff0f6; 
-  --profile-user-color: #14F195;
+  --home-hero-title: #eff0f6;
+  --profile-user-color: #14f195;
   --single-nft-btn-bg-1: #121212;
-  --single-nft-btn-bg-2: #2D625D;
-  --single-nft-btn-color: #95DBD5;
+  --single-nft-btn-bg-2: #2d625d;
+  --single-nft-btn-color: #95dbd5;
   --drop-zone-bg: rgba(255, 255, 255, 0.05);
-  --filter-btn-bg: #334D4B;
-  --filter-btn-border: #ECEEF4;
+  --filter-btn-bg: #334d4b;
+  --filter-btn-border: #eceef4;
   --ellipse-svg-1: #63d6cd;
   --ellipse-svg-2: #63d6cd;
   --tooltip-bg: rgba(239, 240, 247, 0.2);
@@ -248,13 +257,20 @@
   --back-btn-color: #378287;
   --back-btn-border: transparent;
   --back-btn-border-width: '';
-  --deposit-icon-bg: #5AC3BA;
+  --deposit-icon-bg: #5ac3ba;
   --wallet-icon-bg-1: #9945ff;
   --wallet-icon-bg-2: #8752f3;
   --wallet-icon-bg-3: #5497d5;
   --wallet-icon-bg-4: #43b4ca;
   --wallet-icon-bg-5: #28e0b9;
   --wallet-icon-bg-6: #19fb9b;
+  --wallet-icon-light-bg-1: #9945ff;
+  --wallet-icon-light-bg-2: #8752f3;
+  --wallet-icon-light-bg-3: #5497d5;
+  --wallet-icon-light-bg-4: #43b4ca;
+  --wallet-icon-light-bg-5: #28e0b9;
+  --wallet-icon-light-bg-6: #19fb9b;
+  --logout-icon-color: #5e2028;
 }
 
 html,

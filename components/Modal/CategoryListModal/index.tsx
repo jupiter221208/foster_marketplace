@@ -2,29 +2,34 @@ import React from 'react'
 
 // custom components
 import Checkbox from 'components/Checkbox'
-import IconButton from 'components/Button/IconButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import Button from 'components/Button'
 
-// images and icons
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import CloseDarkIcon from 'assets/icons/close-white-light.svg'
-
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const CategoryListModal = props => {
   const { categoryList, onChange, onClick, onClickCancel } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.menu}>
       <div className={styles.container}>
         <div className="w-full h-[68px] flex justify-between items-center">
           <div>Categories</div>
-          <IconButton
-            icon={lightMode ? CloseDarkIcon : CloseWhiteIcon}
+          <IconButtonWithSVG
+            icon={
+              <div className="mr-8">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17.323" height="17.321" viewBox="0 0 17.323 17.321">
+                  <path
+                    id="times-7"
+                    d="M16.689,14.655l6.2-6.187A1.448,1.448,0,1,0,20.843,6.42l-6.187,6.2L8.469,6.42A1.448,1.448,0,0,0,6.421,8.468l6.2,6.187-6.2,6.187A1.448,1.448,0,1,0,8.469,22.89l6.187-6.2,6.187,6.2a1.448,1.448,0,1,0,2.048-2.048Z"
+                    transform="translate(-5.994 -5.996)"
+                    fill="var(--filter-close-color)"
+                  />
+                </svg>
+              </div>
+            }
             onClick={() => onClick()}
             backgroundColor="transparent"
           />
