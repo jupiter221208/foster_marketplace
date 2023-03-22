@@ -127,15 +127,17 @@ const MainSection = () => {
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
             <span className={styles.whiteTitle}>Solana Deserves</span>
           </p> */}
-          <Image
+          {/* <Image
             src={lightMode ? FosterEnhancedLightIcon : FosterEnhancedIcon}
-            width={610}
-            height={94}
+            width={624}
+            height={141}
             alt=""
             objectFit="cover"
-          />
+          /> */}
 
-          <div className={styles.text}>CREATED FOR ARTISTS. CURATED BY YOU.</div>
+          {lightMode ? <FosterEnhancedLightIcon /> : <FosterEnhancedIcon />}
+
+          <div className={styles.text}>Home to the Next Generation of Digital Creators.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">

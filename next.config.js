@@ -2,7 +2,7 @@
 // with Sentry.
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-const { withSentryConfig } = require('@sentry/nextjs');
+const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
 const path = require('path')
@@ -22,21 +22,41 @@ const nextConfig = {
     TOKEN_METADATA_PROGRAM_ID: process.env.TOKEN_METADATA_PROGRAM_ID,
     WRAPPED_SOL_MINT: process.env.WRAPPED_SOL_MINT,
     AUCTIONEER_ADDRESS: process.env.AUCTIONEER_ADDRESS,
-    AUCTION_HOUSE_OWNER_ADDRESS: process.env.AUCTION_HOUSE_OWNER_ADDRESS
+    AUCTION_HOUSE_OWNER_ADDRESS: process.env.AUCTION_HOUSE_OWNER_ADDRESS,
   },
   images: {
     domains: [
       'arweave.net',
       'www.arweave.net',
       'foster-marketplace-dev.s3.us-east-2.amazonaws.com',
-      'foster-marketplace.s3.us-east-2.amazonaws.com'
+      'foster-marketplace.s3.us-east-2.amazonaws.com',
     ],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
+
   webpack(config, options) {
     config.resolve.modules.push(path.resolve('./'))
+    const fileLoaderRule = config.module.rules.find(rule => rule.test?.test?.('.svg'))
+    config.module.rules.push(
+      // Reapply the existing rule, but only for svg imports ending in ?url
+      {
+        ...fileLoaderRule,
+        test: /\.svg$/i,
+        resourceQuery: /url/, // *.svg?url
+      },
+      // Convert all other *.svg imports to React components
+      {
+        test: /\.svg$/i,
+        issuer: /\.[jt]sx?$/,
+        resourceQuery: { not: /url/ }, // exclude if *.svg?url
+        use: ['@svgr/webpack'],
+      }
+    )
+
+    // Modify the file loader rule to ignore *.svg, since we have it handled now.
+    fileLoaderRule.exclude = /\.svg$/i
     return config
   },
   typescript: {
@@ -48,8 +68,4 @@ const nextConfig = {
 
 module.exports = nextConfig
 
-module.exports = withSentryConfig(
-  module.exports,
-  { silent: true },
-  { hideSourcemaps: true },
-);
+module.exports = withSentryConfig(module.exports, { silent: true }, { hideSourcemaps: true })

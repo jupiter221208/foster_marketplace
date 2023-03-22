@@ -136,7 +136,7 @@
   text-align: center;
   padding-left: 50px;
   padding-right: 50px;
-  text-transform: uppercase;
+  // text-transform: uppercase;
   @media (min-width: 640px) {
     margin-top: 23px;
     font-size: 14px;
@@ -166,7 +166,7 @@
     padding-right: 0px;
   }
   @media (min-width: 1536px) {
-    margin-top: 30px;
+    margin-top: 25px;
     font-size: 28px;
     line-height: 36px;
     text-align: left;
@@ -175,7 +175,7 @@
   }
 
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .count {
