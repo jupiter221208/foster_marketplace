@@ -28,7 +28,7 @@ import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedLightIcon from 'assets/icons/foster-enhanced-dark.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
-import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-dark.png'
+import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -178,8 +178,8 @@ const MainSection = () => {
             <div className={styles.contentArea}>
               <Image
                 src={lightMode ? FosterEnhancedLightMobile : FosterEnhancedMobile}
-                width={278}
-                height={42}
+                width={280}
+                height={62}
                 alt=""
                 objectFit="cover"
               />
