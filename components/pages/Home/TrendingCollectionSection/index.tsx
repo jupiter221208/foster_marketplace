@@ -78,8 +78,8 @@ const TrendingCollectionSection = props => {
         <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
           <defs>
             <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-              <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
-              <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+              <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
+              <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
             </radialGradient>
           </defs>
           <circle

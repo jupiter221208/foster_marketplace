@@ -72,7 +72,7 @@ const ResourcesAccordion = props => {
                             transform="translate(0 1)"
                             fill="none"
                             stroke="var(--resource-accordion-dropdown-color)"
-                            stroke-width="2"
+                            strokeWidth="2"
                             opacity="1"
                           />
                         </svg>

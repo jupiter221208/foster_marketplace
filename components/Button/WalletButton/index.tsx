@@ -430,7 +430,7 @@ const WalletButton = props => {
                         id="noun-add-1241915-EFF0F6"
                         d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
                         fill="var(--deposit-icon-bg)"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       />
                     </svg>
                   ) : (
@@ -440,7 +440,7 @@ const WalletButton = props => {
                         d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
                         fill="#eff0f6"
                         opacity="0.8"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       />
                     </svg>
                   )}
@@ -651,7 +651,7 @@ const WalletButton = props => {
                         id="noun-add-1241915-EFF0F6"
                         d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
                         fill="var(--deposit-icon-bg)" // 5AC3BA
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       />
                     </svg>
                   ) : (
@@ -661,7 +661,7 @@ const WalletButton = props => {
                         d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
                         fill="#eff0f6"
                         opacity="0.8"
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                       />
                     </svg>
                   )}
@@ -846,12 +846,12 @@ const WalletButton = props => {
                 y2="-0.034"
                 gradientUnits="objectBoundingBox"
               >
-                <stop offset="0.08" stop-color="var(--wallet-icon-bg-1)" />
-                <stop offset="0.3" stop-color="var(--wallet-icon-bg-2)" />
-                <stop offset="0.5" stop-color="var(--wallet-icon-bg-3)" />
-                <stop offset="0.6" stop-color="var(--wallet-icon-bg-4)" />
-                <stop offset="0.72" stop-color="var(--wallet-icon-bg-5)" />
-                <stop offset="0.97" stop-color="var(--wallet-icon-bg-6)" />
+                <stop offset="0.08" stopColor="var(--wallet-icon-bg-1)" />
+                <stop offset="0.3" stopColor="var(--wallet-icon-bg-2)" />
+                <stop offset="0.5" stopColor="var(--wallet-icon-bg-3)" />
+                <stop offset="0.6" stopColor="var(--wallet-icon-bg-4)" />
+                <stop offset="0.72" stopColor="var(--wallet-icon-bg-5)" />
+                <stop offset="0.97" stopColor="var(--wallet-icon-bg-6)" />
               </linearGradient>
             </defs>
             <path
@@ -872,12 +872,12 @@ const WalletButton = props => {
                 y2="-0.034"
                 gradientUnits="objectBoundingBox"
               >
-                <stop offset="0.08" stop-color="var(--wallet-icon-bg-1)" />
-                <stop offset="0.3" stop-color="var(--wallet-icon-bg-2)" />
-                <stop offset="0.5" stop-color="var(--wallet-icon-bg-3)" />
-                <stop offset="0.6" stop-color="var(--wallet-icon-bg-4)" />
-                <stop offset="0.72" stop-color="var(--wallet-icon-bg-5)" />
-                <stop offset="0.97" stop-color="var(--wallet-icon-bg-6)" />
+                <stop offset="0.08" stopColor="var(--wallet-icon-bg-1)" />
+                <stop offset="0.3" stopColor="var(--wallet-icon-bg-2)" />
+                <stop offset="0.5" stopColor="var(--wallet-icon-bg-3)" />
+                <stop offset="0.6" stopColor="var(--wallet-icon-bg-4)" />
+                <stop offset="0.72" stopColor="var(--wallet-icon-bg-5)" />
+                <stop offset="0.97" stopColor="var(--wallet-icon-bg-6)" />
               </linearGradient>
             </defs>
             <path
@@ -898,12 +898,12 @@ const WalletButton = props => {
                 y2="-0.034"
                 gradientUnits="objectBoundingBox"
               >
-                <stop offset="0.08" stop-color="var(--wallet-icon-light-bg-1)" />
-                <stop offset="0.3" stop-color="var(--wallet-icon-light-bg-2)" />
-                <stop offset="0.5" stop-color="var(--wallet-icon-light-bg-3)" />
-                <stop offset="0.6" stop-color="var(--wallet-icon-light-bg-4)" />
-                <stop offset="0.72" stop-color="var(--wallet-icon-light-bg-5)" />
-                <stop offset="0.97" stop-color="var(--wallet-icon-light-bg-6)" />
+                <stop offset="0.08" stopColor="var(--wallet-icon-light-bg-1)" />
+                <stop offset="0.3" stopColor="var(--wallet-icon-light-bg-2)" />
+                <stop offset="0.5" stopColor="var(--wallet-icon-light-bg-3)" />
+                <stop offset="0.6" stopColor="var(--wallet-icon-light-bg-4)" />
+                <stop offset="0.72" stopColor="var(--wallet-icon-light-bg-5)" />
+                <stop offset="0.97" stopColor="var(--wallet-icon-light-bg-6)" />
               </linearGradient>
             </defs>
             <path
