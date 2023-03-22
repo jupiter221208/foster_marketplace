@@ -16,11 +16,11 @@ import NFTSortList from 'assets/json/explore/nft-sort.json'
 // styles
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const MobileSort = props => {
   const { data, sort, onSort, onClose } = props
   const [selectedSort, setSelectedSort] = useState(sort)
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   return (
     <div className={styles.container}>
@@ -28,9 +28,23 @@ const MobileSort = props => {
         <div className="w-full flex justify-between items-center mb-8">
           <div className={styles.title}>Sort</div>
           <div className="-mr-3">
-            <IconButton
+            {/* <IconButton
               backgroundColor="transparent"
               icon={lightMode ? CloseWhiteLightIcon : CloseWhiteIcon}
+              onClick={() => onClose()}
+            /> */}
+            <IconButtonWithSVG
+              backgroundColor="transparent"
+              icon={
+                <svg xmlns="http://www.w3.org/2000/svg" width="17.323" height="17.321" viewBox="0 0 17.323 17.321">
+                  <path
+                    id="times-7"
+                    d="M16.689,14.655l6.2-6.187A1.448,1.448,0,1,0,20.843,6.42l-6.187,6.2L8.469,6.42A1.448,1.448,0,0,0,6.421,8.468l6.2,6.187-6.2,6.187A1.448,1.448,0,1,0,8.469,22.89l6.187-6.2,6.187,6.2a1.448,1.448,0,1,0,2.048-2.048Z"
+                    transform="translate(-5.994 -5.996)"
+                    fill="var(--filter-close-color)"
+                  />
+                </svg>
+              }
               onClick={() => onClose()}
             />
           </div>

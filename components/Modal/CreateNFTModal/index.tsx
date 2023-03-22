@@ -26,6 +26,7 @@ import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 // styles
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
+import GradientButtonWithSVG from 'components/Button/GradientButtonWithSVG'
 
 const CreateNFTModal = props => {
   const { open, close } = props
@@ -33,7 +34,6 @@ const CreateNFTModal = props => {
   const router = useRouter()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const closeModal = () => {
     close()
@@ -90,13 +90,53 @@ const CreateNFTModal = props => {
                       </div>
                     </div>
                     <div className="flex justify-around">
-                      <GradientButton
+                      <GradientButtonWithSVG
                         label="Single"
                         width={180}
                         height={49}
                         backgroundColor01={'var(--single-nft-btn-bg-1)'}
                         backgroundColor02={'var(--single-nft-btn-bg-2)'}
-                        icon={lightMode ? AddBlackIcon : AddGrayIcon}
+                        icon={
+                          <svg
+                            id="Component_2333_2"
+                            data-name="Component 2333 – 2"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 20 20"
+                          >
+                            <g
+                              id="Rectangle_1732"
+                              data-name="Rectangle 1732"
+                              fill="none"
+                              stroke="var(--single-nft-btn-color)"
+                              strokeWidth="2"
+                            >
+                              <rect width="20" height="20" rx="3" stroke="none" />
+                              <rect x="1" y="1" width="18" height="18" rx="2" fill="none" />
+                            </g>
+                            <line
+                              id="Line_298"
+                              data-name="Line 298"
+                              y2="8"
+                              transform="translate(10 6)"
+                              fill="none"
+                              stroke="var(--single-nft-btn-color)"
+                              strokeLinecap="round"
+                              strokeWidth="2"
+                            />
+                            <line
+                              id="Line_299"
+                              data-name="Line 299"
+                              y2="8.121"
+                              transform="translate(13.883 9.596) rotate(90)"
+                              fill="none"
+                              stroke="var(--single-nft-btn-color)"
+                              strokeLinecap="round"
+                              strokeWidth="2"
+                            />
+                          </svg>
+                        }
                         onClick={() => handleClickButton('/create/single-nft')}
                         gradientDirection="right"
                         fontSize="18px"

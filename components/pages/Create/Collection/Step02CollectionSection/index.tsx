@@ -33,6 +33,7 @@ import NFTDimensionList from 'assets/json/nft-dimension-list.json'
 // styles
 import styles from './index.module.scss'
 import { useSelector } from 'react-redux'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const Step02CollectionSection = props => {
   const {
@@ -49,7 +50,6 @@ const Step02CollectionSection = props => {
 
   const viewport = useViewport()
   const dropzoneNftEl = useRef(null)
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   // alert variables
   const [showAlert, setShowAlert] = useState(false)
@@ -283,8 +283,77 @@ const Step02CollectionSection = props => {
                     <>&nbsp;</>
                   )}
                   {selectedCollectionFile !== undefined && (
-                    <IconButton
-                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
+                    // <IconButton
+                    //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
+                    //   onClick={() => {
+                    //     onRemoveCollectionFile(selectedCollectionFile)
+                    //     setSelectedCollectionFile(undefined)
+                    //   }}
+                    //   backgroundColor="transparent"
+                    // />
+                    <IconButtonWithSVG
+                      icon={
+                        <svg
+                          id="Group_52015"
+                          data-name="Group 52015"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="46"
+                          height="46"
+                          viewBox="0 0 46 46"
+                        >
+                          <g
+                            id="Icon_feather-trash-2"
+                            data-name="Icon feather-trash-2"
+                            transform="translate(12.378 10.643)"
+                          >
+                            <path
+                              id="Path_105833"
+                              data-name="Path 105833"
+                              d="M4.5,9H26.743"
+                              transform="translate(-4.5 -4.057)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105834"
+                              data-name="Path 105834"
+                              d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
+                              transform="translate(-5.029 -3)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105835"
+                              data-name="Path 105835"
+                              d="M15,16.5v7.414"
+                              transform="translate(-6.35 -5.378)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105836"
+                              data-name="Path 105836"
+                              d="M21,16.5v7.414"
+                              transform="translate(-7.407 -5.378)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                          </g>
+                          <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
+                        </svg>
+                      }
                       onClick={() => {
                         onRemoveCollectionFile(selectedCollectionFile)
                         setSelectedCollectionFile(undefined)
@@ -433,8 +502,82 @@ const Step02CollectionSection = props => {
                             />
                           </div>
                         </div>
-                        <IconButton
+                        {/* <IconButton
                           icon={TrashGrayIcon}
+                          onClick={() => onRemoveCollectionFile(item)}
+                          backgroundColor="transparent"
+                          iconWidth={24}
+                          iconHeight={24}
+                        /> */}
+                        <IconButtonWithSVG
+                          icon={
+                            <svg
+                              id="Group_52015"
+                              data-name="Group 52015"
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="46"
+                              height="46"
+                              viewBox="0 0 46 46"
+                            >
+                              <g
+                                id="Icon_feather-trash-2"
+                                data-name="Icon feather-trash-2"
+                                transform="translate(12.378 10.643)"
+                              >
+                                <path
+                                  id="Path_105833"
+                                  data-name="Path 105833"
+                                  d="M4.5,9H26.743"
+                                  transform="translate(-4.5 -4.057)"
+                                  fill="none"
+                                  stroke="var(--trash-icon-color)"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                />
+                                <path
+                                  id="Path_105834"
+                                  data-name="Path 105834"
+                                  d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
+                                  transform="translate(-5.029 -3)"
+                                  fill="none"
+                                  stroke="var(--trash-icon-color)"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                />
+                                <path
+                                  id="Path_105835"
+                                  data-name="Path 105835"
+                                  d="M15,16.5v7.414"
+                                  transform="translate(-6.35 -5.378)"
+                                  fill="none"
+                                  stroke="var(--trash-icon-color)"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                />
+                                <path
+                                  id="Path_105836"
+                                  data-name="Path 105836"
+                                  d="M21,16.5v7.414"
+                                  transform="translate(-7.407 -5.378)"
+                                  fill="none"
+                                  stroke="var(--trash-icon-color)"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                />
+                              </g>
+                              <rect
+                                id="Rectangle_21074"
+                                data-name="Rectangle 21074"
+                                width="46"
+                                height="46"
+                                fill="none"
+                              />
+                            </svg>
+                          }
                           onClick={() => onRemoveCollectionFile(item)}
                           backgroundColor="transparent"
                           iconWidth={24}
@@ -557,15 +700,86 @@ const Step02CollectionSection = props => {
                     <>&nbsp;</>
                   )}
                   {selectedCollectionFile !== undefined && (
-                    <IconButton
-                      icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
+                    // <IconButton
+                    //   icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
+                    //   onClick={() => {
+                    //     onRemoveCollectionFile(selectedCollectionFile)
+                    //     setSelectedCollectionFile(undefined)
+                    //   }}
+                    //   backgroundColor="transparent"
+                    //   width="24px"
+                    //   height="24px"
+                    // />
+                    <IconButtonWithSVG
+                      icon={
+                        <svg
+                          id="Group_52015"
+                          data-name="Group 52015"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="46"
+                          height="46"
+                          viewBox="0 0 46 46"
+                        >
+                          <g
+                            id="Icon_feather-trash-2"
+                            data-name="Icon feather-trash-2"
+                            transform="translate(12.378 10.643)"
+                          >
+                            <path
+                              id="Path_105833"
+                              data-name="Path 105833"
+                              d="M4.5,9H26.743"
+                              transform="translate(-4.5 -4.057)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105834"
+                              data-name="Path 105834"
+                              d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
+                              transform="translate(-5.029 -3)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105835"
+                              data-name="Path 105835"
+                              d="M15,16.5v7.414"
+                              transform="translate(-6.35 -5.378)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105836"
+                              data-name="Path 105836"
+                              d="M21,16.5v7.414"
+                              transform="translate(-7.407 -5.378)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                          </g>
+                          <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
+                        </svg>
+                      }
                       onClick={() => {
                         onRemoveCollectionFile(selectedCollectionFile)
                         setSelectedCollectionFile(undefined)
                       }}
                       backgroundColor="transparent"
-                      width="24px"
-                      height="24px"
+                      iconWidth={24}
+                      iconHeight={24}
                     />
                   )}
                 </div>
@@ -654,8 +868,77 @@ const Step02CollectionSection = props => {
                       </div>
                       <div className={styles.fileName}>{item.file?.name}</div>
                     </div>
-                    <IconButton
+                    {/* <IconButton
                       icon={lightMode ? TrashGrayLightIcon : TrashGrayIcon}
+                      onClick={() => onRemoveCollectionFile(item)}
+                      backgroundColor="transparent"
+                      iconWidth={24}
+                      iconHeight={24}
+                    /> */}
+
+                    <IconButtonWithSVG
+                      icon={
+                        <svg
+                          id="Group_52015"
+                          data-name="Group 52015"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="46"
+                          height="46"
+                          viewBox="0 0 46 46"
+                        >
+                          <g
+                            id="Icon_feather-trash-2"
+                            data-name="Icon feather-trash-2"
+                            transform="translate(12.378 10.643)"
+                          >
+                            <path
+                              id="Path_105833"
+                              data-name="Path 105833"
+                              d="M4.5,9H26.743"
+                              transform="translate(-4.5 -4.057)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105834"
+                              data-name="Path 105834"
+                              d="M24.8,7.943v17.3a2.471,2.471,0,0,1-2.471,2.471H9.971A2.471,2.471,0,0,1,7.5,25.243V7.943m3.707,0V5.471A2.471,2.471,0,0,1,13.679,3h4.943a2.471,2.471,0,0,1,2.471,2.471V7.943"
+                              transform="translate(-5.029 -3)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105835"
+                              data-name="Path 105835"
+                              d="M15,16.5v7.414"
+                              transform="translate(-6.35 -5.378)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                            <path
+                              id="Path_105836"
+                              data-name="Path 105836"
+                              d="M21,16.5v7.414"
+                              transform="translate(-7.407 -5.378)"
+                              fill="none"
+                              stroke="var(--trash-icon-color)"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                            />
+                          </g>
+                          <rect id="Rectangle_21074" data-name="Rectangle 21074" width="46" height="46" fill="none" />
+                        </svg>
+                      }
                       onClick={() => onRemoveCollectionFile(item)}
                       backgroundColor="transparent"
                       iconWidth={24}

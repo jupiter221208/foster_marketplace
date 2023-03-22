@@ -335,6 +335,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-icon-light-bg-5', '#eff0f6')
     doc.style.setProperty('--wallet-icon-light-bg-6', '#eff0f6')
     doc.style.setProperty('--logout-icon-color', '#202427')
+    doc.style.setProperty('--trash-icon-color', '#A9ACB1')
+    doc.style.setProperty('--day-btn-color', '#95DBD5')
+    doc.style.setProperty('--day-btn-bg-1', '#202427')
+    doc.style.setProperty('--day-btn-bg-2', '#202427')
+    doc.style.setProperty('--search-icon-color', '#D1D2D8')
+    doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 1')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -534,5 +540,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-icon-light-bg-5', '#28e0b9')
     doc.style.setProperty('--wallet-icon-light-bg-6', '#19fb9b')
     doc.style.setProperty('--logout-icon-color', '#5e2028')
+    doc.style.setProperty('--trash-icon-color', '#eff0f6')
+    doc.style.setProperty('--day-btn-color', '#202427')
+    doc.style.setProperty('--day-btn-bg-1', '#5ac3ba')
+    doc.style.setProperty('--day-btn-bg-2', '#2D625D')
+    doc.style.setProperty('--search-icon-color', 'transparent')
+    doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75')
   }
 }

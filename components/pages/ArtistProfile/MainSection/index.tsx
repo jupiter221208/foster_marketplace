@@ -45,7 +45,6 @@ const MainSection = prop => {
   const viewport = useViewport()
   const { publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [showReadMore, setShowReadMore] = useState(false)
@@ -220,7 +219,7 @@ const MainSection = prop => {
           {artistEnable ? (
             <div className={styles.switchArea}>
               <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
-                <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Collector</div>
+                <div className={styles.switchDisabled}>Collector</div>
               </div>
               <div className="w-[50%] h-full absolute top-0 right-0">
                 <div className={styles.switchEnabled}>Artist</div>
@@ -235,7 +234,7 @@ const MainSection = prop => {
                 className="w-[50%] h-full absolute top-0 right-0 cursor-pointer"
                 onClick={() => setArtistEnable(true)}
               >
-                <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Artist</div>
+                <div className={styles.switchDisabled}>Artist</div>
               </div>
             </div>
           )}
@@ -422,9 +421,9 @@ const MainSection = prop => {
               setShowFollowModal(true)
             }}
           >
-            <div className={`${styles.whiteText} ${lightMode ? styles.lightDesc : ''}`}>{artistInfo?.followers}</div>
+            <div className={styles.whiteText}>{artistInfo?.followers}</div>
             &nbsp;
-            <div className={`${styles.grayText} ${lightMode ? styles.lightDesc : ''}`}>Followers</div>
+            <div className={styles.grayText}>Followers</div>
           </div>
           <div
             className="cursor-pointer flex hover:opacity-60 z-10"
@@ -443,10 +442,7 @@ const MainSection = prop => {
         {artistInfo?.bio && (
           <span className={styles.description}>
             {getShortDescription(viewport, artistInfo?.bio) + ' '}
-            <span
-              className={lightMode ? styles.lightReadMore : styles.readMore}
-              onClick={() => setShowReadMore(!showReadMore)}
-            >
+            <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
             </span>
           </span>
@@ -457,7 +453,7 @@ const MainSection = prop => {
         {artistEnable ? (
           <div className={styles.switchArea}>
             <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
-              <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Collector</div>
+              <div className={styles.switchDisabled}>Collector</div>
             </div>
             <div className="w-[50%] h-full absolute top-0 right-0">
               <div className={styles.switchEnabled}>Artist</div>
@@ -469,7 +465,7 @@ const MainSection = prop => {
               <div className={styles.switchEnabled}>Collector</div>
             </div>
             <div className="w-[50%] h-full absolute top-0 right-0 cursor-pointer" onClick={() => setArtistEnable(true)}>
-              <div className={lightMode ? styles.lightSwitchDisabled : styles.switchDisabled}>Artist</div>
+              <div className={styles.switchDisabled}>Artist</div>
             </div>
           </div>
         )}

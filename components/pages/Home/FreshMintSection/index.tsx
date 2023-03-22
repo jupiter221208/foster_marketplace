@@ -79,7 +79,12 @@ const FreshMintSection = props => {
   return (
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '652' : '2021'}
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '652' : '2021'}
+          viewBox="0 0 2321 2321"
+        >
           <defs>
             <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
               <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />

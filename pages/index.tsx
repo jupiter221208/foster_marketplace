@@ -35,16 +35,10 @@ const Home = () => {
   let pageDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-  const dispatch = useDispatch()
+  const lightDarkMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
-    setColorTheme(lightMode)
-    if (lightMode) {
-      dispatch({ type: 'set', lightMode: true })
-    } else {
-      dispatch({ type: 'set', lightMode: false })
-    }
+    setColorTheme(lightDarkMode)
   }, [])
 
   return (

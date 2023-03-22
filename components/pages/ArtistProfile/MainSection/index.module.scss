@@ -50,10 +50,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: rgba(var(--text-gray-200-color-rgb), 0.5);
-  @media (min-width: 1024px) {
-    color: rgba(var(--text-gray-200-color-rgb), 0.75);
-  }
+  color: var(--switch-disabled-color);
+  background: var(--artist-switch-bg);
 }
 
 .lightSwitchDisabled {
@@ -129,17 +127,7 @@
   font-size: 16px;
   line-height: 24px;
   text-decoration: underline;
-  color: var(--brand-09-color);
-  cursor: pointer;
-  z-index: 10;
-}
-
-.lightReadMore {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 24px;
-  text-decoration: underline;
-  color: var(--background-dark-color);
+  color: var(--single-nft-btn-color);
   cursor: pointer;
   z-index: 10;
 }
