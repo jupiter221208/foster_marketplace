@@ -285,8 +285,6 @@ const WalletButton = props => {
     dispatch({ type: 'set', profileInfo: null })
   }
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return connected ? (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -426,16 +424,26 @@ const WalletButton = props => {
                     setOfferErrorMessage('')
                   }}
                 >
-                  <Image
-                    src={
-                      offerStatus === 'deposit'
-                        ? lightMode
-                          ? NounAddGreenIcon
-                          : NounAddLightGreenIcon
-                        : NounAddGrayIcon
-                    }
-                    alt=""
-                  />
+                  {offerStatus === 'deposit' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.167" height="16.167" viewBox="0 0 16.167 16.167">
+                      <path
+                        id="noun-add-1241915-EFF0F6"
+                        d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
+                        fill="var(--deposit-icon-bg)"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.167" height="16.167" viewBox="0 0 16.167 16.167">
+                      <path
+                        id="noun-add-1241915-EFF0F6"
+                        d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
+                        fill="#eff0f6"
+                        opacity="0.8"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  )}
                   <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                     Deposit from Main Wallet
                   </div>
@@ -450,16 +458,32 @@ const WalletButton = props => {
                     setOfferErrorMessage('')
                   }}
                 >
-                  <Image
-                    src={
-                      offerStatus === 'withdraw'
-                        ? lightMode
-                          ? NounSubtractLightBlueIcon
-                          : NounSubtractLightGreenIcon
-                        : NounSubtractGrayIcon
-                    }
-                    alt=""
-                  />
+                  {offerStatus === 'withdraw' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+                      <path
+                        id="noun-subtract-497509-EFF0F6"
+                        d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
+                        transform="translate(-6.5 -6.801)"
+                        fill="var(--deposit-icon-bg)"
+                      />
+                      <path
+                        id="noun-subtract-497509-EFF0F6"
+                        d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
+                        transform="translate(-6.5 -6.801)"
+                        fill="var(--deposit-icon-bg)"
+                      />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+                      <path
+                        id="noun-subtract-497509-EFF0F6"
+                        d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
+                        transform="translate(-6.5 -6.801)"
+                        fill="#eff0f6"
+                        opacity="0.8"
+                      />
+                    </svg>
+                  )}
                   <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                     Withdraw to Main Wallet
                   </div>
@@ -621,16 +645,26 @@ const WalletButton = props => {
                     setBiddingErrorMessage('')
                   }}
                 >
-                  <Image
-                    src={
-                      biddingStatus === 'deposit'
-                        ? lightMode
-                          ? NounAddGreenIcon
-                          : NounAddLightGreenIcon
-                        : NounAddGrayIcon
-                    }
-                    alt=""
-                  />
+                  {biddingStatus === 'deposit' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.167" height="16.167" viewBox="0 0 16.167 16.167">
+                      <path
+                        id="noun-add-1241915-EFF0F6"
+                        d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
+                        fill="var(--deposit-icon-bg)" // 5AC3BA
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16.167" height="16.167" viewBox="0 0 16.167 16.167">
+                      <path
+                        id="noun-add-1241915-EFF0F6"
+                        d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
+                        fill="#eff0f6"
+                        opacity="0.8"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  )}
                   <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                     Deposit to Bidding Wallet
                   </div>
@@ -645,16 +679,32 @@ const WalletButton = props => {
                     setBiddingErrorMessage('')
                   }}
                 >
-                  <Image
-                    src={
-                      biddingStatus === 'withdraw'
-                        ? lightMode
-                          ? NounSubtractLightBlueIcon
-                          : NounSubtractLightGreenIcon
-                        : NounSubtractGrayIcon
-                    }
-                    alt=""
-                  />
+                  {biddingStatus === 'withdraw' ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+                      <path
+                        id="noun-subtract-497509-EFF0F6"
+                        d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
+                        transform="translate(-6.5 -6.801)"
+                        fill="var(--deposit-icon-bg)"
+                      />
+                      <path
+                        id="noun-subtract-497509-EFF0F6"
+                        d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
+                        transform="translate(-6.5 -6.801)"
+                        fill="var(--deposit-icon-bg)"
+                      />
+                    </svg>
+                  ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
+                      <path
+                        id="noun-subtract-497509-EFF0F6"
+                        d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
+                        transform="translate(-6.5 -6.801)"
+                        fill="#eff0f6"
+                        opacity="0.8"
+                      />
+                    </svg>
+                  )}
                   <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                     Withdraw to Main Wallet
                   </div>
@@ -786,9 +836,83 @@ const WalletButton = props => {
         style={{ width: fullWidth ? '100%' : '' }}
       >
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <Image src={lightMode ? SolanaGreenIcon : SolanaDarkIcon} alt="" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
+            <defs>
+              <linearGradient
+                id="linear-gradient"
+                x1="0.084"
+                y1="1.024"
+                x2="0.881"
+                y2="-0.034"
+                gradientUnits="objectBoundingBox"
+              >
+                <stop offset="0.08" stop-color="var(--wallet-icon-bg-1)" />
+                <stop offset="0.3" stop-color="var(--wallet-icon-bg-2)" />
+                <stop offset="0.5" stop-color="var(--wallet-icon-bg-3)" />
+                <stop offset="0.6" stop-color="var(--wallet-icon-bg-4)" />
+                <stop offset="0.72" stop-color="var(--wallet-icon-bg-5)" />
+                <stop offset="0.97" stop-color="var(--wallet-icon-bg-6)" />
+              </linearGradient>
+            </defs>
+            <path
+              id="solanaLogoMark"
+              d="M17.127,11.826,14.285,14.8a.66.66,0,0,1-.22.151A.675.675,0,0,1,13.8,15H.33a.336.336,0,0,1-.181-.053.324.324,0,0,1-.122-.141A.314.314,0,0,1,0,14.624a.318.318,0,0,1,.084-.165L2.933,11.49a.66.66,0,0,1,.219-.151.675.675,0,0,1,.262-.054H16.886a.337.337,0,0,1,.181.053.325.325,0,0,1,.122.141.314.314,0,0,1,.022.183A.319.319,0,0,1,17.127,11.826ZM14.285,5.847a.66.66,0,0,0-.22-.151.675.675,0,0,0-.263-.053H.33A.336.336,0,0,0,.149,5.7a.324.324,0,0,0-.122.141A.314.314,0,0,0,0,6.019a.318.318,0,0,0,.084.165L2.933,9.153a.66.66,0,0,0,.219.151.675.675,0,0,0,.262.053H16.886a.336.336,0,0,0,.181-.053.325.325,0,0,0,.122-.141.314.314,0,0,0,.022-.183.319.319,0,0,0-.084-.165ZM.33,3.714H13.8a.675.675,0,0,0,.263-.053.66.66,0,0,0,.22-.151L17.127.541a.319.319,0,0,0,.084-.165.314.314,0,0,0-.022-.183.325.325,0,0,0-.122-.141A.336.336,0,0,0,16.886,0H3.414a.675.675,0,0,0-.262.053A.66.66,0,0,0,2.933.2L.089,3.174a.318.318,0,0,0-.084.165.314.314,0,0,0,.022.182.324.324,0,0,0,.121.141A.336.336,0,0,0,.33,3.714Z"
+              transform="translate(0)"
+              fill="url(#linear-gradient)"
+            />
+          </svg>
+        ) : walletHover ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
+            <defs>
+              <linearGradient
+                id="linear-gradient"
+                x1="0.084"
+                y1="1.024"
+                x2="0.881"
+                y2="-0.034"
+                gradientUnits="objectBoundingBox"
+              >
+                <stop offset="0.08" stop-color="var(--wallet-icon-bg-1)" />
+                <stop offset="0.3" stop-color="var(--wallet-icon-bg-2)" />
+                <stop offset="0.5" stop-color="var(--wallet-icon-bg-3)" />
+                <stop offset="0.6" stop-color="var(--wallet-icon-bg-4)" />
+                <stop offset="0.72" stop-color="var(--wallet-icon-bg-5)" />
+                <stop offset="0.97" stop-color="var(--wallet-icon-bg-6)" />
+              </linearGradient>
+            </defs>
+            <path
+              id="solanaLogoMark"
+              d="M17.127,11.826,14.285,14.8a.66.66,0,0,1-.22.151A.675.675,0,0,1,13.8,15H.33a.336.336,0,0,1-.181-.053.324.324,0,0,1-.122-.141A.314.314,0,0,1,0,14.624a.318.318,0,0,1,.084-.165L2.933,11.49a.66.66,0,0,1,.219-.151.675.675,0,0,1,.262-.054H16.886a.337.337,0,0,1,.181.053.325.325,0,0,1,.122.141.314.314,0,0,1,.022.183A.319.319,0,0,1,17.127,11.826ZM14.285,5.847a.66.66,0,0,0-.22-.151.675.675,0,0,0-.263-.053H.33A.336.336,0,0,0,.149,5.7a.324.324,0,0,0-.122.141A.314.314,0,0,0,0,6.019a.318.318,0,0,0,.084.165L2.933,9.153a.66.66,0,0,0,.219.151.675.675,0,0,0,.262.053H16.886a.336.336,0,0,0,.181-.053.325.325,0,0,0,.122-.141.314.314,0,0,0,.022-.183.319.319,0,0,0-.084-.165ZM.33,3.714H13.8a.675.675,0,0,0,.263-.053.66.66,0,0,0,.22-.151L17.127.541a.319.319,0,0,0,.084-.165.314.314,0,0,0-.022-.183.325.325,0,0,0-.122-.141A.336.336,0,0,0,16.886,0H3.414a.675.675,0,0,0-.262.053A.66.66,0,0,0,2.933.2L.089,3.174a.318.318,0,0,0-.084.165.314.314,0,0,0,.022.182.324.324,0,0,0,.121.141A.336.336,0,0,0,.33,3.714Z"
+              transform="translate(0)"
+              fill="url(#linear-gradient)"
+            />
+          </svg>
         ) : (
-          <Image src={lightMode ? (walletHover ? SolanaGreenIcon : SolanaLightIcon) : SolanaDarkIcon} alt="" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
+            <defs>
+              <linearGradient
+                id="linear-gradient"
+                x1="0.084"
+                y1="1.024"
+                x2="0.881"
+                y2="-0.034"
+                gradientUnits="objectBoundingBox"
+              >
+                <stop offset="0.08" stop-color="var(--wallet-icon-light-bg-1)" />
+                <stop offset="0.3" stop-color="var(--wallet-icon-light-bg-2)" />
+                <stop offset="0.5" stop-color="var(--wallet-icon-light-bg-3)" />
+                <stop offset="0.6" stop-color="var(--wallet-icon-light-bg-4)" />
+                <stop offset="0.72" stop-color="var(--wallet-icon-light-bg-5)" />
+                <stop offset="0.97" stop-color="var(--wallet-icon-light-bg-6)" />
+              </linearGradient>
+            </defs>
+            <path
+              id="solanaLogoMark"
+              d="M17.127,11.826,14.285,14.8a.66.66,0,0,1-.22.151A.675.675,0,0,1,13.8,15H.33a.336.336,0,0,1-.181-.053.324.324,0,0,1-.122-.141A.314.314,0,0,1,0,14.624a.318.318,0,0,1,.084-.165L2.933,11.49a.66.66,0,0,1,.219-.151.675.675,0,0,1,.262-.054H16.886a.337.337,0,0,1,.181.053.325.325,0,0,1,.122.141.314.314,0,0,1,.022.183A.319.319,0,0,1,17.127,11.826ZM14.285,5.847a.66.66,0,0,0-.22-.151.675.675,0,0,0-.263-.053H.33A.336.336,0,0,0,.149,5.7a.324.324,0,0,0-.122.141A.314.314,0,0,0,0,6.019a.318.318,0,0,0,.084.165L2.933,9.153a.66.66,0,0,0,.219.151.675.675,0,0,0,.262.053H16.886a.336.336,0,0,0,.181-.053.325.325,0,0,0,.122-.141.314.314,0,0,0,.022-.183.319.319,0,0,0-.084-.165ZM.33,3.714H13.8a.675.675,0,0,0,.263-.053.66.66,0,0,0,.22-.151L17.127.541a.319.319,0,0,0,.084-.165.314.314,0,0,0-.022-.183.325.325,0,0,0-.122-.141A.336.336,0,0,0,16.886,0H3.414a.675.675,0,0,0-.262.053A.66.66,0,0,0,2.933.2L.089,3.174a.318.318,0,0,0-.084.165.314.314,0,0,0,.022.182.324.324,0,0,0,.121.141A.336.336,0,0,0,.33,3.714Z"
+              transform="translate(0)"
+              fill="url(#linear-gradient)"
+            />
+          </svg>
         )}
 
         <div className="mb-1">Connect Wallet</div>

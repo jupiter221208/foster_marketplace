@@ -321,6 +321,19 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artwork-table-tr', '#202427')
     doc.style.setProperty('--artwork-table-tr-hover-bg', '#202427')
     doc.style.setProperty('--artwork-table-tr-hover-color', '#95DBD5')
+    doc.style.setProperty('--deposit-icon-bg', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-bg-1', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-bg-2', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-bg-3', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-bg-4', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-bg-5', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-bg-6', '#95dbd5')
+    doc.style.setProperty('--wallet-icon-light-bg-1', '#eff0f6')
+    doc.style.setProperty('--wallet-icon-light-bg-2', '#eff0f6')
+    doc.style.setProperty('--wallet-icon-light-bg-3', '#eff0f6')
+    doc.style.setProperty('--wallet-icon-light-bg-4', '#eff0f6')
+    doc.style.setProperty('--wallet-icon-light-bg-5', '#eff0f6')
+    doc.style.setProperty('--wallet-icon-light-bg-6', '#eff0f6')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -506,5 +519,18 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(32, 36, 39, 35%), rgba(55, 130, 135, 35%))'
     )
     doc.style.setProperty('--artwork-table-tr-hover-color', '#eff0f6')
+    doc.style.setProperty('--deposit-icon-bg', '#5AC3BA')
+    doc.style.setProperty('--wallet-icon-bg-1', '#9945ff')
+    doc.style.setProperty('--wallet-icon-bg-2', '#8752f3')
+    doc.style.setProperty('--wallet-icon-bg-3', '#5497d5')
+    doc.style.setProperty('--wallet-icon-bg-4', '#43b4ca')
+    doc.style.setProperty('--wallet-icon-bg-5', '#28e0b9')
+    doc.style.setProperty('--wallet-icon-bg-6', '#19fb9b')
+    doc.style.setProperty('--wallet-icon-light-bg-1', '#9945ff')
+    doc.style.setProperty('--wallet-icon-light-bg-2', '#8752f3')
+    doc.style.setProperty('--wallet-icon-light-bg-3', '#5497d5')
+    doc.style.setProperty('--wallet-icon-light-bg-4', '#43b4ca')
+    doc.style.setProperty('--wallet-icon-light-bg-5', '#28e0b9')
+    doc.style.setProperty('--wallet-icon-light-bg-6', '#19fb9b')
   }
 }
