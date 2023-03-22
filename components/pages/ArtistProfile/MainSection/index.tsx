@@ -117,7 +117,7 @@ const MainSection = prop => {
               transform="translate(150 150)"
               fill="url(#radial-gradient)"
             />
-          </svg>{' '}
+          </svg>
         </div>
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
           <div className="col-span-3 h-full flex items-center">
