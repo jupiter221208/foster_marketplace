@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
@@ -20,13 +20,6 @@ import CollectionCard from 'components/Card/CollectionCard'
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import ExploreList from 'assets/json/explore/collection-explore-list.json'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-
 // styles
 import styles from './index.module.scss'
 
@@ -40,7 +33,6 @@ const OtherCollectionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [collectionList, setCollectionList] = useState([])
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   useEffect(() => {
     if (artistId !== null) {
@@ -57,7 +49,23 @@ const OtherCollectionSection = props => {
     collectionList.length > 0 && (
       <section className={styles.container}>
         <div className={styles.topRightEllipse}>
-          <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+            <defs>
+              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle
+              id="Ellipse_4322"
+              data-name="Ellipse 4322"
+              cx="1010.5"
+              cy="1010.5"
+              r="1010.5"
+              transform="translate(150 150)"
+              fill="url(#radial-gradient)"
+            />
+          </svg>
         </div>
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">

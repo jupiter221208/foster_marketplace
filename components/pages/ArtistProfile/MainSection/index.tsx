@@ -100,8 +100,24 @@ const MainSection = prop => {
         />
       </div>
       <div className="w-full">
-        <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-          <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={2021} height={2021} alt="" />
+        <div className={styles.topLeftEllipse}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+            <defs>
+              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle
+              id="Ellipse_4322"
+              data-name="Ellipse 4322"
+              cx="1010.5"
+              cy="1010.5"
+              r="1010.5"
+              transform="translate(150 150)"
+              fill="url(#radial-gradient)"
+            />
+          </svg>{' '}
         </div>
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
           <div className="col-span-3 h-full flex items-center">
@@ -113,9 +129,9 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className={`${styles.whiteText} ${lightMode ? styles.whiteLightText : ''}`}>{artistFollowers}</div>
+                <div className={styles.whiteText}>{artistFollowers}</div>
                 &nbsp;
-                <div className={`${styles.grayText} ${lightMode ? styles.grayLightText : ''}`}>Followers</div>
+                <div className={styles.grayText}>Followers</div>
               </div>
               <div
                 className="cursor-pointer flex hover:opacity-60"
@@ -124,9 +140,9 @@ const MainSection = prop => {
                   setShowFollowModal(true)
                 }}
               >
-                <div className={`${styles.whiteText} ${lightMode ? styles.whiteLightText : ''}`}>{artistFollowing}</div>
+                <div className={styles.whiteText}>{artistFollowing}</div>
                 &nbsp;
-                <div className={`${styles.grayText} ${lightMode ? styles.grayLightText : ''}`}>Following</div>
+                <div className={styles.grayText}>Following</div>
               </div>
             </div>
           </div>
@@ -190,7 +206,7 @@ const MainSection = prop => {
             )}
 
             {artistInfo?.bio && (
-              <span className={`${styles.description} ${lightMode ? styles.lightDesc : ''}`}>
+              <span className={styles.description}>
                 {getShortDescription(viewport, artistInfo?.bio)}&nbsp;
                 <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
                   Read&nbsp;more
@@ -321,8 +337,24 @@ const MainSection = prop => {
       </div>
       <div className="w-full">
         <div className="z-0">
-          <div className={`${styles.topLeftEllipse} ${lightMode ? '!opacity-100' : ''}`}>
-            <Image src={lightMode ? EllipseGreenLight : EllipseGreen} width={2021} height={2021} alt="" />
+          <div className={styles.topLeftEllipse}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+              <defs>
+                <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                  <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                  <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle
+                id="Ellipse_4322"
+                data-name="Ellipse 4322"
+                cx="1010.5"
+                cy="1010.5"
+                r="1010.5"
+                transform="translate(150 150)"
+                fill="url(#radial-gradient)"
+              />
+            </svg>
           </div>
         </div>
         <div className="w-full flex justify-between items-center mt-[-50px] z-10">
@@ -401,15 +433,15 @@ const MainSection = prop => {
               setShowFollowModal(true)
             }}
           >
-            <div className={`${styles.whiteText} ${lightMode ? styles.lightDesc : ''}`}>{artistInfo?.following}</div>
+            <div className={styles.whiteText}>{artistInfo?.following}</div>
             &nbsp;
-            <div className={`${styles.grayText} ${lightMode ? styles.lightDesc : ''}`}>Following</div>
+            <div className={styles.grayText}>Following</div>
           </div>
         </div>
       </div>
       <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
         {artistInfo?.bio && (
-          <span className={`${styles.description} ${lightMode ? styles.lightDesc : ''}`}>
+          <span className={styles.description}>
             {getShortDescription(viewport, artistInfo?.bio) + ' '}
             <span
               className={lightMode ? styles.lightReadMore : styles.readMore}
