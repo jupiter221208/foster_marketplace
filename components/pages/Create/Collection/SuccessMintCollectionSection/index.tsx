@@ -6,20 +6,12 @@ import { useRouter } from 'next/router'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import GradientButton from 'components/Button/GradientButton'
 import LinkTextButton from 'components/Button/LinkTextButton'
 import TweetMintButton from 'components/Button/TweetMintButton'
 import MintOutlineButton from 'components/Button/MintOutlineButton'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-
-import TwitterBackgroundBlackIcon from 'assets/icons/twitter-background-black.svg'
-import TwitterBackgroundGreenIcon from 'assets/icons/twitter-background-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -28,11 +20,9 @@ import styles from './index.module.scss'
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 import { TwitterShareButton } from 'react-share'
-import { useSelector } from 'react-redux'
 
 const SuccessMintCollectionSection = props => {
   const { coverCroppedImage, bannerCroppedImage, collectionNft } = props
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const router = useRouter()
 
@@ -50,7 +40,23 @@ const SuccessMintCollectionSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
           <div className={styles.topLeftEllipse}>
-            <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+              <defs>
+                <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                  <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                  <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle
+                id="Ellipse_4322"
+                data-name="Ellipse 4322"
+                cx="1010.5"
+                cy="1010.5"
+                r="1010.5"
+                transform="translate(150 150)"
+                fill="url(#radial-gradient)"
+              />
+            </svg>
           </div>
           <div className="w-full flex flex-wrap justify-center mt-[107px] z-10">
             {/* banner image */}
@@ -101,7 +107,6 @@ const SuccessMintCollectionSection = props => {
                   className="w-full"
                 >
                   <TweetMintButton
-                    icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
                     color={'var(--mint-btn-color)'}
@@ -181,7 +186,6 @@ const SuccessMintCollectionSection = props => {
                   className="w-full"
                 >
                   <TweetMintButton
-                    icon={lightMode ? TwitterBackgroundGreenIcon : TwitterBackgroundBlackIcon}
                     fullWidth
                     label="Tweet your Mint"
                     color={'var(--mint-btn-color)'}

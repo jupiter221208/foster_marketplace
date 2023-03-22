@@ -314,6 +314,16 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--ellipse-svg-2', '#202427')
     doc.style.setProperty('--tooltip-bg', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--tooltip-border', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--back-btn-color', '#transparent')
+    doc.style.setProperty('--back-btn-border', '95DBD5')
+    doc.style.setProperty('--back-btn-border-width', '2')
+    doc.style.setProperty('--artwork-table-border', 'transparent')
+    doc.style.setProperty('--artwork-table-tr', '#202427')
+    doc.style.setProperty('--artwork-table-tr-hover-bg', '#202427')
+    doc.style.setProperty('--artwork-table-tr-hover-color', '#95DBD5')
+    // =====================================================
+    // =====================================================
+    // =====================================================
   } else {
     // Dark Mode
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
@@ -486,5 +496,15 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--ellipse-svg-2', '#63d6cd')
     doc.style.setProperty('--tooltip-bg', 'rgba(239, 240, 247, 0.2)')
     doc.style.setProperty('--tooltip-border', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--back-btn-color', '#378287')
+    doc.style.setProperty('--back-btn-border', 'transparent')
+    doc.style.setProperty('--back-btn-border-width', '')
+    doc.style.setProperty('--artwork-table-border', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--artwork-table-tr', 'rgba(239, 240, 247, 0.8)')
+    doc.style.setProperty(
+      '--artwork-table-tr-hover-bg',
+      'linear-gradient(to bottom, rgba(32, 36, 39, 35%), rgba(55, 130, 135, 35%))'
+    )
+    doc.style.setProperty('--artwork-table-tr-hover-color', '#eff0f6')
   }
 }

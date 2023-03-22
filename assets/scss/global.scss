@@ -245,6 +245,9 @@
   --ellipse-svg-2: #63d6cd;
   --tooltip-bg: rgba(239, 240, 247, 0.2);
   --tooltip-border: rgba(239, 240, 247, 0.1);
+  --back-btn-color: #378287;
+  --back-btn-border: transparent;
+  --back-btn-border-width: '';
 }
 
 html,
@@ -681,7 +684,7 @@ h6 {
 }
 
 #ArtworksTable th {
-  border: 1px solid rgba($background-light-color, 0.1);
+  border: 1px solid var(--artwork-table-border);
   border-style: solid none solid none;
   padding: 4px;
   background-color: var(--background-black-color);
@@ -712,7 +715,7 @@ h6 {
   }
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba($text-gray-200-color, 0.8);
 }
 #ArtworksTable th:first-child {
   border-top-left-radius: 20px;
@@ -734,10 +737,10 @@ h6 {
 }
 
 #ArtworksTable tr:hover {
-  color: rgba($text-gray-200-color, 1);
+  color: var(--text-gray-200-color);
 }
 #ArtworksTable tr {
-  color: rgba($text-gray-200-color, 0.8);
+  color: var(--artwork-table-tr);
 }
 
 // #ArtworksTable tr {
@@ -779,8 +782,8 @@ h6 {
 
 #ArtworksTable tr {
   &:hover {
-    background: linear-gradient(to bottom, rgba(var(--background-dark-color), 35%), rgba(var(--brand-02-color), 35%));
-    color: var(--text-gray-200-color);
+    background: var(--artwork-table-tr-hover-bg);
+    color: var(--artwork-table-tr-hover-color);
   }
 }
 

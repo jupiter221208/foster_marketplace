@@ -57,8 +57,6 @@ const Settings = () => {
     },
   ]
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     <div className="g-container">
       <Head>
@@ -68,13 +66,23 @@ const Settings = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
-          <Image
-            src={lightMode ? EllipseGreenLight : EllipseGreen}
-            width={2021}
-            height={2021}
-            alt=""
-            objectFit="cover"
-          />
+          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
+            <defs>
+              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
+                <stop offset="0" stop-color="var(--ellipse-svg-1)" stop-opacity="0.404" />
+                <stop offset="1" stop-color="var(--ellipse-svg-2)" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+            <circle
+              id="Ellipse_4322"
+              data-name="Ellipse 4322"
+              cx="1010.5"
+              cy="1010.5"
+              r="1010.5"
+              transform="translate(150 150)"
+              fill="url(#radial-gradient)"
+            />
+          </svg>
         </div>
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
