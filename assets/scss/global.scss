@@ -1129,6 +1129,13 @@ h6 {
   --fill-color: var(--background-light-color);
 }
 
+[data-name='logo-text-01'] {
+  --fill-color: var(--logo-text-color);
+  [data-fill='a'] {
+    fill: var(--logo-text-ballon);
+  }
+}
+
 svg {
   fill: var(--fill-color);
 }

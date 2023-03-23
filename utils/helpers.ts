@@ -344,6 +344,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--day-btn-bg-2', '#202427')
     doc.style.setProperty('--search-icon-color', '#D1D2D8')
     doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 1')
+    doc.style.setProperty('--logo-text-color', '#202427')
+    doc.style.setProperty('--logo-text-ballon', '#202427')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -551,5 +553,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--day-btn-bg-2', '#2D625D')
     doc.style.setProperty('--search-icon-color', 'transparent')
     doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75')
+    doc.style.setProperty('--logo-text-color', '#fff')
+    doc.style.setProperty('--logo-text-ballon', '#95dbd5')
   }
 }

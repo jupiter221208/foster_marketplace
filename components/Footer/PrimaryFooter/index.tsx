@@ -14,7 +14,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import LogoText01Icon from 'assets/icons/logo-text-01.svg'
+import LogoText01Icon from 'assets/icons/logo-text-01.svg?component'
 import LogoText01LightIcon from 'assets/icons/logo-text-01-light.svg'
 import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
 import LogoText01MobileLightIcon from 'assets/icons/logo-text-01-mobile-light.svg'
@@ -38,7 +38,8 @@ const PrimaryFooter = () => {
         <div className="g-container flex flex-wrap justify-between gap-4 z-10">
           <div className="max-w-[347px] block justify-start">
             <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
-              <Image src={lightMode ? LogoText01LightIcon : LogoText01Icon} alt="" />{' '}
+              {/* <Image src={lightMode ? LogoText01LightIcon : LogoText01Icon} alt="" />{' '} */}
+              <LogoText01Icon alt="" />
             </div>
             {/* <div className={styles.text}>
               Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
