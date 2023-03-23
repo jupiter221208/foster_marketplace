@@ -21,7 +21,7 @@ import SettingGreenIcon from 'assets/icons/setting-green.svg'
 import SettingGrayIcon from 'assets/icons/setting-gray.svg'
 import DaoGreenIcon from 'assets/icons/dao-green.svg'
 import DaoGrayIcon from 'assets/icons/dao-gray.svg'
-import LogoTextIcon from 'assets/icons/logo-text-01.svg'
+import LogoTextIcon from 'assets/icons/logo-text-01-dark.svg'
 import LogoutIcon from 'assets/icons/logout.svg'
 
 // styles

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -14,7 +13,6 @@ import 'swiper/css/pagination'
 import { useDispatch, useSelector } from 'react-redux'
 
 // components
-import GreenGradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import HeroCard from 'components/Card/HeroCard'
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
@@ -23,13 +21,10 @@ import CreateNFTModal from 'components/Modal/CreateNFTModal'
 import { useViewport } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 // import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg?component'
-import FosterEnhancedLightIcon from 'assets/icons/foster-enhanced-dark.svg'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg?component'
-import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -69,15 +64,14 @@ const MainSection = () => {
     )
   }, [])
 
-  const lightMode = useSelector(state => (state as any).lightMode)
-
   return (
     <section id="main-section" className={styles.container}>
       <div className={styles.topLeftEllipse}>
-        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
+        <EllipseGreen />
       </div>
       <div className={styles.topRightEllipse}>
-        <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" />
+        <EllipseGreen />
+        {/* <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" /> */}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">

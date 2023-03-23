@@ -1136,6 +1136,15 @@ h6 {
   }
 }
 
+[data-name='ellipse-effect'] {
+  [offset='0'] {
+    stop-color: var(--ellipse-svg-1);
+  }
+  [offset='1'] {
+    stop-color: var(--ellipse-svg-2);
+  }
+}
+
 svg {
   fill: var(--fill-color);
 }
