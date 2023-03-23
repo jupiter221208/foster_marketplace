@@ -749,45 +749,35 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
 
                   {!isOwnNft && (
                     <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                      {connected ? (
-                        tradeStateAddress ? (
-                          <GradientButton
-                            label={'Quick Buy'}
-                            onClick={() => quickBuy()}
-                            icon={QuickBuyBlackIcon}
-                            direction="rtl"
-                            disabled={!tradeStateAddress}
-                          />
-                        ) : (
-                          <LoadingButton />
-                        )
-                      ) : (
-                        <button
-                          className={styles.connectWallet}
-                          onClick={() => {
-                            setVisible(true)
-                          }}
-                        >
-                          <div>Connect Wallet</div>
-                          <Image src={FosterLightGreenIcon} alt="" />
-                        </button>
-                      )}
-                      {connected && (
-                        <OutlineButton
-                          label="Make Offer"
-                          onClick={() => {
-                            setOpenOfferModal(true)
-                          }}
-                          icon={TagWhiteIcon}
+                      {tradeStateAddress ? (
+                        <GradientButton
+                          label={'Quick Buy'}
+                          onClick={() => quickBuy()}
+                          icon={QuickBuyBlackIcon}
                           direction="rtl"
-                          borderWidth={2}
-                          color="#eff0f6"
-                          borderColor="#95dbd5"
-                          paddingLeft="13px"
-                          paddingRight="13px"
-                          gap="4px"
+                          disabled={!tradeStateAddress}
                         />
+                      ) : (
+                        <LoadingButton />
                       )}
+                      <OutlineButton
+                        label="Make Offer"
+                        onClick={() => {
+                          if (!connected) {
+                            setVisible(true)
+                            return
+                          }
+                          setOpenOfferModal(true)
+                        }}
+                        icon={TagWhiteIcon}
+                        direction="rtl"
+                        borderWidth={2}
+                        color="#eff0f6"
+                        borderColor="#95dbd5"
+                        paddingLeft="13px"
+                        paddingRight="13px"
+                        gap="4px"
+                      />
                     </div>
                   )}
 
