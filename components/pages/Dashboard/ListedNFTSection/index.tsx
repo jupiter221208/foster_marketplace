@@ -288,7 +288,7 @@ const ListedNFTSection = props => {
         <FilterButton
           label="Fixed-Price"
           onClick={() => handleChangeActive(0)}
-          color={active === 0 ? '#5AC3BA' : '#727679'}
+          color={active === 0 ? '#95DBD5' : '#727679'}
           background={
             active === 0 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
           }
@@ -296,7 +296,7 @@ const ListedNFTSection = props => {
         <FilterButton
           label="Live Auction"
           onClick={() => handleChangeActive(1)}
-          color={active === 1 ? '#5AC3BA' : '#727679'}
+          color={active === 1 ? '#95DBD5' : '#727679'}
           background={
             active === 1 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
           }

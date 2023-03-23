@@ -101,7 +101,7 @@ const FavoriteSection = () => {
         <FilterButton
           label="Single NFTs"
           onClick={() => handleChangeActive(0)}
-          color={active === 0 ? '#5AC3BA' : '#979EA2'}
+          color={active === 0 ? '#95DBD5' : '#979EA2'}
           background={
             active === 0 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
           }
@@ -109,7 +109,7 @@ const FavoriteSection = () => {
         <FilterButton
           label="Collections"
           onClick={() => handleChangeActive(1)}
-          color={active === 1 ? '#5AC3BA' : '#979EA2'}
+          color={active === 1 ? '#95DBD5' : '#979EA2'}
           background={
             active === 1 ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))' : 'transparent'
           }

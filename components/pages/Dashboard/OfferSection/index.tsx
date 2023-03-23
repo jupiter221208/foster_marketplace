@@ -152,7 +152,7 @@ const OfferSection = () => {
         <FilterButton
           label="Offers Made"
           onClick={() => setShownOfferType('made')}
-          color={shownOfferType === 'made' ? '#5AC3BA' : '#979EA2'}
+          color={shownOfferType === 'made' ? '#95DBD5' : '#979EA2'}
           background={
             shownOfferType === 'made'
               ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))'
@@ -162,7 +162,7 @@ const OfferSection = () => {
         <FilterButton
           label="Offers Received"
           onClick={() => setShownOfferType('received')}
-          color={shownOfferType === 'received' ? '#5AC3BA' : '#979EA2'}
+          color={shownOfferType === 'received' ? '#95DBD5' : '#979EA2'}
           background={
             shownOfferType === 'received'
               ? 'linear-gradient(to bottom, rgba(18, 18, 18, 100%), rgba(32, 36, 39, 100%))'
