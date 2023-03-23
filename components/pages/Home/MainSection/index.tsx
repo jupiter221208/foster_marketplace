@@ -71,7 +71,6 @@ const MainSection = () => {
       </div>
       <div className={styles.topRightEllipse}>
         <EllipseGreen />
-        {/* <Image src={lightMode ? EllipseGreenLight : EllipseGreen} alt="" objectFit="cover" /> */}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">

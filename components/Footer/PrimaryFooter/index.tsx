@@ -13,11 +13,8 @@ import Subscriber from 'components/Input/Subscriber'
 import { useViewport } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import LogoText01Icon from 'assets/icons/logo-text-01.svg?component'
-import LogoText01LightIcon from 'assets/icons/logo-text-01-light.svg'
-import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg'
-import LogoText01MobileLightIcon from 'assets/icons/logo-text-01-mobile-light.svg'
+import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg?component'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
@@ -136,17 +133,9 @@ const PrimaryFooter = () => {
         </div>
       ) : (
         <div className="relative g-container flex flex-wrap justify-center gap-4 my-[60px] z-10">
-          {/* <div className={styles.topLeftEllipse}>
-            <Image src={EllipseGreen} width={652} height={652} alt="" />
-          </div> */}
           <div className="w-full flex flex-wrap justify-center">
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
-              <Image
-                src={lightMode ? LogoText01MobileLightIcon : LogoText01MobileIcon}
-                width={176}
-                height={40}
-                alt=""
-              />
+              <LogoText01MobileIcon width={176} height={40} alt="" />
             </div>
           </div>
           <div className="w-full flex justify-around mt-[14px]">
