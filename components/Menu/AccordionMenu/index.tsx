@@ -26,6 +26,9 @@ const AccordionMenu = props => {
   const handleClick = item => {
     if (connected) {
       dispatch({ type: 'set', openMobileMenu: false })
+
+      if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
+
       router.push(item.path)
     } else {
       setVisible(true)
