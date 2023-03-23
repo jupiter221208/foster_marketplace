@@ -28,7 +28,7 @@ import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 // import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg?component'
 import FosterEnhancedLightIcon from 'assets/icons/foster-enhanced-dark.svg'
-import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg'
+import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg?component'
 import FosterEnhancedLightMobile from 'assets/icons/foster-enhanced-mobile-light.svg'
 
 // styles
@@ -135,13 +135,14 @@ const MainSection = () => {
         >
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
-              <Image
+              <FosterEnhancedMobile width={280} height={62} alt="" />
+              {/* <Image
                 src={lightMode ? FosterEnhancedLightMobile : FosterEnhancedMobile}
                 width={280}
                 height={62}
                 alt=""
                 objectFit="cover"
-              />
+              /> */}
               {/* <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div> */}
             </div>
           ) : (
