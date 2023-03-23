@@ -23,8 +23,8 @@ const ArtworksTable = props => {
           <th>Sale Price</th>
           <th>Method of Sale</th>
           <th>Date</th>
-          <th>Creator</th>
-          <th>Collector</th>
+          <th>Seller</th>
+          <th>Buyer</th>
           <th>Market</th>
         </tr>
       </thead>

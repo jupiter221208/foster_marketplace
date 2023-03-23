@@ -86,15 +86,8 @@ const MainSection = () => {
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
             <span className={styles.whiteTitle}>Solana Deserves</span>
           </p> */}
-          {/* <Image
-            src={lightMode ? FosterEnhancedLightIcon : FosterEnhancedIcon}
-            width={621}
-            height={146}
-            alt=""
-            objectFit="cover"
-          /> */}
+
           <FosterEnhancedIcon width={621} height={146} alt="" />
-          {/* {lightMode ? <FosterEnhancedLightIcon /> : <FosterEnhancedIcon />} */}
 
           <div className={styles.text}>Home to the Next Generation of Digital Creators.</div>
 
@@ -136,13 +129,6 @@ const MainSection = () => {
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
               <FosterEnhancedMobile width={280} height={62} alt="" />
-              {/* <Image
-                src={lightMode ? FosterEnhancedLightMobile : FosterEnhancedMobile}
-                width={280}
-                height={62}
-                alt=""
-                objectFit="cover"
-              /> */}
               {/* <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div> */}
             </div>
           ) : (
