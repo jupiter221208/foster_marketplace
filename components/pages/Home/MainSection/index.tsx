@@ -129,8 +129,8 @@ const MainSection = () => {
           </p> */}
           <Image
             src={lightMode ? FosterEnhancedLightIcon : FosterEnhancedIcon}
-            width={624}
-            height={141}
+            width={621}
+            height={146}
             alt=""
             objectFit="cover"
           />
