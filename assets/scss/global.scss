@@ -1120,3 +1120,15 @@ h6 {
     }
   }
 }
+
+[data-name='foster-enhanced-logo'] {
+  --fill-color: #eff0f6;
+}
+
+.light [data-name='foster-enhanced-logo'] {
+  --fill-color: #202427;
+}
+
+svg {
+  fill: var(--fill-color);
+}
