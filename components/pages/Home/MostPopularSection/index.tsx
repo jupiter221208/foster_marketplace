@@ -22,8 +22,7 @@ import NFTCard from 'components/Card/NFTCard'
 import { useViewport } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -84,23 +83,7 @@ const MostPopularSection = props => {
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
         {/* 1399 */}
-        <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
-          <defs>
-            <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-              <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
-              <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle
-            id="Ellipse_4322"
-            data-name="Ellipse 4322"
-            cx="1010.5"
-            cy="1010.5"
-            r="1010.5"
-            transform="translate(150 150)"
-            fill="url(#radial-gradient)"
-          />
-        </svg>
+        <EllipseGreen />
       </div>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">

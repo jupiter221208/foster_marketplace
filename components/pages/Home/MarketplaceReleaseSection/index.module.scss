@@ -10,8 +10,16 @@
 
 .bottomLeftEllipse {
   position: absolute;
-  top: -500px;
-  right: -580px;
+  width: 652px;
+  height: 652px;
+  top: -280px;
+  left: -388px;
+  @media (min-width: 1024px) {
+    width: 2021px;
+    height: 2021px;
+    top: -500px;
+    right: -580px;
+  }
   z-index: 0;
   opacity: 0.4;
 }
