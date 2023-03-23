@@ -863,19 +863,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                   </div>
                 </>
               ) : (
-                !connected && (
-                  <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
-                    <button
-                      className={styles.connectWallet}
-                      onClick={() => {
-                        setVisible(true)
-                      }}
-                    >
-                      <div>Connect Wallet</div>
-                      <Image src={FosterLightGreenIcon} alt="" />
-                    </button>
-                  </div>
-                )
+                <div />
               )}
 
               <div className="mx-auto w-full mt-4">

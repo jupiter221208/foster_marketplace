@@ -38,7 +38,7 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       <>
-        {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />}
+        {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
         <PrimaryHeader />
         <ConnectWalletModal />
         {/* <MobileMenu /> */}

@@ -199,7 +199,7 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {!connected && routePath !== '/' && (
+            {routePath !== '/' && (
               <div className={styles.logoArea} onClick={() => router.push('/')}>
                 <svg
                   id="Component_2298"

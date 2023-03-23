@@ -8,9 +8,11 @@ import { Menu, Transition } from '@headlessui/react'
 
 // styles
 import styles from './index.module.scss'
+import { useDispatch } from 'react-redux'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
+  const dispatch = useDispatch()
 
   return (
     <div className="relative flex items-center">
@@ -20,7 +22,6 @@ const ProfileMenu = props => {
             {connectWalletStatus ? (
               <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
             ) : (
-              // <Image src={lightMode ? UserAccountLightIcon : UserAccountWhiteIcon} alt="" />
               <svg xmlns="http://www.w3.org/2000/svg" width="19.902" height="20.012" viewBox="0 0 19.902 20.012">
                 <path
                   id="user-19"
@@ -49,6 +50,7 @@ const ProfileMenu = props => {
                   key={index}
                   className={styles.menuItem}
                   onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
                     onSelect(item)
                   }}
                 >
