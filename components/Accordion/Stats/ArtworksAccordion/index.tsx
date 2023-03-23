@@ -70,11 +70,11 @@ const ArtworksAccordion = props => {
                     <div className={styles.secondText}>{getLocalDate(item.created_at)}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Creator</div>
+                    <div className={styles.title}>Seller</div>
                     <div className={styles.text}>{getOwnerName(item)}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.secondTitle}>Collector</div>
+                    <div className={styles.secondTitle}>Buyer</div>
                     <div className={styles.secondText}>{getBuyerName(item)}</div>
                   </div>
                   <div className={styles.firstRow}>
