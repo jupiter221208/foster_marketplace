@@ -153,6 +153,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-black-color', '#202427')
     doc.style.setProperty('--background-black-color-rgb', '167, 168, 173')
     doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--background-light-color', '#202427')
+    doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty(
@@ -353,6 +355,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
 
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')
+    doc.style.setProperty('--background-light-color', '#eff0f6')
+    doc.style.setProperty('--background-light-color-rgb', '239, 240, 247')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
     doc.style.setProperty(
