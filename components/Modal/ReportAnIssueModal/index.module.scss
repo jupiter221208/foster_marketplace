@@ -62,7 +62,9 @@
   cursor: pointer;
   text-decoration: underline;
   &:hover {
-    color: var(--brand-01-color);
+    @media (min-width: 1024px) {
+      color: var(--brand-01-color);
+    }
   }
 }
 

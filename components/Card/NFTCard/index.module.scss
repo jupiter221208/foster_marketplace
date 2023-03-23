@@ -55,10 +55,12 @@
     border-radius: 24px;
   }
   &:hover {
-    border-radius: 30px;
-    -ms-transform: scale(1.2);
-    -webkit-transform: scale(1.2);
-    transform: scale(1.2);
+    @media (min-width: 1024px) {
+      border-radius: 30px;
+      -ms-transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+    }
   }
 }
 

@@ -12,7 +12,9 @@
   animation-duration: 4s;
   background-image: url('../../../assets/icons/connect-wallet-background.svg');
   &:hover {
-    background-image: url('../../../assets/icons/connect-wallet-background-hover.svg');
+    @media (min-width: 1024px) {
+      background-image: url('../../../assets/icons/connect-wallet-background-hover.svg');
+    }
   }
   background-repeat: no-repeat;
   background-position: center;

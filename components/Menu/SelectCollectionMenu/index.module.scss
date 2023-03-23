@@ -10,7 +10,9 @@
   }
   padding: 8px 32px;
   &:hover {
-    color: var(--brand-01-color);
+    @media (min-width: 1024px) {
+      color: var(--brand-01-color);
+    }
   }
 }
 
@@ -78,7 +80,9 @@
   line-height: 20px;
   color: rgba(var(--text-gray-200-color), 0.75);
   &:hover {
-    color: var(--text-gray-200-color);
+    @media (min-width: 1024px) {
+      color: var(--text-gray-200-color);
+    }
   }
   gap: 10px;
 }

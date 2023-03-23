@@ -23,7 +23,9 @@
   justify-content: center;
   align-items: center;
   &:hover {
-    color: var(--brand-01-color);
+    @media (min-width: 1024px) {
+      color: var(--brand-01-color);
+    }
   }
 
   transition: color 0.2s;

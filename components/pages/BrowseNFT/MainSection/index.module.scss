@@ -181,7 +181,9 @@
   white-space: nowrap;
   cursor: pointer;
   &:hover {
-    color: var(--brand-01-color);
+    @media (min-width: 1024px) {
+      color: var(--brand-01-color);
+    }
   }
 }
 
@@ -274,8 +276,10 @@
   }
   color: var(--nft-detail-artist);
   &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+    @media (min-width: 1024px) {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 }
 
@@ -314,7 +318,9 @@
   color: $brand-09-color;
   cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    @media (min-width: 1024px) {
+      opacity: 0.8;
+    }
   }
 }
 
@@ -424,7 +430,9 @@
   text-align: center;
   cursor: pointer;
   &:hover {
-    text-decoration: underline;
+    @media (min-width: 1024px) {
+      text-decoration: underline;
+    }
   }
 }
 

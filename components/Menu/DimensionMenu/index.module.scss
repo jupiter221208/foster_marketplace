@@ -13,7 +13,9 @@
   cursor: pointer;
   background-image: url('../../../assets/icons/crop-gray-46x46.svg');
   &:hover {
-    background-image: url('../../../assets/icons/crop-green-46x46.svg');
+    @media (min-width: 1024px) {
+      background-image: url('../../../assets/icons/crop-green-46x46.svg');
+    }
   }
   background-repeat: no-repeat;
   background-size: 30px 30px;
@@ -62,7 +64,9 @@
   white-space: nowrap;
   border: 1px solid transparent;
   &:hover {
-    color: var(--brand-01-color);
+    @media (min-width: 1024px) {
+      color: var(--brand-01-color);
+    }
   }
 }
 

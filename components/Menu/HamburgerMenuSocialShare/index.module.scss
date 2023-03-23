@@ -36,9 +36,11 @@
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   &:hover {
-    background-image: linear-gradient(to bottom, rgba(var(--brand-01-color), 30%) 0%, rgba(#2d625d, 30%) 100%);
-    border-top: 1px solid rgba(var(--background-light-color), 0.5);
-    border-bottom: 1px solid rgba(var(--background-light-color), 0.5);
+    @media (min-width: 1024px) {
+      background-image: linear-gradient(to bottom, rgba(var(--brand-01-color), 30%) 0%, rgba(#2d625d, 30%) 100%);
+      border-top: 1px solid rgba(var(--background-light-color), 0.5);
+      border-bottom: 1px solid rgba(var(--background-light-color), 0.5);
+    }
   }
   transition: all 0.2s;
   transition-timing-function: ease-in-out;

@@ -75,7 +75,9 @@
   cursor: pointer;
   margin-left: 12px;
   &:hover {
-    color: rgba(var(--text-gray-800-color), 0.6);
+    @media (min-width: 1024px) {
+      color: rgba(var(--text-gray-800-color), 0.6);
+    }
   }
 
   transition: color 0.2s;
