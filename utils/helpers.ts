@@ -312,6 +312,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--filter-btn-border', '#EFF0F6')
     doc.style.setProperty('--ellipse-svg-1', '#78787b')
     doc.style.setProperty('--ellipse-svg-2', '#202427')
+    doc.style.setProperty('--ellipse-stop-2', '#202427')
     doc.style.setProperty('--tooltip-bg', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--tooltip-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--back-btn-color', '#transparent')
