@@ -276,7 +276,7 @@ const Step01CollectionSection = props => {
                   transform="translate(150 150)"
                   fill="url(#radial-gradient)"
                 />
-              </svg>{' '}
+              </svg>
             </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
@@ -504,7 +504,7 @@ const Step01CollectionSection = props => {
           <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
           </div>
-          <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
+          {/* <div className={`${styles.title} w-full`}>Collection Cover Preview</div> */}
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full">
               <div className={styles.bannerImageArea}>
