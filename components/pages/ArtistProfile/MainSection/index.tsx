@@ -38,6 +38,8 @@ import artistsAPI from 'apis/artists'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
@@ -167,20 +169,27 @@ const MainSection = prop => {
               </div>
               <div>
                 {follow ? (
-                  <NegativeButton
+                  // <NegativeButton
+                  //   width={146}
+                  //   height={53}
+                  //   fontFamily="KCDurhamBoxcar"
+                  //   fontSize={30}
+                  //   label="Following"
+                  //   onClick={() => unfollowArtist(artistInfo?.wallet_id)}
+                  // />
+                  <OutlineButton
                     width={146}
                     height={53}
-                    fontFamily="KCDurhamBoxcar"
-                    fontSize={30}
                     label="Following"
+                    fontSize={18}
+                    borderWidth={2}
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
-                  <PositiveButton
+                  <GradientButton
                     width={146}
                     height={53}
-                    fontFamily="KCDurhamBoxcar"
-                    fontSize={30}
+                    fontSize={18}
                     label="Follow"
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
