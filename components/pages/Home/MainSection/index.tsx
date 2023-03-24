@@ -157,8 +157,8 @@ const MainSection = () => {
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton
-                backgroundColor01={'var(--explore-btn-bg-1)'}
-                backgroundColor02={'var(--explore-btn-bg-2)'}
+                // backgroundColor01={'var(--explore-btn-bg-1)'}
+                // backgroundColor02={'var(--explore-btn-bg-2)'}
                 width={88}
                 label="Explore"
                 onClick={() => router.push('/explore')}
