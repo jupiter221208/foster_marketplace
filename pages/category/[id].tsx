@@ -53,7 +53,7 @@ const Category = () => {
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
   return (
-    <div className="g-container">
+    <div className="w-full">
       <Head>
         <title>{categoryTitle}</title>
         <meta property="description" content={categoryDescription} />
@@ -99,12 +99,16 @@ const Category = () => {
 
           {/* <div className={styles.title}>{categoryInfo?.name}</div> */}
         </div>
-        <TrendingCollectionSection category={cateQuery} />
-        <MostPopularSection category={cateQuery} />
-        <MarketplaceReleaseSection category={cateQuery} />
-        <LiveAuctionSection category={cateQuery} />
-        <FreshMintSection category={cateQuery} />
-        <PopularCategorySection type="category" />
+        <div className="flex justify-center mt-[40px]">
+          <div className="g-container">
+            <TrendingCollectionSection category={cateQuery} />
+            <MostPopularSection category={cateQuery} />
+            <MarketplaceReleaseSection category={cateQuery} />
+            <LiveAuctionSection category={cateQuery} />
+            <FreshMintSection category={cateQuery} />
+            <PopularCategorySection type="category" />
+          </div>
+        </div>
       </div>
     </div>
   )

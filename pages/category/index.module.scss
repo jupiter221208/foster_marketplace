@@ -4,40 +4,37 @@
   position: relative;
 }
 
-.bottomMask {
-  position: absolute;
-  left: -16px;
-  bottom: 0px;
-  width: calc(100% + 32px);
-  height: 132px;
-  background: linear-gradient(to Bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+// .bottomMask {
+// position: absolute;
+// left: -16px;
+// bottom: 0px;
+// width: calc(100% + 32px);
+// height: 132px;
+// background: linear-gradient(to Bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
 
-  // background: url('../../assets/icons/white-black-banner-mobile-mask.svg');
-  // @media (min-width: 1024px) {
-  //   left: 0px;
-  //   bottom: 0px;
-  //   width: 100%;
-  //   height: 230px;
-  //   border-bottom-left-radius: 14px;
-  //   border-bottom-right-radius: 14px;
-  //   border-bottom-left-radius: 28px;
-  //   border-bottom-right-radius: 28px;
-  //   background: url('../../assets/icons/white-black-banner-mask.svg');
-  // }
-}
+// background: url('../../assets/icons/white-black-banner-mobile-mask.svg');
+// @media (min-width: 1024px) {
+//   left: 0px;
+//   bottom: 0px;
+//   width: 100%;
+//   height: 230px;
+//   border-bottom-left-radius: 14px;
+//   border-bottom-right-radius: 14px;
+//   border-bottom-left-radius: 28px;
+//   border-bottom-right-radius: 28px;
+//   background: url('../../assets/icons/white-black-banner-mask.svg');
+// }
+// }
 
 .imageContainer {
   height: 132px;
   overflow: hidden;
   position: relative;
-  width: calc(100% + 32px);
-  margin-left: -16px;
-  margin-right: -16px;
-  margin-top: -80px;
+  width: 100%;
   @media (min-width: 1024px) {
-    width: calc(100% + 300px);
-    margin-left: -150px;
-    height: 536px;
+    width: 100%;
+    max-height: 536px;
+    height: auto;
   }
 }
 
