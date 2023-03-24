@@ -420,7 +420,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-open-color', '#202427')
     doc.style.setProperty('--menu-item-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--menu-item-right-icon', '#95dbd5')
-    doc.style.setProperty('--menu-item-right-open-icon', '#95dbd5')
+    doc.style.setProperty('--menu-item-right-open-icon', '#ffffff')
     doc.style.setProperty('--search-item-bg', 'linear-gradient(to bottom, #202427, rgba(45, 98, 93, 0.5))')
     doc.style.setProperty('--search-item-color', '#eff0f6')
     doc.style.setProperty('--resource-card-title', '#95dbd5')

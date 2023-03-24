@@ -6,7 +6,6 @@ import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronRightIcon } from '@heroicons/react/solid'
 import { useDispatch, useSelector } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { getShortAddress } from 'utils/wallet.util'
@@ -46,6 +45,8 @@ import {
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import RightIcon from 'assets/icons/right-icon.svg?component'
+import DownIcon from 'assets/icons/down-icon.svg?component'
 
 const MyWalletSubMenu = props => {
   const { icon, label, type = '', data } = props
@@ -239,11 +240,7 @@ const MyWalletSubMenu = props => {
               )}
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
-            {data.length !== 0 && (
-              <ChevronRightIcon
-                className={`${open ? `${styles.openRightIcon} rotate-90 transform` : `${styles.rightIcon}`} h-6 w-6`}
-              />
-            )}
+            {data.length !== 0 && (open ? <DownIcon /> : <RightIcon />)}
           </Disclosure.Button>
 
           <Disclosure.Panel className="w-full relative px-4 pt-4 pb-2 text-sm text-gray-500">

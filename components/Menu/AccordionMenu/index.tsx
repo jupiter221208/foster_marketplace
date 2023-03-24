@@ -5,11 +5,13 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Disclosure } from '@headlessui/react'
-import { ChevronRightIcon } from '@heroicons/react/solid'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+
+import RightIcon from 'assets/icons/right-icon.svg?component'
+import DownIcon from 'assets/icons/down-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -58,11 +60,7 @@ const AccordionMenu = props => {
               )}
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
-            {data.length !== 0 && (
-              <ChevronRightIcon
-                className={`${styles.rightIcon} ${open ? `${styles.openIconColor} rotate-90 transform` : ''} h-6 w-6`}
-              />
-            )}
+            {data.length !== 0 && (open ? <DownIcon /> : <RightIcon />)}
           </Disclosure.Button>
           {data.length !== 0 && (
             <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">

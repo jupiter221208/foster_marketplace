@@ -1,0 +1,4 @@
+[
+  { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "path": "/artist-profile?id=" },
+  { "id": 1, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/settings" }
+]

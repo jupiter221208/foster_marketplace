@@ -31,7 +31,7 @@ import LogoutDarkRedIcon from 'assets/icons/logout-dark-red.svg'
 import LogoutDarkIcon from 'assets/icons/logout-dark.svg'
 
 // json data
-import ProfileMenuList from 'assets/json/profile-menu.json'
+import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
 import ExploreMenuList from 'assets/json/explore-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 
@@ -162,10 +162,10 @@ const MobileMenu = () => {
             <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
             <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
             <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
-            <AccordionMenu icon={NotificationWhiteIcon} label="Notifications" type="" data={[]} path="/notifications" />
             <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
             <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
             <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
+            <AccordionMenu icon={NotificationWhiteIcon} label="Notifications" type="" data={[]} path="/notifications" />
           </div>
           <div className="w-full mt-5">
             <div
@@ -210,9 +210,9 @@ const MobileMenu = () => {
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
             <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
             <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
-            {/* <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" /> */}
-            {/* <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" /> */}
-            {/* <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" /> */}
+            <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
+            <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
+            <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
           </div>
           <div className="w-full flex items-end mt-5">
             <WalletButton fullWidth />
