@@ -55,13 +55,13 @@ const ProfileMenu = props => {
                   }}
                 >
                   {item.id === 0 ? (
-                    <div className="w-10 h-10 flex justify-center items-center">
+                    <div className="w-10 h-10 ml-10 flex justify-center items-center">
                       <div className={styles.imageArea}>
                         <Image src={avatar} alt="" width={24} height={24} className="rounded-full" />
                       </div>
                     </div>
                   ) : (
-                    <div className="w-10 h-10">
+                    <div className="w-10 h-10 ml-10">
                       <Image src={item.icon} alt="" width={40} height={40} />
                     </div>
                   )}
