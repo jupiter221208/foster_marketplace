@@ -571,9 +571,9 @@ const WalletButton = props => {
                       fullWidth
                       height="53px"
                       fontSize="18px"
-                      backgroundColor01={'var(--deposit-btn-bg-1)'}
-                      backgroundColor02={'var(--deposit-btn-bg-2)'}
-                      gradientDirection="right"
+                      // backgroundColor01={'var(--deposit-btn-bg-1)'}
+                      // backgroundColor02={'var(--deposit-btn-bg-2)'}
+                      // gradientDirection="right"
                       borderRadius="15px"
                       borderColor="rgba(255, 255, 255, 0.1)"
                       onClick={() => onClickOfferButton()}
@@ -791,9 +791,9 @@ const WalletButton = props => {
                       fullWidth
                       height="53px"
                       fontSize="18px"
-                      backgroundColor01={'var(--deposit-btn-bg-1)'}
-                      backgroundColor02={'var(--deposit-btn-bg-2)'}
-                      gradientDirection="right"
+                      // backgroundColor01={'var(--deposit-btn-bg-1)'}
+                      // backgroundColor02={'var(--deposit-btn-bg-2)'}
+                      // gradientDirection="right"
                       borderRadius="15px"
                       borderColor="rgba(255, 255, 255, 0.1)"
                       onClick={() => onClickBiddingButton()}

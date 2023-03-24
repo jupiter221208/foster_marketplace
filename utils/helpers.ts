@@ -532,7 +532,7 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(32, 36, 39, 35%), rgba(55, 130, 135, 35%))'
     )
     doc.style.setProperty('--artwork-table-tr-hover-color', '#eff0f6')
-    doc.style.setProperty('--deposit-icon-bg', '#5AC3BA')
+    doc.style.setProperty('--deposit-icon-bg', '#95dbd5')
     doc.style.setProperty('--wallet-icon-bg-1', '#9945ff')
     doc.style.setProperty('--wallet-icon-bg-2', '#8752f3')
     doc.style.setProperty('--wallet-icon-bg-3', '#5497d5')
