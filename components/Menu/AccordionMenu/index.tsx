@@ -66,7 +66,7 @@ const AccordionMenu = props => {
             <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
               {data.map((item, index) => (
                 <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>
-                  {item.id === 0 ? (
+                  {type === 'avatar' && item.id === 0 ? (
                     <div className="w-10 h-10 flex justify-center items-center">
                       <div className={styles.imageArea}>
                         <Image src={icon} alt="" width={24} height={24} className="rounded-full" />
