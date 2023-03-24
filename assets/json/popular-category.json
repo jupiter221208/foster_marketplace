@@ -152,6 +152,21 @@
   {
     "id": 10,
     "disabled": false,
+    "query": "dark art",
+    "image": "/images/popular-category-dark-art.png",
+    "banner": "/images/category-banner-dark-art.png",
+    "mobile": "/images/popular-category-dark-art-mobile.png",
+    "mobile_banner": "/images/category-banner-dark-art-mobile.png",
+    "icon": "/images/category-icon-dark-art.png",
+    "name": "Dark Art",
+    "type": "image",
+    "banner_type": "image",
+    "nfts": 2131,
+    "collections": 287
+  },
+  {
+    "id": 11,
+    "disabled": false,
     "query": "drawing",
     "image": "/images/popular-category-drawing.png",
     "banner": "/images/category-banner-drawing.png",
@@ -165,7 +180,7 @@
     "collections": 287
   },
   {
-    "id": 11,
+    "id": 12,
     "disabled": false,
     "query": "figurative",
     "image": "/images/popular-category-figurative.png",
@@ -180,7 +195,7 @@
     "collections": 287
   },
   {
-    "id": 12,
+    "id": 13,
     "disabled": true,
     "query": "foster house",
     "image": "/images/popular-category-fosterlabs.png",
@@ -195,7 +210,7 @@
     "collections": 287
   },
   {
-    "id": 13,
+    "id": 14,
     "disabled": false,
     "query": "generative",
     "image": "/images/popular-category-generative.png",
@@ -210,7 +225,7 @@
     "collections": 287
   },
   {
-    "id": 14,
+    "id": 15,
     "disabled": false,
     "query": "glitch",
     "image": "/images/popular-category-glitch.png",
@@ -225,7 +240,7 @@
     "collections": 287
   },
   {
-    "id": 15,
+    "id": 16,
     "disabled": false,
     "query": "music",
     "image": "/images/popular-category-music.png",
@@ -240,7 +255,7 @@
     "collections": 287
   },
   {
-    "id": 16,
+    "id": 17,
     "disabled": false,
     "query": "painting",
     "image": "/images/popular-category-painting.png",
@@ -255,7 +270,7 @@
     "collections": 287
   },
   {
-    "id": 17,
+    "id": 18,
     "disabled": false,
     "query": "pfp",
     "image": "/images/popular-category-pfp.png",
@@ -270,7 +285,7 @@
     "collections": 287
   },
   {
-    "id": 18,
+    "id": 19,
     "disabled": false,
     "query": "photography",
     "image": "/images/popular-category-photography.png",
@@ -285,7 +300,7 @@
     "collections": 287
   },
   {
-    "id": 19,
+    "id": 20,
     "disabled": false,
     "query": "pixel art",
     "image": "/images/popular-category-pixel.png",
@@ -300,7 +315,7 @@
     "collections": 287
   },
   {
-    "id": 20,
+    "id": 21,
     "disabled": false,
     "query": "sports",
     "image": "/images/popular-category-sports.png",
@@ -315,7 +330,7 @@
     "collections": 287
   },
   {
-    "id": 21,
+    "id": 22,
     "disabled": false,
     "query": "surreal",
     "image": "/images/popular-category-surreal.png",
@@ -330,7 +345,7 @@
     "collections": 287
   },
   {
-    "id": 22,
+    "id": 23,
     "disabled": false,
     "query": "circus",
     "image": "/images/popular-category-circus.png",
@@ -339,21 +354,6 @@
     "mobile_banner": "/images/category-banner-circus-mobile.png",
     "icon": "/images/category-icon-circus.png",
     "name": "Circus",
-    "type": "image",
-    "banner_type": "image",
-    "nfts": 2131,
-    "collections": 287
-  },
-  {
-    "id": 23,
-    "disabled": false,
-    "query": "dark art",
-    "image": "/images/popular-category-dark-art.png",
-    "banner": "/images/category-banner-dark-art.png",
-    "mobile": "/images/popular-category-dark-art-mobile.png",
-    "mobile_banner": "/images/category-banner-dark-art-mobile.png",
-    "icon": "/images/category-icon-dark-art.png",
-    "name": "Dark Art",
     "type": "image",
     "banner_type": "image",
     "nfts": 2131,
