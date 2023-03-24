@@ -101,8 +101,8 @@ const DashboardNFTCard = props => {
               <Image
                 src={SolanaLogoIcon}
                 alt=""
-                width={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
-                height={viewport === 'xs' ? 15 : viewport === 'sm' || viewport === 'md' ? 18 : 23}
+                width={viewport === 'xs' ? 10 : viewport === 'sm' || viewport === 'md' ? 15 : 17}
+                height={viewport === 'xs' ? 8 : viewport === 'sm' || viewport === 'md' ? 13 : 15}
               />
               <div className={styles.price}>{formattedAmount(price)}</div>
             </div>

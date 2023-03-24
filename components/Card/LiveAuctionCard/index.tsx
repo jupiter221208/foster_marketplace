@@ -158,8 +158,8 @@ const LiveAuctionCard = props => {
               <Image
                 src={SolanaLogoIcon}
                 alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : viewport === 'xl' ? 18 : 23}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : viewport === 'xl' ? 18 : 23}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 15 : 17}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 8 : viewport === 'xl' ? 13 : 15}
               />
               <div className={styles.bidCount}>
                 {data.current_bid !== null ? formattedAmount(data.current_bid) : formattedAmount(data.reserve_price)}
