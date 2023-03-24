@@ -122,7 +122,7 @@ const TrendingCollectionSection = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10 pb-[30px]">
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
         {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}

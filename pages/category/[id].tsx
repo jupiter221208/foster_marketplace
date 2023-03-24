@@ -99,7 +99,7 @@ const Category = () => {
 
           {/* <div className={styles.title}>{categoryInfo?.name}</div> */}
         </div>
-        <div className="flex justify-center mt-[40px]">
+        <div className="flex justify-center mt-[10px] lg:mt-[40px]">
           <div className="g-container">
             <TrendingCollectionSection category={cateQuery} />
             <MostPopularSection category={cateQuery} />
