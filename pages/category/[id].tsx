@@ -69,14 +69,12 @@ const Category = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className="relative w-full mt-4 lg:mt-8">
+        <div className="relative w-full">
           {categoryInfo?.banner_type === 'image' ? (
             <div className={styles.imageContainer}>
               <img
                 src={viewport === 'xs' ? categoryInfo?.mobile_banner : categoryInfo?.banner}
                 alt=""
-                width={1620}
-                height={480}
                 className="w-full object-cover lg:rounded-[30px]"
               />
             </div>
@@ -97,9 +95,9 @@ const Category = () => {
             <></>
           )}
 
-          <div className={styles.bottomMask}></div>
+          {/* <div className={styles.bottomMask}></div> */}
 
-          <div className={styles.title}>{categoryInfo?.name}</div>
+          {/* <div className={styles.title}>{categoryInfo?.name}</div> */}
         </div>
         <TrendingCollectionSection category={cateQuery} />
         <MostPopularSection category={cateQuery} />
