@@ -11,12 +11,13 @@ import styles from './index.module.scss'
 
 // third party components
 import { useDispatch } from 'react-redux'
+import { useViewport } from 'utils'
 
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar } = props
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const viewport = useViewport()
   return (
     <div
       className={styles.container}
@@ -27,18 +28,28 @@ const TrendingCollectionCard = props => {
     >
       <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
         <img src={image} alt="" className="w-full h-full object-cover" />
-        <div className={styles.bottomMask} />
-        <div className="w-full h-[40px] lg:h-[54px] flex justify-between absolute lg:bottom-[28px] bottom-[15px] left-[0px] right-[0px] items-center">
-          <div className="px-[15px] lg:px-[28px]">
-            <div className={styles.nftName}>{collectionName}</div>
-            <div className="flex mt-1">
-              <div className={styles.artistName}>{artistName}</div>
-              <div className={styles.dotStyle}>&#183;</div>
-              <div className={styles.artistName}>{nftCount} NFTs</div>
+        {/* <div className={styles.bottomMask} /> */}
+        <div className={styles.bidContainer}>
+          <div className={styles.bidBgView} />
+          <div className={styles.bidGradientBgView} />
+          <div className="w-full h-[58px] lg:h-[102px] flex justify-between absolute left-[0px] right-[0px] items-center">
+            <div className="px-[15px] lg:px-[28px]">
+              <div className={styles.nftName}>{collectionName}</div>
+              <div className="flex mt-1">
+                <div className={styles.artistName}>{artistName}</div>
+                <div className={styles.dotStyle}>&#183;</div>
+                <div className={styles.artistName}>{nftCount} NFTs</div>
+              </div>
             </div>
-          </div>
-          <div className={styles.avatar}>
-            <img src={avatar !== null ? avatar : Avatar.src} alt="" width={58} height={58} className="rounded-full" />
+            <div className={styles.avatar}>
+              <img
+                src={avatar !== null ? avatar : Avatar.src}
+                alt=""
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
+                className="rounded-full"
+              />
+            </div>
           </div>
         </div>
       </div>
