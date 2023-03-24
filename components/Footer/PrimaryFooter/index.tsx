@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
 import IconButton from 'components/Button/IconButton'
@@ -20,23 +20,40 @@ import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
 import TelegramLightGreenIcon from 'assets/icons/telegram-light-green.svg'
 import GithubLightGreenIcon from 'assets/icons/github-light-green.svg'
+import DarkLightModeIcon from 'assets/icons/dark-light-mode.svg?component'
+import LightDarkModeIcon from 'assets/icons/light-dark-mode.svg?component'
+import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
+import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import { setColorTheme } from 'utils/helpers'
 
 const PrimaryFooter = () => {
   const viewport = useViewport()
   const router = useRouter()
-  const lightMode = useSelector(state => (state as any).lightMode)
+  const dispatch = useDispatch()
   const [email, setEmail] = useState('')
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode)) // =
+
+  const handleThemeMode = () => {
+    setColorTheme(!lightMode)
+    dispatch({ type: 'set', lightMode: !lightMode })
+    setLightMode(!lightMode)
+  }
+
   return (
     <div className={styles.container} data-testid="footer-container">
       {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
         <div className="g-container flex flex-wrap justify-between gap-4 z-10">
           <div className="max-w-[347px] block justify-start">
-            <div className="w-full cursor-pointer" onClick={() => router.push('/')}>
-              {/* <Image src={lightMode ? LogoText01LightIcon : LogoText01Icon} alt="" />{' '} */}
-              <LogoText01Icon alt="" />
+            <div className="w-full cursor-pointer">
+              <div onClick={() => router.push('/')}>
+                <LogoText01Icon alt="" />
+              </div>
+              <div className={styles.lightDarkMode} onClick={() => handleThemeMode()}>
+                {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+              </div>
             </div>
             {/* <div className={styles.text}>
               Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
@@ -137,9 +154,15 @@ const PrimaryFooter = () => {
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
               <LogoText01MobileIcon width={176} height={40} alt="" />
             </div>
+            <div
+              className="w-full mt-[70px] mr-[50px] flex justify-end cursor-pointer"
+              onClick={() => handleThemeMode()}
+            >
+              {lightMode ? <LightDarkModeMobileIcon /> : <DarkLightModeMobileIcon />}
+            </div>
           </div>
-          <div className="w-full flex justify-around mt-[14px]">
-            <div className="w-full block justify-center text-center mt-[44px]">
+          <div className="w-full flex justify-around mt-[4px]">
+            <div className="w-full block justify-center text-center">
               <div className={styles.title}>About</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
@@ -167,7 +190,7 @@ const PrimaryFooter = () => {
                 </a>
               </div>
             </div>
-            <div className="w-full block justify-center text-center mt-[44px]">
+            <div className="w-full block justify-center text-center">
               <div className={styles.title}>Resources</div>
               <div className={`${styles.linkText} !mt-[23px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">

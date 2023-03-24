@@ -40,7 +40,6 @@
 
 .imageArea {
   position: relative;
-  width: 100%;
   padding-top: 81.067%; /* 375:304 Aspect Ratio */
   @media (min-width: 640px) {
     padding-top: 72.727%; /* 550:400 Aspect Ratio */
@@ -60,10 +59,12 @@
   justify-content: center;
   align-items: center;
   border-radius: 24px;
+  margin: 6px;
   @media (min-width: 1024px) {
     border-radius: 24px;
   }
   overflow: hidden;
+  box-shadow: 0px 3px 6px rgba($background-dark-color, 0.3);
 }
 
 .avatarArea {

@@ -97,8 +97,9 @@
   color: var(--text-gray-200-color);
   opacity: 0.6;
 }
-
-.lightGreenText {
-  color: var(--background-dark-color);
-  opacity: 1;
+.lightDarkMode {
+  margin-top: 70px;
+  @media (min-width: 1024px) {
+    margin-top: 60px;
+  }
 }

@@ -1,0 +1,39 @@
+<svg id="Desktop_Light_Mode_Toggle" data-name="Desktop Light Mode Toggle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="116" height="68" viewBox="0 0 116 68">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#eff0f6"/>
+      <stop offset="1" stop-color="#78787b"/>
+    </linearGradient>
+    <filter id="Ellipse_4353" x="48" y="0" width="68" height="68" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Light_Mode_Toggle" data-name="Light Mode Toggle">
+    <g id="Component_4579_1" data-name="Component 4579 – 1">
+      <g id="Group_54123" data-name="Group 54123" transform="translate(-11190 687)">
+        <rect id="Rectangle_21261" data-name="Rectangle 21261" width="114" height="61" rx="30" transform="translate(11190 -687)" fill="#e0e1e7"/>
+      </g>
+      <g id="Group_54122" data-name="Group 54122" transform="translate(-11235 687)">
+        <g transform="matrix(1, 0, 0, 1, 11235, -687)" filter="url(#Ellipse_4353)">
+          <circle id="Ellipse_4353-2" data-name="Ellipse 4353" cx="25" cy="25" r="25" transform="translate(57 6)" fill="url(#linear-gradient)"/>
+        </g>
+        <path id="noun-night-mode-2434960" d="M108.787,169.142a18.3,18.3,0,0,1-13.58,9.22,17.57,17.57,0,0,1-2.49.171,18.441,18.441,0,0,1-9.774-34.01,1.317,1.317,0,0,1,1.844,1.765,15.806,15.806,0,0,0,15.885,23.367,15.608,15.608,0,0,0,6.257-2.279,1.317,1.317,0,0,1,1.857,1.765Z" transform="translate(11175.325 -817.429)" fill="#202427"/>
+      </g>
+    </g>
+    <g id="noun-light-mode-4808961" transform="translate(-10.29 -61.788)">
+      <path id="Path_108466" data-name="Path 108466" d="M562.5,75h2.47v6.174H562.5Z" transform="translate(-471.447)" fill="#202427"/>
+      <path id="Path_108467" data-name="Path 108467" d="M562.5,937.5h2.47v6.174H562.5Z" transform="translate(-471.447 -834.098)" fill="#202427"/>
+      <path id="Path_108468" data-name="Path 108468" d="M937.5,562.5h6.174v2.47H937.5Z" transform="translate(-834.098 -471.447)" fill="#202427"/>
+      <path id="Path_108469" data-name="Path 108469" d="M75,562.5h6.174v2.47H75Z" transform="translate(0 -471.447)" fill="#202427"/>
+      <path id="Path_108470" data-name="Path 108470" d="M812.12,205.656l4.366-4.366,1.746,1.746-4.366,4.366Z" transform="translate(-712.847 -122.131)" fill="#202427"/>
+      <path id="Path_108471" data-name="Path 108471" d="M202.25,817.466l4.366-4.366,1.746,1.746L204,819.212Z" transform="translate(-123.06 -713.795)" fill="#202427"/>
+      <path id="Path_108472" data-name="Path 108472" d="M813.09,813.925l1.746-1.746,4.366,4.366-1.746,1.746Z" transform="translate(-713.785 -712.904)" fill="#202427"/>
+      <path id="Path_108473" data-name="Path 108473" d="M201.28,204.015l1.746-1.746,4.366,4.366-1.746,1.746Z" transform="translate(-122.122 -123.078)" fill="#202427"/>
+      <path id="Path_108474" data-name="Path 108474" d="M346.144,337.5a8.644,8.644,0,1,0,8.644,8.644A8.669,8.669,0,0,0,346.144,337.5Zm0,14.818a6.174,6.174,0,1,1,6.174-6.174A6.193,6.193,0,0,1,346.144,352.318Z" transform="translate(-253.856 -253.856)" fill="#202427"/>
+    </g>
+  </g>
+</svg>
