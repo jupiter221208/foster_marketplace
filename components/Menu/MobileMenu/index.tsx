@@ -20,8 +20,11 @@ import EllipseLightIcon from 'assets/icons/ellipse-light-kingsize.svg'
 
 import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
+import ExploreGrayIcon from 'assets/icons/explore-gray.svg'
 import PlusWhiteIcon from 'assets/icons/plus-green.svg'
+import PlusGrayIcon from 'assets/icons/plus-gray.svg'
 import WalletWhiteIcon from 'assets/icons/wallet-green.svg'
+import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
 import NotificationWhiteIcon from 'assets/icons/quick-buy-green.svg'
 import DaoWhiteIcon from 'assets/icons/dao-green-menu.svg'
 import CollectionWhiteIcon from 'assets/icons/dashboard-green-menu.svg'
@@ -158,9 +161,21 @@ const MobileMenu = () => {
               type="avatar"
               data={profileMenuList}
             />
-            <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
-            <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
-            <MyWalletSubMenu icon={WalletWhiteIcon} label="My Wallet" type="" data={CreateMenuList} />
+            <AccordionMenu
+              icon={ExploreWhiteIcon}
+              openIcon={ExploreGrayIcon}
+              label="Explore"
+              type=""
+              data={ExploreMenuList}
+            />
+            <AccordionMenu icon={PlusWhiteIcon} openIcon={PlusGrayIcon} label="Create" type="" data={CreateMenuList} />
+            <MyWalletSubMenu
+              icon={WalletWhiteIcon}
+              openIcon={WalletGrayIcon}
+              label="My Wallet"
+              type=""
+              data={CreateMenuList}
+            />
             <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
             <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
             <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
@@ -208,8 +223,14 @@ const MobileMenu = () => {
       ) : (
         <div className={styles.container}>
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
-            <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
-            <AccordionMenu icon={PlusWhiteIcon} label="Create" type="" data={CreateMenuList} />
+            <AccordionMenu
+              icon={ExploreWhiteIcon}
+              openIcon={ExploreGrayIcon}
+              label="Explore"
+              type=""
+              data={ExploreMenuList}
+            />
+            <AccordionMenu icon={PlusWhiteIcon} openIcon={PlusGrayIcon} label="Create" type="" data={CreateMenuList} />
             <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
             <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
             <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />

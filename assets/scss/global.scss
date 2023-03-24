@@ -153,7 +153,12 @@
 
   --menu-item-open-bg: linear-gradient(to bottom, #378287, #202427);
   --menu-item-open-color: #202427;
-  --menu-item-border: rgba(239, 240, 247, 0.1);
+  --menu-item-border: rgba(
+    239,
+    240,
+    247,
+    0.1
+  ); //linear-gradient(to bottom, rgba(239, 240, 247, 0.1) 0%, rgba(239, 240, 247, 0.1) 100%);
   --menu-item-right-icon: #95dbd5;
 
   --search-item-bg: linear-gradient(to bottom, #202427 0%, rgba(#2d625d, 0.51) 100%);
@@ -271,6 +276,7 @@
   --wallet-icon-light-bg-5: #28e0b9;
   --wallet-icon-light-bg-6: #19fb9b;
   --logout-icon-color: #5e2028;
+  --menu-open-item-border: #95dbd5;
 }
 
 html,

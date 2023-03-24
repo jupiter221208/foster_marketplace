@@ -17,7 +17,7 @@ import DownIcon from 'assets/icons/down-icon.svg?component'
 import styles from './index.module.scss'
 
 const AccordionMenu = props => {
-  const { icon, label, type = '', data, path = '' } = props
+  const { icon, openIcon = '', label, type = '', data, path = '' } = props
 
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -56,7 +56,7 @@ const AccordionMenu = props => {
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : (
-                <Image src={icon} alt="" />
+                <Image src={open ? openIcon : icon} alt="" />
               )}
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>

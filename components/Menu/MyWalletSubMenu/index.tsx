@@ -49,7 +49,7 @@ import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
 
 const MyWalletSubMenu = props => {
-  const { icon, label, type = '', data } = props
+  const { icon, openIcon, label, type = '', data } = props
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -236,7 +236,7 @@ const MyWalletSubMenu = props => {
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
               ) : (
-                <Image src={icon} alt="" />
+                <Image src={open ? openIcon : icon} alt="" />
               )}
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
