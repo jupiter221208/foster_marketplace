@@ -32,7 +32,7 @@ const TrendingCollectionCard = props => {
         <div className={styles.bidContainer}>
           <div className={styles.bidBgView} />
           <div className={styles.bidGradientBgView} />
-          <div className="w-full h-[58px] lg:h-[102px] flex justify-between absolute left-[0px] right-[0px] items-center">
+          <div className={styles.bidContentView}>
             <div className="px-[15px] lg:px-[28px]">
               <div className={styles.nftName}>{collectionName}</div>
               <div className="flex mt-1">
