@@ -852,7 +852,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: lightMode && open ? '#202427' : '#95dbd5' }}
+                          style={{ color: open ? '#202427' : '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -893,7 +893,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: lightMode && open ? '#202427' : '#95dbd5' }}
+                          style={{ color: open ? '#202427' : '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
@@ -930,7 +930,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         </div>
                         <ChevronUpIcon
                           className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: lightMode && open ? '#202427' : '#95dbd5' }}
+                          style={{ color: open ? '#202427' : '#95dbd5' }}
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel
@@ -978,15 +978,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                     ) : (
                                       <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
                                         <Image
-                                          src={
-                                            item.action_type === 'AuctionStarted'
-                                              ? lightMode
-                                                ? SaleLightIcon
-                                                : SaleGreenIcon
-                                              : lightMode
-                                              ? TagLightIcon
-                                              : TagGreenIcon
-                                          }
+                                          src={item.action_type === 'AuctionStarted' ? SaleLightIcon : TagLightIcon}
                                           alt=""
                                           width={
                                             viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
