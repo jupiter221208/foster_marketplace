@@ -349,6 +349,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--logo-text-ballon', '#202427')
     doc.style.setProperty('--activity-tr-bg', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--banner-image-bg', '#505457')
+    doc.style.setProperty('--menu-item-activity-icon', '#202427')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -561,5 +562,6 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(55, 130, 135, 0.35), rgba(28, 65, 68, 0.35))'
     )
     doc.style.setProperty('--banner-image-bg', '#ffffff')
+    doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
   }
 }
