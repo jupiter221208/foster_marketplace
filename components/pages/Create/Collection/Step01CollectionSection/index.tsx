@@ -26,7 +26,7 @@ import { useViewport, namePublicFile } from 'utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg'
 import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-import BannerImage from 'assets/images/banner-image.svg'
+import BannerBGImage from 'assets/images/banner-image.svg'
 import BannerLightImage from 'assets/images/banner-image-light.svg'
 import DefaultCoverImage from 'assets/images/cover-image.svg'
 import DefaultCoverLightImage from 'assets/images/cover-light-image.svg'
@@ -274,47 +274,27 @@ const Step01CollectionSection = props => {
                   transform="translate(150 150)"
                   fill="url(#radial-gradient)"
                 />
-              </svg>
+              </svg>{' '}
             </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
               <div className="w-full flex flex-wrap justify-center mt-[22px]">
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
-                    <Image
-                      src={
-                        bannerCroppedImage !== undefined ? (
-                          bannerCroppedImage
-                        ) : bannerImage === undefined ? (
-                          // ? BannerLightImage
-                          // : BannerImage
-                          <svg xmlns="http://www.w3.org/2000/svg" width="758" height="194" viewBox="0 0 758 194">
-                            <g
-                              id="Header_Group"
-                              data-name="Header Group"
-                              transform="translate(-150.037 -130.468)"
-                              opacity="0.1"
-                            >
-                              <rect
-                                id="pexels-alexander-ant-4585184"
-                                width="758"
-                                height="194"
-                                rx="20"
-                                transform="translate(150.037 130.468)"
-                                fill="var(--banner-image-bg)"
-                              />
-                            </g>
-                          </svg>
-                        ) : (
-                          URL.createObjectURL(bannerImage[0])
-                        )
-                      }
-                      width={758}
-                      height={194}
-                      alt=""
-                      objectFit="cover"
-                      className="rounded-[20px]"
-                    />
+                    {bannerImage === undefined ? (
+                      <Image src={BannerBGImage} />
+                    ) : (
+                      <Image
+                        src={
+                          bannerCroppedImage !== undefined ? bannerCroppedImage : URL.createObjectURL(bannerImage[0])
+                        }
+                        width={758}
+                        height={194}
+                        alt=""
+                        objectFit="cover"
+                        className="rounded-[20px]"
+                      />
+                    )}
                     <div className="absolute top-2 right-[10px]">
                       <IconButton
                         icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
@@ -520,34 +500,12 @@ const Step01CollectionSection = props => {
           <div className="w-full">
             <CollectionStepper currentStep={currentStep} />
           </div>
-          {/* <div className={`${styles.title} w-full`}>Collection Cover Preview</div> */}
+          <div className={`${styles.title} w-full`}>Collection Cover Preview</div>
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full">
               <div className={styles.bannerImageArea}>
                 <Image
-                  src={
-                    bannerCroppedImage !== undefined ? (
-                      bannerCroppedImage
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="758" height="194" viewBox="0 0 758 194">
-                        <g
-                          id="Header_Group"
-                          data-name="Header Group"
-                          transform="translate(-150.037 -130.468)"
-                          opacity="0.1"
-                        >
-                          <rect
-                            id="pexels-alexander-ant-4585184"
-                            width="758"
-                            height="194"
-                            rx="20"
-                            transform="translate(150.037 130.468)"
-                            fill="var(--banner-image-bg)"
-                          />
-                        </g>
-                      </svg>
-                    )
-                  }
+                  src={bannerCroppedImage !== undefined ? bannerCroppedImage : BannerBGImage}
                   width={758}
                   height={194}
                   alt=""
