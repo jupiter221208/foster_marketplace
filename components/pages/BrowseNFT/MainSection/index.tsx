@@ -661,40 +661,16 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer mr-[16px]" onClick={() => changeLikeStatus()}>
-                      <Image
-                        src={
-                          like
-                            ? lightMode
-                              ? HeartFilledLightIcon
-                              : HeartFilledRedIcon
-                            : lightMode
-                            ? HeartEmptyLightIcon
-                            : HeartFilledWhiteIcon
-                        }
-                        alt=""
-                        className=""
-                      />
+                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{likeCount}</div>
                     </div>
                     <div className="flex items-center cursor-pointer mr-[12px]" onClick={() => changeSaveStatus()}>
-                      <Image
-                        src={
-                          save
-                            ? lightMode
-                              ? TicketGreenLightIcon
-                              : TicketGreenIcon
-                            : lightMode
-                            ? TicketWhiteLightIcon
-                            : TicketWhiteIcon
-                        }
-                        alt=""
-                        className=""
-                      />
+                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
-                      icon01={lightMode ? ShareBlackIcon : ShareWhiteIcon}
-                      icon02={lightMode ? ShareBlackIcon : ShareWhiteIcon}
+                      icon01={ShareWhiteIcon}
+                      icon02={ShareBlackIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}
@@ -822,8 +798,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                             className={`${styles.placeBidBG} ${
                               publicKey?.toBase58() === highBidder || isEnded
                                 ? styles.placeBidDisabledBG
-                                : lightMode
-                                ? styles.placeBidEnabledLightBG
                                 : styles.placeBidEnabledBG
                             }`}
                             onClick={() =>
@@ -835,8 +809,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                 className={`${styles.placeBidBtn} ${
                                   publicKey?.toBase58() === highBidder || isEnded
                                     ? styles.placeBidDisabledColor
-                                    : lightMode
-                                    ? styles.placeBidEnabledLightColor
                                     : styles.placeBidEnabledColor
                                 }`}
                               >
@@ -844,11 +816,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                               </div>
                               <Image
                                 src={
-                                  publicKey?.toBase58() === highBidder || isEnded
-                                    ? PlaceBidDisableIcon
-                                    : lightMode
-                                    ? PlaceBidBlackIcon
-                                    : PlaceBidIcon
+                                  publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon
                                 }
                                 alt=""
                               />
@@ -1000,12 +968,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                 key={index}
                                 className={`${styles.tableText} gap-2`}
                                 style={{
-                                  background:
-                                    index % 2 === 1
-                                      ? lightMode
-                                        ? `rgba(239, 240, 247, 0.25)`
-                                        : `linear-gradient(to bottom, rgba(55, 130, 135, 0.35), rgba(28, 65, 68, 0.35))`
-                                      : 'transparent',
+                                  background: index % 2 === 1 ? 'var(--activity-tr-bg)' : 'transparent',
                                 }}
                               >
                                 <td className="mx-2">

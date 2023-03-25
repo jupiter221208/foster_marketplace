@@ -44,7 +44,6 @@ import styles from './index.module.scss'
 
 // call apis
 import uploadFileToS3API from 'apis/aws'
-import { useSelector } from 'react-redux'
 
 const Step01CollectionSection = props => {
   const {
@@ -71,7 +70,6 @@ const Step01CollectionSection = props => {
     mintCollection,
   } = props
   const viewport = useViewport()
-  const lightMode = useSelector(state => (state as any).lightMode)
 
   const dropzoneBannerEl = useRef(null)
   const dropzoneCoverEl = useRef(null)
@@ -285,13 +283,31 @@ const Step01CollectionSection = props => {
                   <div className={styles.bannerImageArea}>
                     <Image
                       src={
-                        bannerCroppedImage !== undefined
-                          ? bannerCroppedImage
-                          : bannerImage === undefined
-                          ? lightMode
-                            ? BannerLightImage
-                            : BannerImage
-                          : URL.createObjectURL(bannerImage[0])
+                        bannerCroppedImage !== undefined ? (
+                          bannerCroppedImage
+                        ) : bannerImage === undefined ? (
+                          // ? BannerLightImage
+                          // : BannerImage
+                          <svg xmlns="http://www.w3.org/2000/svg" width="758" height="194" viewBox="0 0 758 194">
+                            <g
+                              id="Header_Group"
+                              data-name="Header Group"
+                              transform="translate(-150.037 -130.468)"
+                              opacity="0.1"
+                            >
+                              <rect
+                                id="pexels-alexander-ant-4585184"
+                                width="758"
+                                height="194"
+                                rx="20"
+                                transform="translate(150.037 130.468)"
+                                fill="var(--banner-image-bg)"
+                              />
+                            </g>
+                          </svg>
+                        ) : (
+                          URL.createObjectURL(bannerImage[0])
+                        )
                       }
                       width={758}
                       height={194}
@@ -384,7 +400,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-                    Cover Image * <Image src={lightMode ? InfoCircleDarkGreenIcon : InfoCircleLightGreenIcon} alt="" />
+                    Cover Image * <Image src={InfoCircleLightGreenIcon} alt="" />
                   </div>
                   <div className="mt-5">
                     <Dropzone
@@ -510,7 +526,27 @@ const Step01CollectionSection = props => {
               <div className={styles.bannerImageArea}>
                 <Image
                   src={
-                    bannerCroppedImage !== undefined ? bannerCroppedImage : lightMode ? BannerLightImage : BannerImage
+                    bannerCroppedImage !== undefined ? (
+                      bannerCroppedImage
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="758" height="194" viewBox="0 0 758 194">
+                        <g
+                          id="Header_Group"
+                          data-name="Header Group"
+                          transform="translate(-150.037 -130.468)"
+                          opacity="0.1"
+                        >
+                          <rect
+                            id="pexels-alexander-ant-4585184"
+                            width="758"
+                            height="194"
+                            rx="20"
+                            transform="translate(150.037 130.468)"
+                            fill="var(--banner-image-bg)"
+                          />
+                        </g>
+                      </svg>
+                    )
                   }
                   width={758}
                   height={194}
