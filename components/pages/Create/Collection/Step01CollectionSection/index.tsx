@@ -24,7 +24,7 @@ import CategoryListModal from 'components/Modal/CategoryListModal'
 import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import BannerBGImage from 'assets/images/banner-image.svg'
 import BannerLightImage from 'assets/images/banner-image-light.svg'
@@ -258,23 +258,7 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.topLeftEllipse}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
-                <defs>
-                  <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-                    <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
-                    <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
-                  </radialGradient>
-                </defs>
-                <circle
-                  id="Ellipse_4322"
-                  data-name="Ellipse 4322"
-                  cx="1010.5"
-                  cy="1010.5"
-                  r="1010.5"
-                  transform="translate(150 150)"
-                  fill="url(#radial-gradient)"
-                />
-              </svg>{' '}
+              <EllipseGreen />
             </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Preview</div>

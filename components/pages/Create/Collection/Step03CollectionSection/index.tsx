@@ -19,7 +19,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import ArrowDownGreenIcon from 'assets/icons/arrow-down-green.svg'
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // json
