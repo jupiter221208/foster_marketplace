@@ -799,7 +799,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                             className={`${styles.placeBidBG} ${
                               publicKey?.toBase58() === highBidder || isEnded
                                 ? styles.placeBidDisabledBG
-                                : styles.placeBidEnabledBG
+                                : styles.placeBidEnabledLightBG
                             }`}
                             onClick={() =>
                               publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
@@ -817,7 +817,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                               </div>
                               <Image
                                 src={
-                                  publicKey?.toBase58() === highBidder || isEnded ? PlaceBidDisableIcon : PlaceBidIcon
+                                  publicKey?.toBase58() === highBidder || isEnded
+                                    ? PlaceBidDisableIcon
+                                    : PlaceBidBlackIcon
                                 }
                                 alt=""
                               />
