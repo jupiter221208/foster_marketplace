@@ -20,6 +20,8 @@ import GradientButton from 'components/Button/GradientButton'
 import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
 import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
+
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import NounAddGrayIcon from 'assets/icons/noun-add-gray.svg'
@@ -377,7 +379,7 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                       <div className="flex items-center gap-1">
-                        <SolanaLogoIcon width={15} height={13} />
+                        <SolanaLogoGreenIcon width={15} height={13} />
                         <div className={styles.cardWhiteText}>
                           {offerStatus === 'deposit' ? newMainWallet.toFixed(2) : offerWalletLock?.toFixed(2)}
                         </div>
@@ -390,7 +392,7 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                       <div className="flex items-center gap-1">
-                        <SolanaLogoIcon width={15} height={13} />
+                        <SolanaLogoGreenIcon width={15} height={13} />
                         <div className={styles.cardWhiteText}>
                           {offerStatus === 'deposit'
                             ? newOfferWallet.toFixed(2)
@@ -547,7 +549,7 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                       <div className="flex gap-1 mt-1 items-center">
-                        <SolanaLogoIcon width={15} height={13} />
+                        <SolanaLogoGreenIcon width={15} height={13} />
                         <div className={styles.cardWhiteText}>
                           {biddingStatus === 'deposit' ? newMainWallet.toFixed(2) : bidWalletLock.toFixed(2)}
                         </div>
@@ -562,7 +564,7 @@ const MyWalletSubMenu = props => {
                         </div>
                       </div>
                       <div className="flex gap-1 items-center">
-                        <SolanaLogoIcon width={15} height={13} />
+                        <SolanaLogoGreenIcon width={15} height={13} />
                         <div className={styles.cardWhiteText}>
                           {biddingStatus === 'deposit'
                             ? newBiddingWallet.toFixed(2)
