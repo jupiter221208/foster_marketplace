@@ -103,7 +103,7 @@ const NFTSwiperSection = props => {
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
             autoplay={{
-              delay: 5000000,
+              delay: 5000,
               disableOnInteraction: false,
             }}
           >
