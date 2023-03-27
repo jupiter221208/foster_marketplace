@@ -31,9 +31,9 @@ const SecondaryLayout: FC<SecondaryLayoutProps> = ({ children }) => {
   const { connected } = useWallet()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
-  useEffect(() => {
-    setColorTheme(lightDarkMode)
-  }, [])
+  // useEffect(() => {
+  //   setColorTheme(lightDarkMode)
+  // }, [])
 
   return (
     <div className={styles.container}>
