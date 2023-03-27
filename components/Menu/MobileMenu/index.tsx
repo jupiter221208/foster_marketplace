@@ -44,10 +44,12 @@ import styles from './index.module.scss'
 
 // call apis
 import authAPI from 'apis/auth'
+import { useViewport } from 'utils'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const viewport = useViewport()
   const { connected, publicKey, disconnect } = useWallet()
 
   const [showAlert, setShowAlert] = useState(false)
@@ -135,7 +137,7 @@ const MobileMenu = () => {
   return (
     <div className={styles.menu}>
       <div className={styles.bgImage}>
-        <EllipseGreen />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       {connected ? (
         <div className={styles.container}>

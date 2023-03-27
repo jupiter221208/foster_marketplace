@@ -67,10 +67,10 @@ const MainSection = () => {
   return (
     <section id="main-section" className={styles.container}>
       <div className={styles.topLeftEllipse}>
-        <EllipseGreen />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className={styles.topRightEllipse}>
-        <EllipseGreen />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">

@@ -232,7 +232,7 @@ const MainSection = () => {
   return (
     <div className={styles.container}>
       <div className={styles.topLeftEllipse}>
-        <EllipseGreen />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className={styles.bannerImage}>
         <img

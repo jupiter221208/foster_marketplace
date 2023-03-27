@@ -21,12 +21,14 @@ import TurkeyLogo from 'assets/icons/turkey-logo.svg'
 import styles from './index.module.scss'
 import DaoSetupModal from 'components/Modal/DaoSetupModal'
 import { useSelector } from 'react-redux'
+import { useViewport } from 'utils'
 
 const Dao = () => {
   const [showCircus, setShowCircus] = useState(false)
   const [showLift, setShowLift] = useState(false)
   const [daoSetup, setDaoSetup] = useState(false)
   const lightDarkMode = useSelector(state => (state as any).lightMode)
+  const viewport = useViewport()
 
   return (
     <div className="g-container">
@@ -37,7 +39,7 @@ const Dao = () => {
       </Head>
       <div className="relative w-full flex justify-center">
         <div className={styles.topLeftEllipse}>
-          <EllipseGreen />
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
         <div className={styles.turkeyRingLeader}>
           <Image src={TurkeyRingLeader} alt="" objectFit="cover" className="z-10" />

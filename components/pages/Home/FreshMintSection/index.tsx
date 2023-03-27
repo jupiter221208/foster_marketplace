@@ -80,7 +80,7 @@ const FreshMintSection = props => {
   return (
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
-        <EllipseGreen />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">

@@ -102,7 +102,7 @@ const MainSection = prop => {
       </div>
       <div className="w-full">
         <div className={styles.topLeftEllipse}>
-          <EllipseGreen />
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
           <div className="col-span-3 h-full flex items-center">
@@ -329,9 +329,9 @@ const MainSection = prop => {
       </div>
       <div className="w-full">
         <div className="z-0">
-          <div className={styles.topLeftEllipse}>
+          {/* <div className={styles.topLeftEllipse}>
             <EllipseGreen />
-          </div>
+          </div> */}
         </div>
         <div className="w-full flex justify-between items-center mt-[-50px] z-10">
           <ProfileArtistCard
