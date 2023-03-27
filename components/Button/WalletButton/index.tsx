@@ -19,7 +19,7 @@ import PriceInput from 'components/Input/PriceInput'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
-import WalletGrayIcon from 'assets/icons/wallet-gray.svg'
+import WalletGrayIcon from 'assets/icons/wallet-gray.svg?component'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 import SolanaDarkIcon from 'assets/icons/solana-dark-icon.svg'
 import SolanaLightIcon from 'assets/icons/solana-light-icon.svg'
@@ -292,7 +292,8 @@ const WalletButton = props => {
       <div>
         <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
           {shortMainAddress}
-          <Image src={WalletGrayIcon} alt="" />
+          {/* <Image src={WalletGrayIcon} alt="" /> */}
+          <WalletGrayIcon />
         </Menu.Button>
       </div>
       <Transition

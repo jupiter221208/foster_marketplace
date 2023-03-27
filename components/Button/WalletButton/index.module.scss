@@ -47,12 +47,12 @@
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--brand-09-color);
+  color: var(--single-nft-btn-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
   &:not([disabled]):hover {
-    box-shadow: 0px 5px 15px rgba(var(--brand-09-color), 0.6);
+    box-shadow: 0px 5px 15px rgba(var(--single-nft-btn-color), 0.6);
   }
 }
 
