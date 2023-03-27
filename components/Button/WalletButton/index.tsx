@@ -28,7 +28,8 @@ import SolanaGreenIcon from 'assets/icons/solana-green-icon.svg'
 import avatar from 'assets/images/dashboard-avatar.png'
 import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
 import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-light-green.svg'
 import CopyAltLightBlueIcon from 'assets/icons/copy-alt-light-blue.svg'
 
@@ -322,7 +323,7 @@ const WalletButton = props => {
               <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Main wallet</div>
                 <div className="flex items-center gap-[4px]">
-                  <Image src={SolanaLogoIcon} alt="" />
+                  <SolanaLogoIcon />
                   <div className={styles.priceText}>{mainBalance.toFixed(2)}</div>
                 </div>
               </div>
@@ -380,7 +381,7 @@ const WalletButton = props => {
               <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Offer wallet</div>
                 <div className="flex items-center gap-1">
-                  <Image src={SolanaLogoIcon} alt="" />
+                  <SolanaLogoIcon />
                   <div className={styles.priceText}>{offerBalance.toFixed(2)}</div>
                 </div>
               </div>
@@ -499,7 +500,7 @@ const WalletButton = props => {
                     </div>
                   </div>
                   <div className="flex gap-1">
-                    <Image src={SolanaLogoIcon} alt="" />
+                    <SolanaLogoIcon />
                     <div className={styles.cardWhiteText}>
                       {offerStatus === 'deposit' ? newMainWallet.toFixed(2) : offerWalletLock?.toFixed(2)}
                     </div>
@@ -513,7 +514,7 @@ const WalletButton = props => {
                     </div>
                   </div>
                   <div className="flex gap-1">
-                    <Image src={SolanaLogoIcon} alt="" />
+                    <SolanaLogoIcon />
                     <div className={styles.cardWhiteText}>
                       {offerStatus === 'deposit'
                         ? newOfferWallet.toFixed(2)
@@ -601,7 +602,7 @@ const WalletButton = props => {
               <div className="w-full flex justify-between">
                 <div className={styles.whiteText}>Bidding wallet</div>
                 <div className="flex items-center gap-1">
-                  <Image src={SolanaLogoIcon} alt="" />
+                  <SolanaLogoIcon />
                   <div className={styles.priceText}>{biddingBalance.toFixed(2)}</div>
                 </div>
               </div>
@@ -720,7 +721,7 @@ const WalletButton = props => {
                     </div>
                   </div>
                   <div className="flex gap-1">
-                    <Image src={SolanaLogoIcon} alt="" />
+                    <SolanaLogoIcon />
                     <div className={styles.cardWhiteText}>
                       {biddingStatus === 'deposit' ? newMainWallet.toFixed(2) : bidWalletLock.toFixed(2)}
                     </div>
@@ -733,7 +734,7 @@ const WalletButton = props => {
                     </div>
                   </div>
                   <div className="flex gap-1">
-                    <Image src={SolanaLogoIcon} alt="" />
+                    <SolanaLogoIcon />
                     <div className={styles.cardWhiteText}>
                       {biddingStatus === 'deposit'
                         ? newBiddingWallet.toFixed(2)
