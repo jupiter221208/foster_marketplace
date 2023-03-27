@@ -354,21 +354,21 @@ const MainSection = prop => {
               </div>
               <div>
                 {follow ? (
-                  <NegativeButton
+                  <OutlineButton
                     width={80}
                     height={29}
-                    fontFamily="KCDurhamBoxcar"
-                    fontSize={18}
+                    fontSize={13}
+                    borderRadius={8}
                     label="Following"
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
-                  <PositiveButton
+                  <GradientButton
                     width={80}
                     height={29}
-                    fontFamily="KCDurhamBoxcar"
-                    fontSize={18}
+                    fontSize={13}
                     label="Follow"
+                    borderRadius={8}
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
                 )}

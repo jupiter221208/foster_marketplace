@@ -23,97 +23,99 @@ const DashboardNFTCard = props => {
   const [play, setPlay] = useState(false)
 
   return (
-    <div className={styles.container}>
-      <div className={styles.imageArea}>
-        <div className={styles.imageContent}>
-          {assetType === 'video' ? (
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                {play ? (
-                  <div
-                    className="w-full h-full absolute"
-                    dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+    <div className="w-full h-full px-[2px] lg:px-[3px]">
+      <div className={styles.container}>
+        <div className={styles.imageArea}>
+          <div className={styles.imageContent}>
+            {assetType === 'video' ? (
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                  {play ? (
+                    <div
+                      className="w-full h-full absolute"
+                      dangerouslySetInnerHTML={{
+                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                     <source src=${image} type="video/mp4" /></video>`,
-                    }}
-                    onClick={() => onClick()}
-                  />
-                ) : coverImage != null && coverImage !== '' ? (
-                  <img
-                    src={coverImage}
-                    alt=""
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    onClick={() => onClick()}
-                  />
-                ) : (
-                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
-                )}
-                <div className={styles.playButton}>
-                  <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                    <Image
-                      src={play ? PauseVideoIcon : PlayVideoIcon}
-                      width={18}
-                      height={18}
-                      alt=""
-                      onClick={() => setPlay(!play)}
+                      }}
+                      onClick={() => onClick()}
                     />
+                  ) : coverImage != null && coverImage !== '' ? (
+                    <img
+                      src={coverImage}
+                      alt=""
+                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                      onClick={() => onClick()}
+                    />
+                  ) : (
+                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                  )}
+                  <div className={styles.playButton}>
+                    <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
+                      <Image
+                        src={play ? PauseVideoIcon : PlayVideoIcon}
+                        width={18}
+                        height={18}
+                        alt=""
+                        onClick={() => setPlay(!play)}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ) : (
-              <div
-                className="w-full"
-                dangerouslySetInnerHTML={{
-                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+              ) : (
+                <div
+                  className="w-full"
+                  dangerouslySetInnerHTML={{
+                    __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
                   <source src=${image} type="video/mp4" /></video>`,
-                }}
-                onClick={() => onClick()}
-              />
-            )
-          ) : assetType === 'audio' ? (
-            coverImage !== null && coverImage !== '' ? (
-              <img
-                src={coverImage}
-                alt=""
-                className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                onClick={() => onClick()}
-              />
+                  }}
+                  onClick={() => onClick()}
+                />
+              )
+            ) : assetType === 'audio' ? (
+              coverImage !== null && coverImage !== '' ? (
+                <img
+                  src={coverImage}
+                  alt=""
+                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                  onClick={() => onClick()}
+                />
+              ) : (
+                <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+              )
+            ) : image !== null && image !== '' ? (
+              <img src={image} alt="" className={styles.imageNft} onClick={() => onClick()} />
+            ) : coverImage !== null && coverImage !== '' ? (
+              <img src={coverImage} alt="" className={styles.imageNft} onClick={() => onClick()} />
             ) : (
-              <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
-            )
-          ) : image !== null && image !== '' ? (
-            <img src={image} alt="" className={styles.imageNft} onClick={() => onClick()} />
-          ) : coverImage !== null && coverImage !== '' ? (
-            <img src={coverImage} alt="" className={styles.imageNft} onClick={() => onClick()} />
-          ) : (
-            <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-          )}
+              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+            )}
+          </div>
         </div>
+        <div className="w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-center items-center px-[5px] lg:px-[9px]">
+          <div className="w-full flex items-center">
+            <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
+          </div>
+          <div className="w-full flex justify-between items-center mt-[2px]">
+            <div className={styles.artistName}>{artistName || 'Ecosystem Artist'}</div>
+            {price && (
+              <div className="flex justify-center items-center">
+                <Image
+                  src={SolanaLogoIcon}
+                  alt=""
+                  width={viewport === 'xs' ? 10 : viewport === 'sm' || viewport === 'md' ? 15 : 17}
+                  height={viewport === 'xs' ? 8 : viewport === 'sm' || viewport === 'md' ? 13 : 15}
+                />
+                <div className={styles.price}>{formattedAmount(price)}</div>
+              </div>
+            )}
+          </div>
+        </div>
+        {unSave !== null && (
+          <div className="mt-[10px]">
+            <GradientButton fullWidth label="Unsave" onClick={() => unSave()} />
+          </div>
+        )}
       </div>
-      <div className="w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-center items-center px-[5px] lg:px-[9px]">
-        <div className="w-full flex items-center">
-          <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
-        </div>
-        <div className="w-full flex justify-between items-center mt-[2px]">
-          <div className={styles.artistName}>{artistName || 'Ecosystem Artist'}</div>
-          {price && (
-            <div className="flex justify-center items-center">
-              <Image
-                src={SolanaLogoIcon}
-                alt=""
-                width={viewport === 'xs' ? 10 : viewport === 'sm' || viewport === 'md' ? 15 : 17}
-                height={viewport === 'xs' ? 8 : viewport === 'sm' || viewport === 'md' ? 13 : 15}
-              />
-              <div className={styles.price}>{formattedAmount(price)}</div>
-            </div>
-          )}
-        </div>
-      </div>
-      {unSave !== null && (
-        <div className="mt-[10px]">
-          <GradientButton fullWidth label="Unsave" onClick={() => unSave()} />
-        </div>
-      )}
     </div>
   )
 }
