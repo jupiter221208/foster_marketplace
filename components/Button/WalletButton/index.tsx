@@ -31,7 +31,7 @@ import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
-import CopyAltLightGreenIcon from 'assets/icons/copy-alt-light-green.svg'
+import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 import CopyAltLightBlueIcon from 'assets/icons/copy-alt-light-blue.svg'
 
 import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
@@ -337,21 +337,21 @@ const WalletButton = props => {
                     copyClipboardAlert('main-wallet')
                   }}
                 >
-                  <Image src={CopyAltLightBlueIcon} alt="" />
+                  <CopyAltLightGreenIcon />
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortMainAddress}</div>
                   </div>
                   <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
                 </div>
-                <div
+                {/* <div
                   className="flex justify-end pt-[6px] py-2 cursor-pointer"
                   onClick={() => setShowMainWallet(!showMainWallet)}
                 >
                   <Image src={EllipseGroupWhiteIcon} />
-                </div>
+                </div> */}
               </div>
             </div>
-            {showMainWallet && (
+            {/* {showMainWallet && (
               <div className="w-full flex flex-wrap">
                 <Menu.Item>
                   {({ active }) => (
@@ -376,7 +376,7 @@ const WalletButton = props => {
                   )}
                 </Menu.Item>
               </div>
-            )}
+            )} */}
             {/* offer wallet part */}
             <div className="w-full my-3">
               <div className="w-full flex justify-between">
@@ -395,7 +395,7 @@ const WalletButton = props => {
                   }}
                 >
                   <div className="w-[16px] h-[18px]">
-                    <Image src={CopyAltLightBlueIcon} alt="" />
+                    <CopyAltLightGreenIcon />
                   </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortOfferAddress}</div>
@@ -630,7 +630,7 @@ const WalletButton = props => {
                   }}
                 >
                   <div className="w-[16px] h-[18px]">
-                    <Image src={CopyAltLightBlueIcon} alt="" />
+                    <CopyAltLightGreenIcon />
                   </div>
                   <div className={styles.grayCard}>
                     <div className={styles.greenText}>{shortBiddingAddress}</div>
