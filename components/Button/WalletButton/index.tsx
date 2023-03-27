@@ -747,7 +747,7 @@ const WalletButton = props => {
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
-                      <SolanaLogoIcon />
+                      <SolanaLogoGreenIcon />
                       <div className={styles.cardWhiteText}>
                         {biddingStatus === 'deposit' ? newMainWallet.toFixed(2) : bidWalletLock.toFixed(2)}
                       </div>
@@ -762,7 +762,7 @@ const WalletButton = props => {
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
-                      <SolanaLogoIcon />
+                      <SolanaLogoGreenIcon />
                       <div className={styles.cardWhiteText}>
                         {biddingStatus === 'deposit'
                           ? newBiddingWallet.toFixed(2)
