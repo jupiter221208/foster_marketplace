@@ -293,7 +293,7 @@ const WalletButton = props => {
         <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
           {shortMainAddress}
           {/* <Image src={WalletGrayIcon} alt="" /> */}
-          <WalletGrayIcon />
+          <WalletGrayIcon width="20" height="18" alt="" />
         </Menu.Button>
       </div>
       <Transition
