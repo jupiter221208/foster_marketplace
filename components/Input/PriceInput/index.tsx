@@ -4,7 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 
 // import images and icons
-import SolanaLogoIcon from 'assets/icons/solana-price.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -43,7 +43,7 @@ const PriceInput = props => {
       }}
     >
       <div className="mx-[8px] flex items-center">
-        <Image src={SolanaLogoIcon} alt="" width={15} height={15} />
+        <SolanaLogoIcon />
       </div>
 
       <input
