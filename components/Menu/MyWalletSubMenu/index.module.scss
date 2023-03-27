@@ -115,7 +115,8 @@
   width: auto;
   height: 21px;
   border-radius: 6px;
-  background-color: rgba(var(--text-gray-200-color), 0.1);
+  background: rgba($background-dark-color, 0.1);
+
   padding-left: 5px;
   padding-right: 5px;
 
@@ -137,12 +138,12 @@
   font-size: 12px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 }
 
 .greenText {
-  font-family: 'Muli-Regular';
-  font-size: 10px;
+  font-family: 'Muli-SemiBold';
+  font-size: 9px;
   line-height: 24px;
   letter-spacing: 0;
   color: var(--single-nft-btn-color);
