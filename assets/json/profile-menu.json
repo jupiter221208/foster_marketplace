@@ -5,5 +5,6 @@
   { "id": 3, "icon": "/icons/statistic-green.svg", "label": "Stats", "path": "/stats" },
   { "id": 4, "icon": "/icons/dao-green.svg", "label": "DAO", "path": "/dao" },
   { "id": 5, "icon": "/icons/resource-green.svg", "label": "Resources", "path": "/resources" },
-  { "id": 6, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/settings" }
+  { "id": 6, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/settings" },
+  { "id": 7, "icon": "/icons/logout-green.svg", "label": "Logout", "path": "/" }
 ]

@@ -349,7 +349,7 @@ const PrimaryHeader = () => {
             zIndex: 10000,
             position: 'fixed',
             top: `${profileOffset[0] + 27}px`,
-            left: `${profileOffset[1] - 5}px`,
+            left: `${profileOffset[1] - 0}px`,
           }}
         >
           <ProfileMenu

@@ -9,10 +9,12 @@ import { Menu, Transition } from '@headlessui/react'
 // styles
 import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
   const dispatch = useDispatch()
+  const { disconnect } = useWallet()
 
   return (
     <div className="relative flex items-center">
@@ -50,7 +52,15 @@ const ProfileMenu = props => {
                   key={index}
                   className={styles.menuItem}
                   onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
+                    if (item.id === 7) {
+                      if (localStorage.getItem('walletName') === '"Phantom"') {
+                        localStorage.removeItem('walletName')
+                        ;(window as any).solana.disconnect()
+                      } else disconnect()
+
+                      localStorage.removeItem('token')
+                      dispatch({ type: 'set', profileInfo: null })
+                    }
                     onSelect(item)
                   }}
                 >
