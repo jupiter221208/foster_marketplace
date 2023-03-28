@@ -33,6 +33,12 @@ class Collections {
     })
   }
 
+  updateCollectionBanner(collection_id, bannerInfo) {
+    return client.put(API_URL + 'v1/collections/' + collection_id + '/banner', bannerInfo).then(response => {
+      return response.data
+    })
+  }
+
   unsaveCollection(collection_id) {
     return client.delete(API_URL + 'v1/collections/save/' + collection_id).then(response => {
       return response.data

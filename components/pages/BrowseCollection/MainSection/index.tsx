@@ -133,16 +133,16 @@ const MainSection = props => {
 
   useEffect(() => {
     if (bannerPictureUrl.length === 0) return
-    // userAPI.update({ wallet_id: publicKey?.toBase58() || '', banner_picture: bannerPictureUrl }).then(
-    //   response => {
-    //     if (response !== null) {
-    //       dispatch({ type: 'set', profileInfo: response })
-    //     }
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
+    collectionAPI.updateCollectionBanner(data?.collection_id, { banner_image: bannerPictureUrl }).then(
+      response => {
+        if (response !== null) {
+          dispatch({ type: 'set', profileInfo: response })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }, [bannerPictureUrl])
 
   const showAlertModal = () => {
