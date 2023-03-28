@@ -39,7 +39,7 @@ import styles from './index.module.scss'
 import collectionAPI from 'apis/collections'
 
 const MainSection = props => {
-  const { nfts, data } = props
+  const { nfts, data, publicKey } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const inputBannerFile = useRef<any>(null)
@@ -192,29 +192,31 @@ const MainSection = props => {
             ) : (
               <img src={bannerImage.src} alt="" className="w-full lg:h-[412px] rounded-[20px] object-cover mb-[12px]" />
             )}
-            <div className="absolute right-2 bottom-2 cursor-pointer">
-              <div className={styles.iconBlurView}>
-                <IconButton
-                  icon={CameraWhiteIcon}
-                  onClick={() => inputBannerFile.current.click()}
-                  backgroundColor={'transparent'}
-                  borderRadius="100%"
-                  width={46}
-                  height={46}
-                  iconWidth={46}
-                  iconHeight={46}
-                  disabled={bannerUploadingToS3}
+            {publicKey?.toBase58() === data?.minter_id && (
+              <div className="absolute right-4 bottom-4 cursor-pointer">
+                <div className={styles.iconBlurView}>
+                  <IconButton
+                    icon={CameraWhiteIcon}
+                    onClick={() => inputBannerFile.current.click()}
+                    backgroundColor={'transparent'}
+                    borderRadius="100%"
+                    width={46}
+                    height={46}
+                    iconWidth={46}
+                    iconHeight={46}
+                    disabled={bannerUploadingToS3}
+                  />
+                </div>
+                <input
+                  type="file"
+                  id="banner-file"
+                  accept="image/png, image/jpeg, image/gif"
+                  ref={inputBannerFile}
+                  style={{ display: 'none' }}
+                  onChange={event => handleChangeBannerImage(event)}
                 />
               </div>
-              <input
-                type="file"
-                id="banner-file"
-                accept="image/png, image/jpeg, image/gif"
-                ref={inputBannerFile}
-                style={{ display: 'none' }}
-                onChange={event => handleChangeBannerImage(event)}
-              />
-            </div>
+            )}
           </div>
           <div className="w-full">
             <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">

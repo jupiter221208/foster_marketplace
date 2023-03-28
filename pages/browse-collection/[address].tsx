@@ -109,7 +109,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       </Head>
 
       <div className={styles.container}>
-        <MainSection nfts={nfts} data={collectionData} />
+        <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} />
         <CollectionSection
           nfts={nfts}
           collectionId={address}
