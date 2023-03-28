@@ -193,9 +193,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               fontSize="12px"
               paddingLeft="7px"
               paddingRight="7px"
-              backgroundColor01="#326B67"
-              backgroundColor02="#63D6CD"
-              gradientDirection="right"
               borderRadius="6px"
             />
           ) : (
