@@ -101,9 +101,6 @@ const MainSection = prop => {
         />
       </div>
       <div className="w-full">
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
           <div className="col-span-3 h-full flex items-center">
             <div className="flex gap-[15px] z-10">
