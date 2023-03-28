@@ -247,6 +247,7 @@ const StartAuctionModal = props => {
                   <PriceInput
                     value={price}
                     placeholder="Enter starting bid"
+                    backgroundColor="#202427"
                     fullWidth
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                     onChange={value => {

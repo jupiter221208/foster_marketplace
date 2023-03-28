@@ -148,6 +148,7 @@ const ListNFTModal = props => {
                     <PriceInput
                       value={price}
                       placeholder="Enter fixed-price for listing"
+                      backgroundColor="#202427"
                       fullWidth
                       onChange={value => setPrice(value)}
                     />
