@@ -75,6 +75,10 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
   await Promise.all(
     userNfts.map(async nft => {
       try {
+        if (new URL(nft.uri).origin.includes('ftx.us')) {
+          console.warn(`skipping ftx nft ${nft.address}: ${nft.uri}`)
+          return
+        }
         // @ts-ignore
         nft.json = await fetch(nft.uri).then(r => r.json())
         // @ts-ignore
@@ -85,7 +89,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
     })
   )
 
-  return userNfts.filter(({ json }) => json)
+  return userNfts.filter(({ jsonLoaded }) => jsonLoaded)
 }
 
 export async function getMyCollectionNFTs(mx: Metaplex) {
