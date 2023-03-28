@@ -30,7 +30,7 @@
   &:hover {
     @media (min-width: 1024px) {
       background: #121212 !important;
-      color: var(--brand-09-color);
+      color: $brand-09-color !important;
       box-shadow: 0px 3px 6px rgba($brand-09-color, 0.16);
     }
   }
