@@ -22,8 +22,8 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-// import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg'
 import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg?component'
+import FosterEnhancedSmallIcon from 'assets/icons/foster-enhanced-small.svg?component'
 import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg?component'
 
 // styles
@@ -79,9 +79,9 @@ const MainSection = () => {
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
             <span className={styles.whiteTitle}>Solana Deserves</span>
           </p> */}
+          {/* <FosterEnhancedSmallIcon /> */}
 
-          <FosterEnhancedIcon width={621} height={146} alt="" />
-
+          {viewport === 'lg' ? <FosterEnhancedSmallIcon /> : <FosterEnhancedIcon />}
           <div className={styles.text}>Home to the Next Generation of Digital Creators.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
