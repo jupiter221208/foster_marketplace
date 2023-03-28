@@ -281,7 +281,10 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
     await updateSolBalance()
     if (result) {
       listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
-        response => console.log(response),
+        response => {
+          console.log(response)
+          setIsOwnNft(true)
+        },
         error => console.log(error)
       )
       setShowAlert(true)

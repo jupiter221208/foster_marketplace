@@ -26,7 +26,7 @@ const CollectionCard = props => {
           <div className={styles.artistName}>{artistName && artistName.length > 0 ? artistName : nftName}</div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">
-          <div className="flex flex-wrap gap-1 max-h-[16px] lg:max-h-[28px] overflow-hidden">
+          <div className="flex flex-wrap gap-1 max-h-[16px] lg:max-h-[30px] overflow-hidden">
             {category?.map((item, index) => (
               <SmallCategoryChip data={item} key={index} />
             ))}
