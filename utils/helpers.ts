@@ -289,7 +289,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serachbox-bg', '#eff0f6')
     doc.style.setProperty('--mobile-serach-area-bg', 'rgba(239, 240, 247, 0.8')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(241, 255, 255, 1)')
-    doc.style.setProperty('--auction-input-bg', '#DEDEE4')
+    doc.style.setProperty('--auction-input-bg', '#202427')
     doc.style.setProperty('--see-more-border', '#202427')
     doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
     doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 1)')

@@ -212,7 +212,7 @@ const StartAuctionModal = props => {
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
                       backgroundColor={'var(--auction-input-bg)'}
-                      color={'var(--text-gray-200-color)'}
+                      color="#eff0f6"
                       borderRadius="9px"
                       type="number"
                       onChange={value => {
@@ -229,7 +229,7 @@ const StartAuctionModal = props => {
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
                       backgroundColor={'var(--auction-input-bg)'}
-                      color={'var(--text-gray-200-color)'}
+                      color="#eff0f6"
                       borderRadius="9px"
                       type="number"
                       onChange={value => setHours(value)}

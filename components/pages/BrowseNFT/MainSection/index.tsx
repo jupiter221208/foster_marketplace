@@ -283,6 +283,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
       listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
         response => {
           console.log(response)
+          setNftPrice(0)
           setIsOwnNft(true)
         },
         error => console.log(error)

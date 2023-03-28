@@ -39,6 +39,7 @@ const MoreCategorySection = props => {
       dashboardAPI.getTrendingCollections(categories[0]).then(
         response => {
           if (response instanceof Array) setCollectionList(response)
+          console.log('=============response========', response)
         },
         error => {}
       )

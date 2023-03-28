@@ -10,11 +10,13 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import styles from './index.module.scss'
 
 import { calculateTimeLeft } from 'utils/helpers'
+import { useViewport } from 'utils'
 
 const AuctionCard = props => {
   const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
   const [timeLeft, setTimeLeft] = useState(null)
   const [auctionStarted, setAuctionStarted] = useState(true)
+  const viewport = useViewport()
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
@@ -46,9 +48,14 @@ const AuctionCard = props => {
     <div className={styles.container}>
       <div className="block justify-center items-start">
         <div className={styles.thinGreenText}>{auctionStarted ? 'STARTING' : 'RESERVE PRICE'}</div>
-        <div className="flex justify-center gap-1 mt-2">
-          <div className="w-4 h-4 lg:w-6 lg:h-6">
-            <Image src={SolanaLogoIcon} alt="" />
+        <div className="flex justify-center gap-1 mt-2 items-center">
+          <div className="w-4 h-4 lg:w-5 lg:h-5">
+            <Image
+              src={SolanaLogoIcon}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 20}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 17 : 20}
+              alt=""
+            />
           </div>
           <div className={styles.whiteText}>{Math.round(reservePrice * 1000) / 1000}</div>
         </div>
@@ -56,9 +63,14 @@ const AuctionCard = props => {
       {auctionStarted && (
         <div className="block justify-center items-start">
           <div className={styles.thinGreenText}>CURRENT</div>
-          <div className="flex justify-center gap-1 mt-2">
-            <div className="w-4 h-4 lg:w-6 lg:h-6">
-              <Image src={SolanaLogoIcon} alt="" />
+          <div className="flex justify-center gap-1 mt-2 items-center">
+            <div className="w-4 h-4 lg:w-5 lg:h-5">
+              <Image
+                src={SolanaLogoIcon}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 20}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 17 : 20}
+                alt=""
+              />
             </div>
             <div className={styles.whiteText}>{Math.round(currentPrice * 1000) / 1000}</div>
           </div>
