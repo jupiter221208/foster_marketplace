@@ -39,7 +39,7 @@
   }
   text-align: center;
   line-height: 44px;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 }
 
 .text {
@@ -51,7 +51,7 @@
   }
   line-height: 24px;
   white-space: pre-line;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 }
 
 .boldText {
@@ -102,7 +102,7 @@
     height: 53px;
     font-size: 20px;
   }
-  background-color: var(--brand-01-color);
+  background-color: $brand-09-color;
   color: var(--background-dark-color);
   border-radius: 12px;
 }

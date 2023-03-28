@@ -171,7 +171,7 @@ const ReportAnIssueModal = props => {
                       onClick={() => setStep(2)}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                      backgroundColor={selectedReport.id === -1 ? '#202427' : ''}
+                      backgroundColor={selectedReport.id === -1 ? '#202427' : '#95dbd5'}
                       color={selectedReport.id === -1 ? '#EFF0F6' : '#202427'}
                       disabled={selectedReport.id === -1 ? true : false}
                       fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
