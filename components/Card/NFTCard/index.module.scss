@@ -114,16 +114,16 @@
 }
 
 .price {
-  font-family: 'Muli-Bold';
-  font-size: 14px;
-  line-height: 10px;
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 12px;
   margin-left: 3px;
   margin-top: -2px;
   @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
     margin-top: 0px;
     margin-left: 7px;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 24px;
   }
   letter-spacing: 0;
