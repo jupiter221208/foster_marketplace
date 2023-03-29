@@ -21,6 +21,7 @@ import PreviewImage from 'assets/images/preview-image.png'
 
 // custom functions
 import { useDetectRouterPath } from 'utils'
+import { getAbsoluteOgUrl } from 'utils/seo'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -31,7 +32,7 @@ const Home = () => {
   useDetectRouterPath(useRouter())
 
   let pageTitle = 'Foster Marketplace'
-  let pageImageUrl = PreviewImage.src
+  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
   let pageDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 

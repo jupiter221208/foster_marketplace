@@ -24,6 +24,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import authAPI from 'apis/auth'
 import collectionsAPI from 'apis/collections'
 import { isString, isLoggedIn } from 'utils/helpers'
+import { getAbsoluteOgUrl } from 'utils/seo'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
@@ -97,7 +98,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   }, [connected, loginAndRefresh])
 
   let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
-  let collectionImageUrl = collectionData?.cover_image ?? DefaultNftBG.src
+  let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)
   let collectionDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 

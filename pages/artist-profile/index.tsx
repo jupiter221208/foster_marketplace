@@ -28,6 +28,7 @@ import authAPI from 'apis/auth'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString, isLoggedIn } from 'utils/helpers'
 import { useViewport } from 'utils'
+import { getAbsoluteOgUrl } from 'utils/seo'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -192,7 +193,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [artistPublicKey])
 
   let artistName = `${artistInfo?.username} | Foster Marketplace`
-  let artistImageUrl = artistInfo?.profile_picture ?? DefaultNftBG.src
+  let artistImageUrl = getAbsoluteOgUrl(artistInfo?.profile_picture ?? DefaultNftBG.src)
   let artistDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 

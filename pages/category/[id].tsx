@@ -21,6 +21,7 @@ import FreshMintSection from 'components/pages/Home/FreshMintSection'
 
 // custom functions
 import { useViewport } from 'utils'
+import { getAbsoluteOgUrl } from 'utils/seo'
 
 // json
 import PopularCategoryList from 'assets/json/popular-category.json'
@@ -60,6 +61,7 @@ const Category = () => {
     categoryTitle = 'Foster Marketplace'
     categoryImageUrl = PreviewImage.src
   }
+  categoryImageUrl = getAbsoluteOgUrl(categoryImageUrl)
   let categoryDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
