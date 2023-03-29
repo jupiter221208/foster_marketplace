@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -17,8 +16,6 @@ import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import AvatarIcon from 'assets/images/dashboard-avatar.png'
-import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
-import NotificationWhiteIcon from 'assets/icons/quick-buy-green.svg'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
@@ -136,7 +133,7 @@ const MobileMenu = () => {
             />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
-            <MyWalletSubMenu label="My Wallet" type="" data={CreateMenuList} />
+            <MyWalletSubMenu label="My Wallet" type="" />
             <AccordionMenu label="Dashboard" type="dashboard" data={[]} path="/dashboard" />
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
@@ -184,7 +181,7 @@ const MobileMenu = () => {
       ) : (
         <div className={styles.container}>
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
-            <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
+            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />

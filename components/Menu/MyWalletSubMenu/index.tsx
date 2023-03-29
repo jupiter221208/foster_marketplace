@@ -53,7 +53,7 @@ import WalletIcon from 'assets/icons/wallet-icon.svg?component'
 import WalletGrayIcon from 'assets/icons/wallet-white.svg?component'
 
 const MyWalletSubMenu = props => {
-  const { label, type = '', data } = props
+  const { label, type = '' } = props
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -241,7 +241,7 @@ const MyWalletSubMenu = props => {
 
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
-            {data.length !== 0 && (open ? <DownIcon /> : <RightIcon />)}
+            {open ? <DownIcon /> : <RightIcon />}
           </Disclosure.Button>
 
           <Disclosure.Panel className="w-full relative px-1 pt-4 pb-2 text-sm text-gray-500">

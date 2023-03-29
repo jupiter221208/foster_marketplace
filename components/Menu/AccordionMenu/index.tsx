@@ -21,6 +21,11 @@ import StatsIcon from 'assets/icons/statistic-icon-menu.svg?component'
 import DAOIcon from 'assets/icons/dao-icon-menu.svg?component'
 import ResourceIcon from 'assets/icons/resource-icon-menu.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-menu.svg?component'
+import NftCategoryIcon from 'assets/icons/dashboard-icon.svg?component'
+import NftCollectionIcon from 'assets/icons/collection-icon.svg?component'
+import NftArtistIcon from 'assets/icons/artist-icon.svg?component'
+import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
+import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -103,6 +108,16 @@ const AccordionMenu = props => {
                         <Image src={icon} alt="" width={24} height={24} className="rounded-full" />
                       </div>
                     </div>
+                  ) : item.type === 'nft_category' ? (
+                    <NftCategoryIcon />
+                  ) : item.type === 'nft_collection' ? (
+                    <NftCollectionIcon />
+                  ) : item.type === 'nft_artist' ? (
+                    <NftArtistIcon />
+                  ) : item.type === 'single_nft' ? (
+                    <SingleNftIcon />
+                  ) : item.type === 'collection_nft' ? (
+                    <CollectionNftIcon />
                   ) : (
                     <div className="w-10 h-10">
                       <Image src={item.icon} alt="" width={40} height={40} />

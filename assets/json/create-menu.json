@@ -1,4 +1,16 @@
 [
-  { "id": 0, "icon": "/icons/single-nft-green.svg", "label": "Single NFT", "path": "/create/single-nft" },
-  { "id": 1, "icon": "/icons/large-collection-green.svg", "label": "Collection", "path": "/create/collection" }
+  {
+    "id": 0,
+    "icon": "/icons/single-nft-green.svg",
+    "label": "Single NFT",
+    "type": "single_nft",
+    "path": "/create/single-nft"
+  },
+  {
+    "id": 1,
+    "icon": "/icons/large-collection-green.svg",
+    "label": "Collection",
+    "type": "collection_nft",
+    "path": "/create/collection"
+  }
 ]
