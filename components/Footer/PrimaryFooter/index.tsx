@@ -134,11 +134,11 @@ const PrimaryFooter = () => {
                   <IconButton iconWidth={20} iconHeight={20} icon={TwitterLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
-              <div>
+              {/* <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TELEGRAM_URL} rel="noopener noreferrer">
                   <IconButton iconWidth={20} iconHeight={20} icon={TelegramLightGreenIcon} onClick={() => {}} />
                 </a>
-              </div>
+              </div> */}
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
                   <IconButton iconWidth={20} iconHeight={20} icon={GithubLightGreenIcon} onClick={() => {}} />
@@ -239,11 +239,11 @@ const PrimaryFooter = () => {
                   <IconButton icon={TwitterLightGreenIcon} onClick={() => {}} />
                 </a>
               </div>
-              <div>
+              {/* <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
                   <IconButton icon={TelegramLightGreenIcon} onClick={() => {}} />
                 </a>
-              </div>
+              </div> */}
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
                   <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
