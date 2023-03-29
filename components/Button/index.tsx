@@ -31,7 +31,7 @@ const Button = props => {
         fontFamily: fontFamily,
         width: fullWidth ? '100%' : width,
         color: color,
-        backgroundColor: backgroundColor,
+        background: backgroundColor,
         height: height,
         fontSize: fontSize,
         borderWidth: borderWidth,

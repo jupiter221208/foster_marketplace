@@ -27,6 +27,7 @@ import ReportIssueList from 'assets/json/browse-nft/report-issue-list.json'
 import VerificationRadio from 'components/VerificationRadio'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
+import GradientButton from 'components/Button/GradientButton'
 
 interface selectedReportProps {
   id: number
@@ -171,10 +172,12 @@ const ReportAnIssueModal = props => {
                       onClick={() => setStep(2)}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '282px' : '100%'}
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                      backgroundColor={selectedReport.id === -1 ? '#202427' : '#95dbd5'}
+                      backgroundColor={
+                        selectedReport.id === -1 ? '#202427' : 'linear-gradient(to right, #4b6e6b, #95dbd5)'
+                      }
                       color={selectedReport.id === -1 ? '#EFF0F6' : '#202427'}
                       disabled={selectedReport.id === -1 ? true : false}
-                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 20}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 18}
                       fontFamily={'Muli-Bold'}
                     />
                   </div>
@@ -214,6 +217,7 @@ const ReportAnIssueModal = props => {
                             borderColor="transparent"
                             onChange={(value: string) => setEmail(value)}
                             label="Contact details *"
+                            labelColor="#eff0f6"
                           />
                         </div>
                         <div className="w-full mt-[30px]">
@@ -223,6 +227,7 @@ const ReportAnIssueModal = props => {
                             borderColor="transparent"
                             onChange={(value: string) => setUrl(value)}
                             label="URL of Original Artwork *"
+                            labelColor="#eff0f6"
                           />
                         </div>
                       </div>
@@ -235,6 +240,7 @@ const ReportAnIssueModal = props => {
                             borderColor="transparent"
                             onChange={(value: string) => setEmail(value)}
                             label="Contact details *"
+                            labelColor="#eff0f6"
                           />
                         </div>
                         <div className="w-full mt-[30px]">
@@ -244,6 +250,7 @@ const ReportAnIssueModal = props => {
                             borderColor="transparent"
                             onChange={(value: string) => setUrl(value)}
                             label="URL of Impersonated Artist/Person*"
+                            labelColor="#eff0f6"
                           />
                         </div>
                       </div>
@@ -256,6 +263,7 @@ const ReportAnIssueModal = props => {
                             borderColor="transparent"
                             onChange={(value: string) => setEmail(value)}
                             label="Contact details *"
+                            labelColor="#eff0f6"
                           />
                         </div>
                         <div className="w-full mt-[30px]">
@@ -264,6 +272,7 @@ const ReportAnIssueModal = props => {
                             placeholder="Any additional comments regarding the issue"
                             onChange={(value: string) => setComment(value)}
                             label="Additional comments"
+                            labelColor="#eff0f6"
                           />
                         </div>
                       </div>
