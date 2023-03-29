@@ -49,9 +49,11 @@ import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
+import WalletIcon from 'assets/icons/wallet-icon.svg?component'
+import WalletGrayIcon from 'assets/icons/wallet-white.svg?component'
 
 const MyWalletSubMenu = props => {
-  const { icon, openIcon, label, type = '', data } = props
+  const { label, type = '', data } = props
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -235,11 +237,8 @@ const MyWalletSubMenu = props => {
         <>
           <Disclosure.Button className={open ? styles.openContainer : styles.container}>
             <div className="flex items-center">
-              {type === 'avatar' ? (
-                <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
-              ) : (
-                <Image src={open ? openIcon : icon} alt="" />
-              )}
+              {open ? <WalletGrayIcon /> : <WalletIcon />}
+
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
             {data.length !== 0 && (open ? <DownIcon /> : <RightIcon />)}

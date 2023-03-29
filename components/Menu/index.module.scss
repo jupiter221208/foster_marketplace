@@ -45,6 +45,7 @@
   &:hover {
     @media (min-width: 1024px) {
       background-color: var(--dropdown-menu-bg);
+      color: #95dbd5;
       border: 1px solid var(--dropdown-menu-hover-border);
     }
   }

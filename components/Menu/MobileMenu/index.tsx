@@ -15,24 +15,10 @@ import WalletButton from 'components/Button/WalletButton'
 import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
-import EllipseGreenKingsizeIcon from 'assets/icons/ellipse-green-kingsize.svg'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseLightIcon from 'assets/icons/ellipse-light-kingsize.svg'
-
 import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import ExploreWhiteIcon from 'assets/icons/explore-green.svg'
-import ExploreGrayIcon from 'assets/icons/explore-gray.svg'
-import PlusWhiteIcon from 'assets/icons/plus-green.svg'
-import PlusGrayIcon from 'assets/icons/plus-gray.svg'
-import WalletWhiteIcon from 'assets/icons/wallet-green.svg'
-import WalletGrayIcon from 'assets/icons/wallet-white.svg'
 import NotificationWhiteIcon from 'assets/icons/quick-buy-green.svg'
-import DaoWhiteIcon from 'assets/icons/dao-green-menu.svg'
-import CollectionWhiteIcon from 'assets/icons/dashboard-green-menu.svg'
-import StatisticWhiteIcon from 'assets/icons/statistic-green-menu.svg'
-import ResourceWhiteIcon from 'assets/icons/resource-green-menu.svg'
-import LogoutDarkRedIcon from 'assets/icons/logout-dark-red.svg'
-import LogoutDarkIcon from 'assets/icons/logout-dark.svg'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
@@ -148,26 +134,14 @@ const MobileMenu = () => {
               type="avatar"
               data={profileMenuList}
             />
-            <AccordionMenu
-              icon={ExploreWhiteIcon}
-              openIcon={ExploreGrayIcon}
-              label="Explore"
-              type=""
-              data={ExploreMenuList}
-            />
-            <AccordionMenu icon={PlusWhiteIcon} openIcon={PlusGrayIcon} label="Create" type="" data={CreateMenuList} />
-            <MyWalletSubMenu
-              icon={WalletWhiteIcon}
-              openIcon={WalletGrayIcon}
-              label="My Wallet"
-              type=""
-              data={CreateMenuList}
-            />
-            <AccordionMenu icon={CollectionWhiteIcon} label="Dashboard" type="" data={[]} path="/dashboard" />
-            <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
-            <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
-            <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
-            <AccordionMenu icon={NotificationWhiteIcon} label="Notifications" type="" data={[]} path="/notifications" />
+            <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
+            <AccordionMenu label="Create" type="create" data={CreateMenuList} />
+            <MyWalletSubMenu label="My Wallet" type="" data={CreateMenuList} />
+            <AccordionMenu label="Dashboard" type="dashboard" data={[]} path="/dashboard" />
+            <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
+            <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
+            <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />
+            <AccordionMenu label="Notifications" type="notifications" data={[]} path="/notifications" />
           </div>
           <div className="w-full mt-5">
             <div
@@ -210,17 +184,11 @@ const MobileMenu = () => {
       ) : (
         <div className={styles.container}>
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
-            <AccordionMenu
-              icon={ExploreWhiteIcon}
-              openIcon={ExploreGrayIcon}
-              label="Explore"
-              type=""
-              data={ExploreMenuList}
-            />
-            <AccordionMenu icon={PlusWhiteIcon} openIcon={PlusGrayIcon} label="Create" type="" data={CreateMenuList} />
-            <AccordionMenu icon={StatisticWhiteIcon} label="Stats" type="" data={[]} path="/stats" />
-            <AccordionMenu icon={DaoWhiteIcon} label="DAO" type="" data={[]} path="/dao" />
-            <AccordionMenu icon={ResourceWhiteIcon} label="Resources" type="" data={[]} path="/resources" />
+            <AccordionMenu icon={ExploreWhiteIcon} label="Explore" type="" data={ExploreMenuList} />
+            <AccordionMenu label="Create" type="create" data={CreateMenuList} />
+            <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
+            <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
+            <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />
           </div>
           <div className="w-full flex items-end mt-5">
             <WalletButton fullWidth />

@@ -12,6 +12,15 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
+import ExploreIcon from 'assets/icons/explore-icon.svg?component'
+import ExploreGrayIcon from 'assets/icons/explore-gray.svg?component'
+import PlusIcon from 'assets/icons/plus-icon.svg?component'
+import PlusGrayIcon from 'assets/icons/plus-gray.svg?component'
+import DashboardIcon from 'assets/icons/dashboard-icon-menu.svg?component'
+import StatsIcon from 'assets/icons/statistic-icon-menu.svg?component'
+import DAOIcon from 'assets/icons/dao-icon-menu.svg?component'
+import ResourceIcon from 'assets/icons/resource-icon-menu.svg?component'
+import NotificationIcon from 'assets/icons/notification-icon-menu.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -55,6 +64,28 @@ const AccordionMenu = props => {
             <div className="flex items-center">
               {type === 'avatar' ? (
                 <Image src={icon} width={40} height={40} className="rounded-full" objectFit="cover" alt="" />
+              ) : type === 'explore' ? (
+                open ? (
+                  <ExploreGrayIcon />
+                ) : (
+                  <ExploreIcon />
+                )
+              ) : type === 'create' ? (
+                open ? (
+                  <PlusGrayIcon />
+                ) : (
+                  <PlusIcon />
+                )
+              ) : type === 'dashboard' ? (
+                <DashboardIcon />
+              ) : type === 'stats' ? (
+                <StatsIcon />
+              ) : type === 'dao' ? (
+                <DAOIcon />
+              ) : type === 'resources' ? (
+                <ResourceIcon />
+              ) : type === 'notifications' ? (
+                <NotificationIcon />
               ) : (
                 <Image src={open ? openIcon : icon} alt="" />
               )}
