@@ -24,14 +24,14 @@ import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import LogoutHoverIcon from 'assets/icons/logout-green.svg?component'
 
 const ProfileMenuItem = props => {
-  const { avatar, index, item, onSelect } = props
+  const { avatar, key, item, onSelect } = props
   const dispatch = useDispatch()
   const { disconnect } = useWallet()
   const [mouseHover, setMouseHover] = useState(false)
 
   return (
     <div
-      key={index}
+      key={key}
       className={styles.menuItem}
       onClick={() => {
         if (item.id === 7) {
