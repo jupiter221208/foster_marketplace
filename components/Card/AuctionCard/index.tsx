@@ -48,12 +48,12 @@ const AuctionCard = props => {
     <div className={styles.container}>
       <div className="block justify-center items-start">
         <div className={styles.thinGreenText}>{auctionStarted ? 'STARTING' : 'RESERVE PRICE'}</div>
-        <div className="flex justify-center gap-1 mt-2 items-center">
-          <div className="w-4 h-4 lg:w-5 lg:h-5">
+        <div className="flex justify-center gap-1 lg:gap-2 mt-2 items-center">
+          <div className="w-3 h-4 lg:w-5 lg:h-5">
             <Image
               src={SolanaLogoIcon}
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 20}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 17 : 20}
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 20}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 24}
               alt=""
             />
           </div>
@@ -63,12 +63,12 @@ const AuctionCard = props => {
       {auctionStarted && (
         <div className="block justify-center items-start">
           <div className={styles.thinGreenText}>CURRENT</div>
-          <div className="flex justify-center gap-1 mt-2 items-center">
-            <div className="w-4 h-4 lg:w-5 lg:h-5">
+          <div className="flex justify-center gap-1 lg:gap-2 mt-2 items-center">
+            <div className="w-3 h-4 lg:w-5 lg:h-5">
               <Image
                 src={SolanaLogoIcon}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 20}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 17 : 20}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 20}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 24}
                 alt=""
               />
             </div>
