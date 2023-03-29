@@ -172,6 +172,8 @@ const MyNFTSection = props => {
           if (status === 'listed') {
             loadMyNFTs()
             changeActiveTab(1)
+          } else if (status === 'list-close') {
+            loadMyNFTs()
           }
         }}
       />
