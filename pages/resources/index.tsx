@@ -146,13 +146,13 @@ const Resources = () => {
             />
           </svg>
         </div>
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <></>
         ) : (
           <div className="w-[115%] absolute top-[325px] left-[-70px] right-[70px] bottom-0 opacity-60">
             <Image src={BackImage} alt="" objectFit="cover" />
           </div>
-        )}
+        )} */}
         <div className="w-full flex flex-wrap z-10">
           <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>Foster Resources</div>
           <div className="w-full flex justify-end mt-[15px] lg:mt-[61px]">

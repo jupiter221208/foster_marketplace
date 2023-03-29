@@ -62,7 +62,7 @@
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .empty {
@@ -72,6 +72,8 @@
   justify-content: center;
   align-items: center;
   font-family: 'Muli-Regular';
+  color: var(--text-gray-200-color);
+
   font-size: 32px;
   line-height: 44px;
 }
