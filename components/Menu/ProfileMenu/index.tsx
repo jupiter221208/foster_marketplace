@@ -46,7 +46,7 @@ const ProfileMenu = props => {
           >
             <div className={styles.menuArea}>
               {menuList.map((item, index) => (
-                <ProfileMenuItem avatar={avatar} item={item} index={item} onSelect={onSelect} />
+                <ProfileMenuItem avatar={avatar} item={item} index={index} onSelect={onSelect} />
               ))}
             </div>
           </Transition>
