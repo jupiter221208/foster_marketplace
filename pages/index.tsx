@@ -46,16 +46,17 @@ const Home = () => {
     <div className="g-container">
       <Head>
         <title>{pageTitle}</title>
-        <meta property="description" content={pageDescription} />
+
+        <meta name="description" content={pageDescription} />
 
         <meta name="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
+        <meta name="og:description" content={pageDescription} />
         <meta name="og:image" content={pageImageUrl} />
 
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:title" content={pageTitle} />
-        <meta property="twitter:description" content={pageDescription} />
-        <meta property="twitter:image" content={pageImageUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        <meta name="twitter:image" content={pageImageUrl} />
 
         <link rel="icon" href="/logo.png" />
       </Head>
