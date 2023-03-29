@@ -282,6 +282,7 @@
   --menu-item-activity-icon: #95dbd5;
   --card-border-color: #292929;
   --main-bg-color: #eff0f6;
+  --main-icon-color: #95dbd5;
 }
 
 html,
@@ -1182,6 +1183,10 @@ h6 {
 
 [data-name='wallet-icon'] {
   fill: var(--single-nft-btn-color);
+}
+
+[data-name='menu-item-icon'] {
+  fill: var(--main-icon-color);
 }
 
 svg {

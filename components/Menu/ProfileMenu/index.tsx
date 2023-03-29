@@ -8,13 +8,11 @@ import { Menu, Transition } from '@headlessui/react'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
-import { useWallet } from '@solana/wallet-adapter-react'
+
+import ProfileMenuItem from '../ProfileMenuItem'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
-  const dispatch = useDispatch()
-  const { disconnect } = useWallet()
 
   return (
     <div className="relative flex items-center">
@@ -48,35 +46,7 @@ const ProfileMenu = props => {
           >
             <div className={styles.menuArea}>
               {menuList.map((item, index) => (
-                <div
-                  key={index}
-                  className={styles.menuItem}
-                  onClick={() => {
-                    if (item.id === 7) {
-                      if (localStorage.getItem('walletName') === '"Phantom"') {
-                        localStorage.removeItem('walletName')
-                        ;(window as any).solana.disconnect()
-                      } else disconnect()
-
-                      localStorage.removeItem('token')
-                      dispatch({ type: 'set', profileInfo: null })
-                    }
-                    onSelect(item)
-                  }}
-                >
-                  {item.id === 0 ? (
-                    <div className="w-10 h-10 ml-10 flex justify-center items-center">
-                      <div className={styles.imageArea}>
-                        <Image src={avatar} alt="" width={24} height={24} className="rounded-full" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="w-10 h-10 ml-10">
-                      <Image src={item.icon} alt="" width={40} height={40} />
-                    </div>
-                  )}
-                  {item.label}
-                </div>
+                <ProfileMenuItem avatar={avatar} item={item} index={item} onSelect={onSelect} />
               ))}
             </div>
           </Transition>

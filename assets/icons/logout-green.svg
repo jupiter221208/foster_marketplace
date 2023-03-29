@@ -1,9 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
-  <g id="Group_51035" data-name="Group 51035" transform="translate(-636.51 -58.5)">
-    <path id="Path_108409" data-name="Path 108409" d="M12,0H37A12,12,0,0,1,49,12V37A12,12,0,0,1,37,49H12A12,12,0,0,1,0,37V12A12,12,0,0,1,12,0Z" transform="translate(637.01 59)" fill="none" stroke="#95dbd5" stroke-width="1"/>
-    <g id="Logout" transform="translate(639 61)">
-      <path id="Path_108408" data-name="Path 108408" d="M0,0H46V46H0Z" fill="none"/>
-      <path id="sign-out-alt" d="M3.359,13.83a.9.9,0,0,1,1.21.406,7.225,7.225,0,1,0,0-6.412.909.909,0,1,1-1.626-.813,9.031,9.031,0,1,1,0,8.037.9.9,0,0,1,.415-1.219Zm-.452-3.7h8.661L9.491,8.06a.907.907,0,0,1,1.282-1.282l3.612,3.612a.934.934,0,0,1,0,1.282l-3.612,3.612A.907.907,0,1,1,9.491,14l2.077-2.068H2.908a.9.9,0,0,1,0-1.806Z" transform="translate(11.967 11.969)" fill="#95dbd5"/>
-    </g>
+<svg id="Resources" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <rect id="Rectangle_2232" data-name="Rectangle 2232" width="40" height="40" fill="none"/>
+  <g id="sign-out-alt" transform="translate(6.848 7.543)">
+    <path id="sign-out-alt-2" data-name="sign-out-alt" d="M3.873,18.315a1.245,1.245,0,0,1,1.669.56,9.963,9.963,0,1,0,0-8.842A1.253,1.253,0,1,1,3.3,8.912,12.454,12.454,0,1,1,3.3,20a1.245,1.245,0,0,1,.573-1.681ZM3.25,13.209H15.193l-2.864-2.852A1.25,1.25,0,0,1,14.1,8.588l4.981,4.982a1.287,1.287,0,0,1,0,1.768L14.1,20.32a1.25,1.25,0,1,1-1.768-1.768L15.193,15.7H3.25a1.245,1.245,0,0,1,0-2.491Z" transform="translate(-2.005 -1.999)" fill="#95dbd5"/>
   </g>
 </svg>

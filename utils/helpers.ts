@@ -149,6 +149,7 @@ export const setColorTheme = lightMode => {
   if (lightMode) {
     // Light Mode
     doc.style.setProperty('--main-bg-color', '#202427')
+    doc.style.setProperty('--main-icon-color', '#202427')
     doc.style.setProperty('--g-left-container-bg', '#E4E5EB')
     doc.style.setProperty('--background-main-color', '#eff0f6')
     doc.style.setProperty('--background-black-color', '#202427')
@@ -229,7 +230,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-bg', 'linear-gradient(to bottom, #eaebf2, #202427)')
     doc.style.setProperty('--nft-detail-border', '#C5C7CC')
     doc.style.setProperty('--alpha-area-border', '#eff0f6')
-    doc.style.setProperty('--profile-menu-item-bg', '#6B6C6D')
+    doc.style.setProperty('--profile-menu-item-bg', '#202427')
     doc.style.setProperty('--profile-menu-item-border', '')
     doc.style.setProperty('--profile-menu-item-color', '#95dbd5')
     doc.style.setProperty('--follow-box-shadow', 'rgba(32, 36, 39, 0.3)')
@@ -359,6 +360,7 @@ export const setColorTheme = lightMode => {
   } else {
     // Dark Mode
     doc.style.setProperty('--main-bg-color', '#eff0f6')
+    doc.style.setProperty('--main-icon-color', '#95dbd5')
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
     doc.style.setProperty('--background-main-color', '#0c1013')
     doc.style.setProperty('--background-black-color', '#121212')
