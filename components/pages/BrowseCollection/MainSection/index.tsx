@@ -37,6 +37,8 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
+import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const MainSection = props => {
   const { nfts, data, publicKey } = props
@@ -240,21 +242,9 @@ const MainSection = props => {
                 </div>
                 <div>
                   {saved ? (
-                    <NegativeButton
-                      width={146}
-                      fontFamily="KCDurhamBoxcar"
-                      fontSize={30}
-                      label="Saved"
-                      onClick={() => unsaveCollection(data?.collection_id)}
-                    />
+                    <OutlineButton width={146} label="Saved" onClick={() => unsaveCollection(data?.collection_id)} />
                   ) : (
-                    <PositiveButton
-                      width={146}
-                      fontFamily="KCDurhamBoxcar"
-                      fontSize={30}
-                      label="Save"
-                      onClick={() => saveCollection(data?.collection_id)}
-                    />
+                    <GradientButton width={146} label="Save" onClick={() => saveCollection(data?.collection_id)} />
                   )}
                 </div>
               </div>
@@ -341,23 +331,19 @@ const MainSection = props => {
                   />
                 </div>
                 {saved ? (
-                  <NegativeButton
+                  <OutlineButton
                     width={70}
                     height={29}
                     borderRadius={6}
                     label="Saved"
-                    fontFamily="KCDurhamBoxcar"
-                    fontSize={18}
                     onClick={() => unsaveCollection(data?.collection_id)}
                   />
                 ) : (
-                  <PositiveButton
+                  <GradientButton
                     width={70}
                     height={29}
                     borderRadius={6}
                     label="Save"
-                    fontFamily="KCDurhamBoxcar"
-                    fontSize={18}
                     onClick={() => saveCollection(data?.collection_id)}
                   />
                 )}

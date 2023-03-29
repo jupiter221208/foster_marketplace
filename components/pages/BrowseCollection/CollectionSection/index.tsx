@@ -14,7 +14,7 @@ import TabList from 'assets/json/browse-collection/tab-list.json'
 import styles from './index.module.scss'
 
 const CollectionSection = props => {
-  const { nfts, artistId, artistName = '', collectionId } = props
+  const { nfts, artistId, artistName = '', collectionId, collectionName } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -44,7 +44,7 @@ const CollectionSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap z-10">
-          <NFTSwiperSection nfts={nfts} />
+          <NFTSwiperSection nfts={nfts} collectionName={collectionName} />
         </div>
       )}
       {activeTab === 1 && (

@@ -113,6 +113,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         <CollectionSection
           nfts={nfts}
           collectionId={address}
+          collectionName={collectionData?.collection_name}
           artistId={collectionData?.minter_id}
           artistName={collectionData?.artist_username}
         />

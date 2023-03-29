@@ -18,7 +18,17 @@ import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 
 const DashboardNFTCard = props => {
-  const { image, nftName, coverImage = '', artistName, assetType, price, onClick, unSave = null } = props
+  const {
+    image,
+    nftName,
+    coverImage = '',
+    artistName,
+    collectionName,
+    assetType,
+    price,
+    onClick,
+    unSave = null,
+  } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
 
@@ -28,7 +38,7 @@ const DashboardNFTCard = props => {
         <div className={styles.content}>
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
-              {assetType === 'video' ? (
+              {assetType.includes('video') ? (
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                   <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                     {play ? (
@@ -77,7 +87,7 @@ const DashboardNFTCard = props => {
                     onClick={() => onClick()}
                   />
                 )
-              ) : assetType === 'audio' ? (
+              ) : assetType.includes('audio') ? (
                 coverImage !== null && coverImage !== '' ? (
                   <img
                     src={coverImage}
@@ -102,7 +112,7 @@ const DashboardNFTCard = props => {
               <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
-              <div className={styles.artistName}>{artistName || 'Ecosystem Artist'}</div>
+              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
               {price && (
                 <div className="flex justify-center items-center">
                   <Image

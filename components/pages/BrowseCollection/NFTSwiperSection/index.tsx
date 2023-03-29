@@ -22,7 +22,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
-const NFTSwiperSection = ({ nfts }) => {
+const NFTSwiperSection = ({ nfts, collectionName }) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -74,8 +74,9 @@ const NFTSwiperSection = ({ nfts }) => {
                         image={nftItem.asset_url}
                         nftName={nftItem.nft_name}
                         assetType={nftItem.asset_type}
-                        coverImage={item.cover_image_url}
+                        coverImage={nftItem.cover_image_url}
                         artistName={nftItem.artist_username}
+                        collectionName={collectionName}
                         price={nftItem.list_price}
                         onClick={() => {
                           let token_id = nftItem.mintAddress
