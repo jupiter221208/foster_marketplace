@@ -2,7 +2,7 @@ import React from 'react'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/solid'
+import DownIcon from 'assets/icons/pagination-down-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -18,9 +18,7 @@ const Accordion = props => {
             <div className="flex items-center">
               <div className={styles.label}>{label}</div>
             </div>
-            {data.length !== 0 && (
-              <ChevronDownIcon className={`${styles.chevronUpIcon} ${open ? 'rotate-180 transform' : ''} h-6 w-6`} />
-            )}
+            {data.length !== 0 && <DownIcon className={`${open ? 'rotate-180 transform' : ''} ml-2 mt-1`} />}
           </Disclosure.Button>
           {data.length !== 0 && (
             <Disclosure.Panel className="absolute top-9 pt-4 pb-2 text-sm text-gray-500">
