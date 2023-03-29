@@ -350,6 +350,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--activity-tr-bg', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--banner-image-bg', '#505457')
     doc.style.setProperty('--menu-item-activity-icon', '#202427')
+    doc.style.setProperty('--card-border-color', '#C1C2C9')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -563,5 +564,6 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--banner-image-bg', '#ffffff')
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
+    doc.style.setProperty('--card-border-color', '#333333')
   }
 }
