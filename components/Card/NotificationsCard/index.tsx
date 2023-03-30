@@ -230,7 +230,7 @@ const NotificationsCard = props => {
 
   function getUserProfileImage(elem) {
     if (
-      elem.notification_type === 'winner' ||
+      elem.notification_type === 'won' ||
       elem.notification_type === 'no_winner' ||
       elem.notification_type === 'outbid'
     )
