@@ -29,8 +29,8 @@ import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
-import IGWhiteIcon from 'assets/icons/instagram-green.svg'
+import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
+import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
 import SettingWhiteIcon from 'assets/icons/setting-white.svg'
 import SettingBlackIcon from 'assets/icons/setting-black.svg'
 
@@ -331,7 +331,11 @@ const MainSection = () => {
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
               <div>
-                <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
+                <SocialButton
+                  icon={<IGWhiteIcon />}
+                  iconHover={IGHoverIcon}
+                  onClick={() => window.open(instagramUrl)}
+                />
               </div>
               {/* <div>
                 <SocialButton
@@ -342,7 +346,7 @@ const MainSection = () => {
               </div> */}
               <div>
                 <SocialButton
-                  icon={TwitterWhiteIcon}
+                  icon={<TwitterWhiteIcon />}
                   iconHover={TwitterHoverIcon}
                   onClick={() => window.open(twitterUrl)}
                 />
@@ -383,7 +387,11 @@ const MainSection = () => {
             </div>
             <div className="hidden lg:flex gap-[10px]">
               <div>
-                <SocialButton icon={IGWhiteIcon} iconHover={IGHoverIcon} onClick={() => window.open(instagramUrl)} />
+                <SocialButton
+                  icon={<IGWhiteIcon />}
+                  iconHover={IGHoverIcon}
+                  onClick={() => window.open(instagramUrl)}
+                />
               </div>
               {/* <div>
                 <SocialButton
@@ -396,7 +404,7 @@ const MainSection = () => {
               </div> */}
               <div>
                 <SocialButton
-                  icon={TwitterWhiteIcon}
+                  icon={<TwitterWhiteIcon />}
                   iconHover={TwitterHoverIcon}
                   onClick={() => window.open(twitterUrl)}
                 />

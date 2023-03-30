@@ -15,11 +15,11 @@ import { useViewport } from 'utils'
 // images and icons
 import LogoText01Icon from 'assets/icons/logo-text-01.svg?component'
 import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg?component'
-import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg'
-import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg'
-import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg'
+import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
+import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg?component'
+import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg?component'
 import TelegramLightGreenIcon from 'assets/icons/telegram-light-green.svg'
-import GithubLightGreenIcon from 'assets/icons/github-light-green.svg'
+import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode.svg?component'
 import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
@@ -28,6 +28,7 @@ import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?com
 // styles
 import styles from './index.module.scss'
 import { setColorTheme } from 'utils/helpers'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const PrimaryFooter = () => {
   const viewport = useViewport()
@@ -121,17 +122,33 @@ const PrimaryFooter = () => {
             <div className="flex flex-wrap mt-[0px] gap-5">
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                  <IconButton iconWidth={20} iconHeight={20} icon={InstagramLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    iconWidth={20}
+                    iconHeight={20}
+                    icon={<InstagramLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                  <IconButton iconWidth={20} iconHeight={20} icon={DiscordLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    iconWidth={20}
+                    iconHeight={20}
+                    icon={<DiscordLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                  <IconButton iconWidth={20} iconHeight={20} icon={TwitterLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    backgroundColor="#fff"
+                    iconWidth={20}
+                    iconHeight={20}
+                    icon={<TwitterLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
               {/* <div>
@@ -141,7 +158,12 @@ const PrimaryFooter = () => {
               </div> */}
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButton iconWidth={20} iconHeight={20} icon={GithubLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    iconWidth={20}
+                    iconHeight={20}
+                    icon={<GithubLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
             </div>
@@ -226,27 +248,43 @@ const PrimaryFooter = () => {
             <div className="flex flex-wrap mt-[44px] gap-[18px] justify-center">
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
-                  <IconButton icon={InstagramLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    backgroundColor="var(--social-bg-color)"
+                    icon={<InstagramLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
-                  <IconButton icon={DiscordLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    backgroundColor="var(--social-bg-color)"
+                    icon={<DiscordLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
-                  <IconButton icon={TwitterLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    backgroundColor="var(--social-bg-color)"
+                    icon={<TwitterLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
               {/* <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
-                  <IconButton icon={TelegramLightGreenIcon} onClick={() => {}} />
+                  <IconButton backgroundColor="var(--social-bg-color)" icon={TelegramLightGreenIcon} onClick={() => {}} />
                 </a>
               </div> */}
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
-                  <IconButton icon={GithubLightGreenIcon} onClick={() => {}} />
+                  <IconButtonWithSVG
+                    backgroundColor="var(--social-bg-color)"
+                    icon={<GithubLightGreenIcon />}
+                    onClick={() => {}}
+                  />
                 </a>
               </div>
             </div>

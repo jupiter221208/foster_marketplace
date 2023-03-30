@@ -284,6 +284,7 @@
   --main-bg-color: #eff0f6;
   --main-icon-color: #95dbd5;
   --search-menu-icon-color: #eff0f6;
+  --social-bg-color: #202427;
 }
 
 html,
@@ -1192,6 +1193,10 @@ h6 {
 
 [data-name='search-icon'] {
   fill: var(--search-menu-icon-color);
+}
+
+[data-name='social-icon'] {
+  fill: var(--main-icon-color);
 }
 
 svg {

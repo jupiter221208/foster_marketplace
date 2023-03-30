@@ -59,6 +59,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   useEffect(() => {
     setIsMounted(true)
+    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
   }, [])
 
   useEffect(() => {

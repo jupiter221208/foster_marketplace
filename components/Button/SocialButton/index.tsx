@@ -19,9 +19,7 @@ const SocialButton = props => {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <div className={styles.image}>
-        <Image src={hover ? iconHover : icon} alt="" />
-      </div>
+      <div className={styles.image}>{icon}</div>
     </button>
   )
 }

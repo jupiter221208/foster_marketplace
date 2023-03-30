@@ -7,18 +7,18 @@
   width: auto;
   width: 39px;
   height: 39px;
-  border-radius: 6px;
+  border-radius: 10px;
   @media (min-width: 1024px) {
     width: 46px;
     height: 46px;
     border-radius: 12px;
   }
-  background-color: rgba(#202427, 1);
+  background: var(--social-bg-color);
 }
 
 .image {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: flex;
   justify-content: center;
   align-items: center;

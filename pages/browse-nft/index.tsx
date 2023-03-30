@@ -52,6 +52,14 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const viewport = useViewport()
 
   useEffect(() => {
+    if (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+  }, [])
+
+  useEffect(() => {
     if (!nftDetail) return
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
