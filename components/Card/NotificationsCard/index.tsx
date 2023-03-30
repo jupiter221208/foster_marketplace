@@ -229,7 +229,12 @@ const NotificationsCard = props => {
   }
 
   function getUserProfileImage(elem) {
-    if (elem.notification_type === 'no_winner' || elem.notification_type === 'outbid') return elem.reference_asset_url
+    if (
+      elem.notification_type === 'winner' ||
+      elem.notification_type === 'no_winner' ||
+      elem.notification_type === 'outbid'
+    )
+      return elem.reference_asset_url
 
     if (elem.reference_user_profile_picture !== null && elem.reference_user_profile_picture !== '')
       return elem.reference_user_profile_picture
