@@ -20,27 +20,12 @@ import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
 import WalletGrayIcon from 'assets/icons/wallet-gray.svg?component'
-import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
-import SolanaDarkIcon from 'assets/icons/solana-dark-icon.svg'
-import SolanaLightIcon from 'assets/icons/solana-light-icon.svg'
-import SolanaGreenIcon from 'assets/icons/solana-green-icon.svg'
 
 import avatar from 'assets/images/dashboard-avatar.png'
-import ChangeWalletIcon from 'assets/icons/change-wallet.svg'
-import DisconnectWalletIcon from 'assets/icons/disconnect-wallet.svg'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
-
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
-import CopyAltLightBlueIcon from 'assets/icons/copy-alt-light-blue.svg'
-
 import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
-import NounAddGrayIcon from 'assets/icons/noun-add-gray.svg'
-import NounAddGreenIcon from 'assets/icons/noun-add-green.svg'
-import NounAddLightGreenIcon from 'assets/icons/noun-add-light-green.svg'
-import NounSubtractGrayIcon from 'assets/icons/noun-subtract-gray.svg'
-import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.svg'
-import NounSubtractLightBlueIcon from 'assets/icons/noun-subtract-light-blue.svg'
 
 // styles
 import styles from './index.module.scss'

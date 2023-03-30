@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
+
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // next components
 import Image from 'next/image'
@@ -10,9 +12,34 @@ import { Menu, Transition } from '@headlessui/react'
 import styles from './index.module.scss'
 
 import ProfileMenuItem from '../ProfileMenuItem'
+import Alert from 'components/Alert'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
+  const [showAlert, setShowAlert] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const { connected } = useWallet()
+  const [buttonClicked, setButtonClicked] = useState(false)
+
+  useEffect(() => {
+    if (!buttonClicked) {
+      return
+    }
+
+    setButtonClicked(false)
+
+    if (!connected) {
+      setAlertData([
+        {
+          id: 0,
+          title: 'Wallet Disconnected!',
+          description: `You've successfully disconnected your wallet!`,
+          type: 'success',
+        },
+      ])
+      setShowAlert(true)
+    }
+  }, [connected])
 
   return (
     <div className="relative flex items-center">
@@ -46,11 +73,26 @@ const ProfileMenu = props => {
           >
             <div className={styles.menuArea}>
               {menuList.map((item, index) => (
-                <ProfileMenuItem avatar={avatar} item={item} key={index} onSelect={onSelect} />
+                <ProfileMenuItem
+                  avatar={avatar}
+                  item={item}
+                  key={index}
+                  onSelect={item => {
+                    if (item.id === 7) setButtonClicked(true)
+                    onSelect(item)
+                  }}
+                />
               ))}
             </div>
           </Transition>
         )}
+        <Alert
+          open={showAlert}
+          close={() => {
+            setShowAlert(false)
+          }}
+          data={alertData}
+        />
       </Menu>
     </div>
   )
