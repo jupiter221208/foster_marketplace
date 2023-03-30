@@ -134,6 +134,7 @@ const ModalPlaceBid = props => {
                   <PriceInput
                     value={price}
                     placeholder="Enter bid amount"
+                    backgroundColor="#202427"
                     fullWidth
                     onChange={value => setPrice(parseFloat(value))}
                   />

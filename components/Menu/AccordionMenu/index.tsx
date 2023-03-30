@@ -26,6 +26,7 @@ import NftCollectionIcon from 'assets/icons/collection-icon.svg?component'
 import NftArtistIcon from 'assets/icons/artist-icon.svg?component'
 import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
 import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
+import SettingsIcon from 'assets/icons/setting-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -108,6 +109,8 @@ const AccordionMenu = props => {
                         <Image src={icon} alt="" width={24} height={24} className="rounded-full" />
                       </div>
                     </div>
+                  ) : item.type === 'settings' ? (
+                    <SettingsIcon />
                   ) : item.type === 'nft_category' ? (
                     <NftCategoryIcon />
                   ) : item.type === 'nft_collection' ? (

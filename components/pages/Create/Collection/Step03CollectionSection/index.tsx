@@ -84,7 +84,7 @@ const Step03CollectionSection = props => {
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
           <div className={styles.topLeftEllipse}>
-            <EllipseGreen />
+            {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
           </div>
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
