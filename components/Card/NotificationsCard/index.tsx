@@ -130,7 +130,7 @@ const NotificationsCard = props => {
         message =
           'You are the winner of ' +
           notification.reference_token_name +
-          ', the seller has been notified to finalize the sale'
+          ' and the seller has been notified to finalize the sale'
         break
       case 'purchase':
         message = 'has accepted your offer'
