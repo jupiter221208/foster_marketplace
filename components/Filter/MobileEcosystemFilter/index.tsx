@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // components
 import IconButton from 'components/Button/IconButton'
@@ -17,6 +16,7 @@ import CloseWhiteLightIcon from 'assets/icons/close-white-light.svg'
 // json
 import ProfileList from 'assets/json/explore/profile.json'
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
+import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -48,10 +48,7 @@ const MobileEcosystemFilter = props => {
             <>
               <Disclosure.Button className="flex w-full justify-between">
                 <div className={styles.subTitle}>PROFILE</div>
-                <ChevronUpIcon
-                  className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`}
-                  style={{ color: '#DEEFD0' }}
-                />
+                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
                 <Radio
@@ -69,7 +66,7 @@ const MobileEcosystemFilter = props => {
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
                 <div className={`${styles.subTitle} mt-[12px]`}>VERIFICATION STATUS</div>
-                <ChevronUpIcon className={`${styles.chevronUpIcon} ${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
                 <Radio

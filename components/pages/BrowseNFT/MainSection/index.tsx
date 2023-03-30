@@ -7,7 +7,6 @@ import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 import {
   Chart as ChartJS,
@@ -986,11 +985,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                           <div>Price History</div>
                         </div>
                         <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
-
-                        {/* <ChevronUpIcon
-                          className={`${open ? '' : 'rotate-180 transform'} h-8 w-8`}
-                          style={{ color: open ? '#202427' : '#95dbd5' }}
-                        /> */}
                       </Disclosure.Button>
                       <Disclosure.Panel className={styles.accordionArea}>
                         <div className="w-full flex justify-between gap-4 lg:gap-[30px]">

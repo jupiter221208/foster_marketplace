@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // components
 import IconButton from 'components/Button/IconButton'
@@ -14,6 +13,7 @@ import GradientButton from 'components/Button/GradientButton'
 // json
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import CategoryList from 'assets/json/popular-category.json'
+import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -65,7 +65,7 @@ const MobileCollectionFilter = props => {
             <>
               <Disclosure.Button className="flex w-full justify-between">
                 <div className={styles.subTitle}>ARTIST VERIFICATION</div>
-                <ChevronUpIcon className={`${styles.chevronUpIcon} ${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
                 <Radio
@@ -83,7 +83,7 @@ const MobileCollectionFilter = props => {
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
                 <div className={`${styles.subTitle} mt-[12px]`}>CATEGORIES</div>
-                <ChevronUpIcon className={`${styles.chevronUpIcon} ${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
                 {categoryList.length !== 0 && (

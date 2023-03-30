@@ -5,10 +5,10 @@ import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -58,7 +58,7 @@ const ArtworksAccordion = props => {
                       </div>
                     </div>
                   </div>
-                  <ChevronUpIcon className={`${styles.chevronUpIcon} ${!open ? 'rotate-180 transform' : ''} h-6 w-6`} />
+                  <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>

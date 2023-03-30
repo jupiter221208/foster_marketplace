@@ -15,7 +15,6 @@ import OutlineButton from 'components/Button/OutlineButton'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // styles
 import styles from './index.module.scss'
@@ -24,6 +23,7 @@ import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 // resources
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 export interface OfferAccordionProps {
   data: LazyBidWithAsset[]
@@ -95,10 +95,9 @@ const OfferAccordionItem = ({
                 </div>
               </div>
 
-              <ChevronUpIcon
-                className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                style={{ color: open ? '#5AC3BA' : '#378287' }}
-              />
+              
+                              <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
+
             </Disclosure.Button>
             <Disclosure.Panel className={styles.panel}>
               {/* {listing.isIncoming && (
