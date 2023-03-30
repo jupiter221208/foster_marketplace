@@ -143,7 +143,6 @@ const PrimaryFooter = () => {
               <div>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
-                    backgroundColor="#fff"
                     iconWidth={20}
                     iconHeight={20}
                     icon={<TwitterLightGreenIcon />}
