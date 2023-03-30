@@ -163,7 +163,8 @@ export const setColorTheme = lightMode => {
       '--header-bg-color',
       'linear-gradient(90deg, rgba(185, 186, 192, 0.7) 0%, rgba(227, 228, 235, 0.7) 50%, rgba(228, 229, 236, 0.7) 100%)'
     )
-    doc.style.setProperty('--header-mobile-bg-color', 'rgba(206, 208, 213, 0.8)')
+    // doc.style.setProperty('--header-mobile-bg-color', 'rgba(206, 208, 213, 0.8)')
+    doc.style.setProperty('--header-mobile-bg-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
     doc.style.setProperty('--avatar-border-color1', '#202427')
@@ -354,6 +355,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--banner-image-bg', '#505457')
     doc.style.setProperty('--menu-item-activity-icon', '#202427')
     doc.style.setProperty('--card-border-color', '#C1C2C9')
+    doc.style.setProperty('--search-menu-icon-color', '#202427')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -375,11 +377,12 @@ export const setColorTheme = lightMode => {
       '--header-bg-color',
       'linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)'
     )
-    doc.style.setProperty(
-      '--header-mobile-bg-color',
-      'linear-gradient(90deg, rgba(52, 103, 99, 0.8) 0%, rgba(18, 25, 25, 0.8) 100%)'
-    )
-
+    // doc.style.setProperty(
+    //   '--header-mobile-bg-color',
+    //   'linear-gradient(90deg, rgba(52, 103, 99, 0.8) 0%, rgba(18, 25, 25, 0.8) 100%)'
+    // )
+    doc.style.setProperty('--search-menu-icon-color', '#eff0f6')
+    doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.7)')
     doc.style.setProperty('--outline-button-border', '#5ac3ba')
     doc.style.setProperty('--outline-button-color', '#eff0f6')
     doc.style.setProperty('--avatar-border-color1', '#4ea19b')

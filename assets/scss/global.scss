@@ -283,6 +283,7 @@
   --card-border-color: #292929;
   --main-bg-color: #eff0f6;
   --main-icon-color: #95dbd5;
+  --search-menu-icon-color: #eff0f6;
 }
 
 html,
@@ -1187,6 +1188,10 @@ h6 {
 
 [data-name='menu-item-icon'] {
   fill: var(--main-icon-color);
+}
+
+[data-name='search-icon'] {
+  fill: var(--search-menu-icon-color);
 }
 
 svg {

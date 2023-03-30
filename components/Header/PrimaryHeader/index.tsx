@@ -21,7 +21,7 @@ import { useViewport } from 'utils'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
-import SearchWhiteIcon from 'assets/icons/search-white.svg'
+import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -470,11 +470,14 @@ const PrimaryHeader = () => {
             </div>
           </div>
           <div className="flex">
-            <IconButton
+            <div className="w-[39px] h-[39px] flex justify-center items-center">
+              <SearchWhiteIcon onClick={() => handleOpenMobileSearchBox()} />
+            </div>
+            {/* <IconButton
               icon={SearchWhiteIcon}
               onClick={() => handleOpenMobileSearchBox()}
               backgroundColor="transparent"
-            />
+            /> */}
             <div>
               <IconButtonWithSVG
                 icon={
