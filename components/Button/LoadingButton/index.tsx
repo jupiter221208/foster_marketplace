@@ -13,8 +13,8 @@ import styles from './index.module.scss'
 const LoadingButton = props => {
   const {
     fullWidth,
-    backgroundColor01 = '#95dbd5',
-    backgroundColor02 = '#95dbd5',
+    backgroundColor01 = '#95DBD5',
+    backgroundColor02 = '#4B6E6B',
     width = 160,
     gradientDirection = 'left',
     icon = '',
