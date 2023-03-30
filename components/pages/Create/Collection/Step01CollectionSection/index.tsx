@@ -258,7 +258,7 @@ const Step01CollectionSection = props => {
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.topLeftEllipse}>
-              <EllipseGreen />
+              {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
             </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Preview</div>

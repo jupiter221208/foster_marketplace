@@ -13,7 +13,6 @@ import SearchBox from 'components/Input/SearchBox'
 import Menu from 'components/Menu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
-import IconButton from 'components/Button/IconButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
