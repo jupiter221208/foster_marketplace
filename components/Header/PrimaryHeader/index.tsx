@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -23,16 +22,6 @@ import { useViewport } from 'utils'
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg'
-import SearchDarkIcon from 'assets/icons/search-dark.svg'
-
-import HamburgerMenuGreenIcon from 'assets/icons/hamburger-menu-green.svg'
-import HamburgerMenuDarkIcon from 'assets/icons/hamburger-menu-dark.svg'
-import LogoIcon from 'assets/icons/logo-green.svg'
-import LogoDarkIcon from 'assets/icons/logo-dark.svg'
-import alphaGreenIcon from 'assets/icons/alpha-green.svg'
-import alphaBlackIcon from 'assets/icons/alpha-black.png'
-import alphaGreenMobileIcon from 'assets/icons/alpha-green-mobile.svg'
-import alphaBlackMobileIcon from 'assets/icons/alpha-black-mobile.png'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'

@@ -8,6 +8,7 @@ import { Menu as HMenu, Transition } from '@headlessui/react'
 
 // styles
 import styles from './index.module.scss'
+import MenuItem from './MenuItem'
 
 const Menu = props => {
   const { label, menuList, onSelect } = props
@@ -41,18 +42,19 @@ const Menu = props => {
         >
           <div className={styles.menuArea}>
             {menuList.map((item, index) => (
-              <div
-                key={index}
-                className={styles.menuItem}
-                onClick={() => {
-                  onSelect(item)
-                }}
-              >
-                <div className="w-10 h-10">
-                  <Image src={item.icon} alt="" width={40} height={40} />
-                </div>
-                {item.label}
-              </div>
+              <MenuItem key={index} item={item} onSelect={onSelect} />
+              // <div
+              //   key={index}
+              //   className={styles.menuItem}
+              //   onClick={() => {
+              //     onSelect(item)
+              //   }}
+              // >
+              //   <div className="w-10 h-10">
+              //     <Image src={item.icon} alt="" width={40} height={40} />
+              //   </div>
+              //   {item.label}
+              // </div>
             ))}
           </div>
         </Transition>
