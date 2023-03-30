@@ -228,6 +228,14 @@ const NotificationsCard = props => {
     }
   }
 
+  function getUserProfileImage(elem) {
+    if (elem.notification_type === 'no_winner' || elem.notification_type === 'outbid') return elem.reference_asset_url
+
+    if (elem.reference_user_profile_picture !== null && elem.reference_user_profile_picture !== '')
+      return elem.reference_user_profile_picture
+    else return DefaultAvatar.src
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -250,15 +258,7 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <img
-                        src={
-                          elem.reference_user_profile_picture !== null && elem.reference_user_profile_picture !== ''
-                            ? elem.reference_user_profile_picture
-                            : DefaultAvatar.src
-                        }
-                        alt=""
-                        className="rounded-full"
-                      />
+                      <img src={getUserProfileImage(elem)} alt="" className="w-full h-full rounded-full object-cover" />
                     </div>
 
                     <div className="block items-start">
