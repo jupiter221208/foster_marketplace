@@ -26,7 +26,7 @@ const TrendingCollectionCard = props => {
         router.push('/browse-collection/' + collectionID)
       }}
     >
-      <div className="relative w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
+      <div className="relative w-full h-full rounded-[24px] overflow-hidden">
         <img src={image} alt="" className="w-full h-full object-cover" />
         {/* <div className={styles.bottomMask} /> */}
         <div className={styles.bidContainer}>

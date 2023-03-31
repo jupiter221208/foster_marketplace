@@ -62,12 +62,12 @@ const LiveAuctionCard = props => {
         <div className={styles.imageContent}>
           {data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
+              <div className="w-full relative flex justify-center items-center rounded-[24px] overflow-hidden">
                 {play ? (
                   <div
                     className="w-full h-full absolute"
                     dangerouslySetInnerHTML={{
-                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                      __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                     }}
                     onClick={() => onClick()}
@@ -76,7 +76,7 @@ const LiveAuctionCard = props => {
                   <img
                     src={data.cover_image_url}
                     alt=""
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    className="w-full h-full rounded-[24px] object-cover"
                     onClick={() => onClick()}
                   />
                 ) : (
@@ -98,7 +98,7 @@ const LiveAuctionCard = props => {
               <div
                 className="w-full"
                 dangerouslySetInnerHTML={{
-                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                  __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[24px] overflow-hidden">
                 <source src=${data.asset_url} type="video/mp4" /></video>`,
                 }}
                 onClick={() => onClick()}
@@ -108,14 +108,14 @@ const LiveAuctionCard = props => {
             <img
               src={data.cover_image_url}
               alt=""
-              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+              className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />
           ) : (
             <img
               src={data.asset_url}
               alt=""
-              className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+              className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />
           )}
