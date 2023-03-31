@@ -286,6 +286,7 @@
   --search-menu-icon-color: #eff0f6;
   --social-bg-color: #202427;
   --nft-border-color: rgba(239, 240, 247, 0.1);
+  --address-btn-bg-color: #202427;
 }
 
 html,
@@ -1197,6 +1198,10 @@ h6 {
 }
 
 [data-name='social-icon'] {
+  fill: var(--main-icon-color);
+}
+
+[data-name='file-copy-icon'] {
   fill: var(--main-icon-color);
 }
 

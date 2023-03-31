@@ -116,7 +116,7 @@ const TrendingCollectionSection = props => {
           <OutlineButton
             label="See More"
             onClick={() => router.push('/explore')}
-            borderColor={'var(--see-more-border'}
+            borderColor={'var(--see-more-border)'}
             borderWidth={2}
             height="42px"
           />
