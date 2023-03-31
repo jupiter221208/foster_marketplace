@@ -16,7 +16,19 @@ import Alert from 'components/Alert'
 import styles from './index.module.scss'
 
 const ModalPlaceBid = props => {
-  const { balance, nftName, nftUrl, placeBid, currentPrice, reservePrice, open, onClose, loading } = props
+  const {
+    balance,
+    biddingWalletBalance,
+    biddingLockBalance,
+    nftName,
+    nftUrl,
+    placeBid,
+    currentPrice,
+    reservePrice,
+    open,
+    onClose,
+    loading,
+  } = props
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [priceCheckMode, setPriceCheckMode] = useState(0)
@@ -61,7 +73,8 @@ const ModalPlaceBid = props => {
       setPriceCheckMode(1)
       return
     } else {
-      if (price > parseFloat(balance)) {
+      console.log(price, balance, biddingWalletBalance, biddingLockBalance)
+      if (price > parseFloat(balance) && price > parseFloat(biddingWalletBalance) - biddingLockBalance) {
         setPriceCheckMode(2)
         return
       } else {

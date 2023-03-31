@@ -14,6 +14,7 @@ import CloseWhiteIcon from 'assets/icons/close-white.svg'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
+import { useSelector } from 'react-redux'
 
 const MakeAnOfferModal = props => {
   const { open, close, onClick, listingPrice, nftName, collectionName, offerBalance, mainWalletBalance } = props
@@ -26,6 +27,7 @@ const MakeAnOfferModal = props => {
   const [biddingWalletBalance, setBiddingWalletBalance] = useState<any>(0)
   const [errorMessage, setErrorMessage] = useState<any>('')
   const [offerBtnDisabled, setOfferBtnDisabled] = useState<any>(false)
+  const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
   useEffect(() => {
     const newValue = listingPrice / 2
@@ -68,7 +70,7 @@ const MakeAnOfferModal = props => {
     }
 
     if (value > listingPrice) {
-      if (newMainWalletBalance <= 0)
+      if (newMainWalletBalance <= 0 && value > offerBalance - offerWalletLock)
         setErrorMessage('<div>Not enough balance in wallet. Offer must be lower than the listing price.</div>')
       else setErrorMessage('<div>Offer must be lower than the listing price.</div>')
       setOfferBtnDisabled(true)
@@ -132,9 +134,8 @@ const MakeAnOfferModal = props => {
                       placeholder="Enter offer amount"
                       fullWidth
                       fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
-                      // backgroundColor="#151718"
+                      backgroundColor="#202427"
                       // borderColor="#202427"
-                      borderWidth={1}
                       onChange={value => onChangeOfferValue(value)}
                     />
                   </div>

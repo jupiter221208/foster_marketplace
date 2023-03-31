@@ -270,7 +270,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
-
   const quickBuy = async () => {
     if (!connected) {
       setVisible(true)
@@ -1194,7 +1193,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
 
       <ModalPlaceBid
-        balance={biddingBalance - bidWalletLock}
+        balance={mainWalletBalance}
+        biddingWalletBalance={biddingBalance}
+        biddingLockBalance={bidWalletLock}
         nftName={nftName}
         nftUrl={nftCoverUrl}
         currentPrice={nftCurrentPrice}
