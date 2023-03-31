@@ -170,7 +170,7 @@ const MarketplaceReleaseSection = props => {
                 dispatch({ type: 'set', exploreTab: 1 })
                 router.push('/explore')
               }}
-              borderColor={'var(--see-morder-border)'}
+              borderColor={'var(--see-more-border)'}
               height="40px"
             />
           </div>

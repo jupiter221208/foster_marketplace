@@ -51,12 +51,12 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const viewport = useViewport()
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }, [])
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: 'smooth',
+  //   })
+  // }, [])
 
   useEffect(() => {
     if (!nftDetail) return
