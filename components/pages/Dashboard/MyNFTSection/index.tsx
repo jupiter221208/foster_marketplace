@@ -78,6 +78,8 @@ const MyNFTSection = props => {
   }
 
   const handleSuccessAuction = nftName => {
+    loadMyNFTs()
+
     setOpenProgressingModal(false)
 
     setAlertData([

@@ -100,10 +100,10 @@ const NotificationsCard = props => {
         message = 'started following you'
         break
       case 'save_nft':
-        message = 'added your art to their favorites'
+        message = 'added your art to their favorites.'
         break
       case 'save_collection':
-        message = 'added your collection to their favorites'
+        message = 'added your collection to their favorites.'
         break
       case 'like':
         message = 'liked your art'
@@ -112,26 +112,26 @@ const NotificationsCard = props => {
         message = 'You received an offer from'
         break
       case 'bid':
-        message = 'placed a bid in your auction'
+        message = 'placed a bid in your auction.'
         break
       case 'sale':
         message = 'Your NFT was purchased by'
         break
       case 'winner':
-        message = 'is the winner of your auction'
+        message = 'is the winner of your auction.'
         break
       case 'no_winner':
-        message = 'Your auction ended without a winner'
+        message = 'Your auction ended without a winner.'
         break
       case 'outbid':
-        message = 'You were outbid on an auction'
+        message = 'You were outbid on an auction.'
         break
       case 'won':
         message =
-          "You're the auction winner for " + notification.reference_token_name + '. The seller has finalize the sale'
+          "You're the auction winner for " + notification.reference_token_name + '. The seller has finalized the sale.'
         break
       case 'purchase':
-        message = 'has accepted your offer'
+        message = 'has accepted your offer.'
         break
     }
 

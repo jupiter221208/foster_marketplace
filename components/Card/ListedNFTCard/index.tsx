@@ -129,13 +129,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     fontSize="16px"
                     paddingLeft="37px"
                     paddingRight="37px"
-                    backgroundColor01="#326B67"
-                    backgroundColor02="#63D6CD"
-                    gradientDirection="right"
                     fullWidth
                   />
                 ) : (
                   <Button
+                    width={'100%'}
                     height="48px"
                     fontSize="16px"
                     paddingLeft="37px"
@@ -155,9 +153,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   fontSize="16px"
                   paddingLeft="37px"
                   paddingRight="37px"
-                  backgroundColor01="#326B67"
-                  backgroundColor02="#63D6CD"
-                  gradientDirection="right"
                   fullWidth
                 />
               )}
@@ -207,13 +202,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                     fontSize="12px"
                     paddingLeft="7px"
                     paddingRight="7px"
-                    backgroundColor01="#326B67"
-                    backgroundColor02="#63D6CD"
-                    gradientDirection="right"
                     borderRadius="6px"
                   />
                 ) : (
                   <Button
+                    width={'100%'}
                     height="26px"
                     fontSize="12px"
                     paddingLeft="7px"
@@ -234,9 +227,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                   fontSize="12px"
                   paddingLeft="7px"
                   paddingRight="7px"
-                  backgroundColor01="#326B67"
-                  backgroundColor02="#63D6CD"
-                  gradientDirection="right"
                   borderRadius="6px"
                 />
               )}

@@ -26,9 +26,9 @@
     border-radius: 30px;
     padding: 19px;
   }
-  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.15);
+  border: 1px solid var(--nft-border-color);
   border-width: var(--collection-card-border);
-  box-shadow: 0px 3px 6px rgba(black, 0.5);
+  box-shadow: 0px 3px 6px rgba(black, 0.15);
 }
 
 .imageArea {

@@ -150,6 +150,7 @@ export const setColorTheme = lightMode => {
     // Light Mode
     doc.style.setProperty('--main-bg-color', '#202427')
     doc.style.setProperty('--main-icon-color', '#202427')
+    doc.style.setProperty('--main-icon-color-rgb', '32, 36, 39')
     doc.style.setProperty('--g-left-container-bg', '#E4E5EB')
     doc.style.setProperty('--background-main-color', '#eff0f6')
     doc.style.setProperty('--background-black-color', '#202427')
@@ -367,6 +368,7 @@ export const setColorTheme = lightMode => {
     // Dark Mode
     doc.style.setProperty('--main-bg-color', '#eff0f6')
     doc.style.setProperty('--main-icon-color', '#95dbd5')
+    doc.style.setProperty('--main-icon-color-rgb', '149, 219, 213')
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
     doc.style.setProperty('--background-main-color', '#0c1013')
     doc.style.setProperty('--background-black-color', '#121212')
