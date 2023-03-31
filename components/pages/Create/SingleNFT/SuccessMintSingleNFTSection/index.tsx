@@ -59,7 +59,8 @@ const SuccessMintSingleNFTSection = props => {
   }
 
   const handleSuccessAuction = nftName => {
-    setShowStartAuctionModal(false)
+    setOpenProgressingModal(false)
+
     setAlertData([
       {
         id: 0,
@@ -70,11 +71,11 @@ const SuccessMintSingleNFTSection = props => {
     ])
 
     setTimeout(() => {
-      setOpenProgressingModal(false)
+      setShowStartAuctionModal(false)
       setTimeout(() => {
         setShowAlert(true)
-      }, 500)
-    }, 500)
+      }, 1000)
+    }, 1000)
   }
 
   // useEffect(() => {
@@ -285,7 +286,7 @@ const SuccessMintSingleNFTSection = props => {
               dispatch({ type: 'set', isLoading: true })
               router.push(`/dashboard?tab=1&filter=0`)
             }
-          }, 500)
+          }, 1000)
         }}
       />
       <StartAuctionModal
