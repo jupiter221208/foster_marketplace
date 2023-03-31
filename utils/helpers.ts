@@ -356,7 +356,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-activity-icon', '#202427')
     doc.style.setProperty('--card-border-color', '#C1C2C9')
     doc.style.setProperty('--search-menu-icon-color', '#202427')
-    doc.style.setProperty('--social-bg-color', '#ffffff')
+    doc.style.setProperty('--social-bg-color', '#E0E1E7')
+    doc.style.setProperty('--nft-border-color', '#D7D8DE')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -565,7 +566,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--day-btn-bg-1', '#5ac3ba')
     doc.style.setProperty('--day-btn-bg-2', '#2D625D')
     doc.style.setProperty('--search-icon-color', 'transparent')
-    doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75')
+    doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--logo-text-color', '#fff')
     doc.style.setProperty('--logo-text-ballon', '#95dbd5')
     doc.style.setProperty(
@@ -576,5 +577,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
     doc.style.setProperty('--card-border-color', '#333333')
     doc.style.setProperty('--social-bg-color', '#202427')
+    doc.style.setProperty('--nft-border-color', 'rgba(239, 240, 247, 0.1)')
   }
 }
