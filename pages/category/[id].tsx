@@ -36,6 +36,17 @@ const Category = () => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
 
+  useEffect(() => {
+    setTimeout(
+      () =>
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        }),
+      500
+    )
+  }, [])
+
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
   const cateQuery = rawQuery.toLowerCase()
   useEffect(() => {

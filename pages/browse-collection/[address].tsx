@@ -48,6 +48,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const address = collectionData?.collection_id
 
   useEffect(() => {
+    setTimeout(
+      () =>
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        }),
+      500
+    )
+  }, [])
+
+  useEffect(() => {
     ;(async () => {
       if (!address) return
 
