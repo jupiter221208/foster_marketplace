@@ -12,9 +12,9 @@ import CategoryChip from 'components/Chip/CategoryChip'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import InstagramIcon from 'assets/icons/social-ig.svg'
+import InstagramIcon from 'assets/icons/social-ig.svg?component'
 // import DiscordIcon from 'assets/icons/social-discord.svg'
-import TwitterIcon from 'assets/icons/social-twitter.svg'
+import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 // import TelegramIcon from 'assets/icons/social-telegram.svg'
 
 // styles
@@ -69,11 +69,7 @@ const ReadMoreModal = props => {
                         <div className="flex w-full h-8 justify-start mt-[20px] gap-[18px]">
                           {artistInfo.ig_url !== null && (
                             <div className={styles.iconShadow}>
-                              <Image
-                                src={InstagramIcon}
-                                alt=""
-                                onClick={() => window.open(validUrl(artistInfo.ig_url))}
-                              />
+                              <InstagramIcon onClick={() => window.open(validUrl(artistInfo.ig_url))} />
                             </div>
                           )}
                           {/* {artistInfo.discord_url !== null && (
@@ -83,7 +79,7 @@ const ReadMoreModal = props => {
                           )} */}
                           {artistInfo.twitter_url !== null && (
                             <div className={styles.iconShadow}>
-                              <Image src={TwitterIcon} onClick={() => window.open(validUrl(artistInfo.twitter_url))} />
+                              <TwitterIcon onClick={() => window.open(validUrl(artistInfo.twitter_url))} />
                             </div>
                           )}
                           {/* {artistInfo.telegram_url !== null && (
