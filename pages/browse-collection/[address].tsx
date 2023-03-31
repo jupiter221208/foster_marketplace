@@ -54,7 +54,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           top: 0,
           behavior: 'smooth',
         }),
-      500
+      1000
     )
   }, [])
 
