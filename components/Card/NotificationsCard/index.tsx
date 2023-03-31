@@ -239,6 +239,10 @@ const NotificationsCard = props => {
     else return DefaultAvatar.src
   }
 
+  function gotoNFTPage(elem) {
+    router.push(`/browse-nft?id=${elem.reference_token_id}`)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -280,11 +284,11 @@ const NotificationsCard = props => {
                           </span>
                         )}
                       </p>
-                      {elem.notification_type !== 'following' && (
+                      {/* {elem.notification_type !== 'following' && (
                         <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
                           {getViewDetail(elem)}
                         </div>
-                      )}
+                      )} */}
                     </div>
                   </div>
                   <div className="flex justify-end">
@@ -310,7 +314,7 @@ const NotificationsCard = props => {
                       />
                     ) : (
                       isShowAvatar(elem) && (
-                        <div className={styles.assetUrl}>
+                        <div className={styles.assetUrl} onClick={() => gotoNFTPage(elem)}>
                           <Image
                             src={
                               elem.reference_asset_url !== null && elem.reference_asset_url !== ''

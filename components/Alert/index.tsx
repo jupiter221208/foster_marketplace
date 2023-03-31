@@ -17,7 +17,7 @@ import AlertSuccessGreenIcon from 'assets/icons/alert-success-green.svg'
 import AlertErrorBlackRedIcon from 'assets/icons/alert-error-black-red.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import LogoText from 'assets/icons/logo-text-01-light.svg'
+import LogoText from 'assets/icons/logo-text-01-dark.svg'
 
 // styles
 import styles from './index.module.scss'
