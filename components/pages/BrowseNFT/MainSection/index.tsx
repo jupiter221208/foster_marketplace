@@ -268,7 +268,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   const { id } = router.query
 
   const { metaplex: mx } = useMetaplex()
-  const { mainBalance: mainWalletBalance, offerBalance, updateSolBalance } = useWallets()
+  const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
+  const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
 
   const quickBuy = async () => {
     if (!connected) {
@@ -1193,7 +1194,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
 
       <ModalPlaceBid
-        balance={mainWalletBalance}
+        balance={biddingBalance - bidWalletLock}
         nftName={nftName}
         nftUrl={nftCoverUrl}
         currentPrice={nftCurrentPrice}

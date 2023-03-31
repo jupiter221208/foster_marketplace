@@ -21,7 +21,6 @@ const ModalPlaceBid = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [priceCheckMode, setPriceCheckMode] = useState(0)
   const [price, setPrice] = useState<number>(0)
-
   const closeModal = () => {
     onClose()
   }
