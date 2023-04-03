@@ -222,7 +222,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-right-icon', '#202427')
     doc.style.setProperty('--menu-item-right-open-icon', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--pagination-down-icon', '#202427')
-    doc.style.setProperty('--search-item-bg', '#ADAEB2')
+    doc.style.setProperty('--search-item-bg', '#202427')
     doc.style.setProperty('--search-item-color', '#95DBD5')
     doc.style.setProperty('--resource-card-title', '#eff0f6')
     doc.style.setProperty('--nft-detail-section-bg', 'linear-gradient(to bottom, #95DBD5, #4B6E6B)')

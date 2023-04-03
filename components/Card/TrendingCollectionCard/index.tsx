@@ -38,7 +38,7 @@ const TrendingCollectionCard = props => {
               <div className="flex mt-1">
                 <div className={styles.artistName}>{artistName || collectionName}</div>
                 <div className={styles.dotStyle}>&#183;</div>
-                <div className={styles.artistName}>{nftCount} NFTs</div>
+                <div className={styles.nftCount}>{nftCount} artworks</div>
               </div>
             </div>
             <div className={styles.avatar}>
