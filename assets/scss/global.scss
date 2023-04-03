@@ -1042,7 +1042,7 @@ h6 {
       line-height: 1;
     }
     .react-datepicker__day-names {
-      color: var(--brand-09-color);
+      color: var(--main-icon-color);
       font-family: 'Muli-SemiBold';
       font-size: 14px;
       margin-top: 20px;
@@ -1055,7 +1055,9 @@ h6 {
           width: 45px;
         }
         justify-content: center;
-        color: var(--brand-09-color);
+        color: var(--main-icon-color);
+
+        // color: var(--brand-09-color);
       }
     }
   }
@@ -1113,7 +1115,7 @@ h6 {
     }
   }
   .react-datepicker__day--outside-month {
-    color: rgba(var(--text-gray-200-color), 0.5);
+    color: rgba(var(--text-gray-200-color-rgb), 0.5);
   }
 
   .react-datepicker__input-time-container {
