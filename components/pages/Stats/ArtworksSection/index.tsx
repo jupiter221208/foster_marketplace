@@ -61,7 +61,6 @@ const ArtworksSection = () => {
 
   const getArtworkData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
-
     StatsAPI.getStatsArtwork({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -70,7 +69,7 @@ const ArtworksSection = () => {
     }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
-        const nfts = respone.filter(elem => elem.asset_url.length > 0)
+        const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)

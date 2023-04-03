@@ -6,9 +6,9 @@
 }
 
 .bgView {
-  // backdrop-filter: blur(25px);
-  // -webkit-backdrop-filter: blur(25px);
-  background-color: rgba($background-black-color, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background-color: rgba(var(--background-dark-color-rgb), 0.3);
   position: fixed;
   inset: 0;
 }

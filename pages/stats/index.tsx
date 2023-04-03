@@ -2,25 +2,14 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-import Tab from 'components/Tab'
-import OutlineButton from 'components/Button/OutlineButton'
 
 import ArtworksSection from 'components/pages/Stats/ArtworksSection'
-import CollectionsSection from 'components/pages/Stats/CollectionsSection'
-import CreatorsSection from 'components/pages/Stats/CreatorsSection'
-import CollectorsSection from 'components/pages/Stats/CollectorsSection'
-import MarketplaceSection from 'components/pages/Stats/MarketplaceSection'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 
 // json
 import TabList from 'assets/json/stats/tab-list.json'
@@ -29,7 +18,6 @@ import TabList from 'assets/json/stats/tab-list.json'
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
-import { useSelector } from 'react-redux'
 
 const Stats = () => {
   const viewport = useViewport()
