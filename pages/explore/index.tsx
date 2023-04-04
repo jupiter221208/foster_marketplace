@@ -64,8 +64,8 @@ const Explore = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [isMounted, setIsMounted] = useState(false)
-  const exploreTab = useSelector<any>(state => state.exploreTab)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
+  const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
   const [nftList, setNftList] = useState<any>([])
   const [collectionList, setCollectionList] = useState<any>([])
@@ -110,29 +110,21 @@ const Explore = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if (availabilityFilter === 1) {
-      console.log('=============1===============')
-      setSelectedAvailability(AvailabilityList[1])
-    }
-  }, [availabilityFilter])
+  useEffect(() => {}, [availabilityFilter])
 
   useEffect(() => {
+    let availability = selectedAvailability
+    if (availabilityFilter === 1) {
+      availability = AvailabilityList[1]
+      setSelectedAvailability(availability)
+    }
     switch (exploreTab) {
       case 0:
         setSortData(NFTSortList)
         setSelectedSort(NFTSortList[0])
         setCurrentPage(nftCurrentPage)
         setCategoryList([])
-        getExploreNFTData(
-          nftCurrentPage,
-          [],
-          selectedAvailability,
-          selectedMedium,
-          selectedMarket,
-          NFTSortList[0],
-          rowCount
-        )
+        getExploreNFTData(nftCurrentPage, [], availability, selectedMedium, selectedMarket, NFTSortList[0], rowCount)
         break
       case 1:
         setSortData(CollectionSortList)
