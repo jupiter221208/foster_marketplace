@@ -426,7 +426,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dropdown-menu-hover-border', '')
     doc.style.setProperty('--wallet-green-text', '#95dbd5')
     doc.style.setProperty('--wallet-error-text', '#deefd0')
-    doc.style.setProperty('--wallet-active-text', '#5ac3ba')
+    doc.style.setProperty('--wallet-active-text', '#95dbd5')
     doc.style.setProperty('--follow-text-color', '#95dbd5')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to bottom, #121212, #2d625d)')
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
