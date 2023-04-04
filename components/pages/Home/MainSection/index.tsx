@@ -73,7 +73,7 @@ const MainSection = () => {
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
-        <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
+        <div className="hidden lg:block lg:col-span-6 xl:col-span-7">
           {/* <p className="w-full flex justify-start">
             <span className={styles.whiteTitle}>The&nbsp;</span>
             <span className={styles.greenTitle}>House of Art,&nbsp;</span>
@@ -81,8 +81,19 @@ const MainSection = () => {
           </p> */}
           {/* <FosterEnhancedSmallIcon /> */}
 
-          {viewport === 'lg' ? <FosterEnhancedSmallIcon /> : <FosterEnhancedIcon />}
-          <div className={styles.text}>Home to the Next Generation of Digital Creators.</div>
+          {/* {viewport === 'lg' ? <FosterEnhancedSmallIcon /> : <FosterEnhancedIcon />} */}
+
+          <div className={styles.title}>
+            {viewport === 'xl' ? (
+              'Home to the Next Generation of Digital Creators'
+            ) : (
+              <div>
+                Home to the Next Generation
+                <br /> of Digital Creators
+              </div>
+            )}
+          </div>
+          <div className={styles.text}>Create, collect, and curate the flavor.</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
@@ -121,13 +132,18 @@ const MainSection = () => {
         >
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
-              <FosterEnhancedMobile width={280} height={62} alt="" />
+              {/* <FosterEnhancedMobile width={280} height={62} alt="" /> */}
               {/* <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div> */}
+              <div className={styles.title}>
+                Home to the Next
+                <br /> Generation of Digital Creators
+              </div>
+              <div className={styles.text}>Create, collect, and curate the flavor.</div>
             </div>
           ) : (
             <></>
           )}
-          <div className="max-w-[550px] w-full mt-[85px] lg:mt-[0px]">
+          <div className="max-w-[550px] w-full mt-[80px] lg:mt-[0px]">
             {heroList.length !== 0 && (
               <Swiper
                 slidesPerView={1}
