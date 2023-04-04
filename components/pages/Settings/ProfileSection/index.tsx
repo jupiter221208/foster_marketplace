@@ -21,12 +21,12 @@ import Alert from 'components/Alert'
 import { useViewport } from 'utils'
 
 // images and icons
-import InstagramWhiteIcon from 'assets/icons/instagram-green.svg'
-import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg'
+import InstagramWhiteIcon from 'assets/icons/instagram-green-profile.svg?component'
+import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg?component'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import DiscordWhiteSmallIcon from 'assets/icons/discord-green-small.svg'
-import TwitterWhiteIcon from 'assets/icons/twitter-white.svg'
-import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg'
+import TwitterWhiteIcon from 'assets/icons/twitter-white-profile.svg?component'
+import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg?component'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import TelegramWhiteSmallIcon from 'assets/icons/telegram-green-small.svg'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
@@ -233,21 +233,15 @@ const ProfileSection = prop => {
               <div className={styles.subTitle}>Social Connections & Links</div>
             </div>
             <div className="mt-4 lg:mt-8 flex items-center">
-              <IconButton
-                icon={
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-                    ? InstagramWhiteSmallIcon
-                    : InstagramWhiteIcon
-                }
-                backgroundColor="#202427"
-                borderColor="#202427"
-                width="46px"
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '46px'}
-                borderRadius="12px"
-                borderWidth="0px"
-                onClick={() => {}}
-              />
-              <div className="w-full ml-[-16px] lg:ml-[24px]">
+              <div className={styles.socialIcon}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <InstagramWhiteSmallIcon />
+                ) : (
+                  <InstagramWhiteIcon />
+                )}
+              </div>
+
+              <div className="w-full ml-[-17px] lg:ml-[24px]">
                 <Input
                   value={igUrl}
                   placeholder="Add Instagram Account"
@@ -283,19 +277,14 @@ const ProfileSection = prop => {
               </div>
             </div> */}
             <div className="mt-[10px] lg:mt-[30px] flex items-center">
-              <IconButton
-                icon={
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? TwitterWhiteSmallIcon : TwitterWhiteIcon
-                }
-                backgroundColor="#202427"
-                borderColor="#202427"
-                width="46px"
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50px' : '46px'}
-                borderRadius="12px"
-                borderWidth="0px"
-                onClick={() => {}}
-              />
-              <div className="w-full ml-[-16px] lg:ml-[24px]">
+              <div className={styles.socialIcon}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <TwitterWhiteSmallIcon />
+                ) : (
+                  <TwitterWhiteIcon />
+                )}
+              </div>
+              <div className="w-full ml-[-17px] lg:ml-[24px]">
                 <Input
                   value={twitterUrl}
                   placeholder="Add Twitter Account"
