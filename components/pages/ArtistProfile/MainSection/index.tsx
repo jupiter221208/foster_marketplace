@@ -225,7 +225,7 @@ const MainSection = prop => {
                 className="w-[50%] h-full absolute top-0 right-0 cursor-pointer"
                 onClick={() => setArtistEnable(true)}
               >
-                <div className={styles.switchDisabled}>Artist</div>
+                <div className={styles.switchRightDisabled}>Artist</div>
               </div>
             </div>
           )}

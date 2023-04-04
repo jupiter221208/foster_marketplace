@@ -41,13 +41,13 @@
   }
 
   border-radius: 10px;
-  overflow: hidden;
 }
 
 .switchDisabled {
   width: 100%;
   height: 100%;
   display: flex;
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
   color: var(--switch-disabled-color);
