@@ -138,13 +138,15 @@
 }
 
 .dotStyle {
-  color: var(--brand-06-color);
+  color: $text-gray-200-color;
   margin-left: 6px;
   margin-right: 6px;
+  margin-top: 2px;
   font-family: 'Muli-ExtraBold';
   font-size: 12px;
   line-height: 12px;
   @media (min-width: 640px) {
+    margin-top: 0px;
     font-size: 12px;
     line-height: 15px;
   }

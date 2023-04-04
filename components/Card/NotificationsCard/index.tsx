@@ -230,8 +230,7 @@ const NotificationsCard = props => {
     if (
       elem.notification_type === 'won' ||
       elem.notification_type === 'no_winner' ||
-      elem.notification_type === 'outbid' ||
-      elem.notification_type === 'sale'
+      elem.notification_type === 'outbid'
     )
       return elem.reference_asset_url
 
