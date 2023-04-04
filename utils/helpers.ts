@@ -294,7 +294,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--auction-input-bg', '#202427')
     doc.style.setProperty('--see-more-border', '#D7D8DE')
     doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
-    doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--nft-info-bg', '#202427')
     doc.style.setProperty('--place-bid-close-rect', '#DDF2F5')
     doc.style.setProperty('--place-bid-close-path', '#202427')
     doc.style.setProperty('--input-bg', '#202427')
