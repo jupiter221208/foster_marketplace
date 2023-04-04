@@ -357,7 +357,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--social-bg-color', '#E0E1E7')
     doc.style.setProperty('--nft-border-color', '#D7D8DE')
     doc.style.setProperty('--address-btn-bg-color', '#E0E1E7')
-
+    doc.style.setProperty('--stats-bg-color', '#202427')
+    doc.style.setProperty('--tab-bottom-color', '#202427')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -580,5 +581,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--social-bg-color', '#202427')
     doc.style.setProperty('--nft-border-color', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--address-btn-bg-color', '#202427')
+    doc.style.setProperty('--stats-bg-color', '#1b1b1b')
+    doc.style.setProperty('--tab-bottom-color', '#95dbd5')
   }
 }
