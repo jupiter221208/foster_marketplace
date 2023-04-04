@@ -44,7 +44,7 @@
   }
   // backdrop-filter: blur(10px);
   // -webkit-backdrop-filter: blur(10px);
-  background: linear-gradient(110deg, var(--avatar-border-color1) 0%, var(--avatar-border-color2) 80%);
+  background: $background-dark-color;
 }
 
 .name {
