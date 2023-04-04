@@ -428,7 +428,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-text-color', '#95dbd5')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to bottom, #121212, #2d625d)')
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
-    doc.style.setProperty('--artist-switch-bg', '#1c2121')
+    doc.style.setProperty('--artist-switch-bg', '#202427')
     doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.6)')
     doc.style.setProperty('--search-bg-color', '#121212')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #202427, #121212')
