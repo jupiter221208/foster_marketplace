@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const LiveAuctionSection = props => {
   const { category, artist = '' } = props
@@ -108,14 +109,19 @@ const LiveAuctionSection = props => {
               />
             </div> */}
           </div>
-          {/* <div className="hidden lg:flex z-10">
+          <div className="hidden lg:flex z-10">
             <OutlineButton
               label="See More"
-              onClick={() => router.push('/explore')}
-              borderColor="#ffffff"
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 1 })
+                router.push('/explore')
+              }}
+              borderColor={'var(--see-more-border)'}
               height="42px"
+              borderWidth={2}
             />
-          </div> */}
+          </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
           {liveAuctionList.length > 0 ? (
@@ -163,20 +169,21 @@ const LiveAuctionSection = props => {
             </div>
           )}
         </div>
-        {/* <div className="w-full flex lg:hidden justify-center">
+        <div className="w-full flex lg:hidden justify-center">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
               label="See More"
               fullWidth
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 1 })
                 router.push('/explore')
               }}
-              borderColor="#ffffff"
+              borderColor={'var(--see-more-border)'}
               height="40px"
             />
           </div>
-        </div> */}
+        </div>
       </section>
     )
   )

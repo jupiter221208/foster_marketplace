@@ -167,7 +167,7 @@ const MarketplaceReleaseSection = props => {
               label="See More"
               fullWidth
               onClick={() => {
-                dispatch({ type: 'set', exploreTab: 1 })
+                dispatch({ type: 'set', exploreTab: 0 })
                 router.push('/explore')
               }}
               borderColor={'var(--see-more-border)'}

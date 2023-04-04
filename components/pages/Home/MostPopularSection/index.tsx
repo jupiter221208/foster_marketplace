@@ -119,7 +119,8 @@ const MostPopularSection = props => {
           <OutlineButton
             label="See More"
             onClick={() => {
-              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', exploreTab: 1 })
+              dispatch({ type: 'set', availabilityFilter: 3 })
               router.push('/explore')
             }}
             borderColor={'var(--see-more-border)'}

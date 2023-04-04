@@ -10,6 +10,7 @@ const initialState = {
   openMobileSearchBox: false,
   openConnectWallet: false,
   exploreTab: 0,
+  availabilityFilter: 0,
   connectWalletStatus: false,
   openCreateNFTModal: false,
   openSellNFTModal: false,
