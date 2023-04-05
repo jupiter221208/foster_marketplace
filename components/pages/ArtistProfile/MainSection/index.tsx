@@ -339,6 +339,8 @@ const MainSection = prop => {
                 : DefaultAvatar.src
             }
             name={artistInfo?.username}
+            ig_url={artistInfo?.ig_url}
+            twitter_url={artistInfo?.twitter_url}
           />
           {!isOwn && (
             <div className="mt-10 flex">
