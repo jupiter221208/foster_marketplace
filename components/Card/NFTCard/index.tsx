@@ -87,26 +87,38 @@ const DashboardNFTCard = props => {
               )
             ) : assetType.includes('audio') ? (
               coverImage !== null && coverImage !== '' ? (
-                <img
-                  src={coverImage}
-                  alt=""
-                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                  onClick={() => onClick()}
-                />
+                <div className="w-full" onClick={() => onClick()}>
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                    <img
+                      src={coverImage}
+                      alt=""
+                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    />
+                  </ReactPlaceholder>
+                  {!loaded && (
+                    <img
+                      src={coverImage}
+                      alt=""
+                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                      onLoad={() => {
+                        setLoaded(true)
+                      }}
+                    />
+                  )}
+                </div>
               ) : (
                 <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
               )
             ) : image !== null && image !== '' ? (
-              <div className="w-full">
+              <div className="w-full" onClick={() => onClick()}>
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <img src={image} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                  <img src={image} alt="" className={styles.imageNft} />
                 </ReactPlaceholder>
                 {!loaded && (
                   <img
                     src={image}
                     alt=""
                     className={styles.imageNft}
-                    onClick={() => onClick()}
                     onLoad={() => {
                       setLoaded(true)
                     }}
@@ -114,16 +126,15 @@ const DashboardNFTCard = props => {
                 )}
               </div>
             ) : coverImage !== null && coverImage !== '' ? (
-              <div className="w-full">
+              <div className="w-full" onClick={() => onClick()}>
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <img src={coverImage} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                  <img src={coverImage} alt="" className={styles.imageNft} />
                 </ReactPlaceholder>
                 {!loaded && (
                   <img
                     src={coverImage}
                     alt=""
                     className={styles.imageNft}
-                    onClick={() => onClick()}
                     onLoad={() => {
                       setLoaded(true)
                     }}
