@@ -10,7 +10,7 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // images and icons
-import ArrowRightGreenIcon from 'assets/icons/arrow-right-green.svg'
+import ArrowRightGreenIcon from 'assets/icons/arrow-right-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -52,7 +52,8 @@ const CreateSellNFTCard = props => {
       <div className={styles.link} onClick={() => handleClickEvent()}>
         {linkText}
         <div className="ml-4">
-          <Image src={ArrowRightGreenIcon} alt="" />
+          {/* <Image src={ArrowRightGreenIcon} alt="" /> */}
+          <ArrowRightGreenIcon />
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
   width: 100%;
   height: 100%;
   border-radius: 30px;
-  background-color: var(--background-black-color);
+  background-color: var(--sell-nft-bg);
   padding: 24px 40px;
   @media (min-width: 1024px) {
     padding: 44px 57px 42px 40px;
@@ -13,7 +13,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid rgba(white, 0.1);
+  border: 1px solid var(--sell-nft-border);
   box-shadow: 0px 3px 6px rgba(black, 0.5);
 }
 
@@ -27,7 +27,7 @@
     line-height: 36px;
   }
   letter-spacing: 0px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .description {
@@ -41,7 +41,7 @@
     line-height: 24px;
   }
   letter-spacing: 0px;
-  color: rgba(var(--text-gray-200-color), 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .link {
@@ -57,7 +57,7 @@
     line-height: 24px;
   }
   letter-spacing: 0px;
-  color: var(--brand-09-color);
+  color: var(--main-icon-color);
   display: flex;
   justify-content: flex-start;
   align-items: center;
