@@ -98,12 +98,7 @@ const DashboardNFTCard = props => {
               )
             ) : image !== null && image !== '' ? (
               <div className="w-full">
-                <ReactPlaceholder
-                  showLoadingAnimation={true}
-                  type="rect"
-                  ready={loaded}
-                  color="rgba(239, 240, 247, 0.5)"
-                >
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                   <img src={image} alt="" className={styles.imageNft} onClick={() => onClick()} />
                 </ReactPlaceholder>
                 {!loaded && (
@@ -120,7 +115,7 @@ const DashboardNFTCard = props => {
               </div>
             ) : coverImage !== null && coverImage !== '' ? (
               <div className="w-full">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#eff0f6">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                   <img src={coverImage} alt="" className={styles.imageNft} onClick={() => onClick()} />
                 </ReactPlaceholder>
                 {!loaded && (
