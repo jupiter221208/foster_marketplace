@@ -135,7 +135,7 @@ const MainSection = () => {
           ) : (
             <></>
           )}
-          <div className="max-w-[550px] w-full mt-[100px] lg:mt-[0px]">
+          <div className="max-w-[550px] w-full mt-[110px] md:mt-[130px] lg:mt-[0px]">
             {heroList.length !== 0 && (
               <Swiper
                 slidesPerView={1}

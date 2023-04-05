@@ -44,7 +44,7 @@
   }
   // backdrop-filter: blur(10px);
   // -webkit-backdrop-filter: blur(10px);
-  background: $background-dark-color;
+  background: var(--top-artist-bg);
 }
 
 .name {

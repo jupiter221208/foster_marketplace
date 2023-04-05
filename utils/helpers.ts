@@ -359,6 +359,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--address-btn-bg-color', '#CBCDD2')
     doc.style.setProperty('--stats-bg-color', '#202427')
     doc.style.setProperty('--tab-bottom-color', '#202427')
+    doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
+    doc.style.setProperty('--top-artist-bg', '#202427')
+
     // =====================================================
     // =====================================================
     // =====================================================
@@ -583,5 +586,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--address-btn-bg-color', '#202427')
     doc.style.setProperty('--stats-bg-color', '#1b1b1b')
     doc.style.setProperty('--tab-bottom-color', '#95dbd5')
+    doc.style.setProperty('--top-artist-bg', 'linear-gradient(to bottom, rgba(149, 219, 213, 1), rgba(75, 110, 107, 1)')
   }
 }
