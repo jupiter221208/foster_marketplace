@@ -22,9 +22,12 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg?component'
-import FosterEnhancedSmallIcon from 'assets/icons/foster-enhanced-small.svg?component'
-import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg?component'
+// import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg?component'
+
+// import FosterEnhancedSmallIcon from 'assets/icons/foster-enhanced-small.svg?component'
+// import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg?component'
+import FosterHeroLogo from 'assets/icons/foster-hero-logo.svg?component'
+import FosterHeroMobileLogo from 'assets/icons/foster-hero-logo-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -82,18 +85,8 @@ const MainSection = () => {
           {/* <FosterEnhancedSmallIcon /> */}
 
           {/* {viewport === 'lg' ? <FosterEnhancedSmallIcon /> : <FosterEnhancedIcon />} */}
-
-          <div className={styles.title}>
-            {viewport === 'xl' ? (
-              'Home to the Next Generation of Digital Creators'
-            ) : (
-              <div>
-                Home to the Next Generation
-                <br /> of Digital Creators
-              </div>
-            )}
-          </div>
-          <div className={styles.text}>Create, collect, and curate the flavor.</div>
+          <FosterHeroLogo alt="" />
+          <div className={styles.text}>Home to Digital Creators on Solana</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
@@ -134,16 +127,15 @@ const MainSection = () => {
             <div className={styles.contentArea}>
               {/* <FosterEnhancedMobile width={280} height={62} alt="" /> */}
               {/* <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div> */}
-              <div className={styles.title}>
-                Home to the Next
-                <br /> Generation of Digital Creators
+              <div className="w-full flex justify-center">
+                <FosterHeroMobileLogo />
               </div>
-              <div className={styles.text}>Create, collect, and curate the flavor.</div>
+              <div className={styles.text}>Home to Digital Creators on Solana</div>
             </div>
           ) : (
             <></>
           )}
-          <div className="max-w-[550px] w-full mt-[80px] lg:mt-[0px]">
+          <div className="max-w-[550px] w-full mt-[100px] lg:mt-[0px]">
             {heroList.length !== 0 && (
               <Swiper
                 slidesPerView={1}
