@@ -25,22 +25,25 @@ const ProfileArtistCard = props => {
           className="rounded-full"
         />
       </div>
-      <div className={styles.name}>
-        {name}
-        <div className="flex w-full gap-[10px] items-center ml-[9px]">
-          {ig_url !== null && (
-            <div>
-              <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
-            </div>
-          )}
-
-          {twitter_url !== null && (
-            <div>
-              <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
-            </div>
-          )}
+      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+        <div className={styles.name}>
+          {name}
+          <div className="w-full flex gap-[10px] items-center ml-[9px]">
+            {ig_url !== null && (
+              <div>
+                <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
+              </div>
+            )}
+            {twitter_url !== null && (
+              <div>
+                <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div className={styles.name}>{name}</div>
+      )}
     </div>
   )
 }

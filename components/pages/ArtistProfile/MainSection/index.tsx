@@ -17,10 +17,6 @@ import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-import PositiveButton from 'components/Button/PositiveButton'
-import NegativeButton from 'components/Button/NegativeButton'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -29,6 +25,8 @@ import { useViewport } from 'utils'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
+import InstagramIcon from 'assets/icons/social-ig.svg?component'
+import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -36,7 +34,7 @@ import styles from './index.module.scss'
 // api endpoint
 import artistsAPI from 'apis/artists'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
-import { copyClipboardAlert, copyToClipboard, isLoggedIn } from 'utils/helpers'
+import { copyClipboardAlert, copyToClipboard, isLoggedIn, validUrl } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
@@ -150,14 +148,6 @@ const MainSection = prop => {
               </div>
               <div>
                 {follow ? (
-                  // <NegativeButton
-                  //   width={146}
-                  //   height={53}
-                  //   fontFamily="KCDurhamBoxcar"
-                  //   fontSize={30}
-                  //   label="Following"
-                  //   onClick={() => unfollowArtist(artistInfo?.wallet_id)}
-                  // />
                   <OutlineButton
                     width={146}
                     height={53}
@@ -194,6 +184,19 @@ const MainSection = prop => {
                 <CopyClipboardChip identifier="wallet-address" />
               </div>
             )}
+
+            <div className="w-full flex gap-[20px] justify-center items-center mt-[13px]">
+              {artistInfo?.ig_url !== null && (
+                <div>
+                  <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
+                </div>
+              )}
+              {artistInfo?.twitter_url !== null && (
+                <div>
+                  <TwitterIcon onClick={() => window.open(validUrl(artistInfo?.twitter_url))} />
+                </div>
+              )}
+            </div>
 
             {artistInfo?.bio && (
               <span className={styles.description}>
