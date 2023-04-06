@@ -34,9 +34,6 @@
   font-size: 16px;
   line-height: 20px;
   color: rgba(var(--text-gray-200-color-rgb), 0.8);
-  @media (min-width: 1024px) {
-    color: $text-gray-200-color;
-  }
   margin-top: 20px;
 }
 

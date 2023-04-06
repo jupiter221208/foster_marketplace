@@ -9,7 +9,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
+import CloseWhiteIcon from 'assets/icons/close-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -38,7 +38,8 @@ const NotificationsFilterModal = props => {
       <div className={styles.content}>
         <div className="w-full h-[68px] flex justify-between items-center mb-[17px]">
           <div className={styles.title}>Filter</div>
-          <Image src={CloseWhiteIcon} alt="" className="cursor-pointer" onClick={() => onClickApply()} />
+          {/* <Image src={CloseWhiteIcon} alt="" className="cursor-pointer" onClick={() => onClickApply()} /> */}
+          <CloseWhiteIcon alt="" className="cursor-pointer" onClick={() => onClickApply()} />
         </div>
         <Checkbox categoryList={filterList} onChange={index => onChange(index)} direction="rtl" />
       </div>

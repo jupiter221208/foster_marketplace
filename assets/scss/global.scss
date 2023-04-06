@@ -301,6 +301,7 @@
   --sell-nft-bg: #121212;
   --setting-input-bg: #202427;
   --follow-btn-border: #95dbd5;
+  --search-gray-icon: rgba(239, 240, 247, 0.75);
 }
 
 html,
@@ -1219,6 +1220,10 @@ h6 {
 
 [data-name='file-copy-icon'] {
   fill: var(--main-icon-color);
+}
+
+[data-name='search-gray'] {
+  fill: var(--search-gray-icon);
 }
 
 svg {

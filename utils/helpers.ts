@@ -365,6 +365,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--sell-nft-border', 'transparent')
     doc.style.setProperty('--sell-nft-bg', '#E0E1E7')
     doc.style.setProperty('--setting-input-bg', '#CCCDD4')
+    doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.75)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -594,5 +595,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--sell-nft-border', 'rgba(255, 255, 255, 0.1)')
     doc.style.setProperty('--sell-nft-bg', '#121212')
     doc.style.setProperty('--setting-input-bg', '#202427')
+    doc.style.setProperty('--search-gray-icon', 'rgba(239, 240, 247, 0.75)')
   }
 }
