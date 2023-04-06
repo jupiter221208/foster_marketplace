@@ -308,7 +308,7 @@ const Notifications = () => {
               transform="translate(150 150)"
               fill="url(#radial-gradient)"
             />
-          </svg>{' '}
+          </svg>
         </div>
         <div className="hidden lg:flex w-full z-10">
           <div className={styles.title}>Notifications</div>
