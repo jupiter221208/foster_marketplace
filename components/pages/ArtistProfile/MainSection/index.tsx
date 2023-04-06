@@ -222,7 +222,7 @@ const MainSection = prop => {
           ) : (
             <div className={styles.switchArea}>
               <div className="w-[50%] h-full">
-                <div className={styles.switchEnabled}>Collector</div>
+                <div className={styles.switchLeftEnabled}>Collector</div>
               </div>
               <div
                 className="w-[50%] h-full absolute top-0 right-0 cursor-pointer"
@@ -443,7 +443,7 @@ const MainSection = prop => {
         ) : (
           <div className={styles.switchArea}>
             <div className="w-[50%] h-full">
-              <div className={styles.switchEnabled}>Collector</div>
+              <div className={styles.switchLeftEnabled}>Collector</div>
             </div>
             <div className="w-[50%] h-full absolute top-0 right-0 cursor-pointer" onClick={() => setArtistEnable(true)}>
               <div className={styles.switchDisabled}>Artist</div>

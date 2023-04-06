@@ -75,13 +75,7 @@ const SearchSection = props => {
                 height="50"
                 viewBox="0 0 50 50"
               >
-                <g
-                  id="Rectangle_21247"
-                  data-name="Rectangle 21247"
-                  fill="var(--search-icon-color)"
-                  stroke="#eff0f6"
-                  strokeWidth="1"
-                >
+                <g id="Rectangle_21247" data-name="Rectangle 21247" fill="var(--search-icon-color)">
                   <rect width="50" height="50" rx="10" stroke="none" />
                   <rect x="0.5" y="0.5" width="49" height="49" rx="9.5" fill="none" />
                 </g>

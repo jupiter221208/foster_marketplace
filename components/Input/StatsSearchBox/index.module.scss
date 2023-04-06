@@ -6,7 +6,7 @@
   padding-left: 16px;
   padding-right: 25px;
   height: 50px;
-  background-color: var(--background-black-color);
+  background-color: var(--address-btn-bg-color);
   border: 1px solid rgba(var(--text-gray-200-color), 0.1);
 
   @media (min-width: 640px) {
@@ -14,7 +14,6 @@
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
-    background-color: var(--background-black-color);
   }
 
   @media (min-width: 1024px) {
@@ -22,7 +21,6 @@
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
-    background-color: var(--background-black-color);
   }
 
   @media (min-width: 1280px) {
@@ -30,7 +28,6 @@
     min-width: 200px;
     padding-left: 20px;
     padding-right: 15px;
-    background-color: var(--background-black-color);
   }
   border-radius: 12px;
   display: flex;
@@ -45,9 +42,13 @@
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   background-color: transparent;
   outline: none;
+}
+
+.inputArea::placeholder {
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .contentArea {
