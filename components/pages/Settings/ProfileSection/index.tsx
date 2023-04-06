@@ -21,18 +21,18 @@ import Alert from 'components/Alert'
 import { useViewport } from 'utils'
 
 // images and icons
-import InstagramWhiteIcon from 'assets/icons/instagram-green-profile.svg?component'
+import InstagramWhiteIcon from 'assets/icons/instagram-green.svg?component'
 import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg?component'
 import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
 import DiscordWhiteSmallIcon from 'assets/icons/discord-green-small.svg'
-import TwitterWhiteIcon from 'assets/icons/twitter-white-profile.svg?component'
+import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg?component'
 import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
 import TelegramWhiteSmallIcon from 'assets/icons/telegram-green-small.svg'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
 import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
-import CirclePlugGreenIcon from 'assets/icons/circle-plus-green.svg'
+import CirclePlugGreenIcon from 'assets/icons/circle-plus-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -201,7 +201,8 @@ const ProfileSection = prop => {
                 error={errorMessage}
                 value={userName}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="#202427"
+                backgroundColor="var(--setting-input-bg)"
+                color="var(--text-gray-200-color)"
                 placeholder="Username"
                 onChange={value => {
                   if (errorMessage.length > 0) setErrorMessage('')
@@ -213,7 +214,8 @@ const ProfileSection = prop => {
               <Textarea
                 value={bio}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="#202427"
+                backgroundColor="var(--setting-input-bg)"
+                color="var(--text-gray-200-color)"
                 placeholder="Bio"
                 width="100%"
                 height="100%"
@@ -224,7 +226,8 @@ const ProfileSection = prop => {
               <Input
                 value={userEmail}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="#202427"
+                backgroundColor="var(--setting-input-bg)"
+                color="var(--text-gray-200-color)"
                 placeholder="Email Address"
                 onChange={value => setUserEmail(value)}
               />
@@ -246,7 +249,8 @@ const ProfileSection = prop => {
                   value={igUrl}
                   placeholder="Add Instagram Account"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="#202427"
+                  backgroundColor="var(--setting-input-bg)"
+                  color="var(--text-gray-200-color)"
                   onChange={value => {
                     setIgUrl(value)
                   }}
@@ -289,7 +293,8 @@ const ProfileSection = prop => {
                   value={twitterUrl}
                   placeholder="Add Twitter Account"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="#202427"
+                  backgroundColor="var(--setting-input-bg)"
+                  color="var(--text-gray-200-color)"
                   onChange={value => setTwitterUrl(value)}
                 />
               </div>
@@ -506,9 +511,9 @@ const ProfileSection = prop => {
                 }}
               >
                 <div className="flex items-center">
-                  <Image src={CirclePlugGreenIcon} alt="" />
+                  <CirclePlugGreenIcon />
                 </div>
-                <div className="ml-[11px] pb-[3px]">Link another wallet</div>
+                <div className={styles.anotherWalletText}>Link another wallet</div>
               </div>
               {showLinkWalletAlert && (
                 <div className="relative">

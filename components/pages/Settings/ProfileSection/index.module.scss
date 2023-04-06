@@ -40,7 +40,7 @@
 }
 
 .socialIcon {
-  background: $background-dark-color;
+  background: var(--setting-input-bg);
   width: 46px;
   height: 50px;
   border-radius: 12px;
@@ -151,11 +151,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--background-dark-color);
+  background: var(--setting-input-bg);
   border-radius: 12px;
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
+}
+
+.anotherWalletText {
+  margin-left: 11px;
+  padding-bottom: 3px;
+  color: var(--text-gray-200-color);
 }
 
 .anotherWalletAlert {

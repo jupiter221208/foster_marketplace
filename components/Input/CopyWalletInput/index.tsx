@@ -4,13 +4,13 @@ import React from 'react'
 import Image from 'next/image'
 
 // import images and icons
-import CopyAltLightGreenIcon from 'assets/icons/copy-alt-light-green.svg'
+import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 const CopyWalletInput = props => {
-  const { value, placeholder, onChange, onClick, disabled } = props
+  const { value, placeholder, onChange, onClick } = props
   return (
     <div className={styles.container}>
       <input
@@ -20,7 +20,7 @@ const CopyWalletInput = props => {
         onChange={event => onChange(event.target.value)}
         disabled
       />
-      <Image src={CopyAltLightGreenIcon} alt="" className="cursor-pointer" onClick={() => onClick()} />
+      <CopyAltLightGreenIcon className="cursor-pointer" onClick={() => onClick()} />
     </div>
   )
 }

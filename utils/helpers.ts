@@ -363,6 +363,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--top-artist-bg', '#202427')
     doc.style.setProperty('--sell-nft-border', '#CCCDD4')
     doc.style.setProperty('--sell-nft-bg', '#E0E1E7')
+    doc.style.setProperty('--setting-input-bg', '#CCCDD4')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -590,5 +591,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--top-artist-bg', 'linear-gradient(to bottom, rgba(149, 219, 213, 1), rgba(75, 110, 107, 1)')
     doc.style.setProperty('--sell-nft-border', 'rgba(255, 255, 255, 0.1)')
     doc.style.setProperty('--sell-nft-bg', '#121212')
+    doc.style.setProperty('--setting-input-bg', '#202427')
   }
 }

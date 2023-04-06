@@ -16,14 +16,9 @@ import Alert from 'components/Alert'
 // json
 import TabList from 'assets/json/settings/tab-list.json'
 
-// images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-
 // styles
 import styles from './index.module.scss'
 import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
-import { useSelector } from 'react-redux'
 
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
