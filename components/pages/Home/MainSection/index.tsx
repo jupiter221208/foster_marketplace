@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/pagination'
@@ -22,10 +23,6 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-// import FosterEnhancedIcon from 'assets/icons/foster-enhanced.svg?component'
-
-// import FosterEnhancedSmallIcon from 'assets/icons/foster-enhanced-small.svg?component'
-// import FosterEnhancedMobile from 'assets/icons/foster-enhanced-mobile.svg?component'
 import FosterHeroLogo from 'assets/icons/foster-hero-logo.svg?component'
 import FosterHeroMobileLogo from 'assets/icons/foster-hero-logo-mobile.svg?component'
 
@@ -77,15 +74,8 @@ const MainSection = () => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-6 xl:col-span-7">
-          {/* <p className="w-full flex justify-start">
-            <span className={styles.whiteTitle}>The&nbsp;</span>
-            <span className={styles.greenTitle}>House of Art,&nbsp;</span>
-            <span className={styles.whiteTitle}>Solana Deserves</span>
-          </p> */}
-          {/* <FosterEnhancedSmallIcon /> */}
-
-          {/* {viewport === 'lg' ? <FosterEnhancedSmallIcon /> : <FosterEnhancedIcon />} */}
           <FosterHeroLogo alt="" />
+
           <div className={styles.text}>Home to Digital Creators on Solana</div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
@@ -125,8 +115,6 @@ const MainSection = () => {
         >
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
-              {/* <FosterEnhancedMobile width={280} height={62} alt="" /> */}
-              {/* <div className={styles.cardText}>CREATE. COLLECT. CURATE.</div> */}
               <div className="w-full flex justify-center">
                 <FosterHeroMobileLogo />
               </div>
@@ -164,13 +152,7 @@ const MainSection = () => {
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
-              <GradientButton
-                // backgroundColor01={'var(--explore-btn-bg-1)'}
-                // backgroundColor02={'var(--explore-btn-bg-2)'}
-                width={88}
-                label="Explore"
-                onClick={() => router.push('/explore')}
-              />
+              <GradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
                 borderWidth={2}
