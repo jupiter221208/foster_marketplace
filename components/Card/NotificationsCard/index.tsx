@@ -186,11 +186,6 @@ const NotificationsCard = props => {
     return show
   }
 
-  const getTime = dateString => {
-    let date = new Date(dateString)
-    return date.getHours() + ':' + date.getMinutes()
-  }
-
   const gotoUserPage = wallet => {
     router.push(`/artist-profile?id=${wallet}`)
   }
@@ -324,7 +319,7 @@ const NotificationsCard = props => {
                             alt=""
                             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
                             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 39 : 50}
-                            className="rounded-[8px] lg:rounded-[8px]"
+                            className="rounded-[8px] lg:rounded-[8px] object-cover"
                           />
                         </div>
                       )

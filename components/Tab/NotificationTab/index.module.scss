@@ -1,0 +1,57 @@
+@import 'assets/scss/variable.module.scss';
+
+.scrollbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.mobileScrollbar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 10;
+  overflow-x: auto;
+}
+
+.container {
+  width: auto;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
+  border-bottom: 3px solid transparent;
+  &:focus {
+    outline: none;
+  }
+  font-size: 16px;
+
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 24px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
+.activeTab {
+  border-bottom: 2px solid var(--text-gray-200-color);
+  color: var(--text-gray-200-color);
+}
+
+.lightActiveTab {
+  color: var(--background-dark-color);
+}
+
+.lightInactiveTab {
+  color: rgba(var(--background-dark-color), 0.6);
+}

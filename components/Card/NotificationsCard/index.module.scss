@@ -6,10 +6,10 @@
   @media (min-width: 1024px) {
     max-height: 512px;
     padding: 10px 5px 48px 14px;
-    background-color: var(--notification-card-bg);
-    border: 1px solid rgba(#707070, 0.1);
+    // background-color: var(--notification-card-bg);
+    // border: 1px solid rgba(#707070, 0.1);
   }
-  border-radius: 20px;
+  // border-radius: 20px;
 }
 
 .content {
@@ -17,10 +17,10 @@
   height: 100%;
   @media (min-width: 1024px) {
     height: auto;
-    max-height: 490px;
+    max-height: 540px;
     padding-right: 36px;
+    overflow-y: auto;
   }
-  overflow-y: auto;
   display: flex;
   flex-wrap: wrap;
 

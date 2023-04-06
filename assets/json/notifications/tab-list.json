@@ -1,0 +1,8 @@
+[
+  { "id": 0, "label": "All", "value": "all" },
+  { "id": 1, "label": "Follows", "value": "follow" },
+  { "id": 2, "label": "Likes", "value": "like" },
+  { "id": 3, "label": "Purchases", "value": "purchase" },
+  { "id": 4, "label": "Sales", "value": "sale" },
+  { "id": 5, "label": "Offers", "value": "offer" }
+]

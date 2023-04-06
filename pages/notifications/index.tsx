@@ -20,8 +20,7 @@ import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 import NotificationsFilterList from 'assets/json/notifications/filter-list.json'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
+import TabList from 'assets/json/notifications/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -31,10 +30,13 @@ import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
 import { useSelector } from 'react-redux'
 import { compareDate } from 'utils/helpers'
+import NotificationTab from 'components/Tab/NotificationTab'
 
 const Notifications = () => {
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<any[]>([])
+  const [tabList, setTabList] = useState(TabList)
+  const [selectedTab, setSelectedTab] = useState(0)
   const [allNotification, setAllNotification] = useState<any[]>([])
   const [filterNotification, setFilterNotification] = useState<any[]>([])
   const [searchedNotification, setSearchedNotification] = useState<any[]>([])
@@ -243,6 +245,44 @@ const Notifications = () => {
     )
   }
 
+  useEffect(() => {
+    let array: any[] = []
+    TabList.map(item => {
+      let object: any = item
+      if (item.id === selectedTab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array.push(object)
+    })
+    setTabList(array)
+  }, [selectedTab])
+
+  const handleSelectedTab = item => {
+    setSelectedTab(item.id)
+    let type = item.value
+    let newFiltered = []
+    if (type === 'all') {
+      newFiltered = getSortedNotification(allNotification)
+    } else {
+      let filtered = []
+      allNotification.forEach(item => {
+        if (type === item.notification_type) {
+          filtered.push(item)
+        }
+      })
+      newFiltered = getSortedNotification(filtered)
+    }
+    setFilterNotification(newFiltered)
+
+    if (searchWord.length > 0) {
+      searchNotification(newFiltered, searchWord)
+    } else {
+      setSearchedNotification(newFiltered)
+    }
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -273,35 +313,45 @@ const Notifications = () => {
         <div className="hidden lg:flex w-full z-10">
           <div className={styles.title}>Notifications</div>
         </div>
-        <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-8">
-          <div className="flex flex-1 flex-wrap max-w-[670px] gap-[16px] lg:gap-[35px] z-10">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div className={styles.searchArea}>
-                <div className="flex w-full">
-                  <NotificationsSearchBox
-                    placeholder="Search"
-                    onChange={value => searchNotification(filterNotification, value)}
-                  />
+        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+          <div className="w-full">
+            <div className={styles.searchArea}>
+              <div className="flex w-full">
+                <NotificationsSearchBox
+                  placeholder="Search"
+                  onChange={value => searchNotification(filterNotification, value)}
+                />
+              </div>
+              <div className={styles.filter} onClick={() => setShowFilterModal(true)}>
+                Filter
+              </div>
+            </div>
+            <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+          </div>
+        ) : (
+          <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-10">
+            <div className="w-[55%] flex flex-wrap max-w-[705px] gap-[16px] lg:gap-[35px] z-10">
+              <div className="w-full justify-start">
+                <div className={styles.tabContainer}>
+                  <NotificationTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                 </div>
-                <div className={styles.filter} onClick={() => setShowFilterModal(true)}>
-                  Filter
+                <div className="mt-[20px] h-[540px] max-h-[540px]">
+                  <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
                 </div>
               </div>
-            ) : (
+            </div>
+            <div className="w-[45%] mt-[-20px]">
               <NotificationsSearchBox
                 placeholder="Search"
                 onChange={value => searchNotification(filterNotification, value)}
               />
-            )}
-            <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+              <div className={styles.followArtist}>Activity by artists you follow</div>
+              <div className={styles.followArea}>
+                <div className={styles.comingSoon}>Coming Soon...</div>
+              </div>
+            </div>
           </div>
-          <NotificationsFilterCard
-            filterList={filterList}
-            onChange={index => handleSelectFilter(index)}
-            onClickSelectAll={status => handleSelectAllFilters(status)}
-            onClickApply={() => {}}
-          />
-        </div>
+        )}
       </div>
       {showFilterModal && (
         <NotificationsFilterModal
