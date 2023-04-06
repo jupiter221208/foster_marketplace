@@ -361,7 +361,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--tab-bottom-color', '#202427')
     doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
     doc.style.setProperty('--top-artist-bg', '#202427')
-    doc.style.setProperty('--sell-nft-border', '#CCCDD4')
+    doc.style.setProperty('--sell-nft-border', 'transparent')
     doc.style.setProperty('--sell-nft-bg', '#E0E1E7')
     doc.style.setProperty('--setting-input-bg', '#CCCDD4')
     // =====================================================
