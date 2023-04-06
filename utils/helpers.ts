@@ -365,7 +365,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--sell-nft-border', 'transparent')
     doc.style.setProperty('--sell-nft-bg', '#E0E1E7')
     doc.style.setProperty('--setting-input-bg', '#CCCDD4')
+    doc.style.setProperty('--search-icon-stop-1', '#95dbd5')
+    doc.style.setProperty('--search-icon-stop-2', '#4B6E6B')
+    doc.style.setProperty('--search-icon-bg', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.75)')
+    doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.8)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -552,10 +556,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--back-btn-border-width', '')
     doc.style.setProperty('--artwork-table-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--artwork-table-tr', 'rgba(239, 240, 247, 0.8)')
-    doc.style.setProperty(
-      '--artwork-table-tr-hover-bg',
-      'linear-gradient(to bottom, rgba(32, 36, 39, 35%), rgba(55, 130, 135, 35%))'
-    )
+    doc.style.setProperty('--artwork-table-tr-hover-bg', '#202427')
     doc.style.setProperty('--artwork-table-tr-hover-color', '#eff0f6')
     doc.style.setProperty('--deposit-icon-bg', '#95dbd5')
     doc.style.setProperty('--wallet-icon-bg-1', '#9945ff')
@@ -575,7 +576,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--day-btn-color', '#95dbd5')
     doc.style.setProperty('--day-btn-bg-1', '#202427')
     doc.style.setProperty('--day-btn-bg-2', '#121212')
-    doc.style.setProperty('--search-icon-color', 'transparent')
+    doc.style.setProperty('--search-icon-color', '#121212')
     doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--logo-text-color', '#fff')
     doc.style.setProperty('--logo-text-ballon', '#95dbd5')
@@ -596,5 +597,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--sell-nft-bg', '#121212')
     doc.style.setProperty('--setting-input-bg', '#202427')
     doc.style.setProperty('--search-gray-icon', 'rgba(239, 240, 247, 0.75)')
+    doc.style.setProperty('--search-icon-stop-1', '#202427')
+    doc.style.setProperty('--search-icon-stop-2', '#2D625D')
+    doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.75)')
+    doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.2)')
   }
 }

@@ -44,8 +44,8 @@ const SearchSection = props => {
               >
                 <defs>
                   <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-                    <stop offset="0" stopColor="#202427" />
-                    <stop offset="1" stopColor="#121212" />
+                    <stop offset="0" stopColor="var(--search-icon-stop-1)" />
+                    <stop offset="1" stopColor="var(--search-icon-stop-2)" />
                   </linearGradient>
                 </defs>
                 <g id="Path_108407" data-name="Path 108407" fill="url(#linear-gradient)">
@@ -56,14 +56,14 @@ const SearchSection = props => {
                   <path
                     d="M 10 1 C 5.037380218505859 1 1 5.037380218505859 1 10 L 1 40 C 1 44.96261978149414 5.037380218505859 49 10 49 L 40 49 C 44.96261978149414 49 49 44.96261978149414 49 40 L 49 10 C 49 5.037380218505859 44.96261978149414 1 40 1 L 10 1 M 10 0 L 40 0 C 45.52285003662109 0 50 4.477149963378906 50 10 L 50 40 C 50 45.52285003662109 45.52285003662109 50 40 50 L 10 50 C 4.477149963378906 50 0 45.52285003662109 0 40 L 0 10 C 0 4.477149963378906 4.477149963378906 0 10 0 Z"
                     stroke="none"
-                    fill="#95dbd5"
+                    fill="var(--checkbox-bg-color)"
                   />
                 </g>
                 <path
                   id="search-32"
                   d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a.994.994,0,1,0,1.42-1.39ZM11,18a7,7,0,1,1,7-7,7,7,0,0,1-7,7Z"
                   transform="translate(13.015 13.022)"
-                  fill="#95dbd5"
+                  fill="var(--main-icon-color)"
                 />
               </svg>
             ) : (
@@ -75,7 +75,13 @@ const SearchSection = props => {
                 height="50"
                 viewBox="0 0 50 50"
               >
-                <g id="Rectangle_21247" data-name="Rectangle 21247" fill="var(--search-icon-color)">
+                <g
+                  id="Rectangle_21247"
+                  data-name="Rectangle 21247"
+                  fill="var(--search-icon-color)"
+                  stroke="var(--search-icon-bg)"
+                  strokeWidth="1"
+                >
                   <rect width="50" height="50" rx="10" stroke="none" />
                   <rect x="0.5" y="0.5" width="49" height="49" rx="9.5" fill="none" />
                 </g>
@@ -83,7 +89,7 @@ const SearchSection = props => {
                   id="search-32"
                   d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a.994.994,0,1,0,1.42-1.39ZM11,18a7,7,0,1,1,7-7,7,7,0,0,1-7,7Z"
                   transform="translate(13.015 13.022)"
-                  fill="rgba(255,255,255,0.75)"
+                  fill="var(--search-gray-icon-disable)"
                 />
               </svg>
             )}
