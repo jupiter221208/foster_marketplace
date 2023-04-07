@@ -8,7 +8,7 @@ import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 import { getDateString } from 'utils/strings'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
@@ -67,8 +67,9 @@ const ActivityTable = props => {
             </td> */}
             <td className="text-center">{getDateString(item.created_at)}</td>
             <td className="text-center">
-              <div className="flex justify-center gap-[5px]">
-                <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+              <div className="flex justify-center items-center gap-[5px]">
+                {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
+                <SolanaLogoIcon />
                 {isAmountExisting(item.action_type)
                   ? countDecimals(parseFloat(item.amount)) > 2
                     ? parseFloat(item.amount).toFixed(2)
