@@ -97,6 +97,7 @@ const MainSection = prop => {
           height={480}
           className="w-full object-cover rounded-[30px]"
         />
+        <div className={styles.overlay} />
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
@@ -327,6 +328,7 @@ const MainSection = prop => {
           height={480}
           className="w-full h-full object-cover rounded-none"
         />
+        <div className={styles.overlay} />
       </div>
       <div className="w-full">
         <div className="z-0">
@@ -349,7 +351,7 @@ const MainSection = prop => {
             <div className="mt-10 flex">
               <div className="mr-[11px] lg:mr-[24px]">
                 <MenuSocialShare
-                  type="ellipse"
+                  type="icon"
                   vote={true}
                   message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
                   url={`/artist-profile?id=${artistInfo?.wallet_id}`}

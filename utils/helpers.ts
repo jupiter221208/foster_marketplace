@@ -370,6 +370,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-icon-bg', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.8)')
+    doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
+
     // =====================================================
     // =====================================================
     // =====================================================
@@ -382,7 +384,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-main-color', '#0c1013')
     doc.style.setProperty('--background-black-color', '#121212')
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
-
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')
     doc.style.setProperty('--background-light-color', '#eff0f6')
     doc.style.setProperty('--background-light-color-rgb', '239, 240, 247')
@@ -600,5 +601,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-icon-stop-2', '#2D625D')
     doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.2)')
+    doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
   }
 }

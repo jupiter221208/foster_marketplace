@@ -79,7 +79,7 @@ const Stats = () => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
-          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px] lg:h-[90px]">
+          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px]">
             <HouseStatsTab
               tabList={tabList}
               onChange={item => {
@@ -95,7 +95,7 @@ const Stats = () => {
               <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
             )}
           </div>
-          <div className="mt-0 lg:mt-8 lg:mt-16 w-full z-10">
+          <div className="w-full z-10">
             {activeTab === 0 && <ArtworksSection />}
             {/* {activeTab === 1 && <CollectionsSection />}
             {activeTab === 2 && <CreatorsSection />}
