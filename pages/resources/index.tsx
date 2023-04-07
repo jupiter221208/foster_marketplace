@@ -12,10 +12,6 @@ import ResourcesAccordion from 'components/Accordion/ResourcesAccordion'
 import Pagination from 'components/Button/Pagination'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-
-import BackImage from 'assets/images/404.png'
 
 // json
 import ResourcesCardList from 'assets/json/resources/resources-card-list.json'
@@ -146,13 +142,6 @@ const Resources = () => {
             />
           </svg>
         </div>
-        {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <></>
-        ) : (
-          <div className="w-[115%] absolute top-[325px] left-[-70px] right-[70px] bottom-0 opacity-60">
-            <Image src={BackImage} alt="" objectFit="cover" />
-          </div>
-        )} */}
         <div className="w-full flex flex-wrap z-10">
           <div className={`${styles.title} hidden lg:flex w-full text-center lg:text-start`}>Foster Resources</div>
           <div className="w-full flex justify-end mt-[15px] lg:mt-[61px]">
@@ -197,7 +186,13 @@ const Resources = () => {
                     <ResourcesCard
                       data={item}
                       selected={item.id === selectedCard}
-                      onClick={id => setSelectedCard(id)}
+                      onClick={id => {
+                        if (selectedCard === id) {
+                          setSelectedCard(-1)
+                        } else {
+                          setSelectedCard(id)
+                        }
+                      }}
                     />
                   </div>
                 ))}
