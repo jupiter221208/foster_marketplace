@@ -19,7 +19,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 // styles
@@ -69,7 +69,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
             alt=""
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-            className="rounded-[15px]"
+            className="rounded-[15px] object-cover"
           />
         </div>
         <div className="block">
@@ -78,8 +78,9 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
       </td>
       <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>
       <td className="text-center">
-        <div className="flex justify-center gap-[5px]">
-          <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+        <div className="flex justify-center gap-[5px] items-center">
+          {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
+          <SolanaLogoIcon />
           {getPriceValue(listing.price.basisPoints.toNumber())}
         </div>
       </td>

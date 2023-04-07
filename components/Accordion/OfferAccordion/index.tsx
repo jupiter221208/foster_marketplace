@@ -21,7 +21,7 @@ import styles from './index.module.scss'
 import { getPriceValue, getShortAddress, timeSince } from 'utils/strings'
 
 // resources
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
@@ -88,8 +88,9 @@ const OfferAccordionItem = ({
 
                 <div className="block">
                   <div className={styles.subTitle}>{listing.asset.name}</div>
-                  <div className='flex gap-1 mt-1'>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                  <div className='flex gap-1 mt-1 items-center'>
+                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
+                  <SolanaLogoIcon />
                     <div className={styles.amount}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
                     </div>
                 </div>
