@@ -396,7 +396,6 @@ export const setColorTheme = lightMode => {
       '--header-mobile-bg-color',
       'linear-gradient(90deg, rgba(52, 103, 99, 0.8) 0%, rgba(18, 25, 25, 0.8) 100%)'
     )
-    // doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.7)')
     doc.style.setProperty('--search-menu-icon-color', '#eff0f6')
     doc.style.setProperty('--outline-button-border', '#5ac3ba')
     doc.style.setProperty('--outline-button-color', '#eff0f6')

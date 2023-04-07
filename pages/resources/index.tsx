@@ -20,7 +20,6 @@ import QAList from 'assets/json/resources/qa-list.json'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import { useSelector } from 'react-redux'
 
 const Resources = () => {
   const viewport = useViewport()
