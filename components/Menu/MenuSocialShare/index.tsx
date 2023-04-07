@@ -15,6 +15,7 @@ import FacebookWhiteIcon from 'assets/icons/facebook-white-32x32.svg'
 import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
+import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -24,7 +25,7 @@ import nftsAPI from 'apis/nfts'
 import { copyToClipboard } from 'utils/helpers'
 
 interface MenuSocialShareProps {
-  type?: 'icon' | 'ellipse'
+  type?: 'icon' | 'ellipse' | 'image'
   icon01?: string
   icon02?: string
   vote: boolean
@@ -77,6 +78,10 @@ const MenuSocialShare = ({
                 ) : (
                   <Image src={ThreeEllipseIcon} alt="" width="23px" height="6px" />
                 )}
+              </div>
+            ) : type === 'image' ? (
+              <div className="mt-1">
+                <ShareBlackIcon />
               </div>
             ) : (
               <div className="mt-[4px]">

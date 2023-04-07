@@ -1228,6 +1228,10 @@ h6 {
   fill: var(--search-gray-icon);
 }
 
+[data-name='share-icon'] {
+  stroke: var(--main-bg-color);
+}
+
 svg {
   fill: var(--fill-color);
 }

@@ -181,6 +181,7 @@
 .nftInfoLabel {
   display: flex;
   justify-content: center;
+  align-items: center;
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 24px;
@@ -203,6 +204,34 @@
     margin-top: 8px;
   }
   color: rgba($text-gray-200-color, 0.8);
+}
+
+.nftInfoLabelMobile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 40px;
+    width: 100px;
+    background-color: #17191a;
+    border-radius: 6px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.nftInfoValueMobile {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  color: var(--text-gray-200-color);
 }
 
 .categoryList {

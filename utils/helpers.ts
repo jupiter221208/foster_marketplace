@@ -358,7 +358,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--social-bg-color', '#E0E1E7')
     doc.style.setProperty('--nft-border-color', '#D7D8DE')
     doc.style.setProperty('--address-btn-bg-color', '#CBCDD2')
-    doc.style.setProperty('--stats-bg-color', '#202427')
+    doc.style.setProperty('--stats-bg-color', '#E0E1E7')
     doc.style.setProperty('--tab-bottom-color', '#202427')
     doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
     doc.style.setProperty('--top-artist-bg', '#202427')
