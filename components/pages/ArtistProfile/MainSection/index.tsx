@@ -98,7 +98,6 @@ const MainSection = prop => {
           height={480}
           className="w-full object-cover rounded-[30px]"
         />
-        <div className={styles.overlay} />
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
