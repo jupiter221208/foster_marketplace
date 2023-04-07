@@ -278,7 +278,7 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(239, 240, 247, 1), rgba(32, 36, 39, 1)'
     )
     doc.style.setProperty('--collection-card-border', '0px')
-    doc.style.setProperty('--profile-card-bg', 'linear-gradient(to bottom, #95DBD5, #4B6E6B)')
+    doc.style.setProperty('--profile-card-bg', '#eff0f6')
     doc.style.setProperty('--mynft-outline-border', '#95DBD5')
     doc.style.setProperty('--mynft-outline-color', '#EFF0F6')
     doc.style.setProperty('--filter-close-color', '#202427')

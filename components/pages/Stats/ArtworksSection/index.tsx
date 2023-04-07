@@ -104,11 +104,22 @@ const ArtworksSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Highest Sales</div>
       <div className="w-full mb-5 lg:mb-20 mt-[25px]">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' ? 1.7 : viewport === 'sm' ? 2 : viewport === 'md' ? 3 : 4}
+          slidesPerView={
+            viewport === 'xs'
+              ? 1.7
+              : viewport === 'sm'
+              ? 2
+              : viewport === 'md'
+              ? 3
+              : viewport === 'lg'
+              ? 3
+              : viewport === 'xl'
+              ? 3
+              : 4
+          }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"

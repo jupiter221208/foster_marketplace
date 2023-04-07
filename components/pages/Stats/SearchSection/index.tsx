@@ -12,6 +12,7 @@ import SearchLargeEnableIcon from 'assets/icons/search-large-enable.svg'
 
 // styles
 import styles from './index.module.scss'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const SearchSection = props => {
   const { searchWord, period, setPeriod, setSearchWord, onSearch } = props
@@ -97,7 +98,7 @@ const SearchSection = props => {
         </div>
 
         <div className="sm:w-auto xs:w-full flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
-          <GradientButton
+          <TimeSlotButton
             label="24 hrs"
             onClick={() => setPeriod('day')}
             color={period === 'day' ? 'var(--day-btn-color)' : '#979EA2'}
@@ -105,7 +106,7 @@ const SearchSection = props => {
             backgroundColor02={period === 'day' ? 'var(--day-btn-bg-2)' : 'transparent'}
             gradientDirection="bottom"
           />
-          <GradientButton
+          <TimeSlotButton
             label="7 days"
             onClick={() => setPeriod('week')}
             color={period === 'week' ? 'var(--day-btn-color)' : '#979EA2'}
@@ -113,7 +114,7 @@ const SearchSection = props => {
             backgroundColor02={period === 'week' ? 'var(--day-btn-bg-2)' : 'transparent'}
             gradientDirection="bottom"
           />
-          <GradientButton
+          <TimeSlotButton
             label="30 days"
             onClick={() => setPeriod('month')}
             color={period === 'month' ? 'var(--day-btn-color)' : '#979EA2'}
@@ -121,7 +122,7 @@ const SearchSection = props => {
             backgroundColor02={period === 'month' ? 'var(--day-btn-bg-2)' : 'transparent'}
             gradientDirection="bottom"
           />
-          <GradientButton
+          <TimeSlotButton
             label="All Time"
             onClick={() => setPeriod('all')}
             color={period === 'all' ? 'var(--day-btn-color)' : '#979EA2'}
