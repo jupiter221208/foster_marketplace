@@ -35,7 +35,7 @@ const PrimaryFooter = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
-  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode)) // =
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
 
   const handleThemeMode = () => {
     setColorTheme(!lightMode)

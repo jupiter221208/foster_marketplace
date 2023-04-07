@@ -21,6 +21,8 @@ import { useViewport } from 'utils'
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
+import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
+import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -33,17 +35,24 @@ import styles from './index.module.scss'
 // call apis
 import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
+import { setColorTheme } from 'utils/helpers'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
-
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [profileImage, setProfileImage] = useState('')
   let timer = null
+
+  const handleThemeMode = () => {
+    setColorTheme(!lightMode)
+    dispatch({ type: 'set', lightMode: !lightMode })
+    setLightMode(!lightMode)
+  }
 
   useEffect(() => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
@@ -348,6 +357,20 @@ const PrimaryHeader = () => {
           />
         </div>
       )}
+
+      <div
+        style={{
+          zIndex: 10000,
+          position: 'fixed',
+          width: 83,
+          height: 44,
+          top: `${profileOffset[0] + 27}px`,
+          left: `${profileOffset[1] + 70}px`,
+        }}
+        onClick={() => handleThemeMode()}
+      >
+        {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+      </div>
     </div>
   ) : (
     <div className={styles.mobileBlurContainer}>
