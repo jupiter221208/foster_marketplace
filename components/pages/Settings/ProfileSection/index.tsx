@@ -75,7 +75,8 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
-    if (bio && bio !== orgUserInfo.bio) {
+    console.log(bio, orgUserInfo.bio)
+    if (bio !== orgUserInfo.bio) {
       setEnableSave(true)
       return
     }
@@ -117,7 +118,6 @@ const ProfileSection = prop => {
       setErrorMessage('This display name is already taken.')
       return
     }
-
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
