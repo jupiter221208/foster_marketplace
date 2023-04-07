@@ -29,6 +29,7 @@ import styles from './index.module.scss'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MostPopularSection = props => {
   const { category } = props
@@ -82,7 +83,6 @@ const MostPopularSection = props => {
   return (
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
-        {/* 1399 */}
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full flex justify-between items-center z-10">
@@ -94,37 +94,13 @@ const MostPopularSection = props => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Most Popular</div>
           )}
-          {/* <div className="hidden lg:flex z-10">
-            <Button
-              label="24 hrs"
-              onClick={() => handleChangeActive(0)}
-              color={active === 0 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="7 days"
-              onClick={() => handleChangeActive(1)}
-              color={active === 1 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="30 days"
-              onClick={() => handleChangeActive(2)}
-              color={active === 2 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-            />
-          </div> */}
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton
-            label="See More"
+          <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 1 })
               router.push('/explore')
             }}
-            borderColor={'var(--see-more-border)'}
-            borderWidth={2}
-            height="42px"
           />
         </div>
       </div>

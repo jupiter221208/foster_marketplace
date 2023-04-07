@@ -25,6 +25,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const LiveAuctionSection = props => {
   const { category, artist = '' } = props
@@ -88,38 +89,14 @@ const LiveAuctionSection = props => {
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
             </div>
-            {/* <div className="hidden lg:flex z-10">
-              <Button
-                label="Recently Started"
-                onClick={() => handleChangeActive(0)}
-                color={active === 0 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-              />
-              <Button
-                label="Ending Soon"
-                onClick={() => handleChangeActive(1)}
-                color={active === 1 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-              />
-              <Button
-                label="All"
-                onClick={() => handleChangeActive(2)}
-                color={active === 2 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-              />
-            </div> */}
           </div>
           <div className="hidden lg:flex z-10">
-            <OutlineButton
-              label="See More"
+            <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 1 })
                 router.push('/explore')
               }}
-              borderColor={'var(--see-more-border)'}
-              height="42px"
-              borderWidth={2}
             />
           </div>
         </div>

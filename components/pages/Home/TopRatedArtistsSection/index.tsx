@@ -28,6 +28,7 @@ import styles from './index.module.scss'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -62,15 +63,11 @@ const TopRatedArtistsSection = () => {
           )}
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton
-            label="See More"
+          <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 2 })
               router.push('/explore')
             }}
-            borderColor={'var(--see-more-border)'}
-            borderWidth={2}
-            height="42px"
           />
         </div>
       </div>

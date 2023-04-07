@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 
 // call apis
 import dashboardAPI from 'apis/dashboard'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const TrendingCollectionSection = props => {
   const { category } = props
@@ -91,35 +92,9 @@ const TrendingCollectionSection = props => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
           )}
-          {/* <div className="hidden lg:flex z-10">
-            <Button
-              label="24 hrs"
-              onClick={() => handleChangeActive(0)}
-              color={active === 0 ? '#000' : '#979EA2'}
-              backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="7 days"
-              onClick={() => handleChangeActive(1)}
-              color={active === 1 ? '#000' : '#979EA2'}
-              backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="30 days"
-              onClick={() => handleChangeActive(2)}
-              color={active === 2 ? '#000' : '#979EA2'}
-              backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-            />
-          </div> */}
         </div>
         <div className="hidden lg:flex z-10">
-          <OutlineButton
-            label="See More"
-            onClick={() => router.push('/explore')}
-            borderColor={'var(--see-more-border)'}
-            borderWidth={2}
-            height="42px"
-          />
+          <SeeMoreButton onClick={() => router.push('/explore')} />
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
