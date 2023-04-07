@@ -8,7 +8,7 @@
   height: 100px;
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: transparent; //var(--header-bg-color);
+  background: var(--header-bg-color);
   z-index: 9999;
 }
 

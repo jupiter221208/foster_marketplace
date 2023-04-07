@@ -24,6 +24,8 @@ import SearchButton from 'assets/icons/artist-search-icon.svg'
 import MenuButton from 'assets/icons/artist-menu-icon.svg'
 import LogoIcon from 'assets/icons/logo-light-green.svg'
 import LogoDarkIcon from 'assets/icons/logo-dark.svg'
+import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
+import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 
 // json
 import SearchList from 'assets/json/search-list.json'
@@ -37,18 +39,24 @@ import styles from './index.module.scss'
 // call apis
 import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
-import { isLoggedIn } from 'utils/helpers'
+import { isLoggedIn, setColorTheme } from 'utils/helpers'
 
 const ArtistHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
-
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [profileImage, setProfileImage] = useState('')
   let timer = null
+
+  const handleThemeMode = () => {
+    setColorTheme(!lightMode)
+    dispatch({ type: 'set', lightMode: !lightMode })
+    setLightMode(!lightMode)
+  }
 
   useEffect(() => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
@@ -324,6 +332,21 @@ const ArtistHeader = () => {
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
           />
+        </div>
+      )}
+      {profileOffset[1] !== 0 && (
+        <div
+          style={{
+            zIndex: 10000,
+            position: 'fixed',
+            width: 83,
+            height: 44,
+            top: `${profileOffset[0] + 27}px`,
+            left: `${profileOffset[1] + 70}px`,
+          }}
+          onClick={() => handleThemeMode()}
+        >
+          {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
         </div>
       )}
     </div>

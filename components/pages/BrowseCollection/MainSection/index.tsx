@@ -26,6 +26,7 @@ import { namePublicFile, useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
@@ -324,7 +325,7 @@ const MainSection = props => {
               <div className="flex">
                 <div className="mr-[11px] lg:mr-[24px]">
                   <MenuSocialShare
-                    type="ellipse"
+                    type="image"
                     vote={true}
                     message={'Check out this collection on @foster_protocol #fostermarketplace'}
                     url={`/browse-collection/${data?.collection_id}`}
@@ -368,17 +369,17 @@ const MainSection = props => {
                 <div className={styles.statsArea}>
                   <div className="text-center">
                     <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>{items}</div>
+                      <div className={styles.nftInfoLabelMobile}>{items}</div>
                     </div>
-                    <div className={styles.nftInfoValue}>ITEMS</div>
+                    <div className={styles.nftInfoValueMobile}>ITEMS</div>
                   </div>
                 </div>
                 <div className={styles.statsArea}>
                   <div className="text-center">
                     <div className="flex justify-center">
-                      <div className={styles.nftInfoLabel}>{owners}</div>
+                      <div className={styles.nftInfoLabelMobile}>{owners}</div>
                     </div>
-                    <div className={styles.nftInfoValue}>OWNERS</div>
+                    <div className={styles.nftInfoValueMobile}>OWNERS</div>
                   </div>
                 </div>
               </div>
@@ -386,24 +387,28 @@ const MainSection = props => {
                 <div className={styles.statsArea}>
                   <div className="text-center">
                     <div className="flex justify-center">
-                      <div className="flex gap-2">
-                        <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
-                        <div className={styles.nftInfoLabel}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                      <div className="flex gap-2 items-center">
+                        {/* <Image src={SolanaLogoIcon} alt="" width={18} height={18} /> */}
+                        <SolanaLogoMobileIcon />
+
+                        <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                       </div>
                     </div>
-                    <div className={styles.nftInfoValue}>FLOOR PRICE</div>
+                    <div className={styles.nftInfoValueMobile}>FLOOR PRICE</div>
                   </div>
                 </div>
                 <div className={styles.statsArea}>
                   <div className="text-center">
                     <div className="flex items-center justify-center">
-                      <div className="flex gap-2">
-                        <Image src={SolanaLogoIcon} alt="" width={18} />
-                        <div className={styles.nftInfoLabel}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                      <div className="flex gap-2 items-center">
+                        {/* <Image src={SolanaLogoIcon} alt="" width={18} /> */}
+                        <SolanaLogoMobileIcon />
+
+                        <div className={styles.nftInfoLabelMobile}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
                       </div>
                     </div>
 
-                    <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
+                    <div className={styles.nftInfoValueMobile}>TOTAL VOLUME</div>
                   </div>
                 </div>
               </div>
