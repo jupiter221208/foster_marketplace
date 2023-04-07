@@ -115,9 +115,9 @@ const ArtworksSection = () => {
               : viewport === 'md'
               ? 3
               : viewport === 'lg'
-              ? 3
+              ? 3.03
               : viewport === 'xl'
-              ? 3
+              ? 3.03
               : 4
           }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25}
