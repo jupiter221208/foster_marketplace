@@ -79,7 +79,7 @@ const Stats = () => {
         </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
-          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[62px]">
+          <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[76px]">
             <HouseStatsTab
               tabList={tabList}
               onChange={item => {
