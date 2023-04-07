@@ -53,7 +53,7 @@
     line-height: 20px;
   }
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.5);
+  color: rgba(var(--text-gray-200-color-rgb), 0.5);
 }
 
 .error {

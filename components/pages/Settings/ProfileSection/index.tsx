@@ -40,7 +40,7 @@ import { PublicKey } from '@solana/web3.js'
 
 // call apis
 import userAPI from 'apis/user'
-import { copyToClipboard } from 'utils/helpers'
+import { copyToClipboard, isValidUrl, validUrl } from 'utils/helpers'
 
 const ProfileSection = prop => {
   const { success } = prop
@@ -65,6 +65,8 @@ const ProfileSection = prop => {
   const [showLinkWalletAlert, setShowLinkWalletAlert] = useState(false)
   const [showVerificationAlert, setShowVerificationAlert] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [errorIGUrl, setErrorIGUrl] = useState('')
+  const [errorTwitterUrl, setErrorTwitterUrl] = useState('')
 
   const checkEnableSave = () => {
     if (orgUserInfo === null) {
@@ -235,7 +237,7 @@ const ProfileSection = prop => {
             <div className="mt-[45px] lg:mt-[60px]">
               <div className={styles.subTitle}>Social Connections & Links</div>
             </div>
-            <div className="mt-4 lg:mt-8 flex items-center">
+            <div className="mt-4 lg:mt-8 flex">
               <div className={styles.socialIcon}>
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                   <InstagramWhiteSmallIcon />
@@ -247,11 +249,17 @@ const ProfileSection = prop => {
               <div className="w-full ml-[-17px] lg:ml-[24px]">
                 <Input
                   value={igUrl}
+                  label01={errorIGUrl}
                   placeholder="Add Instagram Account"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
+                    if (isValidUrl(value)) {
+                      setErrorIGUrl('')
+                    } else {
+                      setErrorIGUrl('Please enter a valid website url.')
+                    }
                     setIgUrl(value)
                   }}
                 />
@@ -280,7 +288,7 @@ const ProfileSection = prop => {
                 />
               </div>
             </div> */}
-            <div className="mt-[10px] lg:mt-[30px] flex items-center">
+            <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                   <TwitterWhiteSmallIcon />
@@ -291,11 +299,19 @@ const ProfileSection = prop => {
               <div className="w-full ml-[-17px] lg:ml-[24px]">
                 <Input
                   value={twitterUrl}
+                  label01={errorTwitterUrl}
                   placeholder="Add Twitter Account"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
-                  onChange={value => setTwitterUrl(value)}
+                  onChange={value => {
+                    if (isValidUrl(value)) {
+                      setErrorTwitterUrl('')
+                    } else {
+                      setErrorTwitterUrl('Please enter a valid website url.')
+                    }
+                    setTwitterUrl(value)
+                  }}
                 />
               </div>
             </div>

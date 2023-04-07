@@ -101,6 +101,18 @@ export const validUrl = url => {
   return url
 }
 
+export const isValidUrl = urlString => {
+  var inputElement = document.createElement('input')
+  inputElement.type = 'url'
+  inputElement.value = urlString
+
+  if (!inputElement.checkValidity()) {
+    return false
+  } else {
+    return true
+  }
+}
+
 export const copyToClipboard = value => {
   navigator.clipboard.writeText(value)
 }
