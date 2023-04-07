@@ -357,20 +357,21 @@ const PrimaryHeader = () => {
           />
         </div>
       )}
-
-      <div
-        style={{
-          zIndex: 10000,
-          position: 'fixed',
-          width: 83,
-          height: 44,
-          top: `${profileOffset[0] + 27}px`,
-          left: `${profileOffset[1] + 70}px`,
-        }}
-        onClick={() => handleThemeMode()}
-      >
-        {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-      </div>
+      {profileOffset[1] !== 0 && (
+        <div
+          style={{
+            zIndex: 10000,
+            position: 'fixed',
+            width: 83,
+            height: 44,
+            top: `${profileOffset[0] + 27}px`,
+            left: `${profileOffset[1] + 70}px`,
+          }}
+          onClick={() => handleThemeMode()}
+        >
+          {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+        </div>
+      )}
     </div>
   ) : (
     <div className={styles.mobileBlurContainer}>
