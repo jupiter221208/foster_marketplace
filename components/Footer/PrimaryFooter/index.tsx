@@ -52,9 +52,9 @@ const PrimaryFooter = () => {
               <div onClick={() => router.push('/')}>
                 <LogoText01Icon alt="" />
               </div>
-              <div className={styles.lightDarkMode} onClick={() => handleThemeMode()}>
+              {/* <div className={styles.lightDarkMode} onClick={() => handleThemeMode()}>
                 {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-              </div>
+              </div> */}
             </div>
             {/* <div className={styles.text}>
               Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
