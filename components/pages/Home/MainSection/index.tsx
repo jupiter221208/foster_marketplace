@@ -115,15 +115,19 @@ const MainSection = () => {
         >
           {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
             <div className={styles.contentArea}>
-              <div className="w-full flex justify-center">
+              {/* <div className="w-full flex justify-center">
                 <FosterHeroMobileLogo />
+              </div> */}
+              <div className={styles.mobileText}>
+                Community Governed
+                <br />
+                Digital Art Marketplace
               </div>
-              <div className={styles.text}>Home to Digital Creators on Solana</div>
             </div>
           ) : (
             <></>
           )}
-          <div className="max-w-[550px] w-full mt-[110px] md:mt-[130px] lg:mt-[0px]">
+          <div className="max-w-[550px] w-full mt-[110px] lg:mt-[0px]">
             {heroList.length !== 0 && (
               <Swiper
                 slidesPerView={1}
@@ -157,6 +161,7 @@ const MainSection = () => {
                 label="Create"
                 borderWidth={2}
                 width={88}
+                borderColor={'var(--see-more-border)'}
                 onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
               />
             </div>

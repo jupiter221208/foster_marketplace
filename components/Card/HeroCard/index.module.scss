@@ -5,7 +5,7 @@
   width: 100%;
   max-height: 772px;
   border-radius: 20px;
-  padding: 15px;
+  padding: 0px 15px;
   @media (min-width: 640px) {
     padding: 0px;
     height: 400px;
@@ -40,7 +40,7 @@
 
 .imageArea {
   position: relative;
-  padding-top: 81.067%; /* 375:304 Aspect Ratio */
+  padding-top: 88.315%; /* 345:304 Aspect Ratio */
   @media (min-width: 640px) {
     padding-top: 72.727%; /* 550:400 Aspect Ratio */
   }

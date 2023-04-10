@@ -42,7 +42,7 @@ const PopularCategorySection = props => {
       <div className="w-full flex justify-center lg:justify-between items-center z-10">
         <div className={styles.title}>{type === 'home' ? 'Explore the Circus' : 'Discover Something New'}</div>
       </div>
-      <div className="w-full mt-[20px] lg:mt-[34px] z-10">
+      <div className="w-full mt-[12px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
