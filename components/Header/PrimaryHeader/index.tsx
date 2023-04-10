@@ -381,7 +381,7 @@ const PrimaryHeader = () => {
           <div className="flex">
             <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
               {/* <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" /> */}
-              <FosterNavLogo />
+              <FosterNavLogo width={101} height={23} />
             </div>
             {/* <div className={styles.alphaArea}>
               <svg

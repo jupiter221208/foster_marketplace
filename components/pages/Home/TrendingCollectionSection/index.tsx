@@ -94,7 +94,12 @@ const TrendingCollectionSection = props => {
           )}
         </div>
         <div className="hidden lg:flex z-10">
-          <SeeMoreButton onClick={() => router.push('/explore')} />
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 1 })
+              router.push('/explore')
+            }}
+          />
         </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
