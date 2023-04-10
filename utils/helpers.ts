@@ -522,7 +522,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-btn-hover', '#95dbd5')
     doc.style.setProperty('--collection-card-bg', '#121212')
     doc.style.setProperty('--collection-card-border', '1px')
-    doc.style.setProperty('--profile-card-bg', '#202427')
+    doc.style.setProperty('--profile-card-bg', '#121212')
     doc.style.setProperty('--mynft-outline-border', '#5ac3ba')
     doc.style.setProperty('--mynft-outline-color', '')
     doc.style.setProperty('--filter-close-color', '#eff0f6')
