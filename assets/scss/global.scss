@@ -300,7 +300,8 @@
   --sell-nft-border: rgba(255, 255, 255, 0.1);
   --sell-nft-bg: #121212;
   --setting-input-bg: #202427;
-  --follow-btn-border: rgba(239, 240, 247, 0.25);
+
+  --follow-btn-border-mobile: rgba(239, 240, 247, 0.25);
   --search-gray-icon: rgba(239, 240, 247, 0.75);
   --logo-text-color: #ffffff;
   --logo-text-ballon: #95dbd5;
@@ -311,6 +312,7 @@
   --search-gray-icon-disable: rgba(255, 255, 255, 0.2);
   --profile-banner-overlay: 18, 18, 18;
   --follow-btn-color: #eff0f6;
+  --follow-btn-border: #95dbd5;
 }
 
 html,

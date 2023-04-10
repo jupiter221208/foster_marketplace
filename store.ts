@@ -11,6 +11,8 @@ const initialState = {
   openConnectWallet: false,
   exploreTab: 0,
   availabilityFilter: 0,
+  collectionSort: '',
+  artistSort: '',
   connectWalletStatus: false,
   openCreateNFTModal: false,
   openSellNFTModal: false,

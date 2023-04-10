@@ -65,6 +65,8 @@ const Explore = () => {
 
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
+  const collectionSort = useSelector<any>(state => state.collectionSort)
+  const artistSort = useSelector<any>(state => state.artistSort)
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
   const [nftList, setNftList] = useState<any>([])
@@ -107,6 +109,8 @@ const Explore = () => {
     setIsMounted(true)
     return () => {
       dispatch({ type: 'set', availabilityFilter: 3 })
+      dispatch({ type: 'set', collectionSort: '' })
+      dispatch({ type: 'set', artistSort: '' })
     }
   }, [])
 
@@ -114,7 +118,10 @@ const Explore = () => {
 
   useEffect(() => {
     let availability = selectedAvailability
-    if (availabilityFilter === 1) {
+    if (availabilityFilter === 0) {
+      availability = AvailabilityList[0]
+      setSelectedAvailability(availability)
+    } else if (availabilityFilter === 1) {
       availability = AvailabilityList[1]
       setSelectedAvailability(availability)
     }
@@ -128,14 +135,22 @@ const Explore = () => {
         break
       case 1:
         setSortData(CollectionSortList)
-        setSelectedSort(CollectionSortList[0])
+        if (collectionSort === 'trending') {
+          setSelectedSort(CollectionSortList[2])
+        } else {
+          setSelectedSort(CollectionSortList[0])
+        }
         setCurrentPage(collectionCurrentPage)
         setCategoryList([])
         getExploreCollectionData(collectionCurrentPage, [], CollectionSortList[0], rowCount)
         break
       case 2:
         setSortData(EcosystemSortList)
-        setSelectedSort(EcosystemSortList[0])
+        if (artistSort === 'top') {
+          setSelectedSort(EcosystemSortList[2])
+        } else {
+          setSelectedSort(EcosystemSortList[0])
+        }
         setCurrentPage(ecosystemCurrentPage)
         setEcosystemList([])
         getExploreArtistData(ecosystemCurrentPage, EcosystemSortList[0], rowCount)

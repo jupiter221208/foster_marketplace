@@ -98,6 +98,7 @@ const MarketplaceReleaseSection = props => {
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 0 })
                 router.push('/explore')
               }}
             />
@@ -145,6 +146,7 @@ const MarketplaceReleaseSection = props => {
               fullWidth
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 0 })
                 router.push('/explore')
               }}
               borderColor={'var(--see-more-border)'}

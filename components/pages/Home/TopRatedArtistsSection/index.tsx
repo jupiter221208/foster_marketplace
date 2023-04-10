@@ -66,6 +66,7 @@ const TopRatedArtistsSection = () => {
           <SeeMoreButton
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 2 })
+              dispatch({ type: 'set', artistSort: 'top' })
               router.push('/explore')
             }}
           />
@@ -131,6 +132,7 @@ const TopRatedArtistsSection = () => {
             fullWidth
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 2 })
+              dispatch({ type: 'set', artistSort: 'top' })
               router.push('/explore')
             }}
             borderColor={'var(--see-more-border)'}

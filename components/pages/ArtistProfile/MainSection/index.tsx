@@ -155,17 +155,14 @@ const MainSection = prop => {
                     label="Following"
                     fontSize={18}
                     borderColor="var(--follow-btn-border)"
+                    borderWidth={2}
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
-                  <OutlineButton
+                  <GradientButton
                     width={146}
                     height={53}
                     fontSize={18}
-                    color="var(--follow-btn-color)"
-                    backgroundColor="var(--follow-btn-bg)"
-                    borderColor="transparent"
-                    borderWidth={0}
                     label="Follow"
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
@@ -331,7 +328,7 @@ const MainSection = prop => {
           height={480}
           className="w-full h-full object-cover rounded-none"
         />
-        <div className={styles.overlay} />
+        {/* <div className={styles.overlay} /> */}
       </div>
       <div className="w-full">
         <div className="z-0">
@@ -368,7 +365,7 @@ const MainSection = prop => {
                     fontSize={12}
                     borderRadius={8}
                     label="Following"
-                    borderColor="var(--follow-btn-border)"
+                    borderColor="var(--follow-btn-border-mobile)"
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
