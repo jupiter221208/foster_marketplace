@@ -39,10 +39,8 @@ const HeroCard = props => {
           {data.asset_type.includes('image') ? (
             <img
               src={
-                data.asset_type.includes('image')
-                  ? data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                    ? data.asset_url
-                    : '/images/banner.png'
+                data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                  ? data.asset_url
                   : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
                   ? data.cover_image_url
                   : '/images/banner.png'
