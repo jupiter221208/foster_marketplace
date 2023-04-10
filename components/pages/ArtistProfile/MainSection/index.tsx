@@ -357,7 +357,7 @@ const MainSection = prop => {
                   url={`/artist-profile?id=${artistInfo?.wallet_id}`}
                 />
               </div>
-              <div>
+              <div className="w-[80px]">
                 {follow ? (
                   <OutlineButton
                     width={80}
