@@ -1,18 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // styles
 import styles from './index.module.scss'
 
 const ArtistCard = props => {
   const { image, username, onClick } = props
+  const [hover, setHover] = useState(false)
 
   return (
-    <div className={styles.container} onClick={() => onClick()}>
-      <div className={styles.avatar}>
+    <div
+      className={styles.container}
+      onClick={() => onClick()}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div className={`${styles.avatar} ${hover ? styles.avatarHover : ''}`}>
         <img src={image} alt="" width={226} height={226} className="rounded-full" />
       </div>
 
-      <div className={styles.name}>{username.length > 20 ? username.slice(0, 20) + '...' : username}</div>
+      <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>
+        {username.length > 20 ? username.slice(0, 20) + '...' : username}
+      </div>
     </div>
   )
 }
