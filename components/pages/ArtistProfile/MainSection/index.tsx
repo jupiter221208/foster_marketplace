@@ -154,7 +154,7 @@ const MainSection = prop => {
                     height={53}
                     label="Following"
                     fontSize={18}
-                    borderColor="rgba(var(--main-bg-color), 0.25)"
+                    borderColor="var(--follow-btn-border)"
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
@@ -365,17 +365,17 @@ const MainSection = prop => {
                   <OutlineButton
                     width={80}
                     height={29}
-                    fontSize={13}
+                    fontSize={12}
                     borderRadius={8}
                     label="Following"
-                    borderColor="rgba(var(--main-bg-color), 0.25)"
+                    borderColor="var(--follow-btn-border)"
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
                   <OutlineButton
                     width={80}
                     height={29}
-                    fontSize={13}
+                    fontSize={12}
                     label="Follow"
                     borderColor="transparent"
                     color="var(--follow-btn-color)"
