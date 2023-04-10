@@ -80,7 +80,7 @@ const MenuSocialShare = ({
                 )}
               </div>
             ) : type === 'image' ? (
-              <div className="mt-1">
+              <div className="mt-1 w-[17px] h-[19px]">
                 <ShareBlackIcon />
               </div>
             ) : (
