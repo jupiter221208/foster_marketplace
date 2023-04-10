@@ -19,7 +19,7 @@
     height: 170px;
   }
   border-radius: 100%;
-  background: linear-gradient(110deg, var(--brand-01-color) 50%, var(--background-dark-color) 100%);
+  background: var(--profile-card-bg);
   z-index: 1;
 }
 

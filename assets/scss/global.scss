@@ -310,6 +310,7 @@
   --search-icon-bg: rgba(32, 36, 39, 0.75);
   --search-gray-icon-disable: rgba(255, 255, 255, 0.2);
   --profile-banner-overlay: 18, 18, 18;
+  --follow-btn-color: #eff0f6;
 }
 
 html,
@@ -1229,7 +1230,10 @@ h6 {
 }
 
 [data-name='share-icon'] {
-  stroke: var(--main-bg-color);
+  fill: var(--main-bg-color);
+  [data-fill='a'] {
+    fill: var(--stats-bg-color);
+  }
 }
 
 svg {

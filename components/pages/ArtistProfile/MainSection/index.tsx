@@ -154,15 +154,18 @@ const MainSection = prop => {
                     height={53}
                     label="Following"
                     fontSize={18}
-                    borderColor="var(--follow-btn-border)"
-                    borderWidth={2}
+                    borderColor="rgba(var(--main-bg-color), 0.25)"
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
-                  <GradientButton
+                  <OutlineButton
                     width={146}
                     height={53}
                     fontSize={18}
+                    color="var(--follow-btn-color)"
+                    backgroundColor="var(--follow-btn-bg)"
+                    borderColor="transparent"
+                    borderWidth={0}
                     label="Follow"
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />
@@ -365,15 +368,18 @@ const MainSection = prop => {
                     fontSize={13}
                     borderRadius={8}
                     label="Following"
-                    borderColor="var(--follow-btn-border)"
+                    borderColor="rgba(var(--main-bg-color), 0.25)"
                     onClick={() => unfollowArtist(artistInfo?.wallet_id)}
                   />
                 ) : (
-                  <GradientButton
+                  <OutlineButton
                     width={80}
                     height={29}
                     fontSize={13}
                     label="Follow"
+                    borderColor="transparent"
+                    color="var(--follow-btn-color)"
+                    backgroundColor="var(--follow-btn-bg)"
                     borderRadius={8}
                     onClick={() => followArtist(artistInfo?.wallet_id)}
                   />

@@ -383,7 +383,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.8)')
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
-
+    doc.style.setProperty('--follow-btn-bg', '#121212')
+    doc.style.setProperty('--follow-btn-color', '#E0E1E7')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -615,5 +616,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.2)')
     doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
+    doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
+    doc.style.setProperty('--follow-btn-color', '#eff0f6')
   }
 }
