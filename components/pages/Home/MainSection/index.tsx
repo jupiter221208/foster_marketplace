@@ -131,7 +131,7 @@ const MainSection = () => {
                 className={'heroSwiper'}
                 loop
                 autoplay={{
-                  delay: 500000,
+                  delay: 5000,
                   disableOnInteraction: false,
                 }}
               >
