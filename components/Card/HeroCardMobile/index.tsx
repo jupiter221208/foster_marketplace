@@ -47,10 +47,10 @@ const HeroCardMobile = props => {
           height={375}
           className="w-full h-full object-cover"
         />
-        <div className={styles.overlay} />
+        {/* <div className={styles.overlay} />*/}
         <div className={styles.overlayMask} />
       </div>
-      <div className="relative mt-[-175px] px-[15px]">
+      <div className="relative mt-[-175px] px-[15px] z-10">
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {data.asset_type.includes('image') ? (

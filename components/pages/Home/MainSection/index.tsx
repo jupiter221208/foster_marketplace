@@ -138,6 +138,7 @@ const MainSection = () => {
                 {heroList.map((item, index) => (
                   <SwiperSlide key={index}>
                     <HeroCardMobile data={item} />
+                    <div className={styles.overlay} />
                   </SwiperSlide>
                 ))}
               </Swiper>
