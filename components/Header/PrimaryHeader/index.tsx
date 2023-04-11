@@ -43,6 +43,7 @@ const PrimaryHeader = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
+  const [isScrollTop, setIsScollTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
@@ -54,6 +55,13 @@ const PrimaryHeader = () => {
     dispatch({ type: 'set', lightMode: !lightMode })
     setLightMode(!lightMode)
   }
+
+  useEffect(() => {
+    window.addEventListener('scroll', function () {
+      let scrollTop = document.documentElement.scrollTop
+      setIsScollTop(scrollTop < 10)
+    })
+  }, [])
 
   useEffect(() => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
@@ -375,7 +383,7 @@ const PrimaryHeader = () => {
       )}
     </div>
   ) : (
-    <div className={styles.mobileBlurContainer}>
+    <div className={isScrollTop ? styles.mobileNonBlurContainer : styles.mobileBlurContainer}>
       <div className={styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="flex">

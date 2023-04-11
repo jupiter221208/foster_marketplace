@@ -1,7 +1,7 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  margin-top: 32px;
+  margin-top: -80px;
   height: auto;
   @media (min-width: 1024px) {
     margin-top: 0px;
@@ -128,10 +128,18 @@
   align-items: center;
 }
 
-.mobileText {
+.mobileTitle {
   color: var(--text-gray-200-color);
   font-family: 'Muli-Bold';
   font-size: 30px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.mobileText {
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-Light';
+  font-size: 18px;
   line-height: 40px;
   text-align: center;
 }
@@ -206,6 +214,7 @@
   z-index: 2;
   position: absolute;
   left: 0;
+  top: 110px;
   right: 0;
 }
 
