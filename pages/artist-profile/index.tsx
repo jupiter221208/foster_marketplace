@@ -15,7 +15,6 @@ import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import HeaderImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'

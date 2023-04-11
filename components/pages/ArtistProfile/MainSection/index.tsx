@@ -141,7 +141,7 @@ const MainSection = prop => {
             <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
               <div className="mr-[11px] lg:mr-[24px]">
                 <MenuSocialShare
-                  type="ellipse"
+                  type="image"
                   vote={true}
                   message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
                   url={`/artist-profile?id=${artistInfo?.wallet_id}`}

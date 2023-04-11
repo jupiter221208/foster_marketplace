@@ -16,6 +16,7 @@ import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
+import ShareBlackDesktopIcon from 'assets/icons/share-black-desktop.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -81,7 +82,11 @@ const MenuSocialShare = ({
               </div>
             ) : type === 'image' ? (
               <div>
-                <ShareBlackIcon />
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <ShareBlackIcon />
+                ) : (
+                  <ShareBlackDesktopIcon />
+                )}
               </div>
             ) : (
               <div className="mt-[4px]">
