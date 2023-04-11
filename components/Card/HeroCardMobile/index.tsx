@@ -16,7 +16,6 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 const HeroCardMobile = props => {
   const { data } = props
-  const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -48,9 +47,10 @@ const HeroCardMobile = props => {
           height={375}
           className="w-full h-full object-cover"
         />
-        <div className={styles.overlay}></div>
+        <div className={styles.overlay} />
+        <div className={styles.overlayMask} />
       </div>
-      <div className="mt-[200px]">
+      <div className="relative mt-[-175px] px-[15px]">
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {data.asset_type.includes('image') ? (

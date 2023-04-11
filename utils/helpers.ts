@@ -387,7 +387,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
     doc.style.setProperty('--follow-btn-bg', '#121212')
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.7')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.5')
     // =====================================================
     // =====================================================
     // =====================================================
