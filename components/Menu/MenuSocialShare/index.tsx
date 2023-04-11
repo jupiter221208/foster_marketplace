@@ -68,7 +68,7 @@ const MenuSocialShare = ({
     )
   }
   return (
-    <div className="relative">
+    <div className="relative flex items-center">
       <Menu>
         <Menu.Button>
           <div className="flex justify-between items-center">

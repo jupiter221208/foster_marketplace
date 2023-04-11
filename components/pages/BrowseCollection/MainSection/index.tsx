@@ -233,9 +233,9 @@ const MainSection = props => {
                 />
               </div>
               <div className="col-span-3 flex justify-end">
-                <div className="mr-[24px]">
+                <div className="flex mr-[24px] items-center">
                   <MenuSocialShare
-                    type="ellipse"
+                    type="image"
                     vote={true}
                     message={'Check out this collection on @foster_protocol #fostermarketplace'}
                     url={`/browse-collection/${data?.collection_id}`}

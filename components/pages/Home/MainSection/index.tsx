@@ -73,7 +73,7 @@ const MainSection = () => {
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
-        <div className="hidden lg:block lg:col-span-6 xl:col-span-7">
+        <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
           <FosterHeroLogo alt="" />
 
           <div className={styles.text}>Home to Digital Creators on Solana</div>
