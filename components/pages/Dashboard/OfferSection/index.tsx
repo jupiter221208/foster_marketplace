@@ -152,22 +152,12 @@ const OfferSection = () => {
         <FilterButton
           label="Offers Made"
           onClick={() => setShownOfferType('made')}
-          color={shownOfferType === 'made' ? 'var(--day-btn-color)' : '#979EA2'}
-          background={
-            shownOfferType === 'made'
-              ? 'linear-gradient(to bottom, var(--day-btn-bg-1), var(--day-btn-bg-2))'
-              : 'transparent'
-          }
+          selected={shownOfferType === 'made'}
         />
         <FilterButton
           label="Offers Received"
           onClick={() => setShownOfferType('received')}
-          color={shownOfferType === 'received' ? 'var(--day-btn-color)' : '#979EA2'}
-          background={
-            shownOfferType === 'received'
-              ? 'linear-gradient(to bottom, var(--day-btn-bg-1), var(--day-btn-bg-2))'
-              : 'transparent'
-          }
+          selected={shownOfferType === 'received'}
         />
       </div>
       {isLoading ? (

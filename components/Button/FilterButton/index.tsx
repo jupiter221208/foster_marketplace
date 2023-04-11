@@ -4,18 +4,18 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const FilterButton = props => {
-  const { label, onClick, fullWidth, disabled = false, width = '', color, background, height = '' } = props
+  const { label, onClick, selected, fullWidth, disabled = false, width = '', color, background, height = '' } = props
   return (
     <button
       type="button"
       onClick={() => onClick()}
       className={styles.container}
-      disabled={disabled}
       style={{
         width: fullWidth ? '100%' : width,
-        color: color,
-        background: background,
+        color: selected ? 'var(--day-btn-color)' : '#979EA2',
+        background: selected ? 'linear-gradient(to bottom, var(--day-btn-bg-1), var(--day-btn-bg-2))' : 'transparent',
         height: height,
+        fontFamily: selected ? 'Muli-Bold' : 'Muli-SemiBold',
       }}
     >
       {label}

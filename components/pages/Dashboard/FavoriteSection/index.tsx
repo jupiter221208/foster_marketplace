@@ -98,22 +98,8 @@ const FavoriteSection = () => {
   return (
     <section className={styles.container}>
       <div className="flex">
-        <FilterButton
-          label="Single NFTs"
-          onClick={() => handleChangeActive(0)}
-          color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
-          background={
-            active === 0 ? 'linear-gradient(to bottom, var(--day-btn-bg-1), var(--day-btn-bg-2))' : 'transparent'
-          }
-        />
-        <FilterButton
-          label="Collections"
-          onClick={() => handleChangeActive(1)}
-          color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
-          background={
-            active === 1 ? 'linear-gradient(to bottom, var(--day-btn-bg-1), var(--day-btn-bg-2))' : 'transparent'
-          }
-        />
+        <FilterButton label="Single NFTs" onClick={() => handleChangeActive(0)} selected={active === 0} />
+        <FilterButton label="Collections" onClick={() => handleChangeActive(1)} selected={active === 1} />
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {active === 0 &&
