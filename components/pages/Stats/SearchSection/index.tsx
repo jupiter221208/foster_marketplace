@@ -101,6 +101,7 @@ const SearchSection = props => {
           <TimeSlotButton
             label="24 hrs"
             onClick={() => setPeriod('day')}
+            fontFamily={period === 'day' ? 'Muli-Bold' : 'Muli-SemiBold'}
             color={period === 'day' ? 'var(--day-btn-color)' : '#979EA2'}
             backgroundColor01={period === 'day' ? 'var(--day-btn-bg-1)' : 'transparent'}
             backgroundColor02={period === 'day' ? 'var(--day-btn-bg-2)' : 'transparent'}
@@ -109,6 +110,7 @@ const SearchSection = props => {
           <TimeSlotButton
             label="7 days"
             onClick={() => setPeriod('week')}
+            fontFamily={period === 'week' ? 'Muli-Bold' : 'Muli-SemiBold'}
             color={period === 'week' ? 'var(--day-btn-color)' : '#979EA2'}
             backgroundColor01={period === 'week' ? 'var(--day-btn-bg-1)' : 'transparent'}
             backgroundColor02={period === 'week' ? 'var(--day-btn-bg-2)' : 'transparent'}
@@ -117,6 +119,7 @@ const SearchSection = props => {
           <TimeSlotButton
             label="30 days"
             onClick={() => setPeriod('month')}
+            fontFamily={period === 'month' ? 'Muli-Bold' : 'Muli-SemiBold'}
             color={period === 'month' ? 'var(--day-btn-color)' : '#979EA2'}
             backgroundColor01={period === 'month' ? 'var(--day-btn-bg-1)' : 'transparent'}
             backgroundColor02={period === 'month' ? 'var(--day-btn-bg-2)' : 'transparent'}
@@ -125,6 +128,7 @@ const SearchSection = props => {
           <TimeSlotButton
             label="All Time"
             onClick={() => setPeriod('all')}
+            fontFamily={period === 'all' ? 'Muli-Bold' : 'Muli-SemiBold'}
             color={period === 'all' ? 'var(--day-btn-color)' : '#979EA2'}
             backgroundColor01={period === 'all' ? 'var(--day-btn-bg-1)' : 'transparent'}
             backgroundColor02={period === 'all' ? 'var(--day-btn-bg-2)' : 'transparent'}
