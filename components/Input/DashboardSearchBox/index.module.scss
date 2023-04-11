@@ -6,12 +6,11 @@
   padding-left: 16px;
   padding-right: 25px;
   border-radius: 12px;
-  background: var(--background-dark-color);
+  background: var(--setting-input-bg);
   @media (min-width: 1024px) {
     max-width: 490px;
     min-width: 200px;
     // border: 1px solid rgba(var(--text-gray-200-color), 0.1);
-    background: var(--background-dark-color);
     padding-left: 20px;
     padding-right: 15px;
   }
@@ -27,7 +26,10 @@
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   background-color: transparent;
   outline: none;
+}
+.inputArea::placeholder {
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
 }
