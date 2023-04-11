@@ -11,6 +11,7 @@ const initialState = {
   openConnectWallet: false,
   exploreTab: 0,
   availabilityFilter: 0,
+  artworkSort: '',
   collectionSort: '',
   artistSort: '',
   connectWalletStatus: false,

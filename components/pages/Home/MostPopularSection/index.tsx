@@ -98,7 +98,8 @@ const MostPopularSection = props => {
         <div className="hidden lg:flex z-10">
           <SeeMoreButton
             onClick={() => {
-              dispatch({ type: 'set', exploreTab: 1 })
+              dispatch({ type: 'set', artworkSort: 'popular' })
+              dispatch({ type: 'set', exploreTab: 0 })
               router.push('/explore')
             }}
           />
@@ -148,7 +149,8 @@ const MostPopularSection = props => {
             label="See More"
             fullWidth
             onClick={() => {
-              dispatch({ type: 'set', exploreTab: 1 })
+              dispatch({ type: 'set', artworkSort: 'popular' })
+              dispatch({ type: 'set', exploreTab: 0 })
               router.push('/explore')
             }}
             borderColor={'var(--see-more-border)'}

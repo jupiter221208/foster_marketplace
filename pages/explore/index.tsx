@@ -66,6 +66,7 @@ const Explore = () => {
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
   const collectionSort = useSelector<any>(state => state.collectionSort)
+  const artworkSort = useSelector<any>(state => state.artworkSort)
   const artistSort = useSelector<any>(state => state.artistSort)
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
@@ -111,6 +112,7 @@ const Explore = () => {
       dispatch({ type: 'set', availabilityFilter: 3 })
       dispatch({ type: 'set', collectionSort: '' })
       dispatch({ type: 'set', artistSort: '' })
+      dispatch({ type: 'set', artworkSort: '' })
     }
   }, [])
 
@@ -128,7 +130,11 @@ const Explore = () => {
     switch (exploreTab) {
       case 0:
         setSortData(NFTSortList)
-        setSelectedSort(NFTSortList[0])
+        if (artworkSort === 'popular') {
+          setSelectedSort(NFTSortList[2])
+        } else {
+          setSelectedSort(NFTSortList[0])
+        }
         setCurrentPage(nftCurrentPage)
         setCategoryList([])
         getExploreNFTData(nftCurrentPage, [], availability, selectedMedium, selectedMarket, NFTSortList[0], rowCount)
