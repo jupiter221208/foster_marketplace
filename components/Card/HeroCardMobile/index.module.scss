@@ -32,7 +32,7 @@
   bottom: 0px;
   width: 100%;
   height: 100px;
-  background: linear-gradient(to bottom, rgba(#eff0f6, 0), rgba(#eff0f6, 1));
+  background: linear-gradient(to bottom, transparent, var(--stats-accordion-bg));
   z-index: 0;
 }
 
