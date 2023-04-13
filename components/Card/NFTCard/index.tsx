@@ -169,14 +169,14 @@ const DashboardNFTCard = props => {
             )}
           </div>
         </div>
-        <div className="w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
-          <div>
+        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+          <div className="w-full">
             <div className="flex items-center">
               <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
             </div>
-            <div className="flex justify-between items-center mt-[2px]">
+            <div className="w-full flex justify-between items-center mt-[2px]">
               <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
-              {price && (
+              {!showHideButton && price && (
                 <div className="flex justify-center items-center">
                   <Image
                     src={SolanaLogoIcon}
@@ -190,7 +190,7 @@ const DashboardNFTCard = props => {
             </div>
           </div>
           {showHideButton === true && (
-            <div className="mr-1">
+            <div className="absolute right-[0px] mr-1">
               <HideIcon onClick={() => setDisplayHideConfirm(true)} />
             </div>
           )}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
@@ -12,12 +12,15 @@ import styles from './index.module.scss'
 // third party components
 import { useDispatch } from 'react-redux'
 import { useViewport } from 'utils'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const viewport = useViewport()
+  const [loaded, setLoaded] = useState(false)
+
   return (
     <div
       className={styles.container}
@@ -27,7 +30,12 @@ const TrendingCollectionCard = props => {
       }}
     >
       <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-        <img src={image} alt="" className="w-full h-full object-cover" />
+        <div className="w-full">
+          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+            <img src={image} alt="" className="w-full h-full object-cover" />
+          </ReactPlaceholder>
+          {!loaded && <img src={image} alt="" className="w-full h-full object-cover" onLoad={() => setLoaded(true)} />}
+        </div>
         {/* <div className={styles.bottomMask} /> */}
         <div className={styles.bidContainer}>
           <div className={styles.bidBgView} />
