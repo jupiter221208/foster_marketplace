@@ -32,7 +32,7 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 
 const NFTSwiperSection = props => {
-  const { nfts } = props
+  const { nfts, showHideButton } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -52,7 +52,6 @@ const NFTSwiperSection = props => {
       }
     })
     if (tempItem.length > 0) newList.push(tempItem)
-
     setNFTList(newList)
   }, [nfts])
 
@@ -103,7 +102,7 @@ const NFTSwiperSection = props => {
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
             autoplay={{
-              delay: 5000,
+              delay: 500000,
               disableOnInteraction: false,
             }}
           >
@@ -117,7 +116,9 @@ const NFTSwiperSection = props => {
                       coverImage={nftItem.cover_image_url}
                       nftName={nftItem.nft_name}
                       artistName={nftItem.artist_username}
+                      artistId={nftItem.artist_id}
                       price={nftItem.list_price}
+                      showHideButton={showHideButton}
                       onClick={() => {
                         dispatch({ type: 'set', isLoading: true })
                         router.push(`/browse-nft?id=${nftItem.token_id}`)
@@ -139,6 +140,7 @@ const NFTSwiperSection = props => {
                   coverImage={item.cover_image_url}
                   nftName={item.nft_name}
                   artistName={item.artist_username}
+                  artistId={item.artist_id}
                   price={item.list_price}
                   onClick={() => {
                     dispatch({ type: 'set', isLoading: true })

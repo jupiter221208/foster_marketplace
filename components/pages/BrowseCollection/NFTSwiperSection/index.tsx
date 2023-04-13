@@ -22,7 +22,7 @@ import { useViewport } from 'utils'
 // styles
 import styles from './index.module.scss'
 
-const NFTSwiperSection = ({ nfts, collectionName }) => {
+const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -78,6 +78,7 @@ const NFTSwiperSection = ({ nfts, collectionName }) => {
                         artistName={nftItem.artist_username}
                         collectionName={collectionName}
                         price={nftItem.list_price}
+                        showHideButton={showHideButton}
                         onClick={() => {
                           let token_id = nftItem.mintAddress
                           if (token_id === null || token_id === undefined) token_id = nftItem.token_id
@@ -103,7 +104,9 @@ const NFTSwiperSection = ({ nfts, collectionName }) => {
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
+                    artistId={item.artist_id}
                     price={item.list_price}
+                    showHideButton={showHideButton}
                     onClick={() => {
                       let token_id = item.mintAddress
                       if (token_id === null || token_id === undefined) token_id = item.token_id
@@ -118,18 +121,6 @@ const NFTSwiperSection = ({ nfts, collectionName }) => {
             </div>
           )}
         </div>
-
-        {/* <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px] z-10 mt-[30px]">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => router.push('/explore')}
-              borderColor="#ffffff"
-              height="40px"
-            />
-          </div>
-        </div> */}
       </section>
     )
   )

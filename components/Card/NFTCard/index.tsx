@@ -12,11 +12,14 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
+import HideIcon from 'assets/icons/hide-icon.svg?component'
+import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 
 // styles
 import styles from './index.module.scss'
 import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const DashboardNFTCard = props => {
   const {
@@ -24,20 +27,23 @@ const DashboardNFTCard = props => {
     nftName,
     coverImage = '',
     artistName,
+    artistId,
     collectionName,
     assetType,
     price,
     onClick,
     unSave = null,
+    showHideButton = false,
   } = props
   const viewport = useViewport()
   const [play, setPlay] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
 
   useEffect(() => {}, [])
 
   return (
-    <div className="w-full h-full p-[2px] lg:p-[3px]">
+    <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
@@ -146,24 +152,31 @@ const DashboardNFTCard = props => {
             )}
           </div>
         </div>
-        <div className="w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-center items-center px-[5px] lg:px-[9px]">
-          <div className="w-full flex items-center">
-            <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
+        <div className="w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+          <div>
+            <div className="flex items-center">
+              <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
+            </div>
+            <div className="flex justify-between items-center mt-[2px]">
+              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+              {price && (
+                <div className="flex justify-center items-center">
+                  <Image
+                    src={SolanaLogoIcon}
+                    alt=""
+                    width={viewport === 'xs' ? 10 : viewport === 'sm' || viewport === 'md' ? 15 : 17}
+                    height={viewport === 'xs' ? 8 : viewport === 'sm' || viewport === 'md' ? 13 : 15}
+                  />
+                  <div className={styles.price}>{formattedAmount(price)}</div>
+                </div>
+              )}
+            </div>
           </div>
-          <div className="w-full flex justify-between items-center mt-[2px]">
-            <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
-            {price && (
-              <div className="flex justify-center items-center">
-                <Image
-                  src={SolanaLogoIcon}
-                  alt=""
-                  width={viewport === 'xs' ? 10 : viewport === 'sm' || viewport === 'md' ? 15 : 17}
-                  height={viewport === 'xs' ? 8 : viewport === 'sm' || viewport === 'md' ? 13 : 15}
-                />
-                <div className={styles.price}>{formattedAmount(price)}</div>
-              </div>
-            )}
-          </div>
+          {showHideButton === true && (
+            <div className="mr-1">
+              <HideIcon onClick={() => setDisplayHideConfirm(true)} />
+            </div>
+          )}
         </div>
         {unSave !== null && (
           <div className="mt-[10px]">
@@ -171,6 +184,31 @@ const DashboardNFTCard = props => {
           </div>
         )}
       </div>
+      {displayHideConfirm && (
+        <div className={styles.hideConfirm}>
+          <div className="flex h-full items-center justify-center">
+            <div>
+              <div className={styles.hideText}>
+                This action will hide the artwork from your profile page.
+                <br />
+                <br />
+                Would you like to proceed?
+              </div>
+              <div className="flex gap-[19px] mt-[50px] justify-center">
+                <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                  Cancel
+                </div>
+                <div className={styles.hideButton}>
+                  <div className="flex gap-[6px]">
+                    <Image src={HideSmallIcon} alt="" />
+                    <div className={styles.hideButtonText}>Hide</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

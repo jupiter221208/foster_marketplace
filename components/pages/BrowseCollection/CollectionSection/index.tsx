@@ -44,7 +44,7 @@ const CollectionSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap z-10">
-          <NFTSwiperSection nfts={nfts} collectionName={collectionName} />
+          <NFTSwiperSection nfts={nfts} collectionName={collectionName} showHideButton={false} />
         </div>
       )}
       {activeTab === 1 && (

@@ -1239,6 +1239,13 @@ h6 {
   }
 }
 
+[data-name='hide-icon'] {
+  fill: #48494a;
+  &:hover {
+    fill: #95dbd5;
+  }
+}
+
 svg {
   fill: var(--fill-color);
 }

@@ -48,13 +48,13 @@ const GradientButton = props => {
       }}
     >
       {(direction === 'both' || direction === 'rtl') && icon !== '' && (
-        <div className="flex items-center mr-2 xl:mr-[15px]">
+        <div className="flex items-center mr-2 xl:mr-[12px]">
           <Image src={icon} alt="" />
         </div>
       )}
       <div>{label}</div>
       {(direction === 'both' || direction === 'ltr') && icon !== '' && (
-        <div className="flex items-center ml-2 xl:ml-[15px]">
+        <div className="flex items-center ml-2 xl:ml-[12px]">
           <Image src={icon} alt="" />
         </div>
       )}
