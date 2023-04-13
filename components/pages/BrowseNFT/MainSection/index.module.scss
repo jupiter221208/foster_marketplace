@@ -60,6 +60,29 @@
   z-index: 10;
 }
 
+.descriptionTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+}
+
+.descriptionContent {
+  margin-top: 12px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
+.royaltyContent {
+  margin-top: 6px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 16px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
+}
+
 .videoArea {
   width: calc(100% + 24px);
   margin-left: -12px;
@@ -350,8 +373,8 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(#eceef4, 0.1);
-  background-color: rgba($background-dark-color, 1);
+  // border: 1px solid rgba(#eceef4, 0.1);
+  background-color: var(--live-auction-card);
 
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -462,7 +485,7 @@
   left: 0;
   top: 0;
   border-radius: 12px;
-  background: linear-gradient(to bottom, var(--background-black-color), var(--background-dark-color));
+  background: var(--live-auction-card);
   overflow: hidden;
 }
 

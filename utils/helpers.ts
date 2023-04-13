@@ -240,7 +240,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-section-border', '#95dbd5')
     doc.style.setProperty('--outline-btn-border', '#202427')
     doc.style.setProperty('--ellipse-btn-shadow', 'rgba(32, 36, 39, 0.3)')
-    doc.style.setProperty('--nft-detail-bg', 'linear-gradient(to bottom, #eaebf2, #202427)')
+    doc.style.setProperty('--nft-detail-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     doc.style.setProperty('--nft-detail-border', '#C5C7CC')
     doc.style.setProperty('--alpha-area-border', '#eff0f6')
     doc.style.setProperty('--profile-menu-item-bg', '#202427')
@@ -389,6 +389,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
     doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.5')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
+    doc.style.setProperty('--category-chip-bg', '#C4C5CA')
+    doc.style.setProperty('--live-auction-card', '#323539')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -621,5 +623,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-btn-color', '#eff0f6')
     doc.style.setProperty('--hero-overlay-color', 'rgba(18, 18, 18, 0.5)')
     doc.style.setProperty('--hide-nft-border-color', '#95dbd5')
+    doc.style.setProperty('--category-chip-bg', 'rgba(239, 240, 247, 0.15)')
+    doc.style.setProperty('--live-auction-card', '#1b1b1b')
   }
 }
