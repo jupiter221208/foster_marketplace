@@ -40,6 +40,7 @@ const NFTSwiperSection = props => {
   const [nftList, setNFTList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
   const [showFilter, setShowFilter] = useState<boolean>(false)
+
   useEffect(() => {
     let newList: any[] = []
     let tempItem: any[] = []
@@ -111,12 +112,12 @@ const NFTSwiperSection = props => {
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                   {item.map((nftItem: any, nftIndex) => (
                     <NFTCard
+                      token_id={nftItem.token_id}
                       image={nftItem.asset_url}
                       assetType={nftItem.asset_type}
                       coverImage={nftItem.cover_image_url}
                       nftName={nftItem.nft_name}
                       artistName={nftItem.artist_username}
-                      artistId={nftItem.artist_id}
                       price={nftItem.list_price}
                       showHideButton={showHideButton}
                       onClick={() => {
@@ -135,12 +136,12 @@ const NFTSwiperSection = props => {
             {nfts.map((item, index) => (
               <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
                 <NFTCard
+                  token_id={item.token_id}
                   image={item.asset_url}
                   assetType={item.asset_type}
                   coverImage={item.cover_image_url}
                   nftName={item.nft_name}
                   artistName={item.artist_username}
-                  artistId={item.artist_id}
                   price={item.list_price}
                   onClick={() => {
                     dispatch({ type: 'set', isLoading: true })

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -13,12 +13,14 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const HeroCard = props => {
   const { data } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const [loaded, setLoaded] = useState(false)
 
   const onClick = () => {}
 
@@ -37,30 +39,63 @@ const HeroCard = props => {
       <div className={styles.imageArea}>
         <div className={styles.imageContent}>
           {data.asset_type.includes('image') ? (
-            <img
-              src={
-                data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                  ? data.asset_url
-                  : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                  ? data.cover_image_url
-                  : '/images/banner.png'
-              }
-              alt=""
-              width={550}
-              height={772}
-              className="w-full h-full object-cover rounded-[24px]"
-              onClick={() => gotoNftDetailPage()}
-            />
+            <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
+              <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                <img
+                  src={
+                    data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                      ? data.asset_url
+                      : data.cover_image_url !== '' &&
+                        data.cover_image_url !== null &&
+                        data.cover_image_url !== undefined
+                      ? data.cover_image_url
+                      : '/images/banner.png'
+                  }
+                  alt=""
+                  width={550}
+                  height={772}
+                  className="w-full h-full object-cover rounded-[24px]"
+                />
+              </ReactPlaceholder>
+
+              {!loaded && (
+                <img
+                  src={
+                    data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                      ? data.asset_url
+                      : data.cover_image_url !== '' &&
+                        data.cover_image_url !== null &&
+                        data.cover_image_url !== undefined
+                      ? data.cover_image_url
+                      : '/images/banner.png'
+                  }
+                  alt=""
+                  width={550}
+                  height={772}
+                  className="w-full h-full object-cover rounded-[24px]"
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                />
+              )}
+            </div>
           ) : data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <img
-                    src={data.cover_image_url}
-                    alt=""
-                    className="w-full h-full object-cover"
-                    onClick={() => gotoNftDetailPage()}
-                  />
+                  <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                      <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
+                    </ReactPlaceholder>
+                    {!loaded && (
+                      <img
+                        src={data.cover_image_url}
+                        alt=""
+                        className="w-full h-full object-cover"
+                        onLoad={() => setLoaded(true)}
+                      />
+                    )}
+                  </div>
                 ) : (
                   <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
                 )}
@@ -77,12 +112,23 @@ const HeroCard = props => {
             )
           ) : data.asset_type.includes('audio') ? (
             data.cover_image_url !== null && data.cover_image_url !== '' ? (
-              <img
-                src={data.cover_image_url}
-                alt=""
-                className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                onClick={() => gotoNftDetailPage()}
-              />
+              <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <img
+                    src={data.cover_image_url}
+                    alt=""
+                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                  />
+                </ReactPlaceholder>
+                {!loaded && (
+                  <img
+                    src={data.cover_image_url}
+                    alt=""
+                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                    onLoad={() => setLoaded(true)}
+                  />
+                )}
+              </div>
             ) : (
               <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
             )

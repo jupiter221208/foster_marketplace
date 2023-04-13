@@ -15,7 +15,7 @@ import styles from './index.module.scss'
 import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 
 const NFTSection = props => {
-  const { nfts, collections, wallet } = props
+  const { nfts, collections, wallet, isOwn } = props
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   useEffect(() => {
@@ -43,7 +43,7 @@ const NFTSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <NFTSwiperSection nfts={nfts} showHideButton={true} />
+          <NFTSwiperSection nfts={nfts} showHideButton={isOwn} />
           <LiveAuctionSection category={''} artist={wallet} />
           <ActiveListingSection artist={wallet} />
         </div>

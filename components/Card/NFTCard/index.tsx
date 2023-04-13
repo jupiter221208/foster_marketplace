@@ -21,13 +21,17 @@ import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 
+import nftAPI from 'apis/nfts'
+import { useDispatch } from 'react-redux'
+import LoadingModal from 'components/Modal/LoadingModal'
+
 const DashboardNFTCard = props => {
   const {
+    token_id,
     image,
     nftName,
     coverImage = '',
     artistName,
-    artistId,
     collectionName,
     assetType,
     price,
@@ -36,11 +40,24 @@ const DashboardNFTCard = props => {
     showHideButton = false,
   } = props
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const [play, setPlay] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const hideNFTCard = () => {}
+  const performHideNft = () => {
+    setIsLoading(true)
+
+    nftAPI.hideNft(token_id).then(
+      response => {
+        setIsLoading(false)
+        setDisplayHideConfirm(false)
+        dispatch({ type: 'set', hideNftToken: token_id })
+      },
+      error => {}
+    )
+  }
 
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
@@ -186,27 +203,33 @@ const DashboardNFTCard = props => {
       </div>
       {displayHideConfirm && (
         <div className={styles.hideConfirm}>
-          <div className="flex h-full items-center justify-center">
-            <div>
-              <div className={styles.hideText}>
-                This action will hide the artwork from your profile page.
-                <br />
-                <br />
-                Would you like to proceed?
-              </div>
-              <div className="flex gap-[19px] mt-[50px] justify-center">
-                <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
-                  Cancel
+          {isLoading ? (
+            <div className={styles.loading}>
+              <LoadingModal open={isLoading} />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div>
+                <div className={styles.hideText}>
+                  This action will hide the artwork from your profile page.
+                  <br />
+                  <br />
+                  Would you like to proceed?
                 </div>
-                <div className={styles.hideButton} onClick={() => hideNFTCard()}>
-                  <div className="flex gap-[6px]">
-                    <Image src={HideSmallIcon} alt="" />
-                    <div className={styles.hideButtonText}>Hide</div>
+                <div className="flex gap-[19px] mt-[50px] justify-center">
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                    Cancel
+                  </div>
+                  <div className={styles.hideButton} onClick={() => performHideNft()}>
+                    <div className="flex gap-[6px]">
+                      <Image src={HideSmallIcon} alt="" />
+                      <div className={styles.hideButtonText}>Hide</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

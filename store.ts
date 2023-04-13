@@ -26,6 +26,7 @@ const initialState = {
   bidWalletLock: 0,
   offerWalletLock: 0,
   loginAndRefresh: false,
+  hideNftToken: '',
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

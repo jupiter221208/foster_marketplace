@@ -42,6 +42,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const dispatch = useDispatch()
   dispatch({ type: 'set', isLoading: false })
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
+  const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const [statsInfo, setStatsInfo] = useState<any>({})
@@ -67,6 +68,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       500
     )
   }, [])
+
+  useEffect(() => {
+    if (hideNftToken.length > 0) {
+      let newNfts = nfts.filter(item => item.token_id !== hideNftToken)
+      setNfts(newNfts)
+      dispatch({ type: 'set', hideNftToken: '' })
+      dispatch({ type: 'set', isLoading: false })
+    }
+  }, [hideNftToken])
 
   useEffect(() => {
     if (connected && loginAndRefresh) {
@@ -221,7 +231,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           artistEnable={artistEnable}
           setArtistEnable={enabled => setArtistEnable(enabled)}
         />
-        <NFTSection nfts={nfts} collections={collections} wallet={artistInfo?.wallet_id} />
+        <NFTSection nfts={nfts} collections={collections} wallet={artistInfo?.wallet_id} isOwn={isOwn} />
       </div>
     </div>
   )
