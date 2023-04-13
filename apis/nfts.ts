@@ -129,6 +129,16 @@ class Nfts {
       return response.data
     })
   }
+  hideNft(token_id) {
+    return client.post(API_URL + 'v1/nfts/hide/' + token_id).then(response => {
+      return response.data
+    })
+  }
+  unhideNft(token_id) {
+    return client.delete(API_URL + 'v1/nfts/hide/' + token_id).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Nfts()
