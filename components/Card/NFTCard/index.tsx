@@ -40,7 +40,7 @@ const DashboardNFTCard = props => {
   const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
 
-  useEffect(() => {}, [])
+  const hideNFTCard = () => {}
 
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
@@ -198,7 +198,7 @@ const DashboardNFTCard = props => {
                 <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
                   Cancel
                 </div>
-                <div className={styles.hideButton}>
+                <div className={styles.hideButton} onClick={() => hideNFTCard()}>
                   <div className="flex gap-[6px]">
                     <Image src={HideSmallIcon} alt="" />
                     <div className={styles.hideButtonText}>Hide</div>

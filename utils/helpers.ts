@@ -388,6 +388,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-btn-bg', '#121212')
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
     doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.5')
+    doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -619,5 +620,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
     doc.style.setProperty('--follow-btn-color', '#eff0f6')
     doc.style.setProperty('--hero-overlay-color', 'rgba(18, 18, 18, 0.5)')
+    doc.style.setProperty('--hide-nft-border-color', '#95dbd5')
   }
 }
