@@ -715,7 +715,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                   </div>
                 </div>
               </div>
-              <div className="w-full mt-[30px]">
+              {/* <div className="w-full mt-[30px]">
                 <div className={styles.descriptionTitle}>Description</div>
                 <div className={styles.descriptionContent}>{nftDescription}</div>
               </div>
@@ -730,7 +730,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                     <SmallCategoryChip data={item} key={index} />
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
@@ -857,7 +857,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
               )}
 
               <div className="mx-auto w-full mt-4">
-                {/* <Disclosure>
+                <Disclosure>
                   {({ open }) => (
                     <>
                       <Disclosure.Button
@@ -921,7 +921,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                     </>
                   )}
                 </Disclosure>
-                <Disclosure as="div" className="mt-2">
+                {/*<Disclosure as="div" className="mt-2">
                   {({ open }) => (
                     <>
                       <Disclosure.Button

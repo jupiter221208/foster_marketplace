@@ -172,10 +172,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
-    doc.style.setProperty(
-      '--header-bg-color',
-      'linear-gradient(90deg, rgba(185, 186, 192, 0.7) 0%, rgba(227, 228, 235, 0.7) 50%, rgba(228, 229, 236, 0.7) 100%)'
-    )
+    // doc.style.setProperty(
+    //   '--header-bg-color',
+    //   'linear-gradient(90deg, rgba(185, 186, 192, 0.7) 0%, rgba(227, 228, 235, 0.7) 50%, rgba(228, 229, 236, 0.7) 100%)'
+    // )
+    doc.style.setProperty('--header-bg-color', 'rgba(228, 228, 228, 0.8)')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
@@ -408,10 +409,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-light-color-rgb', '239, 240, 247')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
-    doc.style.setProperty(
-      '--header-bg-color',
-      'linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)'
-    )
+    // doc.style.setProperty(
+    //   '--header-bg-color',
+    //   'linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)'
+    // )
+    doc.style.setProperty('--header-bg-color', 'rgba(18, 18, 18, 0.7)')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.6)')
     doc.style.setProperty('--search-menu-icon-color', '#eff0f6')
     doc.style.setProperty('--outline-button-border', '#5ac3ba')

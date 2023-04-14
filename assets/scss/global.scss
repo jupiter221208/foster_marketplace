@@ -75,12 +75,13 @@
   --background-light-color: #eff0f6;
   --background-light-color-rgb: 239, 240, 247;
 
-  --header-bg-color: linear-gradient(
-    90deg,
-    rgba(48, 98, 96, 0.7) 0%,
-    rgba(20, 32, 33, 0.7) 50%,
-    rgba(32, 36, 39, 0.7) 70%
-  );
+  // --header-bg-color: linear-gradient(
+  //   90deg,
+  //   rgba(48, 98, 96, 0.7) 0%,
+  //   rgba(20, 32, 33, 0.7) 50%,
+  //   rgba(32, 36, 39, 0.7) 70%
+  // );
+  --header-bg-color: rgba(18, 18, 18, 0.8)
   --header-mobile-bg-color: rgba(206, 208, 213, 0.8);
 
   --avatar-border-color1: #4ea19b;
