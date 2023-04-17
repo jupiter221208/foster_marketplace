@@ -172,11 +172,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
-    // doc.style.setProperty(
-    //   '--header-bg-color',
-    //   'linear-gradient(90deg, rgba(185, 186, 192, 0.7) 0%, rgba(227, 228, 235, 0.7) 50%, rgba(228, 229, 236, 0.7) 100%)'
-    // )
-    doc.style.setProperty('--header-bg-color', 'rgba(228, 228, 228, 0.8)')
+    doc.style.setProperty('--header-bg-color', 'rgba(203, 205, 210, 0.8)')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
