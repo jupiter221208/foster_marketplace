@@ -285,10 +285,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-box-shadow', '0px 0px 0px transparent')
     doc.style.setProperty('--wallet-btn-bg', '#202427')
     doc.style.setProperty('--wallet-btn-hover', '#95DBD5')
-    doc.style.setProperty(
-      '--collection-card-bg',
-      'linear-gradient(to bottom, rgba(239, 240, 247, 1), rgba(32, 36, 39, 1)'
-    )
+    doc.style.setProperty('--collection-card-bg', '#CBCDD2')
     doc.style.setProperty('--collection-card-border', '0px')
     doc.style.setProperty('--profile-card-bg', '#eff0f6')
     doc.style.setProperty('--mynft-outline-border', '#95DBD5')
@@ -331,8 +328,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--filter-btn-border', '#EFF0F6')
     doc.style.setProperty('--ellipse-svg-1', 'transparent')
     doc.style.setProperty('--ellipse-svg-2', 'transparent')
-    // doc.style.setProperty('--ellipse-svg-1', '#78787b')
-    // doc.style.setProperty('--ellipse-svg-2', '#202427')
     doc.style.setProperty('--ellipse-stop-2', '#202427')
     doc.style.setProperty('--tooltip-bg', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--tooltip-border', 'rgba(32, 36, 39, 0.1)')
@@ -371,7 +366,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--card-border-color', '#C1C2C9')
     doc.style.setProperty('--search-menu-icon-color', '#202427')
     doc.style.setProperty('--social-bg-color', '#E0E1E7')
-    doc.style.setProperty('--nft-border-color', '#D7D8DE')
+    doc.style.setProperty('--nft-border-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--address-btn-bg-color', '#CBCDD2')
     doc.style.setProperty('--stats-bg-color', '#E0E1E7')
     doc.style.setProperty('--tab-bottom-color', '#202427')
@@ -409,10 +404,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-light-color-rgb', '239, 240, 247')
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
-    // doc.style.setProperty(
-    //   '--header-bg-color',
-    //   'linear-gradient(90deg, rgba(48, 98, 96, 0.7) 0%, rgba(20, 32, 33, 0.7) 50%, rgba(32, 36, 39, 0.7) 100%)'
-    // )
     doc.style.setProperty('--header-bg-color', 'rgba(18, 18, 18, 0.7)')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.6)')
     doc.style.setProperty('--search-menu-icon-color', '#eff0f6')

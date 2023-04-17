@@ -8,7 +8,8 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
@@ -178,12 +179,11 @@ const DashboardNFTCard = props => {
               <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
               {!showHideButton && price && (
                 <div className="flex justify-center items-center">
-                  <Image
-                    src={SolanaLogoIcon}
-                    alt=""
-                    width={viewport === 'xs' ? 10 : viewport === 'sm' || viewport === 'md' ? 15 : 17}
-                    height={viewport === 'xs' ? 8 : viewport === 'sm' || viewport === 'md' ? 13 : 15}
-                  />
+                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                    <SolanaLogoMobileIcon />
+                  ) : (
+                    <SolanaLogoIcon />
+                  )}
                   <div className={styles.price}>{formattedAmount(price)}</div>
                 </div>
               )}
