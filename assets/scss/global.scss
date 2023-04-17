@@ -173,7 +173,7 @@
   --search-item-color: #eff0f6;
 
   --resource-card-title: #95dbd5;
-  --nft-detail-section-bg: linear-gradient(to bottom, #212626, #253c3a);
+  --nft-detail-section-bg: #2b2b2b;
   --nft-detail-section-border: rgba($text-gray-200-color, 0.1);
   --nft-detail-bg: $background-black-color;
   --nft-detail-border: rgba(239, 240, 247, 0.1);
@@ -318,6 +318,9 @@
   --hide-nft-border-color: #95dbd5;
   --category-chip-bg: rgba(239, 240, 247, 0.15);
   --live-auction-card: #1b1b1b;
+  --accordian-header-bg: #1b1b1b;
+  --accordian-area-bg: #1b1b1b;
+  --secondary-button-border: #95dbd5;
 }
 
 html,
@@ -1201,7 +1204,7 @@ h6 {
 }
 
 [data-name='activity-down-icon'] {
-  fill: #95dbd5;
+  fill: var(--main-icon-color);
 }
 
 [data-name='solana-logo-dark'] {
@@ -1241,6 +1244,10 @@ h6 {
   [data-fill='a'] {
     fill: var(--stats-bg-color);
   }
+}
+
+[data-name='three-ellipse-icon'] {
+  fill: var(--main-bg-color);
 }
 
 [data-name='hide-icon'] {

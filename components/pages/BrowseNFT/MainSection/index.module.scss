@@ -243,9 +243,13 @@
 
 .whiteTitle {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 36px;
-  color: var(--white-color);
+  font-size: 18px;
+  line-height: 26px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 36px;
+  }
+  color: var(--text-gray-200-color);
 }
 
 .title {
@@ -310,7 +314,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.75);
+  color: var(--text-gray-200-color);
 }
 
 .greenRoyalties {
@@ -321,7 +325,7 @@
     font-size: 16px;
     line-height: 24px;
   }
-  color: $brand-09-color;
+  color: var(--main-icon-color);
 }
 
 .whiteRoyalties {
@@ -331,14 +335,14 @@
     font-size: 12px;
   }
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .greenDiscription {
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 18px;
-  color: $brand-09-color;
+  color: var(--main-icon-color);
   cursor: pointer;
   &:hover {
     @media (min-width: 1024px) {
@@ -374,7 +378,7 @@
   padding-right: 12px;
   border-radius: 12px;
   // border: 1px solid rgba(#eceef4, 0.1);
-  background-color: var(--live-auction-card);
+  background-color: var(--accordian-header-bg);
 
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -407,12 +411,12 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
-  border: 1px solid var(--nft-detail-section-border); //rgba(var(--text-gray-200-color-rgb), 0.1);
-  background: var(--nft-detail-section-bg); //linear-gradient(to bottom, #212626, #253c3a);
+  border: 1px solid var(--nft-detail-section-border);
+  background: var(--nft-detail-section-bg);
 
   font-family: 'Muli-Bold';
   font-size: 18px;
-  color: var(--text-gray-200-color);
+  color: $text-gray-200-color;
 }
 
 .accordionArea {
@@ -426,7 +430,7 @@
   }
   border-radius: 0px 0px 12px 12px;
   border: 1px solid rgba(#eceef4, 0.1);
-  background-color: #1f2020;
+  background-color: var(--accordian-area-bg);
 }
 
 .tableTitle {
@@ -440,7 +444,7 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.74);
+  color: rgba(var(--text-gray-200-color-rgb), 0.74);
 }
 
 .activityUser {

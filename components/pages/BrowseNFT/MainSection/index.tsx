@@ -46,19 +46,20 @@ import { loadAuctionHouse } from 'utils/auction.util'
 import { placeBid } from 'utils/auctioneer.util'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
-import TagWhiteIcon from 'assets/icons/tag-white.svg'
-import DescriptionGreenIcon from 'assets/icons/description-green.svg'
+import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
+import DescriptionGreenIcon from 'assets/icons/description-green.svg?component'
 import DescriptionBlackIcon from 'assets/icons/description-black.svg'
 import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
 import PriceHistoryBlackIcon from 'assets/icons/price-history-black.svg'
-import NotificationGreenIcon from 'assets/icons/notification-green.svg'
+import NotificationGreenIcon from 'assets/icons/notification-icon.svg?component'
 import NotificationBlackIcon from 'assets/icons/notification-black.svg'
 import SaleGreenIcon from 'assets/icons/sale-green.svg'
-import SaleLightIcon from 'assets/icons/sale-light.svg'
+import SaleLightIcon from 'assets/icons/sale-light.svg?component'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
-import TagLightIcon from 'assets/icons/tag-light.svg'
+import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import HeartEmptyLightIcon from 'assets/icons/heart-empty-light.svg'
 
@@ -121,6 +122,7 @@ import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import DateSelect from 'components/DateSelect'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -737,8 +739,13 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <>
                   <div className="w-full flex items-center mt-[77px] lg:mt-4">
                     <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                    <div className="w-[24px] h-[24px]">
-                      <Image src={SolanaLogoIcon} alt="" width={24} height={24} />
+                    <div className="flex items-center">
+                      {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
+                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                        <SolanaLogoMobileIcon alt="" />
+                      ) : (
+                        <SolanaLogoIcon alt="" />
+                      )}
                     </div>
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
@@ -756,7 +763,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                       ) : (
                         <LoadingButton />
                       )}
-                      <OutlineButton
+                      <SecondaryButton
                         label="Make Offer"
                         onClick={() => {
                           if (!connected) {
@@ -765,11 +772,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                           }
                           setOpenOfferModal(true)
                         }}
-                        icon={TagWhiteIcon}
+                        icon={<TagWhiteIcon alt="" />}
                         direction="rtl"
                         borderWidth={2}
-                        color="#eff0f6"
-                        borderColor="#95dbd5"
                         paddingLeft="13px"
                         paddingRight="13px"
                         gap="4px"
@@ -869,33 +874,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                         onClick={() => clickRecent(0)}
                       >
                         <div className="flex items-center gap-3">
-                          {open ? (
-                            <svg
-                              id="Description_Icon"
-                              data-name="Description Icon"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="46"
-                              height="46"
-                              viewBox="0 0 46 46"
-                            >
-                              <path
-                                id="noun-description-3643854-EFF0F6"
-                                d="M37.343,11.408,31.772,5.831a2.343,2.343,0,0,0-1.647-.682H20.31A2.314,2.314,0,0,0,18,7.453V30.927a2.313,2.313,0,0,0,2.3,2.3H35.722a2.313,2.313,0,0,0,2.31-2.311V13.055a2.317,2.317,0,0,0-.688-1.647ZM20.191,24.82a.915.915,0,0,1,.915-.915h6.573a.915.915,0,0,1,0,1.829H21.106a.914.914,0,0,1-.915-.915ZM34.926,22.6H21.106a.915.915,0,0,1,0-1.829h13.82a.915.915,0,0,1,0,1.829Zm0-3.13H21.106a.915.915,0,1,1,0-1.829h13.82a.915.915,0,0,1,0,1.829Zm0-3.13H21.106a.915.915,0,0,1,0-1.829h13.82a.915.915,0,0,1,0,1.829Z"
-                                transform="translate(-5.017 3.809)"
-                                fill="var(--menu-item-activity-icon)"
-                              />
-                              <rect
-                                id="Rectangle_20893"
-                                data-name="Rectangle 20893"
-                                width="46"
-                                height="46"
-                                fill="none"
-                              />
-                            </svg>
-                          ) : (
-                            <Image src={DescriptionGreenIcon} alt="" />
-                          )}
-
+                          <DescriptionGreenIcon alt="" />
                           <div>Description</div>
                         </div>
                         <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
@@ -1088,7 +1067,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                               </g>
                             </svg>
                           ) : (
-                            <Image src={NotificationGreenIcon} alt="" />
+                            // <Image src={NotificationGreenIcon} alt="" />
+                            <NotificationGreenIcon alt="" />
                           )}
                           <div>Activity</div>
                         </div>
@@ -1139,7 +1119,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                       <></>
                                     ) : (
                                       <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
-                                        <Image
+                                        {/* <Image
                                           src={item.action_type === 'AuctionStarted' ? SaleLightIcon : TagLightIcon}
                                           alt=""
                                           width={
@@ -1148,7 +1128,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                           height={
                                             viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
                                           }
-                                        />
+                                        /> */}
+                                        {item.action_type === 'AuctionStarted' ? (
+                                          <SaleLightIcon alt="" />
+                                        ) : (
+                                          <TagLightIcon alt="" />
+                                        )}
                                       </div>
                                     )}
                                     <div className={`ml-2 ${styles.activityInline}`}>
@@ -1159,7 +1144,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                                 <td className="w-[60px]">
                                   <div className="flex items-center mx-2 gap-1 ">
                                     <div className="min-w-[18px] flex items-center">
-                                      <Image src={SolanaLogoIcon} alt="" width={18} height={18} />
+                                      {/* <Image src={SolanaLogoIcon} alt="" width={18} height={18} /> */}
+                                      <SolanaLogoIcon alt="" />
                                     </div>
                                     <div className="">
                                       {isAmountExisting(item.action_type) ? Number(item.amount).toFixed(2) : 'N/A'}
