@@ -9,10 +9,10 @@ import { Menu, Transition } from '@headlessui/react'
 import { useViewport } from 'utils'
 
 // images and icons
-import FileCopyIcon from 'assets/icons/copy-alt-white-32x32.svg'
-import TwitterUnfilledWhiteIcon from 'assets/icons/twitter-unfilled-white-32x32.svg'
-import FacebookWhiteIcon from 'assets/icons/facebook-white-32x32.svg'
-import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg'
+import FileCopyIcon from 'assets/icons/copy-alt-white-32x32.svg?component'
+import TwitterUnfilledWhiteIcon from 'assets/icons/twitter-unfilled-white-32x32.svg?component'
+import FacebookWhiteIcon from 'assets/icons/facebook-white-32x32.svg?component'
+import TelegramWhiteIcon from 'assets/icons/telegram-white-32x32.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
@@ -110,7 +110,8 @@ const MenuSocialShare = ({
             <Menu.Item>
               {({ active }) => (
                 <div className={styles.menuItem} onClick={() => copyToClipboard(fullUrl)}>
-                  <Image src={FileCopyIcon} alt="" />
+                  {/* <Image src={FileCopyIcon} alt="" /> */}
+                  <FileCopyIcon alt="" />
                   Copy to Clipboard
                 </div>
               )}
@@ -127,7 +128,8 @@ const MenuSocialShare = ({
                   className="w-full"
                 >
                   <div className={styles.menuItem}>
-                    <Image src={TwitterUnfilledWhiteIcon} alt="" />
+                    {/* <Image src={TwitterUnfilledWhiteIcon} alt="" /> */}
+                    <TwitterUnfilledWhiteIcon alt="" />
                     Share on Twitter
                   </div>
                 </TwitterShareButton>
@@ -146,7 +148,8 @@ const MenuSocialShare = ({
                   className="w-full"
                 >
                   <div className={styles.menuItem}>
-                    <Image src={FacebookWhiteIcon} alt="" />
+                    {/* <Image src={FacebookWhiteIcon} alt="" /> */}
+                    <FacebookWhiteIcon alt="" />
                     Share on Facebook
                   </div>
                 </FacebookShareButton>
@@ -164,7 +167,8 @@ const MenuSocialShare = ({
                   className="w-full"
                 >
                   <div className={styles.menuItem}>
-                    <Image src={TelegramWhiteIcon} alt="" />
+                    {/* <Image src={TelegramWhiteIcon} alt="" /> */}
+                    <TelegramWhiteIcon alt="" />
                     Share on Telegram
                   </div>
                 </TelegramShareButton>

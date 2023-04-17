@@ -17,9 +17,7 @@
     right: 0px;
   }
 
-  background-color: rgba($background-dark-color, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--social-share-bg);
   border-radius: 15px;
   border: 1px solid rgba($background-light-color, 0.1);
   width: 172px;
@@ -42,7 +40,7 @@
   border-bottom: 1px solid transparent;
   &:hover {
     @media (min-width: 1024px) {
-      background-image: linear-gradient(to bottom, rgba($brand-01-color, 30%) 0%, rgba(#2d625d, 30%) 100%);
+      background: var(--social-share-hover);
       border-top: 1px solid rgba($background-light-color, 0.5);
       border-bottom: 1px solid rgba($background-light-color, 0.5);
     }
@@ -58,7 +56,7 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .ellipseArea {

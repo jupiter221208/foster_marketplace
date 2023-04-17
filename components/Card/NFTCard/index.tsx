@@ -20,7 +20,6 @@ import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 import styles from './index.module.scss'
 import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'

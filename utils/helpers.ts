@@ -386,6 +386,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--live-auction-card', '#323539')
     doc.style.setProperty('--accordian-header-bg', '#7C7E83')
     doc.style.setProperty('--accordian-area-bg', '#D6D8DD')
+    doc.style.setProperty('--social-share-bg', '#ffffff')
+    doc.style.setProperty('--social-share-hover', 'rgba(214, 216, 221, 1)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -610,7 +612,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-icon-stop-1', '#202427')
     doc.style.setProperty('--search-icon-stop-2', '#2D625D')
     doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.75)')
-    doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.2)')
+    doc.style.setProperty('--search-gray-icon-disable', 'rgba(255, 255, 255, 0.2)')
     doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
     doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
     doc.style.setProperty('--follow-btn-color', '#eff0f6')
@@ -620,5 +622,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--live-auction-card', '#1b1b1b')
     doc.style.setProperty('--accordian-header-bg', '#1b1b1b')
     doc.style.setProperty('--accordian-area-bg', '#1b1b1b')
+    doc.style.setProperty('--social-share-bg', '#121212')
+    doc.style.setProperty(
+      '--social-share-hover',
+      'linear-gradient(to bottom, rgba(90, 195, 186, 0.3) 0%, rgba(45, 98, 93, 0.3) 100%)'
+    )
   }
 }
