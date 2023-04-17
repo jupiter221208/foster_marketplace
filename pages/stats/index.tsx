@@ -13,6 +13,7 @@ import { useViewport } from 'utils'
 
 // json
 import TabList from 'assets/json/stats/tab-list.json'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -54,28 +55,7 @@ const Stats = () => {
       </Head>
       <div className={styles.container}>
         <div className={styles.topLeftEllipse}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '800' : '2321'}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '800' : '2321'}
-            viewBox="0 0 2321 2321"
-          >
-            <defs>
-              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-                <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
-                <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <circle
-              id="Ellipse_4322"
-              data-name="Ellipse 4322"
-              cx="1010.5"
-              cy="1010.5"
-              r="1010.5"
-              transform="translate(150 150)"
-              fill="url(#radial-gradient)"
-            />
-          </svg>
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>

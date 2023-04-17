@@ -375,7 +375,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.5')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     doc.style.setProperty('--category-chip-bg', '#C4C5CA')
-    doc.style.setProperty('--live-auction-card', '#323539')
+    doc.style.setProperty('--live-auction-card', '#202427')
     doc.style.setProperty('--accordian-header-bg', '#7C7E83')
     doc.style.setProperty('--accordian-area-bg', '#D6D8DD')
     doc.style.setProperty('--social-share-bg', '#ffffff')
