@@ -14,6 +14,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import HideIcon from 'assets/icons/hide-icon.svg?component'
+import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
 import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 
 // styles
@@ -168,6 +169,15 @@ const DashboardNFTCard = props => {
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
             )}
           </div>
+          {showHideButton === true && (
+            <div className={styles.hideBtnArea}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <HideMobileIcon onClick={() => setDisplayHideConfirm(true)} />
+              ) : (
+                <HideIcon onClick={() => setDisplayHideConfirm(true)} />
+              )}
+            </div>
+          )}
         </div>
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
@@ -176,7 +186,7 @@ const DashboardNFTCard = props => {
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
               <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
-              {!showHideButton && price && (
+              {price && (
                 <div className="flex justify-center items-center">
                   {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
                     <SolanaLogoMobileIcon />
@@ -188,11 +198,6 @@ const DashboardNFTCard = props => {
               )}
             </div>
           </div>
-          {showHideButton === true && (
-            <div className="absolute right-[0px] mr-1">
-              <HideIcon onClick={() => setDisplayHideConfirm(true)} />
-            </div>
-          )}
         </div>
         {unSave !== null && (
           <div className="mt-[10px]">

@@ -23,6 +23,29 @@
   }
 }
 
+.hideBtnArea {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  @media (min-width: 1024px) {
+    left: 20px;
+    top: 20px;
+    width: 52px;
+    height: 52px;
+    border-radius: 26px;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(239, 240, 247, 0.15);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
 .hideConfirm {
   position: absolute;
   left: 0px;
