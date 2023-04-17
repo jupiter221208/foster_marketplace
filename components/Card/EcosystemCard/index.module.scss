@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   height: 100%;
-  background: var(--ecosystem-card-bg);
+  background: var(--collection-card-bg);
   border-radius: 17px;
   padding: 8px;
   @media (min-width: 640px) {
@@ -27,7 +27,7 @@
     padding: 19px;
   }
   border: 1px solid var(--nft-border-color);
-  box-shadow: 0px 3px 6px rgba(black, 0.15);
+  box-shadow: 0px 3px 6px rgba(black, 0.3);
   cursor: pointer;
 }
 
@@ -67,7 +67,7 @@
     line-height: 36px;
   }
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -146,7 +146,7 @@
   }
 
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .text {
@@ -175,5 +175,5 @@
   }
 
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

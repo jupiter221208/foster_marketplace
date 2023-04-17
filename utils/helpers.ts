@@ -261,10 +261,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--stats-accordion-bg', '#eff0f6')
     doc.style.setProperty('--stats-accordion-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--stats-accordion-normal-border', 'rgba(32, 36, 39, 0.1)')
-    doc.style.setProperty(
-      '--ecosystem-card-bg',
-      'linear-gradient(to bottom, rgba(239, 240, 247, 1), rgba(32, 36, 39, 1))'
-    )
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--resource-accordion-dropdown-color', '#95dbd5')
     doc.style.setProperty('--resource-accordion-close-color', '#eff0f6')
@@ -500,7 +496,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--stats-accordion-bg', '#121212')
     doc.style.setProperty('--stats-accordion-border', '#95dbd5')
     doc.style.setProperty('--stats-accordion-normal-border', 'rgba(239, 240, 247, 0.1)')
-    doc.style.setProperty('--ecosystem-card-bg', 'rgba(18, 18, 18, 1)')
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(255, 255, 255, 0.2)')
     doc.style.setProperty('--resource-accordion-dropdown-color', '#eff0f6')
     doc.style.setProperty('--resource-accordion-close-color', '#95dbd5')
