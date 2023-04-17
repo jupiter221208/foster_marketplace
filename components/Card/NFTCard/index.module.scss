@@ -64,42 +64,62 @@
 
 .hideText {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 10px;
+  line-height: 13px;
+  padding: 0px 5px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+    padding: 0px 40px;
+  }
   color: #eff0f6;
   text-align: center;
-  padding: 0px 40px;
 }
 
 .hideCancelButton {
-  width: 106px;
-  height: 40px;
+  width: 67px;
+  height: 26px;
+  border-radius: 6px;
+  font-size: 10px;
+  @media (min-width: 1024px) {
+    border-radius: 8px;
+    width: 106px;
+    height: 40px;
+    font-size: 14px;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
   border: 1px solid $brand-09-color;
   background: transparent;
   font-family: 'Muli-SemiBold';
-  font-size: 14px;
+
   color: $brand-09-color;
   cursor: pointer;
 }
 
 .hideButton {
-  width: 106px;
-  height: 40px;
+  width: 67px;
+  height: 26px;
+  border-radius: 6px;
+  @media (min-width: 1024px) {
+    border-radius: 8px;
+    width: 106px;
+    height: 40px;
+  }
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 8px;
   background: linear-gradient(to right, $brand-12-color, $brand-09-color);
   cursor: pointer;
 }
 
 .hideButtonText {
   font-family: 'Muli-Bold';
-  font-size: 14px;
+  font-size: 10px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
   color: $background-dark-color;
 }
 

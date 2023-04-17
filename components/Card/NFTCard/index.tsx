@@ -16,6 +16,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import HideIcon from 'assets/icons/hide-icon.svg?component'
 import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
 import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
+import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -170,12 +171,8 @@ const DashboardNFTCard = props => {
             )}
           </div>
           {showHideButton === true && (
-            <div className={styles.hideBtnArea}>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <HideMobileIcon onClick={() => setDisplayHideConfirm(true)} />
-              ) : (
-                <HideIcon onClick={() => setDisplayHideConfirm(true)} />
-              )}
+            <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
             </div>
           )}
         </div>
@@ -220,13 +217,20 @@ const DashboardNFTCard = props => {
                   <br />
                   Would you like to proceed?
                 </div>
-                <div className="flex gap-[19px] mt-[50px] justify-center">
+                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
                   <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
                     Cancel
                   </div>
                   <div className={styles.hideButton} onClick={() => performHideNft()}>
                     <div className="flex gap-[6px]">
-                      <Image src={HideSmallIcon} alt="" />
+                      <Image
+                        src={
+                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
+                            ? HideSmallMobileIcon
+                            : HideSmallIcon
+                        }
+                        alt=""
+                      />
                       <div className={styles.hideButtonText}>Hide</div>
                     </div>
                   </div>
