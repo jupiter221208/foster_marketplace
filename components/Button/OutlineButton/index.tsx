@@ -50,7 +50,7 @@ const OutlineButton = props => {
         gap: gap,
       }}
     >
-      {direction === 'rtl' && icon !== '' && (
+      {icon !== '' && (
         <div className="flex items-center">
           <Image src={icon} alt="" />
         </div>

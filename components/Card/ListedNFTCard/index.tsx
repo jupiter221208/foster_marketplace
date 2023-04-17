@@ -11,7 +11,8 @@ import Button from 'components/Button'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -102,7 +103,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
         <div className="w-full flex justify-between items-center">
           <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
           <div className="flex items-center mt-2 gap-[6px]">
-            <Image src={SolanaLogoIcon} alt="" />
+            <SolanaLogoIcon alt="" />
             <div className={styles.nftName}>{getPriceValue(price)}</div>
           </div>
         </div>
@@ -173,7 +174,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
         <div className="w-full flex justify-between items-center">
           <div className={styles.artistName}>{getShortAddress(creatorAddress)}</div>
           <div className="flex items-center gap-[6px]">
-            <Image src={SolanaLogoIcon} width={15} height={15} alt="" />
+            <SolanaLogoMobileIcon alt="" />
             <div className={styles.price}>{getPriceValue(price)}</div>
           </div>
         </div>

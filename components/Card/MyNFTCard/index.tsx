@@ -13,6 +13,7 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 // styles
 import styles from './index.module.scss'
 import { getShortAddress } from 'utils/strings'
+import SecondaryButton from 'components/Button/SecondaryButton'
 
 const MyNFTCard = props => {
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
@@ -69,11 +70,8 @@ const MyNFTCard = props => {
               disabled={publicKey?.toBase58() !== data.creators[0].address.toString()}
             />
           )}
-          <OutlineButton
+          <SecondaryButton
             backgroundColor="transparent"
-            color="#EFF0F6"
-            borderColor={'var(--mynft-outline-border)'}
-            borderWidth="2"
             label="List NFT"
             onClick={() => onClickListNFT(data)}
             height="40px"

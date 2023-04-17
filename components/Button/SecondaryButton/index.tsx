@@ -9,13 +9,11 @@ import styles from './index.module.scss'
 
 const SecondaryButton = props => {
   const {
-    backgroundColor = '',
     borderColor,
     borderRadius = '',
     color,
-    fontSize = '',
-    fontFamily = '',
     fullWidth,
+    fontSize,
     height = '',
     icon = '',
     label,
@@ -29,20 +27,15 @@ const SecondaryButton = props => {
       onClick={() => onClick()}
       className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
       style={{
-        backgroundColor: backgroundColor,
         color: color,
         borderColor: borderColor,
         borderRadius: borderRadius,
-        fontSize: fontSize,
-        fontFamily: fontFamily,
         height: height,
+        fontSize: fontSize,
         width: fullWidth ? '100%' : width,
       }}
     >
-      <div className="flex items-center">
-        {/* <Image src={icon} alt="" /> */}
-        {icon}
-      </div>
+      {icon !== '' && <div className="flex items-center">{icon}</div>}
 
       <div>{label}</div>
     </button>
