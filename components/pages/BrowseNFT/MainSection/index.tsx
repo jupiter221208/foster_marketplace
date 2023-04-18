@@ -750,7 +750,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <>
                   <div className="w-full flex items-center mt-[77px] lg:mt-4">
                     <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                    <div className="flex items-center">
+                    <div className="flex items-center mt-[3px]">
                       {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                         <SolanaLogoMobileIcon alt="" />
