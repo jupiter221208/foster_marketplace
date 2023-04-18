@@ -1,10 +1,7 @@
 [
   { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "path": "/artist-profile?id=" },
   { "id": 1, "icon": "/icons/dashboard-green.svg", "label": "Dashboard", "path": "/dashboard" },
-  { "id": 2, "icon": "/icons/notification-green.svg", "label": "Notifications", "path": "/notifications" },
   { "id": 3, "icon": "/icons/statistic-green.svg", "label": "Stats", "path": "/stats" },
-  { "id": 4, "icon": "/icons/dao-green.svg", "label": "DAO", "path": "/dao" },
-  { "id": 5, "icon": "/icons/resource-green.svg", "label": "Resources", "path": "/resources" },
   { "id": 6, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/settings" },
   { "id": 7, "icon": "/icons/logout-green.svg", "label": "Logout", "path": "/" }
 ]

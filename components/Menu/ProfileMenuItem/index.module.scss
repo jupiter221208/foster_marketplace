@@ -17,7 +17,7 @@
   &:hover {
     @media (min-width: 1024px) {
       background-color: var(--profile-menu-item-bg);
-      color: #95dbd5;
+      color: $text-gray-200-color;
     }
   }
 }

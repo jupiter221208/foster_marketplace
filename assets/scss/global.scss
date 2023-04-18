@@ -1225,6 +1225,10 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='home-menu-icon'] {
+  fill: var(--secondary-button-border);
+}
+
 [data-name='search-icon'] {
   fill: var(--search-menu-icon-color);
 }
