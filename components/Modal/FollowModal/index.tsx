@@ -242,7 +242,7 @@ const FollowModal = props => {
                                 </div>
                               </div>
                               {ownWallet !== item.wallet_id && (
-                                <div className="w-24 lg:w-[146px]">
+                                <div className="w-24 lg:w-[122px]">
                                   {item.following === false ? (
                                     <PositiveButton
                                       label="Follow"

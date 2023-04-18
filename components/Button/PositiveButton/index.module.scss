@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 40px;
-  background: var(--follow-bg-color);
+  background: linear-gradient(to right, #4b6e6b, #95dbd5);
   font-size: 14px;
 
   @media (min-width: 1024px) {
@@ -24,7 +24,7 @@
   border-radius: 8px;
   font-family: 'Muli-Bold';
   letter-spacing: 0;
-  color: var(--follow-text-color);
+  color: $background-dark-color;
   filter: drop-shadow(0px 3px 6px rgba(var(--brand-01-color), 0.16));
   &:hover {
     @media (min-width: 1024px) {

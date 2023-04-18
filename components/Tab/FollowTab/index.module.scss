@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   font-family: 'Muli-SemiBold';
-  color: rgba($text-gray-200-color, 0.6);
+  color: var(--text-gray-200-color);
   border-bottom: 3px solid transparent;
   &:focus {
     outline: none;
@@ -66,8 +66,8 @@
 }
 
 .activeTab {
-  border-bottom: 2px solid var(--brand-01-color);
-  color: $text-gray-200-color;
+  border-bottom: 2px solid var(--main-icon-color);
+  color: var(--text-gray-200-color);
 }
 
 .lightActiveTab {
