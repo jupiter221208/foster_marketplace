@@ -61,18 +61,19 @@ import SaleLightIcon from 'assets/icons/sale-light.svg?component'
 import TagGreenIcon from 'assets/icons/tag-green.svg'
 import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
-import HeartEmptyLightIcon from 'assets/icons/heart-empty-light.svg'
+import HeartWhiteMobileIcon from 'assets/icons/heart-filled-white-13x12.svg'
 
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
-import HeartFilledLightIcon from 'assets/icons/heart-filled-light.svg'
+import HeartFilledRedMobileIcon from 'assets/icons/heart-filled-red-13x12.svg'
 
 import ShareWhiteIcon from 'assets/icons/share-white.svg'
 import ShareBlackIcon from 'assets/icons/share-black.svg'
 
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
-import TicketWhiteLightIcon from 'assets/icons/ticket-white-light.svg'
+import TicketWhiteMobileIcon from 'assets/icons/ticket-white-9x12.svg'
 
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
+import TicketGreenSmallIcon from 'assets/icons/ticket-green-9x12.svg'
 import TicketGreenLightIcon from 'assets/icons/ticket-green-light.svg'
 import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
@@ -667,11 +668,20 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer mr-[16px]" onClick={() => changeLikeStatus()}>
-                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                        <Image src={like ? HeartFilledRedMobileIcon : HeartWhiteMobileIcon} alt="" className="" />
+                      ) : (
+                        <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                      )}
                       <div className={styles.text}>{likeCount}</div>
                     </div>
                     <div className="flex items-center cursor-pointer mr-[10px]" onClick={() => changeSaveStatus()}>
-                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                        <Image src={save ? TicketGreenSmallIcon : TicketWhiteMobileIcon} alt="" className="" />
+                      ) : (
+                        <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
+                      )}
+
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
