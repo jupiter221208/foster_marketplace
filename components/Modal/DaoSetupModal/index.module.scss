@@ -18,12 +18,12 @@
   height: 100%;
   background-origin: border-box;
   border: 1px solid rgba(var(--background-light-color), 0.25);
-  box-shadow: 0px 13px 36px #061a1c;
-  padding: 21px;
-  background: linear-gradient(to bottom, var(--background-black-color), #173639);
+  box-shadow: 0px 13px 36px rgba(#061a1c, 0.3);
+  padding: 10px;
+  background: var(--dao-setup-left); //linear-gradient(to bottom, var(--background-black-color), #173639);
   border-radius: 21px;
   @media (min-width: 1024px) {
-    background: linear-gradient(to bottom, #326f74, #202a2c);
+    background: $background-dark-color; //linear-gradient(to bottom, #326f74, #202a2c);
     padding: 35px 25px;
     border-radius: 30px;
   }
@@ -46,7 +46,7 @@
   height: 577px;
   max-width: 488px;
   text-align: center;
-  background: linear-gradient(to bottom, var(--background-dark-color), #173639);
+  background: var(--dao-setup-left); //linear-gradient(to bottom, var(--background-dark-color), #173639);
   border-radius: 21px;
   box-shadow: 0px 13px 36px rgba(#061a1c, 0.5);
   @media (min-width: 1024px) {
@@ -66,16 +66,19 @@
 
 .text {
   margin-top: 36px;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
   @media (min-width: 1024px) {
     margin-top: 30px;
     font-family: 'Muli-Regular';
     font-size: 20px;
+    padding: 0px;
   }
   text-align: start;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .rightBack {
@@ -87,12 +90,12 @@
 
 .learnMore {
   position: absolute;
-  left: 34px;
+  left: 20px;
   bottom: 30px;
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 36px;
-  color: var(--brand-11-color);
+  color: var(--main-icon-color);
   text-decoration: underline;
   cursor: pointer;
   @media (min-width: 1024px) {

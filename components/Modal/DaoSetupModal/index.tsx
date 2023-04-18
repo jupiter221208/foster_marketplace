@@ -16,7 +16,9 @@ import { useViewport } from 'utils'
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import TcDAOLogo from 'assets/images/TC_DAO_Logo.png'
+import CloseIconMobile from 'assets/icons/close-wallet-mobile.svg'
+import DaoLogoSmall from 'assets/icons/dao-logo-small.svg?component'
+import DaoLogoSmallMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -56,20 +58,19 @@ const DaoSetupModal = props => {
                 >
                   <Dialog.Panel className={styles.modalView}>
                     <div className={styles.close} onClick={() => close()}>
-                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                      <Image src={CloseIconMobile} alt="" width={30} height={30} />
                     </div>
                     <div className="w-full h-[353px]">
                       <div className="w-full flex justify-center mt-[67px]">
-                        <div className="w-[294px] h-[83px]">
-                          <Image src={TcDAOLogo} alt="" />
-                        </div>
+                        <DaoLogoSmallMobile alt="" />
                       </div>
                       <div className={styles.text}>
-                        Turkey Circus holders inherit a 5% revenue share of Foster House Collections and an autonomous
-                        vote in the DAO governing Foster Protocol provisions.
+                        Turkey Circus is a digital art collection representing the governance wing of Foster
+                        Marketplace. Minting a Turkey grants ownership into the Circus DAO; a group of Web 3 creatives
+                        shaping the evolution of Art on Solana.
                       </div>
                       <div className={styles.learnMore} onClick={() => router.push('https://mint.turkeycircus.io/ ')}>
-                        Learn more
+                        Join CircusDAO
                       </div>
                     </div>
                   </Dialog.Panel>
@@ -114,16 +115,15 @@ const DaoSetupModal = props => {
                     <div className="w-full h-full grid grid-cols-12 z-10">
                       <div className={styles.leftPanel}>
                         <div className="w-full flex justify-center mt-[30px]">
-                          <div className="w-[424px] h-[121px]">
-                            <Image src={TcDAOLogo} alt="" />
-                          </div>
+                          <DaoLogoSmall alt="" />
                         </div>
                         <div className={styles.text}>
-                          Turkey Circus holders inherit a 5% revenue share of Foster House Collections and an autonomous
-                          vote in the DAO governing Foster Protocol provisions.
+                          Turkey Circus is a digital art collection representing the governance wing of Foster
+                          Marketplace. Minting a Turkey grants ownership into the Circus DAO; a group of Web 3 creatives
+                          shaping the evolution of Art on Solana.
                         </div>
                         <div className={styles.learnMore} onClick={() => router.push('https://mint.turkeycircus.io/ ')}>
-                          Learn more
+                          Join CircusDAO
                         </div>
                       </div>
                     </div>

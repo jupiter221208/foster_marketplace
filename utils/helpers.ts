@@ -381,6 +381,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--social-share-bg', '#ffffff')
     doc.style.setProperty('--social-share-hover', 'rgba(214, 216, 221, 1)')
     doc.style.setProperty('--share-icon-bg', '#D6D8DD')
+    doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -619,5 +620,6 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(90, 195, 186, 0.3) 0%, rgba(45, 98, 93, 0.3) 100%)'
     )
     doc.style.setProperty('--share-icon-bg', '#2B2B2B')
+    doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #121212, #173639)')
   }
 }

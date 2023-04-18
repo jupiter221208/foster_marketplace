@@ -13,21 +13,18 @@ import OutlineButton from 'components/Button/OutlineButton'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
-import TcDAOLogo from 'assets/images/TC_DAO_Logo.png'
-import TcDAODarkLogo from 'assets/images/TC_DAO_Dark_Logo.png'
-import TurkeyLogo from 'assets/icons/turkey-logo.svg'
+import DAOLogo from 'assets/icons/dao-logo.svg?component'
+import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import DaoSetupModal from 'components/Modal/DaoSetupModal'
-import { useSelector } from 'react-redux'
 import { useViewport } from 'utils'
 
 const Dao = () => {
   const [showCircus, setShowCircus] = useState(false)
   const [showLift, setShowLift] = useState(false)
   const [daoSetup, setDaoSetup] = useState(false)
-  const lightDarkMode = useSelector(state => (state as any).lightMode)
   const viewport = useViewport()
 
   return (
@@ -41,32 +38,28 @@ const Dao = () => {
         <div className={styles.topLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className={styles.turkeyRingLeader}>
-          <Image src={TurkeyRingLeader} alt="" objectFit="cover" className="z-10" />
-        </div>
 
         <div className={styles.container}>
-          <div className={styles.title}>Connect To</div>
+          <div className={styles.title}>Coming Soon</div>
           <div className="w-full flex justify-center mt-[30px]">
-            <Image src={lightDarkMode ? TcDAODarkLogo : TcDAOLogo} alt="" />
+            {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
+              <DAOLogoMobile alt="" />
+            ) : (
+              <DAOLogo alt="" />
+            )}
           </div>
           <div className={styles.subTitle}>Connect your wallet to verify your Turkey Circus NFT</div>
-          <div className={styles.text}>The official governance portal for the Turkey Circus DAO</div>
+          <div className={styles.text}>Official governance portal for CircusDAO coming soon!</div>
           <div className="mt-[70px] w-full flex justify-center">
-            <div className="w-full max-w-[190px]">
-              <OutlineButton
-                label="Coming Soon"
-                icon={TurkeyLogo}
-                direction="rtl"
-                fullWidth
-                backgroundColor={'var(--see-more-border)'}
-                color="#95DBD5"
-                fontFamily="KCDurhamboxcar"
-                fontSize="30px"
-                onClick={() => {
-                  setDaoSetup(true)
-                }}
-              />
+            <div
+              className={styles.joinDaoBG}
+              onClick={() => {
+                setDaoSetup(true)
+              }}
+            >
+              <div className={styles.joinDao}>
+                <div className="mt-[3px]">Join Circus DAO</div>
+              </div>
             </div>
           </div>
         </div>

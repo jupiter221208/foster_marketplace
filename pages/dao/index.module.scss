@@ -76,3 +76,25 @@
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   margin-top: 5px;
 }
+
+.joinDao {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'KCDurhamBoxcar';
+  font-size: 28px;
+  line-height: 28px;
+  color: var(--main-icon-color);
+}
+
+.joinDaoBG {
+  width: 190px;
+  height: 53px;
+  // background: var(--menu-item-bg);
+  border: 1px solid var(--main-icon-color);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
