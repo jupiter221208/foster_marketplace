@@ -16,6 +16,8 @@ import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import AvatarIcon from 'assets/images/dashboard-avatar.png'
+import DarkLightModeIcon from 'assets/icons/dark-light-mode-small.svg?component'
+import LightDarkModeIcon from 'assets/icons/light-dark-mode-small.svg?component'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
@@ -28,12 +30,14 @@ import styles from './index.module.scss'
 // call apis
 import authAPI from 'apis/auth'
 import { useViewport } from 'utils'
+import { setColorTheme } from 'utils/helpers'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const viewport = useViewport()
   const { connected, publicKey, disconnect } = useWallet()
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -117,6 +121,12 @@ const MobileMenu = () => {
     )
   }
 
+  const handleThemeMode = () => {
+    setColorTheme(!lightMode)
+    dispatch({ type: 'set', lightMode: !lightMode })
+    setLightMode(!lightMode)
+  }
+
   return (
     <div className={styles.menu}>
       <div className={styles.bgImage}>
@@ -139,6 +149,9 @@ const MobileMenu = () => {
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
             <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />
             <AccordionMenu label="Notifications" type="notifications" data={[]} path="/notifications" />
+            <div className="w-full flex justify-end mt-[10px]" onClick={() => handleThemeMode()}>
+              {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+            </div>
           </div>
           <div className="w-full mt-5">
             <div
@@ -186,6 +199,9 @@ const MobileMenu = () => {
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
             <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />
+            <div className="w-full flex justify-end mt-[10px]" onClick={() => handleThemeMode()}>
+              {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
+            </div>
           </div>
           <div className="w-full flex items-end mt-5">
             <WalletButton fullWidth />
