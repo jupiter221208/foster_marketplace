@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { Disclosure } from '@headlessui/react'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
@@ -52,8 +52,9 @@ const ArtworksAccordion = props => {
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
                       <div className="flex gap-1 mt-1 items-center">
-                        <div className={styles.priceText}>Sale Price</div>
-                        <Image src={SolanaLogoIcon} width={16} height={16} alt="" />
+                        {/* <div className={styles.priceText}>Sale Price</div> */}
+                        {/* <Image src={SolanaLogoIcon} width={16} height={16} alt="" /> */}
+                        <SolanaLogoIcon alt="" />
                         <div className={styles.priceValue}>{item.amount}</div>
                       </div>
                     </div>

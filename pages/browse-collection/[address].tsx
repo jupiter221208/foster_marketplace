@@ -13,9 +13,6 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 // styles
 import styles from './index.module.scss'
 
-// router
-import { useRouter } from 'next/router'
-
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex } from '@metaplex-foundation/js'

@@ -9,7 +9,7 @@ import { Disclosure } from '@headlessui/react'
 // components
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // json
@@ -85,7 +85,8 @@ const ActivityAccordion = props => {
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
                     <div className="flex gap-[4px]">
-                      <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
+                      {/* <Image src={SolanaLogoIcon} width={18} height={18} alt="" /> */}
+                      <SolanaLogoIcon alt="" />
                       <div className={styles.text}>{isAmountExisting ? parseFloat(item.amount).toFixed(2) : 'N/A'}</div>
                     </div>
                   </div>

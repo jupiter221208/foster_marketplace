@@ -5,7 +5,6 @@ import Tab from 'components/Tab'
 import NFTSwiperSection from 'components/pages/BrowseCollection/NFTSwiperSection'
 import ActivitySection from 'components/pages/BrowseCollection/ActivitySection'
 import OtherCollectionSection from 'components/pages/BrowseCollection/OtherCollectionSection'
-import ExploreCollectionSection from 'components/pages/BrowseCollection/ExploreCollectionSection'
 
 // json
 import TabList from 'assets/json/browse-collection/tab-list.json'
@@ -53,7 +52,6 @@ const CollectionSection = props => {
         </div>
       )}
       <OtherCollectionSection artistId={artistId} artistName={artistName} />
-      {/* <ExploreCollectionSection /> */}
     </div>
   )
 }
