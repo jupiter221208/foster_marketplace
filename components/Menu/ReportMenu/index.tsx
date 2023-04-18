@@ -14,7 +14,6 @@ import IconButton from 'components/Button/IconButton'
 
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg'
 import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg'

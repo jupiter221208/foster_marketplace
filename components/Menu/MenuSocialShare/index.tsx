@@ -17,6 +17,8 @@ import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
 import ShareBlackDesktopIcon from 'assets/icons/share-black-desktop.svg?component'
+import ShareSmallIconMobile from 'assets/icons/share-black-small-mobile.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -26,7 +28,7 @@ import nftsAPI from 'apis/nfts'
 import { copyToClipboard } from 'utils/helpers'
 
 interface MenuSocialShareProps {
-  type?: 'icon' | 'ellipse' | 'image'
+  type?: 'icon' | 'ellipse' | 'image' | 'nft'
   icon01?: string
   icon02?: string
   vote: boolean
@@ -86,6 +88,14 @@ const MenuSocialShare = ({
                   <ShareBlackIcon />
                 ) : (
                   <ShareBlackDesktopIcon />
+                )}
+              </div>
+            ) : type === 'nft' ? (
+              <div>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <ShareSmallIconMobile />
+                ) : (
+                  <ShareSmallIcon />
                 )}
               </div>
             ) : (

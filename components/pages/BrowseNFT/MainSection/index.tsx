@@ -670,13 +670,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                       <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{likeCount}</div>
                     </div>
-                    <div className="flex items-center cursor-pointer mr-[12px]" onClick={() => changeSaveStatus()}>
+                    <div className="flex items-center cursor-pointer mr-[10px]" onClick={() => changeSaveStatus()}>
                       <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
-                      icon01={ShareWhiteIcon}
-                      icon02={ShareBlackIcon}
+                      type="nft"
+                      // icon01={ShareWhiteIcon}
+                      // icon02={ShareBlackIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}
