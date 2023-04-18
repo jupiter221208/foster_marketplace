@@ -173,7 +173,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')
     doc.style.setProperty('--text-gray-200-color', '#202427')
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
-    doc.style.setProperty('--header-bg-color', 'rgba(203, 205, 210, 0.8)')
+    doc.style.setProperty('--header-bg-color', 'rgba(239, 240, 247, 0.8)')
+    doc.style.setProperty('--header-bottom-color', '#CCCDD4')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
@@ -257,7 +258,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--connect-wallet-bg', '#202427')
     doc.style.setProperty('--mint-progress-bg', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--mint-progress-mobile-bg', 'rgba(12, 12, 12, 0.2)')
-    doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
+    doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #E5E6EB, #C5C6CB)')
     doc.style.setProperty('--profile-border-color', '#ADAEB2')
     doc.style.setProperty('--stats-accordion-bg', '#CBCDD2')
     doc.style.setProperty('--stats-accordion-border', 'rgba(32, 36, 39, 0.1)')
@@ -402,6 +403,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
     doc.style.setProperty('--header-bg-color', 'rgba(18, 18, 18, 0.7)')
+    doc.style.setProperty('--header-bottom-color', '#95dbd5')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.6)')
     doc.style.setProperty('--search-menu-icon-color', '#eff0f6')
     doc.style.setProperty('--outline-button-border', '#5ac3ba')
@@ -492,10 +494,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--mint-progress-bg', 'rgba(12, 12, 12, 0.5)')
     doc.style.setProperty('--mint-progress-mobile-bg', 'rgba(12, 12, 12, 0.5)')
-    doc.style.setProperty(
-      '--connected-wallet-bg',
-      'linear-gradient(to bottom, rgba(12, 12, 12, 1), rgba(45, 98, 93, 1))'
-    )
+    doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #202427, #121212)')
     doc.style.setProperty('--profile-border-color', '#95dbd5')
     doc.style.setProperty('--stats-accordion-bg', '#121212')
     doc.style.setProperty('--stats-accordion-border', '#95dbd5')

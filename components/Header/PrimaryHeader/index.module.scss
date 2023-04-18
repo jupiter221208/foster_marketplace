@@ -9,6 +9,7 @@
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   background: var(--header-bg-color);
+  border-bottom: 1px solid var(--header-bottom-color);
   z-index: 9999;
 }
 

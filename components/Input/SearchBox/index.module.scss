@@ -3,7 +3,7 @@
 .container {
   width: 100%;
   height: 80px;
-  background: rgba(var(--background-black-color-rgb), 0.2);
+  background: rgba(var(--background-black-color-rgb), 0.1);
   // -webkit-backdrop-filter: blur(10px);
   // backdrop-filter: blur(10px);
   padding-left: 16px;
@@ -13,7 +13,7 @@
     min-width: 200px;
     height: 50px;
     border-radius: 12px;
-    background-color: rgba(255, 255, 255, 0.25);
+    background: rgba(var(--text-gray-200-color-rgb), 0.1);
     padding-left: 20px;
     padding-right: 15px;
   }
@@ -33,7 +33,7 @@
   font-size: 16px;
   line-height: 24px;
   color: var(--text-gray-200-color);
-  background-color: var(--mobile-serach-area-bg);
+  background: rgba(var(--text-gray-200-color-rgb), 0.1);
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   @media (min-width: 1024px) {
