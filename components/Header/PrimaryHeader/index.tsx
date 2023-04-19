@@ -33,6 +33,7 @@ import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?componen
 import ExploreMenuList from 'assets/json/explore-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
+import { setColorTheme } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
@@ -40,18 +41,21 @@ import styles from './index.module.scss'
 // call apis
 import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
-import { setColorTheme } from 'utils/helpers'
+import userAPI from 'apis/user'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
+  const markAsRead = useSelector(state => (state as any).markAsRead)
   const [isScrollTop, setIsScollTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [profileImage, setProfileImage] = useState('')
+  const [isNewNotification, setIsNewNotification] = useState(false)
+
   let timer = null
 
   const handleThemeMode = () => {
@@ -65,7 +69,36 @@ const PrimaryHeader = () => {
       let scrollTop = document.documentElement.scrollTop
       setIsScollTop(scrollTop < 10)
     })
+
+    userAPI.getNotifications().then(
+      response => {
+        if (response !== null) {
+          if (response.notifications.length > 0) {
+            checkNotifications([...response.notifications])
+          }
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }, [])
+
+  useEffect(() => {
+    if (markAsRead) {
+      setIsNewNotification(false)
+      dispatch({ type: 'set', markAsRead: false })
+    }
+  }, [markAsRead])
+
+  async function checkNotifications(notifications) {
+    notifications.forEach(notification => {
+      if (notification.acknowledged === false) {
+        setIsNewNotification(true)
+        return
+      }
+    })
+  }
 
   useEffect(() => {
     if (searchKeyword !== '' && searchKeyword.length >= 2) {
@@ -301,7 +334,7 @@ const PrimaryHeader = () => {
         </div>
       )}
 
-      {connected && notificationOffset[1] !== 0 && (
+      {connected && notificationOffset[1] !== 0 && isNewNotification && (
         <div
           style={{
             zIndex: 10000,

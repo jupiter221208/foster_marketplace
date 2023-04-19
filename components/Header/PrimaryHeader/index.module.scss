@@ -87,8 +87,7 @@
   width: 98px;
   height: 36px;
   margin-left: 14px;
-  background: rgba(var(--background-black-color-rgb), 0.3);
-
+  background: var(--alpha-area-bg);
   @media (min-width: 1024px) {
     width: 140px;
     min-width: 140px;

@@ -3,11 +3,8 @@ import { useViewport } from 'utils'
 
 import * as moment from 'moment'
 
-import { useWallet } from '@solana/wallet-adapter-react'
-
 // next images
 import Head from 'next/head'
-import Image from 'next/image'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -28,11 +25,12 @@ import styles from './index.module.scss'
 // api
 import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { compareDate } from 'utils/helpers'
 import NotificationTab from 'components/Tab/NotificationTab'
 
 const Notifications = () => {
+  const dispatch = useDispatch()
   const [showFilterModal, setShowFilterModal] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<any[]>([])
   const [tabList, setTabList] = useState(TabList)
@@ -236,6 +234,7 @@ const Notifications = () => {
         if (response !== null) {
           if (response.notifications.length > 0) {
             getNotifications([...response.notifications])
+            dispatch({ type: 'set', markAsRead: true })
           }
         }
       },

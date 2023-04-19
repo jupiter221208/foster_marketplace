@@ -323,6 +323,7 @@
   --share-icon-bg: #2B2B2B;
   --main-bg-color-rgb: 239, 240, 247;
   --header-bottom-color: #95dbd5;
+  --alpha-area-bg: transparent;
 }
 
 html,
@@ -1253,6 +1254,13 @@ h6 {
   fill: var(--main-bg-color);
   [data-fill='a'] {
     fill: var(--share-icon-bg);
+  }
+}
+
+[data-name='notification-icon'] {
+  fill: var(--stats-bg-color);
+  [data-fill='a'] {
+    fill: var(--main-bg-color);
   }
 }
 

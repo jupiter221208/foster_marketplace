@@ -18,7 +18,7 @@ import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
 // styles
 import styles from './index.module.scss'
 import { setColorTheme } from 'utils/helpers'
-import PrimaryHeader from 'components/Header/PrimaryHeader'
+import ArtistHeader from 'components/Header/ArtistHeader'
 
 interface ArtistLayoutProps {
   children?: any
@@ -40,7 +40,7 @@ const ArtistLayout: FC<ArtistLayoutProps> = ({ children }) => {
     <div className={styles.container}>
       <>
         {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
-        <PrimaryHeader />
+        <ArtistHeader />
         <ConnectWalletModal />
         {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
         {openMobileSearchBox && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileSearchBox />}
