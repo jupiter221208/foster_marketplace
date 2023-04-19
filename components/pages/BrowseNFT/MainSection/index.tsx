@@ -647,27 +647,15 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div
-                      className="flex items-center cursor-pointer mr-[10px] lg:mr-[16px]"
+                      className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]"
                       onClick={() => changeLikeStatus()}
                     >
-                      <Image
-                        src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                        width={viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? 17 : 21}
-                        height={viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? 14 : 18}
-                        alt=""
-                        className=""
-                      />
+                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
 
                       <div className={styles.text}>{likeCount}</div>
                     </div>
-                    <div className="flex items-center cursor-pointer mr-[10px]" onClick={() => changeSaveStatus()}>
-                      <Image
-                        src={save ? TicketGreenIcon : TicketWhiteIcon}
-                        width={viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? 12 : 14}
-                        height={viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? 14 : 18}
-                        alt=""
-                        className=""
-                      />
+                    <div className="flex items-center cursor-pointer mr-[20px]" onClick={() => changeSaveStatus()}>
+                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
@@ -690,10 +678,10 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                   {nftCollectionName}
                 </div>
               </div>
-              <div className="w-full flex mt-[5px] md:mt-[8px] lg:mt-[10px]">
+              <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[10px]">
                 <div className={styles.title}>{nftName}</div>
               </div>
-              <div className="w-full flex flex-wrap mt-4 lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
+              <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
                 {artistInfo && (
                   <div className="flex gap-1 lg:gap-3">
                     <div className={styles.grayText}>Created by</div>

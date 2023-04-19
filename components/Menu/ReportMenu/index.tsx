@@ -42,7 +42,7 @@ const ReportMenu = props => {
     <div className="relative">
       <Menu>
         <Menu.Button>
-          <div className="flex justify-between items-center py-2">
+          <div className="flex justify-between items-center">
             <div className={styles.ellipseArea}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 // <Image src={ThreeEllipseMobileIcon} alt="" width="16px" height="4px" />
