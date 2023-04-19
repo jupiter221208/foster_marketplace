@@ -970,8 +970,10 @@ const SingleNft = () => {
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
                         fullWidth
                         height="45px"
-                        backgroundColor="#378287"
-                        color="#EFF0F6"
+                        backgroundColor="var(--back-btn-color)"
+                        color="var(--main-bg-color)"
+                        borderColor="var(--back-btn-border-mobile)"
+                        borderWidth="var(--back-btn-border-width)"
                       />
                     </div>
                     <div className="col-span-1">
@@ -1005,8 +1007,10 @@ const SingleNft = () => {
                       onClick={() => handleChangeCurrentStep(currentStep - 1)}
                       fullWidth
                       height="45px"
-                      backgroundColor="#378287"
-                      color="#EFF0F6"
+                      backgroundColor="var(--back-btn-color)"
+                      color="var(--main-bg-color)"
+                      borderColor="var(--back-btn-border-mobile)"
+                      borderWidth="var(--back-btn-border-width)"
                     />
                   </div>
                 )}

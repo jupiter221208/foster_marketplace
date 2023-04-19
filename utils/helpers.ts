@@ -299,7 +299,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-info-bg', '#202427')
     doc.style.setProperty('--place-bid-close-rect', '#DDF2F5')
     doc.style.setProperty('--place-bid-close-path', '#202427')
-    doc.style.setProperty('--input-bg', '#202427')
+    doc.style.setProperty('--input-bg', '#E0E1E7')
     doc.style.setProperty(
       '--browse-nft-blur-bg',
       'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.3) 40%,rgba(32, 36, 39, 0.2) 60%,rgba(32, 36, 39, 0.5) 100%)'
@@ -323,7 +323,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--tooltip-bg', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--tooltip-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--back-btn-color', 'transparent')
-    doc.style.setProperty('--back-btn-border', '95DBD5')
+    doc.style.setProperty('--back-btn-border', '#95DBD5')
+    doc.style.setProperty('--back-btn-border-mobile', '#202427')
     doc.style.setProperty('--back-btn-border-width', '2')
     doc.style.setProperty('--artwork-table-border', 'transparent')
     doc.style.setProperty('--artwork-table-tr', '#202427')
@@ -558,6 +559,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--tooltip-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--back-btn-color', '#378287')
     doc.style.setProperty('--back-btn-border', 'transparent')
+    doc.style.setProperty('--back-btn-border-mobile', 'transparent')
     doc.style.setProperty('--back-btn-border-width', '')
     doc.style.setProperty('--artwork-table-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--artwork-table-tr', 'rgba(239, 240, 247, 0.8)')

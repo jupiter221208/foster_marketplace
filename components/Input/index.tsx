@@ -54,7 +54,7 @@ const Input = props => {
         }}
       />
       {label01 !== '' && (
-        <div className="w-full flex justify-between px-6 gap-6">
+        <div className="w-full flex justify-between gap-6">
           <div className={styles.bottomLabel}>{label01}</div>
           <div className={styles.bottomLabel}>{label02}</div>
         </div>

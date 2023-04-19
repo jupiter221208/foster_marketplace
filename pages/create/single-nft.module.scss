@@ -28,8 +28,9 @@
   border-radius: 0px;
   @media (min-width: 1024px) {
     border-radius: 12px;
+    background-color: var(--artwork-bg-color);
   }
-  background-color: var(--artwork-bg-color);
+  background: $background-dark-color;
   display: flex;
   justify-content: center;
   align-items: center;

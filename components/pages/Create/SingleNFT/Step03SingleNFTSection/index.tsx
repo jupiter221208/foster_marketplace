@@ -88,6 +88,7 @@ const Step03SingleNFTSection = props => {
           backgroundColor={'var(--input-bg)'}
           label="From 0 to 10%"
           type="number"
+          color={'var(--text-gray-200-color)'}
           min={0}
           onChange={value => {
             if (value > 10) setRoyalties(10)
