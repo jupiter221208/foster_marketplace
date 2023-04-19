@@ -133,7 +133,6 @@ const MenuSocialShare = ({
                   className="w-full"
                 >
                   <div className={styles.menuItem}>
-                    {/* <Image src={TwitterUnfilledWhiteIcon} alt="" /> */}
                     <TwitterUnfilledWhiteIcon alt="" />
                     Share on Twitter
                   </div>
@@ -153,7 +152,6 @@ const MenuSocialShare = ({
                   className="w-full"
                 >
                   <div className={styles.menuItem}>
-                    {/* <Image src={FacebookWhiteIcon} alt="" /> */}
                     <FacebookWhiteIcon alt="" />
                     Share on Facebook
                   </div>
@@ -172,7 +170,6 @@ const MenuSocialShare = ({
                   className="w-full"
                 >
                   <div className={styles.menuItem}>
-                    {/* <Image src={TelegramWhiteIcon} alt="" /> */}
                     <TelegramWhiteIcon alt="" />
                     Share on Telegram
                   </div>

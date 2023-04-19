@@ -52,6 +52,7 @@ import NotificationGreenIcon from 'assets/icons/notification-icon.svg?component'
 import SaleLightIcon from 'assets/icons/sale-light.svg?component'
 import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
+import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 
@@ -103,6 +104,7 @@ import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import DateSelect from 'components/DateSelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import SocialShareModal from 'components/Menu/SocialShareModal'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -121,6 +123,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
+  const [openShareModal, setOpenShareModal] = useState(false)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
@@ -658,15 +661,21 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                       <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
-                    <MenuSocialShare
-                      type="nft"
-                      vote={share}
-                      setVote={setShare}
-                      voteCount={shareCount}
-                      setVoteCount={setShareCount}
-                      message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                      url={`/browse-nft?id=${id}`}
-                    />
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                      <div onClick={() => setOpenShareModal(true)}>
+                        <ShareSmallIcon alt="" />
+                      </div>
+                    ) : (
+                      <MenuSocialShare
+                        type="nft"
+                        vote={share}
+                        setVote={setShare}
+                        voteCount={shareCount}
+                        setVoteCount={setShareCount}
+                        message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                        url={`/browse-nft?id=${id}`}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -1216,6 +1225,18 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
           listingPrice={nftPrice}
           offerBalance={offerBalance}
           mainWalletBalance={mainWalletBalance}
+        />
+      )}
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={share}
+          setVote={setShare}
+          voteCount={shareCount}
+          setVoteCount={setShareCount}
+          message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+          url={`/browse-nft?id=${id}`}
         />
       )}
     </div>
