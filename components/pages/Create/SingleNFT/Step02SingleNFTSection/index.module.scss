@@ -23,3 +23,13 @@
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
+
+.chooseCategory {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
+  color: $text-gray-200-color;
+  background: $background-dark-color;
+  border-radius: 10px;
+  padding: 11px 22px;
+}

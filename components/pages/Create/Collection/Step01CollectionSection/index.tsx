@@ -649,12 +649,15 @@ const Step01CollectionSection = props => {
             <div className="w-full mt-4">
               <div className="grid grid-cols-2 gap-5">
                 <div className="col-span-1">
-                  <GradientButton
+                  {/* <GradientButton
                     fullWidth
                     label="Choose Category"
                     onClick={() => setShowCategoryList(true)}
                     height="45px"
-                  />
+                  /> */}
+                  <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
+                    Choose Category
+                  </div>
                 </div>
               </div>
               {showCategoryList && (
