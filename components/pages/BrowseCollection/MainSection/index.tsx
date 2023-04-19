@@ -32,6 +32,7 @@ import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
+import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -40,6 +41,7 @@ import styles from './index.module.scss'
 import collectionAPI from 'apis/collections'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import SocialShareModal from 'components/Menu/SocialShareModal'
 
 const MainSection = props => {
   const { nfts, data, publicKey } = props
@@ -52,6 +54,7 @@ const MainSection = props => {
   const [totalVolume, setTotalVolum] = useState<any>()
   const [saved, setSaved] = useState<boolean>(false)
   const [showReadMore, setShowReadMore] = useState(false)
+  const [openShareModal, setOpenShareModal] = useState(false)
   const { setVisible } = useWalletModal()
   const [bannerUploadingToS3, setBannerUploadingToS3] = useState<boolean>(false)
   const [openBannerEditorModal, setOpenBannerEditorModal] = useState(false)
@@ -324,12 +327,9 @@ const MainSection = props => {
               />
               <div className="flex">
                 <div className="mr-[11px] lg:mr-[24px]">
-                  <MenuSocialShare
-                    type="image"
-                    vote={true}
-                    message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                    url={`/browse-collection/${data?.collection_id}`}
-                  />
+                  <div onClick={() => setOpenShareModal(true)}>
+                    <ShareSmallIcon alt="" />
+                  </div>
                 </div>
                 {saved ? (
                   <OutlineButton
@@ -444,6 +444,15 @@ const MainSection = props => {
         }}
         data={alertData}
       />
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={true}
+          message={'Check out this collection on @foster_protocol #fostermarketplace'}
+          url={`/browse-collection/${data?.collection_id}`}
+        />
+      )}
     </div>
   )
 }

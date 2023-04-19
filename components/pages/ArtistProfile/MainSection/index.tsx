@@ -28,6 +28,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import InstagramIcon from 'assets/icons/social-ig.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter.svg?component'
+import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -39,6 +40,7 @@ import { copyClipboardAlert, copyToClipboard, isLoggedIn, validUrl } from 'utils
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
+import SocialShareModal from 'components/Menu/SocialShareModal'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
@@ -47,6 +49,7 @@ const MainSection = prop => {
   const { publicKey } = useWallet()
   const { setVisible } = useWalletModal()
 
+  const [openShareModal, setOpenShareModal] = useState(false)
   const [showFollowModal, setShowFollowModal] = useState(false)
   const [showReadMore, setShowReadMore] = useState(false)
   const [type, setType] = useState(0)
@@ -350,12 +353,9 @@ const MainSection = prop => {
           {!isOwn && (
             <div className="mt-10 flex">
               <div className="mr-[11px] lg:mr-[24px]">
-                <MenuSocialShare
-                  type="image"
-                  vote={true}
-                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                  url={`/artist-profile?id=${artistInfo?.wallet_id}`}
-                />
+                <div onClick={() => setOpenShareModal(true)}>
+                  <ShareSmallIcon alt="" />
+                </div>
               </div>
               <div className="w-[80px]">
                 {follow ? (
@@ -533,6 +533,15 @@ const MainSection = prop => {
           type={type}
           artistInfo={artistInfo}
           categoryList={categoryList}
+        />
+      )}
+      {openShareModal && (
+        <SocialShareModal
+          open={openShareModal}
+          close={() => setOpenShareModal(false)}
+          vote={true}
+          message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+          url={`/artist-profile?id=${artistInfo?.wallet_id}`}
         />
       )}
     </div>

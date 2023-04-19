@@ -66,9 +66,13 @@ const SocialShareModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full h-full">
-                <div className={styles.shareArtwork}>Share Artwork</div>
-
-                <div className={styles.menuItem} onClick={() => copyToClipboard(fullUrl)}>
+                <div
+                  className={styles.menuItem}
+                  onClick={() => {
+                    copyToClipboard(fullUrl)
+                    close()
+                  }}
+                >
                   <FileCopyIcon alt="" />
                   Copy to Clipboard
                 </div>
@@ -76,7 +80,7 @@ const SocialShareModal = props => {
                 <TwitterShareButton
                   title={message}
                   url={fullUrl}
-                  beforeOnClick={() => {}}
+                  beforeOnClick={close}
                   onShareWindowClose={() => {
                     shareNFTSocial('twitter')
                   }}
@@ -91,7 +95,7 @@ const SocialShareModal = props => {
                 <FacebookShareButton
                   quote={message}
                   url={fullUrl}
-                  beforeOnClick={() => {}}
+                  beforeOnClick={close}
                   onShareWindowClose={() => {
                     shareNFTSocial('facebook')
                   }}
@@ -106,7 +110,7 @@ const SocialShareModal = props => {
                 <TelegramShareButton
                   title={message}
                   url={fullUrl}
-                  beforeOnClick={() => {}}
+                  beforeOnClick={close}
                   onShareWindowClose={() => {
                     shareNFTSocial('telegram')
                   }}
