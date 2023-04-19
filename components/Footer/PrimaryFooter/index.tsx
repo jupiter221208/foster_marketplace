@@ -188,6 +188,27 @@ const PrimaryFooter = () => {
           </div>
           <div className="w-full flex justify-around mt-[4px]">
             <div className="w-full block justify-center text-center">
+              <div className={styles.title}>Marketplace</div>
+              <div className={`${styles.linkText} !mt-[20px]`}>
+                <div onClick={() => router.push('/explore')}>Explore</div>
+              </div>
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+                  Turkey Circus
+                </a>
+              </div>
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                  Terms of Service
+                </a>
+              </div>
+              <div className={styles.linkText}>
+                <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+                  Privacy Policy
+                </a>
+              </div>
+            </div>
+            <div className="w-full block justify-center text-center">
               <div className={styles.title}>About</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
                 <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">

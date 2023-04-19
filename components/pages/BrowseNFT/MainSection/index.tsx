@@ -19,7 +19,6 @@ import {
   Filler,
   Legend,
 } from 'chart.js'
-import { Line } from 'react-chartjs-2'
 import faker from 'faker'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend)
@@ -29,13 +28,11 @@ import AudioPlayer from 'components/MediaPlayer/AudioPlayer'
 import ReportMenu from 'components/Menu/ReportMenu'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
-import Select from 'components/Select'
 import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingButton from 'components/Button/LoadingButton'
 
@@ -51,38 +48,20 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?compon
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
 import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg?component'
-import DescriptionBlackIcon from 'assets/icons/description-black.svg'
-import PriceHistoryGreenIcon from 'assets/icons/price-history-green.svg'
-import PriceHistoryBlackIcon from 'assets/icons/price-history-black.svg'
 import NotificationGreenIcon from 'assets/icons/notification-icon.svg?component'
-import NotificationBlackIcon from 'assets/icons/notification-black.svg'
-import SaleGreenIcon from 'assets/icons/sale-green.svg'
 import SaleLightIcon from 'assets/icons/sale-light.svg?component'
-import TagGreenIcon from 'assets/icons/tag-green.svg'
 import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
-import HeartWhiteMobileIcon from 'assets/icons/heart-filled-white-13x12.svg'
 
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
-import HeartFilledRedMobileIcon from 'assets/icons/heart-filled-red-13x12.svg'
-
-import ShareWhiteIcon from 'assets/icons/share-white.svg'
-import ShareBlackIcon from 'assets/icons/share-black.svg'
 
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
-import TicketWhiteMobileIcon from 'assets/icons/ticket-white-9x12.svg'
 
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
-import TicketGreenSmallIcon from 'assets/icons/ticket-green-9x12.svg'
-import TicketGreenLightIcon from 'assets/icons/ticket-green-light.svg'
-import FosterLightGreenIcon from 'assets/icons/foster-light-green.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import AuctionBGIcon from 'assets/icons/auction-bg-icon.svg'
-import PlaceBidIcon from 'assets/icons/place-bid-icon.svg'
 import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
 import PlaceBidBlackIcon from 'assets/icons/place-bid-icon-black.svg'
-import RightIcon from 'assets/icons/right-icon.svg?component'
 import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 
 // json
@@ -668,26 +647,16 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
                     <div className="flex items-center cursor-pointer mr-[16px]" onClick={() => changeLikeStatus()}>
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <Image src={like ? HeartFilledRedMobileIcon : HeartWhiteMobileIcon} alt="" className="" />
-                      ) : (
-                        <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
-                      )}
+                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+
                       <div className={styles.text}>{likeCount}</div>
                     </div>
                     <div className="flex items-center cursor-pointer mr-[10px]" onClick={() => changeSaveStatus()}>
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <Image src={save ? TicketGreenSmallIcon : TicketWhiteMobileIcon} alt="" className="" />
-                      ) : (
-                        <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                      )}
-
+                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
                       <div className={styles.text}>{saveCount}</div>
                     </div>
                     <MenuSocialShare
                       type="nft"
-                      // icon01={ShareWhiteIcon}
-                      // icon02={ShareBlackIcon}
                       vote={share}
                       setVote={setShare}
                       voteCount={shareCount}
@@ -695,9 +664,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                       message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
                       url={`/browse-nft?id=${id}`}
                     />
-                    {/* <div className="hidden lg:flex justify-end ml-[10px]">
-                      <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
-                    </div> */}
                   </div>
                 </div>
               </div>

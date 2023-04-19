@@ -1,4 +1,4 @@
-import React, { Fragment, useMemo, useState, useRef, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { useRouter } from 'next/router'
 import { FacebookShareButton, TwitterShareButton, TelegramShareButton } from 'react-share'
 // next components
@@ -17,7 +17,6 @@ import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg'
 import ShareBlackIcon from 'assets/icons/share-black-mobile.svg?component'
 import ShareBlackDesktopIcon from 'assets/icons/share-black-desktop.svg?component'
-import ShareSmallIconMobile from 'assets/icons/share-black-small-mobile.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 // styles
@@ -92,11 +91,7 @@ const MenuSocialShare = ({
               </div>
             ) : type === 'nft' ? (
               <div>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <ShareSmallIconMobile />
-                ) : (
-                  <ShareSmallIcon />
-                )}
+                <ShareSmallIcon />
               </div>
             ) : (
               <div className="mt-[4px]">
