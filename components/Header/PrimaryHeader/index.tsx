@@ -7,6 +7,8 @@ import { useRouter } from 'next/router'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useDispatch, useSelector } from 'react-redux'
+import Lottie from 'lottie-react'
+import NotifyAlarmIcon from 'assets/lottery/notify-alarm.json'
 
 // custom components
 import SearchBox from 'components/Input/SearchBox'
@@ -291,11 +293,26 @@ const PrimaryHeader = () => {
             position: 'fixed',
             cursor: 'pointer',
             top: `${notificationOffset[0] + 27}px`,
-            left: `${notificationOffset[1] - 0}px`,
+            left: `${notificationOffset[1] + 5}px`,
           }}
           onClick={() => router.push('/notifications')}
         >
           <NotificationIcon alt="" />
+        </div>
+      )}
+
+      {connected && notificationOffset[1] !== 0 && (
+        <div
+          style={{
+            zIndex: 10000,
+            position: 'fixed',
+            cursor: 'pointer',
+            top: `${notificationOffset[0] + 17}px`,
+            left: `${notificationOffset[1] + 27}px`,
+          }}
+          onClick={() => router.push('/notifications')}
+        >
+          <Lottie animationData={NotifyAlarmIcon} loop={true} />
         </div>
       )}
 

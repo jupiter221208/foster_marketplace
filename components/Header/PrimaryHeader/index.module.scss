@@ -108,3 +108,15 @@
     margin-top: 60px;
   }
 }
+
+.tooltip {
+  background: rgba(var(--background-light-color), 0.2);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 8px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  padding: 16px;
+  color: white;
+}
