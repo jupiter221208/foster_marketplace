@@ -20,7 +20,8 @@
   padding: 24px 28px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  background: $background-dark-color;
+  background: linear-gradient(to bottom, #202427, #121212);
+  border: 1px solid rgba($text-gray-200-color, 0.1);
 }
 
 .shareArtwork {
@@ -37,15 +38,15 @@
   justify-content: flex-start;
   align-items: center;
   gap: 9px;
-  font-family: 'Muli-Bold';
-  font-size: 14px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
   line-height: 24px;
   color: $text-gray-200-color;
   margin-bottom: 10px;
 }
 
 .cancel {
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 20px;
   color: $text-gray-200-color;
