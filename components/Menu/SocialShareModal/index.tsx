@@ -84,7 +84,7 @@ const SocialShareModal = props => {
                   onShareWindowClose={() => {
                     shareNFTSocial('twitter')
                   }}
-                  className="w-full"
+                  className="w-full outline-none border-none drop-shadow-none"
                 >
                   <div className={styles.menuItem}>
                     <TwitterUnfilledWhiteIcon alt="" />
@@ -99,7 +99,7 @@ const SocialShareModal = props => {
                   onShareWindowClose={() => {
                     shareNFTSocial('facebook')
                   }}
-                  className="w-full"
+                  className="w-full outline-none border-none drop-shadow-none"
                 >
                   <div className={styles.menuItem}>
                     <FacebookWhiteIcon alt="" />
@@ -114,7 +114,7 @@ const SocialShareModal = props => {
                   onShareWindowClose={() => {
                     shareNFTSocial('telegram')
                   }}
-                  className="w-full"
+                  className="w-full outline-none border-none drop-shadow-none"
                 >
                   <div className={styles.menuItem}>
                     <TelegramWhiteIcon alt="" />
