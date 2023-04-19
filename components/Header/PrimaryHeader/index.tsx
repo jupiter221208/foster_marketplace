@@ -366,7 +366,7 @@ const PrimaryHeader = () => {
           />
         </div>
       )}
-      {profileOffset[1] !== 0 && (
+      {profileOffset[1] !== 0 && !connected && (
         <div
           style={{
             zIndex: 10000,

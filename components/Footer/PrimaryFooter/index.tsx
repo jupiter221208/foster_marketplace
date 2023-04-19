@@ -22,8 +22,6 @@ import TelegramLightGreenIcon from 'assets/icons/telegram-light-green.svg'
 import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode.svg?component'
-import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
-import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -35,13 +33,6 @@ const PrimaryFooter = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
-  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
-
-  const handleThemeMode = () => {
-    setColorTheme(!lightMode)
-    dispatch({ type: 'set', lightMode: !lightMode })
-    setLightMode(!lightMode)
-  }
 
   return (
     <div className={styles.container} data-testid="footer-container">
@@ -59,6 +50,21 @@ const PrimaryFooter = () => {
             {/* <div className={styles.text}>
               Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
             </div> */}
+          </div>
+          <div className="max-w-[347px] block justify-start">
+            <div className={styles.title}>Sitemap</div>
+            <div className={`${styles.linkText} !mt-[49px]`}>
+              <div onClick={() => router.push('/explore')}>Explore</div>
+            </div>
+            <div className={styles.linkText}>
+              <div onClick={() => router.push('/dao')}>Circus DAO</div>
+            </div>
+            <div className={styles.linkText}>
+              <div onClick={() => router.push('/resources')}>Resources</div>
+            </div>
+            <div className={styles.linkText}>
+              <div onClick={() => router.push('/stats')}>House Stats</div>
+            </div>
           </div>
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>About</div>
@@ -179,33 +185,27 @@ const PrimaryFooter = () => {
             <div className="w-full flex justify-center cursor-pointer" onClick={() => router.push('/')}>
               <LogoText01MobileIcon width={176} height={40} alt="" />
             </div>
-            <div
+            {/* <div
               className="w-full mt-[70px] mr-[50px] flex justify-end cursor-pointer"
               onClick={() => handleThemeMode()}
             >
               {lightMode ? <LightDarkModeMobileIcon /> : <DarkLightModeMobileIcon />}
-            </div>
+            </div> */}
           </div>
-          <div className="w-full flex justify-around mt-[4px]">
+          <div className="w-full flex justify-around mt-[70px]">
             <div className="w-full block justify-center text-center">
-              <div className={styles.title}>Marketplace</div>
+              <div className={styles.title}>Sitemap</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
                 <div onClick={() => router.push('/explore')}>Explore</div>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
-                  Turkey Circus
-                </a>
+                <div onClick={() => router.push('/dao')}>Circus DAO</div>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
-                  Terms of Service
-                </a>
+                <div onClick={() => router.push('/resources')}>Resources</div>
               </div>
               <div className={styles.linkText}>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
-                  Privacy Policy
-                </a>
+                <div onClick={() => router.push('/stats')}>House Stats</div>
               </div>
             </div>
             <div className="w-full block justify-center text-center">

@@ -11,15 +11,29 @@ import { Menu, Transition } from '@headlessui/react'
 // styles
 import styles from './index.module.scss'
 
+// resources
+import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
+import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
+
 import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
+import { setColorTheme } from 'utils/helpers'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ProfileMenu = props => {
   const { avatar, menuList, onSelect, connectWalletStatus } = props
+  const dispatch = useDispatch()
+  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const { connected } = useWallet()
   const [buttonClicked, setButtonClicked] = useState(false)
+
+  const handleThemeMode = () => {
+    setColorTheme(!lightMode)
+    dispatch({ type: 'set', lightMode: !lightMode })
+    setLightMode(!lightMode)
+  }
 
   useEffect(() => {
     if (!buttonClicked) {
@@ -83,6 +97,12 @@ const ProfileMenu = props => {
                   }}
                 />
               ))}
+              <div
+                className="w-full mt-[20px] mb-[10px] flex justify-center cursor-pointer"
+                onClick={() => handleThemeMode()}
+              >
+                {lightMode ? <LightDarkModeMobileIcon /> : <DarkLightModeMobileIcon />}
+              </div>
             </div>
           </Transition>
         )}
