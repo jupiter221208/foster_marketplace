@@ -197,7 +197,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
     doc.style.setProperty('--switch-01-color', '149, 219, 213')
     doc.style.setProperty('--switch-02-color', '75, 110, 107')
-    doc.style.setProperty('--menu-bg-color', '#D5D6DC')
+    doc.style.setProperty('--menu-bg-color', '#eff0f6')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')
     doc.style.setProperty('--hero-artist-color', 'rgba(239, 240, 246, 0.75)')
     doc.style.setProperty('--twitter-btn-color1', '#202427')
@@ -386,6 +386,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--social-share-hover', 'rgba(214, 216, 221, 1)')
     doc.style.setProperty('--share-icon-bg', '#D6D8DD')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #eff0f6, #78787B)')
+    doc.style.setProperty('--outline-btn-border', 'rgba(32, 36, 39, 0.25)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -429,7 +430,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
     doc.style.setProperty('--switch-01-color', '55, 130, 135')
     doc.style.setProperty('--switch-02-color', '12, 65, 68')
-    doc.style.setProperty('--menu-bg-color', '#0f1316')
+    doc.style.setProperty('--menu-bg-color', '#121212')
     doc.style.setProperty('--menu-footer-color', '#2b2f32')
     doc.style.setProperty('--hero-artist-color', '#95dbd5')
     doc.style.setProperty('--twitter-btn-color1', '#5ac3ba')
@@ -626,5 +627,6 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--share-icon-bg', '#2B2B2B')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #121212, #173639)')
+    doc.style.setProperty('--outline-btn-border', '#95dbd5')
   }
 }

@@ -1,0 +1,57 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  background-color: rgba(#070101, 0.3);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: auto;
+  padding: 24px 28px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: linear-gradient(to bottom, #202427, #121212);
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+}
+
+.shareArtwork {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: rgba($text-gray-200-color, 0.75);
+  margin-bottom: 30px;
+}
+
+.menuItem {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 9px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+  margin-bottom: 10px;
+}
+
+.cancel {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: $text-gray-200-color;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  text-align: center;
+}

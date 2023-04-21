@@ -8,6 +8,7 @@ import Button from 'components/Button'
 // styles
 import styles from './index.module.scss'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import GradientButton from 'components/Button/GradientButton'
 
 const CategoryListModal = props => {
   const { categoryList, onChange, onClick, onClickCancel } = props
@@ -39,8 +40,15 @@ const CategoryListModal = props => {
         </div>
         <div className={styles.footer}>
           <div className="w-[228px] flex justify-between gap-10">
-            <OutlineButton label="Cancel" fullWidth onClick={() => onClickCancel()} height="40px" />
-            <Button label="Done" fullWidth onClick={() => onClick()} height="40px" />
+            <OutlineButton
+              borderColor="var(--outline-btn-border)"
+              label="Cancel"
+              fullWidth
+              borderWidth={2}
+              onClick={() => onClickCancel()}
+              height="40px"
+            />
+            <GradientButton label="Done" fullWidth onClick={() => onClick()} height="40px" />
           </div>
         </div>
       </div>
