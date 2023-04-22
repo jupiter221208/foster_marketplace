@@ -53,6 +53,7 @@ import SaleLightIcon from 'assets/icons/sale-light.svg?component'
 import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 
@@ -105,6 +106,7 @@ import AuctionCard from 'components/Card/AuctionCard'
 import DateSelect from 'components/DateSelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import ReportMobileModal from 'components/Menu/ReportMobileModal'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -137,6 +139,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
+  const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
@@ -645,7 +648,13 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
                 <div>
-                  <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
+                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                    <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
+                      <ThreeEllipseMobileIcon alt="" />
+                    </div>
+                  ) : (
+                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
+                  )}
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
@@ -1237,6 +1246,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
           setVoteCount={setShareCount}
           message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
           url={`/browse-nft?id=${id}`}
+        />
+      )}
+      {openReportMenuModal && (
+        <ReportMobileModal
+          open={openReportMenuModal}
+          close={() => setOpenReportMenuModal(false)}
+          address={id}
+          onClick={() => {
+            setOpenReportMenuModal(false)
+            setOpenReportModal(true)
+          }}
         />
       )}
     </div>
