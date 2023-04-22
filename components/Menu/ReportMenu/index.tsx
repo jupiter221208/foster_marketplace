@@ -15,8 +15,8 @@ import IconButton from 'components/Button/IconButton'
 // images and icons
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
-import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg'
-import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg'
+import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg?component'
+import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg?component'
 import NounProhibitHoverIcon from 'assets/icons/noun-prohibit-dark-red-16x16-hover.svg'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
@@ -95,7 +95,8 @@ const ReportMenu = props => {
                       viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHover(false)
                     }
                   >
-                    <Image src={hover ? SolanaSolLogoIcon : SolanaSolLogoGrayIcon} alt="" />
+                    {hover ? <Image src={SolanaSolLogoIcon} alt="" /> : <SolanaSolLogoGrayIcon alt="" />}
+
                     <a target="_blank" href={explorerURL} rel="noopener noreferrer">
                       View on Solana Explorer
                     </a>
@@ -114,7 +115,7 @@ const ReportMenu = props => {
                       viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHoverReport(false)
                     }
                   >
-                    <Image src={hoverReport ? NounProhibitHoverIcon : NounProhibitIcon} alt="" />
+                    {hoverReport ? <Image src={NounProhibitHoverIcon} alt="" /> : <NounProhibitIcon alt="" />}
                     Report an Issue
                   </div>
                 )}

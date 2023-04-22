@@ -387,6 +387,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--share-icon-bg', '#D6D8DD')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     doc.style.setProperty('--outline-btn-border', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--report-menu-bg', 'rgba(239, 240, 247, 0.5)')
+
     // =====================================================
     // =====================================================
     // =====================================================
@@ -628,5 +630,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--share-icon-bg', '#2B2B2B')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #121212, #173639)')
     doc.style.setProperty('--outline-btn-border', '#95dbd5')
+    doc.style.setProperty('--report-menu-bg', 'rgba(18, 18, 18, 0.5)')
   }
 }
