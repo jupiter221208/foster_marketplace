@@ -58,7 +58,7 @@
   height: 40px;
   padding-left: 12px;
   padding-right: 0px;
-  background-color: var(--mobile-serach-area-bg);
+  background-color: rgba(var(--text-gray-200-color-rgb), 0.1);
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
   @media (min-width: 1024px) {
