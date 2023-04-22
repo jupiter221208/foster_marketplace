@@ -4,10 +4,7 @@
   font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 36px;
-  color: var(--select-collection-text);
-  @media (min-width: 1024px) {
-    color: $text-gray-200-color;
-  }
+  color: $text-gray-200-color;
   padding: 8px 32px;
   &:hover {
     @media (min-width: 1024px) {
@@ -23,7 +20,7 @@
   position: absolute;
   top: 80px;
   right: 0px;
-  background-color: var(--background-black-color);
+  background-color: $background-dark-color;
   @media (min-width: 1024px) {
     width: 400px;
     max-height: 300px;
@@ -33,7 +30,6 @@
   }
   transform-origin: top left;
   border-radius: 8px;
-  background-color: rgba(var(--background-dark-color), 0.7);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(var(--text-gray-200-color), 0.1);

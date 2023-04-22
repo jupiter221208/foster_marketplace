@@ -1007,7 +1007,7 @@ const SingleNft = () => {
                       onClick={() => handleChangeCurrentStep(currentStep - 1)}
                       fullWidth
                       height="45px"
-                      backgroundColor="var(--back-btn-color)"
+                      backgroundColor="transparent"
                       color="var(--main-bg-color)"
                       borderColor="var(--back-btn-border-mobile)"
                       borderWidth="var(--back-btn-border-width)"

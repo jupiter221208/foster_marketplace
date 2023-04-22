@@ -224,10 +224,11 @@ const SuccessMintSingleNFTSection = props => {
           <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
             <div className={styles.mintText}>
-              Your NFT has been minted successfully and can be viewed on the&nbsp;
+              Your NFT has been minted successfully!
+              {/* and can be viewed on the&nbsp;
               <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress + '&type=general'}>
                 NFT page
-              </a>
+              </a> */}
             </div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
@@ -241,7 +242,9 @@ const SuccessMintSingleNFTSection = props => {
                   <TweetMintButton
                     fullWidth
                     label="Tweet your Mint"
-                    color={'var(--mint-btn-color)'}
+                    backgroundColor01="#95DBD5"
+                    backgroundColor02="#4B6E6B"
+                    color="#202427"
                     onClick={() => {}}
                     direction="rtl"
                   />
@@ -253,7 +256,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   height="45px"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={'var(--outline-button-border)'}
+                  borderColor={'var(--back-btn-border-mobile)'}
                 />
               </div>
             </div>
