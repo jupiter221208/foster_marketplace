@@ -377,7 +377,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
         let openListings = await new GpaBuilder(mx, mx.programs().getAuctionHouse().address)
           .where(0, Buffer.from(listingConfigDiscriminator))
           .where(8 + 32 * 4, new PublicKey(nftDetail.metadataAddress))
-          .where(169, Buffer.from([0])) // purchaseReceipt == null
+          .where(168, Buffer.from([0])) // purchaseReceipt == null
           .where(195, Buffer.from([0])) // canceledAt == null
           .getAndMap(account => toListingReceiptAccount(account))
 
