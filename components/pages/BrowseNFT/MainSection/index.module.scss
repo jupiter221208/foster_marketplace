@@ -60,7 +60,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(var(--background-light-color-rgb), 0.15);
+  background: rgba($background-light-color, 0.15);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 10;

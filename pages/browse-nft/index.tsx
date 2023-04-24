@@ -22,6 +22,7 @@ import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
+import CloseIcon from 'assets/icons/close-screen.svg'
 
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
@@ -85,6 +86,13 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   let nftDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
+  const [nftCoverUrl, setNftCoverUrl] = useState('')
+  const [fullScreenMode, setFullScreenMode] = useState(false)
+  const setFullScreenView = url => {
+    setFullScreenMode(true)
+    setNftCoverUrl(url)
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -114,12 +122,28 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
         <div className="z-10">
-          {nftDetail && <MainSection nftDetail={nftDetail} artistInfo={artistInfo} nftInfo={nftInfo} />}
+          {nftDetail && (
+            <MainSection
+              nftDetail={nftDetail}
+              artistInfo={artistInfo}
+              nftInfo={nftInfo}
+              setFullScreenView={setFullScreenView}
+            />
+          )}
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />
         </div>
       </div>
+
+      {fullScreenMode && (
+        <div className={styles.fullScreen}>
+          <img src={nftCoverUrl} alt="" className="h-full object-fit" />
+          <div className={styles.closeScreen} onClick={() => setFullScreenMode(false)}>
+            <Image src={CloseIcon} alt="" width={18} height={18} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

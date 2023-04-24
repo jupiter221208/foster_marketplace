@@ -110,9 +110,10 @@ export interface MainSectionProps {
   nftDetail: Sft | Nft
   nftInfo: any
   artistInfo: NFTArtistInfo | null
+  setFullScreenView: any
 }
 
-const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
+const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -147,7 +148,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   const [saveCount, setSaveCount] = useState(0)
   const [isOwnNft, setIsOwnNft] = useState(false)
   const [play, setPlay] = useState(false)
-  const [fullScreenMode, setFullScreenMode] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -612,15 +612,18 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
                   <img src={nftCoverUrl} alt="" className="h-full" />
-                  {/* <div className={styles.fullScreenMode}>
+                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
                     <Image src={FullScreenModeIcon} alt="" />
-                  </div> */}
+                  </div>
                 </div>
               </div>
             ) : nftType === 'audio' ? (
               <div className={styles.blurBackground}>
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
+                    <Image src={FullScreenModeIcon} alt="" />
+                  </div>
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.audioArea}>
@@ -1191,6 +1194,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
           </div>
         </div>
       </div>
+
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
 
       <ModalPlaceBid
