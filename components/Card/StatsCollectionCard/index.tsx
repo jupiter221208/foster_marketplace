@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import ReactPlaceholder from 'react-placeholder'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -14,6 +16,7 @@ import styles from './index.module.scss'
 const StatsCollectionCard = props => {
   const { data, type } = props
   const router = useRouter()
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <div
@@ -27,8 +30,24 @@ const StatsCollectionCard = props => {
       }}
     >
       <div className={styles.imageArea}>
-        <Image src={data.asset_url} width={180} height={180} alt="" layout="fill" objectFit="cover" />
+        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+          <img src={data.asset_url} alt="" className="w-full h-full object-cover" />
+        </ReactPlaceholder>
+
+        {!loaded && (
+          <img
+            src={data.asset_url}
+            alt=""
+            className="w-full h-full object-cover"
+            onLoad={() => {
+              setLoaded(true)
+            }}
+          />
+        )}
       </div>
+      {/* <div className={styles.imageArea}>
+        <Image src={data.asset_url} width={180} height={180} alt="" layout="fill" objectFit="cover" />
+      </div> */}
       {/* <div className={styles.bottomMask} /> */}
       <div className={styles.dataContainer}>
         <div className={styles.dataGradientBgView} />

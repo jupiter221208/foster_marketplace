@@ -54,17 +54,15 @@ import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
-
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
-
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
-
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
 import PlaceBidBlackIcon from 'assets/icons/place-bid-icon-black.svg'
 import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
+import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 
 // json
 import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -89,7 +87,7 @@ import {
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // call apis
-import nftsAPI, { NFT } from 'apis/nfts'
+import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import authAPI from 'apis/auth'
 import listingsAPI from 'apis/listings'
@@ -149,6 +147,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
   const [saveCount, setSaveCount] = useState(0)
   const [isOwnNft, setIsOwnNft] = useState(false)
   const [play, setPlay] = useState(false)
+  const [fullScreenMode, setFullScreenMode] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -613,6 +612,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo }: MainSectionProps) => {
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
                   <img src={nftCoverUrl} alt="" className="h-full" />
+                  {/* <div className={styles.fullScreenMode}>
+                    <Image src={FullScreenModeIcon} alt="" />
+                  </div> */}
                 </div>
               </div>
             ) : nftType === 'audio' ? (
