@@ -45,14 +45,14 @@
 }
 
 .bottomLabel {
-  margin-top: 10px;
+  // margin-top: 10px;
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 21px;
   @media (min-width: 1024px) {
     font-size: 16px;
     line-height: 20px;
-    color: rgba($text-gray-200-color, 0.5);
+    color: rgba(var(--text-gray-200-color-rgb), 0.5);
   }
   letter-spacing: 0;
   color: rgba(var(--text-gray-200-color-rgb), 0.5);

@@ -221,10 +221,12 @@ const ProfileSection = prop => {
                 placeholder="Bio"
                 width="100%"
                 height="100%"
+                label01="Max Characters 1000"
+                label02={1000 - bio.length === 1000 ? '' : `${1000 - bio.length} Characters left`}
                 onChange={value => setBio(value)}
               />
             </div>
-            <div className="mt-[5px] lg:mt-[30px]">
+            <div className="mt-[15px] lg:mt-[30px]">
               <Input
                 value={userEmail}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
