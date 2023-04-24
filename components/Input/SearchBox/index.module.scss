@@ -156,7 +156,7 @@
     @media (min-width: 1024px) {
       background: var(--search-item-bg);
       // color: var(--search-item-color);
-      color: #95dbd5;
+      color: $text-gray-200-color;
       border-radius: 8px;
     }
   }
