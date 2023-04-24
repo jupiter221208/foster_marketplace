@@ -111,10 +111,10 @@ const LiveAuctionSection = props => {
               modules={[Autoplay, Lazy, Navigation]}
               className="navigationSwiper"
               loop={liveAuctionList.length >= 3}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
+              // autoplay={{
+              //   delay: 5000,
+              //   disableOnInteraction: false,
+              // }}
             >
               {liveAuctionList.map((item: any, index) => (
                 <SwiperSlide key={index}>

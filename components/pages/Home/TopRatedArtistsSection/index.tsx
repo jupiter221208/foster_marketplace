@@ -100,10 +100,10 @@ const TopRatedArtistsSection = () => {
           modules={[Autoplay, Lazy, Navigation]}
           className={'navigationSwiper'}
           loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
         >
           {artistsList.length !== 0 &&
             artistsList.map((item: any, index) => (

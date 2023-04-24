@@ -65,7 +65,7 @@ const Home = () => {
       <TrendingCollectionSection category={''} />
       <MostPopularSection category={''} />
       <MarketplaceReleaseSection category={''} />
-      <FreshMintSection category={''} />
+      {/* <FreshMintSection category={''} /> */}
       <LiveAuctionSection category={''} />
       <CreateSellNFTSection />
 

@@ -7,8 +7,8 @@ import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 
 // resources
-import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg'
-import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg'
+import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-white.svg'
+import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-white.svg'
 
 // styles
 import styles from './index.module.scss'

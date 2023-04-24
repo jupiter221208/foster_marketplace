@@ -114,10 +114,10 @@ const MarketplaceReleaseSection = props => {
             modules={[Autoplay, Lazy, Navigation]}
             className={'navigationSwiper'}
             loop
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
+            // autoplay={{
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // }}
           >
             {marketplaceReleaseList.map((item: any, index) => (
               <SwiperSlide key={index}>
