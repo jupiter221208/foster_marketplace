@@ -44,6 +44,18 @@ const ArtworksSection = () => {
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(10)
   const [period, setPeriod] = useState('all')
+  const [screenWidth, setScreenWidth] = useState(1920)
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+  }, [])
+
+  useEffect(() => {
+    const resizeFunction = () => {
+      setScreenWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', resizeFunction)
+  }, [])
 
   useEffect(() => {
     getArtworkData(currentPage, period, searchWord, rowCount)
@@ -118,6 +130,10 @@ const ArtworksSection = () => {
               ? 3.03
               : viewport === 'xl'
               ? 3.03
+              : viewport === '2xl'
+              ? screenWidth >= 1768
+                ? 4
+                : 3.5
               : 4
           }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25}
