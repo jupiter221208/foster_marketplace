@@ -16,10 +16,12 @@ import styles from './index.module.scss'
 // solana
 import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
+import { useRouter } from 'next/router'
 
 const ReportMobileModal = props => {
   const { open, close, address, onClick } = props
   const { connection } = useConnection()
+  const router = useRouter()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
 
   return (
@@ -53,9 +55,17 @@ const ReportMobileModal = props => {
                 <div className={styles.divider} />
                 <div className={styles.menuItem}>
                   <Image src={SolanaSolLogoGrayIcon} alt="" />
-                  <a target="_blank" href={explorerURL} rel="noopener noreferrer">
+                  {/* <a target="_blank" href={explorerURL} rel="noopener noreferrer">
                     View on Solana Explorer
-                  </a>
+                  </a> */}
+                  <div
+                    onClick={() => {
+                      window.open(explorerURL)
+                      close()
+                    }}
+                  >
+                    View on Solana Explorer
+                  </div>
                 </div>
 
                 <div className={styles.menuItem} onClick={() => onClick()}>

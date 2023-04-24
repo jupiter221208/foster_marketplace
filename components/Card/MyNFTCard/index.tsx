@@ -99,8 +99,8 @@ const MyNFTCard = props => {
             <OutlineButton
               label="Start Auction"
               onClick={() => onClickStartAuction(data)}
-              borderColor={'var(--mynft-outline-border)'}
-              color={'var(--mynft-outline-color)'}
+              // borderColor={'var(--mynft-outline-border)'}
+              // color={'var(--mynft-outline-color)'}
               height="26px"
               fontSize="10px"
               borderRadius="6px"
