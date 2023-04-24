@@ -16,6 +16,7 @@ import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 // styles
 import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getOwnerName } from 'utils/helpers'
+import ActivityTableItem from './ActivityTableItem'
 
 const ActivityTable = props => {
   const { data, type } = props
@@ -42,13 +43,7 @@ const ActivityTable = props => {
           <tr key={index}>
             <td className="h-[90px] flex justify-center items-center">
               <div className="w-[60px] h-[60px]" onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}>
-                <img
-                  src={item.asset_url}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-                  className="w-full h-full object-cover rounded-[8px] cursor-pointer"
-                />
+                <ActivityTableItem url={item.asset_url} />
               </div>
             </td>
             <td>

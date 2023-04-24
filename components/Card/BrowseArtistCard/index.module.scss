@@ -98,4 +98,8 @@
     font-family: 'Muli-Bold';
     font-size: 16px;
   }
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
