@@ -52,10 +52,10 @@ const PopularCategorySection = props => {
           modules={[Autoplay, Lazy, Navigation]}
           className={'navigationSwiper'}
           loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
         >
           {categoryList.map((item: any, index) => (
             <SwiperSlide key={index}>
