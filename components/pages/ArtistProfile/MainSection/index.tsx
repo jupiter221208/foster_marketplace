@@ -280,7 +280,6 @@ const MainSection = prop => {
                   <div className="text-center">
                     <div className="flex items-center justify-center">
                       <div className={styles.nftInfoLabel}>
-                        {/* <Image src={SolanaLogoIcon} width={23} height={23} alt="" /> */}
                         <SolanaLogoIcon alt="" />
                         <div className={'ml-[6px]'}>
                           {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}

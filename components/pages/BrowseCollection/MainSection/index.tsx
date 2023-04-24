@@ -25,7 +25,7 @@ import { getShortDescription } from 'utils/strings'
 import { namePublicFile, useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 import bannerImage from 'assets/images/collection-banner.png'
@@ -259,40 +259,42 @@ const MainSection = props => {
               )}
             </div>
             <div className="flex justify-center mt-[16px]">
-              <div className={`${styles.nftInfo} grid grid-cols-10`}>
-                <>
-                  <div className="col-span-2 flex justify-center items-center">
-                    <div className="text-center">
-                      <div className={styles.nftInfoLabel}>{items}</div>
-                      <div className={styles.nftInfoValue}>ITEMS</div>
-                    </div>
+              <div className={`${styles.nftInfo} w-full flex justify-between items-center`}>
+                <div className="flex justify-center items-center">
+                  <div className="text-center">
+                    <div className={styles.nftInfoLabel}>{items}</div>
+                    <div className={styles.nftInfoValue}>ITEMS</div>
                   </div>
-                  <div className="col-span-2 flex justify-center items-center">
-                    <div className="text-center">
-                      <div className={styles.nftInfoLabel}>{owners}</div>
-                      <div className={styles.nftInfoValue}>OWNERS</div>
-                    </div>
+                </div>
+                <div className=" flex justify-center items-center">
+                  <div className="text-center">
+                    <div className={styles.nftInfoLabel}>{owners}</div>
+                    <div className={styles.nftInfoValue}>OWNERS</div>
                   </div>
-                  <div className="col-span-3 flex justify-center items-center">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center">
-                        <Image src={SolanaLogoIcon} alt="" />
-                        <div className={`${styles.nftInfoLabel} ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+                </div>
+                <div className="flex justify-center items-center">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center">
+                      <div className={styles.nftInfoLabel}>
+                        <SolanaLogoIcon alt="" />
+                        <div className={`ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                       </div>
-                      <div className={styles.nftInfoValue}>FLOOR PRICE</div>
                     </div>
+                    <div className={styles.nftInfoValue}>FLOOR PRICE</div>
                   </div>
-                  <div className="col-span-3 flex justify-center items-center">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center">
-                        <Image src={SolanaLogoIcon} alt="" />
-                        <div className={`${styles.nftInfoLabel} ml-[8px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                </div>
+                <div className="flex justify-center items-center">
+                  <div className="text-center">
+                    <div className="flex items-center justify-center">
+                      <div className={styles.nftInfoLabel}>
+                        <SolanaLogoIcon alt="" />
+                        <div className={`ml-[8px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
                       </div>
+                    </div>
 
-                      <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
-                    </div>
+                    <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
                   </div>
-                </>
+                </div>
               </div>
             </div>
             {/* <div className="flex justify-center mt-[30px]">

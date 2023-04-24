@@ -9,6 +9,7 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
 import CollectionSection from 'components/pages/BrowseCollection/CollectionSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -26,6 +27,7 @@ import { isString, isLoggedIn } from 'utils/helpers'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import { useViewport } from 'utils'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -35,6 +37,7 @@ type BrowseCollectionProps = {
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
   const { connected, publicKey } = useWallet()
+  const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
@@ -117,6 +120,15 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       </Head>
 
       <div className={styles.container}>
+        <div className={styles.topLeftEllipse}>
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
+        </div>
+        <div className={styles.topRightEllipse}>
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
+        </div>
+        <div className={styles.bottomLeftEllipse}>
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
+        </div>
         <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} />
         <CollectionSection
           nfts={nfts}
