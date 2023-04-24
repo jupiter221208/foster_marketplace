@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 
 // next components
 import Head from 'next/head'
@@ -21,7 +21,6 @@ import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import CloseIcon from 'assets/icons/close-screen.svg'
 
 // third party components
@@ -88,7 +87,12 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
+
   const setFullScreenView = url => {
+    window.scrollTo({
+      top: 0,
+    })
+    document.body.style.overflow = 'hidden'
     setFullScreenMode(true)
     setNftCoverUrl(url)
   }
@@ -139,7 +143,13 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
       {fullScreenMode && (
         <div className={styles.fullScreen}>
           <img src={nftCoverUrl} alt="" className="h-full object-fit" />
-          <div className={styles.closeScreen} onClick={() => setFullScreenMode(false)}>
+          <div
+            className={styles.closeScreen}
+            onClick={() => {
+              setFullScreenMode(false)
+              document.body.style.overflow = 'unset'
+            }}
+          >
             <Image src={CloseIcon} alt="" width={18} height={18} />
           </div>
         </div>

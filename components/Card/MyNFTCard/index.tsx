@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import ReactPlaceholder from 'react-placeholder'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // next components
 import Image from 'next/image'
@@ -18,6 +20,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 const MyNFTCard = props => {
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -33,6 +36,33 @@ const MyNFTCard = props => {
           // <video autoPlay loop muted webkit-playsInline playsInline className="w-full aspect-[321/321] object-cover">
           //   <source src={data.json.animation_url} type="video/mp4" />
           // </video>
+          // <div className="w-full h-full">
+          //   <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+          //     <img
+          //       src={
+          //         data.json.image === undefined || data.json.image === null
+          //           ? AudioPlayerBackground.src
+          //           : data.json.image
+          //       }
+          //       alt={data.json.name || data.name}
+          //       className="w-full aspect-[321/321] object-cover"
+          //     />
+          //   </ReactPlaceholder>
+          //   {!loaded && (
+          //     <img
+          //       src={
+          //         data.json.image === undefined || data.json.image === null
+          //           ? AudioPlayerBackground.src
+          //           : data.json.image
+          //       }
+          //       alt=""
+          //       className="w-full aspect-[321/321] object-cover"
+          //       onLoad={() => {
+          //         setLoaded(true)
+          //       }}
+          //     />
+          //   )}
+          // </div>
           <img
             src={
               data.json.image === undefined || data.json.image === null ? AudioPlayerBackground.src : data.json.image
