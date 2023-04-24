@@ -158,7 +158,7 @@
   background-color: transparent;
   border-radius: 15px;
   @media (min-width: 1024px) {
-    background-color: var(--background-black-color);
+    background-color: var(--activity-bg-color);
     width: 100%;
     padding: 15px 15px 15px 15px;
   }
@@ -188,10 +188,10 @@
     font-size: 20px;
     line-height: 40px;
     width: 100px;
-    background-color: #17191a;
+    background-color: var(--stats-label-bg);
     border-radius: 6px;
   }
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .nftInfoValue {
@@ -202,7 +202,7 @@
     font-size: 14px;
     margin-top: 8px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .nftInfoLabelMobile {

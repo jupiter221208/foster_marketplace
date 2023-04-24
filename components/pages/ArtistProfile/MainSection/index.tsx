@@ -22,7 +22,7 @@ import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
@@ -280,7 +280,8 @@ const MainSection = prop => {
                   <div className="text-center">
                     <div className="flex items-center justify-center">
                       <div className={styles.nftInfoLabel}>
-                        <Image src={SolanaLogoIcon} width={23} height={23} alt="" />
+                        {/* <Image src={SolanaLogoIcon} width={23} height={23} alt="" /> */}
+                        <SolanaLogoIcon alt="" />
                         <div className={'ml-[6px]'}>
                           {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
                         </div>
