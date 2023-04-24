@@ -127,9 +127,11 @@ const ArtworksSection = () => {
               : viewport === 'md'
               ? 3
               : viewport === 'lg'
-              ? 3.03
+              ? 2.5
               : viewport === 'xl'
-              ? 3.03
+              ? 2.9
+              : screenWidth >= 1300
+              ? 3.1
               : viewport === '2xl'
               ? screenWidth >= 1768
                 ? 4
