@@ -389,7 +389,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--outline-btn-border', 'rgba(32, 36, 39, 0.25)')
     doc.style.setProperty('--report-menu-bg', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--stats-label-bg', '#E0E1E7')
-
+    doc.style.setProperty(
+      '--category-bottom-mask',
+      'linear-gradient(to bottom, rgba(239, 240, 247, 0), rgba(239, 240, 247, 1))'
+    )
     // =====================================================
     // =====================================================
     // =====================================================
@@ -633,6 +636,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--outline-btn-border', '#95dbd5')
     doc.style.setProperty('--report-menu-bg', 'rgba(18, 18, 18, 0.5)')
     doc.style.setProperty('--stats-label-bg', '#17191a')
-
+    doc.style.setProperty(
+      '--category-bottom-mask',
+      'linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, 1))'
+    )
   }
 }

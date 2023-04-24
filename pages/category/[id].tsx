@@ -106,7 +106,7 @@ const Category = () => {
             <></>
           )}
 
-          {/* <div className={styles.bottomMask}></div> */}
+          <div className={styles.bottomMask}></div>
 
           {/* <div className={styles.title}>{categoryInfo?.name}</div> */}
         </div>
