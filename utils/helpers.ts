@@ -403,7 +403,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-icon-color', '#95dbd5')
     doc.style.setProperty('--main-icon-color-rgb', '149, 219, 213')
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
-    doc.style.setProperty('--background-main-color', '#0c1013')
+    doc.style.setProperty('--background-main-color', '#121212')
     doc.style.setProperty('--background-black-color', '#121212')
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
     doc.style.setProperty('--active-btn-border-color', '#95dbd5')

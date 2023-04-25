@@ -41,15 +41,15 @@ const AccordionMenu = props => {
   const dispatch = useDispatch()
 
   const handleClick = item => {
-    if (connected) {
-      dispatch({ type: 'set', openMobileMenu: false })
+    // if (connected) {
+    dispatch({ type: 'set', openMobileMenu: false })
 
-      if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
+    if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
 
-      router.push(item.path)
-    } else {
-      setVisible(true)
-    }
+    router.push(item.path)
+    // } else {
+    //   setVisible(true)
+    // }
   }
 
   const handleSoloMenuItemClick = () => {
