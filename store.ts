@@ -28,7 +28,6 @@ const initialState = {
   loginAndRefresh: false,
   hideNftToken: '',
   markAsRead: false,
-  unsaveLoading: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

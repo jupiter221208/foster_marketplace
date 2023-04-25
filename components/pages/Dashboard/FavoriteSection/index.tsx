@@ -88,7 +88,9 @@ const FavoriteSection = () => {
     nftAPI.unsaveNft(tokenId).then(
       response => {
         getFavoriteNftData()
-        dispatch({ type: 'set', unsaveLoading: true })
+        setTimeout(() => {
+          dispatch({ type: 'set', isLoading: false })
+        }, 1000)
       },
       error => {}
     )
@@ -98,7 +100,9 @@ const FavoriteSection = () => {
     collectionAPI.unsaveCollection(collectionId).then(
       response => {
         getFavoriteCollectionData()
-        dispatch({ type: 'set', unsaveLoading: true })
+        setTimeout(() => {
+          dispatch({ type: 'set', isLoading: false })
+        }, 1000)
       },
       error => {}
     )
