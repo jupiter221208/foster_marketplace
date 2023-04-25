@@ -8,12 +8,14 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import LoadingButton from 'components/Button/LoadingButton'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
   const dispatch = useDispatch()
   const [isUnsaveLoading, setIsUnsaveLoading] = useState(false)
   const unsaveLoading = useSelector(state => (state as any).unsaveLoading)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     setIsUnsaveLoading(false)
@@ -24,8 +26,21 @@ const CollectionCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea} onClick={() => onClick()}>
         <div className={styles.imageContent}>
-          {/* <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-contain" /> */}
-          <img src={image} alt="" className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover" />
+          <div className="w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
+            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+              <img src={image} alt="" className="w-full h-full object-cover" />
+            </ReactPlaceholder>
+            {!loaded && (
+              <img
+                src={image}
+                alt=""
+                className="w-full h-full object-cover"
+                onLoad={() => {
+                  setLoaded(true)
+                }}
+              />
+            )}
+          </div>
         </div>
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
