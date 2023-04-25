@@ -188,10 +188,12 @@
     font-size: 20px;
     line-height: 40px;
     width: 100px;
+    height: 40px;
     background-color: var(--stats-label-bg);
     border-radius: 6px;
   }
   color: var(--text-gray-200-color);
+  overflow: hidden;
 }
 
 .nftInfoValue {

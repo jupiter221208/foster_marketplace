@@ -52,6 +52,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
   const [isMounted, setIsMounted] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
 
   const [isOwn, setIsOwn] = useState<any>(false)
   useEffect(() => {
@@ -105,6 +106,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const getArtistData = (id, refresh = false) => {
     artistsAPI.getArtist(id).then(
       response => {
+        setIsLoaded(true)
         if (isString(response)) return
         let artist = response.artist
 
@@ -143,6 +145,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const getCollectorData = (id, refresh = false) => {
     artistsAPI.getCollector(id).then(
       response => {
+        setIsLoaded(true)
         if (isString(response)) return
         let artist = response.collector
         if (refresh && artist) {
@@ -163,6 +166,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   useEffect(() => {
     if (isMounted) {
+      setIsLoaded(false)
       if (artistEnable) {
         getArtistData(artistPublicKey)
       } else {
@@ -229,6 +233,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           statsInfo={statsInfo}
           categoryList={categoryList}
           isOwn={isOwn}
+          isLoaded={isLoaded}
           artistEnable={artistEnable}
           setArtistEnable={enabled => setArtistEnable(enabled)}
         />

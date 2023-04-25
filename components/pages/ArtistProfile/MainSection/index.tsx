@@ -41,9 +41,10 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const MainSection = prop => {
-  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable } = prop
+  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable, isLoaded } = prop
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()
@@ -246,7 +247,15 @@ const MainSection = prop => {
                   <div className="text-center">
                     <div className="flex justify-center">
                       <div className={styles.nftInfoLabel}>
-                        {artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}
+                        {isLoaded === false ? (
+                          <div className="w-full h-full">
+                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                              <div></div>
+                            </ReactPlaceholder>
+                          </div>
+                        ) : (
+                          <div>{artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}</div>
+                        )}
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>{artistEnable ? 'NFTS CREATED' : 'NFTS COLLECTED'}</div>
@@ -256,7 +265,15 @@ const MainSection = prop => {
                   <div className="text-center">
                     <div className="flex justify-center">
                       <div className={styles.nftInfoLabel}>
-                        {artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}
+                        {isLoaded === false ? (
+                          <div className="w-full h-full">
+                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                              <div></div>
+                            </ReactPlaceholder>
+                          </div>
+                        ) : (
+                          <div>{artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}</div>
+                        )}
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>
@@ -268,7 +285,15 @@ const MainSection = prop => {
                   <div className="text-center">
                     <div className="flex justify-center">
                       <div className={styles.nftInfoLabel}>
-                        {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
+                        {isLoaded === false ? (
+                          <div className="w-full h-full">
+                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                              <div></div>
+                            </ReactPlaceholder>
+                          </div>
+                        ) : (
+                          <div> {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}</div>
+                        )}
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>
@@ -280,10 +305,20 @@ const MainSection = prop => {
                   <div className="text-center">
                     <div className="flex items-center justify-center">
                       <div className={styles.nftInfoLabel}>
-                        <SolanaLogoIcon alt="" />
-                        <div className={'ml-[6px]'}>
-                          {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
-                        </div>
+                        {isLoaded === false ? (
+                          <div className="w-full h-full">
+                            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                              <div></div>
+                            </ReactPlaceholder>
+                          </div>
+                        ) : (
+                          <div className="flex items-center">
+                            <SolanaLogoIcon alt="" />
+                            <div className={'ml-[6px]'}>
+                              {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -500,7 +535,6 @@ const MainSection = prop => {
               <div className="text-center">
                 <div className="flex items-center justify-center">
                   <div className={styles.nftInfoLabelMobile}>
-                    {/* <Image src={SolanaLogoIcon} width={18} height={18} alt="" /> */}
                     <SolanaLogoMobileIcon />
                     <div className={'ml-[6px]'}>
                       {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
