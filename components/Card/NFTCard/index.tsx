@@ -24,8 +24,9 @@ import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 
 import nftAPI from 'apis/nfts'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const DashboardNFTCard = props => {
   const {
@@ -47,6 +48,13 @@ const DashboardNFTCard = props => {
   const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isUnsaveLoading, setIsUnsaveLoading] = useState(false)
+  const unsaveLoading = useSelector(state => (state as any).unsaveLoading)
+
+  useEffect(() => {
+    setIsUnsaveLoading(false)
+    dispatch({ type: 'set', unsaveLoading: false })
+  }, [unsaveLoading])
 
   const performHideNft = () => {
     setIsLoading(true)
@@ -198,7 +206,18 @@ const DashboardNFTCard = props => {
         </div>
         {unSave !== null && (
           <div className="mt-[10px]">
-            <GradientButton fullWidth label="Unsave" onClick={() => unSave()} />
+            {isUnsaveLoading ? (
+              <LoadingButton fullWidth />
+            ) : (
+              <GradientButton
+                fullWidth
+                label="Unsave"
+                onClick={() => {
+                  setIsUnsaveLoading(true)
+                  unSave()
+                }}
+              />
+            )}
           </div>
         )}
       </div>

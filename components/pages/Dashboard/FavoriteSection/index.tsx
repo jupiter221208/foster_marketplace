@@ -81,6 +81,7 @@ const FavoriteSection = () => {
     nftAPI.unsaveNft(tokenId).then(
       response => {
         getFavoriteNftData()
+        dispatch({ type: 'set', unsaveLoading: true })
       },
       error => {}
     )
@@ -90,6 +91,7 @@ const FavoriteSection = () => {
     collectionAPI.unsaveCollection(collectionId).then(
       response => {
         getFavoriteCollectionData()
+        dispatch({ type: 'set', unsaveLoading: true })
       },
       error => {}
     )

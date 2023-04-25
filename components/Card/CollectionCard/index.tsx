@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
@@ -6,9 +7,18 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
+  const dispatch = useDispatch()
+  const [isUnsaveLoading, setIsUnsaveLoading] = useState(false)
+  const unsaveLoading = useSelector(state => (state as any).unsaveLoading)
+
+  useEffect(() => {
+    setIsUnsaveLoading(false)
+    dispatch({ type: 'set', unsaveLoading: false })
+  }, [unsaveLoading])
 
   return (
     <div className={styles.container}>
@@ -35,7 +45,18 @@ const CollectionCard = props => {
       </div>
       {unSave !== null && (
         <div className="mt-[10px]">
-          <GradientButton fullWidth label="Unsave" onClick={() => unSave()} />
+          {isUnsaveLoading ? (
+            <LoadingButton fullWidth />
+          ) : (
+            <GradientButton
+              fullWidth
+              label="Unsave"
+              onClick={() => {
+                setIsUnsaveLoading(true)
+                unSave()
+              }}
+            />
+          )}
         </div>
       )}
     </div>
