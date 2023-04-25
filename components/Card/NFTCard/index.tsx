@@ -48,6 +48,13 @@ const DashboardNFTCard = props => {
   const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [isUnsaveLoading, setIsUnsaveLoading] = useState(false)
+  const unsaveLoading = useSelector(state => (state as any).unsaveLoading)
+
+  useEffect(() => {
+    setIsUnsaveLoading(false)
+    dispatch({ type: 'set', unsaveLoading: false })
+  }, [unsaveLoading])
 
   const performHideNft = () => {
     setIsLoading(true)
