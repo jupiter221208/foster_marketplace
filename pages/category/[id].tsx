@@ -109,16 +109,14 @@ const Category = () => {
           )}
 
           <div className={styles.bottomMask}></div>
-
-          {/* <div className={styles.title}>{categoryInfo?.name}</div> */}
         </div>
         <div className="flex justify-center mt-[10px] lg:mt-[40px]">
           <div className="g-container">
-            <TrendingCollectionSection category={cateQuery} ellipse={false} />
-            <MostPopularSection category={cateQuery} ellipse={false} />
+            <TrendingCollectionSection category={cateQuery} />
+            <MostPopularSection category={cateQuery} />
             <MarketplaceReleaseSection category={cateQuery} />
             <LiveAuctionSection category={cateQuery} />
-            <FreshMintSection category={cateQuery} ellipse={false} />
+            <FreshMintSection category={cateQuery} />
             <PopularCategorySection type="category" />
           </div>
         </div>

@@ -4,7 +4,7 @@ import React from 'react'
 import Head from 'next/head'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -13,11 +13,13 @@ import TabSection from 'components/pages/Dashboard/TabSection'
 
 // styles
 import styles from './index.module.scss'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const Dashbord = () => {
   const dispatch = useDispatch()
   dispatch({ type: 'set', isGetMyNFTs: false })
   dispatch({ type: 'set', isGetListedNFTs: false })
+  const isLoading = useSelector<any>(state => state.isLoading)
 
   return (
     <div className="g-container">
@@ -29,6 +31,7 @@ const Dashbord = () => {
       <div className={styles.container}>
         <MainSection />
         <TabSection />
+        <FullScreenLoadingModal open={isLoading} />
       </div>
     </div>
   )

@@ -12,15 +12,8 @@ import ReactPlaceholder from 'react-placeholder/lib'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
-  const dispatch = useDispatch()
-  const [isUnsaveLoading, setIsUnsaveLoading] = useState(false)
-  const unsaveLoading = useSelector(state => (state as any).unsaveLoading)
   const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    setIsUnsaveLoading(false)
-    dispatch({ type: 'set', unsaveLoading: false })
-  }, [unsaveLoading])
+  const dispatch = useDispatch()
 
   return (
     <div className={styles.container}>
@@ -60,18 +53,15 @@ const CollectionCard = props => {
       </div>
       {unSave !== null && (
         <div className="mt-[10px]">
-          {isUnsaveLoading ? (
-            <LoadingButton fullWidth />
-          ) : (
-            <GradientButton
-              fullWidth
-              label="Unsave"
-              onClick={() => {
-                setIsUnsaveLoading(true)
-                unSave()
-              }}
-            />
-          )}
+          <GradientButton
+            fullWidth
+            label="Unsave"
+            onClick={() => {
+              dispatch({ type: 'set', isLoading: true })
+
+              unSave()
+            }}
+          />
         </div>
       )}
     </div>
