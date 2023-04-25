@@ -112,11 +112,11 @@ const Category = () => {
         </div>
         <div className="flex justify-center mt-[10px] lg:mt-[40px]">
           <div className="g-container">
-            <TrendingCollectionSection category={cateQuery} />
-            <MostPopularSection category={cateQuery} />
+            <TrendingCollectionSection category={cateQuery} ellipse={false} />
+            <MostPopularSection category={cateQuery} ellipse={false} />
             <MarketplaceReleaseSection category={cateQuery} />
             <LiveAuctionSection category={cateQuery} />
-            <FreshMintSection category={cateQuery} />
+            <FreshMintSection category={cateQuery} ellipse={false} />
             <PopularCategorySection type="category" />
           </div>
         </div>
