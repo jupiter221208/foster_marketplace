@@ -791,7 +791,7 @@ h6 {
   }
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 #ArtworksTable th:first-child {
   border-top-left-radius: 20px;

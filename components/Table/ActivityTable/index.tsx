@@ -24,7 +24,7 @@ const ActivityTable = props => {
   const router = useRouter()
 
   return (
-    <table id="ActivityTable" className="w-full table-auto">
+    <table id="ArtworksTable" className="w-full table-auto">
       <thead>
         <tr>
           <th></th>
