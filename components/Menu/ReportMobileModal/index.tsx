@@ -55,9 +55,6 @@ const ReportMobileModal = props => {
                 <div className={styles.divider} />
                 <div className={styles.menuItem}>
                   <Image src={SolanaSolLogoGrayIcon} alt="" />
-                  {/* <a target="_blank" href={explorerURL} rel="noopener noreferrer">
-                    View on Solana Explorer
-                  </a> */}
                   <div
                     onClick={() => {
                       window.open(explorerURL)

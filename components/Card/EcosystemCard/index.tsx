@@ -47,6 +47,7 @@ const EcosystemCard = props => {
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
               className="rounded-full"
+              objectFit="cover"
               alt=""
             />
           )}
@@ -55,14 +56,6 @@ const EcosystemCard = props => {
       <div className="w-full lg:mt-[100px] xs:mt-[50px] flex flex-wrap justify-center items-center px-[9px]">
         <div className="w-full flex justify-center items-center">
           <div className={styles.artistName}>{data.artist.username ?? 'Ecosystem'}</div>
-          {/* <div className="flex justify-center items-center ml-[4px] lg:ml-[10px]">
-            <Image
-              src={CheckedGreenIcon}
-              alt=""
-              width={viewport === 'xs' ? 11 : viewport === 'sm' ? 16 : 24}
-              height={viewport === 'xs' ? 11 : viewport === 'sm' ? 16 : 24}
-            />
-          </div> */}
         </div>
       </div>
       <div className={styles.contentCard}>

@@ -24,6 +24,7 @@ import styles from './index.module.scss'
 
 // api
 import dashboardAPI from 'apis/dashboard'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreCategorySection = props => {
   const { categories } = props
@@ -53,16 +54,13 @@ const MoreCategorySection = props => {
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Category</div>
           </div>
           <div className="hidden lg:flex">
-            <OutlineButton
-              label="See More"
+            <SeeMoreButton
               onClick={() => {
                 if (categories && categories.length > 0) {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/category/${categories[0].toLowerCase()}`)
                 }
               }}
-              borderColor={'var(--see-more-border)'}
-              height="42px"
             />
           </div>
         </div>

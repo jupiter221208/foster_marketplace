@@ -27,6 +27,7 @@ import styles from './index.module.scss'
 
 // api
 import collectionAPI from 'apis/collections'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MoreArtistSection = props => {
   const { artistInfo } = props
@@ -57,14 +58,11 @@ const MoreArtistSection = props => {
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>More from this Artist</div>
           </div>
           <div className="hidden lg:flex">
-            <OutlineButton
-              label="See More"
+            <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
                 router.push(`/artist-profile?id=${artistInfo.address}`)
               }}
-              borderColor={'var(--see-more-border)'}
-              height="42px"
             />
           </div>
         </div>
