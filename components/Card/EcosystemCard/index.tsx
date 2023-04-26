@@ -42,14 +42,15 @@ const EcosystemCard = props => {
               alt=""
             />
           ) : (
-            <Image
-              src={AvatarImage}
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
-              className="rounded-full"
-              objectFit="cover"
-              alt=""
-            />
+            <div className="w-[100px] lg:w-[180px] h-[100px] lg:h-[180px] overflow-hidden rounded-[50px] lg:rounded-[90px] bg-tansparent">
+              <Image
+                src={AvatarImage}
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+                className="rounded-full"
+                alt=""
+              />
+            </div>
           )}
         </div>
       </div>
