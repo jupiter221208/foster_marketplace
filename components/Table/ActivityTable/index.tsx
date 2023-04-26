@@ -41,9 +41,11 @@ const ActivityTable = props => {
       <tbody>
         {data.map((item, index) => (
           <tr key={index}>
-            <td className="h-[90px] flex justify-center items-center">
-              <div className="w-[60px] h-[60px]" onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}>
-                <ActivityTableItem url={item.asset_url} />
+            <td>
+              <div className="h-[90px] flex justify-center items-center">
+                <div className="w-[60px] h-[60px]" onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}>
+                  <ActivityTableItem url={item.asset_url} />
+                </div>
               </div>
             </td>
             <td>

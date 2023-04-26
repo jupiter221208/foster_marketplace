@@ -62,7 +62,8 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
   
   return (
     <>
-      <td className="h-[90px] flex justify-start items-center gap-[25px]">
+      <td >
+        <div className="h-[90px] flex justify-start items-center gap-[25px]">
         <div className="ml-[10px]">
           <Image
             src={assetImageUrl}
@@ -74,6 +75,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
         </div>
         <div className="block">
           <div className={styles.nftName} onClick={() => router.push(`/browse-nft?id=${listing.asset.mintAddress.toBase58()}`)}>{listing.asset.name}</div>
+        </div>
         </div>
       </td>
       <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>
@@ -102,9 +104,9 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
               label="Accept"
               onClick={() => onAccept(listing)}
               gradientDirection="right"
-              backgroundColor01="#172120"
-              backgroundColor02="#2C5E5A"
-              color="#95DBD5"
+              // backgroundColor01="#172120"
+              // backgroundColor02="#2C5E5A"
+              // color="#95DBD5"
               width="138px"
               height="48px"
             />
@@ -117,7 +119,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
 
 const OfferTable = ({ data, onCancel, onAccept, offerType }: OfferTableProps) => {
   return (
-    <table id="ActivityTable" className="w-full table-auto">
+    <table id="ArtworksTable" className="w-full table-auto">
       <thead>
         <tr>
           <th className="w-[25%]">
