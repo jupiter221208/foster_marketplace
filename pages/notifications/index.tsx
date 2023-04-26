@@ -270,6 +270,7 @@ const Notifications = () => {
         if (type === item.notification_type) {
           filtered.push(item)
         }
+        if (type === 'purchase' && item.notification_type === 'won') filtered.push(item)
       })
       newFiltered = getSortedNotification(filtered)
     }
