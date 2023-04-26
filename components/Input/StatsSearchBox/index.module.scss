@@ -6,7 +6,7 @@
   padding-left: 16px;
   padding-right: 25px;
   height: 50px;
-  background-color: var(--address-btn-bg-color);
+  background: var(--stats-search-bg);
   border: 1px solid rgba(var(--text-gray-200-color), 0.1);
 
   @media (min-width: 640px) {

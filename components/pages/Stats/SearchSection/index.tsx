@@ -27,13 +27,6 @@ const SearchSection = props => {
             onChange={value => setSearchWord(value)}
           />
           <div className="w-[50px] h-[50px] flex justify-center items-center" onClick={() => onSearch()}>
-            {/* <Image
-              className="w-full h-full"
-              width={50}
-              height={50}
-              src={searchWord?.length > 0 ? SearchLargeEnableIcon : lightMode ? SearchLargeIcon : SearchLargeDarkIcon}
-              alt="search"
-            /> */}
             {searchWord?.length > 0 ? (
               <svg
                 id="Component_2335_3"
@@ -79,7 +72,7 @@ const SearchSection = props => {
                 <g
                   id="Rectangle_21247"
                   data-name="Rectangle 21247"
-                  fill="var(--search-icon-color)"
+                  fill="var(--stats-search-bg)"
                   stroke="var(--search-icon-bg)"
                   strokeWidth="1"
                 >

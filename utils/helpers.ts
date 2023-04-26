@@ -370,7 +370,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--setting-input-bg', '#CCCDD4')
     doc.style.setProperty('--search-icon-stop-1', '#95dbd5')
     doc.style.setProperty('--search-icon-stop-2', '#4B6E6B')
-    doc.style.setProperty('--search-icon-bg', 'rgba(239, 240, 247, 0.75)')
+    doc.style.setProperty('--search-icon-bg', 'rgba(239, 240, 247, 0.6)')
     doc.style.setProperty('--search-gray-icon', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(255,255,255,0.8)')
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
@@ -393,6 +393,9 @@ export const setColorTheme = lightMode => {
       '--category-bottom-mask',
       'linear-gradient(to bottom, rgba(239, 240, 247, 0), rgba(239, 240, 247, 1))'
     )
+    doc.style.setProperty('--stats-search-bg', '#E3E4EA')
+    doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #E3E4EA, #727275)')
+
     // =====================================================
     // =====================================================
     // =====================================================
@@ -615,7 +618,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-gray-icon', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--search-icon-stop-1', '#202427')
     doc.style.setProperty('--search-icon-stop-2', '#2D625D')
-    doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.75)')
+    doc.style.setProperty('--search-icon-bg', 'rgba(32, 36, 39, 0.6)')
     doc.style.setProperty('--search-gray-icon-disable', 'rgba(255, 255, 255, 0.2)')
     doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
     doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
@@ -640,5 +643,7 @@ export const setColorTheme = lightMode => {
       '--category-bottom-mask',
       'linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, 1))'
     )
+    doc.style.setProperty('--stats-search-bg', '#2b2b2b')
+    doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #202427, #121212)')
   }
 }

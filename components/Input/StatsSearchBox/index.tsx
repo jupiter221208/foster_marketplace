@@ -13,7 +13,6 @@ const StatsSearchBox = props => {
   const { value, placeholder, onChange } = props
   return (
     <div className={styles.container}>
-      {/* <Image src={SearchGrayIcon} alt="" width="13" /> */}
       <SearchGrayIcon />
       <input
         className={styles.inputArea}
