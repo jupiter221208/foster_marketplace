@@ -25,6 +25,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // api
 import collectionAPI from 'apis/collections'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const OtherCollectionSection = props => {
   const { artistId, artistName } = props
@@ -56,12 +57,7 @@ const OtherCollectionSection = props => {
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Other Collections by Artist</div>
           </div>
           <div className="hidden lg:flex z-10">
-            <OutlineButton
-              label="See More"
-              onClick={() => router.push(`/artist-profile?id=${artistId}`)}
-              borderColor="#ffffff"
-              height="42px"
-            />
+            <SeeMoreButton onClick={() => router.push(`/artist-profile?id=${artistId}`)} />
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">

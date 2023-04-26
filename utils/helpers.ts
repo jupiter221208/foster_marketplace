@@ -536,7 +536,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--checkbox-bg-color', '#95DBD5')
     doc.style.setProperty('--ellipse-menu-bg', '#1b1b1b')
     doc.style.setProperty('--ellipse-report-bg', '#1b1b1b')
-    doc.style.setProperty('--mobile-serachbox-bg', '#121212')
+    doc.style.setProperty('--mobile-serachbox-bg', '#1b1b1b')
     doc.style.setProperty('--mobile-serach-area-bg', '#313233')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--auction-input-bg', '#202427')
