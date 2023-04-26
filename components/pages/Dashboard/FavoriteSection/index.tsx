@@ -55,6 +55,10 @@ const FavoriteSection = () => {
         setTimeout(() => {
           setIsLoaded(true)
         }, 500)
+
+        setTimeout(() => {
+          dispatch({ type: 'set', isLoading: false })
+        }, 2000)
       },
       error => {
         console.log(error)
@@ -70,6 +74,9 @@ const FavoriteSection = () => {
     userAPI.getFavoriteCollection().then(
       response => {
         setAllCollectionList(response)
+        setTimeout(() => {
+          dispatch({ type: 'set', isLoading: false })
+        }, 2000)
       },
       error => {
         console.log(error)
@@ -81,9 +88,6 @@ const FavoriteSection = () => {
     nftAPI.unsaveNft(tokenId).then(
       response => {
         getFavoriteNftData()
-        setTimeout(() => {
-          dispatch({ type: 'set', isLoading: false })
-        }, 1000)
       },
       error => {}
     )
@@ -93,9 +97,6 @@ const FavoriteSection = () => {
     collectionAPI.unsaveCollection(collectionId).then(
       response => {
         getFavoriteCollectionData()
-        setTimeout(() => {
-          dispatch({ type: 'set', isLoading: false })
-        }, 1000)
       },
       error => {}
     )
