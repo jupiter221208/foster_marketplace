@@ -116,7 +116,7 @@ const ArtworksSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full mb-5 lg:mb-20 mt-[0px] lg:mt-[25px]">
+      <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
