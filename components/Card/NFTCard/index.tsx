@@ -283,7 +283,7 @@ const DashboardNFTCard = props => {
             <div className="flex h-full items-center justify-center">
               <div>
                 <div className={styles.hideText}>
-                  This artwork is currently hidden from the your profile page.
+                  This artwork is currently hidden from your profile page.
                   <br />
                   <br />
                   Would you like to unhide it?
