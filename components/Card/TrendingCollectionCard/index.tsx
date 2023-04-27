@@ -50,13 +50,15 @@ const TrendingCollectionCard = props => {
               </div>
             </div>
             <div className={styles.avatar}>
-              <img
-                src={avatar !== null ? avatar : Avatar.src}
-                alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
-                className="rounded-full"
-              />
+              <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
+                <img
+                  src={avatar !== null ? avatar : Avatar.src}
+                  alt=""
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
+                  className="rounded-full"
+                />
+              </div>
             </div>
           </div>
         </div>
