@@ -105,6 +105,7 @@ import DateSelect from 'components/DateSelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -120,7 +121,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
@@ -560,8 +561,15 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
         {loading ? (
-          <div className="col-span-2 lg:col-span-1 flex items-center">
-            <LoadingModal open={loading} />
+          <div className="col-span-2 lg:col-span-1">
+            {/* <LoadingModal open={loading} /> */}
+            <div className={styles.loadingBackground}>
+              <div className="w-full h-full">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="col-span-2 lg:col-span-1">
