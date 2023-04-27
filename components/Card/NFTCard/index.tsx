@@ -14,7 +14,9 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import HideIcon from 'assets/icons/hide-icon.svg?component'
+import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
 import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
+import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
 import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
 import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
 
@@ -41,6 +43,7 @@ const DashboardNFTCard = props => {
     onClick,
     unSave = null,
     showHideButton = false,
+    showUnhideButton = false,
   } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -191,6 +194,11 @@ const DashboardNFTCard = props => {
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
             </div>
           )}
+          {showUnhideButton === true && (
+            <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
+            </div>
+          )}
         </div>
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
@@ -280,7 +288,7 @@ const DashboardNFTCard = props => {
                   Would you like to unhide it?
                 </div>
                 <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
-                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
                     Cancel
                   </div>
                   <div className={styles.hideButton} onClick={() => performUnhideNft()}>

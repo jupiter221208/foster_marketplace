@@ -59,6 +59,7 @@ const HiddenSection = () => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
+                // showUnhideButton={true}
                 onClick={() => {
                   router.push(`/browse-nft?id=${item.token_id}`)
                 }}
