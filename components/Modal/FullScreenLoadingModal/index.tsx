@@ -3,6 +3,8 @@ import React, { Fragment } from 'react'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 import RingLoader from 'react-spinners/RingLoader'
+import Lottie from 'lottie-react'
+import LoadingIcon from 'assets/lottery/loader-new.json'
 
 import styles from './index.module.scss'
 
@@ -39,7 +41,9 @@ const FullScreenLoadingModal = props => {
             >
               <Dialog.Panel>
                 <div className={styles.ringLoader}>
-                  <RingLoader color="#63D6CD" />
+                  <Lottie animationData={LoadingIcon} loop={true} />
+
+                  {/* <RingLoader color="#63D6CD" /> */}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
