@@ -18,6 +18,7 @@ import styles from './index.module.scss'
 import userAPI from 'apis/user'
 import NFTCard from 'components/Card/DashboardNFTCard'
 import LoadingModal from 'components/Modal/LoadingModal'
+import DashboardNFTCard from 'components/Card/NFTCard'
 
 const HiddenSection = () => {
   const router = useRouter()
@@ -52,7 +53,7 @@ const HiddenSection = () => {
         {!loading &&
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <NFTCard
+              <DashboardNFTCard
                 image={item.asset_url}
                 nftName={item.nft_name}
                 assetType={item.asset_type}
