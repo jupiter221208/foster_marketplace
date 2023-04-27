@@ -48,9 +48,9 @@ const SortMobileModal = props => {
               <Dialog.Panel className="w-full h-full">
                 <div className={styles.title}>
                   Sort by
-                  <div className="mr-[3px]">
+                  {/* <div className="mr-[3px]">
                     <Image src={CloseIcon} alt="" onClick={onClose} />
-                  </div>
+                  </div> */}
                 </div>
 
                 <RadioMobile
@@ -58,20 +58,18 @@ const SortMobileModal = props => {
                   selected={selectedSort}
                   onChange={item => {
                     setSelectedSort(item)
+                    setTimeout(() => {
+                      onSort({
+                        sort: selectedSort,
+                      })
+                    }, 500)
                   }}
                   direction="rtl"
                 />
 
                 <div className="w-full flex justify-center">
-                  <div
-                    className={styles.cancel}
-                    onClick={() => {
-                      onSort({
-                        sort: selectedSort,
-                      })
-                    }}
-                  >
-                    OK
+                  <div className={styles.cancel} onClick={onClose}>
+                    Cancel
                   </div>
                 </div>
               </Dialog.Panel>
