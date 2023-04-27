@@ -246,7 +246,12 @@ const MainSection = props => {
                 </div>
                 <div>
                   {saved ? (
-                    <OutlineButton width={146} label="Saved" onClick={() => unsaveCollection(data?.collection_id)} />
+                    <OutlineButton
+                      borderColor="var(--follow-btn-border-mobile)"
+                      width={146}
+                      label="Saved"
+                      onClick={() => unsaveCollection(data?.collection_id)}
+                    />
                   ) : (
                     <GradientButton width={146} label="Save" onClick={() => saveCollection(data?.collection_id)} />
                   )}
