@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch, useSelector } from 'react-redux'
 
 // components
 import Button from 'components/Button'
@@ -22,6 +23,9 @@ import DashboardNFTCard from 'components/Card/NFTCard'
 
 const HiddenSection = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
+  const unhideNftToken = useSelector(state => (state as any).unhideNftToken)
+
   const [nftList, setNftList] = useState([])
   const [allNftList, setAllNftList] = useState([])
   const [loading, setLoading] = useState(false)
@@ -44,6 +48,15 @@ const HiddenSection = () => {
     )
   }
 
+  useEffect(() => {
+    if (unhideNftToken.length > 0) {
+      let newNfts = allNftList.filter(item => item.token_id !== unhideNftToken)
+      setAllNftList(newNfts)
+      dispatch({ type: 'set', unhideNftToken: '' })
+      dispatch({ type: 'set', isLoading: false })
+    }
+  }, [unhideNftToken])
+
   return (
     <section className={styles.container}>
       {!loading && allNftList.length === 0 && (
@@ -54,12 +67,13 @@ const HiddenSection = () => {
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <DashboardNFTCard
+                token_id={item.token_id}
                 image={item.asset_url}
                 nftName={item.nft_name}
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
-                // showUnhideButton={true}
+                showUnhideButton={true}
                 onClick={() => {
                   router.push(`/browse-nft?id=${item.token_id}`)
                 }}

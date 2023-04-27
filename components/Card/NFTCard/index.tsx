@@ -18,7 +18,9 @@ import UnhideIcon from 'assets/icons/unhide-icon.svg?component'
 import HideMobileIcon from 'assets/icons/hide-icon-mobile.svg?component'
 import UnhideMobileIcon from 'assets/icons/unhide-icon-mobile.svg?component'
 import HideSmallIcon from 'assets/icons/hide-small-icon.svg'
+import UnhideSmallIcon from 'assets/icons/unhide-small-icon.svg'
 import HideSmallMobileIcon from 'assets/icons/hide-small-icon-mobile.svg'
+import UnhideSmallMobileIcon from 'assets/icons/unhide-small-icon-mobile.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -26,9 +28,8 @@ import { formattedAmount } from 'utils/helpers'
 import GradientButton from 'components/Button/GradientButton'
 
 import nftAPI from 'apis/nfts'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
-import LoadingButton from 'components/Button/LoadingButton'
 
 const DashboardNFTCard = props => {
   const {
@@ -296,8 +297,8 @@ const DashboardNFTCard = props => {
                       <Image
                         src={
                           viewport === 'xs' || viewport === 'md' || viewport === 'sm'
-                            ? HideSmallMobileIcon
-                            : HideSmallIcon
+                            ? UnhideSmallMobileIcon
+                            : UnhideSmallIcon
                         }
                         alt=""
                       />
