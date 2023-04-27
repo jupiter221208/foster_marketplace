@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 // components
 import Button from 'components/Button'
@@ -13,67 +14,63 @@ import CollectionList from 'assets/json/dashboard/collection-list.json'
 // styles
 import styles from './index.module.scss'
 
+// api
+import userAPI from 'apis/user'
+import NFTCard from 'components/Card/DashboardNFTCard'
+import LoadingModal from 'components/Modal/LoadingModal'
+
 const HiddenSection = () => {
-  const [nftList, setNFTList] = useState([])
-  const [collectionList, setCollectionList] = useState([])
+  const router = useRouter()
+  const [nftList, setNftList] = useState([])
+  const [allNftList, setAllNftList] = useState([])
+  const [loading, setLoading] = useState(false)
 
-  const [active, setActive] = useState(0)
+  useEffect(() => {
+    setLoading(true)
 
-  const handleChangeActive = value => {
-    setActive(value)
+    getHiddenNftData()
+  }, [])
+
+  const getHiddenNftData = () => {
+    userAPI.getHiddenNFT().then(
+      response => {
+        setAllNftList(response)
+        setLoading(false)
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   return (
     <section className={styles.container}>
-      <div className={styles.comingSoon}>This feature is not available but is coming soon.</div>
-      {/* <div className="flex">
-        <Button
-          label="Single NFTs"
-          onClick={() => handleChangeActive(0)}
-          color={active === 0 ? '#202427' : '#979EA2'}
-          backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-        />
-        <Button
-          label="Collections"
-          onClick={() => handleChangeActive(1)}
-          color={active === 1 ? '#202427' : '#979EA2'}
-          backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-        />
-      </div>
+      {!loading && allNftList.length === 0 && (
+        <div className={styles.comingSoon}>This feature is not available but is coming soon.</div>
+      )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
-        {active === 0 &&
+        {!loading &&
           nftList.map((item: any, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <UpdateNFTCard
-                image={item.image}
-                nftName={item.nftName}
-                artistName={item.artistName}
-                price={item.price}
-                showCount={false}
-                onClick={() => {}}
+              <NFTCard
+                image={item.asset_url}
+                nftName={item.nft_name}
+                assetType={item.asset_type}
+                coverImage={item.cover_image_url}
+                artistName={item.artist_username}
+                onClick={() => {
+                  router.push(`/browse-nft?id=${item.token_id}`)
+                }}
               />
             </div>
           ))}
-
-        {active === 1 &&
-          collectionList.length !== 0 &&
-          collectionList.map((item: any, index) => (
-            <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <UpdateCollectionCard
-                image={item.image}
-                nftName={item.nftName}
-                category={item.category}
-                artistName={item.artistName}
-                mintAddress={item.mintAddress}
-                price={item.price}
-              />
-            </div>
-          ))}
+        <div className="col-span-12">
+          <LoadingModal open={loading} />
+        </div>
       </div>
       <div className="w-full flex justify-end">
-        {active === 0 && <Pagination data={NFTList} getCurrentData={data => setNFTList(data)} />}
-        {active === 1 && <Pagination data={CollectionList} getCurrentData={data => setCollectionList(data)} />}
-      </div> */}
+        <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />
+      </div>
     </section>
   )
 }

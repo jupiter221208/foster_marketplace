@@ -51,6 +51,12 @@ class User {
       return response.data
     })
   }
+
+  getHiddenNFT() {
+    return client.get(API_URL + 'v1/users/hidden').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()
