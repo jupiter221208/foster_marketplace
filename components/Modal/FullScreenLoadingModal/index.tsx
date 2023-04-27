@@ -41,7 +41,9 @@ const FullScreenLoadingModal = props => {
             >
               <Dialog.Panel>
                 <div className={styles.ringLoader}>
-                  <Lottie animationData={LoadingIcon} loop={true} />
+                  <div className="w-[200px] lg:w-[350px] h-[200px] lg:h-[350px]">
+                    <Lottie animationData={LoadingIcon} loop={true} />
+                  </div>
 
                   {/* <RingLoader color="#63D6CD" /> */}
                 </div>
