@@ -47,6 +47,8 @@ const DashboardNFTCard = props => {
   const [play, setPlay] = useState(false)
   const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
+  const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
+
   const [isLoading, setIsLoading] = useState(false)
 
   const performHideNft = () => {
@@ -57,6 +59,19 @@ const DashboardNFTCard = props => {
         setIsLoading(false)
         setDisplayHideConfirm(false)
         dispatch({ type: 'set', hideNftToken: token_id })
+      },
+      error => {}
+    )
+  }
+
+  const performUnhideNft = () => {
+    setIsLoading(true)
+
+    nftAPI.unhideNft(token_id).then(
+      response => {
+        setIsLoading(false)
+        setDisplayUnhideConfirm(false)
+        dispatch({ type: 'set', unhideNftToken: token_id })
       },
       error => {}
     )
@@ -240,6 +255,45 @@ const DashboardNFTCard = props => {
                         alt=""
                       />
                       <div className={styles.hideButtonText}>Hide</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {displayUnhideConfirm && (
+        <div className={styles.hideConfirm}>
+          {isLoading ? (
+            <div className={styles.loading}>
+              <LoadingModal open={isLoading} />
+            </div>
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <div>
+                <div className={styles.hideText}>
+                  This artwork is currently hidden from the your profile page.
+                  <br />
+                  <br />
+                  Would you like to unhide it?
+                </div>
+                <div className="flex gap-[6px] lg:gap-[19px] mt-[50px] justify-center">
+                  <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
+                    Cancel
+                  </div>
+                  <div className={styles.hideButton} onClick={() => performUnhideNft()}>
+                    <div className="flex gap-[6px]">
+                      <Image
+                        src={
+                          viewport === 'xs' || viewport === 'md' || viewport === 'sm'
+                            ? HideSmallMobileIcon
+                            : HideSmallIcon
+                        }
+                        alt=""
+                      />
+                      <div className={styles.hideButtonText}>Unhide</div>
                     </div>
                   </div>
                 </div>

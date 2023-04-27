@@ -60,7 +60,7 @@ const SortMobileModal = props => {
                     setSelectedSort(item)
                     setTimeout(() => {
                       onSort({
-                        sort: selectedSort,
+                        sort: item,
                       })
                     }, 500)
                   }}

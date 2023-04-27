@@ -27,6 +27,7 @@ const initialState = {
   offerWalletLock: 0,
   loginAndRefresh: false,
   hideNftToken: '',
+  unhideNftToken: '',
   markAsRead: false,
 }
 
