@@ -343,6 +343,7 @@ const MainSection = props => {
                     width={70}
                     height={29}
                     borderRadius={6}
+                    borderColor="var(--follow-btn-border-mobile)"
                     label="Saved"
                     onClick={() => unsaveCollection(data?.collection_id)}
                   />
