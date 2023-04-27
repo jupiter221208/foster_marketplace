@@ -395,7 +395,8 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--stats-search-bg', '#E3E4EA')
     doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #E3E4EA, #727275)')
-
+    doc.style.setProperty('--primary-btn-bg-left', '#C8C8CD')
+    doc.style.setProperty('--primary-btn-bg-right', '#939396')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -645,5 +646,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--stats-search-bg', '#2b2b2b')
     doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #202427, #121212)')
+    doc.style.setProperty('--primary-btn-bg-left', '#4B6E6B')
+    doc.style.setProperty('--primary-btn-bg-right', '#95DBD5')
   }
 }
