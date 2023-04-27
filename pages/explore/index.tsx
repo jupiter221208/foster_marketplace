@@ -55,6 +55,7 @@ import { useViewport } from 'utils'
 // apis
 import AuctionAPI from 'apis/auctions'
 import ExploreAPI from 'apis/explore'
+import SortMobileModal from 'components/Menu/SortMobileModal'
 
 const Explore = () => {
   const router = useRouter()
@@ -637,8 +638,20 @@ const Explore = () => {
           />
         )}
         {openMobileFilter && exploreTab === 2 && <MobileEcosystemFilter onClose={() => setOpenMobileFilter(false)} />}
-        {openMobileSort && (
+        {/* {openMobileSort && (
           <MobileSort
+            data={sortData}
+            sort={selectedSort}
+            onSort={params => {
+              onMobileSort(params)
+              setOpenMobileSort(false)
+            }}
+            onClose={() => setOpenMobileSort(false)}
+          />
+        )} */}
+        {openMobileSort && (
+          <SortMobileModal
+            open={openMobileSort}
             data={sortData}
             sort={selectedSort}
             onSort={params => {

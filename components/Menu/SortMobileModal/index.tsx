@@ -1,4 +1,4 @@
-import { Fragment, useMemo } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -6,27 +6,22 @@ import Image from 'next/image'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
-// resources
-import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-white.svg'
-import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-white.svg'
+import CloseIcon from 'assets/icons/close-white.svg'
 
 // styles
 import styles from './index.module.scss'
 
 // solana
-import { getExplorerUrl } from 'utils/explorer'
-import { useConnection } from '@solana/wallet-adapter-react'
-import { useRouter } from 'next/router'
+import RadioMobile from 'components/RadioMobile'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const SortMobileModal = props => {
-  const { open, close, address, onClick } = props
-  const { connection } = useConnection()
-  const router = useRouter()
-  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
+  const { open, data, sort, onSort, onClose } = props
+  const [selectedSort, setSelectedSort] = useState(sort)
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={close}>
+      <Dialog as="div" className={styles.container} onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -51,26 +46,32 @@ const SortMobileModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full h-full">
-                <div className={styles.title}>Sort by</div>
-                <div className={styles.menuItem}>
-                  <div
-                    onClick={() => {
-                      window.open(explorerURL)
-                      close()
-                    }}
-                  >
-                    View on Solana Explorer
+                <div className={styles.title}>
+                  Sort by
+                  <div className="mr-[3px]">
+                    <Image src={CloseIcon} alt="" onClick={onClose} />
                   </div>
                 </div>
 
-                <div className={styles.menuItem} onClick={() => onClick()}>
-                  <Image src={NounProhibitIcon} alt="" />
-                  Report an Issue
-                </div>
+                <RadioMobile
+                  data={data}
+                  selected={selectedSort}
+                  onChange={item => {
+                    setSelectedSort(item)
+                  }}
+                  direction="rtl"
+                />
 
                 <div className="w-full flex justify-center">
-                  <div className={styles.cancel} onClick={close}>
-                    Cancel
+                  <div
+                    className={styles.cancel}
+                    onClick={() => {
+                      onSort({
+                        sort: selectedSort,
+                      })
+                    }}
+                  >
+                    OK
                   </div>
                 </div>
               </Dialog.Panel>
