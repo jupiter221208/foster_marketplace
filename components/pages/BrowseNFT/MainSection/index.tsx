@@ -813,7 +813,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                 <>
                   <div
                     className={`mt-10 w-full ${
-                      showPlaceBidButton && !isOwnNft ? 'h-[140px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
+                      showPlaceBidButton && !isOwnNft ? 'h-[130px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
                     } relative`}
                   >
                     <div className={styles.auctionBG}>
