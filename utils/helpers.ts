@@ -398,7 +398,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--primary-btn-bg-left', '#C8C8CD')
     doc.style.setProperty('--primary-btn-bg-right', '#939396')
     doc.style.setProperty('--auction-card-label', '#65686C')
-    doc.style.setProperty('--auction-card-bg', '#202427')
+    doc.style.setProperty('--auction-card-bg', 'linear-gradient(to right, #C8C8CD, #939396)')
     doc.style.setProperty('--auction-card-color', '#eff0f6')
     // =====================================================
     // =====================================================
