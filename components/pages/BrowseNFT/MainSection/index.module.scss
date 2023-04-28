@@ -548,7 +548,7 @@
 }
 
 .placeBidEnabledLightBG {
-  background: linear-gradient(to right, $brand-12-color, $brand-09-color);
+  background: var(--auction-card-bg);
 }
 
 .placeBidDisabledBG {
@@ -556,13 +556,12 @@
 }
 
 .placeBidBtn {
-  font-family: 'KCDurhamBoxcar';
-  font-size: 25px;
-  color: var(--brand-11-color);
-  margin: 5px 3px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  margin: 9px 3px;
   @media (min-width: 1024px) {
-    margin: 5px 9px;
-    font-size: 35px;
+    margin: 17px 9px;
+    font-size: 18px;
   }
 }
 
@@ -588,22 +587,18 @@
 }
 
 .placeBidEnabledColor {
-  color: #202427;
-}
-
-.placeBidEnabledLightColor {
-  color: $background-dark-color;
+  color: var(--auction-card-color);
 }
 
 .placeBidDisabledColor {
-  color: rgba(var(--text-gray-200-color), 0.5);
+  color: rgba($text-gray-200-color, 0.5);
 }
 
 .highBidText {
   font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 15px;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   margin-left: 30px;
   @media (min-width: 1536px) {
     margin-top: 4px;

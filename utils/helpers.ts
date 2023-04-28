@@ -379,7 +379,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.5')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     doc.style.setProperty('--category-chip-bg', '#C4C5CA')
-    doc.style.setProperty('--live-auction-card', '#202427')
+    doc.style.setProperty('--live-auction-card', '#D6D8DD')
     doc.style.setProperty('--accordian-header-bg', '#7C7E83')
     doc.style.setProperty('--accordian-area-bg', '#D6D8DD')
     doc.style.setProperty('--social-share-bg', '#ffffff')
@@ -397,6 +397,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #E3E4EA, #727275)')
     doc.style.setProperty('--primary-btn-bg-left', '#C8C8CD')
     doc.style.setProperty('--primary-btn-bg-right', '#939396')
+    doc.style.setProperty('--auction-card-label', '#65686C')
+    doc.style.setProperty('--auction-card-bg', '#202427')
+    doc.style.setProperty('--auction-card-color', '#eff0f6')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -648,5 +651,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #202427, #121212)')
     doc.style.setProperty('--primary-btn-bg-left', '#4B6E6B')
     doc.style.setProperty('--primary-btn-bg-right', '#95DBD5')
+    doc.style.setProperty('--auction-card-label', '#95dbd5')
+    doc.style.setProperty('--auction-card-bg', 'linear-gradient(to right, #4b6e6b, #95dbd5)')
+    doc.style.setProperty('--auction-card-color', '#202427')
   }
 }

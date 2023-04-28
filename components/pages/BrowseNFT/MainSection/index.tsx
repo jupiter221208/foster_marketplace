@@ -850,14 +850,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                               >
                                 Place Bid
                               </div>
-                              <Image
+                              {/* <Image
                                 src={
                                   publicKey?.toBase58() === highBidder || isEnded
                                     ? PlaceBidDisableIcon
                                     : PlaceBidBlackIcon
                                 }
                                 alt=""
-                              />
+                              /> */}
                             </div>
                           </div>
                           {publicKey?.toBase58() === highBidder ? (
