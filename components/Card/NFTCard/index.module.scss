@@ -57,9 +57,9 @@
   @media (min-width: 1024px) {
     border-radius: 30px;
   }
-  background: rgba(#202427, 0.15);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: rgba(#202427, 1);
+  // -webkit-backdrop-filter: blur(12px);
+  // backdrop-filter: blur(12px);
 }
 
 .hideText {
