@@ -5,6 +5,7 @@ import Image from 'next/image'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -50,13 +51,11 @@ const AuctionCard = props => {
         <div className={styles.thinGreenText}>{auctionStarted ? 'STARTING' : 'RESERVE PRICE'}</div>
         <div className="flex justify-center gap-1 mt-2 items-center">
           <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
-            {/* <Image
-              src={SolanaLogoIcon}
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 20}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 24}
-              alt=""
-            /> */}
-            <SolanaLogoIcon alt="" />
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <SolanaLogoMobileIcon alt="" />
+            ) : (
+              <SolanaLogoIcon alt="" />
+            )}
           </div>
           <div className={styles.whiteText}>{Math.round(reservePrice * 1000) / 1000}</div>
         </div>
@@ -66,13 +65,11 @@ const AuctionCard = props => {
           <div className={styles.thinGreenText}>CURRENT</div>
           <div className="flex justify-center gap-1 mt-2 items-center">
             <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
-              {/* <Image
-                src={SolanaLogoIcon}
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 12 : 20}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 16 : 24}
-                alt=""
-              /> */}
-              <SolanaLogoIcon alt="" />
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                <SolanaLogoMobileIcon alt="" />
+              ) : (
+                <SolanaLogoIcon alt="" />
+              )}
             </div>
             <div className={styles.whiteText}>{Math.round(currentPrice * 1000) / 1000}</div>
           </div>
