@@ -33,7 +33,6 @@ import Alert from 'components/Alert'
 import MakeAnOfferModal from 'components/Modal/MakeAnOfferModal'
 import ReportAnIssueModal from 'components/Modal/ReportAnIssueModal'
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
-import LoadingModal from 'components/Modal/LoadingModal'
 import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
@@ -357,6 +356,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       setSave(saved)
       setShare(sharedSocial)
     }
+
+    dispatch({ type: 'set', isLoading: false })
   }, [nftInfo])
 
   useEffect(() => {
@@ -423,6 +424,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       )
 
       setLoading(false)
+
+      dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
 
@@ -562,7 +565,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       <div className="w-full grid grid-cols-2 gap-10">
         {loading ? (
           <div className="col-span-2 lg:col-span-1">
-            {/* <LoadingModal open={loading} /> */}
             <div className={styles.loadingBackground}>
               <div className="w-full h-full">
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">

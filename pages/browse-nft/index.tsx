@@ -44,7 +44,6 @@ export interface BrowseNFTProps {
 
 const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const dispatch = useDispatch()
-  dispatch({ type: 'set', isLoading: false })
   const nftType = nftDetail?.json?.properties?.category as string
   const categories = getNFTCategories(nftDetail)
   const [nftInfo, setNftInfo] = useState(null)
