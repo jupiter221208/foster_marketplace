@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -60,24 +59,11 @@ const ActivityAccordion = props => {
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
                       <div className={styles.subType}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
-                      {/* <div className={styles.subTitle}>{item.name02}</div> */}
                     </div>
                   </div>
                   <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  {/* <div className={styles.firstRow}>
-                    <div className={styles.title}>Type</div>
-                    <div className={styles.text}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
-                  </div> */}
-                  {/* <div className={styles.secondRow}>
-                    <div className={styles.title}>Transaction ID</div>
-                    <div className={styles.text}>
-                      {item.transactionID.length > 11
-                        ? item.transactionID.slice(0, 5) + '...' + item.transactionID.slice(-3)
-                        : item.transactionID}
-                    </div>
-                  </div> */}
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Time</div>
                     <div className={styles.text}>{getDateString(item.created_at)}</div>
@@ -85,15 +71,10 @@ const ActivityAccordion = props => {
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
                     <div className="flex gap-[4px]">
-                      {/* <Image src={SolanaLogoIcon} width={18} height={18} alt="" /> */}
                       <SolanaLogoIcon alt="" />
                       <div className={styles.text}>{isAmountExisting ? parseFloat(item.amount).toFixed(2) : 'N/A'}</div>
                     </div>
                   </div>
-                  {/* <div className={styles.firstRow}>
-                    <div className={styles.title}>Mint Address</div>
-                    <div className={styles.text}>{getMinterName(item)}</div>
-                  </div> */}
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Buyer</div>
                     <div className={styles.text}>{isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}</div>

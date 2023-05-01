@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // custom components
 import IconButton from 'components/Button/IconButton'
@@ -20,7 +20,6 @@ import styles from './index.module.scss'
 const ExplorePagination = props => {
   const { rowCount, handlePrev, handleNext, currentPage, totalCount, setRowCount } = props
   const viewport = useViewport()
-  // const [rowCount, setRowCount] = useState(12)
 
   return (
     <div className={styles.container}>

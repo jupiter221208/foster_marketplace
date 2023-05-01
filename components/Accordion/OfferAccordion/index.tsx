@@ -89,44 +89,22 @@ const OfferAccordionItem = ({
                 <div className="block">
                   <div className={styles.subTitle}>{listing.asset.name}</div>
                   <div className='flex gap-1 mt-1 items-center'>
-                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
                   <SolanaLogoIcon />
                     <div className={styles.amount}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
                     </div>
                 </div>
               </div>
-
               
-                              <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
+              <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
 
             </Disclosure.Button>
             <Disclosure.Panel className={styles.panel}>
-              {/* {listing.isIncoming && (
-                    <div className={styles.firstRow}>
-                      <div className={styles.title}>Offer</div>
-                      {listing.isOutgoing ? (
-                        <div className={styles.text}>Outgoing</div>
-                      ) : (
-                        <div className={styles.text}>Incoming</div>
-                      )}
-                    </div>
-                  )} */}
-              {/* <div className={styles.secondRow}>
-                    <div className={styles.title}>Listing</div>
-                    {listing.isListed ? (
-                      <div className={styles.text}>Listed</div>
-                    ) : (
-                      <div className={styles.text}>Unlisted</div>
-                    )}
-                  </div> */}
+             
               <div className={styles.firstRow}>
                 <div className={styles.title}>Time</div>
                 <div className={styles.text}>{timeSince(listing.createdAt.toNumber())}</div>
               </div>
-              {/* <div className={styles.secondRow}>
-                    <div className={styles.title}>Amount</div>
-                    <div className={styles.text}>{getPriceValue(listing.price.basisPoints.toNumber())}</div>
-                  </div> */}
+            
               <div className={styles.secondRow}>
                 <div className={styles.title}>{offerType === 'made' ? 'Seller' : 'Buyer'}</div>
                 {ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}

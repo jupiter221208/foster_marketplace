@@ -1,14 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // components
 import StatsSearchBox from 'components/Input/StatsSearchBox'
-import GradientButton from 'components/Button/GradientButton'
 
 // resources
-import SearchLargeIcon from 'assets/icons/search-large.svg'
-import SearchLargeDarkIcon from 'assets/icons/search-large-dark.svg'
-
-import SearchLargeEnableIcon from 'assets/icons/search-large-enable.svg'
 
 // styles
 import styles from './index.module.scss'

@@ -10,7 +10,6 @@ import Head from 'next/head'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import NotificationsSearchBox from 'components/Input/NotificationsSearchBox'
 import NotificationsCard from 'components/Card/NotificationsCard'
-import NotificationsFilterCard from 'components/Card/NotificationsFilterCard'
 import NotificationsFilterModal from 'components/Modal/NotificationsFilterModal'
 
 // json
