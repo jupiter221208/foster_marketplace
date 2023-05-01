@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react'
-import bs58 from 'bs58'
 
 // next components
 import Image from 'next/image'
@@ -27,7 +26,6 @@ import ReportIssueList from 'assets/json/browse-nft/report-issue-list.json'
 import VerificationRadio from 'components/VerificationRadio'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import GradientButton from 'components/Button/GradientButton'
 
 interface selectedReportProps {
   id: number

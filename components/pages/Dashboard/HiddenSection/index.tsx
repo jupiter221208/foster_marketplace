@@ -3,14 +3,9 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // components
-import Button from 'components/Button'
-import UpdateNFTCard from 'components/Card/UpdateNFTCard'
-import UpdateCollectionCard from 'components/Card/UpdateCollectionCard'
 import Pagination from 'components/Button/Pagination'
 
 // json
-import NFTList from 'assets/json/dashboard/nft-list.json'
-import CollectionList from 'assets/json/dashboard/collection-list.json'
 
 // styles
 import styles from './index.module.scss'

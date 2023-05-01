@@ -20,7 +20,6 @@ import CollectionCard from 'components/Card/CollectionCard'
 import { useViewport } from 'utils'
 
 // json
-import MoreArtistList from 'assets/json/explore/collection-explore-list.json'
 
 // styles
 import styles from './index.module.scss'

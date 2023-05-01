@@ -12,18 +12,10 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
-import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// images and icons
-import FilterGreenIcon from 'assets/icons/filter-green.svg'
-
-// json
-// import NFTList from 'assets/json/artist-profile/nft-list.json'
 
 // styles
 import styles from './index.module.scss'

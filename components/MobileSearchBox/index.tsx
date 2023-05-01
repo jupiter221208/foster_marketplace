@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import SearchBox from 'components/Input/SearchBox'
 
 // json
-import SearchList from 'assets/json/search-list.json'
 
 // styles
 import styles from './index.module.scss'

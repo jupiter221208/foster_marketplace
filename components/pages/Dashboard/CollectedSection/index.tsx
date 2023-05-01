@@ -5,7 +5,6 @@ import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 
 // json
-import NFTList from 'assets/json/artist-profile/nft-list.json'
 
 // styles
 import styles from './index.module.scss'
