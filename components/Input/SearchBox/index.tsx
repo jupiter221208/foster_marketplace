@@ -128,6 +128,8 @@ const SearchBox = props => {
       ) : (
         <></>
       )}
+      <div className="absolute top-[80px] w-full h-[1px] left-0 bg-[#707070]/50 z-10" />
+
       {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
         <div className={styles.contentArea}>
           {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>ARTWORK</div>}
