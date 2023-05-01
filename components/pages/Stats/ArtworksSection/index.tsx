@@ -121,11 +121,11 @@ const ArtworksSection = () => {
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
             viewport === 'xs'
-              ? 1.7
+              ? 1.6
               : viewport === 'sm'
-              ? 2
+              ? 2.5
               : viewport === 'md'
-              ? 3
+              ? 2.9
               : viewport === 'lg'
               ? 2.5
               : viewport === 'xl'
