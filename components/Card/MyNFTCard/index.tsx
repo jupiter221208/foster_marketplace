@@ -80,7 +80,7 @@ const MyNFTCard = props => {
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
-          {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
+          {/* {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
             <OutlineButton
               label="Start Auction"
               onClick={() => setBlurMode(true)}
@@ -91,15 +91,14 @@ const MyNFTCard = props => {
               borderColor="#1E2225"
               color="#727478"
             />
-          ) : (
-            <GradientButton
-              label="Start Auction"
-              onClick={() => onClickStartAuction(data)}
-              height="40px"
-              fontSize="14px"
-              disabled={publicKey?.toBase58() !== data.creators[0].address.toString()}
-            />
-          )}
+          ) : ( */}
+          <GradientButton
+            label="Start Auction"
+            onClick={() => onClickStartAuction(data)}
+            height="40px"
+            fontSize="14px"
+          />
+          {/* )} */}
           <SecondaryButton
             backgroundColor="transparent"
             label="List NFT"
@@ -109,7 +108,7 @@ const MyNFTCard = props => {
           />
         </div>
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
-          {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
+          {/* {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
             <OutlineButton
               label="Start Auction"
               onClick={() => {
@@ -125,18 +124,18 @@ const MyNFTCard = props => {
               borderColor="#1E2225"
               color="#727478"
             />
-          ) : (
-            <OutlineButton
-              label="Start Auction"
-              onClick={() => onClickStartAuction(data)}
-              // borderColor={'var(--mynft-outline-border)'}
-              // color={'var(--mynft-outline-color)'}
-              height="26px"
-              fontSize="10px"
-              borderRadius="6px"
-            />
-          )}
+          ) : ( */}
           <GradientButton
+            label="Start Auction"
+            onClick={() => onClickStartAuction(data)}
+            // borderColor={'var(--mynft-outline-border)'}
+            // color={'var(--mynft-outline-color)'}
+            height="26px"
+            fontSize="10px"
+            borderRadius="6px"
+          />
+          {/* )} */}
+          <SecondaryButton
             label="List NFT"
             onClick={() => onClickListNFT(data)}
             height="26px"
