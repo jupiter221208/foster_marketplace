@@ -2,12 +2,9 @@ import { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
@@ -19,8 +16,6 @@ import { useViewport } from 'utils'
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import AddGrayIcon from 'assets/icons/add-green.svg'
-import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -28,9 +23,6 @@ import styles from './index.module.scss'
 const SellNFTModal = props => {
   const { open, close, onList, onAuction } = props
   const viewport = useViewport()
-  const router = useRouter()
-  const { connected } = useWallet()
-  const { setVisible } = useWalletModal()
 
   const closeModal = () => {
     close()

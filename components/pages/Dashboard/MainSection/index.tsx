@@ -22,22 +22,15 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
 import BannerImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
-import TelegramWhiteIcon from 'assets/icons/telegram-white.svg'
-import DiscordWhiteIcon from 'assets/icons/discord-white.svg'
+
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import IGWhiteIcon from 'assets/icons/instagram-green.svg?component'
-import SettingWhiteIcon from 'assets/icons/setting-white.svg'
-import SettingBlackIcon from 'assets/icons/setting-black.svg'
-
 import IGHoverIcon from 'assets/icons/instagram-hover.svg'
 import TwitterHoverIcon from 'assets/icons/twitter-hover.svg'
-import DiscordHoverIcon from 'assets/icons/discord-hover.svg'
-import TelegramHoverIcon from 'assets/icons/telegram-hover.svg'
 import SettingGreenIcon from 'assets/icons/setting-green-01.svg'
 import Alert from 'components/Alert'
 

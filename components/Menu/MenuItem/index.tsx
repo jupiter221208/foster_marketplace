@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'

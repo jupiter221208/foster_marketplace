@@ -14,7 +14,6 @@ import PriceInput from 'components/Input/PriceInput'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import CloseLightIcon from 'assets/icons/close-wallet-light.svg'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles

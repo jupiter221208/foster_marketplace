@@ -19,13 +19,10 @@ import { useViewport } from 'utils'
 // images
 import CloseIcon from 'assets/icons/close-black.svg'
 import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import AddGrayIcon from 'assets/icons/add-green.svg'
-import AddBlackIcon from 'assets/icons/add-black.svg'
 import AddWhiteIcon from 'assets/icons/add-collection-green.svg'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 import GradientButtonWithSVG from 'components/Button/GradientButtonWithSVG'
 
 const CreateNFTModal = props => {

@@ -1,21 +1,16 @@
 import React, { useState } from 'react'
 
 // components
-import IconButton from 'components/Button/IconButton'
 import Radio from 'components/Radio'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import CloseWhiteLightIcon from 'assets/icons/close-white-light.svg'
 
 // json
-import NFTSortList from 'assets/json/explore/nft-sort.json'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const MobileSort = props => {

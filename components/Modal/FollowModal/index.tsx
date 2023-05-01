@@ -5,17 +5,12 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // next components
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // custom components
-import Tab from 'components/Tab'
-import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import AvatarFollowIcon from 'assets/icons/avatar-follow.svg'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // json

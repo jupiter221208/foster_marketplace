@@ -14,9 +14,6 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // custom components
 import BrowseArtistCard from 'components/Card/BrowseArtistCard'
-import CategoryChip from 'components/Chip/CategoryChip'
-import PositiveButton from 'components/Button/PositiveButton'
-import NegativeButton from 'components/Button/NegativeButton'
 import ReadMoreCollectionModal from 'components/Modal/ReadMoreCollectionModal'
 
 import { getShortDescription } from 'utils/strings'
@@ -27,10 +24,8 @@ import { namePublicFile, useViewport } from 'utils'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
-import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
-import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 

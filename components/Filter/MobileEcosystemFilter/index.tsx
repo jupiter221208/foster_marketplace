@@ -4,14 +4,11 @@ import React, { useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 
 // components
-import IconButton from 'components/Button/IconButton'
 import Radio from 'components/Radio'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
 
 // images and icons
-import CloseWhiteIcon from 'assets/icons/close-white.svg'
-import CloseWhiteLightIcon from 'assets/icons/close-white-light.svg'
 
 // json
 import ProfileList from 'assets/json/explore/profile.json'
@@ -24,7 +21,6 @@ import styles from './index.module.scss'
 const MobileEcosystemFilter = props => {
   const { onClose } = props
 
-  const [selectedProfile, setSelectedProfile] = useState(ProfileList[0])
   const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[2])
 
   return (

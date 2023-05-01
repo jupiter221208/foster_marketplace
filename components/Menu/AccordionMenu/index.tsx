@@ -7,8 +7,6 @@ import { useRouter } from 'next/router'
 // third party components
 import { useDispatch } from 'react-redux'
 import { Disclosure } from '@headlessui/react'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 import RightIcon from 'assets/icons/right-icon.svg?component'
 import DownIcon from 'assets/icons/down-icon.svg?component'
@@ -34,22 +32,15 @@ import styles from './index.module.scss'
 const AccordionMenu = props => {
   const { icon, openIcon = '', label, type = '', data, path = '' } = props
 
-  const { connected } = useWallet()
-  const { setVisible } = useWalletModal()
-
   const router = useRouter()
   const dispatch = useDispatch()
 
   const handleClick = item => {
-    // if (connected) {
     dispatch({ type: 'set', openMobileMenu: false })
 
     if (label === 'Explore') dispatch({ type: 'set', exploreTab: item.id })
 
     router.push(item.path)
-    // } else {
-    //   setVisible(true)
-    // }
   }
 
   const handleSoloMenuItemClick = () => {
