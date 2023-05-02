@@ -73,10 +73,9 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <Image
+                  <img
                     src={data.cover_image_url}
                     alt=""
-                    layout="fill"
                     className="w-full h-full rounded-[24px] object-cover"
                     onClick={() => onClick()}
                   />
@@ -112,18 +111,16 @@ const LiveAuctionCard = props => {
               />
             )
           ) : data.asset_type.includes('audio') ? (
-            <Image
+            <img
               src={data.cover_image_url}
               alt=""
-              layout="fill"
               className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />
           ) : (
-            <Image
+            <img
               src={data.asset_url}
               alt=""
-              layout="fill"
               className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />
@@ -146,7 +143,7 @@ const LiveAuctionCard = props => {
             className="rounded-full"
           />
         ) : (
-          <Image
+          <img
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
             src={data.artist_profile_picture}
