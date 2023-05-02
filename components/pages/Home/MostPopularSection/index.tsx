@@ -100,6 +100,7 @@ const MostPopularSection = props => {
             onClick={() => {
               dispatch({ type: 'set', artworkSort: 'popular' })
               dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', artworkCategory: category })
               router.push('/explore')
             }}
           />
@@ -151,6 +152,7 @@ const MostPopularSection = props => {
             onClick={() => {
               dispatch({ type: 'set', artworkSort: 'popular' })
               dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', artworkCategory: category })
               router.push('/explore')
             }}
             borderColor={'var(--see-more-border)'}

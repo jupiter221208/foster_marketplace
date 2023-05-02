@@ -115,6 +115,8 @@ const Explore = () => {
       dispatch({ type: 'set', collectionSort: '' })
       dispatch({ type: 'set', artistSort: '' })
       dispatch({ type: 'set', artworkSort: '' })
+      dispatch({ type: 'set', collectionCategory: '' })
+      dispatch({ type: 'set', artworkCategory: '' })
     }
   }, [])
 
@@ -142,7 +144,7 @@ const Explore = () => {
         CategoryList.filter(category => category.query == artworkCategory).forEach(item => {
           let object: any = item
           object.checked = true
-          list.push(object)
+          artworkCatelist.push(object)
         })
         setCategoryList(artworkCatelist)
         getExploreNFTData(
