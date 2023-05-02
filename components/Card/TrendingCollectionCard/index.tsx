@@ -42,7 +42,6 @@ const TrendingCollectionCard = props => {
           <Image
             src={image}
             alt=""
-            unoptimized
             layout="fill"
             className="w-full h-full object-cover"
             onLoadingComplete={() => setLoaded(true)}

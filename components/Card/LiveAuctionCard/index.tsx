@@ -117,14 +117,16 @@ const LiveAuctionCard = props => {
               onClick={() => onClick()}
             />
           ) : (
-            <Image
-              src={data.asset_url}
-              alt=""
-              layout="fill"
-              unoptimized
-              className="w-full h-full rounded-[24px] object-cover"
-              onClick={() => onClick()}
-            />
+            <div className="w-full h-full">
+              <Image
+                src={data.asset_url}
+                alt=""
+                layout="fill"
+                unoptimized
+                className="w-full h-full rounded-[24px] object-cover"
+                onClick={() => onClick()}
+              />
+            </div>
           )}
         </div>
       </div>

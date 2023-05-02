@@ -260,7 +260,7 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <Image
+                      <img
                         src={getUserProfileImage(elem)}
                         alt=""
                         layout="fill"
@@ -315,7 +315,7 @@ const NotificationsCard = props => {
                     ) : (
                       isShowAvatar(elem) && (
                         <div className={styles.assetUrl} onClick={() => gotoNFTPage(elem)}>
-                          <Image
+                          <img
                             src={
                               elem.reference_asset_url !== null && elem.reference_asset_url !== ''
                                 ? elem.reference_asset_url
