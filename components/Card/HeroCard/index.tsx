@@ -41,7 +41,7 @@ const HeroCard = props => {
           {data.asset_type.includes('image') ? (
             <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
               <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                <img
+                <Image
                   src={
                     data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                       ? data.asset_url
@@ -59,7 +59,7 @@ const HeroCard = props => {
               </ReactPlaceholder>
 
               {!loaded && (
-                <img
+                <Image
                   src={
                     data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                       ? data.asset_url
@@ -140,7 +140,7 @@ const HeroCard = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div className={styles.avatarArea}>
           <div className={styles.avatar} onClick={() => gotoAristPage()}>
-            <img
+            <Image
               src={
                 data.artist_profile_picture &&
                 data.artist_profile_picture !== '' &&
@@ -168,7 +168,7 @@ const HeroCard = props => {
             </div>
             <div className="justify-start items-center lg:mt-[10px]">
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <img
+                <Image
                   src={
                     data.artist_profile_picture &&
                     data.artist_profile_picture !== '' &&

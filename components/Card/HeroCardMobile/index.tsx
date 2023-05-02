@@ -34,7 +34,7 @@ const HeroCardMobile = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
-        <img
+        <Image
           src={
             data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
               ? data.asset_url
@@ -54,7 +54,7 @@ const HeroCardMobile = props => {
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {data.asset_type.includes('image') ? (
-              <img
+              <Image
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                     ? data.asset_url
@@ -100,7 +100,7 @@ const HeroCardMobile = props => {
       </div>
       <div className={styles.avatarArea}>
         <div className={styles.avatar} onClick={() => gotoAristPage()}>
-          <img
+          <Image
             src={
               data.artist_profile_picture &&
               data.artist_profile_picture !== '' &&

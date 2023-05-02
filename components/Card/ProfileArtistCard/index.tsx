@@ -3,6 +3,9 @@ import React from 'react'
 // custom functions
 import { useViewport } from 'utils'
 
+// next components
+import Image from 'next/image'
+
 // styles
 import styles from './index.module.scss'
 import { validUrl } from 'utils/helpers'
@@ -17,7 +20,7 @@ const ProfileArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        <img
+        <Image
           src={image}
           alt=""
           width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
