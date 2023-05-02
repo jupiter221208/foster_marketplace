@@ -88,9 +88,10 @@ const HeroCardMobile = props => {
               </div>
             ) : data.asset_type.includes('audio') ? (
               data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                <img
+                <Image
                   src={data.cover_image_url}
                   alt=""
+                  layout="fill"
                   className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                   onClick={() => gotoNftDetailPage()}
                 />

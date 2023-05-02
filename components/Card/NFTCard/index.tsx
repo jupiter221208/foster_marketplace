@@ -160,15 +160,16 @@ const DashboardNFTCard = props => {
             ) : image !== null && image !== '' ? (
               <div className="w-full" onClick={() => onClick()}>
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <Image layout="fill" src={image} alt="" className={styles.imageNft} />
+                  <Image layout="fill" src={image} alt="" unoptimized className={styles.imageNft} />
                 </ReactPlaceholder>
                 {!loaded && (
                   <Image
                     src={image}
                     layout="fill"
                     alt=""
+                    unoptimized
                     className={styles.imageNft}
-                    onLoad={() => {
+                    onLoadingComplete={() => {
                       setLoaded(true)
                     }}
                   />

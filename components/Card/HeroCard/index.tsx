@@ -84,18 +84,20 @@ const HeroCard = props => {
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
                   <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                      <Image src={data.cover_image_url} layout="fill" alt="" className="w-full h-full object-cover" />
-                    </ReactPlaceholder>
                     {!loaded && (
-                      <Image
-                        src={data.cover_image_url}
-                        alt=""
-                        layout="fill"
-                        className="w-full h-full object-cover"
-                        onLoadingComplete={() => setLoaded(true)}
-                      />
+                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                        <div></div>
+                      </ReactPlaceholder>
                     )}
+
+                    <Image
+                      src={data.cover_image_url}
+                      alt=""
+                      layout="fill"
+                      unoptimized
+                      className="w-full h-full object-cover"
+                      onLoadingComplete={() => setLoaded(true)}
+                    />
                   </div>
                 ) : (
                   <Image

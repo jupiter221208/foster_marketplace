@@ -55,7 +55,6 @@ const LiveAuctionCard = props => {
       return Number(data.end_time)
     }
   }
-
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
@@ -118,9 +117,11 @@ const LiveAuctionCard = props => {
               onClick={() => onClick()}
             />
           ) : (
-            <img
+            <Image
               src={data.asset_url}
               alt=""
+              layout="fill"
+              unoptimized
               className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />

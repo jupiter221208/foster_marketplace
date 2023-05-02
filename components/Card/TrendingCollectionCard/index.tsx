@@ -33,11 +33,20 @@ const TrendingCollectionCard = props => {
       }}
     >
       <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-        <div className="w-full">
-          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-            <img src={image} alt="" className="w-full h-full object-cover" />
-          </ReactPlaceholder>
-          {!loaded && <img src={image} alt="" className="w-full h-full object-cover" onLoad={() => setLoaded(true)} />}
+        <div className="w-full h-full">
+          {!loaded && (
+            <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+              <div></div>
+            </ReactPlaceholder>
+          )}
+          <Image
+            src={image}
+            alt=""
+            unoptimized
+            layout="fill"
+            className="w-full h-full object-cover"
+            onLoadingComplete={() => setLoaded(true)}
+          />
         </div>
         {/* <div className={styles.bottomMask} /> */}
         <div className={styles.bidContainer}>

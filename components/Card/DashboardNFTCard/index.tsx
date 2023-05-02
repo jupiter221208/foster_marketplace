@@ -10,7 +10,6 @@ import GreenGradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
