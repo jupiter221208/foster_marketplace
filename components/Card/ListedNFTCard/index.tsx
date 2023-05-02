@@ -88,9 +88,10 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               }}
             />
           ) : (
-            <img
-              src={assetJson?.image ?? 'TODO: add placeholder for loading image'}
+            <Image
+              src={assetJson?.image}
               alt=""
+              layout="fill"
               className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
             />
           )}

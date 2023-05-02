@@ -76,11 +76,18 @@ const LiveAuctionCard = props => {
                   <Image
                     src={data.cover_image_url}
                     alt=""
+                    layout="fill"
                     className="w-full h-full rounded-[24px] object-cover"
                     onClick={() => onClick()}
                   />
                 ) : (
-                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                  <Image
+                    src={DefaultNftBG}
+                    alt=""
+                    layout="fill"
+                    className="w-full h-full object-cover"
+                    onClick={() => onClick()}
+                  />
                 )}
                 <div className={styles.playButton}>
                   <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
@@ -108,6 +115,7 @@ const LiveAuctionCard = props => {
             <Image
               src={data.cover_image_url}
               alt=""
+              layout="fill"
               className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />
@@ -115,6 +123,7 @@ const LiveAuctionCard = props => {
             <Image
               src={data.asset_url}
               alt=""
+              layout="fill"
               className="w-full h-full rounded-[24px] object-cover"
               onClick={() => onClick()}
             />

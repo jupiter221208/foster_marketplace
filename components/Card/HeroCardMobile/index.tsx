@@ -4,7 +4,6 @@ import React from 'react'
 import Image from 'next/image'
 
 // custom functions
-import { useViewport } from 'utils'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
@@ -47,7 +46,6 @@ const HeroCardMobile = props => {
           height={375}
           className="w-full h-full object-cover"
         />
-        {/* <div className={styles.overlay} />*/}
         <div className={styles.overlayMask} />
       </div>
       <div className="relative mt-[-175px] px-[15px] z-10">
@@ -71,14 +69,21 @@ const HeroCardMobile = props => {
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
+                    layout="fill"
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
                   />
                 ) : (
-                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                  <Image
+                    src={DefaultNftBG}
+                    alt=""
+                    layout="fill"
+                    className="w-full h-full object-cover"
+                    onClick={() => onClick()}
+                  />
                 )}
               </div>
             ) : data.asset_type.includes('audio') ? (
@@ -90,10 +95,16 @@ const HeroCardMobile = props => {
                   onClick={() => gotoNftDetailPage()}
                 />
               ) : (
-                <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                <Image
+                  src={DefaultNftBG}
+                  alt=""
+                  layout="fill"
+                  className="w-full h-full object-cover"
+                  onClick={() => onClick()}
+                />
               )
             ) : (
-              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+              <Image src={DefaultNftBG} alt="" layout="fill" className={styles.imageNft} onClick={() => onClick()} />
             )}
           </div>
         </div>

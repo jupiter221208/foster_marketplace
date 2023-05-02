@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+// next component
+import Image from 'next/image'
 
 // custom components
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
@@ -7,7 +9,6 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import LoadingButton from 'components/Button/LoadingButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 
 const CollectionCard = props => {
@@ -21,14 +22,15 @@ const CollectionCard = props => {
         <div className={styles.imageContent}>
           <div className="w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
             <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-              <img src={image} alt="" className="w-full h-full object-cover" />
+              <Image src={image} alt="" layout="fill" className="w-full h-full object-cover" />
             </ReactPlaceholder>
             {!loaded && (
-              <img
+              <Image
                 src={image}
                 alt=""
+                layout="fill"
                 className="w-full h-full object-cover"
-                onLoad={() => {
+                onLoadingComplete={() => {
                   setLoaded(true)
                 }}
               />

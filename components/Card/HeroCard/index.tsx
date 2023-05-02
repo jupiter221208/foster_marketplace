@@ -73,7 +73,7 @@ const HeroCard = props => {
                   width={550}
                   height={772}
                   className="w-full h-full object-cover rounded-[24px]"
-                  onLoad={() => {
+                  onLoadingComplete={() => {
                     setLoaded(true)
                   }}
                 />
@@ -85,19 +85,26 @@ const HeroCard = props => {
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
                   <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                      <img src={data.cover_image_url} alt="" className="w-full h-full object-cover" />
+                      <Image src={data.cover_image_url} layout="fill" alt="" className="w-full h-full object-cover" />
                     </ReactPlaceholder>
                     {!loaded && (
-                      <img
+                      <Image
                         src={data.cover_image_url}
                         alt=""
+                        layout="fill"
                         className="w-full h-full object-cover"
-                        onLoad={() => setLoaded(true)}
+                        onLoadingComplete={() => setLoaded(true)}
                       />
                     )}
                   </div>
                 ) : (
-                  <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+                  <Image
+                    src={DefaultNftBG}
+                    alt=""
+                    layout="fill"
+                    className="w-full h-full object-cover"
+                    onClick={() => onClick()}
+                  />
                 )}
               </div>
             ) : (
@@ -114,26 +121,34 @@ const HeroCard = props => {
             data.cover_image_url !== null && data.cover_image_url !== '' ? (
               <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
+                    layout="fill"
                     className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                   />
                 </ReactPlaceholder>
                 {!loaded && (
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
+                    layout="fill"
                     className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    onLoad={() => setLoaded(true)}
+                    onLoadingComplete={() => setLoaded(true)}
                   />
                 )}
               </div>
             ) : (
-              <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
+              <Image
+                src={DefaultNftBG}
+                alt=""
+                layout="fill"
+                className="w-full h-full object-cover"
+                onClick={() => onClick()}
+              />
             )
           ) : (
-            <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+            <Image src={DefaultNftBG} alt="" layout="fill" className={styles.imageNft} onClick={() => onClick()} />
           )}
         </div>
       </div>
