@@ -3,6 +3,9 @@ import React, { useState } from 'react'
 // next components
 import { useRouter } from 'next/router'
 
+// next components
+import Image from 'next/image'
+
 // images and icons
 import Avatar from 'assets/images/dashboard-avatar.png'
 
@@ -51,7 +54,7 @@ const TrendingCollectionCard = props => {
             </div>
             <div className={styles.avatar}>
               <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
-                <img
+                <Image
                   src={avatar !== null ? avatar : Avatar.src}
                   alt=""
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}

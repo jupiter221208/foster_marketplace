@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // next components
+import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -21,7 +22,7 @@ const BrowseArtistCard = props => {
       <div className={styles.avatarArea}>
         <div className={styles.avatar}>
           {image && (
-            <img
+            <Image
               src={image}
               alt=""
               width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}

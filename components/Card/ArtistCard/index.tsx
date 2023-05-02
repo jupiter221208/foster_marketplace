@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 
+// next components
+import Image from 'next/image'
+
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
@@ -19,7 +22,7 @@ const ArtistCard = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div>
           <div className={styles.avatar}>
-            <img src={image} alt="" width={226} height={226} className="rounded-full" />
+            <Image src={image} alt="" width={226} height={226} className="rounded-full" />
           </div>
 
           <div className={styles.name}>{username.length > 20 ? username.slice(0, 20) + '...' : username}</div>
@@ -27,7 +30,7 @@ const ArtistCard = props => {
       ) : (
         <div>
           <div className={`${styles.avatar} ${hover ? styles.avatarHover : ''}`}>
-            <img src={image} alt="" width={226} height={226} className="rounded-full" />
+            <Image src={image} alt="" width={226} height={226} className="rounded-full" />
           </div>
 
           <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>

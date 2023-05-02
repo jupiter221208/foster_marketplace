@@ -34,7 +34,7 @@ const EcosystemCard = props => {
         </div>
         <div className={styles.avatarArea}>
           {data.artist.profile_picture ? (
-            <img
+            <Image
               src={data.artist.profile_picture}
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
