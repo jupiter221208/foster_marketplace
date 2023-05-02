@@ -19,6 +19,7 @@ import { getDateString } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { getBuyerName, getOwnerName } from 'utils/helpers'
+import Image from 'next/image'
 
 const ActivityAccordion = props => {
   const { data, type } = props
@@ -54,7 +55,12 @@ const ActivityAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageContainer}>
-                      <img src={item.asset_url} alt="" className="w-full h-full rounded-[4px] object-cover" />
+                      <Image
+                        src={item.asset_url}
+                        alt=""
+                        layout="fill"
+                        className="w-full h-full rounded-[4px] object-cover"
+                      />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
