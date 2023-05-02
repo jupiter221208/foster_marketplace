@@ -260,12 +260,7 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <img
-                        src={getUserProfileImage(elem)}
-                        alt=""
-                        layout="fill"
-                        className="w-full h-full rounded-full object-cover"
-                      />
+                      <img src={getUserProfileImage(elem)} alt="" className="w-full h-full rounded-full object-cover" />
                     </div>
 
                     <div className="block items-start">
