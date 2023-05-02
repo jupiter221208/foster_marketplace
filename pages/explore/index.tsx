@@ -31,17 +31,16 @@ import TabList from 'assets/json/explore/tab-list.json'
 import NFTSortList from 'assets/json/explore/nft-sort.json'
 import CollectionSortList from 'assets/json/explore/collection-sort.json'
 import EcosystemSortList from 'assets/json/explore/ecosystem-sort.json'
-
+import CategoryList from 'assets/json/popular-category.json'
 import AvailabilityList from 'assets/json/explore/availability.json'
 import MediumList from 'assets/json/explore/medium.json'
 import MarketList from 'assets/json/explore/market.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-
 import FilterGrayIcon from 'assets/icons/filter-gray.svg'
 import SortGrayIcon from 'assets/icons/sort-gray.svg'
+
 // styles
 import styles from './index.module.scss'
 
@@ -67,6 +66,8 @@ const Explore = () => {
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
   const collectionSort = useSelector<any>(state => state.collectionSort)
+  const collectionCategory = useSelector<any>(state => state.collectionCategory)
+  const artworkCategory = useSelector<any>(state => state.artworkCategory)
   const artworkSort = useSelector<any>(state => state.artworkSort)
   const artistSort = useSelector<any>(state => state.artistSort)
   const exploreTab = useSelector<any>(state => state.exploreTab)
@@ -137,8 +138,22 @@ const Explore = () => {
           setSelectedSort(NFTSortList[0])
         }
         setCurrentPage(nftCurrentPage)
-        setCategoryList([])
-        getExploreNFTData(nftCurrentPage, [], availability, selectedMedium, selectedMarket, NFTSortList[0], rowCount)
+        let artworkCatelist = []
+        CategoryList.filter(category => category.query == artworkCategory).forEach(item => {
+          let object: any = item
+          object.checked = true
+          list.push(object)
+        })
+        setCategoryList(artworkCatelist)
+        getExploreNFTData(
+          nftCurrentPage,
+          artworkCatelist,
+          availability,
+          selectedMedium,
+          selectedMarket,
+          NFTSortList[0],
+          rowCount
+        )
         break
       case 1:
         setSortData(CollectionSortList)
@@ -148,8 +163,14 @@ const Explore = () => {
           setSelectedSort(CollectionSortList[0])
         }
         setCurrentPage(collectionCurrentPage)
-        setCategoryList([])
-        getExploreCollectionData(collectionCurrentPage, [], CollectionSortList[0], rowCount)
+        let list = []
+        CategoryList.filter(category => category.query == collectionCategory).forEach(item => {
+          let object: any = item
+          object.checked = true
+          list.push(object)
+        })
+        setCategoryList(list)
+        getExploreCollectionData(collectionCurrentPage, list, CollectionSortList[0], rowCount)
         break
       case 2:
         setSortData(EcosystemSortList)
@@ -255,7 +276,7 @@ const Explore = () => {
         categoryLabel.push(category.query)
       }
     })
-
+    console.log('======categoryLabel=======', categoryLabel)
     dispatch({ type: 'set', isLoading: true })
     setCollectionList([])
     ExploreAPI.getExploreCollection({

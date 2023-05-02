@@ -13,6 +13,8 @@ const initialState = {
   availabilityFilter: 0,
   artworkSort: '',
   collectionSort: '',
+  collectionCategory: '',
+  artworkCategory: '',
   artistSort: '',
   connectWalletStatus: false,
   openCreateNFTModal: false,

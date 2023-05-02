@@ -52,8 +52,7 @@ const HeroCard = props => {
                       : '/images/banner.png'
                   }
                   alt=""
-                  width={550}
-                  height={772}
+                  layout="fill"
                   className="w-full h-full object-cover rounded-[24px]"
                 />
               </ReactPlaceholder>
@@ -70,8 +69,7 @@ const HeroCard = props => {
                       : '/images/banner.png'
                   }
                   alt=""
-                  width={550}
-                  height={772}
+                  layout="fill"
                   className="w-full h-full object-cover rounded-[24px]"
                   onLoadingComplete={() => {
                     setLoaded(true)
@@ -89,7 +87,6 @@ const HeroCard = props => {
                         <div></div>
                       </ReactPlaceholder>
                     )}
-
                     <Image
                       src={data.cover_image_url}
                       alt=""

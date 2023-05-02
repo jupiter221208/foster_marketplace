@@ -98,6 +98,7 @@ const TrendingCollectionSection = props => {
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 1 })
               dispatch({ type: 'set', collectionSort: 'trending' })
+              dispatch({ type: 'set', collectionCategory: category })
               router.push('/explore')
             }}
           />
@@ -175,6 +176,7 @@ const TrendingCollectionSection = props => {
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 1 })
               dispatch({ type: 'set', collectionSort: 'trending' })
+              dispatch({ type: 'set', collectionCategory: category })
               router.push('/explore')
             }}
             borderColor={'var(--see-more-border)'}
