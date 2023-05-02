@@ -42,7 +42,8 @@ const HeroCardMobile = props => {
               : '/images/banner.png'
           }
           alt=""
-          width={375}
+          // width={375}
+          layout="fill"
           height={375}
           className="w-full h-full object-cover"
         />
