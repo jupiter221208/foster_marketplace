@@ -208,7 +208,7 @@ const ProfileSection = prop => {
                 width="100%"
                 height="100%"
                 label01="Max Characters 1000"
-                label02={1000 - bio.length === 1000 ? '' : `${1000 - bio.length} Characters left`}
+                label02={1000 - bio?.length === 1000 ? '' : `${1000 - bio?.length} Characters left`}
                 onChange={value => setBio(value)}
               />
             </div>
