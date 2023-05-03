@@ -57,6 +57,12 @@ class User {
       return response.data
     })
   }
+
+  getLockupValues() {
+    return client.get(API_URL + 'v1/users/wallet_locks').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new User()

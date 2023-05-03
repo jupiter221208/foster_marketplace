@@ -23,7 +23,7 @@ import { getMyBids, getReceivedBids, cancelOffer, acceptOffer, LazyBidWithAsset 
 // call apis
 import listingsAPI from 'apis/listings'
 import NoDataSection from '../NoDataSection'
-import authAPI from 'apis/auth'
+import usersAPI from 'apis/user'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -95,7 +95,7 @@ const OfferSection = () => {
           ])
           setShowAlert(true)
 
-          authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+          usersAPI.getLockupValues().then(
             response => {
               dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
               dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })

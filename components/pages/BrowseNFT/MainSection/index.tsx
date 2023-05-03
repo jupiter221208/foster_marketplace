@@ -88,7 +88,6 @@ import type { Sft, Nft } from '@metaplex-foundation/js'
 // call apis
 import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
-import authAPI from 'apis/auth'
 import listingsAPI from 'apis/listings'
 import activityAPI from 'apis/activity'
 import AuctionAPI from 'apis/auctions'
@@ -295,7 +294,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
         ])
         setShowAlert(true)
 
-        authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+        usersAPI.getLockupValues().then(
           response => {
             dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
             dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
@@ -462,7 +461,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
               }, 500)
               setAuctionLoading(false)
 
-              authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
+              usersAPI.getLockupValues().then(
                 response => {
                   dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
                   dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
