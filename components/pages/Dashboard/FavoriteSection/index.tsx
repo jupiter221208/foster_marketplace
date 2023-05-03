@@ -92,7 +92,11 @@ const FavoriteSection = () => {
           dispatch({ type: 'set', isLoading: false })
         }, 1000)
       },
-      error => {}
+      error => {
+        setTimeout(() => {
+          dispatch({ type: 'set', isLoading: false })
+        }, 1000)
+      }
     )
   }
 
@@ -104,7 +108,11 @@ const FavoriteSection = () => {
           dispatch({ type: 'set', isLoading: false })
         }, 1000)
       },
-      error => {}
+      error => {
+        setTimeout(() => {
+          dispatch({ type: 'set', isLoading: false })
+        }, 1000)
+      }
     )
   }
 

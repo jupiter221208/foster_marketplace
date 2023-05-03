@@ -20,9 +20,14 @@ const CollectionCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea} onClick={() => onClick()}>
         <div className={styles.imageContent}>
-          <div className="w-full h-full rounded-[10px] lg:rounded-[24px] overflow-hidden">
+          <div className="w-full h-full overflow-hidden">
             <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-              <Image src={image} alt="" layout="fill" className="w-full h-full object-cover" />
+              <Image
+                src={image}
+                alt=""
+                layout="fill"
+                className="w-full h-full object-cover rounded-[10px] lg:rounded-[20px]"
+              />
             </ReactPlaceholder>
             {!loaded && (
               <Image

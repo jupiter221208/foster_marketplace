@@ -95,3 +95,17 @@
   align-items: center;
   border: 2px solid $brand-01-color;
 }
+
+.imageArea {
+  position: relative;
+  padding-top: 100%; /* 345:304 Aspect Ratio */
+}
+
+.imageContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}

@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
 
 // next components
 import Image from 'next/image'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
-import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
 import AudioPlayerBackground from 'assets/images/audio-player.png'
@@ -20,11 +17,10 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 const MyNFTCard = props => {
   const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
-  const [loaded, setLoaded] = useState(false)
 
   return (
     <div className={styles.container}>
-      <div className="w-full rounded-[10px] lg:rounded-[24px] overflow-hidden" onClick={() => onClick(data)}>
+      <div className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden" onClick={() => onClick(data)}>
         {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
           <div
             dangerouslySetInnerHTML={{
@@ -33,43 +29,20 @@ const MyNFTCard = props => {
             }}
           />
         ) : (
-          // <video autoPlay loop muted webkit-playsInline playsInline className="w-full aspect-[321/321] object-cover">
-          //   <source src={data.json.animation_url} type="video/mp4" />
-          // </video>
-          // <div className="w-full h-full">
-          //   <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-          //     <img
-          //       src={
-          //         data.json.image === undefined || data.json.image === null
-          //           ? AudioPlayerBackground.src
-          //           : data.json.image
-          //       }
-          //       alt={data.json.name || data.name}
-          //       className="w-full aspect-[321/321] object-cover"
-          //     />
-          //   </ReactPlaceholder>
-          //   {!loaded && (
-          //     <img
-          //       src={
-          //         data.json.image === undefined || data.json.image === null
-          //           ? AudioPlayerBackground.src
-          //           : data.json.image
-          //       }
-          //       alt=""
-          //       className="w-full aspect-[321/321] object-cover"
-          //       onLoad={() => {
-          //         setLoaded(true)
-          //       }}
-          //     />
-          //   )}
-          // </div>
-          <img
-            src={
-              data.json.image === undefined || data.json.image === null ? AudioPlayerBackground.src : data.json.image
-            }
-            alt={data.json.name || data.name}
-            className="w-full aspect-[321/321] object-cover"
-          />
+          <div className={styles.imageArea}>
+            <div className={styles.imageContent}>
+              <Image
+                src={
+                  data.json.image === undefined || data.json.image === null
+                    ? AudioPlayerBackground.src
+                    : data.json.image
+                }
+                layout="fill"
+                alt={data.json.name || data.name}
+                className="w-full object-cover"
+              />
+            </div>
+          </div>
         )}
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
@@ -80,25 +53,12 @@ const MyNFTCard = props => {
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
         <div className="w-full hidden lg:flex justify-between items-center mt-4">
-          {/* {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
-            <OutlineButton
-              label="Start Auction"
-              onClick={() => setBlurMode(true)}
-              height="40px"
-              fontSize="14px"
-              borderRadius="12px"
-              backgroundColor="#1E2225"
-              borderColor="#1E2225"
-              color="#727478"
-            />
-          ) : ( */}
           <GradientButton
             label="Start Auction"
             onClick={() => onClickStartAuction(data)}
             height="40px"
             fontSize="14px"
           />
-          {/* )} */}
           <SecondaryButton
             backgroundColor="transparent"
             label="List NFT"
@@ -108,33 +68,13 @@ const MyNFTCard = props => {
           />
         </div>
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
-          {/* {publicKey?.toBase58() !== data.creators[0].address.toString() ? (
-            <OutlineButton
-              label="Start Auction"
-              onClick={() => {
-                setBlurMode(true)
-                setTimeout(() => {
-                  setBlurMode(false)
-                }, 3000)
-              }}
-              height="26px"
-              fontSize="10px"
-              borderRadius="6px"
-              backgroundColor="#1E2225"
-              borderColor="#1E2225"
-              color="#727478"
-            />
-          ) : ( */}
           <GradientButton
             label="Start Auction"
             onClick={() => onClickStartAuction(data)}
-            // borderColor={'var(--mynft-outline-border)'}
-            // color={'var(--mynft-outline-color)'}
             height="26px"
             fontSize="10px"
             borderRadius="6px"
           />
-          {/* )} */}
           <SecondaryButton
             label="List NFT"
             onClick={() => onClickListNFT(data)}

@@ -58,8 +58,9 @@ const ActivityAccordion = props => {
                       <Image
                         src={item.asset_url}
                         alt=""
-                        layout="fill"
-                        className="w-full h-full rounded-[4px] object-cover"
+                        width={54}
+                        height={54}
+                        className="rounded-[4px] object-cover"
                       />
                     </div>
                     <div className="block">
