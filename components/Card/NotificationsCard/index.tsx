@@ -260,7 +260,13 @@ const NotificationsCard = props => {
                   <div className="flex justify-start items-center">
                     {elem.acknowledged === true ? <div className={styles.read} /> : <div className={styles.dot} />}
                     <div className={styles.avatarArea}>
-                      <img src={getUserProfileImage(elem)} alt="" className="w-full h-full rounded-full object-cover" />
+                      <Image
+                        src={getUserProfileImage(elem)}
+                        alt=""
+                        width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                        height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 41 : 52}
+                        className="w-full h-full rounded-full object-cover"
+                      />
                     </div>
 
                     <div className="block items-start">
@@ -310,7 +316,7 @@ const NotificationsCard = props => {
                     ) : (
                       isShowAvatar(elem) && (
                         <div className={styles.assetUrl} onClick={() => gotoNFTPage(elem)}>
-                          <img
+                          <Image
                             src={
                               elem.reference_asset_url !== null && elem.reference_asset_url !== ''
                                 ? elem.reference_asset_url
