@@ -77,7 +77,7 @@ const Notifications = () => {
     })
     let sortedNotification = []
     if (newNotifications.length > 0) sortedNotification.push({ id: 0, date: 'NEW', data: newNotifications })
-
+    const ONE_MONTH_AGO = '1 MONTH AGO'
     let index = 1
     Object.keys(sortedByDate)
       .sort()
@@ -94,7 +94,7 @@ const Notifications = () => {
         } else if (parseInt(key) <= weekStart && parseInt(key) >= monthStart) {
           strDate = 'THIS MONTH'
         } else {
-          strDate = '1 MONTH AGO'
+          strDate = ONE_MONTH_AGO
         }
 
         let existingNotification = sortedNotification.filter(notification => notification.date === strDate)
@@ -106,7 +106,8 @@ const Notifications = () => {
         }
         index++
       })
-    return sortedNotification
+
+    return sortedNotification.filter(notification => notification.date !== ONE_MONTH_AGO)
   }
 
   async function getNotifications(notifications) {
