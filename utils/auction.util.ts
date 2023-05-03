@@ -36,7 +36,7 @@ import {
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 import { getNFTOwner } from './nfts.utils'
 
-import authAPI from 'apis/auth'
+import usersAPI from 'apis/user'
 
 export const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY ?? 0)
 const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
@@ -330,7 +330,7 @@ export async function offerNFT(mx: Metaplex, id: string, price: number) {
       })
     let currentBalance = await mx.connection.getBalance(escrowPaymentAccount) / LAMPORTS_PER_SOL
     // TODO: replace with endpoint to only fetch lockups
-    let { offer_wallet_lock } = await authAPI.login({ wallet_id: publicKey.toBase58() })
+    let { offer_wallet_lock } = await usersAPI.getLockupValues()
     let delta = (offer_wallet_lock + price + 0.0001) - currentBalance;
     if (delta > 0)
       operation.prepend(

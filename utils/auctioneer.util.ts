@@ -5,121 +5,92 @@ import {
   createCancelInstruction,
   createExecuteSaleInstruction,
   createWithdrawInstruction,
+  AUCTIONEER_PROGRAM_ID,
+} from '@metaplex-foundation/mpl-auctioneer'
+import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
+import { PublicKey, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { BN } from '@project-serum/anchor'
+import { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction } from '@solana/spl-token'
+import { Metaplex, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
 
-  AUCTIONEER_PROGRAM_ID
-} from "@metaplex-foundation/mpl-auctioneer";
-import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house';
-import { PublicKey, Transaction, LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { BN } from "@project-serum/anchor";
-import {
-  getAssociatedTokenAddress,
-  createAssociatedTokenAccountInstruction
-} from "@solana/spl-token";
-import { Metaplex, WRAPPED_SOL_MINT } from "@metaplex-foundation/js";
-
-import authAPI from 'apis/auth'
+import usersAPI from 'apis/user'
 
 export const TIMED_AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.TIMED_AUCTION_HOUSE_PUBLIC_KEY ?? 0)
 const TIMED_AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.TIMED_AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
 
 export async function getAuctioneerAuthority() {
   return await PublicKey.findProgramAddress(
-    [
-      Buffer.from("auctioneer"),
-      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer()
-    ],
+    [Buffer.from('auctioneer'), TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer()],
     AUCTIONEER_PROGRAM_ID
-  );
+  )
 }
 
 export async function getPda(auctioneerAuthority) {
   return await PublicKey.findProgramAddress(
-    [
-      Buffer.from("auctioneer"),
-      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
-      auctioneerAuthority.toBuffer(),
-    ],
+    [Buffer.from('auctioneer'), TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(), auctioneerAuthority.toBuffer()],
     AUCTION_HOUSE_ADDRESS
-  );
+  )
 }
 
 export async function getListingConfig(publicKey, associatedAddress, mintAddress) {
   return await PublicKey.findProgramAddress(
     [
-      Buffer.from("listing_config"),
+      Buffer.from('listing_config'),
       publicKey.toBuffer(),
       TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       associatedAddress.toBuffer(),
       WRAPPED_SOL_MINT.toBuffer(),
       mintAddress.toBuffer(),
-      new BN(1).toArrayLike(Buffer, "le", 8),
+      new BN(1).toArrayLike(Buffer, 'le', 8),
     ],
     AUCTIONEER_PROGRAM_ID
-  );
+  )
 }
 
-async function getAuctionHouseTradeState(
-  wallet,
-  tokenAccount,
-  tokenMint,
-  buyPrice
-) {
+async function getAuctionHouseTradeState(wallet, tokenAccount, tokenMint, buyPrice) {
   return await PublicKey.findProgramAddress(
     [
-      Buffer.from("auction_house"),
+      Buffer.from('auction_house'),
       wallet.toBuffer(),
       TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
       tokenAccount.toBuffer(),
       WRAPPED_SOL_MINT.toBuffer(),
       tokenMint.toBuffer(),
-      new BN(buyPrice).toArrayLike(Buffer, "le", 8),
-      new BN(1).toArrayLike(Buffer, "le", 8),
+      new BN(buyPrice).toArrayLike(Buffer, 'le', 8),
+      new BN(1).toArrayLike(Buffer, 'le', 8),
     ],
     AUCTION_HOUSE_ADDRESS
-  );
+  )
 }
 
 export async function getFeePayer() {
   return await PublicKey.findProgramAddress(
-    [
-      Buffer.from("auction_house"),
-      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
-      Buffer.from("fee_payer")
-    ],
+    [Buffer.from('auction_house'), TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(), Buffer.from('fee_payer')],
     AUCTION_HOUSE_ADDRESS
-  );
+  )
 }
 
 export function getMetadata(mx: Metaplex, mint: PublicKey): PublicKey {
-  return mx
-    .nfts()
-    .pdas()
-    .metadata({ mint });
+  return mx.nfts().pdas().metadata({ mint })
 }
 
 export async function getSigner() {
   return await PublicKey.findProgramAddress(
-    [Buffer.from("auction_house"), Buffer.from("signer")],
+    [Buffer.from('auction_house'), Buffer.from('signer')],
     AUCTION_HOUSE_ADDRESS
-  );
+  )
 }
 
 export async function getEscrowPaymentAccount(publicKey: PublicKey) {
   return await PublicKey.findProgramAddress(
-    [
-      Buffer.from('auction_house'),
-      TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
-      publicKey.toBuffer(),
-    ],
+    [Buffer.from('auction_house'), TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(), publicKey.toBuffer()],
     AUCTION_HOUSE_ADDRESS
   )
 }
 
 export async function getAuctionHouseTreasury() {
   return await PublicKey.findProgramAddress(
-    [Buffer.from("auction_house"),
-    TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(),
-    Buffer.from("treasury")],
+    [Buffer.from('auction_house'), TIMED_AUCTION_HOUSE_PUBLIC_KEY.toBuffer(), Buffer.from('treasury')],
     AUCTION_HOUSE_ADDRESS
   )
 }
@@ -131,7 +102,6 @@ export async function startAuction(
   endDate: Date,
   price: number
 ) {
-
   const startTime = Math.floor(startDate.getTime() / 1000)
   const endTime = Math.floor(endDate.getTime() / 1000)
 
@@ -141,7 +111,7 @@ export async function startAuction(
 
   const [pda] = await getPda(auctioneerAuthority)
 
-  const associatedAddress = await getAssociatedTokenAddress(mintAddress, publicKey);
+  const associatedAddress = await getAssociatedTokenAddress(mintAddress, publicKey)
 
   const [listingConfig] = await getListingConfig(publicKey, associatedAddress, mintAddress)
 
@@ -149,15 +119,15 @@ export async function startAuction(
     publicKey,
     associatedAddress,
     mintAddress,
-    "18446744073709551615"
-  );
+    '18446744073709551615'
+  )
 
   const [freeTradeState, freeTradeBump] = await getAuctionHouseTradeState(
     publicKey,
     associatedAddress,
     mintAddress,
-    "0"
-  );
+    '0'
+  )
 
   const [feePayer] = await getFeePayer()
 
@@ -177,7 +147,7 @@ export async function startAuction(
     auctioneerAuthority: auctioneerAuthority,
     ahAuctioneerPda: pda,
     programAsSigner: signer,
-  };
+  }
 
   const args = {
     tradeStateBump: sellerTradeStateBump,
@@ -192,14 +162,14 @@ export async function startAuction(
     timeExtPeriod: 1,
     timeExtDelta: 1,
     allowHighBidCancel: true,
-  };
+  }
 
-  const sellInstruction = await createSellInstruction(accounts, args);
+  const sellInstruction = await createSellInstruction(accounts, args)
 
-  let tx = new Transaction();
-  tx.add(sellInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
+  let tx = new Transaction()
+  tx.add(sellInstruction)
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  tx.feePayer = publicKey
 
   const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
@@ -214,18 +184,13 @@ export async function startAuction(
       sellerAddress: publicKey,
       startTime,
       endTime,
-      reservePrice: price
-    }
+      reservePrice: price,
+    },
   }
 }
 
-export async function cancelListing(
-  mx: Metaplex,
-  mintAddress: PublicKey,
-  sellerAddress: PublicKey
-) {
-
-  const publicKey = mx.identity().publicKey;
+export async function cancelListing(mx: Metaplex, mintAddress: PublicKey, sellerAddress: PublicKey) {
+  const publicKey = mx.identity().publicKey
 
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
@@ -241,14 +206,14 @@ export async function cancelListing(
     sellerAddress,
     associatedAddress,
     mintAddress,
-    "18446744073709551615"
+    '18446744073709551615'
   )
 
   const cancelArgs = {
     auctioneerAuthorityBump: auctioneerAuthorityBump,
-    buyerPrice: new BN("18446744073709551615").toArrayLike(Buffer, "le", 8),
+    buyerPrice: new BN('18446744073709551615').toArrayLike(Buffer, 'le', 8),
     tokenSize: 1,
-  };
+  }
 
   const cancelAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
@@ -262,47 +227,40 @@ export async function cancelListing(
     auctionHouseFeeAccount: feePayer,
     tradeState: sellerTradeState,
     auctioneerAuthority: auctioneerAuthority,
-    ahAuctioneerPda: pda
-  };
+    ahAuctioneerPda: pda,
+  }
 
   /**@ts-ignore for buyerPrice */
-  const cancelInstruction = await createCancelInstruction(cancelAccounts, cancelArgs);
+  const cancelInstruction = await createCancelInstruction(cancelAccounts, cancelArgs)
 
-  let tx = new Transaction();
-  tx.add(cancelInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
+  let tx = new Transaction()
+  tx.add(cancelInstruction)
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  tx.feePayer = publicKey
 
   const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
     response,
     auction: {
-      mintAddress
-    }
+      mintAddress,
+    },
   }
 }
 
-export async function depositFunds(
-  mx: Metaplex,
-  price: number
-) {
+export async function depositFunds(mx: Metaplex, price: number) {
   let tx = await createDepositFundsTransaction(mx, price)
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
 
   const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
-    response
+    response,
   }
 }
 
-export async function createDepositFundsTransaction(
-  mx: Metaplex,
-  price: number
-) {
-
-  const publicKey = mx.identity().publicKey;
+export async function createDepositFundsTransaction(mx: Metaplex, price: number) {
+  const publicKey = mx.identity().publicKey
 
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
@@ -316,7 +274,7 @@ export async function createDepositFundsTransaction(
     escrowPaymentBump: escrowPaymentBump,
     auctioneerAuthorityBump: auctioneerAuthorityBump,
     amount: price * 1000000000,
-  };
+  }
 
   const depositAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
@@ -330,23 +288,19 @@ export async function createDepositFundsTransaction(
     auctionHouseFeeAccount: feePayer,
     auctioneerAuthority: auctioneerAuthority,
     ahAuctioneerPda: pda,
-  };
+  }
 
-  const depositInstruction = await createDepositInstruction(depositAccounts, depositArgs);
+  const depositInstruction = await createDepositInstruction(depositAccounts, depositArgs)
 
-  let tx = new Transaction();
-  tx.add(depositInstruction);
-  tx.feePayer = publicKey;
+  let tx = new Transaction()
+  tx.add(depositInstruction)
+  tx.feePayer = publicKey
 
   return tx
 }
 
-export async function withdrawFunds(
-  mx: Metaplex,
-  price: number
-) {
-
-  const publicKey = mx.identity().publicKey;
+export async function withdrawFunds(mx: Metaplex, price: number) {
+  const publicKey = mx.identity().publicKey
 
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
@@ -360,7 +314,7 @@ export async function withdrawFunds(
     escrowPaymentBump: escrowPaymentBump,
     auctioneerAuthorityBump: auctioneerAuthorityBump,
     amount: price * 1000000000,
-  };
+  }
 
   const withdrawAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
@@ -373,39 +327,33 @@ export async function withdrawFunds(
     auctionHouseFeeAccount: feePayer,
     auctioneerAuthority: auctioneerAuthority,
     ahAuctioneerPda: pda,
-  };
+  }
 
-  const withdrawInstruction = await createWithdrawInstruction(withdrawAccounts, withdrawArgs);
+  const withdrawInstruction = await createWithdrawInstruction(withdrawAccounts, withdrawArgs)
 
-  let tx = new Transaction();
-  tx.add(withdrawInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
+  let tx = new Transaction()
+  tx.add(withdrawInstruction)
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  tx.feePayer = publicKey
 
   const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
   return {
-    response
+    response,
   }
 }
 
-export async function placeBid(
-  mx: Metaplex,
-  mintAddress: PublicKey,
-  sellerAddress: PublicKey,
-  price: number
-) {
+export async function placeBid(mx: Metaplex, mintAddress: PublicKey, sellerAddress: PublicKey, price: number) {
+  const publicKey = mx.identity().publicKey
 
-  const publicKey = mx.identity().publicKey;
-
-  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey);
-  let currentBalance = await mx.connection.getBalance(escrowPaymentAccount) / LAMPORTS_PER_SOL;
+  const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(publicKey)
+  let currentBalance = (await mx.connection.getBalance(escrowPaymentAccount)) / LAMPORTS_PER_SOL
 
   // TODO: replace with endpoint to only fetch lockups
-  let { bid_wallet_lock } = await authAPI.login({ wallet_id: publicKey.toBase58() });
-  let fundTx: Transaction | null = null;
-  let delta = (bid_wallet_lock + price + 0.0001) - currentBalance;
-  if (delta > 0) fundTx = await createDepositFundsTransaction(mx, delta);
+  let { bid_wallet_lock } = await usersAPI.getLockupValues()
+  let fundTx: Transaction | null = null
+  let delta = bid_wallet_lock + price + 0.0001 - currentBalance
+  if (delta > 0) fundTx = await createDepositFundsTransaction(mx, delta)
   console.log({ bid_wallet_lock, price, currentBalance, delta })
 
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
@@ -431,7 +379,7 @@ export async function placeBid(
     auctioneerAuthorityBump: auctioneerAuthorityBump,
     buyerPrice: price * 1000000000,
     tokenSize: 1,
-  };
+  }
 
   const buyAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
@@ -449,15 +397,15 @@ export async function placeBid(
     auctionHouseFeeAccount: feePayer,
     buyerTradeState: buyerTradeState,
     auctioneerAuthority: auctioneerAuthority,
-    ahAuctioneerPda: pda
-  };
+    ahAuctioneerPda: pda,
+  }
 
-  const buyInstruction = await createBuyInstruction(buyAccounts, buyArgs);
+  const buyInstruction = await createBuyInstruction(buyAccounts, buyArgs)
 
-  let tx = fundTx ?? new Transaction();
-  tx.add(buyInstruction);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
+  let tx = fundTx ?? new Transaction()
+  tx.add(buyInstruction)
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  tx.feePayer = publicKey
 
   const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
@@ -466,8 +414,8 @@ export async function placeBid(
     bid: {
       mintAddress,
       buyerAddress: publicKey,
-      amount: price
-    }
+      amount: price,
+    },
   }
 }
 
@@ -478,8 +426,7 @@ export async function executeSale(
   buyerAddress: PublicKey,
   price: number
 ) {
-
-  const publicKey = mx.identity().publicKey;
+  const publicKey = mx.identity().publicKey
 
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
@@ -487,7 +434,7 @@ export async function executeSale(
 
   const associatedAddress = await getAssociatedTokenAddress(mintAddress, sellerAddress)
 
-  const buyerAssociatedAddress = await getAssociatedTokenAddress(mintAddress, buyerAddress);
+  const buyerAssociatedAddress = await getAssociatedTokenAddress(mintAddress, buyerAddress)
 
   const [listingConfig] = await getListingConfig(sellerAddress, associatedAddress, mintAddress)
 
@@ -495,37 +442,32 @@ export async function executeSale(
 
   const [escrowPaymentAccount, escrowPaymentBump] = await getEscrowPaymentAccount(buyerAddress)
 
-  const [buyerTradeState] = await getAuctionHouseTradeState(
-    buyerAddress,
-    associatedAddress,
-    mintAddress,
-    price
-  )
+  const [buyerTradeState] = await getAuctionHouseTradeState(buyerAddress, associatedAddress, mintAddress, price)
 
   const [sellerTradeState] = await getAuctionHouseTradeState(
     sellerAddress,
     associatedAddress,
     mintAddress,
-    "18446744073709551615"
-  );
+    '18446744073709551615'
+  )
 
   const [freeTradeState, freeTradeBump] = await getAuctionHouseTradeState(
     sellerAddress,
     associatedAddress,
     mintAddress,
-    "0"
-  );
+    '0'
+  )
 
   const [signer, signerBump] = await getSigner()
 
   const [auctionHouseTreasury] = await getAuctionHouseTreasury()
 
-  let remainingAccounts = [];
-  const nft = await mx.nfts().findByMint({ mintAddress });
+  let remainingAccounts = []
+  const nft = await mx.nfts().findByMint({ mintAddress })
 
   for (let i = 0; i < nft.creators.length; i++) {
-    let creator = { pubkey: nft.creators[i].address, isWritable: true, isSigner: false };
-    remainingAccounts.push(creator);
+    let creator = { pubkey: nft.creators[i].address, isWritable: true, isSigner: false }
+    remainingAccounts.push(creator)
   }
 
   const executeSaleArgs = {
@@ -535,7 +477,7 @@ export async function executeSale(
     auctioneerAuthorityBump: auctioneerAuthorityBump,
     buyerPrice: price,
     tokenSize: 1,
-  };
+  }
 
   const executeSaleAccounts = {
     auctionHouseProgram: AUCTION_HOUSE_ADDRESS,
@@ -559,29 +501,22 @@ export async function executeSale(
     auctioneerAuthority: auctioneerAuthority,
     ahAuctioneerPda: pda,
     programAsSigner: signer,
-  };
+  }
 
-  const executeSale = await createExecuteSaleInstruction(executeSaleAccounts, executeSaleArgs);
+  const executeSale = await createExecuteSaleInstruction(executeSaleAccounts, executeSaleArgs)
 
   remainingAccounts.forEach(account => {
     executeSale.keys.push(account)
   })
 
-  let tx = new Transaction();
+  let tx = new Transaction()
 
   if ((await mx.connection.getAccountInfo(buyerAssociatedAddress)) === null)
-    tx.add(
-      createAssociatedTokenAccountInstruction(
-        publicKey,
-        buyerAssociatedAddress,
-        buyerAddress,
-        mintAddress
-      )
-    );
+    tx.add(createAssociatedTokenAccountInstruction(publicKey, buyerAssociatedAddress, buyerAddress, mintAddress))
 
-  tx.add(executeSale);
-  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash;
-  tx.feePayer = publicKey;
+  tx.add(executeSale)
+  tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
+  tx.feePayer = publicKey
 
   const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
 
@@ -590,7 +525,7 @@ export async function executeSale(
     sale: {
       mintAddress,
       buyerAddress,
-      price: price / 1000000000
-    }
+      price: price / 1000000000,
+    },
   }
 }

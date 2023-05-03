@@ -278,7 +278,6 @@ const Explore = () => {
         categoryLabel.push(category.query)
       }
     })
-    console.log('======categoryLabel=======', categoryLabel)
     dispatch({ type: 'set', isLoading: true })
     setCollectionList([])
     ExploreAPI.getExploreCollection({
