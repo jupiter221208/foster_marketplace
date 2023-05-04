@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 // components
 import Radio from 'components/Radio'
 
 // json
-import ProfileList from 'assets/json/explore/profile.json'
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 
 // styles
 import styles from './index.module.scss'
 
-const EcosystemFilter = props => {
-  const [selectedProfile, setSelectedProfile] = useState(ProfileList[0])
+const EcosystemFilter = () => {
   const [selectedVerifyType, setSelectedVerifyType] = useState(ArtistVerificationList[2])
 
   return (

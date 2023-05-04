@@ -7,13 +7,11 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/avatar-banner.png'
 
 // styles
 import styles from './index.module.scss'
-import { useSelector } from 'react-redux'
 
 const EcosystemCard = props => {
   const { data, onClick } = props

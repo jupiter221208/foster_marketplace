@@ -3,7 +3,6 @@ import React from 'react'
 // custom components
 import Checkbox from 'components/Checkbox'
 import OutlineButton from 'components/Button/OutlineButton'
-import Button from 'components/Button'
 
 // styles
 import styles from './index.module.scss'

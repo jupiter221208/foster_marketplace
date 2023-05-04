@@ -5,21 +5,20 @@ import { Dialog, Transition } from '@headlessui/react'
 
 // next components
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 // foster component
 import CategoryChip from 'components/Chip/CategoryChip'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-import InstagramIcon from 'assets/icons/social-ig.svg?component'
+// import InstagramIcon from 'assets/icons/social-ig.svg?component'
 // import DiscordIcon from 'assets/icons/social-discord.svg'
-import TwitterIcon from 'assets/icons/social-twitter.svg?component'
+// import TwitterIcon from 'assets/icons/social-twitter.svg?component'
 // import TelegramIcon from 'assets/icons/social-telegram.svg'
 
 // styles
 import styles from './index.module.scss'
-import { validUrl } from 'utils/helpers'
+// import { validUrl } from 'utils/helpers'
 
 const ReadMoreModal = props => {
   const { open, close, artistInfo, categoryList } = props

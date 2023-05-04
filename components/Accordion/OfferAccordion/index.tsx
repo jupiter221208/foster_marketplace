@@ -83,7 +83,7 @@ const OfferAccordionItem = ({
             >
               <div className="flex items-center gap-x-4">
                 <div className={open ? styles.activeImageArea : styles.imageArea}>
-                  <img src={assetImageUrl} alt="" width={52} height={52} className="rounded-[4px]" />
+                  <Image src={assetImageUrl} alt="" width={52} height={52} className="rounded-[4px]" />
                 </div>
 
                 <div className="block">

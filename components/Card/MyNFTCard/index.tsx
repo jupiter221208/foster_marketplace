@@ -15,7 +15,7 @@ import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
 const MyNFTCard = props => {
-  const { data, publicKey, onClick, onClickStartAuction, onClickListNFT } = props
+  const { data, onClick, onClickStartAuction, onClickListNFT } = props
   const [blurMode, setBlurMode] = useState(false)
 
   return (

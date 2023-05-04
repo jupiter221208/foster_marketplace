@@ -17,7 +17,6 @@ const LoadingButton = props => {
     backgroundColor02 = '#4B6E6B',
     width = 160,
     gradientDirection = 'left',
-    icon = '',
   } = props
 
   return (

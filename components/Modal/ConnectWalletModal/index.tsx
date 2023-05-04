@@ -3,7 +3,7 @@ import React from 'react'
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment } from 'react'
 
 // next components
 import Image from 'next/image'

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import Radio from 'components/Radio'
-import PriceRange from 'components/Range/PriceRange'
+// import PriceRange from 'components/Range/PriceRange'
 import Checkbox from 'components/Checkbox'
 
 // json
@@ -15,7 +15,7 @@ import CategoryList from 'assets/json/popular-category.json'
 
 // styles
 import styles from './index.module.scss'
-import RoyaltyRange from 'components/Range/RoyaltyRange'
+// import RoyaltyRange from 'components/Range/RoyaltyRange'
 
 const NFTFilter = props => {
   const {
@@ -29,7 +29,7 @@ const NFTFilter = props => {
   } = props
 
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
-  const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
+  // const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
   // const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
   // const [selectedMedium, setSelectedMedium] = useState<any>(MediumList[3])
   const [categoryList, setCategoryList] = useState<any[]>([])

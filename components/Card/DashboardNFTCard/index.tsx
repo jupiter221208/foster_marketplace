@@ -15,7 +15,7 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const NFTCard = props => {
-  const { image, nftName, artistName, price, showCount = true, onClick } = props
+  const { image, nftName, artistName, onClick } = props
   const viewport = useViewport()
 
   return (

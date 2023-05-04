@@ -30,8 +30,7 @@ const NFTSwiperSection = props => {
   const dispatch = useDispatch()
 
   const [nftList, setNFTList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(0)
-  const [showFilter, setShowFilter] = useState<boolean>(false)
+  // const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
     let newList: any[] = []
@@ -48,35 +47,35 @@ const NFTSwiperSection = props => {
     setNFTList(newList)
   }, [nfts])
 
-  const handleChangeActive = value => {
-    setActive(value)
+  // const handleChangeActive = value => {
+  //   setActive(value)
 
-    let newList: any[] = []
-    let tempItem: any[] = []
-    nfts.map((item, index) => {
-      tempItem.push(item)
-      if (index % 2 === 1) {
-        newList.push(tempItem)
-        tempItem = []
-      }
-    })
-    if (tempItem.length > 0) newList.push(tempItem)
+  //   let newList: any[] = []
+  //   let tempItem: any[] = []
+  //   nfts.map((item, index) => {
+  //     tempItem.push(item)
+  //     if (index % 2 === 1) {
+  //       newList.push(tempItem)
+  //       tempItem = []
+  //     }
+  //   })
+  //   if (tempItem.length > 0) newList.push(tempItem)
 
-    switch (value) {
-      case 0:
-        setNFTList(newList.slice(0, 4))
-        break
-      case 1:
-        setNFTList(newList.slice(0, 5))
-        break
-      case 2:
-        setNFTList(newList.slice(0, 6))
-        break
-      default:
-        setNFTList(newList)
-        break
-    }
-  }
+  //   switch (value) {
+  //     case 0:
+  //       setNFTList(newList.slice(0, 4))
+  //       break
+  //     case 1:
+  //       setNFTList(newList.slice(0, 5))
+  //       break
+  //     case 2:
+  //       setNFTList(newList.slice(0, 6))
+  //       break
+  //     default:
+  //       setNFTList(newList)
+  //       break
+  //   }
+  // }
 
   return nfts.length === 0 ? (
     <section className={styles.container}>

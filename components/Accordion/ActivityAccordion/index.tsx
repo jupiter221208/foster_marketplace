@@ -19,10 +19,9 @@ import { getDateString } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { getBuyerName, getOwnerName } from 'utils/helpers'
-import Image from 'next/image'
 
 const ActivityAccordion = props => {
-  const { data, type } = props
+  const { data } = props
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)

@@ -1,7 +1,6 @@
 import React from 'react'
 
 // next components
-import Image from 'next/image'
 
 // import images and icons
 import SearchGrayIcon from 'assets/icons/search-gray.svg?component'
@@ -19,7 +18,6 @@ const NotificationsSearchBox = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
-      {/* <Image src={SearchGrayIcon} alt="" className="cursor-pointer" onClick={() => onClick()} /> */}
       <SearchGrayIcon alt="" className="cursor-pointer" onClick={() => onClick()} />
     </div>
   )

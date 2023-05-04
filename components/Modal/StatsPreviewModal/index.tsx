@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
-import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'

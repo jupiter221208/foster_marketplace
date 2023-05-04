@@ -5,7 +5,6 @@ import Tab from 'components/Tab'
 import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
-import ExploreCollectionSection from 'components/pages/ArtistProfile/ExploreCollectionSection'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'

@@ -50,14 +50,14 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
 
   const viewport = useViewport()
-  const isStarted = useMemo(() => {
-    if (startTime) {
-      const start = new Date(Number(startTime) * 1000)
-      const now = new Date()
-      return now.getTime() - start.getTime() > 0 ? true : false
-    }
-    return false
-  }, [startTime])
+  // const isStarted = useMemo(() => {
+  //   if (startTime) {
+  //     const start = new Date(Number(startTime) * 1000)
+  //     const now = new Date()
+  //     return now.getTime() - start.getTime() > 0 ? true : false
+  //   }
+  //   return false
+  // }, [startTime])
 
   const isEnded = useMemo(() => {
     if (endTime) {

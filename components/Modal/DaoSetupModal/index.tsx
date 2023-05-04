@@ -1,7 +1,6 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment } from 'react'
 
 // third party components
-import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
 

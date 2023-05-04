@@ -33,20 +33,19 @@ import VerificationRadio from 'components/VerificationRadio'
 import VerifyButton from 'components/Button/VerifyButton'
 
 const RequestVerifyModal = props => {
-  const { open, onClick, onClose } = props
+  const { open, onClose } = props
   const viewport = useViewport()
 
   const [currentStep, setCurrentStep] = useState(1)
 
   // step 1
   const [selectedCategory, setSelectedCategory] = useState<any>({})
-  const [selected, setSelected] = useState(false)
   const [verifiedTwitter, setVerifiedTwitter] = useState(false)
   const [verifiedIG, setVerifiedIG] = useState(false)
 
   // step 2
-  const [email, setEmail] = useState('')
-  const [comment, setComment] = useState('')
+  // const [email, setEmail] = useState('')
+  // const [comment, setComment] = useState('')
 
   const closeModal = () => {
     setCurrentStep(1)

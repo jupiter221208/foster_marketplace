@@ -1,7 +1,6 @@
 import React from 'react'
 
 // next components
-import Image from 'next/image'
 
 // import images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-green-mobile.svg?component'

@@ -11,7 +11,6 @@ import GradientButton from 'components/Button/GradientButton'
 // images and icons
 
 // json
-import ProfileList from 'assets/json/explore/profile.json'
 import ArtistVerificationList from 'assets/json/explore/artist-verification.json'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 

@@ -5,7 +5,6 @@ import { Disclosure } from '@headlessui/react'
 
 // components
 import Radio from 'components/Radio'
-import PriceRange from 'components/Range/PriceRange'
 import Checkbox from 'components/Checkbox'
 import OutlineButton from 'components/Button/OutlineButton'
 import GradientButton from 'components/Button/GradientButton'
@@ -27,7 +26,6 @@ const MobileNFTFilter = props => {
 
   const [selectedVerifyType, setSelectedVerifyType] = useState<any>(ArtistVerificationList[2])
   const [selectedAvailability, setSelectedAvailability] = useState<any>(availability)
-  const [selectedDimension, setSelectedDimension] = useState<any>(DimensionList[5])
   const [selectedMarket, setSelectedMarket] = useState<any>(market)
   const [selectedMedium, setSelectedMedium] = useState<any>(medium)
   const [categoryList, setCategoryList] = useState<any[]>([])

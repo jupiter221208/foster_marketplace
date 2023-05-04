@@ -10,7 +10,7 @@ import FosterGreenIcon from 'assets/icons/logo-color.svg'
 import styles from './index.module.scss'
 
 const Subscriber = props => {
-  const { value, placeholder, onChange, onClick } = props
+  const { value, onChange, onClick } = props
   return (
     <div className={styles.container}>
       <div id="mc_embed_signup" className="w-[90%]">

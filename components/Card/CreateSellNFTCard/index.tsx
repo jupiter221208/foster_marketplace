@@ -2,7 +2,6 @@ import React from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import Image from 'next/image'
 
 // third party components
 import { useDispatch } from 'react-redux'

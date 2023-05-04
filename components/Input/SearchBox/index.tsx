@@ -3,7 +3,6 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'

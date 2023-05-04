@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -34,20 +34,13 @@ const Navbar = props => {
 
   const [selectedNavMenu, setSelectedNavMenu] = useState('')
   const [showMenu, setShowMenu] = useState(false)
-  const [showLogo, setShowLogo] = useState(true)
 
   const showExpandMenu = () => {
     setShowMenu(true)
-    setTimeout(() => {
-      setShowLogo(true)
-    }, 500)
   }
 
   const hideExpandMenu = () => {
     setShowMenu(false)
-    setTimeout(() => {
-      setShowLogo(false)
-    }, 500)
   }
 
   return (

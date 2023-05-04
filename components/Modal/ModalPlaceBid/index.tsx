@@ -4,7 +4,6 @@ import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // next components
-import Image from 'next/image'
 
 // custom components
 import PriceInput from 'components/Input/PriceInput'

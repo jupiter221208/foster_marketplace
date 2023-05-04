@@ -1,7 +1,6 @@
 import React from 'react'
 
 // next components
-import Image from 'next/image'
 
 // import images and icons
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'

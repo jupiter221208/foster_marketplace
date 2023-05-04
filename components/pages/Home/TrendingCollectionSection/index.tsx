@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components

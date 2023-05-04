@@ -4,7 +4,7 @@ import React from 'react'
 import styles from './index.module.scss'
 
 const FilterButton = props => {
-  const { label, onClick, selected, fullWidth, disabled = false, width = '', color, background, height = '' } = props
+  const { label, onClick, selected, fullWidth, width = '', height = '' } = props
   return (
     <button
       type="button"
