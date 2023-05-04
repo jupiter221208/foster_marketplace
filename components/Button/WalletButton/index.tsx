@@ -31,40 +31,28 @@ import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
 import styles from './index.module.scss'
 
 // call apis
-import authAPI from 'apis/auth'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
-import {
-  depositFunds as depositOfferFunds,
-  withdrawFunds as withdrawOfferFunds,
-  getEscrowPaymentAccount as getOfferEscrowAddress,
-} from 'utils/auction.util'
-import {
-  depositFunds as depositBiddingFunds,
-  withdrawFunds as withdrawBiddingFunds,
-  getEscrowPaymentAccount as getBiddingEscrowAddress,
-} from 'utils/auctioneer.util'
+import { depositFunds as depositOfferFunds, withdrawFunds as withdrawOfferFunds } from 'utils/auction.util'
+import { depositFunds as depositBiddingFunds, withdrawFunds as withdrawBiddingFunds } from 'utils/auctioneer.util'
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
-import { useViewport } from 'utils'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const { connected, publicKey, disconnect } = useWallet()
+  const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-  const viewport = useViewport()
 
   const { mainBalance, offerBalance, biddingBalance, offerWalletAddress, biddingWalletAddress, updateSolBalance } =
     useWallets()
 
   const shortMainAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
 
-  const [showMainWallet, setShowMainWallet] = useState(false)
   const [showOfferWallet, setShowOfferWallet] = useState(false)
   const [showBiddingWallet, setShowBiddingWallet] = useState(false)
   const [offerStatus, setOfferStatus] = useState('') // '': default; 'deposit': deposit; 'withdraw': withdraw
@@ -79,7 +67,6 @@ const WalletButton = props => {
   const [isOfferLocked, setIsOfferLocked] = useState(false)
   const [isBidLocked, setIsBidLocked] = useState(false)
   const [walletAmount, setWalletAmount] = useState<any>()
-  const [walletHover, setWalletHover] = useState(false)
 
   const errorMsg = 'Insufficient Funds in Wallet'
 
@@ -261,16 +248,6 @@ const WalletButton = props => {
       }
     }
   }, [profileInfo])
-
-  const handleDisconnect = () => {
-    if (localStorage.getItem('walletName') === '"Phantom"') {
-      localStorage.removeItem('walletName')
-      ;(window as any).solana.disconnect()
-    } else disconnect()
-
-    localStorage.removeItem('token')
-    dispatch({ type: 'set', profileInfo: null })
-  }
 
   return connected ? (
     <Menu as="div" className="relative inline-block text-left">
@@ -571,9 +548,6 @@ const WalletButton = props => {
                         fullWidth
                         height="53px"
                         fontSize="18px"
-                        // backgroundColor01={'var(--deposit-btn-bg-1)'}
-                        // backgroundColor02={'var(--deposit-btn-bg-2)'}
-                        // gradientDirection="right"
                         borderRadius="15px"
                         borderColor="rgba(255, 255, 255, 0.1)"
                         onClick={() => onClickOfferButton()}
@@ -589,11 +563,6 @@ const WalletButton = props => {
                   >
                     View active offers
                   </div>
-                  {/* <div className="w-full flex flex-wrap mt-[14px] gap-1">
-                  <p className={styles.cardGrayText}>
-                    Insufficient balance. <a className="underline text-[#DEEFD0]">Learn more</a>
-                  </p>
-                </div> */}
                 </div>
               )}
             </div>
@@ -806,9 +775,6 @@ const WalletButton = props => {
                         fullWidth
                         height="53px"
                         fontSize="18px"
-                        // backgroundColor01={'var(--deposit-btn-bg-1)'}
-                        // backgroundColor02={'var(--deposit-btn-bg-2)'}
-                        // gradientDirection="right"
                         borderRadius="15px"
                         borderColor="rgba(255, 255, 255, 0.1)"
                         onClick={() => onClickBiddingButton()}
@@ -847,89 +813,8 @@ const WalletButton = props => {
           setButtonClicked(true)
           setVisible(true)
         }}
-        onMouseEnter={() => setWalletHover(true)}
-        onMouseLeave={() => setWalletHover(false)}
         style={{ width: fullWidth ? '100%' : '' }}
       >
-        {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
-            <defs>
-              <linearGradient
-                id="linear-gradient"
-                x1="0.084"
-                y1="1.024"
-                x2="0.881"
-                y2="-0.034"
-                gradientUnits="objectBoundingBox"
-              >
-                <stop offset="0.08" stopColor="var(--wallet-icon-bg-1)" />
-                <stop offset="0.3" stopColor="var(--wallet-icon-bg-2)" />
-                <stop offset="0.5" stopColor="var(--wallet-icon-bg-3)" />
-                <stop offset="0.6" stopColor="var(--wallet-icon-bg-4)" />
-                <stop offset="0.72" stopColor="var(--wallet-icon-bg-5)" />
-                <stop offset="0.97" stopColor="var(--wallet-icon-bg-6)" />
-              </linearGradient>
-            </defs>
-            <path
-              id="solanaLogoMark"
-              d="M17.127,11.826,14.285,14.8a.66.66,0,0,1-.22.151A.675.675,0,0,1,13.8,15H.33a.336.336,0,0,1-.181-.053.324.324,0,0,1-.122-.141A.314.314,0,0,1,0,14.624a.318.318,0,0,1,.084-.165L2.933,11.49a.66.66,0,0,1,.219-.151.675.675,0,0,1,.262-.054H16.886a.337.337,0,0,1,.181.053.325.325,0,0,1,.122.141.314.314,0,0,1,.022.183A.319.319,0,0,1,17.127,11.826ZM14.285,5.847a.66.66,0,0,0-.22-.151.675.675,0,0,0-.263-.053H.33A.336.336,0,0,0,.149,5.7a.324.324,0,0,0-.122.141A.314.314,0,0,0,0,6.019a.318.318,0,0,0,.084.165L2.933,9.153a.66.66,0,0,0,.219.151.675.675,0,0,0,.262.053H16.886a.336.336,0,0,0,.181-.053.325.325,0,0,0,.122-.141.314.314,0,0,0,.022-.183.319.319,0,0,0-.084-.165ZM.33,3.714H13.8a.675.675,0,0,0,.263-.053.66.66,0,0,0,.22-.151L17.127.541a.319.319,0,0,0,.084-.165.314.314,0,0,0-.022-.183.325.325,0,0,0-.122-.141A.336.336,0,0,0,16.886,0H3.414a.675.675,0,0,0-.262.053A.66.66,0,0,0,2.933.2L.089,3.174a.318.318,0,0,0-.084.165.314.314,0,0,0,.022.182.324.324,0,0,0,.121.141A.336.336,0,0,0,.33,3.714Z"
-              transform="translate(0)"
-              fill="url(#linear-gradient)"
-            />
-          </svg>
-        ) : walletHover ? (
-          <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
-            <defs>
-              <linearGradient
-                id="linear-gradient"
-                x1="0.084"
-                y1="1.024"
-                x2="0.881"
-                y2="-0.034"
-                gradientUnits="objectBoundingBox"
-              >
-                <stop offset="0.08" stopColor="var(--wallet-icon-bg-1)" />
-                <stop offset="0.3" stopColor="var(--wallet-icon-bg-2)" />
-                <stop offset="0.5" stopColor="var(--wallet-icon-bg-3)" />
-                <stop offset="0.6" stopColor="var(--wallet-icon-bg-4)" />
-                <stop offset="0.72" stopColor="var(--wallet-icon-bg-5)" />
-                <stop offset="0.97" stopColor="var(--wallet-icon-bg-6)" />
-              </linearGradient>
-            </defs>
-            <path
-              id="solanaLogoMark"
-              d="M17.127,11.826,14.285,14.8a.66.66,0,0,1-.22.151A.675.675,0,0,1,13.8,15H.33a.336.336,0,0,1-.181-.053.324.324,0,0,1-.122-.141A.314.314,0,0,1,0,14.624a.318.318,0,0,1,.084-.165L2.933,11.49a.66.66,0,0,1,.219-.151.675.675,0,0,1,.262-.054H16.886a.337.337,0,0,1,.181.053.325.325,0,0,1,.122.141.314.314,0,0,1,.022.183A.319.319,0,0,1,17.127,11.826ZM14.285,5.847a.66.66,0,0,0-.22-.151.675.675,0,0,0-.263-.053H.33A.336.336,0,0,0,.149,5.7a.324.324,0,0,0-.122.141A.314.314,0,0,0,0,6.019a.318.318,0,0,0,.084.165L2.933,9.153a.66.66,0,0,0,.219.151.675.675,0,0,0,.262.053H16.886a.336.336,0,0,0,.181-.053.325.325,0,0,0,.122-.141.314.314,0,0,0,.022-.183.319.319,0,0,0-.084-.165ZM.33,3.714H13.8a.675.675,0,0,0,.263-.053.66.66,0,0,0,.22-.151L17.127.541a.319.319,0,0,0,.084-.165.314.314,0,0,0-.022-.183.325.325,0,0,0-.122-.141A.336.336,0,0,0,16.886,0H3.414a.675.675,0,0,0-.262.053A.66.66,0,0,0,2.933.2L.089,3.174a.318.318,0,0,0-.084.165.314.314,0,0,0,.022.182.324.324,0,0,0,.121.141A.336.336,0,0,0,.33,3.714Z"
-              transform="translate(0)"
-              fill="url(#linear-gradient)"
-            />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
-            <defs>
-              <linearGradient
-                id="linear-gradient"
-                x1="0.084"
-                y1="1.024"
-                x2="0.881"
-                y2="-0.034"
-                gradientUnits="objectBoundingBox"
-              >
-                <stop offset="0.08" stopColor="var(--wallet-icon-light-bg-1)" />
-                <stop offset="0.3" stopColor="var(--wallet-icon-light-bg-2)" />
-                <stop offset="0.5" stopColor="var(--wallet-icon-light-bg-3)" />
-                <stop offset="0.6" stopColor="var(--wallet-icon-light-bg-4)" />
-                <stop offset="0.72" stopColor="var(--wallet-icon-light-bg-5)" />
-                <stop offset="0.97" stopColor="var(--wallet-icon-light-bg-6)" />
-              </linearGradient>
-            </defs>
-            <path
-              id="solanaLogoMark"
-              d="M17.127,11.826,14.285,14.8a.66.66,0,0,1-.22.151A.675.675,0,0,1,13.8,15H.33a.336.336,0,0,1-.181-.053.324.324,0,0,1-.122-.141A.314.314,0,0,1,0,14.624a.318.318,0,0,1,.084-.165L2.933,11.49a.66.66,0,0,1,.219-.151.675.675,0,0,1,.262-.054H16.886a.337.337,0,0,1,.181.053.325.325,0,0,1,.122.141.314.314,0,0,1,.022.183A.319.319,0,0,1,17.127,11.826ZM14.285,5.847a.66.66,0,0,0-.22-.151.675.675,0,0,0-.263-.053H.33A.336.336,0,0,0,.149,5.7a.324.324,0,0,0-.122.141A.314.314,0,0,0,0,6.019a.318.318,0,0,0,.084.165L2.933,9.153a.66.66,0,0,0,.219.151.675.675,0,0,0,.262.053H16.886a.336.336,0,0,0,.181-.053.325.325,0,0,0,.122-.141.314.314,0,0,0,.022-.183.319.319,0,0,0-.084-.165ZM.33,3.714H13.8a.675.675,0,0,0,.263-.053.66.66,0,0,0,.22-.151L17.127.541a.319.319,0,0,0,.084-.165.314.314,0,0,0-.022-.183.325.325,0,0,0-.122-.141A.336.336,0,0,0,16.886,0H3.414a.675.675,0,0,0-.262.053A.66.66,0,0,0,2.933.2L.089,3.174a.318.318,0,0,0-.084.165.314.314,0,0,0,.022.182.324.324,0,0,0,.121.141A.336.336,0,0,0,.33,3.714Z"
-              transform="translate(0)"
-              fill="url(#linear-gradient)"
-            />
-          </svg>
-        )} */}
         <svg xmlns="http://www.w3.org/2000/svg" width="17.216" height="15" viewBox="0 0 17.216 15">
           <path
             id="solanaLogoMark"

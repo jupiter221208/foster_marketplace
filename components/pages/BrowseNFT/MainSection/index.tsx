@@ -58,13 +58,11 @@ import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
-import PlaceBidDisableIcon from 'assets/icons/place-bid-icon-disabled.svg'
-import PlaceBidBlackIcon from 'assets/icons/place-bid-icon-black.svg'
 import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 
 // json
-import TimeList from 'assets/json/browse-nft/time-list.json'
+// import TimeList from 'assets/json/browse-nft/time-list.json'
 
 // styles
 import styles from './index.module.scss'
@@ -99,7 +97,7 @@ import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
-import DateSelect from 'components/DateSelect'
+// import DateSelect from 'components/DateSelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
@@ -160,30 +158,28 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
     openedRef.current = clickedButton
   }
 
-  const [selectedTime, setSelectedTime] = useState(TimeList[0])
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-        position: 'bottom',
-      },
-      title: {
-        display: false,
-        text: 'Chart.js Line Chart',
-      },
-    },
-    maintainAspectRatio: false,
-    elements: {
-      line: {
-        tension: 0.5, // disables bezier curves
-      },
-      point: {
-        radius: 0,
-      },
-    },
-  }
+  // const options = {
+  //   responsive: true,
+  //   plugins: {
+  //     legend: {
+  //       display: false,
+  //       position: 'bottom',
+  //     },
+  //     title: {
+  //       display: false,
+  //       text: 'Chart.js Line Chart',
+  //     },
+  //   },
+  //   maintainAspectRatio: false,
+  //   elements: {
+  //     line: {
+  //       tension: 0.5, // disables bezier curves
+  //     },
+  //     point: {
+  //       radius: 0,
+  //     },
+  //   },
+  // }
   const labels =
     viewport === 'xs' || viewport === 'sm' || viewport === 'md'
       ? ['12/21', '1/22', '2/22', '3/22']
@@ -247,7 +243,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
-  const [listing, setListing] = useState<LazyListing | null>(null)
   const [activityList, setActivityList] = useState([])
 
   const [isRunning, setIsRunning] = useState(false)
@@ -401,7 +396,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
             },
           } = listing
           setNftPrice(parseFloat(basisPoints.toString()) / 10 ** decimals)
-          setListing(listing)
           setTradeStateAddress(tradeStateAddress.toBase58())
         }
       }
@@ -817,9 +811,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                       showPlaceBidButton && !isOwnNft ? 'h-[130px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
                     } relative`}
                   >
-                    <div className={styles.auctionBG}>
-                      {/* <Image src={AuctionBGIcon} alt="" className={styles.auctionBGIcon} /> */}
-                    </div>
                     <div className={styles.auctionContainer}>
                       <AuctionCard
                         currentPrice={nftCurrentPrice}
@@ -851,14 +842,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                               >
                                 Place Bid
                               </div>
-                              {/* <Image
-                                src={
-                                  publicKey?.toBase58() === highBidder || isEnded
-                                    ? PlaceBidDisableIcon
-                                    : PlaceBidBlackIcon
-                                }
-                                alt=""
-                              /> */}
                             </div>
                           </div>
                           {publicKey?.toBase58() === highBidder ? (

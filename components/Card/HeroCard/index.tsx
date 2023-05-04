@@ -40,42 +40,27 @@ const HeroCard = props => {
         <div className={styles.imageContent}>
           {data.asset_type.includes('image') ? (
             <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
-              <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                <Image
-                  src={
-                    data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                      ? data.asset_url
-                      : data.cover_image_url !== '' &&
-                        data.cover_image_url !== null &&
-                        data.cover_image_url !== undefined
-                      ? data.cover_image_url
-                      : '/images/banner.png'
-                  }
-                  alt=""
-                  layout="fill"
-                  className="w-full h-full object-cover rounded-[24px]"
-                />
-              </ReactPlaceholder>
-
               {!loaded && (
-                <Image
-                  src={
-                    data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                      ? data.asset_url
-                      : data.cover_image_url !== '' &&
-                        data.cover_image_url !== null &&
-                        data.cover_image_url !== undefined
-                      ? data.cover_image_url
-                      : '/images/banner.png'
-                  }
-                  alt=""
-                  layout="fill"
-                  className="w-full h-full object-cover rounded-[24px]"
-                  onLoadingComplete={() => {
-                    setLoaded(true)
-                  }}
-                />
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
               )}
+              <Image
+                src={
+                  data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                    ? data.asset_url
+                    : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                    ? data.cover_image_url
+                    : '/images/banner.png'
+                }
+                alt=""
+                layout="fill"
+                priority={true}
+                className="w-full h-full object-cover rounded-[24px]"
+                onLoadingComplete={() => {
+                  setLoaded(true)
+                }}
+              />
             </div>
           ) : data.asset_type.includes('video') ? (
             viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -90,6 +75,7 @@ const HeroCard = props => {
                     <Image
                       src={data.cover_image_url}
                       alt=""
+                      priority={true}
                       layout="fill"
                       unoptimized
                       className="w-full h-full object-cover"
@@ -119,23 +105,18 @@ const HeroCard = props => {
           ) : data.asset_type.includes('audio') ? (
             data.cover_image_url !== null && data.cover_image_url !== '' ? (
               <div className="w-full h-full" onClick={() => gotoNftDetailPage()}>
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <Image
-                    src={data.cover_image_url}
-                    alt=""
-                    layout="fill"
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                  />
-                </ReactPlaceholder>
                 {!loaded && (
-                  <Image
-                    src={data.cover_image_url}
-                    alt=""
-                    layout="fill"
-                    className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    onLoadingComplete={() => setLoaded(true)}
-                  />
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
                 )}
+                <Image
+                  src={data.cover_image_url}
+                  alt=""
+                  layout="fill"
+                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                  onLoadingComplete={() => setLoaded(true)}
+                />
               </div>
             ) : (
               <Image

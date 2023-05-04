@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 // next component
-import Image from 'next/image'
 
 // custom components
 import SmallCategoryChip from 'components/Chip/SmallCategoryChip'

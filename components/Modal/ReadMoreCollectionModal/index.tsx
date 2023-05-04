@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -13,7 +13,6 @@ import CategoryChip from 'components/Chip/CategoryChip'
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 
 // styles
 import styles from './index.module.scss'

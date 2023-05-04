@@ -18,7 +18,6 @@ import { useViewport, namePublicFile } from 'utils'
 
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
-import CloseIcon from 'assets/icons/close-wallet.svg'
 import ConnectLogo from 'assets/images/profile_setup_logo.png'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import CameraIcon from 'assets/icons/camera-white.svg'

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -15,7 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
@@ -40,8 +38,6 @@ const MarketplaceReleaseSection = props => {
   const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
   const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
 
-  const [active, setActive] = useState<any>(0)
-
   useEffect(() => {
     setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '').then(response => {
@@ -58,25 +54,6 @@ const MarketplaceReleaseSection = props => {
     if (allMarketplaceReleaseList.length === 0) return
     setMarketplaceReleaseList(allMarketplaceReleaseList)
   }, [viewport, allMarketplaceReleaseList])
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 5))
-        break
-      case 1:
-        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 10))
-        break
-      case 2:
-        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 15))
-        break
-      default:
-        setMarketplaceReleaseList(allMarketplaceReleaseList)
-        break
-    }
-  }
 
   return (
     marketplaceReleaseList.length !== 0 && (

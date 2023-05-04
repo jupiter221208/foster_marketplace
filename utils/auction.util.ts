@@ -1,16 +1,13 @@
 import bs58 from 'bs58'
 import {
   LAMPORTS_PER_SOL,
-
   AccountInfo,
   ParsedAccountData,
   PublicKey,
-  Transaction,
   sendAndConfirmRawTransaction,
 } from '@solana/web3.js'
-import { unpackAccount, getAssociatedTokenAddressSync } from '@solana/spl-token'
+import { unpackAccount } from '@solana/spl-token'
 import {
-  WRAPPED_SOL_MINT,
   Metaplex,
   sol,
   lamports,
@@ -30,16 +27,13 @@ import {
   type LazyListing,
   type LazyBid,
   type Metadata,
-  type NftWithToken,
   type TransactionBuilder,
 } from '@metaplex-foundation/js'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
-import { getNFTOwner } from './nfts.utils'
 
 import usersAPI from 'apis/user'
 
 export const AUCTION_HOUSE_PUBLIC_KEY = new PublicKey(process.env.AUCTION_HOUSE_PUBLIC_KEY ?? 0)
-const AUCTION_HOUSE_OWNER_ADDRESS = new PublicKey(process.env.AUCTION_HOUSE_OWNER_ADDRESS ?? 0)
 
 export type LazyBidWithAsset = LazyBid & { asset: Metadata }
 export type LazyListingWithAsset = LazyListing & { asset: Metadata }
@@ -297,7 +291,7 @@ export async function buyNFT(
       })
 
     if (bid.price.basisPoints.toNumber() >= listing.price.basisPoints.toNumber()) {
-      const tx = await mx.auctionHouse().executeSale({ auctionHouse, bid, listing })
+      await mx.auctionHouse().executeSale({ auctionHouse, bid, listing })
 
       return true
     }
