@@ -18,6 +18,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 
 // styles
 import styles from './index.module.scss'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
@@ -27,6 +28,7 @@ const LiveAuctionCard = props => {
   const [timeLeft, setTimeLeft] = useState(null)
   const [play, setPlay] = useState(false)
   const [auctionStarted, setAuctionStarted] = useState(true)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (
@@ -72,13 +74,20 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <Image
-                    src={data.cover_image_url}
-                    alt=""
-                    layout="fill"
-                    className="w-full h-full rounded-[24px] object-cover"
-                    onClick={() => onClick()}
-                  />
+                  <div className="w-full h-full">
+                    {!loaded && (
+                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                        <div></div>
+                      </ReactPlaceholder>
+                    )}
+                    <Image
+                      src={data.cover_image_url}
+                      alt=""
+                      layout="fill"
+                      className="w-full h-full rounded-[24px] object-cover"
+                      onClick={() => onClick()}
+                    />
+                  </div>
                 ) : (
                   <Image
                     src={DefaultNftBG}
@@ -111,20 +120,35 @@ const LiveAuctionCard = props => {
               />
             )
           ) : data.asset_type.includes('audio') ? (
-            <img
-              src={data.cover_image_url}
-              alt=""
-              className="w-full h-full rounded-[24px] object-cover"
-              onClick={() => onClick()}
-            />
+            <div className="w-full h-full">
+              {!loaded && (
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              )}
+              <Image
+                src={data.cover_image_url}
+                alt=""
+                layout="fill"
+                className="w-full h-full rounded-[24px] object-cover"
+                onLoadingComplete={() => setLoaded(true)}
+                onClick={() => onClick()}
+              />
+            </div>
           ) : (
             <div className="w-full h-full">
+              {!loaded && (
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              )}
               <Image
                 src={data.asset_url}
                 alt=""
                 layout="fill"
                 unoptimized
                 className="w-full h-full rounded-[24px] object-cover"
+                onLoadingComplete={() => setLoaded(true)}
                 onClick={() => onClick()}
               />
             </div>
@@ -147,7 +171,7 @@ const LiveAuctionCard = props => {
             className="rounded-full"
           />
         ) : (
-          <img
+          <Image
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
             src={data.artist_profile_picture}
