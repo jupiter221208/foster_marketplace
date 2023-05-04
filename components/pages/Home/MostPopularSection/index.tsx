@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -36,11 +35,8 @@ const MostPopularSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
   const [allMostPopularList, setAllMostPopularList] = useState<any[]>([])
   const [mostPopularList, setMostPopularList] = useState<any[]>([])
-
-  const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
     setAllMostPopularList([])
@@ -60,25 +56,6 @@ const MostPopularSection = props => {
     if (allMostPopularList.length === 0) return
     setMostPopularList(allMostPopularList)
   }, [viewport, allMostPopularList])
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setMostPopularList(allMostPopularList.slice(0, 5))
-        break
-      case 1:
-        setMostPopularList(allMostPopularList.slice(0, 10))
-        break
-      case 2:
-        setMostPopularList(allMostPopularList.slice(0, 15))
-        break
-      default:
-        setMostPopularList(allMostPopularList)
-        break
-    }
-  }
 
   return (
     <section className={styles.container}>

@@ -14,13 +14,13 @@ import { Autoplay, Lazy, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import Marquee from 'react-fast-marquee'
+// import Marquee from 'react-fast-marquee'
 
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import Button from 'components/Button'
+
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 // custom functions
@@ -38,37 +38,13 @@ const TrendingCollectionSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
-  const [allTrendingList, setAllTrendingList] = useState<any[]>([])
   const [trendingList, setTrendingList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(0)
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setTrendingList(allTrendingList.slice(0, 3))
-        break
-      case 1:
-        setTrendingList(allTrendingList.slice(0, 10))
-        break
-      case 2:
-        setTrendingList(allTrendingList.slice(0, 15))
-        break
-      default:
-        setTrendingList(allTrendingList)
-        break
-    }
-  }
 
   useEffect(() => {
-    setAllTrendingList([])
     setTrendingList([])
     dashboardAPI.getTrendingCollections(category).then(
       response => {
         if (response instanceof Array) {
-          setAllTrendingList(response)
           setTrendingList(response)
         }
       },

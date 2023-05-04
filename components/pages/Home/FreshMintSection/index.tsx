@@ -14,7 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
@@ -34,11 +33,8 @@ const FreshMintSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
   const [allFreshMintsList, setAllFreshMintsList] = useState<any[]>([])
   const [freshMintsList, setFreshMintsList] = useState<any[]>([])
-
-  const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
     dashboardAPI.getFreshMints(category).then(
@@ -59,25 +55,6 @@ const FreshMintSection = props => {
     setFreshMintsList(allFreshMintsList)
   }, [viewport, allFreshMintsList])
 
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setFreshMintsList(allFreshMintsList.slice(0, 5))
-        break
-      case 1:
-        setFreshMintsList(allFreshMintsList.slice(0, 10))
-        break
-      case 2:
-        setFreshMintsList(allFreshMintsList.slice(0, 15))
-        break
-      default:
-        setFreshMintsList(allFreshMintsList)
-        break
-    }
-  }
-
   return (
     <section className={styles.container}>
       <div className={styles.bottomLeftEllipse}>
@@ -92,26 +69,6 @@ const FreshMintSection = props => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
           )}
-          {/* <div className="hidden lg:flex z-10">
-            <Button
-              label="24 hrs"
-              onClick={() => handleChangeActive(0)}
-              color={active === 0 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="7 days"
-              onClick={() => handleChangeActive(1)}
-              color={active === 1 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-            />
-            <Button
-              label="30 days"
-              onClick={() => handleChangeActive(2)}
-              color={active === 2 ? '#202427' : '#979EA2'}
-              backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-            />
-          </div> */}
         </div>
         <div className="hidden lg:flex z-10">
           <SeeMoreButton onClick={() => router.push('/explore')} />
