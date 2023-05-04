@@ -21,7 +21,7 @@ const Pagination = props => {
   const { data, getCurrentData } = props
   const viewport = useViewport()
 
-  const [rowCount, setRowCount] = useState(12)
+  const [rowCount, setRowCount] = useState(8)
   const [totalCount, setTotalCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(0)
   const [currentData, setCurrentData] = useState([])
