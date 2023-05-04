@@ -37,7 +37,7 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
-  const { connected, publicKey } = useWallet()
+  const { connected, publicKey, signMessage } = useWallet()
   const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -83,21 +83,21 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   }, [address, publicCollectionData])
 
   useEffect(() => {
-    if (connected && loginAndRefresh) {
+    ;(async () => {
+      if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
-        response => {
-          if (response.new_user) dispatch({ type: 'set', profileSetup: true })
-          dispatch({ type: 'set', profileInfo: response.user })
-          dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
-          dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
-        },
-        error => {
-          console.log(error)
-        }
-      )
-    }
-  }, [connected, loginAndRefresh])
+
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
+        wallet_id: publicKey?.toBase58() || '',
+        signature: Buffer.from(signature).toString('base64'),
+      })
+      if (new_user) dispatch({ type: 'set', profileSetup: true })
+      dispatch({ type: 'set', profileInfo: user })
+      dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
+      dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+    })()
+  }, [connected, loginAndRefresh, signMessage])
 
   let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
   let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)

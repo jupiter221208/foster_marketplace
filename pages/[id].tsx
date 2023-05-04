@@ -37,8 +37,7 @@ interface ArtistProfileProps {
 }
 
 const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
-  const { connected, publicKey } = useWallet()
-
+  const { connected, publicKey, signMessage } = useWallet()
   const viewport = useViewport()
 
   const dispatch = useDispatch()
@@ -82,27 +81,26 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [hideNftToken])
 
   useEffect(() => {
-    if (connected && loginAndRefresh) {
+    ;(async () => {
+      if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
-        response => {
-          if (response.new_user) dispatch({ type: 'set', profileSetup: true })
-          dispatch({ type: 'set', profileInfo: response.user })
-          dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
-          dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
 
-          if (artistEnable || isLoggedIn()) {
-            getArtistData(artistPublicKey, true)
-          } else {
-            getCollectorData(artistPublicKey, true)
-          }
-        },
-        error => {
-          console.log(error)
-        }
-      )
-    }
-  }, [connected, loginAndRefresh, publicArtistData])
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
+        wallet_id: publicKey?.toBase58() || '',
+        signature: Buffer.from(signature).toString('base64'),
+      })
+      if (new_user) dispatch({ type: 'set', profileSetup: true })
+      dispatch({ type: 'set', profileInfo: user })
+      dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
+      dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+      if (artistEnable || isLoggedIn()) {
+        getArtistData(artistPublicKey, true)
+      } else {
+        getCollectorData(artistPublicKey, true)
+      }
+    })()
+  }, [connected, loginAndRefresh, publicArtistData, signMessage])
 
   const getArtistData = (id, refresh = false) => {
     artistsAPI.getArtist(id).then(

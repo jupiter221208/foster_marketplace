@@ -36,7 +36,7 @@ const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const viewport = useViewport()
-  const { connected, publicKey, disconnect } = useWallet()
+  const { connected, publicKey, disconnect, signMessage } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
 
   const [showAlert, setShowAlert] = useState(false)
@@ -103,22 +103,20 @@ const MobileMenu = () => {
   }, [profileInfo])
 
   // handle login
-  const handleLogin = () => {
-    authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
-      response => {
-        if (response.new_user === true) {
-          dispatch({ type: 'set', profileSetup: true })
-        }
-        dispatch({ type: 'set', profileInfo: response.user })
-        setProfileImage(response.user.profile_picture)
-        setProfileName(response.user.username)
-        dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
-        dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
-      },
-      error => {
-        console.log(error)
-      }
-    )
+  const handleLogin = async () => {
+    let signature = await signMessage(Buffer.from('Foster Protocol'))
+    let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
+      wallet_id: publicKey?.toBase58() || '',
+        signature: Buffer.from(signature).toString('base64'),
+    })
+    if (new_user === true) {
+      dispatch({ type: 'set', profileSetup: true })
+    }
+    dispatch({ type: 'set', profileInfo: user })
+    setProfileImage(user.profile_picture)
+    setProfileName(user.username)
+    dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
+    dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
   }
 
   const handleThemeMode = () => {
