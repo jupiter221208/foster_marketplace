@@ -76,13 +76,7 @@ const Stats = () => {
               <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
             )}
           </div>
-          <div className="w-full z-10">
-            {activeTab === 0 && <ArtworksSection />}
-            {/* {activeTab === 1 && <CollectionsSection />}
-            {activeTab === 2 && <CreatorsSection />}
-            {activeTab === 3 && <CollectorsSection />}
-            {activeTab === 4 && <MarketplaceSection />} */}
-          </div>
+          <div className="w-full z-10">{activeTab === 0 && <ArtworksSection />}</div>
         </div>
       </div>
       <StatsPreviewModal
