@@ -137,6 +137,7 @@ const DashboardNFTCard = props => {
                     <img
                       src={coverImage}
                       alt=""
+                      loading="lazy"
                       className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                     />
                   </ReactPlaceholder>
@@ -145,6 +146,7 @@ const DashboardNFTCard = props => {
                       src={coverImage}
                       alt=""
                       className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                      loading="lazy"
                       onLoad={() => {
                         setLoaded(true)
                       }}
@@ -157,12 +159,13 @@ const DashboardNFTCard = props => {
             ) : image !== null && image !== '' ? (
               <div className="w-full" onClick={() => onClick()}>
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <img src={image} alt="" className={styles.imageNft} />
+                  <img src={image} alt="" loading="lazy" className={styles.imageNft} />
                 </ReactPlaceholder>
                 {!loaded && (
                   <img
                     src={image}
                     alt=""
+                    loading="lazy"
                     className={styles.imageNft}
                     onLoad={() => {
                       setLoaded(true)

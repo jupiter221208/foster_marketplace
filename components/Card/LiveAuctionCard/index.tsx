@@ -72,9 +72,10 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <img
+                  <Image
                     src={data.cover_image_url}
                     alt=""
+                    layout="fill"
                     className="w-full h-full rounded-[24px] object-cover"
                     onClick={() => onClick()}
                   />
