@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useViewport } from 'utils'
 
 // third party component
-import { Tab as HTab } from '@headlessui/react'
 
 // styles
 import styles from './index.module.scss'

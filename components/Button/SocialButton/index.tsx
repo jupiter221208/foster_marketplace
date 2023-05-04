@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // styles
 import styles from './index.module.scss'
 
 const SocialButton = props => {
-  const { icon, iconHover, onClick } = props
+  const { icon, onClick } = props
   const [hover, setHover] = useState(false)
 
   return (

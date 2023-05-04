@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment } from 'react'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -16,7 +16,6 @@ import { useViewport } from 'utils'
 import LogoBigIcon from 'assets/logo-big.svg'
 import CloseIcon from 'assets/icons/close-wallet.svg'
 import StatsPreviewBG from 'assets/icons/stats-preview-bg.svg'
-import TcDAOLogo from 'assets/images/TC_DAO_Logo.png'
 import TurkeyHead from 'assets/images/turkey-head.png'
 
 // styles
@@ -25,7 +24,6 @@ import styles from './index.module.scss'
 const StatsPreviewModal = props => {
   const { open, close } = props
   const viewport = useViewport()
-  const router = useRouter()
 
   return (
     <div>

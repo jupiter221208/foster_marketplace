@@ -180,10 +180,6 @@ const Step01CollectionSection = props => {
     setCoverAWSUrl(url + filename)
   }
 
-  const handleChangeCurrentStep = step => {
-    onChangeCurrentStep(step)
-  }
-
   const [showCategoryList, setShowCategoryList] = useState(false)
 
   const handleSelectCategory = index => {

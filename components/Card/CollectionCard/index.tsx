@@ -11,7 +11,7 @@ import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, artistAddress, mintAddress = '', onClick, unSave = null } = props
+  const { image, nftName, category, artistName, onClick, unSave = null } = props
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
 

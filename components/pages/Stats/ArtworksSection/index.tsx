@@ -16,7 +16,6 @@ import 'swiper/css/navigation'
 // json
 
 // functions
-import { stringLengthValidate } from 'utils/strings'
 
 // styles
 import styles from './index.module.scss'
@@ -25,7 +24,7 @@ import styles from './index.module.scss'
 import StatsAPI from 'apis/stats'
 import ExplorePagination from 'components/Button/ExplorePagination'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-import Marquee from 'react-fast-marquee'
+// import Marquee from 'react-fast-marquee'
 import { useViewport } from 'utils'
 
 const ArtworksSection = () => {

@@ -28,23 +28,20 @@ const ActivitySection = () => {
   const { publicKey } = useWallet()
 
   useEffect(() => {
-    ActivityAPI.getUserActivity(publicKey?.toBase58()).then(
-      response => {
-        if (response.length === 0) return
-        let newList: any[] = []
-        let tempItem: any[] = []
-        response.reverse().map((item, index) => {
-          tempItem.push(item)
-          if (index % 10 === 9) {
-            newList.push(tempItem)
-            tempItem = []
-          }
-        })
-        if (tempItem.length > 0) newList.push(tempItem)
-        setActivityList(newList)
-      },
-      error => {}
-    )
+    ActivityAPI.getUserActivity(publicKey?.toBase58()).then(response => {
+      if (response.length === 0) return
+      let newList: any[] = []
+      let tempItem: any[] = []
+      response.reverse().map((item, index) => {
+        tempItem.push(item)
+        if (index % 10 === 9) {
+          newList.push(tempItem)
+          tempItem = []
+        }
+      })
+      if (tempItem.length > 0) newList.push(tempItem)
+      setActivityList(newList)
+    })
   }, [publicKey])
 
   return (

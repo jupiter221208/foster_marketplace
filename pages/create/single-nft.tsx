@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
-import NextImage from 'next/image'
 
 // third party components
 import { useSelector, useDispatch } from 'react-redux'
@@ -13,7 +12,7 @@ import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
 import { Keypair, PublicKey } from '@solana/web3.js'
-import { toBigNumber, toMetaplexFile, JsonMetadata, MetaplexFile } from '@metaplex-foundation/js'
+import { toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
@@ -30,16 +29,11 @@ import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
 import Button from 'components/Button'
 import GradientButton from 'components/Button/GradientButton'
-import IconButton from 'components/Button/IconButton'
 
 // custom functions
-import { useViewport, b64toBlob, getBase64FromUrl } from 'utils'
+import { useViewport } from 'utils'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg'
-import EllipseGreenLight from 'assets/icons/ellipse-green-light.svg'
-import TrashGrayIcon from 'assets/icons/trash-gray.svg'
-import TrashGrayLightIcon from 'assets/icons/trash-gray-light.svg'
 
 // json
 import NFTDimensionList from 'assets/json/nft-dimension-list.json'

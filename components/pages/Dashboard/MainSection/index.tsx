@@ -2,7 +2,6 @@ import React, { useMemo, useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 // next components
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -108,9 +107,7 @@ const MainSection = () => {
 
   const profileName = profileInfo?.username ? profileInfo?.username : ''
   const instagramUrl = profileInfo?.ig_url ? getPrefixUrl(profileInfo?.ig_url) : ''
-  const discordUrl = profileInfo?.discord_url ? getPrefixUrl(profileInfo?.discord_url) : ''
   const twitterUrl = profileInfo?.twitter_url ? getPrefixUrl(profileInfo?.twitter_url) : ''
-  const telegramUrl = profileInfo?.telegram_url ? getPrefixUrl(profileInfo?.telegram_url) : ''
 
   const showAlertModal = () => {
     setAlertData([
@@ -182,14 +179,14 @@ const MainSection = () => {
 
   const uploadBannerFile = async (file: any, filename: string) => {
     setBannerUploadingToS3(true)
-    const { data, url } = await uploadFileToS3API(file, filename)
+    const { url } = await uploadFileToS3API(file, filename)
     setBannerPictureUrl(url + filename)
     setBannerUploadingToS3(false)
   }
 
   const uploadAvatarFile = async (file: any, filename: string) => {
     setAvatarUploadingToS3(true)
-    const { data, url } = await uploadFileToS3API(file, filename)
+    const { url } = await uploadFileToS3API(file, filename)
     setAvatarPictureUrl(url + filename)
     setAvatarUploadingToS3(false)
   }
@@ -324,40 +321,17 @@ const MainSection = () => {
             </div>
             <div className="flex lg:hidden w-full justify-center mt-[15px] gap-[10px]">
               <div>
-                <SocialButton
-                  icon={<IGWhiteIcon />}
-                  iconHover={IGHoverIcon}
-                  onClick={() => window.open(instagramUrl)}
-                />
+                <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
               </div>
-              {/* <div>
-                <SocialButton
-                  icon={DiscordWhiteIcon}
-                  iconHover={DiscordHoverIcon}
-                  onClick={() => window.open(discordUrl)}
-                />
-              </div> */}
               <div>
-                <SocialButton
-                  icon={<TwitterWhiteIcon />}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => window.open(twitterUrl)}
-                />
+                <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
               </div>
-              {/* <div>
-                <SocialButton
-                  icon={TelegramWhiteIcon}
-                  iconHover={TelegramHoverIcon}
-                  onClick={() => window.open(telegramUrl)}
-                />
-              </div> */}
             </div>
           </div>
           <div className="col-span-3 flex justify-end">
             <div className="flex lg:hidden justify-center mt-[-45px]">
               <div>
                 <IconButtonWithSVG
-                  // icon={lightMode ? SettingBlackIcon : SettingWhiteIcon}
                   icon={
                     <svg xmlns="http://www.w3.org/2000/svg" width="23.997" height="24.429" viewBox="0 0 23.997 24.429">
                       <path
@@ -368,7 +342,6 @@ const MainSection = () => {
                       />
                     </svg>
                   }
-                  iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
                   borderColor="#ECEEF4"
@@ -380,35 +353,11 @@ const MainSection = () => {
             </div>
             <div className="hidden lg:flex gap-[10px]">
               <div>
-                <SocialButton
-                  icon={<IGWhiteIcon />}
-                  iconHover={IGHoverIcon}
-                  onClick={() => window.open(instagramUrl)}
-                />
+                <SocialButton icon={<IGWhiteIcon />} onClick={() => window.open(instagramUrl)} />
               </div>
-              {/* <div>
-                <SocialButton
-                  icon={DiscordWhiteIcon}
-                  iconHover={DiscordHoverIcon}
-                  onClick={() => {
-                    window.open(discordUrl)
-                  }}
-                />
-              </div> */}
               <div>
-                <SocialButton
-                  icon={<TwitterWhiteIcon />}
-                  iconHover={TwitterHoverIcon}
-                  onClick={() => window.open(twitterUrl)}
-                />
+                <SocialButton icon={<TwitterWhiteIcon />} onClick={() => window.open(twitterUrl)} />
               </div>
-              {/* <div>
-                <SocialButton
-                  icon={TelegramWhiteIcon}
-                  iconHover={TelegramHoverIcon}
-                  onClick={() => window.open(telegramUrl)}
-                />
-              </div> */}
               <div>
                 <IconButtonWithSVG
                   icon={
@@ -421,7 +370,6 @@ const MainSection = () => {
                       />
                     </svg>
                   }
-                  iconHover={SettingGreenIcon}
                   onClick={() => router.push('/settings')}
                   backgroundColor="transparent"
                   borderColor="#ECEEF4"

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import OfferTable from 'components/Table/OfferTable'
@@ -27,7 +26,6 @@ import usersAPI from 'apis/user'
 
 const OfferSection = () => {
   const viewport = useViewport()
-  const { publicKey } = useWallet()
 
   const [shownOfferType, setShownOfferType] = useState<'made' | 'received'>('made')
   const [offersMade, setOffersMade] = useState<LazyBidWithAsset[] | null>(null)

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 // next components
 import Head from 'next/head'
-import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // third party components
@@ -16,7 +15,6 @@ import CollectionFilter from 'components/Filter/CollectionFilter'
 import MobileCollectionFilter from 'components/Filter/MobileCollectionFilter'
 import EcosystemFilter from 'components/Filter/EcosystemFilter'
 import MobileEcosystemFilter from 'components/Filter/MobileEcosystemFilter'
-import MobileSort from 'components/Sort/MobileSort'
 import Select from 'components/Select'
 import Tab from 'components/Tab'
 import NFTCard from 'components/Card/NFTCard'
@@ -45,14 +43,9 @@ import SortGrayIcon from 'assets/icons/sort-gray.svg'
 import styles from './index.module.scss'
 
 // solana
-import { getListedNFTs } from 'utils/auction.util'
-import { getNFTByAddress } from 'utils/nfts.utils'
-import { useMetaplex } from 'hooks/useMetaplex'
-import { PublicKey } from '@solana/web3.js'
 import { useViewport } from 'utils'
 
 // apis
-import AuctionAPI from 'apis/auctions'
 import ExploreAPI from 'apis/explore'
 import SortMobileModal from 'components/Menu/SortMobileModal'
 
@@ -220,8 +213,6 @@ const Explore = () => {
 
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
-
-  const { metaplex: mx } = useMetaplex()
 
   const getExploreNFTData = async (curPage, categoryList, availability, medium, market, sort, count) => {
     let categoryLabel = []
@@ -409,41 +400,6 @@ const Explore = () => {
       )
     else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, selectedSort, count)
     else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, count)
-  }
-
-  const setListedNFTs = async () => {
-    dispatch({ type: 'set', isLoading: true })
-    const listedNfts = await getListedNFTs(mx)
-    const nfts = listedNfts.map(nft => {
-      return {
-        image: nft.asset.json ? nft.asset.json.image : '',
-        name: nft.asset.json ? nft.asset.json.name : '',
-        creator: nft.asset.creators[0].address.toString(),
-        url: `/browse-nft?id=${nft.asset.address.toString()}`,
-        price: nft.price.basisPoints,
-      }
-    })
-    setNftList(nfts)
-    dispatch({ type: 'set', isLoading: false })
-  }
-
-  const setAuctionsNFTs = async () => {
-    dispatch({ type: 'set', isLoading: true })
-    const listings = await AuctionAPI.getListings()
-    const nfts = await Promise.all(
-      listings.map(async listing => {
-        const nft = await getNFTByAddress(mx, new PublicKey(listing.auction.mint_address))
-        return {
-          image: nft.json.image,
-          name: nft.json.name,
-          creator: nft.creators[0].address.toString(),
-          url: `/browse-nft?id=${nft.address.toString()}`,
-          price: Number(listing.auction.reserve_price) * 1000000000,
-        }
-      })
-    )
-    setNftList(nfts)
-    dispatch({ type: 'set', isLoading: false })
   }
 
   const onMobileFilter = async params => {
@@ -660,17 +616,6 @@ const Explore = () => {
           />
         )}
         {openMobileFilter && exploreTab === 2 && <MobileEcosystemFilter onClose={() => setOpenMobileFilter(false)} />}
-        {/* {openMobileSort && (
-          <MobileSort
-            data={sortData}
-            sort={selectedSort}
-            onSort={params => {
-              onMobileSort(params)
-              setOpenMobileSort(false)
-            }}
-            onClose={() => setOpenMobileSort(false)}
-          />
-        )} */}
         {openMobileSort && (
           <SortMobileModal
             open={openMobileSort}

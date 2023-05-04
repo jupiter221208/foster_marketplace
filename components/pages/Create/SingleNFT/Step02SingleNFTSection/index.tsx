@@ -6,7 +6,6 @@ import { limit } from 'utils/strings'
 // components
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
-import GradientButton from 'components/Button/GradientButton'
 import CheckboxGroup from 'components/Checkbox/CheckboxGroup'
 import CategoryListModal from 'components/Modal/CategoryListModal'
 
@@ -91,7 +90,6 @@ const Step02SingleNFTSection = props => {
       <div className="w-full mt-4">
         <div className="grid grid-cols-2 gap-5">
           <div className="col-span-1">
-            {/* <GradientButton fullWidth label="Choose Category" onClick={() => setShowCategoryList(true)} height="45px" /> */}
             <div className={styles.chooseCategory} onClick={() => setShowCategoryList(true)}>
               Choose Category
             </div>

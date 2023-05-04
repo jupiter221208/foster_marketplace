@@ -16,7 +16,6 @@ import { useViewport } from 'utils'
 
 // json
 import CheckLottery from 'assets/lottery/check.json'
-import LoaderLottery from 'assets/lottery/loader.json'
 
 // styles
 import styles from './index.module.scss'

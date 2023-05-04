@@ -15,10 +15,6 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import LoadingModal from 'components/Modal/LoadingModal'
 import Alert from 'components/Alert'
-import SearchBox from 'components/Input/SearchBox'
-
-// custom functions
-import { getTokensByAccount } from 'utils/wallet.util'
 
 // styles
 import styles from './index.module.scss'

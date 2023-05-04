@@ -39,7 +39,6 @@ const ArtistLayout: FC<ArtistLayoutProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       <>
-        {/* {connected && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <Navbar />} */}
         <ArtistHeader />
         <ConnectWalletModal />
         {openMobileMenu && (viewport === 'xs' || viewport === 'sm' || viewport === 'md') && <MobileMenu />}
