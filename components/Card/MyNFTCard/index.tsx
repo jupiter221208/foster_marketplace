@@ -29,13 +29,20 @@ const MyNFTCard = props => {
             }}
           />
         ) : (
-          <img
-            src={
-              data.json.image === undefined || data.json.image === null ? AudioPlayerBackground.src : data.json.image
-            }
-            alt={data.json.name || data.name}
-            className="w-full aspect-[321/321] object-cover"
-          />
+          <div className={styles.imageArea}>
+            <div className={styles.imageContent}>
+              <Image
+                src={
+                  data.json.image === undefined || data.json.image === null
+                    ? AudioPlayerBackground.src
+                    : data.json.image
+                }
+                layout="fill"
+                alt={data.json.name || data.name}
+                className="w-full object-cover"
+              />
+            </div>
+          </div>
         )}
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
