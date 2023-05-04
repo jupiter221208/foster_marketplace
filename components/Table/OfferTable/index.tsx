@@ -65,7 +65,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
       <td >
         <div className="h-[90px] flex justify-start items-center gap-[25px]">
         <div className="ml-[10px]">
-          <Image
+          <img
             src={assetImageUrl}
             alt=""
             width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}

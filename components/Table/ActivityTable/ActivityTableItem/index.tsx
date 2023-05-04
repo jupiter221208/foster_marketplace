@@ -13,7 +13,7 @@ const ActivityTableItem = props => {
 
   return (
     <div className="w-full h-full flex justify-center items-center">
-      <Image
+      <img
         src={url}
         alt=""
         width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}

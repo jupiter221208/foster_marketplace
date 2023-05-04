@@ -88,10 +88,9 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               }}
             />
           ) : (
-            <Image
+            <img
               src={assetJson?.image}
               alt=""
-              layout="fill"
               className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
             />
           )}
@@ -166,7 +165,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   ) : (
     <div className={styles.container}>
       <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={assetJson?.image} alt="" width={321} height={321} layout="responsive" objectFit="cover" />
+        <img src={assetJson?.image} alt="" width={321} height={321} />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
