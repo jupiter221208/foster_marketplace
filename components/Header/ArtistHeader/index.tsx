@@ -129,7 +129,7 @@ const ArtistHeader = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const { connected, publicKey } = useWallet()
+  const { connected, publicKey, signMessage } = useWallet()
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
@@ -212,24 +212,19 @@ const ArtistHeader = () => {
   }, [connected])
 
   useEffect(() => {
-    if (connected) {
-      if (!profileInfo && !loginAndRefresh) {
-        authAPI.login({ wallet_id: publicKey?.toBase58() || '' }).then(
-          response => {
-            if (response.new_user === true) {
-              dispatch({ type: 'set', profileSetup: true })
-            }
-            dispatch({ type: 'set', profileInfo: response.user })
-            dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
-            dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
-          },
-          error => {
-            console.log(error)
-          }
-        )
-      }
-    }
-  }, [connected])
+    ;(async () => {
+      if (!connected || profileInfo || loginAndRefresh) return
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
+        wallet_id: publicKey?.toBase58() || '',
+        signature: Buffer.from(signature).toString('base64'),
+      })
+      if (new_user) dispatch({ type: 'set', profileSetup: true })
+      dispatch({ type: 'set', profileInfo: user })
+      dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
+      dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+    })()
+  }, [connected, signMessage])
 
   const handleSelectMenu = (item: any) => {
     if (connected) {
