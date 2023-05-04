@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 // components
 import SearchSection from '../SearchSection'
-import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -15,9 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // json
-import ArtworksList from 'assets/json/stats/artworks-list.json'
-import PopularCategoryList from 'assets/json/popular-category.json'
-import ArtworksCollectionList from 'assets/json/stats/artworks-collection-list.json'
 
 // functions
 import { stringLengthValidate } from 'utils/strings'
