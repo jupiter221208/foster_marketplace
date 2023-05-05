@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
 // next components
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
@@ -50,15 +50,6 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
 
   const viewport = useViewport()
-  // const isStarted = useMemo(() => {
-  //   if (startTime) {
-  //     const start = new Date(Number(startTime) * 1000)
-  //     const now = new Date()
-  //     return now.getTime() - start.getTime() > 0 ? true : false
-  //   }
-  //   return false
-  // }, [startTime])
-
   const isEnded = useMemo(() => {
     if (endTime) {
       const end = new Date(Number(endTime) * 1000)
@@ -88,10 +79,9 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
               }}
             />
           ) : (
-            <Image
+            <img
               src={assetJson?.image}
               alt=""
-              layout="fill"
               className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
             />
           )}
@@ -166,7 +156,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   ) : (
     <div className={styles.container}>
       <div className="w-full relative rounded-[10px] lg:rounded-[24px] overflow-hidden">
-        <Image src={assetJson?.image} alt="" width={321} height={321} layout="responsive" objectFit="cover" />
+        <img src={assetJson?.image} alt="" width={321} height={321} />
       </div>
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">

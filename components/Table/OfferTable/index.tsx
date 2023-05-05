@@ -6,9 +6,9 @@ import { useSelector } from 'react-redux'
 import Image from 'next/image'
 
 // web3
-import { type PublicKey } from '@solana/web3.js'
+import { PublicKey } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { type LazyBidWithAsset } from 'utils/auction.util'
+import { LazyBidWithAsset } from 'utils/auction.util'
 import { getNFTOwner } from 'utils/nfts.utils'
 
 // components
@@ -59,23 +59,24 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
         setAssetImageUrl(DefaultNftBG.src)
       })
   }, [listing.asset])
-  
+
   return (
     <>
-      <td >
+      <td>
         <div className="h-[90px] flex justify-start items-center gap-[25px]">
-        <div className="ml-[10px]">
-          <img
-            src={assetImageUrl}
-            alt=""
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' || viewport === 'lg' ? 50 : 70}
-            className="rounded-[15px] object-cover"
-          />
-        </div>
-        <div className="block">
-          <div className={styles.nftName} onClick={() => router.push(`/browse-nft?id=${listing.asset.mintAddress.toBase58()}`)}>{listing.asset.name}</div>
-        </div>
+          <div className="ml-[10px]">
+            <div className="w-[50px] h-[50px] lg:w-[70px] lg:h-[70px]">
+              <img src={assetImageUrl} alt="" className="w-full h-full rounded-[15px] object-cover" />
+            </div>
+          </div>
+          <div className="block">
+            <div
+              className={styles.nftName}
+              onClick={() => router.push(`/browse-nft?id=${listing.asset.mintAddress.toBase58()}`)}
+            >
+              {listing.asset.name}
+            </div>
+          </div>
         </div>
       </td>
       <td className="text-center">{timeSince(listing.createdAt.toNumber())}</td>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 // next components
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // custom components
 import GradientButton from 'components/Button/GradientButton'
@@ -31,13 +31,12 @@ const MyNFTCard = props => {
         ) : (
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>
-              <Image
+              <img
                 src={
                   data.json.image === undefined || data.json.image === null
                     ? AudioPlayerBackground.src
                     : data.json.image
                 }
-                layout="fill"
                 alt={data.json.name || data.name}
                 className="w-full object-cover"
               />

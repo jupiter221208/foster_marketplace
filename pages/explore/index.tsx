@@ -75,7 +75,7 @@ const Explore = () => {
 
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
-  const [rowCount, setRowCount] = useState(8)
+  const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
     let array: any[] = []
