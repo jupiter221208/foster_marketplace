@@ -1,0 +1,78 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  max-width: 964px;
+  padding-top: 40px;
+  @media (min-width: 1024px) {
+    padding-top: 78px;
+  }
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 10;
+}
+
+.title {
+  font-family: 'KCDurhamboxcar';
+  font-size: 40px;
+  line-height: 56px;
+  @media (min-width: 1024px) {
+    font-size: 78px;
+    line-height: 78px;
+  }
+  color: var(--dao-title-color);
+}
+
+.subTitle {
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-Bold';
+  max-width: 262px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    max-width: 100%;
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: var(--text-gray-200-color);
+  margin-top: 70px;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  margin-top: 5px;
+}
+
+.joinDao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'KCDurhamBoxcar';
+  font-size: 28px;
+  line-height: 28px;
+  color: var(--main-icon-color);
+}
+
+.joinDaoBG {
+  width: 190px;
+  height: 53px;
+  // background: var(--menu-item-bg);
+  border: 1px solid var(--main-icon-color);
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

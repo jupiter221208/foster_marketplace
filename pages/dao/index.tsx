@@ -2,29 +2,31 @@ import React, { useState } from 'react'
 
 // next images
 import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-import DaoOfCircusModal from 'components/Modal/DaoOfCircusModal'
-import DaoOfLiftModal from 'components/Modal/DaoOfLiftModal'
-import OutlineButton from 'components/Button/OutlineButton'
+// import DaoOfCircusModal from 'components/Modal/DaoOfCircusModal'
+// import DaoOfLiftModal from 'components/Modal/DaoOfLiftModal'
+// import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
-import DAOLogo from 'assets/icons/dao-logo.svg?component'
-import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
+// import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
+// import DAOLogo from 'assets/icons/dao-logo.svg?component'
+// import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import DaoSetupModal from 'components/Modal/DaoSetupModal'
+// import DaoSetupModal from 'components/Modal/DaoSetupModal'
 import { useViewport } from 'utils'
+import DaoComingSoon from 'components/pages/Dao/DaoComingSoon'
+import DaoLandingPage from 'components/pages/Dao/DaoLandingPage'
 
 const Dao = () => {
-  const [showCircus, setShowCircus] = useState(false)
-  const [showLift, setShowLift] = useState(false)
-  const [daoSetup, setDaoSetup] = useState(false)
+  // const [showCircus, setShowCircus] = useState(false)
+  // const [showLift, setShowLift] = useState(false)
+  // const [daoSetup, setDaoSetup] = useState(false)
   const viewport = useViewport()
 
   return (
@@ -39,34 +41,14 @@ const Dao = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
 
-        <div className={styles.container}>
-          <div className={styles.title}>Coming Soon</div>
-          <div className="w-full flex justify-center mt-[30px]">
-            {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
-              <DAOLogoMobile alt="" />
-            ) : (
-              <DAOLogo alt="" />
-            )}
-          </div>
-          <div className={styles.subTitle}>Connect your wallet to verify your Turkey Circus NFT</div>
-          <div className={styles.text}>Official governance portal for CircusDAO coming soon!</div>
-          <div className="mt-[70px] w-full flex justify-center">
-            <div
-              className={styles.joinDaoBG}
-              onClick={() => {
-                setDaoSetup(true)
-              }}
-            >
-              <div className={styles.joinDao}>
-                <div className="mt-[3px]">Join Circus DAO</div>
-              </div>
-            </div>
-          </div>
+        {/* <DaoComingSoon /> */}
+        <div className="w-full mt-[115px] z-10">
+          <DaoLandingPage />
         </div>
       </div>
-      <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
+      {/* <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
       <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />
-      <DaoSetupModal open={daoSetup} close={() => setDaoSetup(false)} />
+      <DaoSetupModal open={daoSetup} close={() => setDaoSetup(false)} /> */}
     </div>
   )
 }
