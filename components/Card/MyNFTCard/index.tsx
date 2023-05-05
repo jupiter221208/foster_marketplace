@@ -38,7 +38,7 @@ const MyNFTCard = props => {
                     : data.json.image
                 }
                 alt={data.json.name || data.name}
-                className="w-full object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
