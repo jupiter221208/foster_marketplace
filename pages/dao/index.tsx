@@ -27,6 +27,7 @@ const Dao = () => {
   // const [showCircus, setShowCircus] = useState(false)
   // const [showLift, setShowLift] = useState(false)
   // const [daoSetup, setDaoSetup] = useState(false)
+  const [daoPage, setDaoPage] = useState('start')
   const viewport = useViewport()
 
   return (
@@ -41,10 +42,13 @@ const Dao = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
 
-        {/* <DaoComingSoon /> */}
-        <div className="w-full mt-[40px] lg:mt-[115px] z-10">
-          <DaoLandingPage />
-        </div>
+        {daoPage === 'start' ? (
+          <DaoComingSoon onConnect={() => setDaoPage('landing')} />
+        ) : (
+          <div className="w-full mt-[40px] lg:mt-[115px] z-10">
+            <DaoLandingPage />
+          </div>
+        )}
       </div>
       {/* <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
       <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />

@@ -8,7 +8,7 @@
 .statsBG {
   width: 50%;
   height: 58px;
-  background: $brand-04-color;
+  background: var(--dao-treasury-bg);
   border-radius: 5px;
 }
 
@@ -43,7 +43,7 @@
   width: 1px;
   height: 53px;
   margin-top: 7px;
-  background: rgba($text-gray-200-color, 0.8);
+  background: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .landingTitle {
@@ -58,6 +58,7 @@
     margin-top: 40px;
     text-align: start;
   }
+  color: var(--text-gray-200-color);
 }
 
 .landingTitleBold {
@@ -86,7 +87,7 @@
     padding: 23px 43px;
   }
   border: 1px solid rgba($text-gray-200-color, 0.1);
-  background: $brand-04-color;
+  background: var(--dao-treasury-bg);
 }
 
 .treasuryTitle {
@@ -98,6 +99,7 @@
     font-size: 32px;
     line-height: 40px;
   }
+  color: var(--text-gray-200-color);
 }
 
 .treasuryDivider {
@@ -113,13 +115,12 @@
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 1);
+  color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-family: 'Muli-Regular';
-
     font-size: 24px;
     line-height: 30px;
-    color: rgba($text-gray-200-color, 0.75);
+    color: rgba(var(--text-gray-200-color-rgb), 0.75);
   }
 }
 
@@ -133,6 +134,7 @@
     font-size: 20px;
     line-height: 36px;
   }
+  color: var(--text-gray-200-color);
 }
 
 .submitProposal {
@@ -146,7 +148,7 @@
     border-radius: 16px;
     gap: 6px;
   }
-  border: 1px solid rgba($text-gray-200-color, 0.25);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.25);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -161,4 +163,5 @@
     font-size: 18px;
     line-height: 24px;
   }
+  color: var(--text-gray-200-color);
 }

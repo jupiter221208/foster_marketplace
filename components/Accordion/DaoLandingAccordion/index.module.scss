@@ -5,13 +5,14 @@
   height: auto;
   padding: 18px;
   border-radius: 20px;
-  background: $brand-04-color;
+  background: var(--dao-treasury-bg);
 }
 
 .proposal {
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
+  color: var(--text-gray-200-color);
 }
 
 .liveBtn {
@@ -35,5 +36,5 @@
   font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 24px;
-  color: $brand-09-color;
+  color: var(--main-icon-color);
 }

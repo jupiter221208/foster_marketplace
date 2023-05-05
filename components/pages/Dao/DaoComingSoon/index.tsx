@@ -10,7 +10,8 @@ import TurkeyLogo from 'assets/icons/turkey-logo.svg?component'
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
 
-const DaoComingSoon = () => {
+const DaoComingSoon = props => {
+  const { onConnect } = props
   const viewport = useViewport()
 
   return (
@@ -22,7 +23,7 @@ const DaoComingSoon = () => {
       <div className={styles.subTitle}>Connect your wallet to verify your Turkey Circus NFT</div>
       <div className={styles.text}>Official governance portal for CircusDAO coming soon!</div>
       <div className="mt-[70px] w-full flex justify-center">
-        <div className={styles.joinDaoBG} onClick={() => {}}>
+        <div className={styles.joinDaoBG} onClick={onConnect}>
           <div className={styles.joinDao}>
             <TurkeyLogo />
             <div className="mt-[3px]">Connect</div>

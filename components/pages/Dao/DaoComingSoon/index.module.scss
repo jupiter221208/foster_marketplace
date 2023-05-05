@@ -68,8 +68,9 @@
 .joinDaoBG {
   width: 190px;
   height: 53px;
-  // background: var(--menu-item-bg);
-  border: 1px solid var(--main-icon-color);
+  background: var(--dao-connect-bg);
+  border: 1px solid $brand-09-color;
+  border-width: var(--dao-connect-border-width);
   border-radius: 12px;
   display: flex;
   justify-content: center;

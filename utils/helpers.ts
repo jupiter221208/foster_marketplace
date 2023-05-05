@@ -400,6 +400,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--auction-card-label', '#65686C')
     doc.style.setProperty('--auction-card-bg', 'linear-gradient(to right, #C8C8CD, #939396)')
     doc.style.setProperty('--auction-card-color', '#eff0f6')
+    doc.style.setProperty('--dao-connect-border-width', '0px')
+    doc.style.setProperty('--dao-connect-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
+    doc.style.setProperty('--dao-treasury-bg', '#E3E4EA')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -654,5 +657,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--auction-card-label', '#95dbd5')
     doc.style.setProperty('--auction-card-bg', 'linear-gradient(to right, #4b6e6b, #95dbd5)')
     doc.style.setProperty('--auction-card-color', '#202427')
+    doc.style.setProperty('--dao-connect-border-width', '1px')
+    doc.style.setProperty('--dao-connect-bg', 'transparent')
+    doc.style.setProperty('--dao-treasury-bg', '#1b1b1b')
   }
 }
