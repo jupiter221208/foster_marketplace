@@ -5,19 +5,36 @@
   z-index: 10;
 }
 
+.statsBG {
+  width: 50%;
+  height: 58px;
+  background: $brand-04-color;
+  border-radius: 5px;
+}
+
 .statsTitle {
   font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 12px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+  }
   text-align: center;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .statsValue {
-  font-family: 'Muli-Bold';
-  font-size: 22px;
-  line-height: 28px;
-  margin-top: 15px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  margin-top: 9px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 22px;
+    line-height: 28px;
+    margin-top: 15px;
+  }
   text-align: center;
   color: var(--text-gray-200-color);
 }
@@ -31,68 +48,117 @@
 
 .landingTitle {
   font-family: 'Muli-Regular';
-  font-size: 20px;
-  line-height: 36px;
-  margin-top: 40px;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 18px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 36px;
+    margin-top: 40px;
+    text-align: start;
+  }
 }
 
 .landingTitleBold {
   font-family: 'Muli-Bold';
-  font-size: 20px;
-  line-height: 36px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 36px;
+  }
 }
 
 .treasuryContainer {
-  display: flex;
+  display: block;
   justify-content: space-between;
   width: 100%;
-  height: 148px;
-  border-radius: 16px;
-  margin-top: 25px;
-  padding: 23px 43px;
+  height: 154px;
+  border-radius: 20px;
+  margin-top: 15px;
+  padding: 12px 12px;
+  @media (min-width: 1024px) {
+    display: flex;
+    height: 148px;
+    border-radius: 16px;
+    margin-top: 25px;
+    padding: 23px 43px;
+  }
   border: 1px solid rgba($text-gray-200-color, 0.1);
   background: $brand-04-color;
 }
 
 .treasuryTitle {
-  font-family: 'Muli-Bold';
-  font-size: 32px;
-  line-height: 40px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 26px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 32px;
+    line-height: 40px;
+  }
 }
 
 .treasuryDivider {
   width: 1px;
-  height: 62px;
+  height: 22px;
+  @media (min-width: 1024px) {
+    height: 62px;
+  }
   background: $brand-05-color;
 }
 
 .treasuryLabel {
-  font-family: 'Muli-Regular';
-  font-size: 24px;
-  line-height: 30px;
-  color: rgba($text-gray-200-color, 0.75);
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba($text-gray-200-color, 1);
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
+
+    font-size: 24px;
+    line-height: 30px;
+    color: rgba($text-gray-200-color, 0.75);
+  }
 }
 
 .treasuryDescription {
   font-family: 'Muli-Regular';
-  font-size: 20px;
-  line-height: 36px;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 10px;
+  @media (min-width: 1024px) {
+    margin-top: 0px;
+    font-size: 20px;
+    line-height: 36px;
+  }
 }
 
 .submitProposal {
   width: auto;
-  height: 53px;
+  height: 35px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  @media (min-width: 1024px) {
+    height: 53px;
+    padding: 15px 20px;
+    border-radius: 16px;
+    gap: 6px;
+  }
   border: 1px solid rgba($text-gray-200-color, 0.25);
-  padding: 15px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 16px;
-  gap: 6px;
 }
 
 .submitText {
   font-family: 'Muli-SemiBold';
-  font-size: 18px;
+  font-size: 12px;
   line-height: 24px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 18px;
+    line-height: 24px;
+  }
 }

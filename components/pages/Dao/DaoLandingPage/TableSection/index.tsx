@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
 import LandingTable from 'components/Table/Dao/LandingTable'
-import ArtworksAccordion from 'components/Accordion/Stats/ArtworksAccordion'
+import DaoLandingAccordion from 'components/Accordion/DaoLandingAccordion'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -22,7 +22,7 @@ const TableSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <LandingTable data={data} />
       ) : (
-        <ArtworksAccordion data={data} />
+        <DaoLandingAccordion data={data} />
       )}
     </section>
   )

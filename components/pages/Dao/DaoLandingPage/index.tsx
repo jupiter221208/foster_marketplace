@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 // images and icons
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 import SolIcon from 'assets/icons/solana-logo-dark-big.svg?component'
+import SolMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-body.svg?component'
 
 // styles
@@ -73,59 +74,116 @@ const DaoLandingPage = () => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full flex justify-between">
-        <DAOLogoMobile />
-        <div className="flex gap-[25px]">
-          <div>
-            <div className={styles.statsTitle}>All</div>
-            <div className={styles.statsValue}>64</div>
-          </div>
-          <div className={styles.divider}></div>
-          <div>
-            <div className={styles.statsTitle}>Live</div>
-            <div className={styles.statsValue}>64</div>
-          </div>
-          <div className={styles.divider}></div>
-          <div>
-            <div className={styles.statsTitle}>Pending</div>
-            <div className={styles.statsValue}>64</div>
-          </div>
-          <div className={styles.divider}></div>
-          <div>
-            <div className={styles.statsTitle}>Closed</div>
-            <div className={styles.statsValue}>64</div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.landingTitle}>
-        CircusDAO is the governance wing of Foster Marketplace composed of verified Turkey Circus holders. Circus DAO
-        members can vote on proposals.
-        <br />A minimum of&nbsp;<span className={styles.landingTitleBold}>10 Turkeys</span>
-        &nbsp;is required to submit proposals.
-      </div>
-      <div className={styles.treasuryContainer}>
+      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div>
-          <div className={styles.treasuryLabel}>Treasury</div>
-          <div className="flex gap-[40px]">
-            <div className="flex gap-[15px] items-center">
-              <SolIcon />
-              <div className={styles.treasuryTitle}>25,000</div>
+          <div className="w-full flex justify-between">
+            <DAOLogoMobile />
+            <div className="flex gap-[25px]">
+              <div>
+                <div className={styles.statsTitle}>All</div>
+                <div className={styles.statsValue}>64</div>
+              </div>
+              <div className={styles.divider}></div>
+              <div>
+                <div className={styles.statsTitle}>Live</div>
+                <div className={styles.statsValue}>64</div>
+              </div>
+              <div className={styles.divider}></div>
+              <div>
+                <div className={styles.statsTitle}>Pending</div>
+                <div className={styles.statsValue}>64</div>
+              </div>
+              <div className={styles.divider}></div>
+              <div>
+                <div className={styles.statsTitle}>Closed</div>
+                <div className={styles.statsValue}>64</div>
+              </div>
             </div>
-            <div className={styles.treasuryDivider}></div>
-            <div className="flex items-center">
-              <div className={styles.treasuryTitle}>$400,000</div>
+          </div>
+          <div className={styles.landingTitle}>
+            CircusDAO is the governance wing of Foster Marketplace composed of verified Turkey Circus holders. Circus
+            DAO members can vote on proposals.
+            <br />A minimum of&nbsp;<span className={styles.landingTitleBold}>10 Turkeys</span>
+            &nbsp;is required to submit proposals.
+          </div>
+          <div className={styles.treasuryContainer}>
+            <div>
+              <div className={styles.treasuryLabel}>Treasury</div>
+              <div className="flex gap-[40px]">
+                <div className="flex gap-[15px] items-center">
+                  <SolIcon />
+                  <div className={styles.treasuryTitle}>25,000</div>
+                </div>
+                <div className={styles.treasuryDivider}></div>
+                <div className="flex items-center">
+                  <div className={styles.treasuryTitle}>$400,000</div>
+                </div>
+              </div>
+            </div>
+            <div className="max-w-[500px] flex gap-[45px] items-center">
+              <div className={styles.treasuryDivider}></div>
+              <div className={styles.treasuryDescription}>
+                This treasury exists for Circus DAO participants to allocate resources for the long-term growth and
+                prosperity of Foster Marketplace.
+              </div>
             </div>
           </div>
         </div>
-        <div className="max-w-[500px] flex gap-[45px] items-center">
-          <div className={styles.treasuryDivider}></div>
-          <div className={styles.treasuryDescription}>
-            This treasury exists for Circus DAO participants to allocate resources for the long-term growth and
-            prosperity of Foster Marketplace.
+      ) : (
+        <div>
+          <div className="flex justify-center">
+            <DAOLogoMobile />
+          </div>
+          <div className={styles.landingTitle}>
+            CircusDAO is the governance wing of Foster Marketplace composed of verified Turkey Circus holders. Circus
+            DAO members can vote on proposals. A minimum of&nbsp;
+            <span className={styles.landingTitleBold}>10 Turkeys</span>
+            &nbsp;is required to submit proposals.
+          </div>
+
+          <div className="w-full flex flex-wrap gap-[5px] mt-[22px]">
+            <div className="w-full flex gap-[5px]">
+              <div className={styles.statsBG}>
+                <div className={styles.statsValue}>25</div>
+                <div className={styles.statsTitle}>ALL</div>
+              </div>
+              <div className={styles.statsBG}>
+                <div className={styles.statsValue}>50</div>
+                <div className={styles.statsTitle}>LIVE</div>
+              </div>
+            </div>
+            <div className="w-full flex gap-[5px]">
+              <div className={styles.statsBG}>
+                <div className={styles.statsValue}>13</div>
+                <div className={styles.statsTitle}>PENDING</div>
+              </div>
+              <div className={styles.statsBG}>
+                <div className={styles.statsValue}>10</div>
+                <div className={styles.statsTitle}>CLOSED</div>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.treasuryContainer}>
+            <div className={styles.treasuryLabel}>Treasury</div>
+            <div className="flex gap-[10px] mt-[10px]">
+              <div className="flex gap-[10px] items-center">
+                <SolMobileIcon />
+                <div className={styles.treasuryTitle}>25,000</div>
+              </div>
+              <div className={styles.treasuryDivider}></div>
+              <div className="flex items-center">
+                <div className={styles.treasuryTitle}>$400,000</div>
+              </div>
+            </div>
+            <div className={styles.treasuryDescription}>
+              This treasury exists for Circus DAO participants to allocate resources for the long-term growth and
+              prosperity of Foster Marketplace.
+            </div>
           </div>
         </div>
-      </div>
-      <div className="w-full mt-[77px] flex justify-between">
+      )}
+      <div className="w-full hidden lg:mt-[77px] lg:flex justify-between">
         <StatsSearchBox
           value={searchWord}
           placeholder="Search by proposal name"
@@ -136,6 +194,20 @@ const DaoLandingPage = () => {
           <div className={styles.submitText}>Submit Proposal</div>
         </div>
       </div>
+
+      <div className="w-full mt-[30px] lg:hidden justify-between">
+        <div className="w-full flex justify-end mb-[15px]">
+          <div className={styles.submitProposal}>
+            <div className={styles.submitText}>Submit Proposal</div>
+          </div>
+        </div>
+        <StatsSearchBox
+          value={searchWord}
+          placeholder="Search by proposal name"
+          onChange={value => setSearchWord(value)}
+        />
+      </div>
+
       <div className="mt-[20px]">
         <TableSection data={list} />
       </div>

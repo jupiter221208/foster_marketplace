@@ -1,0 +1,39 @@
+@import 'assets/scss/variable.module.scss';
+
+.button {
+  width: 100%;
+  height: auto;
+  padding: 18px;
+  border-radius: 20px;
+  background: $brand-04-color;
+}
+
+.proposal {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.liveBtn {
+  width: 70px;
+  height: 37px;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, $brand-09-color, #6b9d99, $brand-12-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $background-dark-color;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.view {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 24px;
+  color: $brand-09-color;
+}

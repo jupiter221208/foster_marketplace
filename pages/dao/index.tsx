@@ -42,7 +42,7 @@ const Dao = () => {
         </div>
 
         {/* <DaoComingSoon /> */}
-        <div className="w-full mt-[115px] z-10">
+        <div className="w-full mt-[40px] lg:mt-[115px] z-10">
           <DaoLandingPage />
         </div>
       </div>
