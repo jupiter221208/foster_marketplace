@@ -7,16 +7,20 @@
 
 .backBtn {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: auto;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .backEllipse {
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 26px;
+  @media (min-width: 1024px) {
+    width: 36px;
+    height: 36px;
+  }
   background: var(--input-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -24,11 +28,17 @@
 }
 
 .backText {
-  font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 36px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 18px;
+  margin-left: 9px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 24px;
+    line-height: 36px;
+    margin-left: 24px;
+  }
   color: var(--text-gray-200-color);
-  margin-left: 24px;
 }
 
 .liveBtn {
@@ -47,25 +57,41 @@
 }
 
 .proposalText {
-  font-family: 'Muli-Bold';
-  font-size: 36px;
-  line-height: 45px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
+  @media (min-height: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 36px;
+    line-height: 45px;
+  }
   color: var(--text-gray-200-color);
 }
 
 .proposedBy {
   font-family: 'Muli-Regular';
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 12px;
+  line-height: 16px;
+  @media (min-height: 1024px) {
+    font-family: 'Muli-Regular';
+    font-size: 24px;
+    line-height: 30px;
+  }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .proposedText {
-  font-family: 'Muli-SemiBold';
-  font-size: 24px;
-  line-height: 30px;
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 16px;
+  margin-left: 4px;
+  @media (min-height: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 24px;
+    line-height: 30px;
+    margin-left: 10px;
+  }
   color: var(--text-gray-200-color);
-  margin-left: 10px;
 }
 
 .clipboardBtn {
@@ -82,42 +108,63 @@
 }
 
 .totalVotes {
-  font-family: 'Muli-SemiBold';
-  font-size: 20px;
-  height: 25px;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  height: 20px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
+    font-size: 20px;
+    height: 25px;
+  }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .approvedText {
   font-family: 'Muli-Regular';
-  font-size: 20px;
-  height: 25px;
+  font-size: 16px;
+  height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    height: 25px;
+  }
   color: var(--text-gray-200-color);
 }
 
 .approvedValue {
-  font-family: 'Muli-Bold';
-  font-size: 20px;
-  height: 25px;
-  margin-top: 9px;
+  font-family: 'Muli-ExtraBold';
+  font-size: 18px;
+  height: 23px;
+  margin-top: 3px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 20px;
+    height: 25px;
+    margin-top: 9px;
+  }
   color: var(--text-gray-200-color);
 }
 
 .approvedPercent {
   font-family: 'Muli-Regular';
-  font-size: 20px;
-  height: 25px;
-  margin-top: 9px;
+  font-size: 16px;
+  height: 24px;
+  margin-top: 3px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
+    font-size: 20px;
+    height: 25px;
+    margin-top: 9px;
+  }
   color: var(--main-icon-color);
 }
 
 .treasuryContainer {
-  display: block;
+  display: flex;
   justify-content: space-between;
   width: 100%;
   height: auto;
   border-radius: 12px;
-  padding: 12px 12px;
+  padding: 21px 21px;
   @media (min-width: 1024px) {
     display: flex;
     border-radius: 16px;
@@ -128,47 +175,74 @@
 }
 
 .thresholdText {
-  font-family: 'Muli-Regular';
-  font-size: 24px;
-  height: 30px;
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  height: 23px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Regular';
+    font-size: 24px;
+    height: 30px;
+  }
   color: var(--text-gray-200-color);
 }
 
 .thresholdCurrent {
   font-family: 'Muli-Regular';
-  font-size: 18px;
-  height: 24px;
+  font-size: 16px;
+  height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    height: 24px;
+  }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-align: center;
 }
 
 .thresholdValue {
-  font-family: 'Muli-Regular';
-  font-size: 22px;
-  height: 28px;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  height: 20px;
   margin-top: 6px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    height: 28px;
+    margin-top: 6px;
+  }
   color: var(--text-gray-200-color);
   text-align: center;
 }
 
 .description {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 16px;
+  line-height: 20px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 30px;
+  }
   color: var(--text-gray-200-color);
 }
 
 .descriptionText {
   font-family: 'Muli-Regular';
-  font-size: 20px;
-  line-height: 36px;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 15px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 36px;
+    margin-top: 30px;
+  }
   color: var(--text-gray-200-color);
-  margin-top: 30px;
 }
 
 .estimateValue {
   font-family: 'Muli-Regular';
-  font-size: 20px;
-  line-height: 36px;
+  font-size: 14px;
+  line-height: 26px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 36px;
+  }
   color: var(--text-gray-200-color);
 }
