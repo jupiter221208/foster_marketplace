@@ -19,7 +19,7 @@
   background-color: var(--modal-bg-color);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(var(--background-light-color), 0.1);
+  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
   border-radius: 30px;
   padding: 35px 24px 30px 24px;
   @media (min-width: 1024px) {

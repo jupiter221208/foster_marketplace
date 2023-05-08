@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { LinearProgress, makeStyles } from '@material-ui/core'
 
 // images and icons
-import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-black.svg'
@@ -16,6 +15,8 @@ import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
+import CastVoteModal from 'components/Modal/CastVoteModal'
+import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -35,6 +36,8 @@ const useStyles = makeStyles({
 const DaoLandingDetail = props => {
   const { onBack } = props
   const classes = useStyles()
+  const [showCastVoteModal, setShowCastVoteModal] = useState(false)
+  const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(false)
 
   useEffect(() => {
     window.scrollTo({
@@ -68,7 +71,8 @@ const DaoLandingDetail = props => {
             width={155}
             height={53}
             icon={NotificationIcon}
-            label="Cost Vote"
+            label="Cast Vote"
+            onClick={() => setShowCastVoteModal(true)}
           />
         </div>
       </div>
@@ -94,8 +98,9 @@ const DaoLandingDetail = props => {
             width={101}
             height={35}
             icon={NotificationMobileIcon}
-            label="Cost Vote"
+            label="Cast Vote"
             borderRadius={8}
+            onClick={() => setShowCastVoteModal(true)}
           />
         </div>
       </div>
@@ -186,6 +191,23 @@ const DaoLandingDetail = props => {
         <div className={styles.descriptionText}>6 months</div>
       </div>
       <div className="w-full h-[100px] lg:h-[200px]" />
+
+      <CastVoteModal
+        data={{}}
+        open={showCastVoteModal}
+        onSubmit={() => {
+          setShowCastVoteModal(false)
+          setShowDaoSubmitModal(true)
+        }}
+        onClose={() => setShowCastVoteModal(false)}
+      />
+
+      <DaoSubmitModal
+        data={{}}
+        open={showDaoSubmitModal}
+        onSubmit={() => {}}
+        onClose={() => setShowDaoSubmitModal(false)}
+      />
     </div>
   )
 }

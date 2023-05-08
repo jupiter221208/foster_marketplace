@@ -60,7 +60,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 23px;
-  @media (min-height: 1024px) {
+  @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 36px;
     line-height: 45px;
@@ -72,8 +72,7 @@
   font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 16px;
-  @media (min-height: 1024px) {
-    font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
     font-size: 24px;
     line-height: 30px;
   }
@@ -85,7 +84,7 @@
   font-size: 12px;
   line-height: 16px;
   margin-left: 4px;
-  @media (min-height: 1024px) {
+  @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
     font-size: 24px;
     line-height: 30px;

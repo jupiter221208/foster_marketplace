@@ -52,6 +52,7 @@ const Dao = () => {
         ) : (
           <DaoLandingDetail onBack={() => setDaoPage('landing')} />
         )}
+        {/* <DaoLandingDetail onBack={() => setDaoPage('landing')} /> */}
       </div>
       {/* <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
       <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />

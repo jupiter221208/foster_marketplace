@@ -1,0 +1,52 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background-color: rgba(var(--background-dark-color-rgb), 0.3);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  max-width: 1535px;
+  display: flex;
+  background: var(--dao-treasury-bg);
+  border: 1px solid $brand-09-color;
+  border-radius: 20px;
+  padding: 16px;
+  @media (min-width: 1024px) {
+    padding: 57px 78px;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.title {
+  font-family: 'KCDurhamboxcar';
+  font-size: 40px;
+  @media (min-width: 1024px) {
+    font-size: 50px;
+  }
+  text-align: start;
+  color: var(--main-icon-color);
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  text-align: start;
+  color: var(--text-gray-200-color);
+}

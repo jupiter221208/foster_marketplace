@@ -1,0 +1,80 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background-color: rgba(var(--background-dark-color-rgb), 0.3);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  max-width: 626px;
+  background-color: var(--modal-bg-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
+  border-radius: 20px;
+  padding: 16px;
+  @media (min-width: 1024px) {
+    padding: 17px;
+  }
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  cursor: pointer;
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 25px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  text-align: start;
+  color: var(--text-gray-200-color);
+}
+
+.subTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  line-height: 25px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  text-align: start;
+  color: var(--main-icon-color);
+}
+
+.subContent {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 2px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 3px;
+  }
+  text-align: start;
+  color: var(--text-gray-200-color);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  margin-top: 27px;
+  background: var(--main-icon-color);
+}
