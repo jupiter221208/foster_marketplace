@@ -17,8 +17,7 @@
 .backEllipse {
   width: 36px;
   height: 36px;
-  background: white;
-  opacity: 0.3;
+  background: var(--input-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 18px;
@@ -42,12 +41,16 @@
   justify-content: center;
   align-items: center;
   margin-left: 20px;
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .proposalText {
   font-family: 'Muli-Bold';
   font-size: 36px;
   line-height: 45px;
+  color: var(--text-gray-200-color);
 }
 
 .proposedBy {
@@ -128,7 +131,7 @@
   font-family: 'Muli-Regular';
   font-size: 24px;
   height: 30px;
-  color: var(--text-gray-200-color-rgb);
+  color: var(--text-gray-200-color);
 }
 
 .thresholdCurrent {
@@ -146,4 +149,26 @@
   margin-top: 6px;
   color: var(--text-gray-200-color);
   text-align: center;
+}
+
+.description {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+}
+
+.descriptionText {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 36px;
+  color: var(--text-gray-200-color);
+  margin-top: 30px;
+}
+
+.estimateValue {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 36px;
+  color: var(--text-gray-200-color);
 }

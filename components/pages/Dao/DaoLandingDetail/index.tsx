@@ -4,7 +4,7 @@ import { LinearProgress, makeStyles } from '@material-ui/core'
 
 // images and icons
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
-import SolIcon from 'assets/icons/solana-logo-dark-big.svg?component'
+import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-black.svg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
@@ -118,7 +118,35 @@ const DaoLandingDetail = () => {
             </div>
           </div>
         </div>
+        <div className="mt-[78px]">
+          <div className={styles.description}>Description</div>
+          <div className={styles.descriptionText}>
+            Add an e-commerce hub built within Foster Marketplace that provides an alternative avenue for creator
+            monetization that enables artists to sell physical prints and merchandise to interested collectors.
+          </div>
+        </div>
+        <div className="mt-[50px]">
+          <div className={styles.description}>How will it proliferate Foster Marketplace or Circus DAO?</div>
+          <div className={styles.descriptionText}>
+            Information on how this proposal will produce benefits to CircusDAO / Foster Marketplace / Solana.
+            Information on how this initiative reflects the values of CircusDAO in its support of Foster Marketplace,
+            Solana, and the integrity of artists. The answer should provide any qualitative or quantitative data that
+            can be used to determine the success of the proposal.
+          </div>
+        </div>
+        <div className="mt-[50px]">
+          <div className={styles.description}>Estimated Treasury Spending Required</div>
+          <div className="mt-[30px] w-full flex items-center gap-[9px]">
+            <SolIcon />
+            <div className={styles.estimateValue}>1000</div>
+          </div>
+        </div>
       </div>
+      <div className="mt-[50px]">
+        <div className={styles.description}>Estimated Timeline</div>
+        <div className={styles.descriptionText}>6 months</div>
+      </div>
+      <div className="w-full h-[200px]" />
     </div>
   )
 }
