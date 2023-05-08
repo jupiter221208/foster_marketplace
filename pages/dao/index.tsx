@@ -22,6 +22,7 @@ import styles from './index.module.scss'
 import { useViewport } from 'utils'
 import DaoComingSoon from 'components/pages/Dao/DaoComingSoon'
 import DaoLandingPage from 'components/pages/Dao/DaoLandingPage'
+import DaoLandingDetail from 'components/pages/Dao/DaoLandingDetail'
 
 const Dao = () => {
   // const [showCircus, setShowCircus] = useState(false)
@@ -42,13 +43,14 @@ const Dao = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
 
-        {daoPage === 'start' ? (
+        {/* {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
         ) : (
           <div className="w-full mt-[40px] lg:mt-[115px] z-10">
             <DaoLandingPage />
           </div>
-        )}
+        )} */}
+        <DaoLandingDetail />
       </div>
       {/* <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
       <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />

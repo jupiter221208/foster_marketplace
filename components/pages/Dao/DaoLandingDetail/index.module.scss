@@ -1,0 +1,149 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  z-index: 10;
+}
+
+.backBtn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.backEllipse {
+  width: 36px;
+  height: 36px;
+  background: white;
+  opacity: 0.3;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 18px;
+}
+
+.backText {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 36px;
+  color: var(--text-gray-200-color);
+  margin-left: 24px;
+}
+
+.liveBtn {
+  width: 80px;
+  height: 41px;
+  background: #202427;
+  border-radius: 8px;
+  color: $brand-09-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.proposalText {
+  font-family: 'Muli-Bold';
+  font-size: 36px;
+  line-height: 45px;
+}
+
+.proposedBy {
+  font-family: 'Muli-Regular';
+  font-size: 24px;
+  line-height: 30px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.proposedText {
+  font-family: 'Muli-SemiBold';
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-gray-200-color);
+  margin-left: 10px;
+}
+
+.clipboardBtn {
+  width: auto;
+  padding: 5px;
+  background: #202427;
+  border-radius: 8px;
+  color: $brand-09-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 9px;
+}
+
+.totalVotes {
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  height: 25px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.approvedText {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  height: 25px;
+  color: var(--text-gray-200-color);
+}
+
+.approvedValue {
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  height: 25px;
+  margin-top: 9px;
+  color: var(--text-gray-200-color);
+}
+
+.approvedPercent {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  height: 25px;
+  margin-top: 9px;
+  color: var(--main-icon-color);
+}
+
+.treasuryContainer {
+  display: block;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  padding: 12px 12px;
+  @media (min-width: 1024px) {
+    display: flex;
+    border-radius: 16px;
+    padding: 31px 34px;
+  }
+  border: 1px solid rgba($text-gray-200-color, 0.1);
+  background: var(--dao-treasury-bg);
+}
+
+.thresholdText {
+  font-family: 'Muli-Regular';
+  font-size: 24px;
+  height: 30px;
+  color: var(--text-gray-200-color-rgb);
+}
+
+.thresholdCurrent {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  text-align: center;
+}
+
+.thresholdValue {
+  font-family: 'Muli-Regular';
+  font-size: 22px;
+  height: 28px;
+  margin-top: 6px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
