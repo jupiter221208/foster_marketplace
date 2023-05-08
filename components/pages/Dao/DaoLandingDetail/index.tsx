@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 
 import { LinearProgress, makeStyles } from '@material-ui/core'
 
@@ -14,7 +14,6 @@ import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { useViewport } from 'utils'
 import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 
@@ -33,14 +32,20 @@ const useStyles = makeStyles({
     },
   },
 })
-const DaoLandingDetail = () => {
-  const viewport = useViewport()
+const DaoLandingDetail = props => {
+  const { onBack } = props
   const classes = useStyles()
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
+  }, [])
 
   return (
     <div className={styles.container}>
-      <div className="flex mt-[40px] lg:mt-[117px] items-center">
-        <div className={styles.backBtn}>
+      <div className="flex mt-[20px] lg:mt-[117px] items-center">
+        <div className={styles.backBtn} onClick={onBack}>
           <div className={styles.backEllipse}></div>
           <div className="absolute inset-auto hidden lg:flex">
             <ArrowLeftIcon />

@@ -14,15 +14,15 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const TableSection = props => {
-  const { data } = props
+  const { data, onDetail } = props
   const viewport = useViewport()
 
   return (
     <section className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <LandingTable data={data} />
+        <LandingTable data={data} onDetail={onDetail} />
       ) : (
-        <DaoLandingAccordion data={data} />
+        <DaoLandingAccordion data={data} onDetail={onDetail} />
       )}
     </section>
   )

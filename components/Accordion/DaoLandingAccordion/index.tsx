@@ -9,7 +9,7 @@ import RightArrowIcon from 'assets/icons/right-icon.svg?component'
 import styles from './index.module.scss'
 
 const DaoLandingAccordion = props => {
-  const { data } = props
+  const { data, onDetail } = props
 
   return (
     <div className="w-full flex flex-wrap gap-[10px]">
@@ -19,7 +19,7 @@ const DaoLandingAccordion = props => {
             <div className={styles.proposal}>{item.proposal}</div>
             <div className="w-full flex justify-between mt-[15px]">
               <div className={styles.liveBtn}>Live</div>
-              <div className={styles.view}>
+              <div className={styles.view} onClick={onDetail}>
                 View
                 <RightArrowIcon />
               </div>

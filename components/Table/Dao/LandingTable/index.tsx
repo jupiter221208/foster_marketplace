@@ -6,7 +6,7 @@ import TimeIcon from 'assets/icons/dao-time-icon.svg?component'
 import styles from './index.module.scss'
 
 const LandingTable = props => {
-  const { data } = props
+  const { data, onDetail } = props
 
   return (
     <table id={'ArtworksTable'} className="w-full table-auto">
@@ -45,7 +45,9 @@ const LandingTable = props => {
                   {item.status === 'live' ? (
                     <div className={styles.liveBtn}>Live</div>
                   ) : (
-                    <div className={styles.viewBtn}>View</div>
+                    <div className={styles.viewBtn} onClick={onDetail}>
+                      View
+                    </div>
                   )}
                 </div>
               </td>

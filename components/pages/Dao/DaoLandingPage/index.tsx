@@ -13,7 +13,8 @@ import StatsSearchBox from 'components/Input/StatsSearchBox'
 import TableSection from './TableSection'
 import ExplorePagination from 'components/Button/ExplorePagination'
 
-const DaoLandingPage = () => {
+const DaoLandingPage = props => {
+  const { onDetail } = props
   const viewport = useViewport()
   const [searchWord, setSearchWord] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
@@ -209,7 +210,7 @@ const DaoLandingPage = () => {
       </div>
 
       <div className="mt-[20px]">
-        <TableSection data={list} />
+        <TableSection data={list} onDetail={onDetail} />
       </div>
       <div className="w-full flex justify-end">
         <ExplorePagination

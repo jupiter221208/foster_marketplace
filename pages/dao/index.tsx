@@ -43,14 +43,15 @@ const Dao = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
 
-        {/* {daoPage === 'start' ? (
+        {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
-        ) : (
+        ) : daoPage === 'landing' ? (
           <div className="w-full mt-[40px] lg:mt-[115px] z-10">
-            <DaoLandingPage />
+            <DaoLandingPage onDetail={() => setDaoPage('detail')} />
           </div>
-        )} */}
-        <DaoLandingDetail />
+        ) : (
+          <DaoLandingDetail onBack={() => setDaoPage('landing')} />
+        )}
       </div>
       {/* <DaoOfCircusModal open={showCircus} close={() => setShowCircus(false)} />
       <DaoOfLiftModal open={showLift} close={() => setShowLift(false)} />
