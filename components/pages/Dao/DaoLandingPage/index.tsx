@@ -16,6 +16,8 @@ import StatsSearchBox from 'components/Input/StatsSearchBox'
 import TableSection from './TableSection'
 import ExplorePagination from 'components/Button/ExplorePagination'
 import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import Alert from 'components/Alert'
 
 const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
 
@@ -31,9 +33,22 @@ const DaoLandingPage = props => {
 
   const [solAmount, setSolAmount] = useState(0)
   const [solToUsdRate, setSolToUsdRate] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
+
   useEffect(() => {
     fetchSolToUsdRate().then(setSolToUsdRate)
     connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
+    const proposalName = 'TEST'
+    setAlertData([
+      {
+        id: 0,
+        title: 'Proposal Submitted',
+        description: `${proposalName} has successfully been submitted for review.`,
+        type: 'success',
+      },
+    ])
   }, [])
 
   const list = [
@@ -242,9 +257,30 @@ const DaoLandingPage = props => {
       <DaoSubmitModal
         data={{}}
         open={showDaoSubmitModal}
-        onSubmit={() => setShowDaoSubmitModal(false)}
+        onSubmit={() => {
+          setShowDaoSubmitModal(false)
+          setTimeout(() => {
+            setIsLoading(true)
+            setTimeout(() => {
+              setIsLoading(false)
+              setTimeout(() => {
+                setShowAlert(true)
+              }, 1000)
+            }, 3000)
+          }, 1000)
+        }}
         onClose={() => setShowDaoSubmitModal(false)}
       />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
+
+      <ProgressingModal open={isLoading} />
     </div>
   )
 }
