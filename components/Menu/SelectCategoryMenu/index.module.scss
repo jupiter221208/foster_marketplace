@@ -112,7 +112,9 @@
   align-items: center;
   background: transparent;
   padding-left: 20px;
-  background-color: rgba(var(--white-color-rgb), 0.25);
+  // background-color: rgba(var(--white-color-rgb), 0.25);
+  background: var(--nft-detail-section-border);
+
   border-radius: 8px;
   cursor: pointer;
   outline: none;

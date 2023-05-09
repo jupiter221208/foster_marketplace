@@ -120,6 +120,7 @@ const DaoSubmitModal = props => {
                           label=""
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setTitle(value)}
                           height="46px"
                         />
@@ -134,6 +135,7 @@ const DaoSubmitModal = props => {
                         to whom each necessary step is delegated."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setOverview(value)}
                           height="90px"
                         />
@@ -151,6 +153,7 @@ const DaoSubmitModal = props => {
                         What kind of qualitative and quantitative data can we analyze to determine its success?"
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setGoal(value)}
                           height={172}
                         />
@@ -166,6 +169,7 @@ const DaoSubmitModal = props => {
                           placeholder="Estimated funds required to implement proposal"
                           label=""
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor={'var(--nft-detail-section-border)'}
                           fullWidth
                           onChange={value => setTreasury(value)}
                           height="46px"
@@ -181,6 +185,7 @@ const DaoSubmitModal = props => {
                         emphasis on any deadlines and time constraints."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
+                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setTimeline(value)}
                           height="90px"
                         />
@@ -247,11 +252,19 @@ const DaoSubmitModal = props => {
 
                     <div className="absolute right-0 bottom-0">
                       <div className="flex gap-[24px]">
-                        <OutlineButton width={173} height={57} fontSize={22} label="Cancel" onClick={onClose} />
+                        <OutlineButton
+                          width={173}
+                          height={57}
+                          fontFamily="Muli-SemiBold"
+                          fontSize={18}
+                          label="Cancel"
+                          onClick={onClose}
+                        />
                         <GradientButton
                           width={173}
                           height={57}
-                          fontSize={22}
+                          fontSize={18}
+                          fontFamily="Muli-SemiBold"
                           gradientDirection="bottom"
                           label="Submit"
                           onClick={onSubmit}
@@ -286,6 +299,7 @@ const DaoSubmitModal = props => {
                         placeholder="Give your art name"
                         label=""
                         fullWidth
+                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setTitle(value)}
                         height="46px"
@@ -302,6 +316,7 @@ const DaoSubmitModal = props => {
                           proposal and the funds required (if 
                           applicable)."
                         fullWidth
+                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setOverview(value)}
                         height="90px"
@@ -318,6 +333,7 @@ const DaoSubmitModal = props => {
                         proposal and the funds required (if 
                         applicable)."
                         fullWidth
+                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setGoal(value)}
                         height="90px"
@@ -333,6 +349,7 @@ const DaoSubmitModal = props => {
                         placeholder="Estimated funds required for project"
                         label=""
                         fullWidth
+                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setTreasury(value)}
                         height="46px"
@@ -402,11 +419,19 @@ const DaoSubmitModal = props => {
 
                   <div className="mt-[50px] mb-[50px] flex justify-center">
                     <div className="flex gap-[24px]">
-                      <OutlineButton width={105} height={40} fontSize={16} label="Cancel" onClick={onClose} />
+                      <OutlineButton
+                        width={105}
+                        height={40}
+                        fontFamily="Muli-SemiBold"
+                        fontSize={16}
+                        label="Cancel"
+                        onClick={onClose}
+                      />
                       <GradientButton
                         width={105}
                         height={40}
                         fontSize={16}
+                        fontFamily="Muli-SemiBold"
                         gradientDirection="bottom"
                         label="Submit"
                         onClick={onSubmit}
