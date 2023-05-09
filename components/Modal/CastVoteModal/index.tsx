@@ -50,13 +50,13 @@ const CastVoteModal = props => {
                 <div className="mt-[12px] lg:mt-[30px]">
                   <div className={styles.subTitle}>Yay</div>
                   <div className={styles.subContent}>
-                    By voting "yay" you are casting a vote in favor of the said proposal.
+                    By voting &quot;yay&quot; you are casting a vote in favor of the said proposal.
                   </div>
                 </div>
                 <div className="mt-[12px] mt-[26px]">
                   <div className={styles.subTitle}>Nay</div>
                   <div className={styles.subContent}>
-                    By voting "nay" you are casting a vote against the said proposal.
+                    By voting &quot;nay&quot; you are casting a vote against the said proposal.
                   </div>
                 </div>
                 <div className={styles.divider} />
