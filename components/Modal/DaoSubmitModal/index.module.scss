@@ -15,14 +15,14 @@
 
 .modalView {
   width: 100%;
-  gap: 70px;
   max-width: 1535px;
   display: flex;
   background: var(--dao-treasury-bg);
-  border: 1px solid $brand-09-color;
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 20px;
   padding: 16px;
   @media (min-width: 1024px) {
+    border: 1px solid $brand-09-color;
     padding: 57px 78px;
   }
 }
@@ -37,27 +37,39 @@
 .title {
   font-family: 'KCDurhamboxcar';
   font-size: 40px;
+  color: var(--text-gray-200-color);
+  text-align: center;
   @media (min-width: 1024px) {
     font-size: 50px;
+    color: var(--main-icon-color);
+    text-align: start;
   }
-  text-align: start;
-  color: var(--main-icon-color);
 }
 
 .text {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
   text-align: start;
   color: var(--text-gray-200-color);
 }
 
 .placeholder {
   font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 15px;
   text-align: start;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  color: var(--text-gray-200-color-rgb);
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+    text-align: start;
+    color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  }
 }
 
 .datePicker {
@@ -75,4 +87,12 @@
   align-items: center;
   padding-left: 16px;
   padding-right: 16px;
+}
+
+.dateLabel {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 24px;
+  text-align: start;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
