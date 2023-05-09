@@ -25,39 +25,39 @@ const DaoLandingPage = props => {
 
   const list = [
     {
+      id: 0,
       proposal: 'Add Creator Merch Hub to the Artist Page',
       category: 'Product',
       author: 'Angooba',
       time: 'Ends in 4 days',
-      status: 'live',
     },
     {
+      id: 1,
       proposal: 'Add Creator Merch Hub to the Artist Page',
       category: 'Product',
       author: 'Angooba',
       time: 'Ends in 4 days',
-      status: 'view',
     },
     {
+      id: 2,
       proposal: 'Add Creator Merch Hub to the Artist Page',
       category: 'Product',
       author: 'Angooba',
       time: 'Ends in 4 days',
-      status: 'live',
     },
     {
+      id: 3,
       proposal: 'Add Creator Merch Hub to the Artist Page',
       category: 'Product',
       author: 'Angooba',
       time: 'Ends in 4 days',
-      status: 'live',
     },
     {
+      id: 4,
       proposal: 'Add Creator Merch Hub to the Artist Page',
       category: 'Product',
       author: 'Angooba',
       time: 'Ends in 4 days',
-      status: 'live',
     },
   ]
 
