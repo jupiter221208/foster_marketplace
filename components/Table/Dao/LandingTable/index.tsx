@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import TimeIcon from 'assets/icons/dao-time-icon.svg?component'
 
@@ -44,14 +44,6 @@ const LandingTable = props => {
               <td>
                 <div className="flex justify-center">
                   <DaoLiveButton onDetail={onDetail} />
-                  {/* <div
-                    className={hover ? styles.viewBtn : styles.liveBtn}
-                    onMouseEnter={() => setHover(true)}
-                    onMouseLeave={() => setHover(false)}
-                    onClick={onDetail}
-                  >
-                    {hover ? 'View' : 'Live'}
-                  </div> */}
                 </div>
               </td>
             </tr>

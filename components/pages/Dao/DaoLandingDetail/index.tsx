@@ -16,7 +16,6 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
-import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -25,9 +24,6 @@ const useStyles = makeStyles({
     '&.MuiLinearProgress-colorPrimary:not(.MuiLinearProgress-buffer)': {
       backgroundColor: '#2b2b2b',
     },
-    // '& .MuiLinearProgress-colorPrimary': {
-    //   backgroundColor: '#00ff00',
-    // },
     '& .MuiLinearProgress-barColorPrimary': {
       backgroundColor: '#95dbd5',
     },

@@ -28,12 +28,19 @@ const DaoSubmitModal = props => {
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
   const [price, setPrice] = useState()
-  const [buttonDisabled, setButtonDisabled] = useState(true)
+  const [title, setTitle] = useState('')
+  const [overview, setOverview] = useState('')
+  const [goal, setGoal] = useState('')
+  const [treasury, setTreasury] = useState('')
+  const [timeline, setTimeline] = useState('')
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null)
   const categoryList = [
     { id: '1', name: 'Category1' },
     { id: '2', name: 'Category2' },
+    { id: '3', name: 'Category3' },
+    { id: '4', name: 'Category4' },
+    { id: '5', name: 'Category5' },
   ]
   const closeModal = () => {
     onClose()
@@ -103,11 +110,12 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Proposal Title</div>
                       <div className="mt-[12px]">
                         <Input
-                          value=""
+                          value={title}
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          onChange={() => {}}
+                          color={'var(--text-gray-200-color)'}
+                          onChange={value => setTitle(value)}
                           height="46px"
                         />
                       </div>
@@ -116,11 +124,12 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Overview</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value=""
+                          value={overview}
                           placeholder="Provide a detailed explanation of the proposal and how it will be executed, including 
                         to whom each necessary step is delegated."
                           fullWidth
-                          onChange={() => {}}
+                          color={'var(--text-gray-200-color)'}
+                          onChange={value => setOverview(value)}
                           height="90px"
                         />
                       </div>
@@ -129,14 +138,15 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Goals/Evaluation Metrics</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value=""
+                          value={goal}
                           placeholder="How will this proposal produce benefits to CircusDAO?&#10;
                         How does this initiative reflect the values of CircusDAO in its support of Foster Marketplace, 
                         Solana, and the integrity of artists?&#10;
                         
                         What kind of qualitative and quantitative data can we analyze to determine its success?"
                           fullWidth
-                          onChange={() => {}}
+                          color={'var(--text-gray-200-color)'}
+                          onChange={value => setGoal(value)}
                           height={172}
                         />
                       </div>
@@ -147,11 +157,12 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Treasury Spending Required</div>
                       <div className="mt-[12px]">
                         <Input
-                          value=""
+                          value={treasury}
                           placeholder="Estimated funds required to implement proposal"
                           label=""
+                          color={'var(--text-gray-200-color)'}
                           fullWidth
-                          onChange={() => {}}
+                          onChange={value => setTreasury(value)}
                           height="46px"
                         />
                       </div>
@@ -160,11 +171,12 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Timeline/Roadmap</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value=""
+                          value={timeline}
                           placeholder="Produce a stringent timeline as to the beginning, development, and deployment of with an 
                         emphasis on any deadlines and time constraints."
                           fullWidth
-                          onChange={() => {}}
+                          color={'var(--text-gray-200-color)'}
+                          onChange={value => setTimeline(value)}
                           height="90px"
                         />
                       </div>
@@ -205,7 +217,6 @@ const DaoSubmitModal = props => {
                               borderRadius={9}
                               type="number"
                               onChange={value => {
-                                setButtonDisabled(value < 0 || value > 30 || price === undefined)
                                 setDays(value)
                               }}
                             />
@@ -265,11 +276,12 @@ const DaoSubmitModal = props => {
                     <div className={styles.text}>Proposal Title</div>
                     <div className="mt-[12px]">
                       <Input
-                        value=""
+                        value={title}
                         placeholder="Give your art name"
                         label=""
                         fullWidth
-                        onChange={() => {}}
+                        color={'var(--text-gray-200-color)'}
+                        onChange={value => setTitle(value)}
                         height="46px"
                       />
                     </div>
@@ -279,12 +291,13 @@ const DaoSubmitModal = props => {
                     <div className={styles.text}>Overview</div>
                     <div className="mt-[12px]">
                       <Textarea
-                        value=""
+                        value={overview}
                         placeholder="Provide a brief description of your 
                           proposal and the funds required (if 
                           applicable)."
                         fullWidth
-                        onChange={() => {}}
+                        color={'var(--text-gray-200-color)'}
+                        onChange={value => setOverview(value)}
                         height="90px"
                       />
                     </div>
@@ -294,12 +307,13 @@ const DaoSubmitModal = props => {
                     <div className={styles.text}>Goals/Evaluation Metrics</div>
                     <div className="mt-[12px]">
                       <Textarea
-                        value=""
+                        value={goal}
                         placeholder="Provide a brief description of your 
                         proposal and the funds required (if 
                         applicable)."
                         fullWidth
-                        onChange={() => {}}
+                        color={'var(--text-gray-200-color)'}
+                        onChange={value => setGoal(value)}
                         height="90px"
                       />
                     </div>
@@ -309,11 +323,12 @@ const DaoSubmitModal = props => {
                     <div className={styles.text}>Treasury Spending Required</div>
                     <div className="mt-[12px]">
                       <Input
-                        value=""
+                        value={treasury}
                         placeholder="Estimated funds required for project"
                         label=""
                         fullWidth
-                        onChange={() => {}}
+                        color={'var(--text-gray-200-color)'}
+                        onChange={value => setTreasury(value)}
                         height="46px"
                       />
                     </div>
@@ -334,7 +349,6 @@ const DaoSubmitModal = props => {
                           borderRadius={9}
                           type="number"
                           onChange={value => {
-                            setButtonDisabled(value < 0 || value > 30 || price === undefined)
                             setDays(value)
                           }}
                         />

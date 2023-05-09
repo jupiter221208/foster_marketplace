@@ -18,13 +18,12 @@
   height: auto;
   max-height: 250px;
   position: absolute;
-  top: 80px;
+  top: 54px;
   right: 0px;
   background-color: $background-dark-color;
   @media (min-width: 1024px) {
     max-height: 300px;
     left: 0px;
-    top: 80px;
     right: 0;
   }
   transform-origin: top left;
