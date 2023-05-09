@@ -20,10 +20,9 @@
 }
 
 .container::placeholder {
-  color: rgba(var(--text-gray-200-color-rgb), 0.5);
-  @media (min-width: 1024px) {
-    color: rgba(var(--text-gray-200-color-rgb), 0.5);
-  }
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
 }
 
 .label {

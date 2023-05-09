@@ -19,7 +19,7 @@ import GradientButton from 'components/Button/GradientButton'
 import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import SelectCategoryMenu from 'components/Menu/SelectCategoryMenu'
-import ArrowDownIcon from 'assets/icons/arrow-down-small.svg'
+import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 
 const DaoSubmitModal = props => {
   const { data, open, onSubmit, onClose } = props
@@ -207,8 +207,9 @@ const DaoSubmitModal = props => {
                               className={styles.datePicker}
                               customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
                             />
-                            <div className="absolute top-[8px] right-4">
-                              <Image src={ArrowDownIcon} alt="" />
+                            <div className="absolute top-[18px] right-4">
+                              {/* <Image src={ArrowDownIcon} alt="" /> */}
+                              <ArrowDownIcon />
                             </div>
                           </div>
                         </div>
@@ -409,8 +410,9 @@ const DaoSubmitModal = props => {
                           className={styles.datePicker}
                           customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
                         />
-                        <div className="absolute top-[8px] right-4">
-                          <Image src={ArrowDownIcon} alt="" />
+                        <div className="absolute top-[18px] right-4">
+                          {/* <Image src={ArrowDownIcon} alt="" /> */}
+                          <ArrowDownIcon />
                         </div>
                       </div>
                     </div>

@@ -27,6 +27,12 @@
   }
 }
 
+.container::placeholder {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.6);
+}
+
 .label {
   margin-bottom: 10px;
   font-family: 'Muli-Regular';
