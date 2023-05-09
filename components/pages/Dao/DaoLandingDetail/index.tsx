@@ -37,7 +37,7 @@ const DaoLandingDetail = props => {
   const { onBack } = props
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
-  const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(false)
+  const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(true)
 
   useEffect(() => {
     window.scrollTo({
@@ -205,7 +205,7 @@ const DaoLandingDetail = props => {
       <DaoSubmitModal
         data={{}}
         open={showDaoSubmitModal}
-        onSubmit={() => {}}
+        onSubmit={() => setShowDaoSubmitModal(false)}
         onClose={() => setShowDaoSubmitModal(false)}
       />
     </div>
