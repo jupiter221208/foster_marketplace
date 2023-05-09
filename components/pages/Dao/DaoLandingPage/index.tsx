@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { useConnection } from '@solana/wallet-adapter-react'
 
 // images and icons
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
@@ -8,20 +11,30 @@ import NotificationIcon from 'assets/icons/notification-icon-body.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { useViewport } from 'utils'
+import { useViewport, fetchSolToUsdRate, ensureMaxDecimals } from 'utils'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
 import TableSection from './TableSection'
 import ExplorePagination from 'components/Button/ExplorePagination'
 import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 
+const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
+
 const DaoLandingPage = props => {
   const { onDetail } = props
   const viewport = useViewport()
+  const { connection } = useConnection()
   const [searchWord, setSearchWord] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(10)
   const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(false)
+
+  const [solAmount, setSolAmount] = useState(0)
+  const [solToUsdRate, setSolToUsdRate] = useState(0)
+  useEffect(() => {
+    fetchSolToUsdRate().then(setSolToUsdRate)
+    connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
+  }, [])
 
   const list = [
     {
@@ -115,11 +128,11 @@ const DaoLandingPage = props => {
               <div className="flex gap-[40px]">
                 <div className="flex gap-[15px] items-center">
                   <SolIcon />
-                  <div className={styles.treasuryTitle}>25,000</div>
+                  <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
                 </div>
                 <div className={styles.treasuryDivider}></div>
                 <div className="flex items-center">
-                  <div className={styles.treasuryTitle}>$400,000</div>
+                  <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
                 </div>
               </div>
             </div>

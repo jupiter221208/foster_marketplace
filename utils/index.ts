@@ -82,3 +82,15 @@ export const useDetectRouterPath = router => {
     }, 400)
   }, [router.asPath])
 }
+
+const COINGECKO_SOL_TO_USD_API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd'
+export const fetchSolToUsdRate = async () => {
+  return fetch(COINGECKO_SOL_TO_USD_API_URL)
+    .then(r => r.json())
+    .then(({ solana: { usd } }) => usd)
+}
+
+export const ensureMaxDecimals = (n, decimals) => {
+  let multiplier = 10 ** decimals
+  return Math.floor(n * multiplier) / multiplier
+}
