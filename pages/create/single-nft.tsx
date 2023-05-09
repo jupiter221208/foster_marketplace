@@ -725,7 +725,7 @@ const SingleNft = () => {
                           backgroundColor={'transparent'}
                           borderColor={'var(--back-btn-border)'}
                           borderWidth={'var(--back-btn-border-width)'}
-                          color="#EFF0F6"
+                          color="var(--main-bg-color)"
                           width={viewport === '2xl' ? 124 : 117}
                           height={viewport === '2xl' ? 53 : 46}
                         />

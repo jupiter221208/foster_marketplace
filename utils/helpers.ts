@@ -164,7 +164,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-bg-color-rgb', '32, 36, 39')
     doc.style.setProperty('--main-icon-color', '#202427')
     doc.style.setProperty('--main-icon-color-rgb', '32, 36, 39')
-    doc.style.setProperty('--g-left-container-bg', '#E4E5EB')
+    doc.style.setProperty('--g-left-container-bg', '#EFF0F6')
     doc.style.setProperty('--background-main-color', '#eff0f6')
     doc.style.setProperty('--background-black-color', '#202427')
     doc.style.setProperty('--background-black-color-rgb', '239, 240, 247')
@@ -324,7 +324,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--tooltip-bg', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--tooltip-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--back-btn-color', 'transparent')
-    doc.style.setProperty('--back-btn-border', 'rgba(239, 240, 247, 0.5)')
+    doc.style.setProperty('--back-btn-border', 'rgba(32, 36, 39, 0.5)')
     doc.style.setProperty('--back-btn-border-mobile', 'rgba(32, 36, 39, 0.25)')
     doc.style.setProperty('--back-btn-border-width', '2')
     doc.style.setProperty('--artwork-table-border', 'transparent')
@@ -403,6 +403,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-connect-border-width', '0px')
     doc.style.setProperty('--dao-connect-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     doc.style.setProperty('--dao-treasury-bg', '#E3E4EA')
+    doc.style.setProperty('--g-right-container-bg', '#E3E4EA')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -413,6 +414,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-icon-color', '#95dbd5')
     doc.style.setProperty('--main-icon-color-rgb', '149, 219, 213')
     doc.style.setProperty('--g-left-container-bg', '#0f1316')
+    doc.style.setProperty('--g-right-container-bg', '#121212')
     doc.style.setProperty('--background-main-color', '#121212')
     doc.style.setProperty('--background-black-color', '#121212')
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')

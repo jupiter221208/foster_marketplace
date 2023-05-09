@@ -119,8 +119,6 @@ const DaoSubmitModal = props => {
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          color={'var(--text-gray-200-color)'}
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setTitle(value)}
                           height="46px"
                         />
@@ -135,7 +133,6 @@ const DaoSubmitModal = props => {
                         to whom each necessary step is delegated."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setOverview(value)}
                           height="90px"
                         />
@@ -153,7 +150,6 @@ const DaoSubmitModal = props => {
                         What kind of qualitative and quantitative data can we analyze to determine its success?"
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setGoal(value)}
                           height={172}
                         />
@@ -169,7 +165,6 @@ const DaoSubmitModal = props => {
                           placeholder="Estimated funds required to implement proposal"
                           label=""
                           color={'var(--text-gray-200-color)'}
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           fullWidth
                           onChange={value => setTreasury(value)}
                           height="46px"
@@ -185,7 +180,6 @@ const DaoSubmitModal = props => {
                         emphasis on any deadlines and time constraints."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           onChange={value => setTimeline(value)}
                           height="90px"
                         />
@@ -223,7 +217,6 @@ const DaoSubmitModal = props => {
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                               fullWidth
-                              backgroundColor={'var(--nft-detail-section-border)'}
                               color="var(--main-bg-color)"
                               borderRadius={9}
                               type="number"
@@ -239,7 +232,6 @@ const DaoSubmitModal = props => {
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                               fullWidth
-                              backgroundColor={'var(--nft-detail-section-border)'}
                               color="var(--main-bg-color)"
                               borderRadius="9px"
                               type="number"
@@ -300,7 +292,6 @@ const DaoSubmitModal = props => {
                         placeholder="Give your art name"
                         label=""
                         fullWidth
-                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setTitle(value)}
                         height="46px"
@@ -317,7 +308,6 @@ const DaoSubmitModal = props => {
                           proposal and the funds required (if 
                           applicable)."
                         fullWidth
-                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setOverview(value)}
                         height="90px"
@@ -334,7 +324,6 @@ const DaoSubmitModal = props => {
                         proposal and the funds required (if 
                         applicable)."
                         fullWidth
-                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setGoal(value)}
                         height="90px"
@@ -350,7 +339,6 @@ const DaoSubmitModal = props => {
                         placeholder="Estimated funds required for project"
                         label=""
                         fullWidth
-                        backgroundColor={'var(--nft-detail-section-border)'}
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setTreasury(value)}
                         height="46px"
@@ -368,7 +356,6 @@ const DaoSubmitModal = props => {
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           color="var(--main-bg-color)"
                           borderRadius={9}
                           type="number"
@@ -384,7 +371,6 @@ const DaoSubmitModal = props => {
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
-                          backgroundColor={'var(--nft-detail-section-border)'}
                           color="var(--main-bg-color)"
                           borderRadius="9px"
                           type="number"

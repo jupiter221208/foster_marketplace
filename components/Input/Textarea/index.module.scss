@@ -5,14 +5,12 @@
   height: 141px;
   font-size: 14px;
   line-height: 21px;
-  // background-color: var(--text-gray-200-color);
-  background-color: rgba(var(--white-color-rgb), 0.25);
+  background-color: rgba(var(--main-bg-color-rgb), 0.05);
 
   @media (min-width: 1024px) {
     height: 100px;
     font-size: 16px;
     line-height: 20px;
-    background-color: rgba(var(--white-color-rgb), 0.25);
   }
   border-radius: 12px;
 
@@ -20,7 +18,7 @@
 
   font-family: 'Muli-Regular';
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 
   &:focus {
     outline: none;

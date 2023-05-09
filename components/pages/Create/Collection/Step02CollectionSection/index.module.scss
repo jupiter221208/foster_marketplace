@@ -106,7 +106,6 @@
   @media (min-width: 1024px) {
     font-size: 18px;
     line-height: 24px;
-    color: $text-gray-200-color;
   }
   letter-spacing: 0;
 }
@@ -119,7 +118,6 @@
   @media (min-width: 1024px) {
     height: auto;
     padding: 24px;
-    border: 2px dashed rgba($text-gray-200-color, 0.6);
   }
   border-radius: 12px;
   border: 2px dashed rgba(var(--text-gray-200-color-rgb), 0.6);
@@ -145,7 +143,6 @@
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 24px;
-    color: $text-gray-200-color;
   }
   letter-spacing: 0;
 }

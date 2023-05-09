@@ -371,9 +371,7 @@ const Step03CollectionSection = props => {
                     onClick={() => handleChangeCurrentStep(currentStep - 1)}
                     width={viewport === '2xl' ? 124 : 117}
                     height={viewport === '2xl' ? 53 : 46}
-                    color="#EFF0F6"
                     borderWidth={2}
-                    borderColor="#5AC3BA"
                   />
                   {disabledNextButton ? (
                     <Button

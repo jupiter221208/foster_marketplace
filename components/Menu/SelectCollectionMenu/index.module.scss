@@ -88,9 +88,6 @@
   font-size: 14px;
   line-height: 21px;
   color: var(--text-gray-200-color);
-  @media (min-width: 1024px) {
-    color: $text-gray-200-color;
-  }
   margin-left: 16px;
 }
 
@@ -105,10 +102,6 @@
   background: transparent;
   padding-left: 30px;
   border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.6);
-
-  @media (min-width: 1024px) {
-    border: 1px solid rgba(#eceef4, 0.6);
-  }
   border-radius: 8px;
   cursor: pointer;
 }
