@@ -8,12 +8,18 @@ import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-white.svg'
+import CategoryProductIcon from 'assets/icons/dao-category-product.svg?component'
+import CategoryLiftIcon from 'assets/icons/dao-category-lift.svg?component'
+import CategoryTreasuryIcon from 'assets/icons/dao-category-treasury.svg?component'
+import CategoryCommunityIcon from 'assets/icons/dao-category-community.svg?component'
+import CategoryBusinessIcon from 'assets/icons/dao-category-business.svg?component'
+import CategoryPartnershipIcon from 'assets/icons/dao-category-partnership.svg?component'
 
 // styles
 import styles from './index.module.scss'
 
 const SelectCategoryMenu = props => {
-  const { categories, name, onClick } = props
+  const { categories, id, name, onClick } = props
   return (
     <div className="relative">
       <Menu>
@@ -24,7 +30,22 @@ const SelectCategoryMenu = props => {
                 {name === null ? (
                   <div className={styles.noCategory}>Select Category</div>
                 ) : (
-                  <div className={styles.existingCategory}> {name}</div>
+                  <div className={styles.existingCategory}>
+                    {id === 1 ? (
+                      <CategoryProductIcon />
+                    ) : id === 2 ? (
+                      <CategoryLiftIcon />
+                    ) : id === 3 ? (
+                      <CategoryTreasuryIcon />
+                    ) : id === 4 ? (
+                      <CategoryCommunityIcon />
+                    ) : id === 5 ? (
+                      <CategoryBusinessIcon />
+                    ) : (
+                      <CategoryPartnershipIcon />
+                    )}
+                    {name}
+                  </div>
                 )}
               </div>
               {name !== null && (
@@ -49,9 +70,22 @@ const SelectCategoryMenu = props => {
             <div className={styles.menuArea}>
               <Menu.Item>
                 {({ active }) => (
-                  <div>
+                  <div className="w-full px-[0px] lg:px-[12px]">
                     {categories?.map((item, index) => (
                       <div key={index} className={styles.text} onClick={() => onClick(index)}>
+                        {item.id === 1 ? (
+                          <CategoryProductIcon />
+                        ) : item.id === 2 ? (
+                          <CategoryLiftIcon />
+                        ) : item.id === 3 ? (
+                          <CategoryTreasuryIcon />
+                        ) : item.id === 4 ? (
+                          <CategoryCommunityIcon />
+                        ) : item.id === 5 ? (
+                          <CategoryBusinessIcon />
+                        ) : (
+                          <CategoryPartnershipIcon />
+                        )}
                         {item.name}
                       </div>
                     ))}

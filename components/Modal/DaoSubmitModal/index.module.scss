@@ -22,7 +22,7 @@
   border-radius: 20px;
   padding: 16px;
   @media (min-width: 1024px) {
-    border: 1px solid $brand-09-color;
+    border: 1px solid var(--secondary-button-border);
     padding: 57px 78px;
   }
 }

@@ -35,12 +35,14 @@ const DaoSubmitModal = props => {
   const [timeline, setTimeline] = useState('')
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null)
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null)
   const categoryList = [
-    { id: '1', name: 'Category1' },
-    { id: '2', name: 'Category2' },
-    { id: '3', name: 'Category3' },
-    { id: '4', name: 'Category4' },
-    { id: '5', name: 'Category5' },
+    { id: 1, name: 'Product' },
+    { id: 2, name: 'LIFT Token' },
+    { id: 3, name: 'General Treasury Allocation' },
+    { id: 4, name: 'Community' },
+    { id: 5, name: 'Business Development' },
+    { id: 6, name: 'Parnership' },
   ]
   const closeModal = () => {
     onClose()
@@ -49,8 +51,10 @@ const DaoSubmitModal = props => {
   const chooseCategory = index => {
     if (index >= 0) {
       setSelectedCategoryName(categoryList[index].name)
+      setSelectedCategoryId(categoryList[index].id)
     } else {
       setSelectedCategoryName(null)
+      setSelectedCategoryId(-1)
     }
   }
 
@@ -102,6 +106,7 @@ const DaoSubmitModal = props => {
                         <SelectCategoryMenu
                           categories={categoryList}
                           name={selectedCategoryName}
+                          id={selectedCategoryId}
                           onClick={index => chooseCategory(index)}
                         />
                       </div>
@@ -212,8 +217,8 @@ const DaoSubmitModal = props => {
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                               fullWidth
-                              backgroundColor={'var(--auction-input-bg)'}
-                              color="#eff0f6"
+                              backgroundColor={'var(--nft-detail-section-border)'}
+                              color="var(--main-bg-color)"
                               borderRadius={9}
                               type="number"
                               onChange={value => {
@@ -228,8 +233,8 @@ const DaoSubmitModal = props => {
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                               fullWidth
-                              backgroundColor={'var(--auction-input-bg)'}
-                              color="#eff0f6"
+                              backgroundColor={'var(--nft-detail-section-border)'}
+                              color="var(--main-bg-color)"
                               borderRadius="9px"
                               type="number"
                               onChange={value => setHours(value)}
@@ -267,6 +272,7 @@ const DaoSubmitModal = props => {
                       <SelectCategoryMenu
                         categories={categoryList}
                         name={selectedCategoryName}
+                        id={selectedCategoryId}
                         onClick={index => chooseCategory(index)}
                       />
                     </div>
@@ -344,8 +350,8 @@ const DaoSubmitModal = props => {
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
-                          backgroundColor={'var(--auction-input-bg)'}
-                          color="#eff0f6"
+                          backgroundColor={'var(--nft-detail-section-border)'}
+                          color="var(--main-bg-color)"
                           borderRadius={9}
                           type="number"
                           onChange={value => {
@@ -360,8 +366,8 @@ const DaoSubmitModal = props => {
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                           fullWidth
-                          backgroundColor={'var(--auction-input-bg)'}
-                          color="#eff0f6"
+                          backgroundColor={'var(--nft-detail-section-border)'}
+                          color="var(--main-bg-color)"
                           borderRadius="9px"
                           type="number"
                           onChange={value => setHours(value)}

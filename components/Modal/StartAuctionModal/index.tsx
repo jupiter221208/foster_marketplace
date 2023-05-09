@@ -211,7 +211,7 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor={'var(--auction-input-bg)'}
+                      backgroundColor={'var(--nft-detail-section-border)'}
                       color="#eff0f6"
                       borderRadius="9px"
                       type="number"
@@ -228,7 +228,7 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor={'var(--auction-input-bg)'}
+                      backgroundColor={'var(--nft-detail-section-border)'}
                       color="#eff0f6"
                       borderRadius="9px"
                       type="number"
