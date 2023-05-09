@@ -12,6 +12,7 @@ import { useViewport } from 'utils'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
 import TableSection from './TableSection'
 import ExplorePagination from 'components/Button/ExplorePagination'
+import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 
 const DaoLandingPage = props => {
   const { onDetail } = props
@@ -20,6 +21,7 @@ const DaoLandingPage = props => {
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(10)
+  const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(false)
 
   const list = [
     {
@@ -190,7 +192,7 @@ const DaoLandingPage = props => {
           placeholder="Search by proposal name"
           onChange={value => setSearchWord(value)}
         />
-        <div className={styles.submitProposal}>
+        <div className={styles.submitProposal} onClick={() => setShowDaoSubmitModal(true)}>
           <NotificationIcon />
           <div className={styles.submitText}>Submit Proposal</div>
         </div>
@@ -198,7 +200,7 @@ const DaoLandingPage = props => {
 
       <div className="w-full mt-[30px] lg:hidden justify-between">
         <div className="w-full flex justify-end mb-[15px]">
-          <div className={styles.submitProposal}>
+          <div className={styles.submitProposal} onClick={() => setShowDaoSubmitModal(true)}>
             <div className={styles.submitText}>Submit Proposal</div>
           </div>
         </div>
@@ -224,6 +226,12 @@ const DaoLandingPage = props => {
           handlePrev={handlePreviousPage}
         />
       </div>
+      <DaoSubmitModal
+        data={{}}
+        open={showDaoSubmitModal}
+        onSubmit={() => setShowDaoSubmitModal(false)}
+        onClose={() => setShowDaoSubmitModal(false)}
+      />
     </div>
   )
 }
