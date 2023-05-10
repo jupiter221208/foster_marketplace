@@ -1124,6 +1124,10 @@ h6 {
   }
 }
 
+[data-name='select-collection'] {
+  stroke: var(--main-icon-color);
+}
+
 [data-name='main-color-icon'] {
   fill: var(--main-bg-color);
 }

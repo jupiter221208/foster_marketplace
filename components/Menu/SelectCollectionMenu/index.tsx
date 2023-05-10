@@ -7,8 +7,8 @@ import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import ExistingCollectionIcon from 'assets/icons/existing-collection-green.svg'
-import CloseIcon from 'assets/icons/close-white.svg'
+import ExistingCollectionIcon from 'assets/icons/existing-collection-green.svg?component'
+import CloseIcon from 'assets/icons/close-white-black.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -21,17 +21,18 @@ const SelectCollectionMenu = props => {
         <Menu.Button className="w-full">
           <div className="flex justify-between items-center py-2">
             <div className={styles.collectionArea}>
-              <div className="flex">
+              <div className="flex items-center">
                 <div>
-                  <Image src={ExistingCollectionIcon} alt="" />
+                  <ExistingCollectionIcon alt="" />
                 </div>
                 <div className={styles.existingCollection}>
                   {name === null ? 'Select an existing collection' : name}
                 </div>
               </div>
               {name !== null && (
-                <div className="mr-[10px] flex item-center">
-                  <Image src={CloseIcon} alt="" onClick={() => onClick(-1)} />
+                <div className="mr-[10px] flex item-center" onClick={() => onClick(-1)}>
+                  {/* <Image src={CloseIcon} alt="" onClick={() => onClick(-1)} /> */}
+                  <CloseIcon alt="" />
                 </div>
               )}
             </div>

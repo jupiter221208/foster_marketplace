@@ -4,7 +4,7 @@
   font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 36px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   padding: 8px 32px;
   &:hover {
     @media (min-width: 1024px) {
@@ -20,7 +20,7 @@
   position: absolute;
   top: 80px;
   right: 0px;
-  background-color: $background-dark-color;
+  background-color: var(--background-main-color);
   @media (min-width: 1024px) {
     width: 400px;
     max-height: 300px;

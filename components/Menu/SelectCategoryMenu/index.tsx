@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
-import CloseIcon from 'assets/icons/close-white.svg'
+import CloseIcon from 'assets/icons/close-white-black.svg?component'
 import CategoryProductIcon from 'assets/icons/dao-category-product.svg?component'
 import CategoryLiftIcon from 'assets/icons/dao-category-lift.svg?component'
 import CategoryTreasuryIcon from 'assets/icons/dao-category-treasury.svg?component'
@@ -49,8 +49,8 @@ const SelectCategoryMenu = props => {
                 )}
               </div>
               {name !== null && (
-                <div className="mr-[10px] flex item-center">
-                  <Image src={CloseIcon} alt="" onClick={() => onClick(-1)} />
+                <div className="mr-[10px] flex item-center" onClick={() => onClick(-1)}>
+                  <CloseIcon alt="" />
                 </div>
               )}
             </div>
