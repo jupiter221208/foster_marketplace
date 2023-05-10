@@ -41,7 +41,7 @@ const PriceInput = props => {
         paddingRight: paddingRight,
       }}
     >
-      <div className="mx-[8px] flex items-center">
+      <div className="mx-[8px] flex items-center mt-[2px]">
         <SolanaLogoIcon />
       </div>
 

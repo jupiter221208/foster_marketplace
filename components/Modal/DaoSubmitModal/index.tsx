@@ -46,6 +46,16 @@ const DaoSubmitModal = props => {
   ]
   const closeModal = () => {
     onClose()
+    setTimeout(() => {
+      setSelectedCategoryName(null)
+    }, 500)
+  }
+
+  const submitProposal = () => {
+    onSubmit()
+    setTimeout(() => {
+      setSelectedCategoryName(null)
+    }, 500)
   }
 
   const chooseCategory = index => {
@@ -251,7 +261,7 @@ const DaoSubmitModal = props => {
                           fontFamily="Muli-SemiBold"
                           fontSize={18}
                           label="Cancel"
-                          onClick={onClose}
+                          onClick={closeModal}
                         />
                         <GradientButton
                           width={173}
@@ -260,7 +270,7 @@ const DaoSubmitModal = props => {
                           fontFamily="Muli-SemiBold"
                           gradientDirection="bottom"
                           label="Submit"
-                          onClick={onSubmit}
+                          onClick={submitProposal}
                         />
                       </div>
                     </div>
@@ -413,7 +423,7 @@ const DaoSubmitModal = props => {
                         fontFamily="Muli-SemiBold"
                         fontSize={16}
                         label="Cancel"
-                        onClick={onClose}
+                        onClick={closeModal}
                       />
                       <GradientButton
                         width={105}
@@ -422,7 +432,7 @@ const DaoSubmitModal = props => {
                         fontFamily="Muli-SemiBold"
                         gradientDirection="bottom"
                         label="Submit"
-                        onClick={onSubmit}
+                        onClick={submitProposal}
                       />
                     </div>
                   </div>

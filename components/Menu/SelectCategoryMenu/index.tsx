@@ -8,6 +8,7 @@ import { Menu, Transition } from '@headlessui/react'
 
 // images and icons
 import CloseIcon from 'assets/icons/close-white-black.svg?component'
+import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import CategoryProductIcon from 'assets/icons/dao-category-product.svg?component'
 import CategoryLiftIcon from 'assets/icons/dao-category-lift.svg?component'
 import CategoryTreasuryIcon from 'assets/icons/dao-category-treasury.svg?component'
@@ -26,7 +27,7 @@ const SelectCategoryMenu = props => {
         <Menu.Button className="w-full">
           <div className="flex justify-between items-center">
             <div className={styles.categoryArea}>
-              <div className="flex">
+              <div className="flex w-full justify-between items-center mr-[20px]">
                 {name === null ? (
                   <div className={styles.noCategory}>Select Category</div>
                 ) : (
@@ -47,12 +48,8 @@ const SelectCategoryMenu = props => {
                     {name}
                   </div>
                 )}
+                <ArrowDownIcon />
               </div>
-              {name !== null && (
-                <div className="mr-[10px] flex item-center" onClick={() => onClick(-1)}>
-                  <CloseIcon alt="" />
-                </div>
-              )}
             </div>
           </div>
         </Menu.Button>
