@@ -77,7 +77,7 @@
   font-size: 12px;
   line-height: 12px;
   letter-spacing: 0;
-  color: rgba(var(--text-gray-200-color), 0.48);
+  color: rgba(var(--text-gray-200-color-rgb), 0.48);
 }
 
 .priceText {
@@ -92,13 +92,13 @@
   font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(var(--text-gray-200-color), 0.19);
+  background-color: rgba(var(--text-gray-200-color-rgb), 0.2);
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -130,7 +130,7 @@
   font-size: 12px;
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .cardWhiteText {
@@ -138,7 +138,7 @@
   font-size: 12px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .greenText {
@@ -158,7 +158,7 @@
 }
 
 .depositWithdraw {
-  background: linear-gradient(to bottom, #202427, #202427);
+  background: var(--social-bg-color);
   border-radius: 12px;
 }
 
@@ -181,7 +181,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 12px;
   line-height: 36px;
-  color: $brand-09-color;
+  color: var(--main-icon-color);
   cursor: pointer;
 }
 

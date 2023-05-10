@@ -23,11 +23,11 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
-import NounAddGrayIcon from 'assets/icons/noun-add-gray.svg'
-import NounAddLightGreenIcon from 'assets/icons/noun-add-light-green.svg'
-import NounSubtractGrayIcon from 'assets/icons/noun-subtract-gray.svg'
-import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.svg'
+import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white-mobile.svg?component'
+import NounAddGrayIcon from 'assets/icons/noun-add-gray.svg?component'
+import NounAddLightGreenIcon from 'assets/icons/noun-add-light-green.svg?component'
+import NounSubtractGrayIcon from 'assets/icons/noun-subtract-gray.svg?component'
+import NounSubtractLightGreenIcon from 'assets/icons/noun-subtract-light-green.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -321,13 +321,13 @@ const MyWalletSubMenu = props => {
                     <CopyClipboardChip identifier="offer-wallet" />
                   </div>
                   <div
-                    className="pt-2 cursor-pointer"
+                    className="pt-3 cursor-pointer"
                     onClick={() => {
                       setShowOfferWallet(!showOfferWallet)
                       setShowBiddingWallet(false)
                     }}
                   >
-                    <Image src={EllipseGroupWhiteIcon} />
+                    <EllipseGroupWhiteIcon alt="" />
                   </div>
                 </div>
               </div>
@@ -344,7 +344,7 @@ const MyWalletSubMenu = props => {
                         setOfferErrorMessage('')
                       }}
                     >
-                      <Image src={offerStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                      {offerStatus === 'deposit' ? <NounAddLightGreenIcon alt="" /> : <NounAddGrayIcon alt="" />}
                       <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                         Deposit from Main Wallet
                       </div>
@@ -359,10 +359,11 @@ const MyWalletSubMenu = props => {
                         setOfferErrorMessage('')
                       }}
                     >
-                      <Image
-                        src={offerStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon}
-                        alt=""
-                      />
+                      {offerStatus === 'withdraw' ? (
+                        <NounSubtractLightGreenIcon alt="" />
+                      ) : (
+                        <NounSubtractGrayIcon alt="" />
+                      )}
                       <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                         Withdraw to Main Wallet
                       </div>
@@ -418,7 +419,6 @@ const MyWalletSubMenu = props => {
                         placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                         height="42px"
                         fontSize="12px"
-                        backgroundColor="#121212"
                         borderColor="rgba(255, 255, 255, 0.1)"
                         borderRadius="8px"
                         paddingLeft="10px"
@@ -491,13 +491,13 @@ const MyWalletSubMenu = props => {
                     <CopyClipboardChip identifier="bidding-wallet" />
                   </div>
                   <div
-                    className="pt-2 cursor-pointer"
+                    className="pt-3 cursor-pointer"
                     onClick={() => {
                       setShowBiddingWallet(!showBiddingWallet)
                       setShowOfferWallet(false)
                     }}
                   >
-                    <Image src={EllipseGroupWhiteIcon} />
+                    <EllipseGroupWhiteIcon alt="" />
                   </div>
                 </div>
               </div>
@@ -514,7 +514,8 @@ const MyWalletSubMenu = props => {
                         setBiddingErrorMessage('')
                       }}
                     >
-                      <Image src={biddingStatus === 'deposit' ? NounAddLightGreenIcon : NounAddGrayIcon} alt="" />
+                      {biddingStatus === 'deposit' ? <NounAddLightGreenIcon alt="" /> : <NounAddGrayIcon alt="" />}
+
                       <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                         Deposit from Main Wallet
                       </div>
@@ -529,10 +530,11 @@ const MyWalletSubMenu = props => {
                         setBiddingErrorMessage('')
                       }}
                     >
-                      <Image
-                        src={biddingStatus === 'withdraw' ? NounSubtractLightGreenIcon : NounSubtractGrayIcon}
-                        alt=""
-                      />
+                      {biddingStatus === 'withdraw' ? (
+                        <NounSubtractLightGreenIcon alt="" />
+                      ) : (
+                        <NounSubtractGrayIcon alt="" />
+                      )}
                       <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                         Withdraw to Main Wallet
                       </div>
@@ -592,7 +594,6 @@ const MyWalletSubMenu = props => {
                         placeholder={biddingStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                         height="42px"
                         fontSize="12px"
-                        backgroundColor="#121212"
                         borderColor="rgba(255, 255, 255, 0.1)"
                         borderRadius="8px"
                         paddingLeft="10px"

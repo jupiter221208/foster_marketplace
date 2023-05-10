@@ -638,7 +638,6 @@ const WalletButton = props => {
                       placeholder={biddingStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                       height="50px"
                       fontSize="16px"
-                      backgroundColor="#2B2F32"
                       borderColor="rgba(255, 255, 255, 0.1)"
                       borderRadius="6px"
                       paddingLeft="10px"
