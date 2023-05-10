@@ -1099,6 +1099,10 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='deposit-disable-icon'] {
+  fill: var(--deposit-disabled-color);
+}
+
 [data-name='search-gray'] {
   fill: var(--search-gray-icon);
 }

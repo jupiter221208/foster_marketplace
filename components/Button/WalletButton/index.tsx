@@ -26,6 +26,10 @@ import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?compo
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
+import DepositIcon from 'assets/icons/deposit-icon.svg?component'
+import DepositDisabledIcon from 'assets/icons/deposit-icon-disabled.svg?component'
+import WithdrawIcon from 'assets/icons/withdraw-icon.svg?component'
+import WithdrawDisabledIcon from 'assets/icons/withdraw-icon-disabled.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -389,36 +393,7 @@ const WalletButton = props => {
                       setOfferErrorMessage('')
                     }}
                   >
-                    {offerStatus === 'deposit' ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16.167"
-                        height="16.167"
-                        viewBox="0 0 16.167 16.167"
-                      >
-                        <path
-                          id="noun-add-1241915-EFF0F6"
-                          d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
-                          fill="var(--deposit-icon-bg)"
-                          fillRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16.167"
-                        height="16.167"
-                        viewBox="0 0 16.167 16.167"
-                      >
-                        <path
-                          id="noun-add-1241915-EFF0F6"
-                          d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
-                          fill="#eff0f6"
-                          opacity="0.8"
-                          fillRule="evenodd"
-                        />
-                      </svg>
-                    )}
+                    {offerStatus === 'deposit' ? <DepositIcon alt="" /> : <DepositDisabledIcon alt="" />}
                     <div className={offerStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                       Deposit from Main Wallet
                     </div>
@@ -433,32 +408,7 @@ const WalletButton = props => {
                       setOfferErrorMessage('')
                     }}
                   >
-                    {offerStatus === 'withdraw' ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                        <path
-                          id="noun-subtract-497509-EFF0F6"
-                          d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
-                          transform="translate(-6.5 -6.801)"
-                          fill="var(--deposit-icon-bg)"
-                        />
-                        <path
-                          id="noun-subtract-497509-EFF0F6"
-                          d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
-                          transform="translate(-6.5 -6.801)"
-                          fill="var(--deposit-icon-bg)"
-                        />
-                      </svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                        <path
-                          id="noun-subtract-497509-EFF0F6"
-                          d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
-                          transform="translate(-6.5 -6.801)"
-                          fill="#eff0f6"
-                          opacity="0.8"
-                        />
-                      </svg>
-                    )}
+                    {offerStatus === 'withdraw' ? <WithdrawIcon alt="" /> : <WithdrawDisabledIcon alt="" />}
                     <div className={offerStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                       Withdraw to Main Wallet
                     </div>
@@ -517,7 +467,6 @@ const WalletButton = props => {
                       placeholder={offerStatus === 'deposit' ? 'Enter deposit amount' : 'Enter withdrawal amount'}
                       height="50px"
                       fontSize="16px"
-                      backgroundColor="#2B2F32"
                       borderColor="rgba(255, 255, 255, 0.1)"
                       borderRadius="6px"
                       paddingLeft="10px"
@@ -615,36 +564,7 @@ const WalletButton = props => {
                       setBiddingErrorMessage('')
                     }}
                   >
-                    {biddingStatus === 'deposit' ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16.167"
-                        height="16.167"
-                        viewBox="0 0 16.167 16.167"
-                      >
-                        <path
-                          id="noun-add-1241915-EFF0F6"
-                          d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
-                          fill="var(--deposit-icon-bg)" // 5AC3BA
-                          fillRule="evenodd"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16.167"
-                        height="16.167"
-                        viewBox="0 0 16.167 16.167"
-                      >
-                        <path
-                          id="noun-add-1241915-EFF0F6"
-                          d="M0,8.083,8.083,0l8.083,8.083L8.083,16.167ZM2.653,6.628H6.628V2.653H9.539V6.628h3.975V9.539H9.539v3.975H6.628V9.539H2.653Z"
-                          fill="#eff0f6"
-                          opacity="0.8"
-                          fillRule="evenodd"
-                        />
-                      </svg>
-                    )}
+                    {biddingStatus === 'deposit' ? <DepositIcon alt="" /> : <DepositDisabledIcon alt="" />}
                     <div className={biddingStatus === 'deposit' ? styles.cardWhiteText : styles.cardGrayText}>
                       Deposit to Bidding Wallet
                     </div>
@@ -659,32 +579,7 @@ const WalletButton = props => {
                       setBiddingErrorMessage('')
                     }}
                   >
-                    {biddingStatus === 'withdraw' ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                        <path
-                          id="noun-subtract-497509-EFF0F6"
-                          d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
-                          transform="translate(-6.5 -6.801)"
-                          fill="var(--deposit-icon-bg)"
-                        />
-                        <path
-                          id="noun-subtract-497509-EFF0F6"
-                          d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
-                          transform="translate(-6.5 -6.801)"
-                          fill="var(--deposit-icon-bg)"
-                        />
-                      </svg>
-                    ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                        <path
-                          id="noun-subtract-497509-EFF0F6"
-                          d="M13.5,6.8a7,7,0,1,0,7,7,7,7,0,0,0-7-7Zm-6.011,7H7.327A6.183,6.183,0,0,1,13.5,7.627v.162A6.01,6.01,0,0,0,7.489,13.8Zm1.491-1.118H18v2.252H8.979ZM13.5,19.975v-.162A6.01,6.01,0,0,0,19.512,13.8h.162A6.183,6.183,0,0,1,13.5,19.975Z"
-                          transform="translate(-6.5 -6.801)"
-                          fill="#eff0f6"
-                          opacity="0.8"
-                        />
-                      </svg>
-                    )}
+                    {biddingStatus === 'withdraw' ? <WithdrawIcon alt="" /> : <WithdrawDisabledIcon alt="" />}
                     <div className={biddingStatus === 'withdraw' ? styles.cardWhiteText : styles.cardGrayText}>
                       Withdraw to Main Wallet
                     </div>

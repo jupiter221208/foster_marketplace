@@ -9,7 +9,7 @@
   }
   height: 45px;
   border-radius: 12px;
-  background: var(--price-input-bg);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,6 +40,6 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
   cursor: pointer;
 }

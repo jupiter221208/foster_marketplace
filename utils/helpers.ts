@@ -404,6 +404,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-connect-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     doc.style.setProperty('--dao-treasury-bg', '#E3E4EA')
     doc.style.setProperty('--g-right-container-bg', '#E3E4EA')
+    doc.style.setProperty('--deposit-disabled-color', '#5F6165')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -662,5 +663,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-connect-border-width', '1px')
     doc.style.setProperty('--dao-connect-bg', 'transparent')
     doc.style.setProperty('--dao-treasury-bg', '#1b1b1b')
+    doc.style.setProperty('--deposit-disabled-color', '#E2E6EA')
   }
 }

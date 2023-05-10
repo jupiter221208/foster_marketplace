@@ -141,7 +141,7 @@
   font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .maxText {
@@ -163,7 +163,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 36px;
-  color: #95dbd5;
+  color: var(--main-icon-color);
   cursor: pointer;
 }
 
@@ -172,7 +172,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .cardWhiteText {
@@ -180,7 +180,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .greenText {
@@ -205,6 +205,6 @@
 }
 
 .depositWithdraw {
-  background: #202427;
+  background: var(--social-bg-color);
   border-radius: 16px;
 }
