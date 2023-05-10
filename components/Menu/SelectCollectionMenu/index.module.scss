@@ -1,14 +1,17 @@
 @import 'assets/scss/variable.module.scss';
 
 .text {
+  width: 100%;
   font-family: 'Muli-Regular';
   font-size: 18px;
   line-height: 36px;
   color: var(--text-gray-200-color);
   padding: 8px 32px;
-  &:hover {
-    @media (min-width: 1024px) {
-      color: var(--brand-01-color);
+  @media (min-width: 1024px) {
+    gap: 27px;
+    &:hover {
+      background: rgba(var(--text-gray-200-color-rgb), 0.25);
+      border-radius: 12px;
     }
   }
 }

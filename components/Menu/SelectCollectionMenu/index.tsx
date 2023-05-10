@@ -30,7 +30,7 @@ const SelectCollectionMenu = props => {
                 </div>
               </div>
               {name !== null && (
-                <div className="mr-[10px] flex item-center" onClick={() => onClick(-1)}>
+                <div className="mr-[16px] flex item-center" onClick={() => onClick(-1)}>
                   {/* <Image src={CloseIcon} alt="" onClick={() => onClick(-1)} /> */}
                   <CloseIcon alt="" />
                 </div>
@@ -52,7 +52,7 @@ const SelectCollectionMenu = props => {
             <div className={styles.menuArea}>
               <Menu.Item>
                 {({ active }) => (
-                  <div>
+                  <div className="w-full px-[5px]">
                     {collections?.map((item, index) => (
                       <div key={index} className={styles.text} onClick={() => onClick(index)}>
                         {item.name}
