@@ -211,8 +211,6 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor={'var(--nft-detail-section-border)'}
-                      color="#eff0f6"
                       borderRadius="9px"
                       type="number"
                       onChange={value => {
@@ -228,8 +226,6 @@ const StartAuctionModal = props => {
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
-                      backgroundColor={'var(--nft-detail-section-border)'}
-                      color="#eff0f6"
                       borderRadius="9px"
                       type="number"
                       onChange={value => setHours(value)}
@@ -247,7 +243,7 @@ const StartAuctionModal = props => {
                   <PriceInput
                     value={price}
                     placeholder="Enter starting bid"
-                    backgroundColor={'var(--nft-detail-section-border)'}
+                    backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                     fullWidth
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                     onChange={value => {

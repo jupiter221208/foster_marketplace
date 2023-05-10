@@ -1,0 +1,7 @@
+<svg data-name="stepper" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
+  <g id="Step_Counter" data-name="Step Counter" transform="translate(3.951 -0.049)">
+    <circle id="Ellipse" cx="18" cy="18" r="18" transform="translate(-3.951 0.049)" />
+    <path id="check-26" d="M20.612,7.261a1.114,1.114,0,0,0-1.617,0l-8.482,8.758L6.95,12.333a1.139,1.139,0,0,0-1.645.029,1.226,1.226,0,0,0,.028,1.7L9.7,18.567a1.114,1.114,0,0,0,1.617,0l9.29-9.58a1.2,1.2,0,0,0,0-1.726Z" transform="translate(2.421 5.117)" data-fill="a"/>
+  </g>
+</svg>
+

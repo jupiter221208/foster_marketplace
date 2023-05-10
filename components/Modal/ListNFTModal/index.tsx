@@ -147,7 +147,7 @@ const ListNFTModal = props => {
                     <PriceInput
                       value={price}
                       placeholder="Enter fixed-price for listing"
-                      backgroundColor={'var(--nft-detail-section-border)'}
+                      backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                       fullWidth
                       onChange={value => setPrice(value)}
                     />

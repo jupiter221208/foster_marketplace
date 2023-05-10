@@ -33,7 +33,7 @@ import DefaultCoverLightImage from 'assets/images/cover-light-image.svg'
 
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import AddChangeWhiteIcon from 'assets/icons/add-change-white-46x46.svg'
-import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg'
+import InfoCircleLightGreenIcon from 'assets/icons/info-circle-light-green-20x20.svg?component'
 import InfoCircleDarkGreenIcon from 'assets/icons/info-circle-light-dark-20x20.svg'
 
 // json
@@ -360,7 +360,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
                   <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-                    Cover Image * <Image src={InfoCircleLightGreenIcon} alt="" />
+                    Cover Image * <InfoCircleLightGreenIcon alt="" />
                   </div>
                   <div className="mt-5">
                     <Dropzone
@@ -392,7 +392,7 @@ const Step01CollectionSection = props => {
                     </Dropzone>
                   </div>
                   <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-                    Banner Image * <Image src={InfoCircleLightGreenIcon} alt="" />
+                    Banner Image * <InfoCircleLightGreenIcon alt="" />
                   </div>
                   <div className="mt-5">
                     <Dropzone
@@ -424,7 +424,7 @@ const Step01CollectionSection = props => {
                     </Dropzone>
                   </div>
                   <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-                    Royalties * <Image src={InfoCircleLightGreenIcon} alt="" />
+                    Royalties * <InfoCircleLightGreenIcon alt="" />
                   </div>
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
@@ -622,7 +622,7 @@ const Step01CollectionSection = props => {
               </Dropzone>
             </div>
             <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-              Royalties * <Image src={InfoCircleLightGreenIcon} alt="" />
+              Royalties * <InfoCircleLightGreenIcon alt="" />
             </div>
             <div className="max-w-[370px] w-full mt-5">
               <Input

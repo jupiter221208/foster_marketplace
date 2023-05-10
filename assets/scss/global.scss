@@ -1110,6 +1110,13 @@ h6 {
   }
 }
 
+[data-name='stepper'] {
+  fill: var(--step-circle-mobile-color);
+  [data-fill='a'] {
+    fill: var(--step-text-color);
+  }
+}
+
 [data-name='notification-icon'] {
   fill: var(--stats-bg-color);
   [data-fill='a'] {

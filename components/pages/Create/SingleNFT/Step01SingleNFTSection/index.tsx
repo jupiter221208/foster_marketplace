@@ -19,8 +19,8 @@ import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg'
 import styles from './index.module.scss'
 
 // resources
-import InfoGrayIcon from 'assets/icons/info-gray.svg'
-import InfoGreenIcon from 'assets/icons/info-green.svg'
+import InfoGrayIcon from 'assets/icons/info-gray.svg?component'
+import InfoGreenIcon from 'assets/icons/info-green.svg?component'
 
 const Step01SingleNFTSection = props => {
   const { nftType, setNftArt, setNftCover } = props
@@ -108,7 +108,7 @@ const Step01SingleNFTSection = props => {
               onMouseEnter={() => setInfoFocus(true)}
               onMouseLeave={() => setInfoFocus(false)}
             >
-              <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" />
+              {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
             </div>
             {infoFocus && (
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
@@ -192,7 +192,8 @@ const Step01SingleNFTSection = props => {
                   }, 2000)
                 }}
               >
-                <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" />
+                {/* <Image src={infoFocus ? InfoGreenIcon : InfoGrayIcon} alt="" /> */}
+                {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
               </div>
               {infoFocus && (
                 <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
