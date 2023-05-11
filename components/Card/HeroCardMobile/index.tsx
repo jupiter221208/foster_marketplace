@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -12,12 +12,13 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const HeroCardMobile = props => {
   const { data } = props
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
 
   const gotoAristPage = () => {
@@ -113,6 +114,13 @@ const HeroCardMobile = props => {
       </div>
       <div className={styles.avatarArea}>
         <div className={styles.avatar} onClick={() => gotoAristPage()}>
+          {!profileLoaded && (
+            <div className="w-[60px] h-[60px] rounded-full overflow-hidden">
+              <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={profileLoaded} color="#202427">
+                <div></div>
+              </ReactPlaceholder>
+            </div>
+          )}
           <Image
             src={
               data.artist_profile_picture &&
@@ -125,6 +133,7 @@ const HeroCardMobile = props => {
             width={60}
             height={60}
             className="rounded-full"
+            onLoadingComplete={() => setProfileLoaded(true)}
           />
         </div>
       </div>
