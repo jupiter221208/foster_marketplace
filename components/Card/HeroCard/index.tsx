@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next components
 import Image from 'next/image'
@@ -45,7 +45,7 @@ const HeroCard = props => {
                   <div></div>
                 </ReactPlaceholder>
               )}
-              <Image
+              <img
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                     ? data.asset_url
@@ -54,12 +54,11 @@ const HeroCard = props => {
                     : '/images/banner.png'
                 }
                 alt=""
-                layout="fill"
-                priority={true}
                 className="w-full h-full object-cover rounded-[24px]"
-                onLoadingComplete={() => {
+                onLoad={() => {
                   setLoaded(true)
                 }}
+                loading="lazy"
               />
             </div>
           ) : data.asset_type.includes('video') ? (
@@ -72,14 +71,14 @@ const HeroCard = props => {
                         <div></div>
                       </ReactPlaceholder>
                     )}
-                    <Image
+                    <img
                       src={data.cover_image_url}
                       alt=""
-                      priority={true}
-                      layout="fill"
-                      unoptimized
                       className="w-full h-full object-cover"
-                      onLoadingComplete={() => setLoaded(true)}
+                      onLoad={() => {
+                        setLoaded(true)
+                      }}
+                      loading="lazy"
                     />
                   </div>
                 ) : (
@@ -113,9 +112,11 @@ const HeroCard = props => {
                 <Image
                   src={data.cover_image_url}
                   alt=""
-                  layout="fill"
                   className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                  onLoadingComplete={() => setLoaded(true)}
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                  loading="lazy"
                 />
               </div>
             ) : (
@@ -135,7 +136,7 @@ const HeroCard = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div className={styles.avatarArea}>
           <div className={styles.avatar} onClick={() => gotoAristPage()}>
-            <Image
+            <img
               src={
                 data.artist_profile_picture &&
                 data.artist_profile_picture !== '' &&
@@ -146,6 +147,7 @@ const HeroCard = props => {
               alt=""
               width={60}
               height={60}
+              loading="lazy"
               className="rounded-full"
             />
           </div>
@@ -163,7 +165,7 @@ const HeroCard = props => {
             </div>
             <div className="justify-start items-center lg:mt-[10px]">
               <div className={styles.avatar} onClick={() => gotoAristPage()}>
-                <Image
+                <img
                   src={
                     data.artist_profile_picture &&
                     data.artist_profile_picture !== '' &&
@@ -175,6 +177,7 @@ const HeroCard = props => {
                   width={viewport === 'lg' ? 40 : 60}
                   height={viewport === 'lg' ? 40 : 60}
                   className="rounded-full"
+                  loading="lazy"
                 />
               </div>
             </div>

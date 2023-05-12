@@ -39,12 +39,12 @@ const TrendingCollectionCard = props => {
               <div></div>
             </ReactPlaceholder>
           )}
-          <Image
+          <img
             src={image}
             alt=""
-            layout="fill"
             className="w-full h-full object-cover"
-            onLoadingComplete={() => setLoaded(true)}
+            loading="lazy"
+            onLoad={() => setLoaded(true)}
           />
         </div>
         {/* <div className={styles.bottomMask} /> */}
@@ -62,12 +62,13 @@ const TrendingCollectionCard = props => {
             </div>
             <div className={styles.avatar}>
               <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
-                <Image
+                <img
                   src={avatar !== null ? avatar : Avatar.src}
                   alt=""
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
                   className="rounded-full"
+                  loading="lazy"
                 />
               </div>
             </div>

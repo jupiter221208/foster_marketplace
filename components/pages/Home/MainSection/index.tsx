@@ -44,6 +44,7 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
+  const [heroCoverImages, setHeroCoverImages] = useState()
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
