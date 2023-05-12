@@ -164,7 +164,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  router.push(`/artist-profile?id=${item.id}`)
+                  router.push(`/${item.name}`)
                   onClose()
                 }}
               >

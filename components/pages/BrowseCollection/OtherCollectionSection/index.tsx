@@ -57,7 +57,7 @@ const OtherCollectionSection = props => {
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Other Collections by Artist</div>
           </div>
           <div className="hidden lg:flex z-10">
-            <SeeMoreButton onClick={() => router.push(`/artist-profile?id=${artistId}`)} />
+            <SeeMoreButton onClick={() => router.push(`/${artistName}`)} />
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
@@ -97,7 +97,7 @@ const OtherCollectionSection = props => {
             <OutlineButton
               label="See More"
               fullWidth
-              onClick={() => router.push(`/artist-profile?id=${artistId}`)}
+              onClick={() => router.push(`/${artistName}`)}
               borderColor={'var(--see-more-border)'}
               height="40px"
             />

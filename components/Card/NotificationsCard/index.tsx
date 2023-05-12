@@ -187,7 +187,7 @@ const NotificationsCard = props => {
   }
 
   const gotoUserPage = wallet => {
-    router.push(`/artist-profile?id=${wallet}`)
+    router.push(`/${wallet}`)
   }
 
   const gotoDetailPage = notification => {
@@ -272,7 +272,7 @@ const NotificationsCard = props => {
                     <div className="block items-start">
                       <p className="max-w-[450px]">
                         {fromUser(elem) && (
-                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
+                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_username)}>
                             {elem.reference_username}&nbsp;
                           </span>
                         )}
@@ -280,7 +280,7 @@ const NotificationsCard = props => {
                         <span className={styles.type}>{getNotificationType(elem)}</span>
 
                         {fromEndUser(elem) && (
-                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_wallet_id)}>
+                          <span className={styles.username} onClick={() => gotoUserPage(elem.reference_username)}>
                             &nbsp;{elem.reference_username}
                           </span>
                         )}

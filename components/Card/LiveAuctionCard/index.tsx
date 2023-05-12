@@ -158,7 +158,7 @@ const LiveAuctionCard = props => {
       <div
         className={styles.avatar}
         onClick={() => {
-          router.push(`/artist-profile?id=${data.artist_id}`)
+          router.push(`/${data.username}`)
           dispatch({ type: 'set', isLoading: true })
         }}
       >

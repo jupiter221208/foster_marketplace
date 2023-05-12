@@ -550,7 +550,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
 
   const gotoUserDetail = link => {
     dispatch({ type: 'set', isLoading: true })
-    router.push(`/artist-profile?id=${link}`)
+    router.push(`/${link}`)
   }
 
   return (
@@ -711,14 +711,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                 {artistInfo && (
                   <div className="flex gap-1 lg:gap-3">
                     <div className={styles.grayText}>Created by</div>
-                    <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.address)}>
+                    <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
                       {artistInfo.name}
                     </div>
                   </div>
                 )}
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Fostered by</div>
-                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerAddress)}>
+                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
                     {nftOwnerUsername}
                   </div>
                 </div>

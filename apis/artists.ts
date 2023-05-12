@@ -15,6 +15,12 @@ class Artists {
       })
   }
 
+  getArtistByUsername(username) {
+    return client.get(API_URL + 'v1/artists/' + username + '/username').then(response => {
+      return response.data
+    })
+  }
+
   getCollector(wallet_id) {
     if (isLoggedIn())
       return client.get(API_URL + 'v1/collectors/' + wallet_id).then(response => {

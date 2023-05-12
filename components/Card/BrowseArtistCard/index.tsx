@@ -42,7 +42,7 @@ const BrowseArtistCard = props => {
           <div
             className={styles.artistName}
             onClick={() => {
-              router.push(`/artist-profile?id=${artistAddress}`)
+              router.push('/' + artistAddress)
               dispatch({ type: 'set', isLoading: true })
             }}
           >

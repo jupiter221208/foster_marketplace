@@ -206,7 +206,7 @@ const FollowModalMobile = props => {
                               <div
                                 className={styles.username}
                                 onClick={() => {
-                                  router.push(`/artist-profile?id=${item.wallet_id}`)
+                                  router.push(`/${item.username}`)
                                   close()
                                 }}
                               >
@@ -258,7 +258,7 @@ const FollowModalMobile = props => {
                                 <div
                                   className={styles.username}
                                   onClick={() => {
-                                    router.push(`/artist-profile?id=${item.wallet_id}`)
+                                    router.push(`/${item.username}`)
                                     close()
                                   }}
                                 >

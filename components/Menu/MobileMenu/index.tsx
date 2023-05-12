@@ -53,7 +53,7 @@ const MobileMenu = () => {
     if (publicKey !== null) {
       let array = [...profileMenuList]
       array.forEach(item => {
-        if (item.label === 'Profile' && item.path === '/artist-profile?id=') {
+        if (item.label === 'Profile' && item.path === '/') {
           item.path += publicKey.toString()
         }
       })

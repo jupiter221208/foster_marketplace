@@ -147,7 +147,7 @@ const MainSection = prop => {
                   type="image"
                   vote={true}
                   message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                  url={`/artist-profile?id=${artistInfo?.wallet_id}`}
+                  url={`/${artistInfo?.username}`}
                 />
               </div>
               <div>
@@ -574,7 +574,7 @@ const MainSection = prop => {
           close={() => setOpenShareModal(false)}
           vote={true}
           message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-          url={`/artist-profile?id=${artistInfo?.wallet_id}`}
+          url={`/${artistInfo?.username}`}
         />
       )}
     </div>

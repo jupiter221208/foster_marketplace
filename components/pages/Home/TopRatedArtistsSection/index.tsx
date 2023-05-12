@@ -117,7 +117,7 @@ const TopRatedArtistsSection = () => {
                   username={item.username}
                   onClick={() => {
                     dispatch({ type: 'set', isLoading: true })
-                    router.push('/artist-profile?id=' + item.wallet_id)
+                    router.push('/' + item.username)
                   }}
                   key={index}
                 />

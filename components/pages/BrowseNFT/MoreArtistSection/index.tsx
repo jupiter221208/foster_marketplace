@@ -60,7 +60,7 @@ const MoreArtistSection = props => {
             <SeeMoreButton
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
-                router.push(`/artist-profile?id=${artistInfo.address}`)
+                router.push(`/${artistInfo.name}`)
               }}
             />
           </div>
@@ -105,7 +105,7 @@ const MoreArtistSection = props => {
               fullWidth
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
-                router.push(`/artist-profile?id=${artistInfo.address}`)
+                router.push(`/${artistInfo.name}`)
               }}
               borderColor={'var(--see-more-border)'}
               height="40px"

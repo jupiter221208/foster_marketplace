@@ -23,7 +23,7 @@ const HeroCardMobile = props => {
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
-    router.push(`/artist-profile?id=${data.artist_id}`)
+    router.push(`/${data.artist_username}`)
   }
 
   const gotoNftDetailPage = () => {

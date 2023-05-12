@@ -567,10 +567,7 @@ const Explore = () => {
                 <div className="w-full grid grid-cols-12 gap-x-2 gap-y-4 xl:gap-x-10 xl:gap-y-8">
                   {ecosystemList.map((item, index) => (
                     <div className="col-span-6 lg:col-span-6 xl:col-span-6 2xl:col-span-4 z-10" key={index}>
-                      <EcosystemCard
-                        data={item}
-                        onClick={() => router.push(`/artist-profile?id=${item.artist.wallet_id}`)}
-                      />
+                      <EcosystemCard data={item} onClick={() => router.push(`/${item.artist.username}`)} />
                     </div>
                   ))}
                 </div>
