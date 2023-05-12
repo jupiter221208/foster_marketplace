@@ -53,7 +53,7 @@ const MenuSocialShare = ({
   const { id } = router.query
   const viewport = useViewport()
 
-  const fullUrl = globalThis.window?.origin + url
+  const fullUrl = globalThis.window?.origin + url.replaceAll(' ', '%20')
 
   function shareNFTSocial(type) {
     nftsAPI.shareNft(type, id).then(
