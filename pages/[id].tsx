@@ -251,7 +251,8 @@ ArtistProfile.getLayout = function getLayout(page) {
 }
 
 ArtistProfile.getInitialProps = async function ({ res, query }): Promise<ArtistProfileProps> {
-  let artistUsername = query.id
+  let artistUsername = query.id.replace(' ', '%20')
+
   try {
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>
       r.json()
