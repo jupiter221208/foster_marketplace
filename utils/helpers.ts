@@ -114,7 +114,7 @@ export const isValidUrl = urlString => {
 }
 
 export const copyToClipboard = value => {
-  navigator.clipboard.writeText(value)
+  navigator.clipboard.writeText(value.replaceAll(' ', '%20'))
 }
 
 export const copyClipboardAlert = identifier => {
