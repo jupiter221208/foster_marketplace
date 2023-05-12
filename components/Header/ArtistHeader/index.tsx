@@ -138,16 +138,16 @@ const ArtistHeader = () => {
   // update profile menu list
   const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
   useEffect(() => {
-    if (publicKey !== null) {
+    if (profileInfo !== null) {
       let array = [...profileMenuList]
       array.forEach(item => {
         if (item.label === 'Profile' && item.path === '/') {
-          item.path += publicKey.toString()
+          item.path += profileInfo.username.replaceAll(' ', '%20')
         }
       })
       setProfileMenuList(array)
     }
-  }, [publicKey])
+  }, [profileInfo])
 
   useEffect(() => {
     if (profileInfo && profileInfo.profile_picture) {

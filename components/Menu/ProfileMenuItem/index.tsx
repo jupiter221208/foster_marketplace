@@ -37,6 +37,7 @@ const ProfileMenuItem = props => {
           localStorage.removeItem('token')
           dispatch({ type: 'set', profileInfo: null })
         }
+        console.log('======item======', item)
         onSelect(item)
       }}
       onMouseEnter={() => setMouseHover(true)}
