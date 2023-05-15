@@ -495,54 +495,85 @@ const MainSection = prop => {
         <div className={styles.statesBack}>
           <div className="w-full flex justify-between items-center gap-[5px]">
             <div className={styles.statsArea}>
-              <div className="text-center">
-                <div className="flex justify-center">
-                  <div className={styles.nftInfoLabelMobile}>
-                    {artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}
-                  </div>
+              {isLoaded === false ? (
+                <div className="w-full h-full">
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
                 </div>
-                <div className={styles.nftInfoValueMobile}>{artistEnable ? 'NFTS CREATED' : 'NFTS COLLECTED'}</div>
-              </div>
+              ) : (
+                <div className="text-center mt-[9px] mb-[9px]">
+                  <div className="flex justify-center">
+                    <div className={styles.nftInfoLabelMobile}>
+                      {artistEnable ? statsInfo.nfts_created : statsInfo.nfts_collected}
+                    </div>
+                  </div>
+                  <div className={styles.nftInfoValueMobile}>{artistEnable ? 'NFTS CREATED' : 'NFTS COLLECTED'}</div>
+                </div>
+              )}
             </div>
             <div className={styles.statsArea}>
-              <div className="text-center">
-                <div className="flex justify-center">
-                  <div className={styles.nftInfoLabelMobile}>
-                    {artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}
+              {isLoaded === false ? (
+                <div className="w-full h-full">
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
+                </div>
+              ) : (
+                <div className="text-center mt-[9px] mb-[9px]">
+                  <div className="flex justify-center">
+                    <div className={styles.nftInfoLabelMobile}>
+                      {artistEnable ? statsInfo.collections_created : statsInfo.collections_collected}
+                    </div>
+                  </div>
+                  <div className={styles.nftInfoValueMobile}>
+                    {artistEnable ? 'COLLECTIONS CREATED' : 'UNIQUE COLLECTIONS'}
                   </div>
                 </div>
-                <div className={styles.nftInfoValueMobile}>
-                  {artistEnable ? 'COLLECTIONS CREATED' : 'UNIQUE COLLECTIONS'}
-                </div>
-              </div>
+              )}
             </div>
           </div>
           <div className="w-full flex justify-between items-center gap-[5px] mt-[5px]">
             <div className={styles.statsArea}>
-              <div className="text-center">
-                <div className="flex justify-center">
-                  <div className={styles.nftInfoLabelMobile}>
-                    {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
-                  </div>
+              {isLoaded === false ? (
+                <div className="w-full h-full">
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
                 </div>
-                <div className={styles.nftInfoValueMobile}>
-                  {artistEnable ? 'UNIQUE COLLECTORS' : 'CREATORS SUPPORTED'}
-                </div>
-              </div>
-            </div>
-            <div className={styles.statsArea}>
-              <div className="text-center">
-                <div className="flex items-center justify-center">
-                  <div className={styles.nftInfoLabelMobile}>
-                    <SolanaLogoMobileIcon />
-                    <div className={'ml-[6px]'}>
-                      {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
+              ) : (
+                <div className="text-center mt-[9px] mb-[9px]">
+                  <div className="flex justify-center">
+                    <div className={styles.nftInfoLabelMobile}>
+                      {artistEnable ? statsInfo.unique_collectors : statsInfo.unique_artists_owned}
                     </div>
                   </div>
+                  <div className={styles.nftInfoValueMobile}>
+                    {artistEnable ? 'UNIQUE COLLECTORS' : 'CREATORS SUPPORTED'}
+                  </div>
                 </div>
-
-                <div className={styles.nftInfoValueMobile}>{artistEnable ? 'SALES VOLUME' : 'PURCHASE VOLUME'}</div>
-              </div>
+              )}
+            </div>
+            <div className={styles.statsArea}>
+              {isLoaded === false ? (
+                <div className="w-full h-full">
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
+                </div>
+              ) : (
+                <div className="text-center mt-[9px] mb-[9px]">
+                  <div className="flex items-center justify-center">
+                    <div className={styles.nftInfoLabelMobile}>
+                      <SolanaLogoMobileIcon />
+                      <div className={'ml-[6px]'}>
+                        {artistEnable ? statsInfo.sales_volume : statsInfo.purchase_volume}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.nftInfoValueMobile}>{artistEnable ? 'SALES VOLUME' : 'PURCHASE VOLUME'}</div>
+                </div>
+              )}
             </div>
           </div>
         </div>

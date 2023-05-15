@@ -173,8 +173,7 @@
   align-items: center;
   background: var(--stats-bg-color);
   border-radius: 5px;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  overflow: hidden;
 }
 
 .nftInfoLabel {
