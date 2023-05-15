@@ -363,6 +363,7 @@ const MainSection = prop => {
           alt=""
           width={1620}
           height={480}
+          loading="lazy"
           className="w-full h-full object-cover rounded-none"
         />
         {/* <div className={styles.overlay} /> */}

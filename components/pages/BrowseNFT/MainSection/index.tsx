@@ -1151,7 +1151,11 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                                 <td>
                                   <div
                                     className={`${styles.activityUser} ${styles.activityInline}`}
-                                    onClick={() => gotoUserDetail(item.reference_address)}
+                                    onClick={() => {
+                                      if (isBuyerExisting(item.action_type)) {
+                                        gotoUserDetail(getBuyerName(item))
+                                      }
+                                    }}
                                   >
                                     {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
                                   </div>
@@ -1160,7 +1164,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                                 <td>
                                   <div
                                     className={`${styles.activityUser} ${styles.activityInline}`}
-                                    onClick={() => gotoUserDetail(item.owner_address)}
+                                    onClick={() => gotoUserDetail(getOwnerName(item))}
                                   >
                                     {getOwnerName(item)}
                                   </div>
