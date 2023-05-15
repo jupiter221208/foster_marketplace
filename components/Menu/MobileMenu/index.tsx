@@ -106,7 +106,7 @@ const MobileMenu = () => {
   // handle login
   const handleLogin = async () => {
     let signature = await signMessage(Buffer.from('Foster Protocol'))
-    let user = await loginWithSigned(publicKey, signature)
+    let user = await loginWithSigned(publicKey, signature, dispatch)
     setProfileImage(user?.profile_picture)
     setProfileName(user?.username)
   }

@@ -223,9 +223,9 @@ const PrimaryHeader = () => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
       let signature = await signMessage(Buffer.from('Foster Protocol'))
-      loginWithSigned(publicKey, signature)
+      loginWithSigned(publicKey, signature, dispatch)
     })()
-  }, [connected, signMessage])
+  }, [connected])
 
   const handleSelectMenu = (item: any) => {
     if (connected) {

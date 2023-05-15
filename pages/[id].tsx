@@ -87,7 +87,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       dispatch({ type: 'set', loginAndRefresh: false })
 
       let signature = await signMessage(Buffer.from('Foster Protocol'))
-      loginWithSigned(publicKey, signature)
+      loginWithSigned(publicKey, signature, dispatch)
 
       if (artistEnable || isLoggedIn()) {
         getArtistData(artistPublicKey, true)
