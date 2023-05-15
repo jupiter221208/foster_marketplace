@@ -56,6 +56,7 @@ const MainSection = prop => {
   const [follow, setFollow] = useState(false)
   const [artistFollowing, setArtistFollowing] = useState(artistInfo?.following)
   const [artistFollowers, setArtistFollowers] = useState(artistInfo?.followers)
+  const [followLoaded, setFollowLoaded] = useState(false)
 
   useEffect(() => {
     if (artistInfo) {
@@ -64,6 +65,10 @@ const MainSection = prop => {
       setArtistFollowers(artistInfo.followers)
     }
   }, [artistInfo])
+
+  useEffect(() => {
+    if (isLoaded) setFollowLoaded(true)
+  }, [isLoaded])
 
   const followArtist = wallet => {
     if (isLoggedIn()) {
@@ -150,7 +155,14 @@ const MainSection = prop => {
                   url={`/${artistInfo?.username}`}
                 />
               </div>
-              <div>
+              <div className="w-[146px] h-[53px] overflow-hidden">
+                {!followLoaded && (
+                  <div className="w-[146px] h-[53px] overflow-hidden rounded-[12px]">
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  </div>
+                )}
                 {follow ? (
                   <OutlineButton
                     width={146}
@@ -392,29 +404,37 @@ const MainSection = prop => {
                   <ShareSmallIcon alt="" />
                 </div>
               </div>
-              <div className="w-[80px]">
-                {follow ? (
-                  <OutlineButton
-                    width={80}
-                    height={29}
-                    fontSize={12}
-                    borderRadius={8}
-                    label="Following"
-                    borderColor="var(--follow-btn-border-mobile)"
-                    onClick={() => unfollowArtist(artistInfo?.wallet_id)}
-                  />
+              <div className="w-[80px] h-[29px] flex overflow-hidden">
+                {followLoaded ? (
+                  follow ? (
+                    <OutlineButton
+                      width={80}
+                      height={29}
+                      fontSize={12}
+                      borderRadius={8}
+                      label="Following"
+                      borderColor="var(--follow-btn-border-mobile)"
+                      onClick={() => unfollowArtist(artistInfo?.wallet_id)}
+                    />
+                  ) : (
+                    <OutlineButton
+                      width={80}
+                      height={29}
+                      fontSize={12}
+                      label="Follow"
+                      borderColor="transparent"
+                      color="var(--follow-btn-color)"
+                      backgroundColor="var(--follow-btn-bg)"
+                      borderRadius={8}
+                      onClick={() => followArtist(artistInfo?.wallet_id)}
+                    />
+                  )
                 ) : (
-                  <OutlineButton
-                    width={80}
-                    height={29}
-                    fontSize={12}
-                    label="Follow"
-                    borderColor="transparent"
-                    color="var(--follow-btn-color)"
-                    backgroundColor="var(--follow-btn-bg)"
-                    borderRadius={8}
-                    onClick={() => followArtist(artistInfo?.wallet_id)}
-                  />
+                  <div className="w-[80px] h-[29px] rounded-[8px] overflow-hidden">
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  </div>
                 )}
               </div>
             </div>
