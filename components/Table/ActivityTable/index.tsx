@@ -17,11 +17,17 @@ import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import styles from './index.module.scss'
 import { countDecimals, getBuyerName, getOwnerName } from 'utils/helpers'
 import ActivityTableItem from './ActivityTableItem'
+import { useDispatch } from 'react-redux'
 
 const ActivityTable = props => {
   const { data, type } = props
-  const viewport = useViewport()
+  const dispatch = useDispatch()
   const router = useRouter()
+
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${link.replaceAll(' ', '%20')}`)
+  }
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -53,15 +59,9 @@ const ActivityTable = props => {
                 <div className={styles.nftName} onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}>
                   {item.asset_name}
                 </div>
-                {/* <div className="flex justify-center">{item.name02}</div> */}
               </div>
             </td>
             <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
-            {/* <td className="text-center">
-              {item.transactionID.length > 11
-                ? item.transactionID.slice(0, 5) + '...' + item.transactionID.slice(-3)
-                : item.transactionID}
-            </td> */}
             <td className="text-center">{getDateString(item.created_at)}</td>
             <td className="text-center">
               <div className="flex justify-center items-center gap-[5px]">
@@ -74,9 +74,22 @@ const ActivityTable = props => {
                   : 'N/A'}
               </div>
             </td>
-            {/* <td className="text-center">{getMinterName(item)}</td> */}
-            <td className="text-center">{isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}</td>
-            <td className="text-center">{getOwnerName(item)}</td>
+            <td
+              className="text-center cursor-pointer hover:underline"
+              onClick={() => {
+                if (isBuyerExisting(item.action_type)) {
+                  gotoUserDetail(getBuyerName(item))
+                }
+              }}
+            >
+              {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+            </td>
+            <td
+              className="text-center cursor-pointer hover:underline"
+              onClick={() => gotoUserDetail(getOwnerName(item))}
+            >
+              {getOwnerName(item)}
+            </td>
           </tr>
         ))}
       </tbody>

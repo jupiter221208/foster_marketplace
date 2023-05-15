@@ -19,9 +19,13 @@ import { getDateString } from 'utils/strings'
 
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { getBuyerName, getOwnerName } from 'utils/helpers'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const ActivityAccordion = props => {
   const { data } = props
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -35,6 +39,11 @@ const ActivityAccordion = props => {
       openedRef.current?.click()
     }
     openedRef.current = clickedButton
+  }
+
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${link.replaceAll(' ', '%20')}`)
   }
 
   return (
@@ -54,7 +63,7 @@ const ActivityAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageContainer}>
-                      <img src={item.asset_url} alt="" width={54} height={54} className="rounded-[4px] object-cover" />
+                      <img src={item.asset_url} alt="" className="w-full h-full rounded-[4px] object-cover" />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.asset_name}</div>
@@ -77,11 +86,22 @@ const ActivityAccordion = props => {
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Buyer</div>
-                    <div className={styles.text}>{isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}</div>
+                    <div
+                      className={styles.text}
+                      onClick={() => {
+                        if (isBuyerExisting(item.action_type)) {
+                          gotoUserDetail(getBuyerName(item))
+                        }
+                      }}
+                    >
+                      {isBuyerExisting(item.action_type) ? getBuyerName(item) : 'N/A'}
+                    </div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Seller</div>
-                    <div className={styles.text}>{getOwnerName(item)}</div>
+                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
+                      {getOwnerName(item)}
+                    </div>
                   </div>
                 </Disclosure.Panel>
               </>
