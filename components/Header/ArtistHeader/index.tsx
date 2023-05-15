@@ -42,6 +42,7 @@ import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import { setColorTheme } from 'utils/helpers'
 import userAPI from 'apis/user'
+import { loginWithSigned } from 'utils/auth'
 
 const ArtistHeader = () => {
   const viewport = useViewport()
@@ -215,14 +216,7 @@ const ArtistHeader = () => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
       let signature = await signMessage(Buffer.from('Foster Protocol'))
-      let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
-        wallet_id: publicKey?.toBase58() || '',
-        signature: Buffer.from(signature).toString('base64'),
-      })
-      if (new_user) dispatch({ type: 'set', profileSetup: true })
-      dispatch({ type: 'set', profileInfo: user })
-      dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
-      dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+      loginWithSigned(publicKey, signature)
     })()
   }, [connected, signMessage])
 

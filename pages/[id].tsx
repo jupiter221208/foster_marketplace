@@ -29,6 +29,7 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString, isLoggedIn } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
+import { loginWithSigned } from 'utils/auth'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -86,14 +87,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       dispatch({ type: 'set', loginAndRefresh: false })
 
       let signature = await signMessage(Buffer.from('Foster Protocol'))
-      let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
-        wallet_id: publicKey?.toBase58() || '',
-        signature: Buffer.from(signature).toString('base64'),
-      })
-      if (new_user) dispatch({ type: 'set', profileSetup: true })
-      dispatch({ type: 'set', profileInfo: user })
-      dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
-      dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+      loginWithSigned(publicKey, signature)
+
       if (artistEnable || isLoggedIn()) {
         getArtistData(artistPublicKey, true)
       } else {

@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 import authAPI from 'apis/auth'
 import { useViewport } from 'utils'
 import { setColorTheme } from 'utils/helpers'
+import { loginWithSigned } from 'utils/auth'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
@@ -105,18 +106,9 @@ const MobileMenu = () => {
   // handle login
   const handleLogin = async () => {
     let signature = await signMessage(Buffer.from('Foster Protocol'))
-    let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
-      wallet_id: publicKey?.toBase58() || '',
-        signature: Buffer.from(signature).toString('base64'),
-    })
-    if (new_user === true) {
-      dispatch({ type: 'set', profileSetup: true })
-    }
-    dispatch({ type: 'set', profileInfo: user })
-    setProfileImage(user.profile_picture)
-    setProfileName(user.username)
-    dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
-    dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+    let user = await loginWithSigned(publicKey, signature)
+    setProfileImage(user?.profile_picture)
+    setProfileName(user?.username)
   }
 
   const handleThemeMode = () => {
