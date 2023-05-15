@@ -216,7 +216,7 @@ const ArtistHeader = () => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
       let signature = await signMessage(Buffer.from('Foster Protocol'))
-      loginWithSigned(publicKey, signature)
+      loginWithSigned(publicKey, signature, dispatch)
     })()
   }, [connected, signMessage])
 

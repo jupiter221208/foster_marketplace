@@ -89,7 +89,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       dispatch({ type: 'set', loginAndRefresh: false })
 
       let signature = await signMessage(Buffer.from('Foster Protocol'))
-      loginWithSigned(publicKey, signature)
+      loginWithSigned(publicKey, signature, dispatch)
     })()
   }, [connected, loginAndRefresh, signMessage])
 
