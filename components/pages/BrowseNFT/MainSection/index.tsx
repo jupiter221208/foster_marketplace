@@ -550,7 +550,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
 
   const gotoUserDetail = link => {
     dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link}`)
+    router.push(`/${link.replaceAll(' ', '%20')}`)
   }
 
   return (

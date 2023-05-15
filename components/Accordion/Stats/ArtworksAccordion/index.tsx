@@ -13,9 +13,13 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 const ArtworksAccordion = props => {
   const { data } = props
+  const dispatch = useDispatch()
+  const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
@@ -28,6 +32,11 @@ const ArtworksAccordion = props => {
       openedRef.current?.click()
     }
     openedRef.current = clickedButton
+  }
+
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${link.replaceAll(' ', '%20')}`)
   }
 
   return (
@@ -50,7 +59,12 @@ const ArtworksAccordion = props => {
                       <Image src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.asset_name}</div>
+                      <div
+                        className={styles.subTitle}
+                        onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}
+                      >
+                        {item.asset_name}
+                      </div>
                       <div className="flex gap-1 mt-1 items-center">
                         {/* <div className={styles.priceText}>Sale Price</div> */}
                         {/* <Image src={SolanaLogoIcon} width={16} height={16} alt="" /> */}
@@ -72,11 +86,15 @@ const ArtworksAccordion = props => {
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Seller</div>
-                    <div className={styles.text}>{getOwnerName(item)}</div>
+                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
+                      {getOwnerName(item)}
+                    </div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Buyer</div>
-                    <div className={styles.secondText}>{getBuyerName(item)}</div>
+                    <div className={styles.secondText} onClick={() => gotoUserDetail(getBuyerName(item))}>
+                      {getBuyerName(item)}
+                    </div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Market</div>

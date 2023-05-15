@@ -79,6 +79,7 @@ const ArtworksSection = () => {
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
+        console.log(nfts)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({

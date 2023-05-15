@@ -9,9 +9,18 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 // styles
 import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const ArtworksTable = props => {
   const { data } = props
+  const dispatch = useDispatch()
+  const router = useRouter()
+
+  const gotoUserDetail = link => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/${link.replaceAll(' ', '%20')}`)
+  }
 
   return (
     <table id={'ArtworksTable'} className="w-full table-auto">
@@ -37,20 +46,28 @@ const ArtworksTable = props => {
                   <div className="min-w-[38px] w-[38x]">
                     <Image src={item.asset_url} alt="" width={38} height={38} className="rounded-[8px]" />
                   </div>
-                  <div className="flex justify-center">{item.asset_name}</div>
+                  <div
+                    className="flex justify-center cursor-pointer"
+                    onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}
+                  >
+                    {item.asset_name}
+                  </div>
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px]`}>
-                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
                   <SolanaLogoIcon />
                   {item.amount}
                 </div>
               </td>
               <td className="text-center">{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</td>
               <td className="text-center">{getLocalDate(item.created_at)}</td>
-              <td className="text-center">{getOwnerName(item)}</td>
-              <td className="text-center">{getBuyerName(item)}</td>
+              <td className="text-center cursor-pointer" onClick={() => gotoUserDetail(getOwnerName(item))}>
+                {getOwnerName(item)}
+              </td>
+              <td className="text-center cursor-pointer" onClick={() => gotoUserDetail(getBuyerName(item))}>
+                {getBuyerName(item)}
+              </td>
               <td className="text-center">{getFirstUpperString(item.market)}</td>
             </tr>
           )
