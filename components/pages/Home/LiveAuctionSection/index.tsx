@@ -56,24 +56,6 @@ const LiveAuctionSection = props => {
       }
   }, [artist, category])
 
-  const handleChangeActive = value => {
-    setActive(value)
-    switch (value) {
-      case 0:
-        setLiveAuctionList(allListAuctionList.slice(0, 5))
-        break
-      case 1:
-        setLiveAuctionList(allListAuctionList.slice(0, 10))
-        break
-      case 2:
-        setLiveAuctionList(allListAuctionList.slice(0, 15))
-        break
-      default:
-        setLiveAuctionList(allListAuctionList)
-        break
-    }
-  }
-
   return (
     allListAuctionList.length !== 0 && (
       <section className={styles.container}>

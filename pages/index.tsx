@@ -64,11 +64,11 @@ const Home = () => {
       <MainSection />
       <PopularCategorySection type="home" />
       <TopRatedArtistsSection />
+      <MarketplaceReleaseSection category={''} />
+      <LiveAuctionSection category={''} />
       <TrendingCollectionSection category={''} />
       <MostPopularSection category={''} />
-      <MarketplaceReleaseSection category={''} />
       {/* <FreshMintSection category={''} /> */}
-      <LiveAuctionSection category={''} />
       <CreateSellNFTSection />
 
       <FullScreenLoadingModal open={isLoading} />
