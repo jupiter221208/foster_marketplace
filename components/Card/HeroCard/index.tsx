@@ -109,7 +109,7 @@ const HeroCard = props => {
                     <div></div>
                   </ReactPlaceholder>
                 )}
-                <Image
+                <img
                   src={data.cover_image_url}
                   alt=""
                   className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"

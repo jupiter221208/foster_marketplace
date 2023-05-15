@@ -42,7 +42,7 @@ const DaoSubmitModal = props => {
     { id: 3, name: 'General Treasury Allocation' },
     { id: 4, name: 'Community' },
     { id: 5, name: 'Business Development' },
-    { id: 6, name: 'Parnership' },
+    { id: 6, name: 'Partnership' },
   ]
   const closeModal = () => {
     onClose()

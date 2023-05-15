@@ -169,14 +169,15 @@ const Explore = () => {
         break
       case 2:
         setSortData(EcosystemSortList)
-        if (artistSort === 'top') {
-          setSelectedSort(EcosystemSortList[2])
-        } else {
-          setSelectedSort(EcosystemSortList[0])
-        }
+        // if (artistSort === 'top') {
+        //   setSelectedSort(EcosystemSortList[2])
+        // } else {
+        //   setSelectedSort(EcosystemSortList[2])
+        // }
+        setSelectedSort(EcosystemSortList[2])
         setCurrentPage(ecosystemCurrentPage)
         setEcosystemList([])
-        getExploreArtistData(ecosystemCurrentPage, EcosystemSortList[0], rowCount)
+        getExploreArtistData(ecosystemCurrentPage, EcosystemSortList[2], rowCount)
         break
       default:
         break

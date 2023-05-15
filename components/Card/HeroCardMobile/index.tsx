@@ -20,6 +20,7 @@ const HeroCardMobile = props => {
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
+  const [loaded, setLoaded] = useState(false)
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
@@ -34,7 +35,7 @@ const HeroCardMobile = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
-        <Image
+        <img
           src={
             data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
               ? data.asset_url
@@ -44,17 +45,25 @@ const HeroCardMobile = props => {
           }
           alt=""
           // width={375}
-          layout="fill"
+          // layout="fill"
           height={375}
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className={styles.overlayMask} />
       </div>
       <div className="relative mt-[-175px] px-[15px] z-10">
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
+            {!loaded && (
+              <div className="w-full h-full">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              </div>
+            )}
             {data.asset_type.includes('image') ? (
-              <Image
+              <img
                 src={
                   data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
                     ? data.asset_url
@@ -67,16 +76,23 @@ const HeroCardMobile = props => {
                 height={772}
                 className="w-full h-full object-cover rounded-[24px]"
                 onClick={() => gotoNftDetailPage()}
+                loading="lazy"
+                onLoad={() => {
+                  setLoaded(true)
+                }}
               />
             ) : data.asset_type.includes('video') ? (
               <div className="w-full h-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                 {data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <Image
+                  <img
                     src={data.cover_image_url}
                     alt=""
-                    layout="fill"
                     className="w-full h-full object-cover"
                     onClick={() => gotoNftDetailPage()}
+                    loading="lazy"
+                    onLoad={() => {
+                      setLoaded(true)
+                    }}
                   />
                 ) : (
                   <Image
@@ -85,17 +101,20 @@ const HeroCardMobile = props => {
                     layout="fill"
                     className="w-full h-full object-cover"
                     onClick={() => onClick()}
+                    onLoadingComplete={() => {
+                      setLoaded(true)
+                    }}
                   />
                 )}
               </div>
             ) : data.asset_type.includes('audio') ? (
               data.cover_image_url !== null && data.cover_image_url !== '' ? (
-                <Image
+                <img
                   src={data.cover_image_url}
                   alt=""
-                  layout="fill"
                   className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
                   onClick={() => gotoNftDetailPage()}
+                  loading="lazy"
                 />
               ) : (
                 <Image
@@ -104,10 +123,22 @@ const HeroCardMobile = props => {
                   layout="fill"
                   className="w-full h-full object-cover"
                   onClick={() => onClick()}
+                  onLoadingComplete={() => {
+                    setLoaded(true)
+                  }}
                 />
               )
             ) : (
-              <Image src={DefaultNftBG} alt="" layout="fill" className={styles.imageNft} onClick={() => onClick()} />
+              <Image
+                src={DefaultNftBG}
+                alt=""
+                layout="fill"
+                className={styles.imageNft}
+                onClick={() => onClick()}
+                onLoadingComplete={() => {
+                  setLoaded(true)
+                }}
+              />
             )}
           </div>
         </div>
@@ -121,7 +152,7 @@ const HeroCardMobile = props => {
               </ReactPlaceholder>
             </div>
           )}
-          <Image
+          <img
             src={
               data.artist_profile_picture &&
               data.artist_profile_picture !== '' &&
@@ -133,7 +164,8 @@ const HeroCardMobile = props => {
             width={60}
             height={60}
             className="rounded-full"
-            onLoadingComplete={() => setProfileLoaded(true)}
+            loading="lazy"
+            onLoad={() => setProfileLoaded(true)}
           />
         </div>
       </div>
