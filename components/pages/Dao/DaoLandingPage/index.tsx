@@ -200,11 +200,11 @@ const DaoLandingPage = props => {
             <div className="flex gap-[10px] mt-[10px]">
               <div className="flex gap-[10px] items-center">
                 <SolMobileIcon />
-                <div className={styles.treasuryTitle}>25,000</div>
+                <div className={styles.treasuryTitle}>{ensureMaxDecimals(solAmount, 3)}</div>
               </div>
               <div className={styles.treasuryDivider}></div>
               <div className="flex items-center">
-                <div className={styles.treasuryTitle}>$400,000</div>
+                <div className={styles.treasuryTitle}>${ensureMaxDecimals(solToUsdRate * solAmount, 2)}</div>
               </div>
             </div>
             <div className={styles.treasuryDescription}>
