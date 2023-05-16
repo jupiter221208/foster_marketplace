@@ -101,12 +101,12 @@ export const validUrl = url => {
   return url
 }
 
-export const isValidUrl = urlString => {
+export const isValidUrl = (urlString, socialType) => {
   var inputElement = document.createElement('input')
   inputElement.type = 'url'
   inputElement.value = urlString
 
-  if (!inputElement.checkValidity()) {
+  if (!inputElement.checkValidity() || urlString.includes(socialType) <= 0) {
     return false
   } else {
     return true

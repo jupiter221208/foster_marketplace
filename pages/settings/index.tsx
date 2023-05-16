@@ -20,26 +20,7 @@ import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
 
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
-  // const [tabList, setTabList] = useState(TabList)
   const [showAlert, setShowAlert] = useState<boolean>(false)
-
-  // useEffect(() => {
-  //   let array: any[] = []
-  //   TabList.map(item => {
-  //     let object: any = item
-  //     if (item.id === selectedTab) {
-  //       object.selected = true
-  //     } else {
-  //       object.selected = false
-  //     }
-  //     array.push(object)
-  //   })
-  //   setTabList(array)
-  // }, [selectedTab])
-
-  // const handleSelectedTab = item => {
-  //   setSelectedTab(item.id)
-  // }
 
   const alertData = [
     {
