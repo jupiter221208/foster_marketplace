@@ -162,23 +162,25 @@ const LiveAuctionCard = props => {
           dispatch({ type: 'set', isLoading: true })
         }}
       >
-        {data.artist_profile_picture === null || data.artist_profile_picture.length === 0 ? (
-          <Image
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-            src={AvatarImage.src}
-            alt=""
-            className="rounded-full"
-          />
-        ) : (
-          <Image
-            width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-            src={data.artist_profile_picture}
-            alt=""
-            className="rounded-full"
-          />
-        )}
+        <div className="w-[32px] h-[32px] lg:w-[36px] lg:h-[36px] rounded-full overflow-hidden">
+          {data.artist_profile_picture === null || data.artist_profile_picture.length === 0 ? (
+            <Image
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+              src={AvatarImage.src}
+              alt=""
+              className="rounded-full"
+            />
+          ) : (
+            <Image
+              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
+              src={data.artist_profile_picture}
+              alt=""
+              className="rounded-full"
+            />
+          )}
+        </div>
       </div>
       <div className={styles.bidContainer}>
         <div className={styles.bidBgView} />
