@@ -25,6 +25,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { PublicKey } from '@solana/web3.js'
 import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import listingsAPI from 'apis/listings'
@@ -32,12 +33,14 @@ import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
+import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 const ListedNFTSection = props => {
   const { filter } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
+  const { publicKey, signMessage } = useWallet()
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
@@ -75,6 +78,13 @@ const ListedNFTSection = props => {
   function getMintAddress(asset: Nft | Sft | Metadata): PublicKey {
     if ('mintAddress' in asset) return asset.mintAddress
     else return asset.mint.address
+  }
+
+  const checkTokenExpiration = async () => {
+    if (!checkExpiryDate()) {
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      await loginWithSigned(publicKey, signature, dispatch)
+    }
   }
 
   const setMyListedNFTs = async () => {
@@ -128,6 +138,8 @@ const ListedNFTSection = props => {
   const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
+      await checkTokenExpiration()
+
       const result = await cancelList(mx, tradeStateAddress)
       if (result) {
         listingsAPI.unlistNft(address.toBase58()).then(response => {
@@ -166,6 +178,8 @@ const ListedNFTSection = props => {
   const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
     setOpenProgressingModal(true)
     try {
+      await checkTokenExpiration()
+
       const result = await updateList(mx, address, tradeStateAddress, price)
       if (result) {
         listingsAPI.updateNft(address.toBase58(), { amount: (price / 1000000000).toString() }).then(
@@ -215,6 +229,8 @@ const ListedNFTSection = props => {
   const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
+      await checkTokenExpiration()
+
       const { auction } = await cancelListing(mx, address, sellerAddress)
       auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
         if (res) {
@@ -247,6 +263,8 @@ const ListedNFTSection = props => {
     }, 500)
 
     try {
+      await checkTokenExpiration()
+
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
       auctionAPI

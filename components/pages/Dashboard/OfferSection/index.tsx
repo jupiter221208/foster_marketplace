@@ -18,14 +18,17 @@ import { getPriceValue } from 'utils/strings'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyBids, getReceivedBids, cancelOffer, acceptOffer, LazyBidWithAsset } from 'utils/auction.util'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import listingsAPI from 'apis/listings'
 import NoDataSection from '../NoDataSection'
 import usersAPI from 'apis/user'
+import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 const OfferSection = () => {
   const viewport = useViewport()
+  const { publicKey, signMessage } = useWallet()
 
   const [shownOfferType, setShownOfferType] = useState<'made' | 'received'>('made')
   const [offersMade, setOffersMade] = useState<LazyBidWithAsset[] | null>(null)
@@ -77,6 +80,11 @@ const OfferSection = () => {
   }, [shownOfferType, offersMade, offersReceived])
 
   const onCancel = async (listing: LazyBidWithAsset) => {
+    if (!checkExpiryDate()) {
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      await loginWithSigned(publicKey, signature, dispatch)
+    }
+
     const { tradeStateAddress, asset } = listing
     const result = await cancelOffer(mx, tradeStateAddress)
     if (result) {
@@ -108,6 +116,11 @@ const OfferSection = () => {
   }
 
   const onAccept = async (bid: LazyBidWithAsset) => {
+    if (!checkExpiryDate()) {
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      await loginWithSigned(publicKey, signature, dispatch)
+    }
+
     const result = await acceptOffer(mx, bid)
     if (result) {
       fetchOffersReceived(true)
