@@ -9,5 +9,25 @@ export const loginWithSigned = async (publicKey, signature, dispatch) => {
   dispatch({ type: 'set', profileInfo: user })
   dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
   dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
+  let expiryTimestamp = Date.now() + 59 * 60 * 1000
+  console.log('===========expiryTimestamp=========', expiryTimestamp)
+  localStorage.setItem('expiryDate', expiryTimestamp.toString())
   return user
+}
+
+export const checkExpiryDate = () => {
+  let expiryDate = localStorage.getItem('expiryDate')
+  if (expiryDate === null) {
+    return false
+  }
+  let expiryTimestamp = parseInt(expiryDate)
+  let nowTimeStamp = Date.now()
+  console.log('===========expiryTimestamp=========', expiryTimestamp)
+  console.log('===========nowTimeStamp=========', nowTimeStamp)
+
+  if (expiryTimestamp >= nowTimeStamp) {
+    return true
+  }
+
+  return false
 }

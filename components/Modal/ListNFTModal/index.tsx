@@ -24,10 +24,12 @@ import GradientButton from 'components/Button/GradientButton'
 import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { listNFT } from 'utils/auction.util'
 import { useMetaplex } from 'hooks/useMetaplex'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import listingsAPI from 'apis/listings'
 import LoadingButton from 'components/Button/LoadingButton'
+import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
@@ -36,9 +38,16 @@ const ListNFTModal = props => {
   const [listStatus, setListStatus] = useState(false)
   const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
+  const { publicKey, signMessage } = useWallet()
 
   const handleListNFTClick = async () => {
     setShowLoading(true)
+
+    if (!checkExpiryDate()) {
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      await loginWithSigned(publicKey, signature, dispatch)
+    }
+
     const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
     if (result) {
       listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {

@@ -21,6 +21,7 @@ import CategoryList from 'assets/json/popular-category.json'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 import { Keypair } from '@solana/web3.js'
 import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
@@ -29,6 +30,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metap
 
 // call apis
 import collectionsAPI from 'apis/collections'
+import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -37,6 +39,7 @@ const Collection = () => {
   // solana
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
+  const { publicKey, signMessage } = useWallet()
 
   // --------------variables------------
   const [currentStep, setCurrentStep] = useState(1)
@@ -70,6 +73,11 @@ const Collection = () => {
 
   const mintCollection = async () => {
     dispatch({ type: 'set', isLoading: true })
+
+    if (!checkExpiryDate()) {
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      await loginWithSigned(publicKey, signature, dispatch)
+    }
 
     // TODO: calculate real file size
     // for now, just fund with 0.1 sol which is little over 1GB
