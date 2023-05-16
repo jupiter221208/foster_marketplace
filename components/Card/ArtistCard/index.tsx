@@ -6,11 +6,13 @@ import Image from 'next/image'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const ArtistCard = props => {
   const { image, username, onClick } = props
   const viewport = useViewport()
   const [hover, setHover] = useState(false)
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <div
@@ -22,7 +24,21 @@ const ArtistCard = props => {
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <div>
           <div className={styles.avatar}>
-            <Image src={image} alt="" width={226} height={226} className="rounded-full" />
+            {!loaded && (
+              <div className="w-full h-full overflow-hidden rounded-full">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              </div>
+            )}
+            <Image
+              src={image}
+              alt=""
+              width={226}
+              height={226}
+              className="rounded-full"
+              onLoadingComplete={() => setLoaded(true)}
+            />
           </div>
 
           <div className={styles.name}>{username.length > 20 ? username.slice(0, 20) + '...' : username}</div>
@@ -30,7 +46,21 @@ const ArtistCard = props => {
       ) : (
         <div>
           <div className={`${styles.avatar} ${hover ? styles.avatarHover : ''}`}>
-            <Image src={image} alt="" width={226} height={226} className="rounded-full" />
+            {!loaded && (
+              <div className="w-full h-full overflow-hidden rounded-full">
+                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                  <div></div>
+                </ReactPlaceholder>
+              </div>
+            )}
+            <Image
+              src={image}
+              alt=""
+              width={226}
+              height={226}
+              className="rounded-full"
+              onLoadingComplete={() => setLoaded(true)}
+            />
           </div>
 
           <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>
