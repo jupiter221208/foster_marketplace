@@ -57,13 +57,16 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   color: var(--text-gray-200-color);
-  background-color: rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 15px;
+  background-color: #202427;
+  @media (min-width: 1024px) {
+    background-color: rgba(var(--main-bg-color-rgb), 0.1);
+  }
 }
 
 .coverImageArea {
-  width: 98px;
-  height: 98px;
+  width: 140px;
+  height: 140px;
   @media (min-width: 1024px) {
     width: 200px;
     height: 200px;
@@ -109,8 +112,12 @@
 .dropzoneTitle {
   text-align: start;
   font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 24px;
+  font-size: 16px;
+  line-height: 21px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
@@ -132,7 +139,10 @@
 .dropzone {
   width: 100%;
   height: 100%;
-  padding: 12px;
+  padding: 6px;
+  @media (min-width: 1024px) {
+    padding: 12px;
+  }
   text-align: center;
   background: #121212;
   border-radius: 12px;
@@ -155,8 +165,12 @@
 .selectBannerArea {
   width: 100%;
   height: 100%;
-  padding-top: 45px;
-  padding-bottom: 45px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  @media (min-width: 1024px) {
+    padding-top: 45px;
+    padding-bottom: 45px;
+  }
   cursor: pointer;
 
   display: flex;
