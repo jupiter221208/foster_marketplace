@@ -31,6 +31,7 @@ const initialState = {
   hideNftToken: '',
   unhideNftToken: '',
   markAsRead: false,
+  expiryDate: 0,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

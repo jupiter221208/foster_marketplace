@@ -102,6 +102,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
+import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -115,7 +116,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const router = useRouter()
   const dispatch = useDispatch()
   const profileInfo = useSelector(state => (state as any).profileInfo)
-  const { connected, publicKey } = useWallet()
+  const { connected, publicKey, signMessage } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -251,12 +252,23 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
+
+  const checkTokenExpiration = async () => {
+    if (!checkExpiryDate()) {
+      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      await loginWithSigned(publicKey, signature, dispatch)
+    }
+  }
+
   const quickBuy = async () => {
     if (!connected) {
       setVisible(true)
       return
     }
     setOpenProgressingModal(true)
+
+    await checkTokenExpiration()
+
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
     if (result) {
@@ -275,6 +287,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
 
   const makeOffer = async price => {
     setOpenProgressingModal(true)
+
+    await checkTokenExpiration()
+
     const result = await offerNFT(mx, mintAddress, price)
     await updateSolBalance()
     if (result) {
@@ -428,7 +443,10 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
     }
 
     setAuctionLoading(true)
+
     try {
+      await checkTokenExpiration()
+
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
       if (bid) {
         updateSolBalance()
