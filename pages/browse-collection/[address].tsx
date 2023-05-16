@@ -45,7 +45,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
   const [collectionData, setCollectionData] = useState(publicCollectionData)
   const [nfts, setNfts] = useState([])
-
+  const [loaded, setLoaded] = useState(false)
   const address = collectionData?.collection_id
 
   useEffect(() => {
@@ -65,6 +65,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
 
       try {
         dispatch({ type: 'set', isLoading: true })
+        setLoaded(false)
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) setNfts(collectionNfts)
 
@@ -76,6 +77,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         console.error(e)
       } finally {
         dispatch({ type: 'set', isLoading: false })
+        setLoaded(true)
       }
     })()
   }, [address, publicCollectionData])
@@ -130,7 +132,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         <div className={styles.bottomLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} />
+        <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} loaded={loaded} />
         <CollectionSection
           nfts={nfts}
           collectionId={address}

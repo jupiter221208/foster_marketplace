@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { isLoggedIn } from 'utils/helpers'
@@ -37,11 +37,14 @@ import collectionAPI from 'apis/collections'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import ReactPlaceholder from 'react-placeholder/lib'
 
 const MainSection = props => {
-  const { nfts, data, publicKey } = props
+  const { nfts, data, publicKey, loaded } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const isLoading = useSelector<any>(state => state.isLoading)
+
   const inputBannerFile = useRef<any>(null)
   const [items, setItems] = useState<any>()
   const [owners, setOwners] = useState<any>()
@@ -239,7 +242,12 @@ const MainSection = props => {
                     url={`/browse-collection/${data?.collection_id}`}
                   />
                 </div>
-                <div>
+                <div className="w-[146px] overflow-hidden rounded-[12px]">
+                  {!loaded && (
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  )}
                   {saved ? (
                     <OutlineButton
                       borderColor="var(--follow-btn-border-mobile)"
@@ -333,24 +341,31 @@ const MainSection = props => {
                     <ShareSmallIcon alt="" />
                   </div>
                 </div>
-                {saved ? (
-                  <OutlineButton
-                    width={70}
-                    height={29}
-                    borderRadius={6}
-                    borderColor="var(--follow-btn-border-mobile)"
-                    label="Saved"
-                    onClick={() => unsaveCollection(data?.collection_id)}
-                  />
-                ) : (
-                  <GradientButton
-                    width={70}
-                    height={29}
-                    borderRadius={6}
-                    label="Save"
-                    onClick={() => saveCollection(data?.collection_id)}
-                  />
-                )}
+                <div className="w-[70px] overflow-hidden rounded-[6px]">
+                  {!loaded && (
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  )}
+                  {saved ? (
+                    <OutlineButton
+                      width={70}
+                      height={29}
+                      borderRadius={6}
+                      borderColor="var(--follow-btn-border-mobile)"
+                      label="Saved"
+                      onClick={() => unsaveCollection(data?.collection_id)}
+                    />
+                  ) : (
+                    <GradientButton
+                      width={70}
+                      height={29}
+                      borderRadius={6}
+                      label="Save"
+                      onClick={() => saveCollection(data?.collection_id)}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
