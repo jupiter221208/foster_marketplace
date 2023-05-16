@@ -24,7 +24,7 @@ const SelectCategoryMenu = props => {
   return (
     <div className="relative">
       <Menu>
-        <Menu.Button className="w-full">
+        <Menu.Button className="w-full outline-none">
           <div className="flex justify-between items-center">
             <div className={styles.categoryArea}>
               <div className="flex w-full justify-between items-center mr-[20px]">
