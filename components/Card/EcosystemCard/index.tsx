@@ -31,25 +31,27 @@ const EcosystemCard = props => {
           />
         </div>
         <div className={styles.avatarArea}>
-          {data.artist.profile_picture ? (
-            <Image
-              src={data.artist.profile_picture}
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
-              className="rounded-full"
-              alt=""
-            />
-          ) : (
-            <div className="w-[100px] lg:w-[180px] h-[100px] lg:h-[180px] overflow-hidden rounded-[50px] lg:rounded-[90px] bg-tansparent">
+          <div className="w-[100px] lg:w-[180px] h-[100px] lg:h-[180px] rounded-full overflow-hidden">
+            {data.artist.profile_picture ? (
               <Image
-                src={AvatarImage}
+                src={data.artist.profile_picture}
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
                 className="rounded-full"
                 alt=""
               />
-            </div>
-          )}
+            ) : (
+              <div className="w-[100px] lg:w-[180px] h-[100px] lg:h-[180px] overflow-hidden rounded-[50px] lg:rounded-[90px] bg-tansparent">
+                <Image
+                  src={AvatarImage}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 100 : 180}
+                  className="rounded-full"
+                  alt=""
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className="w-full lg:mt-[100px] xs:mt-[50px] flex flex-wrap justify-center items-center px-[9px]">
