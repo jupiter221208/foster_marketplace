@@ -58,7 +58,7 @@
   font-size: 14px;
   color: var(--text-gray-200-color);
   border-radius: 15px;
-  background-color: #202427;
+  background-color: var(--step-text-color);
   @media (min-width: 1024px) {
     background-color: rgba(var(--main-bg-color-rgb), 0.1);
   }
