@@ -317,11 +317,12 @@ const Step01CollectionSection = props => {
                   </div>
                 </div>
                 <div className="relative -mt-[50px]">
-                  <div className="absolute mt-[50px]">
+                  <div className="absolute mt-[50px] z-10">
                     <div
-                      className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
+                      className={`${styles.dropzoneTitle} w-full flex justify-start items-center  mt-[15px] mb-[15px]`}
                     >
-                      Collection Banner Image
+                      <div className={styles.collectionBannerImage}>Collection Banner Image</div>
+
                       <div
                         className="cursor-pointer"
                         onClick={() => {
@@ -338,7 +339,7 @@ const Step01CollectionSection = props => {
                       <div className={styles.bannerRecommend}>Recommended dimensions are 1620px by 460px</div>
                     )}
                   </div>
-                  <div className="w-full flex justify-center">
+                  <div className="w-full flex justify-center z-0">
                     <div className={styles.coverImageArea}>
                       {coverCroppedImage === undefined && coverImage === undefined ? (
                         // <div className={styles.defaultCoverLight} />
@@ -362,9 +363,9 @@ const Step01CollectionSection = props => {
                               </button>
                               <div {...getRootProps()} className={styles.selectArea}>
                                 <input {...getInputProps()} />
-                                <p className={styles.subTitle}>Upload Here</p>
-                                <p className={styles.text}>Supported file formats are .png .jpeg</p>
-                                <p className={styles.greenText}>Max File Size 30mb</p>
+                                <p className={styles.subTitleCover}>Upload Here</p>
+                                <p className={styles.textCover}>Supported file formats are .png .jpeg</p>
+                                <p className={styles.greenTextCover}>Max File Size 30mb</p>
                               </div>
                             </section>
                           )}
@@ -398,9 +399,7 @@ const Step01CollectionSection = props => {
                       )}
                     </div>
                   </div>
-                  <div
-                    className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center gap-2 mt-[15px]`}
-                  >
+                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[15px]`}>
                     Collection Cover Image
                     <div
                       className="cursor-pointer"
@@ -414,7 +413,7 @@ const Step01CollectionSection = props => {
                       <InfoCircleLightGreenIcon alt="" />
                     </div>
                     {coverHelper && (
-                      <div className={`${styles.bannerRecommend} absolute right-0 top-0`}>
+                      <div className={`${styles.bannerRecommend} absolute right-0 top-5 2xl:top-0`}>
                         Recommended dimensions are 1080px by 1080px
                       </div>
                     )}
@@ -614,9 +613,7 @@ const Step01CollectionSection = props => {
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full relative z-10">
-              <div
-                className={`${styles.dropzoneTitle} w-full flex justify-start items-center gap-2 mt-[15px] mb-[15px]`}
-              >
+              <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px]`}>
                 Collection Banner Image
                 <div
                   className="cursor-pointer"
