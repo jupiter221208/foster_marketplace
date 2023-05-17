@@ -164,7 +164,7 @@ const LiveAuctionCard = props => {
       >
         <div className="w-[32px] h-[32px] lg:w-[36px] lg:h-[36px] rounded-full overflow-hidden">
           {data.artist_profile_picture === null || data.artist_profile_picture.length === 0 ? (
-            <Image
+            <img
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
               src={AvatarImage.src}
@@ -172,7 +172,7 @@ const LiveAuctionCard = props => {
               className="rounded-full"
             />
           ) : (
-            <Image
+            <img
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
               src={data.artist_profile_picture}
