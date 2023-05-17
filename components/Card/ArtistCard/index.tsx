@@ -53,13 +53,14 @@ const ArtistCard = props => {
                 </ReactPlaceholder>
               </div>
             )}
-            <Image
+            <img
               src={image}
               alt=""
               width={226}
               height={226}
               className="rounded-full"
-              onLoadingComplete={() => setLoaded(true)}
+              loading="lazy"
+              onLoad={() => setLoaded(true)}
             />
           </div>
 
