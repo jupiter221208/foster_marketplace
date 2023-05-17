@@ -53,15 +53,7 @@ const ArtistCard = props => {
                 </ReactPlaceholder>
               </div>
             )}
-            <img
-              src={image}
-              alt=""
-              width={226}
-              height={226}
-              className="rounded-full"
-              loading="lazy"
-              onLoad={() => setLoaded(true)}
-            />
+            <img src={image} alt="" width={226} height={226} className="rounded-full" onLoad={() => setLoaded(true)} />
           </div>
 
           <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>
