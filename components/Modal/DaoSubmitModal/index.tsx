@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 // next component
 import Image from 'next/image'
@@ -8,6 +9,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import moment from 'moment'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -23,6 +25,9 @@ import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 
 const DaoSubmitModal = props => {
   const { data, open, onSubmit, onClose } = props
+  const { publicKey } = useWallet()
+  const profileInfo = useSelector(state => (state as any).profileInfo)
+
   const viewport = useViewport()
   const [startDate, setStartDate] = useState(new Date())
   const [days, setDays] = useState(0)
@@ -52,7 +57,32 @@ const DaoSubmitModal = props => {
   }
 
   const submitProposal = () => {
-    onSubmit()
+    // let proposal = {
+    //   walletId: publicKey,
+    //   title,
+    //   category: selectedCategoryName,
+    //   author: profileInfo?.username,
+    //   overview,
+    //   metrics: goal,
+    //   treasury: treasury,
+    //   eta_timeline: timeline,
+    //   vote_start: startDate,
+    //   vote_duration: days * 24 + hours,
+    // }
+    let proposal = {
+      author: 'Nicholas-FP',
+      eta_timeline: 'eee',
+      metrics: 'ccc',
+      overview: 'bbbb',
+      title: 'aaaa',
+      treasury: 'dd',
+      category: 'Product',
+      vote_duration: '2641',
+      vote_start: '2023-05-18T19:33:55.891Z',
+      walletId: 'FPCjmizgwG6EsBYH4w3aMvPiZbEnRgCzsuwVJu6rT8eo',
+    }
+    onSubmit(proposal)
+
     setTimeout(() => {
       setSelectedCategoryName(null)
     }, 500)

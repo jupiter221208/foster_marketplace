@@ -11,6 +11,8 @@ import NotificationIcon from 'assets/icons/notification-icon-body.svg?component'
 
 // styles
 import styles from './index.module.scss'
+
+import axios from 'axios'
 import { useViewport, fetchSolToUsdRate, ensureMaxDecimals } from 'utils'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
 import TableSection from './TableSection'
@@ -101,6 +103,28 @@ const DaoLandingPage = props => {
   const handlePreviousPage = () => {
     if (currentPage === 0) return
     const prevPage = currentPage - 1
+  }
+
+  const handleSubmitProposal = async proposal => {
+    setIsLoading(true)
+    console.log('==========proposal=========', proposal)
+    try {
+      let response = await axios.post('api/dao/submit', proposal)
+      console.log('==========response=========', response)
+      setTimeout(() => {
+        setIsLoading(false)
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }, 1000)
+    } catch {
+      setTimeout(() => {
+        setIsLoading(false)
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }, 1000)
+    }
   }
 
   return (
@@ -257,17 +281,9 @@ const DaoLandingPage = props => {
       <DaoSubmitModal
         data={{}}
         open={showDaoSubmitModal}
-        onSubmit={() => {
+        onSubmit={proposal => {
           setShowDaoSubmitModal(false)
-          setTimeout(() => {
-            setIsLoading(true)
-            setTimeout(() => {
-              setIsLoading(false)
-              setTimeout(() => {
-                setShowAlert(true)
-              }, 1000)
-            }, 3000)
-          }, 1000)
+          handleSubmitProposal(proposal)
         }}
         onClose={() => setShowDaoSubmitModal(false)}
       />
