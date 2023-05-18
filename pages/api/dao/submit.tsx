@@ -12,7 +12,7 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const query = `INSERT INTO "dao_proposals" 
             ( "title", "author", "wallet_id", "category", "overview", "metrics", "treasury", "eta_timeline", "vote_start", "vote_duration")
-      VALUES("${title}", "${author}", "${walletId}", "${category}", "${overview}", "${metrics}", "${treasury}", "${eta_timeline}", "${vote_start}", "${vote_duration}")`
+      VALUES('${title}', '${author}', '${walletId}', '${category}', '${overview}', '${metrics}', '${treasury}', '${eta_timeline}', '${vote_start}', '${vote_duration}')`
 
     const result = await conn.query(query)
 
