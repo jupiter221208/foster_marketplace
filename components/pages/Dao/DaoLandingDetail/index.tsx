@@ -19,6 +19,11 @@ import CastVoteModal from 'components/Modal/CastVoteModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
 
+// apis
+import axios from 'axios'
+import Alert from 'components/Alert'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
   root: {
@@ -31,15 +36,22 @@ const useStyles = makeStyles({
     },
   },
 })
+
 const DaoLandingDetail = props => {
-  const { proposal, onBack } = props
-  console.log(proposal)
+  const { proposal, publicKey, onBack } = props
+  const [isLoading, setIsLoading] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
+  const [proposalDetail, setProposalDetail] = useState(proposal)
+
+  console.log(publicKey?.toString())
+
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
 
   const getEndDate = () => {
-    var endDate = new Date(proposal.vote_start)
-    endDate.setHours(endDate.getHours() + proposal.vote_duration)
+    var endDate = new Date(proposalDetail.vote_start)
+    endDate.setHours(endDate.getHours() + proposalDetail.vote_duration)
     return endDate
   }
 
@@ -47,7 +59,67 @@ const DaoLandingDetail = props => {
     window.scrollTo({
       top: 0,
     })
+    setAlertData([
+      {
+        id: 0,
+        title: 'Proposal Submitted',
+        description: `You have successfully votted this proposal.`,
+        type: 'success',
+      },
+    ])
   }, [])
+
+  const onRefreshProposal = async () => {
+    try {
+      let vote = {
+        proposal_id: proposalDetail.id,
+      }
+      console.log('=========vote=========', vote)
+
+      let response = await axios.post('api/dao/proposal-detail', vote)
+      if (response.data.success === true) {
+        let proposals = response.data.proposals
+        console.log('=========response=========', response)
+
+        if (proposals.length > 0) {
+          console.log(proposals[0])
+          setProposalDetail(proposals[0])
+        }
+      }
+    } catch {}
+  }
+
+  const castVoteProposal = async status => {
+    setIsLoading(true)
+    try {
+      let vote = {
+        proposal_id: proposalDetail.id,
+        wallet_id: publicKey,
+        vote_status: status,
+      }
+      let response = await axios.post('api/dao/vote', vote)
+      if (response.data.success === true) {
+        onRefreshProposal()
+        setTimeout(() => {
+          setIsLoading(false)
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 1000)
+        }, 1000)
+      } else {
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1000)
+      }
+    } catch {
+      setTimeout(() => {
+        setIsLoading(false)
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }, 1000)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -61,14 +133,15 @@ const DaoLandingDetail = props => {
             <ArrowLeftMobileIcon />
           </div>
         </div>
-        <div className={styles.backText}>Proposal {proposal.id}</div>
+        <div className={styles.backText}>Proposal {proposalDetail.id}</div>
         <div className="hidden lg:flex">
           <div className={styles.liveBtn}>Live</div>
         </div>
       </div>
       <div className="flex mt-[6px] lg:mt-[25px] justify-between">
-        <div className={styles.proposalText}>{proposal.title}</div>
+        <div className={styles.proposalText}>{proposalDetail.title}</div>
         <div className="hidden lg:flex">
+          {/* {proposalDetail.wallet_id !== publicKey?.toString() && ( */}
           <GradientButton
             direction="rtl"
             fontSize={18}
@@ -78,14 +151,15 @@ const DaoLandingDetail = props => {
             label="Cast Vote"
             onClick={() => setShowCastVoteModal(true)}
           />
+          {/* )} */}
         </div>
       </div>
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
-        <div className={styles.proposedText}>{proposal.author}</div>
+        <div className={styles.proposedText}>{proposalDetail.author}</div>
         <div className="ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center">
           <CopyAltLightGreenIcon />
-          <div className={styles.clipboardBtn}>{getShortAddress(proposal.wallet_id)}</div>
+          <div className={styles.clipboardBtn}>{getShortAddress(proposalDetail.wallet_id)}</div>
         </div>
       </div>
 
@@ -112,7 +186,7 @@ const DaoLandingDetail = props => {
       <div className="mt-[32px] lg:mt-[60px]">
         <div className="w-full flex justify-between">
           <div className={styles.totalVotes}>Total Votes</div>
-          <div className={styles.totalVotes}>({proposal.total_votes}/3200)</div>
+          <div className={styles.totalVotes}>({proposalDetail.total_votes}/3200)</div>
         </div>
 
         <div className="mt-[12px] mb-[12px] lg:mb-[18px] w-full">
@@ -122,23 +196,27 @@ const DaoLandingDetail = props => {
             classes={{
               root: classes.root,
             }}
-            value={20}
+            value={proposalDetail.total_votes / 3200}
           />
         </div>
 
         <div className="w-full flex justify-between">
           <div>
             <div className={styles.approvedText}>Approved</div>
-            <div className={styles.approvedValue}>{proposal.approved_votes}</div>
+            <div className={styles.approvedValue}>{proposalDetail.approved_votes}</div>
             <div className={styles.approvedPercent}>
-              {proposal.total_votes === 0 ? '0%' : `${proposal.approved_votes / proposal.total_votes} %`}
+              {proposalDetail.total_votes === 0
+                ? '0%'
+                : `${(proposalDetail.approved_votes / proposalDetail.total_votes) * 100} %`}
             </div>
           </div>
           <div>
             <div className={styles.approvedText}>Opposed</div>
-            <div className={styles.approvedValue}>{proposal.opposed_votes}</div>
+            <div className={styles.approvedValue}>{proposalDetail.opposed_votes}</div>
             <div className={styles.approvedPercent}>
-              {proposal.total_votes === 0 ? '0%' : `${proposal.opposed_votes / proposal.total_votes} %`}
+              {proposalDetail.total_votes === 0
+                ? '0%'
+                : `${(proposalDetail.opposed_votes / proposalDetail.total_votes) * 100} %`}
             </div>
           </div>
         </div>
@@ -147,7 +225,7 @@ const DaoLandingDetail = props => {
             <div className={styles.thresholdText}>Threshold</div>
             <div>
               <div className={styles.thresholdCurrent}>Current Threshold</div>
-              <div className={styles.thresholdValue}>{proposal.threshold} votes</div>
+              <div className={styles.thresholdValue}>{proposalDetail.threshold} votes</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
@@ -167,7 +245,7 @@ const DaoLandingDetail = props => {
         </div>
         <div className="mt-[44px] lg:mt-[78px]">
           <div className={styles.description}>Description</div>
-          <div className={styles.descriptionText}>{proposal.overview}</div>
+          <div className={styles.descriptionText}>{proposalDetail.overview}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
           <div className={styles.description}>How will it proliferate Foster Marketplace or Circus DAO?</div>
@@ -175,7 +253,7 @@ const DaoLandingDetail = props => {
             Information on how this proposal will produce benefits to CircusDAO / Foster Marketplace / Solana.
             Information on how this initiative reflects the values of CircusDAO in its support of Foster Marketplace,
             Solana, and the integrity of artists. The answer should provide any qualitative or quantitative data that
-            can be used to determine the success of the proposal.
+            can be used to determine the success of the proposalDetail.
           </div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
@@ -187,24 +265,37 @@ const DaoLandingDetail = props => {
             <div className="flex lg:hidden">
               <SolMobileIcon />
             </div>
-            <div className={styles.estimateValue}>{proposal.treasury}</div>
+            <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
           </div>
         </div>
       </div>
       <div className="mt-[30px] mt-[50px]">
         <div className={styles.description}>Estimated Timeline</div>
-        <div className={styles.descriptionText}>{proposal.eta_timeline}</div>
+        <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
       </div>
       <div className="w-full h-[100px] lg:h-[200px]" />
 
       <CastVoteModal
         data={{}}
         open={showCastVoteModal}
-        onSubmit={() => {
+        onSubmit={status => {
           setShowCastVoteModal(false)
+          setTimeout(() => {
+            castVoteProposal(status)
+          }, 1000)
         }}
         onClose={() => setShowCastVoteModal(false)}
       />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
+
+      <ProgressingModal open={isLoading} />
     </div>
   )
 }

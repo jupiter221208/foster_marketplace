@@ -92,20 +92,10 @@ const DaoLandingPage = props => {
   }
 
   const getProposals = async () => {
-    setIsLoading(true)
-
     try {
       let response = await axios.get('api/dao/proposals')
       if (response.data.success === true) setProposals(response.data.proposals)
-
-      setTimeout(() => {
-        setIsLoading(false)
-      }, 1000)
-    } catch {
-      setTimeout(() => {
-        setIsLoading(false)
-      }, 1000)
-    }
+    } catch {}
   }
 
   return (

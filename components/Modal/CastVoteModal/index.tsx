@@ -67,7 +67,7 @@ const CastVoteModal = props => {
                     fontSize={35}
                     fontFamily="KCDurhamboxcar"
                     label="Nay"
-                    onClick={onClose}
+                    onClick={() => onSubmit(false)}
                   />
                   <GradientButton
                     width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 125 : 138}
@@ -76,7 +76,7 @@ const CastVoteModal = props => {
                     gradientDirection="top"
                     fontFamily="KCDurhamboxcar"
                     label="Yay"
-                    onClick={onSubmit}
+                    onClick={() => onSubmit(true)}
                   />
                 </div>
               </Dialog.Panel>

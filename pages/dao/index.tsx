@@ -2,19 +2,15 @@ import React, { useState } from 'react'
 
 // next images
 import Head from 'next/head'
-// import Image from 'next/image'
+
+// solana
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-// import DaoOfCircusModal from 'components/Modal/DaoOfCircusModal'
-// import DaoOfLiftModal from 'components/Modal/DaoOfLiftModal'
-// import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-// import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
-// import DAOLogo from 'assets/icons/dao-logo.svg?component'
-// import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 
 // styles
@@ -31,6 +27,7 @@ const Dao = () => {
   // const [daoSetup, setDaoSetup] = useState(false)
   const [daoPage, setDaoPage] = useState('start')
   const [proposal, setProposal] = useState()
+  const { publicKey } = useWallet()
 
   const viewport = useViewport()
 
@@ -73,7 +70,7 @@ const Dao = () => {
             />
           </div>
         ) : (
-          <DaoLandingDetail proposal={proposal} onBack={() => setDaoPage('landing')} />
+          <DaoLandingDetail publicKey={publicKey} proposal={proposal} onBack={() => setDaoPage('landing')} />
         )}
       </div>
     </div>

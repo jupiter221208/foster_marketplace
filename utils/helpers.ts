@@ -35,11 +35,11 @@ export const getDateLabel = date => {
 }
 
 export const getTimeLabel = date => {
-  var utcDate = moment.utc(date)
-  var fmt = 'hh:mm'
-  const localDate = utcDate.local().format(fmt)
+  var localDate = new Date(date)
+  let hours = localDate.getHours()
+  let mins = localDate.getMinutes()
 
-  return localDate
+  return hours + ':' + mins
 }
 
 export const calculateTimeLeftAll = endDate => {
