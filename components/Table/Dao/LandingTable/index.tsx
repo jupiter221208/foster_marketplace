@@ -51,7 +51,7 @@ const LandingTable = props => {
               </td>
               <td>
                 <div className="flex justify-center">
-                  <DaoLiveButton onDetail={onDetail} />
+                  <DaoLiveButton onDetail={() => onDetail(item)} />
                 </div>
               </td>
             </tr>

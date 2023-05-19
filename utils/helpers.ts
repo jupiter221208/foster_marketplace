@@ -26,6 +26,22 @@ export const calculateTimeLeft = endDate => {
   return timeLeft
 }
 
+export const getDateLabel = date => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let month = months[date.getMonth()]
+  let day = date.getDate()
+  let year = date.getFullYear()
+  return month + ' ' + day + ', ' + year
+}
+
+export const getTimeLabel = date => {
+  var utcDate = moment.utc(date)
+  var fmt = 'hh:mm'
+  const localDate = utcDate.local().format(fmt)
+
+  return localDate
+}
+
 export const calculateTimeLeftAll = endDate => {
   let difference = +new Date(endDate) - +new Date()
 

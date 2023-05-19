@@ -16,6 +16,8 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
+import { getShortAddress } from 'utils/wallet.util'
+import { getDateLabel, getTimeLabel } from 'utils/helpers'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -30,9 +32,16 @@ const useStyles = makeStyles({
   },
 })
 const DaoLandingDetail = props => {
-  const { onBack } = props
+  const { proposal, onBack } = props
+  console.log(proposal)
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
+
+  const getEndDate = () => {
+    var endDate = new Date(proposal.vote_start)
+    endDate.setHours(endDate.getHours() + proposal.vote_duration)
+    return endDate
+  }
 
   useEffect(() => {
     window.scrollTo({
@@ -52,13 +61,13 @@ const DaoLandingDetail = props => {
             <ArrowLeftMobileIcon />
           </div>
         </div>
-        <div className={styles.backText}>Proposal 279</div>
+        <div className={styles.backText}>Proposal {proposal.id}</div>
         <div className="hidden lg:flex">
           <div className={styles.liveBtn}>Live</div>
         </div>
       </div>
       <div className="flex mt-[6px] lg:mt-[25px] justify-between">
-        <div className={styles.proposalText}>Add Creator Merch Hub to the Artist Page</div>
+        <div className={styles.proposalText}>{proposal.title}</div>
         <div className="hidden lg:flex">
           <GradientButton
             direction="rtl"
@@ -73,10 +82,10 @@ const DaoLandingDetail = props => {
       </div>
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
-        <div className={styles.proposedText}>Angooba</div>
+        <div className={styles.proposedText}>{proposal.author}</div>
         <div className="ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center">
           <CopyAltLightGreenIcon />
-          <div className={styles.clipboardBtn}>6A8rF .. Rf8p</div>
+          <div className={styles.clipboardBtn}>{getShortAddress(proposal.wallet_id)}</div>
         </div>
       </div>
 
@@ -103,7 +112,7 @@ const DaoLandingDetail = props => {
       <div className="mt-[32px] lg:mt-[60px]">
         <div className="w-full flex justify-between">
           <div className={styles.totalVotes}>Total Votes</div>
-          <div className={styles.totalVotes}>(1800/3200)</div>
+          <div className={styles.totalVotes}>({proposal.total_votes}/3200)</div>
         </div>
 
         <div className="mt-[12px] mb-[12px] lg:mb-[18px] w-full">
@@ -120,13 +129,17 @@ const DaoLandingDetail = props => {
         <div className="w-full flex justify-between">
           <div>
             <div className={styles.approvedText}>Approved</div>
-            <div className={styles.approvedValue}>1400</div>
-            <div className={styles.approvedPercent}>77.8%</div>
+            <div className={styles.approvedValue}>{proposal.approved_votes}</div>
+            <div className={styles.approvedPercent}>
+              {proposal.total_votes === 0 ? '0%' : `${proposal.approved_votes / proposal.total_votes} %`}
+            </div>
           </div>
           <div>
             <div className={styles.approvedText}>Opposed</div>
-            <div className={styles.approvedValue}>400</div>
-            <div className={styles.approvedPercent}>22.2%</div>
+            <div className={styles.approvedValue}>{proposal.opposed_votes}</div>
+            <div className={styles.approvedPercent}>
+              {proposal.total_votes === 0 ? '0%' : `${proposal.opposed_votes / proposal.total_votes} %`}
+            </div>
           </div>
         </div>
         <div className="w-full flex flex-wrap lg:flex-nowrap justify-around gap-[6px] lg:gap-[94px] mt-[30px] lg:mt-[48px]">
@@ -134,14 +147,14 @@ const DaoLandingDetail = props => {
             <div className={styles.thresholdText}>Threshold</div>
             <div>
               <div className={styles.thresholdCurrent}>Current Threshold</div>
-              <div className={styles.thresholdValue}>180 votes</div>
+              <div className={styles.thresholdValue}>{proposal.threshold} votes</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Ends</div>
             <div>
-              <div className={styles.thresholdCurrent}>8:54 PM MST</div>
-              <div className={styles.thresholdValue}>May 23, 2023</div>
+              <div className={styles.thresholdCurrent}>{getTimeLabel(getEndDate())}</div>
+              <div className={styles.thresholdValue}>{getDateLabel(getEndDate())}</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
@@ -154,10 +167,7 @@ const DaoLandingDetail = props => {
         </div>
         <div className="mt-[44px] lg:mt-[78px]">
           <div className={styles.description}>Description</div>
-          <div className={styles.descriptionText}>
-            Add an e-commerce hub built within Foster Marketplace that provides an alternative avenue for creator
-            monetization that enables artists to sell physical prints and merchandise to interested collectors.
-          </div>
+          <div className={styles.descriptionText}>{proposal.overview}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
           <div className={styles.description}>How will it proliferate Foster Marketplace or Circus DAO?</div>
@@ -177,13 +187,13 @@ const DaoLandingDetail = props => {
             <div className="flex lg:hidden">
               <SolMobileIcon />
             </div>
-            <div className={styles.estimateValue}>1000</div>
+            <div className={styles.estimateValue}>{proposal.treasury}</div>
           </div>
         </div>
       </div>
       <div className="mt-[30px] mt-[50px]">
         <div className={styles.description}>Estimated Timeline</div>
-        <div className={styles.descriptionText}>6 months</div>
+        <div className={styles.descriptionText}>{proposal.eta_timeline}</div>
       </div>
       <div className="w-full h-[100px] lg:h-[200px]" />
 

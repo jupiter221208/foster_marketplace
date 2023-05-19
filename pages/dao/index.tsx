@@ -30,6 +30,8 @@ const Dao = () => {
   // const [showLift, setShowLift] = useState(false)
   // const [daoSetup, setDaoSetup] = useState(false)
   const [daoPage, setDaoPage] = useState('start')
+  const [proposal, setProposal] = useState()
+
   const viewport = useViewport()
 
   let pageTitle = `CircusDAO | Foster Marketplace`
@@ -63,10 +65,15 @@ const Dao = () => {
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
         ) : daoPage === 'landing' ? (
           <div className="w-full mt-[40px] lg:mt-[115px] z-10">
-            <DaoLandingPage onDetail={() => setDaoPage('detail')} />
+            <DaoLandingPage
+              onDetail={item => {
+                setProposal(item)
+                setDaoPage('detail')
+              }}
+            />
           </div>
         ) : (
-          <DaoLandingDetail onBack={() => setDaoPage('landing')} />
+          <DaoLandingDetail proposal={proposal} onBack={() => setDaoPage('landing')} />
         )}
       </div>
     </div>

@@ -75,7 +75,6 @@ const DaoLandingPage = props => {
     setIsLoading(true)
     try {
       let response = await axios.post('api/dao/submit', proposal)
-      console.log('==========response=========', response)
       setTimeout(() => {
         setIsLoading(false)
         setTimeout(() => {
@@ -97,7 +96,6 @@ const DaoLandingPage = props => {
 
     try {
       let response = await axios.get('api/dao/proposals')
-      console.log('=========response=========', response)
       if (response.data.success === true) setProposals(response.data.proposals)
 
       setTimeout(() => {
