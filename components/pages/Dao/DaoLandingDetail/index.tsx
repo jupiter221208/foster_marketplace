@@ -74,12 +74,10 @@ const DaoLandingDetail = props => {
       let vote = {
         proposal_id: proposalDetail.id,
       }
-      console.log('=========vote=========', vote)
 
       let response = await axios.post('api/dao/proposal-detail', vote)
       if (response.data.success === true) {
         let proposals = response.data.proposals
-        console.log('=========response=========', response)
 
         if (proposals.length > 0) {
           console.log(proposals[0])

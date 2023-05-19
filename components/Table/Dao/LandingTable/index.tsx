@@ -5,6 +5,7 @@ import TimeIcon from 'assets/icons/dao-time-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import DaoLiveButton from './DaoLiveButton'
+import DaoPendingButton from './DaoPendingButton'
 
 const LandingTable = props => {
   const { data, onDetail } = props
@@ -51,7 +52,7 @@ const LandingTable = props => {
               </td>
               <td>
                 <div className="flex justify-center">
-                  <DaoLiveButton onDetail={() => onDetail(item)} />
+                  {item.status === 'pending' ? <DaoPendingButton /> : <DaoLiveButton onDetail={() => onDetail(item)} />}
                 </div>
               </td>
             </tr>

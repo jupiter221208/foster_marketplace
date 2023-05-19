@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 // next component
@@ -49,6 +49,21 @@ const DaoSubmitModal = props => {
     { id: 5, name: 'Business Development' },
     { id: 6, name: 'Partnership' },
   ]
+
+  useEffect(() => {
+    return () => {
+      setSelectedCategoryName(null)
+      setSelectedCategoryId(null)
+      setTitle('')
+      setOverview('')
+      setGoal('')
+      setTreasury('')
+      setTimeline('')
+      setStartDate(new Date())
+      setDays(0)
+      setHours(0)
+    }
+  }, [])
   const closeModal = () => {
     onClose()
     setTimeout(() => {

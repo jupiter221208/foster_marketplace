@@ -46,12 +46,11 @@ const DaoLandingPage = props => {
 
     getProposals()
 
-    const proposalName = 'TEST'
     setAlertData([
       {
         id: 0,
         title: 'Proposal Submitted',
-        description: `${proposalName} has successfully been submitted for review.`,
+        description: `New proposal has successfully been submitted for review.`,
         type: 'success',
       },
     ])
@@ -74,7 +73,10 @@ const DaoLandingPage = props => {
   const handleSubmitProposal = async proposal => {
     setIsLoading(true)
     try {
-      let response = await axios.post('api/dao/submit', proposal)
+      await axios.post('api/dao/submit', proposal)
+
+      getProposals()
+
       setTimeout(() => {
         setIsLoading(false)
         setTimeout(() => {
@@ -91,10 +93,31 @@ const DaoLandingPage = props => {
     }
   }
 
+  const isPendingProposal = propsal => {
+    let proposalTime = new Date(propsal.created_at)
+    let offset = proposalTime.getTimezoneOffset() * 60 * 1000
+    let proposalLocalTime = proposalTime.getTime() - offset
+    let nowDate = new Date().getTime()
+    let difference = nowDate - proposalLocalTime
+    if (difference < 2 * 24 * 3600 * 1000) return true
+    else return false
+  }
+
   const getProposals = async () => {
     try {
       let response = await axios.get('api/dao/proposals')
-      if (response.data.success === true) setProposals(response.data.proposals)
+      if (response.data.success === true) {
+        let proposals = response.data.proposals
+        let new_proposals = []
+        proposals.forEach(element => {
+          if (isPendingProposal(element)) {
+            new_proposals.push({ ...element, status: 'pending' })
+          } else {
+            new_proposals.push({ ...element, status: 'active' })
+          }
+        })
+        setProposals(new_proposals)
+      }
     } catch {}
   }
 
