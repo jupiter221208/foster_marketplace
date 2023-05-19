@@ -9,6 +9,14 @@ import DaoLiveButton from './DaoLiveButton'
 const LandingTable = props => {
   const { data, onDetail } = props
 
+  const getDateValue = item => {
+    var endDate = new Date(item.vote_start)
+    endDate.setHours(endDate.getHours() + item.vote_duration)
+    let difference = +new Date(endDate) - +new Date()
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+    return 'Ends in ' + days + ' days'
+  }
+
   return (
     <table id={'ArtworksTable'} className="w-full table-auto">
       <thead>
@@ -27,7 +35,7 @@ const LandingTable = props => {
           return (
             <tr key={index}>
               <td>
-                <div className={`ml-4 ${styles.text}`}>{item.proposal}</div>
+                <div className={`ml-4 ${styles.text}`}>{item.title}</div>
               </td>
               <td className="text-center">
                 <div className={styles.text}>{item.category}</div>
@@ -38,7 +46,7 @@ const LandingTable = props => {
               <td className="flex">
                 <div className="flex gap-[15px] items-center">
                   <TimeIcon />
-                  <div className={styles.text}>{item.time}</div>
+                  <div className={styles.text}>{getDateValue(item)}</div>
                 </div>
               </td>
               <td>

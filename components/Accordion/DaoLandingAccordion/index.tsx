@@ -16,7 +16,7 @@ const DaoLandingAccordion = props => {
       {data.map((item, index) => (
         <div key={index} className="w-full flex flex-wrap">
           <div className={styles.button}>
-            <div className={styles.proposal}>{item.proposal}</div>
+            <div className={styles.proposal}>{item.title}</div>
             <div className="w-full flex justify-between mt-[15px]">
               <div className={styles.liveBtn}>Live</div>
               <div className={styles.view} onClick={onDetail}>

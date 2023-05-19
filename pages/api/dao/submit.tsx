@@ -16,8 +16,6 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const result = await conn.query(query)
 
-    console.log('ttt', result)
-
     res.status(200).json({ success: true })
   } catch (err) {
     console.error(err)

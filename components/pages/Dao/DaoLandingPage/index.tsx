@@ -38,10 +38,14 @@ const DaoLandingPage = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
+  const [proposals, setProposals] = useState([])
 
   useEffect(() => {
     fetchSolToUsdRate().then(setSolToUsdRate)
     connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
+
+    getProposals()
+
     const proposalName = 'TEST'
     setAlertData([
       {
@@ -52,44 +56,6 @@ const DaoLandingPage = props => {
       },
     ])
   }, [])
-
-  const list = [
-    {
-      id: 0,
-      proposal: 'Add Creator Merch Hub to the Artist Page',
-      category: 'Product',
-      author: 'Angooba',
-      time: 'Ends in 4 days',
-    },
-    {
-      id: 1,
-      proposal: 'Add Creator Merch Hub to the Artist Page',
-      category: 'Product',
-      author: 'Angooba',
-      time: 'Ends in 4 days',
-    },
-    {
-      id: 2,
-      proposal: 'Add Creator Merch Hub to the Artist Page',
-      category: 'Product',
-      author: 'Angooba',
-      time: 'Ends in 4 days',
-    },
-    {
-      id: 3,
-      proposal: 'Add Creator Merch Hub to the Artist Page',
-      category: 'Product',
-      author: 'Angooba',
-      time: 'Ends in 4 days',
-    },
-    {
-      id: 4,
-      proposal: 'Add Creator Merch Hub to the Artist Page',
-      category: 'Product',
-      author: 'Angooba',
-      time: 'Ends in 4 days',
-    },
-  ]
 
   const selectRowCount = count => {
     setRowCount(count)
@@ -107,7 +73,6 @@ const DaoLandingPage = props => {
 
   const handleSubmitProposal = async proposal => {
     setIsLoading(true)
-    console.log('==========proposal=========', proposal)
     try {
       let response = await axios.post('api/dao/submit', proposal)
       console.log('==========response=========', response)
@@ -123,6 +88,24 @@ const DaoLandingPage = props => {
         setTimeout(() => {
           setShowAlert(true)
         }, 1000)
+      }, 1000)
+    }
+  }
+
+  const getProposals = async () => {
+    setIsLoading(true)
+
+    try {
+      let response = await axios.get('api/dao/proposals')
+      console.log('=========response=========', response)
+      if (response.data.success === true) setProposals(response.data.proposals)
+
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+    } catch {
+      setTimeout(() => {
+        setIsLoading(false)
       }, 1000)
     }
   }
@@ -264,7 +247,7 @@ const DaoLandingPage = props => {
       </div>
 
       <div className="mt-[20px]">
-        <TableSection data={list} onDetail={onDetail} />
+        <TableSection data={proposals} onDetail={onDetail} />
       </div>
       <div className="w-full flex justify-end">
         <ExplorePagination
@@ -283,7 +266,9 @@ const DaoLandingPage = props => {
         open={showDaoSubmitModal}
         onSubmit={proposal => {
           setShowDaoSubmitModal(false)
-          handleSubmitProposal(proposal)
+          setTimeout(() => {
+            handleSubmitProposal(proposal)
+          }, 1000)
         }}
         onClose={() => setShowDaoSubmitModal(false)}
       />
