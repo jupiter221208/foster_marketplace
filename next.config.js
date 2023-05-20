@@ -6,6 +6,7 @@ const { withSentryConfig } = require('@sentry/nextjs')
 
 /** @type {import('next').NextConfig} */
 const path = require('path')
+const webpack = require('webpack')
 
 const nextConfig = {
   reactStrictMode: true,
@@ -40,6 +41,7 @@ const nextConfig = {
   webpack(config, options) {
     config.resolve.modules.push(path.resolve('./'))
     const fileLoaderRule = config.module.rules.find(rule => rule.test?.test?.('.svg'))
+    config.plugins.push(new webpack.IgnorePlugin({ resourceRegExp: /^pg-native$/ }))
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports without ?component
       {
