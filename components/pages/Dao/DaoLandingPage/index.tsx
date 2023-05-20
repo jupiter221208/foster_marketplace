@@ -94,6 +94,7 @@ const DaoLandingPage = props => {
   }
 
   const isPendingProposal = propsal => {
+    return false
     let proposalTime = new Date(propsal.created_at)
     let offset = proposalTime.getTimezoneOffset() * 60 * 1000
     let proposalLocalTime = proposalTime.getTime() - offset
