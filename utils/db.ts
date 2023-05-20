@@ -1,6 +1,6 @@
 import { Pool } from 'pg'
 
-let connection = null
+let connection
 
 const conn = () => {
   if (!connection) {

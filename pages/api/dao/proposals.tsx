@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import conn from '../../lib/db'
+import conn from '../../../utils/db'
 
 const getProposals = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
