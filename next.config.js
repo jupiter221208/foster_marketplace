@@ -61,6 +61,7 @@ const nextConfig = {
       dns: false,
       net: false,
       tls: false,
+      cloudflare: false,
     }
 
     // // Modify the file loader rule to ignore *.svg, since we have it handled now.
@@ -78,4 +79,4 @@ const nextConfig = {
 
 module.exports = nextConfig
 
-module.exports = withSentryConfig(module.exports, { silent: true }, { hideSourcemaps: true })
+// module.exports = withSentryConfig(module.exports, { silent: true }, { hideSourcemaps: true })
