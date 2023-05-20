@@ -9,7 +9,7 @@ const getProposalDetail = async (req: NextApiRequest, res: NextApiResponse) => {
     const { proposal_id } = req.body
 
     const query = `SELECT * FROM dao_proposals WHERE id=${proposal_id}`
-    const result = await conn.query(query)
+    const result = await conn().query(query)
     res.status(200).json({ success: true, proposals: result.rows })
   } catch (err) {
     console.error(err)

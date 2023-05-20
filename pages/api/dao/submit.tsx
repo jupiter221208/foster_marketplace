@@ -14,7 +14,7 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
             ( "title", "author", "wallet_id", "category", "overview", "metrics", "treasury", "eta_timeline", "vote_start", "vote_duration")
       VALUES('${title}', '${author}', '${walletId}', '${category}', '${overview}', '${metrics}', '${treasury}', '${eta_timeline}', '${vote_start}', '${vote_duration}')`
 
-    await conn.query(query)
+    await conn().query(query)
 
     res.status(200).json({ success: true })
   } catch (err) {

@@ -10,7 +10,7 @@ const castVote = async (req: NextApiRequest, res: NextApiResponse) => {
     const { proposal_id, wallet_id, vote_status } = req.body
 
     const vote_exist_query = `SELECT * FROM dao_votes where proposal_id=${proposal_id} and wallet_id='${wallet_id}'`
-    const votes = await conn.query(vote_exist_query)
+    const votes = await conn().query(vote_exist_query)
 
     if (votes.rows.length > 0) {
       res.status(200).json({ success: true })
@@ -19,11 +19,11 @@ const castVote = async (req: NextApiRequest, res: NextApiResponse) => {
       const vote_insert_query = `INSERT INTO "dao_votes" 
             ( "proposal_id", "wallet_id", "vote_status")
       VALUES('${proposal_id}', '${wallet_id}', '${vote_status ? 'approved' : 'opposed'}')`
-      await conn.query(vote_insert_query)
+      await conn().query(vote_insert_query)
     }
 
     const query = `UPDATE "dao_proposals" SET total_votes = total_votes + 1 WHERE id=${proposal_id}`
-    await conn.query(query)
+    await conn().query(query)
 
     let vote_query
     if (vote_status) {
@@ -32,7 +32,7 @@ const castVote = async (req: NextApiRequest, res: NextApiResponse) => {
       vote_query = `UPDATE "dao_proposals" SET opposed_votes = opposed_votes + 1 WHERE id=${proposal_id}`
     }
 
-    await conn.query(vote_query)
+    await conn().query(vote_query)
     res.status(200).json({ success: true })
   } catch (err) {
     console.error(err)

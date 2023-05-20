@@ -6,7 +6,7 @@ const getProposals = async (req: NextApiRequest, res: NextApiResponse) => {
     //      client.query("SELECT * FROM my_table WHERE my_varchar = $1", [userInput]);
 
     const query = `SELECT * FROM dao_proposals`
-    const result = await conn.query(query)
+    const result = await conn().query(query)
     res.status(200).json({ success: true, proposals: result.rows })
   } catch (err) {
     console.error(err)
