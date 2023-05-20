@@ -58,6 +58,9 @@ const nextConfig = {
 
     config.resolve.fallback = {
       fs: false,
+      dns: false,
+      net: false,
+      tls: false,
     }
 
     // // Modify the file loader rule to ignore *.svg, since we have it handled now.
