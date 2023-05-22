@@ -199,7 +199,7 @@ const DaoSubmitModal = props => {
                       <div className="mt-[12px]">
                         <Input
                           value={limit(title, 45)}
-                          placeholder="Give your art name"
+                          placeholder="Give your proposal name"
                           label=""
                           fullWidth
                           onChange={value => setTitle(limit(value, 45))}
@@ -212,8 +212,7 @@ const DaoSubmitModal = props => {
                       <div className="mt-[12px]">
                         <Textarea
                           value={limit(overview, 5000)}
-                          placeholder="Provide a detailed explanation of the proposal and how it will be executed, including 
-                        to whom each necessary step is delegated."
+                          placeholder="Provide a detailed explanation of your proposal, how it will be implemented, and who will be responsible for its execution."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
                           onChange={value => setOverview(limit(value, 5000))}
@@ -222,15 +221,11 @@ const DaoSubmitModal = props => {
                       </div>
                     </div>
                     <div className="mt-[22px]">
-                      <div className={styles.text}>Goals/Evaluation Metrics</div>
+                      <div className={styles.text}>Goals & Metrics</div>
                       <div className="mt-[12px]">
                         <Textarea
                           value={goal}
-                          placeholder="How will this proposal produce benefits to CircusDAO?&#10;
-                        How does this initiative reflect the values of CircusDAO in its support of Foster Marketplace, 
-                        Solana, and the integrity of artists?&#10;
-                        
-                        What kind of qualitative and quantitative data can we analyze to determine its success?"
+                          placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?"
                           fullWidth
                           color={'var(--text-gray-200-color)'}
                           onChange={value => setGoal(value)}
@@ -241,11 +236,11 @@ const DaoSubmitModal = props => {
                   </div>
                   <div className="w-[50%] relative">
                     <div className="mt-[96px]">
-                      <div className={styles.text}>Treasury Spending Required</div>
+                      <div className={styles.text}>Treasury Spending</div>
                       <div className="mt-[12px]">
                         <Input
                           value={treasury}
-                          placeholder="Estimated funds required to implement proposal"
+                          placeholder="Enter the estimated amount of Solana (SOL) required to implement your proposal."
                           label=""
                           type="number"
                           color={'var(--text-gray-200-color)'}
@@ -260,8 +255,7 @@ const DaoSubmitModal = props => {
                       <div className="mt-[12px]">
                         <Textarea
                           value={limit(timeline, 5000)}
-                          placeholder="Produce a stringent timeline as to the beginning, development, and deployment of with an 
-                        emphasis on any deadlines and time constraints."
+                          placeholder="Please provide the timeline for each phase of the proposals implementation and the deliverables with as much detail as possible."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
                           onChange={value => setTimeline(limit(value, 5000))}
