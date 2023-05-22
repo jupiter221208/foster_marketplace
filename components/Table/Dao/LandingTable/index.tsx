@@ -19,17 +19,37 @@ const LandingTable = props => {
     let difference = voteStartLocalTime - nowDate
 
     if (difference > 0) {
-      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-      return 'Starts in ' + days + (days === 1 ? ' day' : ' days')
+      const hours = difference / (1000 * 60 * 60)
+      let days = ''
+      if (hours < 24) {
+        days = Math.ceil(hours) + ' hrs'
+      } else if (hours < 37) {
+        days = '1 day'
+      } else {
+        days = '2 days'
+      }
+      return 'Starts in ' + days
     }
 
     difference = voteStartLocalTime + item.vote_duration * 3600 * 1000 - nowDate
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+
+    const hours = difference / (1000 * 60 * 60)
+    let endDays = ''
+    if (hours <= 0) {
+      endDays = 'Ended'
+    } else if (hours < 24) {
+      endDays = 'Ends in ' + Math.ceil(hours) + ' hrs'
+    } else if (hours < 37) {
+      endDays = 'Ends in 1 day'
+    } else {
+      endDays = 'Ends in ' + Math.round(difference / (1000 * 60 * 60 * 24)) + ' days'
+    }
+    // const days = Math.floor(difference / (1000 * 60 * 60 * 24))
     // var endDate = new Date(item.vote_start)
     // endDate.setHours(endDate.getHours() + item.vote_duration)
     // let difference = +new Date(endDate) - +new Date()
     // const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-    return days <= 0 ? 'Ended' : 'Ends in ' + days + (days === 1 ? ' day' : ' days')
+    return endDays
   }
 
   return (

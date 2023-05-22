@@ -32,7 +32,7 @@ const DaoSubmitModal = props => {
   const viewport = useViewport()
   const [startDate, setStartDate] = useState(new Date())
   const [minDate, setMinDate] = useState(new Date())
-  const [days, setDays] = useState(0)
+  const [days, setDays] = useState(7)
   const [hours, setHours] = useState(0)
   const [price, setPrice] = useState()
   const [title, setTitle] = useState('')
@@ -69,7 +69,7 @@ const DaoSubmitModal = props => {
       goal.length > 0 &&
       treasury.length > 0 &&
       timeline.length > 0 &&
-      (days > 0 || hours > 0)
+      days >= 7
     )
       setEnabledSubmit(false)
     else setEnabledSubmit(true)
@@ -297,6 +297,7 @@ const DaoSubmitModal = props => {
                         <div className="flex gap-[10px] mt-[13px]">
                           <div className="flex gap-[5px] items-center">
                             <Input
+                              value={days}
                               placeholder="0"
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
@@ -324,6 +325,7 @@ const DaoSubmitModal = props => {
                             <div className={styles.placeholder}>Hours</div>
                           </div>
                         </div>
+                        {days < 7 && <div className={styles.minimumVote}>Minimum voting duration is 7 days.</div>}
                       </div>
                     </div>
 

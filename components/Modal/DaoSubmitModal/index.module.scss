@@ -58,6 +58,19 @@
   color: var(--text-gray-200-color);
 }
 
+.minimumVote {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 20px;
+  }
+  text-align: start;
+  color: var(--text-gray-200-color);
+}
+
 .placeholder {
   font-family: 'Muli-Regular';
   font-size: 12px;
