@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import { LinearProgress, makeStyles } from '@material-ui/core'
 
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
@@ -38,13 +41,15 @@ const useStyles = makeStyles({
 })
 
 const DaoLandingDetail = props => {
-  const { proposal, publicKey, onBack } = props
+  const { proposal, onBack } = props
+  const { connected, publicKey, signMessage } = useWallet()
+  const { setVisible } = useWalletModal()
+
   const [isLoading, setIsLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
   const [proposalDetail, setProposalDetail] = useState(proposal)
-
-  console.log(publicKey?.toString())
+  const [clickedCastVote, setClickedCastVote] = useState(false)
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -119,6 +124,23 @@ const DaoLandingDetail = props => {
     }
   }
 
+  const onClickCastVoteBtn = async () => {
+    if (!connected) {
+      setClickedCastVote(true)
+      setVisible(true)
+      return
+    }
+
+    setShowCastVoteModal(true)
+  }
+
+  useEffect(() => {
+    if (clickedCastVote) {
+      setShowCastVoteModal(true)
+      setClickedCastVote(false)
+    }
+  }, [connected])
+
   return (
     <div className={styles.container}>
       <div className="flex mt-[20px] lg:mt-[117px] items-center">
@@ -147,7 +169,7 @@ const DaoLandingDetail = props => {
             height={53}
             icon={NotificationIcon}
             label="Cast Vote"
-            onClick={() => setShowCastVoteModal(true)}
+            onClick={() => onClickCastVoteBtn()}
           />
           {/* )} */}
         </div>
@@ -176,7 +198,7 @@ const DaoLandingDetail = props => {
             icon={NotificationMobileIcon}
             label="Cast Vote"
             borderRadius={8}
-            onClick={() => setShowCastVoteModal(true)}
+            onClick={() => onClickCastVoteBtn()}
           />
         </div>
       </div>

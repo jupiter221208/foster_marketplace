@@ -25,7 +25,7 @@ const Dao = () => {
   // const [showCircus, setShowCircus] = useState(false)
   // const [showLift, setShowLift] = useState(false)
   // const [daoSetup, setDaoSetup] = useState(false)
-  const [daoPage, setDaoPage] = useState('start')
+  const [daoPage, setDaoPage] = useState('landing')
   const [proposal, setProposal] = useState()
   const { publicKey } = useWallet()
 
@@ -58,9 +58,10 @@ const Dao = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
 
-        {daoPage === 'start' ? (
+        {/* {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
-        ) : daoPage === 'landing' ? (
+        ) :  */}
+        {daoPage === 'landing' ? (
           <div className="w-full mt-[40px] lg:mt-[115px] z-10">
             <DaoLandingPage
               onDetail={item => {

@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useConnection } from '@solana/wallet-adapter-react'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images and icons
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
@@ -20,18 +23,24 @@ import ExplorePagination from 'components/Button/ExplorePagination'
 import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
+import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
 
 const DaoLandingPage = props => {
   const { onDetail } = props
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const { connection } = useConnection()
+  const { connected, publicKey, signMessage } = useWallet()
+  const { setVisible } = useWalletModal()
+
   const [searchWord, setSearchWord] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(10)
   const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(false)
+  const [clickedSubmitButton, setClickedSubmitButton] = useState(false)
 
   const [solAmount, setSolAmount] = useState(0)
   const [solToUsdRate, setSolToUsdRate] = useState(0)
@@ -69,6 +78,23 @@ const DaoLandingPage = props => {
     if (currentPage === 0) return
     const prevPage = currentPage - 1
   }
+
+  const onClickSubmitBtn = async () => {
+    if (!connected) {
+      setClickedSubmitButton(true)
+      setVisible(true)
+      return
+    }
+
+    setShowDaoSubmitModal(true)
+  }
+
+  useEffect(() => {
+    if (clickedSubmitButton) {
+      setShowDaoSubmitModal(true)
+      setClickedSubmitButton(false)
+    }
+  }, [connected])
 
   const handleSubmitProposal = async proposal => {
     setIsLoading(true)
@@ -240,7 +266,7 @@ const DaoLandingPage = props => {
           placeholder="Search by proposal name"
           onChange={value => setSearchWord(value)}
         />
-        <div className={styles.submitProposal} onClick={() => setShowDaoSubmitModal(true)}>
+        <div className={styles.submitProposal} onClick={() => onClickSubmitBtn()}>
           <NotificationIcon />
           <div className={styles.submitText}>Submit Proposal</div>
         </div>
@@ -248,7 +274,7 @@ const DaoLandingPage = props => {
 
       <div className="w-full mt-[30px] lg:hidden justify-between">
         <div className="w-full flex justify-end mb-[15px]">
-          <div className={styles.submitProposal} onClick={() => setShowDaoSubmitModal(true)}>
+          <div className={styles.submitProposal} onClick={() => onClickSubmitBtn()}>
             <div className={styles.submitText}>Submit Proposal</div>
           </div>
         </div>
