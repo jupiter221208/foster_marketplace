@@ -22,6 +22,7 @@ import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import SelectCategoryMenu from 'components/Menu/SelectCategoryMenu'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import { limit } from 'utils/strings'
 
 const DaoSubmitModal = props => {
   const { data, open, onSubmit, onClose } = props
@@ -30,6 +31,7 @@ const DaoSubmitModal = props => {
 
   const viewport = useViewport()
   const [startDate, setStartDate] = useState(new Date())
+  const [minDate, setMinDate] = useState(new Date())
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
   const [price, setPrice] = useState()
@@ -38,6 +40,7 @@ const DaoSubmitModal = props => {
   const [goal, setGoal] = useState('')
   const [treasury, setTreasury] = useState('')
   const [timeline, setTimeline] = useState('')
+  const [enabledSubmit, setEnabledSubmit] = useState(true)
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null)
   const [selectedCategoryId, setSelectedCategoryId] = useState(null)
@@ -50,6 +53,28 @@ const DaoSubmitModal = props => {
     { id: 6, name: 'Partnership' },
   ]
 
+  useEffect(() => {
+    var today = new Date()
+    var numberOfDaysToAdd = 2
+    var result = today.setDate(today.getDate() + numberOfDaysToAdd)
+    setMinDate(new Date(result))
+    setStartDate(new Date(result))
+  }, [])
+
+  useEffect(() => {
+    if (
+      selectedCategoryName !== null &&
+      title.length > 0 &&
+      overview.length > 0 &&
+      goal.length > 0 &&
+      treasury.length > 0 &&
+      timeline.length > 0 &&
+      (days > 0 || hours > 0)
+    )
+      setEnabledSubmit(false)
+    else setEnabledSubmit(true)
+  }, [selectedCategoryName, title, overview, goal, treasury, timeline, days, hours])
+
   const resetFields = () => {
     setSelectedCategoryName(null)
     setSelectedCategoryId(null)
@@ -58,7 +83,10 @@ const DaoSubmitModal = props => {
     setGoal('')
     setTreasury('')
     setTimeline('')
-    setStartDate(new Date())
+    var today = new Date()
+    var numberOfDaysToAdd = 2
+    var result = today.setDate(today.getDate() + numberOfDaysToAdd)
+    setStartDate(new Date(result))
     setDays(0)
     setHours(0)
   }
@@ -170,11 +198,11 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Proposal Title</div>
                       <div className="mt-[12px]">
                         <Input
-                          value={title}
+                          value={limit(title, 45)}
                           placeholder="Give your art name"
                           label=""
                           fullWidth
-                          onChange={value => setTitle(value)}
+                          onChange={value => setTitle(limit(value, 45))}
                           height="46px"
                         />
                       </div>
@@ -183,12 +211,12 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Overview</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value={overview}
+                          value={limit(overview, 5000)}
                           placeholder="Provide a detailed explanation of the proposal and how it will be executed, including 
                         to whom each necessary step is delegated."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          onChange={value => setOverview(value)}
+                          onChange={value => setOverview(limit(value, 5000))}
                           height="90px"
                         />
                       </div>
@@ -219,6 +247,7 @@ const DaoSubmitModal = props => {
                           value={treasury}
                           placeholder="Estimated funds required to implement proposal"
                           label=""
+                          type="number"
                           color={'var(--text-gray-200-color)'}
                           fullWidth
                           onChange={value => setTreasury(value)}
@@ -230,12 +259,12 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Timeline/Roadmap</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value={timeline}
+                          value={limit(timeline, 5000)}
                           placeholder="Produce a stringent timeline as to the beginning, development, and deployment of with an 
                         emphasis on any deadlines and time constraints."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          onChange={value => setTimeline(value)}
+                          onChange={value => setTimeline(limit(value, 5000))}
                           height="90px"
                         />
                       </div>
@@ -250,7 +279,7 @@ const DaoSubmitModal = props => {
                               onChange={date => setStartDate(date)}
                               dateFormat="MM/dd/yyyy h:mm aa"
                               formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                              minDate={moment().toDate()}
+                              minDate={minDate}
                               showTimeInput
                               timeInputLabel=""
                               className={styles.datePicker}
@@ -315,6 +344,7 @@ const DaoSubmitModal = props => {
                           fontFamily="Muli-SemiBold"
                           gradientDirection="bottom"
                           label="Submit"
+                          disabled={enabledSubmit}
                           onClick={submitProposal}
                         />
                       </div>
@@ -394,6 +424,7 @@ const DaoSubmitModal = props => {
                         placeholder="Estimated funds required for project"
                         label=""
                         fullWidth
+                        type="number"
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setTreasury(value)}
                         height="46px"
@@ -437,7 +468,7 @@ const DaoSubmitModal = props => {
                   </div>
 
                   <div className="mt-[36px]">
-                    <div className={styles.text}>Treasury Spending Required</div>
+                    <div className={styles.text}>Voting Start Time</div>
                     <div className="mt-[18px] mb-[8px] w-full startAuctionDatePicker">
                       <div className="relative">
                         <DatePicker

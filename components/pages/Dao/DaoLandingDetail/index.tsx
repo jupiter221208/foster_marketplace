@@ -67,8 +67,8 @@ const DaoLandingDetail = props => {
     setAlertData([
       {
         id: 0,
-        title: 'Proposal Submitted',
-        description: `You have successfully votted this proposal.`,
+        title: 'Casted Vote',
+        description: `You've successfully casted your vote for ${proposal.title}`,
         type: 'success',
       },
     ])

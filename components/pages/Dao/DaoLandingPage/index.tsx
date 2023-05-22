@@ -54,15 +54,6 @@ const DaoLandingPage = props => {
     connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
 
     getProposals(currentPage, rowCount)
-
-    setAlertData([
-      {
-        id: 0,
-        title: 'Proposal Submitted',
-        description: `New proposal has successfully been submitted for review.`,
-        type: 'success',
-      },
-    ])
   }, [])
 
   const selectRowCount = count => {
@@ -102,6 +93,15 @@ const DaoLandingPage = props => {
     try {
       await axios.post('api/dao/submit', proposal)
 
+      setAlertData([
+        {
+          id: 0,
+          title: 'Proposal Submitted',
+          description: `${proposal.title} has successfully been submitted for community voting.`,
+          type: 'success',
+        },
+      ])
+
       getProposals(currentPage, rowCount)
 
       setTimeout(() => {
@@ -113,9 +113,6 @@ const DaoLandingPage = props => {
     } catch {
       setTimeout(() => {
         setIsLoading(false)
-        setTimeout(() => {
-          setShowAlert(true)
-        }, 1000)
       }, 1000)
     }
   }
