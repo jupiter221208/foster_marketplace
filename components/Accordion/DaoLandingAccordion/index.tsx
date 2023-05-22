@@ -19,7 +19,7 @@ const DaoLandingAccordion = props => {
             <div className={styles.proposal}>{item.title}</div>
             <div className="w-full flex justify-between mt-[15px]">
               <div className={styles.liveBtn}>Live</div>
-              <div className={styles.view} onClick={onDetail}>
+              <div className={styles.view} onClick={() => onDetail(item)}>
                 View
                 <RightArrowIcon />
               </div>

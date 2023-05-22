@@ -53,7 +53,7 @@ const DaoLandingPage = props => {
     fetchSolToUsdRate().then(setSolToUsdRate)
     connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
 
-    getProposals()
+    getProposals(currentPage, rowCount)
 
     setAlertData([
       {
@@ -70,13 +70,14 @@ const DaoLandingPage = props => {
   }
 
   const handleNextPage = () => {
-    if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
+    getProposals(nextPage, rowCount)
   }
 
   const handlePreviousPage = () => {
     if (currentPage === 0) return
     const prevPage = currentPage - 1
+    getProposals(prevPage, rowCount)
   }
 
   const onClickSubmitBtn = async () => {
@@ -101,7 +102,7 @@ const DaoLandingPage = props => {
     try {
       await axios.post('api/dao/submit', proposal)
 
-      getProposals()
+      getProposals(currentPage, rowCount)
 
       setTimeout(() => {
         setIsLoading(false)
@@ -131,11 +132,17 @@ const DaoLandingPage = props => {
     else return false
   }
 
-  const getProposals = async () => {
+  const getProposals = async (curPage, count) => {
+    console.log('=====333======', curPage, count)
     try {
-      let response = await axios.get('api/dao/proposals')
+      let response = await axios.post('api/dao/proposals', { page: curPage, rows: count })
       if (response.data.success === true) {
         let proposals = response.data.proposals
+        if (proposals.length > 0) {
+          setCurrentPage(curPage)
+        } else {
+          return
+        }
         let new_proposals = []
         proposals.forEach(element => {
           if (isPendingProposal(element)) {

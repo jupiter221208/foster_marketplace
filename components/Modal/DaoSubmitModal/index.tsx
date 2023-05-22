@@ -50,21 +50,21 @@ const DaoSubmitModal = props => {
     { id: 6, name: 'Partnership' },
   ]
 
-  useEffect(() => {
-    return () => {
-      setSelectedCategoryName(null)
-      setSelectedCategoryId(null)
-      setTitle('')
-      setOverview('')
-      setGoal('')
-      setTreasury('')
-      setTimeline('')
-      setStartDate(new Date())
-      setDays(0)
-      setHours(0)
-    }
-  }, [])
+  const resetFields = () => {
+    setSelectedCategoryName(null)
+    setSelectedCategoryId(null)
+    setTitle('')
+    setOverview('')
+    setGoal('')
+    setTreasury('')
+    setTimeline('')
+    setStartDate(new Date())
+    setDays(0)
+    setHours(0)
+  }
+
   const closeModal = () => {
+    resetFields()
     onClose()
     setTimeout(() => {
       setSelectedCategoryName(null)
@@ -99,7 +99,7 @@ const DaoSubmitModal = props => {
     onSubmit(proposal)
 
     setTimeout(() => {
-      setSelectedCategoryName(null)
+      resetFields()
     }, 500)
   }
 
