@@ -5,17 +5,31 @@ import TimeIcon from 'assets/icons/dao-time-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import DaoLiveButton from './DaoLiveButton'
-import DaoPendingButton from './DaoPendingButton'
+import DaoPendingButton from './DaoStatusButton'
+import DaoStatusButton from './DaoStatusButton'
 
 const LandingTable = props => {
   const { data, onDetail } = props
 
-  const getDateValue = item => {
-    var endDate = new Date(item.vote_start)
-    endDate.setHours(endDate.getHours() + item.vote_duration)
-    let difference = +new Date(endDate) - +new Date()
+  const getEndInValue = item => {
+    let voteStartTime = new Date(item.vote_start)
+    let offset = voteStartTime.getTimezoneOffset() * 60 * 1000
+    let voteStartLocalTime = voteStartTime.getTime() - offset
+    let nowDate = new Date().getTime()
+    let difference = voteStartLocalTime - nowDate
+
+    if (difference > 0) {
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+      return 'Starts in ' + days + (days === 1 ? ' day' : ' days')
+    }
+
+    difference = voteStartLocalTime + item.vote_duration * 3600 * 1000 - nowDate
     const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-    return 'Ends in ' + days + ' days'
+    // var endDate = new Date(item.vote_start)
+    // endDate.setHours(endDate.getHours() + item.vote_duration)
+    // let difference = +new Date(endDate) - +new Date()
+    // const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+    return days <= 0 ? 'Ended' : 'Ends in ' + days + (days === 1 ? ' day' : ' days')
   }
 
   return (
@@ -47,12 +61,18 @@ const LandingTable = props => {
               <td className="flex">
                 <div className="flex gap-[15px] items-center">
                   <TimeIcon />
-                  <div className={styles.text}>{getDateValue(item)}</div>
+                  <div className={styles.text}>{getEndInValue(item)}</div>
                 </div>
               </td>
               <td>
                 <div className="flex justify-center">
-                  {item.status === 'pending' ? <DaoPendingButton /> : <DaoLiveButton onDetail={() => onDetail(item)} />}
+                  {item.status === 'closed' ? (
+                    <DaoStatusButton label="Closed" />
+                  ) : item.status === 'pending' ? (
+                    <DaoStatusButton label="Pending" />
+                  ) : (
+                    <DaoLiveButton onDetail={() => onDetail(item)} />
+                  )}
                 </div>
               </td>
             </tr>

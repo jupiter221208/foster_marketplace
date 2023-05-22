@@ -24,6 +24,7 @@ import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import { isExpiredDate } from 'utils/helpers'
 
 const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
 
@@ -38,6 +39,9 @@ const DaoLandingPage = props => {
   const [searchWord, setSearchWord] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
+  const [liveCount, setLiveCount] = useState(0)
+  const [pendingCount, setPendingCount] = useState(0)
+  const [closedCount, setClosedCount] = useState(0)
   const [rowCount, setRowCount] = useState(10)
   const [showDaoSubmitModal, setShowDaoSubmitModal] = useState(false)
   const [clickedSubmitButton, setClickedSubmitButton] = useState(false)
@@ -54,6 +58,8 @@ const DaoLandingPage = props => {
     connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
 
     getProposals(currentPage, rowCount)
+
+    getStats()
   }, [])
 
   const selectRowCount = count => {
@@ -117,20 +123,19 @@ const DaoLandingPage = props => {
     }
   }
 
-  const isPendingProposal = propsal => {
-    // for testing
-    return false
-    let proposalTime = new Date(propsal.created_at)
-    let offset = proposalTime.getTimezoneOffset() * 60 * 1000
-    let proposalLocalTime = proposalTime.getTime() - offset
-    let nowDate = new Date().getTime()
-    let difference = nowDate - proposalLocalTime
-    if (difference < 2 * 24 * 3600 * 1000) return true
-    else return false
+  const getStats = async () => {
+    try {
+      let response = await axios.get('api/dao/stats')
+      if (response.data.success === true) {
+        let stats = response.data.stats
+        setTotalCount(stats.total_count)
+        setLiveCount(stats.live_count)
+        setPendingCount(stats.pending_count)
+        setClosedCount(stats.closed_count)
+      }
+    } catch {}
   }
-
   const getProposals = async (curPage, count) => {
-    console.log('=====333======', curPage, count)
     try {
       let response = await axios.post('api/dao/proposals', { page: curPage, rows: count })
       if (response.data.success === true) {
@@ -142,10 +147,12 @@ const DaoLandingPage = props => {
         }
         let new_proposals = []
         proposals.forEach(element => {
-          if (isPendingProposal(element)) {
-            new_proposals.push({ ...element, status: 'pending' })
-          } else {
+          if (isExpiredDate(element.vote_start, element.vote_duration)) {
+            new_proposals.push({ ...element, status: 'closed' })
+          } else if (isExpiredDate(element.created_at, 2 * 24)) {
             new_proposals.push({ ...element, status: 'active' })
+          } else {
+            new_proposals.push({ ...element, status: 'pending' })
           }
         })
         setProposals(new_proposals)
@@ -162,22 +169,22 @@ const DaoLandingPage = props => {
             <div className="flex gap-[25px]">
               <div>
                 <div className={styles.statsTitle}>All</div>
-                <div className={styles.statsValue}>64</div>
+                <div className={styles.statsValue}>{totalCount}</div>
               </div>
               <div className={styles.divider}></div>
               <div>
                 <div className={styles.statsTitle}>Live</div>
-                <div className={styles.statsValue}>64</div>
+                <div className={styles.statsValue}>{liveCount}</div>
               </div>
               <div className={styles.divider}></div>
               <div>
                 <div className={styles.statsTitle}>Pending</div>
-                <div className={styles.statsValue}>64</div>
+                <div className={styles.statsValue}>{pendingCount}</div>
               </div>
               <div className={styles.divider}></div>
               <div>
                 <div className={styles.statsTitle}>Closed</div>
-                <div className={styles.statsValue}>64</div>
+                <div className={styles.statsValue}>{closedCount}</div>
               </div>
             </div>
           </div>
@@ -225,21 +232,21 @@ const DaoLandingPage = props => {
           <div className="w-full flex flex-wrap gap-[5px] mt-[22px]">
             <div className="w-full flex gap-[5px]">
               <div className={styles.statsBG}>
-                <div className={styles.statsValue}>25</div>
+                <div className={styles.statsValue}>{totalCount}</div>
                 <div className={styles.statsTitle}>ALL</div>
               </div>
               <div className={styles.statsBG}>
-                <div className={styles.statsValue}>50</div>
+                <div className={styles.statsValue}>{liveCount}</div>
                 <div className={styles.statsTitle}>LIVE</div>
               </div>
             </div>
             <div className="w-full flex gap-[5px]">
               <div className={styles.statsBG}>
-                <div className={styles.statsValue}>13</div>
+                <div className={styles.statsValue}>{pendingCount}</div>
                 <div className={styles.statsTitle}>PENDING</div>
               </div>
               <div className={styles.statsBG}>
-                <div className={styles.statsValue}>10</div>
+                <div className={styles.statsValue}>{closedCount}</div>
                 <div className={styles.statsTitle}>CLOSED</div>
               </div>
             </div>
