@@ -87,7 +87,7 @@ const DaoSubmitModal = props => {
     var numberOfDaysToAdd = 2
     var result = today.setDate(today.getDate() + numberOfDaysToAdd)
     setStartDate(new Date(result))
-    setDays(0)
+    setDays(7)
     setHours(0)
   }
 
@@ -128,7 +128,7 @@ const DaoSubmitModal = props => {
 
     setTimeout(() => {
       resetFields()
-    }, 500)
+    }, 1000)
   }
 
   const chooseCategory = index => {
