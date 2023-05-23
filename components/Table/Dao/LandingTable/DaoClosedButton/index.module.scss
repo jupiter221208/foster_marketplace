@@ -1,0 +1,24 @@
+@import 'assets/scss/variable.module.scss';
+
+.liveBtn {
+  width: 123px;
+  height: 41px;
+  background: #202427;
+  border-radius: 8px;
+  color: #888a8e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewBtn {
+  width: 123px;
+  height: 41px;
+  background: linear-gradient(to bottom, $brand-09-color, $brand-12-color);
+  border-radius: 8px;
+  color: $background-dark-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
