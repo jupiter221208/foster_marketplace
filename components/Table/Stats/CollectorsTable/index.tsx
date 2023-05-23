@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -47,20 +47,23 @@ const CollectorsTable = props => {
               </td>
               <td className="text-center">{item.creatorSupported}</td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
+                  <SolanaLogoIcon />
                   {item.totalSpent.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
+                  <SolanaLogoIcon />
                   {item.averagePurchase.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
+                  <SolanaLogoIcon />
                   {item.highestPurchase.toFixed(2)}
                 </div>
               </td>

@@ -34,12 +34,12 @@ const CollectionSection = props => {
               : viewport === 'md'
               ? 3
               : viewport === 'lg'
+              ? 4
+              : viewport === '2xl'
               ? 5
-              : viewport === 'xl'
-              ? 6
-              : 8
+              : 5
           }
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32}
+          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="hideNavigationSwiper"
           loop

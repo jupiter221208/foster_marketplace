@@ -10,21 +10,38 @@ import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import styles from './index.module.scss'
 
 // icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 const StatsArtistCard = props => {
   const { data } = props
   return (
     <div className={styles.container}>
-      <div className={styles.avatarArea}>
-        <Image src={data.image} alt="" width={144} height={144} objectFit="cover" className="rounded-[72px]" />
+      <div className="w-full flex justify-center pt-[30px]">
+        <div className={styles.avatarArea}>
+          <div className="w-full h-full overflow-hidden hidden lg:flex">
+            <Image src={data.image} alt="" width={180} height={180} objectFit="cover" className="rounded-[90px]" />
+          </div>
+          <div className="w-full h-full overflow-hidden lg:hidden">
+            <Image src={data.image} alt="" width={100} height={100} objectFit="cover" className="rounded-[90px]" />
+          </div>
+        </div>
       </div>
-
-      <div className={styles.name}>{data.name}</div>
-      <div className="flex justify-center">
-        <div className="flex gap-[4px]">
-          <Image src={SolanaLogoIcon} width={18} height={18} alt="" />
-          <div className={styles.value}>87</div>
+      <div className="w-full flex justify-center pt-[3px] lg:pt-[7px]">
+        <div className={styles.name}>{data.name}</div>
+      </div>
+      <div className="w-full pt-[20px] lg:pt-[36px]">
+        <div className="flex justify-center items-center gap-[4px]">
+          <div className="hidden lg:flex mt-[2px]">
+            <SolanaLogoIcon alt="" />
+          </div>
+          <div className="flex lg:hidden">
+            <SolanaLogoMobileIcon alt="" />
+          </div>
+          <div className={styles.value}>200</div>
+        </div>
+        <div className="flex justify-center mt-[4px]">
+          <div className={styles.totalSales}>Total Sales</div>
         </div>
       </div>
     </div>

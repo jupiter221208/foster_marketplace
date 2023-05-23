@@ -24,7 +24,7 @@ const CollectionsTable = props => {
           <th className="w-[20%] text-start">
             <div className="ml-3">Collection</div>
           </th>
-          <th>Total Sale</th>
+          <th>Total Sales</th>
           <th>Floor Price</th>
           <th>Average Price</th>
           <th>Highest Sale</th>
@@ -45,25 +45,25 @@ const CollectionsTable = props => {
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
                   {item.totalSale.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
                   {item.floorPrice.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
                   {item.averagePrice.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.brand03Text}`}>
+                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
                   <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
                   {item.highestSale.toFixed(2)}
                 </div>

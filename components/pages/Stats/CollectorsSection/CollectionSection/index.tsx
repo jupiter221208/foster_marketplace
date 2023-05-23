@@ -34,10 +34,10 @@ const CollectionSection = props => {
               : viewport === 'md'
               ? 3
               : viewport === 'lg'
-              ? 5
+              ? 4
               : viewport === 'xl'
-              ? 6
-              : 8
+              ? 5
+              : 5
           }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
