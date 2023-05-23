@@ -49,7 +49,7 @@ const MainSection = props => {
   const [items, setItems] = useState<any>()
   const [owners, setOwners] = useState<any>()
   const [floorPrice, setFloorPrice] = useState<any>()
-  const [totalVolume, setTotalVolume] = useState<any>()
+  const [totalVolume, setTotalVolume] = useState<number>(0.0)
   const [saved, setSaved] = useState<boolean>(false)
   const [showReadMore, setShowReadMore] = useState(false)
   const [openShareModal, setOpenShareModal] = useState(false)
@@ -90,13 +90,6 @@ const MainSection = props => {
         if (nft.list_price) prices.push(parseFloat(nft.list_price))
       })
     setFloorPrice(prices.length === 0 ? 0 : Math.min.apply(Math, prices))
-
-    // let totalVolume = 0
-    // if (nfts)
-    //   nfts.forEach(nft => {
-    //     if (nft.list_price) totalVolume += parseFloat(nft.list_price)
-    //   })
-    // setTotalVolume(totalVolume)
   }, [nfts])
 
   const saveCollection = collectionId => {
