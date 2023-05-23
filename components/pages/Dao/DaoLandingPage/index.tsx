@@ -23,7 +23,6 @@ import ExplorePagination from 'components/Button/ExplorePagination'
 import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
-import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 import { isExpiredDate } from 'utils/helpers'
 
 const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
@@ -149,7 +148,7 @@ const DaoLandingPage = props => {
         proposals.forEach(element => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
             new_proposals.push({ ...element, status: 'closed' })
-          } else if (isExpiredDate(element.created_at, 2 * 24)) {
+          } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
           } else {
             new_proposals.push({ ...element, status: 'pending' })
