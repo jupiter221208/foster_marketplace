@@ -32,10 +32,10 @@ const useStyles = makeStyles({
   root: {
     height: '8px',
     '&.MuiLinearProgress-colorPrimary:not(.MuiLinearProgress-buffer)': {
-      backgroundColor: '#2b2b2b',
+      backgroundColor: 'var(--stats-search-bg)',
     },
     '& .MuiLinearProgress-barColorPrimary': {
-      backgroundColor: '#95dbd5',
+      backgroundColor: 'var(--main-icon-color)',
     },
   },
 })
@@ -221,7 +221,8 @@ const DaoLandingDetail = props => {
             classes={{
               root: classes.root,
             }}
-            value={proposalDetail.total_votes / 3200}
+            value={(1000 / 3200) * 100}
+            // value={proposalDetail.total_votes * 100 / 3200}
           />
         </div>
 
