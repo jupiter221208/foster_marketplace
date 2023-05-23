@@ -64,7 +64,7 @@ export const getShortDescription = (viewport, description) => {
   } else if (viewport === 'md') {
     if (description.length > 200) return description.slice(0, 200) + '...'
   } else {
-    if (description.length > 200) return description.slice(0, 220) + '...'
+    if (description.length > 200) return description
   }
   return description
 }

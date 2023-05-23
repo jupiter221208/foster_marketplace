@@ -262,9 +262,7 @@ const MainSection = props => {
               </div>
             </div>
             <div className="flex justify-center w-full flex-wrap mt-[30px] mb-[30px] z-10">
-              {data?.description && (
-                <span className={styles.description}>{getShortDescription(viewport, data?.description)}</span>
-              )}
+              {data?.description && <span className={styles.description}>{data?.description}</span>}
             </div>
             <div className="flex justify-center mt-[16px]">
               <div className={`${styles.nftInfo} w-full flex justify-between items-center`}>
