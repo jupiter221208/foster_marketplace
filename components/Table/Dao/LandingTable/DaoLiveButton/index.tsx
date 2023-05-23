@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import styles from './index.module.scss'
 
 const DaoLiveButton = props => {
-  const { onDetail } = props
+  const { label, onDetail } = props
   const [hover, setHover] = useState(false)
 
   return (
@@ -14,7 +14,7 @@ const DaoLiveButton = props => {
       onMouseLeave={() => setHover(false)}
       onClick={onDetail}
     >
-      {hover ? 'View' : 'Live'}
+      {hover ? 'View' : label}
     </div>
   )
 }

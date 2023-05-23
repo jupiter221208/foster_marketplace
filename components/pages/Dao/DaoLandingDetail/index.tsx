@@ -50,6 +50,7 @@ const DaoLandingDetail = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [proposalDetail, setProposalDetail] = useState(proposal)
   const [clickedCastVote, setClickedCastVote] = useState(false)
+  const [disabledVote, setDisabledVote] = useState(true)
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -72,6 +73,9 @@ const DaoLandingDetail = props => {
         type: 'success',
       },
     ])
+    if (proposal.status === 'live') {
+      setDisabledVote(false)
+    }
   }, [])
 
   const onRefreshProposal = async () => {
@@ -168,6 +172,7 @@ const DaoLandingDetail = props => {
             width={155}
             height={53}
             icon={NotificationIcon}
+            disabled={disabledVote}
             label="Cast Vote"
             onClick={() => onClickCastVoteBtn()}
           />

@@ -150,7 +150,7 @@ const DaoLandingPage = props => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
             new_proposals.push({ ...element, status: 'closed' })
           } else if (isExpiredDate(element.created_at, 2 * 24)) {
-            new_proposals.push({ ...element, status: 'active' })
+            new_proposals.push({ ...element, status: 'live' })
           } else {
             new_proposals.push({ ...element, status: 'pending' })
           }
