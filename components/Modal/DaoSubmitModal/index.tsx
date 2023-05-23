@@ -421,17 +421,23 @@ const DaoSubmitModal = props => {
 
                   <div className="mt-[17px]">
                     <div className={styles.text}>Treasury Spending</div>
-                    <div className="mt-[12px]">
-                      <Input
-                        value={treasury}
-                        placeholder="Estimated funds required for project"
-                        label=""
-                        fullWidth
-                        type="number"
-                        color={'var(--text-gray-200-color)'}
-                        onChange={value => setTreasury(value)}
-                        height="46px"
-                      />
+                    <div className={styles.treasuryContainer}>
+                      <div className="ml-4">
+                        <SolanaLogoIcon />
+                      </div>
+                      <div className="w-full -ml-2">
+                        <Input
+                          value={treasury}
+                          placeholder="Estimated funds required for project"
+                          label=""
+                          fullWidth
+                          type="number"
+                          color={'var(--text-gray-200-color)'}
+                          backgroundColor="transparent"
+                          onChange={value => setTreasury(value)}
+                          height="46px"
+                        />
+                      </div>
                     </div>
                   </div>
 
