@@ -19,6 +19,9 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
+import CreatorsSection from 'components/pages/Stats/CreatorsSection'
+import CollectorsSection from 'components/pages/Stats/CollectorsSection'
+import CollectionsSection from 'components/pages/Stats/CollectionsSection'
 
 const Stats = () => {
   const viewport = useViewport()
@@ -43,7 +46,7 @@ const Stats = () => {
   }, [activeTab])
 
   const handleSelectedTab = item => {
-    if (item.id === 0) setActiveTab(item.id)
+    if (item.id != 4) setActiveTab(item.id)
   }
 
   return (
@@ -77,6 +80,22 @@ const Stats = () => {
             )}
           </div>
           <div className="w-full z-10">{activeTab === 0 && <ArtworksSection />}</div>
+          {activeTab === 1 && (
+            <div className="w-full z-10">
+              <CollectionsSection />
+            </div>
+          )}
+          {activeTab === 2 && (
+            <div className="w-full z-10">
+              <CreatorsSection />
+            </div>
+          )}
+          {activeTab === 3 && (
+            <div className="w-full z-10">
+              <CollectorsSection />
+            </div>
+          )}
+          {/* {activeTab === 4 && <MarketplaceSection />} */}
         </div>
       </div>
       <StatsPreviewModal
