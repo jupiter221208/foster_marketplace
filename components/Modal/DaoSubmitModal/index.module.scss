@@ -109,3 +109,12 @@
   text-align: start;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
+
+.treasuryContainer {
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+}

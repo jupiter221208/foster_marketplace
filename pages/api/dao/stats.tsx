@@ -14,7 +14,7 @@ const getStats = async (req: NextApiRequest, res: NextApiResponse) => {
     proposals.forEach(element => {
       if (isExpiredDate(element.vote_start, element.vote_duration)) {
         closed_count++
-      } else if (isExpiredDate(element.created_at, 2 * 24)) {
+      } else if (isExpiredDate(element.vote_start, 0)) {
         live_count++
       } else {
         pending_count++

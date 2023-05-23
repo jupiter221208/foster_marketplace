@@ -22,6 +22,7 @@ import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import SelectCategoryMenu from 'components/Menu/SelectCategoryMenu'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import { limit } from 'utils/strings'
 
 const DaoSubmitModal = props => {
@@ -237,17 +238,23 @@ const DaoSubmitModal = props => {
                   <div className="w-[50%] relative">
                     <div className="mt-[96px]">
                       <div className={styles.text}>Treasury Spending</div>
-                      <div className="mt-[12px]">
-                        <Input
-                          value={treasury}
-                          placeholder="Enter the estimated amount of Solana (SOL) required to implement your proposal."
-                          label=""
-                          type="number"
-                          color={'var(--text-gray-200-color)'}
-                          fullWidth
-                          onChange={value => setTreasury(value)}
-                          height="46px"
-                        />
+                      <div className={styles.treasuryContainer}>
+                        <div className="ml-4">
+                          <SolanaLogoIcon />
+                        </div>
+                        <div className="w-full -ml-2">
+                          <Input
+                            value={treasury}
+                            placeholder="Enter the estimated amount of Solana (SOL) required to implement your proposal."
+                            label=""
+                            type="number"
+                            color={'var(--text-gray-200-color)'}
+                            backgroundColor="transparent"
+                            fullWidth
+                            onChange={value => setTreasury(value)}
+                            height="46px"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="mt-[38px]">
@@ -413,7 +420,7 @@ const DaoSubmitModal = props => {
                   </div>
 
                   <div className="mt-[17px]">
-                    <div className={styles.text}>Treasury Spending Required</div>
+                    <div className={styles.text}>Treasury Spending</div>
                     <div className="mt-[12px]">
                       <Input
                         value={treasury}
