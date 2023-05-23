@@ -5,13 +5,13 @@ const API_URL = process.env.BACKEND_URL
 class Dashboard {
   getDashboardBanner() {
     return client.get(API_URL + 'v1/dashboard').then(response => {
-      return response.data
+      return response?.data
     })
   }
 
   getTopRatedArtists() {
     return client.get(API_URL + 'v1/dashboard/top-rated-artists').then(response => {
-      return response.data
+      return response?.data
     })
   }
 
@@ -23,7 +23,7 @@ class Dashboard {
           (category !== null && category?.length > 0 ? '?category=' + category : '')
       )
       .then(response => {
-        return response.data
+        return response?.data
       })
   }
 
@@ -35,7 +35,7 @@ class Dashboard {
           (category !== null && category?.length > 0 ? '?category=' + category : '')
       )
       .then(response => {
-        return response.data
+        return response?.data
       })
   }
 
@@ -47,7 +47,7 @@ class Dashboard {
           (category !== null && category?.length > 0 ? '?category=' + category : '')
       )
       .then(response => {
-        return response.data
+        return response?.data ?? []
       })
   }
 
@@ -60,7 +60,7 @@ class Dashboard {
           (artist !== null && artist?.length > 0 ? '?artist=' + artist : '')
       )
       .then(response => {
-        return response.data
+        return response?.data
       })
   }
 
@@ -73,13 +73,13 @@ class Dashboard {
           (artist !== null && artist?.length > 0 ? '?artist=' + artist : '')
       )
       .then(response => {
-        return response.data
+        return response?.data
       })
   }
 
   getNftPublic() {
     return client.get(API_URL + 'v1/nfts/public').then(response => {
-      return response.data
+      return response?.data
     })
   }
 }

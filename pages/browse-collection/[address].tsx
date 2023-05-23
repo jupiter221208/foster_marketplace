@@ -175,6 +175,7 @@ BrowseCollection.getInitialProps = async function ({ query }): Promise<BrowseCol
         saves: 0,
         saved: null,
         categories: '',
+        trading_volume: 0.0,
         created_at: '',
       }
     }
