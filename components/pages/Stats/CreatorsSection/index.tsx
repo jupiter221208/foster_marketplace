@@ -48,8 +48,6 @@ const CreatorsSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Total Sales Volume</div>
-
       <div className="w-full mt-[25px]">
         <CollectionSection list={CreatorsCollectionList} />
       </div>

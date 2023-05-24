@@ -14,7 +14,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 
 const StatsArtistCard = props => {
-  const { data } = props
+  const { data, type } = props
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-center pt-[30px]">
@@ -41,7 +41,7 @@ const StatsArtistCard = props => {
           <div className={styles.value}>200</div>
         </div>
         <div className="flex justify-center mt-[4px]">
-          <div className={styles.totalSales}>Total Sales</div>
+          <div className={styles.totalSales}>{type === 'creators' ? 'Total Sales' : 'Total Purchases'}</div>
         </div>
       </div>
     </div>

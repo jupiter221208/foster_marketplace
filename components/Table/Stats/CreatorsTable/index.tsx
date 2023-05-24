@@ -18,41 +18,47 @@ const CreatorsTable = props => {
     <table id="ArtworksTable" className="w-full table-auto">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Artist</th>
+          <th className="w-[20%] text-start">
+            <div className="ml-3">Creator</div>
+          </th>
           <th>Unique Collectors</th>
-          <th>Visitors</th>
           <th>Total Sales</th>
-          <th>Connections</th>
-          <th>Collections</th>
-          <th>Created</th>
-          <th>Sold</th>
+          <th>Highest Sale</th>
+          <th>Collections Published</th>
+          <th>Items Created</th>
+          <th>Items Sold</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, index) => {
           return (
             <tr key={index}>
-              <td className="h-[90px] flex justify-center items-center gap-[21px]">
-                <div className={styles.avatarArea}>
-                  <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
-                </div>
-              </td>
               <td>
-                <div className="block">
-                  <div className="flex justify-center">{item.artistName01}</div>
+                <div className="flex gap-2 mx-3 items-center">
+                  <div className={styles.avatarArea}>
+                    <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
+                      <Image src={item.asset_url} alt="" width={36} height={36} className="rounded-[8px]" />
+                    </div>
+                  </div>
+                  <div className="flex justify-center cursor-pointer" onClick={() => {}}>
+                    {item.artistName01}
+                  </div>
                 </div>
               </td>
               <td className="text-center">{item.uniqueCollectors}</td>
-              <td className="text-center">{item.visitors}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
                   {item.totalSales.toFixed(2)}
                 </div>
               </td>
-              <td className="text-center">{item.connections}</td>
-              <td className="text-center">{item.collections}</td>
+              <td className="text-center">
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  <SolanaLogoIcon />
+                  {item.highestSale.toFixed(2)}
+                </div>
+              </td>
+              <td className="text-center">{item.collections_published}</td>
               <td className="text-center">{item.created}</td>
               <td className="text-center">{item.sold}</td>
             </tr>

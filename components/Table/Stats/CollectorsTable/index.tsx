@@ -15,47 +15,41 @@ import styles from './index.module.scss'
 const CollectorsTable = props => {
   const { data } = props
   const viewport = useViewport()
-
   return (
     <table id="ArtworksTable" className="w-full table-auto">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Collector</th>
-          <th>Creators Supported</th>
-          <th>Total Spent</th>
-          <th>Average Purchase</th>
+          <th className="w-[20%] text-start">
+            <div className="ml-3">Collector</div>
+          </th>
+          <th>Items Collected</th>
+          <th>Purchase Volume</th>
           <th>Highest Purchase</th>
-          <th>Unique Collections</th>
-          <th>Collected</th>
-          <th>Connections</th>
+          <th>Favorite Category</th>
+          <th>Creators Supported</th>
         </tr>
       </thead>
       <tbody>
         {data.map((item, index) => {
           return (
             <tr key={index}>
-              <td className="h-[90px] flex justify-center items-center gap-[21px]">
-                <div className={styles.avatarArea}>
-                  <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
-                </div>
-              </td>
               <td>
-                <div className="block">
-                  <div className="flex justify-center">{item.collectorName01}</div>
+                <div className="flex gap-2 mx-3 items-center">
+                  <div className={styles.avatarArea}>
+                    <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
+                      <Image src={item.asset_url} alt="" width={36} height={36} className="rounded-[8px]" />
+                    </div>
+                  </div>
+                  <div className="flex justify-center cursor-pointer" onClick={() => {}}>
+                    {item.collectorName01}
+                  </div>
                 </div>
               </td>
-              <td className="text-center">{item.creatorSupported}</td>
+              <td className="text-center">{item.collected}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.totalSpent.toFixed(2)}
-                </div>
-              </td>
-              <td className="text-center">
-                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  <SolanaLogoIcon />
-                  {item.averagePurchase.toFixed(2)}
+                  {item.volume.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
@@ -64,9 +58,8 @@ const CollectorsTable = props => {
                   {item.highestPurchase.toFixed(2)}
                 </div>
               </td>
-              <td className="text-center">{item.uniqueCollections}</td>
-              <td className="text-center">{item.collected}</td>
-              <td className="text-center">{item.connections}</td>
+              <td className="text-center">{item.categories}</td>
+              <td className="text-center">{item.creatorSupported}</td>
             </tr>
           )
         })}

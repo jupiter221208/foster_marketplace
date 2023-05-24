@@ -26,7 +26,7 @@ const CollectionsTable = props => {
           </th>
           <th>Total Sales</th>
           <th>Floor Price</th>
-          <th>Average Price</th>
+          <th>Average Sale</th>
           <th>Highest Sale</th>
           <th>Creator</th>
           <th>Unique Holders</th>

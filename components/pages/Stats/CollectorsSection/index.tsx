@@ -36,11 +36,7 @@ const CollectorsSection = () => {
   useEffect(() => {
     if (collectorsList.length !== 0 || stringLengthValidate(searchWord, 2)) {
       const results = collectorsList.filter(elem => {
-        return (
-          elem.collectorName01.toLowerCase().includes(searchWord) ||
-          elem.collectorName02.toLowerCase().includes(searchWord) ||
-          elem.rank.toLowerCase().includes(searchWord)
-        )
+        return elem.collectorName01.toLowerCase().includes(searchWord)
       })
       setList(results)
     }
@@ -48,8 +44,6 @@ const CollectorsSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Total Purchase Volume</div>
-
       <div className="w-full mt-[25px]">
         <CollectionSection list={CollectorsCollectionList} />
       </div>
