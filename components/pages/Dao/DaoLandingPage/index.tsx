@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
-import { useConnection } from '@solana/wallet-adapter-react'
+import { Keypair, PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { toMetaplexFile } from '@metaplex-foundation/js'
 
 // images and icons
 import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
@@ -23,16 +25,23 @@ import ExplorePagination from 'components/Button/ExplorePagination'
 import DaoSubmitModal from 'components/Modal/DaoSubmitModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
+import { trySendTransaction } from 'utils'
 import { isExpiredDate } from 'utils/helpers'
-
-const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
+import {
+  type DaoProposal,
+  createNewProposalTransaction,
+  DAO_TREASURY_ADDRESS,
+  TURKEY_CIRCUS_COLLECTION_ID,
+} from 'utils/dao'
+import { type GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
 
 const DaoLandingPage = props => {
   const { onDetail } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const { connection } = useConnection()
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, publicKey, signTransaction } = useWallet()
+  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
+  const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
 
   const [searchWord, setSearchWord] = useState('')
@@ -51,10 +60,23 @@ const DaoLandingPage = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
   const [proposals, setProposals] = useState([])
+  const [proposalKeypair, setProposalKeypair] = useState<Keypair>(Keypair.generate())
+
+  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
+  useEffect(() => {
+    getMyNFTs(metaplex).then(setNfts)
+  }, [metaplex])
+
+  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput>([])
+  useEffect(() => {
+    setTurkeyNfts(
+      nfts.filter(({ collection: { address, verified } }) => verified && TURKEY_CIRCUS_COLLECTION_ID.equals(address))
+    )
+  }, [nfts])
 
   useEffect(() => {
     fetchSolToUsdRate().then(setSolToUsdRate)
-    connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
+    metaplex.connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
 
     getProposals(currentPage, rowCount)
 
@@ -96,7 +118,52 @@ const DaoLandingPage = props => {
   const handleSubmitProposal = async proposal => {
     setIsLoading(true)
     try {
-      await axios.post('api/dao/submit', proposal)
+      // TODO: calculate json size
+      // for now, just fund with 0.001 sol which approximately 3MB
+      await ensureLocalWalletBalance(0.001 * 1e9)
+
+      let voteDurationMs = proposal.vote_duration * 60 * 60 * 1000
+      let voteEnd = new Date(proposal.vote_start.getTime() + voteDurationMs)
+      let daoProposal: DaoProposal = {
+        proposalKey: proposalKeypair.publicKey.toBase58(),
+        proposer: publicKey.toBase58(),
+        category: proposal.category,
+        title: proposal.title,
+        overview: proposal.overview,
+        metrics: proposal.metrics,
+        treasurySpendAmount: `${proposal.treasury} SOL`,
+        timeline: proposal.eta_timeline,
+        voteStart: proposal.vote_start.toISOString(),
+        voteEnd: voteEnd.toISOString(),
+      }
+      console.log('submitting proposal', daoProposal)
+
+      let daoMetaplexFile = toMetaplexFile(JSON.stringify(daoProposal, null, 4), 'proposal.json')
+      const url = await storage.upload(daoMetaplexFile)
+
+      let tx = createNewProposalTransaction({
+        proposalKey: proposalKeypair.publicKey,
+        proposer: publicKey,
+        title: daoProposal.title,
+        url,
+      })
+      tx.feePayer = publicKey
+
+      // TODO: add error handling
+      let signature: null | string = await trySendTransaction(metaplex.connection, tx, async tx => {
+        tx.partialSign(proposalKeypair)
+        return signTransaction(tx)
+      })
+      if (!signature) throw new Error(`could not submit proposal to chain`)
+
+      await axios.post('api/dao/submit', {
+        signature,
+        ...proposal,
+        url,
+        secretKey: Buffer.from(proposalKeypair.secretKey).toString('hex'),
+      })
+
+      setProposalKeypair(Keypair.generate())
 
       setAlertData([
         {
@@ -115,7 +182,8 @@ const DaoLandingPage = props => {
           setShowAlert(true)
         }, 1000)
       }, 1000)
-    } catch {
+    } catch (e: any) {
+      console.error(e)
       setTimeout(() => {
         setIsLoading(false)
       }, 1000)
