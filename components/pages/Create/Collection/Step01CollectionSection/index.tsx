@@ -463,8 +463,12 @@ const Step01CollectionSection = props => {
                       value={limit(description, 1000)}
                       placeholder="Add a short description..."
                       label01="Max Characters 1000"
-                      label02={1000 - description.length === 1000 ? '' : `${1000 - description.length} Characters left`}
-                      onChange={value => onChangeDescription(value)}
+                      label02={
+                        1000 - description.length <= 0 || 1000 - description.length === 1000
+                          ? ''
+                          : `${1000 - description.length} Characters left`
+                      }
+                      onChange={value => onChangeDescription(limit(value, 1000))}
                     />
                   </div>
 
@@ -506,7 +510,7 @@ const Step01CollectionSection = props => {
                     />
                   ) : (
                     <GradientButton
-                      width={viewport === '2xl' ? 124 : 117}
+                      width={viewport === '2xl' ? 184 : 175}
                       height={viewport === '2xl' ? 53 : 46}
                       label="Next Step"
                       disabled={disabledNextButton}

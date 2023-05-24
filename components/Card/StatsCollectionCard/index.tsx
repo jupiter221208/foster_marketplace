@@ -54,7 +54,7 @@ const StatsCollectionCard = props => {
         <div className={styles.dataContentView}>
           <div className={styles.nftName}>{data.asset_name}</div>
           <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
-            <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sale'}</div>
+            <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
             <div className="flex gap-[4px] items-center">
               <Image src={SolanaLogoIcon} width={18} height={15} alt="" />
               <div className={styles.value}>{data.amount}</div>
