@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import conn from '../../../utils/db'
+import conn from 'utils/db'
 import { isExpiredDate } from 'utils/helpers'
 
 const getStats = async (req: NextApiRequest, res: NextApiResponse) => {
