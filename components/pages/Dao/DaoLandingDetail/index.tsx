@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import { LinearProgress, makeStyles } from '@material-ui/core'
 
+import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { useMetaplex } from 'hooks/useMetaplex'
 
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
@@ -19,8 +22,10 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
+import { trySendTransaction } from 'utils'
 import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
+import { createVoteTransaction } from 'utils/dao'
 
 // apis
 import axios from 'axios'
@@ -42,7 +47,9 @@ const useStyles = makeStyles({
 
 const DaoLandingDetail = props => {
   const { proposal, onBack } = props
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, publicKey, signTransaction } = useWallet()
+  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
+  const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
 
   const [isLoading, setIsLoading] = useState(false)
@@ -99,12 +106,22 @@ const DaoLandingDetail = props => {
   const castVoteProposal = async status => {
     setIsLoading(true)
     try {
-      let vote = {
+      let tx = createVoteTransaction({
+        proposalKey: new PublicKey(proposalDetail.proposalKey),
+        voter: publicKey,
+        vote: status,
+      })
+
+      // TODO: add error handling
+      let signature: null | string = await trySendTransaction(metaplex.connection, tx, signTransaction)
+      if (!signature) throw new Error(`could not submit vote to chain`)
+
+      let response = await axios.post('api/dao/vote', {
         proposal_id: proposalDetail.id,
         wallet_id: publicKey,
         vote_status: status,
-      }
-      let response = await axios.post('api/dao/vote', vote)
+        signature
+      })
       if (response.data.success === true) {
         onRefreshProposal()
         setTimeout(() => {
