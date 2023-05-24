@@ -48,8 +48,8 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
   return tokenAccounts[0]
 }
 
-type GetMyNFTsOutputElement = Metadata | Nft | Sft
-type GetMyNFTsOutput = GetMyNFTsOutputElement[]
+export type GetMyNFTsOutputElement = Metadata | Nft | Sft
+export type GetMyNFTsOutput = GetMyNFTsOutputElement[]
 
 export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
   let tokenAccounts = await new TokenGpaBuilder(mx)
