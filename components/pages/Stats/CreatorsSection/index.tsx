@@ -21,6 +21,8 @@ const CreatorsSection = () => {
   const [creatorsList, setCreatorsList] = useState<any[]>([])
   const [allList, setAllList] = useState<any[]>([])
   const [list, setList] = useState<any[]>([])
+  const [period, setPeriod] = useState('all')
+
   useEffect(() => {
     let array: any[] = [...CreatorsList]
     array.map(item => {
@@ -56,6 +58,8 @@ const CreatorsSection = () => {
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         list={allList}
+        period={period}
+        setPeriod={setPeriod}
         getList={list => setCreatorsList(list)}
       />
 

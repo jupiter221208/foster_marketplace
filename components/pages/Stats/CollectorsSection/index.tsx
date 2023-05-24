@@ -21,6 +21,8 @@ const CollectorsSection = () => {
   const [collectorsList, setCollectorsList] = useState<any[]>([])
   const [allList, setAllList] = useState<any[]>([])
   const [list, setList] = useState<any[]>([])
+  const [period, setPeriod] = useState('all')
+
   useEffect(() => {
     let array: any[] = [...CollectorsList]
     array.map(item => {
@@ -55,6 +57,8 @@ const CollectorsSection = () => {
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         list={allList}
+        period={period}
+        setPeriod={setPeriod}
         getList={list => setCollectorsList(list)}
       />
       <div className="mt-[20px]">
