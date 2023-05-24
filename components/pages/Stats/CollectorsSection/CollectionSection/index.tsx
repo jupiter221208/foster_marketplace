@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 // third party components
 // swiper
@@ -20,6 +20,18 @@ import styles from './index.module.scss'
 const CollectionSection = props => {
   const { list } = props
   const viewport = useViewport()
+  const [screenWidth, setScreenWidth] = useState(1920)
+
+  useEffect(() => {
+    setScreenWidth(window.innerWidth)
+  }, [])
+
+  useEffect(() => {
+    const resizeFunction = () => {
+      setScreenWidth(window.innerWidth)
+    }
+    window.addEventListener('resize', resizeFunction)
+  }, [])
 
   return (
     <section className={styles.container}>
@@ -34,10 +46,16 @@ const CollectionSection = props => {
               : viewport === 'md'
               ? 3
               : viewport === 'lg'
-              ? 4
+              ? 3
               : viewport === 'xl'
-              ? 5
-              : 5
+              ? screenWidth >= 1400
+                ? 4
+                : 3.7
+              : viewport === '2xl'
+              ? screenWidth >= 1768
+                ? 5
+                : 4
+              : 3
           }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}

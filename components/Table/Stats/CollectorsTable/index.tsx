@@ -48,21 +48,18 @@ const CollectorsTable = props => {
               <td className="text-center">{item.creatorSupported}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
                   <SolanaLogoIcon />
                   {item.totalSpent.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
                   <SolanaLogoIcon />
                   {item.averagePurchase.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
-                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
                   <SolanaLogoIcon />
                   {item.highestPurchase.toFixed(2)}
                 </div>

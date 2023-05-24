@@ -4,7 +4,6 @@ import React from 'react'
 import Image from 'next/image'
 
 // custom functions
-import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -14,7 +13,6 @@ import styles from './index.module.scss'
 
 const CreatorsTable = props => {
   const { data } = props
-  const viewport = useViewport()
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -50,7 +48,6 @@ const CreatorsTable = props => {
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {/* <Image src={SolanaLogoIcon} width={20} height={20} alt="" /> */}
                   {item.totalSales.toFixed(2)}
                 </div>
               </td>
