@@ -8,7 +8,7 @@ import { getPercentValue } from 'utils/strings'
 import { useViewport } from 'utils'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -45,26 +45,26 @@ const CollectionsTable = props => {
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  <SolanaLogoIcon alt="" />
                   {item.totalSale.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  <SolanaLogoIcon alt="" />
                   {item.floorPrice.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  <SolanaLogoIcon alt="" />
                   {item.averagePrice.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
-                <div className={`flex justify-center gap-[5px] ${styles.priceText}`}>
-                  <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
+                  <SolanaLogoIcon alt="" />
                   {item.highestSale.toFixed(2)}
                 </div>
               </td>
