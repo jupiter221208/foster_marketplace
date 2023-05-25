@@ -64,8 +64,8 @@ const DaoLandingPage = props => {
 
   const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
   useEffect(() => {
-    getMyNFTs(metaplex).then(setNfts)
-  }, [metaplex])
+    if (connected) getMyNFTs(metaplex).then(setNfts)
+  }, [metaplex, connected])
 
   const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput>([])
   useEffect(() => {
