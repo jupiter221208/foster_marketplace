@@ -309,7 +309,7 @@ const DaoLandingDetail = props => {
           <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>Estimated Treasury Spending Required</div>
+          <div className={styles.description}>Estimated Treasury Spending</div>
           <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
             <div className="hidden lg:flex">
               <SolIcon />
