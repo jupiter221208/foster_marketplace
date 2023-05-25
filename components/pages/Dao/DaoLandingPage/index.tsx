@@ -70,7 +70,7 @@ const DaoLandingPage = props => {
   const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput>([])
   useEffect(() => {
     setTurkeyNfts(
-      nfts.filter(({ collection: { address, verified } }) => verified && TURKEY_CIRCUS_COLLECTION_ID.equals(address))
+      nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))
     )
   }, [nfts])
 
