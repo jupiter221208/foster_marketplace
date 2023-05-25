@@ -31,6 +31,9 @@ import { createVoteTransaction } from 'utils/dao'
 import axios from 'axios'
 import Alert from 'components/Alert'
 import ProgressingModal from 'components/Modal/ProgressingModal'
+import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
+import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
+import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -120,7 +123,7 @@ const DaoLandingDetail = props => {
         proposal_id: proposalDetail.id,
         wallet_id: publicKey,
         vote_status: status,
-        signature
+        signature,
       })
       if (response.data.success === true) {
         onRefreshProposal()
@@ -175,14 +178,27 @@ const DaoLandingDetail = props => {
           </div>
         </div>
         <div className={styles.backText}>Proposal {proposalDetail.id}</div>
-        <div className="hidden lg:flex">
-          <div className={styles.liveBtn}>Live</div>
+        <div className="hidden lg:flex ml-[20px]">
+          {proposalDetail.status === 'pending' ? (
+            <DaoPendingButton label="Pending" />
+          ) : proposalDetail.status === 'closed' ? (
+            proposalDetail.vote_result === 'Passed' ? (
+              <DaoLiveButton label="Passed" />
+            ) : (
+              <DaoClosedButton label="Rejected" />
+            )
+          ) : (
+            <DaoLiveButton
+              label={
+                proposalDetail.status === 'closed' ? 'Closed' : proposalDetail.status === 'pending' ? 'Pending' : 'Live'
+              }
+            />
+          )}
         </div>
       </div>
       <div className="flex mt-[6px] lg:mt-[25px] justify-between">
         <div className={styles.proposalText}>{proposalDetail.title}</div>
         <div className="hidden lg:flex">
-          {/* {proposalDetail.wallet_id !== publicKey?.toString() && ( */}
           <GradientButton
             direction="rtl"
             fontSize={18}
@@ -193,7 +209,6 @@ const DaoLandingDetail = props => {
             label="Cast Vote"
             onClick={() => onClickCastVoteBtn()}
           />
-          {/* )} */}
         </div>
       </div>
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
@@ -238,8 +253,7 @@ const DaoLandingDetail = props => {
             classes={{
               root: classes.root,
             }}
-            value={(1000 / 3200) * 100}
-            // value={proposalDetail.total_votes * 100 / 3200}
+            value={(proposalDetail.total_votes * 100) / 3200}
           />
         </div>
 
@@ -287,17 +301,12 @@ const DaoLandingDetail = props => {
           </div>
         </div>
         <div className="mt-[44px] lg:mt-[78px]">
-          <div className={styles.description}>Description</div>
+          <div className={styles.description}>Overview</div>
           <div className={styles.descriptionText}>{proposalDetail.overview}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>How will it proliferate Foster Marketplace or Circus DAO?</div>
-          <div className={styles.descriptionText}>
-            Information on how this proposal will produce benefits to CircusDAO / Foster Marketplace / Solana.
-            Information on how this initiative reflects the values of CircusDAO in its support of Foster Marketplace,
-            Solana, and the integrity of artists. The answer should provide any qualitative or quantitative data that
-            can be used to determine the success of the proposalDetail.
-          </div>
+          <div className={styles.description}>Goals & Metrics</div>
+          <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
           <div className={styles.description}>Estimated Treasury Spending Required</div>

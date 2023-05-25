@@ -202,6 +202,7 @@ const DaoLandingPage = props => {
       }
     } catch {}
   }
+  
   const getProposals = async (curPage, count) => {
     try {
       let response = await axios.post('api/dao/proposals', { page: curPage, rows: count })
@@ -215,7 +216,8 @@ const DaoLandingPage = props => {
         let new_proposals = []
         proposals.forEach(element => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
-            new_proposals.push({ ...element, status: 'closed' })
+            let vote_ratio = element.approved_votes / element.total_votes 
+            new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.8 ? 'Passed' : 'Rejected'})
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
           } else {

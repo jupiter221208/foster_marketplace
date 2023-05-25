@@ -44,11 +44,6 @@ const LandingTable = props => {
     } else {
       endDays = 'Ends in ' + Math.round(difference / (1000 * 60 * 60 * 24)) + ' days'
     }
-    // const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-    // var endDate = new Date(item.vote_start)
-    // endDate.setHours(endDate.getHours() + item.vote_duration)
-    // let difference = +new Date(endDate) - +new Date()
-    // const days = Math.floor(difference / (1000 * 60 * 60 * 24))
     return endDays
   }
 
@@ -79,9 +74,21 @@ const LandingTable = props => {
                 <div className={styles.text}>{item.author}</div>
               </td>
               <td className="flex">
-                <div className="flex gap-[15px] items-center">
-                  <TimeIcon />
-                  <div className={styles.text}>{getEndInValue(item)}</div>
+                <div className="w-full flex items-center">
+                  {item.status === 'closed' ? (
+                    <div
+                      className={`w-full flex justify-center ${
+                        item.vote_result === 'Passed' ? styles.passed : styles.rejected
+                      }`}
+                    >
+                      {item.vote_result}
+                    </div>
+                  ) : (
+                    <div className="w-full flex gap-[15px] items-center">
+                      <TimeIcon />
+                      <div className={styles.text}>{getEndInValue(item)}</div>
+                    </div>
+                  )}
                 </div>
               </td>
               <td>

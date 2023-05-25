@@ -10,8 +10,8 @@ const DaoPendingButton = props => {
   return (
     <div
       className={hover ? styles.viewBtn : styles.liveBtn}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => onDetail && setHover(true)}
+      onMouseLeave={() => onDetail && setHover(false)}
       onClick={onDetail}
     >
       {hover ? 'View' : label}
