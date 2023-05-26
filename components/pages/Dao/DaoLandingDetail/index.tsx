@@ -166,10 +166,10 @@ const DaoLandingDetail = props => {
       return
     }
 
-    // if (turkeyCircus.length === 0) {
-    //   setShowNoTurkeyAlert(true)
-    //   return
-    // }
+    if (turkeyCircus.length === 0) {
+      setShowNoTurkeyAlert(true)
+      return
+    }
 
     setShowCastVoteModal(true)
   }
@@ -177,10 +177,10 @@ const DaoLandingDetail = props => {
   useEffect(() => {
     if (clickedCastVote) {
       setClickedCastVote(false)
-      // if (turkeyCircus.length === 0) {
-      //   setShowNoTurkeyAlert(true)
-      //   return
-      // }
+      if (turkeyCircus.length === 0) {
+        setShowNoTurkeyAlert(true)
+        return
+      }
       setShowCastVoteModal(true)
     }
   }, [connected])

@@ -121,20 +121,20 @@ const DaoLandingPage = props => {
       return
     }
 
-    // if (turkyNfts.length === 0)  {
-    //   setShowNoTurkeyAlert(true)
-    //   return;
-    // }
+    if (turkyNfts.length === 0)  {
+      setShowNoTurkeyAlert(true)
+      return;
+    }
     setShowDaoSubmitModal(true)
   }
 
   useEffect(() => {
     if (clickedSubmitButton) {
       setClickedSubmitButton(false)
-      // if (turkyNfts.length === 0)  {
-      //   setShowNoTurkeyAlert(true)
-      //   return;
-      // }
+      if (turkyNfts.length === 0)  {
+        setShowNoTurkeyAlert(true)
+        return;
+      }
       setShowDaoSubmitModal(true)
     }
   }, [connected])
