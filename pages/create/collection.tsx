@@ -72,49 +72,54 @@ const Collection = () => {
   const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
 
   const mintCollection = async () => {
-    dispatch({ type: 'set', isLoading: true })
+    try {
+      dispatch({ type: 'set', isLoading: true })
 
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
-      await loginWithSigned(publicKey, signature, dispatch)
+      if (!checkExpiryDate()) {
+        let signature = await signMessage(Buffer.from('Foster Protocol'))
+        await loginWithSigned(publicKey, signature, dispatch)
+      }
+
+      // TODO: calculate real file size
+      // for now, just fund with 0.1 sol which is little over 1GB
+      await ensureLocalWalletBalance(0.1 * 1e9)
+
+      const categories = categoryList.filter(item => item.checked)
+
+      const attributes = categories.map(category => {
+        return { trait_type: 'category', value: category.name }
+      })
+
+      let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
+      setCoverImageUrl(coverImageUrl)
+
+      const uri = await storage.uploadJson({
+        name: collectionName,
+        description: description,
+        attributes: attributes,
+        image: coverImageUrl,
+      })
+
+      // const result = await axios.get(uri).then(response => {
+      //   return response.data
+      // })
+
+      const collectionNft = await mx.nfts().create({
+        isCollection: true,
+        name: collectionName,
+        uri: uri,
+        sellerFeeBasisPoints: royalties * 100,
+      })
+
+      if (collectionNft) {
+        setCollectionNft(collectionNft)
+        setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
+      }
+    } catch (e) {
+      console.log(e)
+    } finally {
+      dispatch({ type: 'set', isLoading: false })
     }
-
-    // TODO: calculate real file size
-    // for now, just fund with 0.1 sol which is little over 1GB
-    await ensureLocalWalletBalance(0.1 * 1e9)
-
-    const categories = categoryList.filter(item => item.checked)
-
-    const attributes = categories.map(category => {
-      return { trait_type: 'category', value: category.name }
-    })
-
-    let coverImageUrl = await storage.upload(await toMetaplexFileFromBrowser(coverImage[0]))
-    setCoverImageUrl(coverImageUrl)
-
-    const uri = await storage.uploadJson({
-      name: collectionName,
-      description: description,
-      attributes: attributes,
-      image: coverImageUrl,
-    })
-
-    // const result = await axios.get(uri).then(response => {
-    //   return response.data
-    // })
-
-    const collectionNft = await mx.nfts().create({
-      isCollection: true,
-      name: collectionName,
-      uri: uri,
-      sellerFeeBasisPoints: royalties * 100,
-    })
-
-    if (collectionNft) {
-      setCollectionNft(collectionNft)
-      setCurrentStep(currentStep === 4 ? 4 : currentStep + 1)
-    }
-    dispatch({ type: 'set', isLoading: false })
   }
 
   const onChangeCollectionFiles = files => {
