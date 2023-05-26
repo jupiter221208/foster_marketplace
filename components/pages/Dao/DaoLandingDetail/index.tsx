@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 })
 
 const DaoLandingDetail = props => {
-  const { proposal, onBack } = props
+  const { proposal, onBack, turkeyCircus } = props
   const { connected, publicKey, signTransaction } = useWallet()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const { metaplex } = useMetaplex()
@@ -61,6 +61,8 @@ const DaoLandingDetail = props => {
   const [proposalDetail, setProposalDetail] = useState(proposal)
   const [clickedCastVote, setClickedCastVote] = useState(false)
   const [disabledVote, setDisabledVote] = useState(true)
+  const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
+  const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -86,6 +88,15 @@ const DaoLandingDetail = props => {
     if (proposal.status === 'live') {
       setDisabledVote(false)
     }
+
+    setNoTurkeyAlert([
+      {
+        id: 0,
+        title: 'CircusDAO Membership Not Detected',
+        description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
+        type: 'success',
+      },
+    ])
   }, [])
 
   const onRefreshProposal = async () => {
@@ -155,13 +166,22 @@ const DaoLandingDetail = props => {
       return
     }
 
+    // if (turkeyCircus.length === 0) {
+    //   setShowNoTurkeyAlert(true)
+    //   return
+    // }
+
     setShowCastVoteModal(true)
   }
 
   useEffect(() => {
     if (clickedCastVote) {
-      setShowCastVoteModal(true)
       setClickedCastVote(false)
+      // if (turkeyCircus.length === 0) {
+      //   setShowNoTurkeyAlert(true)
+      //   return
+      // }
+      setShowCastVoteModal(true)
     }
   }, [connected])
 
@@ -345,6 +365,14 @@ const DaoLandingDetail = props => {
           setShowAlert(false)
         }}
         data={alertData}
+      />
+
+      <Alert
+        open={showNoTurkeyAlert}
+        close={() => {
+          setShowNoTurkeyAlert(false)
+        }}
+        data={noTurkeyAlert}
       />
 
       <ProgressingModal open={isLoading} />

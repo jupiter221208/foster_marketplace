@@ -28,6 +28,7 @@ const Dao = () => {
   const [daoPage, setDaoPage] = useState('landing')
   const [proposal, setProposal] = useState()
   const { publicKey } = useWallet()
+  const [turkeyCircus, setTurkeyCircus] = useState([])
 
   const viewport = useViewport()
 
@@ -68,10 +69,16 @@ const Dao = () => {
                 setProposal(item)
                 setDaoPage('detail')
               }}
+              setTurkeyData={data => setTurkeyCircus(data)}
             />
           </div>
         ) : (
-          <DaoLandingDetail publicKey={publicKey} proposal={proposal} onBack={() => setDaoPage('landing')} />
+          <DaoLandingDetail
+            publicKey={publicKey}
+            proposal={proposal}
+            turkeyCircus={turkeyCircus}
+            onBack={() => setDaoPage('landing')}
+          />
         )}
       </div>
     </div>

@@ -36,7 +36,7 @@ import {
 import { type GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
 
 const DaoLandingPage = props => {
-  const { onDetail } = props
+  const { onDetail, setTurkeyData } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const { connected, publicKey, signTransaction } = useWallet()
@@ -58,7 +58,10 @@ const DaoLandingPage = props => {
   const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
+
   const [showAlert, setShowAlert] = useState(false)
+  const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
   const [proposals, setProposals] = useState([])
   const [proposalKeypair, setProposalKeypair] = useState<Keypair>(Keypair.generate())
 
@@ -75,8 +78,21 @@ const DaoLandingPage = props => {
   }, [nfts])
 
   useEffect(() => {
+    setTurkeyData(turkyNfts)
+  }, [turkyNfts])
+
+  useEffect(() => {
     fetchSolToUsdRate().then(setSolToUsdRate)
     metaplex.connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
+
+    setNoTurkeyAlert([
+      {
+        id: 0,
+        title: 'CircusDAO Membership Not Detected',
+        description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
+        type: 'success',
+      },
+    ])
 
     getProposals(currentPage, rowCount)
 
@@ -105,13 +121,21 @@ const DaoLandingPage = props => {
       return
     }
 
+    // if (turkyNfts.length === 0)  {
+    //   setShowNoTurkeyAlert(true)
+    //   return;
+    // }
     setShowDaoSubmitModal(true)
   }
 
   useEffect(() => {
     if (clickedSubmitButton) {
-      setShowDaoSubmitModal(true)
       setClickedSubmitButton(false)
+      // if (turkyNfts.length === 0)  {
+      //   setShowNoTurkeyAlert(true)
+      //   return;
+      // }
+      setShowDaoSubmitModal(true)
     }
   }, [connected])
 
@@ -398,6 +422,14 @@ const DaoLandingPage = props => {
           setShowAlert(false)
         }}
         data={alertData}
+      />
+
+      <Alert
+        open={showNoTurkeyAlert}
+        close={() => {
+          setShowNoTurkeyAlert(false)
+        }}
+        data={noTurkeyAlert}
       />
 
       <ProgressingModal open={isLoading} />
