@@ -243,7 +243,7 @@ const ProfileSection = prop => {
                   backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
-                    if (isValidUrl(value, 'instagram.com')) {
+                    if (value.includes('instagram.com/')) {
                       setErrorIGUrl('')
                     } else {
                       setErrorIGUrl('Please enter a valid website url.')
@@ -270,7 +270,7 @@ const ProfileSection = prop => {
                   backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
-                    if (isValidUrl(value, 'twitter.com')) {
+                    if (value.includes('twitter.com/')) {
                       setErrorTwitterUrl('')
                     } else {
                       setErrorTwitterUrl('Please enter a valid website url.')

@@ -1,0 +1,27 @@
+@import 'assets/scss/variable.module.scss';
+
+.priceText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  }
+}
+
+.brand06Text {
+  color: var(--brand-06-color) !important;
+}
+
+.avatarArea {
+  width: 38px;
+  height: 38px;
+  border-radius: 19px;
+  background: linear-gradient(to right, rgba(#5ac3ba, 1), rgba(#2d625d, 1));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

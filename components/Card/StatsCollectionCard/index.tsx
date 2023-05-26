@@ -8,7 +8,6 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 
 // icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-import SolanaLogoLightIcon from 'assets/icons/solana-logo-light.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -17,6 +16,7 @@ const StatsCollectionCard = props => {
   const { data, type } = props
   const router = useRouter()
   const [loaded, setLoaded] = useState(false)
+  const [saleName, setSaleName] = useState('Highest Sale')
 
   return (
     <div
@@ -53,9 +53,12 @@ const StatsCollectionCard = props => {
         <div className={styles.dataGradientBgView} />
         <div className={styles.dataContentView}>
           <div className={styles.nftName}>{data.asset_name}</div>
-          <div className="flex gap-[4px] items-center">
-            <Image src={SolanaLogoIcon} width={18} height={15} alt="" />
-            <div className={styles.value}>{data.amount}</div>
+          <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
+            <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
+            <div className="flex gap-[4px] items-center">
+              <Image src={SolanaLogoIcon} width={18} height={15} alt="" />
+              <div className={styles.value}>{data.amount}</div>
+            </div>
           </div>
         </div>
       </div>
