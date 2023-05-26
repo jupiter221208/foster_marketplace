@@ -121,20 +121,20 @@ const DaoLandingPage = props => {
       return
     }
 
-    if (turkyNfts.length === 0)  {
-      setShowNoTurkeyAlert(true)
-      return;
-    }
+    // if (turkyNfts.length === 0)  {
+    //   setShowNoTurkeyAlert(true)
+    //   return;
+    // }
     setShowDaoSubmitModal(true)
   }
 
   useEffect(() => {
     if (clickedSubmitButton) {
       setClickedSubmitButton(false)
-      if (turkyNfts.length === 0)  {
-        setShowNoTurkeyAlert(true)
-        return;
-      }
+      // if (turkyNfts.length === 0)  {
+      //   setShowNoTurkeyAlert(true)
+      //   return;
+      // }
       setShowDaoSubmitModal(true)
     }
   }, [connected])
@@ -160,7 +160,6 @@ const DaoLandingPage = props => {
         voteStart: proposal.vote_start.toISOString(),
         voteEnd: voteEnd.toISOString(),
       }
-      console.log('submitting proposal', daoProposal)
 
       let daoMetaplexFile = toMetaplexFile(JSON.stringify(daoProposal, null, 4), 'proposal.json')
       const url = await storage.upload(daoMetaplexFile)

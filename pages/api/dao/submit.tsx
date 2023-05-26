@@ -23,11 +23,24 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
       secretKey,
     } = req.body
 
-    const query = `INSERT INTO "dao_proposals" 
-            ( "title", "author", "wallet_id", "category", "overview", "metrics", "treasury", "eta_timeline", "vote_start", "vote_duration", "proposal_key", "signature", "proposal_url")
-      VALUES('${title}', '${author}', '${walletId}', '${category}', '${overview}', '${metrics}', '${treasury}', '${eta_timeline}', '${vote_start}', '${vote_duration}', '${secretKey}', '${signature}', '${url}')`
-
-    await conn().query(query)
+    const query =
+      'INSERT INTO dao_proposals(title, author, wallet_id, category, overview, metrics, treasury, eta_timeline, vote_start, vote_duration, proposal_key, signature, proposal_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)'
+    let values = [
+      title,
+      author,
+      walletId,
+      category,
+      overview,
+      metrics,
+      treasury,
+      eta_timeline,
+      vote_start,
+      vote_duration,
+      secretKey,
+      signature,
+      url,
+    ]
+    await conn().query(query, values)
 
     res.status(200).json({ success: true })
   } catch (err) {

@@ -121,11 +121,10 @@ const DaoLandingDetail = props => {
     setIsLoading(true)
     try {
       let tx = createVoteTransaction({
-        proposalKey: new PublicKey(proposalDetail.proposalKey),
+        proposalKey: new PublicKey(proposalDetail.proposal_key),
         voter: publicKey,
         vote: status,
       })
-
       // TODO: add error handling
       let signature: null | string = await trySendTransaction(metaplex.connection, tx, signTransaction)
       if (!signature) throw new Error(`could not submit vote to chain`)
@@ -152,9 +151,6 @@ const DaoLandingDetail = props => {
     } catch {
       setTimeout(() => {
         setIsLoading(false)
-        setTimeout(() => {
-          setShowAlert(true)
-        }, 1000)
       }, 1000)
     }
   }
@@ -166,10 +162,10 @@ const DaoLandingDetail = props => {
       return
     }
 
-    if (turkeyCircus.length === 0) {
-      setShowNoTurkeyAlert(true)
-      return
-    }
+    // if (turkeyCircus.length === 0) {
+    //   setShowNoTurkeyAlert(true)
+    //   return
+    // }
 
     setShowCastVoteModal(true)
   }
@@ -177,10 +173,10 @@ const DaoLandingDetail = props => {
   useEffect(() => {
     if (clickedCastVote) {
       setClickedCastVote(false)
-      if (turkeyCircus.length === 0) {
-        setShowNoTurkeyAlert(true)
-        return
-      }
+      // if (turkeyCircus.length === 0) {
+      //   setShowNoTurkeyAlert(true)
+      //   return
+      // }
       setShowCastVoteModal(true)
     }
   }, [connected])
