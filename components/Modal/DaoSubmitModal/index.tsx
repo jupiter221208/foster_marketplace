@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 // next component
 import Image from 'next/image'
@@ -8,6 +9,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import moment from 'moment'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -20,12 +22,18 @@ import Input from 'components/Input'
 import Textarea from 'components/Input/Textarea'
 import SelectCategoryMenu from 'components/Menu/SelectCategoryMenu'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import { limit } from 'utils/strings'
 
 const DaoSubmitModal = props => {
   const { data, open, onSubmit, onClose } = props
+  const { publicKey } = useWallet()
+  const profileInfo = useSelector(state => (state as any).profileInfo)
+
   const viewport = useViewport()
   const [startDate, setStartDate] = useState(new Date())
-  const [days, setDays] = useState(0)
+  const [minDate, setMinDate] = useState(new Date())
+  const [days, setDays] = useState(7)
   const [hours, setHours] = useState(0)
   const [price, setPrice] = useState()
   const [title, setTitle] = useState('')
@@ -33,6 +41,7 @@ const DaoSubmitModal = props => {
   const [goal, setGoal] = useState('')
   const [treasury, setTreasury] = useState('')
   const [timeline, setTimeline] = useState('')
+  const [enabledSubmit, setEnabledSubmit] = useState(true)
 
   const [selectedCategoryName, setSelectedCategoryName] = useState(null)
   const [selectedCategoryId, setSelectedCategoryId] = useState(null)
@@ -44,7 +53,47 @@ const DaoSubmitModal = props => {
     { id: 5, name: 'Business Development' },
     { id: 6, name: 'Partnership' },
   ]
+
+  useEffect(() => {
+    var today = new Date()
+    var numberOfDaysToAdd = 2
+    var result = today.setDate(today.getDate() + numberOfDaysToAdd)
+    setMinDate(new Date(result))
+    setStartDate(new Date(result))
+  }, [])
+
+  useEffect(() => {
+    if (
+      selectedCategoryName !== null &&
+      title.length > 0 &&
+      overview.length > 0 &&
+      goal.length > 0 &&
+      treasury.length > 0 &&
+      timeline.length > 0 &&
+      days >= 7
+    )
+      setEnabledSubmit(false)
+    else setEnabledSubmit(true)
+  }, [selectedCategoryName, title, overview, goal, treasury, timeline, days, hours])
+
+  const resetFields = () => {
+    setSelectedCategoryName(null)
+    setSelectedCategoryId(null)
+    setTitle('')
+    setOverview('')
+    setGoal('')
+    setTreasury('')
+    setTimeline('')
+    var today = new Date()
+    var numberOfDaysToAdd = 2
+    var result = today.setDate(today.getDate() + numberOfDaysToAdd)
+    setStartDate(new Date(result))
+    setDays(7)
+    setHours(0)
+  }
+
   const closeModal = () => {
+    resetFields()
     onClose()
     setTimeout(() => {
       setSelectedCategoryName(null)
@@ -52,10 +101,35 @@ const DaoSubmitModal = props => {
   }
 
   const submitProposal = () => {
-    onSubmit()
+    let proposal = {
+      walletId: publicKey,
+      title,
+      category: selectedCategoryName,
+      author: profileInfo?.username,
+      overview,
+      metrics: goal,
+      treasury: treasury,
+      eta_timeline: timeline,
+      vote_start: startDate,
+      vote_duration: days * 24 + hours,
+    }
+    // let proposal = {
+    //   author: 'Nicholas-FP',
+    //   eta_timeline: 'eee',
+    //   metrics: 'ccc',
+    //   overview: 'bbbb',
+    //   title: 'aaaa',
+    //   treasury: 'dd',
+    //   category: 'Product',
+    //   vote_duration: '2641',
+    //   vote_start: '2023-05-18T19:33:55.891Z',
+    //   walletId: 'FPCjmizgwG6EsBYH4w3aMvPiZbEnRgCzsuwVJu6rT8eo',
+    // }
+    onSubmit(proposal)
+
     setTimeout(() => {
-      setSelectedCategoryName(null)
-    }, 500)
+      resetFields()
+    }, 1000)
   }
 
   const chooseCategory = index => {
@@ -125,11 +199,11 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Proposal Title</div>
                       <div className="mt-[12px]">
                         <Input
-                          value={title}
-                          placeholder="Give your art name"
+                          value={limit(title, 45)}
+                          placeholder="Give your proposal name"
                           label=""
                           fullWidth
-                          onChange={value => setTitle(value)}
+                          onChange={value => setTitle(limit(value, 45))}
                           height="46px"
                         />
                       </div>
@@ -138,26 +212,21 @@ const DaoSubmitModal = props => {
                       <div className={styles.text}>Overview</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value={overview}
-                          placeholder="Provide a detailed explanation of the proposal and how it will be executed, including 
-                        to whom each necessary step is delegated."
+                          value={limit(overview, 5000)}
+                          placeholder="Provide a detailed explanation of your proposal, how it will be implemented, and who will be responsible for its execution."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          onChange={value => setOverview(value)}
+                          onChange={value => setOverview(limit(value, 5000))}
                           height="90px"
                         />
                       </div>
                     </div>
                     <div className="mt-[22px]">
-                      <div className={styles.text}>Goals/Evaluation Metrics</div>
+                      <div className={styles.text}>Goals & Metrics</div>
                       <div className="mt-[12px]">
                         <Textarea
                           value={goal}
-                          placeholder="How will this proposal produce benefits to CircusDAO?&#10;
-                        How does this initiative reflect the values of CircusDAO in its support of Foster Marketplace, 
-                        Solana, and the integrity of artists?&#10;
-                        
-                        What kind of qualitative and quantitative data can we analyze to determine its success?"
+                          placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?"
                           fullWidth
                           color={'var(--text-gray-200-color)'}
                           onChange={value => setGoal(value)}
@@ -168,29 +237,35 @@ const DaoSubmitModal = props => {
                   </div>
                   <div className="w-[50%] relative">
                     <div className="mt-[96px]">
-                      <div className={styles.text}>Treasury Spending Required</div>
-                      <div className="mt-[12px]">
-                        <Input
-                          value={treasury}
-                          placeholder="Estimated funds required to implement proposal"
-                          label=""
-                          color={'var(--text-gray-200-color)'}
-                          fullWidth
-                          onChange={value => setTreasury(value)}
-                          height="46px"
-                        />
+                      <div className={styles.text}>Treasury Spending</div>
+                      <div className={styles.treasuryContainer}>
+                        <div className="ml-4">
+                          <SolanaLogoIcon />
+                        </div>
+                        <div className="w-full -ml-2">
+                          <Input
+                            value={treasury}
+                            placeholder="Enter the estimated amount of Solana (SOL) required to implement your proposal."
+                            label=""
+                            type="number"
+                            color={'var(--text-gray-200-color)'}
+                            backgroundColor="transparent"
+                            fullWidth
+                            onChange={value => setTreasury(value)}
+                            height="46px"
+                          />
+                        </div>
                       </div>
                     </div>
                     <div className="mt-[38px]">
                       <div className={styles.text}>Timeline/Roadmap</div>
                       <div className="mt-[12px]">
                         <Textarea
-                          value={timeline}
-                          placeholder="Produce a stringent timeline as to the beginning, development, and deployment of with an 
-                        emphasis on any deadlines and time constraints."
+                          value={limit(timeline, 5000)}
+                          placeholder="Please provide the timeline for each phase of the proposals implementation and the deliverables with as much detail as possible."
                           fullWidth
                           color={'var(--text-gray-200-color)'}
-                          onChange={value => setTimeline(value)}
+                          onChange={value => setTimeline(limit(value, 5000))}
                           height="90px"
                         />
                       </div>
@@ -205,7 +280,7 @@ const DaoSubmitModal = props => {
                               onChange={date => setStartDate(date)}
                               dateFormat="MM/dd/yyyy h:mm aa"
                               formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
-                              minDate={moment().toDate()}
+                              minDate={minDate}
                               showTimeInput
                               timeInputLabel=""
                               className={styles.datePicker}
@@ -223,6 +298,7 @@ const DaoSubmitModal = props => {
                         <div className="flex gap-[10px] mt-[13px]">
                           <div className="flex gap-[5px] items-center">
                             <Input
+                              value={days}
                               placeholder="0"
                               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
@@ -250,6 +326,7 @@ const DaoSubmitModal = props => {
                             <div className={styles.placeholder}>Hours</div>
                           </div>
                         </div>
+                        {days < 7 && <div className={styles.minimumVote}>Minimum voting duration is 7 days.</div>}
                       </div>
                     </div>
 
@@ -270,6 +347,7 @@ const DaoSubmitModal = props => {
                           fontFamily="Muli-SemiBold"
                           gradientDirection="bottom"
                           label="Submit"
+                          disabled={enabledSubmit}
                           onClick={submitProposal}
                         />
                       </div>
@@ -342,17 +420,24 @@ const DaoSubmitModal = props => {
                   </div>
 
                   <div className="mt-[17px]">
-                    <div className={styles.text}>Treasury Spending Required</div>
-                    <div className="mt-[12px]">
-                      <Input
-                        value={treasury}
-                        placeholder="Estimated funds required for project"
-                        label=""
-                        fullWidth
-                        color={'var(--text-gray-200-color)'}
-                        onChange={value => setTreasury(value)}
-                        height="46px"
-                      />
+                    <div className={styles.text}>Treasury Spending</div>
+                    <div className={styles.treasuryContainer}>
+                      <div className="ml-4">
+                        <SolanaLogoIcon />
+                      </div>
+                      <div className="w-full -ml-2">
+                        <Input
+                          value={treasury}
+                          placeholder="Estimated funds required for project"
+                          label=""
+                          fullWidth
+                          type="number"
+                          color={'var(--text-gray-200-color)'}
+                          backgroundColor="transparent"
+                          onChange={value => setTreasury(value)}
+                          height="46px"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -392,7 +477,7 @@ const DaoSubmitModal = props => {
                   </div>
 
                   <div className="mt-[36px]">
-                    <div className={styles.text}>Treasury Spending Required</div>
+                    <div className={styles.text}>Voting Start Time</div>
                     <div className="mt-[18px] mb-[8px] w-full startAuctionDatePicker">
                       <div className="relative">
                         <DatePicker

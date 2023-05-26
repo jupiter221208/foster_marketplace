@@ -978,6 +978,26 @@ h6 {
       color: var(--background-dark-color);
     }
   }
+  .react-datepicker__day--disabled {
+    color: rgba(var(--text-gray-200-color-rgb), 0.5);
+    width: 35px;
+    height: 35px;
+    font-family: 'Muli-Regular';
+    font-size: 16px;
+    @media (min-width: 1024px) {
+      width: 40px;
+      height: 40px;
+    }
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    &:hover {
+      border-radius: 9px;
+      color: var(--background-dark-color);
+    }
+  }
   .react-datepicker__day--selected {
     background: var(--datepicker-date-bg);
     display: flex;

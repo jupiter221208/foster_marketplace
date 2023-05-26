@@ -25,7 +25,7 @@ import styles from './index.module.scss'
 import userAPI from 'apis/user'
 import artistsAPI from 'apis/artists'
 import { useDispatch, useSelector } from 'react-redux'
-import { compareDate } from 'utils/helpers'
+import { compareDate, getDateLabel } from 'utils/helpers'
 import NotificationTab from 'components/Tab/NotificationTab'
 
 const Notifications = () => {
@@ -40,14 +40,6 @@ const Notifications = () => {
   const [searchWord, setSearchWord] = useState('')
   const viewport = useViewport()
   const profileInfo = useSelector(state => (state as any).profileInfo)
-
-  function getDateLabel(date) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    let month = months[date.getMonth()]
-    let day = date.getDate()
-    let year = date.getFullYear()
-    return month + ' ' + day + ', ' + year
-  }
 
   function getSortedNotification(notifications) {
     let today = new Date().getTime()

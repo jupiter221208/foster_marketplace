@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react'
 
 import { LinearProgress, makeStyles } from '@material-ui/core'
 
+import { PublicKey } from '@solana/web3.js'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
+import { useMetaplex } from 'hooks/useMetaplex'
+
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
@@ -16,29 +22,164 @@ import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
+import { trySendTransaction } from 'utils'
+import { getShortAddress } from 'utils/wallet.util'
+import { getDateLabel, getTimeLabel } from 'utils/helpers'
+import { createVoteTransaction } from 'utils/dao'
+
+// apis
+import axios from 'axios'
+import Alert from 'components/Alert'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
+import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
+import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
   root: {
     height: '8px',
     '&.MuiLinearProgress-colorPrimary:not(.MuiLinearProgress-buffer)': {
-      backgroundColor: '#2b2b2b',
+      backgroundColor: 'var(--stats-search-bg)',
     },
     '& .MuiLinearProgress-barColorPrimary': {
-      backgroundColor: '#95dbd5',
+      backgroundColor: 'var(--main-icon-color)',
     },
   },
 })
+
 const DaoLandingDetail = props => {
-  const { onBack } = props
+  const { proposal, onBack, turkeyCircus } = props
+  const { connected, publicKey, signTransaction } = useWallet()
+  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
+  const { metaplex } = useMetaplex()
+  const { setVisible } = useWalletModal()
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
+  const [proposalDetail, setProposalDetail] = useState(proposal)
+  const [clickedCastVote, setClickedCastVote] = useState(false)
+  const [disabledVote, setDisabledVote] = useState(true)
+  const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
+  const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
+
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
+
+  const getEndDate = () => {
+    var endDate = new Date(proposalDetail.vote_start)
+    endDate.setHours(endDate.getHours() + proposalDetail.vote_duration)
+    return endDate
+  }
 
   useEffect(() => {
     window.scrollTo({
       top: 0,
     })
+    setAlertData([
+      {
+        id: 0,
+        title: 'Casted Vote',
+        description: `You've successfully casted your vote for ${proposal.title}`,
+        type: 'success',
+      },
+    ])
+    if (proposal.status === 'live') {
+      setDisabledVote(false)
+    }
+
+    setNoTurkeyAlert([
+      {
+        id: 0,
+        title: 'CircusDAO Membership Not Detected',
+        description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
+        type: 'success',
+      },
+    ])
   }, [])
+
+  const onRefreshProposal = async () => {
+    try {
+      let vote = {
+        proposal_id: proposalDetail.id,
+      }
+
+      let response = await axios.post('api/dao/proposal-detail', vote)
+      if (response.data.success === true) {
+        let proposals = response.data.proposals
+
+        if (proposals.length > 0) {
+          console.log(proposals[0])
+          setProposalDetail(proposals[0])
+        }
+      }
+    } catch {}
+  }
+
+  const castVoteProposal = async status => {
+    setIsLoading(true)
+    try {
+      let tx = createVoteTransaction({
+        proposalKey: new PublicKey(proposalDetail.proposal_key),
+        voter: publicKey,
+        vote: status,
+      })
+      // TODO: add error handling
+      let signature: null | string = await trySendTransaction(metaplex.connection, tx, signTransaction)
+      if (!signature) throw new Error(`could not submit vote to chain`)
+
+      let response = await axios.post('api/dao/vote', {
+        proposal_id: proposalDetail.id,
+        wallet_id: publicKey,
+        vote_status: status,
+        signature,
+      })
+      if (response.data.success === true) {
+        onRefreshProposal()
+        setTimeout(() => {
+          setIsLoading(false)
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 1000)
+        }, 1000)
+      } else {
+        setTimeout(() => {
+          setIsLoading(false)
+        }, 1000)
+      }
+    } catch {
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 1000)
+    }
+  }
+
+  const onClickCastVoteBtn = async () => {
+    if (!connected) {
+      setClickedCastVote(true)
+      setVisible(true)
+      return
+    }
+
+    // if (turkeyCircus.length === 0) {
+    //   setShowNoTurkeyAlert(true)
+    //   return
+    // }
+
+    setShowCastVoteModal(true)
+  }
+
+  useEffect(() => {
+    if (clickedCastVote) {
+      setClickedCastVote(false)
+      // if (turkeyCircus.length === 0) {
+      //   setShowNoTurkeyAlert(true)
+      //   return
+      // }
+      setShowCastVoteModal(true)
+    }
+  }, [connected])
 
   return (
     <div className={styles.container}>
@@ -52,13 +193,27 @@ const DaoLandingDetail = props => {
             <ArrowLeftMobileIcon />
           </div>
         </div>
-        <div className={styles.backText}>Proposal 279</div>
-        <div className="hidden lg:flex">
-          <div className={styles.liveBtn}>Live</div>
+        <div className={styles.backText}>Proposal {proposalDetail.id}</div>
+        <div className="hidden lg:flex ml-[20px]">
+          {proposalDetail.status === 'pending' ? (
+            <DaoPendingButton label="Pending" />
+          ) : proposalDetail.status === 'closed' ? (
+            proposalDetail.vote_result === 'Passed' ? (
+              <DaoLiveButton label="Passed" />
+            ) : (
+              <DaoClosedButton label="Rejected" />
+            )
+          ) : (
+            <DaoLiveButton
+              label={
+                proposalDetail.status === 'closed' ? 'Closed' : proposalDetail.status === 'pending' ? 'Pending' : 'Live'
+              }
+            />
+          )}
         </div>
       </div>
       <div className="flex mt-[6px] lg:mt-[25px] justify-between">
-        <div className={styles.proposalText}>Add Creator Merch Hub to the Artist Page</div>
+        <div className={styles.proposalText}>{proposalDetail.title}</div>
         <div className="hidden lg:flex">
           <GradientButton
             direction="rtl"
@@ -66,17 +221,18 @@ const DaoLandingDetail = props => {
             width={155}
             height={53}
             icon={NotificationIcon}
+            disabled={disabledVote}
             label="Cast Vote"
-            onClick={() => setShowCastVoteModal(true)}
+            onClick={() => onClickCastVoteBtn()}
           />
         </div>
       </div>
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
-        <div className={styles.proposedText}>Angooba</div>
+        <div className={styles.proposedText}>{proposalDetail.author}</div>
         <div className="ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center">
           <CopyAltLightGreenIcon />
-          <div className={styles.clipboardBtn}>6A8rF .. Rf8p</div>
+          <div className={styles.clipboardBtn}>{getShortAddress(proposalDetail.wallet_id)}</div>
         </div>
       </div>
 
@@ -95,7 +251,7 @@ const DaoLandingDetail = props => {
             icon={NotificationMobileIcon}
             label="Cast Vote"
             borderRadius={8}
-            onClick={() => setShowCastVoteModal(true)}
+            onClick={() => onClickCastVoteBtn()}
           />
         </div>
       </div>
@@ -103,7 +259,7 @@ const DaoLandingDetail = props => {
       <div className="mt-[32px] lg:mt-[60px]">
         <div className="w-full flex justify-between">
           <div className={styles.totalVotes}>Total Votes</div>
-          <div className={styles.totalVotes}>(1800/3200)</div>
+          <div className={styles.totalVotes}>({proposalDetail.total_votes}/3200)</div>
         </div>
 
         <div className="mt-[12px] mb-[12px] lg:mb-[18px] w-full">
@@ -113,20 +269,28 @@ const DaoLandingDetail = props => {
             classes={{
               root: classes.root,
             }}
-            value={20}
+            value={(proposalDetail.total_votes * 100) / 3200}
           />
         </div>
 
         <div className="w-full flex justify-between">
           <div>
             <div className={styles.approvedText}>Approved</div>
-            <div className={styles.approvedValue}>1400</div>
-            <div className={styles.approvedPercent}>77.8%</div>
+            <div className={styles.approvedValue}>{proposalDetail.approved_votes}</div>
+            <div className={styles.approvedPercent}>
+              {proposalDetail.total_votes === 0
+                ? '0%'
+                : `${(proposalDetail.approved_votes / proposalDetail.total_votes) * 100} %`}
+            </div>
           </div>
           <div>
             <div className={styles.approvedText}>Opposed</div>
-            <div className={styles.approvedValue}>400</div>
-            <div className={styles.approvedPercent}>22.2%</div>
+            <div className={styles.approvedValue}>{proposalDetail.opposed_votes}</div>
+            <div className={styles.approvedPercent}>
+              {proposalDetail.total_votes === 0
+                ? '0%'
+                : `${(proposalDetail.opposed_votes / proposalDetail.total_votes) * 100} %`}
+            </div>
           </div>
         </div>
         <div className="w-full flex flex-wrap lg:flex-nowrap justify-around gap-[6px] lg:gap-[94px] mt-[30px] lg:mt-[48px]">
@@ -134,14 +298,14 @@ const DaoLandingDetail = props => {
             <div className={styles.thresholdText}>Threshold</div>
             <div>
               <div className={styles.thresholdCurrent}>Current Threshold</div>
-              <div className={styles.thresholdValue}>180 votes</div>
+              <div className={styles.thresholdValue}>{proposalDetail.threshold} votes</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Ends</div>
             <div>
-              <div className={styles.thresholdCurrent}>8:54 PM MST</div>
-              <div className={styles.thresholdValue}>May 23, 2023</div>
+              <div className={styles.thresholdCurrent}>{getTimeLabel(getEndDate())}</div>
+              <div className={styles.thresholdValue}>{getDateLabel(getEndDate())}</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
@@ -153,23 +317,15 @@ const DaoLandingDetail = props => {
           </div>
         </div>
         <div className="mt-[44px] lg:mt-[78px]">
-          <div className={styles.description}>Description</div>
-          <div className={styles.descriptionText}>
-            Add an e-commerce hub built within Foster Marketplace that provides an alternative avenue for creator
-            monetization that enables artists to sell physical prints and merchandise to interested collectors.
-          </div>
+          <div className={styles.description}>Overview</div>
+          <div className={styles.descriptionText}>{proposalDetail.overview}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>How will it proliferate Foster Marketplace or Circus DAO?</div>
-          <div className={styles.descriptionText}>
-            Information on how this proposal will produce benefits to CircusDAO / Foster Marketplace / Solana.
-            Information on how this initiative reflects the values of CircusDAO in its support of Foster Marketplace,
-            Solana, and the integrity of artists. The answer should provide any qualitative or quantitative data that
-            can be used to determine the success of the proposal.
-          </div>
+          <div className={styles.description}>Goals & Metrics</div>
+          <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
         </div>
         <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>Estimated Treasury Spending Required</div>
+          <div className={styles.description}>Estimated Treasury Spending</div>
           <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
             <div className="hidden lg:flex">
               <SolIcon />
@@ -177,24 +333,45 @@ const DaoLandingDetail = props => {
             <div className="flex lg:hidden">
               <SolMobileIcon />
             </div>
-            <div className={styles.estimateValue}>1000</div>
+            <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
           </div>
         </div>
       </div>
       <div className="mt-[30px] mt-[50px]">
         <div className={styles.description}>Estimated Timeline</div>
-        <div className={styles.descriptionText}>6 months</div>
+        <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
       </div>
       <div className="w-full h-[100px] lg:h-[200px]" />
 
       <CastVoteModal
         data={{}}
         open={showCastVoteModal}
-        onSubmit={() => {
+        onSubmit={status => {
           setShowCastVoteModal(false)
+          setTimeout(() => {
+            castVoteProposal(status)
+          }, 1000)
         }}
         onClose={() => setShowCastVoteModal(false)}
       />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
+
+      <Alert
+        open={showNoTurkeyAlert}
+        close={() => {
+          setShowNoTurkeyAlert(false)
+        }}
+        data={noTurkeyAlert}
+      />
+
+      <ProgressingModal open={isLoading} />
     </div>
   )
 }

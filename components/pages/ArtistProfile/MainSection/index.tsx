@@ -386,7 +386,7 @@ const MainSection = prop => {
             <EllipseGreen />
           </div> */}
         </div>
-        <div className="w-full flex justify-between items-center mt-[-50px] z-10">
+        <div className="w-full relative items-center mt-[-50px] z-10">
           <ProfileArtistCard
             image={
               artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null
@@ -398,8 +398,8 @@ const MainSection = prop => {
             twitter_url={artistInfo?.twitter_url}
           />
           {!isOwn && (
-            <div className="mt-10 flex">
-              <div className="mr-[11px] lg:mr-[24px]">
+            <div className="absolute flex right-0 top-[60px]">
+              <div className="mr-[11px]">
                 <div onClick={() => setOpenShareModal(true)}>
                   <ShareSmallIcon alt="" />
                 </div>

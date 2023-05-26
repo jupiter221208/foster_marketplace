@@ -26,6 +26,34 @@ export const calculateTimeLeft = endDate => {
   return timeLeft
 }
 
+export const isExpiredDate = (start, duration) => {
+  // for testing
+  let proposalTime = new Date(start)
+  let offset = proposalTime.getTimezoneOffset() * 60 * 1000
+  let proposalLocalTime = proposalTime.getTime() - offset
+  let nowDate = new Date().getTime()
+  let difference = nowDate - proposalLocalTime
+
+  if (difference < duration * 3600 * 1000) return false
+  else return true
+}
+
+export const getDateLabel = date => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  let month = months[date.getMonth()]
+  let day = date.getDate()
+  let year = date.getFullYear()
+  return month + ' ' + day + ', ' + year
+}
+
+export const getTimeLabel = date => {
+  var localDate = new Date(date)
+  let hours = localDate.getHours()
+  let mins = localDate.getMinutes()
+
+  return hours + ':' + mins
+}
+
 export const calculateTimeLeftAll = endDate => {
   let difference = +new Date(endDate) - +new Date()
 
