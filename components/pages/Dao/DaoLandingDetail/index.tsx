@@ -119,7 +119,6 @@ const DaoLandingDetail = props => {
 
   const castVoteProposal = async status => {
     setIsLoading(true)
-    console.log('=================', proposalDetail.proposal_key)
     try {
       let tx = createVoteTransaction({
         proposalKey: new PublicKey(proposalDetail.proposal_key),

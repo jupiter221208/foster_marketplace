@@ -39,7 +39,7 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
       eta_timeline,
       vote_start,
       vote_duration,
-      proposalKeypair,
+      proposalKeypair.publicKey.toString(),
       signature,
       url,
     ]
