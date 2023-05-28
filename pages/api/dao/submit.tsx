@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import conn from 'utils/db'
+import { Keypair } from '@solana/web3.js'
 
 const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -23,6 +24,8 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
       secretKey,
     } = req.body
 
+    const proposalKeypair = Keypair.fromSecretKey(Buffer.from(secretKey, 'hex'))
+
     const query =
       'INSERT INTO dao_proposals(title, author, wallet_id, category, overview, metrics, treasury, eta_timeline, vote_start, vote_duration, proposal_key, signature, proposal_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)'
     let values = [
@@ -36,7 +39,7 @@ const submitProposal = async (req: NextApiRequest, res: NextApiResponse) => {
       eta_timeline,
       vote_start,
       vote_duration,
-      secretKey,
+      proposalKeypair,
       signature,
       url,
     ]
