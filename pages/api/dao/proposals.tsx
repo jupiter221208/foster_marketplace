@@ -8,8 +8,8 @@ const getProposals = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const { page, rows } = req.body
 
-    const query = `SELECT * FROM dao_proposals ORDER BY id DESC LIMIT ${rows} OFFSET ${rows * page}`
-    const result = await conn().query(query)
+    const query = `SELECT * FROM dao_proposals ORDER BY id DESC LIMIT $1 OFFSET $2`
+    const result = await conn().query(query, [rows, rows * page])
     res.status(200).json({ success: true, proposals: result.rows })
   } catch (err) {
     console.error(err)

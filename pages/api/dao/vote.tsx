@@ -8,11 +8,9 @@ const castVote = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { proposal_id, wallet_id, vote_status } = req.body
-    console.log('==========proposal_id, wallet_id, vote_status ========', proposal_id, wallet_id, vote_status)
 
     const vote_exist_query = 'SELECT * FROM dao_votes where proposal_id=$1 and wallet_id=$2'
     const votes = await conn().query(vote_exist_query, [proposal_id, wallet_id])
-    console.log('==========votes.rows========', votes.rows)
     if (votes.rows.length > 0) {
       res.status(200).json({ success: true })
       return
