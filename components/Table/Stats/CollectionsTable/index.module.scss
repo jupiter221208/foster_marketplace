@@ -1,0 +1,17 @@
+@import 'assets/scss/variable.module.scss';
+
+.priceText {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.8);
+  }
+}
+
+.greenText {
+  color: #47d437 !important;
+}

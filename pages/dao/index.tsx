@@ -2,19 +2,15 @@ import React, { useState } from 'react'
 
 // next images
 import Head from 'next/head'
-// import Image from 'next/image'
+
+// solana
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
-// import DaoOfCircusModal from 'components/Modal/DaoOfCircusModal'
-// import DaoOfLiftModal from 'components/Modal/DaoOfLiftModal'
-// import OutlineButton from 'components/Button/OutlineButton'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-// import TurkeyRingLeader from 'assets/images/turkey-ringleader.png'
-// import DAOLogo from 'assets/icons/dao-logo.svg?component'
-// import DAOLogoMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
 import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 
 // styles
@@ -29,7 +25,11 @@ const Dao = () => {
   // const [showCircus, setShowCircus] = useState(false)
   // const [showLift, setShowLift] = useState(false)
   // const [daoSetup, setDaoSetup] = useState(false)
-  const [daoPage, setDaoPage] = useState('start')
+  const [daoPage, setDaoPage] = useState('landing')
+  const [proposal, setProposal] = useState()
+  const { publicKey } = useWallet()
+  const [turkeyCircus, setTurkeyCircus] = useState([])
+
   const viewport = useViewport()
 
   let pageTitle = `CircusDAO | Foster Marketplace`
@@ -59,14 +59,26 @@ const Dao = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
 
-        {daoPage === 'start' ? (
+        {/* {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
-        ) : daoPage === 'landing' ? (
+        ) :  */}
+        {daoPage === 'landing' ? (
           <div className="w-full mt-[40px] lg:mt-[115px] z-10">
-            <DaoLandingPage onDetail={() => setDaoPage('detail')} />
+            <DaoLandingPage
+              onDetail={item => {
+                setProposal(item)
+                setDaoPage('detail')
+              }}
+              setTurkeyData={data => setTurkeyCircus(data)}
+            />
           </div>
         ) : (
-          <DaoLandingDetail onBack={() => setDaoPage('landing')} />
+          <DaoLandingDetail
+            publicKey={publicKey}
+            proposal={proposal}
+            turkeyCircus={turkeyCircus}
+            onBack={() => setDaoPage('landing')}
+          />
         )}
       </div>
     </div>

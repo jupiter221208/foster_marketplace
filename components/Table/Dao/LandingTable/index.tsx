@@ -5,9 +5,47 @@ import TimeIcon from 'assets/icons/dao-time-icon.svg?component'
 // styles
 import styles from './index.module.scss'
 import DaoLiveButton from './DaoLiveButton'
+import DaoPendingButton from './DaoPendingButton'
+import DaoClosedButton from './DaoClosedButton'
 
 const LandingTable = props => {
   const { data, onDetail } = props
+
+  const getEndInValue = item => {
+    let voteStartTime = new Date(item.vote_start)
+    let offset = voteStartTime.getTimezoneOffset() * 60 * 1000
+    let voteStartLocalTime = voteStartTime.getTime() - offset
+    let nowDate = new Date().getTime()
+    let difference = voteStartLocalTime - nowDate
+
+    if (difference > 0) {
+      const hours = difference / (1000 * 60 * 60)
+      let days = ''
+      if (hours < 24) {
+        days = Math.ceil(hours) + ' hrs'
+      } else if (hours < 37) {
+        days = '1 day'
+      } else {
+        days = '2 days'
+      }
+      return 'Starts in ' + days
+    }
+
+    difference = voteStartLocalTime + item.vote_duration * 3600 * 1000 - nowDate
+
+    const hours = difference / (1000 * 60 * 60)
+    let endDays = ''
+    if (hours <= 0) {
+      endDays = 'Ended'
+    } else if (hours < 24) {
+      endDays = 'Ends in ' + Math.ceil(hours) + ' hrs'
+    } else if (hours < 37) {
+      endDays = 'Ends in 1 day'
+    } else {
+      endDays = 'Ends in ' + Math.round(difference / (1000 * 60 * 60 * 24)) + ' days'
+    }
+    return endDays
+  }
 
   return (
     <table id={'ArtworksTable'} className="w-full table-auto">
@@ -27,7 +65,7 @@ const LandingTable = props => {
           return (
             <tr key={index}>
               <td>
-                <div className={`ml-4 ${styles.text}`}>{item.proposal}</div>
+                <div className={`ml-4 ${styles.text}`}>{item.title}</div>
               </td>
               <td className="text-center">
                 <div className={styles.text}>{item.category}</div>
@@ -36,14 +74,35 @@ const LandingTable = props => {
                 <div className={styles.text}>{item.author}</div>
               </td>
               <td className="flex">
-                <div className="flex gap-[15px] items-center">
-                  <TimeIcon />
-                  <div className={styles.text}>{item.time}</div>
+                <div className="w-full flex items-center">
+                  {item.status === 'closed' ? (
+                    <div
+                      className={`w-full flex justify-center ${
+                        item.vote_result === 'Passed' ? styles.passed : styles.rejected
+                      }`}
+                    >
+                      {item.vote_result}
+                    </div>
+                  ) : (
+                    <div className="w-full flex gap-[15px] items-center">
+                      <TimeIcon />
+                      <div className={styles.text}>{getEndInValue(item)}</div>
+                    </div>
+                  )}
                 </div>
               </td>
               <td>
                 <div className="flex justify-center">
-                  <DaoLiveButton onDetail={onDetail} />
+                  {item.status === 'pending' ? (
+                    <DaoPendingButton label="Pending" onDetail={() => onDetail(item)} />
+                  ) : item.status === 'closed' ? (
+                    <DaoClosedButton label="Closed" onDetail={() => onDetail(item)} />
+                  ) : (
+                    <DaoLiveButton
+                      label={item.status === 'closed' ? 'Closed' : item.status === 'pending' ? 'Pending' : 'Live'}
+                      onDetail={() => onDetail(item)}
+                    />
+                  )}
                 </div>
               </td>
             </tr>

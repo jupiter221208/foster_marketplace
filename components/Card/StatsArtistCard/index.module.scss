@@ -1,0 +1,72 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 166px;
+  height: 220px;
+  border-radius: 13px;
+  @media (min-width: 1024px) {
+    width: 280px;
+    height: 375px;
+    border-radius: 30px;
+  }
+  background: var(--collection-card-bg);
+  justify-content: flex-start;
+  border: 1px solid var(--nft-border-color);
+  box-shadow: 0px 3px 6px rgba(black, 0.3);
+  align-items: center;
+  cursor: pointer;
+}
+
+.avatarArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 106px;
+  height: 106px;
+  border-radius: 53px;
+  padding: 3px;
+  @media (min-width: 1024px) {
+    width: 190px;
+    height: 190px;
+    border-radius: 95px;
+    padding: 5px;
+  }
+  background: rgba(var(--text-gray-200-color-rgb), 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.name {
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 24px;
+    line-height: 30px;
+  }
+  text-align: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+}
+
+.value {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 14px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.totalSales {
+  font-family: 'Muli-Light';
+  font-size: 12px;
+  line-height: 15px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}

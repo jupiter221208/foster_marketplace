@@ -105,10 +105,11 @@
 .value {
   font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 18px;
+  line-height: 14px;
   @media (min-width: 1024px) {
     font-size: 18px;
-    line-height: 20px;
+    line-height: 18px;
+    margin-bottom: 3px;
   }
   color: rgba($text-gray-200-color, 80%);
 }
@@ -133,7 +134,7 @@
   height: 100%;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
-  background-color: rgba(#121212, 0.2);
+  background-color: rgba(#121212, 0.5);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
@@ -149,4 +150,15 @@
     margin-top: 14px;
   }
   z-index: 10;
+}
+
+.saleName {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+  }
+  color: rgba($text-gray-200-color, 0.75);
 }
