@@ -164,24 +164,27 @@ const DashboardNFTCard = props => {
                     <div></div>
                   </ReactPlaceholder>
                 )}
-                <img
-                  src={image}
-                  alt=""
-                  className={styles.imageNft}
-                  loading="lazy"
-                  onLoad={() => {
-                    setLoaded(true)
-                  }}
-                />
-                {/* <Image
-                  src={image}
-                  layout="fill"
-                  alt=""
-                  className={styles.imageNft}
-                  onLoadingComplete={() => {
-                    setLoaded(true)
-                  }}
-                /> */}
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <img
+                    src={image}
+                    alt=""
+                    className={styles.imageNft}
+                    loading="lazy"
+                    onLoad={() => {
+                      setLoaded(true)
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src={image}
+                    layout="fill"
+                    alt=""
+                    className={styles.imageNft}
+                    onLoadingComplete={() => {
+                      setLoaded(true)
+                    }}
+                  />
+                )}
               </div>
             ) : coverImage !== null && coverImage !== '' ? (
               <div className="w-full" onClick={() => onClick()}>
@@ -190,24 +193,27 @@ const DashboardNFTCard = props => {
                     <div></div>
                   </ReactPlaceholder>
                 )}
-                <img
-                  src={coverImage}
-                  alt=""
-                  className={styles.imageNft}
-                  loading="lazy"
-                  onLoad={() => {
-                    setLoaded(true)
-                  }}
-                />
-                {/* <Image
-                  src={coverImage}
-                  alt=""
-                  layout="fill"
-                  className={styles.imageNft}
-                  onLoad={() => {
-                    setLoaded(true)
-                  }}
-                /> */}
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <img
+                    src={coverImage}
+                    alt=""
+                    className={styles.imageNft}
+                    loading="lazy"
+                    onLoad={() => {
+                      setLoaded(true)
+                    }}
+                  />
+                ) : (
+                  <Image
+                    src={coverImage}
+                    alt=""
+                    layout="fill"
+                    className={styles.imageNft}
+                    onLoad={() => {
+                      setLoaded(true)
+                    }}
+                  />
+                )}
               </div>
             ) : (
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
