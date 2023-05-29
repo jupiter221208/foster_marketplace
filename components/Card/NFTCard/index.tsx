@@ -86,7 +86,7 @@ const DashboardNFTCard = props => {
       <div className={styles.container}>
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
-            {assetType.includes('video') ? (
+            {assetType?.includes('video') ? (
               viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
                   {play ? (
@@ -131,7 +131,7 @@ const DashboardNFTCard = props => {
                   onClick={() => onClick()}
                 />
               )
-            ) : assetType.includes('audio') ? (
+            ) : assetType?.includes('audio') ? (
               coverImage !== null && coverImage !== '' ? (
                 <div className="w-full" onClick={() => onClick()}>
                   <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
@@ -159,38 +159,55 @@ const DashboardNFTCard = props => {
               )
             ) : image !== null && image !== '' ? (
               <div className="w-full" onClick={() => onClick()}>
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <Image layout="fill" src={image} alt="" unoptimized className={styles.imageNft} />
-                </ReactPlaceholder>
                 {!loaded && (
-                  <Image
-                    src={image}
-                    layout="fill"
-                    alt=""
-                    unoptimized
-                    className={styles.imageNft}
-                    onLoadingComplete={() => {
-                      setLoaded(true)
-                    }}
-                  />
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
                 )}
+                <img
+                  src={image}
+                  alt=""
+                  className={styles.imageNft}
+                  loading="lazy"
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                />
+                {/* <Image
+                  src={image}
+                  layout="fill"
+                  alt=""
+                  className={styles.imageNft}
+                  onLoadingComplete={() => {
+                    setLoaded(true)
+                  }}
+                /> */}
               </div>
             ) : coverImage !== null && coverImage !== '' ? (
               <div className="w-full" onClick={() => onClick()}>
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <Image src={coverImage} layout="fill" alt="" className={styles.imageNft} />
-                </ReactPlaceholder>
                 {!loaded && (
-                  <Image
-                    src={coverImage}
-                    alt=""
-                    layout="fill"
-                    className={styles.imageNft}
-                    onLoad={() => {
-                      setLoaded(true)
-                    }}
-                  />
+                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                    <div></div>
+                  </ReactPlaceholder>
                 )}
+                <img
+                  src={coverImage}
+                  alt=""
+                  className={styles.imageNft}
+                  loading="lazy"
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                />
+                {/* <Image
+                  src={coverImage}
+                  alt=""
+                  layout="fill"
+                  className={styles.imageNft}
+                  onLoad={() => {
+                    setLoaded(true)
+                  }}
+                /> */}
               </div>
             ) : (
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
