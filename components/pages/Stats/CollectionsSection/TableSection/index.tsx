@@ -21,7 +21,6 @@ import styles from './index.module.scss'
 const TableSection = props => {
   const { data } = props
   const viewport = useViewport()
-
   const [list, setList] = useState<any[]>([])
 
   useEffect(() => {

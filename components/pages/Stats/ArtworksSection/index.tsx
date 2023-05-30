@@ -13,6 +13,11 @@ import { Autoplay, Lazy, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
+import ExplorePagination from 'components/Button/ExplorePagination'
+import StatsCollectionCard from 'components/Card/StatsCollectionCard'
+// import Marquee from 'react-fast-marquee'
+import { useViewport } from 'utils'
+
 // json
 
 // functions
@@ -22,10 +27,6 @@ import styles from './index.module.scss'
 
 // apis
 import StatsAPI from 'apis/stats'
-import ExplorePagination from 'components/Button/ExplorePagination'
-import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-// import Marquee from 'react-fast-marquee'
-import { useViewport } from 'utils'
 
 const ArtworksSection = () => {
   const dispatch = useDispatch()

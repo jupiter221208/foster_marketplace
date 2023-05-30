@@ -39,37 +39,37 @@ const CollectionsTable = props => {
               <td>
                 <div className="flex gap-2 mx-3 items-center">
                   <div className="min-w-[38px] w-[38x]">
-                    <Image src={item.rankImage} alt="" width={38} height={38} className="rounded-[8px]" />
+                    <Image src={item.cover_image} alt="" width={38} height={38} className="rounded-[8px]" />
                   </div>
-                  <div className="flex justify-center">{item.collectionName01}</div>
+                  <div className="flex justify-center">{item.collection_name}</div>
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.totalSale.toFixed(2)}
+                  {item.total_sales.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.floorPrice.toFixed(2)}
+                  {item.floor_price.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.averagePrice.toFixed(2)}
+                  {item.average_sale.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.highestSale.toFixed(2)}
+                  {item.highest_sale.toFixed(2)}
                 </div>
               </td>
-              <td className="text-center">{item.collectors}</td>
-              <td className="text-center">{item.nftsSold}</td>
+              <td className="text-center">{item.creator_username}</td>
+              <td className="text-center">{item.unique_holders}</td>
             </tr>
           )
         })}

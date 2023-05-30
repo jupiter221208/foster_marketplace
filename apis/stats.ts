@@ -8,6 +8,12 @@ class Stats {
       return response.data
     })
   }
+
+  getStatsCollection(data) {
+    return client.post(API_URL + 'v1/stats/collections', data).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Stats()

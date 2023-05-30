@@ -66,8 +66,6 @@ const ArtworksAccordion = props => {
                         {item.asset_name}
                       </div>
                       <div className="flex gap-1 mt-1 items-center">
-                        {/* <div className={styles.priceText}>Sale Price</div> */}
-                        {/* <Image src={SolanaLogoIcon} width={16} height={16} alt="" /> */}
                         <SolanaLogoIcon alt="" />
                         <div className={styles.priceValue}>{item.amount}</div>
                       </div>
