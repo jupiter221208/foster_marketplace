@@ -8,6 +8,7 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import { getFirstUpperString } from 'utils/helpers'
 
 const VoteHistoryAccordion = props => {
   const { data } = props
@@ -23,6 +24,14 @@ const VoteHistoryAccordion = props => {
       openedRef.current?.click()
     }
     openedRef.current = clickedButton
+  }
+
+  const getLocalDate = date => {
+    let voteDate = new Date(date)
+    let year = voteDate.getFullYear()
+    let month = voteDate.getMonth() + 1
+    let day = voteDate.getDate()
+    return year + '-' + month + '-' + day
   }
 
   return (
@@ -42,9 +51,9 @@ const VoteHistoryAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className="block">
-                      <div className={styles.subTitle}>Username</div>
+                      <div className={styles.subTitle}>{item.username}</div>
                       <div className="flex">
-                        <div className={styles.priceValue}>Approved</div>
+                        <div className={styles.priceValue}>{getFirstUpperString(item.vote_status)}</div>
                       </div>
                     </div>
                   </div>
@@ -52,16 +61,21 @@ const VoteHistoryAccordion = props => {
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Governmance Weight</div>
+                    <div className={styles.title}>Governance Weight</div>
                     <div className={styles.text}>80</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Date</div>
-                    <div className={styles.secondText}>2023-05-24</div>
+                    <div className={styles.secondText}>{getLocalDate(item.created_at)}</div>
                   </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Recorded Vote</div>
-                    <div className={styles.text}>View</div>
+                    <div
+                      className={styles.text}
+                      onClick={() => window.open(`https://explorer.solana.com/tx/${item.signature}`)}
+                    >
+                      View
+                    </div>
                   </div>
                 </Disclosure.Panel>
               </>

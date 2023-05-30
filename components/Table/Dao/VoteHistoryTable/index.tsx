@@ -23,7 +23,7 @@ const VoteHistoryTable = props => {
             <div className="ml-3">House Memeber</div>
           </th>
           <th>Vote Casted</th>
-          <th>Govermance Weight</th>
+          <th>Governance Weight</th>
           <th>Date</th>
           <th>Recorded Vote</th>
         </tr>
