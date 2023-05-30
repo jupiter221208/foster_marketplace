@@ -8,6 +8,14 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 import { useMetaplex } from 'hooks/useMetaplex'
 
+// third party
+import Tab01 from 'components/Tab/Tab01'
+import Alert from 'components/Alert'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
+import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
+import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
+
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
@@ -27,13 +35,11 @@ import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
 import { createVoteTransaction } from 'utils/dao'
 
+// json
+import TabList from 'assets/json/dao/tab-list.json'
+
 // apis
 import axios from 'axios'
-import Alert from 'components/Alert'
-import ProgressingModal from 'components/Modal/ProgressingModal'
-import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
-import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
-import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -63,6 +69,8 @@ const DaoLandingDetail = props => {
   const [disabledVote, setDisabledVote] = useState(true)
   const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
+  const [tabList, setTabList] = useState<any>(TabList)
+  const [activeTab, setActiveTab] = useState<any>(0)
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -97,6 +105,8 @@ const DaoLandingDetail = props => {
         type: 'error',
       },
     ])
+
+    handleSelectedTab(0)
   }, [])
 
   const onRefreshProposal = async () => {
@@ -181,9 +191,28 @@ const DaoLandingDetail = props => {
     }
   }, [connected])
 
+  const handleSelectedTab = tab => {
+    let array: any[] = []
+    TabList.map(item => {
+      let object: any = item
+      if (item.id === tab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array.push(object)
+    })
+    setTabList(array)
+    setActiveTab(tab)
+  }
+
   return (
     <div className={styles.container}>
-      <div className="flex mt-[20px] lg:mt-[117px] items-center">
+      <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
+        <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
+      </div>
+
+      <div className="flex mt-[20px] lg:mt-[101px] items-center">
         <div className={styles.backBtn} onClick={onBack}>
           <div className={styles.backEllipse}></div>
           <div className="absolute inset-auto hidden lg:flex">
@@ -311,8 +340,13 @@ const DaoLandingDetail = props => {
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Snapshot</div>
             <div>
-              <div className={styles.thresholdCurrent}>Taken at block</div>
-              <div className={styles.thresholdValue}>17163196</div>
+              <div className={styles.thresholdCurrent}>Solana Explorer</div>
+              <div
+                className={styles.viewProposal}
+                onClick={() => window.open(`https://explorer.solana.com/tx/${proposalDetail.signature}`)}
+              >
+                View Proposal
+              </div>
             </div>
           </div>
         </div>
