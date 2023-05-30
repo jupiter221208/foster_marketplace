@@ -40,6 +40,8 @@ import TabList from 'assets/json/dao/tab-list.json'
 
 // apis
 import axios from 'axios'
+import TableSection from './TableSection'
+import StatsSearchBox from 'components/Input/StatsSearchBox'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -57,7 +59,6 @@ const useStyles = makeStyles({
 const DaoLandingDetail = props => {
   const { proposal, onBack, turkeyCircus } = props
   const { connected, publicKey, signTransaction } = useWallet()
-  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
 
@@ -71,6 +72,7 @@ const DaoLandingDetail = props => {
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
   const [tabList, setTabList] = useState<any>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
+  const [searchWord, setSearchWord] = useState('')
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -350,33 +352,56 @@ const DaoLandingDetail = props => {
             </div>
           </div>
         </div>
-        <div className="mt-[44px] lg:mt-[78px]">
-          <div className={styles.description}>Overview</div>
-          <div className={styles.descriptionText}>{proposalDetail.overview}</div>
-        </div>
-        <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>Goals & Metrics</div>
-          <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
-        </div>
-        <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>Estimated Treasury Spending</div>
-          <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
-            <div className="hidden lg:flex">
-              <SolIcon />
+      </div>
+      {activeTab === 0 ? (
+        <div>
+          <div className="mt-[44px] lg:mt-[78px]">
+            <div className={styles.description}>Overview</div>
+            <div className={styles.descriptionText}>{proposalDetail.overview}</div>
+          </div>
+          <div className="mt-[30px] lg:mt-[50px]">
+            <div className={styles.description}>Goals & Metrics</div>
+            <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
+          </div>
+          <div className="mt-[30px] lg:mt-[50px]">
+            <div className={styles.description}>Estimated Treasury Spending</div>
+            <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
+              <div className="hidden lg:flex">
+                <SolIcon />
+              </div>
+              <div className="flex lg:hidden">
+                <SolMobileIcon />
+              </div>
+              <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
             </div>
-            <div className="flex lg:hidden">
-              <SolMobileIcon />
-            </div>
-            <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
+          </div>
+          <div className="mt-[30px] mt-[50px]">
+            <div className={styles.description}>Estimated Timeline</div>
+            <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
+          </div>
+          <div className="w-full h-[100px] lg:h-[200px]" />
+        </div>
+      ) : (
+        <div>
+          <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
+            <StatsSearchBox
+              value={searchWord}
+              placeholder="Search by proposal name"
+              onChange={value => setSearchWord(value)}
+            />
+          </div>
+          <div className="w-full mt-[30px] lg:hidden justify-between">
+            <StatsSearchBox
+              value={searchWord}
+              placeholder="Search by proposal name"
+              onChange={value => setSearchWord(value)}
+            />
+          </div>
+          <div className="mt-[20px] mb-[100px]">
+            <TableSection data={[]} />
           </div>
         </div>
-      </div>
-      <div className="mt-[30px] mt-[50px]">
-        <div className={styles.description}>Estimated Timeline</div>
-        <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
-      </div>
-      <div className="w-full h-[100px] lg:h-[200px]" />
-
+      )}
       <CastVoteModal
         data={{}}
         open={showCastVoteModal}
