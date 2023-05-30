@@ -94,7 +94,7 @@ const DaoLandingDetail = props => {
         id: 0,
         title: 'CircusDAO Membership Not Detected',
         description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
-        type: 'success',
+        type: 'error',
       },
     ])
   }, [])
@@ -162,10 +162,10 @@ const DaoLandingDetail = props => {
       return
     }
 
-    if (turkeyCircus.length === 0) {
-      setShowNoTurkeyAlert(true)
-      return
-    }
+    // if (turkeyCircus.length === 0) {
+    //   setShowNoTurkeyAlert(true)
+    //   return
+    // }
 
     setShowCastVoteModal(true)
   }
@@ -173,10 +173,10 @@ const DaoLandingDetail = props => {
   useEffect(() => {
     if (clickedCastVote) {
       setClickedCastVote(false)
-      if (turkeyCircus.length === 0) {
-        setShowNoTurkeyAlert(true)
-        return
-      }
+      // if (turkeyCircus.length === 0) {
+      //   setShowNoTurkeyAlert(true)
+      //   return
+      // }
       setShowCastVoteModal(true)
     }
   }, [connected])

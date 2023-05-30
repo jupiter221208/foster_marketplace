@@ -90,7 +90,7 @@ const DaoLandingPage = props => {
         id: 0,
         title: 'CircusDAO Membership Not Detected',
         description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
-        type: 'success',
+        type: 'error',
       },
     ])
 
