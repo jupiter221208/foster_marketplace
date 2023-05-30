@@ -37,30 +37,30 @@ const CreatorsTable = props => {
                 <div className="flex gap-2 mx-3 items-center">
                   <div className={styles.avatarArea}>
                     <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
-                      <Image src={item.asset_url} alt="" width={36} height={36} className="rounded-[8px]" />
+                      <Image src={item.pfp_url} alt="" width={36} height={36} className="rounded-[8px]" />
                     </div>
                   </div>
                   <div className="flex justify-center cursor-pointer" onClick={() => {}}>
-                    {item.artistName01}
+                    {item.creator_name}
                   </div>
                 </div>
               </td>
-              <td className="text-center">{item.uniqueCollectors}</td>
+              <td className="text-center">{item.unique_collectors}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.totalSales.toFixed(2)}
+                  {item.total_sales}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.highestSale.toFixed(2)}
+                  {item.highest_sale}
                 </div>
               </td>
-              <td className="text-center">{item.collections_published}</td>
-              <td className="text-center">{item.created}</td>
-              <td className="text-center">{item.sold}</td>
+              <td className="text-center">{item.collection_published}</td>
+              <td className="text-center">{item.items_created}</td>
+              <td className="text-center">{item.items_sold}</td>
             </tr>
           )
         })}

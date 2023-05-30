@@ -3,23 +3,15 @@ import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
-import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Lazy, Navigation } from 'swiper'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-// json
-import CollectionsList from 'assets/json/stats/collections-list.json'
-import PopularCategoryList from 'assets/json/popular-category.json'
-import CollectionsCollectionList from 'assets/json/stats/collections-collection-list.json'
-
-// functions
-import { stringLengthValidate } from 'utils/strings'
 
 // styles
 import styles from './index.module.scss'
@@ -34,8 +26,6 @@ const CollectionsSection = () => {
   const dispatch = useDispatch()
   const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
-  const [collectionsList, setCollectionsList] = useState<any[]>([])
-  const [allList, setAllList] = useState<any[]>([])
   const [isMounted, setIsMounted] = useState(false)
   const [list, setList] = useState<any[]>([])
   const [feedList, setFeedList] = useState([])
@@ -66,29 +56,6 @@ const CollectionsSection = () => {
     getCollectionData(currentPage, period, searchWord, rowCount)
   }, [period])
 
-  // useEffect(() => {
-  //   let array: any[] = [...CollectionsList]
-  //   array.map(item => {
-  //     item.category = PopularCategoryList.filter(elem => elem.id === item.categoryID)
-  //   })
-  //   setAllList(array)
-  //   setCollectionsList(array)
-  //   setList(array)
-  // }, [])
-
-  // useEffect(() => {
-  //   if (collectionsList.length !== 0 || stringLengthValidate(searchWord, 2)) {
-  //     const results = collectionsList.filter(elem => {
-  //       return (
-  //         elem.collectionName01.toLowerCase().includes(searchWord) ||
-  //         elem.collectionName02.toLowerCase().includes(searchWord) ||
-  //         elem.rank.toLowerCase().includes(searchWord)
-  //       )
-  //     })
-  //     setList(results)
-  //   }
-  // }, [collectionsList, searchWord])
-
   const getSearchData = () => {
     getCollectionData(currentPage, period, searchWord, rowCount)
   }
@@ -106,7 +73,6 @@ const CollectionsSection = () => {
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
-        console.log(nfts)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({

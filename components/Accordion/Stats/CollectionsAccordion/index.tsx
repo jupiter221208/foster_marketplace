@@ -1,13 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // next components
 import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-
-// functions
-import { getPercentValue } from 'utils/strings'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'

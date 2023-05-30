@@ -8,7 +8,8 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -50,51 +51,49 @@ const CreatorsAccordion = props => {
                       <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>Collection Name</div>
+                      <div className={styles.subTitle}>{item.creator_name}</div>
                       <div className="flex gap-1 mt-1 items-center">
                         <div className={styles.priceText}>Unique Collectors</div>
-                        <div className={styles.priceValue}>12,000</div>
+                        <div className={styles.priceValue}>{item.unique_collectors}</div>
                       </div>
                     </div>
                   </div>
-                  <ChevronUpIcon
-                    className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#95DBD5' : '#95DBD5' }}
-                  />
+                  <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Unique Collectors</div>
-                    <div className={styles.text}>{item.uniqueCollectors}</div>
+                    <div className={styles.text}>{item.unique_collectors}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Visitors</div>
-                    <div className={styles.text}>{item.visitors}</div>
-                  </div>
-                  <div className={styles.firstRow}>
                     <div className={styles.title}>Total Sales</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.totalSales.toFixed(2)}
+                        <SolanaLogoIcon alt="" />
+                        {item.total_sales}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.firstRow}>
+                    <div className={styles.title}>Highest Sale</div>
+                    <div className={styles.text}>
+                      <div className="flex items-center gap-[10px]">
+                        <SolanaLogoIcon alt="" />
+                        {item.highest_sale}
                       </div>
                     </div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Connections</div>
-                    <div className={styles.text}>{item.connections}</div>
+                    <div className={styles.title}>Collections</div>
+                    <div className={styles.text}>{item.collection_published}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Collections</div>
-                    <div className={styles.text}>{item.collections}</div>
+                    <div className={styles.title}>Created</div>
+                    <div className={styles.text}>{item.items_created}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Created</div>
-                    <div className={styles.text}>{item.created}</div>
-                  </div>
-                  <div className={styles.firstRow}>
                     <div className={styles.title}>Sold</div>
-                    <div className={styles.text}>{item.sold}</div>
+                    <div className={styles.text}>{item.items_sold}</div>
                   </div>
                 </Disclosure.Panel>
               </>
