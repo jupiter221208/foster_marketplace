@@ -20,7 +20,7 @@ const VoteHistoryTable = props => {
       <thead>
         <tr className={styles.tableHeader}>
           <th className="w-[30%] text-start">
-            <div className="ml-3">House Memeber</div>
+            <div className="ml-3">House Member</div>
           </th>
           <th>Vote Casted</th>
           <th>Governance Weight</th>
@@ -39,7 +39,7 @@ const VoteHistoryTable = props => {
                 <div className={styles.text}>{getFirstUpperString(item.vote_status)}</div>
               </td>
               <td className="text-center">
-                <div className={styles.text}>80</div>
+                <div className={styles.text}>80 votes</div>
               </td>
               <td className="text-center">
                 <div className={styles.text}>{getLocalDate(item.created_at)}</div>
