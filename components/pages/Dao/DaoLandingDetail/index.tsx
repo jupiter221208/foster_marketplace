@@ -73,6 +73,7 @@ const DaoLandingDetail = props => {
   const [tabList, setTabList] = useState<any>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
   const [searchWord, setSearchWord] = useState('')
+  const [voteHistory, setVoteHistory] = useState([])
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -109,7 +110,21 @@ const DaoLandingDetail = props => {
     ])
 
     handleSelectedTab(0)
+
+    getVoteHistory()
   }, [])
+
+  const getVoteHistory = async () => {
+    try {
+      let vote = {
+        proposal_id: proposal.id,
+      }
+      let response = await axios.post('api/dao/vote-history', vote)
+      if (response.data.success === true) {
+        setVoteHistory(response.data.votes)
+      }
+    } catch {}
+  }
 
   const onRefreshProposal = async () => {
     try {
@@ -398,7 +413,7 @@ const DaoLandingDetail = props => {
             />
           </div>
           <div className="mt-[20px] mb-[100px]">
-            <TableSection data={[]} />
+            <TableSection data={voteHistory} />
           </div>
         </div>
       )}
