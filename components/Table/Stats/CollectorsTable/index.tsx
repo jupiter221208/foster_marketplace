@@ -20,7 +20,7 @@ const CollectorsTable = props => {
       <thead>
         <tr>
           <th className="w-[20%] text-start">
-            <div className="ml-3">Collector</div>
+            <div className="ml-3">{data.collector_name ?? 'Unknown'}</div>
           </th>
           <th>Items Collected</th>
           <th>Purchase Volume</th>
@@ -37,29 +37,29 @@ const CollectorsTable = props => {
                 <div className="flex gap-2 mx-3 items-center">
                   <div className={styles.avatarArea}>
                     <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
-                      <Image src={item.asset_url} alt="" width={36} height={36} className="rounded-[8px]" />
+                      <Image src={item.pfp_url ?? ''} alt="" width={36} height={36} className="rounded-[8px]" />
                     </div>
                   </div>
                   <div className="flex justify-center cursor-pointer" onClick={() => {}}>
-                    {item.collectorName01}
+                    {item.collector_name}
                   </div>
                 </div>
               </td>
-              <td className="text-center">{item.collected}</td>
+              <td className="text-center">{item.items_collected}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.volume.toFixed(2)}
+                  {item.purchase_volume}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.highestPurchase.toFixed(2)}
+                  {item.highest_purchase}
                 </div>
               </td>
-              <td className="text-center">{item.categories}</td>
-              <td className="text-center">{item.creatorSupported}</td>
+              <td className="text-center">{item.favorite_category}</td>
+              <td className="text-center">{item.creators_supported}</td>
             </tr>
           )
         })}
