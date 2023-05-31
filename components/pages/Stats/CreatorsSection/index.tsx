@@ -46,6 +46,33 @@ const CreatorsSection = () => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
+    let nfts = [
+      {
+        id: 0,
+        pfp_url: 'https://arweave.net/thumb2',
+        purchase_volume: 0,
+        creator_name: ' ',
+      },
+      {
+        id: 1,
+        pfp_url: 'https://arweave.net/thumb2',
+        purchase_volume: 0,
+        creator_name: ' ',
+      },
+      {
+        id: 2,
+        pfp_url: 'https://arweave.net/thumb2',
+        purchase_volume: 0,
+        creator_name: ' ',
+      },
+      {
+        id: 3,
+        pfp_url: 'https://arweave.net/thumb2',
+        purchase_volume: 0,
+        creator_name: ' ',
+      },
+    ]
+    setFeedList(nfts)
   }, [])
 
   useEffect(() => {

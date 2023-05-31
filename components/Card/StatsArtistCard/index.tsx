@@ -17,22 +17,12 @@ const StatsArtistCard = props => {
     <div className={styles.container}>
       <div className="w-full flex justify-center pt-[30px]">
         <div className={styles.avatarArea}>
-          <div className="w-full h-full overflow-hidden hidden lg:flex">
+          <div className="w-full h-full overflow-hidden">
             <Image
               src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar}
               alt=""
               width={180}
               height={180}
-              objectFit="cover"
-              className="rounded-[90px]"
-            />
-          </div>
-          <div className="w-full h-full overflow-hidden lg:hidden">
-            <Image
-              src={data.pfp_url ?? ''}
-              alt=""
-              width={100}
-              height={100}
               objectFit="cover"
               className="rounded-[90px]"
             />

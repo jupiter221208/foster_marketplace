@@ -47,6 +47,33 @@ const CollectorsSection = () => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
+    let nfts = [
+      {
+        id: 0,
+        pfp_url: 'https://arweave.net/thumb1',
+        purchase_volume: 0,
+        collector_name: ' ',
+      },
+      {
+        id: 1,
+        pfp_url: 'https://arweave.net/thumb2',
+        purchase_volume: 0,
+        collector_name: ' ',
+      },
+      {
+        id: 2,
+        pfp_url: 'https://arweave.net/thumb3',
+        purchase_volume: 0,
+        collector_name: ' ',
+      },
+      {
+        id: 3,
+        pfp_url: 'https://arweave.net/thumb4',
+        purchase_volume: 0,
+        collector_name: ' ',
+      },
+    ]
+    setFeedList(nfts)
   }, [])
 
   useEffect(() => {
