@@ -225,6 +225,10 @@ const DaoLandingPage = props => {
       }
     } catch {}
   }
+
+  const getThreshold = () => {
+    return Math.trunc(474 * 0.6);
+  }
   
   const getProposals = async (curPage, count) => {
     try {
@@ -239,7 +243,7 @@ const DaoLandingPage = props => {
         let new_proposals = []
         proposals.forEach(element => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
-            let current_threshold = Math.trunc(474 * 0.6)
+            let current_threshold = getThreshold()
             let vote_ratio = element.approved_votes / element.total_votes 
             new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected'})
           } else if (isExpiredDate(element.vote_start, 0)) {

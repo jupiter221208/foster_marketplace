@@ -234,6 +234,10 @@ const DaoLandingDetail = props => {
     setActiveTab(tab)
   }
 
+  const getThreshold = () => {
+    return Math.trunc(474 * 0.6)
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
@@ -351,7 +355,7 @@ const DaoLandingDetail = props => {
             <div className={styles.thresholdText}>Threshold</div>
             <div>
               <div className={styles.thresholdCurrent}>Current Threshold</div>
-              <div className={styles.thresholdValue}>{proposalDetail.threshold} votes</div>
+              <div className={styles.thresholdValue}>{getThreshold()} votes</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
