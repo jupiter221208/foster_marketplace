@@ -129,17 +129,6 @@ const DaoLandingPage = props => {
     setShowDaoSubmitModal(true)
   }
 
-  useEffect(() => {
-    if (clickedSubmitButton) {
-      setClickedSubmitButton(false)
-      if (turkyNfts.length === 0)  {
-        setShowNoTurkeyAlert(true)
-        return;
-      }
-      setShowDaoSubmitModal(true)
-    }
-  }, [connected])
-
   const handleSubmitProposal = async proposal => {
     setIsLoading(true)
     try {

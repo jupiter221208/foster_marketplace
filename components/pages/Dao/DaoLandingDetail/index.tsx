@@ -213,17 +213,6 @@ const DaoLandingDetail = props => {
     setShowCastVoteModal(true)
   }
 
-  useEffect(() => {
-    if (clickedCastVote) {
-      setClickedCastVote(false)
-      if (turkeyCircus.length === 0) {
-        setShowNoTurkeyAlert(true)
-        return
-      }
-      setShowCastVoteModal(true)
-    }
-  }, [connected])
-
   const handleSelectedTab = tab => {
     let array: any[] = []
     TabList.map(item => {
