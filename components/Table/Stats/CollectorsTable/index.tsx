@@ -39,7 +39,7 @@ const CollectorsTable = props => {
                   <div className={styles.avatarArea}>
                     <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
                       <Image
-                        src={item.pfp_url ?? DefaultAvatar}
+                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
                         alt=""
                         width={36}
                         height={36}

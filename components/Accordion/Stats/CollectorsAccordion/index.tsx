@@ -49,7 +49,7 @@ const CollectorsAccordion = props => {
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
                       <Image
-                        src={item.pfp_url ?? DefaultAvatar}
+                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
                         alt=""
                         width={36}
                         height={36}

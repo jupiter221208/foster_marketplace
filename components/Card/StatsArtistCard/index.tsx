@@ -9,6 +9,7 @@ import styles from './index.module.scss'
 // icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 const StatsArtistCard = props => {
   const { data, type } = props
@@ -18,7 +19,7 @@ const StatsArtistCard = props => {
         <div className={styles.avatarArea}>
           <div className="w-full h-full overflow-hidden hidden lg:flex">
             <Image
-              src={data.pfp_url ?? ''}
+              src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar}
               alt=""
               width={180}
               height={180}
