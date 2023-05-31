@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -15,6 +16,8 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 const StatsArtistCard = props => {
   const { data, type } = props
   const router = useRouter()
+  const dispatch = useDispatch()
+
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-center pt-[30px]">
@@ -35,6 +38,7 @@ const StatsArtistCard = props => {
         <div
           className={styles.name}
           onClick={() => {
+            dispatch({ type: 'set', isLoading: true })
             router.push(
               `/${
                 type === 'creators'

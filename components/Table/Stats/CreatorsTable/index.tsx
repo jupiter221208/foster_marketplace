@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -16,6 +17,7 @@ import styles from './index.module.scss'
 const CreatorsTable = props => {
   const { data } = props
   const router = useRouter()
+  const dispatch = useDispatch()
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -52,6 +54,7 @@ const CreatorsTable = props => {
                   <div
                     className="flex justify-center cursor-pointer"
                     onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
                       router.push(`/${item.creator_name.replaceAll(' ', '%20')}`)
                     }}
                   >

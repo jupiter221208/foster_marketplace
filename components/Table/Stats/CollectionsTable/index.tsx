@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -18,7 +19,7 @@ const CollectionsTable = props => {
   const { data } = props
   const viewport = useViewport()
   const router = useRouter()
-
+  const dispatch = useDispatch()
   return (
     <table id="ArtworksTable" className="w-full table-auto">
       <thead>
@@ -51,7 +52,10 @@ const CollectionsTable = props => {
                   </div>
                   <div
                     className="flex justify-center"
-                    onClick={() => router.push(`/browse-collection/${item.collection_address}`)}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-collection/${item.collection_address}`)
+                    }}
                   >
                     {item.collection_name}
                   </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -22,9 +23,11 @@ import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import CreatorsSection from 'components/pages/Stats/CreatorsSection'
 import CollectorsSection from 'components/pages/Stats/CollectorsSection'
 import CollectionsSection from 'components/pages/Stats/CollectionsSection'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const Stats = () => {
   const viewport = useViewport()
+  const isLoading = useSelector<any>(state => state.isLoading)
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -79,7 +82,11 @@ const Stats = () => {
               <div className={styles.tooltip}>This feature is not available but is coming soon.</div>
             )}
           </div>
-          <div className="w-full z-10">{activeTab === 0 && <ArtworksSection />}</div>
+          {activeTab === 0 && (
+            <div className="w-full z-10">
+              <ArtworksSection />
+            </div>
+          )}
           {activeTab === 1 && (
             <div className="w-full z-10">
               <CollectionsSection />
@@ -105,6 +112,7 @@ const Stats = () => {
           setPreviewMode(false)
         }}
       />
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

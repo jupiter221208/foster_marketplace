@@ -32,7 +32,7 @@ import CastVoteModal from 'components/Modal/CastVoteModal'
 import { trySendTransaction } from 'utils'
 import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
-import { createVoteTransaction } from 'utils/dao'
+import { createVoteTransaction, getCurrentTurkeyNftCount } from 'utils/dao'
 
 // json
 import TabList from 'assets/json/dao/tab-list.json'
@@ -75,6 +75,7 @@ const DaoLandingDetail = props => {
   const [voteHistory, setVoteHistory] = useState([])
   const [approvedRatio, setApprovedRatio] = useState('0')
   const [opposedRatio, setOpposedRatio] = useState('0')
+  const [threshold, setThreshold] = useState(0)
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -113,6 +114,11 @@ const DaoLandingDetail = props => {
     handleSelectedTab(0)
 
     getVoteHistory()
+    ;(async () => {
+      let threshold = await getCurrentTurkeyNftCount()
+      console.log('============threshold===========', threshold)
+      setThreshold(Math.trunc(threshold * 0.6))
+    })()
   }, [])
 
   useEffect(() => {
@@ -234,9 +240,7 @@ const DaoLandingDetail = props => {
     setActiveTab(tab)
   }
 
-  const getThreshold = () => {
-    return Math.trunc(474 * 0.6)
-  }
+  const getThreshold = async () => {}
 
   return (
     <div className={styles.container}>
@@ -355,7 +359,7 @@ const DaoLandingDetail = props => {
             <div className={styles.thresholdText}>Threshold</div>
             <div>
               <div className={styles.thresholdCurrent}>Current Threshold</div>
-              <div className={styles.thresholdValue}>{getThreshold()} votes</div>
+              <div className={styles.thresholdValue}>{threshold} votes</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>

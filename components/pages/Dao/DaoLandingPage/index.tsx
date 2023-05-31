@@ -32,6 +32,7 @@ import {
   createNewProposalTransaction,
   DAO_TREASURY_ADDRESS,
   TURKEY_CIRCUS_COLLECTION_ID,
+  getCurrentTurkeyNftCount,
 } from 'utils/dao'
 import { type GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
 
@@ -97,6 +98,11 @@ const DaoLandingPage = props => {
     getProposals(currentPage, rowCount)
 
     getStats()
+
+    ;(async () => {
+      let threshold = await getCurrentTurkeyNftCount()
+      console.log('============threshold===========', threshold)
+    })()
   }, [])
 
   const selectRowCount = count => {
@@ -226,8 +232,8 @@ const DaoLandingPage = props => {
     } catch {}
   }
 
-  const getThreshold = () => {
-    return Math.trunc(474 * 0.6);
+  const getThreshold = async () => {
+    return Math.trunc(await getCurrentTurkeyNftCount() * 0.6);
   }
   
   const getProposals = async (curPage, count) => {

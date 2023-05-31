@@ -98,7 +98,7 @@ const CollectorsSection = () => {
   }
 
   const getCollectorData = (curPage, curDate, search, count) => {
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCollector({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -106,7 +106,7 @@ const CollectorsSection = () => {
       per_page: count,
     }).then(
       respone => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
@@ -118,7 +118,7 @@ const CollectorsSection = () => {
         })
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
       }
     )
   }

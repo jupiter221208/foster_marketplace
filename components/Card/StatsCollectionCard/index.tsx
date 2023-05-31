@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -15,6 +16,7 @@ import styles from './index.module.scss'
 const StatsCollectionCard = props => {
   const { data, type } = props
   const router = useRouter()
+  const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
   const [saleName, setSaleName] = useState('Highest Sale')
 
@@ -42,6 +44,7 @@ const StatsCollectionCard = props => {
           <div
             className={styles.nftName}
             onClick={() => {
+              dispatch({ type: 'set', isLoading: true })
               if (type === 'artworks') {
                 router.push(`/browse-nft?id=${data.mint_address}`)
               } else {
