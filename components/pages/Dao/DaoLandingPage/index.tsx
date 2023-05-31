@@ -239,8 +239,9 @@ const DaoLandingPage = props => {
         let new_proposals = []
         proposals.forEach(element => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
+            let current_threshold = Math.trunc(474 * 0.6)
             let vote_ratio = element.approved_votes / element.total_votes 
-            new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.8 ? 'Passed' : 'Rejected'})
+            new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected'})
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
           } else {

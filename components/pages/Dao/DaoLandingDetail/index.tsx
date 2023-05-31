@@ -73,6 +73,8 @@ const DaoLandingDetail = props => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [searchWord, setSearchWord] = useState('')
   const [voteHistory, setVoteHistory] = useState([])
+  const [approvedRatio, setApprovedRatio] = useState('0')
+  const [opposedRatio, setOpposedRatio] = useState('0')
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -112,6 +114,13 @@ const DaoLandingDetail = props => {
 
     getVoteHistory()
   }, [])
+
+  useEffect(() => {
+    let approveRatio = ((proposalDetail.approved_votes / proposalDetail.total_votes) * 100).toFixed(2)
+    let opposedRatio = (100 - parseFloat(approveRatio)).toFixed(2)
+    setApprovedRatio(approveRatio)
+    setOpposedRatio(opposedRatio)
+  }, [proposalDetail])
 
   const getVoteHistory = async () => {
     try {
@@ -326,18 +335,14 @@ const DaoLandingDetail = props => {
             <div className={styles.approvedText}>Approved</div>
             <div className={styles.approvedValue}>{proposalDetail.approved_votes}</div>
             <div className={styles.approvedPercent}>
-              {proposalDetail.total_votes === 0
-                ? '0%'
-                : `${(proposalDetail.approved_votes / proposalDetail.total_votes) * 100} %`}
+              {proposalDetail.total_votes === 0 ? '0%' : `${approvedRatio} %`}
             </div>
           </div>
           <div>
             <div className={styles.approvedText}>Opposed</div>
             <div className={styles.approvedValue}>{proposalDetail.opposed_votes}</div>
             <div className={styles.approvedPercent}>
-              {proposalDetail.total_votes === 0
-                ? '0%'
-                : `${(proposalDetail.opposed_votes / proposalDetail.total_votes) * 100} %`}
+              {proposalDetail.total_votes === 0 ? '0%' : `${opposedRatio} %`}
             </div>
           </div>
         </div>

@@ -56,6 +56,12 @@ const CollectionsSection = () => {
     getCollectionData(currentPage, period, searchWord, rowCount)
   }, [period])
 
+  useEffect(() => {
+    if (searchWord.length === 0) {
+      getCollectionData(currentPage, period, '', rowCount)
+    }
+  }, [searchWord])
+
   const getSearchData = () => {
     getCollectionData(currentPage, period, searchWord, rowCount)
   }

@@ -4,11 +4,11 @@ import React from 'react'
 import Image from 'next/image'
 
 // functions
-import { getPercentValue } from 'utils/strings'
 import { useViewport } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -39,7 +39,13 @@ const CollectionsTable = props => {
               <td>
                 <div className="flex gap-2 mx-3 items-center">
                   <div className="min-w-[38px] w-[38x]">
-                    <Image src={item.cover_image} alt="" width={38} height={38} className="rounded-[8px]" />
+                    <Image
+                      src={item.cover_image !== null && item.cover_image !== '' ? item.cover_image : DefaultAvatar}
+                      alt=""
+                      width={38}
+                      height={38}
+                      className="rounded-[8px]"
+                    />
                   </div>
                   <div className="flex justify-center">{item.collection_name}</div>
                 </div>
