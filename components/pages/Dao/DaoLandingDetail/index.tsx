@@ -5,7 +5,6 @@ import { LinearProgress, makeStyles } from '@material-ui/core'
 import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 import { useMetaplex } from 'hooks/useMetaplex'
 
 // third party
@@ -161,9 +160,12 @@ const DaoLandingDetail = props => {
         wallet_id: publicKey,
         vote_status: status,
         signature,
+        weight: 80, //turkeyCircus ? turkeyCircus.length : '0',
       })
       if (response.data.success === true) {
         onRefreshProposal()
+        getVoteHistory()
+
         setTimeout(() => {
           setIsLoading(false)
           setTimeout(() => {

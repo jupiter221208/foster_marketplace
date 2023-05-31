@@ -62,7 +62,7 @@ const VoteHistoryAccordion = props => {
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Governance Weight</div>
-                    <div className={styles.text}>80 votes</div>
+                    <div className={styles.text}>{item.weight} votes</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Date</div>

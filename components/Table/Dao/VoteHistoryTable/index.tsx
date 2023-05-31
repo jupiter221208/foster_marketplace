@@ -39,7 +39,7 @@ const VoteHistoryTable = props => {
                 <div className={styles.text}>{getFirstUpperString(item.vote_status)}</div>
               </td>
               <td className="text-center">
-                <div className={styles.text}>80 votes</div>
+                <div className={styles.text}>{item.weight} votes</div>
               </td>
               <td className="text-center">
                 <div className={styles.text}>{getLocalDate(item.created_at)}</div>
