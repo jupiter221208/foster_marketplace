@@ -5,11 +5,11 @@ import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -48,7 +48,13 @@ const CollectorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <Image src={item.pfp_url ?? ''} alt="" width={36} height={36} className="rounded-full" />
+                      <Image
+                        src={item.pfp_url ?? DefaultAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="rounded-full"
+                      />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.collector_name}</div>
@@ -61,10 +67,6 @@ const CollectorsAccordion = props => {
                   <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Creators Supported</div>
-                    <div className={styles.text}>{item.creators_supported}</div>
-                  </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Purchase Volume</div>
                     <div className={styles.text}>
@@ -86,6 +88,10 @@ const CollectorsAccordion = props => {
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Favorite Category</div>
                     <div className={styles.text}>{item.favorite_category}</div>
+                  </div>
+                  <div className={styles.firstRow}>
+                    <div className={styles.title}>Creators Supported</div>
+                    <div className={styles.text}>{item.creators_supported}</div>
                   </div>
                 </Disclosure.Panel>
               </>

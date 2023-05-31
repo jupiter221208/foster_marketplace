@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 // next components
 import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -48,7 +48,13 @@ const CreatorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
+                      <Image
+                        src={item.pfp_url ?? DefaultAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="rounded-full"
+                      />
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.creator_name}</div>

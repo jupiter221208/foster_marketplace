@@ -7,6 +7,7 @@ import Image from 'next/image'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -37,7 +38,13 @@ const CreatorsTable = props => {
                 <div className="flex gap-2 mx-3 items-center">
                   <div className={styles.avatarArea}>
                     <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
-                      <Image src={item.pfp_url} alt="" width={36} height={36} className="rounded-[8px]" />
+                      <Image
+                        src={item.pfp_url ?? DefaultAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="rounded-[8px]"
+                      />
                     </div>
                   </div>
                   <div className="flex justify-center cursor-pointer" onClick={() => {}}>
