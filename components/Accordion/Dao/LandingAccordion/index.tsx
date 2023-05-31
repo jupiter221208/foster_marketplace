@@ -11,7 +11,7 @@ import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton
 import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
 import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 
-const DaoLandingAccordion = props => {
+const LandingAccordion = props => {
   const { data, onDetail } = props
 
   return (
@@ -46,4 +46,4 @@ const DaoLandingAccordion = props => {
   )
 }
 
-export default DaoLandingAccordion
+export default LandingAccordion

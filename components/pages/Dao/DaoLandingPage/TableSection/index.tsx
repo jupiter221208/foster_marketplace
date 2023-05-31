@@ -5,7 +5,7 @@ import 'swiper/css/navigation'
 
 // components
 import LandingTable from 'components/Table/Dao/LandingTable'
-import DaoLandingAccordion from 'components/Accordion/DaoLandingAccordion'
+import LandingAccordion from 'components/Accordion/Dao/LandingAccordion'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -22,7 +22,7 @@ const TableSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <LandingTable data={data} onDetail={onDetail} />
       ) : (
-        <DaoLandingAccordion data={data} onDetail={onDetail} />
+        <LandingAccordion data={data} onDetail={onDetail} />
       )}
     </section>
   )

@@ -211,6 +211,24 @@
   text-align: center;
 }
 
+.viewProposal {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  height: 20px;
+  margin-top: 6px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+    height: 28px;
+    margin-top: 6px;
+  }
+  color: var(--text-gray-200-color);
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .description {
   font-family: 'Muli-Bold';
   font-size: 16px;

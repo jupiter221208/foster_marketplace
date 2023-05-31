@@ -5,10 +5,11 @@ import Image from 'next/image'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
-import { ChevronUpIcon } from '@heroicons/react/solid'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -47,64 +48,50 @@ const CollectorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <Image src={item.rankImage} alt="" width={36} height={36} className="rounded-full" />
+                      <Image
+                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="rounded-full"
+                      />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.collectorName01}</div>
+                      <div className={styles.subTitle}>{item.collector_name}</div>
                       <div className="flex gap-1 mt-1 items-center">
                         <div className={styles.priceText}>Unique Collectors</div>
-                        <div className={styles.priceValue}>12,000</div>
+                        <div className={styles.priceValue}>{item.items_collected}</div>
                       </div>
                     </div>
                   </div>
-                  <ChevronUpIcon
-                    className={`${!open ? 'rotate-180 transform' : ''} h-6 w-6`}
-                    style={{ color: open ? '#95dbd5' : '#95dbd5' }}
-                  />
+                  <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Creators Supported</div>
-                    <div className={styles.text}>{item.creatorSupported}</div>
-                  </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Total Spent</div>
+                    <div className={styles.title}>Purchase Volume</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.totalSpent.toFixed(2)}
+                        <SolanaLogoIcon alt="" />
+                        {item.purchase_volume.toFixed(2)}
                       </div>
                     </div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Average Purchase</div>
-                    <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.averagePurchase.toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.secondRow}>
                     <div className={styles.title}>Highest Purchase</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
                         <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.highestPurchase.toFixed(2)}
+                        {item.highest_purchase}
                       </div>
                     </div>
                   </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Unique Collections</div>
-                    <div className={styles.text}>{item.uniqueCollections}</div>
-                  </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Collected</div>
-                    <div className={styles.text}>{item.collected}</div>
+                    <div className={styles.title}>Favorite Category</div>
+                    <div className={styles.text}>{item.favorite_category}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Connections</div>
-                    <div className={styles.text}>{item.connections}</div>
+                    <div className={styles.title}>Creators Supported</div>
+                    <div className={styles.text}>{item.creators_supported}</div>
                   </div>
                 </Disclosure.Panel>
               </>

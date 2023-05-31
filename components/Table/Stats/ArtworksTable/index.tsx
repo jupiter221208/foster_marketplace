@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import ReactPlaceholder from 'react-placeholder'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -16,6 +19,7 @@ const ArtworksTable = props => {
   const { data } = props
   const dispatch = useDispatch()
   const router = useRouter()
+  const [loaded, setLoaded] = useState(false)
 
   const gotoUserDetail = link => {
     dispatch({ type: 'set', isLoading: true })
@@ -43,12 +47,27 @@ const ArtworksTable = props => {
             <tr key={index}>
               <td>
                 <div className="flex gap-2 mx-3 items-center">
-                  <div className="min-w-[38px] w-[38x]">
-                    <Image src={item.asset_url} alt="" width={38} height={38} className="rounded-[8px]" />
+                  <div className="w-full min-w-[38px] w-[38px] h-[38px] rounded-[8px] overflow-hidden">
+                    {!loaded && (
+                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                        <div></div>
+                      </ReactPlaceholder>
+                    )}
+                    <Image
+                      src={item.asset_url !== null && item.asset_url !== '' ? item.asset_url : DefaultAvatar}
+                      alt=""
+                      width={38}
+                      height={38}
+                      className="rounded-[8px]"
+                      onLoadingComplete={() => setLoaded(true)}
+                    />
                   </div>
                   <div
                     className="flex justify-center cursor-pointer"
-                    onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/browse-nft?id=${item.mint_address}`)
+                    }}
                   >
                     {item.asset_name}
                   </div>
