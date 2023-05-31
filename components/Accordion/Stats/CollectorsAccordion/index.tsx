@@ -72,7 +72,7 @@ const CollectorsAccordion = props => {
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
                         <SolanaLogoIcon alt="" />
-                        {item.purchase_volume}
+                        {item.purchase_volume.toFixed(2)}
                       </div>
                     </div>
                   </div>

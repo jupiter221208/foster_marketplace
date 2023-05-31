@@ -95,6 +95,10 @@ const CollectionsSection = () => {
 
   const getCollectionData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
     StatsAPI.getStatsCollection({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -108,10 +112,6 @@ const CollectionsSection = () => {
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
       },
       error => {
         dispatch({ type: 'set', isLoading: false })

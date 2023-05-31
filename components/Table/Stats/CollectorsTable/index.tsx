@@ -55,7 +55,7 @@ const CollectorsTable = props => {
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.purchase_volume}
+                  {item.purchase_volume.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
