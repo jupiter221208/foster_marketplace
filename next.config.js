@@ -32,6 +32,7 @@ const nextConfig = {
       'nftstorage.link',
       'foster-marketplace-dev.s3.us-east-2.amazonaws.com',
       'foster-marketplace.s3.us-east-2.amazonaws.com',
+      'cdn.britannica.com',
     ],
   },
   sassOptions: {

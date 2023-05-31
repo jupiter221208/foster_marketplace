@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -14,6 +15,7 @@ import styles from './index.module.scss'
 
 const CreatorsTable = props => {
   const { data } = props
+  const router = useRouter()
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -47,7 +49,12 @@ const CreatorsTable = props => {
                       />
                     </div>
                   </div>
-                  <div className="flex justify-center cursor-pointer" onClick={() => {}}>
+                  <div
+                    className="flex justify-center cursor-pointer"
+                    onClick={() => {
+                      router.push(`/${item.creator_name.replaceAll(' ', '%20')}`)
+                    }}
+                  >
                     {item.creator_name}
                   </div>
                 </div>
@@ -56,13 +63,13 @@ const CreatorsTable = props => {
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.total_sales}
+                  {parseFloat(item.total_sales).toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.highest_sale}
+                  {parseFloat(item.highest_sale).toFixed(2)}
                 </div>
               </td>
               <td className="text-center">{item.collection_published}</td>

@@ -13,10 +13,11 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
+import { useRouter } from 'next/router'
 
 const CreatorsAccordion = props => {
   const { data } = props
-
+  const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
@@ -57,7 +58,12 @@ const CreatorsAccordion = props => {
                       />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.creator_name}</div>
+                      <div
+                        className={styles.subTitle}
+                        onClick={() => router.push(`/${item.creator_name.replaceAll(' ', '%20')}`)}
+                      >
+                        {item.creator_name}
+                      </div>
                       <div className="flex gap-1 mt-1 items-center">
                         <div className={styles.priceText}>Unique Collectors</div>
                         <div className={styles.priceValue}>{item.unique_collectors}</div>

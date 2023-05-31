@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -16,6 +17,7 @@ import styles from './index.module.scss'
 const CollectionsTable = props => {
   const { data } = props
   const viewport = useViewport()
+  const router = useRouter()
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -47,7 +49,12 @@ const CollectionsTable = props => {
                       className="rounded-[8px]"
                     />
                   </div>
-                  <div className="flex justify-center">{item.collection_name}</div>
+                  <div
+                    className="flex justify-center"
+                    onClick={() => router.push(`/browse-collection/${item.collection_address}`)}
+                  >
+                    {item.collection_name}
+                  </div>
                 </div>
               </td>
               <td className="text-center">
