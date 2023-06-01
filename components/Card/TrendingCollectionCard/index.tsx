@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 import { useViewport } from 'utils'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar } = props
@@ -60,18 +61,20 @@ const TrendingCollectionCard = props => {
                 <div className={styles.nftCount}>{nftCount} artworks</div>
               </div>
             </div>
-            <div className={styles.avatar}>
-              <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
-                <img
-                  src={avatar !== null ? avatar : Avatar.src}
-                  alt=""
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
-                  className="rounded-full"
-                  loading="lazy"
-                />
+            {avatar !== null && avatar.length > 0 && (
+              <div className={styles.avatar}>
+                <div className="w-[32px] lg:w-[44px] h-[32px] lg:h-[44px] overflow-hidden rounded-[16px] rounded-[22px]">
+                  <img
+                    src={avatar}
+                    alt=""
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 44}
+                    className="rounded-full"
+                    loading="lazy"
+                  />
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

@@ -28,7 +28,8 @@ import styles from './index.module.scss'
 // apis
 import StatsAPI from 'apis/stats'
 
-const ArtworksSection = () => {
+const ArtworksSection = props => {
+  const { artworks } = props
   const dispatch = useDispatch()
   const viewport = useViewport()
 
@@ -38,7 +39,7 @@ const ArtworksSection = () => {
   const [feedList, setFeedList] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
-  const [rowCount, setRowCount] = useState(10)
+  const [rowCount, setRowCount] = useState(12)
   const [period, setPeriod] = useState('all')
   const [screenWidth, setScreenWidth] = useState(1920)
 
@@ -74,15 +75,18 @@ const ArtworksSection = () => {
   }, [])
 
   useEffect(() => {
+    setScreenWidth(window.innerWidth)
+    setFeedList(artworks)
+    setList(artworks)
+    setTotalCount(12)
+    setIsMounted(true)
+  }, [artworks])
+
+  useEffect(() => {
     const resizeFunction = () => {
       setScreenWidth(window.innerWidth)
     }
     window.addEventListener('resize', resizeFunction)
-  }, [])
-
-  useEffect(() => {
-    getArtworkData(currentPage, period, searchWord, rowCount)
-    setIsMounted(true)
   }, [])
 
   useEffect(() => {
@@ -95,7 +99,7 @@ const ArtworksSection = () => {
   }
 
   const getArtworkData = (curPage, curDate, search, count) => {
-    // dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsArtwork({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -103,7 +107,7 @@ const ArtworksSection = () => {
       per_page: count,
     }).then(
       respone => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
@@ -111,7 +115,7 @@ const ArtworksSection = () => {
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({
-          top: 0,
+          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
           behavior: 'smooth',
         })
       },
@@ -145,7 +149,7 @@ const ArtworksSection = () => {
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
             viewport === 'xs'
-              ? 1.6
+              ? 1.2
               : viewport === 'sm'
               ? 2.5
               : viewport === 'md'
@@ -165,7 +169,7 @@ const ArtworksSection = () => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 25}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          loop
+          initialSlide={4}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,

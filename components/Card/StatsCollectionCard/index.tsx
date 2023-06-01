@@ -18,7 +18,6 @@ const StatsCollectionCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
-  const [saleName, setSaleName] = useState('Highest Sale')
 
   return (
     <div className={styles.container}>
@@ -58,7 +57,9 @@ const StatsCollectionCard = props => {
             <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
             <div className="flex gap-[4px] items-center">
               <Image src={SolanaLogoIcon} width={18} height={15} alt="" />
-              <div className={styles.value}>{type === 'artworks' ? data.amount : data.total_sales}</div>
+              <div className={styles.value}>
+                {type === 'artworks' ? parseFloat(data.amount).toFixed(2) : parseFloat(data.total_sales).toFixed(2)}
+              </div>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const ArtistCard = props => {
   const { image, username, onClick } = props

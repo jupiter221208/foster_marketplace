@@ -9,6 +9,7 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const CollectionCard = props => {
   const { image, nftName, category, artistName, onClick, unSave = null } = props
