@@ -1,0 +1,26 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  background-color: var(--background-black-color);
+  min-height: 100vh;
+  position: relative;
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  @media (min-width: 1024px) {
+    font-size: 80px;
+  }
+  color: var(--brand-09-color);
+}
+
+.text {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  margin-top: 30px;
+  @media (min-width: 1024px) {
+    font-size: 32px;
+  }
+  color: var(--text-gray-200-color);
+}
