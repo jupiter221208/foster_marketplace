@@ -174,7 +174,7 @@ const DaoLandingDetail = props => {
         wallet_id: publicKey,
         vote_status: status,
         signature,
-        weight: 80, //turkeyCircus ? turkeyCircus.length : '0',
+        weight: turkeyCircus ? turkeyCircus.length : '0',
       })
       if (response.data.success === true) {
         onRefreshProposal()
@@ -227,8 +227,6 @@ const DaoLandingDetail = props => {
     setTabList(array)
     setActiveTab(tab)
   }
-
-  const getThreshold = async () => {}
 
   return (
     <div className={styles.container}>
@@ -302,6 +300,7 @@ const DaoLandingDetail = props => {
             width={101}
             height={35}
             icon={NotificationMobileIcon}
+            disabled={disabledVote}
             label="Cast Vote"
             borderRadius={8}
             onClick={() => onClickCastVoteBtn()}

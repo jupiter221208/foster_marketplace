@@ -102,6 +102,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 
 export interface MainSectionProps {

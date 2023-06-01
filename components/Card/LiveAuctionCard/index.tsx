@@ -19,6 +19,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 // styles
 import styles from './index.module.scss'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props

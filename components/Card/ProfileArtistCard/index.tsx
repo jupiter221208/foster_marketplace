@@ -13,6 +13,7 @@ import { validUrl } from 'utils/helpers'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const ProfileArtistCard = props => {
   const { image, name, ig_url, twitter_url } = props

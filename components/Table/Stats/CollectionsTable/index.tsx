@@ -70,19 +70,19 @@ const CollectionsTable = props => {
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.floor_price.toFixed(2)}
+                  {item.floor_price?.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.average_sale.toFixed(2)}
+                  {item.average_sale?.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon alt="" />
-                  {item.highest_sale.toFixed(2)}
+                  {item.highest_sale?.toFixed(2)}
                 </div>
               </td>
               <td className="text-center">{item.creator_username}</td>

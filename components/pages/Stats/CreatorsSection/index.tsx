@@ -3,12 +3,7 @@ import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
-import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
-
-// json
-import CreatorsList from 'assets/json/stats/creators-list.json'
-import PopularCategoryList from 'assets/json/popular-category.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -29,11 +24,10 @@ import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
 import ExplorePagination from 'components/Button/ExplorePagination'
 
-const CreatorsSection = () => {
+const CreatorsSection = props => {
+  const { creators } = props
   const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState<any>('')
-  const [creatorsList, setCreatorsList] = useState<any[]>([])
-  const [allList, setAllList] = useState<any[]>([])
   const [list, setList] = useState<any[]>([])
   const viewport = useViewport()
   const [period, setPeriod] = useState('all')
@@ -46,33 +40,6 @@ const CreatorsSection = () => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    let nfts = [
-      {
-        id: 0,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-      {
-        id: 1,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-      {
-        id: 2,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-      {
-        id: 3,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-    ]
-    setFeedList(nfts)
   }, [])
 
   useEffect(() => {
@@ -83,9 +50,11 @@ const CreatorsSection = () => {
   }, [])
 
   useEffect(() => {
-    getCreatorData(currentPage, period, searchWord, rowCount)
+    setFeedList(creators)
+    setList(creators)
+    setTotalCount(12)
     setIsMounted(true)
-  }, [])
+  }, [creators])
 
   useEffect(() => {
     if (!isMounted) return
@@ -97,7 +66,7 @@ const CreatorsSection = () => {
   }
 
   const getCreatorData = (curPage, curDate, search, count) => {
-    // dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCreator({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -105,19 +74,19 @@ const CreatorsSection = () => {
       per_page: count,
     }).then(
       respone => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({
-          top: 0,
+          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
           behavior: 'smooth',
         })
       },
       error => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
       }
     )
   }
@@ -165,8 +134,8 @@ const CreatorsSection = () => {
           }
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
-          className="hideNavigationSwiper"
-          loop
+          className="navigationSwiper"
+          initialSlide={5}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,

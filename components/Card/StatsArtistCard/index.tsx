@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 
 // next components
-import Image from 'next/image'
+import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // styles
 import styles from './index.module.scss'
@@ -17,19 +18,28 @@ const StatsArtistCard = props => {
   const { data, type } = props
   const router = useRouter()
   const dispatch = useDispatch()
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <div className={styles.container}>
       <div className="w-full flex justify-center pt-[30px]">
         <div className={styles.avatarArea}>
-          <div className="w-full h-full overflow-hidden">
-            <Image
-              src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar}
+          <div className="w-full h-full overflow-hidden rounded-full">
+            {!loaded && (
+              <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                <div></div>
+              </ReactPlaceholder>
+            )}
+            <img
+              src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar.src}
               alt=""
               width={180}
               height={180}
-              objectFit="cover"
+              loading="lazy"
               className="rounded-[90px]"
+              onLoad={() => {
+                setLoaded(true)
+              }}
             />
           </div>
         </div>
