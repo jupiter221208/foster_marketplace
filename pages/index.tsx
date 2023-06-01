@@ -79,6 +79,6 @@ const Home = () => {
 
 export default Home
 
-// Home.getLayout = function getLayout(page) {
-//   return <PrimaryLayout>{page}</PrimaryLayout>
-// }
+Home.getLayout = function getLayout(page) {
+  return <PrimaryLayout>{page}</PrimaryLayout>
+}
