@@ -26,6 +26,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 // third party components
 import { useDispatch, useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
+import MaintenancePage from './maintenance'
 
 const Home = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -43,41 +44,41 @@ const Home = () => {
   }, [])
 
   return (
-    <div className="g-container">
-      <Head>
-        <title>{pageTitle}</title>
+    <MaintenancePage />
+    // <div className="g-container">
+    //   <Head>
+    //     <title>{pageTitle}</title>
 
-        <meta name="description" content={pageDescription} />
+    //     <meta name="description" content={pageDescription} />
 
-        <meta name="og:title" content={pageTitle} />
-        <meta name="og:description" content={pageDescription} />
-        <meta name="og:image" content={pageImageUrl} />
+    //     <meta name="og:title" content={pageTitle} />
+    //     <meta name="og:description" content={pageDescription} />
+    //     <meta name="og:image" content={pageImageUrl} />
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={pageTitle} />
-        <meta name="twitter:description" content={pageDescription} />
-        <meta name="twitter:image" content={pageImageUrl} />
+    //     <meta name="twitter:card" content="summary_large_image" />
+    //     <meta name="twitter:title" content={pageTitle} />
+    //     <meta name="twitter:description" content={pageDescription} />
+    //     <meta name="twitter:image" content={pageImageUrl} />
 
-        <link rel="icon" href="/logo.png" />
-      </Head>
+    //     <link rel="icon" href="/logo.png" />
+    //   </Head>
 
-      <MainSection />
-      <PopularCategorySection type="home" />
-      <TopRatedArtistsSection />
-      <MarketplaceReleaseSection category={''} />
-      <LiveAuctionSection category={''} />
-      <TrendingCollectionSection category={''} />
-      <MostPopularSection category={''} />
-      {/* <FreshMintSection category={''} /> */}
-      <CreateSellNFTSection />
+    //   <MainSection />
+    //   <PopularCategorySection type="home" />
+    //   <TopRatedArtistsSection />
+    //   <MarketplaceReleaseSection category={''} />
+    //   <LiveAuctionSection category={''} />
+    //   <TrendingCollectionSection category={''} />
+    //   <MostPopularSection category={''} />
+    //   <CreateSellNFTSection />
 
-      <FullScreenLoadingModal open={isLoading} />
-    </div>
+    //   <FullScreenLoadingModal open={isLoading} />
+    // </div>
   )
 }
 
 export default Home
 
-Home.getLayout = function getLayout(page) {
-  return <PrimaryLayout>{page}</PrimaryLayout>
-}
+// Home.getLayout = function getLayout(page) {
+//   return <PrimaryLayout>{page}</PrimaryLayout>
+// }
