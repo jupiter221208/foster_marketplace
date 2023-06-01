@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 // styles
 import styles from './index.module.scss'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const DashboardArtistCard = props => {
   const { image } = props

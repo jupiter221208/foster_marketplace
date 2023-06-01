@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 
 // next components
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // styles
 import styles from './index.module.scss'
@@ -23,19 +24,18 @@ const StatsArtistCard = props => {
     <div className={styles.container}>
       <div className="w-full flex justify-center pt-[30px]">
         <div className={styles.avatarArea}>
-          <div className="w-full h-full overflow-hidden">
+          <div className="w-full h-full overflow-hidden rounded-full">
             {!loaded && (
-              <div className="w-full overflow-hidden">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
-              </div>
+              <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                <div></div>
+              </ReactPlaceholder>
             )}
             <img
-              src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar}
+              src={data.pfp_url !== null && data.pfp_url !== '' ? data.pfp_url : DefaultAvatar.src}
               alt=""
               width={180}
               height={180}
+              loading="lazy"
               className="rounded-[90px]"
               onLoad={() => {
                 setLoaded(true)

@@ -16,6 +16,7 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 import { useViewport } from 'utils'
 import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 const TrendingCollectionCard = props => {
   const { collectionID, image, collectionName, artistName, nftCount, avatar } = props
