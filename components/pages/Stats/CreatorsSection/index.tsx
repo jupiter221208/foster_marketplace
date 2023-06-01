@@ -3,12 +3,7 @@ import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
-import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
-
-// json
-import CreatorsList from 'assets/json/stats/creators-list.json'
-import PopularCategoryList from 'assets/json/popular-category.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -140,7 +135,7 @@ const CreatorsSection = props => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          loop
+          initialSlide={5}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,

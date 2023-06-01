@@ -28,8 +28,6 @@ const CollectorsSection = props => {
   const dispatch = useDispatch()
   const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
-  const [collectorsList, setCollectorsList] = useState<any[]>([])
-  const [allList, setAllList] = useState<any[]>([])
   const [list, setList] = useState<any[]>([])
   const [period, setPeriod] = useState('all')
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -136,7 +134,7 @@ const CollectorsSection = props => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          loop
+          initialSlide={5}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
