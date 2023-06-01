@@ -3,13 +3,7 @@ import { useDispatch } from 'react-redux'
 
 // components
 import SearchSection from '../SearchSection'
-import CollectionSection from './CollectionSection'
 import TableSections from './TableSection'
-
-// json
-import CollectorsList from 'assets/json/stats/collectors-list.json'
-import PopularCategoryList from 'assets/json/popular-category.json'
-import CollectorsCollectionList from 'assets/json/stats/collectors-collection-list.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -19,7 +13,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // functions
-import { stringLengthValidate } from 'utils/strings'
 import { useViewport } from 'utils'
 
 // styles
@@ -116,25 +109,6 @@ const CollectorsSection = props => {
     getCollectorData(prevPage, period, searchWord, rowCount)
   }
 
-  useEffect(() => {
-    let array: any[] = [...CollectorsList]
-    array.map(item => {
-      item.category = PopularCategoryList.filter(elem => elem.id === item.categoryID)
-    })
-    setAllList(array)
-    setCollectorsList(array)
-    setList(array)
-  }, [])
-
-  useEffect(() => {
-    if (collectorsList.length !== 0 || stringLengthValidate(searchWord, 2)) {
-      const results = collectorsList.filter(elem => {
-        return elem.collectorName01.toLowerCase().includes(searchWord)
-      })
-      setList(results)
-    }
-  }, [collectorsList, searchWord])
-
   return (
     <div className={styles.container}>
       <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
@@ -159,7 +133,7 @@ const CollectorsSection = props => {
                 : 4
               : 3
           }
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 32}
+          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
           loop

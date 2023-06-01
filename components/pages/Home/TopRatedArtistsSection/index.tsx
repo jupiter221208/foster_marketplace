@@ -42,6 +42,7 @@ const TopRatedArtistsSection = () => {
       response => {
         if (response !== undefined && response !== null) {
           setArtistsList(response)
+          console.log(response)
         }
       },
       error => {

@@ -21,7 +21,7 @@ import styles from './index.module.scss'
 const TableSection = props => {
   const { data } = props
   const viewport = useViewport()
-
+  console.log('-----------data-------------', data)
   return (
     <section className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
