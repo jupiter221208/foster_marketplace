@@ -98,9 +98,10 @@ const TopRatedArtistsSection = () => {
               ? 24
               : 24
           }
+          initialSlide={5}
           modules={[Autoplay, Lazy, Navigation]}
           className={'navigationSwiper'}
-          loop
+          // loop
           // autoplay={{
           //   delay: 5000,
           //   disableOnInteraction: false,
