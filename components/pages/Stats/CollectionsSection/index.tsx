@@ -39,32 +39,6 @@ const CollectionsSection = props => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    // let nfts = [
-    //   {
-    //     id: 0,
-    //     asset_url: ' ',
-    //     amount: ' ',
-    //     asset_name: ' ',
-    //   },
-    //   {
-    //     id: 1,
-    //     asset_url: ' ',
-    //     amount: ' ',
-    //     asset_name: ' ',
-    //   },
-    //   {
-    //     id: 2,
-    //     asset_url: ' ',
-    //     amount: ' ',
-    //     asset_name: ' ',
-    //   },
-    //   {
-    //     id: 3,
-    //     asset_url: ' ',
-    //     amount: ' ',
-    //     asset_name: ' ',
-    //   },
-    // ]
   }, [])
 
   useEffect(() => {
@@ -149,7 +123,7 @@ const CollectionsSection = props => {
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
             viewport === 'xs'
-              ? 1.6
+              ? 1.2
               : viewport === 'sm'
               ? 2.5
               : viewport === 'md'

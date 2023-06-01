@@ -89,11 +89,6 @@ const ArtworksSection = props => {
     window.addEventListener('resize', resizeFunction)
   }, [])
 
-  // useEffect(() => {
-  //   getArtworkData(currentPage, period, searchWord, rowCount)
-  //   setIsMounted(true)
-  // }, [])
-
   useEffect(() => {
     if (!isMounted) return
     getArtworkData(currentPage, period, searchWord, rowCount)
@@ -104,7 +99,6 @@ const ArtworksSection = props => {
   }
 
   const getArtworkData = (curPage, curDate, search, count) => {
-    console.log('=======getArtworkData========')
     dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsArtwork({
       period: curDate,
@@ -155,7 +149,7 @@ const ArtworksSection = props => {
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
             viewport === 'xs'
-              ? 1.6
+              ? 1.2
               : viewport === 'sm'
               ? 2.5
               : viewport === 'md'

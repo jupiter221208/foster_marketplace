@@ -89,7 +89,7 @@ const CollectionsAccordion = props => {
                     </div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Average Price</div>
+                    <div className={styles.title}>Average Sale</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
                         <SolanaLogoIcon alt="" />
@@ -111,7 +111,7 @@ const CollectionsAccordion = props => {
                     <div className={styles.text}>{item.unique_holders}</div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>NFTs Sold</div>
+                    <div className={styles.title}>Creator</div>
                     <div className={styles.text}>{item.creator_username}</div>
                   </div>
                 </Disclosure.Panel>
