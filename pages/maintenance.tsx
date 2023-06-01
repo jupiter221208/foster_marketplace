@@ -49,7 +49,7 @@ const MaintenancePage = () => {
           </div>
           <div className={`${styles.title} mt-20`}>Temporarily Down for Maintenance</div>
           <div className={styles.text}>
-            We're performing a scheduled update. Please allow one hour for maintenance to complete.
+            We&apos;re performing a scheduled update. Please allow one hour for maintenance to complete.
           </div>
           <div className={`${styles.text} mt-4`}>Thanks for your patience!</div>
         </div>
