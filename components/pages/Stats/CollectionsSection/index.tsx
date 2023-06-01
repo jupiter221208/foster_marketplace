@@ -22,7 +22,9 @@ import { useViewport } from 'utils'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
 import ExplorePagination from 'components/Button/ExplorePagination'
 
-const CollectionsSection = () => {
+const CollectionsSection = props => {
+  const { collections } = props
+
   const dispatch = useDispatch()
   const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
@@ -33,38 +35,44 @@ const CollectionsSection = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [screenWidth, setScreenWidth] = useState(1920)
-  const [rowCount, setRowCount] = useState(10)
+  const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    let nfts = [
-      {
-        id: 0,
-        asset_url: ' ',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 1,
-        asset_url: ' ',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 2,
-        asset_url: ' ',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 3,
-        asset_url: ' ',
-        amount: ' ',
-        asset_name: ' ',
-      },
-    ]
-    setFeedList(nfts)
+    // let nfts = [
+    //   {
+    //     id: 0,
+    //     asset_url: ' ',
+    //     amount: ' ',
+    //     asset_name: ' ',
+    //   },
+    //   {
+    //     id: 1,
+    //     asset_url: ' ',
+    //     amount: ' ',
+    //     asset_name: ' ',
+    //   },
+    //   {
+    //     id: 2,
+    //     asset_url: ' ',
+    //     amount: ' ',
+    //     asset_name: ' ',
+    //   },
+    //   {
+    //     id: 3,
+    //     asset_url: ' ',
+    //     amount: ' ',
+    //     asset_name: ' ',
+    //   },
+    // ]
   }, [])
+
+  useEffect(() => {
+    setFeedList(collections)
+    setList(collections)
+    setTotalCount(12)
+    setIsMounted(true)
+  }, [collections])
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -74,16 +82,12 @@ const CollectionsSection = () => {
   }, [])
 
   useEffect(() => {
-    getCollectionData(currentPage, period, searchWord, rowCount)
-    setIsMounted(true)
-  }, [])
-
-  useEffect(() => {
     if (!isMounted) return
     getCollectionData(currentPage, period, searchWord, rowCount)
   }, [period])
 
   useEffect(() => {
+    if (!isMounted) return
     if (searchWord.length === 0) {
       getCollectionData(currentPage, period, '', rowCount)
     }
@@ -94,11 +98,8 @@ const CollectionsSection = () => {
   }
 
   const getCollectionData = (curPage, curDate, search, count) => {
-    // dispatch({ type: 'set', isLoading: true })
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    dispatch({ type: 'set', isLoading: true })
+
     StatsAPI.getStatsCollection({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -106,12 +107,17 @@ const CollectionsSection = () => {
       per_page: count,
     }).then(
       respone => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
+
+        window.scrollTo({
+          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
+          behavior: 'smooth',
+        })
       },
       error => {
         dispatch({ type: 'set', isLoading: false })

@@ -25,6 +25,9 @@ import CollectorsSection from 'components/pages/Stats/CollectorsSection'
 import CollectionsSection from 'components/pages/Stats/CollectionsSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
+// api
+import StatsAPI from 'apis/stats'
+
 const Stats = () => {
   const viewport = useViewport()
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -33,6 +36,17 @@ const Stats = () => {
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
   const [comingSoon, setComingSoon] = useState(false)
+  const [artworks, setArtworks] = useState([])
+  const [collections, setCollections] = useState([])
+  const [creators, setCreators] = useState([])
+  const [collectors, setCollectors] = useState([])
+
+  useEffect(() => {
+    getArtworkData()
+    getCollectionData()
+    getCreatorData()
+    getCollectorData()
+  }, [])
 
   useEffect(() => {
     let array: any[] = []
@@ -50,6 +64,70 @@ const Stats = () => {
 
   const handleSelectedTab = item => {
     if (item.id != 4) setActiveTab(item.id)
+  }
+
+  const getArtworkData = () => {
+    StatsAPI.getStatsArtwork({
+      period: 'all',
+      search: null,
+      page: 1,
+      per_page: 12,
+    }).then(
+      respone => {
+        const nfts = respone
+        setArtworks(nfts)
+      },
+      error => {}
+    )
+  }
+
+  const getCollectionData = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+    StatsAPI.getStatsCollection({
+      period: 'all',
+      search: null,
+      page: 1,
+      per_page: 12,
+    }).then(
+      respone => {
+        const nfts = respone
+        setCollections(nfts)
+      },
+      error => {}
+    )
+  }
+
+  const getCreatorData = () => {
+    StatsAPI.getStatsCreator({
+      period: 'all',
+      search: null,
+      page: 1,
+      per_page: 12,
+    }).then(
+      respone => {
+        const nfts = respone
+        setCreators(nfts)
+      },
+      error => {}
+    )
+  }
+
+  const getCollectorData = () => {
+    StatsAPI.getStatsCollector({
+      period: 'all',
+      search: null,
+      page: 1,
+      per_page: 12,
+    }).then(
+      respone => {
+        const nfts = respone
+        setCollectors(nfts)
+      },
+      error => {}
+    )
   }
 
   return (
@@ -84,22 +162,22 @@ const Stats = () => {
           </div>
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <ArtworksSection />
+              <ArtworksSection artworks={artworks} />
             </div>
           )}
           {activeTab === 1 && (
             <div className="w-full z-10">
-              <CollectionsSection />
+              <CollectionsSection collections={collections} />
             </div>
           )}
           {activeTab === 2 && (
             <div className="w-full z-10">
-              <CreatorsSection />
+              <CreatorsSection creators={creators} />
             </div>
           )}
           {activeTab === 3 && (
             <div className="w-full z-10">
-              <CollectorsSection />
+              <CollectorsSection collectors={collectors} />
             </div>
           )}
           {/* {activeTab === 4 && <MarketplaceSection />} */}

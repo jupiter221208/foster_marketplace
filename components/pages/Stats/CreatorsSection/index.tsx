@@ -29,11 +29,10 @@ import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
 import ExplorePagination from 'components/Button/ExplorePagination'
 
-const CreatorsSection = () => {
+const CreatorsSection = props => {
+  const { creators } = props
   const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState<any>('')
-  const [creatorsList, setCreatorsList] = useState<any[]>([])
-  const [allList, setAllList] = useState<any[]>([])
   const [list, setList] = useState<any[]>([])
   const viewport = useViewport()
   const [period, setPeriod] = useState('all')
@@ -46,33 +45,6 @@ const CreatorsSection = () => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    let nfts = [
-      {
-        id: 0,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-      {
-        id: 1,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-      {
-        id: 2,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-      {
-        id: 3,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        creator_name: ' ',
-      },
-    ]
-    setFeedList(nfts)
   }, [])
 
   useEffect(() => {
@@ -83,9 +55,11 @@ const CreatorsSection = () => {
   }, [])
 
   useEffect(() => {
-    getCreatorData(currentPage, period, searchWord, rowCount)
+    setFeedList(creators)
+    setList(creators)
+    setTotalCount(12)
     setIsMounted(true)
-  }, [])
+  }, [creators])
 
   useEffect(() => {
     if (!isMounted) return
@@ -97,7 +71,7 @@ const CreatorsSection = () => {
   }
 
   const getCreatorData = (curPage, curDate, search, count) => {
-    // dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCreator({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -105,19 +79,19 @@ const CreatorsSection = () => {
       per_page: count,
     }).then(
       respone => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({
-          top: 0,
+          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
           behavior: 'smooth',
         })
       },
       error => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
       }
     )
   }

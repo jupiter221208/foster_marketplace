@@ -84,7 +84,7 @@ const CollectionsAccordion = props => {
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
                         <SolanaLogoIcon alt="" />
-                        {item.floor_price.toFixed(2)}
+                        {item.floor_price?.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -93,7 +93,7 @@ const CollectionsAccordion = props => {
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
                         <SolanaLogoIcon alt="" />
-                        {item.average_sale.toFixed(2)}
+                        {item.average_sale?.toFixed(2)}
                       </div>
                     </div>
                   </div>
@@ -102,7 +102,7 @@ const CollectionsAccordion = props => {
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
                         <SolanaLogoIcon alt="" />
-                        {item.highest_sale.toFixed(2)}
+                        {item.highest_sale?.toFixed(2)}
                       </div>
                     </div>
                   </div>

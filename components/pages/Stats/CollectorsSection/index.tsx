@@ -30,7 +30,8 @@ import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
 import ExplorePagination from 'components/Button/ExplorePagination'
 
-const CollectorsSection = () => {
+const CollectorsSection = props => {
+  const { collectors } = props
   const dispatch = useDispatch()
   const viewport = useViewport()
   const [searchWord, setSearchWord] = useState<any>('')
@@ -47,33 +48,6 @@ const CollectorsSection = () => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    let nfts = [
-      {
-        id: 0,
-        pfp_url: 'https://arweave.net/thumb1',
-        purchase_volume: 0,
-        collector_name: ' ',
-      },
-      {
-        id: 1,
-        pfp_url: 'https://arweave.net/thumb2',
-        purchase_volume: 0,
-        collector_name: ' ',
-      },
-      {
-        id: 2,
-        pfp_url: 'https://arweave.net/thumb3',
-        purchase_volume: 0,
-        collector_name: ' ',
-      },
-      {
-        id: 3,
-        pfp_url: 'https://arweave.net/thumb4',
-        purchase_volume: 0,
-        collector_name: ' ',
-      },
-    ]
-    setFeedList(nfts)
   }, [])
 
   useEffect(() => {
@@ -84,9 +58,11 @@ const CollectorsSection = () => {
   }, [])
 
   useEffect(() => {
-    getCollectorData(currentPage, period, searchWord, rowCount)
+    setFeedList(collectors)
+    setList(collectors)
+    setTotalCount(12)
     setIsMounted(true)
-  }, [])
+  }, [collectors])
 
   useEffect(() => {
     if (!isMounted) return
@@ -98,7 +74,7 @@ const CollectorsSection = () => {
   }
 
   const getCollectorData = (curPage, curDate, search, count) => {
-    // dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCollector({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -106,19 +82,19 @@ const CollectorsSection = () => {
       per_page: count,
     }).then(
       respone => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({
-          top: 0,
+          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
           behavior: 'smooth',
         })
       },
       error => {
-        // dispatch({ type: 'set', isLoading: false })
+        dispatch({ type: 'set', isLoading: false })
       }
     )
   }
