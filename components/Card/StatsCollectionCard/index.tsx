@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -15,49 +16,49 @@ import styles from './index.module.scss'
 const StatsCollectionCard = props => {
   const { data, type } = props
   const router = useRouter()
+  const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
   const [saleName, setSaleName] = useState('Highest Sale')
 
   return (
-    <div
-      className={styles.container}
-      onClick={() => {
-        if (type === 'artworks') {
-          router.push(`/browse-nft?id=${data.mint_address}`)
-        } else {
-          router.push('/browse-collection')
-        }
-      }}
-    >
+    <div className={styles.container}>
       <div className={styles.imageArea}>
-        <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-          <img src={data.asset_url} alt="" className="w-full h-full object-cover" />
-        </ReactPlaceholder>
-
         {!loaded && (
-          <img
-            src={data.asset_url}
-            alt=""
-            className="w-full h-full object-cover"
-            onLoad={() => {
-              setLoaded(true)
-            }}
-          />
+          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+            <div></div>
+          </ReactPlaceholder>
         )}
+
+        <img
+          src={type === 'artworks' ? data.asset_url : data.cover_image}
+          alt=""
+          className="w-full h-full object-cover"
+          onLoad={() => {
+            setLoaded(true)
+          }}
+        />
       </div>
-      {/* <div className={styles.imageArea}>
-        <Image src={data.asset_url} width={180} height={180} alt="" layout="fill" objectFit="cover" />
-      </div> */}
-      {/* <div className={styles.bottomMask} /> */}
       <div className={styles.dataContainer}>
         <div className={styles.dataGradientBgView} />
         <div className={styles.dataContentView}>
-          <div className={styles.nftName}>{data.asset_name}</div>
+          <div
+            className={styles.nftName}
+            onClick={() => {
+              dispatch({ type: 'set', isLoading: true })
+              if (type === 'artworks') {
+                router.push(`/browse-nft?id=${data.mint_address}`)
+              } else {
+                router.push(`/browse-collection/${data.collection_address}`)
+              }
+            }}
+          >
+            {type === 'artworks' ? data.asset_name : data.collection_name}
+          </div>
           <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
             <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
             <div className="flex gap-[4px] items-center">
               <Image src={SolanaLogoIcon} width={18} height={15} alt="" />
-              <div className={styles.value}>{data.amount}</div>
+              <div className={styles.value}>{type === 'artworks' ? data.amount : data.total_sales}</div>
             </div>
           </div>
         </div>

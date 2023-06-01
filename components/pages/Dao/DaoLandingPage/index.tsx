@@ -32,6 +32,7 @@ import {
   createNewProposalTransaction,
   DAO_TREASURY_ADDRESS,
   TURKEY_CIRCUS_COLLECTION_ID,
+  getCurrentTurkeyNftCount,
 } from 'utils/dao'
 import { type GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
 
@@ -90,7 +91,7 @@ const DaoLandingPage = props => {
         id: 0,
         title: 'CircusDAO Membership Not Detected',
         description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
-        type: 'success',
+        type: 'error',
       },
     ])
 
@@ -127,17 +128,6 @@ const DaoLandingPage = props => {
     }
     setShowDaoSubmitModal(true)
   }
-
-  useEffect(() => {
-    if (clickedSubmitButton) {
-      setClickedSubmitButton(false)
-      if (turkyNfts.length === 0)  {
-        setShowNoTurkeyAlert(true)
-        return;
-      }
-      setShowDaoSubmitModal(true)
-    }
-  }, [connected])
 
   const handleSubmitProposal = async proposal => {
     setIsLoading(true)
@@ -225,6 +215,10 @@ const DaoLandingPage = props => {
       }
     } catch {}
   }
+
+  const getThreshold = async () => {
+    return Math.trunc(await getCurrentTurkeyNftCount() * 0.6);
+  }
   
   const getProposals = async (curPage, count) => {
     try {
@@ -239,8 +233,9 @@ const DaoLandingPage = props => {
         let new_proposals = []
         proposals.forEach(element => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
+            let current_threshold = getThreshold()
             let vote_ratio = element.approved_votes / element.total_votes 
-            new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.8 ? 'Passed' : 'Rejected'})
+            new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected'})
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
           } else {

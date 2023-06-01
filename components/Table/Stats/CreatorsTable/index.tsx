@@ -1,4 +1,6 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next components
 import Image from 'next/image'
@@ -7,12 +9,15 @@ import Image from 'next/image'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
 
 const CreatorsTable = props => {
   const { data } = props
+  const router = useRouter()
+  const dispatch = useDispatch()
 
   return (
     <table id="ArtworksTable" className="w-full table-auto">
@@ -37,30 +42,42 @@ const CreatorsTable = props => {
                 <div className="flex gap-2 mx-3 items-center">
                   <div className={styles.avatarArea}>
                     <div className="w-[36px] h-[36px] rounded-[18px] overflow-hidden">
-                      <Image src={item.asset_url} alt="" width={36} height={36} className="rounded-[8px]" />
+                      <Image
+                        src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="rounded-[8px]"
+                      />
                     </div>
                   </div>
-                  <div className="flex justify-center cursor-pointer" onClick={() => {}}>
-                    {item.artistName01}
+                  <div
+                    className="flex justify-center cursor-pointer"
+                    onClick={() => {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/${item.creator_name.replaceAll(' ', '%20')}`)
+                    }}
+                  >
+                    {item.creator_name}
                   </div>
                 </div>
               </td>
-              <td className="text-center">{item.uniqueCollectors}</td>
+              <td className="text-center">{item.unique_collectors}</td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.totalSales.toFixed(2)}
+                  {parseFloat(item.total_sales).toFixed(2)}
                 </div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px] ${styles.priceText}`}>
                   <SolanaLogoIcon />
-                  {item.highestSale.toFixed(2)}
+                  {parseFloat(item.highest_sale).toFixed(2)}
                 </div>
               </td>
-              <td className="text-center">{item.collections_published}</td>
-              <td className="text-center">{item.created}</td>
-              <td className="text-center">{item.sold}</td>
+              <td className="text-center">{item.collection_published}</td>
+              <td className="text-center">{item.items_created}</td>
+              <td className="text-center">{item.items_sold}</td>
             </tr>
           )
         })}

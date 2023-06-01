@@ -1,0 +1,31 @@
+@import 'assets/scss/variable.module.scss';
+
+.text {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.passed {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 24px;
+  color: $brand-09-color;
+}
+
+.rejected {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 24px;
+  color: $brand-05-color;
+}
+
+.view {
+  font-family: 'Muli-Regular';
+  font-size: 20px;
+  line-height: 24px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

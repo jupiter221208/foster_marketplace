@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef } from 'react'
+import { useRouter } from 'next/router'
 
 // next components
 import Image from 'next/image'
@@ -6,11 +7,8 @@ import Image from 'next/image'
 // third party components
 import { Disclosure } from '@headlessui/react'
 
-// functions
-import { getPercentValue } from 'utils/strings'
-
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
@@ -18,6 +16,7 @@ import styles from './index.module.scss'
 
 const CollectionsAccordion = props => {
   const { data } = props
+  const router = useRouter()
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -50,14 +49,21 @@ const CollectionsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.rankImage} alt="" width={52} height={52} className="rounded-[4px]" />
+                      <Image src={item.cover_image} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>Collection Name</div>
+                      <div
+                        className={styles.subTitle}
+                        onClick={() => router.push(`/browse-collection/${item.collection_address}`)}
+                      >
+                        {item.collection_name}
+                      </div>
                       <div className="flex gap-1 mt-1 items-center">
-                        <div className={styles.priceText}>Sale Price</div>
-                        <Image src={SolanaLogoIcon} width={16} height={16} alt="" />
-                        <div className={styles.priceValue}>1200</div>
+                        <div className={styles.priceText}>Total Sales</div>
+                        <div className="mt-[2px]">
+                          <SolanaLogoIcon alt="" />
+                        </div>
+                        <div className={styles.priceValue}> {parseFloat(item.total_sales).toFixed(2)}</div>
                       </div>
                     </div>
                   </div>
@@ -65,52 +71,48 @@ const CollectionsAccordion = props => {
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Total Sale</div>
+                    <div className={styles.title}>Total Sales</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.totalSale.toFixed(2)}
+                        <SolanaLogoIcon alt="" />
+                        {item.total_sales.toFixed(2)}
                       </div>
                     </div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>% Volume</div>
-                    <div className={styles.text}>{getPercentValue(item.volume)}</div>
-                  </div>
-                  <div className={styles.firstRow}>
                     <div className={styles.title}>Floor Price</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.floorPrice.toFixed(2)}
+                        <SolanaLogoIcon alt="" />
+                        {item.floor_price.toFixed(2)}
                       </div>
                     </div>
                   </div>
-                  <div className={styles.secondRow}>
+                  <div className={styles.firstRow}>
                     <div className={styles.title}>Average Price</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.averagePrice.toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Highest Sale</div>
-                    <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
-                        {item.highestSale.toFixed(2)}
+                        <SolanaLogoIcon alt="" />
+                        {item.average_sale.toFixed(2)}
                       </div>
                     </div>
                   </div>
                   <div className={styles.secondRow}>
-                    <div className={styles.title}>Collectors</div>
-                    <div className={styles.text}>{item.collectors}</div>
+                    <div className={styles.title}>Highest Sale</div>
+                    <div className={styles.text}>
+                      <div className="flex items-center gap-[10px]">
+                        <SolanaLogoIcon alt="" />
+                        {item.highest_sale.toFixed(2)}
+                      </div>
+                    </div>
                   </div>
                   <div className={styles.firstRow}>
+                    <div className={styles.title}>Collectors</div>
+                    <div className={styles.text}>{item.unique_holders}</div>
+                  </div>
+                  <div className={styles.secondRow}>
                     <div className={styles.title}>NFTs Sold</div>
-                    <div className={styles.text}>{item.nftsSold}</div>
+                    <div className={styles.text}>{item.creator_username}</div>
                   </div>
                 </Disclosure.Panel>
               </>

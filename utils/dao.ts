@@ -1,4 +1,11 @@
-import { PublicKey, SystemProgram, Transaction, TransactionInstruction, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import {
+  Connection,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+  TransactionInstruction,
+  LAMPORTS_PER_SOL,
+} from '@solana/web3.js'
 
 export const DAO_TREASURY_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
 export const TURKEY_CIRCUS_COLLECTION_ID = new PublicKey('A1QYswS6SdEKwm4SdubkQiDGkdobjWQuzesvx7uxGs8r')
@@ -120,4 +127,13 @@ export function createVoteTransaction({ proposalKey, voter, vote }: createVoteTr
   tx.feePayer = voter
 
   return tx
+}
+
+export async function getCurrentTurkeyNftCount(): Promise<number> {
+  const connection = new Connection(process.env.PROVIDER_URL!)
+  let accountData = await connection.getAccountInfo(new PublicKey("AoNrGXUSXSk3dyg9vUtXQAoDgnPmT9aV13ajncJFpyUa"));
+  if(!accountData) throw new Error(`unable to fetch turkey candy machine info`);
+
+  let itemsMinted = parseInt(accountData.data.readBigInt64LE(73).toString())
+  return itemsMinted
 }

@@ -5,8 +5,15 @@ import { LinearProgress, makeStyles } from '@material-ui/core'
 import { PublicKey } from '@solana/web3.js'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
-import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
 import { useMetaplex } from 'hooks/useMetaplex'
+
+// third party
+import Tab01 from 'components/Tab/Tab01'
+import Alert from 'components/Alert'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
+import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
+import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
@@ -25,15 +32,15 @@ import CastVoteModal from 'components/Modal/CastVoteModal'
 import { trySendTransaction } from 'utils'
 import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
-import { createVoteTransaction } from 'utils/dao'
+import { createVoteTransaction, getCurrentTurkeyNftCount } from 'utils/dao'
+
+// json
+import TabList from 'assets/json/dao/tab-list.json'
 
 // apis
 import axios from 'axios'
-import Alert from 'components/Alert'
-import ProgressingModal from 'components/Modal/ProgressingModal'
-import DaoPendingButton from 'components/Table/Dao/LandingTable/DaoPendingButton'
-import DaoClosedButton from 'components/Table/Dao/LandingTable/DaoClosedButton'
-import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
+import TableSection from './TableSection'
+import StatsSearchBox from 'components/Input/StatsSearchBox'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -51,7 +58,6 @@ const useStyles = makeStyles({
 const DaoLandingDetail = props => {
   const { proposal, onBack, turkeyCircus } = props
   const { connected, publicKey, signTransaction } = useWallet()
-  const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
 
@@ -63,6 +69,13 @@ const DaoLandingDetail = props => {
   const [disabledVote, setDisabledVote] = useState(true)
   const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
+  const [tabList, setTabList] = useState<any>(TabList)
+  const [activeTab, setActiveTab] = useState<any>(0)
+  const [searchWord, setSearchWord] = useState('')
+  const [voteHistory, setVoteHistory] = useState([])
+  const [approvedRatio, setApprovedRatio] = useState('0')
+  const [opposedRatio, setOpposedRatio] = useState('0')
+  const [threshold, setThreshold] = useState(0)
 
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
@@ -94,10 +107,37 @@ const DaoLandingDetail = props => {
         id: 0,
         title: 'CircusDAO Membership Not Detected',
         description: `The wallet you've connected with does not hold a Turkey Circus NFT`,
-        type: 'success',
+        type: 'error',
       },
     ])
+
+    handleSelectedTab(0)
+
+    getVoteHistory()
+    ;(async () => {
+      let threshold = await getCurrentTurkeyNftCount()
+      setThreshold(Math.trunc(threshold * 0.6))
+    })()
   }, [])
+
+  useEffect(() => {
+    let approveRatio = ((proposalDetail.approved_votes / proposalDetail.total_votes) * 100).toFixed(2)
+    let opposedRatio = (100 - parseFloat(approveRatio)).toFixed(2)
+    setApprovedRatio(approveRatio)
+    setOpposedRatio(opposedRatio)
+  }, [proposalDetail])
+
+  const getVoteHistory = async () => {
+    try {
+      let vote = {
+        proposal_id: proposal.id,
+      }
+      let response = await axios.post('api/dao/vote-history', vote)
+      if (response.data.success === true) {
+        setVoteHistory(response.data.votes)
+      }
+    } catch {}
+  }
 
   const onRefreshProposal = async () => {
     try {
@@ -134,9 +174,12 @@ const DaoLandingDetail = props => {
         wallet_id: publicKey,
         vote_status: status,
         signature,
+        weight: 80, //turkeyCircus ? turkeyCircus.length : '0',
       })
       if (response.data.success === true) {
         onRefreshProposal()
+        getVoteHistory()
+
         setTimeout(() => {
           setIsLoading(false)
           setTimeout(() => {
@@ -170,20 +213,30 @@ const DaoLandingDetail = props => {
     setShowCastVoteModal(true)
   }
 
-  useEffect(() => {
-    if (clickedCastVote) {
-      setClickedCastVote(false)
-      if (turkeyCircus.length === 0) {
-        setShowNoTurkeyAlert(true)
-        return
+  const handleSelectedTab = tab => {
+    let array: any[] = []
+    TabList.map(item => {
+      let object: any = item
+      if (item.id === tab) {
+        object.selected = true
+      } else {
+        object.selected = false
       }
-      setShowCastVoteModal(true)
-    }
-  }, [connected])
+      array.push(object)
+    })
+    setTabList(array)
+    setActiveTab(tab)
+  }
+
+  const getThreshold = async () => {}
 
   return (
     <div className={styles.container}>
-      <div className="flex mt-[20px] lg:mt-[117px] items-center">
+      <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
+        <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
+      </div>
+
+      <div className="flex mt-[20px] lg:mt-[101px] items-center">
         <div className={styles.backBtn} onClick={onBack}>
           <div className={styles.backEllipse}></div>
           <div className="absolute inset-auto hidden lg:flex">
@@ -278,18 +331,14 @@ const DaoLandingDetail = props => {
             <div className={styles.approvedText}>Approved</div>
             <div className={styles.approvedValue}>{proposalDetail.approved_votes}</div>
             <div className={styles.approvedPercent}>
-              {proposalDetail.total_votes === 0
-                ? '0%'
-                : `${(proposalDetail.approved_votes / proposalDetail.total_votes) * 100} %`}
+              {proposalDetail.total_votes === 0 ? '0%' : `${approvedRatio} %`}
             </div>
           </div>
           <div>
             <div className={styles.approvedText}>Opposed</div>
             <div className={styles.approvedValue}>{proposalDetail.opposed_votes}</div>
             <div className={styles.approvedPercent}>
-              {proposalDetail.total_votes === 0
-                ? '0%'
-                : `${(proposalDetail.opposed_votes / proposalDetail.total_votes) * 100} %`}
+              {proposalDetail.total_votes === 0 ? '0%' : `${opposedRatio} %`}
             </div>
           </div>
         </div>
@@ -298,7 +347,7 @@ const DaoLandingDetail = props => {
             <div className={styles.thresholdText}>Threshold</div>
             <div>
               <div className={styles.thresholdCurrent}>Current Threshold</div>
-              <div className={styles.thresholdValue}>{proposalDetail.threshold} votes</div>
+              <div className={styles.thresholdValue}>{threshold} votes</div>
             </div>
           </div>
           <div className={styles.treasuryContainer}>
@@ -311,38 +360,66 @@ const DaoLandingDetail = props => {
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Snapshot</div>
             <div>
-              <div className={styles.thresholdCurrent}>Taken at block</div>
-              <div className={styles.thresholdValue}>17163196</div>
+              <div className={styles.thresholdCurrent}>Solana Explorer</div>
+              <div
+                className={styles.viewProposal}
+                onClick={() => window.open(`https://explorer.solana.com/tx/${proposalDetail.signature}`)}
+              >
+                View Proposal
+              </div>
             </div>
           </div>
         </div>
-        <div className="mt-[44px] lg:mt-[78px]">
-          <div className={styles.description}>Overview</div>
-          <div className={styles.descriptionText}>{proposalDetail.overview}</div>
-        </div>
-        <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>Goals & Metrics</div>
-          <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
-        </div>
-        <div className="mt-[30px] lg:mt-[50px]">
-          <div className={styles.description}>Estimated Treasury Spending</div>
-          <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
-            <div className="hidden lg:flex">
-              <SolIcon />
+      </div>
+      {activeTab === 0 ? (
+        <div>
+          <div className="mt-[44px] lg:mt-[78px]">
+            <div className={styles.description}>Overview</div>
+            <div className={styles.descriptionText}>{proposalDetail.overview}</div>
+          </div>
+          <div className="mt-[30px] lg:mt-[50px]">
+            <div className={styles.description}>Goals & Metrics</div>
+            <div className={styles.descriptionText}>{proposalDetail.metrics}</div>
+          </div>
+          <div className="mt-[30px] lg:mt-[50px]">
+            <div className={styles.description}>Estimated Treasury Spending</div>
+            <div className="mt-[15px] lg:mt-[30px] w-full flex items-center gap-[9px]">
+              <div className="hidden lg:flex">
+                <SolIcon />
+              </div>
+              <div className="flex lg:hidden">
+                <SolMobileIcon />
+              </div>
+              <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
             </div>
-            <div className="flex lg:hidden">
-              <SolMobileIcon />
-            </div>
-            <div className={styles.estimateValue}>{proposalDetail.treasury}</div>
+          </div>
+          <div className="mt-[30px] mt-[50px]">
+            <div className={styles.description}>Estimated Timeline</div>
+            <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
+          </div>
+          <div className="w-full h-[100px] lg:h-[200px]" />
+        </div>
+      ) : (
+        <div>
+          <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
+            <StatsSearchBox
+              value={searchWord}
+              placeholder="Search by proposal name"
+              onChange={value => setSearchWord(value)}
+            />
+          </div>
+          <div className="w-full mt-[30px] lg:hidden justify-between">
+            <StatsSearchBox
+              value={searchWord}
+              placeholder="Search by proposal name"
+              onChange={value => setSearchWord(value)}
+            />
+          </div>
+          <div className="mt-[20px] mb-[100px]">
+            <TableSection data={voteHistory} />
           </div>
         </div>
-      </div>
-      <div className="mt-[30px] mt-[50px]">
-        <div className={styles.description}>Estimated Timeline</div>
-        <div className={styles.descriptionText}>{proposalDetail.eta_timeline}</div>
-      </div>
-      <div className="w-full h-[100px] lg:h-[200px]" />
-
+      )}
       <CastVoteModal
         data={{}}
         open={showCastVoteModal}

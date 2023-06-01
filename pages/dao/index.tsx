@@ -15,7 +15,6 @@ import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 
 // styles
 import styles from './index.module.scss'
-// import DaoSetupModal from 'components/Modal/DaoSetupModal'
 import { useViewport } from 'utils'
 import DaoComingSoon from 'components/pages/Dao/DaoComingSoon'
 import DaoLandingPage from 'components/pages/Dao/DaoLandingPage'
@@ -54,7 +53,7 @@ const Dao = () => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-      <div className="relative w-full flex justify-center">
+      <div className="w-full relative flex justify-center">
         <div className={styles.topLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>

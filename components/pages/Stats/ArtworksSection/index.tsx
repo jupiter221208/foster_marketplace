@@ -13,6 +13,11 @@ import { Autoplay, Lazy, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
+import ExplorePagination from 'components/Button/ExplorePagination'
+import StatsCollectionCard from 'components/Card/StatsCollectionCard'
+// import Marquee from 'react-fast-marquee'
+import { useViewport } from 'utils'
+
 // json
 
 // functions
@@ -22,10 +27,6 @@ import styles from './index.module.scss'
 
 // apis
 import StatsAPI from 'apis/stats'
-import ExplorePagination from 'components/Button/ExplorePagination'
-import StatsCollectionCard from 'components/Card/StatsCollectionCard'
-// import Marquee from 'react-fast-marquee'
-import { useViewport } from 'utils'
 
 const ArtworksSection = () => {
   const dispatch = useDispatch()
@@ -43,6 +44,33 @@ const ArtworksSection = () => {
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
+    let nfts = [
+      {
+        id: 0,
+        asset_url: ' ',
+        amount: ' ',
+        asset_name: ' ',
+      },
+      {
+        id: 1,
+        asset_url: ' ',
+        amount: ' ',
+        asset_name: ' ',
+      },
+      {
+        id: 2,
+        asset_url: ' ',
+        amount: ' ',
+        asset_name: ' ',
+      },
+      {
+        id: 3,
+        asset_url: ' ',
+        amount: ' ',
+        asset_name: ' ',
+      },
+    ]
+    setFeedList(nfts)
   }, [])
 
   useEffect(() => {
@@ -67,7 +95,7 @@ const ArtworksSection = () => {
   }
 
   const getArtworkData = (curPage, curDate, search, count) => {
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsArtwork({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -75,7 +103,7 @@ const ArtworksSection = () => {
       per_page: count,
     }).then(
       respone => {
-        dispatch({ type: 'set', isLoading: false })
+        // dispatch({ type: 'set', isLoading: false })
         const nfts = respone
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
