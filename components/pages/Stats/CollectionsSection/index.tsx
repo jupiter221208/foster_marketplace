@@ -143,7 +143,6 @@ const CollectionsSection = props => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          initialSlide={4}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
