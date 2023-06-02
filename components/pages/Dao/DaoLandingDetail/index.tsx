@@ -205,7 +205,7 @@ const DaoLandingDetail = props => {
       return
     }
 
-    if (turkeyCircus.length === 0) {
+    if (turkeyCircus === null || turkeyCircus.length === 0) {
       setShowNoTurkeyAlert(true)
       return
     }
