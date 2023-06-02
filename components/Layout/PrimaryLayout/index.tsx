@@ -29,6 +29,7 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const openMobileMenu = useSelector<any>(state => state.openMobileMenu)
   const openMobileSearchBox = useSelector<any>(state => state.openMobileSearchBox)
   const profileSetup = useSelector<any>(state => state.profileSetup)
+  const showConnectAlert = useSelector<any>(state => state.showConnectAlert)
   const { connected } = useWallet()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
@@ -49,7 +50,7 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
           {children}
         </main>
         <PrimaryFooter />
-        {connected && profileSetup && <ProfileSetupModal />}
+        {connected && profileSetup && !showConnectAlert && <ProfileSetupModal />}
       </>
     </div>
   )
