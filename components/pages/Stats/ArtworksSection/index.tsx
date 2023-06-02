@@ -199,6 +199,7 @@ const ArtworksSection = props => {
         </Marquee> */}
       </div>
       <SearchSection
+        placeholder={'Search by artwork name'}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}

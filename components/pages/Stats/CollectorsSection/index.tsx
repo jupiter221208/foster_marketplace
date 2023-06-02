@@ -153,6 +153,7 @@ const CollectorsSection = props => {
       </div>
 
       <SearchSection
+        placeholder={'Search by collector name'}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}

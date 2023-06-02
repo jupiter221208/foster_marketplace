@@ -154,6 +154,7 @@ const CreatorsSection = props => {
       </div>
 
       <SearchSection
+        placeholder={'Search by creator name'}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
