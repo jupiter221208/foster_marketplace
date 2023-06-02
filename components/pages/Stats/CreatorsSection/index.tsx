@@ -65,6 +65,11 @@ const CreatorsSection = props => {
     getCreatorData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getCreatorData(currentPage, period, null, rowCount)
+  }
+
   const getCreatorData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCreator({
@@ -153,6 +158,7 @@ const CreatorsSection = props => {
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
 

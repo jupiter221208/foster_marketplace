@@ -9,7 +9,7 @@ import SearchGrayIcon from 'assets/icons/search-gray.svg?component'
 import styles from './index.module.scss'
 
 const StatsSearchBox = props => {
-  const { value, placeholder, onChange } = props
+  const { value, placeholder, onChange, onCancel } = props
   return (
     <div className={styles.container}>
       <SearchGrayIcon />
@@ -19,6 +19,17 @@ const StatsSearchBox = props => {
         placeholder={placeholder}
         onChange={event => onChange(event.target.value)}
       />
+      {value?.length > 0 && (
+        <div
+          className={styles.cancel}
+          onClick={() => {
+            onChange('')
+            onCancel()
+          }}
+        >
+          Cancel
+        </div>
+      )}
     </div>
   )
 }

@@ -64,6 +64,11 @@ const CollectorsSection = props => {
     getCollectorData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getCollectorData(currentPage, period, null, rowCount)
+  }
+
   const getCollectorData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCollector({
@@ -152,6 +157,7 @@ const CollectorsSection = props => {
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
 

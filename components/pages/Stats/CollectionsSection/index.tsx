@@ -71,6 +71,11 @@ const CollectionsSection = props => {
     getCollectionData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getCollectionData(currentPage, period, null, rowCount)
+  }
+
   const getCollectionData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
 
@@ -161,6 +166,7 @@ const CollectionsSection = props => {
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
       <div className="mt-[20px]">

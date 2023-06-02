@@ -98,6 +98,11 @@ const ArtworksSection = props => {
     getArtworkData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getArtworkData(currentPage, period, null, rowCount)
+  }
+
   const getArtworkData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsArtwork({
@@ -192,14 +197,13 @@ const ArtworksSection = props => {
             ))}
           </div>
         </Marquee> */}
-
-        {/* <CollectionSection list={feedList} /> */}
       </div>
       <SearchSection
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
       <div className="mt-[20px]">
