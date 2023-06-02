@@ -341,7 +341,7 @@ const DaoLandingDetail = props => {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-wrap lg:flex-nowrap justify-around gap-[6px] lg:gap-[94px] mt-[30px] lg:mt-[48px]">
+        <div className="w-full flex flex-wrap lg:flex-nowrap justify-around gap-[6px] lg:gap-[60px] xl:gap-[94px] mt-[30px] lg:mt-[48px]">
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Threshold</div>
             <div>

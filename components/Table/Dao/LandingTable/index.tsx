@@ -85,7 +85,9 @@ const LandingTable = props => {
                     </div>
                   ) : (
                     <div className="w-full flex gap-[15px] items-center">
-                      <TimeIcon />
+                      <div className="w-5 h-5">
+                        <TimeIcon />
+                      </div>
                       <div className={styles.text}>{getEndInValue(item)}</div>
                     </div>
                   )}
