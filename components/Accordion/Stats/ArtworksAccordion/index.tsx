@@ -1,7 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 
 // next components
 import Image from 'next/image'
+import ReactPlaceholder from 'react-placeholder'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -22,6 +24,8 @@ const ArtworksAccordion = props => {
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
+  const [loaded, setLoaded] = useState(false)
+
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
     if (clickedButton === openedRef.current) {
@@ -56,7 +60,21 @@ const ArtworksAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <Image src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
+                      {!loaded && (
+                        <div className="w-full rounded-[4px] overflow-hidden">
+                          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                            <div></div>
+                          </ReactPlaceholder>
+                        </div>
+                      )}
+                      <img
+                        src={item.asset_url}
+                        alt=""
+                        width={52}
+                        height={52}
+                        className="rounded-[4px]"
+                        onLoad={() => setLoaded(true)}
+                      />
                     </div>
                     <div className="block">
                       <div
