@@ -64,9 +64,12 @@ const CreatorsAccordion = props => {
                       >
                         {item.creator_name}
                       </div>
-                      <div className="flex gap-1 mt-1 items-center">
+                      <div className="flex gap-2 mt-1 items-center">
                         <div className={styles.priceText}>Total Sales</div>
-                        <div className={styles.priceValue}>{parseFloat(item.total_sales).toFixed(2)}</div>
+                        <div className="flex items-center gap-[4px]">
+                          <SolanaLogoIcon alt="" />
+                          <div className={styles.priceValue}>{parseFloat(item.total_sales).toFixed(2)}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -80,7 +83,7 @@ const CreatorsAccordion = props => {
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Total Sales</div>
                     <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
+                      <div className="flex items-center gap-[4px]">
                         <SolanaLogoIcon alt="" />
                         {parseFloat(item.total_sales).toFixed(2)}
                       </div>
@@ -89,7 +92,7 @@ const CreatorsAccordion = props => {
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Highest Sale</div>
                     <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
+                      <div className="flex items-center gap-[4px]">
                         <SolanaLogoIcon alt="" />
                         {parseFloat(item.highest_sale).toFixed(2)}
                       </div>
