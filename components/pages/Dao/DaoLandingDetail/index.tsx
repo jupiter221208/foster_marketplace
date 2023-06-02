@@ -33,6 +33,8 @@ import { trySendTransaction } from 'utils'
 import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
 import { createVoteTransaction, getCurrentTurkeyNftCount } from 'utils/dao'
+import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
+import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 // json
 import TabList from 'assets/json/dao/tab-list.json'
@@ -281,9 +283,16 @@ const DaoLandingDetail = props => {
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
         <div className={styles.proposedText}>{proposalDetail.author}</div>
-        <div className="ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center">
+        <div
+          className="relative ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center hover:opacity-80"
+          onClick={() => {
+            copyToClipboard(proposalDetail.wallet_id || '')
+            copyClipboardAlert('main-wallet')
+          }}
+        >
           <CopyAltLightGreenIcon />
           <div className={styles.clipboardBtn}>{getShortAddress(proposalDetail.wallet_id)}</div>
+          <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
         </div>
       </div>
 
