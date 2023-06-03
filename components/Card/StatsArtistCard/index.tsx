@@ -69,7 +69,11 @@ const StatsArtistCard = props => {
           <div className="flex lg:hidden">
             <SolanaLogoMobileIcon alt="" />
           </div>
-          <div className={styles.value}>{type === 'creators' ? data.total_sales : data.purchase_volume.toFixed(2)}</div>
+          <div className={styles.value}>
+            {type === 'creators'
+              ? parseFloat(data.total_sales).toFixed(2)
+              : parseFloat(data.purchase_volume).toFixed(2)}
+          </div>
         </div>
         <div className="flex justify-center mt-[4px]">
           <div className={styles.totalSales}>{type === 'creators' ? 'Total Sales' : 'Total Purchases'}</div>

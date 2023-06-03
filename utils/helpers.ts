@@ -433,6 +433,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-treasury-bg', '#E3E4EA')
     doc.style.setProperty('--g-right-container-bg', '#E3E4EA')
     doc.style.setProperty('--deposit-disabled-color', '#5F6165')
+    doc.style.setProperty('--nav-divider-color', '#CCCDD4')
+    doc.style.setProperty('--profile-setup-bg', 'linear-gradient(to bottom, #F5F5F8, #202427)')
+    doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
+    doc.style.setProperty('--profile-setup-avatar-bg', '#202427')
+    doc.style.setProperty('--profile-setup-left-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -692,5 +697,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-connect-bg', 'transparent')
     doc.style.setProperty('--dao-treasury-bg', '#1b1b1b')
     doc.style.setProperty('--deposit-disabled-color', '#E2E6EA')
+    doc.style.setProperty('--nav-divider-color', '#292929')
+    doc.style.setProperty('--profile-setup-bg', 'linear-gradient(to bottom, #264e51, #131516)')
+    doc.style.setProperty('--profile-setup-input-bg', 'rgba(239, 240, 247, 0.15)')
+    doc.style.setProperty('--profile-setup-avatar-bg', 'linear-gradient(300deg, #4a9791 55%, #202427 100%)')
+    doc.style.setProperty('--profile-setup-left-bg', 'linear-gradient(to bottom, #121212, #173538)')
   }
 }

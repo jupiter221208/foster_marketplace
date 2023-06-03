@@ -71,6 +71,11 @@ const CollectionsSection = props => {
     getCollectionData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getCollectionData(currentPage, period, null, rowCount)
+  }
+
   const getCollectionData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
 
@@ -143,7 +148,6 @@ const CollectionsSection = props => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          initialSlide={4}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
@@ -158,10 +162,12 @@ const CollectionsSection = props => {
       </div>
 
       <SearchSection
+        placeholder={'Search by collection name'}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
       <div className="mt-[20px]">

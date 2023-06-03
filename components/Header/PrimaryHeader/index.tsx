@@ -405,6 +405,7 @@ const PrimaryHeader = () => {
           </div>
         </div>
       </div>
+      {!isScrollTop && <div className={styles.divider} />}
     </div>
   )
 }

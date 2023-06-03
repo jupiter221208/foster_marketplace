@@ -28,13 +28,13 @@ import Alert from 'components/Alert'
 import { trySendTransaction } from 'utils'
 import { isExpiredDate } from 'utils/helpers'
 import {
-  type DaoProposal,
+  DaoProposal,
   createNewProposalTransaction,
   DAO_TREASURY_ADDRESS,
   TURKEY_CIRCUS_COLLECTION_ID,
   getCurrentTurkeyNftCount,
 } from 'utils/dao'
-import { type GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
+import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
 
 const DaoLandingPage = props => {
   const { onDetail, setTurkeyData } = props
@@ -71,7 +71,7 @@ const DaoLandingPage = props => {
     if (connected) getMyNFTs(metaplex).then(setNfts)
   }, [metaplex, connected])
 
-  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput>([])
+  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
   useEffect(() => {
     setTurkeyNfts(
       nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))
@@ -122,9 +122,9 @@ const DaoLandingPage = props => {
       return
     }
 
-    if (turkyNfts.length === 0)  {
+    if (turkyNfts === null || turkyNfts.length === 0) {
       setShowNoTurkeyAlert(true)
-      return;
+      return
     }
     setShowDaoSubmitModal(true)
   }
@@ -217,12 +217,28 @@ const DaoLandingPage = props => {
   }
 
   const getThreshold = async () => {
-    return Math.trunc(await getCurrentTurkeyNftCount() * 0.6);
+    return Math.trunc((await getCurrentTurkeyNftCount()) * 0.6)
   }
-  
+
   const getProposals = async (curPage, count) => {
     try {
       let response = await axios.post('api/dao/proposals', { page: curPage, rows: count })
+      // let response = {
+      //   data: {
+      //     success: true,
+      //     proposals: [
+      //       {
+      //         title: 'CBC Product 0531',
+      //         category: 'Product',
+      //         author: 'Nicholas',
+      //         vote_start: '2023-05-31 12:00:00',
+      //         vote_duration: 120,
+      //         total_votes: 300,
+      //         approved_votes: 240,
+      //       },
+      //     ],
+      //   },
+      // }
       if (response.data.success === true) {
         let proposals = response.data.proposals
         if (proposals.length > 0) {
@@ -234,8 +250,12 @@ const DaoLandingPage = props => {
         proposals.forEach(element => {
           if (isExpiredDate(element.vote_start, element.vote_duration)) {
             let current_threshold = getThreshold()
-            let vote_ratio = element.approved_votes / element.total_votes 
-            new_proposals.push({ ...element, status: 'closed', vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected'})
+            let vote_ratio = element.approved_votes / element.total_votes
+            new_proposals.push({
+              ...element,
+              status: 'closed',
+              vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected',
+            })
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
           } else {

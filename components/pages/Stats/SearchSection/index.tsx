@@ -10,7 +10,7 @@ import styles from './index.module.scss'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const SearchSection = props => {
-  const { searchWord, period, setPeriod, setSearchWord, onSearch } = props
+  const { placeholder, searchWord, period, setPeriod, setSearchWord, onSearch, onCancel } = props
 
   return (
     <div className={styles.container}>
@@ -18,8 +18,9 @@ const SearchSection = props => {
         <div className="w-[500px] flex items-center gap-2">
           <StatsSearchBox
             value={searchWord}
-            placeholder="Search by artwork name"
+            placeholder={placeholder}
             onChange={value => setSearchWord(value)}
+            onCancel={onCancel}
           />
           <div className="w-[50px] h-[50px] flex justify-center items-center" onClick={() => onSearch()}>
             {searchWord?.length > 0 ? (
