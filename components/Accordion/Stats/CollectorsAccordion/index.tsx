@@ -58,9 +58,12 @@ const CollectorsAccordion = props => {
                     </div>
                     <div className="block">
                       <div className={styles.subTitle}>{item.collector_name}</div>
-                      <div className="flex gap-1 mt-1 items-center">
-                        <div className={styles.priceText}>Unique Collectors</div>
-                        <div className={styles.priceValue}>{item.items_collected}</div>
+                      <div className="flex gap-2 mt-1 items-center">
+                        <div className={styles.priceText}>Total Purchases</div>
+                        <div className="flex items-center gap-[4px] mt-[2px]">
+                          <SolanaLogoIcon alt="" />
+                          <div className={styles.priceValue}>{parseFloat(item.purchase_volume).toFixed(2)}</div>
+                        </div>
                       </div>
                     </div>
                   </div>

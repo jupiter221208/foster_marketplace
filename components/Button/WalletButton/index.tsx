@@ -226,6 +226,7 @@ const WalletButton = props => {
           type: 'success',
         },
       ])
+      dispatch({ type: 'set', showConnectAlert: true })
       setTimeout(() => {
         setShowAlert(true)
       }, 1000)
@@ -694,6 +695,9 @@ const WalletButton = props => {
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          setTimeout(() => {
+            dispatch({ type: 'set', showConnectAlert: false })
+          }, 1000)
         }}
         data={alertData}
       />

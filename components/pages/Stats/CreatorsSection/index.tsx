@@ -65,6 +65,11 @@ const CreatorsSection = props => {
     getCreatorData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getCreatorData(currentPage, period, null, rowCount)
+  }
+
   const getCreatorData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCreator({
@@ -135,7 +140,6 @@ const CreatorsSection = props => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          initialSlide={5}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
@@ -150,10 +154,12 @@ const CreatorsSection = props => {
       </div>
 
       <SearchSection
+        placeholder={'Search by creator name'}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
 

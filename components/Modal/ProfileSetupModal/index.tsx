@@ -190,9 +190,6 @@ const ProfileSetupModal = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className={styles.modalView}>
-                    {/* <div className={styles.close} onClick={() => closeModal()}>
-                      <Image src={CloseIcon} alt="" width={30} height={30} />
-                    </div> */}
                     <div className={styles.rightBack}>
                       <Image src={LogoBigIcon} alt="" width={566} height={657} />
                     </div>
@@ -210,7 +207,7 @@ const ProfileSetupModal = () => {
                             <Input
                               error={errorMessage}
                               placeholder="Choose your display name"
-                              backgroundColor="#202427"
+                              backgroundColor="var(--profile-setup-input-bg)"
                               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
                               onChange={(value: string) => {
                                 if (errorMessage.length > 0) setErrorMessage('')
@@ -258,21 +255,21 @@ const ProfileSetupModal = () => {
                                 label="Save"
                                 fullWidth
                                 onClick={() => handleSaveUsermame()}
-                                gradientDirection="right"
-                                backgroundColor01="#377771"
-                                backgroundColor02="#5AC3BA"
+                                // gradientDirection="right"
+                                // backgroundColor01="#377771"
+                                // backgroundColor02="#5AC3BA"
                               />
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div className="col-span-0 lg:col-span-5 relative rounded-[24px]">
+                      {/* <div className="col-span-0 lg:col-span-5 relative rounded-[24px]">
                         <div className={styles.rightPanel}>
                           <div className="w-[348px] min-w-[348px]">
                             <Image src={ConnectLogo} alt="" width={348} height={348} />
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>

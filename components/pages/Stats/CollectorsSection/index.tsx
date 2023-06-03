@@ -64,6 +64,11 @@ const CollectorsSection = props => {
     getCollectorData(currentPage, period, searchWord, rowCount)
   }
 
+  const cancelSearch = () => {
+    setSearchWord('')
+    getCollectorData(currentPage, period, null, rowCount)
+  }
+
   const getCollectorData = (curPage, curDate, search, count) => {
     dispatch({ type: 'set', isLoading: true })
     StatsAPI.getStatsCollector({
@@ -134,7 +139,6 @@ const CollectorsSection = props => {
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : viewport === 'lg' ? 20 : 32}
           modules={[Autoplay, Lazy, Navigation]}
           className="navigationSwiper"
-          initialSlide={5}
           autoplay={{
             delay: 5000,
             disableOnInteraction: false,
@@ -149,10 +153,12 @@ const CollectorsSection = props => {
       </div>
 
       <SearchSection
+        placeholder={'Search by collector name'}
         searchWord={searchWord}
         setSearchWord={value => setSearchWord(value.toString())}
         period={period}
         setPeriod={setPeriod}
+        onCancel={() => cancelSearch()}
         onSearch={() => getSearchData()}
       />
 
