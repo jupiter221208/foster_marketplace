@@ -15,6 +15,7 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const CollectionsAccordion = props => {
   const { data } = props
@@ -52,20 +53,13 @@ const CollectionsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      {!loaded && (
-                        <div className="w-full rounded-[4px] overflow-hidden">
-                          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                            <div></div>
-                          </ReactPlaceholder>
-                        </div>
-                      )}
-                      <img
-                        src={item.cover_image}
+                      <ImageWithFallback
+                        src={item.asset_url}
                         alt=""
                         width={52}
                         height={52}
+                        layout="fill"
                         className="rounded-[4px] object-cover"
-                        onLoad={() => setLoaded(true)}
                       />
                     </div>
                     <div className="block">

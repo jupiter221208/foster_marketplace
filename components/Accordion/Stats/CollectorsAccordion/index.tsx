@@ -13,6 +13,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const CollectorsAccordion = props => {
   const { data } = props
@@ -48,12 +49,13 @@ const CollectorsAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={styles.imageArea}>
-                      <Image
+                      <ImageWithFallback
                         src={item.pfp_url !== null && item.pfp_url !== '' ? item.pfp_url : DefaultAvatar}
                         alt=""
                         width={36}
                         height={36}
-                        className="rounded-full"
+                        layout="fill"
+                        className="rounded-full object-cover"
                       />
                     </div>
                     <div className="block">

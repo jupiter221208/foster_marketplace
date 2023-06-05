@@ -20,6 +20,7 @@ import PauseVideoIcon from 'assets/icons/pause-video.svg'
 import styles from './index.module.scss'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const LiveAuctionCard = props => {
   const { data, onClick } = props
@@ -75,20 +76,13 @@ const LiveAuctionCard = props => {
                     onClick={() => onClick()}
                   />
                 ) : data.cover_image_url != null && data.cover_image_url !== '' ? (
-                  <div className="w-full h-full">
-                    {!loaded && (
-                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                        <div></div>
-                      </ReactPlaceholder>
-                    )}
-                    <Image
-                      src={data.cover_image_url}
-                      alt=""
-                      layout="fill"
-                      className="w-full h-full rounded-[24px] object-cover"
-                      onClick={() => onClick()}
-                    />
-                  </div>
+                  <ImageWithFallback
+                    src={data.cover_image_url}
+                    onClick={onClick}
+                    layout="fill"
+                    alt=""
+                    className="w-full h-full rounded-[24px] object-cover"
+                  />
                 ) : (
                   <Image
                     src={DefaultNftBG}
@@ -137,22 +131,13 @@ const LiveAuctionCard = props => {
               />
             </div>
           ) : (
-            <div className="w-full h-full">
-              {!loaded && (
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
-              )}
-              <Image
-                src={data.asset_url}
-                alt=""
-                layout="fill"
-                unoptimized
-                className="w-full h-full rounded-[24px] object-cover"
-                onLoadingComplete={() => setLoaded(true)}
-                onClick={() => onClick()}
-              />
-            </div>
+            <ImageWithFallback
+              src={data.asset_url}
+              onClick={onClick}
+              layout="fill"
+              alt=""
+              className="w-full h-full rounded-[24px] object-cover"
+            />
           )}
         </div>
       </div>

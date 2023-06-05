@@ -163,7 +163,6 @@ const DaoLandingDetail = props => {
         let proposals = response.data.proposals
 
         if (proposals.length > 0) {
-          console.log(proposals[0])
           setProposalDetail(proposals[0])
         }
       }

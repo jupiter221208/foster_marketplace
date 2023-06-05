@@ -48,25 +48,25 @@ const ArtworksSection = props => {
     let nfts = [
       {
         id: 0,
-        asset_url: ' ',
+        asset_url: 'https://arweave.net/abc',
         amount: ' ',
         asset_name: ' ',
       },
       {
         id: 1,
-        asset_url: ' ',
+        asset_url: 'https://arweave.net/abc',
         amount: ' ',
         asset_name: ' ',
       },
       {
         id: 2,
-        asset_url: ' ',
+        asset_url: 'https://arweave.net/abc',
         amount: ' ',
         asset_name: ' ',
       },
       {
         id: 3,
-        asset_url: ' ',
+        asset_url: 'https://arweave.net/abc',
         amount: ' ',
         asset_name: ' ',
       },

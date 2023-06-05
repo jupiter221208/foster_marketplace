@@ -12,6 +12,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
 import styles from './index.module.scss'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const StatsCollectionCard = props => {
   const { data, type } = props
@@ -22,7 +23,13 @@ const StatsCollectionCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        {!loaded && (
+        <ImageWithFallback
+          src={type === 'artworks' ? data.asset_url : data.cover_image}
+          alt=""
+          layout="fill"
+          className="w-full h-full object-cover"
+        />
+        {/* {!loaded && (
           <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
             <div></div>
           </ReactPlaceholder>
@@ -35,7 +42,7 @@ const StatsCollectionCard = props => {
           onLoad={() => {
             setLoaded(true)
           }}
-        />
+        /> */}
       </div>
       <div className={styles.dataContainer}>
         <div className={styles.dataGradientBgView} />

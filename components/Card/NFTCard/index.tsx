@@ -30,6 +30,7 @@ import GradientButton from 'components/Button/GradientButton'
 import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const DashboardNFTCard = props => {
   const {
@@ -133,64 +134,20 @@ const DashboardNFTCard = props => {
               )
             ) : assetType?.includes('audio') ? (
               coverImage !== null && coverImage !== '' ? (
-                <div className="w-full" onClick={() => onClick()}>
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                    <Image
-                      src={coverImage}
-                      alt=""
-                      layout="fill"
-                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    />
-                  </ReactPlaceholder>
-                  {!loaded && (
-                    <Image
-                      src={coverImage}
-                      alt=""
-                      layout="fill"
-                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                      onLoad={() => {
-                        setLoaded(true)
-                      }}
-                    />
-                  )}
-                </div>
+                <ImageWithFallback
+                  src={coverImage}
+                  onClick={onClick}
+                  layout="fill"
+                  alt=""
+                  className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
+                />
               ) : (
                 <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
               )
             ) : image !== null && image !== '' ? (
-              <div className="w-full" onClick={() => onClick()}>
-                {!loaded && (
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                    <div></div>
-                  </ReactPlaceholder>
-                )}
-                <Image
-                  src={image}
-                  layout="fill"
-                  alt=""
-                  className={styles.imageNft}
-                  onLoadingComplete={() => {
-                    setLoaded(true)
-                  }}
-                />
-              </div>
+              <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
             ) : coverImage !== null && coverImage !== '' ? (
-              <div className="w-full" onClick={() => onClick()}>
-                {!loaded && (
-                  <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                    <div></div>
-                  </ReactPlaceholder>
-                )}
-                <Image
-                  src={image}
-                  alt=""
-                  layout="fill"
-                  className={styles.imageNft}
-                  onLoadingComplete={() => {
-                    setLoaded(true)
-                  }}
-                />
-              </div>
+              <ImageWithFallback src={coverImage} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
             ) : (
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
             )}
