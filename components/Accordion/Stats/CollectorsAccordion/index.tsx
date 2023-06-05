@@ -83,7 +83,7 @@ const CollectorsAccordion = props => {
                     <div className={styles.title}>Highest Purchase</div>
                     <div className={styles.text}>
                       <div className="flex items-center gap-[10px]">
-                        <Image src={SolanaLogoIcon} width={20} height={20} alt="" />
+                        <SolanaLogoIcon alt="" />
                         {item.highest_purchase}
                       </div>
                     </div>

@@ -75,11 +75,13 @@ const ArtworksSection = props => {
   }, [])
 
   useEffect(() => {
-    setScreenWidth(window.innerWidth)
-    setFeedList(artworks)
-    setList(artworks)
-    setTotalCount(12)
-    setIsMounted(true)
+    if (artworks.length > 0) {
+      setScreenWidth(window.innerWidth)
+      setFeedList(artworks)
+      setList(artworks)
+      setTotalCount(12)
+      setIsMounted(true)
+    }
   }, [artworks])
 
   useEffect(() => {
