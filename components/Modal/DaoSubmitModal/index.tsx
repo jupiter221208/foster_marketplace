@@ -377,7 +377,7 @@ const DaoSubmitModal = props => {
                     <div className="mt-[12px]">
                       <Input
                         value={title}
-                        placeholder="Give your art name"
+                        placeholder="Give your proposal name"
                         label=""
                         fullWidth
                         color={'var(--text-gray-200-color)'}
@@ -392,9 +392,7 @@ const DaoSubmitModal = props => {
                     <div className="mt-[12px]">
                       <Textarea
                         value={overview}
-                        placeholder="Provide a brief description of your 
-                          proposal and the funds required (if 
-                          applicable)."
+                        placeholder="Provide a detailed explanation of your proposal, how it will be implemented, and who will be responsible for its execution."
                         fullWidth
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setOverview(value)}
@@ -408,9 +406,7 @@ const DaoSubmitModal = props => {
                     <div className="mt-[12px]">
                       <Textarea
                         value={goal}
-                        placeholder="Provide a brief description of your 
-                        proposal and the funds required (if 
-                        applicable)."
+                        placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?."
                         fullWidth
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setGoal(value)}
