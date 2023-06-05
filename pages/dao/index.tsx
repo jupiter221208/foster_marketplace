@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // next images
 import Head from 'next/head'
 
 // solana
 import { useWallet } from '@solana/wallet-adapter-react'
+import { useMetaplex } from 'hooks/useMetaplex'
+import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
+import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 
 // components
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -26,8 +29,28 @@ const Dao = () => {
   // const [daoSetup, setDaoSetup] = useState(false)
   const [daoPage, setDaoPage] = useState('landing')
   const [proposal, setProposal] = useState()
-  const { publicKey } = useWallet()
-  const [turkeyCircus, setTurkeyCircus] = useState([])
+  const { connected, publicKey } = useWallet()
+  const { metaplex } = useMetaplex()
+  const [nftIsLoaded, setNftIsLoaded] = useState(false)
+
+  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
+
+  useEffect(() => {
+    ;(async () => {
+      if (connected) {
+        let nfts = await getMyNFTs(metaplex)
+        setNftIsLoaded(true)
+        setNfts(nfts)
+      }
+    })()
+  }, [metaplex, connected])
+
+  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
+  useEffect(() => {
+    setTurkeyNfts(
+      nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))
+    )
+  }, [nfts])
 
   const viewport = useViewport()
 
@@ -68,14 +91,16 @@ const Dao = () => {
                 setProposal(item)
                 setDaoPage('detail')
               }}
-              setTurkeyData={data => setTurkeyCircus(data)}
+              turkyNfts={turkyNfts}
+              nftIsLoaded={nftIsLoaded}
             />
           </div>
         ) : (
           <DaoLandingDetail
             publicKey={publicKey}
             proposal={proposal}
-            turkeyCircus={turkeyCircus}
+            turkyNfts={turkyNfts}
+            nftIsLoaded={nftIsLoaded}
             onBack={() => setDaoPage('landing')}
           />
         )}

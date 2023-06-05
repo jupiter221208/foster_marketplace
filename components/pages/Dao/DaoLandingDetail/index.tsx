@@ -43,6 +43,8 @@ import TabList from 'assets/json/dao/tab-list.json'
 import axios from 'axios'
 import TableSection from './TableSection'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
+import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
+import Tab from 'components/Tab'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -58,12 +60,13 @@ const useStyles = makeStyles({
 })
 
 const DaoLandingDetail = props => {
-  const { proposal, onBack, turkeyCircus } = props
+  const { proposal, onBack, turkyNfts, nftIsLoaded } = props
   const { connected, publicKey, signTransaction } = useWallet()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isNftLoading, setIsNftLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
   const [proposalDetail, setProposalDetail] = useState(proposal)
@@ -101,7 +104,9 @@ const DaoLandingDetail = props => {
       },
     ])
     if (proposal.status === 'live') {
-      setDisabledVote(false)
+      ;(async () => {
+        await checkEnableCastVote()
+      })()
     }
 
     setNoTurkeyAlert([
@@ -121,6 +126,12 @@ const DaoLandingDetail = props => {
       setThreshold(Math.trunc(threshold * 0.6))
     })()
   }, [])
+
+  useEffect(() => {
+    if (nftIsLoaded) {
+      setIsNftLoading(false)
+    }
+  }, [nftIsLoaded])
 
   useEffect(() => {
     let approveRatio = ((proposalDetail.approved_votes / proposalDetail.total_votes) * 100).toFixed(2)
@@ -159,6 +170,20 @@ const DaoLandingDetail = props => {
     } catch {}
   }
 
+  const checkEnableCastVote = async () => {
+    try {
+      let response = await axios.post('api/dao/enable-vote', {
+        proposal_id: proposalDetail.id,
+        wallet_id: publicKey,
+      })
+      if (response.data.success === true) {
+        if (response.data.voted === false) {
+          setDisabledVote(false)
+        }
+      }
+    } catch {}
+  }
+
   const castVoteProposal = async status => {
     setIsLoading(true)
     try {
@@ -176,7 +201,7 @@ const DaoLandingDetail = props => {
         wallet_id: publicKey,
         vote_status: status,
         signature,
-        weight: turkeyCircus ? turkeyCircus.length : '0',
+        weight: turkyNfts.length,
       })
       if (response.data.success === true) {
         onRefreshProposal()
@@ -207,7 +232,12 @@ const DaoLandingDetail = props => {
       return
     }
 
-    if (turkeyCircus === null || turkeyCircus.length === 0) {
+    if (nftIsLoaded === false) {
+      setIsNftLoading(true)
+      return
+    }
+
+    if (turkyNfts.length === 0) {
       setShowNoTurkeyAlert(true)
       return
     }
@@ -232,7 +262,7 @@ const DaoLandingDetail = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
+      <div className="hidden lg:flex w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
         <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
       </div>
 
@@ -283,7 +313,7 @@ const DaoLandingDetail = props => {
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
         <div className={styles.proposedText}>{proposalDetail.author}</div>
-        <div
+        {/* <div
           className="relative ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center hover:opacity-80"
           onClick={() => {
             copyToClipboard(proposalDetail.wallet_id || '')
@@ -293,13 +323,13 @@ const DaoLandingDetail = props => {
           <CopyAltLightGreenIcon />
           <div className={styles.clipboardBtn}>{getShortAddress(proposalDetail.wallet_id)}</div>
           <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
-        </div>
+        </div> */}
       </div>
 
       <div className="flex lg:hidden mt-[6px] justify-between items-center">
         <div className="flex">
           <div className={styles.proposedBy}>Proposed by</div>
-          <div className={styles.proposedText}>Angooba</div>
+          <div className={styles.proposedText}>{proposalDetail.author}</div>
         </div>
         <div>
           <GradientButton
@@ -379,9 +409,15 @@ const DaoLandingDetail = props => {
           </div>
         </div>
       </div>
+
+      <div className="lg:hidden flex w-full h-[50px] mt-[32px] overflow-auto">
+        {/* <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} /> */}
+        <Tab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
+      </div>
+
       {activeTab === 0 ? (
         <div>
-          <div className="mt-[44px] lg:mt-[78px]">
+          <div className="mt-[24px] lg:mt-[78px]">
             <div className={styles.description}>Overview</div>
             <div className={styles.descriptionText}>{proposalDetail.overview}</div>
           </div>
@@ -409,20 +445,20 @@ const DaoLandingDetail = props => {
         </div>
       ) : (
         <div>
-          <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
+          {/* <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
             <StatsSearchBox
               value={searchWord}
               placeholder="Search by proposal name"
               onChange={value => setSearchWord(value)}
             />
           </div>
-          <div className="w-full mt-[30px] lg:hidden justify-between">
+          <div className="w-full mt-[20px] lg:hidden justify-between">
             <StatsSearchBox
               value={searchWord}
               placeholder="Search by proposal name"
               onChange={value => setSearchWord(value)}
             />
-          </div>
+          </div> */}
           <div className="mt-[20px] mb-[100px]">
             <TableSection data={voteHistory} />
           </div>
@@ -457,6 +493,16 @@ const DaoLandingDetail = props => {
       />
 
       <ProgressingModal open={isLoading} />
+
+      <ProgressingModalWithContent
+        open={isNftLoading}
+        close={() => {
+          setIsNftLoading(false)
+        }}
+        title="Wallet detection in progress..."
+        tip="Fun Fact"
+        content="If you have many NFTs in your wallet, this may take a little longer."
+      />
     </div>
   )
 }

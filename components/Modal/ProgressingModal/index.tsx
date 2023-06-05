@@ -9,11 +9,11 @@ import styles from './index.module.scss'
 // json
 
 const ProgressingModal = props => {
-  const { open } = props
+  const { open, close } = props
 
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as="div" className={styles.container} onClose={() => {}}>
+      <Dialog as="div" className={styles.container} onClose={close}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

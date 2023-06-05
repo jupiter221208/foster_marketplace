@@ -27,17 +27,11 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { trySendTransaction } from 'utils'
 import { isExpiredDate } from 'utils/helpers'
-import {
-  DaoProposal,
-  createNewProposalTransaction,
-  DAO_TREASURY_ADDRESS,
-  TURKEY_CIRCUS_COLLECTION_ID,
-  getCurrentTurkeyNftCount,
-} from 'utils/dao'
-import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
+import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
+import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 
 const DaoLandingPage = props => {
-  const { onDetail, setTurkeyData } = props
+  const { onDetail, turkyNfts, nftIsLoaded } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const { connected, publicKey, signTransaction } = useWallet()
@@ -58,6 +52,7 @@ const DaoLandingPage = props => {
   const [solAmount, setSolAmount] = useState(0)
   const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [isNftLoading, setIsNftLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
 
@@ -65,22 +60,6 @@ const DaoLandingPage = props => {
   const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
   const [proposals, setProposals] = useState([])
   const [proposalKeypair, setProposalKeypair] = useState<Keypair>(Keypair.generate())
-
-  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
-  useEffect(() => {
-    if (connected) getMyNFTs(metaplex).then(setNfts)
-  }, [metaplex, connected])
-
-  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
-  useEffect(() => {
-    setTurkeyNfts(
-      nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))
-    )
-  }, [nfts])
-
-  useEffect(() => {
-    setTurkeyData(turkyNfts)
-  }, [turkyNfts])
 
   useEffect(() => {
     fetchSolToUsdRate().then(setSolToUsdRate)
@@ -99,6 +78,10 @@ const DaoLandingPage = props => {
 
     getStats()
   }, [])
+
+  useEffect(() => {
+    if (nftIsLoaded) setIsNftLoading(false)
+  }, [nftIsLoaded])
 
   const selectRowCount = count => {
     setRowCount(count)
@@ -122,7 +105,12 @@ const DaoLandingPage = props => {
       return
     }
 
-    if (turkyNfts === null || turkyNfts.length === 0) {
+    if (nftIsLoaded === false) {
+      setIsNftLoading(true)
+      return
+    }
+
+    if (turkyNfts.length === 0) {
       setShowNoTurkeyAlert(true)
       return
     }
@@ -446,7 +434,22 @@ const DaoLandingPage = props => {
         data={noTurkeyAlert}
       />
 
-      <ProgressingModal open={isLoading} />
+      <ProgressingModal
+        open={isLoading}
+        close={() => {
+          setIsLoading(false)
+        }}
+      />
+
+      <ProgressingModalWithContent
+        open={isNftLoading}
+        close={() => {
+          setIsNftLoading(false)
+        }}
+        title="Wallet detection in progress..."
+        tip="Fun Fact"
+        content="If you have many NFTs in your wallet, this may take a little longer."
+      />
     </div>
   )
 }
