@@ -44,6 +44,7 @@ import axios from 'axios'
 import TableSection from './TableSection'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
+import Tab from 'components/Tab'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -261,7 +262,7 @@ const DaoLandingDetail = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
+      <div className="hidden lg:flex w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
         <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
       </div>
 
@@ -408,9 +409,15 @@ const DaoLandingDetail = props => {
           </div>
         </div>
       </div>
+
+      <div className="lg:hidden flex w-full h-[50px] mt-[32px] overflow-auto">
+        {/* <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item.id)} /> */}
+        <Tab tabList={tabList} onChange={item => handleSelectedTab(item.id)} />
+      </div>
+
       {activeTab === 0 ? (
         <div>
-          <div className="mt-[44px] lg:mt-[78px]">
+          <div className="mt-[24px] lg:mt-[78px]">
             <div className={styles.description}>Overview</div>
             <div className={styles.descriptionText}>{proposalDetail.overview}</div>
           </div>
@@ -445,7 +452,7 @@ const DaoLandingDetail = props => {
               onChange={value => setSearchWord(value)}
             />
           </div>
-          <div className="w-full mt-[30px] lg:hidden justify-between">
+          <div className="w-full mt-[20px] lg:hidden justify-between">
             <StatsSearchBox
               value={searchWord}
               placeholder="Search by proposal name"
