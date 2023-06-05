@@ -29,20 +29,6 @@ const StatsCollectionCard = props => {
           layout="fill"
           className="w-full h-full object-cover"
         />
-        {/* {!loaded && (
-          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-            <div></div>
-          </ReactPlaceholder>
-        )}
-
-        <img
-          src={type === 'artworks' ? data.asset_url : data.cover_image}
-          alt=""
-          className="w-full h-full object-cover"
-          onLoad={() => {
-            setLoaded(true)
-          }}
-        /> */}
       </div>
       <div className={styles.dataContainer}>
         <div className={styles.dataGradientBgView} />

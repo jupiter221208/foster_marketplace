@@ -9,7 +9,7 @@ const ImageWithFallback = props => {
   const [loaded, setLoaded] = useState(false)
 
   return (
-    <div className="w-full h-full" onClick={onClick}>
+    <div className="w-full h-full overflow-hidden" onClick={onClick}>
       <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
         <div></div>
       </ReactPlaceholder>
