@@ -103,7 +103,9 @@ const DaoLandingDetail = props => {
       },
     ])
     if (proposal.status === 'live') {
-      setDisabledVote(false)
+      ;(async () => {
+        await checkEnableCastVote()
+      })()
     }
 
     setNoTurkeyAlert([
@@ -162,6 +164,20 @@ const DaoLandingDetail = props => {
         if (proposals.length > 0) {
           console.log(proposals[0])
           setProposalDetail(proposals[0])
+        }
+      }
+    } catch {}
+  }
+
+  const checkEnableCastVote = async () => {
+    try {
+      let response = await axios.post('api/dao/enable-vote', {
+        proposal_id: proposalDetail.id,
+        wallet_id: publicKey,
+      })
+      if (response.data.success === true) {
+        if (response.data.voted === false) {
+          setDisabledVote(false)
         }
       }
     } catch {}
