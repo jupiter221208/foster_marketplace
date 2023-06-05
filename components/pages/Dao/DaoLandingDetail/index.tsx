@@ -313,7 +313,7 @@ const DaoLandingDetail = props => {
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
         <div className={styles.proposedText}>{proposalDetail.author}</div>
-        <div
+        {/* <div
           className="relative ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center hover:opacity-80"
           onClick={() => {
             copyToClipboard(proposalDetail.wallet_id || '')
@@ -323,7 +323,7 @@ const DaoLandingDetail = props => {
           <CopyAltLightGreenIcon />
           <div className={styles.clipboardBtn}>{getShortAddress(proposalDetail.wallet_id)}</div>
           <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
-        </div>
+        </div> */}
       </div>
 
       <div className="flex lg:hidden mt-[6px] justify-between items-center">
@@ -445,7 +445,7 @@ const DaoLandingDetail = props => {
         </div>
       ) : (
         <div>
-          <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
+          {/* <div className="w-full hidden lg:mt-[48px] lg:flex justify-between">
             <StatsSearchBox
               value={searchWord}
               placeholder="Search by proposal name"
@@ -458,7 +458,7 @@ const DaoLandingDetail = props => {
               placeholder="Search by proposal name"
               onChange={value => setSearchWord(value)}
             />
-          </div>
+          </div> */}
           <div className="mt-[20px] mb-[100px]">
             <TableSection data={voteHistory} />
           </div>

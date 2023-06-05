@@ -105,15 +105,15 @@ const DaoLandingPage = props => {
       return
     }
 
-    // if (nftIsLoaded === false) {
-    //   setIsNftLoading(true)
-    //   return
-    // }
+    if (nftIsLoaded === false) {
+      setIsNftLoading(true)
+      return
+    }
 
-    // if (turkyNfts.length === 0) {
-    //   setShowNoTurkeyAlert(true)
-    //   return
-    // }
+    if (turkyNfts.length === 0) {
+      setShowNoTurkeyAlert(true)
+      return
+    }
     setShowDaoSubmitModal(true)
   }
 
