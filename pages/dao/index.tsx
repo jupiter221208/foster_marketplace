@@ -31,10 +31,18 @@ const Dao = () => {
   const [proposal, setProposal] = useState()
   const { connected, publicKey } = useWallet()
   const { metaplex } = useMetaplex()
+  const [nftIsLoaded, setNftIsLoaded] = useState(false)
 
   const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
+
   useEffect(() => {
-    if (connected) getMyNFTs(metaplex).then(setNfts)
+    ;(async () => {
+      if (connected) {
+        let nfts = await getMyNFTs(metaplex)
+        setNftIsLoaded(true)
+        setNfts(nfts)
+      }
+    })()
   }, [metaplex, connected])
 
   const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
@@ -84,6 +92,7 @@ const Dao = () => {
                 setDaoPage('detail')
               }}
               turkyNfts={turkyNfts}
+              nftIsLoaded={nftIsLoaded}
             />
           </div>
         ) : (
@@ -91,6 +100,7 @@ const Dao = () => {
             publicKey={publicKey}
             proposal={proposal}
             turkyNfts={turkyNfts}
+            nftIsLoaded={nftIsLoaded}
             onBack={() => setDaoPage('landing')}
           />
         )}

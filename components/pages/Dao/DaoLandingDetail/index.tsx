@@ -43,6 +43,7 @@ import TabList from 'assets/json/dao/tab-list.json'
 import axios from 'axios'
 import TableSection from './TableSection'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
+import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 
 const BorderLinearProgress = styled(LinearProgress)``
 const useStyles = makeStyles({
@@ -58,12 +59,13 @@ const useStyles = makeStyles({
 })
 
 const DaoLandingDetail = props => {
-  const { proposal, onBack, turkyNfts } = props
+  const { proposal, onBack, turkyNfts, nftIsLoaded } = props
   const { connected, publicKey, signTransaction } = useWallet()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
 
   const [isLoading, setIsLoading] = useState(false)
+  const [isNftLoading, setIsNftLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState(false)
   const [proposalDetail, setProposalDetail] = useState(proposal)
@@ -121,6 +123,12 @@ const DaoLandingDetail = props => {
       setThreshold(Math.trunc(threshold * 0.6))
     })()
   }, [])
+
+  useEffect(() => {
+    if (nftIsLoaded) {
+      setIsNftLoading(false)
+    }
+  }, [nftIsLoaded])
 
   useEffect(() => {
     let approveRatio = ((proposalDetail.approved_votes / proposalDetail.total_votes) * 100).toFixed(2)
@@ -204,6 +212,11 @@ const DaoLandingDetail = props => {
     if (!connected) {
       setClickedCastVote(true)
       setVisible(true)
+      return
+    }
+
+    if (nftIsLoaded === false) {
+      setIsNftLoading(true)
       return
     }
 
@@ -457,6 +470,16 @@ const DaoLandingDetail = props => {
       />
 
       <ProgressingModal open={isLoading} />
+
+      <ProgressingModalWithContent
+        open={isNftLoading}
+        close={() => {
+          setIsNftLoading(false)
+        }}
+        title="Wallet detection in progress..."
+        tip="Fun Fact"
+        content="If you have many NFTs in your wallet, this may take a little longer."
+      />
     </div>
   )
 }

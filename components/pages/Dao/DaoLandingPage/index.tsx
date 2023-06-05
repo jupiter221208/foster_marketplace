@@ -27,15 +27,11 @@ import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { trySendTransaction } from 'utils'
 import { isExpiredDate } from 'utils/helpers'
-import {
-  DaoProposal,
-  createNewProposalTransaction,
-  DAO_TREASURY_ADDRESS,
-  getCurrentTurkeyNftCount,
-} from 'utils/dao'
+import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
+import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 
 const DaoLandingPage = props => {
-  const { onDetail, turkyNfts } = props
+  const { onDetail, turkyNfts, nftIsLoaded } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const { connected, publicKey, signTransaction } = useWallet()
@@ -56,6 +52,7 @@ const DaoLandingPage = props => {
   const [solAmount, setSolAmount] = useState(0)
   const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [isNftLoading, setIsNftLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
 
@@ -82,6 +79,10 @@ const DaoLandingPage = props => {
     getStats()
   }, [])
 
+  useEffect(() => {
+    if (nftIsLoaded) setIsNftLoading(false)
+  }, [nftIsLoaded])
+
   const selectRowCount = count => {
     setRowCount(count)
   }
@@ -101,6 +102,11 @@ const DaoLandingPage = props => {
     if (!connected) {
       setClickedSubmitButton(true)
       setVisible(true)
+      return
+    }
+
+    if (nftIsLoaded === false) {
+      setIsNftLoading(true)
       return
     }
 
@@ -428,7 +434,22 @@ const DaoLandingPage = props => {
         data={noTurkeyAlert}
       />
 
-      <ProgressingModal open={isLoading} />
+      <ProgressingModal
+        open={isLoading}
+        close={() => {
+          setIsLoading(false)
+        }}
+      />
+
+      <ProgressingModalWithContent
+        open={isNftLoading}
+        close={() => {
+          setIsNftLoading(false)
+        }}
+        title="Wallet detection in progress..."
+        tip="Fun Fact"
+        content="If you have many NFTs in your wallet, this may take a little longer."
+      />
     </div>
   )
 }
