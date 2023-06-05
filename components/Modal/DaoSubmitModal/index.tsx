@@ -406,7 +406,7 @@ const DaoSubmitModal = props => {
                     <div className="mt-[12px]">
                       <Textarea
                         value={goal}
-                        placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?."
+                        placeholder="How will this proposal produce benefits to CircusDAO in its support of Foster Marketplace, Solana, and the integrity of artists?&#10;What types of metrics can be used to determine its success?"
                         fullWidth
                         color={'var(--text-gray-200-color)'}
                         onChange={value => setGoal(value)}
