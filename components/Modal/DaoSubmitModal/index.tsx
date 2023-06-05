@@ -447,6 +447,7 @@ const DaoSubmitModal = props => {
                     <div className="flex gap-[10px] mt-[13px]">
                       <div className="flex gap-[5px] items-center">
                         <Input
+                          value={days}
                           placeholder="0"
                           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                           width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
@@ -475,6 +476,8 @@ const DaoSubmitModal = props => {
                       </div>
                     </div>
                   </div>
+
+                  {days < 7 && <div className={styles.minimumVote}>Minimum voting duration is 7 days.</div>}
 
                   <div className="mt-[36px]">
                     <div className={styles.text}>Voting Start Time</div>
