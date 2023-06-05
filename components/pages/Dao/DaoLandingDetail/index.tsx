@@ -312,7 +312,7 @@ const DaoLandingDetail = props => {
       <div className="flex lg:hidden mt-[6px] justify-between items-center">
         <div className="flex">
           <div className={styles.proposedBy}>Proposed by</div>
-          <div className={styles.proposedText}>Angooba</div>
+          <div className={styles.proposedText}>{proposalDetail.author}</div>
         </div>
         <div>
           <GradientButton
