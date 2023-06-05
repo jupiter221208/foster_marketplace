@@ -58,7 +58,7 @@ const useStyles = makeStyles({
 })
 
 const DaoLandingDetail = props => {
-  const { proposal, onBack, turkeyCircus } = props
+  const { proposal, onBack, turkyNfts } = props
   const { connected, publicKey, signTransaction } = useWallet()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
@@ -176,7 +176,7 @@ const DaoLandingDetail = props => {
         wallet_id: publicKey,
         vote_status: status,
         signature,
-        weight: turkeyCircus ? turkeyCircus.length : '0',
+        weight: turkyNfts.length,
       })
       if (response.data.success === true) {
         onRefreshProposal()
@@ -207,7 +207,7 @@ const DaoLandingDetail = props => {
       return
     }
 
-    if (turkeyCircus === null || turkeyCircus.length === 0) {
+    if (turkyNfts.length === 0) {
       setShowNoTurkeyAlert(true)
       return
     }

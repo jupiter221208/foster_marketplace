@@ -31,13 +31,11 @@ import {
   DaoProposal,
   createNewProposalTransaction,
   DAO_TREASURY_ADDRESS,
-  TURKEY_CIRCUS_COLLECTION_ID,
   getCurrentTurkeyNftCount,
 } from 'utils/dao'
-import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
 
 const DaoLandingPage = props => {
-  const { onDetail, setTurkeyData } = props
+  const { onDetail, turkyNfts } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const { connected, publicKey, signTransaction } = useWallet()
@@ -65,22 +63,6 @@ const DaoLandingPage = props => {
   const [showNoTurkeyAlert, setShowNoTurkeyAlert] = useState(false)
   const [proposals, setProposals] = useState([])
   const [proposalKeypair, setProposalKeypair] = useState<Keypair>(Keypair.generate())
-
-  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
-  useEffect(() => {
-    if (connected) getMyNFTs(metaplex).then(setNfts)
-  }, [metaplex, connected])
-
-  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
-  useEffect(() => {
-    setTurkeyNfts(
-      nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))
-    )
-  }, [nfts])
-
-  useEffect(() => {
-    setTurkeyData(turkyNfts)
-  }, [turkyNfts])
 
   useEffect(() => {
     fetchSolToUsdRate().then(setSolToUsdRate)
@@ -122,7 +104,7 @@ const DaoLandingPage = props => {
       return
     }
 
-    if (turkyNfts === null || turkyNfts.length === 0) {
+    if (turkyNfts.length === 0) {
       setShowNoTurkeyAlert(true)
       return
     }
