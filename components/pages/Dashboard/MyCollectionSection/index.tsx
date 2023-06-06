@@ -23,22 +23,20 @@ const MyCollectionSection = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const isLoading = useSelector<any>(state => state.isLoading)
+  // const isLoading = useSelector<any>(state => state.isLoading)
 
   const [collections, setCollections] = useState([])
   const [collectionList, setCollectionList] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
+  const [isCollectionLoaded, setIsCollectionLoaded] = useState(false)
   const { metaplex: mx } = useMetaplex()
 
   useEffect(() => {
     const getCollections = async () => {
-      dispatch({ type: 'set', isLoading: true })
+      // dispatch({ type: 'set', isLoading: true })
       const collections = await getMyCollections(mx)
       setCollections(collections)
-      setTimeout(() => {
-        setIsLoaded(true)
-      }, 500)
-      dispatch({ type: 'set', isLoading: false })
+      setIsCollectionLoaded(true)
+      // dispatch({ type: 'set', isLoading: false })
     }
     if (mx) getCollections()
   }, [mx])
@@ -55,7 +53,7 @@ const MyCollectionSection = () => {
   return (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
-        {!isLoading &&
+        {isCollectionLoaded &&
           collectionList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3" key={index}>
               <CollectionCard
@@ -73,9 +71,9 @@ const MyCollectionSection = () => {
           ))}
       </div>
       <div className="col-span-12">
-        <LoadingModal open={isLoading} />
+        <LoadingModal open={!isCollectionLoaded} />
       </div>
-      {isLoaded && collectionList.length === 0 && (
+      {isCollectionLoaded && collectionList.length === 0 && (
         <div className="mt-[35px] lg:mt-[65px]">
           <NoDataSection
             title="No collections were created"
