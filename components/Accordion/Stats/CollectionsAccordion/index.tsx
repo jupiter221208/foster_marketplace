@@ -20,7 +20,6 @@ import ImageWithFallback from 'components/ImageWithFallback'
 const CollectionsAccordion = props => {
   const { data } = props
   const router = useRouter()
-  const [loaded, setLoaded] = useState(false)
 
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
@@ -54,11 +53,10 @@ const CollectionsAccordion = props => {
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
                       <ImageWithFallback
-                        src={item.asset_url}
+                        src={item.cover_image}
                         alt=""
                         width={52}
                         height={52}
-                        layout="fill"
                         className="rounded-[4px] object-cover"
                       />
                     </div>

@@ -291,7 +291,7 @@ const MainSection = props => {
                     <div className="flex items-center justify-center">
                       <div className={styles.nftInfoLabel}>
                         <SolanaLogoIcon alt="" />
-                        <div className={`ml-[8px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                        <div className={`ml-[8px]`}>{totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}</div>
                       </div>
                     </div>
 
@@ -417,7 +417,9 @@ const MainSection = props => {
                         {/* <Image src={SolanaLogoIcon} alt="" width={18} /> */}
                         <SolanaLogoMobileIcon />
 
-                        <div className={styles.nftInfoLabelMobile}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
+                        <div className={styles.nftInfoLabelMobile}>
+                          {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                        </div>
                       </div>
                     </div>
 

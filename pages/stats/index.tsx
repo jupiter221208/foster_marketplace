@@ -74,7 +74,7 @@ const Stats = () => {
       per_page: 12,
     }).then(
       respone => {
-        const nfts = respone
+        const nfts = respone.filter(item => item.asset_url !== '')
         setArtworks(nfts)
       },
       error => {}
@@ -93,7 +93,7 @@ const Stats = () => {
       per_page: 12,
     }).then(
       respone => {
-        const nfts = respone
+        const nfts = respone.filter(item => item.cover_image !== '')
         setCollections(nfts)
       },
       error => {}
@@ -108,7 +108,7 @@ const Stats = () => {
       per_page: 12,
     }).then(
       respone => {
-        const nfts = respone
+        const nfts = respone.filter(item => item.pfp_url !== '')
         setCreators(nfts)
       },
       error => {}
@@ -123,7 +123,7 @@ const Stats = () => {
       per_page: 12,
     }).then(
       respone => {
-        const nfts = respone
+        const nfts = respone.filter(item => item.pfp_url !== '')
         setCollectors(nfts)
       },
       error => {}

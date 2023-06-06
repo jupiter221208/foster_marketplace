@@ -61,14 +61,7 @@ const ArtworksAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <ImageWithFallback
-                        src={item.asset_url}
-                        alt=""
-                        width={52}
-                        height={52}
-                        layout="fill"
-                        className="rounded-[4px]"
-                      />
+                      <ImageWithFallback src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
                       <div
