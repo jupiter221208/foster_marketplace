@@ -13,6 +13,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
+import { checkExpiryDate } from 'utils/auth'
 
 const ModalPlaceBid = props => {
   const {
@@ -72,8 +73,11 @@ const ModalPlaceBid = props => {
       setPriceCheckMode(1)
       return
     } else {
-      console.log(price, balance, biddingWalletBalance, biddingLockBalance)
-      if (price > parseFloat(balance) && price > parseFloat(biddingWalletBalance) - biddingLockBalance) {
+      if (
+        checkExpiryDate() &&
+        price > parseFloat(balance) &&
+        price > parseFloat(biddingWalletBalance) - biddingLockBalance
+      ) {
         setPriceCheckMode(2)
         return
       } else {
