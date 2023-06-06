@@ -115,10 +115,9 @@ const ArtworksSection = props => {
     }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
-        const nfts = respone
+        const nfts = respone.filter(item => item.asset_url !== '')
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
-        console.log(nfts)
         setList(nfts)
         if (feedList.length === 0) setFeedList(nfts)
         window.scrollTo({
