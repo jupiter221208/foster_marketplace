@@ -55,7 +55,6 @@ const CreatorsAccordion = props => {
                         alt=""
                         width={36}
                         height={36}
-                        layout="fill"
                         className="rounded-full object-cover"
                       />
                     </div>
