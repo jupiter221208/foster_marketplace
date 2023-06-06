@@ -21,7 +21,6 @@ import { Metaplex } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
-import authAPI from 'apis/auth'
 import collectionsAPI from 'apis/collections'
 import { isString, isLoggedIn } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
