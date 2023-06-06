@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 import { useViewport } from 'utils'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const ArtistCard = props => {
   const { image, username, onClick } = props
@@ -47,14 +48,22 @@ const ArtistCard = props => {
       ) : (
         <div>
           <div className={`${styles.avatar} ${hover ? styles.avatarHover : ''}`}>
-            {!loaded && (
+            <ImageWithFallback
+              src={image}
+              onClick={onClick}
+              width={226}
+              height={226}
+              alt=""
+              className="w-full h-full rounded-full object-cover"
+            />
+            {/* {!loaded && (
               <div className="w-full h-full overflow-hidden rounded-full">
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                   <div></div>
                 </ReactPlaceholder>
               </div>
             )}
-            <img src={image} alt="" width={226} height={226} className="rounded-full" onLoad={() => setLoaded(true)} />
+            <img src={image} alt="" width={226} height={226} className="rounded-full" onLoad={() => setLoaded(true)} /> */}
           </div>
 
           <div className={`${styles.name} ${hover === true ? styles.nameHover : ''}`}>

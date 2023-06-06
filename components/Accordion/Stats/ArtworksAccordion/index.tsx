@@ -17,6 +17,7 @@ import styles from './index.module.scss'
 import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
+import ImageWithFallback from 'components/ImageWithFallback'
 
 const ArtworksAccordion = props => {
   const { data } = props
@@ -60,20 +61,13 @@ const ArtworksAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      {!loaded && (
-                        <div className="w-full rounded-[4px] overflow-hidden">
-                          <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
-                            <div></div>
-                          </ReactPlaceholder>
-                        </div>
-                      )}
-                      <img
+                      <ImageWithFallback
                         src={item.asset_url}
                         alt=""
                         width={52}
                         height={52}
+                        layout="fill"
                         className="rounded-[4px]"
-                        onLoad={() => setLoaded(true)}
                       />
                     </div>
                     <div className="block">
