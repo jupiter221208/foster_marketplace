@@ -33,7 +33,7 @@ import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const TrendingCollectionSection = props => {
-  const { category } = props
+  const { category, loop } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -90,7 +90,7 @@ const TrendingCollectionSection = props => {
               }
               modules={[Autoplay, Lazy, Navigation]}
               className="navigationSwiper"
-              loop
+              loop={loop}
               // autoplay={{
               //   delay: 5000,
               //   disableOnInteraction: false,

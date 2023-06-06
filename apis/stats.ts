@@ -16,7 +16,6 @@ class Stats {
   }
 
   getStatsCreator(data) {
-    console.log(data)
     return client.post(API_URL + 'v1/stats/creators', data).then(response => {
       return response.data
     })
