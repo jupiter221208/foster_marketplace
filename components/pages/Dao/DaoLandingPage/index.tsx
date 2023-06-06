@@ -434,12 +434,7 @@ const DaoLandingPage = props => {
         data={noTurkeyAlert}
       />
 
-      <ProgressingModal
-        open={isLoading}
-        close={() => {
-          setIsLoading(false)
-        }}
-      />
+      <ProgressingModal open={isLoading} />
 
       <ProgressingModalWithContent
         open={isNftLoading}
