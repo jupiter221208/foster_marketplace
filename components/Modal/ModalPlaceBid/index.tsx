@@ -65,19 +65,19 @@ const ModalPlaceBid = props => {
   }, [open])
 
   useEffect(() => {
-    if (price == 0) {
+    if (!checkExpiryDate()) {
       setPriceCheckMode(3)
+      return
+    }
+    if (price == 0) {
+      setPriceCheckMode(4)
       return
     }
     if (price < parseFloat(reservePrice) || price <= parseFloat(currentPrice)) {
       setPriceCheckMode(1)
       return
     } else {
-      if (
-        checkExpiryDate() &&
-        price > parseFloat(balance) &&
-        price > parseFloat(biddingWalletBalance) - biddingLockBalance
-      ) {
+      if (price > parseFloat(balance) && price > parseFloat(biddingWalletBalance) - biddingLockBalance) {
         setPriceCheckMode(2)
         return
       } else {
@@ -168,8 +168,12 @@ const ModalPlaceBid = props => {
                 {price > 0 && (
                   <div className="w-full flex justify-center mt-10">
                     <div className={styles.text}>
-                      {priceCheckMode === 3 ? (
+                      {priceCheckMode === 4 ? (
                         <></>
+                      ) : priceCheckMode === 3 ? (
+                        <div className={styles.errorText}>
+                          The auth token is expired, please signout and login again.
+                        </div>
                       ) : priceCheckMode === 1 ? (
                         <div className={styles.errorText}>
                           The bid amount you entered is lower than the starting bid or current bid.
