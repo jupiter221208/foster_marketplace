@@ -35,7 +35,7 @@ const Dao = () => {
   const { id } = router.query
   const paramId = id + ''
   const params = paramId.toString().split('proposal')
-  const proposal_id = params.length > 1 ? params[1] : null
+  const proposal_id = params.length > 1 ? parseInt(params[1]) : null
 
   useEffect(() => {
     ;(async () => {
@@ -43,9 +43,9 @@ const Dao = () => {
         let nfts = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
         setNfts(nfts)
+        // get proposal detail
+        getProposal()
       }
-      // get proposal detail
-      getProposal()
     })()
   }, [metaplex, connected])
 
@@ -58,6 +58,7 @@ const Dao = () => {
 
   const getProposal = async () => {
     if (proposal_id === null) return
+
     try {
       let vote = {
         proposal_id,
