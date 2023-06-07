@@ -51,7 +51,7 @@ const CollectionsTable = props => {
                     />
                   </div>
                   <div
-                    className="flex justify-center"
+                    className="flex justify-center cursor-pointer"
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
                       router.push(`/browse-collection/${item.collection_address}`)
@@ -85,7 +85,14 @@ const CollectionsTable = props => {
                   {item.highest_sale?.toFixed(2)}
                 </div>
               </td>
-              <td className="text-center">{item.creator_username}</td>
+              <td
+                className="text-center cursor-pointer"
+                onClick={() => {
+                  router.push(`/${item.creator_username.replaceAll(' ', '%20')}`)
+                }}
+              >
+                {item.creator_username}
+              </td>
               <td className="text-center">{item.unique_holders}</td>
             </tr>
           )
