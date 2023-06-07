@@ -159,7 +159,7 @@ const DaoLandingPage = props => {
       })
       if (!signature) throw new Error(`could not submit proposal to chain`)
 
-      await axios.post('api/dao/submit', {
+      await axios.post('/api/dao/submit', {
         signature,
         ...proposal,
         url,
@@ -195,7 +195,7 @@ const DaoLandingPage = props => {
 
   const getStats = async () => {
     try {
-      let response = await axios.get('api/dao/stats')
+      let response = await axios.get('/api/dao/stats')
       if (response.data.success === true) {
         let stats = response.data.stats
         setTotalCount(stats.total_count)
@@ -212,7 +212,7 @@ const DaoLandingPage = props => {
 
   const getProposals = async (curPage, count) => {
     try {
-      let response = await axios.post('api/dao/proposals', { page: curPage, rows: count })
+      let response = await axios.post('/api/dao/proposals', { page: curPage, rows: count })
       // let response = {
       //   data: {
       //     success: true,

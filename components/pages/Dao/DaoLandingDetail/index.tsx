@@ -139,7 +139,7 @@ const DaoLandingDetail = props => {
       let vote = {
         proposal_id: proposal.id,
       }
-      let response = await axios.post('api/dao/vote-history', vote)
+      let response = await axios.post('/api/dao/vote-history', vote)
       if (response.data.success === true) {
         setVoteHistory(response.data.votes)
       }
@@ -152,7 +152,7 @@ const DaoLandingDetail = props => {
         proposal_id: proposalDetail.id,
       }
 
-      let response = await axios.post('api/dao/proposal-detail', vote)
+      let response = await axios.post('/api/dao/proposal-detail', vote)
       if (response.data.success === true) {
         let proposals = response.data.proposals
 
@@ -165,7 +165,7 @@ const DaoLandingDetail = props => {
 
   const checkEnableCastVote = async () => {
     try {
-      let response = await axios.post('api/dao/enable-vote', {
+      let response = await axios.post('/api/dao/enable-vote', {
         proposal_id: proposalDetail.id,
         wallet_id: publicKey,
       })
@@ -189,7 +189,7 @@ const DaoLandingDetail = props => {
       let signature: null | string = await trySendTransaction(metaplex.connection, tx, signTransaction)
       if (!signature) throw new Error(`could not submit vote to chain`)
 
-      let response = await axios.post('api/dao/vote', {
+      let response = await axios.post('/api/dao/vote', {
         proposal_id: proposalDetail.id,
         wallet_id: publicKey,
         vote_status: status,

@@ -93,7 +93,7 @@ const Dao = () => {
 
   const viewport = useViewport()
 
-  let pageTitle = `CircusDAO | ${proposal?.title}`
+  let pageTitle = `CircusDAO | Foster Marketplace`
   let pageImageUrl = DaoPreviewImage.src
   let pageDescription = 'A community of artists and builders shaping the evolution of Foster Marketplace.'
 
