@@ -29,10 +29,12 @@ import { trySendTransaction } from 'utils'
 import { isExpiredDate } from 'utils/helpers'
 import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
+import { useRouter } from 'next/router'
 
 const DaoLandingPage = props => {
-  const { onDetail, turkyNfts, nftIsLoaded } = props
+  const { turkyNfts, nftIsLoaded } = props
   const viewport = useViewport()
+  const router = useRouter()
   const dispatch = useDispatch()
   const { connected, publicKey, signTransaction } = useWallet()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
@@ -216,6 +218,7 @@ const DaoLandingPage = props => {
       //     success: true,
       //     proposals: [
       //       {
+      //         id: 2,
       //         title: 'CBC Product 0531',
       //         category: 'Product',
       //         author: 'Nicholas',
@@ -392,7 +395,12 @@ const DaoLandingPage = props => {
       </div>
 
       <div className="mt-[20px]">
-        <TableSection data={proposals} onDetail={onDetail} />
+        <TableSection
+          data={proposals}
+          onDetail={item => {
+            router.push(`/dao/proposal${item.id}`)
+          }}
+        />
       </div>
       <div className="w-full flex justify-end">
         <ExplorePagination

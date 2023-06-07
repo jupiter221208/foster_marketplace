@@ -84,7 +84,7 @@ const Dao = () => {
         {/* {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
         ) :  */}
-        {daoPage === 'landing' ? (
+        {/* {daoPage === 'landing' ? (
           <div className="w-full mt-[40px] lg:mt-[115px] z-10">
             <DaoLandingPage
               onDetail={item => {
@@ -103,7 +103,8 @@ const Dao = () => {
             nftIsLoaded={nftIsLoaded}
             onBack={() => setDaoPage('landing')}
           />
-        )}
+        )} */}
+        <DaoLandingPage turkyNfts={turkyNfts} nftIsLoaded={nftIsLoaded} />
       </div>
     </div>
   )

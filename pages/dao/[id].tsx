@@ -63,8 +63,24 @@ const Dao = () => {
       let vote = {
         proposal_id,
       }
-
-      let response = await axios.post('api/dao/proposal-detail', vote)
+      let response = await axios.post('/api/dao/proposal-detail', vote)
+      // let response = {
+      //   data: {
+      //     success: true,
+      //     proposals: [
+      //       {
+      //         id: 2,
+      //         title: 'CBC Product 0531',
+      //         category: 'Product',
+      //         author: 'Nicholas',
+      //         vote_start: '2023-05-31 12:00:00',
+      //         vote_duration: 120,
+      //         total_votes: 300,
+      //         approved_votes: 240,
+      //       },
+      //     ],
+      //   },
+      // }
       if (response.data.success === true) {
         let proposals = response.data.proposals
 
