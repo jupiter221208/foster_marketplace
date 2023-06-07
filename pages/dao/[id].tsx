@@ -21,17 +21,19 @@ import styles from './index.module.scss'
 import { useViewport } from 'utils'
 import DaoLandingDetail from 'components/pages/Dao/DaoLandingDetail'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 
-const Dao = props => {
-  const [daoPage, setDaoPage] = useState('landing')
+const Dao = () => {
+  const router = useRouter()
 
-  const [proposal, setProposal] = useState()
+  const [proposal, setProposal] = useState(null)
   const { connected, publicKey } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
 
   const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
-  const proposal_title = props.query.id
+  const { id } = router.query
+  const proposal_title = id
 
   useEffect(() => {
     ;(async () => {
@@ -71,7 +73,7 @@ const Dao = props => {
 
   const viewport = useViewport()
 
-  let pageTitle = `CircusDAO | Foster Marketplace`
+  let pageTitle = `CircusDAO | ${proposal_title}`
   let pageImageUrl = DaoPreviewImage.src
   let pageDescription = 'A community of artists and builders shaping the evolution of Foster Marketplace.'
 
@@ -97,14 +99,15 @@ const Dao = props => {
         <div className={styles.topLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-
-        <DaoLandingDetail
-          publicKey={publicKey}
-          proposal={proposal}
-          turkyNfts={turkyNfts}
-          nftIsLoaded={nftIsLoaded}
-          onBack={() => setDaoPage('landing')}
-        />
+        {proposal !== null && (
+          <DaoLandingDetail
+            publicKey={publicKey}
+            proposal={proposal}
+            turkyNfts={turkyNfts}
+            nftIsLoaded={nftIsLoaded}
+            onBack={() => router.push('/dao')}
+          />
+        )}
       </div>
     </div>
   )
