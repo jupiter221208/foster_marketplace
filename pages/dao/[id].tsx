@@ -44,8 +44,8 @@ const Dao = () => {
         setNftIsLoaded(true)
         setNfts(nfts)
         // get proposal detail
-        getProposal()
       }
+      getProposal()
     })()
   }, [metaplex, connected])
 
