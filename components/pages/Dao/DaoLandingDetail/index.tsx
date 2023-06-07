@@ -22,7 +22,6 @@ import NotificationIcon from 'assets/icons/notification-icon-black.svg'
 import NotificationMobileIcon from 'assets/icons/notification-icon-black-mobile.svg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftMobileIcon from 'assets/icons/arrow-left-medium-mobile.svg?component'
-import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -30,11 +29,8 @@ import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
 import { trySendTransaction } from 'utils'
-import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
 import { createVoteTransaction, getCurrentTurkeyNftCount } from 'utils/dao'
-import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
-import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 // json
 import TabList from 'assets/json/dao/tab-list.json'
@@ -42,7 +38,6 @@ import TabList from 'assets/json/dao/tab-list.json'
 // apis
 import axios from 'axios'
 import TableSection from './TableSection'
-import StatsSearchBox from 'components/Input/StatsSearchBox'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 import Tab from 'components/Tab'
 
@@ -76,7 +71,6 @@ const DaoLandingDetail = props => {
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
   const [tabList, setTabList] = useState<any>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
-  const [searchWord, setSearchWord] = useState('')
   const [voteHistory, setVoteHistory] = useState([])
   const [approvedRatio, setApprovedRatio] = useState('0')
   const [opposedRatio, setOpposedRatio] = useState('0')
