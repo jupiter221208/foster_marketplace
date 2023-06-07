@@ -33,7 +33,9 @@ const Dao = () => {
 
   const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
   const { id } = router.query
-  const proposal_title = id
+  const paramId = id + ''
+  const params = paramId.toString().split('proposal')
+  const proposal_id = params.length > 1 ? params[1] : null
 
   useEffect(() => {
     ;(async () => {
@@ -55,12 +57,13 @@ const Dao = () => {
   }, [nfts])
 
   const getProposal = async () => {
+    if (proposal_id === null) return
     try {
       let vote = {
-        proposal_title,
+        proposal_id,
       }
 
-      let response = await axios.post('api/dao/proposal-detail-with-title', vote)
+      let response = await axios.post('api/dao/proposal-detail', vote)
       if (response.data.success === true) {
         let proposals = response.data.proposals
 
@@ -73,7 +76,7 @@ const Dao = () => {
 
   const viewport = useViewport()
 
-  let pageTitle = `CircusDAO | ${proposal_title}`
+  let pageTitle = `CircusDAO | ${proposal?.title}`
   let pageImageUrl = DaoPreviewImage.src
   let pageDescription = 'A community of artists and builders shaping the evolution of Foster Marketplace.'
 
