@@ -21,7 +21,17 @@ const StatsArtistCard = props => {
   const dispatch = useDispatch()
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        dispatch({ type: 'set', isLoading: true })
+        router.push(
+          `/${
+            type === 'creators' ? data.creator_name.replaceAll(' ', '%20') : data.collector_name.replaceAll(' ', '%20')
+          }`
+        )
+      }}
+    >
       <div className="w-full flex justify-center pt-[30px]">
         <div className={styles.avatarArea}>
           <div className="w-full h-full overflow-hidden rounded-full">
@@ -36,21 +46,7 @@ const StatsArtistCard = props => {
         </div>
       </div>
       <div className="w-full flex justify-center pt-[3px] lg:pt-[7px]">
-        <div
-          className={styles.name}
-          onClick={() => {
-            dispatch({ type: 'set', isLoading: true })
-            router.push(
-              `/${
-                type === 'creators'
-                  ? data.creator_name.replaceAll(' ', '%20')
-                  : data.collector_name.replaceAll(' ', '%20')
-              }`
-            )
-          }}
-        >
-          {type === 'creators' ? data.creator_name : data.collector_name}
-        </div>
+        <div className={styles.name}>{type === 'creators' ? data.creator_name : data.collector_name}</div>
       </div>
       <div className="w-full pt-[20px] lg:pt-[36px]">
         <div className="flex justify-center items-center gap-[4px]">
