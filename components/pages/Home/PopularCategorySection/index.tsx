@@ -35,8 +35,14 @@ const PopularCategorySection = props => {
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
-    setCategoryList(PopularCategoryList)
+    let random = (Math.random() * 100) % PopularCategoryList.length
+    let categoryList = [
+      ...PopularCategoryList.slice(random, PopularCategoryList.length),
+      ...PopularCategoryList.slice(0, random),
+    ]
+    setCategoryList(categoryList)
   }, [])
+
   return (
     <section className={styles.container}>
       <div className="w-full flex justify-center lg:justify-between items-center z-10">
