@@ -371,6 +371,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   }, [nftInfo])
 
   useEffect(() => {
+    if (publicKey !== null && sellerAddress !== null) {
+      setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
+    }
+  }, [publicKey, sellerAddress])
+
+  useEffect(() => {
     ;(async () => {
       if (!nftDetail) return
 
@@ -379,7 +385,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
-      setIsOwnNft(publicKey?.equals(tokenAccount.owner))
+
       setSellerAddress(tokenAccount.owner)
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
