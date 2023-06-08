@@ -44,7 +44,8 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const MainSection = prop => {
-  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable, isLoaded } = prop
+  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable, isLoaded, setFullScreenView } =
+    prop
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()
@@ -136,7 +137,7 @@ const MainSection = prop => {
               </div>
             </div>
           </div>
-          <div className="col-span-6">
+          <div className="col-span-6" onClick={() => setFullScreenView(artistInfo?.profile_picture)}>
             <ProfileArtistCard
               image={
                 artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null
@@ -387,7 +388,10 @@ const MainSection = prop => {
             <EllipseGreen />
           </div> */}
         </div>
-        <div className="w-full relative items-center mt-[-50px] z-10">
+        <div
+          className="w-full relative items-center mt-[-50px] z-10"
+          onClick={() => setFullScreenView(artistInfo?.profile_picture)}
+        >
           <ProfileArtistCard
             image={
               artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null

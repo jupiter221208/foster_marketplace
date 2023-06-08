@@ -14,10 +14,11 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 // styles
 import styles from './index.module.scss'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { useRouter } from 'next/router'
 
 const CollectorsAccordion = props => {
   const { data } = props
-
+  const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
   const clickRecent = index => {
@@ -58,7 +59,9 @@ const CollectorsAccordion = props => {
                       />
                     </div>
                     <div className="block">
-                      <div className={styles.subTitle}>{item.collector_name}</div>
+                      <div className={styles.subTitle} onClick={() => router.push(`/${item.collector_name}`)}>
+                        {item.collector_name}
+                      </div>
                       <div className="flex gap-2 mt-1 items-center">
                         <div className={styles.priceText}>Total Purchases</div>
                         <div className="flex items-center gap-[4px] mt-[2px]">

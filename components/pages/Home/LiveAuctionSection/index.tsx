@@ -42,7 +42,13 @@ const LiveAuctionSection = props => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
-          if (item.asset_url.length > 0) lists.push(item)
+          if (item.asset_url.length > 0) {
+            if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
+              if (item.cover_image_url?.length > 0) lists.push(item)
+            } else {
+              lists.push(item)
+            }
+          }
         })
         setAllLiveAuctionList(lists)
         setLiveAuctionList(lists)

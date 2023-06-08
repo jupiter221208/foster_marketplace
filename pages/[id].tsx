@@ -18,6 +18,7 @@ import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import HeaderImage from 'assets/images/banner-image.png'
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import CloseIcon from 'assets/icons/close-screen.svg'
 
 // styles
 import styles from './id.module.scss'
@@ -54,6 +55,17 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistEnable, setArtistEnable] = useState(true)
   const [isMounted, setIsMounted] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [userProfileUrl, setUserProfileUrl] = useState('')
+  const [fullScreenMode, setFullScreenMode] = useState(false)
+
+  const setFullScreenView = url => {
+    window.scrollTo({
+      top: 0,
+    })
+    document.body.style.overflow = 'hidden'
+    setFullScreenMode(true)
+    setUserProfileUrl(url)
+  }
 
   const [isOwn, setIsOwn] = useState<any>(false)
   useEffect(() => {
@@ -230,9 +242,29 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           isLoaded={isLoaded}
           artistEnable={artistEnable}
           setArtistEnable={enabled => setArtistEnable(enabled)}
+          setFullScreenView={setFullScreenView}
         />
         <NFTSection nfts={nfts} collections={collections} wallet={artistInfo?.wallet_id} isOwn={isOwn} />
       </div>
+
+      {fullScreenMode && (
+        <div className={styles.fullScreen}>
+          <img
+            src={userProfileUrl}
+            alt=""
+            className="w-[260px] h-[260px] lg:w-[500px] lg:h-[500px] rounded-full object-fit"
+          />
+          <div
+            className={styles.closeScreen}
+            onClick={() => {
+              setFullScreenMode(false)
+              document.body.style.overflow = 'unset'
+            }}
+          >
+            <Image src={CloseIcon} alt="" width={18} height={18} />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -244,7 +276,7 @@ ArtistProfile.getLayout = function getLayout(page) {
 }
 
 ArtistProfile.getInitialProps = async function ({ res, query }): Promise<ArtistProfileProps> {
-  let artistUsername = query.id.replaceAll(' ', '%20')
+  let artistUsername = encodeURIComponent(query.id)
 
   try {
     let publicArtistData = await fetch(`${process.env.BACKEND_URL}v1/artists/${artistUsername}/username`).then(r =>

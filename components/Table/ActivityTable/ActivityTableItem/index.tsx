@@ -1,3 +1,4 @@
+import ImageWithFallback from 'components/ImageWithFallback'
 import Image from 'next/image'
 import React, { useState } from 'react'
 import ReactPlaceholder from 'react-placeholder'

@@ -121,7 +121,14 @@ const CollectionsAccordion = props => {
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Creator</div>
-                    <div className={styles.text}>{item.creator_username}</div>
+                    <div
+                      className={styles.text}
+                      onClick={() => {
+                        router.push(`/${item.creator_username}`)
+                      }}
+                    >
+                      {item.creator_username}
+                    </div>
                   </div>
                 </Disclosure.Panel>
               </>

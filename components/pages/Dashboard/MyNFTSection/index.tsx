@@ -152,7 +152,18 @@ const MyNFTSection = props => {
         </div>
       )}
       <div className="w-full flex justify-end">
-        <Pagination data={filteredList} getCurrentData={data => setNFTList(data)} />
+        <Pagination
+          data={filteredList}
+          getCurrentData={data => {
+            setNFTList([])
+            window.scrollTo({
+              top: 550,
+            })
+            setTimeout(() => {
+              setNFTList(data)
+            }, 500)
+          }}
+        />
       </div>
 
       <Alert

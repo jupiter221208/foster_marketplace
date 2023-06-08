@@ -55,7 +55,7 @@ const CreatorsTable = props => {
                     className="flex justify-center cursor-pointer"
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/${item.creator_name.replaceAll(' ', '%20')}`)
+                      router.push(`/${item.creator_name}`)
                     }}
                   >
                     {item.creator_name}

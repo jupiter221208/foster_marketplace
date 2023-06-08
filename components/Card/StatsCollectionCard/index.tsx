@@ -21,7 +21,17 @@ const StatsCollectionCard = props => {
   const [loaded, setLoaded] = useState(false)
 
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      onClick={() => {
+        dispatch({ type: 'set', isLoading: true })
+        if (type === 'artworks') {
+          router.push(`/browse-nft?id=${data.mint_address}`)
+        } else {
+          router.push(`/browse-collection/${data.collection_address}`)
+        }
+      }}
+    >
       <div className={styles.imageArea}>
         <ImageWithFallback
           src={type === 'artworks' ? data.asset_url : data.cover_image}
@@ -33,19 +43,7 @@ const StatsCollectionCard = props => {
       <div className={styles.dataContainer}>
         <div className={styles.dataGradientBgView} />
         <div className={styles.dataContentView}>
-          <div
-            className={styles.nftName}
-            onClick={() => {
-              dispatch({ type: 'set', isLoading: true })
-              if (type === 'artworks') {
-                router.push(`/browse-nft?id=${data.mint_address}`)
-              } else {
-                router.push(`/browse-collection/${data.collection_address}`)
-              }
-            }}
-          >
-            {type === 'artworks' ? data.asset_name : data.collection_name}
-          </div>
+          <div className={styles.nftName}>{type === 'artworks' ? data.asset_name : data.collection_name}</div>
           <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
             <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
             <div className="flex gap-[4px] items-center">
