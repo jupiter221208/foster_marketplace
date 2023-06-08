@@ -25,11 +25,7 @@ const StatsArtistCard = props => {
       className={styles.container}
       onClick={() => {
         dispatch({ type: 'set', isLoading: true })
-        router.push(
-          `/${
-            type === 'creators' ? data.creator_name.replaceAll(' ', '%20') : data.collector_name.replaceAll(' ', '%20')
-          }`
-        )
+        router.push(`/${type === 'creators' ? data.creator_name : data.collector_name}`)
       }}
     >
       <div className="w-full flex justify-center pt-[30px]">

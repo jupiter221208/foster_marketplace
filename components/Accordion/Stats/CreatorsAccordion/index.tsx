@@ -59,10 +59,7 @@ const CreatorsAccordion = props => {
                       />
                     </div>
                     <div className="block">
-                      <div
-                        className={styles.subTitle}
-                        onClick={() => router.push(`/${item.creator_name.replaceAll(' ', '%20')}`)}
-                      >
+                      <div className={styles.subTitle} onClick={() => router.push(`/${item.creator_name}`)}>
                         {item.creator_name}
                       </div>
                       <div className="flex gap-2 mt-1 items-center">

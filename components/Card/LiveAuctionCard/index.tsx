@@ -144,7 +144,7 @@ const LiveAuctionCard = props => {
       <div
         className={styles.avatar}
         onClick={() => {
-          router.push(`/${data.artist_username.replaceAll(' ', '%20')}`)
+          router.push(`/${data.artist_username}`)
           dispatch({ type: 'set', isLoading: true })
         }}
       >

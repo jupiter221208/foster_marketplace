@@ -124,7 +124,7 @@ const CollectionsAccordion = props => {
                     <div
                       className={styles.text}
                       onClick={() => {
-                        router.push(`/${item.creator_username.replaceAll(' ', '%20')}`)
+                        router.push(`/${item.creator_username}`)
                       }}
                     >
                       {item.creator_username}
