@@ -839,7 +839,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                         setIsEnded={setIsEnded}
                         setIsStarted={setIsStarted}
                       />
-                      {showPlaceBidButton && !isOwnNft && (
+                      {!loading && showPlaceBidButton && !isOwnNft && (
                         <div>
                           <div
                             className={`${styles.placeBidBG} ${
