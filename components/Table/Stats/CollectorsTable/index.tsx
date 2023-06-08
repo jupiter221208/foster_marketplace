@@ -56,7 +56,7 @@ const CollectorsTable = props => {
                     className="flex justify-center cursor-pointer"
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/${item.creator_name}`)
+                      router.push(`/${item.collector_name}`)
                     }}
                   >
                     {item.collector_name}
@@ -75,7 +75,15 @@ const CollectorsTable = props => {
                   {item.highest_purchase}
                 </div>
               </td>
-              <td className="text-center">{item.favorite_category}</td>
+              <td
+                className="text-center cursor-pointer"
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/category/${item.favorite_category}`)
+                }}
+              >
+                {item.favorite_category}
+              </td>
               <td className="text-center">{item.items_collected}</td>
               <td className="text-center">{item.creators_supported}</td>
             </tr>
