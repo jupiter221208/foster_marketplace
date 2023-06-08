@@ -71,7 +71,6 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
-    console.log(bio, orgUserInfo.bio)
     if (bio !== orgUserInfo.bio) {
       setEnableSave(true)
       return

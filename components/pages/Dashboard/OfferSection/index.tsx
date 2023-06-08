@@ -39,6 +39,7 @@ const OfferSection = () => {
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
+  const [offerLoaded, setOfferLoaded] = useState(false)
 
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -63,14 +64,15 @@ const OfferSection = () => {
 
   useEffect(() => {
     ;(async () => {
-      dispatch({ type: 'set', isLoading: true })
+      // dispatch({ type: 'set', isLoading: true })
       try {
         if (shownOfferType === 'made') await fetchOffersMade()
         else if (shownOfferType === 'received') await fetchOffersReceived()
       } catch (e) {
         console.error(e)
       }
-      dispatch({ type: 'set', isLoading: false })
+      // dispatch({ type: 'set', isLoading: false })
+      setOfferLoaded(true)
     })()
   }, [shownOfferType, fetchOffersMade, fetchOffersReceived])
 
@@ -171,9 +173,9 @@ const OfferSection = () => {
           selected={shownOfferType === 'received'}
         />
       </div>
-      {isLoading ? (
+      {!offerLoaded ? (
         <div className="col-span-12">
-          <LoadingModal open={isLoading} />
+          <LoadingModal open={!offerLoaded} />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
         <div className="w-full mt-[15px] lg:mt-[34px]">

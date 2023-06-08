@@ -23,7 +23,7 @@ const ArtworksTable = props => {
 
   const gotoUserDetail = link => {
     dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link.replaceAll(' ', '%20')}`)
+    router.push(`/${link}`)
   }
 
   return (

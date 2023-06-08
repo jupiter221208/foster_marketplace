@@ -22,7 +22,6 @@ import NotificationIcon from 'assets/icons/notification-icon-black.svg'
 import NotificationMobileIcon from 'assets/icons/notification-icon-black-mobile.svg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftMobileIcon from 'assets/icons/arrow-left-medium-mobile.svg?component'
-import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -30,11 +29,8 @@ import GradientButton from 'components/Button/GradientButton'
 import styled from 'styled-components'
 import CastVoteModal from 'components/Modal/CastVoteModal'
 import { trySendTransaction } from 'utils'
-import { getShortAddress } from 'utils/wallet.util'
 import { getDateLabel, getTimeLabel } from 'utils/helpers'
 import { createVoteTransaction, getCurrentTurkeyNftCount } from 'utils/dao'
-import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
-import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 
 // json
 import TabList from 'assets/json/dao/tab-list.json'
@@ -42,7 +38,6 @@ import TabList from 'assets/json/dao/tab-list.json'
 // apis
 import axios from 'axios'
 import TableSection from './TableSection'
-import StatsSearchBox from 'components/Input/StatsSearchBox'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 import Tab from 'components/Tab'
 
@@ -76,7 +71,6 @@ const DaoLandingDetail = props => {
   const [noTurkeyAlert, setNoTurkeyAlert] = useState<any[]>([])
   const [tabList, setTabList] = useState<any>(TabList)
   const [activeTab, setActiveTab] = useState<any>(0)
-  const [searchWord, setSearchWord] = useState('')
   const [voteHistory, setVoteHistory] = useState([])
   const [approvedRatio, setApprovedRatio] = useState('0')
   const [opposedRatio, setOpposedRatio] = useState('0')
@@ -145,7 +139,7 @@ const DaoLandingDetail = props => {
       let vote = {
         proposal_id: proposal.id,
       }
-      let response = await axios.post('api/dao/vote-history', vote)
+      let response = await axios.post('/api/dao/vote-history', vote)
       if (response.data.success === true) {
         setVoteHistory(response.data.votes)
       }
@@ -158,7 +152,7 @@ const DaoLandingDetail = props => {
         proposal_id: proposalDetail.id,
       }
 
-      let response = await axios.post('api/dao/proposal-detail', vote)
+      let response = await axios.post('/api/dao/proposal-detail', vote)
       if (response.data.success === true) {
         let proposals = response.data.proposals
 
@@ -171,7 +165,7 @@ const DaoLandingDetail = props => {
 
   const checkEnableCastVote = async () => {
     try {
-      let response = await axios.post('api/dao/enable-vote', {
+      let response = await axios.post('/api/dao/enable-vote', {
         proposal_id: proposalDetail.id,
         wallet_id: publicKey,
       })
@@ -195,7 +189,7 @@ const DaoLandingDetail = props => {
       let signature: null | string = await trySendTransaction(metaplex.connection, tx, signTransaction)
       if (!signature) throw new Error(`could not submit vote to chain`)
 
-      let response = await axios.post('api/dao/vote', {
+      let response = await axios.post('/api/dao/vote', {
         proposal_id: proposalDetail.id,
         wallet_id: publicKey,
         vote_status: status,
