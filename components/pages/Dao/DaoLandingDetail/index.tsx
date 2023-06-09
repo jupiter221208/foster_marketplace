@@ -79,6 +79,20 @@ const DaoLandingDetail = props => {
   const classes = useStyles()
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
 
+  useEffect(() => {
+    setProposalDetail(proposal)
+    if (proposal.status === 'live') {
+      ;(async () => {
+        await checkEnableCastVote()
+      })()
+    }
+    getVoteHistory()
+    ;(async () => {
+      let threshold = await getCurrentTurkeyNftCount()
+      setThreshold(Math.trunc(threshold * 0.6))
+    })()
+  }, [proposal])
+
   const getEndDate = () => {
     var endDate = new Date(proposalDetail.vote_start)
     endDate.setHours(endDate.getHours() + proposalDetail.vote_duration)
@@ -97,11 +111,6 @@ const DaoLandingDetail = props => {
         type: 'success',
       },
     ])
-    if (proposal.status === 'live') {
-      ;(async () => {
-        await checkEnableCastVote()
-      })()
-    }
 
     setNoTurkeyAlert([
       {
@@ -113,12 +122,6 @@ const DaoLandingDetail = props => {
     ])
 
     handleSelectedTab(0)
-
-    getVoteHistory()
-    ;(async () => {
-      let threshold = await getCurrentTurkeyNftCount()
-      setThreshold(Math.trunc(threshold * 0.6))
-    })()
   }, [])
 
   useEffect(() => {
