@@ -23,7 +23,7 @@ const ImageWithFallback = props => {
           }}
         />
       ) : (
-        <img src={src} onLoad={() => setLoaded(true)} />
+        <img {...rest} src={src} onLoad={() => setLoaded(true)} />
       )}
     </div>
   )
