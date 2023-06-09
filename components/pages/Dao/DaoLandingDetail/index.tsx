@@ -80,8 +80,7 @@ const DaoLandingDetail = props => {
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
 
   useEffect(() => {
-    setProposalDetail(proposal)
-    if (proposal.status === 'live') {
+    if (proposalDetail.status === 'live') {
       ;(async () => {
         await checkEnableCastVote()
       })()
@@ -91,7 +90,7 @@ const DaoLandingDetail = props => {
       let threshold = await getCurrentTurkeyNftCount()
       setThreshold(Math.trunc(threshold * 0.6))
     })()
-  }, [proposal])
+  }, [proposalDetail])
 
   const getEndDate = () => {
     var endDate = new Date(proposalDetail.vote_start)
