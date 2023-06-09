@@ -35,7 +35,13 @@ const MoreCollectionSection = props => {
     if (collectionId !== null) {
       collectionAPI.getCollectionNft(collectionId).then(
         response => {
-          if (response instanceof Array) setNftList(response)
+          if (response instanceof Array) {
+            if (viewport === 'xs' || viewport === 'sm' || viewport === 'md') {
+              setNftList(response.filter(item => item.cover_image_url !== null))
+            } else {
+              setNftList(response)
+            }
+          }
         },
         error => {}
       )
