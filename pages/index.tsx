@@ -69,7 +69,7 @@ const Home = () => {
       <MarketplaceReleaseSection category={''} />
       <LiveAuctionSection category={''} />
       <TrendingCollectionSection category={''} loop={true} />
-      <MostPopularSection category={''} />
+      {/* <MostPopularSection category={''} /> */}
       <CreateSellNFTSection />
 
       <FullScreenLoadingModal open={isLoading} />
