@@ -80,10 +80,15 @@ const DaoLandingDetail = props => {
   const [showCastVoteModal, setShowCastVoteModal] = useState(false)
 
   useEffect(() => {
-    if (connected && proposalDetail.status === 'live') {
-      ;(async () => {
-        await checkEnableCastVote()
-      })()
+    if (proposalDetail.status === 'live') {
+      if (connected) {
+        setDisabledVote(true)
+        ;(async () => {
+          await checkEnableCastVote()
+        })()
+      } else {
+        setDisabledVote(false)
+      }
     }
     getVoteHistory()
     ;(async () => {
