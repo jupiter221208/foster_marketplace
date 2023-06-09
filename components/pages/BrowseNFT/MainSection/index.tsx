@@ -584,7 +584,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
         {loading ? (
           <div className="col-span-2 lg:col-span-1">
             <div className={styles.loadingBackground}>
-              <div className="w-full h-full">
+              <div className="w-full h-[400px] lg:h-full">
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                   <div></div>
                 </ReactPlaceholder>
