@@ -141,15 +141,15 @@ const LiveAuctionCard = props => {
           )}
         </div>
       </div>
-      <div
-        className={styles.avatar}
-        onClick={() => {
-          router.push(`/${data.artist_username}`)
-          dispatch({ type: 'set', isLoading: true })
-        }}
-      >
-        <div className="w-[32px] h-[32px] lg:w-[36px] lg:h-[36px] rounded-full overflow-hidden">
-          {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
+      {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
+        <div
+          className={styles.avatar}
+          onClick={() => {
+            router.push(`/${data.artist_username}`)
+            dispatch({ type: 'set', isLoading: true })
+          }}
+        >
+          <div className="w-[32px] h-[32px] lg:w-[36px] lg:h-[36px] rounded-full overflow-hidden">
             <img
               width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
@@ -157,9 +157,9 @@ const LiveAuctionCard = props => {
               alt=""
               className="rounded-full"
             />
-          )}
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.bidContainer}>
         <div className={styles.bidBgView} />
         <div className={styles.bidGradientBgView} />

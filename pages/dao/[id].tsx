@@ -22,6 +22,8 @@ import { useViewport } from 'utils'
 import DaoLandingDetail from 'components/pages/Dao/DaoLandingDetail'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { isExpiredDate } from 'utils/helpers'
+import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
 
 const Dao = () => {
   const router = useRouter()
@@ -56,6 +58,10 @@ const Dao = () => {
     )
   }, [nfts])
 
+  const getThreshold = async () => {
+    return Math.trunc((await getCurrentTurkeyNftCount()) * 0.6)
+  }
+
   const getProposal = async () => {
     if (proposal_id === null) return
 
@@ -73,7 +79,7 @@ const Dao = () => {
       //         title: 'CBC Product 0531',
       //         category: 'Product',
       //         author: 'Nicholas',
-      //         vote_start: '2023-05-31 12:00:00',
+      //         vote_start: '2023-06-08 12:00:00',
       //         vote_duration: 120,
       //         total_votes: 300,
       //         approved_votes: 240,
@@ -85,7 +91,23 @@ const Dao = () => {
         let proposals = response.data.proposals
 
         if (proposals.length > 0) {
-          setProposal(proposals[0])
+          let new_element = {}
+          let element = proposals[0]
+          if (isExpiredDate(element.vote_start, element.vote_duration)) {
+            let current_threshold = getThreshold()
+            let vote_ratio = element.approved_votes / element.total_votes
+            new_element = {
+              ...element,
+              status: 'closed',
+              vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected',
+            }
+          } else if (isExpiredDate(element.vote_start, 0)) {
+            new_element = { ...element, status: 'live' }
+          } else {
+            new_element = { ...element, status: 'pending' }
+          }
+
+          setProposal(new_element)
         }
       }
     } catch {}
@@ -124,6 +146,7 @@ const Dao = () => {
             publicKey={publicKey}
             proposal={proposal}
             turkyNfts={turkyNfts}
+            threshold={getThreshold()}
             nftIsLoaded={nftIsLoaded}
             onBack={() => router.push('/dao')}
           />
