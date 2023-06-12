@@ -207,7 +207,7 @@ const DaoLandingPage = props => {
   }
 
   const getThreshold = async () => {
-    return Math.trunc((await getCurrentTurkeyNftCount()) * 0.6)
+    return Math.trunc((await getCurrentTurkeyNftCount()) * 0.51)
   }
 
   const getProposals = async (curPage, count) => {
