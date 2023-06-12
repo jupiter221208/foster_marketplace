@@ -741,12 +741,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                     </div>
                   </div>
                 )}
-                <div className="flex gap-1 lg:gap-3">
-                  <div className={styles.grayText}>Fostered by</div>
-                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                    {nftOwnerUsername}
+                {nftOwnerUsername !== artistInfo.name && (
+                  <div className="flex gap-1 lg:gap-3">
+                    <div className={styles.grayText}>Fostered by</div>
+                    <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                      {nftOwnerUsername}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               {/* <div className="w-full mt-[30px]">
                 <div className={styles.descriptionTitle}>Description</div>
