@@ -33,6 +33,7 @@ const initialState = {
   markAsRead: false,
   expiryDate: 0,
   showConnectAlert: false,
+  loginSignedFlag: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
