@@ -155,7 +155,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           </div>
         </div>
       )}
-      <FullScreenLoadingModal open={isLoading} />
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
