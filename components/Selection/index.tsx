@@ -13,7 +13,7 @@ const Selection = props => {
           <div
             key={index}
             className={item.name === selected ? styles.selected : styles.normal}
-            onClick={() => onSelect(item.name)}
+            onClick={() => onSelect(item)}
           >
             {item.name}
           </div>

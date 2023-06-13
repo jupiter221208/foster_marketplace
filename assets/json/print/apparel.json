@@ -1,18 +1,90 @@
 [
   {
     "id": 0,
-    "name": "HOODIE"
+    "name": "HOODIE",
+    "women": {
+      "navy": "/images/apparel/man_hoodie_navy.png",
+      "gray": "/images/apparel/man_hoodie_gray.png",
+      "black": "/images/apparel/man_hoodie_black.png",
+      "white": "/images/apparel/man_hoodie_white.png"
+    },
+    "man": {
+      "navy": "/images/apparel/man_hoodie_navy.png",
+      "gray": "/images/apparel/man_hoodie_gray.png",
+      "black": "/images/apparel/man_hoodie_black.png",
+      "white": "/images/apparel/man_hoodie_white.png"
+    },
+    "youth": {
+      "navy": "/images/apparel/man_hoodie_navy.png",
+      "gray": "/images/apparel/man_hoodie_gray.png",
+      "black": "/images/apparel/man_hoodie_black.png",
+      "white": "/images/apparel/man_hoodie_white.png"
+    }
   },
   {
     "id": 1,
-    "name": "SWEATSHIRT"
+    "name": "SWEATSHIRT",
+    "women": {
+      "navy": "/images/apparel/man_hoodie_navy.png",
+      "gray": "/images/apparel/man_hoodie_gray.png",
+      "black": "/images/apparel/man_hoodie_black.png",
+      "white": "/images/apparel/man_hoodie_white.png"
+    },
+    "man": {
+      "navy": "/images/apparel/man_hoodie_navy.png",
+      "gray": "/images/apparel/man_hoodie_gray.png",
+      "black": "/images/apparel/man_hoodie_black.png",
+      "white": "/images/apparel/man_hoodie_white.png"
+    },
+    "youth": {
+      "navy": "/images/apparel/man_hoodie_navy.png",
+      "gray": "/images/apparel/man_hoodie_gray.png",
+      "black": "/images/apparel/man_hoodie_black.png",
+      "white": "/images/apparel/man_hoodie_white.png"
+    }
   },
   {
     "id": 2,
-    "name": "LONG SLEEVE"
+    "name": "LONG SLEEVE",
+    "women": {
+      "navy": "/images/apparel/women_t_navy.png",
+      "gray": "/images/apparel/women_t_gray.png",
+      "black": "/images/apparel/women_t_black.png",
+      "white": "/images/apparel/women_t_white.png"
+    },
+    "man": {
+      "navy": "/images/apparel/man_t_navy.png",
+      "gray": "/images/apparel/man_t_gray.png",
+      "black": "/images/apparel/man_t_black.png",
+      "white": "/images/apparel/man_t_white.png"
+    },
+    "youth": {
+      "navy": "/images/apparel/man_t_navy.png",
+      "gray": "/images/apparel/man_t_gray.png",
+      "black": "/images/apparel/man_t_black.png",
+      "white": "/images/apparel/man_t_white.png"
+    }
   },
   {
     "id": 3,
-    "name": "SHORT SLEEVE"
+    "name": "SHORT SLEEVE",
+    "women": {
+      "navy": "/images/apparel/women_t_navy.png",
+      "gray": "/images/apparel/women_t_gray.png",
+      "black": "/images/apparel/women_t_black.png",
+      "white": "/images/apparel/women_t_white.png"
+    },
+    "man": {
+      "navy": "/images/apparel/man_t_navy.png",
+      "gray": "/images/apparel/man_t_gray.png",
+      "black": "/images/apparel/man_t_black.png",
+      "white": "/images/apparel/man_t_white.png"
+    },
+    "youth": {
+      "navy": "/images/apparel/man_t_navy.png",
+      "gray": "/images/apparel/man_t_gray.png",
+      "black": "/images/apparel/man_t_black.png",
+      "white": "/images/apparel/man_t_white.png"
+    }
   }
 ]

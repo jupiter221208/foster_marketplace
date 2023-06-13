@@ -16,7 +16,7 @@ const SelectionColor = props => {
               background: item.name,
             }}
             className={`${item.name === selected ? styles.selected : styles.normal}`}
-            onClick={() => onSelect(item.name)}
+            onClick={() => onSelect(item)}
           ></div>
         ))}
       </div>

@@ -1,14 +1,17 @@
 [
   {
     "id": 0,
-    "name": "WOMEN"
+    "name": "WOMEN",
+    "type": "women"
   },
   {
     "id": 1,
-    "name": "MENS/UNISEX"
+    "name": "MENS/UNISEX",
+    "type": "man"
   },
   {
     "id": 2,
-    "name": "YOUTH"
+    "name": "YOUTH",
+    "type": "youth"
   }
 ]

@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import fs from 'fs/promises'
+import path from 'path'
 
 // next components
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-
-// third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 // components
 
@@ -28,33 +22,99 @@ import ColorType from 'assets/json/print/color.json'
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
-import ArrowRightEllipse from 'assets/icons/arrow-right-ellipse.svg?component'
-import PrintApparelImage from 'assets/images/print_apparel.png'
-import PrintWallArtImage from 'assets/images/print_wallart.png'
-import PrintAccessoriesImage from 'assets/images/print_accessories.png'
 
 // styles
 import styles from './index.module.scss'
 import Selection from 'components/Selection'
 import SelectionColor from 'components/SelectionColor'
-import Input from 'components/Input'
 import GradientButton from 'components/Button/GradientButton'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import PrintEditorModal from 'components/Modal/PrintEditorModal'
 
 // api
 
 const PhysicalPrintDetail = props => {
-  const { image, onBack } = props
+  const { image, onBack, onPrint, previewMode } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [gender, setGender] = useState('')
-  const [apparel, setApparel] = useState('')
-  const [print, setPrint] = useState('')
-  const [quality, setQuality] = useState('')
-  const [size, setSize] = useState('')
-  const [color, setColor] = useState('')
+  const [gender, setGender] = useState({ name: '', type: '' })
+  const [apparel, setApparel] = useState({ name: '' })
+  const [print, setPrint] = useState({ name: '' })
+  const [quality, setQuality] = useState({ name: '' })
+  const [size, setSize] = useState({ name: '' })
+  const [color, setColor] = useState({ name: '', type: '' })
+  const [quantity, setQuantity] = useState(0)
   const [enabled, setEnabled] = useState(false)
+  const [openEditorModal, setOpenEditorModal] = useState(false)
+  const [apparelFile, setApparelFile] = useState(null)
+
+  async function generateImage() {
+    // try {
+    //   console.log('=========ApparelType==========', process.cwd(), ApparelType[0].women.black)
+    //   const filePath = path.join(process.cwd(), ApparelType[0].women.black)
+    //   console.log('=========filePath==========', filePath)
+    //   let file = await fs.readFile(filePath)
+    //   setApparelFile(file)
+    // } catch (e) {
+    //   console.log(e)
+    // }
+  }
+
+  // const generateImage = async () => {
+  //   try {
+  //     let file = await fs.readFile(ApparelType[0].women.black)
+  //     setApparelFile(file)
+  //   } catch (e) {}
+  // }
+
+  // useEffect(() => {
+  //   if (apparelFile !== null) {
+  //     setOpenEditorModal(true)
+  //   }
+  // }, [apparelFile])
+
+  useEffect(() => {
+    if (previewMode) {
+      onPrint(apparel[gender.type][color.type])
+    } else {
+      if (!gender.hasOwnProperty('id')) {
+        setEnabled(false)
+        return
+      }
+
+      if (!apparel.hasOwnProperty('id')) {
+        setEnabled(false)
+        return
+      }
+
+      if (!color.hasOwnProperty('id')) {
+        setEnabled(false)
+        return
+      }
+
+      if (!print.hasOwnProperty('id')) {
+        setEnabled(false)
+        return
+      }
+
+      if (!quality.hasOwnProperty('id')) {
+        setEnabled(false)
+        return
+      }
+
+      if (!size.hasOwnProperty('id')) {
+        setEnabled(false)
+        return
+      }
+
+      if (quantity <= 0) {
+        setEnabled(false)
+        return
+      }
+      setEnabled(true)
+    }
+  }, [gender, apparel, color, print, quality, size, quantity])
 
   return (
     <section className={styles.container}>
@@ -70,26 +130,33 @@ const PhysicalPrintDetail = props => {
         simple to use and gives you the tools to foster your creative flavor.
       </div>
       <div className="w-full mt-[65px]">
-        <Selection label="GENDER:" data={GenderType} selected={gender} onSelect={item => setGender(item)} />
+        <Selection label="GENDER:" data={GenderType} selected={gender?.name} onSelect={item => setGender(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection label="APPAREL:" data={ApparelType} selected={apparel} onSelect={item => setApparel(item)} />
+        <Selection label="APPAREL:" data={ApparelType} selected={apparel?.name} onSelect={item => setApparel(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection label="PRINT:" data={PrintType} selected={print} onSelect={item => setPrint(item)} />
+        <Selection label="PRINT:" data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection label="QUALITY:" data={QualityType} selected={quality} onSelect={item => setQuality(item)} />
+        <Selection label="QUALITY:" data={QualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <SelectionColor label="COLOR:" data={ColorType} selected={color} onSelect={item => setColor(item)} />
+        <SelectionColor label="COLOR:" data={ColorType} selected={color?.name} onSelect={item => setColor(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection label="SIZE:" data={SizeType} selected={size} onSelect={item => setSize(item)} />
+        <Selection label="SIZE:" data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
       </div>
       <div className="w-full mt-[25px] flex">
         <div className={styles.quantity}>QUANTITY:</div>
-        <input type="number" min="0" placeholder="0" className={styles.inputArea} />
+        <input
+          value={quantity}
+          type="number"
+          min="0"
+          placeholder="0"
+          className={styles.inputArea}
+          onChange={event => setQuantity(parseInt(event.target.value))}
+        />
       </div>
       <div className="w-full mt-[60px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
@@ -106,15 +173,30 @@ const PhysicalPrintDetail = props => {
         <SecondaryButton
           backgroundColor="transparent"
           label="Generate Preview"
-          onClick={() => {}}
           fullWidth
           height="53px"
           fontSize="18px"
           color={enabled ? '#eff0f6' : '#818181'}
           borderColor={'#202427'}
+          onClick={() => generateImage()}
         />
-        <GradientButton disabled={!enabled} label="Next" fontSize={18} fullWidth height={53} onClick={() => {}} />
+        <GradientButton
+          disabled={!enabled}
+          label="Next"
+          fontSize={18}
+          fullWidth
+          height={53}
+          onClick={() => onPrint(apparel[gender.type][color.type])}
+        />
       </div>
+      <PrintEditorModal
+        style={{ zIndex: 100001 }}
+        open={openEditorModal}
+        close={() => setOpenEditorModal(false)}
+        nftImage={apparelFile}
+        getCroppedImage={croppedImage => {}}
+        dimension={{ value: [1080, 1080] }}
+      />
     </section>
   )
 }

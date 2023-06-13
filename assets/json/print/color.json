@@ -1,18 +1,22 @@
 [
   {
     "id": 0,
-    "name": "#323544"
+    "name": "#323544",
+    "type": "navy"
   },
   {
     "id": 1,
-    "name": "#4B494A"
+    "name": "#4B494A",
+    "type": "gray"
   },
   {
     "id": 2,
-    "name": "#000000"
+    "name": "#000000",
+    "type": "black"
   },
   {
     "id": 3,
-    "name": "#FFFFFF"
+    "name": "#FFFFFF",
+    "type": "white"
   }
 ]

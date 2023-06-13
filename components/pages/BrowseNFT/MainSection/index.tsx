@@ -148,9 +148,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
-  const [openNFTView, setOpenNFTView] = useState(false)
+  const [openNFTView, setOpenNFTView] = useState(true)
   const [openPrintView, setOpenPrintView] = useState(false)
-  const [openPrintDetail, setOpenPrintDetail] = useState(true)
+  const [openPrintDetail, setOpenPrintDetail] = useState(false)
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
@@ -629,6 +629,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const handleStartProgress = () => {
     setOpenProgressingModal(true)
   }
+  const [apparel, setApparel] = useState(null)
+  const [showPrintMode, setShowPrintMode] = useState(false)
+  const [previewMode, setPreviewMode] = useState(false)
 
   return (
     <div className={styles.container}>
@@ -640,6 +643,21 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                   <div></div>
                 </ReactPlaceholder>
+              </div>
+            </div>
+          </div>
+        ) : showPrintMode ? (
+          <div className="col-span-2 lg:col-span-1">
+            <div className={styles.blurBackground}>
+              <div className="absolute inset-0">
+                <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+              </div>
+              <div className={styles.blurImage} />
+              <div className={styles.imageArea}>
+                <img src={apparel} alt="" className="h-full" />
+                <div className="absolute top-[20%] w-[30%] h-[30%]">
+                  <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                </div>
               </div>
             </div>
           </div>
@@ -745,10 +763,19 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
             />
           ) : openPrintDetail ? (
             <PhysicalPrintDetail
+              previewMode={previewMode}
               onBack={() => {
                 setOpenPrintView(true)
                 setOpenPrintDetail(false)
                 setOpenNFTView(false)
+                setPreviewMode(false)
+                setApparel(null)
+                setShowPrintMode(false)
+              }}
+              onPrint={apparel => {
+                setPreviewMode(true)
+                setApparel(apparel)
+                setShowPrintMode(true)
               }}
             />
           ) : (
