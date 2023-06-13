@@ -8,15 +8,17 @@ const Selection = props => {
   return (
     <div className={styles.container}>
       <div className={styles.label}>{label}</div>
-      {data.map((item, index) => (
-        <div
-          key={index}
-          className={item.name === selected ? styles.selected : styles.normal}
-          onClick={onSelect(item.name)}
-        >
-          {item}
-        </div>
-      ))}
+      <div className="flex gap-[30px]">
+        {data.map((item, index) => (
+          <div
+            key={index}
+            className={item.name === selected ? styles.selected : styles.normal}
+            onClick={() => onSelect(item.name)}
+          >
+            {item.name}
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

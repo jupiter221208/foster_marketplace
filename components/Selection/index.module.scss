@@ -14,7 +14,9 @@
 }
 .selected {
   color: var(--text-gray-200-color);
+  cursor: pointer;
 }
 .normal {
-  color: rgba(var(--text-gray-200-color), 0.35);
+  color: rgba(var(--text-gray-200-color-rgb), 0.35);
+  cursor: pointer;
 }
