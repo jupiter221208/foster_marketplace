@@ -1,0 +1,20 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  height: 18px;
+  display: flex;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
+}
+.label {
+  width: 120px;
+  color: var(--text-gray-200-color);
+}
+.selected {
+  color: var(--text-gray-200-color);
+}
+.normal {
+  color: rgba(var(--text-gray-200-color), 0.35);
+}
