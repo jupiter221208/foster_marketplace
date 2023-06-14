@@ -154,8 +154,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const [openNFTView, setOpenNFTView] = useState(false)
   const [openPrintView, setOpenPrintView] = useState(false)
-  const [openPrintDetail, setOpenPrintDetail] = useState(true)
-  const [openShippingDetail, setOpenShippingDetail] = useState(false)
+  const [openPrintDetail, setOpenPrintDetail] = useState(false)
+  const [openShippingDetail, setOpenShippingDetail] = useState(true)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)

@@ -9,13 +9,12 @@ import styles from './index.module.scss'
 
 const CountrySelect = props => {
   const { data, selected, onChange } = props
-
   return (
     <div className="w-full">
       <Listbox value={selected} onChange={item => onChange(item)}>
         <div className="w-full relative">
           <Listbox.Button className={styles.container}>
-            <span className="block truncate">{selected.label}</span>
+            <span className="block truncate">{selected ? selected.name : ''}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
             </span>
@@ -30,7 +29,7 @@ const CountrySelect = props => {
                     className={({ active }) => `${styles.menuItem} ${active ? styles.activeMenuItem : ''}`}
                     value={item}
                   >
-                    {({ selected }) => <span className={selected ? styles.activeMenuItem : ''}>{item}</span>}
+                    {({ selected }) => <span className={selected ? styles.activeMenuItem : ''}>{item.name}</span>}
                   </Listbox.Option>
                 ))}
               </Listbox.Options>

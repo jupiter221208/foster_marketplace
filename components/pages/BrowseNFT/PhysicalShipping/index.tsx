@@ -60,14 +60,14 @@ const PhysicalShipping = props => {
       </div>
       <div className="w-full mt-[30px]">
         <div className={styles.label}>Shipping Address *</div>
-
-        <CountrySelect
-          data={Country.getAllCountries()}
-          selected={country}
-          onChange={item => setCountry(item)}
-          maxHeight="none"
-        />
-
+        <div className="mt-[10px] ">
+          <CountrySelect
+            data={Country.getAllCountries()}
+            selected={country}
+            onChange={item => setCountry(item)}
+            maxHeight="none"
+          />
+        </div>
         <div className="w-full mt-[10px]">
           <input
             value={name}
