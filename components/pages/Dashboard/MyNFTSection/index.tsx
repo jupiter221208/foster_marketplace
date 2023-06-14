@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import Lottie from 'lottie-react'
 
 // next components
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
+import Image from 'next/image'
 
 // third party components
 import { useWallet, useConnection } from '@solana/wallet-adapter-react'
@@ -22,6 +24,10 @@ import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
+
+// images
+import RefreshIcon from 'assets/icons/refresh-icon.svg'
+import RefreshLottery from 'assets/lottery/refresh.json'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -121,10 +127,30 @@ const MyNFTSection = props => {
     }
   }
 
+  const [refreshing, setRefreshing] = useState(false)
+  const refreshNFT = () => {
+    setRefreshing(true)
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 2000)
+  }
+
   return (
     <section className={styles.container}>
       {!loading && allNftList.length > 0 && (
-        <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+        <div className="w-full flex justify-between">
+          <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
+          <div className="w-[140px] h-[46px]">
+            {refreshing ? (
+              <Lottie animationData={RefreshLottery} loop={true} />
+            ) : (
+              <div className={styles.refreshButton} onClick={() => refreshNFT()}>
+                <Image src={RefreshIcon} width={28} height={28} alt="" />
+                <div className="mb-[4px]">Refresh</div>
+              </div>
+            )}
+          </div>
+        </div>
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&
