@@ -2,89 +2,103 @@
   {
     "id": 0,
     "name": "HOODIE",
-    "women": {
-      "navy": "/images/apparel/man_hoodie_navy.png",
-      "gray": "/images/apparel/man_hoodie_gray.png",
-      "black": "/images/apparel/man_hoodie_black.png",
-      "white": "/images/apparel/man_hoodie_white.png"
-    },
     "man": {
-      "navy": "/images/apparel/man_hoodie_navy.png",
-      "gray": "/images/apparel/man_hoodie_gray.png",
-      "black": "/images/apparel/man_hoodie_black.png",
-      "white": "/images/apparel/man_hoodie_white.png"
+      "basic": {
+        "navy": { "cost": 20.22, "image": "/images/apparel/man_hoodie_navy.png" },
+        "gray": { "cost": 20.22, "image": "/images/apparel/man_hoodie_gray.png" },
+        "black": { "cost": 20.22, "image": "/images/apparel/man_hoodie_black.png" },
+        "white": { "cost": 19.62, "image": "/images/apparel/man_hoodie_white.png" }
+      },
+      "standard": {
+        "navy": { "cost": 26.75, "image": "/images/apparel/man_hoodie_navy.png" },
+        "gray": { "cost": 26.75, "image": "/images/apparel/man_hoodie_gray.png" },
+        "black": { "cost": 26.75, "image": "/images/apparel/man_hoodie_black.png" },
+        "white": { "cost": 26.15, "image": "/images/apparel/man_hoodie_white.png" }
+      }
     },
     "youth": {
-      "navy": "/images/apparel/man_hoodie_navy.png",
-      "gray": "/images/apparel/man_hoodie_gray.png",
-      "black": "/images/apparel/man_hoodie_black.png",
-      "white": "/images/apparel/man_hoodie_white.png"
+      "basic": {
+        "navy": { "cost": 20.76, "image": "/images/apparel/man_hoodie_navy.png" },
+        "gray": { "cost": 20.76, "image": "/images/apparel/man_hoodie_gray.png" },
+        "black": { "cost": 20.76, "image": "/images/apparel/man_hoodie_black.png" },
+        "white": { "cost": 20.16, "image": "/images/apparel/man_hoodie_white.png" }
+      }
     }
   },
   {
     "id": 1,
     "name": "SWEATSHIRT",
-    "women": {
-      "navy": "/images/apparel/man_hoodie_navy.png",
-      "gray": "/images/apparel/man_hoodie_gray.png",
-      "black": "/images/apparel/man_hoodie_black.png",
-      "white": "/images/apparel/man_hoodie_white.png"
-    },
     "man": {
-      "navy": "/images/apparel/man_hoodie_navy.png",
-      "gray": "/images/apparel/man_hoodie_gray.png",
-      "black": "/images/apparel/man_hoodie_black.png",
-      "white": "/images/apparel/man_hoodie_white.png"
-    },
-    "youth": {
-      "navy": "/images/apparel/man_hoodie_navy.png",
-      "gray": "/images/apparel/man_hoodie_gray.png",
-      "black": "/images/apparel/man_hoodie_black.png",
-      "white": "/images/apparel/man_hoodie_white.png"
+      "basic": {
+        "navy": { "cost": 15.9, "image": "/images/apparel/man_hoodie_navy.png" },
+        "gray": { "cost": 15.9, "image": "/images/apparel/man_hoodie_gray.png" },
+        "black": { "cost": 15.9, "image": "/images/apparel/man_hoodie_black.png" },
+        "white": { "cost": 15.3, "image": "/images/apparel/man_hoodie_white.png" }
+      }
     }
   },
   {
     "id": 2,
     "name": "LONG SLEEVE",
-    "women": {
-      "navy": "/images/apparel/women_t_navy.png",
-      "gray": "/images/apparel/women_t_gray.png",
-      "black": "/images/apparel/women_t_black.png",
-      "white": "/images/apparel/women_t_white.png"
-    },
     "man": {
-      "navy": "/images/apparel/man_t_navy.png",
-      "gray": "/images/apparel/man_t_gray.png",
-      "black": "/images/apparel/man_t_black.png",
-      "white": "/images/apparel/man_t_white.png"
-    },
-    "youth": {
-      "navy": "/images/apparel/man_t_navy.png",
-      "gray": "/images/apparel/man_t_gray.png",
-      "black": "/images/apparel/man_t_black.png",
-      "white": "/images/apparel/man_t_white.png"
+      "premium": {
+        "navy": { "cost": 15.96, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 15.96, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 15.96, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 15.36, "image": "/images/apparel/man_t_white.png" }
+      }
     }
   },
   {
     "id": 3,
     "name": "SHORT SLEEVE",
     "women": {
-      "navy": "/images/apparel/women_t_navy.png",
-      "gray": "/images/apparel/women_t_gray.png",
-      "black": "/images/apparel/women_t_black.png",
-      "white": "/images/apparel/women_t_white.png"
+      "premium": {
+        "navy": { "cost": 12.95, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 12.95, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 12.95, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 12.35, "image": "/images/apparel/man_t_white.png" }
+      },
+      "triblend": {
+        "navy": { "cost": 11.75, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 11.75, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 11.75, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 11.15, "image": "/images/apparel/man_t_white.png" }
+      }
     },
     "man": {
-      "navy": "/images/apparel/man_t_navy.png",
-      "gray": "/images/apparel/man_t_gray.png",
-      "black": "/images/apparel/man_t_black.png",
-      "white": "/images/apparel/man_t_white.png"
+      "basic": {
+        "navy": { "cost": 10.74, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 10.74, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 10.74, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 10.12, "image": "/images/apparel/man_t_white.png" }
+      },
+      "standard": {
+        "navy": { "cost": 11.87, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 11.87, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 11.87, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 11.27, "image": "/images/apparel/man_t_white.png" }
+      },
+      "triblend": {
+        "navy": { "cost": 14.16, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 14.16, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 14.16, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 13.56, "image": "/images/apparel/man_t_white.png" }
+      },
+      "premium": {
+        "navy": { "cost": 15.36, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 15.36, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 15.36, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 14.76, "image": "/images/apparel/man_t_white.png" }
+      }
     },
     "youth": {
-      "navy": "/images/apparel/man_t_navy.png",
-      "gray": "/images/apparel/man_t_gray.png",
-      "black": "/images/apparel/man_t_black.png",
-      "white": "/images/apparel/man_t_white.png"
+      "standard": {
+        "navy": { "cost": 20.64, "image": "/images/apparel/man_t_navy.png" },
+        "gray": { "cost": 20.64, "image": "/images/apparel/man_t_gray.png" },
+        "black": { "cost": 20.64, "image": "/images/apparel/man_t_black.png" },
+        "white": { "cost": 20.04, "image": "/images/apparel/man_t_white.png" }
+      }
     }
   }
 ]

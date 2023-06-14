@@ -41,13 +41,15 @@ const PhysicalPrintDetail = props => {
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
   const [print, setPrint] = useState({ name: '' })
-  const [quality, setQuality] = useState({ name: '' })
+  const [quality, setQuality] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ name: '' })
   const [color, setColor] = useState({ name: '', type: '' })
   const [quantity, setQuantity] = useState(0)
   const [enabled, setEnabled] = useState(false)
   const [openEditorModal, setOpenEditorModal] = useState(false)
   const [apparelFile, setApparelFile] = useState(null)
+  const [apparelType, setApparelType] = useState(ApparelType)
+  const [qualityType, setQualityType] = useState(QualityType)
 
   useEffect(() => {
     if (data !== null) {
@@ -65,8 +67,43 @@ const PhysicalPrintDetail = props => {
   }, [data])
 
   useEffect(() => {
+    if (gender.hasOwnProperty('id')) {
+      let genderType = gender.type
+      let newApparelType = []
+      ApparelType.map(item => {
+        if (item.hasOwnProperty(genderType)) newApparelType.push(item)
+      })
+      setApparelType(newApparelType)
+      setApparel({ name: '' })
+      setQuality({ name: '', type: '' })
+      setPrint({ name: '' })
+    }
+  }, [gender])
+
+  useEffect(() => {
+    if (apparel.hasOwnProperty('id')) {
+      let apparelQualities = apparel[gender.type]
+      let newQualityType = []
+      QualityType.map(item => {
+        if (apparelQualities.hasOwnProperty(item.type)) newQualityType.push(item)
+      })
+      setQualityType(newQualityType)
+    }
+  }, [apparel])
+
+  useEffect(() => {
     if (previewMode) {
-      if (data === null) onPrint(apparel[gender.type][color.type])
+      if (data === null) {
+        if (apparel.hasOwnProperty(gender.type)) {
+          if (apparel[gender.type].hasOwnProperty(quality.type)) {
+            onPrint(apparel[gender.type][quality.type][color.type].image)
+          } else {
+            onPrint('')
+          }
+        } else {
+          onPrint('')
+        }
+      }
     } else {
       if (!gender.hasOwnProperty('id')) {
         setEnabled(false)
@@ -123,13 +160,13 @@ const PhysicalPrintDetail = props => {
         <Selection label="GENDER:" data={GenderType} selected={gender?.name} onSelect={item => setGender(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection label="APPAREL:" data={ApparelType} selected={apparel?.name} onSelect={item => setApparel(item)} />
+        <Selection label="APPAREL:" data={apparelType} selected={apparel?.name} onSelect={item => setApparel(item)} />
       </div>
       <div className="w-full mt-[25px]">
         <Selection label="PRINT:" data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection label="QUALITY:" data={QualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
+        <Selection label="QUALITY:" data={qualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
       </div>
       <div className="w-full mt-[25px]">
         <SelectionColor label="COLOR:" data={ColorType} selected={color?.name} onSelect={item => setColor(item)} />
@@ -181,7 +218,7 @@ const PhysicalPrintDetail = props => {
               let data = { apparel, gender, color, print, quality, size, quantity }
               onShipping(data)
             } else {
-              onPrint(apparel[gender.type][color.type])
+              onPrint(apparel[gender.type][quality.type][color.type].image)
             }
           }}
         />

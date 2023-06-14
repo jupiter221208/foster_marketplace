@@ -112,6 +112,7 @@ import PhysicalPrintSection from '../PhysicalPrintSection'
 import PhysicalPrintDetail from '../PhysicalPrintDetail'
 import PhysicalShipping from '../PhysicalShipping'
 import { setDatasets } from 'react-chartjs-2/dist/utils'
+import PhysicalCheckout from '../PhysicalCheckout'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -150,10 +151,13 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
+
   const [openNFTView, setOpenNFTView] = useState(false)
   const [openPrintView, setOpenPrintView] = useState(false)
   const [openPrintDetail, setOpenPrintDetail] = useState(true)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
+  const [openCheckoutView, setOpenCheckoutView] = useState(false)
+
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
@@ -794,6 +798,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               onBack={() => {
                 setOpenPrintDetail(true)
                 setOpenShippingDetail(false)
+              }}
+              onNext={() => {
+                setOpenShippingDetail(false)
+                setOpenCheckoutView(true)
+              }}
+            />
+          ) : openCheckoutView ? (
+            <PhysicalCheckout
+              onBack={() => {
+                setOpenShippingDetail(true)
+                setOpenCheckoutView(false)
               }}
             />
           ) : (
