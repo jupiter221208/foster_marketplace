@@ -34,7 +34,7 @@ import PrintEditorModal from 'components/Modal/PrintEditorModal'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { image, onBack, onPrint, previewMode } = props
+  const { image, onBack, onPrint, onShipping, previewMode, data, setData } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -49,34 +49,24 @@ const PhysicalPrintDetail = props => {
   const [openEditorModal, setOpenEditorModal] = useState(false)
   const [apparelFile, setApparelFile] = useState(null)
 
-  async function generateImage() {
-    // try {
-    //   console.log('=========ApparelType==========', process.cwd(), ApparelType[0].women.black)
-    //   const filePath = path.join(process.cwd(), ApparelType[0].women.black)
-    //   console.log('=========filePath==========', filePath)
-    //   let file = await fs.readFile(filePath)
-    //   setApparelFile(file)
-    // } catch (e) {
-    //   console.log(e)
-    // }
-  }
-
-  // const generateImage = async () => {
-  //   try {
-  //     let file = await fs.readFile(ApparelType[0].women.black)
-  //     setApparelFile(file)
-  //   } catch (e) {}
-  // }
-
-  // useEffect(() => {
-  //   if (apparelFile !== null) {
-  //     setOpenEditorModal(true)
-  //   }
-  // }, [apparelFile])
+  useEffect(() => {
+    if (data !== null) {
+      setApparel(data.apparel)
+      setGender(data.gender)
+      setColor(data.color)
+      setPrint(data.print)
+      setSize(data.size)
+      setQuality(data.quality)
+      setSize(data.size)
+      setQuantity(data.quantity)
+      setEnabled(true)
+      setData(null)
+    }
+  }, [data])
 
   useEffect(() => {
     if (previewMode) {
-      onPrint(apparel[gender.type][color.type])
+      if (data === null) onPrint(apparel[gender.type][color.type])
     } else {
       if (!gender.hasOwnProperty('id')) {
         setEnabled(false)
@@ -178,7 +168,7 @@ const PhysicalPrintDetail = props => {
           fontSize="18px"
           color={enabled ? '#eff0f6' : '#818181'}
           borderColor={'#202427'}
-          onClick={() => generateImage()}
+          onClick={() => {}}
         />
         <GradientButton
           disabled={!enabled}
@@ -186,7 +176,14 @@ const PhysicalPrintDetail = props => {
           fontSize={18}
           fullWidth
           height={53}
-          onClick={() => onPrint(apparel[gender.type][color.type])}
+          onClick={() => {
+            if (previewMode) {
+              let data = { apparel, gender, color, print, quality, size, quantity }
+              onShipping(data)
+            } else {
+              onPrint(apparel[gender.type][color.type])
+            }
+          }}
         />
       </div>
       <PrintEditorModal

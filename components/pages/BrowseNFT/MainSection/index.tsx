@@ -110,6 +110,8 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import PhysicalPrintSection from '../PhysicalPrintSection'
 import PhysicalPrintDetail from '../PhysicalPrintDetail'
+import PhysicalShipping from '../PhysicalShipping'
+import { setDatasets } from 'react-chartjs-2/dist/utils'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -148,9 +150,10 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
-  const [openNFTView, setOpenNFTView] = useState(true)
+  const [openNFTView, setOpenNFTView] = useState(false)
   const [openPrintView, setOpenPrintView] = useState(false)
-  const [openPrintDetail, setOpenPrintDetail] = useState(false)
+  const [openPrintDetail, setOpenPrintDetail] = useState(true)
+  const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
@@ -632,6 +635,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [apparel, setApparel] = useState(null)
   const [showPrintMode, setShowPrintMode] = useState(false)
   const [previewMode, setPreviewMode] = useState(false)
+  const [printData, setPrintData] = useState(null)
 
   return (
     <div className={styles.container}>
@@ -776,6 +780,20 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 setPreviewMode(true)
                 setApparel(apparel)
                 setShowPrintMode(true)
+              }}
+              onShipping={item => {
+                setPrintData(item)
+                setOpenPrintDetail(false)
+                setOpenShippingDetail(true)
+              }}
+              data={printData}
+              setData={data => setPrintData(data)}
+            />
+          ) : openShippingDetail ? (
+            <PhysicalShipping
+              onBack={() => {
+                setOpenPrintDetail(true)
+                setOpenShippingDetail(false)
               }}
             />
           ) : (
