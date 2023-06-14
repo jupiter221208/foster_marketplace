@@ -30,7 +30,7 @@
 
 .menuBlur {
   width: 100%;
-  height: auto;
+  height: 310px;
   position: absolute;
   right: 0;
   margin-top: 4px;
@@ -38,6 +38,7 @@
   background-color: $brand-04-color;
   border-radius: 8px;
   z-index: 1000;
+  overflow: scroll;
   // backdrop-filter: blur(30px);
   // -webkit-backdrop-filter: blur(30px);
 }
@@ -87,4 +88,11 @@
 .disabledMenuItem {
   cursor: default;
   color: rgba(var(--text-gray-200-color), 0.6);
+}
+
+.placeholder {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }

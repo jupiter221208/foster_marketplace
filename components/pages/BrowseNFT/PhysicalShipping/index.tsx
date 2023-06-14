@@ -35,11 +35,46 @@ const PhysicalShipping = props => {
   const [street, setStreet] = useState('')
   const [apartment, setApartment] = useState('')
   const [country, setCountry] = useState(null)
+  const [state, setState] = useState(null)
   const [selectedState, setSelectedState] = useState(null)
 
   const proceedToCheckout = () => {
     onNext()
   }
+
+  useEffect(() => {
+    if (country) {
+      setState(null)
+    }
+  }, [country])
+
+  useEffect(() => {
+    if (email.length == 0) {
+      setEnabled(false)
+      return
+    }
+    if (!country) {
+      setEnabled(false)
+      return
+    }
+    if (!state) {
+      setEnabled(false)
+      return
+    }
+    if (name.length == 0) {
+      setEnabled(false)
+      return
+    }
+    if (city.length == 0) {
+      setEnabled(false)
+      return
+    }
+    if (street.length == 0) {
+      setEnabled(false)
+      return
+    }
+    setEnabled(true)
+  }, [email, country, state, name, city, street])
 
   return (
     <section className={styles.container}>
@@ -50,13 +85,15 @@ const PhysicalShipping = props => {
         <div className={styles.selecteCategory}>Add Shipping Details</div>
       </div>
       <div className="w-full mt-[30px]">
-        <div className={styles.label}>Email*</div>
-        <input
-          value={email}
-          placeholder="Email"
-          className={styles.inputArea}
-          onChange={event => setEmail(event.target.value)}
-        />
+        <div className={styles.label}>Email *</div>
+        <div className="w-full mt-[10px]">
+          <input
+            value={email}
+            placeholder="Email"
+            className={styles.inputArea}
+            onChange={event => setEmail(event.target.value)}
+          />
+        </div>
       </div>
       <div className="w-full mt-[30px]">
         <div className={styles.label}>Shipping Address *</div>
@@ -66,9 +103,19 @@ const PhysicalShipping = props => {
             selected={country}
             onChange={item => setCountry(item)}
             maxHeight="none"
+            placeholder="Country"
           />
         </div>
-        <div className="w-full mt-[10px]">
+        <div className="mt-[15px] ">
+          <CountrySelect
+            data={State?.getStatesOfCountry(country?.isoCode)}
+            selected={state}
+            onChange={item => setState(item)}
+            maxHeight="none"
+            placeholder="State"
+          />
+        </div>
+        <div className="w-full mt-[15px]">
           <input
             value={name}
             placeholder="Name"
@@ -76,7 +123,7 @@ const PhysicalShipping = props => {
             onChange={event => setName(event.target.value)}
           />
         </div>
-        <div className="w-full mt-[10px]">
+        <div className="w-full mt-[15px]">
           <input
             value={city}
             placeholder="City"
@@ -84,7 +131,7 @@ const PhysicalShipping = props => {
             onChange={event => setCity(event.target.value)}
           />
         </div>
-        <div className="w-full mt-[10px]">
+        <div className="w-full mt-[15px]">
           <input
             value={street}
             placeholder="Street"
@@ -92,7 +139,7 @@ const PhysicalShipping = props => {
             onChange={event => setStreet(event.target.value)}
           />
         </div>
-        <div className="w-full mt-[10px]">
+        <div className="w-full mt-[15px]">
           <input
             value={apartment}
             placeholder="Apartment / Suite"

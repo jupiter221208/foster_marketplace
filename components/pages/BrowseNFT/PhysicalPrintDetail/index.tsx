@@ -50,6 +50,7 @@ const PhysicalPrintDetail = props => {
   const [apparelFile, setApparelFile] = useState(null)
   const [apparelType, setApparelType] = useState(ApparelType)
   const [qualityType, setQualityType] = useState(QualityType)
+  const [cost, setCost] = useState('----')
 
   useEffect(() => {
     if (data !== null) {
@@ -77,6 +78,7 @@ const PhysicalPrintDetail = props => {
       setApparel({ name: '' })
       setQuality({ name: '', type: '' })
       setPrint({ name: '' })
+      setCost('----')
     }
   }, [gender])
 
@@ -97,6 +99,7 @@ const PhysicalPrintDetail = props => {
         if (apparel.hasOwnProperty(gender.type)) {
           if (apparel[gender.type].hasOwnProperty(quality.type)) {
             onPrint(apparel[gender.type][quality.type][color.type].image)
+            setCost(apparel[gender.type][quality.type][color.type].cost)
           } else {
             onPrint('')
           }
@@ -188,11 +191,11 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[60px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
         <div className="flex ml-[20px] items-center">
-          <div className={styles.price}>$ ----</div>
+          <div className={styles.price}>$ {cost}</div>
           <div className={styles.separator}></div>
           <div className="flex gap-[10px] items-center">
             <SolanaLogoIcon alt="" />
-            <div className={styles.price}>----</div>
+            <div className={styles.price}>{cost === '----' ? '----' : (parseFloat(cost) / 14.7).toFixed(2)}</div>
           </div>
         </div>
       </div>
@@ -219,6 +222,7 @@ const PhysicalPrintDetail = props => {
               onShipping(data)
             } else {
               onPrint(apparel[gender.type][quality.type][color.type].image)
+              setCost(apparel[gender.type][quality.type][color.type].cost)
             }
           }}
         />
