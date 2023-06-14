@@ -27,7 +27,9 @@ import NoDataSection from '../NoDataSection'
 
 // images
 import RefreshIcon from 'assets/icons/refresh-icon.svg'
+import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
 import RefreshLottery from 'assets/lottery/refresh.json'
+import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -138,15 +140,24 @@ const MyNFTSection = props => {
   return (
     <section className={styles.container}>
       {!loading && allNftList.length > 0 && (
-        <div className="w-full flex justify-between">
+        <div className="w-full flex justify-between gap-[15px] items-center">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-          <div className="w-[140px] h-[46px]">
+          <div className="w-[140px] h-[46px] lg:flex hidden">
             {refreshing ? (
               <Lottie animationData={RefreshLottery} loop={true} />
             ) : (
               <div className={styles.refreshButton} onClick={() => refreshNFT()}>
                 <Image src={RefreshIcon} width={28} height={28} alt="" />
                 <div className="mb-[4px]">Refresh</div>
+              </div>
+            )}
+          </div>
+          <div className="w-[26px] h-[26px] flex lg:hidden">
+            {refreshing ? (
+              <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} />
+            ) : (
+              <div onClick={() => refreshNFT()}>
+                <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
               </div>
             )}
           </div>
