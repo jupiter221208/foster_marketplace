@@ -22,7 +22,6 @@ const HeroCard = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [loaded, setLoaded] = useState(false)
-
   const onClick = () => {}
 
   const gotoAristPage = () => {
@@ -134,26 +133,7 @@ const HeroCard = props => {
           )}
         </div>
       </div>
-      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-        <div className={styles.avatarArea}>
-          <div className={styles.avatar} onClick={() => gotoAristPage()}>
-            <img
-              src={
-                data.artist_profile_picture &&
-                data.artist_profile_picture !== '' &&
-                data.artist_profile_picture !== undefined
-                  ? data.artist_profile_picture
-                  : '/images/avatar.png'
-              }
-              alt=""
-              width={60}
-              height={60}
-              loading="lazy"
-              className="rounded-full"
-            />
-          </div>
-        </div>
-      ) : (
+      {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
         <div className={styles.cardArea}>
           <div className="flex justify-between gap-[6px]">
             <div className="w-full block">
