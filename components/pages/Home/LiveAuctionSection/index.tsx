@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
+import Button from 'components/Button'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // custom functions
@@ -35,10 +36,14 @@ const LiveAuctionSection = props => {
 
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(0)
+  const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
-    dashboardAPI.getLiveAuctions(category, artist).then(response => {
+    getLiveAuctionsFromServer(artist, category, 'upcoming')
+  }, [artist, category])
+
+  const getLiveAuctionsFromServer = (category, artist, mode) => {
+    dashboardAPI.getLiveAuctions(category, artist, mode).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
@@ -60,7 +65,25 @@ const LiveAuctionSection = props => {
       error => {
         console.log(error)
       }
-  }, [artist, category])
+  }
+  const handleChangeActive = value => {
+    setActive(value)
+
+    switch (value) {
+      case 0:
+        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        break
+      case 1:
+        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        break
+      case 2:
+        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        break
+      default:
+        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        break
+    }
+  }
 
   return (
     allListAuctionList.length !== 0 && (
@@ -76,6 +99,26 @@ const LiveAuctionSection = props => {
               ) : (
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
+            </div>
+            <div className="hidden lg:flex z-10">
+              <Button
+                label="Starting Soon"
+                onClick={() => handleChangeActive(0)}
+                color={active === 0 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="Recently Started"
+                onClick={() => handleChangeActive(1)}
+                color={active === 1 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="Ending Soon"
+                onClick={() => handleChangeActive(2)}
+                color={active === 2 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+              />
             </div>
           </div>
           <div className="hidden lg:flex z-10">

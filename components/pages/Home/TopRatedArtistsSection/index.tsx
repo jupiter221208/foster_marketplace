@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
+import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import ArtistCard from 'components/Card/ArtistCard'
 
@@ -36,10 +37,16 @@ const TopRatedArtistsSection = () => {
   const dispatch = useDispatch()
 
   const [artistsList, setArtistsList] = useState<any[]>([])
+  const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
-    dashboardAPI.getTopRatedArtists().then(
+    getTopRatedArtistsFromServer('week')
+  }, [])
+
+  const getTopRatedArtistsFromServer = period => {
+    dashboardAPI.getTopRatedArtists(period).then(
       response => {
+        console.log(response)
         if (response !== undefined && response !== null) {
           setArtistsList(response)
         }
@@ -48,7 +55,26 @@ const TopRatedArtistsSection = () => {
         console.log(error)
       }
     )
-  }, [])
+  }
+
+  const handleChangeActive = value => {
+    setActive(value)
+
+    switch (value) {
+      case 0:
+        getTopRatedArtistsFromServer('day')
+        break
+      case 1:
+        getTopRatedArtistsFromServer('week')
+        break
+      case 2:
+        getTopRatedArtistsFromServer('all')
+        break
+      default:
+        getTopRatedArtistsFromServer('week')
+        break
+    }
+  }
 
   return (
     <section className={styles.container}>
@@ -61,6 +87,26 @@ const TopRatedArtistsSection = () => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Top Rated Artists</div>
           )}
+          <div className="hidden lg:flex z-10">
+            <Button
+              label="24 hrs"
+              onClick={() => handleChangeActive(0)}
+              color={active === 0 ? '#202427' : '#979EA2'}
+              backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+            />
+            <Button
+              label="7 days"
+              onClick={() => handleChangeActive(1)}
+              color={active === 1 ? '#202427' : '#979EA2'}
+              backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+            />
+            <Button
+              label="30 days"
+              onClick={() => handleChangeActive(2)}
+              color={active === 2 ? '#202427' : '#979EA2'}
+              backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+            />
+          </div>
         </div>
         <div className="hidden lg:flex z-10">
           <SeeMoreButton

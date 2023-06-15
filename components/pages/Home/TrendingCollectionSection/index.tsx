@@ -18,8 +18,8 @@ import 'swiper/css/navigation'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // components
+import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
-
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
 // custom functions
@@ -38,10 +38,15 @@ const TrendingCollectionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [trendingList, setTrendingList] = useState<any[]>([])
+  const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
     setTrendingList([])
-    dashboardAPI.getTrendingCollections(category).then(
+    getTrendingCollectionsFromServer(category, 'week')
+  }, [category])
+
+  const getTrendingCollectionsFromServer = (category, period) => {
+    dashboardAPI.getTrendingCollections(category, period).then(
       response => {
         if (response instanceof Array) {
           setTrendingList(response)
@@ -51,7 +56,26 @@ const TrendingCollectionSection = props => {
         console.log(error)
       }
     )
-  }, [category])
+  }
+
+  const handleChangeActive = value => {
+    setActive(value)
+
+    switch (value) {
+      case 0:
+        getTrendingCollectionsFromServer(category, 'day')
+        break
+      case 1:
+        getTrendingCollectionsFromServer(category, 'week')
+        break
+      case 2:
+        getTrendingCollectionsFromServer(category, 'all')
+        break
+      default:
+        getTrendingCollectionsFromServer(category, 'week')
+        break
+    }
+  }
 
   return (
     trendingList.length > 0 && (
@@ -68,6 +92,26 @@ const TrendingCollectionSection = props => {
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
             )}
+            <div className="hidden lg:flex z-10">
+              <Button
+                label="24 hrs"
+                onClick={() => handleChangeActive(0)}
+                color={active === 0 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="7 days"
+                onClick={() => handleChangeActive(1)}
+                color={active === 1 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="30 days"
+                onClick={() => handleChangeActive(2)}
+                color={active === 2 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+              />
+            </div>
           </div>
           <div className="hidden lg:flex z-10">
             <SeeMoreButton
