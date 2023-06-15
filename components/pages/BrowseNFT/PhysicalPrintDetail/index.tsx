@@ -34,7 +34,7 @@ const PhysicalPrintDetail = props => {
   const { onBack, onPrint, onShipping, data, setData } = props
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
-  const [print, setPrint] = useState({ name: '' })
+  const [print, setPrint] = useState({ name: '', type: '' })
   const [quality, setQuality] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ name: '' })
   const [color, setColor] = useState({ name: '', type: '' })
@@ -71,7 +71,7 @@ const PhysicalPrintDetail = props => {
       setApparelType(newApparelType)
       setApparel({ name: '' })
       setQuality({ name: '', type: '' })
-      setPrint({ name: '' })
+      setPrint({ name: '', type: '' })
       setCost('----')
       onPrint('')
     }
@@ -117,7 +117,7 @@ const PhysicalPrintDetail = props => {
     if (apparel.hasOwnProperty(gender.type)) {
       if (apparel[gender.type].hasOwnProperty(quality.type)) {
         if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
-          onPrint(apparel[gender.type][quality.type][color.type].image)
+          onPrint(apparel[gender.type][quality.type][color.type].image[print.type])
           setCost(apparel[gender.type][quality.type][color.type].cost)
         } else {
           onPrint('')
@@ -213,13 +213,8 @@ const PhysicalPrintDetail = props => {
           fullWidth
           height={53}
           onClick={() => {
-            // if (previewMode) {
             let data = { apparel, gender, color, print, quality, size, quantity }
             onShipping(data)
-            // } else {
-            //   onPrint(apparel[gender.type][quality.type][color.type].image)
-            //   setCost(apparel[gender.type][quality.type][color.type].cost)
-            // }
           }}
         />
       </div>

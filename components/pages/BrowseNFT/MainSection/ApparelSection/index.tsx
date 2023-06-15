@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { fabric } from 'fabric'
 
-// next components
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-
-// custom functions
-import { useViewport } from 'utils'
-
-// json
-
-// images
-
 // styles
 import styles from './index.module.scss'
 
@@ -19,9 +8,6 @@ import styles from './index.module.scss'
 
 const ApparelSection = props => {
   const { apparel, nftCoverUrl } = props
-  const viewport = useViewport()
-  const router = useRouter()
-  const dispatch = useDispatch()
   const [canvas, setCanvas] = useState('')
 
   useEffect(() => {
@@ -47,10 +33,10 @@ const ApparelSection = props => {
       newCanvas.clear().renderAll()
     }
 
-    let width = window.innerWidth * 0.3
+    let screenWidth = window.innerWidth * 0.3
     newCanvas.setDimensions({
-      width: width,
-      height: width,
+      width: screenWidth,
+      height: screenWidth,
     })
 
     new fabric.Image.fromURL(apparel, img => {
@@ -61,9 +47,9 @@ const ApparelSection = props => {
     })
     setTimeout(() => {
       new fabric.Image.fromURL(nftCoverUrl, img => {
+        const { width, height } = img.getOriginalSize()
         img.scaleToWidth(150, false)
-        img.set({ top: 150 })
-        img.set({ left: width / 2 - 65 })
+        img.set({ scaleX: 150 / width, scaleY: 150 / height, top: 150, left: screenWidth / 2 - 60 })
         newCanvas.add(img)
         newCanvas.renderAll()
       })
