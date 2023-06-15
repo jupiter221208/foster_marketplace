@@ -113,6 +113,7 @@ import PhysicalPrintDetail from '../PhysicalPrintDetail'
 import PhysicalShipping from '../PhysicalShipping'
 import { setDatasets } from 'react-chartjs-2/dist/utils'
 import PhysicalCheckout from '../PhysicalCheckout'
+import ApparelSection from './ApparelSection'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -660,12 +661,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
-              <div className={styles.imageArea}>
-                <img src={apparel} alt="" className="h-full" />
+
+              <ApparelSection apparel={apparel} nftCoverUrl={nftCoverUrl} />
+              {/* <img src={apparel} alt="" className="h-full" />
                 <div className="absolute top-[20%] w-[30%] h-[30%]">
                   <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-                </div>
-              </div>
+                </div> */}
             </div>
           </div>
         ) : (

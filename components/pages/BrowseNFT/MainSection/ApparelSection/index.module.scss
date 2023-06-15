@@ -1,0 +1,22 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  margin: 11px;
+  border-radius: 12px;
+  padding: 8px;
+  background: linear-gradient(
+    to bottom,
+    rgba(var(--background-dark-color), 0.4),
+    rgba(var(--background-light-color), 0.4)
+  );
+  overflow: hidden;
+  max-width: calc(100% - 32px);
+  max-height: calc(100% - 32px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
