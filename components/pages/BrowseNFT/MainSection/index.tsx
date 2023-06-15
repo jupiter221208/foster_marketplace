@@ -153,7 +153,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
 
-  const [openNFTView, setOpenNFTView] = useState(true)
   const [openPrintView, setOpenPrintView] = useState(false)
   const [openPrintDetail, setOpenPrintDetail] = useState(false)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
@@ -761,12 +760,10 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               onBack={() => {
                 setOpenPrintView(false)
                 setOpenPrintDetail(false)
-                setOpenNFTView(true)
               }}
               onDetail={() => {
                 setOpenPrintView(false)
                 setOpenPrintDetail(true)
-                setOpenNFTView(false)
               }}
             />
           ) : openPrintDetail ? (
@@ -774,7 +771,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               onBack={() => {
                 setOpenPrintView(true)
                 setOpenPrintDetail(false)
-                setOpenNFTView(false)
                 setApparel(null)
                 setShowPrintMode(false)
               }}
