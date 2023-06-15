@@ -3,13 +3,10 @@ import fs from 'fs/promises'
 import path from 'path'
 
 // next components
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // components
 
 // custom functions
-import { useViewport } from 'utils'
 
 // json
 import GenderType from 'assets/json/print/gender.json'
@@ -34,10 +31,7 @@ import PrintEditorModal from 'components/Modal/PrintEditorModal'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { image, onBack, onPrint, onShipping, previewMode, data, setData } = props
-  const viewport = useViewport()
-  const router = useRouter()
-  const dispatch = useDispatch()
+  const { onBack, onPrint, onShipping, data, setData } = props
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
   const [print, setPrint] = useState({ name: '' })
@@ -79,6 +73,7 @@ const PhysicalPrintDetail = props => {
       setQuality({ name: '', type: '' })
       setPrint({ name: '' })
       setCost('----')
+      onPrint('')
     }
   }, [gender])
 
@@ -94,56 +89,59 @@ const PhysicalPrintDetail = props => {
   }, [apparel])
 
   useEffect(() => {
-    if (previewMode) {
-      if (data === null) {
-        if (apparel.hasOwnProperty(gender.type)) {
-          if (apparel[gender.type].hasOwnProperty(quality.type)) {
-            onPrint(apparel[gender.type][quality.type][color.type].image)
-            setCost(apparel[gender.type][quality.type][color.type].cost)
-          } else {
-            onPrint('')
-          }
-        } else {
-          onPrint('')
-        }
-      }
-    } else {
-      if (!gender.hasOwnProperty('id')) {
-        setEnabled(false)
-        return
-      }
-
-      if (!apparel.hasOwnProperty('id')) {
-        setEnabled(false)
-        return
-      }
-
-      if (!color.hasOwnProperty('id')) {
-        setEnabled(false)
-        return
-      }
-
-      if (!print.hasOwnProperty('id')) {
-        setEnabled(false)
-        return
-      }
-
-      if (!quality.hasOwnProperty('id')) {
-        setEnabled(false)
-        return
-      }
-
-      if (!size.hasOwnProperty('id')) {
-        setEnabled(false)
-        return
-      }
-
-      if (quantity <= 0) {
-        setEnabled(false)
-        return
-      }
-      setEnabled(true)
+    // if (previewMode) {
+    //   if (data === null) {
+    //     if (apparel.hasOwnProperty(gender.type)) {
+    //       if (apparel[gender.type].hasOwnProperty(quality.type)) {
+    //         onPrint(apparel[gender.type][quality.type][color.type].image)
+    //         setCost(apparel[gender.type][quality.type][color.type].cost)
+    //       } else {
+    //         onPrint('')
+    //       }
+    //     } else {
+    //       onPrint('')
+    //     }
+    //   }
+    // } else {
+    if (!gender.hasOwnProperty('id')) {
+      setEnabled(false)
+      return
     }
+
+    if (!apparel.hasOwnProperty('id')) {
+      setEnabled(false)
+      return
+    }
+
+    if (!color.hasOwnProperty('id')) {
+      setEnabled(false)
+      return
+    }
+
+    if (!print.hasOwnProperty('id')) {
+      setEnabled(false)
+      return
+    }
+
+    if (!quality.hasOwnProperty('id')) {
+      setEnabled(false)
+      return
+    }
+
+    onPrint(apparel[gender.type][quality.type][color.type].image)
+    setCost(apparel[gender.type][quality.type][color.type].cost)
+
+    if (!size.hasOwnProperty('id')) {
+      setEnabled(false)
+      return
+    }
+
+    if (quantity <= 0) {
+      setEnabled(false)
+      return
+    }
+    setEnabled(true)
+    // }
   }, [gender, apparel, color, print, quality, size, quantity])
 
   return (
@@ -200,7 +198,7 @@ const PhysicalPrintDetail = props => {
         </div>
       </div>
       <div className="w-full mt-[50px] flex gap-[30px]">
-        <SecondaryButton
+        {/* <SecondaryButton
           backgroundColor="transparent"
           label="Generate Preview"
           fullWidth
@@ -209,7 +207,7 @@ const PhysicalPrintDetail = props => {
           color={enabled ? '#eff0f6' : '#818181'}
           borderColor={'#202427'}
           onClick={() => {}}
-        />
+        /> */}
         <GradientButton
           disabled={!enabled}
           label="Next"
@@ -217,13 +215,13 @@ const PhysicalPrintDetail = props => {
           fullWidth
           height={53}
           onClick={() => {
-            if (previewMode) {
-              let data = { apparel, gender, color, print, quality, size, quantity }
-              onShipping(data)
-            } else {
-              onPrint(apparel[gender.type][quality.type][color.type].image)
-              setCost(apparel[gender.type][quality.type][color.type].cost)
-            }
+            // if (previewMode) {
+            let data = { apparel, gender, color, print, quality, size, quantity }
+            onShipping(data)
+            // } else {
+            //   onPrint(apparel[gender.type][quality.type][color.type].image)
+            //   setCost(apparel[gender.type][quality.type][color.type].cost)
+            // }
           }}
         />
       </div>

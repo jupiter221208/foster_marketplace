@@ -152,9 +152,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
 
-  const [openNFTView, setOpenNFTView] = useState(true)
+  const [openNFTView, setOpenNFTView] = useState(false)
   const [openPrintView, setOpenPrintView] = useState(false)
-  const [openPrintDetail, setOpenPrintDetail] = useState(false)
+  const [openPrintDetail, setOpenPrintDetail] = useState(true)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
 
@@ -638,7 +638,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   }
   const [apparel, setApparel] = useState(null)
   const [showPrintMode, setShowPrintMode] = useState(false)
-  const [previewMode, setPreviewMode] = useState(false)
   const [printData, setPrintData] = useState(null)
 
   return (
@@ -771,17 +770,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
             />
           ) : openPrintDetail ? (
             <PhysicalPrintDetail
-              previewMode={previewMode}
               onBack={() => {
                 setOpenPrintView(true)
                 setOpenPrintDetail(false)
                 setOpenNFTView(false)
-                setPreviewMode(false)
                 setApparel(null)
                 setShowPrintMode(false)
               }}
               onPrint={apparel => {
-                setPreviewMode(true)
                 setApparel(apparel)
                 setShowPrintMode(true)
               }}
