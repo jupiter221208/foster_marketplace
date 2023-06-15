@@ -30,7 +30,7 @@
     "name": "SWEATSHIRT",
     "man": {
       "basic": {
-        "navy": { "cost": 15.9, "image": "/images/apparel/man_sweat_white.png" },
+        "navy": { "cost": 15.9, "image": "/images/apparel/man_sweat_navy.png" },
         "gray": { "cost": 15.9, "image": "/images/apparel/man_sweat_gray.png" },
         "black": { "cost": 15.9, "image": "/images/apparel/man_sweat_black.png" },
         "white": { "cost": 15.3, "image": "/images/apparel/man_sweat_white.png" }

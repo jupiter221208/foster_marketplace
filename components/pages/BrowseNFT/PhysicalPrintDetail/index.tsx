@@ -89,20 +89,6 @@ const PhysicalPrintDetail = props => {
   }, [apparel])
 
   useEffect(() => {
-    // if (previewMode) {
-    //   if (data === null) {
-    //     if (apparel.hasOwnProperty(gender.type)) {
-    //       if (apparel[gender.type].hasOwnProperty(quality.type)) {
-    //         onPrint(apparel[gender.type][quality.type][color.type].image)
-    //         setCost(apparel[gender.type][quality.type][color.type].cost)
-    //       } else {
-    //         onPrint('')
-    //       }
-    //     } else {
-    //       onPrint('')
-    //     }
-    //   }
-    // } else {
     if (!gender.hasOwnProperty('id')) {
       setEnabled(false)
       return
@@ -128,8 +114,20 @@ const PhysicalPrintDetail = props => {
       return
     }
 
-    onPrint(apparel[gender.type][quality.type][color.type].image)
-    setCost(apparel[gender.type][quality.type][color.type].cost)
+    if (apparel.hasOwnProperty(gender.type)) {
+      if (apparel[gender.type].hasOwnProperty(quality.type)) {
+        if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
+          onPrint(apparel[gender.type][quality.type][color.type].image)
+          setCost(apparel[gender.type][quality.type][color.type].cost)
+        } else {
+          onPrint('')
+        }
+      } else {
+        onPrint('')
+      }
+    } else {
+      onPrint('')
+    }
 
     if (!size.hasOwnProperty('id')) {
       setEnabled(false)
