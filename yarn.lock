@@ -10211,10 +10211,10 @@ eyes@^0.1.8:
   resolved "https://registry.yarnpkg.com/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
   integrity sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==
 
-fabric@^5.3.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/fabric/-/fabric-5.3.0.tgz#199297b6409e3a6279c16c1166da2b2a9e3e8b9b"
-  integrity sha512-AVayKuzWoXM5cTn7iD3yNWBlfEa8r1tHaOe2g8NsZrmWKAHjryTxT/j6f9ncRfOWOF0I1Ci1AId3y78cC+GExQ==
+fabric@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/fabric/-/fabric-5.0.0.tgz#f0859f28ff7fc2fbab05ec404163f5f00b46ad2c"
+  integrity sha512-XahoQZqgR3VN74NvlLkmW0tq3aBAUd5SHg/1IxHJq42QUPtFPW5jNmU+UkrAjyPJu3nTVvL5A1edDxsMoXqRsg==
   optionalDependencies:
     canvas "^2.8.0"
     jsdom "^19.0.0"
