@@ -43,6 +43,25 @@ const PhysicalCheckout = props => {
             </div>
             <div className="w-full flex justify-between mt-[20px]">
               <div className={styles.orderTotal}>SUBTOTAL</div>
+              <div className={styles.totalPrice}>$26.15</div>
+            </div>
+            <div className={`${styles.divider} mt-[15px]`} />
+            <div className="w-full flex justify-between mt-[15px]">
+              <div className={styles.orderTotal}>
+                SHIPPING AND
+                <br />
+                HANDLING
+              </div>
+              <div className={styles.subPrice}>
+                <div>Shipping: $---</div>
+                <div className="mt-[30px]">Handling Fee: $---</div>
+                <div className="mt-[30px]">Tax: $---</div>
+              </div>
+            </div>
+            <div className={`${styles.divider} mt-[15px]`} />
+            <div className="w-full flex justify-between mt-[20px]">
+              <div className={styles.orderTotal}>TOTAL</div>
+              <div className={styles.totalPrice}>$ ---</div>
             </div>
           </div>
         </div>

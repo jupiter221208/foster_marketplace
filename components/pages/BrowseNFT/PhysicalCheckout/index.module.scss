@@ -68,3 +68,23 @@
   height: 100%;
   background: var(--main-icon-color);
 }
+
+.totalPrice {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  line-height: 23px;
+  color: var(--text-gray-200-color);
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--text-gray-200-color);
+}
+
+.subPrice {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  line-height: 23px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
