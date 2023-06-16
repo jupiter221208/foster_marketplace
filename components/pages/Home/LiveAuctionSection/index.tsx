@@ -39,7 +39,7 @@ const LiveAuctionSection = props => {
   const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
-    getLiveAuctionsFromServer(artist, category, 'upcoming')
+    getLiveAuctionsFromServer(artist, category, 'recent_started')
   }, [artist, category])
 
   const getLiveAuctionsFromServer = (category, artist, mode) => {
@@ -74,13 +74,13 @@ const LiveAuctionSection = props => {
         getLiveAuctionsFromServer(category, artist, 'upcoming')
         break
       case 1:
-        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        getLiveAuctionsFromServer(category, artist, 'recent_started')
         break
       case 2:
-        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        getLiveAuctionsFromServer(category, artist, 'end_soon')
         break
       default:
-        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        getLiveAuctionsFromServer(category, artist, 'recent_started')
         break
     }
   }
