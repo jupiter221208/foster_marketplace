@@ -66,7 +66,6 @@ const nextConfig = {
       dns: false,
       net: false,
       tls: false,
-      canvas: false,
       cloudflare: false,
     }
 
