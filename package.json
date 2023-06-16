@@ -90,7 +90,7 @@
     "typescript": "^4.7.4"
   },
   "resolutions": {
-    "canvas": "npm:empty-npm-package",
-    "jsdom": "npm:empty-npm-package"
+    "fabric/canvas": "npm:empty-npm-package",
+    "fabric/jsdom": "npm:empty-npm-package"
   }
 }
