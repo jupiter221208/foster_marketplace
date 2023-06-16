@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fabric } from 'fabric'
+import { Canvas, Image, Rect } from 'fabric'
 
 // styles
 import styles from './index.module.scss'
@@ -8,7 +8,7 @@ import styles from './index.module.scss'
 
 const ApparelSection = props => {
   const { apparel, nftCoverUrl } = props
-  const [canvas, setCanvas] = useState('')
+  const [canvas, setCanvas] = useState<Canvas | null>(null)
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -26,12 +26,9 @@ const ApparelSection = props => {
   }, [apparel])
 
   const drawApparel = () => {
-    let newCanvas = canvas as fabric.Canvas
-    if (newCanvas == '') {
-      newCanvas = new fabric.Canvas('canvas')
-    } else {
-      newCanvas.clear().renderAll()
-    }
+    let newCanvas = canvas ?? new Canvas('canvas')
+    newCanvas.clear()
+    newCanvas.renderAll()
 
     let screenWidth = window.innerWidth * 0.3
     newCanvas.setDimensions({
@@ -39,14 +36,14 @@ const ApparelSection = props => {
       height: screenWidth,
     })
 
-    new fabric.Image.fromURL(apparel, img => {
+    Image.fromURL(apparel, img => {
       img.scale(1)
+      img.selectable = false
       newCanvas.add(img)
       newCanvas.renderAll()
-      newCanvas.item(0).selectable = false
     })
     setTimeout(() => {
-      new fabric.Image.fromURL(nftCoverUrl, img => {
+      Image.fromURL(nftCoverUrl, img => {
         const { width, height } = img.getOriginalSize()
         img.scaleToWidth(150, false)
         img.set({ scaleX: 150 / width, scaleY: 150 / height, top: 150, left: screenWidth / 2 - 60 })
