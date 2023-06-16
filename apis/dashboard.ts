@@ -66,17 +66,18 @@ class Dashboard {
   }
 
   getLiveAuctions(category, artist, mode) {
-    return client
-      .get(
-        API_URL +
-          'v1/dashboard/live-auctions' +
-          (category !== null && category?.length > 0 ? '?category=' + category : '') +
-          (artist !== null && artist?.length > 0 ? '?artist=' + artist : '') +
-          (mode !== null && mode?.length > 0 ? '?mode=' + mode : '')
-      )
-      .then(response => {
-        return response?.data
-      })
+    let url = category !== null && category?.length > 0 ? '?category=' + category : ''
+    if (artist !== null && artist?.length > 0) {
+      if (url.length > 0) url = url + '&artist=' + artist
+      else url = '?artist=' + artist
+    }
+    if (mode !== null && mode.length > 0) {
+      if (url.length > 0) url = url + '&mode=' + mode
+      else url = '?mode=' + mode
+    }
+    return client.get(API_URL + 'v1/dashboard/live-auctions' + url).then(response => {
+      return response?.data
+    })
   }
 
   getNftPublic() {

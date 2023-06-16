@@ -40,7 +40,7 @@ const LiveAuctionSection = props => {
   const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
-    getLiveAuctionsFromServer(artist, category, 'recent_started')
+    getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
 
   const getLiveAuctionsFromServer = (category, artist, mode) => {
