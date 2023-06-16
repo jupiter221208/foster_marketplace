@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const TrendingCollectionSection = props => {
   const { category, loop } = props
@@ -69,6 +70,9 @@ const TrendingCollectionSection = props => {
         getTrendingCollectionsFromServer(category, 'week')
         break
       case 2:
+        getTrendingCollectionsFromServer(category, 'month')
+        break
+      case 3:
         getTrendingCollectionsFromServer(category, 'all')
         break
       default:
@@ -92,24 +96,42 @@ const TrendingCollectionSection = props => {
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
             )}
-            <div className="hidden lg:flex z-10">
-              <Button
+            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+              <TimeSlotButton
                 label="24 hrs"
                 onClick={() => handleChangeActive(0)}
-                color={active === 0 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+                fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
               />
-              <Button
+              <TimeSlotButton
                 label="7 days"
                 onClick={() => handleChangeActive(1)}
-                color={active === 1 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+                fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
               />
-              <Button
+              <TimeSlotButton
                 label="30 days"
                 onClick={() => handleChangeActive(2)}
-                color={active === 2 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+                fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
+              />
+              <TimeSlotButton
+                label="All Time"
+                onClick={() => handleChangeActive(3)}
+                fontFamily={active === 3 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 3 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 3 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 3 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
               />
             </div>
           </div>

@@ -27,6 +27,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const LiveAuctionSection = props => {
   const { category, artist = '' } = props
@@ -100,24 +101,33 @@ const LiveAuctionSection = props => {
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
             </div>
-            <div className="hidden lg:flex z-10">
-              <Button
+            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+              <TimeSlotButton
                 label="Starting Soon"
                 onClick={() => handleChangeActive(0)}
-                color={active === 0 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+                fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
               />
-              <Button
+              <TimeSlotButton
                 label="Recently Started"
                 onClick={() => handleChangeActive(1)}
-                color={active === 1 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+                fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
               />
-              <Button
+              <TimeSlotButton
                 label="Ending Soon"
                 onClick={() => handleChangeActive(2)}
-                color={active === 2 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+                fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
               />
             </div>
           </div>
