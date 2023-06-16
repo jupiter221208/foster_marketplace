@@ -34,7 +34,7 @@ const PhysicalCheckout = props => {
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
       </div>
-      <div className="w-full flex-wrap h-auto flex gap-[15px] mt-[48px]">
+      <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[48px]">
         <div className="w-[370px] h-[390px] relative">
           <div className={styles.orderView}>
             <div className="w-full flex gap-[15px]">
@@ -64,6 +64,10 @@ const PhysicalCheckout = props => {
               <div className={styles.totalPrice}>$ ---</div>
             </div>
           </div>
+        </div>
+        <div className="w-[286px] h-[160px] relative">
+          <div className={styles.paymentMethod}>Choose Payment Method*</div>
+          <div></div>
         </div>
       </div>
       <div className="w-full mt-[50px] flex gap-[30px]">
