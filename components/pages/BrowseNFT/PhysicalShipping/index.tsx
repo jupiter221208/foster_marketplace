@@ -5,8 +5,6 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 // components
 import { Country, State } from 'country-state-city'
-//import Country from 'country-state-city'
-//import State from 'country-state-city'
 
 // custom functions
 import { useViewport } from 'utils'
