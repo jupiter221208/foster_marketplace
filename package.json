@@ -36,7 +36,7 @@
     "chart.js": "^3.8.2",
     "chartjs-adapter-moment": "^1.0.0",
     "country-state-city": "^3.1.4",
-    "fabric": "^6.0.0-beta9",
+    "fabric": "^5.3.1",
     "faker": "5.5.3",
     "fs": "0.0.1-security",
     "lottie-react": "^2.3.1",
