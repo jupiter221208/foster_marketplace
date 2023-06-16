@@ -141,7 +141,7 @@ const HeroCard = props => {
                 {data.nft_name}
               </div>
               <div className={`flex ${styles.artistName}`} onClick={() => gotoAristPage()}>
-                {data.artist_username || 'Ecosystem Artist'}
+                {data.artist_username}
               </div>
             </div>
             <div className="justify-start items-center lg:mt-[10px]">
