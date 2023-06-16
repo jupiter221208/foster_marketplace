@@ -37,7 +37,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { useViewport } from 'utils'
-import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo } from 'utils/nfts.utils'
+import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { placeBid } from 'utils/auctioneer.util'
 
@@ -244,6 +244,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const [nftPrice, setNftPrice] = useState(0)
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
+  const [nftCreatorname, setNftCreatorname] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [activityList, setActivityList] = useState([])
 
@@ -275,7 +276,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
     if (result) {
       listingsAPI.quickBuy(mintAddress, { buyer_wallet_id: publicKey?.toString(), amount: nftPrice.toString() }).then(
         response => {
-          console.log(response)
           setNftPrice(0)
           setIsOwnNft(true)
         },
@@ -387,6 +387,10 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
 
       setSellerAddress(tokenAccount.owner)
+
+      let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+      let { username: creatorName } = await usersAPI.get(createAddress)
+      setNftCreatorname(creatorName)
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername)
@@ -733,20 +737,21 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                 <div className={styles.title}>{nftName}</div>
               </div>
               <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
-                {artistInfo && (
+                <div className="flex gap-1 lg:gap-3">
+                  <div className={styles.grayText}>Created by</div>
+                  <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
+                    {nftCreatorname}
+                  </div>
+                </div>
+
+                {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
                   <div className="flex gap-1 lg:gap-3">
-                    <div className={styles.grayText}>Created by</div>
-                    <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
-                      {artistInfo.name}
+                    <div className={styles.grayText}>Fostered by</div>
+                    <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                      {nftOwnerUsername}
                     </div>
                   </div>
                 )}
-                <div className="flex gap-1 lg:gap-3">
-                  <div className={styles.grayText}>Fostered by</div>
-                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                    {nftOwnerUsername}
-                  </div>
-                </div>
               </div>
               {/* <div className="w-full mt-[30px]">
                 <div className={styles.descriptionTitle}>Description</div>

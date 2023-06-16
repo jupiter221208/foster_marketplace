@@ -50,9 +50,7 @@ const ListNFTModal = props => {
 
     const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
     if (result) {
-      listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
-        console.log(response)
-      }),
+      listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {}),
         error => {
           console.log(error)
         }

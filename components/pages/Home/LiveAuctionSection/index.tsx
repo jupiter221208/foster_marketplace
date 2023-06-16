@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
+import Button from 'components/Button'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // custom functions
@@ -26,6 +27,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import OutlineButton from 'components/Button/OutlineButton'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const LiveAuctionSection = props => {
   const { category, artist = '' } = props
@@ -35,10 +37,14 @@ const LiveAuctionSection = props => {
 
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(0)
+  const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
-    dashboardAPI.getLiveAuctions(category, artist).then(response => {
+    getLiveAuctionsFromServer(category, artist, 'recent_started')
+  }, [artist, category])
+
+  const getLiveAuctionsFromServer = (category, artist, mode) => {
+    dashboardAPI.getLiveAuctions(category, artist, mode).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
@@ -60,7 +66,25 @@ const LiveAuctionSection = props => {
       error => {
         console.log(error)
       }
-  }, [artist, category])
+  }
+  const handleChangeActive = value => {
+    setActive(value)
+
+    switch (value) {
+      case 0:
+        getLiveAuctionsFromServer(category, artist, 'upcoming')
+        break
+      case 1:
+        getLiveAuctionsFromServer(category, artist, 'recent_started')
+        break
+      case 2:
+        getLiveAuctionsFromServer(category, artist, 'end_soon')
+        break
+      default:
+        getLiveAuctionsFromServer(category, artist, 'recent_started')
+        break
+    }
+  }
 
   return (
     allListAuctionList.length !== 0 && (
@@ -76,6 +100,35 @@ const LiveAuctionSection = props => {
               ) : (
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
+            </div>
+            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+              <TimeSlotButton
+                label="Starting Soon"
+                onClick={() => handleChangeActive(0)}
+                fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
+              />
+              <TimeSlotButton
+                label="Recently Started"
+                onClick={() => handleChangeActive(1)}
+                fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
+              />
+              <TimeSlotButton
+                label="Ending Soon"
+                onClick={() => handleChangeActive(2)}
+                fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
+                backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
+                backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
+                gradientDirection="bottom"
+              />
             </div>
           </div>
           <div className="hidden lg:flex z-10">

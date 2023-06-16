@@ -222,8 +222,10 @@ const PrimaryHeader = () => {
   useEffect(() => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
+
       let signature = await signMessage(Buffer.from('Foster Protocol'))
       loginWithSigned(publicKey, signature, dispatch)
+      dispatch({ type: 'set', loginSignedFlag: true })
     })()
   }, [connected])
 

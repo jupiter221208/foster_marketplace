@@ -59,7 +59,7 @@ const Dao = () => {
   }, [nfts])
 
   const getThreshold = async () => {
-    return Math.trunc((await getCurrentTurkeyNftCount()) * 0.6)
+    return Math.trunc((await getCurrentTurkeyNftCount()) * 0.51)
   }
 
   const getProposal = async () => {

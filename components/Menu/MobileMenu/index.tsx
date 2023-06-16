@@ -39,6 +39,8 @@ const MobileMenu = () => {
   const viewport = useViewport()
   const { connected, publicKey, disconnect, signMessage } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
+  const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
+  const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -103,14 +105,6 @@ const MobileMenu = () => {
     }
   }, [profileInfo])
 
-  // handle login
-  const handleLogin = async () => {
-    let signature = await signMessage(Buffer.from('Foster Protocol'))
-    let user = await loginWithSigned(publicKey, signature, dispatch)
-    setProfileImage(user?.profile_picture)
-    setProfileName(user?.username)
-  }
-
   const handleThemeMode = () => {
     setColorTheme(!lightMode)
     dispatch({ type: 'set', lightMode: !lightMode })
@@ -173,10 +167,10 @@ const MobileMenu = () => {
           </div>
           {/* connect wallet alert */}
           <Alert
-            open={showAlert}
+            open={showAlert && loginSignedFlag}
             close={() => {
               setShowAlert(false)
-              handleLogin()
+              // handleLogin()
             }}
             data={alertData}
           />

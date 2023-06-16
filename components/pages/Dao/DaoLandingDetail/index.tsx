@@ -93,7 +93,7 @@ const DaoLandingDetail = props => {
     getVoteHistory()
     ;(async () => {
       let threshold = await getCurrentTurkeyNftCount()
-      setThreshold(Math.trunc(threshold * 0.6))
+      setThreshold(Math.trunc(threshold * 0.51))
     })()
   }, [proposalDetail, connected])
 

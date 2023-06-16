@@ -36,6 +36,7 @@ import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 export interface BrowseNFTProps {
   nftDetail?: Sft | Nft
@@ -44,6 +45,7 @@ export interface BrowseNFTProps {
 
 const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
+  const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
@@ -153,6 +155,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           </div>
         </div>
       )}
+      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
