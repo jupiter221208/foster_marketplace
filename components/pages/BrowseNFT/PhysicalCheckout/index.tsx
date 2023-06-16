@@ -19,16 +19,19 @@ import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
 import TableSection from './TableSection'
+import ProgressingModal from 'components/Modal/ProgressingModal'
+import Alert from 'components/Alert'
 
 // api
 
 const PhysicalCheckout = props => {
-  const { onBack } = props
+  const { onBack, onNext } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const [enabled, setEnabled] = useState(false)
   const [currency, setCurrency] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
   const list = [
     {
       name: 'Cage of Conscience T-Shirt (Medium) White',
@@ -36,6 +39,29 @@ const PhysicalCheckout = props => {
       shipping: '1234 Dragonsville Ave. Phoenix, AZ 12345, United States',
     },
   ]
+  const [alertData, setAlertData] = useState<any[]>([])
+
+  useEffect(() => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Checkout Success!',
+        description: 'You purchased the apparel successfully.',
+        type: 'success',
+      },
+    ])
+  }, [])
+
+  const onCheckout = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 500)
+    }, 3000)
+  }
+
   return (
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
@@ -104,14 +130,23 @@ const PhysicalCheckout = props => {
       </div>
       <div className="w-full mt-[40px] flex gap-[30px]">
         <GradientButton
-          disabled={!enabled}
+          disabled={currency.length === 0}
           label="Proceed to Checkout"
           fontSize={18}
           fullWidth
           height={53}
-          onClick={() => {}}
+          onClick={() => onCheckout()}
         />
       </div>
+      <ProgressingModal open={isLoading} />
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </section>
   )
 }

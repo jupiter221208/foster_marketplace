@@ -74,13 +74,7 @@ import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
-import {
-  LazyListing,
-  toLazyListing,
-  toListingReceiptAccount,
-  toMetadataAccount,
-  GpaBuilder,
-} from '@metaplex-foundation/js'
+import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // call apis
@@ -111,7 +105,6 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import PhysicalPrintSection from '../PhysicalPrintSection'
 import PhysicalPrintDetail from '../PhysicalPrintDetail'
 import PhysicalShipping from '../PhysicalShipping'
-import { setDatasets } from 'react-chartjs-2/dist/utils'
 import PhysicalCheckout from '../PhysicalCheckout'
 import ApparelSection from './ApparelSection'
 

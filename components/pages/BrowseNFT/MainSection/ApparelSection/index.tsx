@@ -44,16 +44,16 @@ const ApparelSection = props => {
       newCanvas.add(img)
       newCanvas.renderAll()
       newCanvas.item(0).selectable = false
+      setTimeout(() => {
+        new fabric.Image.fromURL(nftCoverUrl, img => {
+          const { width, height } = img.getOriginalSize()
+          img.scaleToWidth(150, false)
+          img.set({ scaleX: 150 / width, scaleY: 150 / height, top: 150, left: screenWidth / 2 - 60 })
+          newCanvas.add(img)
+          newCanvas.renderAll()
+        })
+      }, 500)
     })
-    setTimeout(() => {
-      new fabric.Image.fromURL(nftCoverUrl, img => {
-        const { width, height } = img.getOriginalSize()
-        img.scaleToWidth(150, false)
-        img.set({ scaleX: 150 / width, scaleY: 150 / height, top: 150, left: screenWidth / 2 - 60 })
-        newCanvas.add(img)
-        newCanvas.renderAll()
-      })
-    }, 500)
 
     setCanvas(newCanvas)
   }
