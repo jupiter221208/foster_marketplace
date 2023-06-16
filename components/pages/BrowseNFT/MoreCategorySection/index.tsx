@@ -37,7 +37,7 @@ const MoreCategorySection = props => {
 
   useEffect(() => {
     if (categories !== null && categories !== undefined && categories[0] !== undefined) {
-      dashboardAPI.getTrendingCollections(categories[0]).then(
+      dashboardAPI.getTrendingCollections(categories[0], 'week').then(
         response => {
           if (response instanceof Array) setCollectionList(response)
         },
