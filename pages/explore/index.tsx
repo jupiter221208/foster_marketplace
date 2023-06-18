@@ -448,6 +448,7 @@ const Explore = () => {
     if (selectedAvailability.value === 'timed') {
       if (nft.current_bid === null) return false
 
+      return true
       let start_time = nft.start_time
       let end_time = nft.end_time
       if (isAvailableDate(start_time, end_time)) return true
@@ -551,7 +552,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             currentBid={item.current_bid}
-                            endTime={item.end_date}
+                            endTime={item.end_time}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                               router.push(item.url)
