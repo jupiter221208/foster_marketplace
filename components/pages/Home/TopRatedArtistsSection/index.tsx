@@ -41,7 +41,7 @@ const TopRatedArtistsSection = () => {
   const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
-    getTopRatedArtistsFromServer('week')
+    getTopRatedArtistsFromServer('all')
   }, [])
 
   const getTopRatedArtistsFromServer = period => {

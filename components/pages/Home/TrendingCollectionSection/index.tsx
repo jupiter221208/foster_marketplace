@@ -43,7 +43,7 @@ const TrendingCollectionSection = props => {
 
   useEffect(() => {
     setTrendingList([])
-    getTrendingCollectionsFromServer(category, 'week')
+    getTrendingCollectionsFromServer(category, 'all')
   }, [category])
 
   const getTrendingCollectionsFromServer = (category, period) => {
