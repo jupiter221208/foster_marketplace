@@ -38,7 +38,7 @@ const PhysicalPrintDetail = props => {
   const [quality, setQuality] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ name: '' })
   const [color, setColor] = useState({ name: '', type: '' })
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [openEditorModal, setOpenEditorModal] = useState(false)
   const [apparelFile, setApparelFile] = useState(null)
@@ -114,11 +114,17 @@ const PhysicalPrintDetail = props => {
       return
     }
 
+    if (quantity <= 0) {
+      setEnabled(false)
+      return
+    }
+
     if (apparel.hasOwnProperty(gender.type)) {
       if (apparel[gender.type].hasOwnProperty(quality.type)) {
         if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
           onPrint(apparel[gender.type][quality.type][color.type].image[print.type])
-          setCost(apparel[gender.type][quality.type][color.type].cost)
+          let cost = apparel[gender.type][quality.type][color.type].cost
+          setCost((cost * quantity).toFixed(2))
         } else {
           onPrint('')
         }
@@ -134,12 +140,7 @@ const PhysicalPrintDetail = props => {
       return
     }
 
-    if (quantity <= 0) {
-      setEnabled(false)
-      return
-    }
     setEnabled(true)
-    // }
   }, [gender, apparel, color, print, quality, size, quantity])
 
   return (

@@ -3,12 +3,14 @@ import { fabric } from 'fabric'
 
 // styles
 import styles from './index.module.scss'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 // api
 
 const ApparelSection = props => {
   const { apparel, nftCoverUrl } = props
   const [canvas, setCanvas] = useState('')
+  const [loader, setLoader] = useState(false)
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -21,7 +23,10 @@ const ApparelSection = props => {
 
   useEffect(() => {
     if (apparel) {
+      setLoader(false)
       drawApparel()
+    } else {
+      setLoader(true)
     }
   }, [apparel])
 
@@ -61,6 +66,9 @@ const ApparelSection = props => {
   return (
     <div className={styles.container}>
       <canvas id="canvas" />
+      <div className="w-full absolute">
+        <LoadingModal open={loader} />
+      </div>
       {/* <img src={apparel} alt="" className="h-full" />
       <div className="absolute top-[20%] w-[30%] h-[30%]">
         <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />

@@ -147,7 +147,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [openReportModal, setOpenReportModal] = useState(false)
 
   const [openPrintView, setOpenPrintView] = useState(false)
-  const [openPrintDetail, setOpenPrintDetail] = useState(false)
+  const [openPrintDetail, setOpenPrintDetail] = useState(true)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
 
@@ -655,10 +655,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               <div className={styles.blurImage} />
 
               <ApparelSection apparel={apparel} nftCoverUrl={nftCoverUrl} />
-              {/* <img src={apparel} alt="" className="h-full" />
-                <div className="absolute top-[20%] w-[30%] h-[30%]">
-                  <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-                </div> */}
             </div>
           </div>
         ) : (
