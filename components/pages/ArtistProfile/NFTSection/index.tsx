@@ -19,6 +19,9 @@ import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
 import styles from './index.module.scss'
 import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 
+// call apis
+import nftsAPI from 'apis/nfts'
+
 const NFTSection = props => {
   const { nfts, collections, wallet, isOwn } = props
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -44,9 +47,19 @@ const NFTSection = props => {
   const [refreshing, setRefreshing] = useState(false)
   const refreshNFT = () => {
     setRefreshing(true)
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 2000)
+    nftsAPI.burntNft({ user: wallet, nfts: [] }).then(
+      response => {
+        setTimeout(() => {
+          setRefreshing(false)
+        }, 3000)
+      },
+      error => {
+        console.log(error)
+        setTimeout(() => {
+          setRefreshing(false)
+        }, 3000)
+      }
+    )
   }
 
   return (

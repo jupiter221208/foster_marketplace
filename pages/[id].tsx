@@ -25,7 +25,6 @@ import styles from './id.module.scss'
 
 // call apis
 import artistsAPI from 'apis/artists'
-import authAPI from 'apis/auth'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString, isLoggedIn } from 'utils/helpers'
 import { useViewport } from 'utils'
