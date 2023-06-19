@@ -6,7 +6,7 @@
   height: 51px;
   cursor: pointer;
   border-radius: 8px;
-  background: $brand-04-color;
+  background: var(--ellipse-report-bg);
   padding-left: 12px;
   padding-right: 25px;
   @media (min-width: 1024px) {
@@ -35,7 +35,7 @@
   right: 0;
   margin-top: 4px;
   transform-origin: top right;
-  background-color: $brand-04-color;
+  background-color: var(--ellipse-report-bg);
   border-radius: 8px;
   z-index: 1000;
   overflow: scroll;
@@ -77,7 +77,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: 0;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .activeMenuItem {
