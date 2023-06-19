@@ -11,7 +11,7 @@ const CheckoutTable = props => {
   const { data } = props
   console.log(data)
   return (
-    <table id={'ArtworksTable'} className="w-full table-auto">
+    <table id={'CheckoutTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
           {/* <th className="w-[20%] text-start">

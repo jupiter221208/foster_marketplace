@@ -776,6 +776,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               }}
               data={printData}
               setData={data => setPrintData(data)}
+              nftName={nftName}
             />
           ) : openShippingDetail ? (
             <PhysicalShipping

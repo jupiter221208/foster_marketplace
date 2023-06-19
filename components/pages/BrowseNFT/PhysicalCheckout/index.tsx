@@ -147,7 +147,7 @@ const PhysicalCheckout = props => {
         <TableSection data={list} />
       </div>
       <div className={styles.tableDivider} />
-      <div className="absolute bottom-8 left-10 right-10  flex gap-[30px]">
+      <div className="absolute bottom-8 left-10 right-10 flex gap-[30px]">
         <GradientButton
           disabled={currency.length === 0}
           label="Proceed to Checkout"

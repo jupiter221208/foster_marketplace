@@ -29,7 +29,7 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData } = props
+  const { onBack, onPrint, onShipping, data, setData, nftName } = props
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
   const [print, setPrint] = useState({ name: '', type: '' })
@@ -143,7 +143,7 @@ const PhysicalPrintDetail = props => {
         <div className={styles.backBG} onClick={onBack}>
           <ArrowLeftIcon alt="" />
         </div>
-        <div className={styles.selecteCategory}>Cage of Conscience - Apparel</div>
+        <div className={styles.selecteCategory}>{nftName} - Apparel</div>
       </div>
       <div className={styles.description}>
         Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Foster
