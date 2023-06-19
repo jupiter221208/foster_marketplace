@@ -38,7 +38,7 @@ const TopRatedArtistsSection = () => {
   const dispatch = useDispatch()
 
   const [artistsList, setArtistsList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(1)
+  const [active, setActive] = useState<any>(3)
 
   useEffect(() => {
     getTopRatedArtistsFromServer('all')
