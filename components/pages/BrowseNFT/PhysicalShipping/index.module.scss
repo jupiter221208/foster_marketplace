@@ -60,9 +60,14 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 18px;
-  color: $text-gray-200-color;
-  background: $brand-04-color;
+  color: var(--$text-gray-200-color);
+  background: var(--ellipse-report-bg);
   padding-left: 20px;
   border-radius: 10px;
   outline: none;
+}
+
+.inputArea:-webkit-autofill,
+.inputArea:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
 }

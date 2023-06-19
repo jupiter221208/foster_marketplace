@@ -32,6 +32,7 @@ const PhysicalShipping = props => {
   const [city, setCity] = useState('')
   const [street, setStreet] = useState('')
   const [apartment, setApartment] = useState('')
+  const [zipCode, setZipCode] = useState('')
   const [country, setCountry] = useState(null)
   const [state, setState] = useState(null)
   const [selectedState, setSelectedState] = useState(null)
@@ -104,7 +105,7 @@ const PhysicalShipping = props => {
             placeholder="Country"
           />
         </div>
-        <div className="mt-[15px] ">
+        <div className="mt-[10px] ">
           <CountrySelect
             data={State?.getStatesOfCountry(country?.isoCode)}
             selected={state}
@@ -113,7 +114,7 @@ const PhysicalShipping = props => {
             placeholder="State"
           />
         </div>
-        <div className="w-full mt-[15px]">
+        <div className="w-full mt-[10px]">
           <input
             value={name}
             placeholder="Name"
@@ -121,7 +122,7 @@ const PhysicalShipping = props => {
             onChange={event => setName(event.target.value)}
           />
         </div>
-        <div className="w-full mt-[15px]">
+        <div className="w-full mt-[10px]">
           <input
             value={city}
             placeholder="City"
@@ -129,7 +130,7 @@ const PhysicalShipping = props => {
             onChange={event => setCity(event.target.value)}
           />
         </div>
-        <div className="w-full mt-[15px]">
+        <div className="w-full mt-[10px]">
           <input
             value={street}
             placeholder="Street"
@@ -137,7 +138,7 @@ const PhysicalShipping = props => {
             onChange={event => setStreet(event.target.value)}
           />
         </div>
-        <div className="w-full mt-[15px]">
+        <div className="w-full mt-[10px]">
           <input
             value={apartment}
             placeholder="Apartment / Suite"
@@ -145,8 +146,16 @@ const PhysicalShipping = props => {
             onChange={event => setApartment(event.target.value)}
           />
         </div>
+        <div className="w-full mt-[10px]">
+          <input
+            value={zipCode}
+            placeholder="ZIP Code"
+            className={styles.inputArea}
+            onChange={event => setZipCode(event.target.value)}
+          />
+        </div>
       </div>
-      <div className="w-full mt-[50px] flex gap-[30px]">
+      <div className="w-full mt-[40px] flex gap-[30px]">
         <GradientButton
           disabled={!enabled}
           label="Proceed to Checkout"
