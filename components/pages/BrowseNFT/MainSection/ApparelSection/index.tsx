@@ -8,7 +8,7 @@ import LoadingModal from 'components/Modal/LoadingModal'
 // api
 
 const ApparelSection = props => {
-  const { apparel, nftCoverUrl } = props
+  const { apparel, nftCoverUrl, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
 
@@ -26,9 +26,28 @@ const ApparelSection = props => {
       setLoader(false)
       drawApparel()
     } else {
+      let newCanvas = canvas as fabric.Canvas
+      if (newCanvas != '') {
+        newCanvas.clear().renderAll()
+        setCanvas(newCanvas)
+      }
       setLoader(true)
     }
   }, [apparel])
+
+  useEffect(() => {
+    let newCanvas = canvas as fabric.Canvas
+    if (newCanvas != '' && newCanvas.item(1)) {
+      if (finishEditing) {
+        newCanvas.discardActiveObject()
+        newCanvas.item(1).selectable = false
+      } else {
+        newCanvas.item(1).selectable = true
+      }
+      newCanvas.renderAll()
+      setCanvas(newCanvas)
+    }
+  }, [finishEditing])
 
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas

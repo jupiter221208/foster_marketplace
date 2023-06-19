@@ -25,8 +25,6 @@ import styles from './index.module.scss'
 import Selection from 'components/Selection'
 import SelectionColor from 'components/SelectionColor'
 import GradientButton from 'components/Button/GradientButton'
-import SecondaryButton from 'components/Button/SecondaryButton'
-import PrintEditorModal from 'components/Modal/PrintEditorModal'
 
 // api
 
@@ -40,24 +38,13 @@ const PhysicalPrintDetail = props => {
   const [color, setColor] = useState({ name: '', type: '' })
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
-  const [openEditorModal, setOpenEditorModal] = useState(false)
-  const [apparelFile, setApparelFile] = useState(null)
   const [apparelType, setApparelType] = useState(ApparelType)
   const [qualityType, setQualityType] = useState(QualityType)
   const [cost, setCost] = useState('----')
 
   useEffect(() => {
     if (data !== null) {
-      setApparel(data.apparel)
       setGender(data.gender)
-      setColor(data.color)
-      setPrint(data.print)
-      setSize(data.size)
-      setQuality(data.quality)
-      setSize(data.size)
-      setQuantity(data.quantity)
-      setEnabled(true)
-      setData(null)
     }
   }, [data])
 
@@ -69,11 +56,23 @@ const PhysicalPrintDetail = props => {
         if (item.hasOwnProperty(genderType)) newApparelType.push(item)
       })
       setApparelType(newApparelType)
-      setApparel({ name: '' })
-      setQuality({ name: '', type: '' })
-      setPrint({ name: '', type: '' })
-      setCost('----')
-      onPrint('')
+      if (data) {
+        setApparel(data.apparel)
+        setColor(data.color)
+        setPrint(data.print)
+        setSize(data.size)
+        setQuality(data.quality)
+        setQuantity(data.quantity)
+        setData(null)
+      } else {
+        setApparel({ name: '' })
+        setQuality({ name: '', type: '' })
+        setPrint({ name: '', type: '' })
+        setCost('----')
+        onPrint('')
+      }
+    } else {
+      setEnabled(false)
     }
   }, [gender])
 
@@ -89,11 +88,6 @@ const PhysicalPrintDetail = props => {
   }, [apparel])
 
   useEffect(() => {
-    if (!gender.hasOwnProperty('id')) {
-      setEnabled(false)
-      return
-    }
-
     if (!apparel.hasOwnProperty('id')) {
       setEnabled(false)
       return
@@ -141,7 +135,7 @@ const PhysicalPrintDetail = props => {
     }
 
     setEnabled(true)
-  }, [gender, apparel, color, print, quality, size, quantity])
+  }, [apparel, color, print, quality, size, quantity])
 
   return (
     <section className={styles.container}>
@@ -219,14 +213,6 @@ const PhysicalPrintDetail = props => {
           }}
         />
       </div>
-      <PrintEditorModal
-        style={{ zIndex: 100001 }}
-        open={openEditorModal}
-        close={() => setOpenEditorModal(false)}
-        nftImage={apparelFile}
-        getCroppedImage={croppedImage => {}}
-        dimension={{ value: [1080, 1080] }}
-      />
     </section>
   )
 }

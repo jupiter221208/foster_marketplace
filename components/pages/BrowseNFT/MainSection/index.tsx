@@ -150,6 +150,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [openPrintDetail, setOpenPrintDetail] = useState(true)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
+  const [finishEditing, setFinishEditing] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
@@ -654,7 +655,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               </div>
               <div className={styles.blurImage} />
 
-              <ApparelSection apparel={apparel} nftCoverUrl={nftCoverUrl} />
+              <ApparelSection apparel={apparel} nftCoverUrl={nftCoverUrl} finishEditing={finishEditing} />
             </div>
           </div>
         ) : (
@@ -771,6 +772,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 setPrintData(item)
                 setOpenPrintDetail(false)
                 setOpenShippingDetail(true)
+                setFinishEditing(true)
               }}
               data={printData}
               setData={data => setPrintData(data)}
@@ -780,6 +782,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               onBack={() => {
                 setOpenPrintDetail(true)
                 setOpenShippingDetail(false)
+                setFinishEditing(false)
               }}
               onNext={() => {
                 setOpenShippingDetail(false)
