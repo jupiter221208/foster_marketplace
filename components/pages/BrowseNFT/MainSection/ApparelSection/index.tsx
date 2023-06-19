@@ -72,9 +72,22 @@ const ApparelSection = props => {
         new fabric.Image.fromURL(nftCoverUrl, img => {
           const { width, height } = img.getOriginalSize()
           img.scaleToWidth(150, false)
-          img.set({ scaleX: 150 / width, scaleY: 150 / height, top: 150, left: screenWidth / 2 - 60 })
+          img.set({
+            scaleX: 150 / width,
+            scaleY: 150 / height,
+            top: 150,
+            left: screenWidth / 2 - 60,
+            lockAspectRatio: true,
+          })
+          img.lockUniScaling = true
           newCanvas.add(img)
           newCanvas.renderAll()
+          img.setControlsVisibility({
+            mt: false,
+            mb: false,
+            ml: false,
+            mr: false,
+          })
         })
       }, 500)
     })
