@@ -632,7 +632,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [apparel, setApparel] = useState(null)
   const [showPrintMode, setShowPrintMode] = useState(false)
   const [printData, setPrintData] = useState(null)
-  const [apparelCategory, setApparelCategory] = useState('Cage of Conscience')
   const [shippingData, setShippingData] = useState(null)
 
   return (
@@ -780,22 +779,24 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
             />
           ) : openShippingDetail ? (
             <PhysicalShipping
-              onBack={() => {
+              onBack={info => {
+                setShippingData(info)
                 setOpenPrintDetail(true)
                 setOpenShippingDetail(false)
                 setFinishEditing(false)
               }}
-              onNext={checkout => {
-                setShippingData(checkout)
+              onNext={info => {
+                setShippingData(info)
                 setOpenShippingDetail(false)
                 setOpenCheckoutView(true)
               }}
+              data={shippingData}
             />
           ) : openCheckoutView ? (
             <PhysicalCheckout
               apparelData={printData}
               shippingData={shippingData}
-              category={apparelCategory}
+              nftName={nftName}
               onBack={() => {
                 setOpenShippingDetail(true)
                 setOpenCheckoutView(false)
@@ -803,92 +804,94 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
             />
           ) : (
             <div className={styles.nftDetailCard}>
-              <div className="w-full flex flex-wrap">
-                <div className="w-full flex flex-wrap justify-between items-center">
-                  <div>
-                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                      <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
-                        <ThreeEllipseMobileIcon alt="" />
-                      </div>
-                    ) : (
-                      <ReportMenu
-                        address={id}
-                        onClickReport={() => setOpenReportModal(true)}
-                        onClickPrint={() => setOpenPrintView(true)}
-                      />
-                    )}
-                  </div>
-                  <div className="inline">
-                    <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                      <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
-                        <Image
-                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                          alt=""
-                          className=""
-                          onClick={() => changeLikeStatus()}
-                        />
-
-                        <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                          {likeCount}
-                        </div>
-                      </div>
-                      <div className="flex items-center cursor-pointer mr-[20px]">
-                        <Image
-                          src={save ? TicketGreenIcon : TicketWhiteIcon}
-                          alt=""
-                          className=""
-                          onClick={() => changeSaveStatus()}
-                        />
-                        <div className={styles.text} onClick={() => setShowSaveModal(true)}>
-                          {saveCount}
-                        </div>
-                      </div>
+              <div>
+                <div className="w-full flex flex-wrap">
+                  <div className="w-full flex flex-wrap justify-between items-center">
+                    <div>
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <div onClick={() => setOpenShareModal(true)}>
-                          <ShareSmallIcon alt="" />
+                        <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
+                          <ThreeEllipseMobileIcon alt="" />
                         </div>
                       ) : (
-                        <MenuSocialShare
-                          type="nft"
-                          vote={share}
-                          setVote={setShare}
-                          voteCount={shareCount}
-                          setVoteCount={setShareCount}
-                          message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                          url={`/browse-nft?id=${id}`}
+                        <ReportMenu
+                          address={id}
+                          onClickReport={() => setOpenReportModal(true)}
+                          onClickPrint={() => setOpenPrintView(true)}
                         />
                       )}
                     </div>
-                  </div>
-                </div>
-                <div className="w-full flex justify-between items-center">
-                  <div
-                    className={styles.collectionName}
-                    onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
-                  >
-                    {nftCollectionName}
-                  </div>
-                </div>
-              </div>
-              <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[10px]">
-                <div className={styles.title}>{nftName}</div>
-              </div>
-              <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
-                <div className="flex gap-1 lg:gap-3">
-                  <div className={styles.grayText}>Created by</div>
-                  <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
-                    {nftCreatorname}
-                  </div>
-                </div>
+                    <div className="inline">
+                      <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                        <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
+                          <Image
+                            src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                            alt=""
+                            className=""
+                            onClick={() => changeLikeStatus()}
+                          />
 
-                {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
-                  <div className="flex gap-1 lg:gap-3">
-                    <div className={styles.grayText}>Fostered by</div>
-                    <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
-                      {nftOwnerUsername}
+                          <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                            {likeCount}
+                          </div>
+                        </div>
+                        <div className="flex items-center cursor-pointer mr-[20px]">
+                          <Image
+                            src={save ? TicketGreenIcon : TicketWhiteIcon}
+                            alt=""
+                            className=""
+                            onClick={() => changeSaveStatus()}
+                          />
+                          <div className={styles.text} onClick={() => setShowSaveModal(true)}>
+                            {saveCount}
+                          </div>
+                        </div>
+                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                          <div onClick={() => setOpenShareModal(true)}>
+                            <ShareSmallIcon alt="" />
+                          </div>
+                        ) : (
+                          <MenuSocialShare
+                            type="nft"
+                            vote={share}
+                            setVote={setShare}
+                            voteCount={shareCount}
+                            setVoteCount={setShareCount}
+                            message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                            url={`/browse-nft?id=${id}`}
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
-                )}
+                  <div className="w-full flex justify-between items-center">
+                    <div
+                      className={styles.collectionName}
+                      onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                    >
+                      {nftCollectionName}
+                    </div>
+                  </div>
+                </div>
+                <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[10px]">
+                  <div className={styles.title}>{nftName}</div>
+                </div>
+                <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
+                  <div className="flex gap-1 lg:gap-3">
+                    <div className={styles.grayText}>Created by</div>
+                    <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
+                      {nftCreatorname}
+                    </div>
+                  </div>
+
+                  {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
+                    <div className="flex gap-1 lg:gap-3">
+                      <div className={styles.grayText}>Fostered by</div>
+                      <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
+                        {nftOwnerUsername}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
               {/* <div className="w-full mt-[30px]">
                 <div className={styles.descriptionTitle}>Description</div>

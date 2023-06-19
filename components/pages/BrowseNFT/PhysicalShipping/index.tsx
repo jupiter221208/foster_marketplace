@@ -22,7 +22,7 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 
 const PhysicalShipping = props => {
-  const { onBack, onNext } = props
+  const { onBack, onNext, data } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -31,10 +31,38 @@ const PhysicalShipping = props => {
   const [name, setName] = useState('')
   const [city, setCity] = useState('')
   const [street, setStreet] = useState('')
+  const [shipping, setShipping] = useState(data)
   const [apartment, setApartment] = useState('')
   const [zipCode, setZipCode] = useState('')
   const [country, setCountry] = useState(null)
   const [state, setState] = useState(null)
+
+  useEffect(() => {
+    if (shipping) {
+      setEmail(shipping.email)
+      setCountry(shipping.country)
+      setState(shipping.state)
+      setName(shipping.name)
+      setCity(shipping.city)
+      setStreet(shipping.street)
+      setApartment(shipping.apartment)
+      setZipCode(shipping.zipCode)
+    }
+  }, [shipping])
+
+  const backToPage = () => {
+    let checkout = {
+      email,
+      country,
+      state,
+      name,
+      city,
+      street,
+      apartment,
+      zipCode,
+    }
+    onBack(checkout)
+  }
 
   const proceedToCheckout = () => {
     let checkout = {
@@ -50,7 +78,7 @@ const PhysicalShipping = props => {
   }
 
   useEffect(() => {
-    if (country) {
+    if (country && shipping === null) {
       setState(null)
     }
   }, [country])
@@ -90,7 +118,7 @@ const PhysicalShipping = props => {
   return (
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
-        <div className={styles.backBG} onClick={onBack}>
+        <div className={styles.backBG} onClick={() => backToPage()}>
           <ArrowLeftIcon alt="" />
         </div>
         <div className={styles.selecteCategory}>Add Shipping Details</div>

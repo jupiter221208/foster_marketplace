@@ -24,7 +24,7 @@ const CheckoutTable = props => {
             <div className={styles.value}>Quantity</div>
           </th>
           <th className="w-[40%] ">
-            <div className={`${styles.value} text-right mr-[20px]`}>Shipping Address</div>
+            <div className={`${styles.value} text-right mr-[30px]`}>Shipping Address</div>
           </th>
         </tr>
       </thead>

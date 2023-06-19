@@ -21,11 +21,12 @@ import GradientButton from 'components/Button/GradientButton'
 import TableSection from './TableSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
+import { getFirstUpperString } from 'utils/helpers'
 
 // api
 
 const PhysicalCheckout = props => {
-  const { onBack, onNext, apparelData, shippingData, category } = props
+  const { onBack, onNext, apparelData, shippingData, nftName } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -46,14 +47,14 @@ const PhysicalCheckout = props => {
     ])
 
     let name =
-      category +
+      nftName +
       '<br/>' +
-      apparelData['apparel'].name +
+      apparelData['apparel'].description +
       ' (' +
       apparelData['size'].name +
       ')' +
       '<br/>' +
-      apparelData['color'].type.toUpperCase()
+      getFirstUpperString(apparelData['color'].type)
     let quantity = apparelData['quantity']
     let shipping =
       shippingData['street'] +
@@ -90,7 +91,7 @@ const PhysicalCheckout = props => {
       <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
         <div className="w-[370px] h-[330px] relative">
           <div className={styles.orderView}>
-            <div className="w-full flex gap-[15px]">
+            <div className="w-full flex items-center gap-[10px] -ml-[11px]">
               <div className={styles.orderTicket}></div>
               <div className={styles.orderTotal}>ORDER TOTAL</div>
             </div>
@@ -145,7 +146,8 @@ const PhysicalCheckout = props => {
       <div className="mt-[20px]">
         <TableSection data={list} />
       </div>
-      <div className="w-full mt-[40px] flex gap-[30px]">
+      <div className={styles.tableDivider} />
+      <div className="absolute bottom-8 left-10 right-10  flex gap-[30px]">
         <GradientButton
           disabled={currency.length === 0}
           label="Proceed to Checkout"
@@ -156,7 +158,6 @@ const PhysicalCheckout = props => {
         />
       </div>
       <ProgressingModal open={isLoading} />
-
       <Alert
         open={showAlert}
         close={() => {
