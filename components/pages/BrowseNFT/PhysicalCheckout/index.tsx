@@ -25,20 +25,14 @@ import Alert from 'components/Alert'
 // api
 
 const PhysicalCheckout = props => {
-  const { onBack, onNext } = props
+  const { onBack, onNext, apparelData, shippingData, category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
   const [currency, setCurrency] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  const list = [
-    {
-      name: 'Cage of Conscience T-Shirt (Medium) White',
-      quantity: 1,
-      shipping: '1234 Dragonsville Ave. Phoenix, AZ 12345, United States',
-    },
-  ]
+  const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
@@ -50,6 +44,29 @@ const PhysicalCheckout = props => {
         type: 'success',
       },
     ])
+
+    let name =
+      category +
+      '<br/>' +
+      apparelData['apparel'].name +
+      ' (' +
+      apparelData['size'].name +
+      ')' +
+      '<br/>' +
+      apparelData['color'].type.toUpperCase()
+    let quantity = apparelData['quantity']
+    let shipping =
+      shippingData['street'] +
+      '<br/>' +
+      shippingData['city'] +
+      ', ' +
+      shippingData['state'].name +
+      ', ' +
+      shippingData['zipCode'] +
+      '<br/>' +
+      shippingData['country'].name
+
+    setList([{ name, quantity, shipping }])
   }, [])
 
   const onCheckout = () => {
@@ -79,7 +96,7 @@ const PhysicalCheckout = props => {
             </div>
             <div className="w-full flex justify-between mt-[20px]">
               <div className={styles.orderTotal}>SUBTOTAL</div>
-              <div className={styles.totalPrice}>$26.15</div>
+              <div className={styles.totalPrice}>${apparelData.cost}</div>
             </div>
             <div className={`${styles.divider} mt-[15px]`} />
             <div className="w-full flex justify-between mt-[15px]">

@@ -208,7 +208,7 @@ const PhysicalPrintDetail = props => {
           fullWidth
           height={53}
           onClick={() => {
-            let data = { apparel, gender, color, print, quality, size, quantity }
+            let data = { apparel, gender, color, print, quality, size, quantity, cost }
             onShipping(data)
           }}
         />

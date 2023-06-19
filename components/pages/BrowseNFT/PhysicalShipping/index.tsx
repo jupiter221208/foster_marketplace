@@ -35,10 +35,18 @@ const PhysicalShipping = props => {
   const [zipCode, setZipCode] = useState('')
   const [country, setCountry] = useState(null)
   const [state, setState] = useState(null)
-  const [selectedState, setSelectedState] = useState(null)
 
   const proceedToCheckout = () => {
-    onNext()
+    let checkout = {
+      email,
+      country,
+      state,
+      name,
+      city,
+      street,
+      zipCode,
+    }
+    onNext(checkout)
   }
 
   useEffect(() => {
@@ -72,8 +80,12 @@ const PhysicalShipping = props => {
       setEnabled(false)
       return
     }
+    if (zipCode.length == 0) {
+      setEnabled(false)
+      return
+    }
     setEnabled(true)
-  }, [email, country, state, name, city, street])
+  }, [email, country, state, name, city, street, zipCode])
 
   return (
     <section className={styles.container}>

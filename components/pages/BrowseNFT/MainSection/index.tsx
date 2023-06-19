@@ -91,7 +91,6 @@ import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
-// import DateSelect from 'components/DateSelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
@@ -148,7 +147,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const [openPrintView, setOpenPrintView] = useState(false)
   const [openPrintDetail, setOpenPrintDetail] = useState(true)
-  const [openShippingDetail, setOpenShippingDetail] = useState(false)
+  const [openShippingDetail, setOpenShippingDetail] = useState(true)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [finishEditing, setFinishEditing] = useState(false)
 
@@ -633,6 +632,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [apparel, setApparel] = useState(null)
   const [showPrintMode, setShowPrintMode] = useState(false)
   const [printData, setPrintData] = useState(null)
+  const [apparelCategory, setApparelCategory] = useState('Cage of Conscience')
+  const [shippingData, setShippingData] = useState(null)
 
   return (
     <div className={styles.container}>
@@ -784,13 +785,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 setOpenShippingDetail(false)
                 setFinishEditing(false)
               }}
-              onNext={() => {
+              onNext={checkout => {
+                setShippingData(checkout)
                 setOpenShippingDetail(false)
                 setOpenCheckoutView(true)
               }}
             />
           ) : openCheckoutView ? (
             <PhysicalCheckout
+              apparelData={printData}
+              shippingData={shippingData}
+              category={apparelCategory}
               onBack={() => {
                 setOpenShippingDetail(true)
                 setOpenCheckoutView(false)
