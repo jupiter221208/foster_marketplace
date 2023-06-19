@@ -99,6 +99,11 @@ class Nfts {
       return response.data
     })
   }
+  burntNft(param) {
+    return client.post(API_URL + 'v1/nfts/burnt/', param).then(response => {
+      return response.data
+    })
+  }
   unlikeNft(token_id) {
     return client.delete(API_URL + 'v1/nfts/like/' + token_id).then(response => {
       return response.data
