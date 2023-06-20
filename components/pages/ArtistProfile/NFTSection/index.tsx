@@ -21,9 +21,20 @@ import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSe
 
 // call apis
 import nftsAPI from 'apis/nfts'
+import ArtistPagination from 'components/Button/ArtistPagination'
 
 const NFTSection = props => {
-  const { nfts, collections, wallet, isOwn } = props
+  const {
+    nfts,
+    collections,
+    wallet,
+    isOwn,
+    currentPage,
+    rowCount,
+    selectRowCount,
+    handleNextPage,
+    handlePreviousPage,
+  } = props
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   useEffect(() => {
@@ -89,6 +100,18 @@ const NFTSection = props => {
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
           <NFTSwiperSection nfts={nfts} showHideButton={isOwn} />
+          <div className="w-full flex justify-end">
+            <ArtistPagination
+              currentPage={currentPage}
+              totalCount={rowCount * (currentPage + 1)}
+              rowCount={rowCount}
+              setRowCount={count => {
+                selectRowCount(count)
+              }}
+              handleNext={handleNextPage}
+              handlePrev={handlePreviousPage}
+            />
+          </div>
           <LiveAuctionSection category={''} artist={wallet} />
           <ActiveListingSection artist={wallet} />
         </div>

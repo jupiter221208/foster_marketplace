@@ -29,23 +29,23 @@ const NFTSwiperSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [nftList, setNFTList] = useState<any[]>([])
+  // const [nftList, setNFTList] = useState<any[]>([])
   // const [active, setActive] = useState<any>(0)
 
-  useEffect(() => {
-    let newList: any[] = []
-    let tempItem: any[] = []
+  // useEffect(() => {
+  //   let newList: any[] = []
+  //   let tempItem: any[] = []
 
-    nfts.map((item, index) => {
-      tempItem.push(item)
-      if (index % 2 === 1) {
-        newList.push(tempItem)
-        tempItem = []
-      }
-    })
-    if (tempItem.length > 0) newList.push(tempItem)
-    setNFTList(newList)
-  }, [nfts])
+  //   nfts.map((item, index) => {
+  //     tempItem.push(item)
+  //     if (index % 2 === 1) {
+  //       newList.push(tempItem)
+  //       tempItem = []
+  //     }
+  //   })
+  //   if (tempItem.length > 0) newList.push(tempItem)
+  //   setNFTList(newList)
+  // }, [nfts])
 
   // const handleChangeActive = value => {
   //   setActive(value)
@@ -84,7 +84,7 @@ const NFTSwiperSection = props => {
   ) : (
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        {nfts.length > 4 ? (
+        {/* {nfts.length > 4 ? (
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
@@ -122,29 +122,29 @@ const NFTSwiperSection = props => {
               </SwiperSlide>
             ))}
           </Swiper>
-        ) : (
-          <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
-            {nfts.map((item, index) => (
-              <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
-                <NFTCard
-                  token_id={item.token_id}
-                  image={item.asset_url}
-                  assetType={item.asset_type}
-                  coverImage={item.cover_image_url}
-                  nftName={item.nft_name}
-                  artistName={item.artist_username}
-                  price={item.list_price}
-                  showHideButton={showHideButton}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push(`/browse-nft?id=${item.token_id}`)
-                  }}
-                  key={item}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        ) : ( */}
+        <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
+          {nfts.map((item, index) => (
+            <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
+              <NFTCard
+                token_id={item.token_id}
+                image={item.asset_url}
+                assetType={item.asset_type}
+                coverImage={item.cover_image_url}
+                nftName={item.nft_name}
+                artistName={item.artist_username}
+                price={item.list_price}
+                showHideButton={showHideButton}
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/browse-nft?id=${item.token_id}`)
+                }}
+                key={item}
+              />
+            </div>
+          ))}
+        </div>
+        {/* )} */}
       </div>
       {/* <div className="w-full flex lg:hidden justify-center">
         <div className="w-full max-w-[242px] z-10">
