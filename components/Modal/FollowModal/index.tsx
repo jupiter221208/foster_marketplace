@@ -111,7 +111,7 @@ const FollowModal = props => {
       if (activeTab === 0) {
         new_list = [...followersList]
         new_list.forEach(item => {
-          if (item.wallet_id === wallet) item.follow = false
+          if (item.wallet_id === wallet) item.following = false
         })
         setFollowersList(new_list)
       } else {

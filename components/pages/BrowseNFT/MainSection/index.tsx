@@ -104,6 +104,7 @@ import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import LikeModal from 'components/Modal/LikeModal'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -141,10 +142,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
+  const [showLikeModal, setShowLikeModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
+  const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(false)
   const [play, setPlay] = useState(false)
 
@@ -695,17 +698,28 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                    <div
-                      className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]"
-                      onClick={() => changeLikeStatus()}
-                    >
-                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                    <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
+                      <Image
+                        src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeLikeStatus()}
+                      />
 
-                      <div className={styles.text}>{likeCount}</div>
+                      <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                        {likeCount}
+                      </div>
                     </div>
-                    <div className="flex items-center cursor-pointer mr-[20px]" onClick={() => changeSaveStatus()}>
-                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                      <div className={styles.text}>{saveCount}</div>
+                    <div className="flex items-center cursor-pointer mr-[20px]">
+                      <Image
+                        src={save ? TicketGreenIcon : TicketWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeSaveStatus()}
+                      />
+                      <div className={styles.text} onClick={() => setShowSaveModal(true)}>
+                        {saveCount}
+                      </div>
                     </div>
                     {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                       <div onClick={() => setOpenShareModal(true)}>
@@ -1222,6 +1236,26 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       </div>
 
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
+
+      {showLikeModal && publicKey && (
+        <LikeModal
+          open={showLikeModal}
+          ownWallet={publicKey?.toBase58()}
+          close={() => setShowLikeModal(false)}
+          type="liked"
+          wallet={mintAddress}
+        />
+      )}
+
+      {showSaveModal && publicKey && (
+        <LikeModal
+          open={showSaveModal}
+          ownWallet={publicKey?.toBase58()}
+          close={() => setShowSaveModal(false)}
+          type="saved"
+          wallet={mintAddress}
+        />
+      )}
 
       <ModalPlaceBid
         balance={mainWalletBalance}
