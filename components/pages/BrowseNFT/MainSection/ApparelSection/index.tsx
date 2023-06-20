@@ -4,6 +4,7 @@ import { fabric } from 'fabric'
 // styles
 import styles from './index.module.scss'
 import LoadingModal from 'components/Modal/LoadingModal'
+import { FadeLoader } from 'react-spinners'
 
 // api
 
@@ -98,9 +99,21 @@ const ApparelSection = props => {
   return (
     <div className={styles.container}>
       <canvas id="canvas" />
-      <div className="w-full absolute">
-        <LoadingModal open={loader} />
-      </div>
+      {loader && (
+        <div className="w-full absolute">
+          {/* <LoadingModal open={loader} /> */}
+          <div className="w-full flex justify-center">
+            <FadeLoader color="#63D6CD" width="6" height="12" />
+          </div>
+
+          <div className={styles.progressText}>
+            <p>
+              Preview generation in progress, please continue to
+              <br /> select your desired apparel parameters
+            </p>
+          </div>
+        </div>
+      )}
       {/* <img src={apparel} alt="" className="h-full" />
       <div className="absolute top-[20%] w-[30%] h-[30%]">
         <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
