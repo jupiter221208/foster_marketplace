@@ -39,10 +39,10 @@ const LiveAuctionCard = props => {
       data.end_time !== undefined &&
       data.end_time !== null
     ) {
-      setTimeLeft(calculateTimeLeft(getStartTime(data) * 1000))
+      setTimeLeft(calculateTimeLeft(getStartTime(data)))
 
       const timer = setInterval(() => {
-        setTimeLeft(calculateTimeLeft(getStartTime(data) * 1000))
+        setTimeLeft(calculateTimeLeft(getStartTime(data)))
       }, 1000)
 
       return () => clearTimeout(timer)
@@ -50,13 +50,18 @@ const LiveAuctionCard = props => {
   }, [data.start_time, data.end_time])
 
   const getStartTime = data => {
-    let difference = Number(data.start_time) * 1000 - +new Date()
+    let startTime = new Date(data.start_time)
+    let offset = startTime.getTimezoneOffset() * 60 * 1000
+    let proposalStartTime = startTime.getTime() - offset
+
+    let difference = proposalStartTime - new Date().getTime()
+
     if (difference >= 0) {
       setAuctionStarted(false)
-      return Number(data.start_time)
+      return data.start_time
     } else {
       setAuctionStarted(true)
-      return Number(data.end_time)
+      return data.end_time
     }
   }
   return (

@@ -1,8 +1,10 @@
 import * as moment from 'moment'
 
 export const calculateTimeLeft = endDate => {
-  let difference = +new Date(endDate) - +new Date()
-
+  let endTime = new Date(endDate)
+  let offset = endTime.getTimezoneOffset() * 60 * 1000
+  let liveEndTime = endTime.getTime() - offset
+  let difference = liveEndTime - new Date().getTime()
   let timeLeft = {}
 
   if (difference > 0) {
