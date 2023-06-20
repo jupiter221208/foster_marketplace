@@ -38,6 +38,23 @@ export const isExpiredDate = (start, duration) => {
   else return true
 }
 
+export const isAvailableDate = (start, end) => {
+  // for testing
+  let startTime = new Date(start)
+  let offset = startTime.getTimezoneOffset() * 60 * 1000
+  let proposalStartTime = startTime.getTime() - offset
+
+  let endTime = new Date(end)
+  let offsetEnd = startTime.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = endTime.getTime() - offsetEnd
+
+  let nowDate = new Date().getTime()
+  let diffStart = nowDate - proposalStartTime
+  let diffEnd = proposalEndTime - nowDate
+  if (diffStart > 0 && diffEnd > 0) return true
+  else return false
+}
+
 export const getDateLabel = date => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   let month = months[date.getMonth()]
