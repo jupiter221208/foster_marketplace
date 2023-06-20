@@ -11,16 +11,21 @@ import styles from './index.module.scss'
 
 const CountrySelect = props => {
   const { data, selected, onChange, placeholder } = props
+  const [selectedValue, setSelectedValue] = useState('')
+  useEffect(() => {
+    if (selected) setSelectedValue(selected.name)
+  }, [selected])
   return (
     <div className="w-full">
       <Listbox value={selected} onChange={item => onChange(item)}>
         <div className="w-full relative">
           <Listbox.Button className={styles.container}>
-            {selected ? (
+            <input className={styles.inputArea} value={selectedValue} placeholder={placeholder} />
+            {/* {selected ? (
               <span className="block truncate">{selected.name}</span>
             ) : (
               <div className={styles.placeholder}>{placeholder}</div>
-            )}
+            )} */}
 
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               {/* <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} /> */}

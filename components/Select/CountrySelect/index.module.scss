@@ -96,3 +96,14 @@
   line-height: 24px;
   color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
+
+.inputArea {
+  width: 100%;
+  height: 30px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: $text-gray-200-color;
+  background: transparent;
+  outline: none;
+}
