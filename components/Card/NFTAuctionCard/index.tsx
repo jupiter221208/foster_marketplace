@@ -99,6 +99,8 @@ const NFTAuctionCard = props => {
     if (interval > 1) {
       minute = Math.floor(interval)
       seconds = Math.floor(seconds % 60)
+    } else {
+      seconds = Math.floor(seconds)
     }
 
     endAuctionDate = { day, hour, minute, second: seconds }

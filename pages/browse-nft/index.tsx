@@ -89,7 +89,6 @@ const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
-  const [nftMainData, setNftMainData] = useState(nftDetail)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -101,8 +100,18 @@ const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
   }
 
   const reloadNftData = async () => {
-    nftDetail = await Metaplex.make(new Connection(process.env.PROVIDER_URL)).nfts().findByMint({ mintAddress })
-    setNftMainData(nftDetail)
+    if (!nftDetail) return
+    nftsAPI.getDetail(nftDetail.address).then(
+      (response: any) => {
+        if (!isString(response)) {
+          setNftInfo(response)
+          // if (response.creator_address !== null) {
+          //   setArtistInfo({ address: response.creator_address, name: response.creator_username })
+          // }
+        }
+      },
+      error => {}
+    )
   }
 
   return (
@@ -136,7 +145,7 @@ const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
         <div className="z-10">
           {nftDetail && (
             <MainSection
-              nftDetail={nftMainData}
+              nftDetail={nftDetail}
               artistInfo={artistInfo}
               nftInfo={nftInfo}
               setFullScreenView={setFullScreenView}
