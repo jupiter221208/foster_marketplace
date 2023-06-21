@@ -104,15 +104,20 @@ import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import LikeModal from 'components/Modal/LikeModal'
+import OutlineButton from 'components/Button/OutlineButton'
+import StartAuctionModal from 'components/Modal/StartAuctionModal'
+import ListNFTModal from 'components/Modal/ListNFTModal'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
   nftInfo: any
   artistInfo: NFTArtistInfo | null
   setFullScreenView: any
+  reloadNftData: any
 }
 
-const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: MainSectionProps) => {
+const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -135,16 +140,21 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
 
+  const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
+  const [showListNFTModal, setShowListNFTModal] = useState(false)
+
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
   const [likeCount, setLikeCount] = useState(0)
+  const [showLikeModal, setShowLikeModal] = useState(false)
   const [share, setShare] = useState<boolean>(false)
   const [shareCount, setShareCount] = useState(0)
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
+  const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(false)
   const [play, setPlay] = useState(false)
 
@@ -582,6 +592,32 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
     router.push(`/${link}`)
   }
 
+  const handleSuccessAuction = nftName => {
+    reloadNftData()
+
+    setOpenProgressingModal(false)
+
+    setAlertData([
+      {
+        id: 0,
+        title: 'Auction Published!',
+        description: `You've successfully published an auction for ${nftName}`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowStartAuctionModal(false)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 1000)
+    }, 1000)
+  }
+
+  const handleStartProgress = () => {
+    setOpenProgressingModal(true)
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -695,17 +731,28 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                    <div
-                      className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]"
-                      onClick={() => changeLikeStatus()}
-                    >
-                      <Image src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon} alt="" className="" />
+                    <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
+                      <Image
+                        src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeLikeStatus()}
+                      />
 
-                      <div className={styles.text}>{likeCount}</div>
+                      <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                        {likeCount}
+                      </div>
                     </div>
-                    <div className="flex items-center cursor-pointer mr-[20px]" onClick={() => changeSaveStatus()}>
-                      <Image src={save ? TicketGreenIcon : TicketWhiteIcon} alt="" className="" />
-                      <div className={styles.text}>{saveCount}</div>
+                    <div className="flex items-center cursor-pointer mr-[20px]">
+                      <Image
+                        src={save ? TicketGreenIcon : TicketWhiteIcon}
+                        alt=""
+                        className=""
+                        onClick={() => changeSaveStatus()}
+                      />
+                      <div className={styles.text} onClick={() => setShowSaveModal(true)}>
+                        {saveCount}
+                      </div>
                     </div>
                     {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                       <div onClick={() => setOpenShareModal(true)}>
@@ -882,8 +929,25 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                     </div>
                   </div>
                 </>
+              ) : nftInfo && isOwnNft && connected ? (
+                <div className="w-full flex gap-[20px] mt-[20px]">
+                  <OutlineButton
+                    label="Start Auction"
+                    onClick={() => setShowStartAuctionModal(true)}
+                    color="var(--main-bg-color)"
+                    borderColor="#707070"
+                    borderWidth="2"
+                    fullWidth
+                  />
+                  <GradientButton
+                    label={'List NFT'}
+                    fullWidth
+                    onClick={() => setShowListNFTModal(true)}
+                    direction="rtl"
+                  />
+                </div>
               ) : (
-                <div />
+                <div></div>
               )}
 
               <div className="mx-auto w-full mt-4">
@@ -1222,6 +1286,51 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
       </div>
 
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
+
+      <StartAuctionModal
+        data={{
+          mintAddress: nftDetail.address,
+          name: nftName,
+          json: nftDetail.json,
+        }}
+        open={showStartAuctionModal}
+        onSuccess={nft => handleSuccessAuction(nft)}
+        onStartProgress={() => handleStartProgress()}
+        onClose={() => setShowStartAuctionModal(false)}
+      />
+
+      <ListNFTModal
+        data={{
+          mintAddress: nftDetail.address,
+          name: nftName,
+          json: nftDetail.json,
+        }}
+        open={showListNFTModal}
+        onClose={(status: string) => {
+          setShowListNFTModal(false)
+          reloadNftData()
+        }}
+      />
+
+      {showLikeModal && publicKey && (
+        <LikeModal
+          open={showLikeModal}
+          ownWallet={publicKey?.toBase58()}
+          close={() => setShowLikeModal(false)}
+          type="liked"
+          wallet={mintAddress}
+        />
+      )}
+
+      {showSaveModal && publicKey && (
+        <LikeModal
+          open={showSaveModal}
+          ownWallet={publicKey?.toBase58()}
+          close={() => setShowSaveModal(false)}
+          type="saved"
+          wallet={mintAddress}
+        />
+      )}
 
       <ModalPlaceBid
         balance={mainWalletBalance}

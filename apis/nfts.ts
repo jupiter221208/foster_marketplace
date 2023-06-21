@@ -144,6 +144,18 @@ class Nfts {
       return response.data
     })
   }
+
+  getNftLikes(wallet_id) {
+    return client.get(API_URL + 'v1/nfts/detail/' + wallet_id + '/liked').then(response => {
+      return response.data
+    })
+  }
+
+  getNftSaved(wallet_id) {
+    return client.get(API_URL + 'v1/nfts/detail/' + wallet_id + '/saved').then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Nfts()

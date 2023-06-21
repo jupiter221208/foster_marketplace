@@ -21,30 +21,55 @@ const AuctionCard = props => {
 
   useEffect(() => {
     if (startTime !== undefined && startTime !== null && endTime !== undefined && endTime !== null) {
-      setTimeLeft(calculateTimeLeft(getStartTime() * 1000))
+      setTimeLeft(calculateTimeLeft(getStartTime()))
 
       const timer = setInterval(() => {
-        setTimeLeft(calculateTimeLeft(getStartTime() * 1000))
+        setTimeLeft(calculateTimeLeft(getStartTime()))
       }, 1000)
 
       return () => clearTimeout(timer)
     }
   }, [startTime, endTime])
 
+  // const getStartTime = () => {
+  //   let difference = Number(startTime) * 1000 - +new Date()
+  //   if (difference >= 0) {
+  //     setAuctionStarted(false)
+  //     return Number(startTime)
+  //   } else {
+  //     setIsStarted(true)
+  //     setAuctionStarted(true)
+
+  //     let end_difference = Number(endTime) * 1000 - +new Date()
+  //     if (end_difference < 0) setIsEnded(true)
+  //     return Number(endTime)
+  //   }
+  // }
+
   const getStartTime = () => {
-    let difference = Number(startTime) * 1000 - +new Date()
+    let startDate = new Date(startTime)
+    let offset = startDate.getTimezoneOffset() * 60 * 1000
+    let proposalStartTime = startDate.getTime() - offset
+
+    let difference = proposalStartTime - new Date().getTime()
+
     if (difference >= 0) {
       setAuctionStarted(false)
-      return Number(startTime)
+      return startTime
     } else {
       setIsStarted(true)
       setAuctionStarted(true)
 
-      let end_difference = Number(endTime) * 1000 - +new Date()
+      let endDate = new Date(endTime)
+      let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
+      let proposalEndTime = endDate.getTime() - offsetEnd
+
+      let end_difference = proposalEndTime - new Date().getTime()
       if (end_difference < 0) setIsEnded(true)
-      return Number(endTime)
+      return endTime
     }
   }
+
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">

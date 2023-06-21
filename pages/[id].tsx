@@ -56,6 +56,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [isLoaded, setIsLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalCount, setTotalCount] = useState(12)
+  const [rowCount, setRowCount] = useState(12)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -101,33 +104,51 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       loginWithSigned(publicKey, signature, dispatch)
 
       if (artistEnable || isLoggedIn()) {
-        getArtistData(artistPublicKey, true)
+        getArtistData(artistPublicKey, rowCount, currentPage, true)
       } else {
-        getCollectorData(artistPublicKey, true)
+        getCollectorData(artistPublicKey, rowCount, currentPage, true)
       }
     })()
   }, [connected, loginAndRefresh, publicArtistData, signMessage])
 
-  const getArtistData = (id, refresh = false) => {
-    artistsAPI.getArtist(id).then(
-      response => {
-        setIsLoaded(true)
-        if (isString(response)) return
-        let artist = response.artist
+  const selectRowCount = count => {
+    setRowCount(count)
+    if (artistEnable) getArtistData(artistPublicKey, count, currentPage)
+    else getCollectorData(artistPublicKey, count, currentPage)
+    setTimeout(
+      () =>
+        window.scrollTo({
+          top: 900,
+        }),
+      100
+    )
+  }
 
-        if (refresh && artist) {
-          artist.profile_picture ||= AvatarImage.src
-          artist.banner_picture ||= HeaderImage.src
-          setArtistInfo(artist)
-        }
-        setStatsInfo(response.stats)
-        setNfts(response.nfts)
-        setCollections(response.collections)
-        if (categoryList.length === 0) setCategoryList(response.categories)
-      },
-      error => {
-        console.log(error)
-      }
+  const handleNextPage = () => {
+    // if (totalCount < (currentPage + 1) * rowCount) return
+    const nextPage = currentPage + 1
+    if (artistEnable) getArtistData(artistPublicKey, rowCount, nextPage)
+    else getCollectorData(artistPublicKey, rowCount, nextPage)
+    setTimeout(
+      () =>
+        window.scrollTo({
+          top: 900,
+        }),
+      100
+    )
+  }
+
+  const handlePreviousPage = () => {
+    if (currentPage === 1) return
+    const prevPage = currentPage - 1
+    if (artistEnable) getArtistData(artistPublicKey, rowCount, prevPage)
+    else getCollectorData(artistPublicKey, rowCount, prevPage)
+    setTimeout(
+      () =>
+        window.scrollTo({
+          top: 900,
+        }),
+      100
     )
   }
 
@@ -147,8 +168,35 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     setCategoryList([])
   }
 
-  const getCollectorData = (id, refresh = false) => {
-    artistsAPI.getCollector(id).then(
+  const getArtistData = (id, row_count, current_page, refresh = false) => {
+    setNfts([])
+    artistsAPI.getArtist(id, row_count, current_page).then(
+      response => {
+        setIsLoaded(true)
+        if (isString(response)) return
+        let artist = response.artist
+
+        if (refresh && artist) {
+          artist.profile_picture ||= AvatarImage.src
+          artist.banner_picture ||= HeaderImage.src
+          setArtistInfo(artist)
+        }
+        setStatsInfo(response.stats)
+        setNfts(response.nfts)
+        if (response.nfts.length === 12) {
+          setCurrentPage(current_page)
+        }
+        setCollections(response.collections)
+        if (categoryList.length === 0) setCategoryList(response.categories)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  const getCollectorData = (id, row_count, current_page, refresh = false) => {
+    artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
         if (isString(response)) return
@@ -160,6 +208,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setStatsInfo(response.stats)
         setNfts(response.nfts)
+        if (response.nfts.length === 12) {
+          setCurrentPage(current_page)
+        }
         setCollections(response.collections)
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
@@ -172,10 +223,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   useEffect(() => {
     if (isMounted) {
       setIsLoaded(false)
+      setRowCount(12)
+      setCurrentPage(1)
       if (artistEnable) {
-        getArtistData(artistPublicKey)
+        getArtistData(artistPublicKey, 12, 1)
       } else {
-        getCollectorData(artistPublicKey)
+        getCollectorData(artistPublicKey, 12, 1)
       }
     }
   }, [artistEnable])
@@ -191,9 +244,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       setNfts(publicArtistData?.nfts ?? [])
       setCollections(publicArtistData?.collections ?? [])
 
-      getArtistData(artistPublicKey, true)
+      getArtistData(artistPublicKey, rowCount, currentPage, true)
     } else {
-      getCollectorData(artistPublicKey, true)
+      getCollectorData(artistPublicKey, rowCount, currentPage, true)
     }
     window.scrollTo({
       top: 0,
@@ -243,7 +296,17 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistEnable={enabled => setArtistEnable(enabled)}
           setFullScreenView={setFullScreenView}
         />
-        <NFTSection nfts={nfts} collections={collections} wallet={artistInfo?.wallet_id} isOwn={isOwn} />
+        <NFTSection
+          nfts={nfts}
+          collections={collections}
+          wallet={artistInfo?.wallet_id}
+          isOwn={isOwn}
+          currentPage={currentPage}
+          rowCount={rowCount}
+          selectRowCount={count => selectRowCount(count)}
+          handleNextPage={() => handleNextPage()}
+          handlePreviousPage={() => handlePreviousPage()}
+        />
       </div>
 
       {fullScreenMode && (

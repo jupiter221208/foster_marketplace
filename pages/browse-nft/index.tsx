@@ -40,10 +40,11 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 export interface BrowseNFTProps {
   nftDetail?: Sft | Nft
+  mintAddress?: PublicKey
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
@@ -98,6 +99,19 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
     setNftCoverUrl(url)
   }
 
+  const reloadNftData = () => {
+    if (!nftDetail) return
+    setNftInfo(null)
+    nftsAPI.getDetail(nftDetail.address).then(
+      (response: any) => {
+        if (!isString(response)) {
+          setNftInfo(response)
+        }
+      },
+      error => {}
+    )
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -133,6 +147,7 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
               artistInfo={artistInfo}
               nftInfo={nftInfo}
               setFullScreenView={setFullScreenView}
+              reloadNftData={reloadNftData}
             />
           )}
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
@@ -155,7 +170,6 @@ const BrowseNFT = ({ nftDetail, error }: BrowseNFTProps) => {
           </div>
         </div>
       )}
-      {/* <FullScreenLoadingModal open={isLoading} /> */}
     </div>
   )
 }
@@ -180,6 +194,7 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
   try {
     return {
       nftDetail: await Metaplex.make(new Connection(process.env.PROVIDER_URL)).nfts().findByMint({ mintAddress }),
+      mintAddress,
     }
   } catch (e: any) {
     console.error(e)
