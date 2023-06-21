@@ -101,11 +101,13 @@ import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
-import PhysicalPrintSection from '../PhysicalPrintSection'
-import PhysicalPrintDetail from '../PhysicalPrintDetail'
-import PhysicalShipping from '../PhysicalShipping'
-import PhysicalCheckout from '../PhysicalCheckout'
+import MerchApparelSection from './MerchApparelSection'
+import MerchWallArtSection from './MerchWallArtSection'
+// import PhysicalPrintDetail from '../PhysicalPrintDetail'
+// import PhysicalShipping from '../PhysicalShipping'
+// import PhysicalCheckout from '../PhysicalCheckout'
 import ApparelSection from './ApparelSection'
+import PrintCategorySection from './PrintCategorySection'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -146,10 +148,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [openReportModal, setOpenReportModal] = useState(false)
 
   const [openPrintView, setOpenPrintView] = useState(false)
-  const [openPrintDetail, setOpenPrintDetail] = useState(false)
-  const [openShippingDetail, setOpenShippingDetail] = useState(false)
-  const [openCheckoutView, setOpenCheckoutView] = useState(false)
+  const [openApparelDetail, setOpenApparelDetail] = useState(false)
+  const [openWallArtDetail, setOpenWallArtDetail] = useState(false)
+  const [openAccessoriesDetail, setOpenAccessoriesDetail] = useState(false)
+  // const [openPrintDetail, setOpenPrintDetail] = useState(false)
+  // const [openShippingDetail, setOpenShippingDetail] = useState(false)
+  // const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [finishEditing, setFinishEditing] = useState(false)
+  const [showPrintMode, setShowPrintMode] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
@@ -630,9 +636,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
     setOpenProgressingModal(true)
   }
   const [apparel, setApparel] = useState(null)
-  const [showPrintMode, setShowPrintMode] = useState(false)
-  const [printData, setPrintData] = useState(null)
-  const [shippingData, setShippingData] = useState(null)
 
   return (
     <div className={styles.container}>
@@ -744,7 +747,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         )}
 
         <div className="col-span-2 lg:col-span-1 z-10">
-          {openPrintView ? (
+          {/* {openPrintView ? (
             <PhysicalPrintSection
               image={nftCoverUrl}
               onBack={() => {
@@ -801,7 +804,53 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               onBack={() => {
                 setOpenShippingDetail(true)
                 setOpenCheckoutView(false)
+              }}+
+            /> */}
+          {openPrintView ? (
+            <PrintCategorySection
+              image={nftCoverUrl}
+              onBack={() => {
+                setOpenPrintView(false)
+                setOpenApparelDetail(false)
               }}
+              onDetail={type => {
+                setOpenPrintView(false)
+                if (type === 'apparel') {
+                  setOpenApparelDetail(true)
+                } else if (type === 'wall') {
+                  setOpenWallArtDetail(true)
+                } else {
+                  setOpenAccessoriesDetail(true)
+                }
+              }}
+            />
+          ) : openApparelDetail ? (
+            <MerchApparelSection
+              nftName={nftName}
+              open={openApparelDetail}
+              onBack={() => {
+                setOpenPrintView(true)
+                setOpenApparelDetail(false)
+              }}
+              setFinishEditing={editing => setFinishEditing(editing)}
+              openPrintView={openPrintView}
+              setOpenPrintView={print => setOpenPrintView(print)}
+              setApparel={apparel => setApparel(apparel)}
+              setShowPrintMode={mode => setShowPrintMode(mode)}
+            />
+          ) : openWallArtDetail ? (
+            <MerchWallArtSection
+              nftName={nftName}
+              open={openApparelDetail}
+              onBack={() => {
+                setOpenPrintView(true)
+                setOpenApparelDetail(false)
+              }}
+              setFinishEditing={editing => setFinishEditing(editing)}
+              openPrintView={openPrintView}
+              setOpenPrintView={print => setOpenPrintView(print)}
+              setApparel={apparel => setApparel(apparel)}
+              setShowPrintMode={mode => setShowPrintMode(mode)}
             />
           ) : (
             <div className={styles.nftDetailCard}>
@@ -894,22 +943,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   )}
                 </div>
               </div>
-              {/* <div className="w-full mt-[30px]">
-                <div className={styles.descriptionTitle}>Description</div>
-                <div className={styles.descriptionContent}>{nftDescription}</div>
-              </div>
-              <div className="w-full mt-[25px]">
-                <div className={styles.descriptionTitle}>Royalties</div>
-                <div className={styles.royaltyContent}>{nftRoyalties}%</div>
-              </div>
-              <div className="w-full mt-[25px]">
-                <div className={styles.descriptionTitle}>Categories</div>
-                <div className="flex mt-[14px] gap-[7px]">
-                  {nftCategories?.map((item, index) => (
-                    <SmallCategoryChip data={item} key={index} />
-                  ))}
-                </div>
-              </div> */}
 
               <div className="w-full flex flex-wrap">
                 {nftPrice > 0 && !liveAuction ? (

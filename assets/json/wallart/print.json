@@ -1,0 +1,22 @@
+[
+  {
+    "id": 0,
+    "name": "ACRYLIC",
+    "type": "acrylic"
+  },
+  {
+    "id": 1,
+    "name": "METAL",
+    "type": "metal"
+  },
+  {
+    "id": 2,
+    "name": "CANVAS",
+    "type": "canvas"
+  },
+  {
+    "id": 3,
+    "name": "POSTER",
+    "type": "poster"
+  }
+]

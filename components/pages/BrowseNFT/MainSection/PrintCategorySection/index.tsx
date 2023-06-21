@@ -32,7 +32,7 @@ import styles from './index.module.scss'
 
 // api
 
-const PhysicalPrintSection = props => {
+const PrintCategorySection = props => {
   const { image, onBack, onDetail } = props
   const viewport = useViewport()
   const router = useRouter()
@@ -53,7 +53,7 @@ const PhysicalPrintSection = props => {
           <Image src={PrintApparelImage} alt="" />
           <div className={styles.bottomView}>
             <div className={styles.cardTitle}>Apparel</div>
-            <div onClick={onDetail}>
+            <div onClick={() => onDetail('apparel')}>
               <ArrowRightEllipse alt="" />
             </div>
           </div>
@@ -62,7 +62,7 @@ const PhysicalPrintSection = props => {
           <Image src={PrintWallArtImage} alt="" />
           <div className={styles.bottomView}>
             <div className={styles.cardTitle}>Wall Art</div>
-            <div onClick={onDetail}>
+            <div onClick={() => onDetail('wall')}>
               <ArrowRightEllipse alt="" />
             </div>
           </div>
@@ -71,7 +71,7 @@ const PhysicalPrintSection = props => {
           <Image src={PrintAccessoriesImage} alt="" />
           <div className={styles.bottomView}>
             <div className={styles.cardTitle}>Accessories</div>
-            <div onClick={onDetail}>
+            <div onClick={() => onDetail('accessories')}>
               <ArrowRightEllipse alt="" />
             </div>
           </div>
@@ -81,4 +81,4 @@ const PhysicalPrintSection = props => {
   )
 }
 
-export default PhysicalPrintSection
+export default PrintCategorySection

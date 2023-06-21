@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import fs from 'fs/promises'
-import path from 'path'
 
 // next components
 
@@ -191,16 +189,6 @@ const PhysicalPrintDetail = props => {
         </div>
       </div>
       <div className="w-full mt-[50px] flex gap-[30px]">
-        {/* <SecondaryButton
-          backgroundColor="transparent"
-          label="Generate Preview"
-          fullWidth
-          height="53px"
-          fontSize="18px"
-          color={enabled ? '#eff0f6' : '#818181'}
-          borderColor={'#202427'}
-          onClick={() => {}}
-        /> */}
         <GradientButton
           disabled={!enabled}
           label="Next"

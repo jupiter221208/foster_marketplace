@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-
 import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
-import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 
 // styles
@@ -11,28 +7,22 @@ import styles from './index.module.scss'
 
 const CountrySelect = props => {
   const { data, selected, onChange, placeholder } = props
-  const [selectedValue, setSelectedValue] = useState('')
-  useEffect(() => {
-    if (selected) setSelectedValue(selected.name)
-  }, [selected])
+
   return (
     <div className="w-full">
       <Listbox value={selected} onChange={item => onChange(item)}>
         <div className="w-full relative">
           <Listbox.Button className={styles.container}>
-            <input className={styles.inputArea} value={selectedValue} placeholder={placeholder} />
-            {/* {selected ? (
+            {selected ? (
               <span className="block truncate">{selected.name}</span>
             ) : (
               <div className={styles.placeholder}>{placeholder}</div>
-            )} */}
+            )}
 
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-              {/* <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} /> */}
               <ActivityDownIcon className={`${'rotate-[-180] transform mr-2'}`} />
             </span>
           </Listbox.Button>
-          {/* <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0"> */}
           <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
             <div className={styles.menuBlur}>
               <Listbox.Options className={styles.menuArea}>
