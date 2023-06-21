@@ -1275,7 +1275,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         </div>
       </div>
 
-      {/* {openProgressingModal && <ProgressingModal open={openProgressingModal} />} */}
+      {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
 
       <StartAuctionModal
         data={{
