@@ -169,7 +169,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getArtistData = (id, row_count, current_page, refresh = false) => {
-    console.log('=========', id, row_count, current_page)
     setNfts([])
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
@@ -182,7 +181,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           artist.banner_picture ||= HeaderImage.src
           setArtistInfo(artist)
         }
-        console.log(response)
         setStatsInfo(response.stats)
         setNfts(response.nfts)
         if (response.nfts.length === 12) {

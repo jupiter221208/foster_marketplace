@@ -47,7 +47,6 @@ const TopRatedArtistsSection = () => {
   const getTopRatedArtistsFromServer = period => {
     dashboardAPI.getTopRatedArtists(period).then(
       response => {
-        console.log(response)
         if (response !== undefined && response !== null) {
           setArtistsList(response)
         }
