@@ -1308,9 +1308,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         open={showListNFTModal}
         onClose={(status: string) => {
           setShowListNFTModal(false)
-          if (status === 'listed') {
-            reloadNftData()
-          }
+          reloadNftData()
         }}
       />
 
