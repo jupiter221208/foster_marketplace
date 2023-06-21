@@ -87,125 +87,123 @@ const LiveAuctionSection = props => {
   }
 
   return (
-    allListAuctionList.length !== 0 && (
-      <section className={styles.container}>
-        <div className={styles.topLeftEllipse} />
-        <div className="w-full flex justify-between items-center z-10">
+    <section className={styles.container}>
+      <div className={styles.topLeftEllipse} />
+      <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full flex justify-center items-center z-10">
-                  <div className={styles.title}>Live Auctions</div>
-                </div>
-              ) : (
-                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
-              )}
-            </div>
-            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
-              <TimeSlotButton
-                label="Starting Soon"
-                onClick={() => handleChangeActive(0)}
-                fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
-                color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="Recently Started"
-                onClick={() => handleChangeActive(1)}
-                fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
-                color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="Ending Soon"
-                onClick={() => handleChangeActive(2)}
-                fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
-                color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-            </div>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="w-full flex justify-center items-center z-10">
+                <div className={styles.title}>Live Auctions</div>
+              </div>
+            ) : (
+              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
+            )}
           </div>
-          <div className="hidden lg:flex z-10">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
+          <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+            <TimeSlotButton
+              label="Starting Soon"
+              onClick={() => handleChangeActive(0)}
+              fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="Recently Started"
+              onClick={() => handleChangeActive(1)}
+              fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="Ending Soon"
+              onClick={() => handleChangeActive(2)}
+              fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
             />
           </div>
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          {liveAuctionList.length > 0 ? (
-            <Swiper
-              navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : 3.02}
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              className="navigationSwiper"
-              loop={liveAuctionList.length >= 3}
-              // autoplay={{
-              //   delay: 5000,
-              //   disableOnInteraction: false,
-              // }}
-            >
-              {liveAuctionList.map((item: any, index) => (
-                <SwiperSlide key={index}>
-                  <LiveAuctionCard
-                    data={item}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push('/browse-nft?id=' + item.token_id)
-                    }}
-                    key={index}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
-              {liveAuctionList.map((item, index) => (
-                <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
-                  <LiveAuctionCard
-                    data={item}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push('/browse-nft?id=' + item.token_id)
-                    }}
-                    key={index}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+        <div className="hidden lg:flex z-10">
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', availabilityFilter: 1 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+          />
         </div>
-        <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
+      </div>
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+        {liveAuctionList.length > 0 ? (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : 3.02}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            loop={liveAuctionList.length >= 3}
+            // autoplay={{
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // }}
+          >
+            {liveAuctionList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <LiveAuctionCard
+                  data={item}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push('/browse-nft?id=' + item.token_id)
+                  }}
+                  key={index}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        ) : (
+          <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
+            {liveAuctionList.map((item, index) => (
+              <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
+                <LiveAuctionCard
+                  data={item}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push('/browse-nft?id=' + item.token_id)
+                  }}
+                  key={index}
+                />
+              </div>
+            ))}
           </div>
+        )}
+      </div>
+      <div className="w-full flex lg:hidden justify-center">
+        <div className="w-full max-w-[242px] z-10">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', availabilityFilter: 1 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+            borderColor={'var(--see-more-border)'}
+            height="40px"
+          />
         </div>
-      </section>
-    )
+      </div>
+    </section>
   )
 }
 

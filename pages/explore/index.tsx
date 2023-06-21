@@ -469,13 +469,11 @@ const Explore = () => {
   }
 
   const isAvailableAuctionCard = nft => {
-    if (nft && selectedAvailability.value === 'timed') {
-      let start_time = nft.start_time
-      let end_time = nft.end_time
-      if (start_time === null || end_time === null) return false
-      if (isAvailableDate(start_time, end_time)) return true
-      else return false
-    } else return false
+    let start_time = nft.start_time
+    let end_time = nft.end_time
+    if (start_time === null || end_time === null) return false
+    if (isAvailableDate(start_time, end_time)) return true
+    else return false
   }
 
   return (
@@ -582,6 +580,35 @@ const Explore = () => {
                             }}
                             price={item.price}
                           />
+                        ) : selectedAvailability.value === 'all' ? (
+                          isAvailableAuctionCard(item) ? (
+                            <NFTAuctionCard
+                              image={item.image}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              currentBid={item.current_bid}
+                              reservePrice={item.reserve_price}
+                              endTime={item.end_time}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                                router.push(item.url)
+                              }}
+                              price={item.price}
+                            />
+                          ) : (
+                            <NFTCard
+                              image={item.image}
+                              nftName={item.name}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              artistName={item.creator}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                                router.push(item.url)
+                              }}
+                              price={item.price}
+                            />
+                          )
                         ) : (
                           <NFTCard
                             image={item.image}
