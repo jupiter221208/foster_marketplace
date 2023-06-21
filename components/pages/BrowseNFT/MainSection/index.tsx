@@ -934,7 +934,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   <OutlineButton
                     label="Start Auction"
                     onClick={() => setShowStartAuctionModal(true)}
-                    color="#eff0f6"
+                    color="var(--main-bg-color)"
                     borderColor="#707070"
                     borderWidth="2"
                     fullWidth

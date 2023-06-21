@@ -102,16 +102,10 @@ const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
   const reloadNftData = () => {
     if (!nftDetail) return
     setNftInfo(null)
-    console.log('==========1111=============')
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
-        console.log('==========response=============', response)
-
         if (!isString(response)) {
           setNftInfo(response)
-          // if (response.creator_address !== null) {
-          //   setArtistInfo({ address: response.creator_address, name: response.creator_username })
-          // }
         }
       },
       error => {}

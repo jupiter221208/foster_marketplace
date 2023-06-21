@@ -252,10 +252,10 @@
   font-family: 'Muli-Bold';
   font-size: 10px;
   line-height: 13px;
+  color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 18px;
     line-height: 24px;
-    color: var(--text-gray-200-color);
   }
 }
