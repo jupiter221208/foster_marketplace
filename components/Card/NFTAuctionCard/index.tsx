@@ -34,6 +34,7 @@ const NFTAuctionCard = props => {
     token_id,
     image,
     currentBid,
+    reservePrice,
     endTime,
     coverImage = '',
     assetType,
@@ -51,6 +52,16 @@ const NFTAuctionCard = props => {
   const [endDate, setEndDate] = useState({ day: 0, hour: 0, minute: 0, second: 0 })
 
   useEffect(() => {
+    getIntervalTime()
+
+    const timer = setInterval(() => {
+      getIntervalTime()
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [endTime])
+
+  const getIntervalTime = () => {
     if (endTime === undefined || endTime === null) {
       return
     }
@@ -93,7 +104,7 @@ const NFTAuctionCard = props => {
     endAuctionDate = { day, hour, minute, second: seconds }
 
     setEndDate(endAuctionDate)
-  }, [endTime])
+  }
 
   const performHideNft = () => {
     setIsLoading(true)
@@ -215,7 +226,7 @@ const NFTAuctionCard = props => {
                 ) : (
                   <SolanaLogoIcon />
                 )}
-                <div className={styles.price}>{currentBid}</div>
+                <div className={styles.price}>{currentBid === null ? reservePrice : currentBid}</div>
               </div>
               <div className="flex gap-[5px]">
                 <div className="flex gap-[2px]">

@@ -252,6 +252,7 @@ const Explore = () => {
             list_price: nft.list_price,
             start_time: nft.start_time,
             end_time: nft.end_time,
+            reserve_price: nft.reserve_price,
           }
         })
         setCurrentPage(curPage)
@@ -446,7 +447,7 @@ const Explore = () => {
 
   const isAvailableAuctionCard = nft => {
     if (selectedAvailability.value === 'timed') {
-      if (nft.current_bid === null) return false
+      if (nft.current_bid === null && nft.reserve_price === null) return false
 
       let start_time = nft.start_time
       let end_time = nft.end_time
@@ -551,6 +552,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             currentBid={item.current_bid}
+                            reservePrice={item.reserve_price}
                             endTime={item.end_time}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })

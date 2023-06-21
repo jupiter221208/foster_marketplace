@@ -107,6 +107,7 @@ import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
+import ListNFTModal from 'components/Modal/ListNFTModal'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
@@ -140,6 +141,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [liveAuction, setLiveAuction] = useState(false)
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
+  const [showListNFTModal, setShowListNFTModal] = useState(false)
+
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
@@ -936,7 +939,12 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                     borderWidth="2"
                     fullWidth
                   />
-                  <GradientButton label={'List NFT'} fullWidth onClick={() => quickBuy()} direction="rtl" />
+                  <GradientButton
+                    label={'List NFT'}
+                    fullWidth
+                    onClick={() => setShowListNFTModal(true)}
+                    direction="rtl"
+                  />
                 </div>
               )}
 
@@ -1287,6 +1295,21 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         onSuccess={nft => handleSuccessAuction(nft)}
         onStartProgress={() => handleStartProgress()}
         onClose={() => setShowStartAuctionModal(false)}
+      />
+
+      <ListNFTModal
+        data={{
+          mintAddress: nftDetail.address,
+          name: nftName,
+          json: nftDetail.json,
+        }}
+        open={showListNFTModal}
+        onClose={(status: string) => {
+          setShowListNFTModal(false)
+          if (status === 'listed') {
+            reloadNftData()
+          }
+        }}
       />
 
       {showLikeModal && publicKey && (
