@@ -929,7 +929,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                     </div>
                   </div>
                 </>
-              ) : isOwnNft && connected ? (
+              ) : nftInfo && isOwnNft && connected ? (
                 <div className="w-full flex gap-[20px] mt-[20px]">
                   <OutlineButton
                     label="Start Auction"

@@ -218,8 +218,14 @@ const NFTAuctionCard = props => {
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
             <div className="flex items-center justify-between mt-[6px] lg:mt-[15px]">
-              <div className={styles.currentBid}>CURRENT BID</div>
-              <div className={styles.currentBid}>TIME REMAINING</div>
+              <div className="w-full hidden lg:flex justify-between">
+                <div className={styles.currentBid}>{currentBid === null ? 'STARTING BID' : 'CURRENT BID'}</div>
+                <div className={styles.currentBid}>TIME REMAINING</div>
+              </div>
+              <div className="w-full flex lg:hidden justify-between">
+                <div className={styles.currentBid}>{currentBid === null ? 'STARTING' : 'CURRENT'}</div>
+                <div className={styles.currentBid}>TIME REMAINING</div>
+              </div>
             </div>
             <div className="w-full flex justify-between items-center mt-[3px] lg:mt-[8px]">
               <div className="flex justify-center items-center">
@@ -231,10 +237,12 @@ const NFTAuctionCard = props => {
                 <div className={styles.price}>{currentBid === null ? reservePrice : currentBid}</div>
               </div>
               <div className="flex gap-[5px]">
-                <div className="flex gap-[2px]">
-                  <div className={styles.timeValue}>{endDate.day}</div>
-                  <div className={styles.day}>D</div>
-                </div>
+                {endDate.day > 0 && (
+                  <div className="flex gap-[2px]">
+                    <div className={styles.timeValue}>{endDate.day}</div>
+                    <div className={styles.day}>D</div>
+                  </div>
+                )}
                 <div className="flex gap-[2px]">
                   <div className={styles.timeValue}>{endDate.hour}</div>
                   <div className={styles.day}>H</div>
@@ -243,7 +251,7 @@ const NFTAuctionCard = props => {
                   <div className={styles.timeValue}>{endDate.minute}</div>
                   <div className={styles.day}>M</div>
                 </div>
-                <div className="flex gap-[2px]">
+                <div className="flex gap-[2px] hidden lg:flex">
                   <div className={styles.timeValue}>{endDate.second}</div>
                   <div className={styles.day}>S</div>
                 </div>
