@@ -105,15 +105,18 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import { checkExpiryDate, loginWithSigned } from 'utils/auth'
 import LikeModal from 'components/Modal/LikeModal'
+import OutlineButton from 'components/Button/OutlineButton'
+import StartAuctionModal from 'components/Modal/StartAuctionModal'
 
 export interface MainSectionProps {
   nftDetail: Sft | Nft
   nftInfo: any
   artistInfo: NFTArtistInfo | null
   setFullScreenView: any
+  reloadNftData: any
 }
 
-const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: MainSectionProps) => {
+const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -136,6 +139,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
   const [showPlaceBidButton, setShowPlaceBIdButton] = useState(false)
   const [liveAuction, setLiveAuction] = useState(false)
 
+  const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
@@ -585,6 +589,32 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
     router.push(`/${link}`)
   }
 
+  const handleSuccessAuction = nftName => {
+    reloadNftData()
+
+    setOpenProgressingModal(false)
+
+    setAlertData([
+      {
+        id: 0,
+        title: 'Auction Published!',
+        description: `You've successfully published an auction for ${nftName}`,
+        type: 'success',
+      },
+    ])
+
+    setTimeout(() => {
+      setShowStartAuctionModal(false)
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 1000)
+    }, 1000)
+  }
+
+  const handleStartProgress = () => {
+    setOpenProgressingModal(true)
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -897,7 +927,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
                   </div>
                 </>
               ) : (
-                <div />
+                <div className="w-full flex gap-[20px] mt-[20px]">
+                  <OutlineButton
+                    label="Start Auction"
+                    onClick={() => setShowStartAuctionModal(true)}
+                    color="#eff0f6"
+                    borderColor="#707070"
+                    borderWidth="2"
+                    fullWidth
+                  />
+                  <GradientButton label={'List NFT'} fullWidth onClick={() => quickBuy()} direction="rtl" />
+                </div>
               )}
 
               <div className="mx-auto w-full mt-4">
@@ -1235,7 +1275,19 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView }: Main
         </div>
       </div>
 
-      {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
+      {/* {openProgressingModal && <ProgressingModal open={openProgressingModal} />} */}
+
+      <StartAuctionModal
+        data={{
+          mintAddress: nftDetail.address,
+          name: nftName,
+          json: nftDetail.json,
+        }}
+        open={showStartAuctionModal}
+        onSuccess={nft => handleSuccessAuction(nft)}
+        onStartProgress={() => handleStartProgress()}
+        onClose={() => setShowStartAuctionModal(false)}
+      />
 
       {showLikeModal && publicKey && (
         <LikeModal
