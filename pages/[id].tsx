@@ -126,9 +126,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   const reloadPage = () => {
     if (artistEnable) {
-      getArtistData(artistPublicKey, rowCount, currentPage, true)
+      getArtistData(artistPublicKey, rowCount, currentPage, false)
     } else {
-      getCollectorData(artistPublicKey, rowCount, currentPage, true)
+      getCollectorData(artistPublicKey, rowCount, currentPage, false)
     }
   }
 
@@ -204,6 +204,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getCollectorData = (id, row_count, current_page, refresh = false) => {
+    setNfts([])
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
