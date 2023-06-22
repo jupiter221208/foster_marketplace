@@ -6,8 +6,8 @@ import React, { useState } from 'react'
 
 //component
 import PhysicalPrintDetail from './PhysicalPrintDetail'
-import PhysicalShipping from './PhysicalShipping'
-import PhysicalCheckout from './PhysicalCheckout'
+import PhysicalShipping from '../PhysicalShipping'
+import PhysicalCheckout from '../PhysicalCheckout'
 
 // json
 

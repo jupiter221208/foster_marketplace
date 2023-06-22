@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react'
 
 //component
 import WalletArtDetail from './WalletArtDetail'
+import PhysicalShipping from '../PhysicalShipping'
+import PhysicalCheckout from '../PhysicalCheckout'
 
 // json
 
