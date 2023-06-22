@@ -1,155 +1,701 @@
 [
-  { "id": 0, "type": "acrylic" },
   {
     "id": 0,
-    "type": "landscape",
-    "size": [
+    "type": "acrylic",
+    "landscape": [
       {
         "id": 0,
-        "width": 6,
-        "height": 4
+        "width": 10,
+        "height": 8,
+        "price": 39.6
       },
       {
         "id": 1,
-        "width": 9,
-        "height": 6
+        "width": 16,
+        "height": 12,
+        "price": 79.356
       },
       {
         "id": 2,
-        "width": 12,
-        "height": 8
+        "width": 18,
+        "height": 12,
+        "price": 86.856
       },
       {
         "id": 3,
-        "width": 15,
-        "height": 10
+        "width": 20,
+        "height": 10,
+        "price": 81.6
       },
       {
         "id": 4,
-        "width": 18,
-        "height": 12
+        "width": 20,
+        "height": 12,
+        "price": 94.356
       },
       {
         "id": 5,
-        "width": 24,
-        "height": 16
+        "width": 20,
+        "height": 16,
+        "price": 112.356
       },
       {
         "id": 6,
-        "width": 30,
-        "height": 20
+        "width": 24,
+        "height": 16,
+        "price": 131.856
       },
       {
         "id": 7,
-        "width": 36,
-        "height": 24
+        "width": 24,
+        "height": 20,
+        "price": 160.356
       },
       {
         "id": 8,
+        "width": 30,
+        "height": 20,
+        "price": 197.1
+      },
+      {
+        "id": 9,
+        "width": 30,
+        "height": 24,
+        "price": 232.356
+      },
+      {
+        "id": 10,
+        "width": 36,
+        "height": 24,
+        "price": 275.856
+      },
+      {
+        "id": 10,
+        "width": 40,
+        "height": 30,
+        "price": 379.356
+      },
+      {
+        "id": 11,
         "width": 48,
-        "height": 32
+        "height": 32,
+        "price": 476.1
       }
-    ]
-  },
-  {
-    "id": 0,
-    "type": "portrait",
-    "size": [
+    ],
+    "portrait": [
       {
         "id": 0,
-        "width": 4,
-        "height": 6
+        "width": 8,
+        "height": 10,
+        "price": 39.6
       },
       {
         "id": 1,
-        "width": 6,
-        "height": 9
+        "width": 10,
+        "height": 20,
+        "price": 81.6
       },
       {
         "id": 2,
-        "width": 8,
-        "height": 12
+        "width": 12,
+        "height": 16,
+        "price": 79.356
       },
       {
         "id": 3,
-        "width": 10,
-        "height": 15
+        "width": 12,
+        "height": 18,
+        "price": 86.856
       },
       {
         "id": 4,
-        "width": 12,
-        "height": 18
+        "width": 16,
+        "height": 20,
+        "price": 112.356
       },
       {
         "id": 5,
         "width": 16,
-        "height": 24
+        "height": 24,
+        "price": 131.856
       },
       {
         "id": 6,
         "width": 20,
-        "height": 30
+        "height": 24,
+        "price": 160.356
       },
       {
         "id": 7,
-        "width": 24,
-        "height": 36
+        "width": 20,
+        "height": 30,
+        "price": 197.1
       },
       {
         "id": 8,
+        "width": 24,
+        "height": 30,
+        "price": 232.356
+      },
+      {
+        "id": 9,
+        "width": 24,
+        "height": 36,
+        "price": 275.856
+      },
+      {
+        "id": 10,
+        "width": 30,
+        "height": 40,
+        "price": 379.356
+      },
+      {
+        "id": 11,
         "width": 32,
-        "height": 48
+        "height": 48,
+        "price": 476.1
+      }
+    ],
+    "squre": [
+      {
+        "id": 0,
+        "width": 10,
+        "height": 10,
+        "price": 35.1
+      },
+      {
+        "id": 1,
+        "width": 12,
+        "height": 12,
+        "price": 67.356
+      },
+      {
+        "id": 2,
+        "width": 16,
+        "height": 16,
+        "price": 99.6
+      },
+      {
+        "id": 3,
+        "width": 20,
+        "height": 20,
+        "price": 137.1
+      },
+      {
+        "id": 4,
+        "width": 24,
+        "height": 24,
+        "price": 189.6
+      },
+      {
+        "id": 5,
+        "width": 30,
+        "height": 30,
+        "price": 287.1
+      },
+      {
+        "id": 6,
+        "width": 36,
+        "height": 36,
+        "price": 405.6
       }
     ]
   },
   {
-    "id": 0,
-    "type": "square",
-    "size": [
+    "id": 1,
+    "type": "canvas",
+    "landscape": [
       {
         "id": 0,
-        "width": 4,
-        "height": 4
+        "width": 10,
+        "height": 8,
+        "price": 14.1
       },
       {
         "id": 1,
-        "width": 5,
-        "height": 5
+        "width": 16,
+        "height": 12,
+        "price": 22.356
       },
       {
         "id": 2,
-        "width": 6,
-        "height": 6
+        "width": 20,
+        "height": 10,
+        "price": 23.1
       },
       {
         "id": 3,
-        "width": 8,
-        "height": 8
+        "width": 24,
+        "height": 18,
+        "price": 38.856
       },
       {
         "id": 4,
-        "width": 10,
-        "height": 10
+        "width": 24,
+        "height": 20,
+        "price": 42.6
       },
       {
         "id": 5,
-        "width": 12,
-        "height": 12
+        "width": 30,
+        "height": 15,
+        "price": 47.856
       },
       {
         "id": 6,
-        "width": 14,
-        "height": 14
+        "width": 30,
+        "height": 20,
+        "price": 47.856
+      },
+      {
+        "id": 7,
+        "width": 7,
+        "height": 5,
+        "price": 11.1
+      }
+    ],
+    "portrait": [
+      {
+        "id": 0,
+        "width": 10,
+        "height": 20,
+        "price": 23.1
+      },
+      {
+        "id": 1,
+        "width": 12,
+        "height": 16,
+        "price": 22.356
+      },
+      {
+        "id": 2,
+        "width": 15,
+        "height": 30,
+        "price": 47.856
+      },
+      {
+        "id": 3,
+        "width": 18,
+        "height": 24,
+        "price": 38.856
+      },
+      {
+        "id": 4,
+        "width": 20,
+        "height": 24,
+        "price": 42.6
+      },
+      {
+        "id": 5,
+        "width": 20,
+        "height": 30,
+        "price": 47.856
+      },
+      {
+        "id": 6,
+        "width": 5,
+        "height": 7,
+        "price": 11.1
+      },
+      {
+        "id": 7,
+        "width": 8,
+        "height": 10,
+        "price": 14.1
+      }
+    ],
+    "squre": [
+      {
+        "id": 0,
+        "width": 10,
+        "height": 10,
+        "price": 14.856
+      },
+      {
+        "id": 1,
+        "width": 12,
+        "height": 12,
+        "price": 17.856
+      },
+      {
+        "id": 2,
+        "width": 16,
+        "height": 16,
+        "price": 25.356
+      },
+      {
+        "id": 3,
+        "width": 20,
+        "height": 20,
+        "price": 38.856
+      },
+      {
+        "id": 4,
+        "width": 24,
+        "height": 24,
+        "price": 47.1
+      },
+      {
+        "id": 5,
+        "width": 6,
+        "height": 6,
+        "price": 11.1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "type": "metal",
+    "landscape": [
+      {
+        "id": 0,
+        "width": 10,
+        "height": 8,
+        "price": 40.356
+      },
+      {
+        "id": 1,
+        "width": 12,
+        "height": 8,
+        "price": 49.356
+      },
+      {
+        "id": 2,
+        "width": 12,
+        "height": 9,
+        "price": 47.856
+      },
+      {
+        "id": 3,
+        "width": 15,
+        "height": 10,
+        "price": 62.856
+      },
+      {
+        "id": 4,
+        "width": 18,
+        "height": 12,
+        "price": 83.1
+      },
+      {
+        "id": 5,
+        "width": 20,
+        "height": 10,
+        "price": 118.356
+      },
+      {
+        "id": 6,
+        "width": 20,
+        "height": 16,
+        "price": 106.356
+      },
+      {
+        "id": 7,
+        "width": 24,
+        "height": 12,
+        "price": 104.1
+      },
+      {
+        "id": 8,
+        "width": 24,
+        "height": 20,
+        "price": 149.856
+      },
+      {
+        "id": 9,
+        "width": 30,
+        "height": 20,
+        "price": 173.1
+      },
+      {
+        "id": 10,
+        "width": 30,
+        "height": 24,
+        "price": 242.856
+      },
+      {
+        "id": 11,
+        "width": 36,
+        "height": 24,
+        "price": 290.1
+      },
+      {
+        "id": 12,
+        "width": 40,
+        "height": 20,
+        "price": 263.1
+      },
+      {
+        "id": 13,
+        "width": 40,
+        "height": 30,
+        "price": 376.356
+      },
+      {
+        "id": 14,
+        "width": 5,
+        "height": 4,
+        "price": 26.856
+      },
+      {
+        "id": 15,
+        "width": 6,
+        "height": 4,
+        "price": 26.856
+      },
+      {
+        "id": 16,
+        "width": 7,
+        "height": 5,
+        "price": 35.856
+      },
+      {
+        "id": 17,
+        "width": 9,
+        "height": 6,
+        "price": 40.356
+      }
+    ],
+    "portrait": [
+      {
+        "id": 0,
+        "width": 10,
+        "height": 13,
+        "price": 55.356
+      },
+      {
+        "id": 1,
+        "width": 10,
+        "height": 15,
+        "price": 62.856
+      },
+      {
+        "id": 2,
+        "width": 10,
+        "height": 20,
+        "price": 68.856
+      },
+      {
+        "id": 3,
+        "width": 12,
+        "height": 18,
+        "price": 83.1
+      },
+      {
+        "id": 4,
+        "width": 12,
+        "height": 24,
+        "price": 104.1
+      },
+      {
+        "id": 5,
+        "width": 16,
+        "height": 20,
+        "price": 106.356
+      },
+      {
+        "id": 6,
+        "width": 20,
+        "height": 24,
+        "price": 149.856
       },
       {
         "id": 7,
         "width": 20,
-        "height": 20
+        "height": 30,
+        "price": 173.1
       },
       {
         "id": 8,
+        "width": 20,
+        "height": 40,
+        "price": 263.1
+      },
+      {
+        "id": 9,
+        "width": 24,
+        "height": 30,
+        "price": 242.856
+      },
+      {
+        "id": 10,
+        "width": 24,
+        "height": 36,
+        "price": 290.1
+      },
+      {
+        "id": 11,
         "width": 30,
-        "height": 30
+        "height": 40,
+        "price": 376.356
+      },
+      {
+        "id": 12,
+        "width": 4,
+        "height": 5,
+        "price": 26.856
+      },
+      {
+        "id": 13,
+        "width": 4,
+        "height": 6,
+        "price": 26.856
+      },
+      {
+        "id": 14,
+        "width": 5,
+        "height": 7,
+        "price": 35.856
+      },
+      {
+        "id": 15,
+        "width": 6,
+        "height": 9,
+        "price": 40.356
+      },
+      {
+        "id": 16,
+        "width": 8,
+        "height": 10,
+        "price": 40.356
+      },
+      {
+        "id": 17,
+        "width": 8,
+        "height": 12,
+        "price": 49.356
+      },
+      {
+        "id": 18,
+        "width": 9,
+        "height": 12,
+        "price": 47.856
+      }
+    ],
+    "squre": [
+      {
+        "id": 0,
+        "width": 10,
+        "height": 10,
+        "price": 50.856
+      },
+      {
+        "id": 1,
+        "width": 12,
+        "height": 12,
+        "price": 53.856
+      },
+      {
+        "id": 3,
+        "width": 14,
+        "height": 14,
+        "price": 83.1
+      },
+      {
+        "id": 3,
+        "width": 20,
+        "height": 20,
+        "price": 142.356
+      },
+      {
+        "id": 4,
+        "width": 24,
+        "height": 24,
+        "price": 183.6
+      },
+      {
+        "id": 5,
+        "width": 30,
+        "height": 30,
+        "price": 296.856
+      },
+      {
+        "id": 6,
+        "width": 4,
+        "height": 4,
+        "price": 26.856
+      },
+      {
+        "id": 7,
+        "width": 5,
+        "height": 5,
+        "price": 34.356
+      },
+      {
+        "id": 6,
+        "width": 6,
+        "height": 6,
+        "price": 35.856
+      },
+      {
+        "id": 8,
+        "width": 8,
+        "height": 8,
+        "price": 35.856
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "type": "poster",
+    "landscape": [
+      {
+        "id": 0,
+        "width": 28,
+        "height": 20,
+        "price": 16.356
+      },
+      {
+        "id": 1,
+        "width": 36,
+        "height": 24,
+        "price": 30.6
+      },
+      {
+        "id": 2,
+        "width": 40,
+        "height": 30,
+        "price": 43.356
+      },
+      {
+        "id": 3,
+        "width": 48,
+        "height": 36,
+        "price": 34.356
+      }
+    ],
+    "portrait": [
+      {
+        "id": 0,
+        "width": 20,
+        "height": 28,
+        "price": 16.356
+      },
+      {
+        "id": 1,
+        "width": 24,
+        "height": 36,
+        "price": 30.6
+      },
+      {
+        "id": 2,
+        "width": 30,
+        "height": 40,
+        "price": 43.356
+      },
+      {
+        "id": 3,
+        "width": 36,
+        "height": 48,
+        "price": 34.356
+      }
+    ],
+    "squre": [
+      {
+        "id": 0,
+        "width": 8,
+        "height": 8,
+        "price": 7.356
       }
     ]
   }
