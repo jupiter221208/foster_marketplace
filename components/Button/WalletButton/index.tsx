@@ -51,7 +51,7 @@ const WalletButton = props => {
 
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-
+  const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
   const { mainBalance, offerBalance, biddingBalance, offerWalletAddress, biddingWalletAddress, updateSolBalance } =
     useWallets()
 
@@ -692,7 +692,7 @@ const WalletButton = props => {
       </Transition>
       {/* connect wallet alert */}
       <Alert
-        open={showAlert}
+        open={showAlert && loginSignedFlag}
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
@@ -708,6 +708,7 @@ const WalletButton = props => {
         className={styles.container}
         onClick={() => {
           setButtonClicked(true)
+          dispatch({ type: 'set', loginSignedFlag: false })
           setVisible(true)
         }}
         style={{ width: fullWidth ? '100%' : '' }}

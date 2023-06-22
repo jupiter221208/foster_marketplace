@@ -48,13 +48,15 @@ export interface ListedNFTCardProps {
 
 const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
-
   const viewport = useViewport()
   const isEnded = useMemo(() => {
     if (endTime) {
-      const end = new Date(Number(endTime) * 1000)
+      let endListingTime = new Date(endTime)
+      let offset = endListingTime.getTimezoneOffset() * 60 * 1000
+      let endLocalTime = endListingTime.getTime() - offset
+
       const now = new Date()
-      return now.getTime() - end.getTime() > 0 ? true : false
+      return now.getTime() - endLocalTime > 0 ? true : false
     }
     return false
   }, [endTime])

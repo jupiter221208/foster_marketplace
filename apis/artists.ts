@@ -4,15 +4,19 @@ import client from './client'
 const API_URL = process.env.BACKEND_URL
 
 class Artists {
-  getArtist(wallet_id) {
+  getArtist(wallet_id, per_page, page) {
     if (isLoggedIn())
-      return client.get(API_URL + 'v1/artists/' + wallet_id).then(response => {
-        return response.data
-      })
+      return client
+        .get(API_URL + 'v1/artists/' + wallet_id + '?per_page=' + per_page + '&page=' + page)
+        .then(response => {
+          return response.data
+        })
     else
-      return client.get(API_URL + 'v1/artists/' + wallet_id + '/public').then(response => {
-        return response.data
-      })
+      return client
+        .get(API_URL + 'v1/artists/' + wallet_id + '/public' + '?per_page=' + per_page + '&page=' + page)
+        .then(response => {
+          return response.data
+        })
   }
 
   getArtistByUsername(username) {
@@ -21,15 +25,19 @@ class Artists {
     })
   }
 
-  getCollector(wallet_id) {
+  getCollector(wallet_id, per_page, page) {
     if (isLoggedIn())
-      return client.get(API_URL + 'v1/collectors/' + wallet_id).then(response => {
-        return response.data
-      })
+      return client
+        .get(API_URL + 'v1/collectors/' + wallet_id + '?per_page=' + per_page + '&page=' + page)
+        .then(response => {
+          return response.data
+        })
     else
-      return client.get(API_URL + 'v1/collectors/' + wallet_id + '/public').then(response => {
-        return response.data
-      })
+      return client
+        .get(API_URL + 'v1/collectors/' + wallet_id + '/public' + '?per_page=' + per_page + '&page=' + page)
+        .then(response => {
+          return response.data
+        })
   }
 
   getExploreCircus(wallet_id) {

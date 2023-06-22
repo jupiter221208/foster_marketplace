@@ -48,6 +48,8 @@ import { useViewport } from 'utils'
 // apis
 import ExploreAPI from 'apis/explore'
 import SortMobileModal from 'components/Menu/SortMobileModal'
+import NFTAuctionCard from 'components/Card/NFTAuctionCard'
+import { isAvailableDate } from 'utils/helpers'
 
 const Explore = () => {
   const router = useRouter()
@@ -237,17 +239,45 @@ const Explore = () => {
     }).then(
       respone => {
         dispatch({ type: 'set', isLoading: false })
-        const nfts = respone.map(nft => {
-          return {
-            image: nft.asset_url,
-            name: nft.nft_name,
-            asset_type: nft.asset_type,
-            cover_image_url: nft.cover_image_url,
-            creator: nft.artist_username,
-            url: `/browse-nft?id=${nft.token_id}`,
-            price: nft.list_price,
-          }
-        })
+        let nfts = []
+        if (selectedAvailability.value === 'timed') {
+          respone.forEach(nft => {
+            if (isAvailableAuctionCard(nft)) {
+              nfts.push({
+                image: nft.asset_url,
+                name: nft.nft_name,
+                asset_type: nft.asset_type,
+                cover_image_url: nft.cover_image_url,
+                creator: nft.artist_username,
+                url: `/browse-nft?id=${nft.token_id}`,
+                price: nft.list_price,
+                current_bid: nft.current_bid,
+                list_price: nft.list_price,
+                start_time: nft.start_time,
+                end_time: nft.end_time,
+                reserve_price: nft.reserve_price,
+              })
+            }
+          })
+        } else {
+          nfts = respone.map(nft => {
+            return {
+              image: nft.asset_url,
+              name: nft.nft_name,
+              asset_type: nft.asset_type,
+              cover_image_url: nft.cover_image_url,
+              creator: nft.artist_username,
+              url: `/browse-nft?id=${nft.token_id}`,
+              price: nft.list_price,
+              current_bid: nft.current_bid,
+              list_price: nft.list_price,
+              start_time: nft.start_time,
+              end_time: nft.end_time,
+              reserve_price: nft.reserve_price,
+            }
+          })
+        }
+
         setCurrentPage(curPage)
         setNftCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
@@ -438,6 +468,14 @@ const Explore = () => {
     }
   }
 
+  const isAvailableAuctionCard = nft => {
+    let start_time = nft.start_time
+    let end_time = nft.end_time
+    if (start_time === null || end_time === null) return false
+    if (isAvailableDate(start_time, end_time)) return true
+    else return false
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -492,7 +530,7 @@ const Explore = () => {
                 fullWidth
                 color="#EFF0F6"
                 backgroundColor={'var(--filter-btn-bg)'}
-                borderColor={'var(--filter-btn-border'}
+                borderColor={'var(--filter-btn-border)'}
                 fontFamily="Muli-Regular"
                 fontSize={14}
                 borderRadius={8}
@@ -507,7 +545,7 @@ const Explore = () => {
                 fontSize={14}
                 color="#EFF0F6"
                 backgroundColor={'var(--filter-btn-bg)'}
-                borderColor={'var(--filter-btn-border'}
+                borderColor={'var(--filter-btn-border)'}
                 borderRadius={8}
                 icon={SortGrayIcon}
                 direction="rtl"
@@ -528,18 +566,63 @@ const Explore = () => {
                   {nftList.length !== 0 &&
                     nftList?.map((item, index) => (
                       <div className="col-span-6 2xl:col-span-4 z-10" key={index}>
-                        <NFTCard
-                          image={item.image}
-                          nftName={item.name}
-                          assetType={item.asset_type}
-                          coverImage={item.cover_image_url}
-                          artistName={item.creator}
-                          onClick={() => {
-                            dispatch({ type: 'set', isLoading: true })
-                            router.push(item.url)
-                          }}
-                          price={item.price}
-                        />
+                        {selectedAvailability.value === 'timed' ? (
+                          <NFTAuctionCard
+                            image={item.image}
+                            assetType={item.asset_type}
+                            coverImage={item.cover_image_url}
+                            currentBid={item.current_bid}
+                            reservePrice={item.reserve_price}
+                            endTime={item.end_time}
+                            onClick={() => {
+                              dispatch({ type: 'set', isLoading: true })
+                              router.push(item.url)
+                            }}
+                            price={item.price}
+                          />
+                        ) : selectedAvailability.value === 'all' ? (
+                          isAvailableAuctionCard(item) ? (
+                            <NFTAuctionCard
+                              image={item.image}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              currentBid={item.current_bid}
+                              reservePrice={item.reserve_price}
+                              endTime={item.end_time}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                                router.push(item.url)
+                              }}
+                              price={item.price}
+                            />
+                          ) : (
+                            <NFTCard
+                              image={item.image}
+                              nftName={item.name}
+                              assetType={item.asset_type}
+                              coverImage={item.cover_image_url}
+                              artistName={item.creator}
+                              onClick={() => {
+                                dispatch({ type: 'set', isLoading: true })
+                                router.push(item.url)
+                              }}
+                              price={item.price}
+                            />
+                          )
+                        ) : (
+                          <NFTCard
+                            image={item.image}
+                            nftName={item.name}
+                            assetType={item.asset_type}
+                            coverImage={item.cover_image_url}
+                            artistName={item.creator}
+                            onClick={() => {
+                              dispatch({ type: 'set', isLoading: true })
+                              router.push(item.url)
+                            }}
+                            price={item.price}
+                          />
+                        )}
                       </div>
                     ))}
                 </div>

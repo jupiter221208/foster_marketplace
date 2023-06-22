@@ -166,10 +166,10 @@ const DashboardNFTCard = props => {
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
             <div className="flex items-center">
-              <div className={styles.nftName}>{nftName || 'Ecosystem Artist'}</div>
+              <div className={styles.nftName}>{nftName}</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
-              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+              <div className={styles.artistName}>{artistName || collectionName}</div>
               {price && (
                 <div className="flex justify-center items-center">
                   {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (

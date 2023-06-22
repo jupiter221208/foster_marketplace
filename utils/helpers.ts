@@ -1,8 +1,10 @@
 import * as moment from 'moment'
 
 export const calculateTimeLeft = endDate => {
-  let difference = +new Date(endDate) - +new Date()
-
+  let endTime = new Date(endDate)
+  let offset = endTime.getTimezoneOffset() * 60 * 1000
+  let liveEndTime = endTime.getTime() - offset
+  let difference = liveEndTime - new Date().getTime()
   let timeLeft = {}
 
   if (difference > 0) {
@@ -36,6 +38,23 @@ export const isExpiredDate = (start, duration) => {
 
   if (difference < duration * 3600 * 1000) return false
   else return true
+}
+
+export const isAvailableDate = (start, end) => {
+  // for testing
+  let startTime = new Date(start)
+  let offset = startTime.getTimezoneOffset() * 60 * 1000
+  let proposalStartTime = startTime.getTime() - offset
+
+  let endTime = new Date(end)
+  let offsetEnd = startTime.getTimezoneOffset() * 60 * 1000
+  let proposalEndTime = endTime.getTime() - offsetEnd
+
+  let nowDate = new Date().getTime()
+  let diffStart = nowDate - proposalStartTime
+  let diffEnd = proposalEndTime - nowDate
+  if (diffStart > 0 && diffEnd > 0) return true
+  else return false
 }
 
 export const getDateLabel = date => {
@@ -606,8 +625,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--single-nft-btn-bg-2', '#2D625D')
     doc.style.setProperty('--single-nft-btn-color', '#95DBD5')
     doc.style.setProperty('--drop-zone-bg', 'rgba(255, 255, 255, 0.05)')
-    doc.style.setProperty('--filter-btn-bg', '#334D4B')
-    doc.style.setProperty('--filter-btn-border', '#ECEEF4')
+    doc.style.setProperty('--filter-btn-bg', '#272727')
+    doc.style.setProperty('--filter-btn-border', 'rgba(239,240,247, 0.1)')
     doc.style.setProperty('--ellipse-svg-1', '#63d6cd')
     doc.style.setProperty('--ellipse-svg-2', '#63d6cd')
     doc.style.setProperty('--tooltip-bg', 'rgba(239, 240, 247, 0.2)')

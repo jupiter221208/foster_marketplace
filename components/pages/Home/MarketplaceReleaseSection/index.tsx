@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
+import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
 
@@ -37,6 +38,7 @@ const MarketplaceReleaseSection = props => {
 
   const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
   const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
+  const [active, setActive] = useState<any>(0)
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
@@ -55,6 +57,25 @@ const MarketplaceReleaseSection = props => {
     setMarketplaceReleaseList(allMarketplaceReleaseList)
   }, [viewport, allMarketplaceReleaseList])
 
+  const handleChangeActive = value => {
+    setActive(value)
+
+    switch (value) {
+      case 0:
+        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 5))
+        break
+      case 1:
+        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 10))
+        break
+      case 2:
+        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 15))
+        break
+      default:
+        setMarketplaceReleaseList(allMarketplaceReleaseList)
+        break
+    }
+  }
+
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
@@ -70,6 +91,26 @@ const MarketplaceReleaseSection = props => {
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Releases</div>
             )}
+            {/* <div className="hidden lg:flex z-10">
+              <Button
+                label="24 hrs"
+                onClick={() => handleChangeActive(0)}
+                color={active === 0 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="7 days"
+                onClick={() => handleChangeActive(1)}
+                color={active === 1 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
+              />
+              <Button
+                label="30 days"
+                onClick={() => handleChangeActive(2)}
+                color={active === 2 ? '#202427' : '#979EA2'}
+                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
+              />
+            </div> */}
           </div>
           <div className="hidden lg:flex z-10">
             <SeeMoreButton

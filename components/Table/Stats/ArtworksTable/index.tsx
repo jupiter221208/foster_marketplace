@@ -47,7 +47,7 @@ const ArtworksTable = props => {
             <tr key={index}>
               <td>
                 <div className="flex gap-2 mx-3 items-center">
-                  <div className="w-full min-w-[38px] w-[38px] h-[38px] rounded-[8px] overflow-hidden">
+                  <div className="min-w-[38px] w-[38px] h-[38px] rounded-[8px] overflow-hidden">
                     {!loaded && (
                       <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
                         <div></div>
@@ -63,7 +63,7 @@ const ArtworksTable = props => {
                     />
                   </div>
                   <div
-                    className="flex justify-center cursor-pointer"
+                    className="flex justify-start cursor-pointer"
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
                       router.push(`/browse-nft?id=${item.mint_address}`)

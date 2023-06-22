@@ -99,6 +99,11 @@ class Nfts {
       return response.data
     })
   }
+  burntNft(param) {
+    return client.post(API_URL + 'v1/nfts/burnt/', param).then(response => {
+      return response.data
+    })
+  }
   unlikeNft(token_id) {
     return client.delete(API_URL + 'v1/nfts/like/' + token_id).then(response => {
       return response.data
@@ -136,6 +141,18 @@ class Nfts {
   }
   unhideNft(token_id) {
     return client.delete(API_URL + 'v1/nfts/hide/' + token_id).then(response => {
+      return response.data
+    })
+  }
+
+  getNftLikes(wallet_id) {
+    return client.get(API_URL + 'v1/nfts/detail/' + wallet_id + '/liked').then(response => {
+      return response.data
+    })
+  }
+
+  getNftSaved(wallet_id) {
+    return client.get(API_URL + 'v1/nfts/detail/' + wallet_id + '/saved').then(response => {
       return response.data
     })
   }

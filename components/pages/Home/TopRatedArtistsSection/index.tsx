@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
+import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import ArtistCard from 'components/Card/ArtistCard'
 
@@ -29,6 +30,7 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -36,20 +38,46 @@ const TopRatedArtistsSection = () => {
   const dispatch = useDispatch()
 
   const [artistsList, setArtistsList] = useState<any[]>([])
+  const [active, setActive] = useState<any>(3)
 
   useEffect(() => {
-    dashboardAPI.getTopRatedArtists().then(
+    getTopRatedArtistsFromServer('all')
+  }, [])
+
+  const getTopRatedArtistsFromServer = period => {
+    dashboardAPI.getTopRatedArtists(period).then(
       response => {
         if (response !== undefined && response !== null) {
           setArtistsList(response)
-          console.log(response)
         }
       },
       error => {
         console.log(error)
       }
     )
-  }, [])
+  }
+
+  const handleChangeActive = value => {
+    setActive(value)
+
+    switch (value) {
+      case 0:
+        getTopRatedArtistsFromServer('day')
+        break
+      case 1:
+        getTopRatedArtistsFromServer('week')
+        break
+      case 2:
+        getTopRatedArtistsFromServer('month')
+        break
+      case 3:
+        getTopRatedArtistsFromServer('all')
+        break
+      default:
+        getTopRatedArtistsFromServer('week')
+        break
+    }
+  }
 
   return (
     <section className={styles.container}>
@@ -62,6 +90,45 @@ const TopRatedArtistsSection = () => {
           ) : (
             <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Top Rated Artists</div>
           )}
+
+          <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+            <TimeSlotButton
+              label="24 hrs"
+              onClick={() => handleChangeActive(0)}
+              fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="7 days"
+              onClick={() => handleChangeActive(1)}
+              fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="30 days"
+              onClick={() => handleChangeActive(2)}
+              fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="All Time"
+              onClick={() => handleChangeActive(3)}
+              fontFamily={active === 3 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 3 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 3 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 3 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+          </div>
         </div>
         <div className="hidden lg:flex z-10">
           <SeeMoreButton
