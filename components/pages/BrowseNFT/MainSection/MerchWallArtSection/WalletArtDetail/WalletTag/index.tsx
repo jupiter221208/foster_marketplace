@@ -10,7 +10,7 @@ const WalletTag = props => {
       className={`${styles.container} ${item.selected === true ? styles.selected : styles.normal}`}
       onClick={() => setSelect(item)}
     >
-      {item.width}" X {item.height}"
+      {item.width}&quot; X {item.height}&quot;
     </div>
   )
 }
