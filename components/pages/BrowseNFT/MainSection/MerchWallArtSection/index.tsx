@@ -23,7 +23,6 @@ const MerchWallArtSection = props => {
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
-
   return (
     <section>
       {openPrintDetail ? (

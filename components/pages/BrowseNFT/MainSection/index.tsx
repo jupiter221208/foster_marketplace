@@ -149,7 +149,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const [openPrintView, setOpenPrintView] = useState(false)
   const [openApparelDetail, setOpenApparelDetail] = useState(false)
-  const [openWallArtDetail, setOpenWallArtDetail] = useState(false)
+  const [openWallArtDetail, setOpenWallArtDetail] = useState(true)
   const [openAccessoriesDetail, setOpenAccessoriesDetail] = useState(false)
   // const [openPrintDetail, setOpenPrintDetail] = useState(false)
   // const [openShippingDetail, setOpenShippingDetail] = useState(false)
@@ -841,7 +841,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
           ) : openWallArtDetail ? (
             <MerchWallArtSection
               nftName={nftName}
-              open={openApparelDetail}
+              open={openWallArtDetail}
               onBack={() => {
                 setOpenPrintView(true)
                 setOpenApparelDetail(false)
