@@ -155,7 +155,7 @@ const TrendingCollectionSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            loop={loop}
+            loop={trendingList.length < 3 ? false : loop}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,

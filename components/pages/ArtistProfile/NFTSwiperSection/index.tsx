@@ -44,6 +44,7 @@ const NFTSwiperSection = props => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 nftName={item.nft_name}
+                collectionName={item.collection_name}
                 artistName={item.artist_username}
                 price={item.list_price}
                 showHideButton={showHideButton}
