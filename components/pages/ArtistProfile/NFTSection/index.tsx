@@ -61,9 +61,9 @@ const NFTSection = props => {
     setRefreshing(true)
     nftsAPI.burntNft({ user: wallet, nfts: [] }).then(
       response => {
+        reloadPage()
         setTimeout(() => {
           setRefreshing(false)
-          reloadPage()
         }, 3000)
       },
       error => {

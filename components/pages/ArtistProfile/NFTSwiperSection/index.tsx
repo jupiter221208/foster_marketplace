@@ -4,15 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
 
 // components
 import NFTCard from 'components/Card/NFTCard'
+import { FadeLoader } from 'react-spinners'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -31,7 +26,11 @@ const NFTSwiperSection = props => {
 
   return nfts.length === 0 ? (
     <section className={styles.container}>
-      <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">No data</div>
+      <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">
+        <div className="w-full flex justify-center">
+          <FadeLoader color="#63D6CD" width="6" height="12" />
+        </div>
+      </div>
     </section>
   ) : (
     <section className={styles.container}>
