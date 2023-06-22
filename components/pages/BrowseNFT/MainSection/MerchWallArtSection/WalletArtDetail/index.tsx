@@ -20,73 +20,89 @@ import Selection from 'components/Selection'
 import GradientButton from 'components/Button/GradientButton'
 import WalletTag from './WalletTag'
 import SecondaryButton from 'components/Button/SecondaryButton'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // api
 
 const WalletArtDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName } = props
+  const { onBack, onPrint, onShipping, data, setData, nftName, nftImage } = props
   const [print, setPrint] = useState({ name: '', type: '' })
   const [orientation, setOrientation] = useState({ name: '', type: '' })
-  const [size, setSize] = useState({ name: '', type: '', price: '' })
+  const [size, setSize] = useState({ width: 1, height: 1, price: '' })
   const [sizes, setSizes] = useState([])
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [cost, setCost] = useState('----')
+  const [openEditorModal, setOpenEditorModal] = useState(false)
+  const [cropImage, setCropImage] = useState(null)
 
   useEffect(() => {
+    if (data !== null) {
+      setPrint(data.print)
+      setOrientation(data.orientation)
+
+      let sizeAll = SizeType.filter(item => item.type === data.print.type)[0]
+      let sizes = []
+      sizes = sizeAll[data.orientation.type].map(
+        item => (item = { ...item, selected: item.id === data.size.id ? true : false })
+      )
+      setSize(data.size)
+      setSizes(sizes)
+      setQuantity(data.quantity)
+      setCost(data.cost)
+      setEnabled(true)
+      setTimeout(() => {
+        setData(null)
+      }, 2000)
+    }
+  }, [data])
+
+  useEffect(() => {
+    if (data !== null) return
+
     setEnabled(false)
     if (print.hasOwnProperty('id')) {
       setCost('----')
+      setSizes([])
+      setOrientation({ name: '', type: '' })
     }
   }, [print])
 
   useEffect(() => {
+    if (data !== null) return
+
     setEnabled(false)
-    if (print.hasOwnProperty('id')) {
+    if (print.hasOwnProperty('id') && orientation.hasOwnProperty('id')) {
       let sizeAll = SizeType.filter(item => item.type === print.type)[0]
-      let sizes = sizeAll[orientation.type].map(item => (item = { ...item, selected: false }))
+      let sizes = []
+      sizes = sizeAll[orientation.type].map(item => (item = { ...item, selected: false }))
       setSizes(sizes)
+      setCost('----')
     }
   }, [orientation])
 
   useEffect(() => {
-    if (!size.hasOwnProperty('id')) {
-      setEnabled(false)
-      return
-    }
+    if (data !== null) return
 
-    if (quantity <= 0) {
-      setEnabled(false)
-      return
-    }
-
-    // if (apparel.hasOwnProperty(gender.type)) {
-    //   if (apparel[gender.type].hasOwnProperty(quality.type)) {
-    //     if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
-    //       onPrint(apparel[gender.type][quality.type][color.type].image[print.type])
-    //       let cost = apparel[gender.type][quality.type][color.type].cost
-    //       setCost((cost * quantity).toFixed(2))
-    //     } else {
-    //       onPrint('')
-    //     }
-    //   } else {
-    //     onPrint('')
-    //   }
-    // } else {
-    //   onPrint('')
-    // }
-  }, [quantity])
-
-  useEffect(() => {
     if (print.hasOwnProperty('id')) {
       setEnabled(true)
       setCost(size.price)
     }
+
     if (quantity <= 0) {
       setEnabled(false)
       return
     }
   }, [size])
+
+  useEffect(() => {
+    if (data !== null) return
+
+    if (quantity <= 0) {
+      setEnabled(false)
+      return
+    }
+  }, [quantity])
 
   const setSelectSize = item => {
     setSize(item)
@@ -101,6 +117,14 @@ const WalletArtDetail = props => {
     })
     setSizes(newSizes)
   }
+
+  const moveShippingPage = () => {
+    let data = { print, orientation, sizes, size, quantity, cost }
+    onShipping(data)
+    setPrint({ name: '', type: '' })
+    setOrientation({ name: '', type: '' })
+  }
+
   return (
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
@@ -177,11 +201,36 @@ const WalletArtDetail = props => {
             fontSize="18px"
             color={enabled ? '#eff0f6' : '#818181'}
             borderColor={'#202427'}
-            onClick={() => {}}
+            onClick={() => setOpenEditorModal(true)}
           />
-          <GradientButton disabled={!enabled} label="Next" fontSize={18} fullWidth height={53} onClick={() => {}} />
+          <GradientButton
+            disabled={!enabled}
+            label="Next"
+            fontSize={18}
+            fullWidth
+            height={53}
+            onClick={() => {
+              if (cropImage === null) {
+                setOpenEditorModal(true)
+              } else {
+                moveShippingPage()
+              }
+            }}
+          />
         </div>
       </div>
+      <NftImageEditorModal
+        style={{ zIndex: 100001 }}
+        open={openEditorModal}
+        close={() => setOpenEditorModal(false)}
+        nftUrl={[nftImage]}
+        getCroppedImage={croppedImage => {
+          setCropImage(croppedImage)
+          setOpenEditorModal(false)
+          moveShippingPage()
+        }}
+        dimension={{ value: [1080, (1080 * size.height) / size.width] }}
+      />
     </section>
   )
 }

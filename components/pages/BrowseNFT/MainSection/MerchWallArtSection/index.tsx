@@ -17,7 +17,7 @@ import styles from './index.module.scss'
 // api
 
 const MerchWallArtSection = props => {
-  const { nftName, open, onBack, setOpenPrintView, setFinishEditing, setShowPrintMode, setApparel } = props
+  const { nftName, nftImage, open, onBack, setOpenPrintView, setFinishEditing, setShowPrintMode, setApparel } = props
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
@@ -46,6 +46,7 @@ const MerchWallArtSection = props => {
           data={printData}
           setData={data => setPrintData(data)}
           nftName={nftName}
+          nftImage={nftImage}
         />
       ) : openShippingDetail ? (
         <PhysicalShipping

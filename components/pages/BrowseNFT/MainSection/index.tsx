@@ -841,6 +841,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
           ) : openWallArtDetail ? (
             <MerchWallArtSection
               nftName={nftName}
+              nftImage={nftCoverUrl}
               open={openWallArtDetail}
               onBack={() => {
                 setOpenPrintView(true)
