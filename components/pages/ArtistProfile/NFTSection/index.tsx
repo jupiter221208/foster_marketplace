@@ -34,6 +34,7 @@ const NFTSection = props => {
     selectRowCount,
     handleNextPage,
     handlePreviousPage,
+    reloadPage,
   } = props
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -60,6 +61,7 @@ const NFTSection = props => {
     setRefreshing(true)
     nftsAPI.burntNft({ user: wallet, nfts: [] }).then(
       response => {
+        reloadPage()
         setTimeout(() => {
           setRefreshing(false)
         }, 3000)

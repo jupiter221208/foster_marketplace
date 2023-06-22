@@ -124,6 +124,14 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     )
   }
 
+  const reloadPage = () => {
+    if (artistEnable) {
+      getArtistData(artistPublicKey, rowCount, currentPage, true)
+    } else {
+      getCollectorData(artistPublicKey, rowCount, currentPage, true)
+    }
+  }
+
   const handleNextPage = () => {
     // if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
@@ -306,6 +314,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           selectRowCount={count => selectRowCount(count)}
           handleNextPage={() => handleNextPage()}
           handlePreviousPage={() => handlePreviousPage()}
+          reloadPage={reloadPage}
         />
       </div>
 
