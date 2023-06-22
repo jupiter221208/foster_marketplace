@@ -436,13 +436,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         }
       }
 
-      if (nftDetail.collection?.verified) {
-        let collectionMint = new PublicKey(nftDetail.collection.address)
-        let collectionMetadata = toMetadataAccount(
-          await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
-        )
-        setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
-      }
+      if (nftDetail.collection?.verified)
+        try {
+          let collectionMint = new PublicKey(nftDetail.collection.address)
+          let collectionMetadata = toMetadataAccount(
+            await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
+          )
+          setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
+        } catch (e: any) {
+          console.error(`could not load collection name from chain: ${e.message}`)
+          console.error(e)
+        }
 
       activityAPI.getNFTActivity(mintAddress).then(
         response => {
