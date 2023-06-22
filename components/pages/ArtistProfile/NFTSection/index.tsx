@@ -34,6 +34,7 @@ const NFTSection = props => {
     selectRowCount,
     handleNextPage,
     handlePreviousPage,
+    reloadPage,
   } = props
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -62,6 +63,7 @@ const NFTSection = props => {
       response => {
         setTimeout(() => {
           setRefreshing(false)
+          reloadPage()
         }, 3000)
       },
       error => {
