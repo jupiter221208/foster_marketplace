@@ -64,7 +64,7 @@ const MerchApparelSection = props => {
         />
       ) : openCheckoutView ? (
         <PhysicalCheckout
-          apparelData={printData}
+          data={printData}
           shippingData={shippingData}
           nftName={nftName}
           onBack={() => {

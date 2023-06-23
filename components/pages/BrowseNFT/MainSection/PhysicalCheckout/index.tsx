@@ -27,7 +27,6 @@ import { getFirstUpperString } from 'utils/helpers'
 
 const PhysicalCheckout = props => {
   const { onBack, onNext, data, shippingData, nftName, type } = props
-  console.log('=====apparelData=====', data)
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
