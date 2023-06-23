@@ -75,7 +75,7 @@ const ApparelSection = props => {
           img.scaleToWidth(150, false)
           img.set({
             scaleX: 150 / width,
-            scaleY: 150 / height,
+            scaleY: 150 / width,
             top: 150,
             left: screenWidth / 2 - 60,
             lockAspectRatio: true,
