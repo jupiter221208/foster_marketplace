@@ -26,7 +26,8 @@ import { getFirstUpperString } from 'utils/helpers'
 // api
 
 const PhysicalCheckout = props => {
-  const { onBack, onNext, apparelData, shippingData, nftName } = props
+  const { onBack, onNext, data, shippingData, nftName, type } = props
+  console.log('=====apparelData=====', data)
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -46,16 +47,21 @@ const PhysicalCheckout = props => {
       },
     ])
 
-    let name =
-      nftName +
-      '<br/>' +
-      apparelData['apparel'].description +
-      ' (' +
-      apparelData['size'].name +
-      ')' +
-      '<br/>' +
-      getFirstUpperString(apparelData['color'].type)
-    let quantity = apparelData['quantity']
+    let name = ''
+    if (type === 'apparel') {
+      name =
+        nftName +
+        '<br/>' +
+        data['apparel'].description +
+        ' (' +
+        data['size'].name +
+        ')' +
+        '<br/>' +
+        getFirstUpperString(data['color'].type)
+    } else {
+      name = data.print.type
+    }
+    let quantity = data['quantity']
     let shipping =
       shippingData['street'] +
       '<br/>' +
@@ -97,7 +103,7 @@ const PhysicalCheckout = props => {
             </div>
             <div className="w-full flex justify-between mt-[20px]">
               <div className={styles.orderTotal}>SUBTOTAL</div>
-              <div className={styles.totalPrice}>${apparelData.cost}</div>
+              <div className={styles.totalPrice}>${data.cost}</div>
             </div>
             <div className={`${styles.divider} mt-[15px]`} />
             <div className="w-full flex justify-between mt-[15px]">

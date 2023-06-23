@@ -50,6 +50,7 @@ const WallArtDetail = props => {
       setSizes(sizes)
       setQuantity(data.quantity)
       setCost(data.cost)
+      setCropImage(data.cropImage)
       setEnabled(true)
       setTimeout(() => {
         setData(null)
@@ -64,6 +65,7 @@ const WallArtDetail = props => {
     if (print.hasOwnProperty('id')) {
       setCost('----')
       setSizes([])
+      setCropImage(null)
       setOrientation({ name: '', type: '' })
     }
   }, [print])
@@ -119,7 +121,7 @@ const WallArtDetail = props => {
   }
 
   const moveShippingPage = () => {
-    let data = { print, orientation, sizes, size, quantity, cost }
+    let data = { print, orientation, sizes, size, quantity, cost, cropImage }
     onShipping(data)
     setPrint({ name: '', type: '', image: '' })
     setOrientation({ name: '', type: '' })
