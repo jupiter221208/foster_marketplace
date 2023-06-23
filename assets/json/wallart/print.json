@@ -3,7 +3,7 @@
     "id": 0,
     "name": "ACRYLIC",
     "type": "acrylic",
-    "image": "/images/wallart/metal_1.png"
+    "image": "/images/wallart/acrylic.png"
   },
   {
     "id": 1,
@@ -15,12 +15,12 @@
     "id": 2,
     "name": "CANVAS",
     "type": "canvas",
-    "image": "/images/wallart/metal_1.png"
+    "image": "/images/wallart/canvas.png"
   },
   {
     "id": 3,
     "name": "POSTER",
     "type": "poster",
-    "image": "/images/wallart/metal_1.png"
+    "image": "/images/wallart/poster.png"
   }
 ]

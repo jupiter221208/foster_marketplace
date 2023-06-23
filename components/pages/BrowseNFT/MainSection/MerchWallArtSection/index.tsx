@@ -33,8 +33,8 @@ const MerchWallArtSection = props => {
             setWallArt(null)
             setShowWallArtMode(false)
           }}
-          onPrint={image => {
-            setWallArt(image)
+          onPrint={wallArt => {
+            setWallArt(wallArt)
             setShowWallArtMode(true)
           }}
           onShipping={item => {
@@ -47,7 +47,6 @@ const MerchWallArtSection = props => {
           setData={data => setPrintData(data)}
           nftName={nftName}
           nftImage={nftImage}
-          setWallArt={setWallArt}
         />
       ) : openShippingDetail ? (
         <PhysicalShipping

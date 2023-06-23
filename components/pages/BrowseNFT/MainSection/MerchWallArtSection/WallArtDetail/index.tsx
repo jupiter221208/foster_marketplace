@@ -227,7 +227,7 @@ const WallArtDetail = props => {
         getCroppedImage={croppedImage => {
           setCropImage(croppedImage)
           setOpenEditorModal(false)
-          onPrint({ art: croppedImage, wall: print.image })
+          onPrint({ art: croppedImage, wall: print.image, size: size })
         }}
         dimension={{ value: [1080, (1080 * size.height) / size.width] }}
       />

@@ -9,13 +9,13 @@ import { FadeLoader } from 'react-spinners'
 // api
 
 const WallSection = props => {
-  const { art, wall, finishEditing } = props
+  const { wallArt, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
 
   useEffect(() => {
     const resizeFunction = () => {
-      if (art) {
+      if (wallArt) {
         drawApparel()
       }
     }
@@ -23,7 +23,7 @@ const WallSection = props => {
   }, [])
 
   useEffect(() => {
-    if (art) {
+    if (wallArt) {
       setLoader(false)
       drawApparel()
     } else {
@@ -34,7 +34,7 @@ const WallSection = props => {
       }
       setLoader(true)
     }
-  }, [art])
+  }, [wallArt])
 
   useEffect(() => {
     let newCanvas = canvas as fabric.Canvas
@@ -50,6 +50,26 @@ const WallSection = props => {
     }
   }, [finishEditing])
 
+  const getArtRatio = ratio => {
+    let multipleRatio = 0.5
+    if (ratio === 2 / 1) multipleRatio = 0.74
+    else if (ratio === 3 / 2) multipleRatio = 0.8
+    else if (ratio === 4 / 3) multipleRatio = 0.56
+    else if (ratio === 5 / 3) multipleRatio = 0.8
+    else if (ratio === 5 / 4) multipleRatio = 0.61
+    else if (ratio === 6 / 5) multipleRatio = 0.85
+    else if (ratio === 7 / 5) multipleRatio = 0.86
+    else if (ratio === 0.5) multipleRatio = 0.35
+    else if (ratio == 2 / 3) multipleRatio = 0.54
+    else if (ratio == 3 / 4) multipleRatio = 0.61
+    else if (ratio == 3 / 5) multipleRatio = 0.48
+    else if (ratio == 4 / 5) multipleRatio = 0.5
+    else if (ratio == 5 / 6) multipleRatio = 0.58
+    else if (ratio == 5 / 7) multipleRatio = 0.62
+    else if (ratio == 1) multipleRatio = 0.65
+    return multipleRatio
+  }
+
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
@@ -58,28 +78,45 @@ const WallSection = props => {
       newCanvas.clear().renderAll()
     }
 
-    let screenWidth = window.innerWidth * 0.3
+    let screenWidth = window.innerWidth * 0.41
+    let screenHeight = window.innerHeight - 160
     newCanvas.setDimensions({
       width: screenWidth,
-      height: screenWidth,
+      height: screenHeight,
     })
 
-    new fabric.Image.fromURL(art, img => {
-      img.scale(1)
+    new fabric.Image.fromURL(wallArt.wall, img => {
+      img.scale(0.5)
       newCanvas.add(img)
+      const { width, height } = img.getOriginalSize()
+
+      img.set({
+        scaleX: screenWidth / width,
+        scaleY: screenHeight / height,
+        top: 0,
+        left: 0,
+        lockAspectRatio: true,
+      })
       newCanvas.renderAll()
       newCanvas.item(0).selectable = false
       setTimeout(() => {
-        new fabric.Image.fromURL(wall, img => {
+        new fabric.Image.fromURL(wallArt.art, img => {
           const { width, height } = img.getOriginalSize()
-          img.scaleToWidth(150, false)
+          const artRatio = wallArt.size.width / wallArt.size.height
+          let multipleRatio = getArtRatio(artRatio)
+
+          let viewWidth = screenWidth * multipleRatio
+          let ratio = viewWidth / width
           img.set({
-            scaleX: 150 / width,
-            scaleY: 150 / height,
-            top: 150,
-            left: screenWidth / 2 - 60,
+            scaleX: ratio,
+            scaleY: ratio,
+            top: (screenHeight - height * ratio) / 2,
+            left: (screenWidth - viewWidth) / 2,
             lockAspectRatio: true,
           })
+          img.strokeWidth = 30
+          // img.padding = 30;
+          img.stroke = '#222726'
           img.lockUniScaling = true
           newCanvas.add(img)
           newCanvas.renderAll()
@@ -114,10 +151,6 @@ const WallSection = props => {
           </div>
         </div>
       )}
-      {/* <img src={apparel} alt="" className="h-full" />
-      <div className="absolute top-[20%] w-[30%] h-[30%]">
-        <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-      </div> */}
     </div>
   )
 }

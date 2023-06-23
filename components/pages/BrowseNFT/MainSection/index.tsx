@@ -668,12 +668,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         ) : showWallArtMode ? (
           <div className="col-span-2 lg:col-span-1">
             <div className={styles.blurBackground}>
-              <div className="absolute inset-0">
-                <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-              </div>
-              <div className={styles.blurImage} />
+              {!wallArt && (
+                <div className="absolute inset-0">
+                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                </div>
+              )}
+              {!wallArt && <div className={styles.blurImage} />}
 
-              <WallSection art={wallArt.art} wall={wallArt.wall} finishEditing={finishEditing} />
+              <WallSection wallArt={wallArt} finishEditing={finishEditing} />
             </div>
           </div>
         ) : (
