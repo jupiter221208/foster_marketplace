@@ -86,17 +86,26 @@ const WallSection = props => {
     })
 
     new fabric.Image.fromURL(wallArt.wall, img => {
-      img.scale(0.5)
       newCanvas.add(img)
       const { width, height } = img.getOriginalSize()
+      if (width > height) {
+        img.set({
+          scaleX: screenHeight / height, //screenWidth / width,
+          scaleY: screenHeight / height,
+          top: 0,
+          left: -((width * screenHeight) / height - screenWidth) / 2,
+          lockAspectRatio: true,
+        })
+      } else {
+        img.set({
+          scaleX: screenWidth / width, //screenWidth / width,
+          scaleY: screenWidth / width,
+          top: -((height * screenWidth) / width - screenHeight) / 2,
+          left: 0,
+          lockAspectRatio: true,
+        })
+      }
 
-      img.set({
-        scaleX: screenWidth / width,
-        scaleY: screenHeight / height,
-        top: 0,
-        left: 0,
-        lockAspectRatio: true,
-      })
       newCanvas.renderAll()
       newCanvas.item(0).selectable = false
       setTimeout(() => {
@@ -114,6 +123,7 @@ const WallSection = props => {
             left: (screenWidth - viewWidth) / 2,
             lockAspectRatio: true,
           })
+          img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }
           img.strokeWidth = 30
           // img.padding = 30;
           img.stroke = '#222726'
