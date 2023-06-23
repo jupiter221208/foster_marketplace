@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 // custom functions
 
 //component
-import WalletArtDetail from './WalletArtDetail'
+import WallArtDetail from './WallArtDetail'
 import PhysicalShipping from '../PhysicalShipping'
 import PhysicalCheckout from '../PhysicalCheckout'
 
@@ -17,7 +17,7 @@ import styles from './index.module.scss'
 // api
 
 const MerchWallArtSection = props => {
-  const { nftName, nftImage, open, onBack, setOpenPrintView, setFinishEditing, setShowPrintMode, setApparel } = props
+  const { nftName, nftImage, open, onBack, setOpenPrintView, setFinishEditing, setShowWallArtMode, setWallArt } = props
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
@@ -26,16 +26,16 @@ const MerchWallArtSection = props => {
   return (
     <section>
       {openPrintDetail ? (
-        <WalletArtDetail
+        <WallArtDetail
           onBack={() => {
             onBack()
             setOpenPrintView(true)
-            setApparel(null)
-            setShowPrintMode(false)
+            setWallArt(null)
+            setShowWallArtMode(false)
           }}
-          onPrint={apparel => {
-            setApparel(apparel)
-            setShowPrintMode(true)
+          onPrint={image => {
+            setWallArt(image)
+            setShowWallArtMode(true)
           }}
           onShipping={item => {
             setPrintData(item)
@@ -47,6 +47,7 @@ const MerchWallArtSection = props => {
           setData={data => setPrintData(data)}
           nftName={nftName}
           nftImage={nftImage}
+          setWallArt={setWallArt}
         />
       ) : openShippingDetail ? (
         <PhysicalShipping

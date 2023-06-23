@@ -16,7 +16,7 @@ import PhysicalCheckout from '../PhysicalCheckout'
 // api
 
 const MerchApparelSection = props => {
-  const { nftName, open, onBack, setOpenPrintView, setFinishEditing, setShowPrintMode, setApparel } = props
+  const { nftName, open, onBack, setOpenPrintView, setFinishEditing, setShowApparelMode, setApparel } = props
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
@@ -31,11 +31,11 @@ const MerchApparelSection = props => {
             onBack()
             setOpenPrintView(true)
             setApparel(null)
-            setShowPrintMode(false)
+            setShowApparelMode(false)
           }}
           onPrint={apparel => {
             setApparel(apparel)
-            setShowPrintMode(true)
+            setShowApparelMode(true)
           }}
           onShipping={item => {
             setPrintData(item)

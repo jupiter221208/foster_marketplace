@@ -106,7 +106,8 @@ import MerchWallArtSection from './MerchWallArtSection'
 // import PhysicalPrintDetail from '../PhysicalPrintDetail'
 // import PhysicalShipping from '../PhysicalShipping'
 // import PhysicalCheckout from '../PhysicalCheckout'
-import ApparelSection from './ApparelSection'
+import ApparelSection from './MerchApparelSection/ApparelSection'
+import WallSection from './MerchWallArtSection/WallSection'
 import PrintCategorySection from './PrintCategorySection'
 
 export interface MainSectionProps {
@@ -155,7 +156,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   // const [openShippingDetail, setOpenShippingDetail] = useState(false)
   // const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [finishEditing, setFinishEditing] = useState(false)
-  const [showPrintMode, setShowPrintMode] = useState(false)
+  const [showApparelMode, setShowApparelMode] = useState(false)
+  const [showWallArtMode, setShowWallArtMode] = useState(false)
 
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
@@ -635,7 +637,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const handleStartProgress = () => {
     setOpenProgressingModal(true)
   }
+
   const [apparel, setApparel] = useState(null)
+  const [wallArt, setWallArt] = useState(null)
 
   return (
     <div className={styles.container}>
@@ -650,7 +654,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               </div>
             </div>
           </div>
-        ) : showPrintMode ? (
+        ) : showApparelMode ? (
           <div className="col-span-2 lg:col-span-1">
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
@@ -659,6 +663,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               <div className={styles.blurImage} />
 
               <ApparelSection apparel={apparel} nftCoverUrl={nftCoverUrl} finishEditing={finishEditing} />
+            </div>
+          </div>
+        ) : showWallArtMode ? (
+          <div className="col-span-2 lg:col-span-1">
+            <div className={styles.blurBackground}>
+              <div className="absolute inset-0">
+                <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+              </div>
+              <div className={styles.blurImage} />
+
+              <WallSection art={wallArt.art} wall={wallArt.wall} finishEditing={finishEditing} />
             </div>
           </div>
         ) : (
@@ -747,65 +762,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         )}
 
         <div className="col-span-2 lg:col-span-1 z-10">
-          {/* {openPrintView ? (
-            <PhysicalPrintSection
-              image={nftCoverUrl}
-              onBack={() => {
-                setOpenPrintView(false)
-                setOpenPrintDetail(false)
-              }}
-              onDetail={() => {
-                setOpenPrintView(false)
-                setOpenPrintDetail(true)
-              }}
-            />
-          ) : openPrintDetail ? (
-            <PhysicalPrintDetail
-              onBack={() => {
-                setOpenPrintView(true)
-                setOpenPrintDetail(false)
-                setApparel(null)
-                setShowPrintMode(false)
-              }}
-              onPrint={apparel => {
-                setApparel(apparel)
-                setShowPrintMode(true)
-              }}
-              onShipping={item => {
-                setPrintData(item)
-                setOpenPrintDetail(false)
-                setOpenShippingDetail(true)
-                setFinishEditing(true)
-              }}
-              data={printData}
-              setData={data => setPrintData(data)}
-              nftName={nftName}
-            />
-          ) : openShippingDetail ? (
-            <PhysicalShipping
-              onBack={info => {
-                setShippingData(info)
-                setOpenPrintDetail(true)
-                setOpenShippingDetail(false)
-                setFinishEditing(false)
-              }}
-              onNext={info => {
-                setShippingData(info)
-                setOpenShippingDetail(false)
-                setOpenCheckoutView(true)
-              }}
-              data={shippingData}
-            />
-          ) : openCheckoutView ? (
-            <PhysicalCheckout
-              apparelData={printData}
-              shippingData={shippingData}
-              nftName={nftName}
-              onBack={() => {
-                setOpenShippingDetail(true)
-                setOpenCheckoutView(false)
-              }}+
-            /> */}
           {openPrintView ? (
             <PrintCategorySection
               image={nftCoverUrl}
@@ -836,7 +792,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               openPrintView={openPrintView}
               setOpenPrintView={print => setOpenPrintView(print)}
               setApparel={apparel => setApparel(apparel)}
-              setShowPrintMode={mode => setShowPrintMode(mode)}
+              setShowApparelMode={mode => setShowApparelMode(mode)}
             />
           ) : openWallArtDetail ? (
             <MerchWallArtSection
@@ -850,8 +806,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               setFinishEditing={editing => setFinishEditing(editing)}
               openPrintView={openPrintView}
               setOpenPrintView={print => setOpenPrintView(print)}
-              setApparel={apparel => setApparel(apparel)}
-              setShowPrintMode={mode => setShowPrintMode(mode)}
+              setWallArt={image => setWallArt(image)}
+              setShowWallArtMode={mode => setShowWallArtMode(mode)}
             />
           ) : (
             <div className={styles.nftDetailCard}>

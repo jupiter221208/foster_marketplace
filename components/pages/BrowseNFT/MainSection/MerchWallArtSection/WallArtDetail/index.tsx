@@ -24,9 +24,9 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 
 // api
 
-const WalletArtDetail = props => {
+const WallArtDetail = props => {
   const { onBack, onPrint, onShipping, data, setData, nftName, nftImage } = props
-  const [print, setPrint] = useState({ name: '', type: '' })
+  const [print, setPrint] = useState({ name: '', type: '', image: '' })
   const [orientation, setOrientation] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ width: 1, height: 1, price: '' })
   const [sizes, setSizes] = useState([])
@@ -121,7 +121,7 @@ const WalletArtDetail = props => {
   const moveShippingPage = () => {
     let data = { print, orientation, sizes, size, quantity, cost }
     onShipping(data)
-    setPrint({ name: '', type: '' })
+    setPrint({ name: '', type: '', image: '' })
     setOrientation({ name: '', type: '' })
   }
 
@@ -227,7 +227,7 @@ const WalletArtDetail = props => {
         getCroppedImage={croppedImage => {
           setCropImage(croppedImage)
           setOpenEditorModal(false)
-          moveShippingPage()
+          onPrint({ art: croppedImage, wall: print.image })
         }}
         dimension={{ value: [1080, (1080 * size.height) / size.width] }}
       />
@@ -235,4 +235,4 @@ const WalletArtDetail = props => {
   )
 }
 
-export default WalletArtDetail
+export default WallArtDetail
