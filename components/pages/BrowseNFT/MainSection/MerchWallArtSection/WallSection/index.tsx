@@ -91,15 +91,15 @@ const WallSection = props => {
   }
 
   const getArtFrameBorder = ratio => {
-    let border = 30
-    if (ratio == 0.5) border = 30
+    let border = 20
+    if (ratio == 1 / 2) border = 30
     else if (ratio == 3 / 5) border = 30
-    else if (ratio == 5 / 7) border = 30
+    else if (ratio == 5 / 7) border = 20
     else if (ratio == 2 / 3) border = 15
-    else if (ratio == 3 / 4) border = 19
-    else if (ratio == 4 / 5) border = 30
-    else if (ratio == 5 / 6) border = 30
-    else if (ratio == 1) border = 30
+    else if (ratio == 3 / 4) border = 20
+    else if (ratio == 4 / 5) border = 20
+    else if (ratio == 5 / 6) border = 26
+    else if (ratio == 1) border = 29
     else if (ratio == 6 / 5) border = 38
     else if (ratio == 5 / 4) border = 22
     else if (ratio == 4 / 3) border = 12
@@ -190,7 +190,7 @@ const WallSection = props => {
                 scaleX: ratio,
                 scaleY: ratio,
                 top: (screenHeight - height * ratio - getArtFrameBorder(artRatio) / multipleRatio / 12) / 2,
-                left: (screenWidth - viewWidth) / 2,
+                left: (screenWidth - viewWidth) / 2 - (artRatio === 1 ? 2 : 0),
                 lockAspectRatio: true,
               })
               img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }
@@ -207,7 +207,7 @@ const WallSection = props => {
               })
               setCanvas(newCanvas)
             })
-          }, 100)
+          }, 500)
         })
       }, 500)
     })
