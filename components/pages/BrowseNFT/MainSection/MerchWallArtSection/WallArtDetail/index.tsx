@@ -169,7 +169,7 @@ const WallArtDetail = props => {
         </div>
       </div>
 
-      <div className="absolute left-10 right-10 bottom-10">
+      <div className="mt-[20%] w-full">
         <div className="w-full flex">
           <div className={styles.quantity}>QUANTITY:</div>
           <input

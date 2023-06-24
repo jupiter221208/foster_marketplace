@@ -673,7 +673,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
               )}
-              {!wallArt && <div className={styles.blurImage} />}
 
               <WallSection wallArt={wallArt} finishEditing={finishEditing} />
             </div>
