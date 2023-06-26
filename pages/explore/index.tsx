@@ -49,7 +49,7 @@ import { useViewport } from 'utils'
 import ExploreAPI from 'apis/explore'
 import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
-import { isAvailableDate } from 'utils/helpers'
+import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 
 const Explore = () => {
   const router = useRouter()
@@ -472,6 +472,7 @@ const Explore = () => {
     let start_time = nft.start_time
     let end_time = nft.end_time
     if (start_time === null || end_time === null) return false
+    if (getTimeDifference(end_time) < 0) return false
     if (isAvailableDate(start_time, end_time)) return true
     else return false
   }
