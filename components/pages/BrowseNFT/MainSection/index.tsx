@@ -769,6 +769,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               onBack={() => {
                 setOpenPrintView(false)
                 setOpenApparelDetail(false)
+                setOpenWallArtDetail(false)
+                setOpenAccessoriesDetail(false)
               }}
               onDetail={type => {
                 setOpenPrintView(false)

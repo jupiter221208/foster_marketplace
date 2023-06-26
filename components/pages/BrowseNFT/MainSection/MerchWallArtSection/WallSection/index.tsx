@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useLayoutEffect, useState, useEffect } from 'react'
 import { fabric } from 'fabric'
 
 // styles
 import styles from './index.module.scss'
-import LoadingModal from 'components/Modal/LoadingModal'
 import { FadeLoader } from 'react-spinners'
 
 // api
@@ -12,15 +11,67 @@ const WallSection = props => {
   const { wallArt, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
+  const [bgOrgSize, setBgOrgSize] = useState(null)
+  const [artOrgSize, setArtOrgSize] = useState(null)
+  let wallCanvas = null
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const resizeFunction = () => {
       if (wallArt) {
-        drawApparel()
+        let newCanvas = canvas as fabric.Canvas
+
+        if (newCanvas != '') {
+          let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
+          let screenWidth = window.innerWidth * width_ratio
+          let screenHeight = window.innerHeight - 150
+          newCanvas.setDimensions({
+            width: screenWidth,
+            height: screenHeight,
+          })
+          if (bgOrgSize === null) return
+          const { width, height } = bgOrgSize
+          let wallImg = newCanvas.item(0)
+          if (width > height) {
+            wallImg.set({
+              scaleX: screenHeight / height, //screenWidth / width,
+              scaleY: screenHeight / height,
+              top: 0,
+              left: -((width * screenHeight) / height - screenWidth) / 2,
+              lockAspectRatio: true,
+            })
+          } else {
+            wallImg.set({
+              scaleX: screenWidth / width, //screenWidth / width,
+              scaleY: screenWidth / width,
+              top: -((height * screenWidth) / width - screenHeight) / 2,
+              left: 0,
+              lockAspectRatio: true,
+            })
+          }
+          let artImage = newCanvas.item(1)
+
+          if (artOrgSize === null) return
+
+          let width1 = artOrgSize.width
+          let height1 = artOrgSize.height
+          const artRatio = wallArt.size.width / wallArt.size.height
+          let multipleRatio = getArtRatio(artRatio)
+
+          let viewWidth = screenWidth * multipleRatio
+          let ratio = viewWidth / width1
+          artImage.set({
+            scaleX: ratio,
+            scaleY: ratio,
+            top: (screenHeight - height1 * ratio) / 2,
+            left: (screenWidth - viewWidth) / 2,
+          })
+
+          newCanvas.renderAll()
+        }
       }
     }
     window.addEventListener('resize', resizeFunction)
-  }, [])
+  }, [artOrgSize, bgOrgSize])
 
   useEffect(() => {
     if (wallArt) {
@@ -31,6 +82,7 @@ const WallSection = props => {
       if (newCanvas != '') {
         newCanvas.clear().renderAll()
         setCanvas(newCanvas)
+        wallCanvas = newCanvas
       }
       setLoader(true)
     }
@@ -74,11 +126,12 @@ const WallSection = props => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas('canvas')
+      setCanvas(newCanvas)
     } else {
       newCanvas.clear().renderAll()
     }
 
-    let screenWidth = window.innerWidth * 0.41
+    let screenWidth = Math.floor(window.innerWidth * 0.41)
     let screenHeight = window.innerHeight - 160
     newCanvas.setDimensions({
       width: screenWidth,
@@ -88,6 +141,8 @@ const WallSection = props => {
     new fabric.Image.fromURL(wallArt.wall, img => {
       newCanvas.add(img)
       const { width, height } = img.getOriginalSize()
+      setBgOrgSize({ width: width, height: height })
+
       if (width > height) {
         img.set({
           scaleX: screenHeight / height, //screenWidth / width,
@@ -108,11 +163,11 @@ const WallSection = props => {
 
       newCanvas.renderAll()
       newCanvas.item(0).selectable = false
-      setCanvas(newCanvas)
 
       setTimeout(() => {
         new fabric.Image.fromURL(wallArt.art, img => {
           const { width, height } = img.getOriginalSize()
+          setArtOrgSize(img.getOriginalSize())
           const artRatio = wallArt.size.width / wallArt.size.height
           let multipleRatio = getArtRatio(artRatio)
           let viewWidth = screenWidth * multipleRatio
@@ -127,7 +182,6 @@ const WallSection = props => {
           img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }
           img.strokeWidth = 20
           img.stroke = '#222726'
-          img.lockUniScaling = true
           newCanvas.add(img)
           newCanvas.renderAll()
           img.setControlsVisibility({
@@ -136,7 +190,6 @@ const WallSection = props => {
             ml: false,
             mr: false,
           })
-          setCanvas(newCanvas)
         })
       }, 500)
     })

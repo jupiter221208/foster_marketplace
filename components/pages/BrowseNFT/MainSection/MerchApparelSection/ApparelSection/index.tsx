@@ -25,7 +25,6 @@ const ApparelSection = props => {
   useEffect(() => {
     if (apparel) {
       setLoader(false)
-      console.log('===========apparel===========')
       drawApparel()
     } else {
       let newCanvas = canvas as fabric.Canvas
