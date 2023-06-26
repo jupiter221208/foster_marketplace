@@ -16,7 +16,7 @@ const ApparelSection = props => {
   useEffect(() => {
     const resizeFunction = () => {
       if (apparel) {
-        drawApparel()
+        // drawApparel()
       }
     }
     window.addEventListener('resize', resizeFunction)
@@ -25,6 +25,7 @@ const ApparelSection = props => {
   useEffect(() => {
     if (apparel) {
       setLoader(false)
+      console.log('===========apparel===========')
       drawApparel()
     } else {
       let newCanvas = canvas as fabric.Canvas

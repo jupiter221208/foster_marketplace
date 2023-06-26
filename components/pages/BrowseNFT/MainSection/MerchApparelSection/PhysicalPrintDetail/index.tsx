@@ -68,6 +68,7 @@ const PhysicalPrintDetail = props => {
         setPrint({ name: '', type: '' })
         setCost('----')
         onPrint('')
+        setColor({ name: '', type: '' })
       }
     } else {
       setEnabled(false)
