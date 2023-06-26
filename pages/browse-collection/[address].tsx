@@ -28,7 +28,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import { useViewport } from 'utils'
-import { loginWithSigned } from 'utils/auth'
+import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -87,7 +87,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
 
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       loginWithSigned(publicKey, signature, dispatch)
     })()
   }, [connected, loginAndRefresh, signMessage])

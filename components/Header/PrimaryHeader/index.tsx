@@ -42,7 +42,7 @@ import styles from './index.module.scss'
 import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { loginWithSigned } from 'utils/auth'
+import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -223,7 +223,7 @@ const PrimaryHeader = () => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
 
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       loginWithSigned(publicKey, signature, dispatch)
       dispatch({ type: 'set', loginSignedFlag: true })
     })()
