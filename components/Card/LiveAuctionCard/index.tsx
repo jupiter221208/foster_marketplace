@@ -50,11 +50,6 @@ const LiveAuctionCard = props => {
   }, [data.start_time, data.end_time])
 
   const getStartTime = data => {
-    // let startTime = new Date(data.start_time)
-    // let offset = startTime.getTimezoneOffset() * 60 * 1000
-    // let proposalStartTime = startTime.getTime() - offset
-    // let difference = proposalStartTime - new Date().getTime()
-
     let difference = getTimeDifference(data.start_time)
 
     if (difference >= 0) {
@@ -65,6 +60,7 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>
