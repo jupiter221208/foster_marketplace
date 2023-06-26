@@ -55,7 +55,8 @@ const ApparelSection = props => {
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas('canvas')
     } else {
-      newCanvas.clear().renderAll()
+      newCanvas.clear()
+      newCanvas.renderAll()
     }
 
     let screenWidth = window.innerWidth * 0.3
@@ -82,13 +83,14 @@ const ApparelSection = props => {
           })
           img.lockUniScaling = true
           newCanvas.add(img)
-          newCanvas.renderAll()
           img.setControlsVisibility({
             mt: false,
             mb: false,
             ml: false,
             mr: false,
           })
+          newCanvas.setActiveObject(img)
+          newCanvas.renderAll()
         })
       }, 500)
     })

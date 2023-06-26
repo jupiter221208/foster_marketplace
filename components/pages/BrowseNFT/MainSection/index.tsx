@@ -680,7 +680,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
         ) : (
           <div className="col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              nftType === 'image' ? (
+              nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" />
                   <div className={styles.mobileImageBackground} />
@@ -718,7 +718,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               ) : (
                 <></>
               )
-            ) : nftType === 'image' ? (
+            ) : nftType.includes('image') ? (
               <div className={styles.blurBackground}>
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
@@ -731,7 +731,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   </div>
                 </div>
               </div>
-            ) : nftType === 'audio' ? (
+            ) : nftType.includes('audio') ? (
               <div className={styles.blurBackground}>
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
@@ -744,7 +744,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
                 </div>
               </div>
-            ) : nftType === 'video' ? (
+            ) : nftType.includes('video') ? (
               <div className={styles.blurBackground}>
                 <div className="absolute inset-0">
                   <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
@@ -825,6 +825,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                           address={id}
                           onClickReport={() => setOpenReportModal(true)}
                           onClickPrint={() => setOpenPrintView(true)}
+                          nftType={nftType}
                         />
                       )}
                     </div>
