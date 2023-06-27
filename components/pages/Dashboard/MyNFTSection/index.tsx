@@ -118,6 +118,7 @@ const MyNFTSection = props => {
       setFilteredList(allNftList)
     } else {
       let filtered = []
+      setFilteredList([])
       allNftList.forEach(element => {
         if (
           element.json?.name?.toLowerCase().includes(key.toLowerCase()) ||
