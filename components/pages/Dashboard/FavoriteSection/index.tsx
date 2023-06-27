@@ -133,6 +133,7 @@ const FavoriteSection = () => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
+                collectionName={item.collection_name}
                 price={item.list_price}
                 onClick={() => {
                   router.push(`/browse-nft?id=${item.token_id}`)
