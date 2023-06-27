@@ -30,7 +30,6 @@ export const checkExpiryDate = () => {
 }
 
 export const getSignMessageVerbiage = address => {
-  return 'Foster Protocol'
   let message =
     'fostermarketplace.app wants you to sign in with your Solana account: ' +
     address +
