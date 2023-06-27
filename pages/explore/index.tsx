@@ -256,6 +256,7 @@ const Explore = () => {
                 start_time: nft.start_time,
                 end_time: nft.end_time,
                 reserve_price: nft.reserve_price,
+                collection_name: nft.collection_name,
               })
             }
           })
@@ -274,6 +275,7 @@ const Explore = () => {
               start_time: nft.start_time,
               end_time: nft.end_time,
               reserve_price: nft.reserve_price,
+              collection_name: nft.collection_name,
             }
           })
         }
@@ -603,6 +605,7 @@ const Explore = () => {
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
+                              collectionName={item.collection_name}
                               onClick={() => {
                                 dispatch({ type: 'set', isLoading: true })
                                 router.push(item.url)
@@ -617,6 +620,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
+                            collectionName={item.collection_name}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                               router.push(item.url)

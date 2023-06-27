@@ -147,6 +147,7 @@ const MarketplaceReleaseSection = props => {
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
+                    collectionName={item.collection_name}
                     price={item.list_price}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
