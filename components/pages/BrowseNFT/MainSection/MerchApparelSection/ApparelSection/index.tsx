@@ -3,8 +3,8 @@ import { fabric } from 'fabric'
 
 // styles
 import styles from './index.module.scss'
-import LoadingModal from 'components/Modal/LoadingModal'
 import { FadeLoader } from 'react-spinners'
+import { useViewport } from 'utils'
 
 // api
 
@@ -12,6 +12,7 @@ const ApparelSection = props => {
   const { apparel, nftCoverUrl, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
+  const viewport = useViewport()
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -60,27 +61,51 @@ const ApparelSection = props => {
     }
 
     let screenWidth = window.innerWidth * 0.3
+    if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
+      screenWidth = window.innerWidth * 0.85
+    }
     newCanvas.setDimensions({
       width: screenWidth,
       height: screenWidth,
     })
 
     new fabric.Image.fromURL(apparel, img => {
+      const { width, height } = img.getOriginalSize()
       img.scale(1)
       newCanvas.add(img)
+      if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
+        img.set({
+          scaleX: screenWidth / width,
+          scaleY: screenWidth / width,
+          top: 0,
+          left: 0,
+        })
+      }
+
       newCanvas.renderAll()
       newCanvas.item(0).selectable = false
       setTimeout(() => {
         new fabric.Image.fromURL(nftCoverUrl, img => {
           const { width, height } = img.getOriginalSize()
-          img.scaleToWidth(150, false)
-          img.set({
-            scaleX: 150 / width,
-            scaleY: 150 / width,
-            top: 150,
-            left: screenWidth / 2 - 60,
-            lockAspectRatio: true,
-          })
+          if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
+            let apparelWidth = screenWidth * 0.25
+            img.scaleToWidth(apparelWidth, false)
+            img.set({
+              scaleX: apparelWidth / width,
+              scaleY: apparelWidth / width,
+              top: apparelWidth,
+              left: (screenWidth * 0.75) / 2,
+            })
+          } else {
+            img.scaleToWidth(150, false)
+            img.set({
+              scaleX: 150 / width,
+              scaleY: 150 / width,
+              top: 150,
+              left: screenWidth / 2 - 60,
+            })
+          }
+
           img.lockUniScaling = true
           newCanvas.add(img)
           img.setControlsVisibility({
@@ -103,16 +128,18 @@ const ApparelSection = props => {
       <canvas id="canvas" />
       {loader && (
         <div className="w-full absolute">
-          {/* <LoadingModal open={loader} /> */}
           <div className="w-full flex justify-center">
             <FadeLoader color="#63D6CD" width="6" height="12" />
           </div>
-
           <div className={styles.progressText}>
-            <p>
-              Preview generation in progress, please continue to
-              <br /> select your desired apparel parameters
-            </p>
+            {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
+              <p>Preview generation in progress, please continue to select your desired apparel parameters</p>
+            ) : (
+              <p>
+                Preview generation in progress, please continue to
+                <br /> select your desired apparel parameters
+              </p>
+            )}
           </div>
         </div>
       )}

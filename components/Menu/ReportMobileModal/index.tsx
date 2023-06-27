@@ -9,6 +9,7 @@ import { Dialog, Transition } from '@headlessui/react'
 // resources
 import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-white.svg'
 import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-white.svg'
+import PhysicalPrintIcon from 'assets/icons/physical-print-icon-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -19,7 +20,7 @@ import { useConnection } from '@solana/wallet-adapter-react'
 import { useRouter } from 'next/router'
 
 const ReportMobileModal = props => {
-  const { open, close, address, onClick } = props
+  const { open, close, address, onClick, onClickPrint, nftType } = props
   const { connection } = useConnection()
   const router = useRouter()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
@@ -69,6 +70,13 @@ const ReportMobileModal = props => {
                   <Image src={NounProhibitIcon} alt="" />
                   Report an Issue
                 </div>
+
+                {nftType && (
+                  <div className={styles.menuItem} onClick={() => onClickPrint()}>
+                    <PhysicalPrintIcon alt="" />
+                    Purchase Physical Print
+                  </div>
+                )}
 
                 <div className="w-full flex justify-center">
                   <div className={styles.cancel} onClick={close}>

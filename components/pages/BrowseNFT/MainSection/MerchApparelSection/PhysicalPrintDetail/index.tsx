@@ -164,8 +164,8 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[25px]">
         <SelectionColor label="COLOR:" data={ColorType} selected={color?.name} onSelect={item => setColor(item)} />
       </div>
-      <div className="w-full mt-[25px]">
-        <Selection label="SIZE:" data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
+      <div className="w-full mt-[35px] lg:mt-[25px]">
+        <Selection label="SELECT SIZE:" data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
       </div>
       <div className="w-full mt-[25px] flex">
         <div className={styles.quantity}>QUANTITY:</div>
@@ -178,9 +178,9 @@ const PhysicalPrintDetail = props => {
           onChange={event => setQuantity(parseInt(event.target.value))}
         />
       </div>
-      <div className="w-full mt-[60px] flex">
+      <div className="w-full mt-[30px] lg:mt-[60px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
-        <div className="flex ml-[20px] items-center">
+        <div className="flex ml-[10px] lg:ml-[20px] items-center">
           <div className={styles.price}>$ {cost}</div>
           <div className={styles.separator}></div>
           <div className="flex gap-[10px] items-center">
