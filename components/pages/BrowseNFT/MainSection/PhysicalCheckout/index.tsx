@@ -158,13 +158,13 @@ const PhysicalCheckout = props => {
         <TableSection data={list} />
       </div>
       <div className={styles.tableDivider} />
-      <div className="absolute bottom-8 left-10 right-10 flex gap-[30px]">
+      <div className="w-full mt-[30px]">
         <GradientButton
           disabled={currency.length === 0}
           label="Proceed to Checkout"
-          fontSize={18}
           fullWidth
-          height={53}
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
           onClick={() => onCheckout()}
         />
       </div>

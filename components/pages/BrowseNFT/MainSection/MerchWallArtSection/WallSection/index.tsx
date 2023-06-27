@@ -1,21 +1,22 @@
-import React, { useLayoutEffect, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { fabric } from 'fabric'
 
 // styles
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
+import { useViewport } from 'utils'
 
 // api
 
 const WallSection = props => {
   const { wallArt, finishEditing } = props
+  const viewport = useViewport()
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const [bgOrgSize, setBgOrgSize] = useState(null)
   const [artOrgSize, setArtOrgSize] = useState(null)
-  let wallCanvas = null
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const resizeFunction = () => {
       if (wallArt) {
         let newCanvas = canvas as fabric.Canvas
@@ -33,7 +34,7 @@ const WallSection = props => {
           let wallImg = newCanvas.item(0)
           if (width > height) {
             wallImg.set({
-              scaleX: screenHeight / height, //screenWidth / width,
+              scaleX: screenHeight / height,
               scaleY: screenHeight / height,
               top: 0,
               left: -((width * screenHeight) / height - screenWidth) / 2,
@@ -41,7 +42,7 @@ const WallSection = props => {
             })
           } else {
             wallImg.set({
-              scaleX: screenWidth / width, //screenWidth / width,
+              scaleX: screenWidth / width,
               scaleY: screenWidth / width,
               top: -((height * screenWidth) / width - screenHeight) / 2,
               left: 0,
@@ -82,7 +83,6 @@ const WallSection = props => {
       if (newCanvas != '') {
         newCanvas.clear().renderAll()
         setCanvas(newCanvas)
-        wallCanvas = newCanvas
       }
       setLoader(true)
     }
@@ -131,8 +131,16 @@ const WallSection = props => {
       newCanvas.clear().renderAll()
     }
 
-    let screenWidth = Math.floor(window.innerWidth * 0.41)
-    let screenHeight = window.innerHeight - 160
+    console.log(viewport, window.innerWidth, window.innerWidth)
+    let screenWidth, screenHeight
+    if (window.innerWidth < 1024) {
+      screenWidth = window.innerWidth
+      screenHeight = window.innerWidth
+    } else {
+      screenWidth = Math.floor(window.innerWidth * 0.41)
+      screenHeight = window.innerHeight - 160
+    }
+
     newCanvas.setDimensions({
       width: screenWidth,
       height: screenHeight,
@@ -145,7 +153,7 @@ const WallSection = props => {
 
       if (width > height) {
         img.set({
-          scaleX: screenHeight / height, //screenWidth / width,
+          scaleX: screenHeight / height,
           scaleY: screenHeight / height,
           top: 0,
           left: -((width * screenHeight) / height - screenWidth) / 2,
@@ -153,7 +161,7 @@ const WallSection = props => {
         })
       } else {
         img.set({
-          scaleX: screenWidth / width, //screenWidth / width,
+          scaleX: screenWidth / width,
           scaleY: screenWidth / width,
           top: -((height * screenWidth) / width - screenHeight) / 2,
           left: 0,
@@ -172,11 +180,14 @@ const WallSection = props => {
           let multipleRatio = getArtRatio(artRatio)
           let viewWidth = screenWidth * multipleRatio
           let ratio = viewWidth / width
+          let leftMargin = (screenWidth - viewWidth) / 2
+          console.log(screenWidth, viewWidth)
+          if (screenWidth < 1024) leftMargin = (screenWidth - viewWidth) / 2 - 10
           img.set({
             scaleX: ratio,
             scaleY: ratio,
             top: (screenHeight - height * ratio) / 2,
-            left: (screenWidth - viewWidth) / 2,
+            left: leftMargin,
             lockAspectRatio: true,
           })
           img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }

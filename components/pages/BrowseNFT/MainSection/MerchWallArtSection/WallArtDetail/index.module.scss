@@ -109,15 +109,25 @@
 
 .subTotal {
   font-family: 'Muli-SemiBold';
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 23px;
+  margin-top: 5px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 30px;
+    margin-top: 0px;
+  }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .price {
   font-family: 'Muli-Bold';
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 18px;
+  line-height: 23px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 30px;
+  }
   color: var(--text-gray-200-color);
 }
 

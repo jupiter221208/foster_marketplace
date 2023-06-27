@@ -22,11 +22,13 @@ import GradientButton from 'components/Button/GradientButton'
 import WalletTag from './WalletTag'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import { useViewport } from 'utils'
 
 // api
 
 const WallArtDetail = props => {
   const { onBack, onPrint, onShipping, data, setData, nftName, nftImage } = props
+  const viewport = useViewport()
   const [print, setPrint] = useState({ name: '', type: '', image: '' })
   const [orientation, setOrientation] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ width: 1, height: 1, price: '' })
@@ -205,8 +207,8 @@ const WallArtDetail = props => {
             backgroundColor="transparent"
             label="Generate Preview"
             fullWidth
-            height="53px"
-            fontSize="18px"
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 18}
             color={enabled ? '#eff0f6' : '#818181'}
             borderColor={'#202427'}
             onClick={() => setOpenEditorModal(true)}
@@ -214,9 +216,9 @@ const WallArtDetail = props => {
           <GradientButton
             disabled={!enabled}
             label="Next"
-            fontSize={18}
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             fullWidth
-            height={53}
             onClick={() => {
               if (cropImage === null) {
                 setOpenEditorModal(true)

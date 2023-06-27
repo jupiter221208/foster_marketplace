@@ -205,9 +205,9 @@ const PhysicalShipping = props => {
         <GradientButton
           disabled={!enabled}
           label="Proceed to Checkout"
-          fontSize={18}
           fullWidth
-          height={53}
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
           onClick={() => proceedToCheckout()}
         />
       </div>
