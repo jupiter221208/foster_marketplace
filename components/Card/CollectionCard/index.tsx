@@ -12,7 +12,7 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const CollectionCard = props => {
-  const { image, nftName, category, artistName, onClick, unSave = null } = props
+  const { image, nftName, category, artistName, collectionName, onClick, unSave = null } = props
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
 
@@ -42,7 +42,7 @@ const CollectionCard = props => {
           <div className={styles.nftName}>{nftName}</div>
         </div>
         <div className="w-full flex justify-start items-center">
-          <div className={styles.artistName}>{artistName && artistName.length > 0 ? artistName : nftName}</div>
+          <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
         </div>
         <div className="w-full mt-[6px] flex justify-between items-end">
           <div className="flex flex-wrap gap-1 max-h-[16px] lg:max-h-[30px] overflow-hidden">

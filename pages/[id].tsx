@@ -29,7 +29,7 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString, isLoggedIn } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { loginWithSigned } from 'utils/auth'
+import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -100,7 +100,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
 
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       loginWithSigned(publicKey, signature, dispatch)
 
       if (artistEnable || isLoggedIn()) {

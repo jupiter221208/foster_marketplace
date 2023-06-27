@@ -31,21 +31,6 @@ const AuctionCard = props => {
     }
   }, [startTime, endTime])
 
-  // const getStartTime = () => {
-  //   let difference = Number(startTime) * 1000 - +new Date()
-  //   if (difference >= 0) {
-  //     setAuctionStarted(false)
-  //     return Number(startTime)
-  //   } else {
-  //     setIsStarted(true)
-  //     setAuctionStarted(true)
-
-  //     let end_difference = Number(endTime) * 1000 - +new Date()
-  //     if (end_difference < 0) setIsEnded(true)
-  //     return Number(endTime)
-  //   }
-  // }
-
   const getStartTime = () => {
     let startDate = new Date(startTime)
     let offset = startDate.getTimezoneOffset() * 60 * 1000

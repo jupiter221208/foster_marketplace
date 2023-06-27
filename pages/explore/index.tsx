@@ -49,7 +49,7 @@ import { useViewport } from 'utils'
 import ExploreAPI from 'apis/explore'
 import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
-import { isAvailableDate } from 'utils/helpers'
+import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 
 const Explore = () => {
   const router = useRouter()
@@ -256,6 +256,7 @@ const Explore = () => {
                 start_time: nft.start_time,
                 end_time: nft.end_time,
                 reserve_price: nft.reserve_price,
+                collection_name: nft.collection_name,
               })
             }
           })
@@ -274,6 +275,7 @@ const Explore = () => {
               start_time: nft.start_time,
               end_time: nft.end_time,
               reserve_price: nft.reserve_price,
+              collection_name: nft.collection_name,
             }
           })
         }
@@ -472,6 +474,7 @@ const Explore = () => {
     let start_time = nft.start_time
     let end_time = nft.end_time
     if (start_time === null || end_time === null) return false
+    if (getTimeDifference(end_time) < 0) return false
     if (isAvailableDate(start_time, end_time)) return true
     else return false
   }
@@ -602,6 +605,7 @@ const Explore = () => {
                               assetType={item.asset_type}
                               coverImage={item.cover_image_url}
                               artistName={item.creator}
+                              collectionName={item.collection_name}
                               onClick={() => {
                                 dispatch({ type: 'set', isLoading: true })
                                 router.push(item.url)
@@ -616,6 +620,7 @@ const Explore = () => {
                             assetType={item.asset_type}
                             coverImage={item.cover_image_url}
                             artistName={item.creator}
+                            collectionName={item.collection_name}
                             onClick={() => {
                               dispatch({ type: 'set', isLoading: true })
                               router.push(item.url)

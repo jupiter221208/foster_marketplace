@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
-import { calculateTimeLeft, formattedAmount } from 'utils/helpers'
+import { calculateTimeLeft, formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
@@ -50,11 +50,7 @@ const LiveAuctionCard = props => {
   }, [data.start_time, data.end_time])
 
   const getStartTime = data => {
-    let startTime = new Date(data.start_time)
-    let offset = startTime.getTimezoneOffset() * 60 * 1000
-    let proposalStartTime = startTime.getTime() - offset
-
-    let difference = proposalStartTime - new Date().getTime()
+    let difference = getTimeDifference(data.start_time)
 
     if (difference >= 0) {
       setAuctionStarted(false)
@@ -64,6 +60,7 @@ const LiveAuctionCard = props => {
       return data.end_time
     }
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.imageArea}>

@@ -29,7 +29,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // call apis
 import listingsAPI from 'apis/listings'
 import LoadingButton from 'components/Button/LoadingButton'
-import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
@@ -44,7 +44,7 @@ const ListNFTModal = props => {
     setShowLoading(true)
 
     if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       await loginWithSigned(publicKey, signature, dispatch)
     }
 

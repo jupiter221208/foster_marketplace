@@ -103,7 +103,7 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
@@ -267,7 +267,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const checkTokenExpiration = async () => {
     if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       await loginWithSigned(publicKey, signature, dispatch)
     }
   }

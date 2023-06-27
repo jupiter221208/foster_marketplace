@@ -28,3 +28,13 @@ export const checkExpiryDate = () => {
 
   return false
 }
+
+export const getSignMessageVerbiage = address => {
+  let message =
+    'fostermarketplace.app wants you to sign in with your Solana account: ' +
+    address +
+    '\n\n' +
+    'By clicking approve, you are verifying ownership of this wallet. This request will not trigger any blockchain transaction or cost any gas fees.\n\n' +
+    'Click approve to sign in and accept the Terms of Service.'
+  return message
+}

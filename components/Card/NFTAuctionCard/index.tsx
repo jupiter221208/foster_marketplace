@@ -28,6 +28,7 @@ import nftAPI from 'apis/nfts'
 import { useDispatch } from 'react-redux'
 import LoadingModal from 'components/Modal/LoadingModal'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { getTimeDifference } from 'utils/helpers'
 
 const NFTAuctionCard = props => {
   const {
@@ -66,11 +67,7 @@ const NFTAuctionCard = props => {
       return
     }
 
-    let endListingTime = new Date(endTime)
-    let offset = endListingTime.getTimezoneOffset() * 60 * 1000
-    let endLocalTime = endListingTime.getTime() - offset
-    let nowDate = new Date().getTime()
-    let difference = endLocalTime - nowDate
+    let difference = getTimeDifference(endTime)
 
     if (difference < 0) {
       return
