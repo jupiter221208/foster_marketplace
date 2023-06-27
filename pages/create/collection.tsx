@@ -30,7 +30,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metap
 
 // call apis
 import collectionsAPI from 'apis/collections'
-import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -76,7 +76,7 @@ const Collection = () => {
       dispatch({ type: 'set', isLoading: true })
 
       if (!checkExpiryDate()) {
-        let signature = await signMessage(Buffer.from('Foster Protocol'))
+        let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
         await loginWithSigned(publicKey, signature, dispatch)
       }
 

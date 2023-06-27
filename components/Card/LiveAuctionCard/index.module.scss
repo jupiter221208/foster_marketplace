@@ -106,8 +106,8 @@
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
   }
-  background-color: rgba(#121212, 0.5);
-  -webkit-backdrop-filter: blur(30px);
+  background: var(--header-mobile-bg-color);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
 

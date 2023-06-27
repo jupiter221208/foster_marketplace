@@ -1,10 +1,7 @@
 import * as moment from 'moment'
 
 export const calculateTimeLeft = endDate => {
-  let endTime = new Date(endDate)
-  let offset = endTime.getTimezoneOffset() * 60 * 1000
-  let liveEndTime = endTime.getTime() - offset
-  let difference = liveEndTime - new Date().getTime()
+  let difference = getTimeDifference(endDate)
   let timeLeft = {}
 
   if (difference > 0) {
@@ -26,6 +23,15 @@ export const calculateTimeLeft = endDate => {
   }
 
   return timeLeft
+}
+
+export const getTimeDifference = endTime => {
+  let endListingTime = new Date(endTime)
+  let offset = endListingTime.getTimezoneOffset() * 60 * 1000
+  let endLocalTime = endListingTime.getTime() - offset
+  let nowDate = new Date().getTime()
+  let difference = endLocalTime - nowDate
+  return difference
 }
 
 export const isExpiredDate = (start, duration) => {

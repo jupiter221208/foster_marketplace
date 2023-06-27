@@ -33,7 +33,7 @@ import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import { checkExpiryDate, loginWithSigned } from 'utils/auth'
+import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -82,7 +82,7 @@ const ListedNFTSection = props => {
 
   const checkTokenExpiration = async () => {
     if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from('Foster Protocol'))
+      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       await loginWithSigned(publicKey, signature, dispatch)
     }
   }
