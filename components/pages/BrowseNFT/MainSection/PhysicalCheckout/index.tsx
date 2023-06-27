@@ -14,6 +14,7 @@ import { useViewport } from 'utils'
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -89,7 +90,12 @@ const PhysicalCheckout = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <ArrowLeftIcon alt="" />
+          <div className="hidden lg:flex">
+            <ArrowLeftIcon alt="" />
+          </div>
+          <div className="flex lg:hidden">
+            <ArrowLeftIconMobile alt="" />
+          </div>
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
       </div>

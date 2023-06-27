@@ -13,6 +13,7 @@ import SizeType from 'assets/json/wallart/size.json'
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -131,7 +132,12 @@ const WallArtDetail = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <ArrowLeftIcon alt="" />
+          <div className="hidden lg:flex">
+            <ArrowLeftIcon alt="" />
+          </div>
+          <div className="flex lg:hidden">
+            <ArrowLeftIconMobile alt="" />
+          </div>
         </div>
         <div className={styles.selecteCategory}>{nftName} - Wall Art</div>
       </div>

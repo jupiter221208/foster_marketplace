@@ -17,6 +17,7 @@ import ColorType from 'assets/json/print/color.json'
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -140,7 +141,12 @@ const PhysicalPrintDetail = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <ArrowLeftIcon alt="" />
+          <div className="hidden lg:flex">
+            <ArrowLeftIcon alt="" />
+          </div>
+          <div className="flex lg:hidden">
+            <ArrowLeftIconMobile alt="" />
+          </div>
         </div>
         <div className={styles.selecteCategory}>{nftName} - Apparel</div>
       </div>
@@ -149,7 +155,7 @@ const PhysicalPrintDetail = props => {
         is on a mission to help creators monetize their intellectual property in more than one way. Our Design Studio is
         simple to use and gives you the tools to foster your creative flavor.
       </div>
-      <div className="w-full mt-[65px]">
+      <div className="w-full mt-[30px] lg:mt-[65px]">
         <Selection label="GENDER:" data={GenderType} selected={gender?.name} onSelect={item => setGender(item)} />
       </div>
       <div className="w-full mt-[25px]">
