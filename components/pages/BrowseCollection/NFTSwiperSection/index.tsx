@@ -103,6 +103,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
+                    collectionName={collectionName}
                     artistId={item.artist_id}
                     price={item.list_price}
                     showHideButton={showHideButton}

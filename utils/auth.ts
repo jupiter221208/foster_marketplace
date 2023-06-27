@@ -5,7 +5,6 @@ export const loginWithSigned = async (publicKey, signature, dispatch) => {
     wallet_id: publicKey?.toBase58() || '',
     signature: Buffer.from(signature).toString('hex'),
   })
-  console.log('========user========', user)
   if (new_user) dispatch({ type: 'set', profileSetup: true })
   dispatch({ type: 'set', profileInfo: user })
   dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
@@ -34,8 +33,8 @@ export const getSignMessageVerbiage = address => {
   let message =
     'fostermarketplace.app wants you to sign in with your Solana account: ' +
     address +
-    '\n' +
-    'By clicking approve, you are verifying ownership of this wallet. This request will not trigger any blockchain transaction or cost any gas fees.\n' +
+    '\n\n' +
+    'By clicking approve, you are verifying ownership of this wallet. This request will not trigger any blockchain transaction or cost any gas fees.\n\n' +
     'Click approve to sign in and accept the Terms of Service.'
   return message
 }

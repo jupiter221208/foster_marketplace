@@ -52,6 +52,7 @@ const CollectedSection = props => {
                 image={item.cover_image}
                 nftName={item.collection_name}
                 artistName={item.artist_username}
+                collectionName={item.collection_name}
                 mintAddress={item.artist_id}
                 icon={item.artist_profile_picture}
                 key={index}
