@@ -263,29 +263,31 @@ const MainSection = prop => {
           height={480}
           className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
         />
-        <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
-          <div className={styles.iconBlurView}>
-            <IconButton
-              icon={CameraWhiteIcon}
-              onClick={() => inputBannerFile.current.click()}
-              backgroundColor={'transparent'}
-              borderRadius="100%"
-              width={46}
-              height={46}
-              iconWidth={46}
-              iconHeight={46}
-              disabled={bannerUploadingToS3}
+        {isOwn && (
+          <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
+            <div className={styles.iconBlurView}>
+              <IconButton
+                icon={CameraWhiteIcon}
+                onClick={() => inputBannerFile.current.click()}
+                backgroundColor={'transparent'}
+                borderRadius="100%"
+                width={46}
+                height={46}
+                iconWidth={46}
+                iconHeight={46}
+                disabled={bannerUploadingToS3}
+              />
+            </div>
+            <input
+              type="file"
+              id="banner-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputBannerFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeBannerImage(event)}
             />
           </div>
-          <input
-            type="file"
-            id="banner-file"
-            accept="image/png, image/jpeg, image/gif"
-            ref={inputBannerFile}
-            style={{ display: 'none' }}
-            onChange={event => handleChangeBannerImage(event)}
-          />
-        </div>
+        )}
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
@@ -318,6 +320,7 @@ const MainSection = prop => {
           <div className="col-span-6">
             <div className="w-content relative">
               <ProfileArtistCard
+                isOwn={isOwn}
                 image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
                 name={artistInfo?.username}
                 avatarUploadingToS3={avatarUploadingToS3}
@@ -589,29 +592,31 @@ const MainSection = prop => {
           loading="lazy"
           className="w-full h-full object-cover rounded-none"
         />
-        <div className="absolute bottom-2 right-2 cursor-pointer z-20">
-          <div className={styles.iconBlurView}>
-            <IconButton
-              icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
-              onClick={() => inputBannerFile.current.click()}
-              backgroundColor={'transparent'}
-              borderRadius="100%"
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-              iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-              iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-              disabled={bannerUploadingToS3}
+        {isOwn && (
+          <div className="absolute bottom-2 right-2 cursor-pointer z-20">
+            <div className={styles.iconBlurView}>
+              <IconButton
+                icon={EditorGreenIcon}
+                onClick={() => inputBannerFile.current.click()}
+                backgroundColor={'transparent'}
+                borderRadius="100%"
+                width={32}
+                height={32}
+                iconWidth={20}
+                iconHeight={20}
+                disabled={bannerUploadingToS3}
+              />
+            </div>
+            <input
+              type="file"
+              id="banner-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputBannerFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeBannerImage(event)}
             />
           </div>
-          <input
-            type="file"
-            id="banner-file"
-            accept="image/png, image/jpeg, image/gif"
-            ref={inputBannerFile}
-            style={{ display: 'none' }}
-            onChange={event => handleChangeBannerImage(event)}
-          />
-        </div>
+        )}
       </div>
       <div className="w-full">
         <div className="z-0">
@@ -621,6 +626,7 @@ const MainSection = prop => {
         </div>
         <div className="w-full relative items-center mt-[-50px] z-10">
           <ProfileArtistCard
+            isOwn={isOwn}
             image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
             name={artistInfo?.username}
             ig_url={artistInfo?.ig_url}

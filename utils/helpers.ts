@@ -126,11 +126,6 @@ export const isString = obj => {
   return obj !== undefined && obj !== null && obj.constructor == String
 }
 
-export const calculateUSD = price => {
-  let usd = 16.2 * parseFloat(price)
-  return usd
-}
-
 export const formattedAmount = value => {
   const floatValue = parseFloat(value)
   if (Math.floor(floatValue) === floatValue) return value

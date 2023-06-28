@@ -20,7 +20,7 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 import IconButton from 'components/Button/IconButton'
 
 const ProfileArtistCard = props => {
-  const { image, name, ig_url, twitter_url, avatarUploadingToS3, handleChangeAvatar, setFullScreenView } = props
+  const { isOwn, image, name, ig_url, twitter_url, avatarUploadingToS3, handleChangeAvatar, setFullScreenView } = props
   const viewport = useViewport()
   const [loaded, setLoaded] = useState(false)
   const inputAvatarFile = useRef<any>(null)
@@ -45,29 +45,31 @@ const ProfileArtistCard = props => {
             onLoadingComplete={() => setLoaded(true)}
             onClick={setFullScreenView}
           />
-          <div className="absolute bottom-1 lg:bottom-4 right-1 lg:right-4 cursor-pointer z-20">
-            <div className={styles.iconProfileBlurView}>
-              <IconButton
-                icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
-                onClick={() => inputAvatarFile.current.click()}
-                backgroundColor={'transparent'}
-                borderRadius="100%"
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                disabled={avatarUploadingToS3}
+          {isOwn && (
+            <div className="absolute bottom-1 lg:bottom-4 right-1 lg:right-4 cursor-pointer z-20">
+              <div className={styles.iconProfileBlurView}>
+                <IconButton
+                  icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
+                  onClick={() => inputAvatarFile.current.click()}
+                  backgroundColor={'transparent'}
+                  borderRadius="100%"
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                  iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                  iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                  disabled={avatarUploadingToS3}
+                />
+              </div>
+              <input
+                type="file"
+                id="avatar-file"
+                accept="image/png, image/jpeg, image/gif"
+                ref={inputAvatarFile}
+                style={{ display: 'none' }}
+                onChange={event => handleChangeAvatar(event)}
               />
             </div>
-            <input
-              type="file"
-              id="avatar-file"
-              accept="image/png, image/jpeg, image/gif"
-              ref={inputAvatarFile}
-              style={{ display: 'none' }}
-              onChange={event => handleChangeAvatar(event)}
-            />
-          </div>
+          )}
         </div>
       </div>
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

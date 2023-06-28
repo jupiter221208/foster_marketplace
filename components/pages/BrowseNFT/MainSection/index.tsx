@@ -36,7 +36,7 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
-import { useViewport } from 'utils'
+import { fetchSolToUsdRate, useViewport } from 'utils'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { placeBid } from 'utils/auctioneer.util'
@@ -94,7 +94,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { calculateUSD, compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
+import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 // import DateSelect from 'components/DateSelect'
@@ -129,6 +129,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [openShareModal, setOpenShareModal] = useState(false)
+  const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
@@ -218,6 +219,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
+    fetchSolToUsdRate().then(setSolToUsdRate)
+
     setAlertData([
       {
         id: 0,
@@ -826,7 +829,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 <>
                   <div className="w-full flex items-center mt-[77px] lg:mt-4">
                     <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                    <div className={styles.whiteTitle}>$ {calculateUSD(nftPrice.toFixed(2))}</div>
+                    <div className={styles.whiteTitle}>$ {(solToUsdRate * nftPrice).toFixed(2)}</div>
                     <div className={styles.separatorSol}></div>
                     <div className="flex items-center mt-[3px]">
                       {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
