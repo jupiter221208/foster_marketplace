@@ -68,6 +68,7 @@ const MerchWallArtSection = props => {
           data={printData}
           shippingData={shippingData}
           nftName={nftName}
+          type="wallart"
           onBack={() => {
             setOpenShippingDetail(true)
             setOpenCheckoutView(false)

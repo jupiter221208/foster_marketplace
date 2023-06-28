@@ -67,8 +67,12 @@
 
 .orderTotal {
   font-family: 'Muli-Bold';
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+  }
   color: var(--text-gray-200-color);
 }
 
@@ -80,8 +84,12 @@
 
 .totalPrice {
   font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+  }
   color: var(--text-gray-200-color);
 }
 
@@ -99,8 +107,12 @@
 
 .subPrice {
   font-family: 'Muli-Regular';
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 14px;
+  line-height: 18px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+  }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
@@ -129,4 +141,21 @@
 
 .selectedCurrency {
   border: 1px solid var(--main-icon-color);
+}
+
+.tableHeader {
+  background: $brand-04-color;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 13px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+}
+
+.value {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
 }

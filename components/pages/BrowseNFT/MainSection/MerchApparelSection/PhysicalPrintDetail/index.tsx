@@ -24,11 +24,13 @@ import styles from './index.module.scss'
 import Selection from 'components/Selection'
 import SelectionColor from 'components/SelectionColor'
 import GradientButton from 'components/Button/GradientButton'
+import { useViewport } from 'utils'
 
 // api
 
 const PhysicalPrintDetail = props => {
   const { onBack, onPrint, onShipping, data, setData, nftName } = props
+  const viewport = useViewport()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
   const [print, setPrint] = useState({ name: '', type: '' })
@@ -199,9 +201,9 @@ const PhysicalPrintDetail = props => {
         <GradientButton
           disabled={!enabled}
           label="Next"
-          fontSize={18}
           fullWidth
-          height={53}
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
           onClick={() => {
             let data = { apparel, gender, color, print, quality, size, quantity, cost }
             onShipping(data)

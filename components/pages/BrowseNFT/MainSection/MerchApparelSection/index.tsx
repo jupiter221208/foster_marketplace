@@ -67,6 +67,7 @@ const MerchApparelSection = props => {
           data={printData}
           shippingData={shippingData}
           nftName={nftName}
+          type="apparel"
           onBack={() => {
             setOpenShippingDetail(true)
             setOpenCheckoutView(false)
