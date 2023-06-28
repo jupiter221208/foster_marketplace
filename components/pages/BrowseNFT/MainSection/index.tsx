@@ -94,7 +94,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
+import { calculateUSD, compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 // import DateSelect from 'components/DateSelect'
@@ -826,6 +826,8 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 <>
                   <div className="w-full flex items-center mt-[77px] lg:mt-4">
                     <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
+                    <div className={styles.whiteTitle}>$ {calculateUSD(nftPrice.toFixed(2))}</div>
+                    <div className={styles.separatorSol}></div>
                     <div className="flex items-center mt-[3px]">
                       {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (

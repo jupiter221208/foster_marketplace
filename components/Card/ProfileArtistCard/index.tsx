@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -10,20 +10,25 @@ import Image from 'next/image'
 import styles from './index.module.scss'
 import { validUrl } from 'utils/helpers'
 
+import CameraWhiteIcon from 'assets/icons/camera-white.svg'
+import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
+import IconButton from 'components/Button/IconButton'
+
 const ProfileArtistCard = props => {
-  const { image, name, ig_url, twitter_url } = props
+  const { image, name, ig_url, twitter_url, avatarUploadingToS3, handleChangeAvatar, setFullScreenView } = props
   const viewport = useViewport()
   const [loaded, setLoaded] = useState(false)
+  const inputAvatarFile = useRef<any>(null)
 
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        <div className="w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden">
+        <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden">
           {!loaded && (
             <div className="w-full h-full overflow-hidden rounded-full">
               <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
@@ -38,7 +43,31 @@ const ProfileArtistCard = props => {
             height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 152 : 90}
             className="rounded-full"
             onLoadingComplete={() => setLoaded(true)}
+            onClick={setFullScreenView}
           />
+          <div className="absolute bottom-1 lg:bottom-4 right-1 lg:right-4 cursor-pointer z-20">
+            <div className={styles.iconProfileBlurView}>
+              <IconButton
+                icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
+                onClick={() => inputAvatarFile.current.click()}
+                backgroundColor={'transparent'}
+                borderRadius="100%"
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
+                iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                disabled={avatarUploadingToS3}
+              />
+            </div>
+            <input
+              type="file"
+              id="avatar-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputAvatarFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeAvatar(event)}
+            />
+          </div>
         </div>
       </div>
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
