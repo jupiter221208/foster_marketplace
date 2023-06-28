@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
+import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
@@ -16,9 +18,10 @@ import ProfileArtistCard from 'components/Card/ProfileArtistCard'
 import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
+import IconButton from 'components/Button/IconButton'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, namePublicFile } from 'utils'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -27,21 +30,28 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import InstagramIcon from 'assets/icons/social-ig.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter.svg?component'
+import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import EditorGreenIcon from 'assets/icons/editor-green.svg'
+import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 
-// styles
-import styles from './index.module.scss'
-
-// api endpoint
-import artistsAPI from 'apis/artists'
 import MenuSocialShare from 'components/Menu/MenuSocialShare'
 import { copyClipboardAlert, copyToClipboard, isLoggedIn, validUrl } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
+
+// styles
+import styles from './index.module.scss'
+
+// api endpoint
+import artistsAPI from 'apis/artists'
+import userAPI from 'apis/user'
+import uploadFileToS3API from 'apis/aws'
+import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
+import Alert from 'components/Alert'
+import DashboardArtistCard from 'components/Card/DashboardArtistCard'
 
 const MainSection = prop => {
   const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable, isLoaded, setFullScreenView } =
@@ -50,6 +60,26 @@ const MainSection = prop => {
   const viewport = useViewport()
   const { publicKey } = useWallet()
   const { setVisible } = useWalletModal()
+
+  // banner part
+  const inputBannerFile = useRef<any>(null)
+  const [updateBanner, setUpdateBanner] = useState(false)
+  const [openBannerEditorModal, setOpenBannerEditorModal] = useState(false)
+  const [croppedBanner, setCroppedBanner] = useState('')
+  const [banner, setBanner] = useState<any>()
+  const [bannerUploadingToS3, setBannerUploadingToS3] = useState<boolean>(false)
+  const [bannerPictureUrl, setBannerPictureUrl] = useState('')
+  const [alertData, setAlertData] = useState<any[]>([])
+  const [showAlert, setShowAlert] = useState(false)
+
+  // avatar part
+  const [updateAvatar, setUpdateAvatar] = useState(false)
+  const [openAvatarEditorModal, setOpenAvatarEditorModal] = useState(false)
+  const [avatar, setAvatar] = useState<any>()
+  const [croppedAvatar, setCroppedAvatar] = useState('')
+
+  const [avatarUploadingToS3, setAvatarUploadingToS3] = useState<boolean>(false)
+  const [avatarPictureUrl, setAvatarPictureUrl] = useState('')
 
   const [openShareModal, setOpenShareModal] = useState(false)
   const [showFollowModal, setShowFollowModal] = useState(false)
@@ -65,6 +95,26 @@ const MainSection = prop => {
       setFollow(artistInfo ? artistInfo.followed : false)
       setArtistFollowing(artistInfo.following)
       setArtistFollowers(artistInfo.followers)
+
+      if (
+        artistInfo?.banner_picture !== null &&
+        artistInfo?.banner_picture !== undefined &&
+        artistInfo?.banner_picture !== ''
+      ) {
+        setCroppedBanner(artistInfo?.banner_picture)
+      } else {
+        setCroppedBanner('')
+      }
+
+      if (
+        artistInfo?.profile_picture !== null &&
+        artistInfo?.profile_picture !== undefined &&
+        artistInfo?.profile_picture !== ''
+      ) {
+        setCroppedAvatar(artistInfo?.profile_picture)
+      } else {
+        setCroppedAvatar('')
+      }
     }
   }, [artistInfo])
 
@@ -93,21 +143,152 @@ const MainSection = prop => {
     })
   }
 
+  const showAlertModal = () => {
+    setAlertData([
+      {
+        id: 0,
+        title: 'Max File Size Exceeded',
+        description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+        type: 'error',
+      },
+    ])
+    setShowAlert(true)
+  }
+
+  useEffect(() => {
+    if (bannerPictureUrl.length === 0) return
+    userAPI.update({ wallet_id: publicKey?.toBase58() || '', banner_picture: bannerPictureUrl }).then(
+      response => {
+        if (response !== null) {
+          dispatch({ type: 'set', profileInfo: response })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [bannerPictureUrl])
+
+  useEffect(() => {
+    if (avatarPictureUrl.length === 0) return
+    userAPI.update({ wallet_id: publicKey?.toBase58() || '', profile_picture: avatarPictureUrl }).then(
+      response => {
+        if (response !== null) {
+          dispatch({ type: 'set', profileInfo: response })
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }, [avatarPictureUrl])
+
+  useEffect(() => {
+    if (croppedBanner !== '' && updateBanner) {
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'banner.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('banner.jpg')
+        uploadBannerFile(file, filename)
+      }
+      fetchData(croppedBanner)
+      setUpdateBanner(false)
+    }
+  }, [updateBanner])
+
+  useEffect(() => {
+    if (croppedAvatar !== '' && updateAvatar) {
+      const fetchData = async url => {
+        let response = await fetch(url)
+        let blob = await response.blob()
+        const file = new File([blob], 'avatar.jpg', {
+          type: 'image/jpeg',
+        })
+        const filename = namePublicFile('avatar.jpg')
+        uploadAvatarFile(file, filename)
+      }
+      fetchData(croppedAvatar)
+      setUpdateAvatar(false)
+    }
+  }, [updateAvatar])
+
+  const uploadBannerFile = async (file: any, filename: string) => {
+    setBannerUploadingToS3(true)
+    const { url } = await uploadFileToS3API(file, filename)
+    setBannerPictureUrl(url + filename)
+    setBannerUploadingToS3(false)
+  }
+
+  const uploadAvatarFile = async (file: any, filename: string) => {
+    setAvatarUploadingToS3(true)
+    const { url } = await uploadFileToS3API(file, filename)
+    setAvatarPictureUrl(url + filename)
+    setAvatarUploadingToS3(false)
+  }
+
+  const handleChangeBannerImage = event => {
+    const file = event.target.files
+    if (file?.length === 0) return
+
+    if (file[0].size > 31457280) {
+      showAlertModal()
+      return
+    }
+    setBanner(file)
+    setOpenBannerEditorModal(true)
+  }
+
+  const handleChangeAvatar = event => {
+    const file = event.target.files
+    if (file?.length === 0) return
+
+    if (file[0].size > 31457280) {
+      showAlertModal()
+      return
+    }
+    setAvatar(file)
+    setOpenAvatarEditorModal(true)
+  }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
-      <div className={styles.headerImage}>
+      <div className={styles.bannerImage}>
         <img
-          src={
-            artistInfo && artistInfo.banner_picture !== undefined && artistInfo.banner_picture !== null
-              ? artistInfo?.banner_picture
-              : BannerImage.src
-          }
+          src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
           width={1620}
           height={480}
-          className="w-full object-cover rounded-[30px]"
+          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
         />
+        {isOwn && (
+          <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
+            <div className={styles.iconBlurView}>
+              <IconButton
+                icon={CameraWhiteIcon}
+                onClick={() => inputBannerFile.current.click()}
+                backgroundColor={'transparent'}
+                borderRadius="100%"
+                width={46}
+                height={46}
+                iconWidth={46}
+                iconHeight={46}
+                disabled={bannerUploadingToS3}
+              />
+            </div>
+            <input
+              type="file"
+              id="banner-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputBannerFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeBannerImage(event)}
+            />
+          </div>
+        )}
       </div>
       <div className="w-full">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
@@ -137,15 +318,21 @@ const MainSection = prop => {
               </div>
             </div>
           </div>
-          <div className="col-span-6" onClick={() => setFullScreenView(artistInfo?.profile_picture)}>
-            <ProfileArtistCard
-              image={
-                artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null
-                  ? artistInfo?.profile_picture
-                  : DefaultAvatar.src
-              }
-              name={artistInfo?.username}
-            />
+          <div className="col-span-6">
+            <div className="w-content relative">
+              <ProfileArtistCard
+                isOwn={isOwn}
+                image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
+                name={artistInfo?.username}
+                avatarUploadingToS3={avatarUploadingToS3}
+                handleChangeAvatar={handleChangeAvatar}
+                setFullScreenView={() =>
+                  setFullScreenView(
+                    croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src
+                  )
+                }
+              />
+            </div>
           </div>
           {!isOwn && (
             <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
@@ -204,14 +391,19 @@ const MainSection = prop => {
             )}
 
             <div className="w-full flex gap-[20px] justify-center items-center mt-[13px]">
-              {artistInfo?.ig_url !== null && (
+              {artistInfo?.ig_url !== null && artistInfo?.ig_url.length > 0 && (
                 <div>
                   <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
                 </div>
               )}
-              {artistInfo?.twitter_url !== null && (
+              {artistInfo?.twitter_url !== null && artistInfo?.twitter_url.length > 0 && (
                 <div>
                   <TwitterIcon onClick={() => window.open(validUrl(artistInfo?.twitter_url))} />
+                </div>
+              )}
+              {artistInfo?.site_url !== null && artistInfo?.site_url.length > 0 && (
+                <div>
+                  <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
                 </div>
               )}
             </div>
@@ -363,24 +555,74 @@ const MainSection = prop => {
           categoryList={categoryList}
         />
       )}
+
+      <NftImageEditorModal
+        open={openBannerEditorModal}
+        close={() => setOpenBannerEditorModal(false)}
+        nftImage={banner}
+        getCroppedImage={croppedImage => {
+          setUpdateBanner(true)
+          setCroppedBanner(croppedImage)
+          setOpenBannerEditorModal(false)
+        }}
+        dimension={{ value: [1080, 320] }}
+      />
+      <NftImageEditorModal
+        open={openAvatarEditorModal}
+        close={() => setOpenAvatarEditorModal(false)}
+        nftImage={avatar}
+        getCroppedImage={croppedImage => {
+          setUpdateAvatar(true)
+          setCroppedAvatar(croppedImage)
+          setOpenAvatarEditorModal(false)
+        }}
+        dimension={{ value: [512, 512] }}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   ) : (
     // mobile view
     <div className={styles.container}>
       <div className={styles.headerImage}>
         <img
-          src={
-            artistInfo?.banner_picture !== undefined && artistInfo?.banner_picture !== null
-              ? artistInfo?.banner_picture
-              : BannerImage.src
-          }
+          src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
           width={1620}
           height={480}
           loading="lazy"
           className="w-full h-full object-cover rounded-none"
         />
-        {/* <div className={styles.overlay} /> */}
+        {isOwn && (
+          <div className="absolute bottom-2 right-2 cursor-pointer z-20">
+            <div className={styles.iconBlurView}>
+              <IconButton
+                icon={EditorGreenIcon}
+                onClick={() => inputBannerFile.current.click()}
+                backgroundColor={'transparent'}
+                borderRadius="100%"
+                width={32}
+                height={32}
+                iconWidth={20}
+                iconHeight={20}
+                disabled={bannerUploadingToS3}
+              />
+            </div>
+            <input
+              type="file"
+              id="banner-file"
+              accept="image/png, image/jpeg, image/gif"
+              ref={inputBannerFile}
+              style={{ display: 'none' }}
+              onChange={event => handleChangeBannerImage(event)}
+            />
+          </div>
+        )}
       </div>
       <div className="w-full">
         <div className="z-0">
@@ -388,19 +630,21 @@ const MainSection = prop => {
             <EllipseGreen />
           </div> */}
         </div>
-        <div
-          className="w-full relative items-center mt-[-50px] z-10"
-          onClick={() => setFullScreenView(artistInfo?.profile_picture)}
-        >
+        <div className="w-full relative items-center mt-[-50px] z-10">
           <ProfileArtistCard
-            image={
-              artistInfo?.profile_picture !== undefined && artistInfo?.profile_picture !== null
-                ? artistInfo?.profile_picture
-                : DefaultAvatar.src
-            }
+            isOwn={isOwn}
+            image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
             name={artistInfo?.username}
             ig_url={artistInfo?.ig_url}
+            site_url={artistInfo?.site_url}
             twitter_url={artistInfo?.twitter_url}
+            avatarUploadingToS3={avatarUploadingToS3}
+            handleChangeAvatar={handleChangeAvatar}
+            setFullScreenView={() =>
+              setFullScreenView(
+                croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src
+              )
+            }
           />
           {!isOwn && (
             <div className="absolute flex right-0 top-[60px]">
@@ -634,6 +878,36 @@ const MainSection = prop => {
           url={`/${artistInfo?.username}`}
         />
       )}
+
+      <NftImageEditorModal
+        open={openBannerEditorModal}
+        close={() => setOpenBannerEditorModal(false)}
+        nftImage={banner}
+        getCroppedImage={croppedImage => {
+          setUpdateBanner(true)
+          setCroppedBanner(croppedImage)
+          setOpenBannerEditorModal(false)
+        }}
+        dimension={{ value: [1080, 320] }}
+      />
+      <NftImageEditorModal
+        open={openAvatarEditorModal}
+        close={() => setOpenAvatarEditorModal(false)}
+        nftImage={avatar}
+        getCroppedImage={croppedImage => {
+          setUpdateAvatar(true)
+          setCroppedAvatar(croppedImage)
+          setOpenAvatarEditorModal(false)
+        }}
+        dimension={{ value: [512, 512] }}
+      />
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </div>
   )
 }

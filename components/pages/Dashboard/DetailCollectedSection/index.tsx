@@ -43,6 +43,7 @@ const DetailCollectedSection = props => {
               artistName={item.artist_username}
               assetType={item.asset_type}
               coverImage={item.cover_image_url}
+              collectionName={item.collection_name}
               price={item.list_price}
               onClick={() => {
                 dispatch({ type: 'set', isLoading: true })
