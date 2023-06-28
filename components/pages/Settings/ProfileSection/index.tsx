@@ -23,6 +23,8 @@ import InstagramWhiteIcon from 'assets/icons/instagram-green.svg?component'
 import InstagramWhiteSmallIcon from 'assets/icons/instagram-green-small.svg?component'
 import TwitterWhiteIcon from 'assets/icons/twitter-white.svg?component'
 import TwitterWhiteSmallIcon from 'assets/icons/twitter-green-small.svg?component'
+import WebSiteIcon from 'assets/icons/website-icon.svg?component'
+import WebSiteSmallIcon from 'assets/icons/website-icon-mobile.svg?component'
 import UnverifiedLightBrownIcon from 'assets/icons/unverified-light-brown-21x25.svg'
 import ReviewLightGreenIcon from 'assets/icons/review-light-green-19x20.svg'
 import VerifiedGreenIcon from 'assets/icons/checked-green.svg'
@@ -51,6 +53,7 @@ const ProfileSection = prop => {
   const [igUrl, setIgUrl] = useState('')
   const [discordUrl, setDiscordUrl] = useState('')
   const [twitterUrl, setTwitterUrl] = useState('')
+  const [websiteUrl, setWebSiteUrl] = useState('')
   const [telegramUrl, setTelegramUrl] = useState('')
   const [orgUserInfo, setOrgUserInfo] = useState<any>(null)
   const [verificationStatus, setVerificationStatus] = useState('unverified') // unverified, review, verified
@@ -61,6 +64,7 @@ const ProfileSection = prop => {
   const [errorMessage, setErrorMessage] = useState('')
   const [errorIGUrl, setErrorIGUrl] = useState('')
   const [errorTwitterUrl, setErrorTwitterUrl] = useState('')
+  const [errorWebsiteUrl, setErrorWebsiteUrl] = useState('')
 
   const checkEnableSave = () => {
     if (orgUserInfo === null) {
@@ -87,6 +91,10 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
+    if (websiteUrl !== orgUserInfo.site_url) {
+      setEnableSave(true)
+      return
+    }
     if (profilePictureUrl && profilePictureUrl !== orgUserInfo.profile_picture && profilePictureUrl !== '') {
       setEnableSave(true)
       return
@@ -105,6 +113,8 @@ const ProfileSection = prop => {
       setErrorMessage('This display name is already taken.')
       return
     }
+    console.log('============websiteUrl=========', websiteUrl)
+
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
@@ -115,10 +125,12 @@ const ProfileSection = prop => {
         twitter_url: twitterUrl,
         discord_url: discordUrl,
         telegram_url: telegramUrl,
+        site_url: websiteUrl,
         profile_picture: profilePictureUrl,
       })
       .then(
         response => {
+          console.log('============response=========', response)
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
             setOrgUserInfo(response)
@@ -159,6 +171,7 @@ const ProfileSection = prop => {
           setUserEmail(userInfo.email)
           setIgUrl(userInfo.ig_url)
           setTwitterUrl(userInfo.twitter_url)
+          setWebSiteUrl(userInfo.site_url)
           setDiscordUrl(userInfo.discord_url)
           setTelegramUrl(userInfo.telegram_url)
           setOrgUserInfo(userInfo)
@@ -172,7 +185,7 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, profilePictureUrl])
+  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, websiteUrl, profilePictureUrl])
 
   return (
     <div className={styles.container}>
@@ -237,7 +250,7 @@ const ProfileSection = prop => {
                 <Input
                   value={igUrl}
                   label01={errorIGUrl}
-                  placeholder="Add Instagram Account"
+                  placeholder="Enter your Instagram link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
@@ -264,7 +277,7 @@ const ProfileSection = prop => {
                 <Input
                   value={twitterUrl}
                   label01={errorTwitterUrl}
-                  placeholder="Add Twitter Account"
+                  placeholder="Enter your Twitter link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                   backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
@@ -275,6 +288,30 @@ const ProfileSection = prop => {
                       setErrorTwitterUrl('Please enter a valid website url.')
                     }
                     setTwitterUrl(value)
+                  }}
+                />
+              </div>
+            </div>
+            {/* Personal Web Site */}
+            <div className="mt-[10px] lg:mt-[30px] flex ">
+              <div className={styles.socialIcon}>
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <WebSiteSmallIcon /> : <WebSiteIcon />}
+              </div>
+              <div className="w-full ml-[-17px] lg:ml-[24px]">
+                <Input
+                  value={websiteUrl}
+                  label01={errorWebsiteUrl}
+                  placeholder="Enter your personal website link"
+                  fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                  backgroundColor="var(--setting-input-bg)"
+                  color="var(--text-gray-200-color)"
+                  onChange={value => {
+                    if (value.includes('http')) {
+                      setErrorWebsiteUrl('')
+                    } else {
+                      setErrorWebsiteUrl('Please enter a valid website url.')
+                    }
+                    setWebSiteUrl(value)
                   }}
                 />
               </div>
@@ -523,6 +560,7 @@ const ProfileSection = prop => {
               ) : (
                 <GradientButton
                   label="Save"
+                  disabled={true}
                   onClick={() => {}}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}

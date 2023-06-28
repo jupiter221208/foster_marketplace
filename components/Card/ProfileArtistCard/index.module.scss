@@ -56,3 +56,18 @@
   justify-content: center;
   margin-top: 24px;
 }
+
+.iconProfileBlurView {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(var(--background-dark-color-rgb), 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  @media (min-width: 1024px) {
+    background: transparent;
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+  }
+}
