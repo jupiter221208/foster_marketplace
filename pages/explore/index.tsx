@@ -240,7 +240,7 @@ const Explore = () => {
       respone => {
         dispatch({ type: 'set', isLoading: false })
         let nfts = []
-        if (selectedAvailability.value === 'timed') {
+        if (availability.value === 'timed') {
           respone.forEach(nft => {
             if (isAvailableAuctionCard(nft)) {
               nfts.push({
