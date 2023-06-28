@@ -91,6 +91,10 @@ const ProfileSection = prop => {
       setEnableSave(true)
       return
     }
+    if (websiteUrl !== orgUserInfo.site_url) {
+      setEnableSave(true)
+      return
+    }
     if (profilePictureUrl && profilePictureUrl !== orgUserInfo.profile_picture && profilePictureUrl !== '') {
       setEnableSave(true)
       return
@@ -109,6 +113,8 @@ const ProfileSection = prop => {
       setErrorMessage('This display name is already taken.')
       return
     }
+    console.log('============websiteUrl=========', websiteUrl)
+
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
@@ -124,6 +130,7 @@ const ProfileSection = prop => {
       })
       .then(
         response => {
+          console.log('============response=========', response)
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
             setOrgUserInfo(response)
@@ -178,7 +185,7 @@ const ProfileSection = prop => {
 
   useEffect(() => {
     checkEnableSave()
-  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, profilePictureUrl])
+  }, [userName, bio, userEmail, igUrl, discordUrl, twitterUrl, telegramUrl, websiteUrl, profilePictureUrl])
 
   return (
     <div className={styles.container}>
@@ -553,6 +560,7 @@ const ProfileSection = prop => {
               ) : (
                 <GradientButton
                   label="Save"
+                  disabled={true}
                   onClick={() => {}}
                   width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
