@@ -391,17 +391,17 @@ const MainSection = prop => {
             )}
 
             <div className="w-full flex gap-[20px] justify-center items-center mt-[13px]">
-              {artistInfo?.ig_url !== null && (
+              {artistInfo?.ig_url !== null && artistInfo?.ig_url.length > 0 && (
                 <div>
                   <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
                 </div>
               )}
-              {artistInfo?.twitter_url !== null && (
+              {artistInfo?.twitter_url !== null && artistInfo?.twitter_url.length > 0 && (
                 <div>
                   <TwitterIcon onClick={() => window.open(validUrl(artistInfo?.twitter_url))} />
                 </div>
               )}
-              {artistInfo?.site_url !== null && (
+              {artistInfo?.site_url !== null && artistInfo?.site_url.length > 0 && (
                 <div>
                   <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
                 </div>

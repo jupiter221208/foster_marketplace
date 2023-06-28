@@ -87,17 +87,17 @@ const ProfileArtistCard = props => {
         <div className={styles.name}>
           {name}
           <div className="w-full flex gap-[10px] items-center ml-[9px]">
-            {ig_url !== null && (
+            {ig_url !== null && ig_url.length > 0 && (
               <div>
                 <InstagramIcon onClick={() => window.open(validUrl(ig_url))} />
               </div>
             )}
-            {twitter_url !== null && (
+            {twitter_url !== null && twitter_url.length > 0 && (
               <div>
                 <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
               </div>
             )}
-            {site_url !== null && (
+            {site_url !== null && site_url.length > 0 && (
               <div>
                 <WebsiteIcon onClick={() => window.open(validUrl(site_url))} />
               </div>

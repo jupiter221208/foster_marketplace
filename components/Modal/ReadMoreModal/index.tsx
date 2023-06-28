@@ -11,10 +11,6 @@ import CategoryChip from 'components/Chip/CategoryChip'
 
 // images
 import CloseIcon from 'assets/icons/close-wallet.svg'
-// import InstagramIcon from 'assets/icons/social-ig.svg?component'
-// import DiscordIcon from 'assets/icons/social-discord.svg'
-// import TwitterIcon from 'assets/icons/social-twitter.svg?component'
-// import TelegramIcon from 'assets/icons/social-telegram.svg'
 
 // styles
 import styles from './index.module.scss'
@@ -63,21 +59,6 @@ const ReadMoreModal = props => {
                         <div className={styles.profile}>PROFILE</div>
                         <div className={styles.bio}>{artistInfo.bio}</div>
                       </div>
-                      {/* <div className="w-full mt-[30px] lg:mt-[50px]">
-                        <div className={styles.profile}>SOCIALS</div>
-                        <div className="flex w-full h-8 justify-start mt-[20px] gap-[18px]">
-                          {artistInfo.ig_url !== null && (
-                            <div className={styles.iconShadow}>
-                              <InstagramIcon onClick={() => window.open(validUrl(artistInfo.ig_url))} />
-                            </div>
-                          )}
-                          {artistInfo.twitter_url !== null && (
-                            <div className={styles.iconShadow}>
-                              <TwitterIcon onClick={() => window.open(validUrl(artistInfo.twitter_url))} />
-                            </div>
-                          )}
-                        </div>
-                      </div> */}
                       <div className="w-full mt-[30px] lg:mt-[50px]">
                         <div className={styles.profile}>TOP CATEGORIES</div>
                         <div className="flex justify-start mt-[20px] mb-[10px]">
