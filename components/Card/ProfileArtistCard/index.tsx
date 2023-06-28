@@ -14,13 +14,24 @@ import CameraWhiteIcon from 'assets/icons/camera-white.svg'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import InstagramIcon from 'assets/icons/social-ig-mobile.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter-mobile.svg?component'
+import WebsiteIcon from 'assets/icons/website-icon-mobile.svg?component'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 import IconButton from 'components/Button/IconButton'
 
 const ProfileArtistCard = props => {
-  const { isOwn, image, name, ig_url, twitter_url, avatarUploadingToS3, handleChangeAvatar, setFullScreenView } = props
+  const {
+    isOwn,
+    image,
+    name,
+    ig_url,
+    twitter_url,
+    site_url,
+    avatarUploadingToS3,
+    handleChangeAvatar,
+    setFullScreenView,
+  } = props
   const viewport = useViewport()
   const [loaded, setLoaded] = useState(false)
   const inputAvatarFile = useRef<any>(null)
@@ -84,6 +95,11 @@ const ProfileArtistCard = props => {
             {twitter_url !== null && (
               <div>
                 <TwitterIcon onClick={() => window.open(validUrl(twitter_url))} />
+              </div>
+            )}
+            {site_url !== null && (
+              <div>
+                <WebsiteIcon onClick={() => window.open(validUrl(site_url))} />
               </div>
             )}
           </div>

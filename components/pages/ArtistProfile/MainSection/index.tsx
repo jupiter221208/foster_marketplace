@@ -30,6 +30,7 @@ import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 import BannerImage from 'assets/images/banner-image.png'
 import InstagramIcon from 'assets/icons/social-ig.svg?component'
 import TwitterIcon from 'assets/icons/social-twitter.svg?component'
+import WebSiteIcon from 'assets/icons/website-icon.svg?component'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import EditorGreenIcon from 'assets/icons/editor-green.svg'
 import CameraWhiteIcon from 'assets/icons/camera-white.svg'
@@ -400,6 +401,11 @@ const MainSection = prop => {
                   <TwitterIcon onClick={() => window.open(validUrl(artistInfo?.twitter_url))} />
                 </div>
               )}
+              {artistInfo?.site_url !== null && (
+                <div>
+                  <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
+                </div>
+              )}
             </div>
 
             {artistInfo?.bio && (
@@ -630,6 +636,7 @@ const MainSection = prop => {
             image={croppedAvatar !== '' ? croppedAvatar : avatar !== undefined ? avatar : DefaultAvatar.src}
             name={artistInfo?.username}
             ig_url={artistInfo?.ig_url}
+            site_url={artistInfo?.site_url}
             twitter_url={artistInfo?.twitter_url}
             avatarUploadingToS3={avatarUploadingToS3}
             handleChangeAvatar={handleChangeAvatar}
