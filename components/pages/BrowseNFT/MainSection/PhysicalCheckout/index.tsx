@@ -48,7 +48,7 @@ const PhysicalCheckout = props => {
     ])
 
     let name = ''
-    console.log(type, data, nftName)
+    console.log(data)
     if (type === 'apparel') {
       name =
         nftName +
@@ -60,7 +60,16 @@ const PhysicalCheckout = props => {
         '<br/>' +
         getFirstUpperString(data['color'].type)
     } else {
-      name = data.print.type
+      name =
+        nftName +
+        '<br/>' +
+        getFirstUpperString(data.print.type) +
+        ' (' +
+        getFirstUpperString(data.orientation.type) +
+        ')<br/>' +
+        data.size.width +
+        ' x ' +
+        data.size.height
     }
     let quantity = data['quantity']
     let shipping =
