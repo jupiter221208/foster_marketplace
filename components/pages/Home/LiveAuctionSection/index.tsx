@@ -38,7 +38,6 @@ const LiveAuctionSection = props => {
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
-
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -151,7 +150,7 @@ const LiveAuctionSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            loop={liveAuctionList.length >= 3}
+            loop={true}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,
