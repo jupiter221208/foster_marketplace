@@ -115,8 +115,6 @@ const Explore = () => {
     }
   }, [])
 
-  useEffect(() => {}, [availabilityFilter])
-
   useEffect(() => {
     let availability = selectedAvailability
     if (availabilityFilter === 0) {
