@@ -87,6 +87,7 @@ const LiveAuctionSection = props => {
   }
 
   return (
+    category.length > 0 &&
     liveAuctionList.length > 0 && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
