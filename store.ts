@@ -10,7 +10,7 @@ const initialState = {
   openMobileSearchBox: false,
   openConnectWallet: false,
   exploreTab: 0,
-  availabilityFilter: 0,
+  availabilityFilter: 3,
   artworkSort: '',
   collectionSort: '',
   collectionCategory: '',

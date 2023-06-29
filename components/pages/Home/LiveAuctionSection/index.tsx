@@ -87,7 +87,7 @@ const LiveAuctionSection = props => {
   }
 
   return (
-    liveAuctionList.length > 0 && (
+    (category.length === 0 || liveAuctionList.length > 0) && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
