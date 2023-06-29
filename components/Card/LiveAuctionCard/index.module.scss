@@ -6,7 +6,7 @@
   max-height: 516px;
   height: 100%;
   background-color: var(--background-black-color);
-  border-radius: 16px;
+  border-radius: 24px;
   @media (min-width: 1024px) {
     border-radius: 24px;
   }
@@ -106,7 +106,7 @@
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
   }
-  background: var(--header-mobile-bg-color);
+  background: rgba(18, 18, 18, 0.6);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }
