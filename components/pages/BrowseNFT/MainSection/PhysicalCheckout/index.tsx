@@ -9,6 +9,8 @@ import Image from 'next/image'
 import { useViewport } from 'utils'
 
 // json
+import DomesticType from 'assets/json/print/domestic-ship.json'
+import InternationType from 'assets/json/print/international-ship.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
@@ -23,6 +25,7 @@ import TableSection from './TableSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { getFirstUpperString } from 'utils/helpers'
+import ShippingSelect from 'components/Select/ShippingSelect'
 
 // api
 
@@ -36,6 +39,7 @@ const PhysicalCheckout = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
+  const [shipping, setShipping] = useState(null)
 
   useEffect(() => {
     setAlertData([
@@ -84,6 +88,10 @@ const PhysicalCheckout = props => {
       shippingData['country'].name
 
     setList([{ name, quantity, shipping }])
+
+    if (!isUniteState()) {
+      setShipping(InternationType[0])
+    }
   }, [])
 
   const onCheckout = () => {
@@ -94,6 +102,11 @@ const PhysicalCheckout = props => {
         setShowAlert(true)
       }, 500)
     }, 3000)
+  }
+
+  const isUniteState = () => {
+    let country = shippingData['country'].name.toLowerCase()
+    return country.includes('united state')
   }
 
   return (
@@ -108,6 +121,14 @@ const PhysicalCheckout = props => {
           </div>
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
+      </div>
+      <div className="mt-[10px] ">
+        <ShippingSelect
+          data={isUniteState() ? DomesticType : InternationType}
+          selected={shipping}
+          onChange={item => setShipping(item)}
+          maxHeight="none"
+        />
       </div>
       <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
         <div className="w-[370px] h-[330px] relative">
