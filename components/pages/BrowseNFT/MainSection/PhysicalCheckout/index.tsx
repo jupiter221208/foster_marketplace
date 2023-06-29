@@ -122,7 +122,10 @@ const PhysicalCheckout = props => {
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
       </div>
-      <div className="mt-[10px] ">
+      <div className="mt-[45px]">
+        <div className={styles.shippingMethod}>Shipping Method*</div>
+      </div>
+      <div className="mt-[12px]">
         <ShippingSelect
           data={isUniteState() ? DomesticType : InternationType}
           selected={shipping}

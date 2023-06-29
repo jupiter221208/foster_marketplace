@@ -159,3 +159,12 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
 }
+
+.shippingMethod {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+  }
+  color: var(--text-gray-200-color);
+}
