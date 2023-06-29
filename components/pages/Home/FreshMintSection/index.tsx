@@ -56,26 +56,26 @@ const FreshMintSection = props => {
   }, [viewport, allFreshMintsList])
 
   return (
-    <section className={styles.container}>
-      <div className={styles.bottomLeftEllipse}>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-      </div>
-      <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className="w-full flex justify-center items-center z-10">
-              <div className={styles.title}>Fresh Mints</div>
-            </div>
-          ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
-          )}
+    freshMintsList.length > 0 && (
+      <section className={styles.container}>
+        <div className={styles.bottomLeftEllipse}>
+          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className="hidden lg:flex z-10">
-          <SeeMoreButton onClick={() => router.push('/explore')} />
+        <div className="w-full flex justify-between items-center z-10">
+          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div className="w-full flex justify-center items-center z-10">
+                <div className={styles.title}>Fresh Mints</div>
+              </div>
+            ) : (
+              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Fresh Mints</div>
+            )}
+          </div>
+          <div className="hidden lg:flex z-10">
+            <SeeMoreButton onClick={() => router.push('/explore')} />
+          </div>
         </div>
-      </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-        {freshMintsList !== null && freshMintsList !== undefined && freshMintsList.length !== 0 && (
+        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
@@ -84,7 +84,7 @@ const FreshMintSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={'navigationSwiper'}
-            loop
+            loop={freshMintsList.length >= 3}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
@@ -111,23 +111,23 @@ const FreshMintSection = props => {
               </SwiperSlide>
             ))}
           </Swiper>
-        )}
-      </div>
-      <div className="w-full flex lg:hidden justify-center">
-        <div className="w-full max-w-[242px] z-10">
-          <OutlineButton
-            label="See More"
-            fullWidth
-            onClick={() => {
-              dispatch({ type: 'set', exploreTab: 1 })
-              router.push('/explore')
-            }}
-            borderColor={'var(--see-more-border)'}
-            height="40px"
-          />
         </div>
-      </div>
-    </section>
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[242px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 1 })
+                router.push('/explore')
+              }}
+              borderColor={'var(--see-more-border)'}
+              height="40px"
+            />
+          </div>
+        </div>
+      </section>
+    )
   )
 }
 
