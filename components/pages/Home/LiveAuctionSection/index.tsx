@@ -30,7 +30,7 @@ import SeeMoreButton from 'components/Button/SeeMoreButton'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const LiveAuctionSection = props => {
-  const { category, artist = '' } = props
+  const { category, artist = '', fromPage = 'home' } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -38,7 +38,6 @@ const LiveAuctionSection = props => {
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
-
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -87,7 +86,7 @@ const LiveAuctionSection = props => {
   }
 
   return (
-    (category.length === 0 || liveAuctionList.length > 0) && (
+    (fromPage === 'home' || liveAuctionList.length > 0) && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
@@ -151,7 +150,7 @@ const LiveAuctionSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            loop={liveAuctionList.length >= 3}
+            loop={true}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,

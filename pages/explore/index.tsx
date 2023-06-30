@@ -116,6 +116,10 @@ const Explore = () => {
   }, [])
 
   useEffect(() => {
+    setIsMounted(false)
+    setTimeout(() => {
+      setIsMounted(true)
+    }, 2000)
     let availability = selectedAvailability
     if (availabilityFilter === 0) {
       availability = AvailabilityList[0]
@@ -152,10 +156,13 @@ const Explore = () => {
         break
       case 1:
         setSortData(CollectionSortList)
+        let sortList
         if (collectionSort === 'trending') {
           setSelectedSort(CollectionSortList[2])
+          sortList = CollectionSortList[2]
         } else {
           setSelectedSort(CollectionSortList[0])
+          sortList = CollectionSortList[0]
         }
         setCurrentPage(collectionCurrentPage)
         let list = []
@@ -165,15 +172,10 @@ const Explore = () => {
           list.push(object)
         })
         setCategoryList(list)
-        getExploreCollectionData(collectionCurrentPage, list, CollectionSortList[0], rowCount)
+        getExploreCollectionData(collectionCurrentPage, list, sortList, rowCount)
         break
       case 2:
         setSortData(EcosystemSortList)
-        // if (artistSort === 'top') {
-        //   setSelectedSort(EcosystemSortList[2])
-        // } else {
-        //   setSelectedSort(EcosystemSortList[2])
-        // }
         setSelectedSort(EcosystemSortList[2])
         setCurrentPage(ecosystemCurrentPage)
         setEcosystemList([])
@@ -187,7 +189,7 @@ const Explore = () => {
   useEffect(() => {
     if (!isMounted) return
 
-    if (viewport === 'sm' || viewport === 'md' || viewport === 'xs') return
+    // if (viewport === 'sm' || viewport === 'md' || viewport === 'xs') return
 
     switch (exploreTab) {
       case 0:
