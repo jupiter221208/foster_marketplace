@@ -102,6 +102,7 @@ const ArtistHeader = () => {
         timer = null
       }
       timer = setTimeout(() => {
+        setSearchList({ nfts: [], artists: [], collections: [] })
         searchAPI.search(searchKeyword).then(
           response => {
             let object: any = {}
