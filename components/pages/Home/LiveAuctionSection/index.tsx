@@ -30,7 +30,7 @@ import SeeMoreButton from 'components/Button/SeeMoreButton'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const LiveAuctionSection = props => {
-  const { category, artist = '' } = props
+  const { category, artist = '', fromPage = 'home' } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -86,7 +86,7 @@ const LiveAuctionSection = props => {
   }
 
   return (
-    (category.length === 0 || liveAuctionList.length > 0) && (
+    (fromPage === 'home' || liveAuctionList.length > 0) && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
