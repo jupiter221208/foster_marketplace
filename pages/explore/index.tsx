@@ -157,13 +157,13 @@ const Explore = () => {
       case 1:
         setSortData(CollectionSortList)
         let sortList
-        if (collectionSort === 'trending') {
-          setSelectedSort(CollectionSortList[2])
-          sortList = CollectionSortList[2]
-        } else {
-          setSelectedSort(CollectionSortList[0])
-          sortList = CollectionSortList[0]
-        }
+        // if (collectionSort === 'trending') {
+        setSelectedSort(CollectionSortList[2])
+        sortList = CollectionSortList[2]
+        // } else {
+        //   setSelectedSort(CollectionSortList[0])
+        //   sortList = CollectionSortList[0]
+        // }
         setCurrentPage(collectionCurrentPage)
         let list = []
         CategoryList.filter(category => category.query == collectionCategory).forEach(item => {
