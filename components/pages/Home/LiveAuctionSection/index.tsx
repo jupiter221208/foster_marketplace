@@ -38,6 +38,8 @@ const LiveAuctionSection = props => {
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
+  const [cardLoop, setCardLoop] = useState(true)
+
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -57,6 +59,8 @@ const LiveAuctionSection = props => {
         })
         setAllLiveAuctionList(lists)
         setLiveAuctionList(lists)
+        if (lists.length > 3) setCardLoop(true)
+        else setCardLoop(false)
       } else {
         setAllLiveAuctionList([])
         setLiveAuctionList([])
@@ -150,7 +154,7 @@ const LiveAuctionSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            loop={true}
+            loop={cardLoop}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,

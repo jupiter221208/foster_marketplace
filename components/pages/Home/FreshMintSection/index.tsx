@@ -35,6 +35,7 @@ const FreshMintSection = props => {
   const dispatch = useDispatch()
   const [allFreshMintsList, setAllFreshMintsList] = useState<any[]>([])
   const [freshMintsList, setFreshMintsList] = useState<any[]>([])
+  const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
     dashboardAPI.getFreshMints(category).then(
@@ -42,6 +43,8 @@ const FreshMintSection = props => {
         if (response !== null && response !== undefined) {
           setAllFreshMintsList(response)
           setFreshMintsList(response)
+          if (response.length > 4) setCardLoop(true)
+          else setCardLoop(false)
         }
       },
       error => {
@@ -84,7 +87,7 @@ const FreshMintSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={'navigationSwiper'}
-            loop={freshMintsList.length >= 3}
+            loop={cardLoop}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
