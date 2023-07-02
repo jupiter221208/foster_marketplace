@@ -63,8 +63,9 @@ const LiveAuctionSection = props => {
         setLiveAuctionList(lists)
         if (lists.length > 3) setCardLoop(true)
         else setCardLoop(false)
+
         if (isLoaded === false) {
-          if (liveAuctionList.length === 0) setShowSection(false)
+          if (lists.length === 0) setShowSection(false)
           setIsLoaded(true)
         }
       } else {
