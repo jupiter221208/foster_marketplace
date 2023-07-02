@@ -793,7 +793,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
               <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Created by</div>
-                  <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
+                  <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
                     {nftCreatorname}
                   </div>
                 </div>
