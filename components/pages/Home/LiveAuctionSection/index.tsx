@@ -38,6 +38,10 @@ const LiveAuctionSection = props => {
   const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
+  const [cardLoop, setCardLoop] = useState(true)
+  const [type, setType] = useState('recent_started')
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [showSection, setShowSection] = useState(false)
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -57,6 +61,13 @@ const LiveAuctionSection = props => {
         })
         setAllLiveAuctionList(lists)
         setLiveAuctionList(lists)
+        if (lists.length > 3) setCardLoop(true)
+        else setCardLoop(false)
+
+        if (isLoaded === false) {
+          setShowSection(true)
+          setIsLoaded(true)
+        }
       } else {
         setAllLiveAuctionList([])
         setLiveAuctionList([])
@@ -72,21 +83,27 @@ const LiveAuctionSection = props => {
     switch (value) {
       case 0:
         getLiveAuctionsFromServer(category, artist, 'upcoming')
+        setType('upcoming')
         break
       case 1:
         getLiveAuctionsFromServer(category, artist, 'recent_started')
+        setType('recent_started')
         break
       case 2:
         getLiveAuctionsFromServer(category, artist, 'end_soon')
+        setType('end_soon')
         break
       default:
         getLiveAuctionsFromServer(category, artist, 'recent_started')
+        setType('recent_started')
         break
     }
   }
 
+  useEffect(() => {}, [liveAuctionList])
+
   return (
-    (fromPage === 'home' || liveAuctionList.length > 0) && (
+    showSection && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
@@ -150,7 +167,7 @@ const LiveAuctionSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            loop={true}
+            loop={cardLoop}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,

@@ -39,12 +39,15 @@ const MarketplaceReleaseSection = props => {
   const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
   const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
   const [active, setActive] = useState<any>(0)
+  const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
     setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '').then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setAllMarketplaceReleaseList(response)
+        if (response.length > 4) setCardLoop(true)
+        else setCardLoop(false)
       }
     }),
       error => {
@@ -132,7 +135,7 @@ const MarketplaceReleaseSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={'navigationSwiper'}
-            loop
+            loop={cardLoop}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,
