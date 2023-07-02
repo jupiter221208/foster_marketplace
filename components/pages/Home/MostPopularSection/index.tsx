@@ -37,6 +37,7 @@ const MostPopularSection = props => {
   const dispatch = useDispatch()
   const [allMostPopularList, setAllMostPopularList] = useState<any[]>([])
   const [mostPopularList, setMostPopularList] = useState<any[]>([])
+  const [cardLoop, setCardLoop] = useState(true)
 
   useEffect(() => {
     setAllMostPopularList([])
@@ -44,6 +45,8 @@ const MostPopularSection = props => {
       response => {
         if (response !== null && response !== undefined) {
           setAllMostPopularList(response)
+          if (response.length > 4) setCardLoop(true)
+          else setCardLoop(false)
         }
       },
       error => {
@@ -93,7 +96,7 @@ const MostPopularSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className={'navigationSwiper'}
-            loop
+            loop={cardLoop}
             // autoplay={{
             //   delay: 5000,
             //   disableOnInteraction: false,

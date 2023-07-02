@@ -113,12 +113,11 @@ const ProfileSection = prop => {
       setErrorMessage('This display name is already taken.')
       return
     }
-    console.log('============websiteUrl=========', websiteUrl)
-
+    setUsername(userName.trimEnd())
     userAPI
       .update({
         wallet_id: publicKey?.toBase58() || '',
-        username: userName,
+        username: userName.trimEnd(),
         bio: bio,
         email: userEmail,
         ig_url: igUrl,
@@ -130,7 +129,6 @@ const ProfileSection = prop => {
       })
       .then(
         response => {
-          console.log('============response=========', response)
           if (response !== null) {
             dispatch({ type: 'set', profileInfo: response })
             setOrgUserInfo(response)
