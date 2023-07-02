@@ -41,7 +41,7 @@ const LiveAuctionSection = props => {
   const [cardLoop, setCardLoop] = useState(true)
   const [type, setType] = useState('recent_started')
   const [isLoaded, setIsLoaded] = useState(false)
-  const [showSection, setShowSection] = useState(true)
+  const [showSection, setShowSection] = useState(false)
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -63,13 +63,14 @@ const LiveAuctionSection = props => {
         setLiveAuctionList(lists)
         if (lists.length > 3) setCardLoop(true)
         else setCardLoop(false)
+
+        if (isLoaded === false) {
+          setShowSection(true)
+          setIsLoaded(true)
+        }
       } else {
         setAllLiveAuctionList([])
         setLiveAuctionList([])
-        if (isLoaded === false) {
-          setShowSection(false)
-          setIsLoaded(true)
-        }
       }
     }),
       error => {
