@@ -103,7 +103,7 @@ const LiveAuctionSection = props => {
   useEffect(() => {}, [liveAuctionList])
 
   return (
-    (fromPage === 'home' || showSection) && (
+    showSection && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
