@@ -40,7 +40,8 @@ const LiveAuctionSection = props => {
   const [active, setActive] = useState<any>(1)
   const [cardLoop, setCardLoop] = useState(true)
   const [type, setType] = useState('recent_started')
-
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [showSection, setShowSection] = useState(true)
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -62,6 +63,10 @@ const LiveAuctionSection = props => {
         setLiveAuctionList(lists)
         if (lists.length > 3) setCardLoop(true)
         else setCardLoop(false)
+        if (isLoaded === false) {
+          if (liveAuctionList.length === 0) setShowSection(false)
+          setIsLoaded(true)
+        }
       } else {
         setAllLiveAuctionList([])
         setLiveAuctionList([])
@@ -94,9 +99,10 @@ const LiveAuctionSection = props => {
     }
   }
 
+  useEffect(() => {}, [liveAuctionList])
+
   return (
-    fromPage === 'home' ||
-    (type === 'recent_started' && liveAuctionList.length > 0 && (
+    (fromPage === 'home' || showSection) && (
       <section className={styles.container}>
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
@@ -197,7 +203,7 @@ const LiveAuctionSection = props => {
           </div>
         </div>
       </section>
-    ))
+    )
   )
 }
 
