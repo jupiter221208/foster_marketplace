@@ -52,7 +52,7 @@ const ActivitySection = props => {
           spaceBetween={4}
           modules={[Autoplay, Lazy, Navigation]}
           className="showNavigationSwiper"
-          loop
+          // loop
         >
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
             ? activityList.length !== 0 &&
