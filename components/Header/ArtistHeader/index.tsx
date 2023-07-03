@@ -240,7 +240,7 @@ const ArtistHeader = () => {
 
             <SearchBox
               value={searchKeyword}
-              placeholder="Search by NFT, Collection, or Artist"
+              placeholder="Search Marketplace"
               onChange={value => setSearchKeyword(value)}
               searchList={searchList}
               onClick={() => handleClear()}
