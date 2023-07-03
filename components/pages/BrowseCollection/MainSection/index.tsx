@@ -79,8 +79,8 @@ const MainSection = props => {
     let owners = {}
     if (nfts)
       nfts.forEach(nft => {
-        if (owners[nft.artist_id] === undefined) {
-          owners[nft.artist_id] = nft.artist_id
+        if (owners[nft.owner_id] === undefined) {
+          owners[nft.owner_id] = nft.owner_id
         }
       })
     setOwners(Object.keys(owners).length)
