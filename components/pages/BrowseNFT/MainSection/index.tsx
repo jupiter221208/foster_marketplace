@@ -94,7 +94,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
+import { compareDate, getBuyerName, getOwnerName, getTimeDifference } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 // import DateSelect from 'components/DateSelect'
@@ -109,6 +109,8 @@ import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
+import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import { cancelListing, executeSale } from 'utils/auctioneer.util'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -372,7 +374,7 @@ const MainSection = ({
           highest_bid,
           auction: { reserve_price, start_time, end_time },
         } = auction
-
+        console.log('======auction=====', auction)
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
@@ -472,6 +474,39 @@ const MainSection = ({
       dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
+
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }: ListedNFTCardData) => {
+    setTimeout(() => {
+      setOpenProgressingModal(true)
+    }, 500)
+
+    try {
+      await checkTokenExpiration()
+
+      const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
+      await updateSolBalance()
+      AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
+        token_address: sale.mintAddress.toBase58(),
+        buyer_wallet_id: sale.buyerAddress.toBase58(),
+        sale_price: sale.price.toString(),
+      }).then(res => {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Auction Finalized!',
+            description: `You've successfully finalized your auction!`,
+            type: 'success',
+          },
+        ])
+        setOpenProgressingModal(false)
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 500)
+      })
+    } catch (e) {
+      setOpenProgressingModal(false)
+    }
+  }
 
   const placeBidAndSave = async (price: string) => {
     if (price[0] === '.') {
@@ -900,6 +935,17 @@ const MainSection = ({
                     )}
                   </div>
                 </>
+              ) : getTimeDifference(endTime) < 0 && nftCurrentPrice > 0 && isOwnNft && connected ? (
+                <div className="w-full mb-5">
+                  <OutlineButton
+                    label="Finalize Sale"
+                    onClick={() => {}}
+                    color="var(--main-bg-color)"
+                    borderColor="#707070"
+                    borderWidth="2"
+                    fullWidth
+                  />
+                </div>
               ) : liveAuction === true ? (
                 <>
                   <div
