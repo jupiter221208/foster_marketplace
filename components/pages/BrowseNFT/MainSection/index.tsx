@@ -374,7 +374,6 @@ const MainSection = ({
           highest_bid,
           auction: { reserve_price, start_time, end_time },
         } = auction
-        console.log('======auction=====', auction)
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
@@ -935,7 +934,10 @@ const MainSection = ({
                     )}
                   </div>
                 </>
-              ) : getTimeDifference(endTime) < 0 && nftCurrentPrice > 0 && isOwnNft && connected ? (
+              ) : getTimeDifference(endTime) < 0 &&
+                nftCurrentPrice > 0 &&
+                (isOwnNft || publicKey?.toBase58() === highBidder) &&
+                connected ? (
                 <div className="w-full mb-5">
                   <OutlineButton
                     label="Finalize Sale"
