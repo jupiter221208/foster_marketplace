@@ -473,7 +473,7 @@ const MainSection = ({
     })()
   }, [nftDetail])
 
-  const porcessFinalizeSale = async () => {
+  const processFinalizeSale = async () => {
     let data = {
       address: nftDetail.address,
       sellerAddress,
@@ -957,7 +957,7 @@ const MainSection = ({
                 <div className="w-full mb-5">
                   <OutlineButton
                     label="Finalize Sale"
-                    onClick={() => porcessFinalizeSale()}
+                    onClick={() => processFinalizeSale()}
                     color="var(--main-bg-color)"
                     borderColor="#707070"
                     borderWidth="2"
