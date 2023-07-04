@@ -352,7 +352,7 @@ export async function placeBid(mx: Metaplex, mintAddress: PublicKey, sellerAddre
   // TODO: replace with endpoint to only fetch lockups
   let { bid_wallet_lock } = await usersAPI.getLockupValues()
   let fundTx: Transaction | null = null
-  let delta = bid_wallet_lock + price + 0.0001 - currentBalance
+  let delta = bid_wallet_lock + price + 0.001 - currentBalance
   if (delta > 0) fundTx = await createDepositFundsTransaction(mx, delta)
   console.log({ bid_wallet_lock, price, currentBalance, delta })
 
