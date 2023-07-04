@@ -258,6 +258,8 @@ const ListedNFTSection = props => {
   }
 
   const finalizeSale = async ({ address, sellerAddress, price, highestBid }: ListedNFTCardData) => {
+    console.log(address.toBase58(), sellerAddress, price, highestBid)
+    return
     setTimeout(() => {
       setOpenProgressingModal(true)
     }, 500)
@@ -347,6 +349,7 @@ const ListedNFTSection = props => {
           getCurrentData={data => {
             setNFTList([])
             setTimeout(() => {
+              console.log(data)
               setNFTList(data)
             }, 500)
           }}

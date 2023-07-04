@@ -39,7 +39,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { fetchSolToUsdRate, useViewport } from 'utils'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { placeBid } from 'utils/auctioneer.util'
+import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -73,7 +73,7 @@ import { buyNFT, offerNFT } from 'utils/auction.util'
 import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
-import { PublicKey } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import {
   LazyListing,
   toLazyListing,
@@ -380,7 +380,6 @@ const MainSection = ({
         setEndTime(end_time)
         setStartTime(start_time)
       }
-
       setLikeCount(likes)
       setShareCount(shares)
       setSaveCount(saves)
@@ -474,14 +473,31 @@ const MainSection = ({
     })()
   }, [nftDetail])
 
-  const finalizeSale = async ({ address, sellerAddress, price, highestBid }: ListedNFTCardData) => {
+  const porcessFinalizeSale = async () => {
+    let data = {
+      address: nftDetail.address,
+      sellerAddress,
+      price: nftCurrentPrice * LAMPORTS_PER_SOL,
+      highestBid: { buyer_address: highBidder },
+    }
+
+    if (isOwnNft) {
+      let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highBidder), data.price)
+      if (deficit > 0) {
+        // show confirm dialog
+      }
+    } else {
+      finalizeSale(data)
+    }
+  }
+
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
     setTimeout(() => {
       setOpenProgressingModal(true)
     }, 500)
 
     try {
       await checkTokenExpiration()
-
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
       AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
@@ -941,7 +957,7 @@ const MainSection = ({
                 <div className="w-full mb-5">
                   <OutlineButton
                     label="Finalize Sale"
-                    onClick={() => {}}
+                    onClick={() => porcessFinalizeSale()}
                     color="var(--main-bg-color)"
                     borderColor="#707070"
                     borderWidth="2"
