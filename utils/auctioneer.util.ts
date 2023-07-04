@@ -8,7 +8,7 @@ import {
   AUCTIONEER_PROGRAM_ID,
 } from '@metaplex-foundation/mpl-auctioneer'
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
-import { PublicKey, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { BN } from '@project-serum/anchor'
 import { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction } from '@solana/spl-token'
 import { Metaplex, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
@@ -426,8 +426,6 @@ export async function executeSale(
   buyerAddress: PublicKey,
   price: number
 ) {
-  const publicKey = mx.identity().publicKey
-
   const [auctioneerAuthority, auctioneerAuthorityBump] = await getAuctioneerAuthority()
 
   const [pda] = await getPda(auctioneerAuthority)
@@ -510,15 +508,30 @@ export async function executeSale(
   })
 
   let tx = new Transaction()
+  let wallet = mx.identity()
 
+  let deficit = await getBuyerEscrowBalanceDeficit(mx, buyerAddress, price)
+  if (deficit > 0) {
+    console.log(
+      `buyer escrow deficit: ${deficit} lamports, paid by: ${wallet.publicKey}` +
+        `(${buyerAddress.equals(wallet.publicKey) ? 'buyer' : 'seller'})`
+    )
+    tx.add(
+      SystemProgram.transfer({
+        fromPubkey: wallet.publicKey,
+        lamports: deficit,
+        toPubkey: escrowPaymentAccount,
+      })
+    )
+  }
   if ((await mx.connection.getAccountInfo(buyerAssociatedAddress)) === null)
-    tx.add(createAssociatedTokenAccountInstruction(publicKey, buyerAssociatedAddress, buyerAddress, mintAddress))
+    tx.add(createAssociatedTokenAccountInstruction(buyerAddress, buyerAssociatedAddress, buyerAddress, mintAddress))
 
   tx.add(executeSale)
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
-  tx.feePayer = publicKey
+  tx.feePayer = wallet.publicKey
 
-  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [mx.identity()])
+  const response = await mx.rpc().sendAndConfirmTransaction(tx, null, [wallet])
 
   return {
     response,
@@ -528,4 +541,16 @@ export async function executeSale(
       price: price / 1000000000,
     },
   }
+}
+
+export async function getBuyerEscrowBalanceDeficit(
+  mx: Metaplex,
+  buyerAddress: PublicKey,
+  price: number
+): Promise<number> {
+  const [escrowPaymentAccount] = await getEscrowPaymentAccount(buyerAddress)
+  const escrowPaymentAccountBalance = await mx.connection.getBalance(escrowPaymentAccount)
+  // add 1e6 lamports for rent-exempt minimum
+  let deficit = price - (escrowPaymentAccountBalance ?? 0) + 1_000_000
+  return Math.max(0, deficit)
 }
