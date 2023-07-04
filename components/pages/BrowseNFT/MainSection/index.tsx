@@ -475,7 +475,7 @@ const MainSection = ({
 
   const processFinalizeSale = async () => {
     let data = {
-      address: nftDetail.address,
+      address: new PublicKey(nftDetail.address),
       sellerAddress,
       price: nftCurrentPrice * LAMPORTS_PER_SOL,
       highestBid: { buyer_address: highBidder },
@@ -519,6 +519,7 @@ const MainSection = ({
         }, 500)
       })
     } catch (e) {
+      console.error(e)
       setOpenProgressingModal(false)
     }
   }
