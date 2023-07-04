@@ -111,6 +111,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import { cancelListing, executeSale } from 'utils/auctioneer.util'
+import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -226,7 +227,9 @@ const MainSection = ({
   const [showAlert, setShowAlert] = useState(false)
 
   const [openOfferModal, setOpenOfferModal] = useState(false)
-
+  const [deficencyModal, setDeficencyModal] = useState(false)
+  const [deficiency, setDeficiency] = useState(0)
+  const [finalizeData, setFinalizeData] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
@@ -481,10 +484,16 @@ const MainSection = ({
       highestBid: { buyer_address: highBidder },
     }
 
+    setFinalizeData(data)
+
     if (isOwnNft) {
       let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highBidder), data.price)
       if (deficit > 0) {
         // show confirm dialog
+        setDeficiency(deficit)
+        setDeficencyModal(true)
+      } else {
+        finalizeSale(data)
       }
     } else {
       finalizeSale(data)
@@ -955,7 +964,7 @@ const MainSection = ({
                 nftCurrentPrice > 0 &&
                 (isOwnNft || publicKey?.toBase58() === highBidder) &&
                 connected ? (
-                <div className="w-full mb-5">
+                <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
                   <OutlineButton
                     label="Finalize Sale"
                     onClick={() => processFinalizeSale()}
@@ -1459,6 +1468,17 @@ const MainSection = ({
           listingPrice={nftPrice}
           offerBalance={offerBalance}
           mainWalletBalance={mainWalletBalance}
+        />
+      )}
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(finalizeData)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={nftCurrentPrice}
+          deficiency={deficiency}
+          nftName={nftName}
+          collectionName={nftCollectionName}
         />
       )}
       {openShareModal && (
