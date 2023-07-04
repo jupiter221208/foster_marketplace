@@ -85,10 +85,10 @@ const TopRatedArtistsSection = () => {
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">
-              <div className={styles.title}>Top Rated Artists</div>
+              <div className={styles.title}>Trending Artists</div>
             </div>
           ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Top Rated Artists</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Artists</div>
           )}
 
           <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
