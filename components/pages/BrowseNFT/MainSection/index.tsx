@@ -514,7 +514,6 @@ const MainSection = ({
         buyer_wallet_id: sale.buyerAddress.toBase58(),
         sale_price: sale.price.toString(),
       }).then(res => {
-        reloadNftData()
         setAlertData([
           {
             id: 0,
@@ -525,6 +524,8 @@ const MainSection = ({
         ])
         setOpenProgressingModal(false)
         setTimeout(() => {
+          console.log('==============reloadNftData========')
+          reloadNftData()
           setShowAlert(true)
         }, 500)
       })

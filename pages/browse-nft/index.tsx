@@ -120,6 +120,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
         if (!isString(response)) {
+          console.log('==============response========', response)
+
           setNftInfo(response)
         }
       },
