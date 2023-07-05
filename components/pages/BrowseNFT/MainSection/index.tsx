@@ -529,7 +529,7 @@ const MainSection = ({
           setTimeout(() => {
             setShowAlert(true)
           }, 500)
-        }, 5000)
+        }, 10000)
       })
     } catch (e) {
       console.error(e)
