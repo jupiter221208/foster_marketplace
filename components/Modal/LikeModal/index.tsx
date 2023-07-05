@@ -118,9 +118,13 @@ const LikeModal = props => {
                             <div className="flex gap-3 lg:gap-[25px] items-center">
                               <div className={styles.avatarArea}>
                                 {item.pfp_url !== null && item.pfp_url.length > 0 ? (
-                                  <img src={item.pfp_url} alt="" className="w-[50px] h-[50px] rounded-full" />
+                                  <img
+                                    src={item.pfp_url}
+                                    alt=""
+                                    className="w-[32px] h-[32px] lg:w-[50px] lg:h-[50px] rounded-full"
+                                  />
                                 ) : (
-                                  <div className="w-[50px] h-[50px] rounded-full overflow-hidden">
+                                  <div className="w-[32px] h-[32px] lg:w-[50px] lg:h-[50px] rounded-full overflow-hidden">
                                     <Image src={DefaultAvatar} alt="" />
                                   </div>
                                 )}

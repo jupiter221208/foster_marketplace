@@ -641,7 +641,7 @@ const Explore = () => {
                           image={item.image}
                           nftName={item.collectionName}
                           artistName={item.artistName}
-                          mintAddress={item.mintAddress}
+                          collectionName={item.collection_name}
                           price={item.price}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })

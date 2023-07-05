@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // components
-import CollectionCard from 'components/Card/CollectionCard'
+import DashboardCollectionCard from 'components/Card/DashboardCollectionCard'
 import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 
@@ -56,7 +56,7 @@ const MyCollectionSection = () => {
         {isCollectionLoaded &&
           collectionList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3" key={index}>
-              <CollectionCard
+              <DashboardCollectionCard
                 image={item.json?.image}
                 nftName={item.json?.name}
                 category={getCategory(item.json?.attributes)}
