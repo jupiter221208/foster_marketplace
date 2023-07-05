@@ -522,12 +522,14 @@ const MainSection = ({
             type: 'success',
           },
         ])
-        setOpenProgressingModal(false)
         setTimeout(() => {
-          console.log('==============reloadNftData========')
+          setOpenProgressingModal(false)
           reloadNftData()
-          setShowAlert(true)
-        }, 500)
+          // setNftCurrentPrice(0)
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 500)
+        }, 5000)
       })
     } catch (e) {
       console.error(e)
@@ -1383,7 +1385,7 @@ const MainSection = ({
 
       <StartAuctionModal
         data={{
-          mintAddress: nftDetail.address,
+          mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
           json: nftDetail.json,
         }}
@@ -1395,7 +1397,7 @@ const MainSection = ({
 
       <ListNFTModal
         data={{
-          mintAddress: nftDetail.address,
+          mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
           json: nftDetail.json,
         }}

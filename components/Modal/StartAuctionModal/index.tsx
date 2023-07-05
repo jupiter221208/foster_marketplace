@@ -73,7 +73,7 @@ const StartAuctionModal = props => {
     }
 
     onStartProgress()
-
+    console.log('================', mx, data.mintAddress, startDate, endDate, price)
     const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, price)
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
