@@ -527,7 +527,6 @@ const MainSection = ({
         setTimeout(() => {
           setOpenProgressingModal(false)
           reloadNftData()
-          // setNftCurrentPrice(0)
           setTimeout(() => {
             setShowAlert(true)
           }, 500)
@@ -967,7 +966,7 @@ const MainSection = ({
                 </>
               ) : getTimeDifference(endTime) < 0 &&
                 nftCurrentPrice > 0 &&
-                (isOwnNft || publicKey?.toBase58() === highBidder) &&
+                publicKey?.toBase58() === highBidder &&
                 connected ? (
                 <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
                   <OutlineButton
