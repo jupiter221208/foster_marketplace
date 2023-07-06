@@ -34,7 +34,8 @@ const MyCollectionSection = () => {
     const getCollections = async () => {
       // dispatch({ type: 'set', isLoading: true })
       const collections = await getMyCollections(mx)
-      setCollections(collections)
+      let publicKey = mx.identity().publicKey
+      setCollections(collections.filter(({ updateAuthorityAddress }) => updateAuthorityAddress?.equals(publicKey)))
       setIsCollectionLoaded(true)
       // dispatch({ type: 'set', isLoading: false })
     }
