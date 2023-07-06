@@ -502,6 +502,20 @@ const MainSection = ({
     }
   }
 
+  const reloadCreatorOwnerName = async () => {
+    let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+
+    setSellerAddress(tokenAccount.owner)
+
+    let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+    let { username: creatorName } = await usersAPI.get(createAddress)
+    setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
+
+    let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+    setNftOwnerUsername(ownerUsername)
+    setNftOwnerAddress(tokenAccount.owner.toBase58())
+  }
+
   const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
     setTimeout(() => {
       setOpenProgressingModal(true)
@@ -524,13 +538,17 @@ const MainSection = ({
             type: 'success',
           },
         ])
+
+        reloadCreatorOwnerName()
+        setNftCurrentPrice(0)
+
         setTimeout(() => {
           setOpenProgressingModal(false)
           reloadNftData()
           setTimeout(() => {
             setShowAlert(true)
           }, 500)
-        }, 10000)
+        }, 5000)
       })
     } catch (e) {
       console.error(e)
@@ -687,6 +705,7 @@ const MainSection = ({
     ])
 
     setTimeout(() => {
+      setShowStartAuctionModal(false)
       setTimeout(() => {
         setShowAlert(true)
       }, 1000)
@@ -966,7 +985,7 @@ const MainSection = ({
                 </>
               ) : getTimeDifference(endTime) < 0 &&
                 nftCurrentPrice > 0 &&
-                publicKey?.toBase58() === highBidder &&
+                (isOwnNft || publicKey?.toBase58() === highBidder) &&
                 connected ? (
                 <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
                   <OutlineButton
