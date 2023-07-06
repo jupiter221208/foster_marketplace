@@ -347,7 +347,6 @@ const ListedNFTSection = props => {
           getCurrentData={data => {
             setNFTList([])
             setTimeout(() => {
-              console.log(data)
               setNFTList(data)
             }, 500)
           }}

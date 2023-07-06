@@ -73,7 +73,6 @@ const StartAuctionModal = props => {
     }
 
     onStartProgress()
-    console.log('================', mx, data.mintAddress, startDate, endDate, price)
     const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, price)
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
@@ -176,11 +175,7 @@ const StartAuctionModal = props => {
                     />
                   ) : (
                     <img
-                      src={
-                        data?.json === null || data?.json.image === undefined || data?.json.image === null
-                          ? AudioPlayerBackground.src
-                          : data?.json.image
-                      }
+                      src={data?.json?.image || AudioPlayerBackground.src}
                       alt={data?.json?.name || data?.name}
                       className="w-full aspect-[321/321] object-cover"
                     />

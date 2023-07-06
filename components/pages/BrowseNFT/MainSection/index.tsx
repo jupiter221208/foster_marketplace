@@ -382,6 +382,8 @@ const MainSection = ({
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
         setEndTime(end_time)
         setStartTime(start_time)
+      } else {
+        setNftCurrentPrice(0)
       }
       setLikeCount(likes)
       setShareCount(shares)
