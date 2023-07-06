@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex } from '@metaplex-foundation/js'
+import { Metaplex, toOriginalEditionAccount, type OriginalEditionAccountData } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // components
@@ -38,13 +38,21 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
+export interface EditionDetail {
+  number: number
+  supply: number
+  maxSupply?: number
+}
+
 export interface BrowseNFTProps {
-  nftDetail?: Sft | Nft
+  nftDetail?: Nft
+  editionDetail?: EditionDetail
+  originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddress, error }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
@@ -81,7 +89,14 @@ const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
 
   const collectionId = nftDetail?.collection?.address.toString()
 
-  let nftTitle = `${(nftDetail?.name || nftDetail?.json?.name) ?? ''} | Foster Marketplace`
+  let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
+  if (editionDetail) {
+    let { number, supply, maxSupply } = editionDetail
+    let supplyInfo = `#${number}/${supply}`
+    if (supply !== maxSupply) supplyInfo = `edition ${number}/${supply}, max ${maxSupply ?? '\u221e'}`
+    nftName = `${nftName} (${supplyInfo})`
+  }
+  let nftTitle = `${nftName} | Foster Marketplace`
   let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
 
   let nftDescription =
@@ -144,6 +159,7 @@ const BrowseNFT = ({ nftDetail, mintAddress, error }: BrowseNFTProps) => {
           {nftDetail && (
             <MainSection
               nftDetail={nftDetail}
+              editionDetail={editionDetail}
               artistInfo={artistInfo}
               nftInfo={nftInfo}
               setFullScreenView={setFullScreenView}
@@ -192,8 +208,24 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
   }
 
   try {
+    const metaplex = Metaplex.make(new Connection(process.env.PROVIDER_URL))
+    let nftDetail = await metaplex.nfts().findByMint({ mintAddress })
+    if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
+
+    let editionDetail = null
+    let originalEditionDetail = null
+    if ('parent' in nftDetail.edition) {
+      originalEditionDetail = toOriginalEditionAccount(await metaplex.rpc().getAccount(nftDetail.edition.parent)).data
+      editionDetail = {
+        number: nftDetail.edition.number.toNumber(),
+        supply: originalEditionDetail.supply.toNumber(),
+        maxSupply: originalEditionDetail.maxSupply?.toNumber(),
+      }
+    }
     return {
-      nftDetail: await Metaplex.make(new Connection(process.env.PROVIDER_URL)).nfts().findByMint({ mintAddress }),
+      nftDetail,
+      editionDetail,
+      originalEditionDetail,
       mintAddress,
     }
   } catch (e: any) {

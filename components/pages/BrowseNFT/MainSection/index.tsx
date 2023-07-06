@@ -108,16 +108,25 @@ import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
+import { getShortAddress } from 'utils/wallet.util'
 
 export interface MainSectionProps {
-  nftDetail: Sft | Nft
+  nftDetail: Nft
+  editionDetail: any
   nftInfo: any
   artistInfo: NFTArtistInfo | null
   setFullScreenView: any
   reloadNftData: any
 }
 
-const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
+const MainSection = ({
+  nftDetail,
+  editionDetail,
+  artistInfo,
+  nftInfo,
+  setFullScreenView,
+  reloadNftData,
+}: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -244,7 +253,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
-
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
@@ -403,7 +411,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
       let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
       let { username: creatorName } = await usersAPI.get(createAddress)
-      setNftCreatorname(creatorName)
+      setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
       setNftOwnerUsername(ownerUsername)
@@ -807,23 +815,25 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   </div>
                 )}
               </div>
-              {/* <div className="w-full mt-[30px]">
-                <div className={styles.descriptionTitle}>Description</div>
-                <div className={styles.descriptionContent}>{nftDescription}</div>
-              </div>
-              <div className="w-full mt-[25px]">
-                <div className={styles.descriptionTitle}>Royalties</div>
-                <div className={styles.royaltyContent}>{nftRoyalties}%</div>
-              </div>
-              <div className="w-full mt-[25px]">
-                <div className={styles.descriptionTitle}>Categories</div>
-                <div className="flex mt-[14px] gap-[7px]">
-                  {nftCategories?.map((item, index) => (
-                    <SmallCategoryChip data={item} key={index} />
-                  ))}
-                </div>
-              </div> */}
             </div>
+            {editionDetail && (
+              <div className={styles.editionContainer}>
+                <div className="w-full flex justify-between">
+                  <div className={styles.editionTitle}>Token Type</div>
+                  <div className={styles.editionValue}>
+                    {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                  </div>
+                </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.editionTitle}>Editon Number</div>
+                  <div className={styles.editionValue}>{editionDetail['number']}</div>
+                </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.editionTitle}>Edition Supply</div>
+                  <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                </div>
+              </div>
+            )}
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
                 <>
