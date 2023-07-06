@@ -620,3 +620,22 @@
   margin-left: 17px;
   margin-right: 17px;
 }
+
+.editionContainer {
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border-radius: 20px;
+  padding: 25px;
+  margin-top: 30px;
+}
+
+.editionTitle {
+  font-family: 'Muli-Light';
+  font-size: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+}
+
+.editionValue {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+}

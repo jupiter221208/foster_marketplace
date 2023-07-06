@@ -110,7 +110,7 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 
 export interface MainSectionProps {
-  nftDetail: Sft | Nft
+  nftDetail: Nft
   nftInfo: any
   artistInfo: NFTArtistInfo | null
   setFullScreenView: any
@@ -244,7 +244,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
-
+  console.log('=========nftDetail========', nftDetail.edition)
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
@@ -807,23 +807,23 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   </div>
                 )}
               </div>
-              {/* <div className="w-full mt-[30px]">
-                <div className={styles.descriptionTitle}>Description</div>
-                <div className={styles.descriptionContent}>{nftDescription}</div>
-              </div>
-              <div className="w-full mt-[25px]">
-                <div className={styles.descriptionTitle}>Royalties</div>
-                <div className={styles.royaltyContent}>{nftRoyalties}%</div>
-              </div>
-              <div className="w-full mt-[25px]">
-                <div className={styles.descriptionTitle}>Categories</div>
-                <div className="flex mt-[14px] gap-[7px]">
-                  {nftCategories?.map((item, index) => (
-                    <SmallCategoryChip data={item} key={index} />
-                  ))}
-                </div>
-              </div> */}
             </div>
+            {nftDetail.edition && (
+              <div className={styles.editionContainer}>
+                <div className="w-full flex justify-between">
+                  <div className={styles.editionTitle}>Token Type</div>
+                  <div className={styles.editionValue}>{nftDetail.edition.model}</div>
+                </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.editionTitle}>Editon Number</div>
+                  <div className={styles.editionValue}>{Number('0x' + nftDetail.edition['number'])}</div>
+                </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.editionTitle}>Edition Supply</div>
+                  <div className={styles.editionValue}>{100}</div>
+                </div>
+              </div>
+            )}
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
                 <>

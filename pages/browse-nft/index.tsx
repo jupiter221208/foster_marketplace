@@ -96,7 +96,6 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     if (supply !== maxSupply) supplyInfo = `edition ${number}/${supply}, max ${maxSupply ?? '\u221e'}`
     nftName = `${nftName} (${supplyInfo})`
   }
-
   let nftTitle = `${nftName} | Foster Marketplace`
   let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
 
