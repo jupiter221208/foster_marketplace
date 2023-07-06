@@ -112,13 +112,21 @@ import { getShortAddress } from 'utils/wallet.util'
 
 export interface MainSectionProps {
   nftDetail: Nft
+  editionDetail: any
   nftInfo: any
   artistInfo: NFTArtistInfo | null
   setFullScreenView: any
   reloadNftData: any
 }
 
-const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
+const MainSection = ({
+  nftDetail,
+  editionDetail,
+  artistInfo,
+  nftInfo,
+  setFullScreenView,
+  reloadNftData,
+}: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -245,7 +253,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
-  // console.log('=========nftDetail========', nftDetail.edition)
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
@@ -809,19 +816,21 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 )}
               </div>
             </div>
-            {nftDetail.edition && (
+            {editionDetail && (
               <div className={styles.editionContainer}>
                 <div className="w-full flex justify-between">
                   <div className={styles.editionTitle}>Token Type</div>
-                  <div className={styles.editionValue}>{'Edition'}</div>
+                  <div className={styles.editionValue}>
+                    {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                  </div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
                   <div className={styles.editionTitle}>Editon Number</div>
-                  <div className={styles.editionValue}>{Number('0x' + nftDetail.edition['number'])}</div>
+                  <div className={styles.editionValue}>{editionDetail['number']}</div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
                   <div className={styles.editionTitle}>Edition Supply</div>
-                  <div className={styles.editionValue}>{100}</div>
+                  <div className={styles.editionValue}>{editionDetail['supply']}</div>
                 </div>
               </div>
             )}
