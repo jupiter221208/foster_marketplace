@@ -19,6 +19,8 @@ import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
 import type { JsonMetadata } from '@metaplex-foundation/js'
+import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
+import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface ListedNFTCardData {
   address: PublicKey
@@ -32,12 +34,14 @@ export interface ListedNFTCardData {
   endTime?: number
   highestBid?: {
     buyer_address: string
+    amount: string
   }
 }
 
 export type ListedNFTCardDataWithJson = ListedNFTCardData & { json: JsonMetadata }
 
 export interface ListedNFTCardProps {
+  mx: any
   data: ListedNFTCardData
   type: 'fixed' | 'auction'
   onClick: (uri: string) => any
@@ -46,9 +50,11 @@ export interface ListedNFTCardProps {
   finalizeSale: (data: ListedNFTCardData) => void
 }
 
-const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
+const ListedNFTCard = ({ mx, data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
   const viewport = useViewport()
+  const [deficiency, setDeficiency] = useState(0)
+  const [deficencyModal, setDeficencyModal] = useState(false)
   const isEnded = useMemo(() => {
     if (endTime) {
       let endListingTime = new Date(endTime)
@@ -68,6 +74,19 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
       .then(r => r.json())
       .then(setAssetJson)
   }, [uri])
+
+  const processFinalizeSale = async () => {
+    let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highestBid?.buyer_address), data.price)
+    if (deficit > 0) {
+      // show confirm dialog
+      setDeficiency(deficit)
+      setTimeout(() => {
+        setDeficencyModal(true)
+      }, 1000)
+    } else {
+      finalizeSale(data)
+    }
+  }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
@@ -118,7 +137,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 isEnded ? (
                   <GradientButton
                     label={'Finalize Sale'}
-                    onClick={() => finalizeSale(data)}
+                    onClick={() => processFinalizeSale()}
                     height="48px"
                     fontSize="16px"
                     paddingLeft="37px"
@@ -154,6 +173,17 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           )}
         </div>
       </div>
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(data)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={parseFloat(highestBid?.amount)}
+          deficiency={deficiency}
+          nftName={name}
+          collectionName={''}
+        />
+      )}
     </div>
   ) : (
     <div className={styles.container}>
@@ -192,7 +222,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 isEnded ? (
                   <GradientButton
                     label={'Finalize Sale'}
-                    onClick={() => finalizeSale(data)}
+                    onClick={() => processFinalizeSale()}
                     fullWidth
                     height="26px"
                     fontSize="12px"
@@ -230,6 +260,17 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           )}
         </div>
       </div>
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(data)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={parseFloat(highestBid?.amount)}
+          deficiency={deficiency}
+          nftName={name}
+          collectionName={''}
+        />
+      )}
     </div>
   )
 }
