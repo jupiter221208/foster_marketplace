@@ -492,7 +492,7 @@ const MainSection = ({
       let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highBidder), data.price)
       if (deficit > 0) {
         // show confirm dialog
-        setDeficiency(deficit)
+        setDeficiency(deficit / LAMPORTS_PER_SOL)
         setDeficencyModal(true)
       } else {
         finalizeSale(data)
