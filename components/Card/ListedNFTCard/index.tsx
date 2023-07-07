@@ -17,7 +17,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 // styles
 import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
-import { PublicKey } from '@solana/web3.js'
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
 import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
@@ -80,7 +80,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
     let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highestBid?.buyer_address), data.price)
     if (deficit > 0) {
       // show confirm dialog
-      setDeficiency(deficit)
+      setDeficiency(deficit / LAMPORTS_PER_SOL)
       setTimeout(() => {
         setDeficencyModal(true)
       }, 1000)
