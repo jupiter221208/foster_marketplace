@@ -419,8 +419,8 @@ const MainSection = ({
       setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
-      setNftOwnerUsername(ownerUsername)
       setNftOwnerAddress(tokenAccount.owner.toBase58())
+      setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
 
       if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
@@ -635,7 +635,6 @@ const MainSection = ({
     } else {
       nftsAPI.unlikeNft(id).then(
         response => {
-          console.log(response)
           if (response !== null) {
             setLikeCount(likeCount - 1)
             setLike(newStatus)
