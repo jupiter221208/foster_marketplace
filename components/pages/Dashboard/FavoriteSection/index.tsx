@@ -136,7 +136,7 @@ const FavoriteSection = () => {
                 collectionName={item.collection_name}
                 price={item.list_price}
                 onClick={() => {
-                  router.push(`/browse-nft?id=${item.token_id}`)
+                  router.push(`/nft/${item.token_id}`)
                 }}
                 unSave={() => unSaveNft(item.token_id)}
               />

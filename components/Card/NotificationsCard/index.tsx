@@ -204,7 +204,7 @@ const NotificationsCard = props => {
       case 'outbid':
       case 'purchase':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/browse-nft?id=${notification.reference_token_id}`)
+        router.push(`/nft/${notification.reference_token_id}`)
         break
       case 'save_collection':
         dispatch({ type: 'set', isLoading: true })
@@ -235,7 +235,7 @@ const NotificationsCard = props => {
   }
 
   function gotoNFTPage(elem) {
-    router.push(`/browse-nft?id=${elem.reference_token_id}`)
+    router.push(`/nft/${elem.reference_token_id}`)
   }
 
   return (

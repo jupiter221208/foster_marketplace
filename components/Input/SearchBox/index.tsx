@@ -138,7 +138,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  router.push(`/browse-nft?id=${item.id}`)
+                  router.push(`/nft/${item.id}`)
                   onClose()
                 }}
               >

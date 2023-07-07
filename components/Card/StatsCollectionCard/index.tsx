@@ -26,7 +26,7 @@ const StatsCollectionCard = props => {
       onClick={() => {
         dispatch({ type: 'set', isLoading: true })
         if (type === 'artworks') {
-          router.push(`/browse-nft?id=${data.mint_address}`)
+          router.push(`/nft/${data.mint_address}`)
         } else {
           router.push(`/collection/${data.collection_address}`)
         }
