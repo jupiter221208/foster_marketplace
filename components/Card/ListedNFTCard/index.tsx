@@ -18,6 +18,7 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
 import { PublicKey } from '@solana/web3.js'
+import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
 import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
@@ -41,7 +42,6 @@ export interface ListedNFTCardData {
 export type ListedNFTCardDataWithJson = ListedNFTCardData & { json: JsonMetadata }
 
 export interface ListedNFTCardProps {
-  mx: any
   data: ListedNFTCardData
   type: 'fixed' | 'auction'
   onClick: (uri: string) => any
@@ -50,9 +50,10 @@ export interface ListedNFTCardProps {
   finalizeSale: (data: ListedNFTCardData) => void
 }
 
-const ListedNFTCard = ({ mx, data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
+const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
   const viewport = useViewport()
+  const { metaplex: mx } = useMetaplex()
   const [deficiency, setDeficiency] = useState(0)
   const [deficencyModal, setDeficencyModal] = useState(false)
   const isEnded = useMemo(() => {

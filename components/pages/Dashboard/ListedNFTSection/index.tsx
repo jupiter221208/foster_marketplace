@@ -311,7 +311,6 @@ const ListedNFTSection = props => {
           nftList.map((item, index) => (
             <div className="col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <ListedNFTCard
-                mx={mx}
                 data={item}
                 type={active === 0 ? 'fixed' : 'auction'}
                 onClick={url => handleGotoDetailPage(url)}
