@@ -69,7 +69,7 @@ const MakeAnOfferModal = props => {
       return
     }
 
-    if (value > listingPrice) {
+    if (listingPrice > 0 && value > listingPrice) {
       if (newMainWalletBalance <= 0 && value > offerBalance - offerWalletLock)
         setErrorMessage('<div>Not enough balance in wallet. Offer must be lower than the listing price.</div>')
       else setErrorMessage('<div>Offer must be lower than the listing price.</div>')
