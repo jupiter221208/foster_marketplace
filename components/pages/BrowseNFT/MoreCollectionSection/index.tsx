@@ -57,7 +57,7 @@ const MoreCollectionSection = props => {
         <div className="hidden lg:flex z-10">
           <OutlineButton
             label="See More"
-            onClick={() => router.push(`/browse-collection/${collectionId}`)}
+            onClick={() => router.push(`/collection/${collectionId}`)}
             borderColor={'var(--see-more-border)'}
             height="42px"
           />
@@ -98,7 +98,7 @@ const MoreCollectionSection = props => {
           <OutlineButton
             label="See More"
             fullWidth
-            onClick={() => router.push(`/browse-collection/${collectionId}`)}
+            onClick={() => router.push(`/collection/${collectionId}`)}
             borderColor={'var(--see-more-border)'}
             height="40px"
           />

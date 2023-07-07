@@ -208,7 +208,7 @@ const NotificationsCard = props => {
         break
       case 'save_collection':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/browse-collection/${notification.reference_token_id}`)
+        router.push(`/collection/${notification.reference_token_id}`)
         break
       case 'winner':
         dispatch({ type: 'set', isLoading: true })

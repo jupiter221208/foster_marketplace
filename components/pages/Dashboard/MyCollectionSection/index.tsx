@@ -60,7 +60,7 @@ const MyCollectionSection = () => {
                 mintAddress={item.mintAddress.toBase58()}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/browse-collection/${item.mintAddress.toString()}`)
+                  router.push(`/collection/${item.mintAddress.toString()}`)
                 }}
               />
             </div>

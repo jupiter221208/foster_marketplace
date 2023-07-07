@@ -89,7 +89,7 @@ const MoreCategorySection = props => {
                     mintAddress={item.collection_id}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/browse-collection/${item.collection_id}`)
+                      router.push(`/collection/${item.collection_id}`)
                     }}
                   />
                 </div>

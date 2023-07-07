@@ -197,7 +197,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
-                  router.push(`/browse-collection/${item.id}`)
+                  router.push(`/collection/${item.id}`)
                   onClose()
                 }}
               >

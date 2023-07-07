@@ -321,7 +321,7 @@ const Explore = () => {
             image: nft.cover_image,
             collectionName: nft.collection_name,
             artistName: nft.artist_username,
-            url: `/browse-collection?id=${nft.collection_id}`,
+            url: `/collection?id=${nft.collection_id}`,
             mintAddress: nft.artist_id,
           }
         })
@@ -645,7 +645,7 @@ const Explore = () => {
                           price={item.price}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })
-                            router.push(`/browse-collection/${item.collectionId}`)
+                            router.push(`/collection/${item.collectionId}`)
                           }}
                         />
                       </div>

@@ -28,7 +28,7 @@ const StatsCollectionCard = props => {
         if (type === 'artworks') {
           router.push(`/browse-nft?id=${data.mint_address}`)
         } else {
-          router.push(`/browse-collection/${data.collection_address}`)
+          router.push(`/collection/${data.collection_address}`)
         }
       }}
     >

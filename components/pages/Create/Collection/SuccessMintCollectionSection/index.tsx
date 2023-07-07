@@ -34,7 +34,7 @@ const SuccessMintCollectionSection = props => {
     () => getExplorerUrl(connection.rpcEndpoint, collectionNft.mintAddress.toBase58()),
     [collectionNft, connection]
   )
-  const collectionDetailUrl = globalThis.window?.origin + '/browse-collection/' + collectionNft.mintAddress.toBase58()
+  const collectionDetailUrl = globalThis.window?.origin + '/collection/' + collectionNft.mintAddress.toBase58()
 
   return (
     <div className="w-full">
@@ -78,7 +78,7 @@ const SuccessMintCollectionSection = props => {
             <div className={styles.title}>Congratulations!</div>
             <div className={styles.text}>
               Your NFT collection has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/browse-collection/' + collectionNft.mintAddress.toBase58()}>
+              <a className={styles.mintLinkText} href={'/collection/' + collectionNft.mintAddress.toBase58()}>
                 collection page
               </a>
             </div>
@@ -157,7 +157,7 @@ const SuccessMintCollectionSection = props => {
             <div className={styles.title}>Congratulations!</div>
             <div className={styles.text}>
               Your NFT collection has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/browse-collection/' + collectionNft.mintAddress.toBase58()}>
+              <a className={styles.mintLinkText} href={'/collection/' + collectionNft.mintAddress.toBase58()}>
                 collection page
               </a>
             </div>

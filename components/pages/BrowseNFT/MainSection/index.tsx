@@ -872,7 +872,7 @@ const MainSection = ({
               <div className="w-full flex justify-between items-center">
                 <div
                   className={styles.collectionName}
-                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                  onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
                 >
                   {nftCollectionName}
                 </div>
