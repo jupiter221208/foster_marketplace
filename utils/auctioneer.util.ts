@@ -513,7 +513,7 @@ export async function executeSale(
   let deficit = await getBuyerEscrowBalanceDeficit(mx, buyerAddress, price)
   if (deficit > 0) {
     console.log(
-      `buyer escrow deficit: ${deficit} lamports, paid by: ${wallet.publicKey}` +
+      `buyer escrow deficit: ${deficit} lamports, paid by: ${wallet.publicKey} ` +
         `(${buyerAddress.equals(wallet.publicKey) ? 'buyer' : 'seller'})`
     )
     tx.add(
@@ -525,7 +525,7 @@ export async function executeSale(
     )
   }
   if ((await mx.connection.getAccountInfo(buyerAssociatedAddress)) === null)
-    tx.add(createAssociatedTokenAccountInstruction(buyerAddress, buyerAssociatedAddress, buyerAddress, mintAddress))
+    tx.add(createAssociatedTokenAccountInstruction(wallet.publicKey, buyerAssociatedAddress, buyerAddress, mintAddress))
 
   tx.add(executeSale)
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
