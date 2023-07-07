@@ -15,9 +15,13 @@ import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import { useViewport } from 'utils'
 
+import { LAMPORTS_PER_SOL } from '@solana/web3.js'
+
 const EscrowDeficientModal = props => {
   const { open, close, highestBid, deficiency, nftName, collectionName, onFinalize } = props
   const viewport = useViewport()
+
+  const displaySolValue = value => Math.floor(value * LAMPORTS_PER_SOL) / LAMPORTS_PER_SOL
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -68,12 +72,12 @@ const EscrowDeficientModal = props => {
                     <br />
                     <br />
                     You can still finalize the sale but the effective sale price will be:{' '}
-                    {(highestBid - deficiency).toFixed(2)} SOL.
+                    {displaySolValue(highestBid - deficiency)} SOL.
                     <br />
                     <br />
-                    The highest bid for this NFT was {highestBid.toFixed(2)} SOL
+                    The highest bid for this NFT was {displaySolValue(highestBid)} SOL
                     <br />
-                    Difference in price: {deficiency.toFixed(2)} SOL ({((deficiency / highestBid) * 100).toFixed(2)} %)
+                    Difference in price: {deficiency} SOL ({((deficiency / highestBid) * 100).toFixed(2)} %)
                     <br />
                     Do you want to proceed?
                     <br />
@@ -92,21 +96,21 @@ const EscrowDeficientModal = props => {
                 <div className="w-full flex flex-wrap gap-3">
                   <div className="w-full flex justify-between">
                     <div className={styles.grayText}>Hightest Bid</div>
-                    <div className={styles.grayText}>{highestBid.toFixed(2)} SOL</div>
+                    <div className={styles.grayText}>{displaySolValue(highestBid)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>
                       Escrow Deficiency ({((deficiency / highestBid) * 100).toFixed(2)} %)
                     </div>
-                    <div className={styles.whiteText}>{deficiency.toFixed(2)} SOL</div>
+                    <div className={styles.whiteText}>{deficiency} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteText}>Buyers Escrow Balance</div>
-                    <div className={styles.whiteText}>{(highestBid - deficiency).toFixed(2)} SOL</div>
+                    <div className={styles.whiteText}>{displaySolValue(highestBid - deficiency)} SOL</div>
                   </div>
                   <div className="w-full flex justify-between">
                     <div className={styles.whiteBoldText}>Effective Sale Price</div>
-                    <div className={styles.whiteBoldText}>{(highestBid - deficiency).toFixed(2)} SOL</div>
+                    <div className={styles.whiteBoldText}>{displaySolValue(highestBid - deficiency)} SOL</div>
                   </div>
                 </div>
                 <div className="w-full mt-5 mb-[22px]">
