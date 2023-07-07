@@ -39,7 +39,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { fetchSolToUsdRate, useViewport } from 'utils'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { placeBid } from 'utils/auctioneer.util'
+import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -73,7 +73,7 @@ import { buyNFT, offerNFT } from 'utils/auction.util'
 import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
-import { PublicKey } from '@solana/web3.js'
+import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
 import {
   LazyListing,
   toLazyListing,
@@ -94,7 +94,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
+import { compareDate, getBuyerName, getOwnerName, getTimeDifference } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 // import DateSelect from 'components/DateSelect'
@@ -109,6 +109,9 @@ import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
+import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import { cancelListing, executeSale } from 'utils/auctioneer.util'
+import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -224,7 +227,9 @@ const MainSection = ({
   const [showAlert, setShowAlert] = useState(false)
 
   const [openOfferModal, setOpenOfferModal] = useState(false)
-
+  const [deficencyModal, setDeficencyModal] = useState(false)
+  const [deficiency, setDeficiency] = useState(0)
+  const [finalizeData, setFinalizeData] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
@@ -372,14 +377,14 @@ const MainSection = ({
           highest_bid,
           auction: { reserve_price, start_time, end_time },
         } = auction
-
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
         setEndTime(end_time)
         setStartTime(start_time)
+      } else {
+        setNftCurrentPrice(0)
       }
-
       setLikeCount(likes)
       setShareCount(shares)
       setSaveCount(saves)
@@ -472,6 +477,84 @@ const MainSection = ({
       dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
+
+  const processFinalizeSale = async () => {
+    let data = {
+      address: new PublicKey(nftDetail.address),
+      sellerAddress,
+      price: nftCurrentPrice * LAMPORTS_PER_SOL,
+      highestBid: { buyer_address: highBidder },
+    }
+
+    setFinalizeData(data)
+
+    if (isOwnNft) {
+      let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highBidder), data.price)
+      if (deficit > 0) {
+        // show confirm dialog
+        setDeficiency(deficit)
+        setDeficencyModal(true)
+      } else {
+        finalizeSale(data)
+      }
+    } else {
+      finalizeSale(data)
+    }
+  }
+
+  const reloadCreatorOwnerName = async () => {
+    let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+
+    setSellerAddress(tokenAccount.owner)
+
+    let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+    let { username: creatorName } = await usersAPI.get(createAddress)
+    setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
+
+    let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+    setNftOwnerUsername(ownerUsername)
+    setNftOwnerAddress(tokenAccount.owner.toBase58())
+  }
+
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
+    setTimeout(() => {
+      setOpenProgressingModal(true)
+    }, 500)
+
+    try {
+      await checkTokenExpiration()
+      const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
+      await updateSolBalance()
+      AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
+        token_address: sale.mintAddress.toBase58(),
+        buyer_wallet_id: sale.buyerAddress.toBase58(),
+        sale_price: sale.price.toString(),
+      }).then(res => {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Auction Finalized!',
+            description: `You've successfully finalized your auction!`,
+            type: 'success',
+          },
+        ])
+
+        reloadCreatorOwnerName()
+        setNftCurrentPrice(0)
+
+        setTimeout(() => {
+          setOpenProgressingModal(false)
+          reloadNftData()
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 500)
+        }, 5000)
+      })
+    } catch (e) {
+      console.error(e)
+      setOpenProgressingModal(false)
+    }
+  }
 
   const placeBidAndSave = async (price: string) => {
     if (price[0] === '.') {
@@ -900,6 +983,20 @@ const MainSection = ({
                     )}
                   </div>
                 </>
+              ) : getTimeDifference(endTime) < 0 &&
+                nftCurrentPrice > 0 &&
+                (isOwnNft || publicKey?.toBase58() === highBidder) &&
+                connected ? (
+                <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
+                  <OutlineButton
+                    label="Finalize Sale"
+                    onClick={() => processFinalizeSale()}
+                    color="var(--main-bg-color)"
+                    borderColor="#707070"
+                    borderWidth="2"
+                    fullWidth
+                  />
+                </div>
               ) : liveAuction === true ? (
                 <>
                   <div
@@ -1308,7 +1405,7 @@ const MainSection = ({
 
       <StartAuctionModal
         data={{
-          mintAddress: nftDetail.address,
+          mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
           json: nftDetail.json,
         }}
@@ -1320,7 +1417,7 @@ const MainSection = ({
 
       <ListNFTModal
         data={{
-          mintAddress: nftDetail.address,
+          mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
           json: nftDetail.json,
         }}
@@ -1394,6 +1491,17 @@ const MainSection = ({
           listingPrice={nftPrice}
           offerBalance={offerBalance}
           mainWalletBalance={mainWalletBalance}
+        />
+      )}
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(finalizeData)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={nftCurrentPrice}
+          deficiency={deficiency}
+          nftName={nftName}
+          collectionName={nftCollectionName}
         />
       )}
       {openShareModal && (

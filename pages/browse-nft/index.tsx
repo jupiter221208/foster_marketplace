@@ -121,6 +121,9 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
       (response: any) => {
         if (!isString(response)) {
           setNftInfo(response)
+          if (response.creator_address !== null) {
+            setArtistInfo({ address: response.creator_address, name: response.creator_username })
+          }
         }
       },
       error => {}

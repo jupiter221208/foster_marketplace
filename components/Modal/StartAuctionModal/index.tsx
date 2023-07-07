@@ -46,17 +46,17 @@ const StartAuctionModal = props => {
   }
 
   const [startDate, setStartDate] = useState(new Date())
-  const [days, setDays] = useState(0)
-  const [hours, setHours] = useState(0)
-  const [price, setPrice] = useState()
+  const [days, setDays] = useState('')
+  const [hours, setHours] = useState('')
+  const [price, setPrice] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
   const endDate = useMemo(() => {
-    var plusDays = days
-    var plusHours = hours
+    var plusDays = Number(days)
+    var plusHours = Number(hours)
 
-    if (!days) plusDays = 0
-    if (!hours) plusHours = 0
+    if (days === '') plusDays = 0
+    if (hours === '') plusHours = 0
 
     const endDate = new Date(startDate)
     endDate.setTime(startDate.getTime() + plusDays * 24 * 60 * 60 * 1000 + plusHours * 60 * 60 * 1000)
@@ -73,8 +73,7 @@ const StartAuctionModal = props => {
     }
 
     onStartProgress()
-
-    const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, price)
+    const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, Number(price))
     AuctionsAPI.create(auction.mintAddress.toBase58(), {
       mint_address: auction.mintAddress.toBase58(),
       associated_address: auction.associatedAddress.toBase58(),
@@ -89,7 +88,7 @@ const StartAuctionModal = props => {
       sold_at: null,
     }).then(res => {
       if (res) {
-        onSuccess(data?.json.name)
+        onSuccess(data?.json?.name)
         dispatch({ type: 'set', isGetListedNFTs: false })
       }
     })
@@ -109,11 +108,11 @@ const StartAuctionModal = props => {
 
   useEffect(() => {
     let disabled = false
-    if (days < 0 || days > 30) disabled = true
-    else if (days === 0 && hours === 0) disabled = true
-    else if (hours > 23) disabled = true
-    else if (price === undefined || price === '' || parseFloat(price) === 0) disabled = true
 
+    if (parseFloat(days) > 30) disabled = true
+    else if (days === '' && hours === '') disabled = true
+    else if (parseFloat(hours) > 23) disabled = true
+    else if (price === undefined || price === '' || price === null) disabled = true
     setButtonDisabled(disabled)
   }, [days, hours, price])
 
@@ -176,18 +175,14 @@ const StartAuctionModal = props => {
                     />
                   ) : (
                     <img
-                      src={
-                        data?.json.image === undefined || data?.json.image === null
-                          ? AudioPlayerBackground.src
-                          : data?.json.image
-                      }
-                      alt={data?.json.name || data?.name}
+                      src={data?.json?.image || AudioPlayerBackground.src}
+                      alt={data?.json?.name || data?.name}
                       className="w-full aspect-[321/321] object-cover"
                     />
                   )}
                 </div>
                 <div className="w-full flex justify-center">
-                  <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.json.name}</div>
+                  <div className={`${styles.nftName} mt-4 lg:mt-5`}>{data?.json?.name}</div>
                 </div>
                 <input className="w-0 h-9" />
                 <div className="mt-10 lg:mt-5 w-full startAuctionDatePicker">
@@ -215,28 +210,41 @@ const StartAuctionModal = props => {
                 <div className="mt-[38px] w-full grid grid-cols-2 gap-5 lg:gap-[57px]">
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
+                      value={days}
                       placeholder="0"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
                       borderRadius="9px"
+                      min={0}
                       type="number"
                       onChange={value => {
-                        setButtonDisabled(value < 0 || value > 30 || price === undefined)
-                        setDays(value)
+                        if (value < 0) {
+                          setDays('')
+                        } else {
+                          setDays(value)
+                        }
                       }}
                     />
                     <div className={styles.dateFont}>DAYS</div>
                   </div>
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
+                      value={hours}
                       placeholder="0"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
                       borderRadius="9px"
                       type="number"
-                      onChange={value => setHours(value)}
+                      min={0}
+                      onChange={value => {
+                        if (value < 0) {
+                          setHours('')
+                        } else {
+                          setHours(value)
+                        }
+                      }}
                     />
                     <div className={styles.dateFont}>HOURS</div>
                   </div>
@@ -253,9 +261,15 @@ const StartAuctionModal = props => {
                     placeholder="Enter starting bid"
                     backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                     fullWidth
+                    type="number"
+                    min={0}
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                     onChange={value => {
-                      setPrice(value)
+                      if (value < 0) {
+                        setPrice('')
+                      } else {
+                        setPrice(value)
+                      }
                     }}
                   />
                 </div>
