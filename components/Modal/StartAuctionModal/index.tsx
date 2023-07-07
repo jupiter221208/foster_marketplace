@@ -48,7 +48,7 @@ const StartAuctionModal = props => {
   const [startDate, setStartDate] = useState(new Date())
   const [days, setDays] = useState(0)
   const [hours, setHours] = useState(0)
-  const [price, setPrice] = useState()
+  const [price, setPrice] = useState(0)
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
   const endDate = useMemo(() => {
@@ -108,11 +108,12 @@ const StartAuctionModal = props => {
 
   useEffect(() => {
     let disabled = false
+
     if (days < 0 || days > 30) disabled = true
     else if (days === 0 && hours === 0) disabled = true
     else if (hours > 23) disabled = true
-    else if (price === undefined || price === '' || parseFloat(price) === 0) disabled = true
-
+    else if (price === undefined || price === 0 || price === null) disabled = true
+    console.log(days, hours, price)
     setButtonDisabled(disabled)
   }, [days, hours, price])
 
@@ -210,28 +211,41 @@ const StartAuctionModal = props => {
                 <div className="mt-[38px] w-full grid grid-cols-2 gap-5 lg:gap-[57px]">
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
+                      value={days === 0 ? '' : days}
                       placeholder="0"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
                       borderRadius="9px"
+                      min={0}
                       type="number"
                       onChange={value => {
-                        setButtonDisabled(value < 0 || value > 30 || price === undefined)
-                        setDays(value)
+                        if (days < 0) {
+                          setDays(0)
+                        } else {
+                          setDays(value)
+                        }
                       }}
                     />
                     <div className={styles.dateFont}>DAYS</div>
                   </div>
                   <div className="col-span-1 flex justify-start items-end gap-[10px]">
                     <Input
+                      value={hours === 0 ? '' : hours}
                       placeholder="0"
                       height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                       width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '75px' : '122px'}
                       fullWidth
                       borderRadius="9px"
                       type="number"
-                      onChange={value => setHours(value)}
+                      min={0}
+                      onChange={value => {
+                        if (value < 0) {
+                          setHours(0)
+                        } else {
+                          setHours(value)
+                        }
+                      }}
                     />
                     <div className={styles.dateFont}>HOURS</div>
                   </div>
@@ -244,13 +258,19 @@ const StartAuctionModal = props => {
                 </div>
                 <div className="mt-[49px] w-full">
                   <PriceInput
-                    value={price}
+                    value={price === 0 ? '' : price}
                     placeholder="Enter starting bid"
                     backgroundColor={'rgba(var(--main-bg-color-rgb), 0.05)'}
                     fullWidth
+                    type="number"
+                    min={0}
                     height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '35px' : '40px'}
                     onChange={value => {
-                      setPrice(value)
+                      if (value < 0) {
+                        setPrice(0)
+                      } else {
+                        setPrice(value)
+                      }
                     }}
                   />
                 </div>
