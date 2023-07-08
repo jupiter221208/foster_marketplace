@@ -4,7 +4,7 @@ export function middleware(req: NextRequest) {
   const url = new URL(req.nextUrl)
   let path = url.pathname
 
-  if (path.match(/browse-nft\/?/) && url.searchParams.has('id')) {
+  if (path.match(/^\/browse-nft\/?/) && url.searchParams.has('id')) {
     let id = url.searchParams.get('id')
     url.searchParams.delete('id')
     url.pathname = `/nft/${id}`
