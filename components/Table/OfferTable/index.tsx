@@ -70,10 +70,7 @@ const OfferTableRow = ({ listing, onAccept, onCancel, offerType }: OfferTableRow
             </div>
           </div>
           <div className="block">
-            <div
-              className={styles.nftName}
-              onClick={() => router.push(`/browse-nft?id=${listing.asset.mintAddress.toBase58()}`)}
-            >
+            <div className={styles.nftName} onClick={() => router.push(`/nft/${listing.asset.mintAddress.toBase58()}`)}>
               {listing.asset.name}
             </div>
           </div>

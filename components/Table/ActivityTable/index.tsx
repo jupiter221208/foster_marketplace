@@ -49,14 +49,14 @@ const ActivityTable = props => {
           <tr key={index}>
             <td>
               <div className="h-[90px] flex justify-center items-center">
-                <div className="w-[60px] h-[60px]" onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}>
+                <div className="w-[60px] h-[60px]" onClick={() => router.push(`/nft/${item.mint_address}`)}>
                   <ActivityTableItem url={item.asset_url} />
                 </div>
               </div>
             </td>
             <td>
               <div className="block">
-                <div className={styles.nftName} onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}>
+                <div className={styles.nftName} onClick={() => router.push(`/nft/${item.mint_address}`)}>
                   {item.asset_name}
                 </div>
               </div>

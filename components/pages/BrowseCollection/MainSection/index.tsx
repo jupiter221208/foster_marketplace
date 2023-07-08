@@ -236,7 +236,7 @@ const MainSection = props => {
                     type="image"
                     vote={true}
                     message={'Check out this collection on @foster_protocol #fostermarketplace'}
-                    url={`/browse-collection/${data?.collection_id}`}
+                    url={`/collection/${data?.collection_id}`}
                   />
                 </div>
                 <div className="w-[146px] overflow-hidden rounded-[12px]">
@@ -465,7 +465,7 @@ const MainSection = props => {
           close={() => setOpenShareModal(false)}
           vote={true}
           message={'Check out this collection on @foster_protocol #fostermarketplace'}
-          url={`/browse-collection/${data?.collection_id}`}
+          url={`/collection/${data?.collection_id}`}
         />
       )}
     </div>

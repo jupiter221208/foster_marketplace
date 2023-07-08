@@ -863,7 +863,7 @@ const MainSection = ({
                         voteCount={shareCount}
                         setVoteCount={setShareCount}
                         message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                        url={`/browse-nft?id=${id}`}
+                        url={`/nft/${id}`}
                       />
                     )}
                   </div>
@@ -872,7 +872,7 @@ const MainSection = ({
               <div className="w-full flex justify-between items-center">
                 <div
                   className={styles.collectionName}
-                  onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
+                  onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
                 >
                   {nftCollectionName}
                 </div>
@@ -1472,7 +1472,7 @@ const MainSection = ({
       />
       {openReportModal && (
         <ReportAnIssueModal
-          siteUrl={`/browse-nft?id=${id}`}
+          siteUrl={`/nft/${id}`}
           wallet={connected ? publicKey?.toString() : null}
           open={openReportModal}
           close={() => {
@@ -1512,7 +1512,7 @@ const MainSection = ({
           voteCount={shareCount}
           setVoteCount={setShareCount}
           message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-          url={`/browse-nft?id=${id}`}
+          url={`/nft/${id}`}
         />
       )}
       {openReportMenuModal && (

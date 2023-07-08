@@ -92,7 +92,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/browse-nft?id=${address}`)}>
+        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
           {assetJson?.animation_url ? (
             <div
               dangerouslySetInnerHTML={{
@@ -189,7 +189,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   ) : (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/browse-nft?id=${address}`)}>
+        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
           <img src={assetJson?.image} alt="" className="w-full h-full rounded-[10px] object-cover" />
         </div>
       </div>

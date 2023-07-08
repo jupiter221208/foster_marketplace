@@ -83,7 +83,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
                           if (token_id === null || token_id === undefined) token_id = nftItem.token_id
                           if (token_id !== null && token_id !== undefined) {
                             dispatch({ type: 'set', isLoading: true })
-                            router.push(`/browse-nft?id=${token_id.toString()}`)
+                            router.push(`/nft/${token_id.toString()}`)
                           }
                         }}
                         key={nftIndex}
@@ -112,7 +112,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
                       if (token_id === null || token_id === undefined) token_id = item.token_id
                       if (token_id !== null && token_id !== undefined) {
                         dispatch({ type: 'set', isLoading: true })
-                        router.push(`/browse-nft?id=${token_id.toString()}`)
+                        router.push(`/nft/${token_id.toString()}`)
                       }
                     }}
                   />

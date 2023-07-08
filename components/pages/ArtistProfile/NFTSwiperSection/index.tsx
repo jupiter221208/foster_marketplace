@@ -50,7 +50,7 @@ const NFTSwiperSection = props => {
                 showHideButton={showHideButton}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/browse-nft?id=${item.token_id}`)
+                  router.push(`/nft/${item.token_id}`)
                 }}
                 key={item}
               />

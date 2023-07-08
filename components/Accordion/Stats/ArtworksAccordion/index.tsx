@@ -64,10 +64,7 @@ const ArtworksAccordion = props => {
                       <ImageWithFallback src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
                     </div>
                     <div className="block">
-                      <div
-                        className={styles.subTitle}
-                        onClick={() => router.push(`/browse-nft?id=${item.mint_address}`)}
-                      >
+                      <div className={styles.subTitle} onClick={() => router.push(`/nft/${item.mint_address}`)}>
                         {item.asset_name}
                       </div>
                       <div className="flex gap-1 mt-1 items-center">
