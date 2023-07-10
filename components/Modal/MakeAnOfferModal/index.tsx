@@ -26,7 +26,7 @@ const MakeAnOfferModal = props => {
   const [minimumOffer50, setMinimumOffer50] = useState<any>(94.5)
   const [biddingWalletBalance, setBiddingWalletBalance] = useState<any>(0)
   const [errorMessage, setErrorMessage] = useState<any>('')
-  const [offerBtnDisabled, setOfferBtnDisabled] = useState<any>(false)
+  const [offerBtnDisabled, setOfferBtnDisabled] = useState<any>(true)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const MakeAnOfferModal = props => {
       return
     }
 
-    if (value < 0) {
+    if (value <= 0) {
       setErrorMessage('Offer must be bigger than 0 SOL.')
       setOfferBtnDisabled(true)
       return
