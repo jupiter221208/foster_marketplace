@@ -10,7 +10,12 @@ import {
 import { PROGRAM_ID as AUCTION_HOUSE_ADDRESS } from '@metaplex-foundation/mpl-auction-house'
 import { PublicKey, SystemProgram, Transaction, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { BN } from '@project-serum/anchor'
-import { getAssociatedTokenAddress, createAssociatedTokenAccountInstruction } from '@solana/spl-token'
+import {
+  createApproveInstruction,
+  createAssociatedTokenAccountInstruction,
+  getAccount,
+  getAssociatedTokenAddress,
+} from '@solana/spl-token'
 import { Metaplex, WRAPPED_SOL_MINT } from '@metaplex-foundation/js'
 
 import usersAPI from 'apis/user'
@@ -526,6 +531,23 @@ export async function executeSale(
   }
   if ((await mx.connection.getAccountInfo(buyerAssociatedAddress)) === null)
     tx.add(createAssociatedTokenAccountInstruction(wallet.publicKey, buyerAssociatedAddress, buyerAddress, mintAddress))
+
+  // check if seller has removed the auction house delegation
+  let { delegate, delegatedAmount } = await getAccount(mx.connection, associatedAddress)
+  let delegateErrorMessage: string | null = null
+  if (!delegate?.equals(signer))
+    delegateErrorMessage =
+      `invalid delegate ${delegate}, expected ${signer} ` + `for token ${mintAddress}, account ${associatedAddress}`
+  else if (delegatedAmount != BigInt(1))
+    delegateErrorMessage =
+      `invalid delegation amount ${delegatedAmount}, expected 1 ` +
+      `for token ${mintAddress}, account ${associatedAddress}`
+  if (delegateErrorMessage) {
+    if (wallet.publicKey.equals(sellerAddress)) {
+      tx.add(createApproveInstruction(associatedAddress, signer, sellerAddress, 1))
+      console.log(delegateErrorMessage)
+    } else throw new Error(delegateErrorMessage)
+  }
 
   tx.add(executeSale)
   tx.recentBlockhash = (await mx.connection.getLatestBlockhash()).blockhash
