@@ -317,7 +317,7 @@ const MainSection = ({
 
     await checkTokenExpiration()
 
-    const result = await offerNFT(mx, mintAddress, price)
+    const result = await offerNFT(mx, mintAddress, parseFloat(price))
     await updateSolBalance()
     if (result) {
       listingsAPI.makeOffer(mintAddress, { amount: price.toString() }).then(response => {
