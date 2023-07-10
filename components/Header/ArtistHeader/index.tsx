@@ -102,6 +102,7 @@ const ArtistHeader = () => {
         timer = null
       }
       timer = setTimeout(() => {
+        setSearchList({ nfts: [], artists: [], collections: [] })
         searchAPI.search(searchKeyword).then(
           response => {
             let object: any = {}
@@ -239,7 +240,7 @@ const ArtistHeader = () => {
 
             <SearchBox
               value={searchKeyword}
-              placeholder="Search by NFT, Collection, or Artist"
+              placeholder="Search Marketplace"
               onChange={value => setSearchKeyword(value)}
               searchList={searchList}
               onClick={() => handleClear()}

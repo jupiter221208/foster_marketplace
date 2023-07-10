@@ -82,7 +82,7 @@ const TrendingCollectionSection = props => {
   }
 
   return (
-    trendingList.length > 0 && (
+    (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
         <div className={styles.topRightEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}

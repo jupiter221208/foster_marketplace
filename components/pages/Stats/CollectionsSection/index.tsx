@@ -21,6 +21,7 @@ import StatsAPI from 'apis/stats'
 import { useViewport } from 'utils'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
 import ExplorePagination from 'components/Button/ExplorePagination'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 const CollectionsSection = props => {
   const { collections } = props
@@ -36,16 +37,24 @@ const CollectionsSection = props => {
   const [totalCount, setTotalCount] = useState(0)
   const [screenWidth, setScreenWidth] = useState(1920)
   const [rowCount, setRowCount] = useState(12)
+  const [loading, setLoading] = useState(true)
+  const [searchLoading, setSearchLoading] = useState(false)
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
+    setLoading(true)
   }, [])
 
   useEffect(() => {
-    setFeedList(collections)
-    setList(collections)
-    setTotalCount(12)
-    setIsMounted(true)
+    if (collections.length > 0) {
+      setTimeout(() => {
+        setLoading(false)
+        setFeedList(collections)
+        setList(collections)
+        setTotalCount(12)
+        setIsMounted(true)
+      }, 1000)
+    }
   }, [collections])
 
   useEffect(() => {
@@ -77,8 +86,7 @@ const CollectionsSection = props => {
   }
 
   const getCollectionData = (curPage, curDate, search, count) => {
-    dispatch({ type: 'set', isLoading: true })
-
+    setSearchLoading(true)
     StatsAPI.getStatsCollection({
       period: curDate,
       search: search?.length === 0 ? null : search,
@@ -86,7 +94,7 @@ const CollectionsSection = props => {
       per_page: count,
     }).then(
       respone => {
-        dispatch({ type: 'set', isLoading: false })
+        setSearchLoading(false)
         const nfts = respone.filter(item => item.cover_image !== '')
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
@@ -99,7 +107,7 @@ const CollectionsSection = props => {
         })
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        setSearchLoading(false)
       }
     )
   }
@@ -123,56 +131,77 @@ const CollectionsSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={
-            viewport === 'xs'
-              ? 1.2
-              : viewport === 'sm'
-              ? 2.5
-              : viewport === 'md'
-              ? 2.9
-              : viewport === 'lg'
-              ? 2.5
-              : viewport === 'xl'
-              ? screenWidth >= 1300
-                ? 3
-                : 2.8
-              : viewport === '2xl'
-              ? screenWidth >= 1768
-                ? 4
-                : 3.5
-              : 4
-          }
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {feedList.map((item, index) => (
-            <SwiperSlide key={index}>
-              <StatsCollectionCard data={item} type="collections" />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+      {loading && (
+        <div className="mt-10">
+          <LoadingModal open={loading} />
+        </div>
+      )}
 
-      <SearchSection
-        placeholder={'Search by collection name'}
-        searchWord={searchWord}
-        setSearchWord={value => setSearchWord(value.toString())}
-        period={period}
-        setPeriod={setPeriod}
-        onCancel={() => cancelSearch()}
-        onSearch={() => getSearchData()}
-      />
-      <div className="mt-[20px]">
-        <TableSections data={list} />
-      </div>
+      {!loading && (
+        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={
+              viewport === 'xs'
+                ? 1.2
+                : viewport === 'sm'
+                ? 2.5
+                : viewport === 'md'
+                ? 2.9
+                : viewport === 'lg'
+                ? 2.5
+                : viewport === 'xl'
+                ? screenWidth >= 1300
+                  ? 3
+                  : 2.8
+                : viewport === '2xl'
+                ? screenWidth >= 1768
+                  ? 4
+                  : 3.5
+                : 4
+            }
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className="navigationSwiper"
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
+            {feedList.map((item, index) => (
+              <SwiperSlide key={index}>
+                <StatsCollectionCard data={item} type="collections" />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
+
+      {!loading && (
+        <SearchSection
+          placeholder={'Search by collection name'}
+          searchWord={searchWord}
+          setSearchWord={value => setSearchWord(value.toString())}
+          period={period}
+          setPeriod={setPeriod}
+          onCancel={() => cancelSearch()}
+          onSearch={() => getSearchData()}
+        />
+      )}
+
+      {!loading && searchLoading && (
+        <div className="mt-10">
+          <LoadingModal open={searchLoading} />
+        </div>
+      )}
+
+      {!searchLoading && list.length > 0 && (
+        <div className="mt-[20px]">
+          <TableSections data={list} />
+        </div>
+      )}
 
       <div className="w-full flex justify-end">
         <ExplorePagination

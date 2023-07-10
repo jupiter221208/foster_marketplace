@@ -515,7 +515,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--notification-card-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
     doc.style.setProperty('--dao-title-color', '#95dbd5')
-    doc.style.setProperty('--nft-detail-artist', '#93bfbb')
+    doc.style.setProperty('--nft-detail-artist', '#95dbd5')
     doc.style.setProperty('--dropdown-bg-color', 'rgba(14, 14, 14, 0.8)')
     doc.style.setProperty('--dropdown-border-color', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--dropdown-menu-bg', '#202427')

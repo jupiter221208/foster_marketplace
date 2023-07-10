@@ -108,6 +108,7 @@ const PrimaryHeader = () => {
         timer = null
       }
       timer = setTimeout(() => {
+        setSearchList({ nfts: [], artists: [], collections: [] })
         searchAPI.search(searchKeyword).then(
           response => {
             let object: any = {}
@@ -250,7 +251,7 @@ const PrimaryHeader = () => {
             <div className="w-full max-w-[708px] min-w-[448px] flex items-center">
               <SearchBox
                 value={searchKeyword}
-                placeholder="Search by NFT, Collection, or Artist"
+                placeholder="Search Marketplace"
                 onChange={value => setSearchKeyword(value)}
                 searchList={searchList}
                 onClick={() => handleClear()}

@@ -30,7 +30,7 @@ const TrendingCollectionCard = props => {
       className={styles.container}
       onClick={() => {
         dispatch({ type: 'set', isLoading: true })
-        router.push('/browse-collection/' + collectionID)
+        router.push('/collection/' + collectionID)
       }}
     >
       <div className="relative w-full h-full rounded-[24px] overflow-hidden">

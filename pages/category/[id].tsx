@@ -115,7 +115,7 @@ const Category = () => {
             <TrendingCollectionSection category={cateQuery} loop={false} />
             <MostPopularSection category={cateQuery} />
             <MarketplaceReleaseSection category={cateQuery} />
-            <LiveAuctionSection category={cateQuery} />
+            <LiveAuctionSection category={cateQuery} fromPage={'category'} />
             <FreshMintSection category={cateQuery} />
             <PopularCategorySection type="category" />
           </div>

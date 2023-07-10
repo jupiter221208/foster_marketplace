@@ -32,6 +32,7 @@ const MobileSearchBox = () => {
         timer = null
       }
       timer = setTimeout(() => {
+        setSearchList({ nfts: [], artists: [], collections: [] })
         searchAPI.search(searchKeyword).then(
           response => {
             let object: any = {}
@@ -71,7 +72,7 @@ const MobileSearchBox = () => {
     <div className={styles.menu}>
       <SearchBox
         value={searchKeyword}
-        placeholder="Search by NFT, Collection, or Artist"
+        placeholder="Search Marketplace"
         onChange={value => setSearchKeyword(value)}
         searchList={searchData}
         onClick={() => handleClear()}

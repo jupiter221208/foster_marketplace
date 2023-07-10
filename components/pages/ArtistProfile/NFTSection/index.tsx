@@ -114,7 +114,7 @@ const NFTSection = props => {
               handlePrev={handlePreviousPage}
             />
           </div>
-          <LiveAuctionSection category={''} artist={wallet} />
+          <LiveAuctionSection category={''} artist={wallet} fromPage={'profile'} />
           <ActiveListingSection artist={wallet} />
         </div>
       )}

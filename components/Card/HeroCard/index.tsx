@@ -31,7 +31,7 @@ const HeroCard = props => {
 
   const gotoNftDetailPage = () => {
     dispatch({ type: 'set', isLoading: true })
-    router.push(`/browse-nft?id=${data.token_id}`)
+    router.push(`/nft/${data.token_id}`)
   }
 
   return (

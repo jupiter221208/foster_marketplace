@@ -136,7 +136,7 @@ const FavoriteSection = () => {
                 collectionName={item.collection_name}
                 price={item.list_price}
                 onClick={() => {
-                  router.push(`/browse-nft?id=${item.token_id}`)
+                  router.push(`/nft/${item.token_id}`)
                 }}
                 unSave={() => unSaveNft(item.token_id)}
               />
@@ -154,7 +154,7 @@ const FavoriteSection = () => {
                 mintAddress={item.collection_id}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/browse-collection/${item.collection_id}`)
+                  router.push(`/collection/${item.collection_id}`)
                 }}
                 unSave={() => unSaveCollection(item.collection_id)}
               />

@@ -39,7 +39,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 import { fetchSolToUsdRate, useViewport } from 'utils'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
-import { placeBid } from 'utils/auctioneer.util'
+import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -73,8 +73,14 @@ import { buyNFT, offerNFT } from 'utils/auction.util'
 import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
-import { PublicKey } from '@solana/web3.js'
-import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
+import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
+import {
+  LazyListing,
+  toLazyListing,
+  toListingReceiptAccount,
+  toMetadataAccount,
+  GpaBuilder,
+} from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // call apis
@@ -88,7 +94,7 @@ import { useWallets } from 'hooks/useWallets'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
-import { compareDate, getBuyerName, getOwnerName } from 'utils/helpers'
+import { compareDate, getBuyerName, getOwnerName, getTimeDifference } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
 import SecondaryButton from 'components/Button/SecondaryButton'
@@ -109,16 +115,28 @@ import MerchWallArtSection from './MerchWallArtSection'
 import ApparelSection from './MerchApparelSection/ApparelSection'
 import WallSection from './MerchWallArtSection/WallSection'
 import PrintCategorySection from './PrintCategorySection'
+import { getShortAddress } from 'utils/wallet.util'
+import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
+import { cancelListing, executeSale } from 'utils/auctioneer.util'
+import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface MainSectionProps {
-  nftDetail: Sft | Nft
+  nftDetail: Nft
+  editionDetail: any
   nftInfo: any
   artistInfo: NFTArtistInfo | null
   setFullScreenView: any
   reloadNftData: any
 }
 
-const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
+const MainSection = ({
+  nftDetail,
+  editionDetail,
+  artistInfo,
+  nftInfo,
+  setFullScreenView,
+  reloadNftData,
+}: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -228,7 +246,9 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
   const [showAlert, setShowAlert] = useState(false)
 
   const [openOfferModal, setOpenOfferModal] = useState(false)
-
+  const [deficencyModal, setDeficencyModal] = useState(false)
+  const [deficiency, setDeficiency] = useState(0)
+  const [finalizeData, setFinalizeData] = useState(null)
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
@@ -257,7 +277,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
   const nftCoverUrl = nftDetail.json?.image ?? DefaultNftBG.src
   const nftAssetUrl: string = nftDetail.json?.animation_url as string
-
   const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
   const nftDescription = nftDetail.json?.description ?? ''
   const nftRoyalties = (nftDetail.sellerFeeBasisPoints / 100).toString()
@@ -377,14 +396,14 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
           highest_bid,
           auction: { reserve_price, start_time, end_time },
         } = auction
-
         setNftReservePrice(Number(reserve_price))
         setNftCurrentPrice(Number(highest_bid ? highest_bid.amount : 0))
         setHighBidder(highest_bid ? highest_bid.buyer_address : '')
         setEndTime(end_time)
         setStartTime(start_time)
+      } else {
+        setNftCurrentPrice(0)
       }
-
       setLikeCount(likes)
       setShareCount(shares)
       setSaveCount(saves)
@@ -416,11 +435,11 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
       let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
       let { username: creatorName } = await usersAPI.get(createAddress)
-      setNftCreatorname(creatorName)
+      setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
 
       let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
-      setNftOwnerUsername(ownerUsername)
       setNftOwnerAddress(tokenAccount.owner.toBase58())
+      setNftOwnerUsername(ownerUsername ?? getShortAddress(tokenAccount.owner))
 
       if (tokenAccount.delegate?.equals(mx.auctionHouse().pdas().programAsSigner())) {
         const listingConfigDiscriminator = [240, 71, 225, 94, 200, 75, 84, 231]
@@ -477,6 +496,84 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
       dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
+
+  const processFinalizeSale = async () => {
+    let data = {
+      address: new PublicKey(nftDetail.address),
+      sellerAddress,
+      price: nftCurrentPrice * LAMPORTS_PER_SOL,
+      highestBid: { buyer_address: highBidder },
+    }
+
+    setFinalizeData(data)
+
+    if (isOwnNft) {
+      let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highBidder), data.price)
+      if (deficit > 0) {
+        // show confirm dialog
+        setDeficiency(deficit / LAMPORTS_PER_SOL)
+        setDeficencyModal(true)
+      } else {
+        finalizeSale(data)
+      }
+    } else {
+      finalizeSale(data)
+    }
+  }
+
+  const reloadCreatorOwnerName = async () => {
+    let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
+
+    setSellerAddress(tokenAccount.owner)
+
+    let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
+    let { username: creatorName } = await usersAPI.get(createAddress)
+    setNftCreatorname(creatorName !== null && creatorName.length > 0 ? creatorName : getShortAddress(createAddress))
+
+    let { username: ownerUsername } = await usersAPI.get(tokenAccount.owner.toBase58())
+    setNftOwnerUsername(ownerUsername)
+    setNftOwnerAddress(tokenAccount.owner.toBase58())
+  }
+
+  const finalizeSale = async ({ address, sellerAddress, price, highestBid }) => {
+    setTimeout(() => {
+      setOpenProgressingModal(true)
+    }, 500)
+
+    try {
+      await checkTokenExpiration()
+      const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
+      await updateSolBalance()
+      AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
+        token_address: sale.mintAddress.toBase58(),
+        buyer_wallet_id: sale.buyerAddress.toBase58(),
+        sale_price: sale.price.toString(),
+      }).then(res => {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Auction Finalized!',
+            description: `You've successfully finalized your auction!`,
+            type: 'success',
+          },
+        ])
+
+        reloadCreatorOwnerName()
+        setNftCurrentPrice(0)
+
+        setTimeout(() => {
+          setOpenProgressingModal(false)
+          reloadNftData()
+          setTimeout(() => {
+            setShowAlert(true)
+          }, 500)
+        }, 5000)
+      })
+    } catch (e) {
+      console.error(e)
+      setOpenProgressingModal(false)
+    }
+  }
 
   const placeBidAndSave = async (price: string) => {
     if (price[0] === '.') {
@@ -557,7 +654,6 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
     } else {
       nftsAPI.unlikeNft(id).then(
         response => {
-          console.log(response)
           if (response !== null) {
             setLikeCount(likeCount - 1)
             setLike(newStatus)
@@ -814,73 +910,71 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
             />
           ) : (
             <div className={styles.nftDetailCard}>
-              <div>
-                <div className="w-full flex flex-wrap">
-                  <div className="w-full flex flex-wrap justify-between items-center">
-                    <div>
+              <div className="w-full flex flex-wrap">
+                <div className="w-full flex flex-wrap justify-between items-center">
+                  <div>
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                      <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
+                        <ThreeEllipseMobileIcon alt="" />
+                      </div>
+                    ) : (
+                      <ReportMenu
+                        address={id}
+                        onClickReport={() => setOpenReportModal(true)}
+                        onClickPrint={() => setOpenPrintView(true)}
+                        nftType={nftType}
+                      />
+                    )}
+                  </div>
+                  <div className="inline">
+                    <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
+                      <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
+                        <Image
+                          src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeLikeStatus()}
+                        />
+
+                        <div className={styles.text} onClick={() => setShowLikeModal(true)}>
+                          {likeCount}
+                        </div>
+                      </div>
+                      <div className="flex items-center cursor-pointer mr-[20px]">
+                        <Image
+                          src={save ? TicketGreenIcon : TicketWhiteIcon}
+                          alt=""
+                          className=""
+                          onClick={() => changeSaveStatus()}
+                        />
+                        <div className={styles.text} onClick={() => setShowSaveModal(true)}>
+                          {saveCount}
+                        </div>
+                      </div>
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
-                          <ThreeEllipseMobileIcon alt="" />
+                        <div onClick={() => setOpenShareModal(true)}>
+                          <ShareSmallIcon alt="" />
                         </div>
                       ) : (
-                        <ReportMenu
-                          address={id}
-                          onClickReport={() => setOpenReportModal(true)}
-                          onClickPrint={() => setOpenPrintView(true)}
-                          nftType={nftType}
+                        <MenuSocialShare
+                          type="nft"
+                          vote={share}
+                          setVote={setShare}
+                          voteCount={shareCount}
+                          setVoteCount={setShareCount}
+                          message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
+                          url={`/browse-nft?id=${id}`}
                         />
                       )}
                     </div>
-                    <div className="inline">
-                      <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
-                        <div className="flex items-center cursor-pointer mr-[20px] lg:mr-[16px]">
-                          <Image
-                            src={like ? HeartFilledRedIcon : HeartFilledWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeLikeStatus()}
-                          />
-
-                          <div className={styles.text} onClick={() => setShowLikeModal(true)}>
-                            {likeCount}
-                          </div>
-                        </div>
-                        <div className="flex items-center cursor-pointer mr-[20px]">
-                          <Image
-                            src={save ? TicketGreenIcon : TicketWhiteIcon}
-                            alt=""
-                            className=""
-                            onClick={() => changeSaveStatus()}
-                          />
-                          <div className={styles.text} onClick={() => setShowSaveModal(true)}>
-                            {saveCount}
-                          </div>
-                        </div>
-                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                          <div onClick={() => setOpenShareModal(true)}>
-                            <ShareSmallIcon alt="" />
-                          </div>
-                        ) : (
-                          <MenuSocialShare
-                            type="nft"
-                            vote={share}
-                            setVote={setShare}
-                            voteCount={shareCount}
-                            setVoteCount={setShareCount}
-                            message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-                            url={`/browse-nft?id=${id}`}
-                          />
-                        )}
-                      </div>
-                    </div>
                   </div>
-                  <div className="w-full flex justify-between items-center">
-                    <div
-                      className={styles.collectionName}
-                      onClick={() => router.push(`/browse-collection/${nftCollectionAddress}`)}
-                    >
-                      {nftCollectionName}
-                    </div>
+                </div>
+                <div className="w-full flex justify-between items-center">
+                  <div
+                    className={styles.collectionName}
+                    onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
+                  >
+                    {nftCollectionName}
                   </div>
                 </div>
                 <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[10px]">
@@ -889,7 +983,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                 <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
                   <div className="flex gap-1 lg:gap-3">
                     <div className={styles.grayText}>Created by</div>
-                    <div className={styles.greenText} onClick={() => gotoUserDetail(artistInfo.name)}>
+                    <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
                       {nftCreatorname}
                     </div>
                   </div>
@@ -904,7 +998,24 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                   )}
                 </div>
               </div>
-
+              {editionDetail && (
+                <div className={styles.editionContainer}>
+                  <div className="w-full flex justify-between">
+                    <div className={styles.editionTitle}>Token Type</div>
+                    <div className={styles.editionValue}>
+                      {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                    </div>
+                  </div>
+                  <div className="w-full flex justify-between mt-[15px]">
+                    <div className={styles.editionTitle}>Editon Number</div>
+                    <div className={styles.editionValue}>{editionDetail['number']}</div>
+                  </div>
+                  <div className="w-full flex justify-between mt-[15px]">
+                    <div className={styles.editionTitle}>Edition Supply</div>
+                    <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                  </div>
+                </div>
+              )}
               <div className="w-full flex flex-wrap">
                 {nftPrice > 0 && !liveAuction ? (
                   <>
@@ -971,6 +1082,20 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
                       )}
                     </div>
                   </>
+                ) : getTimeDifference(endTime) < 0 &&
+                  nftCurrentPrice > 0 &&
+                  (isOwnNft || publicKey?.toBase58() === highBidder) &&
+                  connected ? (
+                  <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
+                    <OutlineButton
+                      label="Finalize Sale"
+                      onClick={() => processFinalizeSale()}
+                      color="var(--main-bg-color)"
+                      borderColor="#707070"
+                      borderWidth="2"
+                      fullWidth
+                    />
+                  </div>
                 ) : liveAuction === true ? (
                   <>
                     <div
@@ -1379,7 +1504,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
       <StartAuctionModal
         data={{
-          mintAddress: nftDetail.address,
+          mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
           json: nftDetail.json,
         }}
@@ -1391,7 +1516,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
 
       <ListNFTModal
         data={{
-          mintAddress: nftDetail.address,
+          mintAddress: new PublicKey(nftDetail.address),
           name: nftName,
           json: nftDetail.json,
         }}
@@ -1447,7 +1572,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
       />
       {openReportModal && (
         <ReportAnIssueModal
-          siteUrl={`/browse-nft?id=${id}`}
+          siteUrl={`/nft/${id}`}
           wallet={connected ? publicKey?.toString() : null}
           open={openReportModal}
           close={() => {
@@ -1467,6 +1592,17 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
           mainWalletBalance={mainWalletBalance}
         />
       )}
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(finalizeData)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={nftCurrentPrice}
+          deficiency={deficiency}
+          nftName={nftName}
+          collectionName={nftCollectionName}
+        />
+      )}
       {openShareModal && (
         <SocialShareModal
           open={openShareModal}
@@ -1476,7 +1612,7 @@ const MainSection = ({ nftDetail, artistInfo, nftInfo, setFullScreenView, reload
           voteCount={shareCount}
           setVoteCount={setShareCount}
           message={'Check out this fresh art on @foster_protocol #fostermarketplace'}
-          url={`/browse-nft?id=${id}`}
+          url={`/nft/${id}`}
         />
       )}
       {openReportMenuModal && (

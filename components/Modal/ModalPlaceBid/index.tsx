@@ -150,7 +150,7 @@ const ModalPlaceBid = props => {
                     value={price}
                     placeholder="Enter bid amount"
                     fullWidth
-                    onChange={value => setPrice(parseFloat(value))}
+                    onChange={value => setPrice(value)}
                   />
                 </div>
                 <div className="w-full mt-[30px]">

@@ -74,7 +74,7 @@ const ExploreCollectionSection = props => {
                     icon={item.artist.profile_picture}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/browse-collection/${item.artist.wallet_id}`)
+                      router.push(`/collection/${item.artist.wallet_id}`)
                     }}
                   />
                 </SwiperSlide>
@@ -92,7 +92,7 @@ const ExploreCollectionSection = props => {
                     icon={item.artist.profile_picture}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/browse-collection/${item.artist.wallet_id}`)
+                      router.push(`/collection/${item.artist.wallet_id}`)
                     }}
                   />
                 </div>

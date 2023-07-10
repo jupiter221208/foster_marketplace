@@ -115,9 +115,11 @@ const Explore = () => {
     }
   }, [])
 
-  useEffect(() => {}, [availabilityFilter])
-
   useEffect(() => {
+    setIsMounted(false)
+    setTimeout(() => {
+      setIsMounted(true)
+    }, 2000)
     let availability = selectedAvailability
     if (availabilityFilter === 0) {
       availability = AvailabilityList[0]
@@ -154,11 +156,14 @@ const Explore = () => {
         break
       case 1:
         setSortData(CollectionSortList)
-        if (collectionSort === 'trending') {
-          setSelectedSort(CollectionSortList[2])
-        } else {
-          setSelectedSort(CollectionSortList[0])
-        }
+        let sortList
+        // if (collectionSort === 'trending') {
+        setSelectedSort(CollectionSortList[2])
+        sortList = CollectionSortList[2]
+        // } else {
+        //   setSelectedSort(CollectionSortList[0])
+        //   sortList = CollectionSortList[0]
+        // }
         setCurrentPage(collectionCurrentPage)
         let list = []
         CategoryList.filter(category => category.query == collectionCategory).forEach(item => {
@@ -167,15 +172,10 @@ const Explore = () => {
           list.push(object)
         })
         setCategoryList(list)
-        getExploreCollectionData(collectionCurrentPage, list, CollectionSortList[0], rowCount)
+        getExploreCollectionData(collectionCurrentPage, list, sortList, rowCount)
         break
       case 2:
         setSortData(EcosystemSortList)
-        // if (artistSort === 'top') {
-        //   setSelectedSort(EcosystemSortList[2])
-        // } else {
-        //   setSelectedSort(EcosystemSortList[2])
-        // }
         setSelectedSort(EcosystemSortList[2])
         setCurrentPage(ecosystemCurrentPage)
         setEcosystemList([])
@@ -189,7 +189,7 @@ const Explore = () => {
   useEffect(() => {
     if (!isMounted) return
 
-    if (viewport === 'sm' || viewport === 'md' || viewport === 'xs') return
+    // if (viewport === 'sm' || viewport === 'md' || viewport === 'xs') return
 
     switch (exploreTab) {
       case 0:
@@ -249,7 +249,7 @@ const Explore = () => {
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
                 creator: nft.artist_username,
-                url: `/browse-nft?id=${nft.token_id}`,
+                url: `/nft/${nft.token_id}`,
                 price: nft.list_price,
                 current_bid: nft.current_bid,
                 list_price: nft.list_price,
@@ -268,7 +268,7 @@ const Explore = () => {
               asset_type: nft.asset_type,
               cover_image_url: nft.cover_image_url,
               creator: nft.artist_username,
-              url: `/browse-nft?id=${nft.token_id}`,
+              url: `/nft/${nft.token_id}`,
               price: nft.list_price,
               current_bid: nft.current_bid,
               list_price: nft.list_price,
@@ -321,7 +321,7 @@ const Explore = () => {
             image: nft.cover_image,
             collectionName: nft.collection_name,
             artistName: nft.artist_username,
-            url: `/browse-collection?id=${nft.collection_id}`,
+            url: `/collection?id=${nft.collection_id}`,
             mintAddress: nft.artist_id,
           }
         })
@@ -641,11 +641,11 @@ const Explore = () => {
                           image={item.image}
                           nftName={item.collectionName}
                           artistName={item.artistName}
-                          mintAddress={item.mintAddress}
+                          collectionName={item.collectionName}
                           price={item.price}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })
-                            router.push(`/browse-collection/${item.collectionId}`)
+                            router.push(`/collection/${item.collectionId}`)
                           }}
                         />
                       </div>

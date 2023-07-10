@@ -134,22 +134,18 @@ const ListNFTModal = props => {
                       <div
                         dangerouslySetInnerHTML={{
                           __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data?.json.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data?.json?.animation_url} type="video/mp4" /></video>`,
                         }}
                       />
                     ) : (
                       <img
-                        src={
-                          data?.json.image === undefined || data?.json.image === null
-                            ? AudioPlayerBackground.src
-                            : data?.json.image
-                        }
-                        alt={data?.json.name || data?.name}
+                        src={data?.json?.image || AudioPlayerBackground.src}
+                        alt={data?.json?.name || data?.name}
                         className="w-full aspect-[321/321] object-cover"
                       />
                     )}
                   </div>
-                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>{data?.json.name || data?.name}</div>
+                  <div className={`${styles.nftName} mt-[10px] lg:mt-5 w-full`}>{data?.json?.name || data?.name}</div>
                   <div className="w-full mt-[20px] lg:mt-12">
                     <PriceInput
                       value={price}

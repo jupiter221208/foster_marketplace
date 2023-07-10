@@ -67,7 +67,7 @@ const Home = () => {
       <PopularCategorySection type="home" />
       <TopRatedArtistsSection />
       <MarketplaceReleaseSection category={''} />
-      <LiveAuctionSection category={''} />
+      <LiveAuctionSection category={''} fromPage={'home'} />
       <TrendingCollectionSection category={''} loop={true} />
       {/* <MostPopularSection category={''} /> */}
       <CreateSellNFTSection />

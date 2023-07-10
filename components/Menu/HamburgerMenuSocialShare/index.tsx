@@ -76,7 +76,7 @@ const HamburgerMenuSocialShare = props => {
               {({ active }) => (
                 <TwitterShareButton
                   title={'Share foster NFT'}
-                  url={`${window?.origin}/browse-nft?id=${id}`}
+                  url={`${window?.origin}/nft/${id}`}
                   beforeOnClick={() => {}}
                   onShareWindowClose={() => {
                     shareNFTSocial('twitter')
