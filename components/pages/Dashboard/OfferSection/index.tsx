@@ -147,6 +147,15 @@ const OfferSection = () => {
         })
         .then(response => {
           console.log(response)
+          usersAPI.getLockupValues().then(
+            response => {
+              dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+              dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+            },
+            error => {
+              console.log(error)
+            }
+          )
         }),
         error => {
           console.log(error)
