@@ -86,7 +86,9 @@ const Step01CollectionSection = props => {
         {
           id: 0,
           title: 'Max File Size Exceeded',
-          description: `Oops! It looks like your file exceeded the max file size of 30mb`,
+          description: `Oops! It looks like your file exceeded the max file size of ${
+            type === 'cover' ? '10mb' : '30mb'
+          }`,
           type: 'error',
         },
       ])
@@ -354,7 +356,7 @@ const Step01CollectionSection = props => {
                           }}
                           maxFiles={1}
                           accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
-                          maxSize={31457280}
+                          maxSize={10485760}
                         >
                           {({ getRootProps, getInputProps, open }) => (
                             <section className={styles.dropzone}>
@@ -365,7 +367,7 @@ const Step01CollectionSection = props => {
                                 <input {...getInputProps()} />
                                 <p className={styles.subTitleCover}>Upload Here</p>
                                 <p className={styles.textCover}>Supported file formats are .png .jpeg</p>
-                                <p className={styles.greenTextCover}>Max File Size 30mb</p>
+                                <p className={styles.greenTextCover}>Max File Size 10mb</p>
                               </div>
                             </section>
                           )}
