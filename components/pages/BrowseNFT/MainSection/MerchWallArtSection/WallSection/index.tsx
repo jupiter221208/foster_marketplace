@@ -97,6 +97,7 @@ const WallSection = props => {
       } else {
         newCanvas.item(1).selectable = true
       }
+
       newCanvas.renderAll()
       setCanvas(newCanvas)
     }
@@ -131,7 +132,6 @@ const WallSection = props => {
       newCanvas.clear().renderAll()
     }
 
-    console.log(viewport, window.innerWidth, window.innerWidth)
     let screenWidth, screenHeight
     if (window.innerWidth < 1024) {
       screenWidth = window.innerWidth
@@ -181,7 +181,7 @@ const WallSection = props => {
           let viewWidth = screenWidth * multipleRatio
           let ratio = viewWidth / width
           let leftMargin = (screenWidth - viewWidth) / 2
-          console.log(screenWidth, viewWidth)
+
           if (screenWidth < 1024) leftMargin = (screenWidth - viewWidth) / 2 - 10
           img.set({
             scaleX: ratio,

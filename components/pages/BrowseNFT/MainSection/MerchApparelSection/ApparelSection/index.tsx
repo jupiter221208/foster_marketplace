@@ -5,15 +5,14 @@ import { fabric } from 'fabric'
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
 import { useViewport } from 'utils'
-
-// api
+import uploadFileToS3 from 'apis/aws'
+import { dataURLtoFile } from 'utils/helpers'
 
 const ApparelSection = props => {
-  const { apparel, nftCoverUrl, finishEditing } = props
+  const { nftName, apparel, nftCoverUrl, finishEditing, setPrintImageUrl } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const viewport = useViewport()
-
   useEffect(() => {
     const resizeFunction = () => {
       if (apparel) {
@@ -37,18 +36,34 @@ const ApparelSection = props => {
     }
   }, [apparel])
 
+  const uploadApparelSection = async (imgDataString: string) => {
+    let timestamp = new Date().getTime()
+    let filename = nftName + timestamp + '.png'
+    var imgFile = dataURLtoFile(imgDataString, filename)
+    const { url } = await uploadFileToS3(imgFile, filename)
+    return url + filename
+  }
+
   useEffect(() => {
-    let newCanvas = canvas as fabric.Canvas
-    if (newCanvas != '' && newCanvas.item(1)) {
-      if (finishEditing) {
-        newCanvas.discardActiveObject()
-        newCanvas.item(1).selectable = false
-      } else {
-        newCanvas.item(1).selectable = true
+    ;(async () => {
+      let newCanvas = canvas as fabric.Canvas
+      if (newCanvas != '' && newCanvas.item(1)) {
+        if (finishEditing) {
+          newCanvas.discardActiveObject()
+          newCanvas.item(1).selectable = false
+          let imgDataString = newCanvas.toDataURL({
+            format: 'png',
+            quality: 1,
+          })
+          let imgUrl = await uploadApparelSection(imgDataString)
+          setPrintImageUrl(imgUrl)
+        } else {
+          newCanvas.item(1).selectable = true
+        }
+        newCanvas.renderAll()
+        setCanvas(newCanvas)
       }
-      newCanvas.renderAll()
-      setCanvas(newCanvas)
-    }
+    })()
   }, [finishEditing])
 
   const drawApparel = () => {
@@ -81,42 +96,44 @@ const ApparelSection = props => {
           left: 0,
         })
       }
-
-      newCanvas.renderAll()
       newCanvas.item(0).selectable = false
       setTimeout(() => {
-        new fabric.Image.fromURL(nftCoverUrl, img => {
-          const { width, height } = img.getOriginalSize()
-          if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
-            let apparelWidth = screenWidth * 0.25
-            img.scaleToWidth(apparelWidth, false)
-            img.set({
-              scaleX: apparelWidth / width,
-              scaleY: apparelWidth / width,
-              top: apparelWidth,
-              left: (screenWidth * 0.75) / 2,
-            })
-          } else {
-            img.scaleToWidth(150, false)
-            img.set({
-              scaleX: 150 / width,
-              scaleY: 150 / width,
-              top: 150,
-              left: screenWidth / 2 - 60,
-            })
-          }
+        new fabric.Image.fromURL(
+          nftCoverUrl,
+          img => {
+            const { width, height } = img.getOriginalSize()
+            if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
+              let apparelWidth = screenWidth * 0.25
+              img.scaleToWidth(apparelWidth, false)
+              img.set({
+                scaleX: apparelWidth / width,
+                scaleY: apparelWidth / width,
+                top: apparelWidth,
+                left: (screenWidth * 0.75) / 2,
+              })
+            } else {
+              img.scaleToWidth(150, false)
+              img.set({
+                scaleX: 150 / width,
+                scaleY: 150 / width,
+                top: 150,
+                left: screenWidth / 2 - 60,
+              })
+            }
 
-          img.lockUniScaling = true
-          newCanvas.add(img)
-          img.setControlsVisibility({
-            mt: false,
-            mb: false,
-            ml: false,
-            mr: false,
-          })
-          newCanvas.setActiveObject(img)
-          newCanvas.renderAll()
-        })
+            img.lockUniScaling = true
+            newCanvas.add(img)
+            img.setControlsVisibility({
+              mt: false,
+              mb: false,
+              ml: false,
+              mr: false,
+            })
+            newCanvas.setActiveObject(img)
+            newCanvas.renderAll()
+          },
+          { crossOrigin: 'Anonymous' }
+        )
       }, 500)
     })
 
@@ -143,10 +160,6 @@ const ApparelSection = props => {
           </div>
         </div>
       )}
-      {/* <img src={apparel} alt="" className="h-full" />
-      <div className="absolute top-[20%] w-[30%] h-[30%]">
-        <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-      </div> */}
     </div>
   )
 }

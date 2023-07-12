@@ -109,15 +109,11 @@ import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import MerchApparelSection from './MerchApparelSection'
 import MerchWallArtSection from './MerchWallArtSection'
-// import PhysicalPrintDetail from '../PhysicalPrintDetail'
-// import PhysicalShipping from '../PhysicalShipping'
-// import PhysicalCheckout from '../PhysicalCheckout'
 import ApparelSection from './MerchApparelSection/ApparelSection'
 import WallSection from './MerchWallArtSection/WallSection'
 import PrintCategorySection from './PrintCategorySection'
 import { getShortAddress } from 'utils/wallet.util'
-import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
-import { cancelListing, executeSale } from 'utils/auctioneer.util'
+import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface MainSectionProps {
@@ -736,6 +732,7 @@ const MainSection = ({
 
   const [apparel, setApparel] = useState(null)
   const [wallArt, setWallArt] = useState(null)
+  const [printImageUrl, setPrintImageUrl] = useState(null)
 
   return (
     <div className={styles.container}>
@@ -758,7 +755,13 @@ const MainSection = ({
               </div>
               <div className={styles.blurImage} />
 
-              <ApparelSection apparel={apparel} nftCoverUrl={nftCoverUrl} finishEditing={finishEditing} />
+              <ApparelSection
+                nftName={nftName}
+                apparel={apparel}
+                nftCoverUrl={nftCoverUrl}
+                finishEditing={finishEditing}
+                setPrintImageUrl={setPrintImageUrl}
+              />
             </div>
           </div>
         ) : showWallArtMode ? (
