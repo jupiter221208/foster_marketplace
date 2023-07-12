@@ -70,7 +70,7 @@ const HiddenSection = () => {
                 artistName={item.artist_username}
                 showUnhideButton={true}
                 onClick={() => {
-                  router.push(`/browse-nft?id=${item.token_id}`)
+                  router.push(`/nft/${item.token_id}`)
                 }}
               />
             </div>

@@ -42,7 +42,7 @@ const SuccessMintSingleNFTSection = props => {
     () => getExplorerUrl(connection.rpcEndpoint, nftAddress?.toBase58()),
     [nftAddress, connection]
   )
-  const nftDetailUrl = globalThis.window?.origin + '/browse-nft?id=' + nftAddress
+  const nftDetailUrl = globalThis.window?.origin + '/nft/' + nftAddress
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
@@ -147,7 +147,7 @@ const SuccessMintSingleNFTSection = props => {
             <div className={styles.mintTitle}>Congratulations!</div>
             <div className={styles.mintText}>
               Your NFT has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress + '&type=general'}>
+              <a className={styles.mintLinkText} href={'/nft/' + nftAddress + '&type=general'}>
                 NFT page
               </a>
             </div>
@@ -223,13 +223,7 @@ const SuccessMintSingleNFTSection = props => {
           </div>
           <div className="w-full mt-6 mb-[90px] flex flex-wrap justify-center z-10">
             <div className={styles.mintTitle}>Congratulations!</div>
-            <div className={styles.mintText}>
-              Your NFT has been minted successfully!
-              {/* and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/browse-nft?id=' + nftAddress + '&type=general'}>
-                NFT page
-              </a> */}
-            </div>
+            <div className={styles.mintText}>Your NFT has been minted successfully!</div>
             <div className="w-full flex flex-wrap justify-center gap-[30px] mt-[60px]">
               <div className="w-[221px]">
                 <TwitterShareButton

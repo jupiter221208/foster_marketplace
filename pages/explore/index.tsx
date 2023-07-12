@@ -249,7 +249,7 @@ const Explore = () => {
                 asset_type: nft.asset_type,
                 cover_image_url: nft.cover_image_url,
                 creator: nft.artist_username,
-                url: `/browse-nft?id=${nft.token_id}`,
+                url: `/nft/${nft.token_id}`,
                 price: nft.list_price,
                 current_bid: nft.current_bid,
                 list_price: nft.list_price,
@@ -268,7 +268,7 @@ const Explore = () => {
               asset_type: nft.asset_type,
               cover_image_url: nft.cover_image_url,
               creator: nft.artist_username,
-              url: `/browse-nft?id=${nft.token_id}`,
+              url: `/nft/${nft.token_id}`,
               price: nft.list_price,
               current_bid: nft.current_bid,
               list_price: nft.list_price,
@@ -321,7 +321,7 @@ const Explore = () => {
             image: nft.cover_image,
             collectionName: nft.collection_name,
             artistName: nft.artist_username,
-            url: `/browse-collection?id=${nft.collection_id}`,
+            url: `/collection?id=${nft.collection_id}`,
             mintAddress: nft.artist_id,
           }
         })
@@ -641,11 +641,11 @@ const Explore = () => {
                           image={item.image}
                           nftName={item.collectionName}
                           artistName={item.artistName}
-                          collectionName={item.collection_name}
+                          collectionName={item.collectionName}
                           price={item.price}
                           onClick={() => {
                             dispatch({ type: 'set', isLoading: true })
-                            router.push(`/browse-collection/${item.collectionId}`)
+                            router.push(`/collection/${item.collectionId}`)
                           }}
                         />
                       </div>

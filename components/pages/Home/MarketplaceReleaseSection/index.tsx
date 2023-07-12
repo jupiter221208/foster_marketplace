@@ -154,7 +154,7 @@ const MarketplaceReleaseSection = props => {
                     price={item.list_price}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/browse-nft?id=${item.token_id}`)
+                      router.push(`/nft/${item.token_id}`)
                     }}
                   />
                 </div>

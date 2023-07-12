@@ -63,7 +63,7 @@ const CollectionsAccordion = props => {
                     <div className="block">
                       <div
                         className={styles.subTitle}
-                        onClick={() => router.push(`/browse-collection/${item.collection_address}`)}
+                        onClick={() => router.push(`/collection/${item.collection_address}`)}
                       >
                         {item.collection_name}
                       </div>

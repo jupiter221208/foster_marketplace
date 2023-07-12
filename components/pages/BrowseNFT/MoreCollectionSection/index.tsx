@@ -57,7 +57,7 @@ const MoreCollectionSection = props => {
         <div className="hidden lg:flex z-10">
           <OutlineButton
             label="See More"
-            onClick={() => router.push(`/browse-collection/${collectionId}`)}
+            onClick={() => router.push(`/collection/${collectionId}`)}
             borderColor={'var(--see-more-border)'}
             height="42px"
           />
@@ -86,7 +86,7 @@ const MoreCollectionSection = props => {
                   artistName={item.artist_username}
                   collectionName={item.collection_name}
                   price={item.list_price}
-                  onClick={() => router.push(`/browse-nft?id=${item.token_id}`)}
+                  onClick={() => router.push(`/nft/${item.token_id}`)}
                 />
               </div>
             </SwiperSlide>
@@ -98,7 +98,7 @@ const MoreCollectionSection = props => {
           <OutlineButton
             label="See More"
             fullWidth
-            onClick={() => router.push(`/browse-collection/${collectionId}`)}
+            onClick={() => router.push(`/collection/${collectionId}`)}
             borderColor={'var(--see-more-border)'}
             height="40px"
           />

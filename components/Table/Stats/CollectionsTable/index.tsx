@@ -54,7 +54,7 @@ const CollectionsTable = props => {
                     className="flex justify-center cursor-pointer"
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/browse-collection/${item.collection_address}`)
+                      router.push(`/collection/${item.collection_address}`)
                     }}
                   >
                     {item.collection_name}

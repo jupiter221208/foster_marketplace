@@ -69,7 +69,7 @@ const MyNFTSection = props => {
   const [selectedData, setSelectedData] = useState()
 
   const handleGotoDetailPage = (data: any) => {
-    router.push(`/browse-nft?id=${data.mintAddress.toString()}&type=general`)
+    router.push(`/nft/${data.mintAddress.toString()}&type=general`)
   }
 
   const handleStartAuction = item => {

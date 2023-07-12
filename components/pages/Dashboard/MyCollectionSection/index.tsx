@@ -34,7 +34,8 @@ const MyCollectionSection = () => {
     const getCollections = async () => {
       // dispatch({ type: 'set', isLoading: true })
       const collections = await getMyCollections(mx)
-      setCollections(collections)
+      let publicKey = mx.identity().publicKey
+      setCollections(collections.filter(({ updateAuthorityAddress }) => updateAuthorityAddress?.equals(publicKey)))
       setIsCollectionLoaded(true)
       // dispatch({ type: 'set', isLoading: false })
     }
@@ -42,13 +43,8 @@ const MyCollectionSection = () => {
   }, [mx])
 
   const getCategory = attributes => {
-    if (attributes === null || attributes.length === 0) return []
-
-    let categories = []
-    attributes.forEach(element => {
-      categories.push(element.value)
-    })
-    return categories
+    if (!Array.isArray(attributes)) return []
+    return attributes.map(({ value }) => value).filter(category => !!category)
   }
   return (
     <section className={styles.container}>
@@ -60,11 +56,11 @@ const MyCollectionSection = () => {
                 image={item.json?.image}
                 nftName={item.json?.name}
                 category={getCategory(item.json?.attributes)}
-                artistAddress={item.creators[0].address.toString()}
+                artistAddress={item.creators[0]?.address.toString()}
                 mintAddress={item.mintAddress.toBase58()}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/browse-collection/${item.mintAddress.toString()}`)
+                  router.push(`/collection/${item.mintAddress.toString()}`)
                 }}
               />
             </div>

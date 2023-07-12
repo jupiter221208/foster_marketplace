@@ -66,7 +66,7 @@ const ArtworksTable = props => {
                     className="flex justify-start cursor-pointer"
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/browse-nft?id=${item.mint_address}`)
+                      router.push(`/nft/${item.mint_address}`)
                     }}
                   >
                     {item.asset_name}

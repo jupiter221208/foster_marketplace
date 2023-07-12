@@ -17,8 +17,11 @@ import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-mobile.svg?compo
 // styles
 import styles from './index.module.scss'
 import { getShortAddress, getPriceValue } from 'utils/strings'
-import { PublicKey } from '@solana/web3.js'
+import { PublicKey, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import { useMetaplex } from 'hooks/useMetaplex'
 import type { JsonMetadata } from '@metaplex-foundation/js'
+import { getBuyerEscrowBalanceDeficit } from 'utils/auctioneer.util'
+import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface ListedNFTCardData {
   address: PublicKey
@@ -32,6 +35,7 @@ export interface ListedNFTCardData {
   endTime?: number
   highestBid?: {
     buyer_address: string
+    amount: string
   }
 }
 
@@ -49,6 +53,9 @@ export interface ListedNFTCardProps {
 const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, finalizeSale }: ListedNFTCardProps) => {
   const { address, name, uri, sellerAddress, creatorAddress, price, startTime, endTime, highestBid } = data
   const viewport = useViewport()
+  const { metaplex: mx } = useMetaplex()
+  const [deficiency, setDeficiency] = useState(0)
+  const [deficencyModal, setDeficencyModal] = useState(false)
   const isEnded = useMemo(() => {
     if (endTime) {
       let endListingTime = new Date(endTime)
@@ -69,10 +76,23 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
       .then(setAssetJson)
   }, [uri])
 
+  const processFinalizeSale = async () => {
+    let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highestBid?.buyer_address), data.price)
+    if (deficit > 0) {
+      // show confirm dialog
+      setDeficiency(deficit / LAMPORTS_PER_SOL)
+      setTimeout(() => {
+        setDeficencyModal(true)
+      }, 1000)
+    } else {
+      finalizeSale(data)
+    }
+  }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/browse-nft?id=${address}`)}>
+        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
           {assetJson?.animation_url ? (
             <div
               dangerouslySetInnerHTML={{
@@ -118,7 +138,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 isEnded ? (
                   <GradientButton
                     label={'Finalize Sale'}
-                    onClick={() => finalizeSale(data)}
+                    onClick={() => processFinalizeSale()}
                     height="48px"
                     fontSize="16px"
                     paddingLeft="37px"
@@ -154,11 +174,22 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           )}
         </div>
       </div>
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(data)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={parseFloat(highestBid?.amount)}
+          deficiency={deficiency}
+          nftName={name}
+          collectionName={''}
+        />
+      )}
     </div>
   ) : (
     <div className={styles.container}>
       <div className={styles.imageArea}>
-        <div className={styles.imageContent} onClick={() => onClick(`/browse-nft?id=${address}`)}>
+        <div className={styles.imageContent} onClick={() => onClick(`/nft/${address}`)}>
           <img src={assetJson?.image} alt="" className="w-full h-full rounded-[10px] object-cover" />
         </div>
       </div>
@@ -192,7 +223,7 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
                 isEnded ? (
                   <GradientButton
                     label={'Finalize Sale'}
-                    onClick={() => finalizeSale(data)}
+                    onClick={() => processFinalizeSale()}
                     fullWidth
                     height="26px"
                     fontSize="12px"
@@ -230,6 +261,17 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
           )}
         </div>
       </div>
+      {deficencyModal && (
+        <EscrowDeficientModal
+          onFinalize={() => finalizeSale(data)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
+          highestBid={parseFloat(highestBid?.amount)}
+          deficiency={deficiency}
+          nftName={name}
+          collectionName={''}
+        />
+      )}
     </div>
   )
 }
