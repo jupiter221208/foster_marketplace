@@ -336,7 +336,7 @@ const MainSection = ({
 
     await checkTokenExpiration()
 
-    const result = await offerNFT(mx, mintAddress, price)
+    const result = await offerNFT(mx, mintAddress, parseFloat(price))
     await updateSolBalance()
     if (result) {
       listingsAPI.makeOffer(mintAddress, { amount: price.toString() }).then(response => {
@@ -1144,23 +1144,36 @@ const MainSection = ({
                       </div>
                     </div>
                   </>
-                ) : nftInfo && isOwnNft && connected ? (
-                  <div className="w-full flex gap-[20px] mt-[20px]">
-                    <OutlineButton
-                      label="Start Auction"
-                      onClick={() => setShowStartAuctionModal(true)}
-                      color="var(--main-bg-color)"
-                      borderColor="#707070"
-                      borderWidth="2"
-                      fullWidth
-                    />
-                    <GradientButton
-                      label={'List NFT'}
-                      fullWidth
-                      onClick={() => setShowListNFTModal(true)}
-                      direction="rtl"
-                    />
-                  </div>
+                ) : nftInfo && connected ? (
+                  isOwnNft ? (
+                    <div className="w-full flex gap-[20px] mt-[20px]">
+                      <OutlineButton
+                        label="Start Auction"
+                        onClick={() => setShowStartAuctionModal(true)}
+                        color="var(--main-bg-color)"
+                        borderColor="#707070"
+                        borderWidth="2"
+                        fullWidth
+                      />
+                      <GradientButton
+                        label={'List NFT'}
+                        fullWidth
+                        onClick={() => setShowListNFTModal(true)}
+                        direction="rtl"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-full flex gap-[20px] mt-[20px]">
+                      <OutlineButton
+                        label="Make Offer"
+                        onClick={() => setOpenOfferModal(true)}
+                        color="var(--main-bg-color)"
+                        borderColor="#707070"
+                        borderWidth="2"
+                        fullWidth
+                      />
+                    </div>
+                  )
                 ) : (
                   <div></div>
                 )}

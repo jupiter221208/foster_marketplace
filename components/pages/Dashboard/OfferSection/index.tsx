@@ -65,6 +65,7 @@ const OfferSection = () => {
   useEffect(() => {
     ;(async () => {
       // dispatch({ type: 'set', isLoading: true })
+      setOfferLoaded(false)
       try {
         if (shownOfferType === 'made') await fetchOffersMade()
         else if (shownOfferType === 'received') await fetchOffersReceived()
@@ -125,7 +126,6 @@ const OfferSection = () => {
 
     const result = await acceptOffer(mx, bid)
     if (result) {
-      fetchOffersReceived(true)
       setAlertData([
         {
           id: 0,
@@ -135,6 +135,11 @@ const OfferSection = () => {
         },
       ])
       setShowAlert(true)
+
+      setOfferLoaded(false)
+      await fetchOffersReceived(true)
+      setOfferLoaded(true)
+
       listingsAPI
         .acceptOffer(bid.asset.mintAddress.toBase58(), {
           buyer_wallet_id: bid.buyerAddress.toBase58(),
@@ -142,6 +147,15 @@ const OfferSection = () => {
         })
         .then(response => {
           console.log(response)
+          usersAPI.getLockupValues().then(
+            response => {
+              dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
+              dispatch({ type: 'set', offerWalletLock: response.offer_wallet_lock })
+            },
+            error => {
+              console.log(error)
+            }
+          )
         }),
         error => {
           console.log(error)
@@ -174,7 +188,7 @@ const OfferSection = () => {
         />
       </div>
       {!offerLoaded ? (
-        <div className="col-span-12">
+        <div className="col-span-12 mt-10">
           <LoadingModal open={!offerLoaded} />
         </div>
       ) : shownOfferListChunk.length > 0 ? (
