@@ -168,7 +168,7 @@ const MainSection = ({
   const [save, setSave] = useState<boolean>(false)
   const [saveCount, setSaveCount] = useState(0)
   const [showSaveModal, setShowSaveModal] = useState(false)
-  const [isOwnNft, setIsOwnNft] = useState(false)
+  const [isOwnNft, setIsOwnNft] = useState(null)
   const [play, setPlay] = useState(false)
 
   const clickRecent = index => {
@@ -488,7 +488,7 @@ const MainSection = ({
 
     setFinalizeData(data)
 
-    if (isOwnNft) {
+    if (isOwnNft === true) {
       let deficit = await getBuyerEscrowBalanceDeficit(mx, new PublicKey(highBidder), data.price)
       if (deficit > 0) {
         // show confirm dialog
@@ -934,7 +934,7 @@ const MainSection = ({
                     <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                   </div>
 
-                  {!isOwnNft && (
+                  {isOwnNft === false && (
                     <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
                       {tradeStateAddress ? (
                         <GradientButton
@@ -967,9 +967,9 @@ const MainSection = ({
                   )}
 
                   <div className="w-full flex content-none mt-[14px]">
-                    {isOwnNft ? (
+                    {isOwnNft === true ? (
                       <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
-                    ) : (
+                    ) : isOwnNft === false ? (
                       <p className={styles.whiteDescription}>
                         By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
                         <span
@@ -979,12 +979,14 @@ const MainSection = ({
                           Terms of Service
                         </span>
                       </p>
+                    ) : (
+                      <></>
                     )}
                   </div>
                 </>
               ) : getTimeDifference(endTime) < 0 &&
                 nftCurrentPrice > 0 &&
-                (isOwnNft || publicKey?.toBase58() === highBidder) &&
+                (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                 connected ? (
                 <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
                   <OutlineButton
@@ -1000,7 +1002,7 @@ const MainSection = ({
                 <>
                   <div
                     className={`mt-10 w-full ${
-                      showPlaceBidButton && !isOwnNft ? 'h-[130px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
+                      showPlaceBidButton && isOwnNft === false ? 'h-[130px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
                     } relative`}
                   >
                     <div className={styles.auctionContainer}>
@@ -1012,7 +1014,7 @@ const MainSection = ({
                         setIsEnded={setIsEnded}
                         setIsStarted={setIsStarted}
                       />
-                      {!loading && showPlaceBidButton && !isOwnNft && (
+                      {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
                           <div
                             className={`${styles.placeBidBG} ${
@@ -1044,8 +1046,8 @@ const MainSection = ({
                     </div>
                   </div>
                 </>
-              ) : nftInfo && connected ? (
-                isOwnNft ? (
+              ) : !loading && nftInfo && connected ? (
+                isOwnNft === true ? (
                   <div className="w-full flex gap-[20px] mt-[20px]">
                     <OutlineButton
                       label="Start Auction"
@@ -1062,7 +1064,7 @@ const MainSection = ({
                       direction="rtl"
                     />
                   </div>
-                ) : (
+                ) : isOwnNft === false ? (
                   <div className="w-full flex gap-[20px] mt-[20px]">
                     <OutlineButton
                       label="Make Offer"
@@ -1073,6 +1075,8 @@ const MainSection = ({
                       fullWidth
                     />
                   </div>
+                ) : (
+                  <></>
                 )
               ) : (
                 <div></div>
