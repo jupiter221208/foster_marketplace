@@ -391,7 +391,10 @@ const DaoLandingDetail = props => {
           <div className={styles.treasuryContainer}>
             <div className={styles.thresholdText}>Ends</div>
             <div>
-              <div className={styles.thresholdCurrent}>{getTimeLabel(getEndDate())}</div>
+              <div className={styles.thresholdCurrent}>
+                Proposal Expiration
+                {/* {getTimeLabel(getEndDate())} */}
+              </div>
               <div className={styles.thresholdValue}>{getDateLabel(getEndDate())}</div>
             </div>
           </div>
