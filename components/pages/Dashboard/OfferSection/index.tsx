@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // components
 import OfferTable from 'components/Table/OfferTable'
@@ -29,6 +30,8 @@ import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/
 const OfferSection = () => {
   const viewport = useViewport()
   const { publicKey, signMessage } = useWallet()
+  const router = useRouter()
+  const { filter } = router.query
 
   const [shownOfferType, setShownOfferType] = useState<'made' | 'received'>('made')
   const [offersMade, setOffersMade] = useState<LazyBidWithAsset[] | null>(null)
@@ -57,10 +60,17 @@ const OfferSection = () => {
   const fetchOffersReceived = useCallback(
     async (force: boolean = false) => {
       if (!mx || (offersReceived && !force)) return
-      setOffersReceived(await getReceivedBids(mx))
+      let received = await getReceivedBids(mx)
+      setOffersReceived(received.reverse())
     },
     [mx, offersReceived]
   )
+
+  useEffect(() => {
+    if (filter === '1') {
+      setShownOfferType('received')
+    }
+  }, [filter])
 
   useEffect(() => {
     ;(async () => {
@@ -72,7 +82,7 @@ const OfferSection = () => {
       } catch (e) {
         console.error(e)
       }
-      // dispatch({ type: 'set', isLoading: false })
+      dispatch({ type: 'set', isLoading: false })
       setOfferLoaded(true)
     })()
   }, [shownOfferType, fetchOffersMade, fetchOffersReceived])

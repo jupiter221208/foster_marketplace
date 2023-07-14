@@ -474,9 +474,7 @@ const Step01CollectionSection = props => {
                     />
                   </div>
 
-                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-                    Royalties * <InfoCircleLightGreenIcon alt="" />
-                  </div>
+                  <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>Royalties *</div>
 
                   <div className="max-w-[370px] w-full mt-5">
                     <Input
@@ -726,9 +724,7 @@ const Step01CollectionSection = props => {
                 onChange={value => onChangeDescription(value)}
               />
             </div>
-            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>
-              Royalties * <InfoCircleLightGreenIcon alt="" />
-            </div>
+            <div className={`${styles.subTitle} mt-10 flex justify-start items-center gap-2`}>Royalties *</div>
             <div className="max-w-[370px] w-full mt-5">
               <Input
                 value={royalties}
