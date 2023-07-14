@@ -110,8 +110,8 @@ const DaoLandingDetail = props => {
     setAlertData([
       {
         id: 0,
-        title: 'Casted Vote',
-        description: `You've successfully casted your vote for ${proposal.title}`,
+        title: 'Cast Vote',
+        description: `You've successfully cast your vote for ${proposal.title}`,
         type: 'success',
       },
     ])
@@ -207,6 +207,7 @@ const DaoLandingDetail = props => {
         onRefreshProposal()
         getVoteHistory()
 
+        setDisabledVote(true)
         setTimeout(() => {
           setIsLoading(false)
           setTimeout(() => {
