@@ -55,7 +55,7 @@ const HiddenSection = () => {
   return (
     <section className={styles.container}>
       {!loading && allNftList.length === 0 && (
-        <div className={styles.comingSoon}>This feature is not available but is coming soon.</div>
+        <div className={styles.comingSoon}>You don&apos;t have any hidden nfts.</div>
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {!loading &&
