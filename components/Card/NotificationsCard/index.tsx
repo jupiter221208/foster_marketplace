@@ -195,7 +195,7 @@ const NotificationsCard = props => {
     switch (type) {
       case 'offer':
         dispatch({ type: 'set', isLoading: true })
-        router.push(`/dashboard?tab=6`)
+        router.push(`/dashboard?tab=6&filter=1`)
         break
       case 'bid':
       case 'save_nft':
@@ -285,11 +285,11 @@ const NotificationsCard = props => {
                           </span>
                         )}
                       </p>
-                      {/* {elem.notification_type !== 'following' && (
+                      {elem.notification_type === 'offer' && (
                         <div className={styles.viewDetails} onClick={() => gotoDetailPage(elem)}>
                           {getViewDetail(elem)}
                         </div>
-                      )} */}
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-end">
