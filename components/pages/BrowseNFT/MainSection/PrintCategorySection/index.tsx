@@ -55,29 +55,35 @@ const PrintCategorySection = props => {
         <div className={styles.selecteCategory}>Select Category</div>
       </div>
       <div className="w-full flex-wrap h-auto flex gap-[15px] mt-[48px]">
-        <div className="w-[220px] h-[220px] relative rounded-[10px] overflow-hidden">
+        <div
+          className="w-[220px] h-[220px] relative rounded-[10px] overflow-hidden"
+          onClick={() => onDetail('apparel')}
+        >
           <Image src={PrintApparelImage} alt="" />
           <div className={styles.bottomView}>
             <div className={styles.cardTitle}>Apparel</div>
-            <div onClick={() => onDetail('apparel')}>
+            <div>
               <ArrowRightEllipse alt="" />
             </div>
           </div>
         </div>
-        <div className="w-[220px] h-[220px] relative rounded-[10px] overflow-hidden">
+        <div className="w-[220px] h-[220px] relative rounded-[10px] overflow-hidden" onClick={() => onDetail('wall')}>
           <Image src={PrintWallArtImage} alt="" />
           <div className={styles.bottomView}>
             <div className={styles.cardTitle}>Wall Art</div>
-            <div onClick={() => onDetail('wall')}>
+            <div>
               <ArrowRightEllipse alt="" />
             </div>
           </div>
         </div>
-        <div className="w-[220px] h-[220px] relative rounded-[10px] overflow-hidden">
+        <div
+          className="w-[220px] h-[220px] relative rounded-[10px] overflow-hidden"
+          onClick={() => onDetail('accessories')}
+        >
           <Image src={PrintAccessoriesImage} alt="" />
           <div className={styles.bottomView}>
             <div className={styles.cardTitle}>Accessories</div>
-            <div onClick={() => onDetail('accessories')}>
+            <div>
               <ArrowRightEllipse alt="" />
             </div>
           </div>
