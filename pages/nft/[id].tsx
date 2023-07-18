@@ -169,9 +169,9 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
               reloadNftData={reloadNftData}
             />
           )}
-          {collectionId && <MoreCollectionSection collectionId={collectionId} />}
+          {/* {collectionId && <MoreCollectionSection collectionId={collectionId} />}
           {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-          <MoreCategorySection categories={categories} />
+          <MoreCategorySection categories={categories} /> */}
         </div>
       </div>
 

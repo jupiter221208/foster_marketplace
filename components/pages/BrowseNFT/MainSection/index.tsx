@@ -42,6 +42,7 @@ import { loadAuctionHouse } from 'utils/auction.util'
 import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
+import PrintApparelSection from 'assets/images/apparel.png'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
@@ -1513,6 +1514,40 @@ const MainSection = ({
                       </>
                     )}
                   </Disclosure>
+                </div>
+                <div className="w-full flex">
+                  <div className="w-[50%] flex">
+                    <div className="w-[199px] h-[199px]">
+                      <div className="w-full relative flex justify-center">
+                        <Image src={PrintApparelSection} alt="" />
+                        <div className="absolute w-[40px] h-[40px] mt-[65px]">
+                          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                        </div>
+                      </div>
+                      <div className={styles.categoryText}>Apparel</div>
+                    </div>
+                    <div className="mt-8 ml-3">
+                      <div className={styles.printText}>Mens / Unisex</div>
+                      <div className={styles.printText}>Womens</div>
+                      <div className={styles.printText}>Youth</div>
+                    </div>
+                  </div>
+                  <div className="w-[50%] flex">
+                    <div>
+                      <div className="w-[127px] h-[157px] mx-8 mt-8">
+                        <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                      </div>
+                      <div className="mt-[10px]">
+                        <div className={styles.categoryText}>Physical Print</div>
+                      </div>
+                    </div>
+                    <div className="mt-4 ml-3">
+                      <div className={styles.printText}>Arcrylic</div>
+                      <div className={styles.printText}>Metal</div>
+                      <div className={styles.printText}>Canvas</div>
+                      <div className={styles.printText}>Poster</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

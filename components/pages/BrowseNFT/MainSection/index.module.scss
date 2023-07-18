@@ -638,3 +638,20 @@
   font-size: 18px;
   color: var(--text-gray-200-color);
 }
+
+.printText {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  text-decoration: underline;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.categoryText {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
