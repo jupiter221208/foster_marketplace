@@ -114,8 +114,8 @@ const MerchSection = props => {
   const [openWallArtDetail, setOpenWallArtDetail] = useState(data?.category === 'print')
 
   const [finishEditing, setFinishEditing] = useState(false)
-  const [showApparelMode, setShowApparelMode] = useState(false)
-  const [showWallArtMode, setShowWallArtMode] = useState(false)
+  const [showApparelMode, setShowApparelMode] = useState(data?.category === 'apparel')
+  const [showWallArtMode, setShowWallArtMode] = useState(data?.category === 'print')
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
@@ -174,7 +174,7 @@ const MerchSection = props => {
               open={openApparelDetail}
               subCategory={data?.subCategory}
               onBack={() => {
-                setOpenApparelDetail(false)
+                openNftPage()
               }}
               setFinishEditing={editing => setFinishEditing(editing)}
               setApparel={apparel => setApparel(apparel)}
@@ -187,7 +187,7 @@ const MerchSection = props => {
               open={openWallArtDetail}
               subCategory={data?.subCategory}
               onBack={() => {
-                setOpenWallArtDetail(false)
+                openNftPage()
               }}
               setFinishEditing={editing => setFinishEditing(editing)}
               setWallArt={image => setWallArt(image)}
