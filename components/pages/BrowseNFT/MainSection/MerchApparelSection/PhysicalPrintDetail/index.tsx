@@ -29,7 +29,7 @@ import { useViewport } from 'utils'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName } = props
+  const { onBack, onPrint, onShipping, data, setData, nftName, subCategory } = props
   const viewport = useViewport()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
@@ -48,6 +48,11 @@ const PhysicalPrintDetail = props => {
       setGender(data.gender)
     }
   }, [data])
+
+  useEffect(() => {
+    let gender = GenderType.filter(item => item.type === subCategory)
+    setGender(gender[0])
+  }, [subCategory])
 
   useEffect(() => {
     if (gender.hasOwnProperty('id')) {

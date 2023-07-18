@@ -27,7 +27,7 @@ import { useViewport } from 'utils'
 // api
 
 const WallArtDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName, nftImage } = props
+  const { onBack, onPrint, onShipping, subCategory, data, setData, nftName, nftImage } = props
   const viewport = useViewport()
   const [print, setPrint] = useState({ name: '', type: '', image: '' })
   const [orientation, setOrientation] = useState({ name: '', type: '' })
@@ -38,6 +38,11 @@ const WallArtDetail = props => {
   const [cost, setCost] = useState('----')
   const [openEditorModal, setOpenEditorModal] = useState(false)
   const [cropImage, setCropImage] = useState(null)
+
+  useEffect(() => {
+    let print = PrintType.filter(item => item.type === subCategory)
+    setPrint(print[0])
+  }, [subCategory])
 
   useEffect(() => {
     if (data !== null) {

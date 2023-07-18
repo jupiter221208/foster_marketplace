@@ -20,7 +20,7 @@ import { useConnection } from '@solana/wallet-adapter-react'
 import { useRouter } from 'next/router'
 
 const ReportMobileModal = props => {
-  const { open, close, address, onClick, onClickPrint, nftType } = props
+  const { open, close, address, onClick, nftType } = props
   const { connection } = useConnection()
   const router = useRouter()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
@@ -70,13 +70,6 @@ const ReportMobileModal = props => {
                   <Image src={NounProhibitIcon} alt="" />
                   Report an Issue
                 </div>
-
-                {nftType && (
-                  <div className={styles.menuItem} onClick={() => onClickPrint()}>
-                    <PhysicalPrintIcon alt="" />
-                    Purchase Physical Print
-                  </div>
-                )}
 
                 <div className="w-full flex justify-center">
                   <div className={styles.cancel} onClick={close}>

@@ -31,7 +31,7 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const ReportMenu = props => {
-  const { address, onClickReport, onClickPrint, nftType } = props
+  const { address, onClickReport, nftType } = props
   const viewport = useViewport()
 
   const [hover, setHover] = useState(false)
@@ -121,7 +121,7 @@ const ReportMenu = props => {
                   </div>
                 )}
               </Menu.Item>
-              {nftType.includes('image') && (
+              {/* {nftType.includes('image') && (
                 <Menu.Item>
                   {({ active }) => (
                     <div
@@ -139,7 +139,7 @@ const ReportMenu = props => {
                     </div>
                   )}
                 </Menu.Item>
-              )}
+              )} */}
             </div>
           </Menu.Items>
         </Transition>
