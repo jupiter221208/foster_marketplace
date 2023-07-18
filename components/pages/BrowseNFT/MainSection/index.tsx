@@ -1420,27 +1420,29 @@ const MainSection = ({
               </div>
               {nftType.includes('image') && (
                 <div className="w-full flex flex-wrap">
-                  <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0">
-                    <div className="w-[199px] h-[199px]">
-                      <div className="w-full relative flex justify-center">
-                        <Image src={PrintApparelSection} alt="" />
-                        <div className="absolute w-[40px] h-[40px] mt-[65px]">
-                          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                  <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0 items-">
+                    <div className="w-[199px] h-[199px] flex items-center">
+                      <div>
+                        <div className="w-full relative flex justify-center">
+                          <Image src={PrintApparelSection} alt="" />
+                          <div className="absolute w-[40px] h-[40px] mt-[65px]">
+                            <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                          </div>
                         </div>
-                      </div>
-                      <div
-                        className={styles.categoryText}
-                        onClick={() => {
-                          let params = {
-                            nftName,
-                            nftCoverUrl,
-                            category: 'apparel',
-                            subCategory: '',
-                          }
-                          openMerchPage(params)
-                        }}
-                      >
-                        Apparel
+                        <div
+                          className={styles.categoryText}
+                          onClick={() => {
+                            let params = {
+                              nftName,
+                              nftCoverUrl,
+                              category: 'apparel',
+                              subCategory: '',
+                            }
+                            openMerchPage(params)
+                          }}
+                        >
+                          Apparel
+                        </div>
                       </div>
                     </div>
                     <div className="mt-8 ml-3">
@@ -1489,25 +1491,27 @@ const MainSection = ({
                     </div>
                   </div>
                   <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0">
-                    <div>
-                      <div className="w-[127px] h-[157px] mx-8 mt-8 relative flex">
-                        <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
-                        <div className={styles.printTemple} />
-                      </div>
-                      <div className="mt-[10px]">
-                        <div
-                          className={styles.categoryText}
-                          onClick={() => {
-                            let params = {
-                              nftName,
-                              nftCoverUrl,
-                              category: 'print',
-                              subCategory: '',
-                            }
-                            openMerchPage(params)
-                          }}
-                        >
-                          Physical Print
+                    <div className="flex items-center">
+                      <div>
+                        <div className="w-[127px] h-[157px] mx-8 mt-8 relative flex">
+                          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                          <div className={styles.printTemple} />
+                        </div>
+                        <div className="mt-[10px]">
+                          <div
+                            className={styles.categoryText}
+                            onClick={() => {
+                              let params = {
+                                nftName,
+                                nftCoverUrl,
+                                category: 'print',
+                                subCategory: '',
+                              }
+                              openMerchPage(params)
+                            }}
+                          >
+                            Physical Print
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -7,7 +7,7 @@
     min-height: calc(100vh - 100px - 60px);
   }
 
-  padding: 20px 16px;
+  padding: 0px 16px 20px 16px;
   @media (min-width: 640px) {
     padding: 28px 25px 28px 25px;
   }
@@ -21,7 +21,7 @@
     padding: 38px 40px 38px 40px;
   }
   @media (min-width: 1536px) {
-    padding: 40px 45px 40px 45px;
+    padding: 20px 45px 40px 45px;
   }
 
   background: var(--nft-detail-bg);

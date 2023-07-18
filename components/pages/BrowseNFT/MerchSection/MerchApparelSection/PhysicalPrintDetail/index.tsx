@@ -160,11 +160,10 @@ const PhysicalPrintDetail = props => {
         <div className={styles.selecteCategory}>{nftName} - Apparel</div>
       </div>
       <div className={styles.description}>
-        Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Foster
-        is on a mission to help creators monetize their intellectual property in more than one way. Our Design Studio is
-        simple to use and gives you the tools to foster your creative flavor.
+        Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Our
+        creator merch hub is simple to use and gives you the tools to foster your creative flavor.
       </div>
-      <div className="w-full mt-[30px] lg:mt-[65px]">
+      <div className="w-full mt-[30px] lg:mt-[40px]">
         <Selection label="GENDER:" data={GenderType} selected={gender?.name} onSelect={item => setGender(item)} />
       </div>
       <div className="w-full mt-[25px]">
@@ -193,7 +192,7 @@ const PhysicalPrintDetail = props => {
           onChange={event => setQuantity(parseInt(event.target.value))}
         />
       </div>
-      <div className="w-full mt-[30px] lg:mt-[60px] flex">
+      <div className="w-full mt-[30px] lg:mt-[30px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
         <div className="flex ml-[10px] lg:ml-[20px] items-center">
           <div className={styles.price}>$ {cost}</div>
@@ -204,7 +203,7 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
       </div>
-      <div className="w-full mt-[50px] flex gap-[30px]">
+      <div className="w-full mt-[40px] flex gap-[30px]">
         <GradientButton
           disabled={!enabled}
           label="Next"

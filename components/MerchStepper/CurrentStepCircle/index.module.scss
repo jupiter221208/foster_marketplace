@@ -1,0 +1,45 @@
+@import 'assets/scss/variable.module.scss';
+
+.outerCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  @media (min-width: 1024px) {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  }
+  background-color: transparent;
+  border: 2px solid var(--step-circle-mobile-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 36px;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    // // background-color: var(--brand-09-color);
+    // color: var(--text-gray-800-color);
+  }
+  font-size: 18px;
+  line-height: 24px;
+  background-color: var(--step-circle-mobile-color);
+  color: var(--step-text-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Muli-Bold';
+
+  letter-spacing: 0;
+}

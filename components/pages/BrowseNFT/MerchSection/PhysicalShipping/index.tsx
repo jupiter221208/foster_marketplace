@@ -75,7 +75,8 @@ const PhysicalShipping = props => {
       street,
       zipCode,
     }
-    onNext(checkout)
+    console.log(checkout)
+    // onNext(checkout)
   }
 
   useEffect(() => {
@@ -129,7 +130,7 @@ const PhysicalShipping = props => {
         </div>
         <div className={styles.selecteCategory}>Add Shipping Details</div>
       </div>
-      <div className="w-full mt-[30px]">
+      <div className="w-full mt-[20px]">
         <div className={styles.label}>Email *</div>
         <div className="w-full mt-[10px]">
           <input
@@ -140,7 +141,7 @@ const PhysicalShipping = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[30px]">
+      <div className="w-full mt-[10px]">
         <div className={styles.label}>Shipping Address *</div>
         <div className="mt-[10px] ">
           <CountrySelect
@@ -186,22 +187,22 @@ const PhysicalShipping = props => {
         </div>
         <div className="w-full mt-[10px]">
           <input
-            value={apartment}
-            placeholder="Apartment / Suite"
-            className={styles.inputArea}
-            onChange={event => setApartment(event.target.value)}
-          />
-        </div>
-        <div className="w-full mt-[10px]">
-          <input
             value={zipCode}
             placeholder="ZIP Code"
             className={styles.inputArea}
             onChange={event => setZipCode(event.target.value)}
           />
         </div>
+        <div className="w-full mt-[10px]">
+          <input
+            value={apartment}
+            placeholder="Apartment / Suite"
+            className={styles.inputArea}
+            onChange={event => setApartment(event.target.value)}
+          />
+        </div>
       </div>
-      <div className="w-full mt-[40px] flex gap-[30px]">
+      <div className="w-full mt-[20px]">
         <GradientButton
           disabled={!enabled}
           label="Proceed to Checkout"

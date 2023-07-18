@@ -1,30 +1,28 @@
 import React, { useState } from 'react'
 
-// components
-
-// custom functions
-
 //component
 import PhysicalPrintDetail from './PhysicalPrintDetail'
 import PhysicalShipping from '../PhysicalShipping'
 import PhysicalCheckout from '../PhysicalCheckout'
+import MerchStepper from 'components/MerchStepper'
 
-// json
-
-// styles
-
-// api
+import styles from './index.module.scss'
+import PhysicalShippingMethod from '../PhysicalShippingMethod'
 
 const MerchApparelSection = props => {
   const { nftName, subCategory, open, onBack, setFinishEditing, setShowApparelMode, setApparel } = props
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
+  const [openShippingMethod, setOpenShippingMethod] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
-
+  const [currentStep, setCurrentStep] = useState(1)
   return (
-    <section>
+    <section className={styles.container}>
+      <div className="w-full mb-[45px]">
+        <MerchStepper currentStep={currentStep} />
+      </div>
       {openPrintDetail ? (
         <PhysicalPrintDetail
           onBack={() => {
@@ -41,6 +39,7 @@ const MerchApparelSection = props => {
             setOpenPrintDetail(false)
             setOpenShippingDetail(true)
             setFinishEditing(true)
+            setCurrentStep(2)
           }}
           data={printData}
           subCategory={subCategory}
@@ -54,13 +53,27 @@ const MerchApparelSection = props => {
             setOpenPrintDetail(true)
             setOpenShippingDetail(false)
             setFinishEditing(false)
+            setCurrentStep(1)
           }}
           onNext={info => {
             setShippingData(info)
             setOpenShippingDetail(false)
-            setOpenCheckoutView(true)
+            setOpenShippingMethod(true)
+            setCurrentStep(2)
           }}
           data={shippingData}
+        />
+      ) : openShippingMethod ? (
+        <PhysicalShippingMethod
+          data={printData}
+          shippingData={shippingData}
+          nftName={nftName}
+          type="apparel"
+          onBack={() => {
+            setOpenShippingDetail(true)
+            setOpenCheckoutView(false)
+            setCurrentStep(3)
+          }}
         />
       ) : openCheckoutView ? (
         <PhysicalCheckout
@@ -71,6 +84,7 @@ const MerchApparelSection = props => {
           onBack={() => {
             setOpenShippingDetail(true)
             setOpenCheckoutView(false)
+            setCurrentStep(2)
           }}
         />
       ) : (
