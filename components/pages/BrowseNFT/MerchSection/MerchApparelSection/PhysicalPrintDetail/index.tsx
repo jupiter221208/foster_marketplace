@@ -50,8 +50,10 @@ const PhysicalPrintDetail = props => {
   }, [data])
 
   useEffect(() => {
-    let gender = GenderType.filter(item => item.type === subCategory)
-    setGender(gender[0])
+    if (subCategory.length > 0) {
+      let gender = GenderType.filter(item => item.type === subCategory)
+      setGender(gender[0])
+    }
   }, [subCategory])
 
   useEffect(() => {

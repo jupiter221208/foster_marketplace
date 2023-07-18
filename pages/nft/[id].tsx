@@ -6,12 +6,13 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toOriginalEditionAccount, type OriginalEditionAccountData } from '@metaplex-foundation/js'
+import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseNFT/MainSection'
+import MerchSection from 'components/pages/BrowseNFT/MerchSection'
 import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
 import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
@@ -56,6 +57,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
+  const [openMerchPage, setOpenMerchPage] = useState(false)
+  const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const profileInfo = useSelector(state => (state as any).profileInfo)
@@ -158,21 +161,37 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         <div className={styles.bottomLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className="z-10">
-          {nftDetail && (
-            <MainSection
-              nftDetail={nftDetail}
-              editionDetail={editionDetail}
-              artistInfo={artistInfo}
-              nftInfo={nftInfo}
-              setFullScreenView={setFullScreenView}
-              reloadNftData={reloadNftData}
+        {openMerchPage ? (
+          <div className="z-10">
+            <MerchSection
+              data={merchData}
+              openNftPage={() => {
+                setOpenMerchPage(false)
+              }}
             />
-          )}
-          {collectionId && <MoreCollectionSection collectionId={collectionId} />}
-          {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-          <MoreCategorySection categories={categories} />
-        </div>
+          </div>
+        ) : (
+          <div className="z-10">
+            {nftDetail && (
+              <MainSection
+                nftDetail={nftDetail}
+                editionDetail={editionDetail}
+                artistInfo={artistInfo}
+                nftInfo={nftInfo}
+                setFullScreenView={setFullScreenView}
+                reloadNftData={reloadNftData}
+                openMerchPage={data => {
+                  console.log(data)
+                  setMerchData(data)
+                  setOpenMerchPage(true)
+                }}
+              />
+            )}
+            {collectionId && <MoreCollectionSection collectionId={collectionId} />}
+            {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
+            <MoreCategorySection categories={categories} />
+          </div>
+        )}
       </div>
 
       {fullScreenMode && (

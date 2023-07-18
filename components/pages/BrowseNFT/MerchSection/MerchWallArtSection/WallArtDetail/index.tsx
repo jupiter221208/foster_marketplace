@@ -40,8 +40,10 @@ const WallArtDetail = props => {
   const [cropImage, setCropImage] = useState(null)
 
   useEffect(() => {
-    let print = PrintType.filter(item => item.type === subCategory)
-    setPrint(print[0])
+    if (subCategory.length > 0) {
+      let print = PrintType.filter(item => item.type === subCategory)
+      setPrint(print[0])
+    }
   }, [subCategory])
 
   useEffect(() => {

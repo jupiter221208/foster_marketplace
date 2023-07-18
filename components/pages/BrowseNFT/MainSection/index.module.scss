@@ -646,6 +646,9 @@
   text-decoration: underline;
   margin-top: 20px;
   cursor: pointer;
+  &:hover {
+    color: var(--main-icon-color);
+  }
 }
 
 .categoryText {
@@ -654,6 +657,10 @@
   line-height: 20px;
   color: var(--text-gray-200-color);
   text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .printTemple {
