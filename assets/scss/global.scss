@@ -847,7 +847,7 @@ h6 {
 #CheckoutTable th {
   border-style: solid none solid none;
   padding: 4px;
-  background: var(--artwork-tbl-header-bg);
+  background: var(--stats-bg-color);
   height: 30px;
 
   font-family: 'Muli-SemiBold';
@@ -872,14 +872,10 @@ h6 {
   color: var(--text-gray-200-color);
 }
 #CheckoutTable th:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
   border-left-style: solid;
 }
 
 #CheckoutTable th:last-child {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
   border-right-style: solid;
 }
 

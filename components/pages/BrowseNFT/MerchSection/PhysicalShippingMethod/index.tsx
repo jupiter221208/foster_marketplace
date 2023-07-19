@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from 'react'
 
 // next components
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import Image from 'next/image'
 
 // custom functions
 import { useViewport } from 'utils'
 
-// json
-import DomesticType from 'assets/json/print/domestic-ship.json'
-import InternationType from 'assets/json/print/international-ship.json'
-
 // images
-import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
-import USDCIcon from 'assets/icons/usdc-icon.svg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { getFirstUpperString } from 'utils/helpers'
 import ShippingSelect from 'components/Select/ShippingSelect'
@@ -29,14 +19,10 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 // api
 
 const PhysicalShippingMethod = props => {
-  const { onBack, onNext, data, shippingData, allShippingMethod, method, selectedMethod, nftName, type } = props
+  const { onBack, onNext, data, shippingData, allShippingMethod, method, selectedMethod, nftName, type, setTotalCost } =
+    props
   const viewport = useViewport()
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const [currency, setCurrency] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
-  const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState(null)
@@ -76,19 +62,6 @@ const PhysicalShippingMethod = props => {
         ' x ' +
         data.size.height
     }
-    let quantity = data['quantity']
-    let shipping =
-      shippingData['street'] +
-      '<br/>' +
-      shippingData['city'] +
-      ', ' +
-      shippingData['state'].name +
-      ', ' +
-      shippingData['zipCode'] +
-      '<br/>' +
-      shippingData['country'].name
-
-    setList([{ name, quantity, shipping }])
 
     if (isUniteState()) {
       let methods = allShippingMethod.shippingMethods.filter(
@@ -107,6 +80,7 @@ const PhysicalShippingMethod = props => {
 
       setTax(tax)
       setTotal(total)
+      setTotalCost(total)
     }
   }, [shipping])
 
@@ -186,7 +160,7 @@ const PhysicalShippingMethod = props => {
           onClick={() => onCheckout()}
         />
       </div>
-      <ProgressingModal open={isLoading} />
+
       <Alert
         open={showAlert}
         close={() => {

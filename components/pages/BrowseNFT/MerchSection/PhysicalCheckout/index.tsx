@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
-import { useViewport } from 'utils'
+import { useViewport, fetchSolToUsdRate, ensureMaxDecimals } from 'utils'
 
 // json
 import DomesticType from 'assets/json/print/domestic-ship.json'
@@ -17,6 +17,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
+import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -29,7 +30,7 @@ import { getFirstUpperString } from 'utils/helpers'
 // api
 
 const PhysicalCheckout = props => {
-  const { onBack, onNext, data, shippingData, nftName, type } = props
+  const { onBack, onNext, data, shippingData, nftName, type, total } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -38,7 +39,7 @@ const PhysicalCheckout = props => {
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
-  const [shipping, setShipping] = useState(null)
+  const [solToUsdRate, setSolToUsdRate] = useState(null)
 
   useEffect(() => {
     setAlertData([
@@ -87,9 +88,7 @@ const PhysicalCheckout = props => {
 
     setList([{ name, quantity, shipping }])
 
-    if (!isUniteState()) {
-      setShipping(InternationType[0])
-    }
+    fetchSolToUsdRate().then(setSolToUsdRate)
   }, [])
 
   const onCheckout = () => {
@@ -124,6 +123,7 @@ const PhysicalCheckout = props => {
       <div className="mt-[20px] hidden lg:block">
         <TableSection data={list} />
       </div>
+      <div className={styles.tableDivider} />
 
       <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
         <div className="w-[286px] h-[160px] relative hidden lg:block">
@@ -181,7 +181,6 @@ const PhysicalCheckout = props => {
           )
         })}
       </div>
-      <div className={styles.tableDivider} />
 
       {/* SOL / USDC */}
       <div className="w-full h-auto relative lg:hidden mt-[30px]">
@@ -208,7 +207,20 @@ const PhysicalCheckout = props => {
         </div>
       </div>
 
-      <div className="w-full mt-[30px]">
+      <div className="w-full mt-[60px]">
+        <div className="w-full flex justify-between mb-[30px] px-[5px]">
+          <div className={styles.orderTotal}>TOTAL</div>
+          <div className="flex gap-2 items-center">
+            <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
+            <div className={styles.costDivider} />
+            <div className="flex gap-1 items-center">
+              <SolanaIcon alt="" />
+              <div className={styles.totalPrice}>
+                {total && solToUsdRate ? ensureMaxDecimals(total / solToUsdRate, 2) : '---'}
+              </div>
+            </div>
+          </div>
+        </div>
         <GradientButton
           disabled={currency.length === 0}
           label="Place Order"

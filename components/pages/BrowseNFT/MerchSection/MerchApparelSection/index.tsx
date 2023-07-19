@@ -19,6 +19,7 @@ const MerchApparelSection = props => {
   const [shippingData, setShippingData] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
+  const [totalCost, setTotalCost] = useState(null)
   return (
     <section className={styles.container}>
       <div className="w-full mb-[45px]">
@@ -72,6 +73,7 @@ const MerchApparelSection = props => {
           shippingData={shippingData}
           allShippingMethod={shipppingMethod}
           nftName={nftName}
+          setTotalCost={setTotalCost}
           type="apparel"
           onBack={() => {
             setOpenShippingMethod(false)
@@ -90,6 +92,7 @@ const MerchApparelSection = props => {
           shippingData={shippingData}
           nftName={nftName}
           type="apparel"
+          total={totalCost}
           onBack={() => {
             setOpenShippingMethod(true)
             setOpenCheckoutView(false)
