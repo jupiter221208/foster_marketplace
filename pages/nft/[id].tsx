@@ -181,7 +181,6 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
                 setFullScreenView={setFullScreenView}
                 reloadNftData={reloadNftData}
                 openMerchPage={data => {
-                  console.log(data)
                   setMerchData(data)
                   setOpenMerchPage(true)
                 }}

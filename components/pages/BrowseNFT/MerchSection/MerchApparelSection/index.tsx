@@ -17,6 +17,7 @@ const MerchApparelSection = props => {
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
+  const [shipppingMethod, setShippingMethod] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   return (
     <section className={styles.container}>
@@ -56,17 +57,20 @@ const MerchApparelSection = props => {
             setCurrentStep(1)
           }}
           onNext={info => {
-            setShippingData(info)
+            setShippingData(info.data)
+            setShippingMethod(info.method)
             setOpenShippingDetail(false)
             setOpenShippingMethod(true)
             setCurrentStep(2)
           }}
+          printData={printData}
           data={shippingData}
         />
       ) : openShippingMethod ? (
         <PhysicalShippingMethod
           data={printData}
           shippingData={shippingData}
+          shippingMethod={shipppingMethod}
           nftName={nftName}
           type="apparel"
           onBack={() => {

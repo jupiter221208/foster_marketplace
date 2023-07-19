@@ -52,7 +52,6 @@ const PhysicalCheckout = props => {
     ])
 
     let name = ''
-    console.log(data)
     if (type === 'apparel') {
       name =
         nftName +

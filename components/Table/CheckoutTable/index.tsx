@@ -9,7 +9,6 @@ import { useRouter } from 'next/router'
 
 const CheckoutTable = props => {
   const { data } = props
-  console.log(data)
   return (
     <table id={'CheckoutTable'} className="w-full table-auto">
       <thead>

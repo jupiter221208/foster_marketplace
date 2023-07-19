@@ -672,7 +672,6 @@ const MainSection = ({
     } else {
       nftsAPI.unsaveNft(id).then(
         response => {
-          console.log(response)
           if (response !== null) {
             setSaveCount(saveCount - 1)
             setSave(newStatus)

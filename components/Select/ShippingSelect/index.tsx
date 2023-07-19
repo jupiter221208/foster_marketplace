@@ -7,14 +7,14 @@ import styles from './index.module.scss'
 
 const ShippingSelect = props => {
   const { data, selected, onChange } = props
-
+  console.log('=============data===========', data)
   return (
     <div className="w-full">
       <Listbox value={selected} onChange={item => onChange(item)}>
         <div className="w-full relative">
           <Listbox.Button className={styles.container}>
             {selected ? (
-              <span className="block truncate">{selected.name}</span>
+              <span className="block truncate">{selected.serviceName}</span>
             ) : (
               <div className={styles.placeholder}>{'Choose your delivery option'}</div>
             )}
@@ -26,13 +26,15 @@ const ShippingSelect = props => {
           <Transition leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
             <div className={styles.menuBlur}>
               <Listbox.Options className={styles.menuArea}>
-                {data.map((item, index) => (
+                {data?.map((item, index) => (
                   <Listbox.Option
                     key={index}
                     className={({ active }) => `${styles.menuItem} ${active ? styles.activeMenuItem : ''}`}
                     value={item}
                   >
-                    {({ selected }) => <span className={selected ? styles.activeMenuItem : ''}>{item.name}</span>}
+                    {({ selected }) => (
+                      <span className={selected ? styles.activeMenuItem : ''}>{item.serviceName}</span>
+                    )}
                   </Listbox.Option>
                 ))}
               </Listbox.Options>

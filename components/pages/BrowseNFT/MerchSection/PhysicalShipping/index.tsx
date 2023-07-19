@@ -21,9 +21,12 @@ import CountrySelect from 'components/Select/CountrySelect'
 import GradientButton from 'components/Button/GradientButton'
 
 // api
+import merchAPI from 'apis/merch'
+import LoadingButton from 'components/Button/LoadingButton'
+import Alert from 'components/Alert'
 
 const PhysicalShipping = props => {
-  const { onBack, onNext, data } = props
+  const { onBack, onNext, data, printData } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -37,6 +40,17 @@ const PhysicalShipping = props => {
   const [zipCode, setZipCode] = useState('')
   const [country, setCountry] = useState(null)
   const [state, setState] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [showAlert, setShowAlert] = useState(false)
+
+  const alertData = [
+    {
+      id: 0,
+      title: 'Shipping Method Failure',
+      description: `You didn't find shipping method!`,
+      type: 'failure',
+    },
+  ]
 
   useEffect(() => {
     if (shipping) {
@@ -66,7 +80,7 @@ const PhysicalShipping = props => {
   }
 
   const proceedToCheckout = () => {
-    let checkout = {
+    let data = {
       email,
       country,
       state,
@@ -75,8 +89,36 @@ const PhysicalShipping = props => {
       street,
       zipCode,
     }
-    console.log(checkout)
-    // onNext(checkout)
+    const { apparel, gender, quality, color, print, quantity, size } = printData
+    let item_id = apparel[gender.type][quality.type][color.type].item_id
+    let params = {
+      toPostalCode: zipCode,
+      toCountry: country.isoCode,
+      toState: state.isoCode,
+      cartItems: [
+        {
+          id: item_id.toString(),
+          quantity,
+          customization: {
+            size: size.name,
+            color: color.type,
+            sideOfPrint: print.name,
+          },
+          notes: `This is apparel ${apparel.description} item`,
+        },
+      ],
+    }
+    setIsLoading(true)
+    merchAPI.prepareCart(params).then(
+      response => {
+        onNext({ data, method: response })
+        setIsLoading(false)
+      },
+      error => {
+        setIsLoading(false)
+        setShowAlert(true)
+      }
+    )
   }
 
   useEffect(() => {
@@ -203,15 +245,27 @@ const PhysicalShipping = props => {
         </div>
       </div>
       <div className="w-full mt-[20px]">
-        <GradientButton
-          disabled={!enabled}
-          label="Proceed to Checkout"
-          fullWidth
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-          onClick={() => proceedToCheckout()}
-        />
+        {isLoading ? (
+          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
+        ) : (
+          <GradientButton
+            disabled={!enabled}
+            label="Proceed to Checkout"
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+            onClick={() => proceedToCheckout()}
+          />
+        )}
       </div>
+
+      <Alert
+        open={showAlert}
+        close={() => {
+          setShowAlert(false)
+        }}
+        data={alertData}
+      />
     </section>
   )
 }

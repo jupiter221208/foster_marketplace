@@ -29,7 +29,7 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 // api
 
 const PhysicalShippingMethod = props => {
-  const { onBack, onNext, data, shippingData, nftName, type } = props
+  const { onBack, onNext, data, shippingData, shippingMethod, nftName, type } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -39,6 +39,9 @@ const PhysicalShippingMethod = props => {
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   const [shipping, setShipping] = useState(null)
+  const [shippingMethods, setShippingMethods] = useState(null)
+  const [tax, setTax] = useState(null)
+  const [total, setTotal] = useState(null)
 
   useEffect(() => {
     setAlertData([
@@ -51,7 +54,6 @@ const PhysicalShippingMethod = props => {
     ])
 
     let name = ''
-    console.log(data)
     if (type === 'apparel') {
       name =
         nftName +
@@ -88,10 +90,25 @@ const PhysicalShippingMethod = props => {
 
     setList([{ name, quantity, shipping }])
 
-    if (!isUniteState()) {
-      setShipping(InternationType[0])
+    if (isUniteState()) {
+      let methods = shippingMethod.shippingMethods.filter(
+        item =>
+          item.serviceName === 'USPS Priority Mail - Package' ||
+          item.serviceName === 'USPS Priority Mail Express - Package'
+      )
+      setShippingMethods(methods)
     }
   }, [])
+
+  useEffect(() => {
+    if (shipping) {
+      let tax = Math.floor(shipping.shipmentCost * shippingMethod.taxPercent) / 100
+      let total = parseFloat(data.cost) + shipping.shipmentCost + tax
+
+      setTax(tax)
+      setTotal(total)
+    }
+  }, [shipping])
 
   const onCheckout = () => {
     setIsLoading(true)
@@ -126,7 +143,7 @@ const PhysicalShippingMethod = props => {
       </div>
       <div className="mt-[12px]">
         <ShippingSelect
-          data={isUniteState() ? DomesticType : InternationType}
+          data={shippingMethods}
           selected={shipping}
           onChange={item => setShipping(item)}
           maxHeight="none"
@@ -151,15 +168,15 @@ const PhysicalShippingMethod = props => {
                 HANDLING
               </div>
               <div className={styles.subPrice}>
-                <div>Shipping: $---</div>
-                <div className="mt-[20px]">Handling Fee: $---</div>
-                <div className="mt-[20px]">Tax: $---</div>
+                <div>Shipping: ${shipping ? shipping.shipmentCost : '---'}</div>
+                {/* <div className="mt-[20px]">Handling Fee: ${shipping ? shipping.otherCost : '---'}</div> */}
+                <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
               </div>
             </div>
             <div className={`${styles.divider} mt-[15px]`} />
             <div className="w-full flex justify-between mt-[20px]">
               <div className={styles.orderTotal}>TOTAL</div>
-              <div className={styles.totalPrice}>$ ---</div>
+              <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
             </div>
           </div>
         </div>
@@ -167,7 +184,7 @@ const PhysicalShippingMethod = props => {
 
       <div className="w-full mt-[30px]">
         <GradientButton
-          disabled={currency.length === 0}
+          disabled={!total}
           label="Proceed to Checkout"
           fullWidth
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
