@@ -117,7 +117,7 @@ const LiveAuctionSection = props => {
                 <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
               )}
             </div>
-            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
               <TimeSlotButton
                 label="Starting Soon"
                 onClick={() => handleChangeActive(0)}
