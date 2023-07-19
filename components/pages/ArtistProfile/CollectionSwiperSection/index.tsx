@@ -47,7 +47,7 @@ const CollectionSwiperSection = props => {
 
   return collections.length === 0 ? (
     <section className={styles.container}>
-      <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">No data</div>
+      <div className={styles.noData}>No collections available</div>
     </section>
   ) : (
     <section className={styles.container}>
