@@ -8,8 +8,8 @@ import { Country, State } from 'country-state-city'
 
 // custom functions
 import { useViewport } from 'utils'
-
-// json
+import { useWallet } from '@solana/wallet-adapter-react'
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
@@ -28,6 +28,9 @@ import Alert from 'components/Alert'
 const PhysicalShipping = props => {
   const { onBack, onNext, data, printData } = props
   const viewport = useViewport()
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
+
   const router = useRouter()
   const dispatch = useDispatch()
   const [enabled, setEnabled] = useState(false)
@@ -80,6 +83,10 @@ const PhysicalShipping = props => {
   }
 
   const proceedToCheckout = () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
     let data = {
       email,
       country,
