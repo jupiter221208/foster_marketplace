@@ -29,7 +29,7 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 // api
 
 const PhysicalShippingMethod = props => {
-  const { onBack, onNext, data, shippingData, shippingMethod, nftName, type } = props
+  const { onBack, onNext, data, shippingData, allShippingMethod, method, selectedMethod, nftName, type } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -91,7 +91,7 @@ const PhysicalShippingMethod = props => {
     setList([{ name, quantity, shipping }])
 
     if (isUniteState()) {
-      let methods = shippingMethod.shippingMethods.filter(
+      let methods = allShippingMethod.shippingMethods.filter(
         item =>
           item.serviceName === 'USPS Priority Mail - Package' ||
           item.serviceName === 'USPS Priority Mail Express - Package'
@@ -102,7 +102,7 @@ const PhysicalShippingMethod = props => {
 
   useEffect(() => {
     if (shipping) {
-      let tax = Math.floor(shipping.shipmentCost * shippingMethod.taxPercent) / 100
+      let tax = Math.floor(shipping.shipmentCost * allShippingMethod.taxPercent) / 100
       let total = parseFloat(data.cost) + shipping.shipmentCost + tax
 
       setTax(tax)
@@ -111,13 +111,7 @@ const PhysicalShippingMethod = props => {
   }, [shipping])
 
   const onCheckout = () => {
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 500)
-    }, 3000)
+    onNext()
   }
 
   const isUniteState = () => {
@@ -168,7 +162,7 @@ const PhysicalShippingMethod = props => {
                 HANDLING
               </div>
               <div className={styles.subPrice}>
-                <div>Shipping: ${shipping ? shipping.shipmentCost : '---'}</div>
+                <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
                 {/* <div className="mt-[20px]">Handling Fee: ${shipping ? shipping.otherCost : '---'}</div> */}
                 <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
               </div>

@@ -70,12 +70,17 @@ const MerchApparelSection = props => {
         <PhysicalShippingMethod
           data={printData}
           shippingData={shippingData}
-          shippingMethod={shipppingMethod}
+          allShippingMethod={shipppingMethod}
           nftName={nftName}
           type="apparel"
           onBack={() => {
+            setOpenShippingMethod(false)
             setOpenShippingDetail(true)
-            setOpenCheckoutView(false)
+            setCurrentStep(2)
+          }}
+          onNext={() => {
+            setOpenShippingMethod(false)
+            setOpenCheckoutView(true)
             setCurrentStep(3)
           }}
         />
@@ -86,7 +91,7 @@ const MerchApparelSection = props => {
           nftName={nftName}
           type="apparel"
           onBack={() => {
-            setOpenShippingDetail(true)
+            setOpenShippingMethod(true)
             setOpenCheckoutView(false)
             setCurrentStep(2)
           }}

@@ -25,7 +25,6 @@ import TableSection from './TableSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
 import { getFirstUpperString } from 'utils/helpers'
-import ShippingSelect from 'components/Select/ShippingSelect'
 
 // api
 
@@ -45,8 +44,8 @@ const PhysicalCheckout = props => {
     setAlertData([
       {
         id: 0,
-        title: 'Checkout Success!',
-        description: 'You purchased the apparel successfully.',
+        title: 'PlaceOrder Success!',
+        description: 'You placed the order successfully.',
         type: 'success',
       },
     ])
@@ -121,49 +120,12 @@ const PhysicalCheckout = props => {
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
       </div>
-      <div className="mt-[45px]">
-        <div className={styles.shippingMethod}>Shipping Method*</div>
-      </div>
-      <div className="mt-[12px]">
-        <ShippingSelect
-          data={isUniteState() ? DomesticType : InternationType}
-          selected={shipping}
-          onChange={item => setShipping(item)}
-          maxHeight="none"
-        />
-      </div>
-      <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
-        <div className="w-[370px] h-[330px] relative">
-          <div className={styles.orderView}>
-            <div className="w-full flex items-center gap-[10px] -ml-[11px]">
-              <div className={styles.orderTicket}></div>
-              <div className={styles.orderTotal}>ORDER TOTAL</div>
-            </div>
-            <div className="w-full flex justify-between mt-[20px]">
-              <div className={styles.orderTotal}>SUBTOTAL</div>
-              <div className={styles.totalPrice}>${data.cost}</div>
-            </div>
-            <div className={`${styles.divider} mt-[15px]`} />
-            <div className="w-full flex justify-between mt-[15px]">
-              <div className={styles.orderTotal}>
-                SHIPPING AND
-                <br />
-                HANDLING
-              </div>
-              <div className={styles.subPrice}>
-                <div>Shipping: $---</div>
-                <div className="mt-[20px]">Handling Fee: $---</div>
-                <div className="mt-[20px]">Tax: $---</div>
-              </div>
-            </div>
-            <div className={`${styles.divider} mt-[15px]`} />
-            <div className="w-full flex justify-between mt-[20px]">
-              <div className={styles.orderTotal}>TOTAL</div>
-              <div className={styles.totalPrice}>$ ---</div>
-            </div>
-          </div>
-        </div>
 
+      <div className="mt-[20px] hidden lg:block">
+        <TableSection data={list} />
+      </div>
+
+      <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
         <div className="w-[286px] h-[160px] relative hidden lg:block">
           <div className={styles.paymentMethod}>Choose Payment Method*</div>
           <div className="w-full flex justify-between mt-[16px]">
@@ -187,9 +149,6 @@ const PhysicalCheckout = props => {
             </div>
           </div>
         </div>
-      </div>
-      <div className="mt-[20px] hidden lg:block">
-        <TableSection data={list} />
       </div>
 
       {/* Mobile Table */}
@@ -218,15 +177,6 @@ const PhysicalCheckout = props => {
                   <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
                 </div>
               </div>
-
-              {/* <td className="text-center">
-                <div className={styles.value}>{item.quantity}</div>
-              </td>
-              <td className="text-right">
-                <div className={`${styles.value} w-[240px]`}>
-                  <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
-                </div>
-              </td> */}
             </div>
           )
         })}
@@ -261,7 +211,7 @@ const PhysicalCheckout = props => {
       <div className="w-full mt-[30px]">
         <GradientButton
           disabled={currency.length === 0}
-          label="Proceed to Checkout"
+          label="Place Order"
           fullWidth
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
           fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
