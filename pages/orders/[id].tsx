@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
@@ -10,11 +10,18 @@ import MerchStepper from 'components/MerchStepper'
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
+import { getOrder, type OrderData } from 'apis/merch'
+
 const OrderSection = props => {
   const router = useRouter()
   const { id } = router.query
   const printImageUrl = useSelector(state => (state as any).printImageUrl)
   const merchData = useSelector(state => (state as any).merchData)
+
+  const [orderData, setOrderData] = useState<OrderData | null>(null)
+  useEffect(() => {
+    getOrder(id).then(setOrderData)
+  }, [id])
 
   return (
     <div className="g-container">
