@@ -29,8 +29,17 @@ import { getFirstUpperString } from 'utils/helpers'
 
 // api
 
-const PhysicalCheckout = props => {
-  const { onBack, onNext, data, shippingData, nftName, type, total } = props
+export interface PhysicalCheckoutProps {
+  data: any
+  shippingData: any
+  nftName: string
+  type: string
+  total?: number
+  onBack: () => any
+  onNext?: () => any
+}
+
+const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, total }: PhysicalCheckoutProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
