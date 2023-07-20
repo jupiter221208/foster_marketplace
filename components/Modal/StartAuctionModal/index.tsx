@@ -48,6 +48,9 @@ const StartAuctionModal = props => {
   const [days, setDays] = useState('')
   const [hours, setHours] = useState('')
   const [price, setPrice] = useState('')
+  const [selectedType, setSelectedType] = useState('')
+  const [startType, setStartType] = useState('')
+  const [durationType, setDurationType] = useState('')
   const [buttonDisabled, setButtonDisabled] = useState(true)
 
   const endDate = useMemo(() => {
@@ -245,10 +248,64 @@ const StartAuctionModal = props => {
                     <div className={styles.dateFont}>HOURS</div>
                   </div>
                 </div>
-                <div className="mt-2 w-full text-start">
-                  <div className={styles.label}>
-                    The auction is due to end <span className={styles.dateLabel}>{endDate.toLocaleDateString()}</span>
-                    {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' && '(in your local time)'}
+                {selectedType === 'schedule' && (
+                  <div className="w-full">
+                    <div className="w-full mt-[25px]">
+                      <div className={styles.auctionStart}>
+                        Auction Start <span className={styles.auctionAsterisk}>*</span>
+                      </div>
+                    </div>
+                    <div className="w-full flex gap-8 mt-[5px]">
+                      <div className="flex gap-4 items-center">
+                        <input
+                          className={styles.radio}
+                          type="radio"
+                          id="reserve"
+                          checked={startType === 'soon'}
+                          onChange={() => setStartType('soon')}
+                        />
+                        <div className={styles.radioText} onClick={() => setStartType('soon')}>
+                          Immediately
+                        </div>
+                      </div>
+                      <div className="flex gap-4 items-center">
+                        <input
+                          className={styles.radio}
+                          type="radio"
+                          id="reserve"
+                          checked={startType === 'later'}
+                          onChange={() => setStartType('later')}
+                        />
+                        <div>
+                          <div className="w-full startAuctionDatePicker">
+                            <div className="relative">
+                              <DatePicker
+                                selected={startDate}
+                                onChange={date => setStartDate(date)}
+                                dateFormat="MM/dd/yyyy h:mm aa"
+                                formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
+                                minDate={moment().toDate()}
+                                showTimeInput
+                                timeInputLabel=""
+                                className={styles.datePicker}
+                                disabled={startType === 'soon'}
+                                customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
+                              />
+                              <div className="absolute top-[20px] right-4">
+                                <ArrowDownIcon alt="" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="w-full mt-[25px]">
+                  <div className={styles.auctionStart}>
+                    What is the lowest price this artwork should sell for?{' '}
+                    <span className={styles.auctionAsterisk}>*</span>
                   </div>
                 </div>
                 <div className="mt-[49px] w-full">
