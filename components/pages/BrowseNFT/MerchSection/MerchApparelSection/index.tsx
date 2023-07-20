@@ -96,7 +96,7 @@ const MerchApparelSection = props => {
               totalCost,
             }
             dispatch({ type: 'set', merchData: data })
-            router.push(`/order/${orderId}`)
+            router.push(`/orders/${orderId}`)
           }}
         />
       ) : openCheckoutView ? (
