@@ -42,7 +42,9 @@ const OrderSection = props => {
                 nftName={merchData?.nftName}
                 type="apparel"
                 total={merchData?.totalCost}
-                onBack={() => {}}
+                onBack={() => {
+                  router.back()
+                }}
               />
             </div>
           </div>
