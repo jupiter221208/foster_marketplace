@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { fabric } from 'fabric'
 
 // styles
+import { useDispatch } from 'react-redux'
 import styles from './index.module.scss'
 import { FadeLoader } from 'react-spinners'
 import { useViewport } from 'utils'
@@ -9,10 +10,12 @@ import uploadFileToS3 from 'apis/aws'
 import { dataURLtoFile } from 'utils/helpers'
 
 const ApparelSection = props => {
-  const { nftName, apparel, nftCoverUrl, finishEditing, setPrintImageUrl } = props
+  const { nftName, apparel, nftCoverUrl, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const viewport = useViewport()
+  const dispatch = useDispatch()
+
   useEffect(() => {
     const resizeFunction = () => {
       if (apparel) {
@@ -56,7 +59,7 @@ const ApparelSection = props => {
             quality: 1,
           })
           let imgUrl = await uploadApparelSection(imgDataString)
-          setPrintImageUrl(imgUrl)
+          dispatch({ type: 'set', printImageUrl: imgUrl })
         } else {
           newCanvas.item(1).selectable = true
         }

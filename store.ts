@@ -34,6 +34,8 @@ const initialState = {
   expiryDate: 0,
   showConnectAlert: false,
   loginSignedFlag: false,
+  printImageUrl: '',
+  merchData: null,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

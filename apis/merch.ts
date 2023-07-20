@@ -8,6 +8,12 @@ class MerchHub {
       return response.data
     })
   }
+
+  checkout(data) {
+    return client.post(API_URL + 'v1/merch/checkout', data).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new MerchHub()

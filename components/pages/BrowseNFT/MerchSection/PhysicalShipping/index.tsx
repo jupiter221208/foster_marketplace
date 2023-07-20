@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 // next components
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+
 // components
 import { Country, State } from 'country-state-city'
 
@@ -14,6 +13,8 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // images
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
+import LoadingButton from 'components/Button/LoadingButton'
+import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
@@ -22,8 +23,6 @@ import GradientButton from 'components/Button/GradientButton'
 
 // api
 import merchAPI from 'apis/merch'
-import LoadingButton from 'components/Button/LoadingButton'
-import Alert from 'components/Alert'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, data, printData } = props
@@ -31,8 +30,6 @@ const PhysicalShipping = props => {
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
 
-  const router = useRouter()
-  const dispatch = useDispatch()
   const [enabled, setEnabled] = useState(false)
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')

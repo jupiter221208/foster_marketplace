@@ -1,15 +1,10 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
 
 // components
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { useWallet } from '@solana/wallet-adapter-react'
-import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 import MerchApparelSection from './MerchApparelSection'
 import MerchWallArtSection from './MerchWallArtSection'
@@ -18,10 +13,6 @@ import WallSection from './MerchWallArtSection/WallSection'
 
 const MerchSection = props => {
   const { data, openNftPage } = props
-  const router = useRouter()
-  const dispatch = useDispatch()
-  const { connected, publicKey, signMessage } = useWallet()
-  const { setVisible } = useWalletModal()
   const [openApparelDetail, setOpenApparelDetail] = useState(data?.category === 'apparel')
   const [openWallArtDetail, setOpenWallArtDetail] = useState(data?.category === 'print')
 
@@ -30,18 +21,9 @@ const MerchSection = props => {
   const [showWallArtMode, setShowWallArtMode] = useState(data?.category === 'print')
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
-
-  const [alertData, setAlertData] = useState<any[]>([])
-
-  const gotoUserDetail = link => {
-    dispatch({ type: 'set', isLoading: true })
-    router.push(`/${link}`)
-  }
 
   const [apparel, setApparel] = useState(null)
   const [wallArt, setWallArt] = useState(null)
-  const [printImageUrl, setPrintImageUrl] = useState(null)
 
   return (
     <div className={styles.container}>
@@ -59,7 +41,6 @@ const MerchSection = props => {
                 apparel={apparel}
                 nftCoverUrl={data?.nftCoverUrl}
                 finishEditing={finishEditing}
-                setPrintImageUrl={setPrintImageUrl}
               />
             </div>
           </div>
@@ -112,14 +93,6 @@ const MerchSection = props => {
       </div>
 
       {openProgressingModal && <ProgressingModal open={openProgressingModal} />}
-
-      <Alert
-        open={showAlert}
-        close={() => {
-          setShowAlert(false)
-        }}
-        data={alertData}
-      />
     </div>
   )
 }

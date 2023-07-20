@@ -17,6 +17,8 @@ import { getFirstUpperString } from 'utils/helpers'
 import ShippingSelect from 'components/Select/ShippingSelect'
 
 // api
+import merchAPI from 'apis/merch'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const PhysicalShippingMethod = props => {
   const { onBack, onNext, data, shippingData, allShippingMethod, method, selectedMethod, nftName, type, setTotalCost } =
@@ -28,6 +30,7 @@ const PhysicalShippingMethod = props => {
   const [shippingMethods, setShippingMethods] = useState(null)
   const [tax, setTax] = useState(null)
   const [total, setTotal] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setAlertData([
@@ -85,6 +88,18 @@ const PhysicalShippingMethod = props => {
   }, [shipping])
 
   const onCheckout = () => {
+    setIsLoading(false)
+    let params = {}
+    merchAPI.prepareCart(params).then(
+      response => {
+        onNext({ data, method: response })
+        setIsLoading(false)
+      },
+      error => {
+        setIsLoading(false)
+        setShowAlert(true)
+      }
+    )
     onNext()
   }
 
@@ -151,14 +166,18 @@ const PhysicalShippingMethod = props => {
       </div>
 
       <div className="w-full mt-[30px]">
-        <GradientButton
-          disabled={!total}
-          label="Proceed to Checkout"
-          fullWidth
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-          onClick={() => onCheckout()}
-        />
+        {isLoading ? (
+          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
+        ) : (
+          <GradientButton
+            disabled={!total}
+            label="Proceed to Checkout"
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+            onClick={() => onCheckout()}
+          />
+        )}
       </div>
 
       <Alert

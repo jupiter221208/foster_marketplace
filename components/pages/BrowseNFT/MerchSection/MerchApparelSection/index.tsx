@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 //component
 import PhysicalPrintDetail from './PhysicalPrintDetail'
@@ -11,6 +13,8 @@ import PhysicalShippingMethod from '../PhysicalShippingMethod'
 
 const MerchApparelSection = props => {
   const { nftName, subCategory, open, onBack, setFinishEditing, setShowApparelMode, setApparel } = props
+  const router = useRouter()
+  const dispatch = useDispatch()
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openShippingMethod, setOpenShippingMethod] = useState(false)
@@ -80,10 +84,18 @@ const MerchApparelSection = props => {
             setOpenShippingDetail(true)
             setCurrentStep(2)
           }}
-          onNext={() => {
+          onNext={orderId => {
             setOpenShippingMethod(false)
-            setOpenCheckoutView(true)
-            setCurrentStep(3)
+            // setOpenCheckoutView(true)
+            // setCurrentStep(3)
+            let data = {
+              printData,
+              shippingData,
+              nftName,
+              totalCost,
+            }
+            dispatch({ type: 'set', merchData: data })
+            router.push(`/order/${orderId}`)
           }}
         />
       ) : openCheckoutView ? (
