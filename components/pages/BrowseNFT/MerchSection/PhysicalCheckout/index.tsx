@@ -50,7 +50,7 @@ const PhysicalCheckout = props => {
         type: 'success',
       },
     ])
-
+    if (!data) return
     let name = ''
     if (type === 'apparel') {
       name =

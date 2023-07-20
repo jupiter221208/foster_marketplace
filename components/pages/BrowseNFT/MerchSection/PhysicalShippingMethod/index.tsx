@@ -12,7 +12,6 @@ import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?compo
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
-import Alert from 'components/Alert'
 import { getFirstUpperString } from 'utils/helpers'
 import ShippingSelect from 'components/Select/ShippingSelect'
 
@@ -24,8 +23,6 @@ const PhysicalShippingMethod = props => {
   const { onBack, onNext, data, shippingData, allShippingMethod, method, selectedMethod, nftName, type, setTotalCost } =
     props
   const viewport = useViewport()
-  const [showAlert, setShowAlert] = useState(false)
-  const [alertData, setAlertData] = useState<any[]>([])
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState(null)
   const [tax, setTax] = useState(null)
@@ -33,15 +30,6 @@ const PhysicalShippingMethod = props => {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    setAlertData([
-      {
-        id: 0,
-        title: 'Checkout Success!',
-        description: 'You purchased the apparel successfully.',
-        type: 'success',
-      },
-    ])
-
     let name = ''
     if (type === 'apparel') {
       name =
@@ -88,19 +76,56 @@ const PhysicalShippingMethod = props => {
   }, [shipping])
 
   const onCheckout = () => {
-    setIsLoading(false)
-    let params = {}
-    merchAPI.prepareCart(params).then(
+    setIsLoading(true)
+    let address = {
+      name: shippingData.name,
+      company: 'USPS',
+      stree1: shippingData.street,
+      stree2: '',
+      stree3: '',
+      city: shippingData.city,
+      state: shippingData.state.isoCode,
+      postalCode: shippingData.zipCode,
+      country: shippingData.country.isoCode,
+      phone: '+1(555)-555-5555',
+      residential: true,
+    }
+    const { apparel, gender, quality, color, print, quantity, size } = data
+
+    let item_id = apparel[gender.type][quality.type][color.type].item_id
+    let item = {
+      id: item_id.toString(),
+      quantity,
+      customization: {
+        size: size.name,
+        color: color.type,
+        sideOfPrint: print.name,
+      },
+      notes: `This is apparel ${apparel.description} item`,
+    }
+    let params = {
+      customerEmail: shippingData.email,
+      shippingServiceCode: shipping.serviceCode,
+      billTo: address,
+      shipTo: address,
+      items: [item],
+      gift: true,
+      giftMessage: 'Fantastic Gift',
+      notes: 'Checkout Note',
+      paymentMethod: '',
+    }
+    console.log(params)
+
+    merchAPI.checkout(params).then(
       response => {
-        onNext({ data, method: response })
+        console.log(response)
+        onNext(response.orderNumber)
         setIsLoading(false)
       },
       error => {
         setIsLoading(false)
-        setShowAlert(true)
       }
     )
-    onNext()
   }
 
   const isUniteState = () => {
@@ -179,14 +204,6 @@ const PhysicalShippingMethod = props => {
           />
         )}
       </div>
-
-      <Alert
-        open={showAlert}
-        close={() => {
-          setShowAlert(false)
-        }}
-        data={alertData}
-      />
     </section>
   )
 }

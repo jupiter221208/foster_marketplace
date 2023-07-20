@@ -12,7 +12,7 @@ import styles from './index.module.scss'
 import PhysicalShippingMethod from '../PhysicalShippingMethod'
 
 const MerchApparelSection = props => {
-  const { nftName, subCategory, open, onBack, setFinishEditing, setShowApparelMode, setApparel } = props
+  const { nftName, nftCoverUrl, subCategory, open, onBack, setFinishEditing, setShowApparelMode, setApparel } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
@@ -85,13 +85,14 @@ const MerchApparelSection = props => {
             setCurrentStep(2)
           }}
           onNext={orderId => {
-            setOpenShippingMethod(false)
+            //setOpenShippingMethod(false)
             // setOpenCheckoutView(true)
             // setCurrentStep(3)
             let data = {
               printData,
               shippingData,
               nftName,
+              nftCoverUrl,
               totalCost,
             }
             dispatch({ type: 'set', merchData: data })

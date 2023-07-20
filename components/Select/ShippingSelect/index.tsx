@@ -7,7 +7,6 @@ import styles from './index.module.scss'
 
 const ShippingSelect = props => {
   const { data, selected, onChange } = props
-  console.log('=============data===========', data)
   return (
     <div className="w-full">
       <Listbox value={selected} onChange={item => onChange(item)}>

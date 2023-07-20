@@ -64,6 +64,7 @@ const MerchSection = props => {
           {openApparelDetail ? (
             <MerchApparelSection
               nftName={data?.nftName}
+              nftCoverUrl={data?.nftCoverUrl}
               open={openApparelDetail}
               subCategory={data?.subCategory}
               onBack={() => {
