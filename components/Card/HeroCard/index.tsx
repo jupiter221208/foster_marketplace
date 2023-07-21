@@ -57,6 +57,7 @@ const HeroCard = props => {
                 className="w-full h-full object-cover rounded-[24px]"
                 onLoad={() => {
                   setLoaded(true)
+                  dispatch({ type: 'set', firstLoaded: true })
                 }}
                 loading="lazy"
               />
