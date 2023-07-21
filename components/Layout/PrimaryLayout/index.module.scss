@@ -2,10 +2,34 @@
 
 .container {
   display: flex;
+  position: relative;
   flex-wrap: wrap;
   width: 100%;
   background-color: var(--background-main-color);
   justify-content: center;
   align-items: center;
   overflow: hidden;
+}
+
+.preLoaderView {
+  position: absolute;
+  inset: 0px;
+  background: rgba(#121212, 0.8);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(12px);
+  z-index: 10000;
+}
+
+.welcome {
+  font-family: 'Muli-SemiBold';
+  font-size: 30px;
+  line-height: 38px;
+  color: var(--text-gray-200-color);
+}
+
+.justDoArt {
+  font-family: 'Muli-Light';
+  font-size: 26px;
+  line-height: 32px;
+  color: var(--text-gray-200-color);
 }
