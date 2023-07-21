@@ -306,7 +306,7 @@ const Collection = () => {
     let collectionInfo = {
       collection_id: collectionNft.mintAddress.toString(),
       collection_name: collectionName,
-      description: description,
+      description: description.replaceAll('\n', ' '),
       banner_image: bannerAWSUrl,
       cover_image: coverAWSUrl,
       categories: category.slice(0, -1),
