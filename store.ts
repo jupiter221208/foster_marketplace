@@ -34,6 +34,7 @@ const initialState = {
   expiryDate: 0,
   showConnectAlert: false,
   loginSignedFlag: false,
+  firstLoaded: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {

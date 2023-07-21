@@ -198,6 +198,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
+        setIsLoaded(true)
         console.log(error)
       }
     )
@@ -224,6 +225,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
+        setIsLoaded(true)
         console.log(error)
       }
     )
@@ -310,6 +312,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           collections={collections}
           wallet={artistInfo?.wallet_id}
           isOwn={isOwn}
+          isLoaded={isLoaded}
           currentPage={currentPage}
           rowCount={rowCount}
           selectRowCount={count => selectRowCount(count)}

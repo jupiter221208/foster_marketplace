@@ -19,18 +19,22 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 
 const NFTSwiperSection = props => {
-  const { nfts, showHideButton } = props
+  const { nfts, showHideButton, isLoaded } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  return nfts.length === 0 ? (
+  return !isLoaded ? (
     <section className={styles.container}>
       <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">
         <div className="w-full flex justify-center">
           <FadeLoader color="#63D6CD" width="6" height="12" />
         </div>
       </div>
+    </section>
+  ) : nfts.length === 0 ? (
+    <section className={styles.container}>
+      <div className={styles.noData}>No artwork available</div>
     </section>
   ) : (
     <section className={styles.container}>
