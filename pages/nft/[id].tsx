@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toOriginalEditionAccount, type OriginalEditionAccountData } from '@metaplex-foundation/js'
+import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 
 // components
@@ -174,10 +174,9 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
           <MoreCategorySection categories={categories} />
         </div>
       </div>
-
       {fullScreenMode && (
         <div className={styles.fullScreen}>
-          <img src={nftCoverUrl} alt="" className="h-full object-fit" />
+          <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
           <div
             className={styles.closeScreen}
             onClick={() => {
@@ -189,6 +188,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
           </div>
         </div>
       )}
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
