@@ -342,29 +342,27 @@ const Step01CollectionSection = props => {
                     )}
                   </div>
                 </div>
-                <div className="relative -mt-[50px]">
-                  <div className="absolute mt-[50px] z-10">
-                    <div
-                      className={`${styles.dropzoneTitle} w-full flex justify-start items-center  mt-[15px] mb-[15px]`}
-                    >
-                      <div className={styles.collectionBannerImage}>Collection Banner Image</div>
+                <div className="absolute z-10">
+                  <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[10px] mb-[15px]`}>
+                    <div className={styles.collectionBannerImage}>Collection Banner Image</div>
 
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => {
-                          setBannerHelper(true)
-                          setTimeout(() => {
-                            setBannerHelper(false)
-                          }, 2000)
-                        }}
-                      >
-                        <InfoCircleLightGreenIcon alt="" />
-                      </div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setBannerHelper(true)
+                        setTimeout(() => {
+                          setBannerHelper(false)
+                        }, 2000)
+                      }}
+                    >
+                      <InfoCircleLightGreenIcon alt="" />
                     </div>
-                    {bannerHelper && (
-                      <div className={styles.bannerRecommend}>Recommended dimensions are 1620px by 460px</div>
-                    )}
                   </div>
+                  {bannerHelper && (
+                    <div className={styles.bannerRecommend}>Recommended dimensions are 1620px by 460px</div>
+                  )}
+                </div>
+                <div className="relative mt-[60px]">
                   <div className="w-full flex justify-center z-0">
                     <div className={styles.coverImageArea}>
                       {coverCroppedImage === undefined && coverImage === undefined ? (
@@ -442,7 +440,7 @@ const Step01CollectionSection = props => {
                       )}
                     </div>
                   </div>
-                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[15px]`}>
+                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
                     Collection Cover Image
                     <div
                       className="cursor-pointer"
