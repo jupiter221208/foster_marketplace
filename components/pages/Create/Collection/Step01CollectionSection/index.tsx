@@ -674,7 +674,9 @@ const Step01CollectionSection = props => {
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full relative z-10">
-              <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px]`}>
+              <div
+                className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px] gap-[10px]`}
+              >
                 Collection Banner Image
                 <div
                   className="cursor-pointer"
