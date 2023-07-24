@@ -3,6 +3,7 @@ import React from 'react'
 // next components
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // custom components
 import OutlineButton from 'components/Button/OutlineButton'
@@ -21,7 +22,7 @@ const SearchBox = props => {
   const { value, placeholder, onChange, searchList, onClick, onClose } = props
   const viewport = useViewport()
   const router = useRouter()
-
+  const dispatch = useDispatch()
   return (
     <div className={styles.container}>
       <div className={styles.searchArea}>
@@ -138,6 +139,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.id}`)
                   onClose()
                 }}
@@ -164,6 +166,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/${item.name}`)
                   onClose()
                 }}
@@ -197,6 +200,7 @@ const SearchBox = props => {
                 key={index}
                 className={styles.selection}
                 onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
                   router.push(`/collection/${item.id}`)
                   onClose()
                 }}
