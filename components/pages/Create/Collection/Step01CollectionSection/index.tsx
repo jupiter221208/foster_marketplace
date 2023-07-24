@@ -259,7 +259,7 @@ const Step01CollectionSection = props => {
               <div className="w-full mt-[57px]">
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
-                    {bannerImage === undefined ? (
+                    {bannerCroppedImage === undefined ? (
                       <div>
                         <Dropzone
                           onDrop={acceptedFiles => {
@@ -289,9 +289,7 @@ const Step01CollectionSection = props => {
                     ) : (
                       <div>
                         <Image
-                          src={
-                            bannerCroppedImage !== undefined ? bannerCroppedImage : URL.createObjectURL(bannerImage[0])
-                          }
+                          src={bannerCroppedImage}
                           width={758}
                           height={194}
                           alt=""
@@ -324,7 +322,7 @@ const Step01CollectionSection = props => {
                                     height={30}
                                     iconWidth={15}
                                     iconHeight={15}
-                                    icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                                    icon={EditorGreenIcon}
                                     onClick={() => {}}
                                     // onClick={() => {
                                     //   dropzoneBannerEl?.current?.open()
@@ -365,7 +363,7 @@ const Step01CollectionSection = props => {
                 <div className="relative mt-[60px]">
                   <div className="w-full flex justify-center z-0">
                     <div className={styles.coverImageArea}>
-                      {coverCroppedImage === undefined && coverImage === undefined ? (
+                      {coverCroppedImage === undefined ? (
                         <Dropzone
                           onDropAccepted={acceptedFiles => {
                             acceptedFiles.length !== 0
@@ -393,9 +391,7 @@ const Step01CollectionSection = props => {
                       ) : (
                         <div>
                           <Image
-                            src={
-                              coverCroppedImage !== undefined ? coverCroppedImage : URL.createObjectURL(coverImage[0])
-                            }
+                            src={coverCroppedImage}
                             width={200}
                             height={200}
                             alt=""
@@ -425,7 +421,7 @@ const Step01CollectionSection = props => {
                                       height={30}
                                       iconWidth={15}
                                       iconHeight={15}
-                                      icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                                      icon={EditorGreenIcon}
                                       onClick={() => {}}
                                       backgroundColor="rgba(55, 130, 135, 0.3)"
                                       borderColor="transparent"
@@ -597,7 +593,7 @@ const Step01CollectionSection = props => {
 
             <div className="w-full z-0">
               <div className={styles.coverImageArea}>
-                {coverCroppedImage === undefined && coverImage === undefined ? (
+                {coverCroppedImage === undefined ? (
                   <Dropzone
                     onDropAccepted={acceptedFiles => {
                       acceptedFiles.length !== 0
@@ -625,7 +621,7 @@ const Step01CollectionSection = props => {
                 ) : (
                   <div>
                     <Image
-                      src={coverCroppedImage !== undefined ? coverCroppedImage : URL.createObjectURL(coverImage[0])}
+                      src={coverCroppedImage}
                       width={140}
                       height={140}
                       alt=""
@@ -655,7 +651,7 @@ const Step01CollectionSection = props => {
                                 height={30}
                                 iconWidth={15}
                                 iconHeight={15}
-                                icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                                icon={EditorGreenIcon}
                                 onClick={() => {}}
                                 backgroundColor="rgba(55, 130, 135, 0.3)"
                                 borderColor="transparent"
@@ -700,7 +696,7 @@ const Step01CollectionSection = props => {
 
             <div className="w-full z-0">
               <div className={styles.bannerImageArea}>
-                {bannerImage === undefined ? (
+                {bannerCroppedImage === undefined ? (
                   <div>
                     <Dropzone
                       onDrop={acceptedFiles => {
@@ -730,7 +726,7 @@ const Step01CollectionSection = props => {
                 ) : (
                   <div className="relative">
                     <Image
-                      src={bannerCroppedImage !== undefined ? bannerCroppedImage : URL.createObjectURL(bannerImage[0])}
+                      src={bannerCroppedImage}
                       width={375}
                       height={120}
                       alt=""
@@ -760,7 +756,7 @@ const Step01CollectionSection = props => {
                                 height={30}
                                 iconWidth={15}
                                 iconHeight={15}
-                                icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
+                                icon={EditorGreenIcon}
                                 onClick={() => {}}
                                 backgroundColor="rgba(55, 130, 135, 0.3)"
                                 borderColor="transparent"

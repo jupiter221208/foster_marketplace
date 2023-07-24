@@ -38,14 +38,9 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
   const showConnectAlert = useSelector<any>(state => state.showConnectAlert)
   const { connected } = useWallet()
   const lightDarkMode = useSelector(state => (state as any).lightMode)
-  const [firstLoad, setFirstLoad] = useState(true)
   const firstLoaded = useSelector<any>(state => state.firstLoaded)
-
   useEffect(() => {
     setColorTheme(lightDarkMode)
-    // setTimeout(() => {
-    //   setFirstLoad(false)
-    // }, 5000)
   }, [])
 
   return (
