@@ -850,6 +850,7 @@ const MainSection = ({
                       <MerchToggleDisabledIcon
                         alt=""
                         onClick={() => {
+                          console.log('=========111=========')
                           setCreateMerchModal(true)
                         }}
                       />
@@ -1440,7 +1441,7 @@ const MainSection = ({
                   )}
                 </Disclosure>
               </div>
-              {nftType.includes('image') && (
+              {nftType.includes('image') && merchToggle && (
                 <div className="w-full flex flex-wrap">
                   <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0 items-">
                     <div className="w-[199px] h-[199px] flex items-center">
@@ -1708,15 +1709,21 @@ const MainSection = ({
       )}
       {createMerchModal && (
         <CreateMerchSudioModal
-          onContinue={() => setMerchToggle(true)}
-          open={deficencyModal}
+          onContinue={() => {
+            setMerchToggle(true)
+            setCreateMerchModal(false)
+          }}
+          open={createMerchModal}
           close={() => setCreateMerchModal(false)}
         />
       )}
       {removeMerchModal && (
         <RemoveMerchSudioModal
-          onContinue={() => setMerchToggle(false)}
-          open={deficencyModal}
+          onContinue={() => {
+            setMerchToggle(false)
+            setRemoveMerchModal(false)
+          }}
+          open={removeMerchModal}
           close={() => setRemoveMerchModal(false)}
         />
       )}
