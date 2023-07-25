@@ -114,6 +114,7 @@ import { getShortAddress } from 'utils/wallet.util'
 import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
+import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -280,6 +281,8 @@ const MainSection = ({
   const [activityList, setActivityList] = useState([])
   const [merchToggle, setMerchToggle] = useState(false)
   const [createMerchModal, setCreateMerchModal] = useState(false)
+  const [removeMerchModal, setRemoveMerchModal] = useState(false)
+
   const [isRunning, setIsRunning] = useState(false)
   const { id } = router.query
 
@@ -837,7 +840,12 @@ const MainSection = ({
                   )}
                   {isOwnNft &&
                     (merchToggle ? (
-                      <MerchToggleEnabledIcon alt="" />
+                      <MerchToggleEnabledIcon
+                        alt=""
+                        onClick={() => {
+                          setRemoveMerchModal(true)
+                        }}
+                      />
                     ) : (
                       <MerchToggleDisabledIcon
                         alt=""
@@ -1702,7 +1710,14 @@ const MainSection = ({
         <CreateMerchSudioModal
           onContinue={() => setMerchToggle(true)}
           open={deficencyModal}
-          close={() => setDeficencyModal(false)}
+          close={() => setCreateMerchModal(false)}
+        />
+      )}
+      {removeMerchModal && (
+        <RemoveMerchSudioModal
+          onContinue={() => setMerchToggle(false)}
+          open={deficencyModal}
+          close={() => setRemoveMerchModal(false)}
         />
       )}
       {openShareModal && (
