@@ -59,7 +59,7 @@ const CreateMerchSudioModal = props => {
                   />
                 </div>
                 <div className="w-full mt-4 lg:mt-1">
-                  <div className={styles.title}>CreateMerchSudioModal</div>
+                  <div className={styles.title}>Create Merch Sudio</div>
                 </div>
 
                 <div className="w-full mt-3 lg:mt-5">
