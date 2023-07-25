@@ -153,6 +153,52 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
   return nftData
 }
 
+export interface GetMyNFTsDasNft {
+  id: string
+  interface: string
+  content: any
+  authorities: any
+  compression: any
+  creators: any[]
+  ownership: any
+  supply: number
+}
+
+export async function getMyNFTsDas(mx: Metaplex): Promise<GetMyNFTsDasNft[]> {
+  let rpcEndpoint = mx.connection.rpcEndpoint
+  if (!new URL(rpcEndpoint).hostname.endsWith('helius.xyz')) throw new Error(`needs helius rpc, found: ${rpcEndpoint}`)
+
+  let {
+    result: { items },
+  } = await fetch(rpcEndpoint, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      id: 'getMyNFTsDas',
+      method: 'getAssetsByOwner',
+      params: {
+        ownerAddress: mx.identity().publicKey,
+        page: 1,
+      },
+    }),
+  }).then(r => r.json())
+
+  items.forEach(item => {
+    item.mintAddress = new PublicKey(item.id)
+    item.json = {
+      image: item.content?.files?.[0]?.cdn_uri,
+      animation_url: item.content?.files?.[1]?.cdn_uri,
+      ...item.content.metadata,
+      ...item.content,
+    }
+  })
+
+  return items
+}
+
 export async function getMyCollectionNFTs(mx: Metaplex) {
   let nfts = await mx.nfts().findAllByOwner({ owner: mx.identity().publicKey })
   let identity = mx.identity().publicKey
