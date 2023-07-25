@@ -69,8 +69,8 @@ const CreateMerchSudioModal = props => {
                     10% commission from the sale.
                     <br />
                     <br />
-                    By clicking 'continue' you are providing consent to Foster Marketplace to enable e-commerce
-                    purchases and fulfillment of this artwork.
+                    By clicking &apos;continue&apos; you are providing consent to Foster Marketplace to enable
+                    e-commerce purchases and fulfillment of this artwork.
                     <br />
                   </div>
                 </div>
