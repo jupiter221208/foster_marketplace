@@ -29,6 +29,7 @@ const NFTSection = props => {
     collections,
     wallet,
     isOwn,
+    isLoaded,
     currentPage,
     rowCount,
     selectRowCount,
@@ -101,7 +102,7 @@ const NFTSection = props => {
       </div>
       {activeTab === 0 && (
         <div className="w-full flex flex-wrap">
-          <NFTSwiperSection nfts={nfts} showHideButton={isOwn} />
+          <NFTSwiperSection nfts={nfts} showHideButton={isOwn} isLoaded={isLoaded} />
           <div className="w-full flex justify-end">
             <ArtistPagination
               currentPage={currentPage}

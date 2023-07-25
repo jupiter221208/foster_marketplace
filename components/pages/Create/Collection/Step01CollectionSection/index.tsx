@@ -64,8 +64,8 @@ const Step01CollectionSection = props => {
   } = props
   const viewport = useViewport()
 
-  const dropzoneBannerEl = useRef(null)
-  const dropzoneCoverEl = useRef(null)
+  // const dropzoneBannerEl = useRef(null)
+  // const dropzoneCoverEl = useRef(null)
 
   // variables
   const [showAlert, setShowAlert] = useState(false)
@@ -259,7 +259,7 @@ const Step01CollectionSection = props => {
               <div className="w-full mt-[57px]">
                 <div className="w-full">
                   <div className={styles.bannerImageArea}>
-                    {bannerImage === undefined ? (
+                    {bannerCroppedImage === undefined ? (
                       <div>
                         <Dropzone
                           onDrop={acceptedFiles => {
@@ -276,9 +276,6 @@ const Step01CollectionSection = props => {
                         >
                           {({ getRootProps, getInputProps, open }) => (
                             <section className={styles.dropzone}>
-                              <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
-                                open
-                              </button>
                               <div {...getRootProps()} className={styles.selectBannerArea}>
                                 <input {...getInputProps()} />
                                 <p className={styles.subTitle}>Upload Here</p>
@@ -292,59 +289,81 @@ const Step01CollectionSection = props => {
                     ) : (
                       <div>
                         <Image
-                          src={
-                            bannerCroppedImage !== undefined ? bannerCroppedImage : URL.createObjectURL(bannerImage[0])
-                          }
+                          src={bannerCroppedImage}
                           width={758}
                           height={194}
                           alt=""
                           objectFit="cover"
                           className="rounded-[20px]"
                         />
-                        <div className="absolute bottom-2 right-[10px]">
-                          <IconButton
-                            width={30}
-                            height={30}
-                            iconWidth={15}
-                            iconHeight={15}
-                            icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                            onClick={() => dropzoneBannerEl.current.click()}
-                            backgroundColor="rgba(55, 130, 135, 0.3)"
-                            borderColor="transparent"
-                            borderRadius="100%"
-                          />
+                        <div className="absolute bottom-2 right-[10px] z-[1000]">
+                          <Dropzone
+                            onDrop={acceptedFiles => {
+                              acceptedFiles.length !== 0
+                                ? onChangeBannerImage(acceptedFiles)
+                                : handleShowAlert('banner', 'uknown')
+                            }}
+                            onDropRejected={rejectedFiles => {
+                              handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
+                            }}
+                            maxFiles={1}
+                            accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                            maxSize={31457280}
+                          >
+                            {({ getRootProps, getInputProps, open }) => (
+                              <section>
+                                <button onClick={open} style={{ display: 'none' }}>
+                                  open
+                                </button>
+                                <div {...getRootProps()}>
+                                  <input {...getInputProps()} />
+                                  <IconButton
+                                    width={30}
+                                    height={30}
+                                    iconWidth={15}
+                                    iconHeight={15}
+                                    icon={EditorGreenIcon}
+                                    onClick={() => {}}
+                                    // onClick={() => {
+                                    //   dropzoneBannerEl?.current?.open()
+                                    // }}
+                                    backgroundColor="rgba(55, 130, 135, 0.3)"
+                                    borderColor="transparent"
+                                    borderRadius="100%"
+                                  />
+                                </div>
+                              </section>
+                            )}
+                          </Dropzone>
                         </div>
                       </div>
                     )}
                   </div>
                 </div>
-                <div className="relative -mt-[50px]">
-                  <div className="absolute mt-[50px] z-10">
-                    <div
-                      className={`${styles.dropzoneTitle} w-full flex justify-start items-center  mt-[15px] mb-[15px]`}
-                    >
-                      <div className={styles.collectionBannerImage}>Collection Banner Image</div>
+                <div className="absolute z-10">
+                  <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[10px] mb-[15px]`}>
+                    <div className={styles.collectionBannerImage}>Collection Banner Image</div>
 
-                      <div
-                        className="cursor-pointer"
-                        onClick={() => {
-                          setBannerHelper(true)
-                          setTimeout(() => {
-                            setBannerHelper(false)
-                          }, 2000)
-                        }}
-                      >
-                        <InfoCircleLightGreenIcon alt="" />
-                      </div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setBannerHelper(true)
+                        setTimeout(() => {
+                          setBannerHelper(false)
+                        }, 2000)
+                      }}
+                    >
+                      <InfoCircleLightGreenIcon alt="" />
                     </div>
-                    {bannerHelper && (
-                      <div className={styles.bannerRecommend}>Recommended dimensions are 1620px by 460px</div>
-                    )}
                   </div>
+                  {bannerHelper && (
+                    <div className={styles.bannerRecommend}>Recommended dimensions are 1620px by 460px</div>
+                  )}
+                </div>
+                <div className="relative mt-[60px]">
                   <div className="w-full flex justify-center z-0">
                     <div className={styles.coverImageArea}>
-                      {coverCroppedImage === undefined && coverImage === undefined ? (
-                        // <div className={styles.defaultCoverLight} />
+                      {coverCroppedImage === undefined ? (
                         <Dropzone
                           onDropAccepted={acceptedFiles => {
                             acceptedFiles.length !== 0
@@ -360,9 +379,6 @@ const Step01CollectionSection = props => {
                         >
                           {({ getRootProps, getInputProps, open }) => (
                             <section className={styles.dropzone}>
-                              <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
-                                open
-                              </button>
                               <div {...getRootProps()} className={styles.selectArea}>
                                 <input {...getInputProps()} />
                                 <p className={styles.subTitleCover}>Upload Here</p>
@@ -375,9 +391,7 @@ const Step01CollectionSection = props => {
                       ) : (
                         <div>
                           <Image
-                            src={
-                              coverCroppedImage !== undefined ? coverCroppedImage : URL.createObjectURL(coverImage[0])
-                            }
+                            src={coverCroppedImage}
                             width={200}
                             height={200}
                             alt=""
@@ -385,23 +399,44 @@ const Step01CollectionSection = props => {
                             className="rounded-[20px]"
                           />
                           <div className="absolute bottom-2 right-[10px]">
-                            <IconButton
-                              width={30}
-                              height={30}
-                              iconWidth={15}
-                              iconHeight={15}
-                              icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                              onClick={() => dropzoneCoverEl.current.click()}
-                              backgroundColor="rgba(55, 130, 135, 0.3)"
-                              borderColor="transparent"
-                              borderRadius="100%"
-                            />
+                            <Dropzone
+                              onDropAccepted={acceptedFiles => {
+                                acceptedFiles.length !== 0
+                                  ? onChangeCoverImage(acceptedFiles)
+                                  : handleShowAlert('cover', 'unknown')
+                              }}
+                              onDropRejected={rejectedFiles => {
+                                handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
+                              }}
+                              maxFiles={1}
+                              accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                              maxSize={10485760}
+                            >
+                              {({ getRootProps, getInputProps, open }) => (
+                                <section>
+                                  <div {...getRootProps()}>
+                                    <input {...getInputProps()} />
+                                    <IconButton
+                                      width={30}
+                                      height={30}
+                                      iconWidth={15}
+                                      iconHeight={15}
+                                      icon={EditorGreenIcon}
+                                      onClick={() => {}}
+                                      backgroundColor="rgba(55, 130, 135, 0.3)"
+                                      borderColor="transparent"
+                                      borderRadius="100%"
+                                    />
+                                  </div>
+                                </section>
+                              )}
+                            </Dropzone>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
-                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[15px]`}>
+                  <div className={`${styles.dropzoneTitle} relative w-full flex justify-center items-center mt-[10px]`}>
                     Collection Cover Image
                     <div
                       className="cursor-pointer"
@@ -558,7 +593,7 @@ const Step01CollectionSection = props => {
 
             <div className="w-full z-0">
               <div className={styles.coverImageArea}>
-                {coverCroppedImage === undefined && coverImage === undefined ? (
+                {coverCroppedImage === undefined ? (
                   <Dropzone
                     onDropAccepted={acceptedFiles => {
                       acceptedFiles.length !== 0
@@ -574,9 +609,6 @@ const Step01CollectionSection = props => {
                   >
                     {({ getRootProps, getInputProps, open }) => (
                       <section className={styles.dropzone}>
-                        <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
-                          open
-                        </button>
                         <div {...getRootProps()} className={styles.selectArea}>
                           <input {...getInputProps()} />
                           <p className={styles.subTitle}>Upload Here</p>
@@ -589,7 +621,7 @@ const Step01CollectionSection = props => {
                 ) : (
                   <div>
                     <Image
-                      src={coverCroppedImage !== undefined ? coverCroppedImage : URL.createObjectURL(coverImage[0])}
+                      src={coverCroppedImage}
                       width={140}
                       height={140}
                       alt=""
@@ -597,17 +629,38 @@ const Step01CollectionSection = props => {
                       className="rounded-[20px]"
                     />
                     <div className="absolute bottom-2 right-[10px]">
-                      <IconButton
-                        width={30}
-                        height={30}
-                        iconWidth={15}
-                        iconHeight={15}
-                        icon={coverCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                        onClick={() => dropzoneCoverEl.current.click()}
-                        backgroundColor="rgba(55, 130, 135, 0.3)"
-                        borderColor="transparent"
-                        borderRadius="100%"
-                      />
+                      <Dropzone
+                        onDropAccepted={acceptedFiles => {
+                          acceptedFiles.length !== 0
+                            ? onChangeCoverImage(acceptedFiles)
+                            : handleShowAlert('cover', 'unknown')
+                        }}
+                        onDropRejected={rejectedFiles => {
+                          handleShowAlert('cover', rejectedFiles[0]?.errors[0]?.code)
+                        }}
+                        maxFiles={1}
+                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                        maxSize={31457280}
+                      >
+                        {({ getRootProps, getInputProps, open }) => (
+                          <section>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <IconButton
+                                width={30}
+                                height={30}
+                                iconWidth={15}
+                                iconHeight={15}
+                                icon={EditorGreenIcon}
+                                onClick={() => {}}
+                                backgroundColor="rgba(55, 130, 135, 0.3)"
+                                borderColor="transparent"
+                                borderRadius="100%"
+                              />
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
                     </div>
                   </div>
                 )}
@@ -617,7 +670,9 @@ const Step01CollectionSection = props => {
 
           <div className="w-full flex flex-wrap justify-center mt-[22px]">
             <div className="w-full relative z-10">
-              <div className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px]`}>
+              <div
+                className={`${styles.dropzoneTitle} w-full flex justify-start items-center mt-[15px] mb-[15px] gap-[10px]`}
+              >
                 Collection Banner Image
                 <div
                   className="cursor-pointer"
@@ -641,7 +696,7 @@ const Step01CollectionSection = props => {
 
             <div className="w-full z-0">
               <div className={styles.bannerImageArea}>
-                {bannerImage === undefined ? (
+                {bannerCroppedImage === undefined ? (
                   <div>
                     <Dropzone
                       onDrop={acceptedFiles => {
@@ -658,9 +713,6 @@ const Step01CollectionSection = props => {
                     >
                       {({ getRootProps, getInputProps, open }) => (
                         <section className={styles.dropzone}>
-                          <button onClick={open} ref={dropzoneCoverEl} style={{ display: 'none' }}>
-                            open
-                          </button>
                           <div {...getRootProps()} className={styles.selectBannerArea}>
                             <input {...getInputProps()} />
                             <p className={styles.subTitle}>Upload Here</p>
@@ -674,7 +726,7 @@ const Step01CollectionSection = props => {
                 ) : (
                   <div className="relative">
                     <Image
-                      src={bannerCroppedImage !== undefined ? bannerCroppedImage : URL.createObjectURL(bannerImage[0])}
+                      src={bannerCroppedImage}
                       width={375}
                       height={120}
                       alt=""
@@ -682,17 +734,38 @@ const Step01CollectionSection = props => {
                       className="rounded-[20px]"
                     />
                     <div className="absolute bottom-2 right-[10px]">
-                      <IconButton
-                        width={30}
-                        height={30}
-                        iconWidth={15}
-                        iconHeight={15}
-                        icon={bannerCroppedImage !== undefined ? EditorGreenIcon : AddChangeWhiteIcon}
-                        onClick={() => dropzoneBannerEl.current.click()}
-                        backgroundColor="rgba(55, 130, 135, 0.3)"
-                        borderColor="transparent"
-                        borderRadius="100%"
-                      />
+                      <Dropzone
+                        onDrop={acceptedFiles => {
+                          acceptedFiles.length !== 0
+                            ? onChangeBannerImage(acceptedFiles)
+                            : handleShowAlert('banner', 'uknown')
+                        }}
+                        onDropRejected={rejectedFiles => {
+                          handleShowAlert('banner', rejectedFiles[0]?.errors[0]?.code)
+                        }}
+                        maxFiles={1}
+                        accept={{ 'image/jpeg': [], 'image/png': [], 'image/gif': [] }}
+                        maxSize={31457280}
+                      >
+                        {({ getRootProps, getInputProps, open }) => (
+                          <section>
+                            <div {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              <IconButton
+                                width={30}
+                                height={30}
+                                iconWidth={15}
+                                iconHeight={15}
+                                icon={EditorGreenIcon}
+                                onClick={() => {}}
+                                backgroundColor="rgba(55, 130, 135, 0.3)"
+                                borderColor="transparent"
+                                borderRadius="100%"
+                              />
+                            </div>
+                          </section>
+                        )}
+                      </Dropzone>
                     </div>
                   </div>
                 )}

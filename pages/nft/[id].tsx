@@ -63,6 +63,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const viewport = useViewport()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setTimeout(
@@ -73,6 +74,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         }),
       500
     )
+    dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
@@ -106,14 +108,13 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
-  const [fullScreenMode, setFullScreenMode] = useState(false)
-
+  const [fullScreen, setFullScreen] = useState(false)
   const setFullScreenView = url => {
     window.scrollTo({
       top: 0,
     })
     document.body.style.overflow = 'hidden'
-    setFullScreenMode(true)
+    setFullScreen(true)
     setNftCoverUrl(url)
   }
 
@@ -193,13 +194,13 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         )}
       </div>
 
-      {fullScreenMode && (
+      {fullScreen && (
         <div className={styles.fullScreen}>
-          <img src={nftCoverUrl} alt="" className="h-full object-fit" />
+          <img src={nftCoverUrl} alt="" className="w-full h-full max-w-full max-h-full object-contain" />
           <div
             className={styles.closeScreen}
             onClick={() => {
-              setFullScreenMode(false)
+              setFullScreen(false)
               document.body.style.overflow = 'unset'
             }}
           >
@@ -207,6 +208,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
           </div>
         </div>
       )}
+
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

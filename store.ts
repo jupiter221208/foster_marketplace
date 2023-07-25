@@ -36,6 +36,7 @@ const initialState = {
   loginSignedFlag: false,
   printImageUrl: '',
   merchData: null,
+  firstLoaded: false,
 }
 
 const changeState = (state = initialState, { type, ...rest }) => {
