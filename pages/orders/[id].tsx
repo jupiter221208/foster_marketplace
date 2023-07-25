@@ -20,6 +20,7 @@ const OrderSection = props => {
 
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   useEffect(() => {
+    if (typeof id != "string" || !Number.isFinite(parseInt(id))) return
     getOrder(id).then(setOrderData)
   }, [id])
 
@@ -43,16 +44,19 @@ const OrderSection = props => {
               <div className="w-full mb-[45px]">
                 <MerchStepper currentStep={3} />
               </div>
-              <PhysicalCheckout
-                data={merchData?.printData}
-                shippingData={merchData?.shippingData}
-                nftName={merchData?.nftName}
-                type="apparel"
-                total={merchData?.totalCost}
-                onBack={() => {
-                  router.back()
-                }}
-              />
+              {orderData && (
+                <PhysicalCheckout
+                  orderData={orderData}
+                  data={merchData?.printData}
+                  shippingData={merchData?.shippingData}
+                  nftName={merchData?.nftName}
+                  type="apparel"
+                  total={merchData?.totalCost}
+                  onBack={() => {
+                    router.back()
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
