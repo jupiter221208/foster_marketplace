@@ -221,7 +221,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--background-main-color', '#eff0f6')
     doc.style.setProperty('--background-black-color', '#202427')
     doc.style.setProperty('--background-black-color-rgb', '239, 240, 247')
-    doc.style.setProperty('--preload-back-color', 'rgba(32, 36, 39, 0.5)')
+    doc.style.setProperty('--preload-back-color', 'rgba(32, 36, 39, 0.7)')
     doc.style.setProperty('--active-btn-border-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--background-light-color', '#202427')
     doc.style.setProperty('--background-light-color-rgb', '32, 36, 39')

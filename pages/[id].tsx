@@ -30,6 +30,7 @@ import { isString, isLoggedIn } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -42,7 +43,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const viewport = useViewport()
 
   const dispatch = useDispatch()
-  dispatch({ type: 'set', isLoading: false })
+  const isLoading = useSelector<any>(state => state.isLoading)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
@@ -84,6 +85,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }),
       500
     )
+    dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
@@ -181,6 +183,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
+        dispatch({ type: 'set', isLoading: false })
         if (isString(response)) return
         let artist = response.artist
 
@@ -198,6 +201,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
+        dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         console.log(error)
       }
@@ -208,6 +212,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     setNfts([])
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
+        dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         if (isString(response)) return
         let artist = response.collector
@@ -225,6 +230,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
+        dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         console.log(error)
       }
@@ -340,6 +346,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           </div>
         </div>
       )}
+
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
