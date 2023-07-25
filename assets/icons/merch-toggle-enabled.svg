@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82" height="48.403" viewBox="0 0 82 48.403">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#95dbd5"/>
+      <stop offset="1" stop-color="#4b6e6b"/>
+    </linearGradient>
+    <filter id="Ellipse_4353" x="0" y="0.403" width="48" height="48" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_54732" data-name="Group 54732" transform="translate(18639 8199.403)">
+    <g id="Group_54131" data-name="Group 54131" transform="translate(-18637 -8199.403)">
+      <rect id="Rectangle_21261" data-name="Rectangle 21261" width="80" height="42.807" rx="21.404" fill="#2b2b2b"/>
+    </g>
+    <g id="Group_54733" data-name="Group 54733" transform="translate(0 0.031)">
+      <g id="Component_4588_6" data-name="Component 4588 – 6" transform="translate(-18587.82 -8188.244)">
+        <path id="noun-shirt-1385943" d="M7.955,26.9a24.782,24.782,0,0,0-4.661,1.97C3.146,29,.872,34.447.005,35.646a40.165,40.165,0,0,0,4.657,1.968v9.722H16.737V37.614a40.162,40.162,0,0,0,4.657-1.968c-.866-1.2-3.141-6.642-3.289-6.774a24.769,24.769,0,0,0-4.661-1.97c-.6,2.262-4.893,2.26-5.489,0Z" transform="translate(-0.003 -26.902)" fill="#eff0f6" fill-rule="evenodd"/>
+      </g>
+      <g id="Group_54731" data-name="Group 54731" transform="translate(-25210.449 -5756.333)">
+        <g id="Ellipse_4354" data-name="Ellipse 4354" transform="translate(6630 -2428)" fill="none" stroke="#202427" stroke-width="0.5">
+          <circle cx="3.325" cy="3.325" r="3.325" stroke="none"/>
+          <circle cx="3.325" cy="3.325" r="3.075" fill="none"/>
+        </g>
+        <line id="Line_418" data-name="Line 418" x1="4.112" y2="4.638" transform="translate(6631.509 -2427.001)" fill="none" stroke="#202427" stroke-width="0.5"/>
+      </g>
+    </g>
+    <g id="Group_54132" data-name="Group 54132" transform="translate(-34 -65)">
+      <g transform="matrix(1, 0, 0, 1, -18605, -8134.4)" filter="url(#Ellipse_4353)">
+        <circle id="Ellipse_4353-2" data-name="Ellipse 4353" cx="15" cy="15" r="15" transform="translate(9 6.4)" fill="url(#linear-gradient)"/>
+      </g>
+      <g id="Component_4588_7" data-name="Component 4588 – 7" transform="translate(-18591.697 -8123.217)">
+        <path id="noun-shirt-1385943-2" data-name="noun-shirt-1385943" d="M7.955,26.9a24.782,24.782,0,0,0-4.661,1.97C3.146,29,.872,34.447.005,35.646a40.165,40.165,0,0,0,4.657,1.968v9.722H16.737V37.614a40.162,40.162,0,0,0,4.657-1.968c-.866-1.2-3.141-6.642-3.289-6.774a24.769,24.769,0,0,0-4.661-1.97c-.6,2.262-4.893,2.26-5.489,0Z" transform="translate(-0.003 -26.902)" fill="#202427" fill-rule="evenodd"/>
+        <path id="Path_108512" data-name="Path 108512" d="M150.9,150a.9.9,0,0,0-.9.9V155.6a.9.9,0,0,0,.9.9H155.6a.9.9,0,0,0,.9-.9V150.9a.9.9,0,0,0-.9-.9Zm0,.361H155.6a.537.537,0,0,1,.542.542v2.092L155,151.859a.181.181,0,0,0-.255,0l-2.039,2.039-1.317-1.317a.181.181,0,0,0-.255,0l-.775.775V150.9a.537.537,0,0,1,.542-.542Z" transform="translate(-142.554 -145.566)" fill="#95dbd5"/>
+      </g>
+    </g>
+  </g>
+</svg>

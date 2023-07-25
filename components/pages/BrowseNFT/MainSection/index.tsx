@@ -54,6 +54,8 @@ import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
+import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
+import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
@@ -111,6 +113,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
+import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -275,7 +278,8 @@ const MainSection = ({
   const [nftCreatorname, setNftCreatorname] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [activityList, setActivityList] = useState([])
-
+  const [merchToggle, setMerchToggle] = useState(false)
+  const [createMerchModal, setCreateMerchModal] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const { id } = router.query
 
@@ -818,7 +822,7 @@ const MainSection = ({
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
-                <div>
+                <div className="flex gap-[17px] items-center">
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                     <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
                       <ThreeEllipseMobileIcon alt="" />
@@ -831,6 +835,17 @@ const MainSection = ({
                       nftType={nftType}
                     />
                   )}
+                  {isOwnNft &&
+                    (merchToggle ? (
+                      <MerchToggleEnabledIcon alt="" />
+                    ) : (
+                      <MerchToggleDisabledIcon
+                        alt=""
+                        onClick={() => {
+                          setCreateMerchModal(true)
+                        }}
+                      />
+                    ))}
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
@@ -1681,6 +1696,13 @@ const MainSection = ({
           deficiency={deficiency}
           nftName={nftName}
           collectionName={nftCollectionName}
+        />
+      )}
+      {createMerchModal && (
+        <CreateMerchSudioModal
+          onContinue={() => setMerchToggle(true)}
+          open={deficencyModal}
+          close={() => setDeficencyModal(false)}
         />
       )}
       {openShareModal && (
