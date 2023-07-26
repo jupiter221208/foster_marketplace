@@ -778,12 +778,12 @@ const Step01CollectionSection = props => {
             <div className={`${styles.subTitle} mt-5`}>Collection Name *</div>
             <div className="max-w-[370px] w-full mt-4 z-10">
               <Input
-                value={limit(collectionName, 20)}
+                value={limit(collectionName, 30)}
                 placeholder="Give your art name"
                 backgroundColor={'var(--input-bg)'}
-                label01="Max Characters 20"
-                label02={20 - collectionName.length === 20 ? '' : `${20 - collectionName.length} Characters left`}
-                onChange={value => onChangeCollectionName(limit(value, 20))}
+                label01="Max Characters 30"
+                label02={30 - collectionName.length === 30 ? '' : `${30 - collectionName.length} Characters left`}
+                onChange={value => onChangeCollectionName(limit(value, 30))}
               />
             </div>
             <div className={`${styles.subTitle} mt-5`}>Description *</div>

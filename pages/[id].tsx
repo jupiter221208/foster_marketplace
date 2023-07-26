@@ -93,7 +93,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       let newNfts = nfts.filter(item => item.token_id !== hideNftToken)
       setNfts(newNfts)
       dispatch({ type: 'set', hideNftToken: '' })
-      dispatch({ type: 'set', isLoading: false })
     }
   }, [hideNftToken])
 
@@ -194,7 +193,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setStatsInfo(response.stats)
         setNfts(response.nfts)
-        if (response.nfts.length === 12) {
+        if (response.nfts.length === rowCount) {
           setCurrentPage(current_page)
         }
         setCollections(response.collections)
@@ -223,7 +222,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setStatsInfo(response.stats)
         setNfts(response.nfts)
-        if (response.nfts.length === 12) {
+        if (response.nfts.length === rowCount) {
           setCurrentPage(current_page)
         }
         setCollections(response.collections)

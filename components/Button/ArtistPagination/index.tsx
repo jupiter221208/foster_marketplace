@@ -23,7 +23,7 @@ const ArtistPagination = props => {
 
   return (
     <div className={styles.container}>
-      <div>Rows per page:</div>
+      <div>Items per page:</div>
       <div className="relative">
         <Accordion label={rowCount.toString()} data={RowCountList} onClick={item => setRowCount(item.value)} />
       </div>
