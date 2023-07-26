@@ -68,11 +68,12 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         if (isLoggedIn()) {
           let collectionData = await collectionsAPI.getCollection(address)
           if (!isString(collectionData)) setCollectionData(collectionData)
-        }
-
-        setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
-        }, 1000)
+        } else {
+          setTimeout(() => {
+            dispatch({ type: 'set', isLoading: false })
+          }, 1000)
+        }
 
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) setNfts(collectionNfts)
