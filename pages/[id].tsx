@@ -182,7 +182,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
-        dispatch({ type: 'set', isLoading: false })
+        if (isLoading) dispatch({ type: 'set', isLoading: false })
         if (isString(response)) return
         let artist = response.artist
 
@@ -200,7 +200,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        if (isLoading) dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         console.log(error)
       }
@@ -211,7 +211,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     setNfts([])
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
+        if (isLoading) dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         if (isString(response)) return
         let artist = response.collector
@@ -229,7 +229,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
+        if (isLoading) dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         console.log(error)
       }
