@@ -7,6 +7,7 @@ import Image from 'next/image'
 
 // custom functions
 import { useViewport, ensureMaxDecimals } from 'utils'
+import { createPaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // json
@@ -20,6 +21,8 @@ import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
+import { useMetaplex } from 'hooks/useMetaplex'
+
 // styles
 import styles from './index.module.scss'
 import GradientButton from 'components/Button/GradientButton'
@@ -29,8 +32,10 @@ import Alert from 'components/Alert'
 import { getFirstUpperString } from 'utils/helpers'
 
 // api
+import type { OrderData } from 'apis/merch'
 
 export interface PhysicalCheckoutProps {
+  orderData?: OrderData
   data: any
   shippingData: any
   nftName: string
@@ -40,20 +45,32 @@ export interface PhysicalCheckoutProps {
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, total }: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({
+  orderData,
+  onBack,
+  onNext,
+  data,
+  shippingData,
+  nftName,
+  type,
+  total,
+}: PhysicalCheckoutProps) => {
+  const SOL_USD_SLIPPAGE = 0.98
+
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const { metaplex } = useMetaplex()
   const { solToUsdRate, refreshValue } = useSolToUsdRate()
 
-  const [currency, setCurrency] = useState('')
+  const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
   const [isLoading, setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
 
   total ??= orderData.amount
-  const solAmount = (total && solToUsdRate) ? (total/solToUsdRate) * 1.05 : 0;
+  const solAmount = total && solToUsdRate ? total / (solToUsdRate * SOL_USD_SLIPPAGE) : 0
 
   useEffect(() => {
     setAlertData([
@@ -103,14 +120,23 @@ const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, t
     setList([{ name, quantity, shipping }])
   }, [])
 
-  const onCheckout = () => {
+  const onCheckout = async () => {
     setIsLoading(true)
-    setTimeout(() => {
+    try {
+      let transactionBuilder = await createPaymentTransaction({
+        metaplex,
+        usdAmount: total,
+        solToUsdRate: (await refreshValue()) * SOL_USD_SLIPPAGE,
+        currency,
+      })
+      let {
+        response: { signature },
+      } = await transactionBuilder.sendAndConfirm(metaplex)
+      // TODO: send signature to backend and update order
+    } finally {
       setIsLoading(false)
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 500)
-    }, 3000)
+      setShowAlert(true)
+    }
   }
 
   const isUniteState = () => {
@@ -227,9 +253,7 @@ const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, t
             <div className={styles.costDivider} />
             <div className="flex gap-1 items-center">
               <SolanaIcon alt="" />
-              <div className={styles.totalPrice}>
-                {solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}
-              </div>
+              <div className={styles.totalPrice}>{solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}</div>
             </div>
           </div>
         </div>
