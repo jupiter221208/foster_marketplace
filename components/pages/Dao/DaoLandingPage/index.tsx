@@ -18,7 +18,7 @@ import NotificationIcon from 'assets/icons/notification-icon-body.svg?component'
 import styles from './index.module.scss'
 
 import axios from 'axios'
-import { useViewport, fetchSolToUsdRate, ensureMaxDecimals } from 'utils'
+import { useViewport, ensureMaxDecimals } from 'utils'
 import StatsSearchBox from 'components/Input/StatsSearchBox'
 import TableSection from './TableSection'
 import ExplorePagination from 'components/Button/ExplorePagination'
@@ -30,6 +30,7 @@ import { isExpiredDate } from 'utils/helpers'
 import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
 import ProgressingModalWithContent from 'components/Modal/ProgressingModalWithContent'
 import { useRouter } from 'next/router'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 const DaoLandingPage = props => {
   const { turkyNfts, nftIsLoaded } = props
@@ -40,6 +41,7 @@ const DaoLandingPage = props => {
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const { metaplex } = useMetaplex()
   const { setVisible } = useWalletModal()
+  const { solToUsdRate } = useSolToUsdRate()
 
   const [searchWord, setSearchWord] = useState('')
   const [currentPage, setCurrentPage] = useState(0)
@@ -52,7 +54,6 @@ const DaoLandingPage = props => {
   const [clickedSubmitButton, setClickedSubmitButton] = useState(false)
 
   const [solAmount, setSolAmount] = useState(0)
-  const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   const [isNftLoading, setIsNftLoading] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -64,7 +65,6 @@ const DaoLandingPage = props => {
   const [proposalKeypair, setProposalKeypair] = useState<Keypair>(Keypair.generate())
 
   useEffect(() => {
-    fetchSolToUsdRate().then(setSolToUsdRate)
     metaplex.connection.getBalance(DAO_TREASURY_ADDRESS).then(lamports => setSolAmount(lamports / LAMPORTS_PER_SOL))
 
     setNoTurkeyAlert([

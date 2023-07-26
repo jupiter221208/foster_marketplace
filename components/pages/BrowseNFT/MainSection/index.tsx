@@ -36,7 +36,7 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
-import { fetchSolToUsdRate, useViewport } from 'utils'
+import { useViewport } from 'utils'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
@@ -94,6 +94,7 @@ import activityAPI from 'apis/activity'
 import AuctionAPI from 'apis/auctions'
 
 import { useWallets } from 'hooks/useWallets'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
@@ -142,11 +143,11 @@ const MainSection = ({
   const { connected, publicKey, signMessage } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(true)
+  const { solToUsdRate } = useSolToUsdRate()
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [openShareModal, setOpenShareModal] = useState(false)
-  const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
@@ -239,8 +240,6 @@ const MainSection = ({
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
-    fetchSolToUsdRate().then(setSolToUsdRate)
-
     setAlertData([
       {
         id: 0,
@@ -1135,9 +1134,7 @@ const MainSection = ({
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
+                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">

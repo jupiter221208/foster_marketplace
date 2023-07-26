@@ -6,7 +6,8 @@ import { useDispatch } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
-import { useViewport, fetchSolToUsdRate, ensureMaxDecimals } from 'utils'
+import { useViewport, ensureMaxDecimals } from 'utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // json
 import DomesticType from 'assets/json/print/domestic-ship.json'
@@ -43,12 +44,16 @@ const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, t
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const { solToUsdRate, refreshValue } = useSolToUsdRate()
+
   const [currency, setCurrency] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
-  const [solToUsdRate, setSolToUsdRate] = useState(null)
+
+  total ??= orderData.amount
+  const solAmount = (total && solToUsdRate) ? (total/solToUsdRate) * 1.05 : 0;
 
   useEffect(() => {
     setAlertData([
@@ -96,8 +101,6 @@ const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, t
       shippingData['country'].name
 
     setList([{ name, quantity, shipping }])
-
-    fetchSolToUsdRate().then(setSolToUsdRate)
   }, [])
 
   const onCheckout = () => {
@@ -225,7 +228,7 @@ const PhysicalCheckout = ({ onBack, onNext, data, shippingData, nftName, type, t
             <div className="flex gap-1 items-center">
               <SolanaIcon alt="" />
               <div className={styles.totalPrice}>
-                {total && solToUsdRate ? ensureMaxDecimals(total / solToUsdRate, 2) : '---'}
+                {solAmount ? ensureMaxDecimals(solAmount, 2) : '---'}
               </div>
             </div>
           </div>
