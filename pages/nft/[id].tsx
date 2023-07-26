@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -58,6 +59,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   const categories = getNFTCategories(nftDetail)
   const [nftInfo, setNftInfo] = useState(null)
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
+  const { connected } = useWallet()
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -75,7 +77,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   }, [])
 
   useEffect(() => {
-    if (!nftDetail) return
+    if (!nftDetail || !connected) return
     nftsAPI.getDetail(nftDetail.address).then(
       (response: any) => {
         if (!isString(response)) {

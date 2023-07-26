@@ -65,18 +65,20 @@ const ArtistHeader = () => {
   }
 
   useEffect(() => {
-    userAPI.getNotifications().then(
-      response => {
-        if (response !== null) {
-          if (response.notifications.length > 0) {
-            checkNotifications([...response.notifications])
+    if (connected && router.asPath !== '/notifications') {
+      userAPI.getNotifications().then(
+        response => {
+          if (response !== null) {
+            if (response.notifications.length > 0) {
+              checkNotifications([...response.notifications])
+            }
           }
+        },
+        error => {
+          console.log(error)
         }
-      },
-      error => {
-        console.log(error)
-      }
-    )
+      )
+    }
   }, [])
 
   useEffect(() => {

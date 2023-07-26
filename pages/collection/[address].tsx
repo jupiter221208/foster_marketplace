@@ -57,26 +57,29 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
+    dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
     ;(async () => {
       if (!address) return
-
       try {
-        dispatch({ type: 'set', isLoading: true })
         setLoaded(false)
-        let collectionNfts = await collectionsAPI.getCollectionNft(address)
-        if (!isString(collectionNfts)) setNfts(collectionNfts)
-
         if (isLoggedIn()) {
           let collectionData = await collectionsAPI.getCollection(address)
           if (!isString(collectionData)) setCollectionData(collectionData)
+          dispatch({ type: 'set', isLoading: false })
+        } else {
+          setTimeout(() => {
+            dispatch({ type: 'set', isLoading: false })
+          }, 1000)
         }
+
+        let collectionNfts = await collectionsAPI.getCollectionNft(address)
+        if (!isString(collectionNfts)) setNfts(collectionNfts)
       } catch (e: any) {
         console.error(e)
       } finally {
-        dispatch({ type: 'set', isLoading: false })
         setLoaded(true)
       }
     })()
