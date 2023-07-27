@@ -65,15 +65,19 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setLoaded(false)
-        if (isLoggedIn()) {
-          let collectionData = await collectionsAPI.getCollection(address)
-          if (!isString(collectionData)) setCollectionData(collectionData)
+        // if (isLoggedIn()) {
+        //   let collectionData = await collectionsAPI.getCollection(address)
+        //   if (!isString(collectionData)) setCollectionData(collectionData)
+        //   dispatch({ type: 'set', isLoading: false })
+        // } else {
+        //   setTimeout(() => {
+        //     dispatch({ type: 'set', isLoading: false })
+        //   }, 1000)
+        // }
+
+        setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
-        } else {
-          setTimeout(() => {
-            dispatch({ type: 'set', isLoading: false })
-          }, 1000)
-        }
+        }, 1000)
 
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) setNfts(collectionNfts)
@@ -83,7 +87,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         setLoaded(true)
       }
     })()
-  }, [address, publicCollectionData])
+  }, [address])
 
   useEffect(() => {
     ;(async () => {
@@ -148,13 +152,31 @@ BrowseCollection.getLayout = function getLayout(page) {
   return <ArtistLayout>{page}</ArtistLayout>
 }
 
-BrowseCollection.getInitialProps = async function ({ query }): Promise<BrowseCollectionProps> {
+BrowseCollection.getInitialProps = async function ({ req, query }): Promise<BrowseCollectionProps> {
   let collectionId = query.address
-  try {
-    let publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`)
-      .then(r => r.json())
-      .catch(() => null)
+  let cookies = req?.cookies
+  console.log('============cookies==========', cookies)
 
+  try {
+    let publicCollectionData
+    if (cookies && cookies['token']) {
+      let token = cookies['token']
+      publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}`, {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(r => r.json())
+        .catch(() => null)
+
+      console.log('=========publicCollectionData=======', publicCollectionData)
+    } else {
+      publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`)
+        .then(r => r.json())
+        .catch(() => null)
+      console.log('=========publicCollectionData1=======', publicCollectionData)
+    }
     if (!publicCollectionData) {
       let { name, json } = await Metaplex.make(new Connection(process.env.PROVIDER_URL))
         .nfts()

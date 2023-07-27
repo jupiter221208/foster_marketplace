@@ -54,7 +54,7 @@ const CollectionSection = props => {
       )}
       <LiveAuctionSection category={''} artist={artistId} />
       <ActiveListingSection artist={artistId} />
-      <OtherCollectionSection artistId={artistId} artistName={artistName} />
+      {/* <OtherCollectionSection artistId={artistId} artistName={artistName} /> */}
     </div>
   )
 }
