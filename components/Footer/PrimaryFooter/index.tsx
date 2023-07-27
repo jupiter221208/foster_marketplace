@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 
 // next components
-import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
 // custom components
-import IconButton from 'components/Button/IconButton'
-import Subscriber from 'components/Input/Subscriber'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -18,21 +16,15 @@ import LogoText01MobileIcon from 'assets/icons/logo-text-01-mobile.svg?component
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
 import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg?component'
 import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg?component'
-import TelegramLightGreenIcon from 'assets/icons/telegram-light-green.svg'
 import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
-import DarkLightModeIcon from 'assets/icons/dark-light-mode.svg?component'
-import LightDarkModeIcon from 'assets/icons/light-dark-mode.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { setColorTheme } from 'utils/helpers'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const PrimaryFooter = () => {
   const viewport = useViewport()
   const router = useRouter()
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState('')
 
   return (
     <div className={styles.container} data-testid="footer-container">
@@ -43,27 +35,21 @@ const PrimaryFooter = () => {
               <div onClick={() => router.push('/')}>
                 <LogoText01Icon alt="" />
               </div>
-              {/* <div className={styles.lightDarkMode} onClick={() => handleThemeMode()}>
-                {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
-              </div> */}
             </div>
-            {/* <div className={styles.text}>
-              Join the Foster circus and Experience a unique, yet familiar way to interact with your favorite NFT’s.
-            </div> */}
           </div>
           <div className="max-w-[347px] block justify-start">
             <div className={styles.title}>Sitemap</div>
             <div className={`${styles.linkText} !mt-[49px]`}>
-              <div onClick={() => router.push('/explore')}>Explore</div>
+              <Link href="/explore">Explore</Link>
             </div>
             <div className={styles.linkText}>
-              <div onClick={() => router.push('/dao')}>Circus DAO</div>
+              <Link href="/dao">Circus DAO</Link>
             </div>
             <div className={styles.linkText}>
-              <div onClick={() => router.push('/resources')}>Resources</div>
+              <Link href="/resources">Resources</Link>
             </div>
             <div className={styles.linkText}>
-              <div onClick={() => router.push('/stats')}>House Stats</div>
+              <Link href="/stats">House Stats</Link>
             </div>
           </div>
           <div className="max-w-[347px] block justify-start">
