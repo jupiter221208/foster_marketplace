@@ -224,13 +224,6 @@ const MyWalletSubMenu = props => {
     }
   }, [connected])
 
-  const handleDisconnect = () => {
-    setShowAlert(true)
-    disconnect()
-    localStorage.removeItem('token')
-    dispatch({ type: 'set', profileInfo: null })
-  }
-
   return (
     <Disclosure>
       {({ open }) => (

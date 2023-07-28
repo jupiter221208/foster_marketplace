@@ -26,6 +26,7 @@ import LogoutIcon from 'assets/icons/logout.svg'
 
 // styles
 import styles from './index.module.scss'
+import { deleteCookie } from 'cookies-next'
 
 const Navbar = props => {
   const router = useRouter()
@@ -226,6 +227,7 @@ const Navbar = props => {
           } else disconnect()
 
           localStorage.removeItem('token')
+          deleteCookie('token')
           dispatch({ type: 'set', profileInfo: null })
           router.push('/')
         }}

@@ -33,6 +33,7 @@ import { useViewport } from 'utils'
 import { setColorTheme } from 'utils/helpers'
 import { loginWithSigned } from 'utils/auth'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { deleteCookie } from 'cookies-next'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
@@ -151,6 +152,7 @@ const MobileMenu = () => {
 
                 localStorage.removeItem('token')
                 dispatch({ type: 'set', profileInfo: null })
+                deleteCookie('token')
               }}
             >
               <div>Logout</div>

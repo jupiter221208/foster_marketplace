@@ -47,6 +47,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [nfts, setNfts] = useState([])
   const [loaded, setLoaded] = useState(false)
   const address = collectionData?.collection_id
+  const [otherList, setOtherList] = useState([])
 
   useEffect(() => {
     setTimeout(
@@ -65,18 +66,26 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setLoaded(false)
-        if (isLoggedIn()) {
-          let collectionData = await collectionsAPI.getCollection(address)
-          if (!isString(collectionData)) setCollectionData(collectionData)
+        // if (isLoggedIn()) {
+        //   let collectionData = await collectionsAPI.getCollection(address)
+        //   if (!isString(collectionData)) setCollectionData(collectionData)
+        //   dispatch({ type: 'set', isLoading: false })
+        // } else {
+        //   setTimeout(() => {
+        //     dispatch({ type: 'set', isLoading: false })
+        //   }, 1000)
+        // }
+        setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
-        } else {
-          setTimeout(() => {
-            dispatch({ type: 'set', isLoading: false })
-          }, 1000)
-        }
+        }, 1000)
 
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) setNfts(collectionNfts)
+
+        if (isLoggedIn()) {
+          let otherCollections = await collectionsAPI.getOtherCollections(collectionData?.minter_id)
+          setOtherList(otherCollections)
+        }
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -135,6 +144,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           collectionName={collectionData?.collection_name}
           artistId={collectionData?.minter_id}
           artistName={collectionData?.artist_username}
+          otherList={otherList}
         />
       </div>
       <FullScreenLoadingModal open={isLoading} />
@@ -148,13 +158,28 @@ BrowseCollection.getLayout = function getLayout(page) {
   return <ArtistLayout>{page}</ArtistLayout>
 }
 
-BrowseCollection.getInitialProps = async function ({ query }): Promise<BrowseCollectionProps> {
+BrowseCollection.getInitialProps = async function ({ req, query }): Promise<BrowseCollectionProps> {
   let collectionId = query.address
-  try {
-    let publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`)
-      .then(r => r.json())
-      .catch(() => null)
 
+  let cookies = req ? req.headers.cookie || '' : document.cookie
+  let token = cookies ? cookies.split('token=')[1] : ''
+
+  let publicCollectionData
+  try {
+    if (token && token.length > 0) {
+      publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}`, {
+        headers: {
+          accept: 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(r => r.json())
+        .catch(() => null)
+    } else {
+      publicCollectionData = await fetch(`${process.env.BACKEND_URL}v1/collections/${collectionId}/public`)
+        .then(r => r.json())
+        .catch(() => null)
+    }
     if (!publicCollectionData) {
       let { name, json } = await Metaplex.make(new Connection(process.env.PROVIDER_URL))
         .nfts()
