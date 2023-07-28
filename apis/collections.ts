@@ -11,14 +11,9 @@ class Collections {
   }
 
   getCollection(collection_id) {
-    if (isLoggedIn())
-      return client.get(API_URL + 'v1/collections/' + collection_id).then(response => {
-        return response.data
-      })
-    else
-      return client.get(API_URL + 'v1/collections/' + collection_id + '/public').then(response => {
-        return response.data
-      })
+    return client.get(API_URL + 'v1/collections/' + collection_id).then(response => {
+      return response.data
+    })
   }
 
   likeCollection(collection_id) {

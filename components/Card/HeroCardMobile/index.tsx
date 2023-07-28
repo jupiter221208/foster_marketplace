@@ -37,21 +37,35 @@ const HeroCardMobile = props => {
   return (
     <div className={styles.container}>
       <div className={styles.imageBG}>
-        <img
-          src={
-            data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-              ? data.asset_url
-              : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-              ? data.cover_image_url
-              : '/images/banner.png'
-          }
-          alt=""
-          // width={375}
-          // layout="fill"
-          height={375}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
+        {data.asset_type.includes('video') ? (
+          <img
+            src={
+              data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                ? data.cover_image_url
+                : '/images/banner.png'
+            }
+            alt=""
+            height={375}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        ) : (
+          <img
+            src={
+              data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
+                ? data.asset_url
+                : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
+                ? data.cover_image_url
+                : '/images/banner.png'
+            }
+            alt=""
+            // width={375}
+            // layout="fill"
+            height={375}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        )}
         <div className={styles.overlayMask} />
       </div>
       <div className="relative mt-[-175px] px-[15px] z-10">

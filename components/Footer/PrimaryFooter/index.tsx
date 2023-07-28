@@ -182,16 +182,16 @@ const PrimaryFooter = () => {
             <div className="w-full block justify-center text-center">
               <div className={styles.title}>Sitemap</div>
               <div className={`${styles.linkText} !mt-[20px]`}>
-                <div onClick={() => router.push('/explore')}>Explore</div>
+                <Link href="/explore">Explore</Link>
               </div>
               <div className={styles.linkText}>
-                <div onClick={() => router.push('/dao')}>Circus DAO</div>
+                <Link href="/dao">Circus DAO</Link>
               </div>
               <div className={styles.linkText}>
-                <div onClick={() => router.push('/resources')}>Resources</div>
+                <Link href="/resources">Resources</Link>
               </div>
               <div className={styles.linkText}>
-                <div onClick={() => router.push('/stats')}>House Stats</div>
+                <Link href="/stats">House Stats</Link>
               </div>
             </div>
             <div className="w-full block justify-center text-center">

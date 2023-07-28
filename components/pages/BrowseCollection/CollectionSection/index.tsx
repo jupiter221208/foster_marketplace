@@ -15,7 +15,7 @@ import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSection'
 
 const CollectionSection = props => {
-  const { nfts, artistId, artistName = '', collectionId, collectionName } = props
+  const { nfts, artistId, artistName = '', collectionId, collectionName, otherList } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -54,7 +54,9 @@ const CollectionSection = props => {
       )}
       <LiveAuctionSection category={''} artist={artistId} />
       <ActiveListingSection artist={artistId} />
-      <OtherCollectionSection artistId={artistId} artistName={artistName} />
+      {otherList && otherList.length > 0 && (
+        <OtherCollectionSection list={otherList} artistId={artistId} artistName={artistName} />
+      )}
     </div>
   )
 }
