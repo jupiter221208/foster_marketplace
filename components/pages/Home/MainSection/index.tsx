@@ -44,7 +44,6 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
-  const [heroCoverImages, setHeroCoverImages] = useState()
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -76,12 +75,22 @@ const MainSection = () => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
-          <FosterHeroLogo alt="" />
+          {/* <FosterHeroLogo alt="" /> */}
 
-          <div className={styles.text}>Home to Digital Creators on Solana</div>
+          <div className={styles.text}>
+            Home to Digital Creators,
+            <br />
+            Collectors, and Curators.
+          </div>
+
+          <div className={styles.slug}>
+            Pushing the boundaries of digital art on Solana.
+            <br />
+            Start your creative journey today.
+          </div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
-            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
+            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[60px] flex justify-center lg:justify-start gap-8">
               <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
@@ -93,7 +102,7 @@ const MainSection = () => {
           ) : (
             <></>
           )}
-          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[200px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
+          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20 mb-[100px]">
             <div className="block">
               <div className={styles.count}>{artworkCnt}</div>
               <div className={styles.countText}>Artworks</div>
@@ -118,8 +127,8 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Creator Inspired</div>
-              <div className={styles.mobileText}>Digital Art Marketplace on Solana</div>
+              <div className={styles.mobileTitle}>Home to Digital Creators</div>
+              <div className={styles.mobileText}>Connecting the world through art.</div>
             </div>
             {heroList.length !== 0 && (
               <Swiper

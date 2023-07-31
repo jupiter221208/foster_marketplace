@@ -74,14 +74,8 @@ import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
-import {
-  LazyListing,
-  toLazyListing,
-  toListingReceiptAccount,
-  toMetadataAccount,
-  GpaBuilder,
-} from '@metaplex-foundation/js'
-import type { Sft, Nft } from '@metaplex-foundation/js'
+import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
+import type { Nft } from '@metaplex-foundation/js'
 
 // call apis
 import nftsAPI from 'apis/nfts'
@@ -109,27 +103,18 @@ import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
-import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
-import { cancelListing, executeSale } from 'utils/auctioneer.util'
+import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
   editionDetail: any
   nftInfo: any
-  artistInfo: NFTArtistInfo | null
   setFullScreenView: any
   reloadNftData: any
 }
 
-const MainSection = ({
-  nftDetail,
-  editionDetail,
-  artistInfo,
-  nftInfo,
-  setFullScreenView,
-  reloadNftData,
-}: MainSectionProps) => {
+const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()

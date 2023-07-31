@@ -485,7 +485,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color', '#eff0f6')
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
     doc.style.setProperty('--header-bg-color', 'rgba(18, 18, 18, 0.7)')
-    doc.style.setProperty('--header-bottom-color', '#95dbd5')
+    doc.style.setProperty('--header-bottom-color', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.6)')
     doc.style.setProperty('--search-menu-icon-color', '#eff0f6')
     doc.style.setProperty('--outline-button-border', '#5ac3ba')

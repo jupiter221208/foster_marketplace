@@ -28,6 +28,7 @@ import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
+import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -244,12 +245,16 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {routePath !== '/' && (
+            {routePath === '/' ? (
+              <div className={styles.heroLogoArea}>
+                <FosterHeroLogo alt="" />
+              </div>
+            ) : (
               <div className={styles.logoArea} onClick={() => router.push('/')}>
                 <FosterLogoDark alt="" />
               </div>
             )}
-            <div className="w-full max-w-[708px] min-w-[448px] flex items-center">
+            <div className="w-full max-w-[708px] min-w-[448px] ml-[40px] flex items-center">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
