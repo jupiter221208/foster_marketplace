@@ -295,7 +295,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
   return (
-    <div className="g-container">
+    <div className="w-full">
       <Head>
         <title>{artistName}</title>
         <meta property="description" content={artistDescription} />
@@ -330,29 +330,30 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           wallet={artistInfo?.wallet_id}
           reloadPage={reloadPage}
         />
-        <TabSection
-          createdNfts={createdNfts}
-          collectedNfts={collectedNfts}
-          collections={collections}
-          wallet={artistInfo?.wallet_id}
-          isOwn={isOwn}
-          isLoaded={isLoaded}
-          artistCurrentPage={artistCurrentPage}
-          artistRowCount={artistRowCount}
-          collectorCurrentPage={collectorCurrentPage}
-          collectorRowCount={collectorRowCount}
-          selectRowCount={count => selectRowCount(count)}
-          handleNextPage={() => handleNextPage()}
-          handlePreviousPage={() => handlePreviousPage()}
-          reloadPage={reloadPage}
-          setArtistEnable={setArtistEnable}
-          artistStatsInfo={artistStatsInfo}
-          collectorStatsInfo={collectorStatsInfo}
-          setActiveListingLoaded={setActiveListingLoaded}
-          setLiveAuctionLoaded={setLiveAuctionLoaded}
-        />
+        <div className="g-container">
+          <TabSection
+            createdNfts={createdNfts}
+            collectedNfts={collectedNfts}
+            collections={collections}
+            wallet={artistInfo?.wallet_id}
+            isOwn={isOwn}
+            isLoaded={isLoaded}
+            artistCurrentPage={artistCurrentPage}
+            artistRowCount={artistRowCount}
+            collectorCurrentPage={collectorCurrentPage}
+            collectorRowCount={collectorRowCount}
+            selectRowCount={count => selectRowCount(count)}
+            handleNextPage={() => handleNextPage()}
+            handlePreviousPage={() => handlePreviousPage()}
+            reloadPage={reloadPage}
+            setArtistEnable={setArtistEnable}
+            artistStatsInfo={artistStatsInfo}
+            collectorStatsInfo={collectorStatsInfo}
+            setActiveListingLoaded={setActiveListingLoaded}
+            setLiveAuctionLoaded={setLiveAuctionLoaded}
+          />
 
-        {/* <NFTSection
+          {/* <NFTSection
           nfts={nfts}
           collections={collections}
           wallet={artistInfo?.wallet_id}
@@ -365,26 +366,27 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           handlePreviousPage={() => handlePreviousPage()}
           reloadPage={reloadPage}
         /> */}
-      </div>
-
-      {fullScreenMode && (
-        <div className={styles.fullScreen}>
-          <img
-            src={userProfileUrl}
-            alt=""
-            className="w-[260px] h-[260px] lg:w-[500px] lg:h-[500px] rounded-full object-fit"
-          />
-          <div
-            className={styles.closeScreen}
-            onClick={() => {
-              setFullScreenMode(false)
-              document.body.style.overflow = 'unset'
-            }}
-          >
-            <Image src={CloseIcon} alt="" width={18} height={18} />
-          </div>
         </div>
-      )}
+
+        {fullScreenMode && (
+          <div className={styles.fullScreen}>
+            <img
+              src={userProfileUrl}
+              alt=""
+              className="w-[260px] h-[260px] lg:w-[500px] lg:h-[500px] rounded-full object-fit"
+            />
+            <div
+              className={styles.closeScreen}
+              onClick={() => {
+                setFullScreenMode(false)
+                document.body.style.overflow = 'unset'
+              }}
+            >
+              <Image src={CloseIcon} alt="" width={18} height={18} />
+            </div>
+          </div>
+        )}
+      </div>
 
       <FullScreenLoadingModal open={isLoading} />
     </div>

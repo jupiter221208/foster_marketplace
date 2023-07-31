@@ -9,8 +9,8 @@
   margin-top: 16px;
   margin-bottom: 28px;
   @media (min-width: 1024px) {
-    margin-top: 32px;
-    margin-bottom: 121px;
+    margin-bottom: 100px;
+    margin-top: 0px;
   }
 }
 
@@ -27,8 +27,8 @@
 }
 
 .bannerImage {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
 .switchArea {

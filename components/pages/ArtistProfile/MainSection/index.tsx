@@ -282,9 +282,7 @@ const MainSection = prop => {
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
-          width={1620}
-          height={480}
-          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
+          className="w-full object-cover"
         />
         {isOwn && (
           <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
@@ -312,35 +310,9 @@ const MainSection = prop => {
           </div>
         )}
       </div>
-      <div className="w-full">
+      <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
-          <div className="col-span-3 h-full flex items-center">
-            <div className="flex gap-[15px] z-10">
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(0)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className={styles.whiteText}>{artistFollowers}</div>
-                &nbsp;
-                <div className={styles.grayText}>Followers</div>
-              </div>
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(1)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className={styles.whiteText}>{artistFollowing}</div>
-                &nbsp;
-                <div className={styles.grayText}>Following</div>
-              </div>
-            </div>
-          </div>
-          <div className="col-span-6">
+          <div className="col-span-9">
             <div className="w-content relative">
               <ProfileArtistCard
                 isOwn={isOwn}
@@ -398,7 +370,7 @@ const MainSection = prop => {
           )}
         </div>
         <div className="w-full flex justify-center mt-[12px]">
-          <div className="max-w-[678px] w-full flex flex-wrap justify-center mt-[9px] z-10">
+          <div className="w-full flex flex-wrap mt-[9px] z-10">
             {artistInfo?.wallet_id && (
               <div className="relative">
                 <AddressButton
@@ -411,8 +383,7 @@ const MainSection = prop => {
                 <CopyClipboardChip identifier="wallet-address" />
               </div>
             )}
-
-            <div className="w-full flex gap-[20px] justify-center items-center mt-[13px]">
+            <div className="flex gap-[20px] items-center ml-[11px]">
               {artistInfo?.ig_url !== null && artistInfo?.ig_url.length > 0 && (
                 <div>
                   <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
@@ -428,6 +399,33 @@ const MainSection = prop => {
                   <WebSiteIcon onClick={() => window.open(validUrl(artistInfo?.site_url))} />
                 </div>
               )}
+            </div>
+
+            <div className="w-full h-[24px] mt-[17px] mb-[34px] flex items-center">
+              <div className="flex gap-[15px] z-10">
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(0)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className={styles.whiteText}>{artistFollowers}</div>
+                  &nbsp;
+                  <div className={styles.grayText}>Followers</div>
+                </div>
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(1)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className={styles.whiteText}>{artistFollowing}</div>
+                  &nbsp;
+                  <div className={styles.grayText}>Following</div>
+                </div>
+              </div>
             </div>
 
             {artistInfo?.bio && (
@@ -646,12 +644,8 @@ const MainSection = prop => {
           </div>
         )}
       </div>
-      <div className="w-full">
-        <div className="z-0">
-          {/* <div className={styles.topLeftEllipse}>
-            <EllipseGreen />
-          </div> */}
-        </div>
+      <div className="g-container">
+        <div className="z-0"></div>
         <div className="w-full relative items-center mt-[-50px] z-10">
           <ProfileArtistCard
             isOwn={isOwn}
@@ -759,7 +753,7 @@ const MainSection = prop => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
+      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10 px-[20px]">
         {artistInfo?.bio && (
           <span className={styles.description}>
             {getShortDescription(viewport, artistInfo?.bio) + ' '}
