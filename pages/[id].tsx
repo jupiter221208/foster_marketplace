@@ -11,7 +11,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
 import MainSection from 'components/pages/ArtistProfile/MainSection'
-import NFTSection from 'components/pages/ArtistProfile/NFTSection'
+// import NFTSection from 'components/pages/ArtistProfile/NFTSection'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
@@ -56,15 +56,19 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collectedNfts, setCollectedNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
-  const [isMounted, setIsMounted] = useState(false)
+  // const [isMounted, setIsMounted] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
-  const [totalCount, setTotalCount] = useState(12)
+  // const [totalCount, setTotalCount] = useState(12)
   const [artistCurrentPage, setArtistCurrentPage] = useState(1)
   const [artistRowCount, setArtistRowCount] = useState(12)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
+  const [artistToEnd, setArtistToEnd] = useState(false)
+  const [collectorToEnd, setCollectorToEnd] = useState(false)
+  const [activeListingLoaded, setActiveListingLoaded] = useState(false)
+  const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -81,7 +85,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [artistInfo, publicKey])
 
   useEffect(() => {
-    setIsMounted(true)
+    // setIsMounted(true)
     setTimeout(
       () =>
         window.scrollTo({
@@ -91,10 +95,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       500
     )
     dispatch({ type: 'set', isLoading: true })
-    setTimeout(() => {
-      dispatch({ type: 'set', isLoading: false })
-    }, 1000)
   }, [])
+
+  useEffect(() => {
+    if (activeListingLoaded && liveAuctionLoaded) {
+      setTimeout(() => {
+        dispatch({ type: 'set', isLoading: false })
+      }, 1000)
+    }
+  }, [activeListingLoaded, liveAuctionLoaded])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
@@ -119,11 +128,13 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
 
   const selectRowCount = count => {
     if (artistEnable) {
-      getArtistData(artistPublicKey, count, 1)
       setArtistRowCount(count)
+      setArtistCurrentPage(1)
+      getArtistData(artistPublicKey, count, 1)
     } else {
-      getCollectorData(artistPublicKey, count, 1)
       setCollectorRowCount(count)
+      setCollectorCurrentPage(1)
+      getCollectorData(artistPublicKey, count, 1)
     }
     setTimeout(
       () =>
@@ -162,10 +173,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const handlePreviousPage = () => {
     if (artistEnable) {
       if (artistCurrentPage === 1) return
+      if (artistToEnd) setArtistToEnd(false)
       const prevPage = artistCurrentPage - 1
       getArtistData(artistPublicKey, artistRowCount, prevPage)
     } else {
       if (collectorCurrentPage === 1) return
+      if (collectorToEnd) setCollectorToEnd(false)
       const prevPage = collectorCurrentPage - 1
       getCollectorData(artistPublicKey, collectorRowCount, prevPage)
     }
@@ -204,6 +217,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getArtistData = (id, row_count, current_page, refresh = false) => {
+    if (artistToEnd) return
     setCreatedNfts([])
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
@@ -218,9 +232,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setArtistStatsInfo(response.stats)
         setCreatedNfts(response.nfts)
-        if (response.nfts.length === artistRowCount) {
-          setArtistCurrentPage(current_page)
+        setArtistCurrentPage(current_page)
+        if (response.nfts.length < row_count) {
+          setArtistToEnd(true)
         }
+
         setCollections(response.collections)
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
@@ -232,6 +248,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getCollectorData = (id, row_count, current_page, refresh = false) => {
+    if (collectorToEnd) return
     setCollectedNfts([])
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
@@ -244,10 +261,13 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setCollectorStatsInfo(response.stats)
+
         setCollectedNfts(response.nfts)
-        if (response.nfts.length === collectorRowCount) {
-          setCollectorCurrentPage(current_page)
+        setCollectorCurrentPage(current_page)
+        if (response.nfts.length < row_count) {
+          setCollectorToEnd(true)
         }
+
         // setCollections(response.collections)
         // if (categoryList.length === 0) setCategoryList(response.categories)
       },
@@ -307,6 +327,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           isOwn={isOwn}
           isLoaded={isLoaded}
           setFullScreenView={setFullScreenView}
+          wallet={artistInfo?.wallet_id}
+          reloadPage={reloadPage}
         />
         <TabSection
           createdNfts={createdNfts}
@@ -326,6 +348,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistEnable={setArtistEnable}
           artistStatsInfo={artistStatsInfo}
           collectorStatsInfo={collectorStatsInfo}
+          setActiveListingLoaded={setActiveListingLoaded}
+          setLiveAuctionLoaded={setLiveAuctionLoaded}
         />
 
         {/* <NFTSection

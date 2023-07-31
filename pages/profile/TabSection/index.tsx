@@ -12,9 +12,7 @@ import TabList from 'assets/json/artist-profile/tab-list.json'
 
 // resources
 import RefreshLottery from 'assets/lottery/refresh.json'
-import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
 import RefreshIcon from 'assets/icons/refresh-icon.svg'
-import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
@@ -47,6 +45,8 @@ const TabSection = props => {
     reloadPage,
     artistStatsInfo,
     collectorStatsInfo,
+    setActiveListingLoaded,
+    setLiveAuctionLoaded,
   } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -110,22 +110,18 @@ const TabSection = props => {
             </div>
           )}
         </div>
-        <div className="w-[26px] h-[26px] flex lg:hidden">
-          {refreshing ? (
-            <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} />
-          ) : (
-            <div onClick={() => refreshNFT()}>
-              <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-            </div>
-          )}
-        </div>
       </div>
       <div className={styles.divider} />
 
       {activeTab === 0 && (
         <div className="w-full">
-          <LiveAuctionSection category={''} artist={wallet} fromPage={'profile'} />
-          <ActiveListingSection artist={wallet} />
+          <LiveAuctionSection
+            category={''}
+            artist={wallet}
+            fromPage={'profile'}
+            setLiveAuctionLoaded={() => setLiveAuctionLoaded(true)}
+          />
+          <ActiveListingSection artist={wallet} loadCompleted={() => setActiveListingLoaded(true)} />
         </div>
       )}
 

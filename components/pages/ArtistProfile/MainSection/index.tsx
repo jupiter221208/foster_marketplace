@@ -7,10 +7,12 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // next components
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import Image from 'next/image'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
 import { getShortDescription } from 'utils/strings'
+import Lottie from 'lottie-react'
 
 // custom components
 import ReadMoreModal from 'components/Modal/ReadMoreModal'
@@ -19,6 +21,8 @@ import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import IconButton from 'components/Button/IconButton'
+import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
+import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
@@ -41,6 +45,7 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
@@ -50,10 +55,10 @@ import artistsAPI from 'apis/artists'
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import Alert from 'components/Alert'
+import nftsAPI from 'apis/nfts'
 
 const MainSection = prop => {
-  const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView } = prop
+  const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView, wallet, reloadPage } = prop
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()
@@ -249,6 +254,25 @@ const MainSection = prop => {
     }
     setAvatar(file)
     setOpenAvatarEditorModal(true)
+  }
+
+  const [refreshing, setRefreshing] = useState(false)
+  const refreshNFT = () => {
+    setRefreshing(true)
+    nftsAPI.burntNft({ user: wallet, nfts: [] }).then(
+      response => {
+        reloadPage()
+        setTimeout(() => {
+          setRefreshing(false)
+        }, 3000)
+      },
+      error => {
+        console.log(error)
+        setTimeout(() => {
+          setRefreshing(false)
+        }, 3000)
+      }
+    )
   }
 
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
@@ -646,6 +670,15 @@ const MainSection = prop => {
           />
           {!isOwn && (
             <div className="absolute flex right-0 top-[60px]">
+              <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[10px]">
+                {refreshing ? (
+                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                ) : (
+                  <div onClick={() => refreshNFT()}>
+                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                  </div>
+                )}
+              </div>
               <div className="mr-[11px]">
                 <div onClick={() => setOpenShareModal(true)}>
                   <ShareSmallIcon alt="" />
