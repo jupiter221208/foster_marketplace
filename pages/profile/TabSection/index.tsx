@@ -97,8 +97,9 @@ const TabSection = props => {
 
   return (
     <div className={styles.container}>
-      <div className="relative w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[46px]">
+      <div className="relative w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px]">
         <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
+
         <div className="absolute right-0 w-[140px] h-[46px] lg:flex hidden">
           {refreshing ? (
             <Lottie animationData={RefreshLottery} loop={true} />
@@ -119,6 +120,7 @@ const TabSection = props => {
           )}
         </div>
       </div>
+      <div className={styles.divider} />
 
       {activeTab === 0 && (
         <div className="w-full">

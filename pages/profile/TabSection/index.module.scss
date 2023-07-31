@@ -28,7 +28,28 @@
   font-family: 'Muli-SemiBold';
   font-size: 18px;
   color: var(--text-gray-200-color);
-  margin-top: 74px;
+  margin-top: 30px;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    margin-top: 74px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  margin-top: -9px;
+  margin-left: 10px;
+  @media (min-width: 1024px) {
+    margin-top: -20px;
+    margin-left: 15px;
+  }
+  background: var(--profile-divider);
 }
 
 .return {

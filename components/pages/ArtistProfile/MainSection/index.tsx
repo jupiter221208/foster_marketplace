@@ -51,7 +51,6 @@ import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import Alert from 'components/Alert'
-import DashboardArtistCard from 'components/Card/DashboardArtistCard'
 
 const MainSection = prop => {
   const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView } = prop
