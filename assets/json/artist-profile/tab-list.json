@@ -1,4 +1,45 @@
 [
-  { "id": 0, "label": "NFTs", "value": "NFTs" },
-  { "id": 1, "label": "Collections", "value": "Collections" }
+  {
+    "id": 0,
+    "icon01": "/icons/tag-green.svg",
+    "icon02": "/icons/tag-green.svg",
+    "icon03": "/icons/tag-gray-light.svg",
+    "label": "Listed",
+    "value": "Listed"
+  },
+  {
+    "id": 1,
+    "icon01": "/icons/list-ui-alt-green.svg",
+    "icon02": "/icons/list-ui-alt-gray.svg",
+    "icon03": "/icons/list-ui-alt-gray-light.svg",
+    "label": "Created",
+    "value": "Created"
+  },
+  {
+    "id": 2,
+    "icon01": "/icons/create-dashboard-green.svg",
+    "icon02": "/icons/create-dashboard-gray.svg",
+    "icon03": "/icons/create-dashboard-gray-light.svg",
+    "label": "Collected",
+    "value": "Collected",
+    "coming_soon": false
+  },
+  {
+    "id": 3,
+    "icon01": "/icons/collection-green.svg",
+    "icon02": "/icons/collection-gray.svg",
+    "icon03": "/icons/collection-gray-light.svg",
+    "label": "My Collections",
+    "value": "My Collections",
+    "coming_soon": false
+  },
+  {
+    "id": 4,
+    "icon01": "/icons/heart-rate-green.svg",
+    "icon02": "/icons/heart-rate-gray.svg",
+    "icon03": "/icons/heart-rate-gray-light.svg",
+    "label": "Statistics",
+    "value": "Statistics",
+    "coming_soon": false
+  }
 ]

@@ -31,6 +31,7 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import TabSection from './profile/TabSection'
 
 interface ArtistProfileProps {
   artistPublicKey?: string
@@ -50,7 +51,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
   const [statsInfo, setStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
-  const [nfts, setNfts] = useState<any>([])
+  const [createdNfts, setCreatedNfts] = useState<any>([])
+  const [collectedNfts, setCollectedNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
   const [isMounted, setIsMounted] = useState(false)
@@ -86,12 +88,17 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       500
     )
     dispatch({ type: 'set', isLoading: true })
+    setTimeout(() => {
+      dispatch({ type: 'set', isLoading: false })
+    }, 1000)
   }, [])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
-      let newNfts = nfts.filter(item => item.token_id !== hideNftToken)
-      setNfts(newNfts)
+      let newNfts = createdNfts.filter(item => item.token_id !== hideNftToken)
+      setCreatedNfts(newNfts)
+      let newNfts2 = collectedNfts.filter(item => item.token_id !== hideNftToken)
+      setCollectedNfts(newNfts2)
       dispatch({ type: 'set', hideNftToken: '' })
     }
   }, [hideNftToken])
@@ -100,22 +107,19 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     ;(async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-
       let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       loginWithSigned(publicKey, signature, dispatch)
-
-      if (artistEnable || isLoggedIn()) {
-        getArtistData(artistPublicKey, rowCount, currentPage, true)
-      } else {
-        getCollectorData(artistPublicKey, rowCount, currentPage, true)
-      }
+      console.log('============getArtistData3============')
+      getArtistData(artistPublicKey, rowCount, currentPage, true)
+      getCollectorData(artistPublicKey, rowCount, currentPage, true)
     })()
   }, [connected, loginAndRefresh, publicArtistData, signMessage])
 
   const selectRowCount = count => {
     setRowCount(count)
-    if (artistEnable) getArtistData(artistPublicKey, count, currentPage)
-    else getCollectorData(artistPublicKey, count, currentPage)
+    setCurrentPage(1)
+    if (artistEnable) getArtistData(artistPublicKey, count, 1)
+    else getCollectorData(artistPublicKey, count, 1)
     setTimeout(
       () =>
         window.scrollTo({
@@ -126,11 +130,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const reloadPage = () => {
-    if (artistEnable) {
-      getArtistData(artistPublicKey, rowCount, currentPage, false)
-    } else {
-      getCollectorData(artistPublicKey, rowCount, currentPage, false)
-    }
+    getArtistData(artistPublicKey, rowCount, currentPage, false)
+    getCollectorData(artistPublicKey, rowCount, currentPage, false)
   }
 
   const handleNextPage = () => {
@@ -172,17 +173,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       unique_collectors: 'N/A',
       sales_volume: 'N/A',
     })
-    setNfts([])
     setCollections([])
     setCategoryList([])
   }
 
   const getArtistData = (id, row_count, current_page, refresh = false) => {
-    setNfts([])
+    setCreatedNfts([])
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
-        dispatch({ type: 'set', isLoading: false })
         if (isString(response)) return
         let artist = response.artist
 
@@ -192,7 +191,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setStatsInfo(response.stats)
-        setNfts(response.nfts)
+        setCreatedNfts(response.nfts)
         if (response.nfts.length === rowCount) {
           setCurrentPage(current_page)
         }
@@ -200,7 +199,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         console.log(error)
       }
@@ -208,10 +206,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const getCollectorData = (id, row_count, current_page, refresh = false) => {
-    setNfts([])
+    setCollectedNfts([])
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
-        dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         if (isString(response)) return
         let artist = response.collector
@@ -221,7 +218,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setStatsInfo(response.stats)
-        setNfts(response.nfts)
+        setCollectedNfts(response.nfts)
         if (response.nfts.length === rowCount) {
           setCurrentPage(current_page)
         }
@@ -229,7 +226,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
-        dispatch({ type: 'set', isLoading: false })
         setIsLoaded(true)
         console.log(error)
       }
@@ -237,33 +233,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   useEffect(() => {
-    if (isMounted) {
-      setIsLoaded(false)
-      setRowCount(12)
-      setCurrentPage(1)
-      if (artistEnable) {
-        getArtistData(artistPublicKey, 12, 1)
-      } else {
-        getCollectorData(artistPublicKey, 12, 1)
-      }
-    }
-  }, [artistEnable])
-
-  useEffect(() => {
     if (!artistPublicKey) return
     resetData()
-
-    if (artistEnable) {
-      setArtistInfo(publicArtistData?.artist ?? {})
-      setStatsInfo(publicArtistData?.stats ?? {})
-      setCategoryList(publicArtistData?.categories ?? [])
-      setNfts(publicArtistData?.nfts ?? [])
-      setCollections(publicArtistData?.collections ?? [])
-
-      getArtistData(artistPublicKey, rowCount, currentPage, true)
-    } else {
-      getCollectorData(artistPublicKey, rowCount, currentPage, true)
-    }
+    console.log('=============getArtistData2===========')
+    getArtistData(artistPublicKey, rowCount, currentPage, true)
+    getCollectorData(artistPublicKey, rowCount, currentPage, true)
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -312,7 +286,23 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistEnable={enabled => setArtistEnable(enabled)}
           setFullScreenView={setFullScreenView}
         />
-        <NFTSection
+        <TabSection
+          createdNfts={createdNfts}
+          collectedNfts={collectedNfts}
+          collections={collections}
+          wallet={artistInfo?.wallet_id}
+          isOwn={isOwn}
+          isLoaded={isLoaded}
+          currentPage={currentPage}
+          rowCount={rowCount}
+          selectRowCount={count => selectRowCount(count)}
+          handleNextPage={() => handleNextPage()}
+          handlePreviousPage={() => handlePreviousPage()}
+          reloadPage={reloadPage}
+          setArtistEnable={setArtistEnable}
+        />
+
+        {/* <NFTSection
           nfts={nfts}
           collections={collections}
           wallet={artistInfo?.wallet_id}
@@ -324,7 +314,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           handleNextPage={() => handleNextPage()}
           handlePreviousPage={() => handlePreviousPage()}
           reloadPage={reloadPage}
-        />
+        /> */}
       </div>
 
       {fullScreenMode && (
