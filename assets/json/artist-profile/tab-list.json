@@ -2,7 +2,7 @@
   {
     "id": 0,
     "icon01": "/icons/tag-green.svg",
-    "icon02": "/icons/tag-green.svg",
+    "icon02": "/icons/tag-gray.svg",
     "icon03": "/icons/tag-gray-light.svg",
     "label": "Listed",
     "value": "Listed"
