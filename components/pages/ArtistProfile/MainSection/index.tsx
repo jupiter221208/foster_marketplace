@@ -54,8 +54,7 @@ import Alert from 'components/Alert'
 import DashboardArtistCard from 'components/Card/DashboardArtistCard'
 
 const MainSection = prop => {
-  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable, isLoaded, setFullScreenView } =
-    prop
+  const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView } = prop
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()

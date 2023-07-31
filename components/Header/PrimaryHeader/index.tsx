@@ -40,7 +40,6 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 // call apis
-import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'

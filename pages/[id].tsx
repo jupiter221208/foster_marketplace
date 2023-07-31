@@ -26,7 +26,7 @@ import styles from './id.module.scss'
 // call apis
 import artistsAPI from 'apis/artists'
 import ArtistLayout from 'components/Layout/ArtistLayout'
-import { isString, isLoggedIn } from 'utils/helpers'
+import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
@@ -49,7 +49,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const hideNftToken = useSelector(state => (state as any).hideNftToken)
 
   const [artistInfo, setArtistInfo] = useState<any>(publicArtistData?.artist)
-  const [statsInfo, setStatsInfo] = useState<any>({})
+  const [artistStatsInfo, setArtistStatsInfo] = useState<any>({})
+  const [collectorStatsInfo, setCollectorStatsInfo] = useState<any>({})
   const [categoryList, setCategoryList] = useState<any>([])
   const [createdNfts, setCreatedNfts] = useState<any>([])
   const [collectedNfts, setCollectedNfts] = useState<any>([])
@@ -59,9 +60,11 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [isLoaded, setIsLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
   const [totalCount, setTotalCount] = useState(12)
-  const [rowCount, setRowCount] = useState(12)
+  const [artistCurrentPage, setArtistCurrentPage] = useState(1)
+  const [artistRowCount, setArtistRowCount] = useState(12)
+  const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
+  const [collectorRowCount, setCollectorRowCount] = useState(12)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -109,17 +112,19 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       dispatch({ type: 'set', loginAndRefresh: false })
       let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
       loginWithSigned(publicKey, signature, dispatch)
-      console.log('============getArtistData3============')
-      getArtistData(artistPublicKey, rowCount, currentPage, true)
-      getCollectorData(artistPublicKey, rowCount, currentPage, true)
+      getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true)
+      getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true)
     })()
   }, [connected, loginAndRefresh, publicArtistData, signMessage])
 
   const selectRowCount = count => {
-    setRowCount(count)
-    setCurrentPage(1)
-    if (artistEnable) getArtistData(artistPublicKey, count, 1)
-    else getCollectorData(artistPublicKey, count, 1)
+    if (artistEnable) {
+      getArtistData(artistPublicKey, count, 1)
+      setArtistRowCount(count)
+    } else {
+      getCollectorData(artistPublicKey, count, 1)
+      setCollectorRowCount(count)
+    }
     setTimeout(
       () =>
         window.scrollTo({
@@ -130,15 +135,21 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const reloadPage = () => {
-    getArtistData(artistPublicKey, rowCount, currentPage, false)
-    getCollectorData(artistPublicKey, rowCount, currentPage, false)
+    getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, false)
+    getCollectorData(artistPublicKey, artistRowCount, artistCurrentPage, false)
   }
 
   const handleNextPage = () => {
     // if (totalCount < (currentPage + 1) * rowCount) return
-    const nextPage = currentPage + 1
-    if (artistEnable) getArtistData(artistPublicKey, rowCount, nextPage)
-    else getCollectorData(artistPublicKey, rowCount, nextPage)
+
+    if (artistEnable) {
+      const nextPage = artistCurrentPage + 1
+      getArtistData(artistPublicKey, artistRowCount, nextPage)
+    } else {
+      const nextPage = collectorCurrentPage + 1
+      getCollectorData(artistPublicKey, collectorRowCount, nextPage)
+    }
+
     setTimeout(
       () =>
         window.scrollTo({
@@ -149,10 +160,15 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const handlePreviousPage = () => {
-    if (currentPage === 1) return
-    const prevPage = currentPage - 1
-    if (artistEnable) getArtistData(artistPublicKey, rowCount, prevPage)
-    else getCollectorData(artistPublicKey, rowCount, prevPage)
+    if (artistEnable) {
+      if (artistCurrentPage === 1) return
+      const prevPage = artistCurrentPage - 1
+      getArtistData(artistPublicKey, artistRowCount, prevPage)
+    } else {
+      if (collectorCurrentPage === 1) return
+      const prevPage = collectorCurrentPage - 1
+      getCollectorData(artistPublicKey, collectorRowCount, prevPage)
+    }
     setTimeout(
       () =>
         window.scrollTo({
@@ -163,7 +179,17 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const resetData = () => {
-    setStatsInfo({
+    setArtistStatsInfo({
+      nfts_collected: 'N/A',
+      collections_collected: 'N/A',
+      unique_artists_owned: 'N/A',
+      purchase_volume: 'N/A',
+      nfts_created: 'N/A',
+      collections_created: 'N/A',
+      unique_collectors: 'N/A',
+      sales_volume: 'N/A',
+    })
+    setCollectorStatsInfo({
       nfts_collected: 'N/A',
       collections_collected: 'N/A',
       unique_artists_owned: 'N/A',
@@ -190,10 +216,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           artist.banner_picture ||= HeaderImage.src
           setArtistInfo(artist)
         }
-        setStatsInfo(response.stats)
+        setArtistStatsInfo(response.stats)
         setCreatedNfts(response.nfts)
-        if (response.nfts.length === rowCount) {
-          setCurrentPage(current_page)
+        if (response.nfts.length === artistRowCount) {
+          setArtistCurrentPage(current_page)
         }
         setCollections(response.collections)
         if (categoryList.length === 0) setCategoryList(response.categories)
@@ -217,13 +243,13 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           artist.banner_picture ||= HeaderImage.src
           setArtistInfo(artist)
         }
-        setStatsInfo(response.stats)
+        setCollectorStatsInfo(response.stats)
         setCollectedNfts(response.nfts)
-        if (response.nfts.length === rowCount) {
-          setCurrentPage(current_page)
+        if (response.nfts.length === collectorRowCount) {
+          setCollectorCurrentPage(current_page)
         }
-        setCollections(response.collections)
-        if (categoryList.length === 0) setCategoryList(response.categories)
+        // setCollections(response.collections)
+        // if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
         setIsLoaded(true)
@@ -235,9 +261,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   useEffect(() => {
     if (!artistPublicKey) return
     resetData()
-    console.log('=============getArtistData2===========')
-    getArtistData(artistPublicKey, rowCount, currentPage, true)
-    getCollectorData(artistPublicKey, rowCount, currentPage, true)
+    getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true)
+    getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true)
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -278,12 +303,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         </div>
         <MainSection
           artistInfo={artistInfo}
-          statsInfo={statsInfo}
           categoryList={categoryList}
           isOwn={isOwn}
           isLoaded={isLoaded}
-          artistEnable={artistEnable}
-          setArtistEnable={enabled => setArtistEnable(enabled)}
           setFullScreenView={setFullScreenView}
         />
         <TabSection
@@ -293,13 +315,17 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           wallet={artistInfo?.wallet_id}
           isOwn={isOwn}
           isLoaded={isLoaded}
-          currentPage={currentPage}
-          rowCount={rowCount}
+          artistCurrentPage={artistCurrentPage}
+          artistRowCount={artistRowCount}
+          collectorCurrentPage={collectorCurrentPage}
+          collectorRowCount={collectorRowCount}
           selectRowCount={count => selectRowCount(count)}
           handleNextPage={() => handleNextPage()}
           handlePreviousPage={() => handlePreviousPage()}
           reloadPage={reloadPage}
           setArtistEnable={setArtistEnable}
+          artistStatsInfo={artistStatsInfo}
+          collectorStatsInfo={collectorStatsInfo}
         />
 
         {/* <NFTSection

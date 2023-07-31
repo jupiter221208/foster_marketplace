@@ -22,6 +22,15 @@
   cursor: pointer;
 }
 
+.statsSection {
+  width: 100%;
+  max-width: 400px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+  margin-top: 74px;
+}
+
 .return {
   border: 1px solid var(--see-more-border);
   color: var(--text-gray-200-color);
