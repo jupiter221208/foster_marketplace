@@ -50,7 +50,7 @@ const GradientButton = props => {
     >
       {(direction === 'both' || direction === 'rtl') &&
         (icon1 !== '' ? (
-          <div className="flex items-center mr-2 xl:mr-[12px]">{icon1}</div>
+          <div className="flex items-center mr-2 xl:mr-[15px]">{icon1}</div>
         ) : icon !== '' ? (
           <div className="flex items-center mr-2 xl:mr-[12px]">
             <Image src={icon} alt="" />
@@ -61,7 +61,7 @@ const GradientButton = props => {
       <div>{label}</div>
       {(direction === 'both' || direction === 'ltr') &&
         (icon1 !== '' ? (
-          <div className="flex items-center ml-2 xl:ml-[12px]">{icon1}</div>
+          <div className="flex items-center ml-2 xl:ml-[15px]">{icon1}</div>
         ) : icon !== '' ? (
           <div className="flex items-center ml-2 xl:ml-[12px]">
             <Image src={icon} alt="" />

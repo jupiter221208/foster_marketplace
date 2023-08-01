@@ -12,6 +12,7 @@ const SecondaryButton = props => {
     color,
     fullWidth,
     fontSize,
+    fontFamily = '',
     height = '',
     icon = '',
     label,
@@ -23,13 +24,14 @@ const SecondaryButton = props => {
     <button
       type="button"
       onClick={() => onClick()}
-      className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
+      className={`${styles.container} gap-2 xl:gap-[4px] whitespace-nowrap`}
       style={{
         color: color,
         borderColor: borderColor,
         borderRadius: borderRadius,
         height: height,
         fontSize: fontSize,
+        fontFamily: fontFamily,
         width: fullWidth ? '100%' : width,
       }}
     >

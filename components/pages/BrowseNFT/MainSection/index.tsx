@@ -954,6 +954,9 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                           onClick={() => quickBuy()}
                           icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
+                          fontFamily="Muli-SemiBold"
+                          width={160}
+                          height={50}
                           disabled={!tradeStateAddress}
                         />
                       ) : (
@@ -973,7 +976,10 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                         borderWidth={2}
                         paddingLeft="13px"
                         paddingRight="13px"
+                        fontFamily="Muli-SemiBold"
                         gap="4px"
+                        width={160}
+                        height={50}
                       />
                     </div>
                   )}
