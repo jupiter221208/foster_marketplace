@@ -630,19 +630,21 @@ const MainSection = prop => {
           className="w-full h-full object-cover rounded-none"
         />
         {isOwn && (
-          <div className="absolute bottom-2 right-2 cursor-pointer z-20">
+          <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
             <div className={styles.iconBlurView}>
-              <IconButton
-                icon={EditorGreenIcon}
-                onClick={() => inputBannerFile.current.click()}
-                backgroundColor={'transparent'}
-                borderRadius="100%"
-                width={32}
-                height={32}
-                iconWidth={20}
-                iconHeight={20}
-                disabled={bannerUploadingToS3}
-              />
+              <div className="w-full h-full flex justify-center items-center">
+                <IconButton
+                  icon={EditorGreenIcon}
+                  onClick={() => inputBannerFile.current.click()}
+                  backgroundColor={'transparent'}
+                  borderRadius="100%"
+                  width={20}
+                  height={20}
+                  iconWidth={20}
+                  iconHeight={20}
+                  disabled={bannerUploadingToS3}
+                />
+              </div>
             </div>
             <input
               type="file"
@@ -673,23 +675,24 @@ const MainSection = prop => {
               )
             }
           />
-          {!isOwn && (
-            <div className="absolute flex right-0 top-[60px]">
-              <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[10px]">
-                {refreshing ? (
-                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
-                ) : (
-                  <div onClick={() => refreshNFT()}>
-                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-                  </div>
-                )}
-              </div>
-              <div className="mr-[11px]">
-                <div onClick={() => setOpenShareModal(true)}>
-                  <ShareSmallIcon alt="" />
+
+          <div className="absolute flex right-0 top-[60px]">
+            <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[10px]">
+              {refreshing ? (
+                <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+              ) : (
+                <div onClick={() => refreshNFT()}>
+                  <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
                 </div>
+              )}
+            </div>
+            <div>
+              <div onClick={() => setOpenShareModal(true)}>
+                <ShareSmallIcon alt="" />
               </div>
-              <div className="w-[80px] h-[29px] flex overflow-hidden">
+            </div>
+            {!isOwn && (
+              <div className="w-[80px] h-[29px] ml-[11px] flex overflow-hidden">
                 {followLoaded ? (
                   follow ? (
                     <OutlineButton
@@ -722,8 +725,8 @@ const MainSection = prop => {
                   </div>
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div className="mt-2 z-10">
           {artistInfo?.wallet_id && (
