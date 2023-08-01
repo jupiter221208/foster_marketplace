@@ -45,8 +45,12 @@
   height: 1px;
   margin-top: -9px;
   margin-left: 10px;
+  @media (min-width: 768px) {
+    margin-top: -18px;
+    margin-left: 5px;
+  }
   @media (min-width: 1024px) {
-    margin-top: -20px;
+    margin-top: -18px;
     margin-left: 5px;
   }
   background: var(--profile-divider);
