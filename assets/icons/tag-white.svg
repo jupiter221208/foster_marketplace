@@ -1,4 +1,3 @@
-<svg data-name="main-color-icon" id="Icon_Price_tag" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <path id="tag-alt-3" d="M6.4,5.2A1.2,1.2,0,1,0,7.6,6.4,1.2,1.2,0,0,0,6.4,5.2ZM17.3,8.969,10.569,2.232A.8.8,0,0,0,10,2H2.8a.8.8,0,0,0-.8.8V10a.8.8,0,0,0,.232.568L8.969,17.3a2.4,2.4,0,0,0,3.392,0L17.3,12.4a2.4,2.4,0,0,0,0-3.392ZM16.17,11.225h0l-4.945,4.937a.8.8,0,0,1-1.128,0L3.6,9.673V3.6H9.673l6.5,6.5a.8.8,0,0,1,0,1.128Z" transform="translate(6 6)"/>
-  <rect id="Rectangle_20898" data-name="Rectangle 20898" width="32" height="32" fill="none"/>
+<svg data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <path id="tag-alt-3" d="M7.5,6A1.5,1.5,0,1,0,9,7.5,1.5,1.5,0,0,0,7.5,6Zm13.622,4.711L12.711,2.29A1,1,0,0,0,12,2H3A1,1,0,0,0,2,3v9a1,1,0,0,0,.29.71l8.421,8.411a3,3,0,0,0,4.241,0L21.123,15a3,3,0,0,0,0-4.241Zm-1.41,2.82h0L13.532,19.7a1,1,0,0,1-1.41,0L4,11.591V4h7.591l8.121,8.121a1,1,0,0,1,0,1.41Z" transform="translate(-2 -2)" />
 </svg>

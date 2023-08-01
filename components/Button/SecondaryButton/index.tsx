@@ -24,7 +24,7 @@ const SecondaryButton = props => {
     <button
       type="button"
       onClick={() => onClick()}
-      className={`${styles.container} gap-2 xl:gap-[4px] whitespace-nowrap`}
+      className={`${styles.container} gap-2 xl:gap-[10px] whitespace-nowrap`}
       style={{
         color: color,
         borderColor: borderColor,
