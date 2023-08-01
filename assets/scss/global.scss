@@ -1078,6 +1078,11 @@ h6 {
   fill: var(--pagination-down-icon);
 }
 
+[data-name='info-gray-small'] {
+  fill: rgba(var(--main-bg-color-rgb), 0.75);
+}
+
+
 [data-name='activity-down-icon'] {
   fill: var(--main-icon-color);
 }
