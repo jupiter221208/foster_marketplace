@@ -330,30 +330,30 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           wallet={artistInfo?.wallet_id}
           reloadPage={reloadPage}
         />
-        <div className="g-container">
-          <TabSection
-            createdNfts={createdNfts}
-            collectedNfts={collectedNfts}
-            collections={collections}
-            wallet={artistInfo?.wallet_id}
-            isOwn={isOwn}
-            isLoaded={isLoaded}
-            artistCurrentPage={artistCurrentPage}
-            artistRowCount={artistRowCount}
-            collectorCurrentPage={collectorCurrentPage}
-            collectorRowCount={collectorRowCount}
-            selectRowCount={count => selectRowCount(count)}
-            handleNextPage={() => handleNextPage()}
-            handlePreviousPage={() => handlePreviousPage()}
-            reloadPage={reloadPage}
-            setArtistEnable={setArtistEnable}
-            artistStatsInfo={artistStatsInfo}
-            collectorStatsInfo={collectorStatsInfo}
-            setActiveListingLoaded={setActiveListingLoaded}
-            setLiveAuctionLoaded={setLiveAuctionLoaded}
-          />
-
-          {/* <NFTSection
+        <div className="w-full flex justify-center">
+          <div className="g-container">
+            <TabSection
+              createdNfts={createdNfts}
+              collectedNfts={collectedNfts}
+              collections={collections}
+              wallet={artistInfo?.wallet_id}
+              isOwn={isOwn}
+              isLoaded={isLoaded}
+              artistCurrentPage={artistCurrentPage}
+              artistRowCount={artistRowCount}
+              collectorCurrentPage={collectorCurrentPage}
+              collectorRowCount={collectorRowCount}
+              selectRowCount={count => selectRowCount(count)}
+              handleNextPage={() => handleNextPage()}
+              handlePreviousPage={() => handlePreviousPage()}
+              reloadPage={reloadPage}
+              setArtistEnable={setArtistEnable}
+              artistStatsInfo={artistStatsInfo}
+              collectorStatsInfo={collectorStatsInfo}
+              setActiveListingLoaded={setActiveListingLoaded}
+              setLiveAuctionLoaded={setLiveAuctionLoaded}
+            />
+            {/* <NFTSection
           nfts={nfts}
           collections={collections}
           wallet={artistInfo?.wallet_id}
@@ -366,6 +366,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           handlePreviousPage={() => handlePreviousPage()}
           reloadPage={reloadPage}
         /> */}
+          </div>
         </div>
 
         {fullScreenMode && (

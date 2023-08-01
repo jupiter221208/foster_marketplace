@@ -108,7 +108,6 @@ const LiveAuctionSection = props => {
   return (
     showSection && (
       <section className={styles.container}>
-        <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">

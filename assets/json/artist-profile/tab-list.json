@@ -29,8 +29,8 @@
     "icon01": "/icons/collection-green.svg",
     "icon02": "/icons/collection-gray.svg",
     "icon03": "/icons/collection-gray-light.svg",
-    "label": "My Collections",
-    "value": "My Collections",
+    "label": "Collections",
+    "value": "Collections",
     "coming_soon": false
   },
   {

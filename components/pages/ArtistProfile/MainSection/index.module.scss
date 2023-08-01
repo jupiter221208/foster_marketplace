@@ -5,7 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 16px;
   margin-bottom: 28px;
   @media (min-width: 1024px) {
@@ -23,7 +23,7 @@
     left: -662px;
   }
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 
 .bannerImage {
