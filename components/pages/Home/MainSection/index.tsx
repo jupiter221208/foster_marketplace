@@ -74,18 +74,18 @@ const MainSection = () => {
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
-        <div className="hidden lg:block lg:col-span-6 xl:col-span-6">
-          {/* <FosterHeroLogo alt="" /> */}
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
+          <div className="col-span-6">
+            {/* <FosterHeroLogo alt="" /> */}
 
-          <div className={styles.text}>Let’s build the future of art, together.</div>
+            <div className={styles.text}>Let’s build the future of art, together.</div>
 
-          <div className={styles.slug}>
-            Home to creators, collectors, and curators all around the world.
-            <br />
-            Pushing the boundaries of digital ownership on Solana.
-          </div>
+            <div className={styles.slug}>
+              Home to creators, collectors, and curators all around the world.
+              <br />
+              Pushing the boundaries of digital ownership on Solana.
+            </div>
 
-          {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[60px] flex justify-center lg:justify-start gap-8">
               <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
@@ -95,25 +95,23 @@ const MainSection = () => {
                 onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
               />
             </div>
-          ) : (
-            <></>
-          )}
-          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
-            <div className="block">
-              <div className={styles.count}>{artworkCnt}</div>
-              <div className={styles.countText}>Artworks</div>
-            </div>
-            <div className="block items-center">
-              <div className={styles.count}>{collectionCnt}</div>
-              <div className={styles.countText}>Collections</div>
-            </div>
-            <div className="block">
-              <div className={styles.count}>{nftCnt}</div>
-              <div className={styles.countText}>Ecosystem</div>
+
+            <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
+              <div className="block">
+                <div className={styles.count}>{artworkCnt}</div>
+                <div className={styles.countText}>Artworks</div>
+              </div>
+              <div className="block items-center">
+                <div className={styles.count}>{collectionCnt}</div>
+                <div className={styles.countText}>Collections</div>
+              </div>
+              <div className="block">
+                <div className={styles.count}>{nftCnt}</div>
+                <div className={styles.countText}>Ecosystem</div>
+              </div>
             </div>
           </div>
-        </div>
-
+        )}
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div
             className="w-full col-span-12 min-h-[508px]"
