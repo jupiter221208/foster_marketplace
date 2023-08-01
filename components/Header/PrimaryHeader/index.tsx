@@ -253,7 +253,7 @@ const PrimaryHeader = () => {
                 <FosterLogoDark alt="" />
               </div>
             )}
-            <div className="w-full max-w-[708px] min-w-[448px] ml-[40px] flex items-center">
+            <div className="w-full max-w-[708px] min-w-[540px] ml-[40px] flex items-center">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
@@ -262,7 +262,7 @@ const PrimaryHeader = () => {
                 onClick={() => handleClear()}
                 onClose={() => handleClose()}
               />
-              <div className={styles.alphaArea}>
+              {/* <div className={styles.alphaArea}>
                 <svg
                   id="Alpha_Icon_SVG_-_95DBD5_-_Desktop"
                   data-name="Alpha Icon SVG - 95DBD5 - Desktop"
@@ -289,7 +289,7 @@ const PrimaryHeader = () => {
                     />
                   </g>
                 </svg>
-              </div>
+              </div> */}
             </div>
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[280px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />

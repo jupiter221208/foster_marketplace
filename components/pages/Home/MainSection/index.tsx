@@ -74,19 +74,15 @@ const MainSection = () => {
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
-        <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
+        <div className="hidden lg:block lg:col-span-6 xl:col-span-6">
           {/* <FosterHeroLogo alt="" /> */}
 
-          <div className={styles.text}>
-            Home to Digital Creators,
-            <br />
-            Collectors, and Curators.
-          </div>
+          <div className={styles.text}>Let’s build the future of art, together.</div>
 
           <div className={styles.slug}>
-            Pushing the boundaries of digital art on Solana.
+            Home to creators, collectors, and curators all around the world.
             <br />
-            Start your creative journey today.
+            Pushing the boundaries of digital ownership on Solana.
           </div>
 
           {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
@@ -102,7 +98,7 @@ const MainSection = () => {
           ) : (
             <></>
           )}
-          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20 mb-[100px]">
+          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
             <div className="block">
               <div className={styles.count}>{artworkCnt}</div>
               <div className={styles.countText}>Artworks</div>
@@ -156,13 +152,13 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end lg:py-6"
+            className="w-full col-span-12 lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end lg:py-6"
             style={{
               width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
               marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
             }}
           >
-            <div className="max-w-[550px] w-full">
+            <div className="max-w-[700px] w-full">
               {heroList.length !== 0 && (
                 <Swiper
                   slidesPerView={1}

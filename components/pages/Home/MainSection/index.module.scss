@@ -181,13 +181,23 @@
   }
   @media (min-width: 1024px) {
     margin-top: 0px;
+    text-align: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 40px;
+    line-height: 60px;
+  }
+  @media (min-width: 1440px) {
+    max-width: 700px;
+    margin-top: 0px;
     font-size: 50px;
     line-height: 70px;
     text-align: left;
     padding-left: 0px;
     padding-right: 0px;
+    font-size: 50px;
+    line-height: 70px;
   }
-
   letter-spacing: 0;
   color: var(--text-gray-200-color);
 }
