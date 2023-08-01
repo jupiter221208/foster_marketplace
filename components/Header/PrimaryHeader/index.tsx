@@ -253,7 +253,7 @@ const PrimaryHeader = () => {
                 <FosterLogoDark alt="" />
               </div>
             )}
-            <div className="w-full max-w-[708px] min-w-[540px] ml-[40px] flex items-center">
+            <div className="w-full max-w-[708px] min-w-[240px] 2xl:ml-[40px] lg:ml-[10px] xl:ml-[20px] flex items-center">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
@@ -291,7 +291,7 @@ const PrimaryHeader = () => {
                 </svg>
               </div> */}
             </div>
-            <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[280px] flex items-center" />
+            <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />

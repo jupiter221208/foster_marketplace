@@ -1155,6 +1155,10 @@ h6 {
   fill: var(--main-bg-color);
 }
 
+[data-name='quick-buy-icon'] {
+  fill: var(--quick-buy-icon-color);
+}
+
 [data-name='hide-icon'] {
   fill: #EFF0F6;
   &:hover {

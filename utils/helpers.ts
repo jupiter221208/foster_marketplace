@@ -466,6 +466,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-setup-avatar-bg', '#202427')
     doc.style.setProperty('--profile-setup-left-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     doc.style.setProperty('--profile-divider', '#202427')
+    doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -733,5 +734,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-setup-avatar-bg', 'linear-gradient(300deg, #4a9791 55%, #202427 100%)')
     doc.style.setProperty('--profile-setup-left-bg', 'linear-gradient(to bottom, #121212, #173538)')
     doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
+    doc.style.setProperty('--quick-buy-icon-color', '#202427')
   }
 }

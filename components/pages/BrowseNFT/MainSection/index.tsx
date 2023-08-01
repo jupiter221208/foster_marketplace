@@ -44,7 +44,7 @@ import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
+import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
 import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg?component'
 import NotificationGreenIcon from 'assets/icons/notification-icon.svg?component'
@@ -925,7 +925,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                         <GradientButton
                           label={'Quick Buy'}
                           onClick={() => quickBuy()}
-                          icon={QuickBuyBlackIcon}
+                          icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
                           disabled={!tradeStateAddress}
                         />
