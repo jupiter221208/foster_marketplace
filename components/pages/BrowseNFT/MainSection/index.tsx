@@ -60,6 +60,8 @@ import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
+import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
+import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -70,7 +72,6 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
-import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
@@ -155,6 +156,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [play, setPlay] = useState(false)
+  const [infoFocus, setInfoFocus] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -904,10 +906,35 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
                 <>
-                  <div className="w-full flex items-center mt-[77px] lg:mt-4">
-                    <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
+                  <div className="w-full flex gap-2 mt-[70px] lg:mt-[0px]">
+                    <div className={styles.fixedPrice}>Fixed Price</div>
+                    <div>
+                      <div className="mt-1 lg:mt-2 h-[14px] flex items-center">
+                        <div
+                          className="h-[14px] flex justify-center items-center cursor-pointer"
+                          onMouseEnter={() => setInfoFocus(true)}
+                          onMouseLeave={() => setInfoFocus(false)}
+                          onClick={() => {
+                            setInfoFocus(true)
+                            setTimeout(() => {
+                              setInfoFocus(false)
+                            }, 2000)
+                          }}
+                        >
+                          {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
+                        </div>
+                        {infoFocus && (
+                          <div className={styles.infoText}>
+                            The USD value of this artwork is ${(solToUsdRate * nftPrice).toFixed(2)}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-full flex items-center mt-1">
+                    {/* <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
                     <div className={styles.whiteTitle}>$ {(solToUsdRate * nftPrice).toFixed(2)}</div>
-                    <div className={styles.separatorSol}></div>
+                    <div className={styles.separatorSol}></div> */}
                     <div className="flex items-center mt-[3px]">
                       {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
