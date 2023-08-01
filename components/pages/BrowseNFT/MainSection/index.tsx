@@ -980,6 +980,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                         gap="4px"
                         width={160}
                         height={50}
+                        borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                       />
                     </div>
                   )}
