@@ -31,6 +31,15 @@
   width: 100%;
 }
 
+.bottomMask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0px;
+  background: var(--category-bottom-mask);
+}
+
 .switchArea {
   position: relative;
   max-width: 698px;
