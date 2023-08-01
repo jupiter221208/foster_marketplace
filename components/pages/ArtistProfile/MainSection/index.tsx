@@ -331,6 +331,15 @@ const MainSection = prop => {
           </div>
           {!isOwn && (
             <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
+              <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[20px]">
+                {refreshing ? (
+                  <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+                ) : (
+                  <div onClick={() => refreshNFT()}>
+                    <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                  </div>
+                )}
+              </div>
               <div className="mr-[11px] lg:mr-[24px]">
                 <MenuSocialShare
                   type="image"
@@ -717,7 +726,7 @@ const MainSection = prop => {
         </div>
         <div className="mt-2 z-10">
           {artistInfo?.wallet_id && (
-            <div className="relative w-[110px]">
+            <div className="relative w-[130px]">
               <AddressButton
                 label={getShortAddress(artistInfo?.wallet_id)}
                 onClick={() => {
