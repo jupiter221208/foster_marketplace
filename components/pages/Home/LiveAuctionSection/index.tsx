@@ -30,7 +30,7 @@ import SeeMoreButton from 'components/Button/SeeMoreButton'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const LiveAuctionSection = props => {
-  const { category, artist = '', fromPage = 'home' } = props
+  const { category, artist = '', fromPage = 'home', setLiveAuctionLoaded = null } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -48,6 +48,8 @@ const LiveAuctionSection = props => {
 
   const getLiveAuctionsFromServer = (category, artist, mode) => {
     dashboardAPI.getLiveAuctions(category, artist, mode).then(response => {
+      if (setLiveAuctionLoaded) setLiveAuctionLoaded()
+
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
@@ -74,6 +76,7 @@ const LiveAuctionSection = props => {
       }
     }),
       error => {
+        if (setLiveAuctionLoaded) setLiveAuctionLoaded()
         console.log(error)
       }
   }
@@ -105,7 +108,6 @@ const LiveAuctionSection = props => {
   return (
     showSection && (
       <section className={styles.container}>
-        <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">

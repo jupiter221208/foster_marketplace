@@ -6,6 +6,7 @@ import Tab from 'components/Tab'
 import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
+import ArtistPagination from 'components/Button/ArtistPagination'
 import Image from 'next/image'
 
 // json
@@ -21,7 +22,6 @@ import ActiveListingSection from 'components/pages/ArtistProfile/ActiveListingSe
 
 // call apis
 import nftsAPI from 'apis/nfts'
-import ArtistPagination from 'components/Button/ArtistPagination'
 
 const NFTSection = props => {
   const {

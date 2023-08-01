@@ -28,6 +28,7 @@ import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component
 import FosterNavLogo from 'assets/icons/foster-logo-nav-mobile.svg?component'
 import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
+import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -39,7 +40,6 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 // call apis
-import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
 import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
@@ -244,12 +244,16 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {routePath !== '/' && (
+            {routePath === '/' ? (
+              <div className={styles.heroLogoArea}>
+                <FosterHeroLogo alt="" />
+              </div>
+            ) : (
               <div className={styles.logoArea} onClick={() => router.push('/')}>
                 <FosterLogoDark alt="" />
               </div>
             )}
-            <div className="w-full max-w-[708px] min-w-[448px] flex items-center">
+            <div className="w-full max-w-[708px] min-w-[240px] 2xl:ml-[40px] lg:ml-[10px] xl:ml-[20px] flex items-center">
               <SearchBox
                 value={searchKeyword}
                 placeholder="Search Marketplace"
@@ -258,7 +262,7 @@ const PrimaryHeader = () => {
                 onClick={() => handleClear()}
                 onClose={() => handleClose()}
               />
-              <div className={styles.alphaArea}>
+              {/* <div className={styles.alphaArea}>
                 <svg
                   id="Alpha_Icon_SVG_-_95DBD5_-_Desktop"
                   data-name="Alpha Icon SVG - 95DBD5 - Desktop"
@@ -285,9 +289,9 @@ const PrimaryHeader = () => {
                     />
                   </g>
                 </svg>
-              </div>
+              </div> */}
             </div>
-            <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[280px] flex items-center" />
+            <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />

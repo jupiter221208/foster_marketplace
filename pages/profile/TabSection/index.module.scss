@@ -1,0 +1,72 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  z-index: 10;
+  margin-bottom: 151px;
+}
+
+.refreshButton {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 23px;
+  padding-left: 13px;
+  padding-right: 19px;
+  background: $background-dark-color;
+  border: 1px solid #cbcdd2;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.statsSection {
+  width: 100%;
+  max-width: 400px;
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  color: var(--text-gray-200-color);
+  margin-top: 30px;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    margin-top: 74px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  margin-top: -9px;
+  margin-left: 10px;
+  @media (min-width: 768px) {
+    margin-top: -18px;
+    margin-left: 5px;
+  }
+  @media (min-width: 1024px) {
+    margin-top: -18px;
+    margin-left: 5px;
+  }
+  background: var(--profile-divider);
+}
+
+.return {
+  border: 1px solid var(--see-more-border);
+  color: var(--text-gray-200-color);
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 24px;
+  &:hover {
+    @media (min-width: 1024px) {
+      cursor: pointer;
+    }
+  }
+}

@@ -44,7 +44,6 @@ const MainSection = () => {
   const [artworkCnt, setArtworkCnt] = useState()
   const [collectionCnt, setCollectionCnt] = useState()
   const [nftCnt, setNftCnt] = useState()
-  const [heroCoverImages, setHeroCoverImages] = useState()
 
   const handleCloseCreateNFTModal = () => {
     dispatch({ type: 'set', openCreateNFTModal: false })
@@ -75,13 +74,19 @@ const MainSection = () => {
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
-        <div className="hidden lg:block lg:col-span-7 xl:col-span-7">
-          <FosterHeroLogo alt="" />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
+          <div className="col-span-6">
+            {/* <FosterHeroLogo alt="" /> */}
 
-          <div className={styles.text}>Home to Digital Creators on Solana</div>
+            <div className={styles.text}>Let’s build the future of art, together.</div>
 
-          {viewport !== 'xs' && viewport !== 'sm' && viewport !== 'md' ? (
-            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[90px] flex justify-center lg:justify-start gap-8">
+            <div className={styles.slug}>
+              Home to creators, collectors, and curators all around the world.
+              <br />
+              Pushing the boundaries of digital ownership on Solana.
+            </div>
+
+            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[60px] flex justify-center lg:justify-start gap-8">
               <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
@@ -90,25 +95,23 @@ const MainSection = () => {
                 onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
               />
             </div>
-          ) : (
-            <></>
-          )}
-          <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[200px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
-            <div className="block">
-              <div className={styles.count}>{artworkCnt}</div>
-              <div className={styles.countText}>Artworks</div>
-            </div>
-            <div className="block items-center">
-              <div className={styles.count}>{collectionCnt}</div>
-              <div className={styles.countText}>Collections</div>
-            </div>
-            <div className="block">
-              <div className={styles.count}>{nftCnt}</div>
-              <div className={styles.countText}>Ecosystem</div>
+
+            <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
+              <div className="block">
+                <div className={styles.count}>{artworkCnt}</div>
+                <div className={styles.countText}>Artworks</div>
+              </div>
+              <div className="block items-center">
+                <div className={styles.count}>{collectionCnt}</div>
+                <div className={styles.countText}>Collections</div>
+              </div>
+              <div className="block">
+                <div className={styles.count}>{nftCnt}</div>
+                <div className={styles.countText}>Ecosystem</div>
+              </div>
             </div>
           </div>
-        </div>
-
+        )}
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div
             className="w-full col-span-12 min-h-[508px]"
@@ -118,8 +121,8 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Creator Inspired</div>
-              <div className={styles.mobileText}>Digital Art Marketplace on Solana</div>
+              <div className={styles.mobileTitle}>Home to Digital Creators</div>
+              <div className={styles.mobileText}>Connecting the world through art.</div>
             </div>
             {heroList.length !== 0 && (
               <Swiper
@@ -147,13 +150,13 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end lg:py-6"
+            className="w-full col-span-12 lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end lg:py-6"
             style={{
               width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
               marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
             }}
           >
-            <div className="max-w-[550px] w-full">
+            <div className="max-w-[700px] w-full">
               {heroList.length !== 0 && (
                 <Swiper
                   slidesPerView={1}

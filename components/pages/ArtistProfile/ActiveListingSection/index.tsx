@@ -25,7 +25,7 @@ import dashboardAPI from 'apis/dashboard'
 import NFTCard from 'components/Card/NFTCard'
 
 const ActiveListingSection = props => {
-  const { artist = '' } = props
+  const { artist = '', loadCompleted = null } = props
 
   const viewport = useViewport()
   const router = useRouter()
@@ -37,6 +37,8 @@ const ActiveListingSection = props => {
     if (artist.length === 0) return
 
     dashboardAPI.getMarketplaceReleases('', artist).then(response => {
+      if (loadCompleted) loadCompleted()
+
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
@@ -48,6 +50,8 @@ const ActiveListingSection = props => {
       }
     }),
       error => {
+        if (loadCompleted) loadCompleted()
+
         console.log(error)
       }
   }, [artist])

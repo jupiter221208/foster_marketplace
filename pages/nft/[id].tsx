@@ -166,7 +166,6 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
             <MainSection
               nftDetail={nftDetail}
               editionDetail={editionDetail}
-              artistInfo={artistInfo}
               nftInfo={nftInfo}
               setFullScreenView={setFullScreenView}
               reloadNftData={reloadNftData}

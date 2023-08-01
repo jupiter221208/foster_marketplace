@@ -2,7 +2,7 @@
 
 .scrollbar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   z-index: 10;
