@@ -9,6 +9,14 @@ const path = require('path')
 const webpack = require('webpack')
 
 const nextConfig = {
+  async rewrites() {
+    return [
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap',
+      },
+    ]
+  },
   reactStrictMode: true,
   env: {
     WALLET_ADAPTER_NETWORK: process.env.WALLET_ADAPTER_NETWORK,
