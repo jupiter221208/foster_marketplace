@@ -4,6 +4,7 @@
     "icon01": "/icons/tag-green.svg",
     "icon02": "/icons/tag-gray.svg",
     "icon03": "/icons/tag-gray-light.svg",
+    "icon04": "/icons/tag-gray-dark.svg",
     "label": "Listed",
     "value": "Listed"
   },
@@ -12,6 +13,7 @@
     "icon01": "/icons/list-ui-alt-green.svg",
     "icon02": "/icons/list-ui-alt-gray.svg",
     "icon03": "/icons/list-ui-alt-gray-light.svg",
+    "icon04": "/icons/list-ui-alt-gray-dark.svg",
     "label": "Created",
     "value": "Created"
   },
@@ -20,6 +22,7 @@
     "icon01": "/icons/create-dashboard-green.svg",
     "icon02": "/icons/create-dashboard-gray.svg",
     "icon03": "/icons/create-dashboard-gray-light.svg",
+    "icon04": "/icons/create-dashboard-gray-dark.svg",
     "label": "Collected",
     "value": "Collected",
     "coming_soon": false
@@ -29,6 +32,7 @@
     "icon01": "/icons/collection-green.svg",
     "icon02": "/icons/collection-gray.svg",
     "icon03": "/icons/collection-gray-light.svg",
+    "icon04": "/icons/collection-gray-dark.svg",
     "label": "Collections",
     "value": "Collections",
     "coming_soon": false
@@ -38,6 +42,7 @@
     "icon01": "/icons/heart-rate-green.svg",
     "icon02": "/icons/heart-rate-gray.svg",
     "icon03": "/icons/heart-rate-gray-light.svg",
+    "icon04": "/icons/heart-rate-gray-dark.svg",
     "label": "Statistics",
     "value": "Statistics",
     "coming_soon": false

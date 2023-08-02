@@ -35,7 +35,6 @@ const LiveAuctionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [allListAuctionList, setAllLiveAuctionList] = useState<any[]>([])
   const [liveAuctionList, setLiveAuctionList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
   const [cardLoop, setCardLoop] = useState(true)
@@ -61,7 +60,6 @@ const LiveAuctionSection = props => {
             }
           }
         })
-        setAllLiveAuctionList(lists)
         setLiveAuctionList(lists)
         if (lists.length > 3) setCardLoop(true)
         else setCardLoop(false)
@@ -71,7 +69,6 @@ const LiveAuctionSection = props => {
           setIsLoaded(true)
         }
       } else {
-        setAllLiveAuctionList([])
         setLiveAuctionList([])
       }
     }),
@@ -112,11 +109,17 @@ const LiveAuctionSection = props => {
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div className="w-full flex justify-center items-center z-10">
-                  <div className={styles.title}>Live Auctions</div>
+                <div
+                  className={`${
+                    fromPage === 'profile' ? 'justify-start' : 'justify-center'
+                  } w-full flex items-center z-10`}
+                >
+                  <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
                 </div>
               ) : (
-                <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Live Auctions</div>
+                <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+                  Live Auctions
+                </div>
               )}
             </div>
             <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
@@ -189,22 +192,24 @@ const LiveAuctionSection = props => {
             ))}
           </Swiper>
         </div>
-        <div className="w-full flex lg:hidden justify-center">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 1 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
+        {fromPage !== 'profile' && (
+          <div className="w-full flex lg:hidden justify-center">
+            <div className="w-full max-w-[242px] z-10">
+              <OutlineButton
+                label="See More"
+                fullWidth
+                onClick={() => {
+                  dispatch({ type: 'set', exploreTab: 0 })
+                  dispatch({ type: 'set', availabilityFilter: 1 })
+                  dispatch({ type: 'set', artworkCategory: category })
+                  router.push('/explore')
+                }}
+                borderColor={'var(--see-more-border)'}
+                height="40px"
+              />
+            </div>
           </div>
-        </div>
+        )}
       </section>
     )
   )

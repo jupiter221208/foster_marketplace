@@ -4,6 +4,7 @@
     "icon01": "/icons/diamond-green.svg",
     "icon02": "/icons/diamond-gray.svg",
     "icon03": "/icons/diamond-gray-light.svg",
+    "icon04": "/icons/diamond-gray-dark.svg",
     "label": "My NFTs",
     "value": "My NFTs",
     "coming_soon": false
@@ -13,6 +14,7 @@
     "icon01": "/icons/list-ui-alt-green.svg",
     "icon02": "/icons/list-ui-alt-gray.svg",
     "icon03": "/icons/list-ui-alt-gray-light.svg",
+    "icon04": "/icons/list-ui-alt-gray-dark.svg",
     "label": "Listed NFTs",
     "value": "Listed NFTs",
     "coming_soon": false
@@ -22,6 +24,7 @@
     "icon01": "/icons/heart-rate-green.svg",
     "icon02": "/icons/heart-rate-gray.svg",
     "icon03": "/icons/heart-rate-gray-light.svg",
+    "icon04": "/icons/heart-rate-gray-dark.svg",
     "label": "Activity",
     "value": "Activity",
     "coming_soon": false
@@ -31,6 +34,7 @@
     "icon01": "/icons/create-dashboard-green.svg",
     "icon02": "/icons/create-dashboard-gray.svg",
     "icon03": "/icons/create-dashboard-gray-light.svg",
+    "icon04": "/icons/create-dashboard-gray-dark.svg",
     "label": "Collected",
     "value": "Collected",
     "coming_soon": false
@@ -40,6 +44,7 @@
     "icon01": "/icons/collection-green.svg",
     "icon02": "/icons/collection-gray.svg",
     "icon03": "/icons/collection-gray-light.svg",
+    "icon04": "/icons/collection-gray-dark.svg",
     "label": "My Collections",
     "value": "My Collections",
     "coming_soon": false
@@ -49,6 +54,7 @@
     "icon01": "/icons/heart-green.svg",
     "icon02": "/icons/heart-gray.svg",
     "icon03": "/icons/heart-gray-light.svg",
+    "icon04": "/icons/heart-gray-dark.svg",
     "label": "Favorites",
     "value": "Favorites",
     "coming_soon": false
@@ -58,6 +64,7 @@
     "icon01": "/icons/tag-green.svg",
     "icon02": "/icons/tag-gray.svg",
     "icon03": "/icons/tag-gray-light.svg",
+    "icon04": "/icons/tag-gray-dark.svg",
     "label": "Offers",
     "value": "Offers",
     "coming_soon": false
@@ -67,6 +74,7 @@
     "icon01": "/icons/eye-slash-green.svg",
     "icon02": "/icons/eye-slash-gray.svg",
     "icon03": "/icons/eye-slash-gray-light.svg",
+    "icon04": "/icons/eye-slash-gray-dark.svg",
     "label": "Hidden",
     "value": "Hidden",
     "coming_soon": true

@@ -58,11 +58,10 @@
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background: rgba(var(--background-dark-color-rgb), 0.4);
+  background: rgba(var(--background-dark-color-rgb), 0.8);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   @media (min-width: 1024px) {
-    background: transparent;
     width: 46px;
     height: 46px;
     border-radius: 23px;

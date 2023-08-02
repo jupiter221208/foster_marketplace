@@ -26,6 +26,19 @@
   color: var(--text-gray-200-color);
 }
 
+.smallTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  margin-left: 15px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 20px;
+    line-height: 24px;
+  }
+  color: var(--text-gray-200-color);
+}
+
 .seeMore {
   font-family: 'Muli-SemiBold';
   font-size: 14px;

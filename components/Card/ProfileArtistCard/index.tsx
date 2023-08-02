@@ -57,20 +57,18 @@ const ProfileArtistCard = props => {
             onClick={setFullScreenView}
           />
           {isOwn && (
-            <div className="absolute bottom-1 lg:bottom-4 -right-2 lg:right-4 cursor-pointer z-20">
+            <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
               <div className={styles.iconProfileBlurView}>
                 <div className="w-full h-full flex justify-center items-center">
                   <IconButton
-                    icon={
-                      viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon
-                    }
+                    icon={EditorGreenIcon}
                     onClick={() => inputAvatarFile.current.click()}
                     backgroundColor={'transparent'}
                     borderRadius="100%"
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '20px' : '46px'}
-                    iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                    iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
+                    width={20}
+                    height={20}
+                    iconWidth={20}
+                    iconHeight={20}
                     disabled={avatarUploadingToS3}
                   />
                 </div>
