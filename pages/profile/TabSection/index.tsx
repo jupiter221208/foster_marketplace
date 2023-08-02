@@ -80,17 +80,6 @@ const TabSection = props => {
     <div className={styles.container}>
       <div className="relative w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
         <IconTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
-
-        {/* <div className="absolute right-0 w-[140px] h-[46px] lg:flex hidden">
-          {refreshing ? (
-            <Lottie animationData={RefreshLottery} loop={true} />
-          ) : (
-            <div className={styles.refreshButton} onClick={() => refreshNFT()}>
-              <Image src={RefreshIcon} width={28} height={28} alt="" />
-              <div className="mb-[4px]">Refresh</div>
-            </div>
-          )}
-        </div> */}
       </div>
       <div className={styles.divider} />
 
