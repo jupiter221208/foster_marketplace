@@ -78,12 +78,12 @@ const MainSection = () => {
           <div className="col-span-6">
             {/* <FosterHeroLogo alt="" /> */}
 
-            <div className={styles.text}>Let’s build the future of art, together.</div>
+            <div className={styles.text}>Your Daily Dose of Art.</div>
 
             <div className={styles.slug}>
-              Home to creators, collectors, and curators all around the world.
+              Home to creators, collectors, and curators around the world.
               <br />
-              Pushing the boundaries of digital ownership on Solana.
+              Pushing the boundaries of digital art on Solana.
             </div>
 
             <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[60px] flex justify-center lg:justify-start gap-8">
@@ -121,8 +121,8 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Home to Digital Creators</div>
-              <div className={styles.mobileText}>Connecting the world through art.</div>
+              <div className={styles.mobileTitle}>Your Daily Dose of Art</div>
+              <div className={styles.mobileText}>Home to Digital Creators on Solana</div>
             </div>
             {heroList.length !== 0 && (
               <Swiper
