@@ -102,116 +102,116 @@ const LiveAuctionSection = props => {
 
   useEffect(() => {}, [liveAuctionList])
 
-  return (
-    showSection && (
-      <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+  return showSection ? (
+    <section className={styles.container}>
+      <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <div
-                  className={`${
-                    fromPage === 'profile' ? 'justify-start' : 'justify-center'
-                  } w-full flex items-center z-10`}
-                >
-                  <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
-                </div>
-              ) : (
-                <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
-                  Live Auctions
-                </div>
-              )}
-            </div>
-            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
-              <TimeSlotButton
-                label="Starting Soon"
-                onClick={() => handleChangeActive(0)}
-                fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
-                color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="Recently Started"
-                onClick={() => handleChangeActive(1)}
-                fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
-                color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="Ending Soon"
-                onClick={() => handleChangeActive(2)}
-                fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
-                color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-            </div>
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              <div
+                className={`${
+                  fromPage === 'profile' ? 'justify-start' : 'justify-center'
+                } w-full flex items-center z-10`}
+              >
+                <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
+              </div>
+            ) : (
+              <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+                Live Auctions
+              </div>
+            )}
           </div>
-          <div className="hidden lg:flex z-10">
-            <SeeMoreButton
+          <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
+            <TimeSlotButton
+              label="Starting Soon"
+              onClick={() => handleChangeActive(0)}
+              fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="Recently Started"
+              onClick={() => handleChangeActive(1)}
+              fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="Ending Soon"
+              onClick={() => handleChangeActive(2)}
+              fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+              color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
+              backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
+              backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+          </div>
+        </div>
+        <div className="hidden lg:flex z-10">
+          <SeeMoreButton
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 0 })
+              dispatch({ type: 'set', availabilityFilter: 1 })
+              dispatch({ type: 'set', artworkCategory: category })
+              router.push('/explore')
+            }}
+          />
+        </div>
+      </div>
+      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+        <Swiper
+          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : 3.02}
+          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
+          modules={[Autoplay, Lazy, Navigation]}
+          className="navigationSwiper"
+          loop={cardLoop}
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
+        >
+          {liveAuctionList.map((item: any, index) => (
+            <SwiperSlide key={index}>
+              <LiveAuctionCard
+                data={item}
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push('/nft/' + item.token_id)
+                }}
+                key={index}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      {fromPage !== 'profile' && (
+        <div className="w-full flex lg:hidden justify-center">
+          <div className="w-full max-w-[242px] z-10">
+            <OutlineButton
+              label="See More"
+              fullWidth
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 1 })
                 dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}
+              borderColor={'var(--see-more-border)'}
+              height="40px"
             />
           </div>
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : 3.02}
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
-            loop={cardLoop}
-            // autoplay={{
-            //   delay: 5000,
-            //   disableOnInteraction: false,
-            // }}
-          >
-            {liveAuctionList.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <LiveAuctionCard
-                  data={item}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push('/nft/' + item.token_id)
-                  }}
-                  key={index}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-        {fromPage !== 'profile' && (
-          <div className="w-full flex lg:hidden justify-center">
-            <div className="w-full max-w-[242px] z-10">
-              <OutlineButton
-                label="See More"
-                fullWidth
-                onClick={() => {
-                  dispatch({ type: 'set', exploreTab: 0 })
-                  dispatch({ type: 'set', availabilityFilter: 1 })
-                  dispatch({ type: 'set', artworkCategory: category })
-                  router.push('/explore')
-                }}
-                borderColor={'var(--see-more-border)'}
-                height="40px"
-              />
-            </div>
-          </div>
-        )}
-      </section>
-    )
+      )}
+    </section>
+  ) : fromPage === 'profile' ? (
+    <div className="w-full h-[30px] lg:h-[50px]" />
+  ) : (
+    <></>
   )
 }
 
