@@ -35,6 +35,7 @@ const nextConfig = {
       'foster-marketplace.s3.us-east-2.amazonaws.com',
       'cdn.britannica.com',
       'static.wixstatic.com',
+      'shdw-drive.genesysgo.net',
     ],
   },
   sassOptions: {

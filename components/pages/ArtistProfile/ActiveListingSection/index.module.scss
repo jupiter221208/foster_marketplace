@@ -2,10 +2,6 @@
 
 .container {
   position: relative;
-  margin-top: 60px;
-  @media (min-width: 1024px) {
-    margin-top: 86px;
-  }
   width: 100%;
 }
 
@@ -14,7 +10,7 @@
   top: -500px;
   left: -1560px;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 
 .title {
@@ -28,6 +24,18 @@
   @media (min-width: 1280px) {
     font-size: 40px;
     line-height: 56px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.smallTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  margin-left: 15px;
+  @media (min-width: 1024px) {
+    font-size: 20px;
+    line-height: 24px;
   }
   color: var(--text-gray-200-color);
 }

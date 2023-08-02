@@ -44,7 +44,7 @@ import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 // images and icons
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg'
+import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
 import TagWhiteIcon from 'assets/icons/tag-white.svg?component'
 import DescriptionGreenIcon from 'assets/icons/description-green.svg?component'
 import NotificationGreenIcon from 'assets/icons/notification-icon.svg?component'
@@ -60,6 +60,8 @@ import PlayVideoIcon from 'assets/icons/play-video.svg'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
+import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
+import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -70,18 +72,11 @@ import { Url } from 'url'
 
 // solana
 import { buyNFT, offerNFT } from 'utils/auction.util'
-import { NFTArtistInfo } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getDateString } from 'utils/strings'
 import { LAMPORTS_PER_SOL, PublicKey } from '@solana/web3.js'
-import {
-  LazyListing,
-  toLazyListing,
-  toListingReceiptAccount,
-  toMetadataAccount,
-  GpaBuilder,
-} from '@metaplex-foundation/js'
-import type { Sft, Nft } from '@metaplex-foundation/js'
+import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder } from '@metaplex-foundation/js'
+import type { Nft } from '@metaplex-foundation/js'
 
 // call apis
 import nftsAPI from 'apis/nfts'
@@ -109,27 +104,18 @@ import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
-import { ListedNFTCardData } from 'components/Card/ListedNFTCard'
-import { cancelListing, executeSale } from 'utils/auctioneer.util'
+import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
 
 export interface MainSectionProps {
   nftDetail: Nft
   editionDetail: any
   nftInfo: any
-  artistInfo: NFTArtistInfo | null
   setFullScreenView: any
   reloadNftData: any
 }
 
-const MainSection = ({
-  nftDetail,
-  editionDetail,
-  artistInfo,
-  nftInfo,
-  setFullScreenView,
-  reloadNftData,
-}: MainSectionProps) => {
+const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -170,6 +156,7 @@ const MainSection = ({
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
   const [play, setPlay] = useState(false)
+  const [infoFocus, setInfoFocus] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -919,10 +906,35 @@ const MainSection = ({
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
                 <>
-                  <div className="w-full flex items-center mt-[77px] lg:mt-4">
-                    <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
+                  <div className="w-full flex gap-2 mt-[70px] lg:mt-[0px]">
+                    <div className={styles.fixedPrice}>Fixed Price</div>
+                    <div>
+                      <div className="mt-1 lg:mt-2 h-[14px] flex items-center">
+                        <div
+                          className="h-[14px] flex justify-center items-center cursor-pointer"
+                          onMouseEnter={() => setInfoFocus(true)}
+                          onMouseLeave={() => setInfoFocus(false)}
+                          onClick={() => {
+                            setInfoFocus(true)
+                            setTimeout(() => {
+                              setInfoFocus(false)
+                            }, 2000)
+                          }}
+                        >
+                          {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
+                        </div>
+                        {infoFocus && (
+                          <div className={styles.infoText}>
+                            The USD value of this artwork is ${(solToUsdRate * nftPrice).toFixed(2)}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-full flex items-center mt-1">
+                    {/* <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
                     <div className={styles.whiteTitle}>$ {(solToUsdRate * nftPrice).toFixed(2)}</div>
-                    <div className={styles.separatorSol}></div>
+                    <div className={styles.separatorSol}></div> */}
                     <div className="flex items-center mt-[3px]">
                       {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
                       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -940,8 +952,11 @@ const MainSection = ({
                         <GradientButton
                           label={'Quick Buy'}
                           onClick={() => quickBuy()}
-                          icon={QuickBuyBlackIcon}
+                          icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
+                          fontFamily="Muli-SemiBold"
+                          width={160}
+                          height={50}
                           disabled={!tradeStateAddress}
                         />
                       ) : (
@@ -961,7 +976,11 @@ const MainSection = ({
                         borderWidth={2}
                         paddingLeft="13px"
                         paddingRight="13px"
+                        fontFamily="Muli-SemiBold"
                         gap="4px"
+                        width={160}
+                        height={50}
+                        borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                       />
                     </div>
                   )}

@@ -19,6 +19,7 @@ const GradientButton = props => {
     direction = 'ltr',
     gradientDirection = 'left',
     icon = '',
+    icon1 = '',
     fontFamily = '',
     fontSize = '',
     borderRadius = '',
@@ -47,17 +48,27 @@ const GradientButton = props => {
         opacity: disabled ? 0.5 : opacity,
       }}
     >
-      {(direction === 'both' || direction === 'rtl') && icon !== '' && (
-        <div className="flex items-center mr-2 xl:mr-[12px]">
-          <Image src={icon} alt="" />
-        </div>
-      )}
+      {(direction === 'both' || direction === 'rtl') &&
+        (icon1 !== '' ? (
+          <div className="flex items-center mr-2 xl:mr-[15px]">{icon1}</div>
+        ) : icon !== '' ? (
+          <div className="flex items-center mr-2 xl:mr-[12px]">
+            <Image src={icon} alt="" />
+          </div>
+        ) : (
+          <></>
+        ))}
       <div>{label}</div>
-      {(direction === 'both' || direction === 'ltr') && icon !== '' && (
-        <div className="flex items-center ml-2 xl:ml-[12px]">
-          <Image src={icon} alt="" />
-        </div>
-      )}
+      {(direction === 'both' || direction === 'ltr') &&
+        (icon1 !== '' ? (
+          <div className="flex items-center ml-2 xl:ml-[15px]">{icon1}</div>
+        ) : icon !== '' ? (
+          <div className="flex items-center ml-2 xl:ml-[12px]">
+            <Image src={icon} alt="" />
+          </div>
+        ) : (
+          <></>
+        ))}
     </button>
   )
 }

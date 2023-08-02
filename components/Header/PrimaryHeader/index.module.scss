@@ -66,6 +66,11 @@
   z-index: 10000;
 }
 
+.heroLogoArea {
+  width: 176px;
+  min-width: 176px;
+}
+
 .logoArea {
   margin-left: -80px;
   @media (min-width: 1536px) {

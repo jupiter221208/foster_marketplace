@@ -8,28 +8,28 @@
 
 .topLeftEllipse {
   position: absolute;
-  top: -856px;
-  left: -890px;
+  top: 200px;
+  left: -860px;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 
 .topRightEllipse {
   width: 1705px;
   height: 1705px;
   position: absolute;
-  top: 0px;
+  top: 400px;
   right: -440px;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 
 .bottomLeftEllipse {
   position: absolute;
-  bottom: -50vh;
+  top: -100vh;
   left: -860px;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 
 .fullScreen {

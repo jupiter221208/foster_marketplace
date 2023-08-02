@@ -39,7 +39,7 @@ const ProfileArtistCard = props => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarArea}>
-        <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full overflow-hidden">
+        <div className="relative w-[90px] h-[90px] lg:w-[152px] lg:h-[152px] rounded-full ">
           {!loaded && (
             <div className="w-full h-full overflow-hidden rounded-full">
               <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
@@ -57,19 +57,21 @@ const ProfileArtistCard = props => {
             onClick={setFullScreenView}
           />
           {isOwn && (
-            <div className="absolute bottom-1 lg:bottom-4 right-1 lg:right-4 cursor-pointer z-20">
+            <div className="absolute bottom-1 lg:bottom-1 -right-2 lg:-right-2 cursor-pointer z-20">
               <div className={styles.iconProfileBlurView}>
-                <IconButton
-                  icon={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? EditorGreenIcon : CameraWhiteIcon}
-                  onClick={() => inputAvatarFile.current.click()}
-                  backgroundColor={'transparent'}
-                  borderRadius="100%"
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                  height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '32px' : '46px'}
-                  iconWidth={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                  iconHeight={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 20 : 46}
-                  disabled={avatarUploadingToS3}
-                />
+                <div className="w-full h-full flex justify-center items-center">
+                  <IconButton
+                    icon={EditorGreenIcon}
+                    onClick={() => inputAvatarFile.current.click()}
+                    backgroundColor={'transparent'}
+                    borderRadius="100%"
+                    width={20}
+                    height={20}
+                    iconWidth={20}
+                    iconHeight={20}
+                    disabled={avatarUploadingToS3}
+                  />
+                </div>
               </div>
               <input
                 type="file"

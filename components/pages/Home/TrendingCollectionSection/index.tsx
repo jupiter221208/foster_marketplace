@@ -39,7 +39,7 @@ const TrendingCollectionSection = props => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [trendingList, setTrendingList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(3)
+  const [active, setActive] = useState<any>(1)
 
   useEffect(() => {
     setTrendingList([])

@@ -7,10 +7,12 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 // next components
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
+import Image from 'next/image'
 
 // third party components
 import { getShortAddress } from 'utils/wallet.util'
 import { getShortDescription } from 'utils/strings'
+import Lottie from 'lottie-react'
 
 // custom components
 import ReadMoreModal from 'components/Modal/ReadMoreModal'
@@ -19,6 +21,8 @@ import AddressButton from 'components/Button/AddressButton'
 import FollowModal from 'components/Modal/FollowModal'
 import FollowModalMobile from 'components/Modal/FollowModalMobile'
 import IconButton from 'components/Button/IconButton'
+import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
+import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
 
 // custom functions
 import { useViewport, namePublicFile } from 'utils'
@@ -41,6 +45,7 @@ import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import GradientButton from 'components/Button/GradientButton'
 import OutlineButton from 'components/Button/OutlineButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
+import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
@@ -50,12 +55,10 @@ import artistsAPI from 'apis/artists'
 import userAPI from 'apis/user'
 import uploadFileToS3API from 'apis/aws'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
-import Alert from 'components/Alert'
-import DashboardArtistCard from 'components/Card/DashboardArtistCard'
+import nftsAPI from 'apis/nfts'
 
 const MainSection = prop => {
-  const { artistInfo, statsInfo, categoryList, isOwn, artistEnable, setArtistEnable, isLoaded, setFullScreenView } =
-    prop
+  const { artistInfo, categoryList, isOwn, isLoaded, setFullScreenView, wallet, reloadPage } = prop
   const dispatch = useDispatch()
   const viewport = useViewport()
   const { publicKey } = useWallet()
@@ -253,6 +256,25 @@ const MainSection = prop => {
     setOpenAvatarEditorModal(true)
   }
 
+  const [refreshing, setRefreshing] = useState(false)
+  const refreshNFT = () => {
+    setRefreshing(true)
+    nftsAPI.burntNft({ user: wallet, nfts: [] }).then(
+      response => {
+        reloadPage()
+        setTimeout(() => {
+          setRefreshing(false)
+        }, 3000)
+      },
+      error => {
+        console.log(error)
+        setTimeout(() => {
+          setRefreshing(false)
+        }, 3000)
+      }
+    )
+  }
+
   return viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
     // desktop view
     <div className={styles.container}>
@@ -260,24 +282,24 @@ const MainSection = prop => {
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}
           alt=""
-          width={1620}
-          height={480}
-          className="w-full object-cover rounded-[15px] lg:rounded-[30px]"
+          className="w-full h-full object-cover"
         />
         {isOwn && (
           <div className="absolute top-2 lg:top-auto bottom-auto lg:bottom-7 right-2 lg:right-7 cursor-pointer z-20">
             <div className={styles.iconBlurView}>
-              <IconButton
-                icon={CameraWhiteIcon}
-                onClick={() => inputBannerFile.current.click()}
-                backgroundColor={'transparent'}
-                borderRadius="100%"
-                width={46}
-                height={46}
-                iconWidth={46}
-                iconHeight={46}
-                disabled={bannerUploadingToS3}
-              />
+              <div className="w-full h-full flex justify-center items-center">
+                <IconButton
+                  icon={EditorGreenIcon}
+                  onClick={() => inputBannerFile.current.click()}
+                  backgroundColor={'transparent'}
+                  borderRadius="100%"
+                  width={20}
+                  height={20}
+                  iconWidth={20}
+                  iconHeight={20}
+                  disabled={bannerUploadingToS3}
+                />
+              </div>
             </div>
             <input
               type="file"
@@ -289,36 +311,11 @@ const MainSection = prop => {
             />
           </div>
         )}
+        <div className={styles.bottomMask}></div>
       </div>
-      <div className="w-full">
+      <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">
-          <div className="col-span-3 h-full flex items-center">
-            <div className="flex gap-[15px] z-10">
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(0)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className={styles.whiteText}>{artistFollowers}</div>
-                &nbsp;
-                <div className={styles.grayText}>Followers</div>
-              </div>
-              <div
-                className="cursor-pointer flex hover:opacity-60"
-                onClick={() => {
-                  setType(1)
-                  setShowFollowModal(true)
-                }}
-              >
-                <div className={styles.whiteText}>{artistFollowing}</div>
-                &nbsp;
-                <div className={styles.grayText}>Following</div>
-              </div>
-            </div>
-          </div>
-          <div className="col-span-6">
+          <div className="col-span-9">
             <div className="w-content relative">
               <ProfileArtistCard
                 isOwn={isOwn}
@@ -334,17 +331,27 @@ const MainSection = prop => {
               />
             </div>
           </div>
-          {!isOwn && (
-            <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
-              <div className="mr-[11px] lg:mr-[24px]">
-                <MenuSocialShare
-                  type="image"
-                  vote={true}
-                  message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
-                  url={`/${artistInfo?.username}`}
-                />
-              </div>
-              <div className="w-[146px] h-[53px] overflow-hidden">
+
+          <div className="col-span-3 h-full flex justify-end items-center pt-[10px]">
+            <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[20px]">
+              {refreshing ? (
+                <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+              ) : (
+                <div onClick={() => refreshNFT()}>
+                  <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
+                </div>
+              )}
+            </div>
+            <div className="mr-[11px] ">
+              <MenuSocialShare
+                type="image"
+                vote={true}
+                message={'Check out this artist on Foster Marketplace @foster_protocol #fostermarketplace'}
+                url={`/${artistInfo?.username}`}
+              />
+            </div>
+            {!isOwn && (
+              <div className="w-[146px] h-[53px] lg:ml-[24px] overflow-hidden">
                 {!followLoaded && (
                   <div className="w-[146px] h-[53px] overflow-hidden rounded-[12px]">
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
@@ -372,11 +379,11 @@ const MainSection = prop => {
                   />
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div className="w-full flex justify-center mt-[12px]">
-          <div className="max-w-[678px] w-full flex flex-wrap justify-center mt-[9px] z-10">
+          <div className="w-full flex flex-wrap mt-[9px] z-10">
             {artistInfo?.wallet_id && (
               <div className="relative">
                 <AddressButton
@@ -389,8 +396,7 @@ const MainSection = prop => {
                 <CopyClipboardChip identifier="wallet-address" />
               </div>
             )}
-
-            <div className="w-full flex gap-[20px] justify-center items-center mt-[13px]">
+            <div className="flex gap-[20px] items-center ml-[11px]">
               {artistInfo?.ig_url !== null && artistInfo?.ig_url.length > 0 && (
                 <div>
                   <InstagramIcon onClick={() => window.open(validUrl(artistInfo?.ig_url))} />
@@ -408,6 +414,33 @@ const MainSection = prop => {
               )}
             </div>
 
+            <div className="w-full h-[24px] mt-[17px] mb-[34px] flex items-center">
+              <div className="flex gap-[15px] z-10">
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(0)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className={styles.whiteText}>{artistFollowers}</div>
+                  &nbsp;
+                  <div className={styles.grayText}>Followers</div>
+                </div>
+                <div
+                  className="cursor-pointer flex hover:opacity-60"
+                  onClick={() => {
+                    setType(1)
+                    setShowFollowModal(true)
+                  }}
+                >
+                  <div className={styles.whiteText}>{artistFollowing}</div>
+                  &nbsp;
+                  <div className={styles.grayText}>Following</div>
+                </div>
+              </div>
+            </div>
+
             {artistInfo?.bio && (
               <span className={styles.description}>
                 {getShortDescription(viewport, artistInfo?.bio)}&nbsp;
@@ -419,7 +452,7 @@ const MainSection = prop => {
           </div>
         </div>
 
-        <div className="w-full flex justify-center mt-[30px] cursor-pointer">
+        {/* <div className="w-full flex justify-center mt-[30px] cursor-pointer">
           {artistEnable ? (
             <div className={styles.switchArea}>
               <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
@@ -442,9 +475,9 @@ const MainSection = prop => {
               </div>
             </div>
           )}
-        </div>
+        </div> */}
 
-        <div className="w-full flex justify-center mt-[14px] lg:mt-[15px]">
+        {/* <div className="w-full flex justify-center mt-[14px] lg:mt-[15px]">
           <div className="max-w-[698px] w-full flex justify-center">
             <div className={styles.statesBack}>
               <div className="w-full flex justify-between items-center">
@@ -533,7 +566,7 @@ const MainSection = prop => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {showFollowModal && (
@@ -599,19 +632,21 @@ const MainSection = prop => {
           className="w-full h-full object-cover rounded-none"
         />
         {isOwn && (
-          <div className="absolute bottom-2 right-2 cursor-pointer z-20">
+          <div className="absolute bottom-2 right-6 cursor-pointer z-20 flex justify-center">
             <div className={styles.iconBlurView}>
-              <IconButton
-                icon={EditorGreenIcon}
-                onClick={() => inputBannerFile.current.click()}
-                backgroundColor={'transparent'}
-                borderRadius="100%"
-                width={32}
-                height={32}
-                iconWidth={20}
-                iconHeight={20}
-                disabled={bannerUploadingToS3}
-              />
+              <div className="w-full h-full flex justify-center items-center">
+                <IconButton
+                  icon={EditorGreenIcon}
+                  onClick={() => inputBannerFile.current.click()}
+                  backgroundColor={'transparent'}
+                  borderRadius="100%"
+                  width={20}
+                  height={20}
+                  iconWidth={20}
+                  iconHeight={20}
+                  disabled={bannerUploadingToS3}
+                />
+              </div>
             </div>
             <input
               type="file"
@@ -624,12 +659,8 @@ const MainSection = prop => {
           </div>
         )}
       </div>
-      <div className="w-full">
-        <div className="z-0">
-          {/* <div className={styles.topLeftEllipse}>
-            <EllipseGreen />
-          </div> */}
-        </div>
+      <div className="g-container">
+        <div className="z-0"></div>
         <div className="w-full relative items-center mt-[-50px] z-10">
           <ProfileArtistCard
             isOwn={isOwn}
@@ -646,14 +677,24 @@ const MainSection = prop => {
               )
             }
           />
-          {!isOwn && (
-            <div className="absolute flex right-0 top-[60px]">
-              <div className="mr-[11px]">
-                <div onClick={() => setOpenShareModal(true)}>
-                  <ShareSmallIcon alt="" />
+
+          <div className="absolute flex right-0 top-[60px]">
+            <div className="w-[26px] h-[26px] flex items-center mt-[4px] mr-[10px]">
+              {refreshing ? (
+                <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} className="mb-1" />
+              ) : (
+                <div onClick={() => refreshNFT()}>
+                  <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
                 </div>
+              )}
+            </div>
+            <div>
+              <div onClick={() => setOpenShareModal(true)}>
+                <ShareSmallIcon alt="" />
               </div>
-              <div className="w-[80px] h-[29px] flex overflow-hidden">
+            </div>
+            {!isOwn && (
+              <div className="w-[80px] h-[29px] ml-[11px] flex overflow-hidden">
                 {followLoaded ? (
                   follow ? (
                     <OutlineButton
@@ -686,12 +727,12 @@ const MainSection = prop => {
                   </div>
                 )}
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
         <div className="mt-2 z-10">
           {artistInfo?.wallet_id && (
-            <div className="relative w-[110px]">
+            <div className="relative w-[130px]">
               <AddressButton
                 label={getShortAddress(artistInfo?.wallet_id)}
                 onClick={() => {
@@ -728,7 +769,7 @@ const MainSection = prop => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10">
+      <div className="flex justify-center w-full flex-wrap mt-[12px] z-10 px-[20px]">
         {artistInfo?.bio && (
           <span className={styles.description}>
             {getShortDescription(viewport, artistInfo?.bio) + ' '}
@@ -739,7 +780,7 @@ const MainSection = prop => {
         )}
       </div>
 
-      <div className="w-full flex justify-center mt-[30px] cursor-pointer">
+      {/* <div className="w-full flex justify-center mt-[30px] cursor-pointer">
         {artistEnable ? (
           <div className={styles.switchArea}>
             <div className="w-[50%] h-full " onClick={() => setArtistEnable(false)}>
@@ -759,9 +800,9 @@ const MainSection = prop => {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
-      <div className="w-full flex justify-center mt-2">
+      {/* <div className="w-full flex justify-center mt-2">
         <div className={styles.statesBack}>
           <div className="w-full flex justify-between items-center gap-[5px]">
             <div className={styles.statsArea}>
@@ -847,7 +888,7 @@ const MainSection = prop => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {showFollowModal && (
         <FollowModalMobile

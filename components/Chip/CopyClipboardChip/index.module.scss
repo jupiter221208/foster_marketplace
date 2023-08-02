@@ -2,16 +2,20 @@
 
 .container {
   display: none;
-  height: 32px;
+  height: 28px;
+  @media (min-width: 1024px) {
+    height: 32px;
+    right: -70px;
+  }
   justify-items: center;
   align-items: center;
   position: absolute;
-  right: -75px;
+  right: -60px;
   top: 0;
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 24px;
-  background: rgba(var(--background-light-color), 0.2);
+  background: var(--address-btn-bg-color);
   // margin-left: 40px;
   padding: 8px;
   border-radius: 6px;

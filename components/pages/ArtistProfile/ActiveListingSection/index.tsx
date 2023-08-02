@@ -25,7 +25,7 @@ import dashboardAPI from 'apis/dashboard'
 import NFTCard from 'components/Card/NFTCard'
 
 const ActiveListingSection = props => {
-  const { artist = '' } = props
+  const { artist = '', fromPage = '', loadCompleted = null } = props
 
   const viewport = useViewport()
   const router = useRouter()
@@ -37,6 +37,8 @@ const ActiveListingSection = props => {
     if (artist.length === 0) return
 
     dashboardAPI.getMarketplaceReleases('', artist).then(response => {
+      if (loadCompleted) loadCompleted()
+
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
@@ -48,17 +50,29 @@ const ActiveListingSection = props => {
       }
     }),
       error => {
+        if (loadCompleted) loadCompleted()
+
         console.log(error)
       }
   }, [artist])
 
   return (
     exploreList.length !== 0 && (
-      <section className={styles.container}>
+      <section
+        className={`${styles.container} ${
+          fromPage === 'profile' ? 'mt-[10px] lg:mt-[20px]' : 'mt-[60px] lg:mt-[86px]'
+        }`}
+      >
         <div className={styles.topLeftEllipse} />
         <div className="w-full flex justify-between items-center z-10">
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Active Listings</div>
+          <div
+            className={`${
+              fromPage === 'profile' ? 'justify-start' : 'justify-center'
+            } w-full lg:w-auto flex items-center gap-4 lg:gap-8`}
+          >
+            <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
+              Active Listings
+            </div>
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
