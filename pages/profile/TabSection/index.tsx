@@ -76,25 +76,6 @@ const TabSection = props => {
     setActiveTab(item.id)
   }
 
-  const [refreshing, setRefreshing] = useState(false)
-  const refreshNFT = () => {
-    setRefreshing(true)
-    nftsAPI.burntNft({ user: wallet, nfts: [] }).then(
-      response => {
-        reloadPage()
-        setTimeout(() => {
-          setRefreshing(false)
-        }, 3000)
-      },
-      error => {
-        console.log(error)
-        setTimeout(() => {
-          setRefreshing(false)
-        }, 3000)
-      }
-    )
-  }
-
   return (
     <div className={styles.container}>
       <div className="relative w-full flex z-10 relative overflow-hidden xs:h-[72px] sm:h-[72px] md:h-[76px] -ml-[10px]">
@@ -121,7 +102,11 @@ const TabSection = props => {
             fromPage={'profile'}
             setLiveAuctionLoaded={() => setLiveAuctionLoaded(true)}
           />
-          <ActiveListingSection artist={wallet} loadCompleted={() => setActiveListingLoaded(true)} />
+          <ActiveListingSection
+            artist={wallet}
+            fromPage={'profile'}
+            loadCompleted={() => setActiveListingLoaded(true)}
+          />
         </div>
       )}
 
@@ -200,37 +185,6 @@ const TabSection = props => {
           </div>
         </div>
       )}
-
-      {/* {activeTab === 2 && (
-        <div className="w-full flex flex-wrap">
-          <ActivitySection />
-        </div>
-      )}
-      {activeTab === 3 && (
-        <div className="w-full flex flex-wrap">
-         
-        </div>
-      )}
-      {activeTab === 4 && (
-        <div className="w-full flex flex-wrap">
-          <MyCollectionSection />
-        </div>
-      )}
-      {activeTab === 5 && (
-        <div className="w-full flex flex-wrap">
-          <FavoriteSection />
-        </div>
-      )}
-      {activeTab === 6 && (
-        <div className="w-full flex flex-wrap">
-          <OfferSection />
-        </div>
-      )}
-      {activeTab === 7 && (
-        <div className="w-full flex flex-wrap">
-          <HiddenSection />
-        </div>
-      )}  */}
     </div>
   )
 }
