@@ -209,7 +209,7 @@ const LiveAuctionSection = props => {
       )}
     </section>
   ) : fromPage === 'profile' ? (
-    <div className="w-full h-[20px] lg:h-[50px]" />
+    <div className="w-full h-[30px] lg:h-[50px]" />
   ) : (
     <></>
   )
