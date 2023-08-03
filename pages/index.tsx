@@ -35,7 +35,8 @@ const Home = () => {
   let pageTitle = 'Foster Marketplace'
   let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
   let pageDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
+    'Home to creators, collectors, and curators around the world.\n' +
+    'Pushing the boundaries of digital art on Solana.'
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
