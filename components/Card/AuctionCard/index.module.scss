@@ -44,14 +44,13 @@
 .whiteText {
   text-align: center;
   font-family: 'Muli-Bold';
-
   font-size: 14px;
   line-height: 16px;
   @media (min-width: 1024px) {
     font-size: 20px;
     line-height: 25px;
   }
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color), 0.9);
 }
 
 .grayText {

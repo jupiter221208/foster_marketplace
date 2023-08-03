@@ -167,9 +167,7 @@ const LiveAuctionCard = props => {
         <div className={styles.bidGradientBgView} />
         <div className={styles.bidContentView}>
           <div>
-            <div className={styles.bidName}>
-              {data.current_bid !== null ? 'CURRENT BID' : auctionStarted ? 'STARTING BID' : 'RESERVE PRICE'}
-            </div>
+            <div className={styles.bidName}>{data.current_bid !== null ? 'CURRENT BID' : 'RESERVE PRICE'}</div>
             <div className={styles.bidCountContainer}>
               <Image
                 src={SolanaLogoIcon}
