@@ -2,7 +2,7 @@ import { getServerSideSitemap } from 'next-sitemap'
 
 export const getServerSideProps = async ctx => {
   // Method to source urls from backend
-  let staticUrlList = ['/']
+  let staticUrlList = ['/', '/explore', '/resources', '/stats', '/dao']
 
   const staticFieldsWeekly = staticUrlList.map(url => ({
     loc: `https://fostermarketplace.app${url}`,
