@@ -58,7 +58,13 @@ const AuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>{auctionStarted ? 'STARTING' : 'RESERVE PRICE'}</div>
+        <div className={styles.thinGreenText}>
+          {auctionStarted
+            ? currentPrice === 0 && (viewport === 'xs' || viewport === 'sm' || viewport === 'md')
+              ? 'RESERVE PRICE'
+              : 'STARTING'
+            : 'RESERVE PRICE'}
+        </div>
         <div className="flex justify-center gap-1 mt-2 items-center">
           <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -70,16 +76,16 @@ const AuctionCard = props => {
           <div className={styles.whiteText}>{Math.round(reservePrice * 1000) / 1000}</div>
         </div>
       </div>
-      {auctionStarted && (
+      {auctionStarted && (viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
         <div className="block justify-center items-start">
           <div className={styles.thinGreenText}>CURRENT</div>
           <div className="flex justify-center gap-1 mt-2 items-center">
             <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+              {/* {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <SolanaLogoMobileIcon alt="" />
-              ) : (
-                <SolanaLogoIcon alt="" />
-              )}
+              ) : ( */}
+              <SolanaLogoIcon alt="" />
+              {/* )} */}
             </div>
             <div className={styles.whiteText}>{Math.round(currentPrice * 1000) / 1000}</div>
           </div>
