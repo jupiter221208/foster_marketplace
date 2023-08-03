@@ -159,7 +159,7 @@ const SearchBox = props => {
             ))}
           </div>
           {searchList.nfts.length !== 0 && searchList.artists.length !== 0 && <div className="w-full h-10" />}
-          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>ARTIST</div>}
+          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>MEMBER</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.artists.map((item, index) => (
               <div
