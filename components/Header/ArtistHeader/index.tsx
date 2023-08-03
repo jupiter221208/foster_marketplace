@@ -28,6 +28,7 @@ import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
 import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?component'
+import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 
 // json
 import ExploreMenuList from 'assets/json/explore-menu.json'
@@ -65,18 +66,20 @@ const ArtistHeader = () => {
   }
 
   useEffect(() => {
-    userAPI.getNotifications().then(
-      response => {
-        if (response !== null) {
-          if (response.notifications.length > 0) {
-            checkNotifications([...response.notifications])
+    if (connected && router.asPath !== '/notifications') {
+      userAPI.getNotifications().then(
+        response => {
+          if (response !== null) {
+            if (response.notifications.length > 0) {
+              checkNotifications([...response.notifications])
+            }
           }
+        },
+        error => {
+          console.log(error)
         }
-      },
-      error => {
-        console.log(error)
-      }
-    )
+      )
+    }
   }, [])
 
   useEffect(() => {
@@ -234,19 +237,20 @@ const ArtistHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            <div className={styles.logoArea} onClick={() => router.push('/')}>
-              <FosterLogoDark alt="" />
+            <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
+              <FosterHeroLogo alt="" />
             </div>
-
-            <SearchBox
-              value={searchKeyword}
-              placeholder="Search Marketplace"
-              onChange={value => setSearchKeyword(value)}
-              searchList={searchList}
-              onClick={() => handleClear()}
-              onClose={() => handleClose()}
-            />
-            <div className={styles.alphaArea}>
+            <div className="w-full max-w-[708px] min-w-[240px] 2xl:ml-[40px] lg:ml-[10px] xl:ml-[20px] flex items-center">
+              <SearchBox
+                value={searchKeyword}
+                placeholder="Search Marketplace"
+                onChange={value => setSearchKeyword(value)}
+                searchList={searchList}
+                onClick={() => handleClear()}
+                onClose={() => handleClose()}
+              />
+            </div>
+            {/* <div className={styles.alphaArea}>
               <svg
                 id="Alpha_Icon_SVG_-_95DBD5_-_Desktop"
                 data-name="Alpha Icon SVG - 95DBD5 - Desktop"
@@ -273,9 +277,8 @@ const ArtistHeader = () => {
                   />
                 </g>
               </svg>
-            </div>
-
-            <div className="cursor-pointer min-w-[80px] xl:min-w-[120px] 2xl:min-w-[376px] flex items-center" />
+            </div> */}
+            <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
             <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />

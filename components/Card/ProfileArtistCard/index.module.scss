@@ -7,7 +7,6 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   @media (min-width: 1024px) {
-    justify-content: center;
   }
   align-items: center;
 }
@@ -29,14 +28,12 @@
 
 .name {
   display: flex;
-  justify-content: center;
   width: 100%;
   text-align: start;
   font-family: 'Muli-ExtraBold';
   font-size: 18px;
   line-height: 24px;
   @media (min-width: 1024px) {
-    text-align: center;
     font-family: 'Muli-Bold';
     font-size: 32px;
     line-height: 44px;
@@ -61,11 +58,10 @@
   width: 32px;
   height: 32px;
   border-radius: 16px;
-  background: rgba(var(--background-dark-color-rgb), 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(var(--background-dark-color-rgb), 0.8);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   @media (min-width: 1024px) {
-    background: transparent;
     width: 46px;
     height: 46px;
     border-radius: 23px;

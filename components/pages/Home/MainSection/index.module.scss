@@ -33,7 +33,7 @@
     left: -850px;
   }
   z-index: 0;
-  opacity: 0.5;
+  opacity: 0.25;
 }
 
 .topRightEllipse {
@@ -49,7 +49,7 @@
     right: -440px;
   }
   z-index: 0;
-  opacity: 0.5;
+  opacity: 0.25;
 }
 
 .alpha {
@@ -133,9 +133,9 @@
 
 .mobileTitle {
   color: var(--text-gray-200-color);
-  font-family: 'Muli-Bold';
-  font-size: 30px;
-  line-height: 40px;
+  font-family: 'Muli-SemiBold';
+  font-size: 26px;
+  line-height: 32px;
   text-align: center;
 }
 
@@ -143,8 +143,9 @@
   color: var(--text-gray-200-color);
   font-family: 'Muli-Light';
   font-size: 18px;
-  line-height: 40px;
+  line-height: 24px;
   text-align: center;
+  margin-top: 5px;
 }
 
 .overlay {
@@ -161,35 +162,62 @@
 
 .text {
   margin-top: 10px;
-  font-family: 'Muli-Regular';
+  font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 36px;
   text-align: center;
   // text-transform: uppercase;
   @media (min-width: 640px) {
-    font-family: 'Muli-Regular';
     margin-top: 13px;
     font-size: 14px;
     line-height: 32px;
     text-align: center;
   }
   @media (min-width: 768px) {
-    margin-top: 15px;
+    margin-top: 0px;
     font-size: 20px;
     line-height: 24px;
     text-align: center;
   }
   @media (min-width: 1024px) {
-    margin-top: 41px;
-    font-size: 25px;
-    line-height: 36px;
+    margin-top: 0px;
+    text-align: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 40px;
+    line-height: 60px;
+  }
+  @media (min-width: 1440px) {
+    max-width: 700px;
+    margin-top: 0px;
+    font-size: 50px;
+    line-height: 70px;
+    text-align: left;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 50px;
+    line-height: 70px;
+  }
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+.slug {
+  margin-top: 10px;
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  line-height: 36px;
+  text-align: center;
+  @media (min-width: 1024px) {
+    margin-top: 27px;
+    font-size: 20px;
+    line-height: 30px;
     text-align: left;
     padding-left: 0px;
     padding-right: 0px;
   }
 
   letter-spacing: 0;
-  color: var(--text-gray-200-color);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .count {

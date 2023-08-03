@@ -32,6 +32,8 @@ import authAPI from 'apis/auth'
 import { useViewport } from 'utils'
 import { setColorTheme } from 'utils/helpers'
 import { loginWithSigned } from 'utils/auth'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { deleteCookie } from 'cookies-next'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
@@ -41,6 +43,7 @@ const MobileMenu = () => {
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
+  const isLoading = useSelector<any>(state => state.isLoading)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -149,6 +152,7 @@ const MobileMenu = () => {
 
                 localStorage.removeItem('token')
                 dispatch({ type: 'set', profileInfo: null })
+                deleteCookie('token')
               }}
             >
               <div>Logout</div>
@@ -201,6 +205,7 @@ const MobileMenu = () => {
           />
         </div>
       )}
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

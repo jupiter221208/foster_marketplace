@@ -9,14 +9,6 @@
   width: 100%;
 }
 
-.topLeftEllipse {
-  position: absolute;
-  top: -500px;
-  left: -1560px;
-  z-index: 0;
-  opacity: 0.4;
-}
-
 .title {
   font-family: 'Muli-ExtraBold';
   font-size: 24px;
@@ -30,6 +22,19 @@
     font-family: 'Muli-Bold';
     font-size: 40px;
     line-height: 56px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.smallTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  margin-left: 15px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 20px;
+    line-height: 24px;
   }
   color: var(--text-gray-200-color);
 }

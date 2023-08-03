@@ -16,6 +16,7 @@ import SettingIcon from 'assets/icons/setting-icon.svg?component'
 import SettingHoverIcon from 'assets/icons/setting-green.svg?component'
 import LogoutIcon from 'assets/icons/logout-icon.svg?component'
 import LogoutHoverIcon from 'assets/icons/logout-green.svg?component'
+import { deleteCookie } from 'cookies-next'
 
 const ProfileMenuItem = props => {
   const { avatar, key, item, onSelect } = props
@@ -36,6 +37,7 @@ const ProfileMenuItem = props => {
 
           localStorage.removeItem('token')
           dispatch({ type: 'set', profileInfo: null })
+          deleteCookie('token')
         }
         onSelect(item)
       }}
