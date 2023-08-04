@@ -155,7 +155,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const [saveCount, setSaveCount] = useState(0)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
-  const [play, setPlay] = useState(false)
+  const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
 
   const clickRecent = index => {
@@ -733,12 +733,12 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                     <img src={nftCoverUrl} alt="" />
                     {play && (
                       <div
-                        className="w-full h-full absolute"
+                        className="w-full h-full absolute flex items-center"
                         onClick={() => {
                           if (play) setPlay(false)
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                          __html: `<video autoplay loop webkit-playsinline playsinline class="max-w-full max-h-full object-cover overflow-hidden">
                       <source src=${nftAssetUrl} type="video/mp4" /></video>`,
                         }}
                       />
@@ -789,7 +789,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.videoArea}>
-                  <video controls className="max-w-full max-h-full">
+                  <video controls autoPlay loop className="max-w-full max-h-full">
                     <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                   </video>
                 </div>

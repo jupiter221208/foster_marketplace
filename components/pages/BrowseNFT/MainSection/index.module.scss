@@ -122,6 +122,8 @@
     height: calc(100vh - 100px - 60px);
     border-radius: 27px;
     border: 1px solid rgba(var(--background-light-color), 0.1);
+    display: flex;
+    align-items: center;
   }
   display: flex;
   justify-content: center;
