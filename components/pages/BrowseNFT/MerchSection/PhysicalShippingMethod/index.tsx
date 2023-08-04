@@ -18,17 +18,30 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 // api
 import merchAPI from 'apis/merch'
 import LoadingButton from 'components/Button/LoadingButton'
+import { useRouter } from 'next/router'
 
 const PhysicalShippingMethod = props => {
-  const { onBack, onNext, data, shippingData, allShippingMethod, method, selectedMethod, nftName, type, setTotalCost } =
-    props
+  const {
+    onBack,
+    onNext,
+    data,
+    shippingData,
+    allShippingMethod,
+    method,
+    selectedMethod,
+    nftName,
+    nftCoverUrl,
+    mintAddress,
+    type,
+    setTotalCost,
+  } = props
   const viewport = useViewport()
+  const router = useRouter()
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState(null)
   const [tax, setTax] = useState(null)
   const [total, setTotal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-
   useEffect(() => {
     let name = ''
     if (type === 'apparel') {
@@ -91,15 +104,23 @@ const PhysicalShippingMethod = props => {
       residential: true,
     }
     const { apparel, gender, quality, color, print, quantity, size } = data
+    const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
     let item_id = apparel[gender.type][quality.type][color.type].item_id
     let item = {
       id: item_id.toString(),
+      sku: `SKU_${item_id.toString()}`,
+      name: nftName,
       quantity,
-      customization: {
+      imageUrl: nftCoverUrl,
+      options: {
+        fosterUrl: `${origin}/nft/${mintAddress}`,
+        imageUrl: nftCoverUrl,
+        nftAddress: mintAddress,
+        gender: gender.name,
         size: size.name,
         color: color.type,
-        sideOfPrint: print.name,
+        print: print.name,
       },
       notes: `This is apparel ${apparel.description} item`,
     }
@@ -115,7 +136,6 @@ const PhysicalShippingMethod = props => {
       paymentMethod: '',
     }
     console.log(params)
-
     merchAPI.checkout(params).then(
       response => {
         console.log(response)

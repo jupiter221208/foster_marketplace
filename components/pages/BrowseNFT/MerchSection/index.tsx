@@ -21,7 +21,6 @@ const MerchSection = props => {
   const [showWallArtMode, setShowWallArtMode] = useState(data?.category === 'print')
 
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
-
   const [apparel, setApparel] = useState(null)
   const [wallArt, setWallArt] = useState(null)
 
@@ -65,6 +64,7 @@ const MerchSection = props => {
             <MerchApparelSection
               nftName={data?.nftName}
               nftCoverUrl={data?.nftCoverUrl}
+              mintAddress={data?.mintAddress}
               open={openApparelDetail}
               subCategory={data?.subCategory}
               onBack={() => {

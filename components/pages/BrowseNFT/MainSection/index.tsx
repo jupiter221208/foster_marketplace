@@ -843,7 +843,6 @@ const MainSection = ({
                       <MerchToggleDisabledIcon
                         alt=""
                         onClick={() => {
-                          console.log('=========111=========')
                           setCreateMerchModal(true)
                         }}
                       />
@@ -1483,6 +1482,7 @@ const MainSection = ({
                             let params = {
                               nftName,
                               nftCoverUrl,
+                              mintAddress,
                               category: 'apparel',
                               subCategory: '',
                             }
@@ -1500,6 +1500,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'apparel',
                             subCategory: 'man',
                           }
@@ -1514,6 +1515,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'apparel',
                             subCategory: 'women',
                           }
@@ -1528,6 +1530,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'apparel',
                             subCategory: 'youth',
                           }
@@ -1552,6 +1555,7 @@ const MainSection = ({
                               let params = {
                                 nftName,
                                 nftCoverUrl,
+                                mintAddress,
                                 category: 'print',
                                 subCategory: '',
                               }
@@ -1570,6 +1574,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'acrylic',
                             subCategory: '',
                           }
@@ -1584,6 +1589,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'metal',
                             subCategory: '',
                           }
@@ -1598,6 +1604,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'canvas',
                             subCategory: '',
                           }
@@ -1612,6 +1619,7 @@ const MainSection = ({
                           let params = {
                             nftName,
                             nftCoverUrl,
+                            mintAddress,
                             category: 'poster',
                             subCategory: '',
                           }
