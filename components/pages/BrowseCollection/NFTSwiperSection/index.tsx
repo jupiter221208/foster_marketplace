@@ -70,6 +70,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
                   <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                     {item.map((nftItem, nftIndex) => (
                       <NFTCard
+                        token_id={item.token_id}
                         image={nftItem.asset_url}
                         nftName={nftItem.nft_name}
                         assetType={nftItem.asset_type}
@@ -98,6 +99,7 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
               {nfts.map((item, index) => (
                 <div className="col-span-6 lg:col-span-3" key={index}>
                   <NFTCard
+                    token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}
                     assetType={item.asset_type}
