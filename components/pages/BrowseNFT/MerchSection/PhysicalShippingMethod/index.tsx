@@ -93,9 +93,9 @@ const PhysicalShippingMethod = props => {
     let address = {
       name: shippingData.name,
       company: 'USPS',
-      stree1: shippingData.street,
-      stree2: '',
-      stree3: '',
+      street1: shippingData.street,
+      street2: '',
+      street3: '',
       city: shippingData.city,
       state: shippingData.state.isoCode,
       postalCode: shippingData.zipCode,
