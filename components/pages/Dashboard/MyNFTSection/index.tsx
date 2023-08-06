@@ -19,7 +19,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { type NftData, getMyNFTs } from 'utils/nfts.utils'
+import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'

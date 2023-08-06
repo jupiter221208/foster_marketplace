@@ -12,12 +12,13 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getShortStringAddress } from 'utils/strings'
+import { getDisplayUserName } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import { NftData } from 'types/nft'
 
 type MyNFTCardTypes = {
   data: NftData
+  onClick?: any
   onClickStartAuction: (item: NftData) => void
   onClickListNFT: (item: NftData) => void
 }
@@ -34,17 +35,25 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
             className="w-full rounded-[10px] lg:rounded-[20px] overflow-hidden"
             onClick={() => dispatch({ type: 'set', isLoading: true })}
           >
-            {data.category === 'video' ? (
+            {data.json.category === 'video' || data.json.properties?.category === 'video' ? (
               <div
                 dangerouslySetInnerHTML={{
                   __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full aspect-[321/321] object-cover">
-                  <source src=${data.animation_url} type="video/mp4" /></video>`,
+                  <source src=${data.json.animation_url} type="video/mp4" /></video>`,
                 }}
               />
             ) : (
               <div className={styles.imageArea}>
                 <div className={styles.imageContent}>
-                  <img src={data.image} alt={data.name} className="w-full h-full object-cover" />
+                  <img
+                    src={
+                      data.json.image === undefined || data.json.image === null
+                        ? AudioPlayerBackground.src
+                        : data.json.image
+                    }
+                    alt={data.json.name || data.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             )}
@@ -54,7 +63,7 @@ const MyNFTCard = ({ data, onClickStartAuction, onClickListNFT }: MyNFTCardTypes
 
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.name || data.name}</div>
+          <div className={styles.nftName}>{data.json.name || data.name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>
