@@ -1,9 +1,17 @@
-import { Metaplex, TokenGpaBuilder, UnparsedAccount } from '@metaplex-foundation/js'
-import type { Creator, Metadata, Nft, Sft } from '@metaplex-foundation/js'
+import {
+  Metaplex,
+  TokenGpaBuilder,
+  UnparsedAccount,
+  lamports,
+  toMetadataAccount,
+  toMetadata,
+} from '@metaplex-foundation/js'
+import type { Creator, Metadata, JsonMetadata, Nft, Sft } from '@metaplex-foundation/js'
 import { PublicKey } from '@solana/web3.js'
-import { unpackAccount, Account } from '@solana/spl-token'
+import { TOKEN_PROGRAM_ID, unpackAccount, Account } from '@solana/spl-token'
 import { getListedNFTs, getMyListedNFTs } from './auction.util'
 import { getShortAddress } from 'utils/wallet.util'
+import { getMultipleAccountsInfoBatched } from 'utils'
 import nftsAPI from 'apis/nfts'
 import userAPI from 'apis/user'
 import { bool } from 'aws-sdk/clients/signer'
@@ -48,9 +56,6 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
   return tokenAccounts[0]
 }
 
-export type GetMyNFTsOutputElement = Metadata | Nft | Sft
-export type GetMyNFTsOutput = GetMyNFTsOutputElement[]
-
 export interface NftData {
   mintAddress: PublicKey
   name?: string
@@ -62,6 +67,15 @@ export interface NftData {
     address: PublicKey
     verified: boolean
   }
+  collectionDetails?: {
+    version: string
+    size: number
+  }
+  tokenAccount: {
+    address: PublicKey
+    delegate: PublicKey | null
+    isFrozen: boolean
+  }
 }
 
 export interface NftCreator {
@@ -70,75 +84,75 @@ export interface NftCreator {
   verified: boolean
 }
 
-export interface CollectionNftData extends NftData {
-  collectionDetails?: {
-    version: string
-    size: bigint
-  }
+export interface NftAndCollectionData extends NftData {
+  // TODO: add collection info
+  // collectionName
 }
 
-export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
-  let tokenAccounts = await new TokenGpaBuilder(mx)
-    .whereOwner(mx.identity().publicKey)
-    .whereAmount(1)
-    .whereDoesntHaveDelegate()
-    .getAndMap(account =>
-      unpackAccount(account.publicKey, {
-        ...account,
-        lamports: parseInt(account.lamports.basisPoints.toString()),
-      })
-    )
+export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
+  let tokenAccounts = await mx.connection
+    .getTokenAccountsByOwner(mx.identity().publicKey, {
+      programId: TOKEN_PROGRAM_ID,
+    })
+    .then(({ value }) => value.map(({ account, pubkey }) => unpackAccount(pubkey, account)))
 
-  let nfts = await mx.nfts().findAllByMintList({ mints: tokenAccounts.map(({ mint }) => mint) })
+  let metadataAddresses = tokenAccounts.map(({ mint }) => mx.nfts().pdas().metadata({ mint }))
+  let metadataAccountInfos = await getMultipleAccountsInfoBatched(mx.connection, metadataAddresses)
+  let metadatas: (Metadata<JsonMetadata<string>> | null)[] = await Promise.all(
+    metadataAccountInfos.map(async (accountInfo, index) => {
+      if (!accountInfo) return null
 
-  let userNfts: GetMyNFTsOutput = []
-  for (let i = 0; i < tokenAccounts.length; i++) {
-    if (!nfts[i] || tokenAccounts[i].isFrozen) continue
-
-    userNfts.push(nfts[i])
-  }
-
-  await Promise.all(
-    userNfts.map(async nft => {
+      let nftAddress = tokenAccounts[index].mint
       try {
-        if (new URL(nft.uri).origin.includes('ftx.us')) {
-          console.warn(`skipping ftx nft ${nft.address}: ${nft.uri}`)
-          return
-        }
-        // @ts-ignore
-        nft.json = await fetch(nft.uri).then(r => r.json())
-        // @ts-ignore
-        nft.jsonLoaded = true
+        let metadata = toMetadata(
+          toMetadataAccount({
+            ...accountInfo,
+            publicKey: metadataAddresses[index],
+            lamports: lamports(accountInfo.lamports),
+          })
+        )
+        let json = await fetch(metadata.uri)
+          .then(r => r.json())
+          .catch(e => {
+            console.warn(`failed to pull off-chain metadata for ${nftAddress}: ${metadata.uri}\n`, e)
+          })
+
+        if (json)
+          metadata = {
+            ...metadata,
+            json,
+            jsonLoaded: true,
+          }
+
+        return metadata
       } catch (e) {
-        console.warn(`failed to pull off chain metadata for ${nft.address}: ${nft.uri}\n`, e)
+        console.warn(`failed to parse metadata for ${nftAddress}\n`, e)
       }
+
+      return null
     })
   )
 
-  userNfts = userNfts.filter(({ jsonLoaded }) => jsonLoaded)
-
-  let nftData: NftData[] = []
-
-  userNfts.map(nft => {
-    nftData.push({
-      mintAddress: new PublicKey(nft.address),
-      name: nft.json.name,
-      image: nft.json.image,
-      animation_url: nft.json.animation_url as string,
-      category: nft.json.properties.category as string,
-      creators: nft.creators.map(({ address, verified, share }) => ({
-        address: address,
-        verified: verified,
-        share: share,
-      })),
-      collection: {
-        address: nft.collection.address,
-        verified: nft.collection.verified,
+  return metadatas
+    .filter(metadata => metadata != null)
+    .map(({ json, creators, collection, collectionDetails }, index) => ({
+      mintAddress: tokenAccounts[index].mint,
+      name: json?.name,
+      image: json?.image,
+      animation_url: json?.animation_url as string | undefined,
+      category: json?.properties?.category as string | undefined,
+      creators,
+      collection,
+      collectionDetails: collectionDetails && {
+        version: collectionDetails.version,
+        size: collectionDetails.size?.toNumber(),
       },
-    })
-  })
-
-  return nftData
+      tokenAccount: {
+        address: tokenAccounts[index].address,
+        delegate: tokenAccounts[index].delegate,
+        isFrozen: tokenAccounts[index].isFrozen,
+      },
+    }))
 }
 
 export async function getMyCollectionNFTs(mx: Metaplex) {

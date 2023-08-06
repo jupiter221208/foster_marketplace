@@ -6,7 +6,7 @@ import Head from 'next/head'
 // solana
 import { useWallet } from '@solana/wallet-adapter-react'
 import { useMetaplex } from 'hooks/useMetaplex'
-import { GetMyNFTsOutput, getMyNFTs } from 'utils/nfts.utils'
+import { type NftData, getMyNFTs } from 'utils/nfts.utils'
 import { TURKEY_CIRCUS_COLLECTION_ID } from 'utils/dao'
 
 // components
@@ -34,7 +34,8 @@ const Dao = () => {
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
+  const [nfts, setNfts] = useState<NftData[]>([])
+
   const { id } = router.query
   const paramId = id + ''
   const params = paramId.toString().split('proposal')
@@ -52,7 +53,7 @@ const Dao = () => {
     })()
   }, [metaplex, connected])
 
-  const [turkyNfts, setTurkeyNfts] = useState<GetMyNFTsOutput | null>(null)
+  const [turkyNfts, setTurkeyNfts] = useState<NftData[] | null>(null)
   useEffect(() => {
     setTurkeyNfts(
       nfts.filter(({ collection }) => collection?.verified && TURKEY_CIRCUS_COLLECTION_ID.equals(collection.address))

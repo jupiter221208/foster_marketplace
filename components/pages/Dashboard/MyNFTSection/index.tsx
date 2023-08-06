@@ -25,6 +25,7 @@ import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { NftData } from 'types/nft'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -32,9 +33,9 @@ const MyNFTSection = props => {
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const myNftList = useSelector<any>(state => state.myNftList)
-  const [allNftList, setAllNftList] = useState<any>([])
-  const [allList, setAllList] = useState<any>([])
-  const [filteredList, setFilteredList] = useState<any>([])
+  const [allNftList, setAllNftList] = useState<NftData[]>([])
+  const [allList, setAllList] = useState<NftData>([])
+  const [filteredList, setFilteredList] = useState<NftData[]>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
 
@@ -124,8 +125,8 @@ const MyNFTSection = props => {
       }
     })
 
-    setFilteredList(list)
-    setAllNftList(list)
+    setFilteredList(list as NftData[])
+    setAllNftList(list as NftData[])
   }, [myNftList, active])
 
   useEffect(() => {
@@ -154,11 +155,7 @@ const MyNFTSection = props => {
       let filtered = []
       setFilteredList([])
       allNftList.forEach(element => {
-        if (
-          element.json?.name?.toLowerCase().includes(key.toLowerCase()) ||
-          element.name.toLowerCase().includes(key.toLowerCase())
-        )
-          filtered.push(element)
+        if (element.name?.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
       })
       setFilteredList(filtered)
     }
