@@ -59,6 +59,7 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
 export interface NftData {
   mintAddress: PublicKey
   name?: string
+  description?: string
   image?: string
   animation_url?: string
   category?: string
@@ -135,12 +136,13 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData[]> {
 
   return metadatas
     .filter(metadata => metadata != null)
-    .map(({ json, creators, collection, collectionDetails }, index) => ({
+    .map(({ name, creators, collection, collectionDetails, json }, index) => ({
       mintAddress: tokenAccounts[index].mint,
-      name: json?.name,
+      name: name || json?.name,
+      description: json?.description,
       image: json?.image,
       animation_url: json?.animation_url as string | undefined,
-      category: json?.properties?.category as string | undefined,
+      category: (json?.properties?.category || json?.category) as string | undefined,
       creators,
       collection,
       collectionDetails: collectionDetails && {
