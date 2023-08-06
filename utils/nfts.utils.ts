@@ -51,7 +51,33 @@ export async function getNFTTokenAccount(metaplex: Metaplex, mint: PublicKey): P
 export type GetMyNFTsOutputElement = Metadata | Nft | Sft
 export type GetMyNFTsOutput = GetMyNFTsOutputElement[]
 
-export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
+export interface NftData {
+  mintAddress: PublicKey,
+  name?: string,
+  image?: string,
+  animation_url?: string,
+  category?: string,
+  creators?: NftCreator[],
+  collection?: {
+    address: PublicKey,
+    verified: boolean
+  }
+}
+
+export interface NftCreator {
+  address: PublicKey,
+  share: number,
+  verified: boolean
+}
+
+export interface CollectionNftData extends NftData {
+  collectionDetails?: {
+    version: string,
+    size: bigint
+  }
+}
+
+export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
   let tokenAccounts = await new TokenGpaBuilder(mx)
     .whereOwner(mx.identity().publicKey)
     .whereAmount(1)
@@ -89,7 +115,30 @@ export async function getMyNFTs(mx: Metaplex): Promise<GetMyNFTsOutput> {
     })
   )
 
-  return userNfts.filter(({ jsonLoaded }) => jsonLoaded)
+  userNfts = userNfts.filter(({ jsonLoaded }) => jsonLoaded)
+
+  let nftData: NftData[] = [];
+
+  userNfts.map(nft => {
+    nftData.push({
+      mintAddress: new PublicKey(nft.address),
+      name: nft.json.name,
+      image: nft.json.image,
+      animation_url: nft.json.animation_url as string,
+      category: nft.json.properties.category as string,
+      creators: nft.creators.map(({ address, verified, share }) => ({
+        address: address,
+        verified: verified,
+        share: share,
+      })),
+      collection: {
+        address: nft.collection.address,
+        verified: nft.collection.verified
+      }
+    })
+  })
+
+  return nftData
 }
 
 export async function getMyCollectionNFTs(mx: Metaplex) {
