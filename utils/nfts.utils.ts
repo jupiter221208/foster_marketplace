@@ -52,27 +52,27 @@ export type GetMyNFTsOutputElement = Metadata | Nft | Sft
 export type GetMyNFTsOutput = GetMyNFTsOutputElement[]
 
 export interface NftData {
-  mintAddress: PublicKey,
-  name?: string,
-  image?: string,
-  animation_url?: string,
-  category?: string,
-  creators?: NftCreator[],
+  mintAddress: PublicKey
+  name?: string
+  image?: string
+  animation_url?: string
+  category?: string
+  creators?: NftCreator[]
   collection?: {
-    address: PublicKey,
+    address: PublicKey
     verified: boolean
   }
 }
 
 export interface NftCreator {
-  address: PublicKey,
-  share: number,
+  address: PublicKey
+  share: number
   verified: boolean
 }
 
 export interface CollectionNftData extends NftData {
   collectionDetails?: {
-    version: string,
+    version: string
     size: bigint
   }
 }
@@ -117,7 +117,7 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
 
   userNfts = userNfts.filter(({ jsonLoaded }) => jsonLoaded)
 
-  let nftData: NftData[] = [];
+  let nftData: NftData[] = []
 
   userNfts.map(nft => {
     nftData.push({
@@ -133,8 +133,8 @@ export async function getMyNFTs(mx: Metaplex): Promise<NftData> {
       })),
       collection: {
         address: nft.collection.address,
-        verified: nft.collection.verified
-      }
+        verified: nft.collection.verified,
+      },
     })
   })
 
