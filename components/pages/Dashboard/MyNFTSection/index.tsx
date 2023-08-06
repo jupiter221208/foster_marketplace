@@ -55,7 +55,7 @@ const MyNFTSection = props => {
     }
   }, [mx, connection, publicKey, isGetMyNFTs])
 
-  const [nftList, setNFTList] = useState([])
+  const [nftList, setNFTList] = useState<NftData[]>([])
 
   const [showStartAuctionModal, setShowStartAuctionModal] = useState(false)
   const [showListNFTModal, setShowListNFTModal] = useState(false)
@@ -200,7 +200,7 @@ const MyNFTSection = props => {
             <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
               <MyNFTCard
                 data={item}
-                publicKey={publicKey}
+                onClick={(data: any) => handleGotoDetailPage(data)}
                 onClickStartAuction={item => handleStartAuction(item)}
                 onClickListNFT={item => handleListNFT(item)}
               />

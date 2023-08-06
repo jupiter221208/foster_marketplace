@@ -12,11 +12,19 @@ import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles
 import styles from './index.module.scss'
-import { getDisplayUserName } from 'utils/strings'
+
+import { getShortAddress } from 'utils/strings'
+import { NftData } from 'types/nft'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
-const MyNFTCard = props => {
-  const { data, onClickStartAuction, onClickListNFT } = props
+export interface MyNFTCardProps {
+  data: NftData
+  onClick: (data: NftData) => any
+  onClickStartAuction: (data: NftData) => any
+  onClickListNFT: (data: NftData) => any
+}
+
+const MyNFTCard = ({ data, onClick, onClickStartAuction, onClickListNFT }: MyNFTCardProps) => {
   const [blurMode, setBlurMode] = useState(false)
   const dispatch = useDispatch()
 
@@ -56,7 +64,7 @@ const MyNFTCard = props => {
 
       <div className="w-full mt-[10px] flex flex-wrap justify-center items-center">
         <div className="w-full flex items-center">
-          <div className={styles.nftName}>{data.json.name || data.name}</div>
+          <div className={styles.nftName}>{data.name}</div>
         </div>
         <div className="w-full flex items-center">
           <div className={styles.artistName}>
