@@ -109,8 +109,8 @@ const PhysicalShippingMethod = props => {
     let item_id = apparel[gender.type][quality.type][color.type].item_id
     let item = {
       id: item_id.toString(),
-      sku: `SKU_${item_id.toString()}`,
-      name: nftName,
+      // sku: `SKU_${item_id.toString()}`,
+      // name: nftName,
       quantity,
       imageUrl: nftCoverUrl,
       options: {
@@ -133,7 +133,7 @@ const PhysicalShippingMethod = props => {
       gift: true,
       giftMessage: 'Fantastic Gift',
       notes: 'Checkout Note',
-      paymentMethod: '',
+      // paymentMethod: '',
     }
     console.log(params)
     merchAPI.checkout(params).then(
