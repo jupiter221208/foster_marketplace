@@ -19,7 +19,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { getMyNFTs } from 'utils/nfts.utils'
+import { type NftData, getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
@@ -131,8 +131,8 @@ const MyNFTSection = props => {
       }
     })
 
-    setFilteredList(list)
-    setAllNftList(list)
+    setFilteredList(list as NftData[])
+    setAllNftList(list as NftData[])
   }, [myNftList, active])
 
   useEffect(() => {
@@ -161,11 +161,7 @@ const MyNFTSection = props => {
       let filtered = []
       setFilteredList([])
       allNftList.forEach(element => {
-        if (
-          element.json?.name?.toLowerCase().includes(key.toLowerCase()) ||
-          element.name.toLowerCase().includes(key.toLowerCase())
-        )
-          filtered.push(element)
+        if (element.name?.toLowerCase().includes(key.toLowerCase())) filtered.push(element)
       })
       setFilteredList(filtered)
     }
