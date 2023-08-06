@@ -80,15 +80,17 @@ const AuctionCard = props => {
         </div>
       </div>
       <div className="block justify-center items-start">
-        <div className="flex justify-start lg:justify-center gap-1 mt-2 items-center">
-          <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
+        <div className="flex justify-start lg:justify-center gap-1 mt-1 lg:mt-[6px] items-center">
+          <div className="w-3 h-4 lg:w-5 lg:h-[25px] flex items-center">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <SolanaLogoMobileIcon alt="" />
             ) : (
               <SolanaLogoIcon alt="" />
             )}
           </div>
-          <div className={styles.whiteText}>{Math.round(reservePrice * 1000) / 1000}</div>
+          <div className={styles.whiteText}>
+            {Math.round((auctionStarted && currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
+          </div>
         </div>
       </div>
 
