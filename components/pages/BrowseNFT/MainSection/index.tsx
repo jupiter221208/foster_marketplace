@@ -1021,7 +1021,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                 <>
                   <div
                     className={`mt-10 w-full ${
-                      showPlaceBidButton && isOwnNft === false ? 'h-[105px] lg:h-[155px]' : 'h-[55px] lg:h-[75px]'
+                      showPlaceBidButton && isOwnNft === false ? 'h-[105px] lg:h-[155px]' : 'h-[60px] lg:h-[75px]'
                     } relative`}
                   >
                     <div className={styles.auctionContainer}>
