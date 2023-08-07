@@ -1003,11 +1003,10 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                     )}
                   </div>
                 </>
-              ) : getTimeDifference(endTime) < 0 ||
-                (isEnded &&
-                  nftCurrentPrice > 0 &&
-                  (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
-                  connected) ? (
+              ) : getTimeDifference(endTime) < 0 &&
+                nftCurrentPrice > 0 &&
+                (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
+                connected ? (
                 <div className="w-full mb-1 mt-5 lg:mt-0 lg:mb-5">
                   <OutlineButton
                     label="Finalize Sale"
@@ -1036,18 +1035,31 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                       />
                       {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
-                          {publicKey?.toBase58() === highBidder ? (
-                            <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                          ) : (
-                            <div
-                              className={`${styles.placeBidBG} ${styles.placeBidEnabledLightBG}`}
-                              onClick={() => setShowModalPlaceBid(true)}
-                            >
-                              <div className="flex">
-                                <div className={`${styles.placeBidBtn} ${styles.placeBidEnabledColor}`}>Place Bid</div>
+                          <div
+                            className={`${styles.placeBidBG} ${
+                              publicKey?.toBase58() === highBidder || isEnded
+                                ? styles.placeBidDisabledBG
+                                : styles.placeBidEnabledLightBG
+                            }`}
+                            onClick={() =>
+                              publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
+                            }
+                          >
+                            <div className="flex">
+                              <div
+                                className={`${styles.placeBidBtn} ${
+                                  publicKey?.toBase58() === highBidder || isEnded
+                                    ? styles.placeBidDisabledColor
+                                    : styles.placeBidEnabledColor
+                                }`}
+                              >
+                                Place Bid
                               </div>
                             </div>
-                          )}
+                          </div>
+                          {publicKey?.toBase58() === highBidder ? (
+                            <div className={styles.highBidText}>You are currently the highest bidder!</div>
+                          ) : null}
                         </div>
                       )}
                     </div>
