@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 // custom components
 
 // images
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // json
@@ -152,7 +152,7 @@ const FollowModal = props => {
               >
                 <Dialog.Panel className={styles.modalView}>
                   <div className={styles.close} onClick={() => closeModal()}>
-                    <Image src={CloseIcon} alt="" width={30} height={30} />
+                    <CloseIcon alt="" />
                   </div>
                   <div className="w-full flex justify-start -ml-4">
                     <FollowTab tabList={tabList} lightMode={false} onChange={item => handleSelectedTab(item)} />

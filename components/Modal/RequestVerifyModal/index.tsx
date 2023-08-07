@@ -14,7 +14,7 @@ import Button from 'components/Button'
 import { useViewport } from 'utils'
 
 // images
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 import ArrowleftCircleGrayIcon from 'assets/icons/arrow-left-small.svg'
 import CheckedGreenIcon from 'assets/icons/checked-green.svg'
 import TwitterWhiteIcon from 'assets/icons/twitter-background-white.svg'
@@ -83,7 +83,7 @@ const RequestVerifyModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.close} onClick={closeModal}>
-                  <Image src={CloseIcon} alt="" width={30} height={30} />
+                  <CloseIcon alt="" />
                 </div>
                 {currentStep === 1 && (
                   <div className="w-full flex flex-wrap justify-start text-start mt-[30px]">
