@@ -4,10 +4,12 @@ const API_URL = process.env.BACKEND_URL
 
 export interface OrderData {
   id: number
+  order: any
   amount: number
   paymentMethod: string
   paymentAmount: number
   transactionId: string | null
+  ssorder: any
 }
 
 export function prepareCart(data) {

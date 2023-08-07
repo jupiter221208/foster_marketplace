@@ -10,7 +10,8 @@ import MerchStepper from 'components/MerchStepper'
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
-import { getOrder, type OrderData } from 'apis/merch'
+import { getOrder, OrderData } from 'apis/merch'
+import { findElement } from 'utils/helpers'
 
 const OrderSection = props => {
   const router = useRouter()
@@ -19,10 +20,21 @@ const OrderSection = props => {
   const merchData = useSelector(state => (state as any).merchData)
 
   const [orderData, setOrderData] = useState<OrderData | null>(null)
+  const [previewUrl, setPreviewUrl] = useState('')
+  const [coverUrl, setCoverUrl] = useState('')
+
   useEffect(() => {
-    if (typeof id != "string" || !Number.isFinite(parseInt(id))) return
+    if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     getOrder(id).then(setOrderData)
   }, [id])
+
+  useEffect(() => {
+    if (orderData) {
+      let itemData = orderData?.ssorder.items[0]
+      setPreviewUrl(itemData.imageUrl)
+      setCoverUrl(findElement(itemData.options, 'name', 'imageUrl')['value'])
+    }
+  }, [orderData])
 
   return (
     <div className="g-container">
@@ -31,11 +43,11 @@ const OrderSection = props => {
           <div className="col-span-2 lg:col-span-1">
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
-                <img src={merchData?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <img src={coverUrl} alt="" className="min-w-full min-h-full object-cover" />
               </div>
               <div className={styles.blurImage} />
               <div className="absolute inset-20 z-11">
-                <img src={printImageUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <img src={previewUrl} alt="" className="min-w-full min-h-full object-cover" />
               </div>
             </div>
           </div>
@@ -47,11 +59,7 @@ const OrderSection = props => {
               {orderData && (
                 <PhysicalCheckout
                   orderData={orderData}
-                  data={merchData?.printData}
-                  shippingData={merchData?.shippingData}
-                  nftName={merchData?.nftName}
                   type="apparel"
-                  total={merchData?.totalCost}
                   onBack={() => {
                     router.back()
                   }}

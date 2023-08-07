@@ -112,10 +112,11 @@ const PhysicalShippingMethod = props => {
     let item = {
       id: item_id.toString(),
       // sku: `SKU_${item_id.toString()}`,
-      // name: nftName,
       quantity,
       previewUrl: nftCoverUrl,
       options: {
+        type: 'apparel',
+        nftName: nftName,
         fosterUrl: `${origin}/nft/${mintAddress}`,
         imageUrl: nftCoverUrl,
         nftAddress: mintAddress,

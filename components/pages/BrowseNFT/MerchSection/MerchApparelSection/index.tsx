@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 //component
 import PhysicalPrintDetail from './PhysicalPrintDetail'
 import PhysicalShipping from '../PhysicalShipping'
-import PhysicalCheckout from '../PhysicalCheckout'
 import MerchStepper from 'components/MerchStepper'
 
 import styles from './index.module.scss'
@@ -28,7 +27,6 @@ const MerchApparelSection = props => {
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openShippingMethod, setOpenShippingMethod] = useState(false)
-  const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
@@ -97,9 +95,6 @@ const MerchApparelSection = props => {
             setCurrentStep(2)
           }}
           onNext={orderId => {
-            //setOpenShippingMethod(false)
-            // setOpenCheckoutView(true)
-            // setCurrentStep(3)
             let data = {
               printData,
               shippingData,
@@ -109,19 +104,6 @@ const MerchApparelSection = props => {
             }
             dispatch({ type: 'set', merchData: data })
             router.push(`/orders/${orderId}`)
-          }}
-        />
-      ) : openCheckoutView ? (
-        <PhysicalCheckout
-          data={printData}
-          shippingData={shippingData}
-          nftName={nftName}
-          type="apparel"
-          total={totalCost}
-          onBack={() => {
-            setOpenShippingMethod(true)
-            setOpenCheckoutView(false)
-            setCurrentStep(2)
           }}
         />
       ) : (

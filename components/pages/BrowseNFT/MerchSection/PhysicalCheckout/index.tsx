@@ -29,32 +29,20 @@ import GradientButton from 'components/Button/GradientButton'
 import TableSection from './TableSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import Alert from 'components/Alert'
-import { getFirstUpperString } from 'utils/helpers'
+import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
 import type { OrderData } from 'apis/merch'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
-  data: any
-  shippingData: any
-  nftName: string
   type: string
   total?: number
   onBack: () => any
   onNext?: () => any
 }
 
-const PhysicalCheckout = ({
-  orderData,
-  onBack,
-  onNext,
-  data,
-  shippingData,
-  nftName,
-  type,
-  total,
-}: PhysicalCheckoutProps) => {
+const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
   const SOL_USD_SLIPPAGE = 0.98
 
   const viewport = useViewport()
@@ -69,7 +57,7 @@ const PhysicalCheckout = ({
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
 
-  total ??= orderData.amount
+  total ??= orderData.order.amount
   const solAmount = total && solToUsdRate ? total / (solToUsdRate * SOL_USD_SLIPPAGE) : 0
 
   useEffect(() => {
@@ -81,43 +69,56 @@ const PhysicalCheckout = ({
         type: 'success',
       },
     ])
-    if (!data) return
-    let name = ''
-    if (type === 'apparel') {
-      name =
-        nftName +
-        '<br/>' +
-        data['apparel'].description +
-        ' (' +
-        data['size'].name +
-        ')' +
-        '<br/>' +
-        getFirstUpperString(data['color'].type)
-    } else {
-      name =
-        nftName +
-        '<br/>' +
-        getFirstUpperString(data.print.type) +
-        ' (' +
-        getFirstUpperString(data.orientation.type) +
-        ')<br/>' +
-        data.size.width +
-        ' x ' +
-        data.size.height
-    }
-    let quantity = data['quantity']
-    let shipping =
-      shippingData['street'] +
+
+    let shippingData = orderData?.ssorder.shipTo
+    let itemShipping =
+      shippingData['street1'] +
       '<br/>' +
       shippingData['city'] +
       ', ' +
-      shippingData['state'].name +
+      shippingData['state'] +
       ', ' +
-      shippingData['zipCode'] +
+      shippingData['postalCode'] +
       '<br/>' +
-      shippingData['country'].name
+      shippingData['country']
 
-    setList([{ name, quantity, shipping }])
+    let itemList = []
+    orderData?.ssorder.items.forEach(item => {
+      let itemQuantity = item.quantity
+      let options = item.options
+      var type = findElement(options, 'name', 'type')['value']
+      var nftName = findElement(options, 'name', 'nftName')['value']
+      var name = item.name
+      var size = findElement(options, 'name', 'size')['value']
+      var color = findElement(options, 'name', 'color')['value']
+      var itemName = nftName + '<br/>' + name + ' (' + size + ')' + '<br/>' + getFirstUpperString(color)
+      itemList.push({ name: itemName, quantity: itemQuantity, shipping: itemShipping })
+    })
+
+    setList(itemList)
+    // let name = ''
+    // if (type === 'apparel') {
+    //   name =
+    //     nftName +
+    //     '<br/>' +
+    //     data['apparel'].description +
+    //     ' (' +
+    //     data['size'].name +
+    //     ')' +
+    //     '<br/>' +
+    //     getFirstUpperString(data['color'].type)
+    // } else {
+    //   name =
+    //     nftName +
+    //     '<br/>' +
+    //     getFirstUpperString(data.print.type) +
+    //     ' (' +
+    //     getFirstUpperString(data.orientation.type) +
+    //     ')<br/>' +
+    //     data.size.width +
+    //     ' x ' +
+    //     data.size.height
+    // }
   }, [])
 
   const onCheckout = async () => {
@@ -137,11 +138,6 @@ const PhysicalCheckout = ({
       setIsLoading(false)
       setShowAlert(true)
     }
-  }
-
-  const isUniteState = () => {
-    let country = shippingData['country'].name.toLowerCase()
-    return country.includes('united state')
   }
 
   return (
