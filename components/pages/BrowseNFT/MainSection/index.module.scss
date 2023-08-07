@@ -552,12 +552,8 @@
   }
 }
 
-.placeBidEnabledBG {
-  background: linear-gradient(to bottom, var(--background-black-color), var(--brand-10-color));
-}
-
 .placeBidEnabledLightBG {
-  background: var(--auction-card-bg);
+  background: linear-gradient(to right, var(--primary-btn-bg-left), var(--primary-btn-bg-right));
 }
 
 .placeBidDisabledBG {
@@ -596,11 +592,11 @@
 }
 
 .placeBidEnabledColor {
-  color: $text-gray-800-color;
+  color: var(--gradient-btn-color);
 }
 
 .placeBidDisabledColor {
-  color: rgba($text-gray-200-color, 0.5);
+  color: rgba(var(--gradient-btn-color-rgb), 0.5);
 }
 
 .highBidText {
