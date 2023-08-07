@@ -123,7 +123,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   const onCheckout = async () => {
     setIsLoading(true)
-    let result = false
+    let result = true
     try {
       let transactionBuilder = await createPaymentTransaction({
         metaplex,
@@ -135,15 +135,14 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         response: { signature },
       } = await transactionBuilder.sendAndConfirm(metaplex)
 
+      // TODO: send signature to backend and update order
       let params = {
         payment_method: currency.toUpperCase(),
         payment_reference: signature,
       }
-
       let response = await payOrder(id, params)
       if (response?.status === 'success') result = true
       else result = false
-      // TODO: send signature to backend and update order
     } finally {
       setIsLoading(false)
       if (result === true) {
@@ -279,8 +278,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          setIsLoading(true)
-          router.push('/')
+          setTimeout(() => {
+            router.push('/')
+          }, 1000)
         }}
         data={alertData}
       />

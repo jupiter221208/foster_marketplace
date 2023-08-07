@@ -277,10 +277,8 @@ const SuccessMintSingleNFTSection = props => {
           setShowListNFTModal(false)
           setTimeout(() => {
             if (status === 'list-close') {
-              dispatch({ type: 'set', isLoading: true })
               router.push('/')
             } else if (status === 'listed') {
-              dispatch({ type: 'set', isLoading: true })
               router.push(`/dashboard?tab=1&filter=0`)
             }
           }, 1000)
