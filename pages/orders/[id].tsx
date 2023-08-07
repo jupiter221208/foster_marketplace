@@ -30,7 +30,7 @@ const OrderSection = props => {
     if (orderData) {
       let itemData = orderData?.ssorder.items[0]
       setPreviewUrl(itemData.imageUrl)
-      setCoverUrl(findElement(itemData.options, 'name', 'imageUrl')['value'])
+      setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
     }
   }, [orderData])
 

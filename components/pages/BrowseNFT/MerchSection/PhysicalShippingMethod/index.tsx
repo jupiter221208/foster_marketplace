@@ -118,7 +118,7 @@ const PhysicalShippingMethod = props => {
         type: 'apparel',
         nftName: nftName,
         fosterUrl: `${origin}/nft/${mintAddress}`,
-        imageUrl: nftCoverUrl,
+        assetUrl: nftCoverUrl,
         nftAddress: mintAddress,
         gender: gender.name,
         size: size.name,
@@ -141,7 +141,6 @@ const PhysicalShippingMethod = props => {
     console.log(params)
     merchAPI.checkout(params).then(
       response => {
-        console.log(response)
         onNext(response.orderNumber)
         setIsLoading(false)
       },
