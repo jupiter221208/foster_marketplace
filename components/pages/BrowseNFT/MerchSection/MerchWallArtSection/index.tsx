@@ -63,17 +63,6 @@ const MerchWallArtSection = props => {
           }}
           data={shippingData}
         />
-      ) : openCheckoutView ? (
-        <PhysicalCheckout
-          data={printData}
-          shippingData={shippingData}
-          nftName={nftName}
-          type="wallart"
-          onBack={() => {
-            setOpenShippingDetail(true)
-            setOpenCheckoutView(false)
-          }}
-        />
       ) : (
         <></>
       )}
