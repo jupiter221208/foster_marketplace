@@ -721,7 +721,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
               nftType === 'image' ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" />
-                  <div className={styles.mobileImageBackground} />
+                  {/* <div className={styles.mobileImageBackground} /> */}
                 </div>
               ) : nftType.includes('audio') ? (
                 <div className={styles.audioArea}>
