@@ -16,8 +16,6 @@ import { findElement } from 'utils/helpers'
 const OrderSection = props => {
   const router = useRouter()
   const { id } = router.query
-  const printImageUrl = useSelector(state => (state as any).printImageUrl)
-  const merchData = useSelector(state => (state as any).merchData)
 
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')

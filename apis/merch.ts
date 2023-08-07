@@ -30,8 +30,15 @@ export async function getOrder(id): Promise<OrderData> {
   })
 }
 
+export async function payOrder(id, params) {
+  return client.post(`${API_URL}v1/merch/orders/${id}/pay`, params).then(response => {
+    return response?.data
+  })
+}
+
 export default {
   prepareCart,
   checkout,
   getOrder,
+  payOrder,
 }

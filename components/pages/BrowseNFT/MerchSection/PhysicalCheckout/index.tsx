@@ -32,7 +32,7 @@ import Alert from 'components/Alert'
 import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
-import type { OrderData } from 'apis/merch'
+import { OrderData, payOrder } from 'apis/merch'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -44,9 +44,9 @@ export interface PhysicalCheckoutProps {
 
 const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
   const SOL_USD_SLIPPAGE = 0.98
-
   const viewport = useViewport()
   const router = useRouter()
+  const { id } = router.query
   const dispatch = useDispatch()
   const { metaplex } = useMetaplex()
   const { solToUsdRate, refreshValue } = useSolToUsdRate()
@@ -123,6 +123,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   const onCheckout = async () => {
     setIsLoading(true)
+    let result = false
     try {
       let transactionBuilder = await createPaymentTransaction({
         metaplex,
@@ -133,10 +134,21 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       let {
         response: { signature },
       } = await transactionBuilder.sendAndConfirm(metaplex)
+
+      let params = {
+        payment_method: currency.toUpperCase(),
+        payment_reference: signature,
+      }
+
+      let response = await payOrder(id, params)
+      if (response?.status === 'success') result = true
+      else result = false
       // TODO: send signature to backend and update order
     } finally {
       setIsLoading(false)
-      setShowAlert(true)
+      if (result === true) {
+        setShowAlert(true)
+      }
     }
   }
 
@@ -267,6 +279,8 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          setIsLoading(true)
+          router.push('/')
         }}
         data={alertData}
       />
