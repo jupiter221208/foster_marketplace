@@ -103,7 +103,7 @@ const PhysicalShipping = props => {
         {
           id: item_id.toString(),
           quantity,
-          customization: {
+          options: {
             size: size.name,
             color: color.type,
             sideOfPrint: print.name,

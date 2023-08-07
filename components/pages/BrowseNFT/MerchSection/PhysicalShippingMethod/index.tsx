@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 // next components
 
@@ -18,7 +19,6 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 // api
 import merchAPI from 'apis/merch'
 import LoadingButton from 'components/Button/LoadingButton'
-import { useRouter } from 'next/router'
 
 const PhysicalShippingMethod = props => {
   const {
@@ -36,7 +36,9 @@ const PhysicalShippingMethod = props => {
     setTotalCost,
   } = props
   const viewport = useViewport()
-  const router = useRouter()
+
+  const printImageUrl = useSelector(state => (state as any).printImageUrl)
+
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState(null)
   const [tax, setTax] = useState(null)
@@ -112,7 +114,7 @@ const PhysicalShippingMethod = props => {
       // sku: `SKU_${item_id.toString()}`,
       // name: nftName,
       quantity,
-      imageUrl: nftCoverUrl,
+      previewUrl: nftCoverUrl,
       options: {
         fosterUrl: `${origin}/nft/${mintAddress}`,
         imageUrl: nftCoverUrl,
