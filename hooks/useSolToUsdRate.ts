@@ -5,12 +5,24 @@ let solToUsdRate = 0
 let useCount = 0
 let refreshIntervalId: null | ReturnType<typeof setInterval> = null
 
-export function useSolToUsdRate() {
-  const refreshValue = async (): Promise<number> => {
-    solToUsdRate = await fetchSolToUsdRate()
-    return solToUsdRate
-  }
+let FETCH_SOL_USD_RATE_PROMISE: Promise<number> | null = null
+async function debounceFetchSolToUsdRate(): Promise<number> {
+  if (!FETCH_SOL_USD_RATE_PROMISE)
+    FETCH_SOL_USD_RATE_PROMISE = fetchSolToUsdRate().then(rate => {
+      solToUsdRate = rate
+      FETCH_SOL_USD_RATE_PROMISE = null
+      return rate
+    })
+  return FETCH_SOL_USD_RATE_PROMISE
+}
 
+export function useSolToUsdRate() {
+  const [localSolToUsdRate, setLocalSolToUsdRate] = useState<number>(solToUsdRate)
+  const refreshValue = async (): Promise<number> => {
+    let rate = await debounceFetchSolToUsdRate()
+    setLocalSolToUsdRate(rate)
+    return rate
+  }
   if (solToUsdRate === 0) refreshValue()
 
   useEffect(() => {
@@ -30,7 +42,7 @@ export function useSolToUsdRate() {
   }, [])
 
   return {
-    solToUsdRate,
+    solToUsdRate: localSolToUsdRate,
     refreshValue,
   }
 }
