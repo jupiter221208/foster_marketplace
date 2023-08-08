@@ -57,7 +57,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
 
-  total ??= orderData.order.amount
+  total ??= orderData?.order.amount
   const solAmount = total && solToUsdRate ? total / (solToUsdRate * SOL_USD_SLIPPAGE) : 0
 
   useEffect(() => {
