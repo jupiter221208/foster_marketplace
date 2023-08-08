@@ -68,7 +68,7 @@ const Alert = props => {
                   <Dialog.Panel className="w-full">
                     <div className="w-full mb-[100px]">
                       <div className="w-full flex justify-center">
-                        {item.type === 'success111' ? (
+                        {item.type === 'success' ? (
                           <Lottie animationData={SuccessIcon} loop={true} />
                         ) : (
                           <Lottie
