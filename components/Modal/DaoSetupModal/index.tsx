@@ -14,7 +14,7 @@ import { useViewport } from 'utils'
 
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 import CloseIconMobile from 'assets/icons/close-wallet-mobile.svg'
 import DaoLogoSmall from 'assets/icons/dao-logo-small.svg?component'
 import DaoLogoSmallMobile from 'assets/icons/dao-logo-small-mobile.svg?component'
@@ -106,7 +106,7 @@ const DaoSetupModal = props => {
                 >
                   <Dialog.Panel className={styles.modalView}>
                     <div className={styles.close} onClick={() => close()}>
-                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                      <CloseIcon alt="" />
                     </div>
                     <div className={styles.rightBack}>
                       <Image src={LogoBigIcon} alt="" width={566} height={657} />

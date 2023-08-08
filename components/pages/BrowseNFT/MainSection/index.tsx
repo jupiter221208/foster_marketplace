@@ -169,7 +169,7 @@ const MainSection = ({
   const [saveCount, setSaveCount] = useState(0)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
-  const [play, setPlay] = useState(false)
+  const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
 
   const clickRecent = index => {
@@ -735,7 +735,7 @@ const MainSection = ({
               nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" />
-                  <div className={styles.mobileImageBackground} />
+                  {/* <div className={styles.mobileImageBackground} /> */}
                 </div>
               ) : nftType.includes('audio') ? (
                 <div className={styles.audioArea}>
@@ -747,12 +747,12 @@ const MainSection = ({
                     <img src={nftCoverUrl} alt="" />
                     {play && (
                       <div
-                        className="w-full h-full absolute"
+                        className="w-full h-full absolute flex items-center"
                         onClick={() => {
                           if (play) setPlay(false)
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
+                          __html: `<video autoplay loop webkit-playsinline playsinline class="max-w-full max-h-full object-cover overflow-hidden">
                       <source src=${nftAssetUrl} type="video/mp4" /></video>`,
                         }}
                       />
@@ -803,7 +803,7 @@ const MainSection = ({
                 </div>
                 <div className={styles.blurImage} />
                 <div className={styles.videoArea}>
-                  <video controls className="max-w-full max-h-full">
+                  <video controls autoPlay loop className="max-w-full max-h-full">
                     <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
                   </video>
                 </div>
@@ -1056,7 +1056,7 @@ const MainSection = ({
                 <>
                   <div
                     className={`mt-10 w-full ${
-                      showPlaceBidButton && isOwnNft === false ? 'h-[130px] lg:h-[193px]' : 'h-[70px] lg:h-[93px]'
+                      showPlaceBidButton && isOwnNft === false ? 'h-[105px] lg:h-[135px]' : 'h-[52px] lg:h-[60px]'
                     } relative`}
                   >
                     <div className={styles.auctionContainer}>
@@ -1070,31 +1070,26 @@ const MainSection = ({
                       />
                       {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
-                          <div
-                            className={`${styles.placeBidBG} ${
-                              publicKey?.toBase58() === highBidder || isEnded
-                                ? styles.placeBidDisabledBG
-                                : styles.placeBidEnabledLightBG
-                            }`}
-                            onClick={() =>
-                              publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
-                            }
-                          >
-                            <div className="flex">
-                              <div
-                                className={`${styles.placeBidBtn} ${
-                                  publicKey?.toBase58() === highBidder || isEnded
-                                    ? styles.placeBidDisabledColor
-                                    : styles.placeBidEnabledColor
-                                }`}
-                              >
-                                Place Bid
-                              </div>
-                            </div>
-                          </div>
                           {publicKey?.toBase58() === highBidder ? (
                             <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                          ) : null}
+                          ) : (
+                            <div
+                              className={`${styles.placeBidBG} ${
+                                isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
+                              }`}
+                              onClick={() => (isEnded ? {} : setShowModalPlaceBid(true))}
+                            >
+                              <div className="flex">
+                                <div
+                                  className={`${styles.placeBidBtn} ${
+                                    isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
+                                  }`}
+                                >
+                                  Place Bid
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>

@@ -96,6 +96,7 @@ const ActiveListingSection = props => {
                 <SwiperSlide key={index}>
                   <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                     <NFTCard
+                      token_id={item.token_id}
                       image={item.asset_url}
                       nftName={item.nft_name}
                       assetType={item.asset_type}
@@ -117,6 +118,7 @@ const ActiveListingSection = props => {
               {exploreList.map((item, index) => (
                 <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
                   <NFTCard
+                    token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}
                     assetType={item.asset_type}

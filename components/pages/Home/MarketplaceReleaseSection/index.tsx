@@ -146,6 +146,7 @@ const MarketplaceReleaseSection = props => {
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                   <NFTCard
                     image={item.asset_url}
+                    token_id={item.token_id}
                     nftName={item.nft_name}
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}

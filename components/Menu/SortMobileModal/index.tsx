@@ -6,14 +6,11 @@ import Image from 'next/image'
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
-import CloseIcon from 'assets/icons/close-white.svg'
-
 // styles
 import styles from './index.module.scss'
 
 // solana
 import RadioMobile from 'components/RadioMobile'
-import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const SortMobileModal = props => {
   const { open, data, sort, onSort, onClose } = props

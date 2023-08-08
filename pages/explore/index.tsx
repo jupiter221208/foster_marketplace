@@ -600,6 +600,7 @@ const Explore = () => {
                             />
                           ) : (
                             <NFTCard
+                              token_id={item.token_id}
                               image={item.image}
                               nftName={item.name}
                               assetType={item.asset_type}
@@ -615,6 +616,7 @@ const Explore = () => {
                           )
                         ) : (
                           <NFTCard
+                            token_id={item.token_id}
                             image={item.image}
                             nftName={item.name}
                             assetType={item.asset_type}

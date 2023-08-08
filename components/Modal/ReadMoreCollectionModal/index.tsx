@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import CategoryChip from 'components/Chip/CategoryChip'
 
 // images
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
 
 // styles
@@ -55,7 +55,7 @@ const ReadMoreModal = props => {
               >
                 <Dialog.Panel className={styles.modalView}>
                   <div className={styles.close} onClick={() => closeModal()}>
-                    <Image src={CloseIcon} alt="" width={30} height={30} />
+                    <CloseIcon alt="" />
                   </div>
                   <div className="w-full h-full overflow-auto">
                     <div className="w-full max-h-[calc(100vh_-_200px)] pl-1 pr-1 pt-1">

@@ -147,7 +147,7 @@ const SuccessMintSingleNFTSection = props => {
             <div className={styles.mintTitle}>Congratulations!</div>
             <div className={styles.mintText}>
               Your NFT has been minted successfully and can be viewed on the&nbsp;
-              <a className={styles.mintLinkText} href={'/nft/' + nftAddress + '&type=general'}>
+              <a className={styles.mintLinkText} href={'/nft/' + nftAddress}>
                 NFT page
               </a>
             </div>
