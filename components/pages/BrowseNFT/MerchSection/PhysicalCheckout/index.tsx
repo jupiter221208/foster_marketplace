@@ -123,7 +123,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   const onCheckout = async () => {
     setIsLoading(true)
-    let result = true
+    let result = false
     try {
       let transactionBuilder = await createPaymentTransaction({
         metaplex,
