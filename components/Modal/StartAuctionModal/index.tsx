@@ -19,7 +19,7 @@ import { useViewport } from 'utils'
 
 // images
 import AudioPlayerBackground from 'assets/images/audio-player.png'
-import ArrowDownIcon from 'assets/icons/arrow-down-small.svg'
+import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -198,8 +198,8 @@ const StartAuctionModal = props => {
                       className={styles.datePicker}
                       customTimeInput={<CustomTimeInput date={null} value={null} onChange={null} />}
                     />
-                    <div className="absolute top-[8px] right-4">
-                      <Image src={ArrowDownIcon} alt="" />
+                    <div className="absolute top-[18px] right-4 ">
+                      <ArrowDownIcon alt="" />
                     </div>
                   </div>
 

@@ -169,7 +169,7 @@ const TabSection = props => {
             <div>{collectorStatsInfo?.nfts_collected}</div>
           </div>
           <div className="flex justify-between mt-[30px]">
-            <div>Collection Published</div>
+            <div>Collections Published</div>
             <div>{artistStatsInfo?.collections_created}</div>
           </div>
         </div>

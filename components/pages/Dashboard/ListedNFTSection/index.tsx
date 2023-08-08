@@ -160,9 +160,9 @@ const ListedNFTSection = props => {
                 setTimeout(() => {
                   setMyListedNFTs()
                   dispatch({ type: 'set', isGetMyNFTs: false })
-                }, 500)
-              }, 500)
-            }, 500)
+                }, 800)
+              }, 800)
+            }, 800)
           }
         }),
           error => {
@@ -288,8 +288,8 @@ const ListedNFTSection = props => {
             setTimeout(() => {
               setMyListedNFTs()
               dispatch({ type: 'set', isGetMyNFTs: false })
-            }, 500)
-          }, 500)
+            }, 800)
+          }, 800)
         })
     } catch (e) {
       setOpenProgressingModal(false)

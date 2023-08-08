@@ -318,9 +318,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         <div className={styles.topRightEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        {/* <div className={styles.bottomLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div> */}
         <MainSection
           artistInfo={artistInfo}
           categoryList={categoryList}
@@ -353,19 +350,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               setActiveListingLoaded={setActiveListingLoaded}
               setLiveAuctionLoaded={setLiveAuctionLoaded}
             />
-            {/* <NFTSection
-          nfts={nfts}
-          collections={collections}
-          wallet={artistInfo?.wallet_id}
-          isOwn={isOwn}
-          isLoaded={isLoaded}
-          currentPage={currentPage}
-          rowCount={rowCount}
-          selectRowCount={count => selectRowCount(count)}
-          handleNextPage={() => handleNextPage()}
-          handlePreviousPage={() => handlePreviousPage()}
-          reloadPage={reloadPage}
-        /> */}
           </div>
         </div>
 

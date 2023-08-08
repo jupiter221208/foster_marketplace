@@ -13,7 +13,7 @@ import { useViewport } from 'utils'
 
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 import StatsPreviewBG from 'assets/icons/stats-preview-bg.svg'
 import TurkeyHead from 'assets/images/turkey-head.png'
 
@@ -54,7 +54,7 @@ const StatsPreviewModal = props => {
                 >
                   <Dialog.Panel className={styles.modalView}>
                     <div className={styles.close} onClick={() => close()}>
-                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                      <CloseIcon alt="" />
                     </div>
                     <div className="w-full h-[507px] mt-[10px] p-[18px]">
                       <div className={styles.comingSoon}>COMING SOON</div>

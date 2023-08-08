@@ -69,7 +69,8 @@ const MyNFTSection = props => {
   const [selectedData, setSelectedData] = useState()
 
   const handleGotoDetailPage = (data: any) => {
-    router.push(`/nft/${data.mintAddress.toString()}&type=general`)
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/nft/${data.mintAddress.toString()}`)
   }
 
   const handleStartAuction = item => {

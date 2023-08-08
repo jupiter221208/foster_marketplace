@@ -97,7 +97,7 @@ const FreshMintSection = props => {
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
                   <NFTCard
-                    tokenID={item.token_id}
+                    token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}
                     assetType={item.asset_type}

@@ -100,7 +100,7 @@ const TrendingCollectionSection = props => {
               <TimeSlotButton
                 label="24 hrs"
                 onClick={() => handleChangeActive(0)}
-                fontFamily={active === 0 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                fontFamily={'Muli-SemiBold'}
                 color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
                 backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
                 backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
@@ -109,7 +109,7 @@ const TrendingCollectionSection = props => {
               <TimeSlotButton
                 label="7 days"
                 onClick={() => handleChangeActive(1)}
-                fontFamily={active === 1 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                fontFamily={'Muli-SemiBold'}
                 color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
                 backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
                 backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
@@ -118,7 +118,7 @@ const TrendingCollectionSection = props => {
               <TimeSlotButton
                 label="30 days"
                 onClick={() => handleChangeActive(2)}
-                fontFamily={active === 2 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                fontFamily={'Muli-SemiBold'}
                 color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
                 backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
                 backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
@@ -127,7 +127,7 @@ const TrendingCollectionSection = props => {
               <TimeSlotButton
                 label="All Time"
                 onClick={() => handleChangeActive(3)}
-                fontFamily={active === 3 ? 'Muli-Bold' : 'Muli-SemiBold'}
+                fontFamily={'Muli-SemiBold'}
                 color={active === 3 ? 'var(--day-btn-color)' : '#979EA2'}
                 backgroundColor01={active === 3 ? 'var(--day-btn-bg-1)' : 'transparent'}
                 backgroundColor02={active === 3 ? 'var(--day-btn-bg-2)' : 'transparent'}

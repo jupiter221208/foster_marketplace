@@ -14,7 +14,7 @@ import WalletItem from 'components/Card/WalletItem'
 // images
 import LogoBigIcon from 'assets/logo-big.svg'
 import LogoIcon from 'assets/icons/logo.svg'
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 import ConnectLogo from 'assets/images/connect_wallet_logo.png'
 
 // styles
@@ -86,7 +86,7 @@ const ConnectWalletModal = () => {
                       <Image src={LogoBigIcon} alt="" width={566} height={657} />
                     </div>
                     <div className={styles.close} onClick={closeModal}>
-                      <Image src={CloseIcon} alt="" width={30} height={30} />
+                      <CloseIcon alt="" />
                     </div>
                     <div className={styles.rightPanel}>
                       <Image src={LogoIcon} alt="" width={40} height={46} />
