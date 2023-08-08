@@ -4,61 +4,55 @@
     "type": "acrylic",
     "landscape": [
       {
-        "id": 0,
-        "width": 10,
-        "height": 8,
-        "price": 39.6
+        "id": 45,
+        "width": 24,
+        "height": 30,
+        "price": 193.63
       },
       {
-        "id": 1,
-        "width": 16,
-        "height": 12,
-        "price": 79.356
-      },
-      {
-        "id": 2,
+        "id": 54,
         "width": 18,
         "height": 12,
         "price": 86.856
       },
       {
-        "id": 3,
+        "id": 55,
         "width": 20,
         "height": 10,
         "price": 81.6
       },
       {
-        "id": 4,
+        "id": 56,
         "width": 20,
         "height": 12,
         "price": 94.356
       },
       {
-        "id": 5,
+        "id": 573,
         "width": 20,
         "height": 16,
         "price": 112.356
       },
       {
-        "id": 6,
+        "id": 58,
         "width": 24,
         "height": 16,
         "price": 131.856
       },
       {
-        "id": 7,
+        "id": 59,
         "width": 24,
         "height": 20,
         "price": 160.356
       },
       {
-        "id": 8,
+        "id": 60,
         "width": 30,
         "height": 20,
         "price": 197.1
       },
       {
-        "id": 9,
+        "id": 61,
         "width": 30,
         "height": 24,
         "price": 232.356
@@ -158,16 +152,16 @@
     ],
     "square": [
       {
-        "id": 0,
-        "width": 10,
-        "height": 10,
-        "price": 35.1
+        "id": 44,
+        "width": 20,
+        "height": 20,
+        "price": 114.25
       },
       {
-        "id": 1,
-        "width": 12,
-        "height": 12,
-        "price": 67.356
+        "id": 60,
+        "width": 10,
+        "height": 10,
+        "price": 29.25
       },
       {
         "id": 2,

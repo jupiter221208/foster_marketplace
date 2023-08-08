@@ -16,7 +16,6 @@ const MerchSection = props => {
   const [openApparelDetail, setOpenApparelDetail] = useState(data?.category === 'apparel')
   const [openWallArtDetail, setOpenWallArtDetail] = useState(data?.category === 'print')
 
-  console.log(openWallArtDetail, '==========openWallArtDetail=======')
   const [finishEditing, setFinishEditing] = useState(false)
   const [showApparelMode, setShowApparelMode] = useState(data?.category === 'apparel')
   const [showWallArtMode, setShowWallArtMode] = useState(data?.category === 'print')
