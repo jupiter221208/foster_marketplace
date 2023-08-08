@@ -16,7 +16,7 @@ import { useViewport } from 'utils'
 const AuctionCard = props => {
   const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
   const [timeLeft, setTimeLeft] = useState(null)
-  const [auctionStarted, setAuctionStarted] = useState(true)
+  const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
 
   useEffect(() => {
@@ -59,7 +59,9 @@ const AuctionCard = props => {
     <div className={styles.container}>
       <div className="block justify-center items-start">
         <div className="flex justify-around gap-2 mt-1">
-          <div className={styles.grayText}>Ends in</div>
+          <div className={styles.grayText}>
+            {auctionStarted === true ? 'Ends in' : auctionStarted === false ? 'Starts in' : ''}
+          </div>
 
           <div className="flex block justify-center gap-[2px]">
             <div className={styles.whiteText}>{timeLeft && timeLeft['days']}</div>
