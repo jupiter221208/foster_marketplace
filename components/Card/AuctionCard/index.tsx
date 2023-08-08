@@ -16,7 +16,7 @@ import { useViewport } from 'utils'
 const AuctionCard = props => {
   const { currentPrice, reservePrice, endTime, startTime, setIsEnded, setIsStarted } = props
   const [timeLeft, setTimeLeft] = useState(null)
-  const [auctionStarted, setAuctionStarted] = useState(true)
+  const [auctionStarted, setAuctionStarted] = useState(null)
   const viewport = useViewport()
 
   useEffect(() => {
@@ -58,51 +58,40 @@ const AuctionCard = props => {
   return (
     <div className={styles.container}>
       <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>{auctionStarted ? 'STARTING' : 'RESERVE PRICE'}</div>
-        <div className="flex justify-center gap-1 mt-2 items-center">
-          <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
+        <div className="flex justify-around gap-2 mt-1">
+          <div className={styles.grayText}>
+            {auctionStarted === true ? 'Ends in' : auctionStarted === false ? 'Starts in' : ''}
+          </div>
+
+          <div className="flex block justify-center gap-[2px]">
+            <div className={styles.whiteText}>{timeLeft && timeLeft['days']}</div>
+            <div className={styles.grayText}>d</div>
+          </div>
+          <div className="flex block justify-center gap-[2px]">
+            <div className={styles.whiteText}>{timeLeft && timeLeft['hours']}</div>
+            <div className={styles.grayText}>h</div>
+          </div>
+          <div className="flex block justify-center gap-[2px]">
+            <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
+            <div className={styles.grayText}>m</div>
+          </div>
+          <div className="flex block justify-center gap-[2px]">
+            <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
+            <div className={styles.grayText}>s</div>
+          </div>
+        </div>
+      </div>
+      <div className="block justify-center items-start">
+        <div className="flex justify-start lg:justify-center gap-1 mt-[2px] lg:mt-[2px] items-center">
+          <div className="w-3 h-4 lg:w-5 lg:h-[25px] flex items-center">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <SolanaLogoMobileIcon alt="" />
             ) : (
               <SolanaLogoIcon alt="" />
             )}
           </div>
-          <div className={styles.whiteText}>{Math.round(reservePrice * 1000) / 1000}</div>
-        </div>
-      </div>
-      {auctionStarted && (
-        <div className="block justify-center items-start">
-          <div className={styles.thinGreenText}>CURRENT</div>
-          <div className="flex justify-center gap-1 mt-2 items-center">
-            <div className="w-3 h-4 lg:w-5 lg:h-5 flex items-center">
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                <SolanaLogoMobileIcon alt="" />
-              ) : (
-                <SolanaLogoIcon alt="" />
-              )}
-            </div>
-            <div className={styles.whiteText}>{Math.round(currentPrice * 1000) / 1000}</div>
-          </div>
-        </div>
-      )}
-      <div className="block justify-center items-start">
-        <div className={styles.thinGreenText}>{auctionStarted ? 'TIME REMAINING' : 'AUCTION STARTS IN'}</div>
-        <div className="flex justify-around gap-1 mt-1">
-          <div className="block justify-center">
-            <div className={styles.whiteText}>{timeLeft && timeLeft['days']}</div>
-            <div className={styles.grayText}>&nbsp;Days&nbsp;</div>
-          </div>
-          <div className="block justify-center">
-            <div className={styles.whiteText}>{timeLeft && timeLeft['hours']}</div>
-            <div className={styles.grayText}>&nbsp;&nbsp;Hours&nbsp;&nbsp;</div>
-          </div>
-          <div className="block justify-center">
-            <div className={styles.whiteText}>{timeLeft && timeLeft['minutes']}</div>
-            <div className={styles.grayText}>Minutes</div>
-          </div>
-          <div className="block justify-center">
-            <div className={styles.whiteText}>{timeLeft && timeLeft['seconds']}</div>
-            <div className={styles.grayText}>Seconds</div>
+          <div className={styles.priceText}>
+            {Math.round((auctionStarted && currentPrice > 0 ? currentPrice : reservePrice) * 1000) / 1000}
           </div>
         </div>
       </div>

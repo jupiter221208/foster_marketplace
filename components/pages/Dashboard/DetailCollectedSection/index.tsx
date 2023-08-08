@@ -38,6 +38,7 @@ const DetailCollectedSection = props => {
         {nftList.map((item: any, index) => (
           <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
             <NFTCard
+              token_id={item.token_id}
               image={item.asset_url}
               nftName={item.nft_name}
               artistName={item.artist_username}

@@ -13,7 +13,6 @@ import Image from 'next/image'
 import PriceInput from 'components/Input/PriceInput'
 
 // images
-import CloseIcon from 'assets/icons/close-wallet.svg'
 import AudioPlayerBackground from 'assets/images/audio-player.png'
 
 // styles

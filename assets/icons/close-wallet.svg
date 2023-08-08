@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+<svg data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
   <g id="Group_51239" data-name="Group 51239" transform="translate(-1164 -333)">
     <rect id="Rectangle_20877" data-name="Rectangle 20877" width="30" height="30" rx="15" transform="translate(1164 333)" fill="rgba(239, 240, 246, 0.2)"/>
-    <path id="times-7" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,1,0,1.42,1.42L12,13.41l4.29,4.3a1,1,0,1,0,1.42-1.42Z" transform="translate(1167 335.999)" fill="#eff0f6"/>
+    <path id="times-7" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,1,0,1.42,1.42L12,13.41l4.29,4.3a1,1,0,1,0,1.42-1.42Z" transform="translate(1167 335.999)" />
   </g>
 </svg>

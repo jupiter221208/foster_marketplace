@@ -122,6 +122,8 @@
     height: calc(100vh - 100px - 60px);
     border-radius: 27px;
     border: 1px solid rgba(var(--background-light-color), 0.1);
+    display: flex;
+    align-items: center;
   }
   display: flex;
   justify-content: center;
@@ -172,7 +174,8 @@
 .mobileImageArea {
   border-radius: 12px;
   width: 100%;
-  height: 400px;
+  max-height: 400px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,8 +183,6 @@
   overflow: hidden;
   position: relative;
   object-fit: cover;
-  // margin-top: 30px;
-  // margin-bottom: 30px;
 }
 
 .mobileImageBackground {
@@ -457,7 +458,7 @@
   display: flex;
   flex-wrap: wrap;
   min-height: 120px;
-  max-height: 1000px;
+  max-height: 230px;
   padding: 8px 8px;
   @media (min-width: 1024px) {
     padding: 20px;
@@ -533,12 +534,12 @@
 
 .placeBidBG {
   width: auto;
-
-  margin: 4px 18px;
+  margin: 6px 18px;
+  border-radius: 10px;
   @media (min-width: 1024px) {
-    margin: 14px 18px 0px 18px;
+    margin: 10px 18px 0px 18px;
+    border-radius: 12px;
   }
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -550,12 +551,8 @@
   }
 }
 
-.placeBidEnabledBG {
-  background: linear-gradient(to bottom, var(--background-black-color), var(--brand-10-color));
-}
-
 .placeBidEnabledLightBG {
-  background: var(--auction-card-bg);
+  background: linear-gradient(to right, var(--primary-btn-bg-left), var(--primary-btn-bg-right));
 }
 
 .placeBidDisabledBG {
@@ -567,7 +564,7 @@
   font-size: 14px;
   margin: 9px 3px;
   @media (min-width: 1024px) {
-    margin: 17px 9px;
+    margin: 12px 9px;
     font-size: 18px;
   }
 }
@@ -594,21 +591,29 @@
 }
 
 .placeBidEnabledColor {
-  color: $text-gray-800-color;
+  color: var(--gradient-btn-color);
 }
 
 .placeBidDisabledColor {
-  color: rgba($text-gray-200-color, 0.5);
+  color: rgba(var(--gradient-btn-color-rgb), 0.5);
 }
 
 .highBidText {
+  width: auto;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 15px;
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
-  margin-left: 30px;
-  @media (min-width: 1536px) {
-    margin-top: 4px;
+  font-size: 14px;
+  background: rgba(var(--main-bg-color-rgb), 0.25);
+  color: var(--main-bg-color);
+  margin: 4px 18px;
+  @media (min-width: 1024px) {
+    height: 53px;
+    border-radius: 12px;
+    font-size: 20px;
   }
 }
 

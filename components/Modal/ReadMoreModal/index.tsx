@@ -10,11 +10,10 @@ import Image from 'next/image'
 import CategoryChip from 'components/Chip/CategoryChip'
 
 // images
-import CloseIcon from 'assets/icons/close-wallet.svg'
+import CloseIcon from 'assets/icons/close-wallet.svg?component'
 
 // styles
 import styles from './index.module.scss'
-// import { validUrl } from 'utils/helpers'
 
 const ReadMoreModal = props => {
   const { open, close, artistInfo, categoryList } = props
@@ -51,7 +50,7 @@ const ReadMoreModal = props => {
               >
                 <Dialog.Panel className={styles.modalView}>
                   <div className={styles.close} onClick={() => closeModal()}>
-                    <Image src={CloseIcon} alt="" width={30} height={30} />
+                    <CloseIcon alt="" />
                   </div>
                   <div className="w-full h-full overflow-auto">
                     <div className="w-full max-h-[calc(100vh_-_200px)] pl-1 pt-1">

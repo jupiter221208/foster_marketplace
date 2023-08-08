@@ -58,7 +58,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
-    dispatch({ type: 'set', isLoading: true })
+    // dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
@@ -66,15 +66,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setLoaded(false)
-        // if (isLoggedIn()) {
-        //   let collectionData = await collectionsAPI.getCollection(address)
-        //   if (!isString(collectionData)) setCollectionData(collectionData)
-        //   dispatch({ type: 'set', isLoading: false })
-        // } else {
-        //   setTimeout(() => {
-        //     dispatch({ type: 'set', isLoading: false })
-        //   }, 1000)
-        // }
         setTimeout(() => {
           dispatch({ type: 'set', isLoading: false })
         }, 1000)
