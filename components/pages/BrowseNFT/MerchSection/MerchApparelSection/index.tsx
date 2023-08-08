@@ -76,6 +76,7 @@ const MerchApparelSection = props => {
             setOpenShippingMethod(true)
             setCurrentStep(2)
           }}
+          category={'apparel'}
           printData={printData}
           data={shippingData}
         />

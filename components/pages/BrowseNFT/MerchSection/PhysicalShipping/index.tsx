@@ -25,7 +25,7 @@ import GradientButton from 'components/Button/GradientButton'
 import merchAPI from 'apis/merch'
 
 const PhysicalShipping = props => {
-  const { onBack, onNext, data, printData } = props
+  const { onBack, onNext, category, data, printData } = props
   const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -93,25 +93,49 @@ const PhysicalShipping = props => {
       street,
       zipCode,
     }
-    const { apparel, gender, quality, color, print, quantity, size } = printData
-    let item_id = apparel[gender.type][quality.type][color.type].item_id
-    let params = {
-      toPostalCode: zipCode,
-      toCountry: country.isoCode,
-      toState: state.isoCode,
-      cartItems: [
-        {
-          id: item_id.toString(),
-          quantity,
-          options: {
-            size: size.name,
-            color: color.type,
-            sideOfPrint: print.name,
+    let params
+    if (category === 'apparel') {
+      const { apparel, gender, quality, color, print, quantity, size } = printData
+      let item_id = apparel[gender.type][quality.type][color.type].item_id
+      params = {
+        toPostalCode: zipCode,
+        toCountry: country.isoCode,
+        toState: state.isoCode,
+        cartItems: [
+          {
+            id: item_id.toString(),
+            quantity,
+            options: {
+              size: size.name,
+              color: color.type,
+              sideOfPrint: print.name,
+            },
+            notes: `This is apparel ${apparel.description} item`,
           },
-          notes: `This is apparel ${apparel.description} item`,
-        },
-      ],
+        ],
+      }
+    } else {
+      const { print, quantity, size } = printData
+      let item_id = print.id
+      params = {
+        toPostalCode: zipCode,
+        toCountry: country.isoCode,
+        toState: state.isoCode,
+        cartItems: [
+          {
+            id: item_id.toString(),
+            quantity,
+            options: {
+              size: `${size.width}x${size.height}`,
+              color: 'colored',
+              sideOfPrint: 'front',
+            },
+            notes: `This is wallart ${print.name} item`,
+          },
+        ],
+      }
     }
+
     setIsLoading(true)
     merchAPI.prepareCart(params).then(
       response => {

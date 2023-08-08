@@ -1575,8 +1575,8 @@ const MainSection = ({
                             nftName,
                             nftCoverUrl,
                             mintAddress,
-                            category: 'acrylic',
-                            subCategory: '',
+                            category: 'print',
+                            subCategory: 'acrylic',
                           }
                           openMerchPage(params)
                         }}
@@ -1590,8 +1590,8 @@ const MainSection = ({
                             nftName,
                             nftCoverUrl,
                             mintAddress,
-                            category: 'metal',
-                            subCategory: '',
+                            category: 'print',
+                            subCategory: 'metal',
                           }
                           openMerchPage(params)
                         }}
@@ -1605,8 +1605,8 @@ const MainSection = ({
                             nftName,
                             nftCoverUrl,
                             mintAddress,
-                            category: 'canvas',
-                            subCategory: '',
+                            category: 'print',
+                            subCategory: 'metal',
                           }
                           openMerchPage(params)
                         }}
@@ -1620,8 +1620,8 @@ const MainSection = ({
                             nftName,
                             nftCoverUrl,
                             mintAddress,
-                            category: 'poster',
-                            subCategory: '',
+                            category: 'print',
+                            subCategory: 'poster',
                           }
                           openMerchPage(params)
                         }}

@@ -61,6 +61,8 @@ const MerchWallArtSection = props => {
             setOpenShippingDetail(false)
             setOpenCheckoutView(true)
           }}
+          category={'print'}
+          printData={printData}
           data={shippingData}
         />
       ) : (
