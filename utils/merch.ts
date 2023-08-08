@@ -94,6 +94,7 @@ export async function createPaymentTransaction({
     }
   } else throw new Error(`unsupported currency: ${currency}`)
 
+  // TODO: handle transfers that don't fit into one tx
   // splitIntoTransactions(instructions)
 
   let transaction = new Transaction()
