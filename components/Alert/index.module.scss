@@ -8,14 +8,24 @@
 .bgView {
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba($background-dark-color, 0.5) 100%
-  );
+  background: rgba(#121212, 0.85);
   position: fixed;
   inset: 0;
+}
+
+.closeBG {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  @media (min-width: 1024px) {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+  }
+  background: var(--alert-close-bg-color);
 }
 
 .modalView {
@@ -40,12 +50,12 @@
 .title {
   font-family: 'Muli-Bold';
   font-size: 16px;
-  line-height: 24px;
+  line-height: 20px;
   @media (min-width: 1024px) {
-    font-size: 24px;
-    line-height: 36px;
+    font-size: 20px;
+    line-height: 24px;
   }
-  color: $text-gray-200-color;
+  color: var(--brand-09-color);
 }
 
 .divider {
@@ -57,17 +67,17 @@
 }
 
 .description {
+  margin-left: 60px;
+  margin-right: 60px;
   font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 36px;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
   @media (min-width: 768px) {
-    font-size: 18px;
+    font-size: 16px;
     line-height: 24px;
   }
-  color: $text-gray-800-color;
-  background: linear-gradient(to bottom, rgba($brand-01-color, 100%), rgba(#2d625d, 100%));
-  border-radius: 12px;
-  padding: 20px 33px;
+  color: #eff0f6;
 }
 
 .errorDescription {
