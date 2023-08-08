@@ -1021,7 +1021,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                 <>
                   <div
                     className={`mt-10 w-full ${
-                      showPlaceBidButton && isOwnNft === false ? 'h-[105px] lg:h-[155px]' : 'h-[52px] lg:h-[64px]'
+                      showPlaceBidButton && isOwnNft === false ? 'h-[105px] lg:h-[135px]' : 'h-[52px] lg:h-[60px]'
                     } relative`}
                   >
                     <div className={styles.auctionContainer}>
@@ -1035,31 +1035,26 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                       />
                       {!loading && showPlaceBidButton && isOwnNft === false && (
                         <div>
-                          <div
-                            className={`${styles.placeBidBG} ${
-                              publicKey?.toBase58() === highBidder || isEnded
-                                ? styles.placeBidDisabledBG
-                                : styles.placeBidEnabledLightBG
-                            }`}
-                            onClick={() =>
-                              publicKey?.toBase58() === highBidder || isEnded ? {} : setShowModalPlaceBid(true)
-                            }
-                          >
-                            <div className="flex">
-                              <div
-                                className={`${styles.placeBidBtn} ${
-                                  publicKey?.toBase58() === highBidder || isEnded
-                                    ? styles.placeBidDisabledColor
-                                    : styles.placeBidEnabledColor
-                                }`}
-                              >
-                                Place Bid
-                              </div>
-                            </div>
-                          </div>
                           {publicKey?.toBase58() === highBidder ? (
                             <div className={styles.highBidText}>You are currently the highest bidder!</div>
-                          ) : null}
+                          ) : (
+                            <div
+                              className={`${styles.placeBidBG} ${
+                                isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
+                              }`}
+                              onClick={() => (isEnded ? {} : setShowModalPlaceBid(true))}
+                            >
+                              <div className="flex">
+                                <div
+                                  className={`${styles.placeBidBtn} ${
+                                    isEnded ? styles.placeBidDisabledColor : styles.placeBidEnabledColor
+                                  }`}
+                                >
+                                  Place Bid
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
                     </div>
