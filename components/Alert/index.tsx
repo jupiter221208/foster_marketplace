@@ -13,6 +13,7 @@ import { useViewport } from 'utils'
 // images
 import AlertErrorBlackRedIcon from 'assets/icons/alert-error-black-red.svg'
 import SuccessIcon from 'assets/lottery/success.json'
+import FailureIcon from 'assets/lottery/failure.json'
 import CloseIcon from 'assets/icons/close-black-icon.svg?component'
 import CloseMobileIcon from 'assets/icons/close-black-mobile-icon.svg?component'
 
@@ -67,19 +68,24 @@ const Alert = props => {
                   <Dialog.Panel className="w-full">
                     <div className="w-full mb-[100px]">
                       <div className="w-full flex justify-center">
-                        {item.type === 'success' ? (
+                        {item.type === 'success111' ? (
                           <Lottie animationData={SuccessIcon} loop={true} />
                         ) : (
-                          <Image src={AlertErrorBlackRedIcon} alt="" />
+                          <Lottie
+                            animationData={FailureIcon}
+                            loop={true}
+                            style={{
+                              width: 100,
+                              height: 100,
+                            }}
+                          />
                         )}
                       </div>
                       <div className="w-full flex justify-center mt-1 lg:mt-[15px]">
                         <div className={styles.title}>{item.title}</div>
                       </div>
                       <div className="w-full flex justify-center mt-1 lg:mt-[15px]">
-                        <div className={styles.description}>
-                          You've successfully listed NFT Name for a fixed-price of 5 SOL
-                        </div>
+                        <div className={styles.description}>{item.description}</div>
                       </div>
                     </div>
                   </Dialog.Panel>
