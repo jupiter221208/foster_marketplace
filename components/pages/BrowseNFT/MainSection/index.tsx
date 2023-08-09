@@ -122,7 +122,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const { connected, publicKey, signMessage } = useWallet()
   const { setVisible } = useWalletModal()
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(null)
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
@@ -360,6 +360,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
       setLiveAuction(false)
       if (auction?.auction) {
         setLiveAuction(true)
+        if (!connected) setIsOwnNft(false)
         let {
           highest_bid,
           auction: { reserve_price, start_time, end_time },
@@ -425,6 +426,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
 
         let listingReceipt = openListings[0]
         if (listingReceipt) {
+          if (!connected) setIsOwnNft(false)
           let auctionHouse = await loadAuctionHouse(mx, listingReceipt.data.auctionHouse)
           let listing = toLazyListing(listingReceipt, auctionHouse)
           let {
@@ -1003,7 +1005,8 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                     )}
                   </div>
                 </>
-              ) : getTimeDifference(endTime) < 0 &&
+              ) : endTime !== null &&
+                getTimeDifference(endTime) < 0 &&
                 nftCurrentPrice > 0 &&
                 (isOwnNft === true || publicKey?.toBase58() === highBidder) &&
                 connected ? (
@@ -1042,7 +1045,15 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                               className={`${styles.placeBidBG} ${
                                 isEnded ? styles.placeBidDisabledBG : styles.placeBidEnabledLightBG
                               }`}
-                              onClick={() => (isEnded ? {} : setShowModalPlaceBid(true))}
+                              onClick={() => {
+                                if (isEnded) return
+
+                                if (!connected) {
+                                  setVisible(true)
+                                  return
+                                }
+                                setShowModalPlaceBid(true)
+                              }}
                             >
                               <div className="flex">
                                 <div
