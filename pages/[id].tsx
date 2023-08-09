@@ -60,11 +60,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [isLoaded, setIsLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
-  // const [totalCount, setTotalCount] = useState(12)
   const [artistCurrentPage, setArtistCurrentPage] = useState(1)
   const [artistRowCount, setArtistRowCount] = useState(12)
+  const [artistTotalCount, setArtistTotalCount] = useState(0)
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
+  const [collectorTotalCount, setCollectorTotalCount] = useState(0)
   const [artistToEnd, setArtistToEnd] = useState(false)
   const [collectorToEnd, setCollectorToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
@@ -233,6 +234,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         setArtistStatsInfo(response.stats)
         setCreatedNfts(response.nfts)
         setArtistCurrentPage(current_page)
+        setArtistTotalCount(response.total_nfts)
         if (response.nfts.length < row_count) {
           setArtistToEnd(true)
         }
@@ -261,7 +263,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setCollectorStatsInfo(response.stats)
-
+        setCollectorTotalCount(response.total_nfts)
         setCollectedNfts(response.nfts)
         setCollectorCurrentPage(current_page)
         if (response.nfts.length < row_count) {
@@ -338,8 +340,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               isLoaded={isLoaded}
               artistCurrentPage={artistCurrentPage}
               artistRowCount={artistRowCount}
+              artistTotalCount={artistTotalCount}
               collectorCurrentPage={collectorCurrentPage}
               collectorRowCount={collectorRowCount}
+              collectorTotalCount={collectorTotalCount}
               selectRowCount={count => selectRowCount(count)}
               handleNextPage={() => handleNextPage()}
               handlePreviousPage={() => handlePreviousPage()}
