@@ -369,9 +369,9 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
-      let { auction, likes, shares, saves, liked, saved, shared } = nftInfo
+      let { auction, merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
       let sharedSocial = shared.facebook || shared.twitter || shared.telegram
-
+      setMerchToggle(merch_hub_enabled)
       setLiveAuction(false)
       if (auction?.auction) {
         setLiveAuction(true)
