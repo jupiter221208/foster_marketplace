@@ -716,6 +716,30 @@ const MainSection = ({
     setOpenProgressingModal(true)
   }
 
+  const enableMerchToggle = toggle => {
+    if (toggle === true) {
+      nftsAPI.enableMerchHub(id, { value: true }).then(
+        response => {
+          if (response !== null) {
+            setMerchToggle(true)
+            setCreateMerchModal(false)
+          }
+        },
+        err => {}
+      )
+    } else {
+      nftsAPI.enableMerchHub(id, { value: false }).then(
+        response => {
+          if (response !== null) {
+            setMerchToggle(false)
+            setRemoveMerchModal(false)
+          }
+        },
+        err => {}
+      )
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
@@ -1737,20 +1761,14 @@ const MainSection = ({
       )}
       {createMerchModal && (
         <CreateMerchSudioModal
-          onContinue={() => {
-            setMerchToggle(true)
-            setCreateMerchModal(false)
-          }}
+          onContinue={() => enableMerchToggle(true)}
           open={createMerchModal}
           close={() => setCreateMerchModal(false)}
         />
       )}
       {removeMerchModal && (
         <RemoveMerchSudioModal
-          onContinue={() => {
-            setMerchToggle(false)
-            setRemoveMerchModal(false)
-          }}
+          onContinue={() => enableMerchToggle(false)}
           open={removeMerchModal}
           close={() => setRemoveMerchModal(false)}
         />
