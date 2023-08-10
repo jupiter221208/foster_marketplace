@@ -866,10 +866,10 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   {nftCollectionName}
                 </div>
               </div>
-              <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[10px]">
+              <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[9px]">
                 <div className={styles.title}>{nftName}</div>
               </div>
-              <div className="w-full flex flex-wrap mt-[4px] lg:mt-[10px] gap-x-[14px] lg:gap-x-[34px]">
+              <div className="w-full flex flex-wrap mt-[4px] lg:mt-[9px] gap-x-[14px] lg:gap-x-[34px]">
                 <div className="flex gap-1 lg:gap-3">
                   <div className={styles.grayText}>Created by</div>
                   <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
