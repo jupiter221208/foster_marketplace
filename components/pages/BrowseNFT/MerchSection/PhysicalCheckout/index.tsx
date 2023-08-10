@@ -57,7 +57,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
 
-  total ??= orderData.order.amount
+  total ??= orderData?.order.amount
   const solAmount = total && solToUsdRate ? total / (solToUsdRate * SOL_USD_SLIPPAGE) : 0
 
   useEffect(() => {
@@ -125,15 +125,35 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     setIsLoading(true)
     let result = false
     try {
-      let transactionBuilder = await createPaymentTransaction({
+      if (!orderData) throw new Error('orderData cannot be null for checkout')
+
+      let {
+        order,
+        ssorder: { items },
+      } = orderData
+
+      if (items.length == 0) throw new Error(`shipstation order ${order.id} has no items`)
+      else if (items.length > 1)
+        throw new Error(`shipstation order ${order.id} has more than one item: ${items.length}`)
+
+      let nftAddress = items[0].options.find(({ name }) => name == 'nftAddress')?.value
+      if (!nftAddress) throw new Error(`nftAddress missing in: order ${order.id} item ${items[0].orderItemId}`)
+
+      let transaction = await createPaymentTransaction({
         metaplex,
-        usdAmount: total,
+        nftAddress,
+        usdAmounts: {
+          maddiesAmount: order.maddies_cost + order.shipping_amount,
+          fosterAmount: order.foster_commission + order.tax_amount,
+          artistAmount: order.artist_commission,
+        },
         solToUsdRate: (await refreshValue()) * SOL_USD_SLIPPAGE,
         currency,
       })
-      let {
-        response: { signature },
-      } = await transactionBuilder.sendAndConfirm(metaplex)
+      let { blockhash } = await metaplex.connection.getLatestBlockhash()
+      transaction.recentBlockhash = blockhash
+      let signedTransaction = await metaplex.identity().signTransaction(transaction)
+      let { signature } = await metaplex.rpc().sendAndConfirmTransaction(signedTransaction)
 
       // TODO: send signature to backend and update order
       let params = {
@@ -142,10 +162,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       }
       let response = await payOrder(id, params)
       if (response?.status === 'success') result = true
-      else result = false
     } finally {
       setIsLoading(false)
-      if (result === true) {
+      if (result) {
         setShowAlert(true)
       }
     }
