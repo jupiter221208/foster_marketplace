@@ -199,7 +199,7 @@ const WallArtDetail = props => {
         <div className="w-full mt-[25px] flex">
           <div className={styles.subTotal}>Subtotal:</div>
           <div className="flex ml-[20px] items-center">
-            <div className={styles.price}>$ {cost === '----' ? '----' : (parseFloat(cost) * quantity).toFixed(3)}</div>
+            <div className={styles.price}>$ {cost === '----' ? '----' : (parseFloat(cost) * quantity).toFixed(2)}</div>
             <div className={styles.separator}></div>
             <div className="flex gap-[10px] items-center">
               <SolanaLogoIcon alt="" />
