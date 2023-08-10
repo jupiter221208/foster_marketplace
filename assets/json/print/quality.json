@@ -6,16 +6,21 @@
   },
   {
     "id": 1,
+    "name": "CHOICE",
+    "type": "choice"
+  },
+  {
+    "id": 2,
     "name": "STANDARD",
     "type": "standard"
   },
   {
-    "id": 2,
+    "id": 3,
     "name": "TRIBLEND",
     "type": "triblend"
   },
   {
-    "id": 3,
+    "id": 4,
     "name": "PREMIUM",
     "type": "premium"
   }
