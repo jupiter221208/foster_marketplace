@@ -271,7 +271,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         </div>
       </div>
 
-      <div className="w-full mt-[60px]">
+      <div className="w-full mt-[80px]">
         <div className="w-full flex justify-between mb-[30px] px-[5px]">
           <div className={styles.orderTotal}>TOTAL</div>
           <div className="flex gap-2 items-center">

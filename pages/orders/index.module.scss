@@ -48,13 +48,9 @@
     padding: 35px 25px 35px 25px;
   }
   @media (min-width: 1280px) {
-    padding: 38px 40px 38px 40px;
+    padding: 10px 40px 0px 40px;
   }
   @media (min-width: 1536px) {
-    padding: 20px 45px 40px 45px;
+    padding: 10px 45px 0px 45px;
   }
-
-  background: var(--nft-detail-bg);
-  border-radius: 27px;
-  border: 1px solid var(--nft-detail-border);
 }
