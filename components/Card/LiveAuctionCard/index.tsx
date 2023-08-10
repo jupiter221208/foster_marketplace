@@ -191,12 +191,14 @@ const LiveAuctionCard = props => {
           <div>
             <div className={styles.bidTime}>{auctionStarted ? 'TIME REMAINING' : 'AUCTION STARTS IN'}</div>
             <div className="flex justify-center">
-              <div>
-                <div className={styles.endTime}>
-                  {timeLeft && timeLeft['days']}
-                  <div className={styles.bidDesc}>d</div>
+              {timeLeft && timeLeft['days'] !== '00' && (
+                <div>
+                  <div className={styles.endTime}>
+                    {timeLeft['days']}
+                    <div className={styles.bidDesc}>d</div>
+                  </div>
                 </div>
-              </div>
+              )}
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
                   {timeLeft && timeLeft['hours']}
