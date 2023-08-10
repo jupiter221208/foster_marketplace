@@ -4,25 +4,25 @@
     "name": "HOODIE",
     "description": "Hoodie",
     "man": {
-      "choice": {
+      "basic": {
         "navy": {
-          "item_id": 14,
-          "cost": 10.74,
+          "item_id": 8,
+          "cost": 20.22,
           "image": { "front": "/images/apparel/man_hoodie_navy.png", "back": "/images/apparel/man_hoodie_navy_b.png" }
         },
         "gray": {
-          "item_id": 14,
-          "cost": 10.74,
+          "item_id": 8,
+          "cost": 20.22,
           "image": { "front": "/images/apparel/man_hoodie_gray.png", "back": "/images/apparel/man_hoodie_gray_b.png" }
         },
         "black": {
-          "item_id": 14,
-          "cost": 10.74,
+          "item_id": 8,
+          "cost": 20.22,
           "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png" }
         },
         "white": {
-          "item_id": 13,
-          "cost": 10.14,
+          "item_id": 8,
+          "cost": 19.62,
           "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
         }
       },
@@ -47,26 +47,28 @@
           "cost": 26.15,
           "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
         }
-      },
-      "premium": {
+      }
+    },
+    "youth": {
+      "basic": {
         "navy": {
-          "item_id": 16,
-          "cost": 15.36,
+          "item_id": 9,
+          "cost": 20.76,
           "image": { "front": "/images/apparel/man_hoodie_navy.png", "back": "/images/apparel/man_hoodie_navy_b.png" }
         },
         "gray": {
-          "item_id": 16,
-          "cost": 15.36,
+          "item_id": 9,
+          "cost": 20.76,
           "image": { "front": "/images/apparel/man_hoodie_gray.png", "back": "/images/apparel/man_hoodie_gray_b.png" }
         },
         "black": {
-          "item_id": 16,
-          "cost": 15.36,
+          "item_id": 9,
+          "cost": 20.76,
           "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png" }
         },
         "white": {
-          "item_id": 16,
-          "cost": 14.76,
+          "item_id": 9,
+          "cost": 20.16,
           "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
         }
       }
@@ -76,26 +78,26 @@
     "id": 1,
     "name": "SWEATSHIRT",
     "description": "Sweatshirt",
-    "youth": {
+    "man": {
       "basic": {
         "navy": {
-          "item_id": 9,
-          "cost": 20.76,
+          "item_id": 7,
+          "cost": 15.9,
           "image": { "front": "/images/apparel/man_sweat_navy.png", "back": "/images/apparel/man_sweat_navy_b.png" }
         },
         "gray": {
-          "item_id": 9,
-          "cost": 20.76,
+          "item_id": 7,
+          "cost": 15.9,
           "image": { "front": "/images/apparel/man_sweat_gray.png", "back": "/images/apparel/man_sweat_gray_b.png" }
         },
         "black": {
-          "item_id": 9,
-          "cost": 20.76,
+          "item_id": 7,
+          "cost": 15.9,
           "image": { "front": "/images/apparel/man_sweat_black.png", "back": "/images/apparel/man_sweat_black_b.png" }
         },
         "white": {
-          "item_id": 9,
-          "cost": 20.16,
+          "item_id": 7,
+          "cost": 15.3,
           "image": { "front": "/images/apparel/man_sweat_white.png", "back": "/images/apparel/man_sweat_white_b.png" }
         }
       }
@@ -193,26 +195,26 @@
       }
     },
     "man": {
-      "basic": {
+      "choice": {
         "navy": {
-          "item_id": 8,
-          "cost": 20.22,
-          "image": { "front": "/images/apparel/man_t_navy.png", "back": "/images/apparel/man_t_navy_b.png" }
+          "item_id": 13,
+          "cost": 10.74,
+          "image": { "front": "/images/apparel/man_hoodie_navy.png", "back": "/images/apparel/man_hoodie_navy_b.png" }
         },
         "gray": {
-          "item_id": 8,
-          "cost": 20.22,
-          "image": { "front": "/images/apparel/man_t_gray.png", "back": "/images/apparel/man_t_gray_b.png" }
+          "item_id": 13,
+          "cost": 10.74,
+          "image": { "front": "/images/apparel/man_hoodie_gray.png", "back": "/images/apparel/man_hoodie_gray_b.png" }
         },
         "black": {
-          "item_id": 8,
-          "cost": 20.22,
-          "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
+          "item_id": 13,
+          "cost": 10.74,
+          "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png" }
         },
         "white": {
-          "item_id": 8,
-          "cost": 19.62,
-          "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
+          "item_id": 13,
+          "cost": 10.14,
+          "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
         }
       },
       "standard": {
@@ -256,6 +258,28 @@
         "white": {
           "item_id": 4,
           "cost": 13.56,
+          "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
+        }
+      },
+      "premium": {
+        "navy": {
+          "item_id": 16,
+          "cost": 15.36,
+          "image": { "front": "/images/apparel/man_t_navy.png", "back": "/images/apparel/man_t_navy_b.png" }
+        },
+        "gray": {
+          "item_id": 16,
+          "cost": 15.36,
+          "image": { "front": "/images/apparel/man_t_gray.png", "back": "/images/apparel/man_t_gray_b.png" }
+        },
+        "black": {
+          "item_id": 16,
+          "cost": 15.36,
+          "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
+        },
+        "white": {
+          "item_id": 16,
+          "cost": 14.76,
           "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
         }
       }
