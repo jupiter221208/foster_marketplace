@@ -111,7 +111,7 @@ const PhysicalShippingMethod = props => {
     let item_id = apparel[gender.type][quality.type][color.type].item_id
     let item = {
       id: item_id.toString(),
-      sku: `SKU_${item_id.toString()}`,
+      // sku: `SKU_${item_id.toString()}`,
       quantity,
       previewUrl: printImageUrl,
       options: {
