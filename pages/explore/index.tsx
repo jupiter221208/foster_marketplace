@@ -244,6 +244,7 @@ const Explore = () => {
           respone.forEach(nft => {
             if (isAvailableAuctionCard(nft)) {
               nfts.push({
+                token_id: nft.token_id,
                 image: nft.asset_url,
                 name: nft.nft_name,
                 asset_type: nft.asset_type,
@@ -263,6 +264,7 @@ const Explore = () => {
         } else {
           nfts = respone.map(nft => {
             return {
+              token_id: nft.token_id,
               image: nft.asset_url,
               name: nft.nft_name,
               asset_type: nft.asset_type,
