@@ -233,20 +233,20 @@ const NFTAuctionCard = props => {
                 {endDate.day > 0 && (
                   <div className="flex gap-[2px]">
                     <div className={styles.timeValue}>{endDate.day}</div>
-                    <div className={styles.day}>D</div>
+                    <div className={styles.day}>d</div>
                   </div>
                 )}
                 <div className="flex gap-[2px]">
                   <div className={styles.timeValue}>{endDate.hour}</div>
-                  <div className={styles.day}>H</div>
+                  <div className={styles.day}>h</div>
                 </div>
                 <div className="flex gap-[2px]">
                   <div className={styles.timeValue}>{endDate.minute}</div>
-                  <div className={styles.day}>M</div>
+                  <div className={styles.day}>m</div>
                 </div>
                 <div className="flex gap-[2px] hidden lg:flex">
                   <div className={styles.timeValue}>{endDate.second}</div>
-                  <div className={styles.day}>S</div>
+                  <div className={styles.day}>s</div>
                 </div>
               </div>
             </div>
