@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
 
 // components
 
@@ -13,18 +15,41 @@ import PhysicalCheckout from '../PhysicalCheckout'
 
 // styles
 import styles from './index.module.scss'
+import MerchStepper from 'components/MerchStepper'
+import PhysicalShippingMethod from '../PhysicalShippingMethod'
 
 // api
 
 const MerchWallArtSection = props => {
-  const { nftName, nftImage, open, subCategory, onBack, setFinishEditing, setShowWallArtMode, setWallArt } = props
+  const {
+    nftName,
+    nftImage,
+    mintAddress,
+    nftCoverUrl,
+    open,
+    subCategory,
+    onBack,
+    setFinishEditing,
+    setShowWallArtMode,
+    setWallArt,
+  } = props
+  const dispatch = useDispatch()
+  const router = useRouter()
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
+  const [openShippingMethod, setOpenShippingMethod] = useState(false)
   const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
+  const [shipppingMethod, setShippingMethod] = useState(null)
+  const [currentStep, setCurrentStep] = useState(1)
+  const [totalCost, setTotalCost] = useState(null)
+
   return (
-    <section>
+    <section className={styles.container}>
+      <div className="w-full px-[20px] mb-[45px]">
+        <MerchStepper currentStep={currentStep} />
+      </div>
       {openPrintDetail ? (
         <WallArtDetail
           onBack={() => {
@@ -41,6 +66,7 @@ const MerchWallArtSection = props => {
             setOpenPrintDetail(false)
             setOpenShippingDetail(true)
             setFinishEditing(true)
+            setCurrentStep(2)
           }}
           subCategory={subCategory}
           data={printData}
@@ -55,15 +81,45 @@ const MerchWallArtSection = props => {
             setOpenPrintDetail(true)
             setOpenShippingDetail(false)
             setFinishEditing(false)
+            setCurrentStep(1)
           }}
           onNext={info => {
             setShippingData(info)
+            setShippingMethod(info.method)
             setOpenShippingDetail(false)
             setOpenCheckoutView(true)
+            setCurrentStep(2)
           }}
           category={'print'}
           printData={printData}
           data={shippingData}
+        />
+      ) : openShippingMethod ? (
+        <PhysicalShippingMethod
+          data={printData}
+          shippingData={shippingData}
+          allShippingMethod={shipppingMethod}
+          nftName={nftName}
+          nftCoverUrl={nftCoverUrl}
+          mintAddress={mintAddress}
+          setTotalCost={setTotalCost}
+          type="apparel"
+          onBack={() => {
+            setOpenShippingMethod(false)
+            setOpenShippingDetail(true)
+            setCurrentStep(2)
+          }}
+          onNext={orderId => {
+            let data = {
+              printData,
+              shippingData,
+              nftName,
+              nftCoverUrl,
+              totalCost,
+            }
+            dispatch({ type: 'set', merchData: data })
+            router.push(`/orders/${orderId}`)
+          }}
         />
       ) : (
         <></>

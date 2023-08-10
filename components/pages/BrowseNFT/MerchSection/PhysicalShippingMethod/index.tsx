@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { useViewport } from 'utils'
 
 // images
-import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
@@ -111,7 +111,7 @@ const PhysicalShippingMethod = props => {
     let item_id = apparel[gender.type][quality.type][color.type].item_id
     let item = {
       id: item_id.toString(),
-      // sku: `SKU_${item_id.toString()}`,
+      sku: `SKU_${item_id.toString()}`,
       quantity,
       previewUrl: printImageUrl,
       options: {
@@ -160,10 +160,10 @@ const PhysicalShippingMethod = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
-          <div className="flex lg:hidden">
+          <div className="flex lg:hidden mr-[2px]">
             <ArrowLeftIconMobile alt="" />
           </div>
         </div>

@@ -1625,7 +1625,7 @@ const MainSection = ({
                             nftCoverUrl,
                             mintAddress,
                             category: 'print',
-                            subCategory: 'metal',
+                            subCategory: 'canvas',
                           }
                           openMerchPage(params)
                         }}

@@ -16,7 +16,7 @@ import ColorType from 'assets/json/print/color.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
@@ -150,10 +150,10 @@ const PhysicalPrintDetail = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
-          <div className="flex lg:hidden">
+          <div className="flex lg:hidden mr-[2px]">
             <ArrowLeftIconMobile alt="" />
           </div>
         </div>
@@ -192,7 +192,7 @@ const PhysicalPrintDetail = props => {
           onChange={event => setQuantity(parseInt(event.target.value))}
         />
       </div>
-      <div className="w-full mt-[30px] lg:mt-[30px] flex">
+      <div className="w-full mt-[30px] lg:mt-[100px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
         <div className="flex ml-[10px] lg:ml-[20px] items-center">
           <div className={styles.price}>$ {cost}</div>
@@ -203,7 +203,7 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
       </div>
-      <div className="w-full mt-[40px] flex gap-[30px]">
+      <div className="w-full mt-[30px] flex gap-[30px]">
         <GradientButton
           disabled={!enabled}
           label="Next"

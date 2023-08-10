@@ -12,7 +12,7 @@ import SizeType from 'assets/json/wallart/size.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
@@ -141,10 +141,10 @@ const WallArtDetail = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
-          <div className="flex lg:hidden">
+          <div className="flex lg:hidden mr-[2px]">
             <ArrowLeftIconMobile alt="" />
           </div>
         </div>
@@ -155,7 +155,7 @@ const WallArtDetail = props => {
         to use and provides the tools you need to take your creative flavor from wallets to walls.
       </div>
 
-      <div className="w-full mt-[40px]">
+      <div className="w-full mt-[60px]">
         <Selection label="PRINT:" data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
       </div>
 
@@ -185,7 +185,7 @@ const WallArtDetail = props => {
       </div>
 
       <div className="absolute bottom-[60px] w-full">
-        <div className="w-full flex">
+        {/* <div className="w-full flex">
           <div className={styles.quantity}>QUANTITY:</div>
           <input
             value={quantity}
@@ -195,7 +195,7 @@ const WallArtDetail = props => {
             className={styles.inputArea}
             onChange={event => setQuantity(parseInt(event.target.value))}
           />
-        </div>
+        </div> */}
         <div className="w-full mt-[25px] flex">
           <div className={styles.subTotal}>Subtotal:</div>
           <div className="flex ml-[20px] items-center">
@@ -209,7 +209,7 @@ const WallArtDetail = props => {
             </div>
           </div>
         </div>
-        <div className="w-full mt-[50px] flex gap-[30px]">
+        <div className="w-full mt-[30px] flex gap-[30px]">
           <SecondaryButton
             backgroundColor="transparent"
             label="Generate Preview"

@@ -11,7 +11,7 @@ const CompleteStepCirce = () => {
   const viewport = useViewport()
 
   return (
-    <div className="w-[32px] lg:w-[48px] h-[32px] lg:h-[48px]">
+    <div className="w-[32px] lg:w-[36px] h-[32px] lg:h-[36px]">
       {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
         <CompleteStepGreenMobileIcon />
       ) : (

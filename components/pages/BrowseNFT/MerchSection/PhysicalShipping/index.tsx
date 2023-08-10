@@ -11,7 +11,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images
-import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 import LoadingButton from 'components/Button/LoadingButton'
 import Alert from 'components/Alert'
@@ -191,7 +191,7 @@ const PhysicalShipping = props => {
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={() => backToPage()}>
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
           <div className="flex lg:hidden">

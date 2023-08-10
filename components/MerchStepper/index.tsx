@@ -12,16 +12,16 @@ const MerchStepper = props => {
   const { currentStep } = props
 
   return (
-    <div className="w-full flex h-[66px] lg:h-[95px] flex-col justify-between">
+    <div className="w-full flex h-[66px] lg:h-[70px] flex-col justify-between">
       <div className={styles.container}>
-        <div className="relative h-[40px] lg:h-[60px] flex items-center">
+        <div className="relative h-[40px] lg:h-[36px] flex items-center">
           {currentStep === 1 ? <CurrentStepCircle step={1} /> : <CompleteStepCirce />}
-          <div className={`${styles.greenText} absolute top-[52px] lg:top-20 -left-16 -right-16`}>Create Order</div>
+          <div className={`${styles.greenText} absolute top-[52px] lg:top-[45px] -left-16 -right-16`}>Create Order</div>
         </div>
 
         <div className={currentStep === 1 ? styles.grayLine : styles.greenLine} />
 
-        <div className="relative h-[40px] lg:h-[60px] flex items-center">
+        <div className="relative h-[40px] lg:h-[36px] flex items-center">
           {currentStep === 1 ? (
             <NextStepCircle step={2} />
           ) : currentStep === 2 ? (
@@ -32,7 +32,7 @@ const MerchStepper = props => {
           <div
             className={`${
               currentStep < 2 ? styles.grayText : styles.greenText
-            } absolute top-[52px] lg:top-20 -left-16 -right-16`}
+            } absolute top-[52px] lg:top-[45px] -left-16 -right-16`}
           >
             Shipping Details
           </div>
@@ -40,7 +40,7 @@ const MerchStepper = props => {
 
         <div className={currentStep < 3 ? styles.grayLine : styles.greenLine} />
 
-        <div className="relative h-[40px] lg:h-[60px] flex items-center">
+        <div className="relative h-[40px] lg:h-[36px] flex items-center">
           {currentStep === 1 || currentStep === 2 ? (
             <NextStepCircle step={3} />
           ) : currentStep === 3 ? (
@@ -51,7 +51,7 @@ const MerchStepper = props => {
           <div
             className={`${
               currentStep < 3 ? styles.grayText : styles.greenText
-            } absolute top-[52px] lg:top-20 -left-16 -right-16`}
+            } absolute top-[52px] lg:top-[45px] -left-16 -right-16`}
           >
             Order Checkout
           </div>
