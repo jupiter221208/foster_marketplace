@@ -92,7 +92,6 @@ const PhysicalPrintDetail = props => {
       QualityType.map(item => {
         if (apparelQualities.hasOwnProperty(item.type)) newQualityType.push(item)
       })
-      console.log(newQualityType, '========newQualityType====')
       setQualityType(newQualityType)
     }
   }, [apparel])
