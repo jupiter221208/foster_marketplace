@@ -51,6 +51,7 @@ const MerchSection = props => {
                   <img src={data?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
               )}
+              <div className={styles.blurImage} />
 
               <WallSection wallArt={wallArt} finishEditing={finishEditing} />
             </div>

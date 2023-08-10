@@ -210,17 +210,18 @@ const WallSection = props => {
     <div className={styles.container}>
       <canvas id="canvas" />
       {loader && (
-        <div className="w-full absolute">
-          {/* <LoadingModal open={loader} /> */}
-          <div className="w-full flex justify-center">
-            <FadeLoader color="#63D6CD" width="6" height="12" />
-          </div>
+        <div className="w-full h-full top-0 absolute flex justify-center items-center">
+          <div className="w-full">
+            <div className="w-full flex justify-center">
+              <FadeLoader color="#63D6CD" width="6" height="12" />
+            </div>
 
-          <div className={styles.progressText}>
-            <p>
-              Preview generation in progress, please continue to
-              <br /> select your desired apparel parameters
-            </p>
+            <div className={styles.progressText}>
+              <p>
+                Preview generation in progress, please continue to
+                <br /> select your desired apparel parameters
+              </p>
+            </div>
           </div>
         </div>
       )}
