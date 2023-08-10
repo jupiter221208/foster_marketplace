@@ -153,7 +153,7 @@ const PhysicalPrintDetail = props => {
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
-          <div className="flex lg:hidden mr-[2px]">
+          <div className="flex lg:hidden">
             <ArrowLeftIconMobile alt="" />
           </div>
         </div>

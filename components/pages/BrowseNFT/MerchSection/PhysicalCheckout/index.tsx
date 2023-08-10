@@ -11,13 +11,11 @@ import { createPaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 // json
-import DomesticType from 'assets/json/print/domestic-ship.json'
-import InternationType from 'assets/json/print/international-ship.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-original.svg'
 import USDCIcon from 'assets/icons/usdc-icon.svg'
-import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
+import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 import SolanaIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 
@@ -174,7 +172,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex">
+          <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
           <div className="flex lg:hidden">
@@ -187,7 +185,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       <div className="mt-[20px] hidden lg:block">
         <TableSection data={list} />
       </div>
-      <div className={styles.tableDivider} />
+      <div className="lg:flex hidden">
+        <div className={styles.tableDivider} />
+      </div>
 
       <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
         <div className="w-[286px] h-[160px] relative hidden lg:block">
