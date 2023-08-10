@@ -163,7 +163,9 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     } finally {
       setIsLoading(false)
       if (result) {
-        setShowAlert(true)
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
       }
     }
   }
@@ -297,9 +299,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          setTimeout(() => {
-            router.push('/')
-          }, 1000)
+          router.push('/')
         }}
         data={alertData}
       />
