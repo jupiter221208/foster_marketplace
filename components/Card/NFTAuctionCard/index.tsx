@@ -215,7 +215,7 @@ const NFTAuctionCard = props => {
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
             <div className="flex items-center justify-between mt-[6px] lg:mt-[15px]">
-              <div className="w-full justify-between">
+              <div className="w-full flex justify-between">
                 <div className={styles.currentBid}>{currentBid === null ? 'RESERVE PRICE' : 'CURRENT BID'}</div>
                 <div className={styles.currentBid}>TIME REMAINING</div>
               </div>
