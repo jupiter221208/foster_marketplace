@@ -29,7 +29,8 @@ const ArtistPagination = props => {
       </div>
       <div>
         {(currentPage - 1) * rowCount + 1} -&nbsp;
-        {currentPage * rowCount}
+        {currentPage * rowCount > totalCount ? totalCount : currentPage * rowCount} of{' '}
+        {totalCount > 0 ? totalCount : '---'}
       </div>
       <div>
         <IconButton

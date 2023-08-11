@@ -238,7 +238,7 @@
   cursor: pointer;
   &:hover {
     @media (min-width: 1024px) {
-      color: var(--brand-01-color);
+      color: var(--main-icon-color);
     }
   }
 }
@@ -301,16 +301,8 @@
     line-height: 40px;
   }
   @media (min-width: 1024px) {
-    font-size: 36px;
-    line-height: 44px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 40px;
-    line-height: 50px;
-  }
-  @media (min-width: 1536px) {
-    font-size: 48px;
-    line-height: 60px;
+    font-size: 30px;
+    line-height: 36px;
   }
 
   color: var(--text-gray-200-color);

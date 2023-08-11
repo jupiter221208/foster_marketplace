@@ -43,7 +43,7 @@ const TrendingCollectionSection = props => {
 
   useEffect(() => {
     setTrendingList([])
-    getTrendingCollectionsFromServer(category, 'all')
+    getTrendingCollectionsFromServer(category, 'week')
   }, [category])
 
   const getTrendingCollectionsFromServer = (category, period) => {
@@ -156,7 +156,7 @@ const TrendingCollectionSection = props => {
               }
               modules={[Autoplay, Lazy, Navigation]}
               className="navigationSwiper"
-              loop={trendingList.length < 3 ? false : loop}
+              // loop={trendingList.length < 3 ? false : loop}
               // autoplay={{
               //   delay: 5000,
               //   disableOnInteraction: false,

@@ -34,7 +34,7 @@ import styles from './index.module.scss'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 import nftsAPI from 'apis/nfts'
-import { isString } from 'utils/helpers'
+import { isLoggedIn, isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
@@ -77,18 +77,32 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   }, [])
 
   useEffect(() => {
-    if (!nftDetail || !connected) return
-    nftsAPI.getDetail(nftDetail.address).then(
-      (response: any) => {
-        if (!isString(response)) {
-          setNftInfo(response)
-          if (response.creator_address !== null) {
-            setArtistInfo({ address: response.creator_address, name: response.creator_username })
+    if (!nftDetail) return
+    if (connected) {
+      nftsAPI.getDetail(nftDetail.address).then(
+        (response: any) => {
+          if (!isString(response)) {
+            setNftInfo(response)
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+            }
           }
-        }
-      },
-      error => {}
-    )
+        },
+        error => {}
+      )
+    } else {
+      nftsAPI.get(nftDetail.address).then(
+        (response: any) => {
+          if (!isString(response)) {
+            setNftInfo(response)
+            if (response.creator_address !== null) {
+              setArtistInfo({ address: response.creator_address, name: response.creator_username })
+            }
+          }
+        },
+        error => {}
+      )
+    }
   }, [nftDetail, profileInfo])
 
   const collectionId = nftDetail?.collection?.address.toString()
@@ -172,7 +186,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
             />
           )}
           {collectionId && <MoreCollectionSection collectionId={collectionId} />}
-          {artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
+          {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />
         </div>
       </div>
