@@ -37,7 +37,7 @@ const HeroCard = props => {
 
   return (
     <div className={styles.container}>
-      <Link href={`${window.origin}/${data.token_id}`} passHref>
+      <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
         <a>
           <div className={styles.imageArea}>
             <div className={styles.imageContent}>

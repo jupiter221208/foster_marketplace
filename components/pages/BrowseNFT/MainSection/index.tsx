@@ -911,7 +911,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   <div className="w-full flex gap-2 mt-[70px] lg:mt-[0px]">
                     <div className={styles.fixedPrice}>Fixed Price</div>
                     <div>
-                      <div className="mt-1 lg:mt-2 h-[14px] flex items-center">
+                      <div className="mt-1 lg:mt-[6px] h-[14px] flex items-center">
                         <div
                           className="h-[14px] flex justify-center items-center cursor-pointer"
                           onMouseEnter={() => setInfoFocus(true)}
@@ -933,7 +933,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                       </div>
                     </div>
                   </div>
-                  <div className="w-full flex items-center mt-1">
+                  <div className="w-full flex items-center mt-[9px]">
                     {/* <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
                     <div className={styles.whiteTitle}>$ {(solToUsdRate * nftPrice).toFixed(2)}</div>
                     <div className={styles.separatorSol}></div> */}
@@ -949,7 +949,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   </div>
 
                   {isOwnNft === false && (
-                    <div className="w-full flex mt-[7px] lg:mt-[14px] gap-6 lg:gap-10">
+                    <div className="w-full flex mt-[7px] lg:mt-[20px] gap-6 lg:gap-10">
                       {tradeStateAddress ? (
                         <GradientButton
                           label={'Quick Buy'}
@@ -987,23 +987,24 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                     </div>
                   )}
 
-                  <div className="w-full flex content-none mt-[14px]">
-                    {isOwnNft === true ? (
+                  {isOwnNft === true ? (
+                    <div className="w-full flex content-none mt-[20px]">
                       <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
-                    ) : isOwnNft === false ? (
-                      <p className={styles.whiteDescription}>
-                        By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                        <span
-                          className={styles.greenDiscription}
-                          onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
-                        >
-                          Terms of Service
-                        </span>
-                      </p>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    //  : isOwnNft === false ? (
+                    //   <p className={styles.whiteDescription}>
+                    //     By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
+                    //     <span
+                    //       className={styles.greenDiscription}
+                    //       onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
+                    //     >
+                    //       Terms of Service
+                    //     </span>
+                    //   </p>
+                    // )
+                    <></>
+                  )}
                 </>
               ) : endTime !== null &&
                 getTimeDifference(endTime) < 0 &&
@@ -1107,7 +1108,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                 <div></div>
               )}
 
-              <div className="mx-auto w-full mt-4">
+              <div className="mx-auto w-full mt-[20px]">
                 <Disclosure>
                   {({ open }) => (
                     <>
@@ -1463,8 +1464,10 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
           json: nftDetail.json,
         }}
         open={showListNFTModal}
-        onClose={(status: string) => {
+        onClose={(status: string, price) => {
           setShowListNFTModal(false)
+          setIsOwnNft(true)
+          setNftPrice(parseFloat(price))
           reloadNftData()
         }}
       />

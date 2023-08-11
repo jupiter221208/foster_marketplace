@@ -87,9 +87,9 @@ const DashboardNFTCard = props => {
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
-        <Link href={`${window.origin}/nft/${token_id}`} passHref>
-          <a>
-            <div className={styles.imageArea}>
+        <div className={styles.imageArea}>
+          <Link href={`${window.origin}/nft/${token_id}`} passHref>
+            <a>
               <div className={styles.imageContent}>
                 {assetType?.includes('video') ? (
                   viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -167,19 +167,20 @@ const DashboardNFTCard = props => {
                   <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                 )}
               </div>
-              {showHideButton === true && (
-                <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
-                </div>
-              )}
-              {showUnhideButton === true && (
-                <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
-                </div>
-              )}
+            </a>
+          </Link>
+          {showHideButton === true && (
+            <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
             </div>
-          </a>
-        </Link>
+          )}
+          {showUnhideButton === true && (
+            <div className={styles.hideBtnArea} onClick={() => setDisplayUnhideConfirm(true)}>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <UnhideMobileIcon /> : <UnhideIcon />}
+            </div>
+          )}
+        </div>
+
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
             <div className="flex items-center">
