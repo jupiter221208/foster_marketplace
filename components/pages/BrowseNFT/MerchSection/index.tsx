@@ -79,6 +79,8 @@ const MerchSection = props => {
             <MerchWallArtSection
               nftName={data?.nftName}
               nftImage={data?.nftCoverUrl}
+              nftCoverUrl={data?.nftCoverUrl}
+              mintAddress={data?.mintAddress}
               open={openWallArtDetail}
               subCategory={data?.subCategory}
               onBack={() => {

@@ -9,7 +9,8 @@ import Image from 'next/image'
 import { useViewport, ensureMaxDecimals } from 'utils'
 import { createPaymentTransaction } from 'utils/merch'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
-
+import { useWalletModal } from '@solana/wallet-adapter-react-ui'
+import { useWallet } from '@solana/wallet-adapter-react'
 // json
 
 // images
@@ -45,7 +46,8 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const viewport = useViewport()
   const router = useRouter()
   const { id } = router.query
-  const dispatch = useDispatch()
+  const { connected } = useWallet()
+  const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
   const { solToUsdRate, refreshValue } = useSolToUsdRate()
 
@@ -88,8 +90,13 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       var nftName = findElement(options, 'name', 'nftName')['value']
       var name = item.name
       var size = findElement(options, 'name', 'size')['value']
-      var color = findElement(options, 'name', 'color')['value']
-      var itemName = nftName + '<br/>' + name + ' (' + size + ')' + '<br/>' + getFirstUpperString(color)
+      var itemName
+      if (type === 'apparel') {
+        var color = findElement(options, 'name', 'color')['value']
+        itemName = nftName + '<br/>' + name + ' (' + size + ')' + '<br/>' + getFirstUpperString(color)
+      } else {
+        itemName = nftName + '<br/>' + name + ' (' + size + ')'
+      }
       itemList.push({ name: itemName, quantity: itemQuantity, shipping: itemShipping })
     })
 
@@ -120,6 +127,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   }, [])
 
   const onCheckout = async () => {
+    if (!connected) {
+      setVisible(true)
+      return
+    }
+
     setIsLoading(true)
     let result = false
     try {

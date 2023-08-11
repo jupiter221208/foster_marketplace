@@ -116,7 +116,7 @@ const PhysicalShipping = props => {
       }
     } else {
       const { print, quantity, size } = printData
-      let item_id = print.id
+      let item_id = size.id
       params = {
         toPostalCode: zipCode,
         toCountry: country.isoCode,
@@ -127,8 +127,6 @@ const PhysicalShipping = props => {
             quantity,
             options: {
               size: `${size.width}x${size.height}`,
-              color: 'colored',
-              sideOfPrint: 'front',
             },
             notes: `This is wallart ${print.name} item`,
           },

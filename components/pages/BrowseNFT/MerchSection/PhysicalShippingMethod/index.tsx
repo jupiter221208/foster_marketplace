@@ -108,24 +108,44 @@ const PhysicalShippingMethod = props => {
     const { apparel, gender, quality, color, print, quantity, size } = data
     const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
 
-    let item_id = apparel[gender.type][quality.type][color.type].item_id
-    let item = {
-      id: item_id.toString(),
-      // sku: `SKU_${item_id.toString()}`,
-      quantity,
-      previewUrl: printImageUrl,
-      options: {
-        type: 'apparel',
-        nftName: nftName,
-        fosterUrl: `${origin}/nft/${mintAddress}`,
-        assetUrl: nftCoverUrl,
-        nftAddress: mintAddress,
-        size: size.name,
-        color: color.type,
-        print: print.name,
-      },
-      notes: `This is apparel ${apparel.description} item`,
+    let item
+    if (type === 'apparel') {
+      let item_id = apparel[gender.type][quality.type][color.type].item_id
+      item = {
+        id: item_id.toString(),
+        // sku: `SKU_${item_id.toString()}`,
+        quantity,
+        previewUrl: printImageUrl,
+        options: {
+          type: 'apparel',
+          nftName: nftName,
+          fosterUrl: `${origin}/nft/${mintAddress}`,
+          assetUrl: nftCoverUrl,
+          nftAddress: mintAddress,
+          size: size.name,
+          color: color.type,
+          print: print.name,
+        },
+        notes: `This is apparel ${apparel.description} item`,
+      }
+    } else {
+      let item_id = data.size.id
+      item = {
+        id: item_id.toString(),
+        quantity,
+        previewUrl: printImageUrl,
+        options: {
+          type: 'wallart',
+          nftName: nftName,
+          fosterUrl: `${origin}/nft/${mintAddress}`,
+          assetUrl: nftCoverUrl,
+          nftAddress: mintAddress,
+          size: `${size.width}x${size.height}`,
+        },
+        notes: `This is wallart ${data.print.name} item`,
+      }
     }
+
     let params = {
       customerEmail: shippingData.email,
       shippingServiceCode: shipping.serviceCode,
@@ -135,7 +155,6 @@ const PhysicalShippingMethod = props => {
       gift: true,
       giftMessage: 'Fantastic Gift',
       notes: 'Checkout Note',
-      // paymentMethod: '',
     }
     console.log(params)
     merchAPI.checkout(params).then(

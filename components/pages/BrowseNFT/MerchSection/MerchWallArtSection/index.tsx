@@ -84,10 +84,10 @@ const MerchWallArtSection = props => {
             setCurrentStep(1)
           }}
           onNext={info => {
-            setShippingData(info)
+            setShippingData(info.data)
             setShippingMethod(info.method)
             setOpenShippingDetail(false)
-            setOpenCheckoutView(true)
+            setOpenShippingMethod(true)
             setCurrentStep(2)
           }}
           category={'print'}
@@ -103,7 +103,7 @@ const MerchWallArtSection = props => {
           nftCoverUrl={nftCoverUrl}
           mintAddress={mintAddress}
           setTotalCost={setTotalCost}
-          type="apparel"
+          type="print"
           onBack={() => {
             setOpenShippingMethod(false)
             setOpenShippingDetail(true)
