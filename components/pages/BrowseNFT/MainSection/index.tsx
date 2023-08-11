@@ -1464,8 +1464,10 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
           json: nftDetail.json,
         }}
         open={showListNFTModal}
-        onClose={(status: string) => {
+        onClose={(status: string, price) => {
           setShowListNFTModal(false)
+          setIsOwnNft(true)
+          setNftPrice(parseFloat(price))
           reloadNftData()
         }}
       />
