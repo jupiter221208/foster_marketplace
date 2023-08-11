@@ -81,9 +81,8 @@ const PhysicalShippingMethod = props => {
 
   useEffect(() => {
     if (shipping) {
-      let tax = Math.floor(shipping.shipmentCost * allShippingMethod.taxPercent) / 100
+      let tax = Math.floor((parseFloat(data.cost) + shipping.shipmentCost) * allShippingMethod.taxPercent) / 100
       let total = parseFloat(data.cost) + shipping.shipmentCost + tax
-
       setTax(tax)
       setTotal(total)
       setTotalCost(total)
@@ -94,7 +93,7 @@ const PhysicalShippingMethod = props => {
     setIsLoading(true)
     let address = {
       name: shippingData.name,
-      company: 'USPS',
+      // company: 'USPS',
       street1: shippingData.street,
       street2: '',
       street3: '',
