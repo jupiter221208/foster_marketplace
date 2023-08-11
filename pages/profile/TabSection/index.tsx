@@ -36,8 +36,10 @@ const TabSection = props => {
     isLoaded,
     artistCurrentPage,
     artistRowCount,
+    artistTotalCount,
     collectorCurrentPage,
     collectorRowCount,
+    collectorTotalCount,
     selectRowCount,
     handleNextPage,
     handlePreviousPage,
@@ -105,8 +107,8 @@ const TabSection = props => {
           <div className="w-full flex justify-end">
             <ArtistPagination
               currentPage={artistCurrentPage}
-              totalCount={artistRowCount * (artistCurrentPage + 1)}
               rowCount={artistRowCount}
+              totalCount={artistTotalCount}
               setRowCount={count => {
                 selectRowCount(count)
               }}
@@ -122,8 +124,8 @@ const TabSection = props => {
           <div className="w-full flex justify-end">
             <ArtistPagination
               currentPage={collectorCurrentPage}
-              totalCount={collectorRowCount * (collectorCurrentPage + 1)}
               rowCount={collectorRowCount}
+              totalCount={collectorTotalCount}
               setRowCount={count => {
                 selectRowCount(count)
               }}

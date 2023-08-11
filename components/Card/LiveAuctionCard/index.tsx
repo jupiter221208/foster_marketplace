@@ -194,7 +194,7 @@ const LiveAuctionCard = props => {
               {timeLeft && timeLeft['days'] !== '00' && (
                 <div>
                   <div className={styles.endTime}>
-                    {timeLeft['days']}
+                    {timeLeft && timeLeft['days']}
                     <div className={styles.bidDesc}>d</div>
                   </div>
                 </div>

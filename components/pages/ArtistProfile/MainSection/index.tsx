@@ -419,6 +419,10 @@ const MainSection = prop => {
                 <div
                   className="cursor-pointer flex hover:opacity-60"
                   onClick={() => {
+                    if (!isLoggedIn()) {
+                      setVisible(true)
+                      return
+                    }
                     setType(0)
                     setShowFollowModal(true)
                   }}
@@ -430,6 +434,10 @@ const MainSection = prop => {
                 <div
                   className="cursor-pointer flex hover:opacity-60"
                   onClick={() => {
+                    if (!isLoggedIn()) {
+                      setVisible(true)
+                      return
+                    }
                     setType(1)
                     setShowFollowModal(true)
                   }}
