@@ -49,13 +49,15 @@ const ListNFTModal = props => {
 
     const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
     if (result) {
-      listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {}),
+      listingsAPI.listNft(data.mintAddress.toString(), { amount: price }).then(response => {
+        onClose('listed', price)
+        setShowLoading(false)
+      }),
         error => {
           console.log(error)
         }
       dispatch({ type: 'set', isGetListedNFTs: false })
-      setListStatus(true)
-      setShowLoading(false)
+      // setListStatus(true)
     } else {
       setShowLoading(false)
     }
@@ -70,7 +72,7 @@ const ListNFTModal = props => {
           setListStatus(false)
           setShowLoading(false)
           setPrice(null)
-          onClose('unlisted')
+          onClose('unlisted', price)
         }}
       >
         <Transition.Child
@@ -104,7 +106,7 @@ const ListNFTModal = props => {
                       setListStatus(false)
                       setShowLoading(false)
                       setPrice(null)
-                      onClose('unlisted')
+                      onClose('unlisted', price)
                     }}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
@@ -188,7 +190,7 @@ const ListNFTModal = props => {
                     onClick={() => {
                       setShowLoading(false)
                       setPrice(null)
-                      onClose('list-close')
+                      onClose('list-close', price)
                       setTimeout(() => {
                         setListStatus(false)
                       }, 1000)
@@ -243,7 +245,7 @@ const ListNFTModal = props => {
                       onClick={() => {
                         setShowLoading(false)
                         setPrice(null)
-                        onClose('listed')
+                        onClose('listed', price)
                         setTimeout(() => {
                           setListStatus(false)
                         }, 1000)
