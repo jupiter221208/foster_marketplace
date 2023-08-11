@@ -355,7 +355,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   useEffect(() => {
     if (nftInfo) {
       let { auction, likes, shares, saves, liked, saved, shared } = nftInfo
-      let sharedSocial = shared.facebook || shared.twitter || shared.telegram
+      let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
 
       setLiveAuction(false)
       if (auction?.auction) {

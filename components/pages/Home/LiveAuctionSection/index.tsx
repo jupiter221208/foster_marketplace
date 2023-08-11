@@ -45,6 +45,15 @@ const LiveAuctionSection = props => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
 
+  const isExpired = endTime => {
+    let endDate = new Date(endTime)
+    let offsetEnd = endDate.getTimezoneOffset() * 60 * 1000
+    let proposalEndTime = endDate.getTime() - offsetEnd
+
+    let end_difference = proposalEndTime - new Date().getTime()
+    if (end_difference < 0) return true
+    return false
+  }
   const getLiveAuctionsFromServer = (category, artist, mode) => {
     dashboardAPI.getLiveAuctions(category, artist, mode).then(response => {
       if (setLiveAuctionLoaded) setLiveAuctionLoaded()
@@ -52,11 +61,13 @@ const LiveAuctionSection = props => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
-          if (item.asset_url.length > 0) {
-            if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
-              if (item.cover_image_url?.length > 0) lists.push(item)
-            } else {
-              lists.push(item)
+          if (!isExpired(item.end_time)) {
+            if (item.asset_url.length > 0) {
+              if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
+                if (item.cover_image_url?.length > 0) lists.push(item)
+              } else {
+                lists.push(item)
+              }
             }
           }
         })
