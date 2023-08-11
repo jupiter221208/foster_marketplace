@@ -169,6 +169,7 @@ const MainSection = ({
   const [saveCount, setSaveCount] = useState(0)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
+  const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
 
@@ -404,7 +405,10 @@ const MainSection = ({
     if (publicKey !== null && sellerAddress !== null) {
       setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
     }
-  }, [publicKey, sellerAddress])
+    if (publicKey !== null && nftInfo?.creator_address !== null) {
+      setIsCreatedNft(publicKey?.toBase58() === nftInfo?.creator_address)
+    }
+  }, [publicKey, sellerAddress, nftInfo])
 
   useEffect(() => {
     ;(async () => {
@@ -415,7 +419,6 @@ const MainSection = ({
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
-
       setSellerAddress(tokenAccount.owner)
 
       let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
@@ -858,7 +861,7 @@ const MainSection = ({
                       nftType={nftType}
                     />
                   )}
-                  {isOwnNft &&
+                  {isCreatedNft &&
                     (merchToggle ? (
                       <MerchToggleEnabledIcon
                         alt=""
