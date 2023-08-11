@@ -990,17 +990,18 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   <div className="w-full flex content-none mt-[14px]">
                     {isOwnNft === true ? (
                       <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
-                    ) : isOwnNft === false ? (
-                      <p className={styles.whiteDescription}>
-                        By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                        <span
-                          className={styles.greenDiscription}
-                          onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
-                        >
-                          Terms of Service
-                        </span>
-                      </p>
                     ) : (
+                      //  : isOwnNft === false ? (
+                      //   <p className={styles.whiteDescription}>
+                      //     By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
+                      //     <span
+                      //       className={styles.greenDiscription}
+                      //       onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
+                      //     >
+                      //       Terms of Service
+                      //     </span>
+                      //   </p>
+                      // )
                       <></>
                     )}
                   </div>
