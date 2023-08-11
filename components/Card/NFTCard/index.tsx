@@ -86,9 +86,9 @@ const DashboardNFTCard = props => {
 
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
-      <Link href={`${window.origin}/nft/${token_id}`} passHref>
-        <a>
-          <div className={styles.container}>
+      <div className={styles.container}>
+        <Link href={`${window.origin}/nft/${token_id}`} passHref>
+          <a>
             <div className={styles.imageArea}>
               <div className={styles.imageContent}>
                 {assetType?.includes('video') ? (
@@ -178,41 +178,42 @@ const DashboardNFTCard = props => {
                 </div>
               )}
             </div>
-            <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
-              <div className="w-full">
-                <div className="flex items-center">
-                  <div className={styles.nftName}>{nftName}</div>
-                </div>
-                <div className="w-full flex justify-between items-center mt-[2px]">
-                  <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
-                  {price && (
-                    <div className="flex justify-center items-center">
-                      {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
-                        <SolanaLogoMobileIcon />
-                      ) : (
-                        <SolanaLogoIcon />
-                      )}
-                      <div className={styles.price}>{formattedAmount(price)}</div>
-                    </div>
-                  )}
-                </div>
-              </div>
+          </a>
+        </Link>
+        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+          <div className="w-full">
+            <div className="flex items-center">
+              <div className={styles.nftName}>{nftName}</div>
             </div>
-            {unSave !== null && (
-              <div className="mt-[10px]">
-                <GradientButton
-                  fullWidth
-                  label="Unsave"
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    unSave()
-                  }}
-                />
-              </div>
-            )}
+            <div className="w-full flex justify-between items-center mt-[2px]">
+              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
+              {price && (
+                <div className="flex justify-center items-center">
+                  {viewport === 'sm' || viewport === 'xs' || viewport === 'md' ? (
+                    <SolanaLogoMobileIcon />
+                  ) : (
+                    <SolanaLogoIcon />
+                  )}
+                  <div className={styles.price}>{formattedAmount(price)}</div>
+                </div>
+              )}
+            </div>
           </div>
-        </a>
-      </Link>
+        </div>
+        {unSave !== null && (
+          <div className="mt-[10px]">
+            <GradientButton
+              fullWidth
+              label="Unsave"
+              onClick={() => {
+                dispatch({ type: 'set', isLoading: true })
+                unSave()
+              }}
+            />
+          </div>
+        )}
+      </div>
+
       {displayHideConfirm && (
         <div className={styles.hideConfirm}>
           {isLoading ? (
