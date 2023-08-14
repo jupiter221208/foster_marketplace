@@ -29,6 +29,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import { useViewport } from 'utils'
 import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import TabSection from './TabSection'
 
 type BrowseCollectionProps = {
   publicCollectionData?: any
@@ -47,7 +48,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const [nfts, setNfts] = useState([])
   const [loaded, setLoaded] = useState(false)
   const address = collectionData?.collection_id
-  const [otherList, setOtherList] = useState([])
+  const [activeListingLoaded, setActiveListingLoaded] = useState(false)
+  const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
 
   useEffect(() => {
     setTimeout(
@@ -58,7 +60,7 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
         }),
       1000
     )
-    // dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', isLoading: true })
   }, [])
 
   useEffect(() => {
@@ -66,17 +68,17 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setLoaded(false)
-        setTimeout(() => {
-          dispatch({ type: 'set', isLoading: false })
-        }, 1000)
+        // setTimeout(() => {
+        //   dispatch({ type: 'set', isLoading: false })
+        // }, 1000)
 
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) setNfts(collectionNfts)
 
-        if (isLoggedIn()) {
-          let otherCollections = await collectionsAPI.getOtherCollections(collectionData?.minter_id)
-          setOtherList(otherCollections)
-        }
+        // if (isLoggedIn()) {
+        //   let otherCollections = await collectionsAPI.getOtherCollections(collectionData?.minter_id)
+        //   setOtherList(otherCollections)
+        // }
       } catch (e: any) {
         console.error(e)
       } finally {
@@ -100,8 +102,16 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   let collectionDescription =
     "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.'
 
+  useEffect(() => {
+    if (activeListingLoaded && liveAuctionLoaded) {
+      setTimeout(() => {
+        dispatch({ type: 'set', isLoading: false })
+      }, 1000)
+    }
+  }, [activeListingLoaded, liveAuctionLoaded])
+
   return (
-    <div className="g-container">
+    <div className="w-full">
       <Head>
         <title>{collectionTitle}</title>
         <meta property="description" content={collectionDescription} />
@@ -129,14 +139,19 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
         <MainSection nfts={nfts} data={collectionData} publicKey={publicKey} loaded={loaded} />
-        <CollectionSection
-          nfts={nfts}
-          collectionId={address}
-          collectionName={collectionData?.collection_name}
-          artistId={collectionData?.minter_id}
-          artistName={collectionData?.artist_username}
-          otherList={otherList}
-        />
+        <div className="w-full flex justify-center">
+          <div className="g-container">
+            <TabSection
+              nfts={nfts}
+              collectionId={address}
+              collectionName={collectionData?.collection_name}
+              wallet={collectionData?.minter_id}
+              artistName={collectionData?.artist_username}
+              setActiveListingLoaded={setActiveListingLoaded}
+              setLiveAuctionLoaded={setLiveAuctionLoaded}
+            />
+          </div>
+        </div>
       </div>
       <FullScreenLoadingModal open={isLoading} />
     </div>
