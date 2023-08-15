@@ -175,3 +175,17 @@
     gap: 20px;
   }
 }
+
+.iconBlurView {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(var(--background-dark-color-rgb), 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  @media (min-width: 1024px) {
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
+  }
+}

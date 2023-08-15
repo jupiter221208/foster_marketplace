@@ -357,7 +357,7 @@ const Step01CollectionSection = props => {
                     </div>
                   </div>
                   {bannerHelper && (
-                    <div className={styles.bannerRecommend}>Recommended dimensions are 1620px by 460px</div>
+                    <div className={styles.bannerRecommend}>Recommended dimensions are 1920px by 452px</div>
                   )}
                 </div>
                 <div className="relative mt-[60px]">
@@ -689,7 +689,7 @@ const Step01CollectionSection = props => {
 
               {bannerHelper && (
                 <div className={`${styles.bannerRecommend} absolute top-[50px]`}>
-                  Recommended dimensions are 1620px by 460px
+                  Recommended dimensions are 1920px by 452px
                 </div>
               )}
             </div>

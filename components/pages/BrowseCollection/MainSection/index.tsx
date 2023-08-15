@@ -197,17 +197,19 @@ const MainSection = props => {
             {publicKey?.toBase58() === data?.minter_id && (
               <div className="absolute right-7 bottom-7 cursor-pointer">
                 <div className={styles.iconBlurView}>
-                  <IconButton
-                    icon={CameraWhiteIcon}
-                    onClick={() => inputBannerFile.current.click()}
-                    backgroundColor={'transparent'}
-                    borderRadius="100%"
-                    width={20}
-                    height={20}
-                    iconWidth={20}
-                    iconHeight={20}
-                    disabled={bannerUploadingToS3}
-                  />
+                  <div className="w-full h-full flex justify-center items-center">
+                    <IconButton
+                      icon={CameraWhiteIcon}
+                      onClick={() => inputBannerFile.current.click()}
+                      backgroundColor={'transparent'}
+                      borderRadius="100%"
+                      width={20}
+                      height={20}
+                      iconWidth={20}
+                      iconHeight={20}
+                      disabled={bannerUploadingToS3}
+                    />
+                  </div>
                 </div>
                 <input
                   type="file"
@@ -332,17 +334,19 @@ const MainSection = props => {
               {publicKey?.toBase58() === data?.minter_id && (
                 <div className="absolute right-4 bottom-2 cursor-pointer">
                   <div className={styles.iconBlurView}>
-                    <IconButton
-                      icon={CameraWhiteIcon}
-                      onClick={() => inputBannerFile.current.click()}
-                      backgroundColor={'transparent'}
-                      borderRadius="100%"
-                      width={20}
-                      height={20}
-                      iconWidth={20}
-                      iconHeight={20}
-                      disabled={bannerUploadingToS3}
-                    />
+                    <div className="w-full h-full flex justify-center items-center">
+                      <IconButton
+                        icon={CameraWhiteIcon}
+                        onClick={() => inputBannerFile.current.click()}
+                        backgroundColor={'transparent'}
+                        borderRadius="100%"
+                        width={20}
+                        height={20}
+                        iconWidth={20}
+                        iconHeight={20}
+                        disabled={bannerUploadingToS3}
+                      />
+                    </div>
                   </div>
                   <input
                     type="file"
