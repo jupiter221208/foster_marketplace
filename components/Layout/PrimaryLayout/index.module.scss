@@ -31,10 +31,11 @@
   font-family: 'Muli-Regular';
   font-size: 20px;
   line-height: 30px;
+  letter-spacing: 4px;
   @media (min-width: 1024px) {
     font-size: 30px;
     line-height: 40px;
+    letter-spacing: 6px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.9);
-  letter-spacing: 3px;
 }
