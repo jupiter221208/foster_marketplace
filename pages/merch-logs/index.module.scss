@@ -1,0 +1,118 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  padding-top: 18px;
+  padding-bottom: 30px;
+  @media (min-width: 1024px) {
+    padding-top: 106px;
+    padding-bottom: 106px;
+  }
+}
+
+.topLeftEllipse {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0.25;
+  @media (min-width: 1024px) {
+    width: 2000px;
+    height: 2000px;
+    top: -800px;
+    left: -860px;
+  }
+}
+
+.title {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 2px;
+  color: var(--text-gray-200-color);
+  width: 100%;
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    font-size: 32px;
+    line-height: 40px;
+    text-align: start;
+  }
+}
+
+.mobileTitle {
+  font-family: 'Muli-Bold';
+  font-size: 28px;
+  line-height: 34px;
+  color: var(--text-gray-200-color);
+  width: 100%;
+  margin-top: 18px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.tooltip {
+  position: absolute;
+  left: 0;
+  top: 25px;
+  width: 100%;
+  background: rgba(var(--background-light-color), 0.2);
+
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  font-family: 'Muli-Regular';
+  text-align: center;
+  padding: 8px 4px;
+  font-size: 12px;
+  line-height: 18px;
+
+  color: var(--text-gray-200-color);
+}
+
+.separator {
+  width: 1px;
+  height: 53px;
+  background: rgba(var(--text-gray-200-color-rgb), 0.8);
+  margin-top: 10px;
+}
+
+.countLabel {
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  text-align: center;
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 2px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 23px;
+    margin-top: 0px;
+  }
+}
+
+.countValue {
+  font-family: 'Muli-SemiBold';
+  color: var(--text-gray-200-color);
+  text-align: center;
+  font-size: 18px;
+  line-height: 23px;
+  margin-top: 0px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    font-size: 22px;
+    line-height: 28px;
+    margin-top: 15px;
+  }
+}
+
+.countBG {
+  width: 100%;
+  height: 58px;
+  border-radius: 5px;
+  background: var(--stats-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
