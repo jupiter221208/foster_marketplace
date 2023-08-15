@@ -183,14 +183,14 @@ const MainSection = props => {
           <div className="relative w-full">
             {croppedBanner !== '' ? (
               <div className={styles.headerImage}>
-                <img src={croppedBanner} alt="" className="w-full" />
+                <img src={croppedBanner} alt="" className="w-full h-[435px] object-cover" />
               </div>
             ) : data !== undefined && data.banner_image !== undefined && data.banner_image.length > 0 ? (
               <div className={styles.headerImage}>
-                <img src={data.banner_image} alt="" className="w-full" />
+                <img src={data.banner_image} alt="" className="w-full h-[435px] object-cover" />
               </div>
             ) : (
-              <img src={bannerImage.src} alt="" className="w-full lg:h-[412px] object-cover mb-[12px]" />
+              <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
             )}
             <div className={styles.bottomMask}></div>
 
@@ -237,7 +237,7 @@ const MainSection = props => {
                     url={`/collection/${data?.collection_id}`}
                   />
                 </div>
-                <div className="w-[146px] overflow-hidden rounded-[12px]">
+                <div className="w-[100px] overflow-hidden rounded-[12px]">
                   {!loaded && (
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                       <div></div>
@@ -246,12 +246,18 @@ const MainSection = props => {
                   {saved ? (
                     <OutlineButton
                       borderColor="var(--follow-btn-border-mobile)"
-                      width={146}
+                      width={100}
+                      height={45}
                       label="Saved"
                       onClick={() => unsaveCollection(data?.collection_id)}
                     />
                   ) : (
-                    <GradientButton width={146} label="Save" onClick={() => saveCollection(data?.collection_id)} />
+                    <GradientButton
+                      width={100}
+                      height={45}
+                      label="Save"
+                      onClick={() => saveCollection(data?.collection_id)}
+                    />
                   )}
                 </div>
               </div>
@@ -259,7 +265,7 @@ const MainSection = props => {
             <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
               {data?.description && <span className={styles.description}>{data?.description}</span>}
             </div>
-            <div className="flex justify-center mt-[16px]">
+            <div className="flex justify-center mt-[70px]">
               <div className={`${styles.nftInfo} w-full flex justify-between items-center`}>
                 <div className={styles.nftInfoBG}>
                   <div>
