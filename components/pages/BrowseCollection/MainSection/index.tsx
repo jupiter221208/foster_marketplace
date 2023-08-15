@@ -315,131 +315,133 @@ const MainSection = props => {
           <div></div>
         </div>
       ) : (
-        <div className={styles.container}>
-          <div className={styles.headerImage}>
-            {data?.banner_image !== null && data?.banner_image.length > 0 ? (
-              <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
-            ) : (
-              <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
-            )}
-          </div>
-          <div className="w-full">
-            <div className="w-full flex justify-between items-center mt-[-50px] z-10">
-              <BrowseArtistCard
-                image={data?.cover_image ?? avatarImage.src}
-                collectionName={data?.collection_name}
-                artistName={data?.artist_username}
-                artistAddress={data?.artist_username}
-              />
-              <div className="flex">
-                <div className="mr-[11px] lg:mr-[24px]">
-                  <div onClick={() => setOpenShareModal(true)}>
-                    <ShareSmallIcon alt="" />
+        <div className="g-container">
+          <div className={styles.container}>
+            <div className={styles.headerImage}>
+              {data?.banner_image !== null && data?.banner_image.length > 0 ? (
+                <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
+              ) : (
+                <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
+              )}
+            </div>
+            <div className="w-full">
+              <div className="w-full flex justify-between items-center mt-[-50px] z-10">
+                <BrowseArtistCard
+                  image={data?.cover_image ?? avatarImage.src}
+                  collectionName={data?.collection_name}
+                  artistName={data?.artist_username}
+                  artistAddress={data?.artist_username}
+                />
+                <div className="flex">
+                  <div className="mr-[11px] lg:mr-[24px]">
+                    <div onClick={() => setOpenShareModal(true)}>
+                      <ShareSmallIcon alt="" />
+                    </div>
                   </div>
-                </div>
-                <div className="w-[70px] overflow-hidden rounded-[6px]">
-                  {!loaded && (
-                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
-                      <div></div>
-                    </ReactPlaceholder>
-                  )}
-                  {saved ? (
-                    <OutlineButton
-                      width={70}
-                      height={29}
-                      borderRadius={6}
-                      borderColor="var(--follow-btn-border-mobile)"
-                      label="Saved"
-                      onClick={() => unsaveCollection(data?.collection_id)}
-                    />
-                  ) : (
-                    <GradientButton
-                      width={70}
-                      height={29}
-                      borderRadius={6}
-                      label="Save"
-                      onClick={() => saveCollection(data?.collection_id)}
-                    />
-                  )}
+                  <div className="w-[70px] overflow-hidden rounded-[6px]">
+                    {!loaded && (
+                      <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
+                        <div></div>
+                      </ReactPlaceholder>
+                    )}
+                    {saved ? (
+                      <OutlineButton
+                        width={70}
+                        height={29}
+                        borderRadius={6}
+                        borderColor="var(--follow-btn-border-mobile)"
+                        label="Saved"
+                        onClick={() => unsaveCollection(data?.collection_id)}
+                      />
+                    ) : (
+                      <GradientButton
+                        width={70}
+                        height={29}
+                        borderRadius={6}
+                        label="Save"
+                        onClick={() => saveCollection(data?.collection_id)}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
-            {data?.description && (
-              <span className={styles.description}>
-                {data?.description}
-                {/* {getShortDescription(viewport, data?.description) + ' '}
+            <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
+              {data?.description && (
+                <span className={styles.description}>
+                  {data?.description}
+                  {/* {getShortDescription(viewport, data?.description) + ' '}
             <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
             </span> */}
-              </span>
-            )}
-          </div>
+                </span>
+              )}
+            </div>
 
-          <div className="w-full flex justify-center mt-2">
-            <div className={styles.statesBack}>
-              <div className="w-full flex justify-between items-center gap-[5px]">
-                <div className={styles.statsArea}>
-                  <div className="text-center">
-                    <div className="flex justify-center">
-                      <div className={styles.nftInfoLabelMobile}>{items}</div>
-                    </div>
-                    <div className={styles.nftInfoValueMobile}>ITEMS</div>
-                  </div>
-                </div>
-                <div className={styles.statsArea}>
-                  <div className="text-center">
-                    <div className="flex justify-center">
-                      <div className={styles.nftInfoLabelMobile}>{owners}</div>
-                    </div>
-                    <div className={styles.nftInfoValueMobile}>OWNERS</div>
-                  </div>
-                </div>
-              </div>
-              <div className="w-full flex justify-between items-center gap-[5px] mt-[5px]">
-                <div className={styles.statsArea}>
-                  <div className="text-center">
-                    <div className="flex justify-center">
-                      <div className="flex gap-2 items-center">
-                        {/* <Image src={SolanaLogoIcon} alt="" width={18} height={18} /> */}
-                        <SolanaLogoMobileIcon />
-
-                        <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
+            <div className="w-full flex justify-center mt-2">
+              <div className={styles.statesBack}>
+                <div className="w-full flex justify-between items-center gap-[5px]">
+                  <div className={styles.statsArea}>
+                    <div className="text-center">
+                      <div className="flex justify-center">
+                        <div className={styles.nftInfoLabelMobile}>{items}</div>
                       </div>
+                      <div className={styles.nftInfoValueMobile}>ITEMS</div>
                     </div>
-                    <div className={styles.nftInfoValueMobile}>FLOOR PRICE</div>
+                  </div>
+                  <div className={styles.statsArea}>
+                    <div className="text-center">
+                      <div className="flex justify-center">
+                        <div className={styles.nftInfoLabelMobile}>{owners}</div>
+                      </div>
+                      <div className={styles.nftInfoValueMobile}>OWNERS</div>
+                    </div>
                   </div>
                 </div>
-                <div className={styles.statsArea}>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center">
-                      <div className="flex gap-2 items-center">
-                        {/* <Image src={SolanaLogoIcon} alt="" width={18} /> */}
-                        <SolanaLogoMobileIcon />
+                <div className="w-full flex justify-between items-center gap-[5px] mt-[5px]">
+                  <div className={styles.statsArea}>
+                    <div className="text-center">
+                      <div className="flex justify-center">
+                        <div className="flex gap-2 items-center">
+                          {/* <Image src={SolanaLogoIcon} alt="" width={18} height={18} /> */}
+                          <SolanaLogoMobileIcon />
 
-                        <div className={styles.nftInfoLabelMobile}>
-                          {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                          <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                         </div>
                       </div>
+                      <div className={styles.nftInfoValueMobile}>FLOOR PRICE</div>
                     </div>
+                  </div>
+                  <div className={styles.statsArea}>
+                    <div className="text-center">
+                      <div className="flex items-center justify-center">
+                        <div className="flex gap-2 items-center">
+                          {/* <Image src={SolanaLogoIcon} alt="" width={18} /> */}
+                          <SolanaLogoMobileIcon />
 
-                    <div className={styles.nftInfoValueMobile}>TOTAL VOLUME</div>
+                          <div className={styles.nftInfoLabelMobile}>
+                            {totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={styles.nftInfoValueMobile}>TOTAL VOLUME</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {showReadMore && (
-            <ReadMoreCollectionModal
-              open={showReadMore}
-              close={() => setShowReadMore(false)}
-              artistInfo={data}
-              stats={{ items, owners, floorPrice, totalVolume }}
-              categoryList={data?.categories.split(',')}
-            />
-          )}
+            {showReadMore && (
+              <ReadMoreCollectionModal
+                open={showReadMore}
+                close={() => setShowReadMore(false)}
+                artistInfo={data}
+                stats={{ items, owners, floorPrice, totalVolume }}
+                categoryList={data?.categories.split(',')}
+              />
+            )}
+          </div>
         </div>
       )}
       <NftImageEditorModal

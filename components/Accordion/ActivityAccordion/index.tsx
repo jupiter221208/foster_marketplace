@@ -79,7 +79,7 @@ const ActivityAccordion = props => {
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.title}>Amount</div>
-                    <div className="flex gap-[4px]">
+                    <div className="flex gap-[4px] items-center">
                       <SolanaLogoIcon alt="" />
                       <div className={styles.text}>{isAmountExisting ? parseFloat(item.amount).toFixed(2) : 'N/A'}</div>
                     </div>
