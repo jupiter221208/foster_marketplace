@@ -7,7 +7,6 @@ import Head from 'next/head'
 // components
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import MainSection from 'components/pages/BrowseCollection/MainSection'
-import CollectionSection from 'components/pages/BrowseCollection/CollectionSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
@@ -22,7 +21,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import collectionsAPI from 'apis/collections'
-import { isString, isLoggedIn } from 'utils/helpers'
+import { isString } from 'utils/helpers'
 import { getAbsoluteOgUrl } from 'utils/seo'
 
 // resources
@@ -68,10 +67,6 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
       if (!address) return
       try {
         setLoaded(false)
-        // setTimeout(() => {
-        //   dispatch({ type: 'set', isLoading: false })
-        // }, 1000)
-
         let collectionNfts = await collectionsAPI.getCollectionNft(address)
         if (!isString(collectionNfts)) setNfts(collectionNfts)
 
