@@ -7,9 +7,6 @@
   align-items: center;
   display: flex;
   justify-content: left;
-  @media (min-width: 1024px) {
-    justify-content: center;
-  }
   flex-wrap: wrap;
 }
 
@@ -46,7 +43,6 @@
   min-width: 240px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   margin-top: 8px;
   @media (min-width: 1024px) {
     margin-top: 24px;
@@ -62,7 +58,6 @@
     font-family: 'Muli-ExtraBold';
     font-size: 28px;
     line-height: 44px;
-    text-align: center;
   }
   letter-spacing: 0px;
   color: var(--text-gray-200-color);
@@ -70,14 +65,13 @@
 
 .artistName {
   width: 100%;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   font-size: 12px;
   line-height: 24px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 16px;
     line-height: 24px;
-    text-align: center;
     margin-top: 6px;
   }
   letter-spacing: 0px;

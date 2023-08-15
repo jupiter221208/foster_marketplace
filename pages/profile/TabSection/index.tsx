@@ -86,7 +86,7 @@ const TabSection = props => {
       <div className={styles.divider} />
 
       {activeTab === 0 && (
-        <div className="w-full lg:pl-[30px]">
+        <div className="w-full">
           <LiveAuctionSection
             category={''}
             artist={wallet}
