@@ -288,11 +288,11 @@ const MainSection = props => {
               </div>
               <div className="flex gap-[6px] items-center">
                 <div className={styles.nftInfoLabel}>{items}</div>
-                <div className={styles.nftInfoValue}>ITEMS</div>
+                <div className={styles.nftInfoValue}>Items</div>
               </div>
               <div className="flex gap-[6px] items-center">
                 <div className={styles.nftInfoLabel}>{owners}</div>
-                <div className={styles.nftInfoValue}>OWNERS</div>
+                <div className={styles.nftInfoValue}>Owners</div>
               </div>
             </div>
           </div>
@@ -397,7 +397,7 @@ const MainSection = props => {
                       <div className="flex justify-center">
                         <div className={styles.nftInfoLabelMobile}>{items}</div>
                       </div>
-                      <div className={styles.nftInfoValueMobile}>ITEMS</div>
+                      <div className={styles.nftInfoValueMobile}>Items</div>
                     </div>
                   </div>
                   <div className={styles.statsArea}>
@@ -405,7 +405,7 @@ const MainSection = props => {
                       <div className="flex justify-center">
                         <div className={styles.nftInfoLabelMobile}>{owners}</div>
                       </div>
-                      <div className={styles.nftInfoValueMobile}>OWNERS</div>
+                      <div className={styles.nftInfoValueMobile}>Owners</div>
                     </div>
                   </div>
                 </div>
