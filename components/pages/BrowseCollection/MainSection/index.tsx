@@ -26,7 +26,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark.svg?component'
 import bannerImage from 'assets/images/collection-banner.png'
 import avatarImage from 'assets/images/collection-avatar.png'
-import CameraWhiteIcon from 'assets/icons/camera-white.svg'
+import CameraWhiteIcon from 'assets/icons/editor-green.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 
 // styles
@@ -195,17 +195,17 @@ const MainSection = props => {
             <div className={styles.bottomMask}></div>
 
             {publicKey?.toBase58() === data?.minter_id && (
-              <div className="absolute right-4 bottom-4 cursor-pointer">
+              <div className="absolute right-7 bottom-7 cursor-pointer">
                 <div className={styles.iconBlurView}>
                   <IconButton
                     icon={CameraWhiteIcon}
                     onClick={() => inputBannerFile.current.click()}
                     backgroundColor={'transparent'}
                     borderRadius="100%"
-                    width={46}
-                    height={46}
-                    iconWidth={46}
-                    iconHeight={46}
+                    width={20}
+                    height={20}
+                    iconWidth={20}
+                    iconHeight={20}
                     disabled={bannerUploadingToS3}
                   />
                 </div>
@@ -328,6 +328,31 @@ const MainSection = props => {
                 <img src={data?.banner_image} alt="" className="w-full h-full object-cover" />
               ) : (
                 <img src={bannerImage.src} alt="" className="w-full h-full object-cover" />
+              )}
+              {publicKey?.toBase58() === data?.minter_id && (
+                <div className="absolute right-4 bottom-2 cursor-pointer">
+                  <div className={styles.iconBlurView}>
+                    <IconButton
+                      icon={CameraWhiteIcon}
+                      onClick={() => inputBannerFile.current.click()}
+                      backgroundColor={'transparent'}
+                      borderRadius="100%"
+                      width={20}
+                      height={20}
+                      iconWidth={20}
+                      iconHeight={20}
+                      disabled={bannerUploadingToS3}
+                    />
+                  </div>
+                  <input
+                    type="file"
+                    id="banner-file"
+                    accept="image/png, image/jpeg, image/gif"
+                    ref={inputBannerFile}
+                    style={{ display: 'none' }}
+                    onChange={event => handleChangeBannerImage(event)}
+                  />
+                </div>
               )}
             </div>
             <div className="w-full">
