@@ -1204,8 +1204,18 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='menu-item-merch'] {
+  fill: var(--main-icon-color);
+  stroke: var(--main-icon-color);
+}
+
 [data-name='home-menu-icon'] {
   fill: var(--secondary-button-border);
+}
+
+[data-name='menu-item-merch-hover'] {
+  fill: var(--secondary-button-border);
+  stroke: var(--secondary-button-border);
 }
 
 [data-name='search-icon'] {
