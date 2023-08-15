@@ -267,58 +267,34 @@ const MainSection = props => {
             <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
               {data?.description && <span className={styles.description}>{data?.description}</span>}
             </div>
-            <div className="flex justify-center mt-[70px]">
-              <div className={`${styles.nftInfo} w-full flex justify-between items-center`}>
-                <div className={styles.nftInfoBG}>
-                  <div>
-                    <div className="w-full flex justify-center items-center">
-                      <div className={styles.nftInfoLabel}>
-                        <div className="mt-[4px]">
-                          <SolanaLogoIcon alt="" />
-                        </div>
-                        <div className={`ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
-                      </div>
-                    </div>
-                    <div className={styles.nftInfoValue}>FLOOR PRICE</div>
+            <div className="flex mt-[15px] gap-[15px]">
+              <div className="flex gap-[6px] items-center">
+                <div className={styles.nftInfoLabel}>
+                  <div className="mt-[4px]">
+                    <SolanaLogoIcon alt="" />
                   </div>
+                  <div className={`ml-[6px]`}>{totalVolume > 0 ? totalVolume : 'N/A'}</div>
                 </div>
-                <div className={styles.nftInfoBG}>
-                  <div className="text-center">
-                    <div className={styles.nftInfoLabel}>{items}</div>
-                    <div className={styles.nftInfoValue}>ITEMS</div>
+                <div className={styles.nftInfoValue}>Total&nbsp;Volume</div>
+              </div>
+              <div className="flex gap-[6px] items-center">
+                <div className={styles.nftInfoLabel}>
+                  <div className="mt-[4px]">
+                    <SolanaLogoIcon alt="" />
                   </div>
+                  <div className={`ml-[6px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                 </div>
-                <div className={styles.nftInfoBG}>
-                  <div className="text-center">
-                    <div className={styles.nftInfoLabel}>{owners}</div>
-                    <div className={styles.nftInfoValue}>OWNERS</div>
-                  </div>
-                </div>
-
-                <div className={styles.nftInfoBG}>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center">
-                      <div className={styles.nftInfoLabel}>
-                        <SolanaLogoIcon alt="" />
-                        <div className={`ml-[8px]`}>{totalVolume > 0 ? totalVolume.toFixed(2) : 'N/A'}</div>
-                      </div>
-                    </div>
-
-                    <div className={styles.nftInfoValue}>TOTAL VOLUME</div>
-                  </div>
-                </div>
+                <div className={styles.nftInfoValue}>Floor&nbsp;Price</div>
+              </div>
+              <div className="flex gap-[6px] items-center">
+                <div className={styles.nftInfoLabel}>{items}</div>
+                <div className={styles.nftInfoValue}>ITEMS</div>
+              </div>
+              <div className="flex gap-[6px] items-center">
+                <div className={styles.nftInfoLabel}>{owners}</div>
+                <div className={styles.nftInfoValue}>OWNERS</div>
               </div>
             </div>
-            {/* <div className="flex justify-center mt-[30px]">
-          <div className={styles.categoryList}>
-            {data?.categories &&
-              data?.categories.split(',').map((item, index) => (
-                <div key={index}>
-                  <CategoryChip data={{ value: item }} />
-                </div>
-              ))}
-          </div>
-        </div> */}
           </div>
           <div></div>
         </div>
@@ -413,7 +389,7 @@ const MainSection = props => {
               )}
             </div>
 
-            <div className="w-full flex justify-center mt-2">
+            <div className="w-full flex justify-center mt-[30px]">
               <div className={styles.statesBack}>
                 <div className="w-full flex justify-between items-center gap-[5px]">
                   <div className={styles.statsArea}>
