@@ -717,7 +717,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #121212, #173639)')
     doc.style.setProperty('--outline-btn-border', '#95dbd5')
     doc.style.setProperty('--report-menu-bg', 'rgba(18, 18, 18, 0.5)')
-    doc.style.setProperty('--stats-label-bg', '#17191a')
+    doc.style.setProperty('--stats-label-bg', '#1B1B1B')
     doc.style.setProperty(
       '--category-bottom-mask',
       'linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, 1))'

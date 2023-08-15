@@ -44,7 +44,6 @@ const MainSection = props => {
   const { nfts, data, publicKey, loaded } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
 
   const inputBannerFile = useRef<any>(null)
   const [items, setItems] = useState<any>()
@@ -184,15 +183,17 @@ const MainSection = props => {
           <div className="relative w-full">
             {croppedBanner !== '' ? (
               <div className={styles.headerImage}>
-                <img src={croppedBanner} alt="" className="w-full rounded-[20px]" />
+                <img src={croppedBanner} alt="" className="w-full" />
               </div>
             ) : data !== undefined && data.banner_image !== undefined && data.banner_image.length > 0 ? (
               <div className={styles.headerImage}>
-                <img src={data.banner_image} alt="" className="w-full rounded-[20px]" />
+                <img src={data.banner_image} alt="" className="w-full" />
               </div>
             ) : (
-              <img src={bannerImage.src} alt="" className="w-full lg:h-[412px] rounded-[20px] object-cover mb-[12px]" />
+              <img src={bannerImage.src} alt="" className="w-full lg:h-[412px] object-cover mb-[12px]" />
             )}
+            <div className={styles.bottomMask}></div>
+
             {publicKey?.toBase58() === data?.minter_id && (
               <div className="absolute right-4 bottom-4 cursor-pointer">
                 <div className={styles.iconBlurView}>
@@ -219,18 +220,15 @@ const MainSection = props => {
               </div>
             )}
           </div>
-          <div className="w-full">
-            <div className="grid grid-cols-12 items-center -mt-[60px] lg:mt-[-95px]">
-              <div className="col-span-3"></div>
-              <div className="col-span-6">
-                <BrowseArtistCard
-                  image={data?.cover_image ?? avatarImage.src}
-                  collectionName={data?.collection_name}
-                  artistName={data?.artist_username}
-                  artistAddress={data?.artist_username}
-                />
-              </div>
-              <div className="col-span-3 flex justify-end">
+          <div className="g-container">
+            <div className="w-full flex justify-between items-center -mt-[60px] lg:mt-[-85px]">
+              <BrowseArtistCard
+                image={data?.cover_image ?? avatarImage.src}
+                collectionName={data?.collection_name}
+                artistName={data?.artist_username}
+                artistAddress={data?.artist_username}
+              />
+              <div className="flex">
                 <div className="flex mr-[24px] items-center">
                   <MenuSocialShare
                     type="image"
@@ -258,35 +256,38 @@ const MainSection = props => {
                 </div>
               </div>
             </div>
-            <div className="flex justify-center w-full flex-wrap mt-[30px] mb-[30px] z-10">
+            <div className="flex  w-full flex-wrap mt-[30px] mb-[30px] z-10">
               {data?.description && <span className={styles.description}>{data?.description}</span>}
             </div>
             <div className="flex justify-center mt-[16px]">
               <div className={`${styles.nftInfo} w-full flex justify-between items-center`}>
-                <div className="flex justify-center items-center">
-                  <div className="text-center">
-                    <div className={styles.nftInfoLabel}>{items}</div>
-                    <div className={styles.nftInfoValue}>ITEMS</div>
-                  </div>
-                </div>
-                <div className=" flex justify-center items-center">
-                  <div className="text-center">
-                    <div className={styles.nftInfoLabel}>{owners}</div>
-                    <div className={styles.nftInfoValue}>OWNERS</div>
-                  </div>
-                </div>
-                <div className="flex justify-center items-center">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center">
+                <div className={styles.nftInfoBG}>
+                  <div>
+                    <div className="w-full flex justify-center items-center">
                       <div className={styles.nftInfoLabel}>
-                        <SolanaLogoIcon alt="" />
+                        <div className="mt-[4px]">
+                          <SolanaLogoIcon alt="" />
+                        </div>
                         <div className={`ml-[8px]`}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                       </div>
                     </div>
                     <div className={styles.nftInfoValue}>FLOOR PRICE</div>
                   </div>
                 </div>
-                <div className="flex justify-center items-center">
+                <div className={styles.nftInfoBG}>
+                  <div className="text-center">
+                    <div className={styles.nftInfoLabel}>{items}</div>
+                    <div className={styles.nftInfoValue}>ITEMS</div>
+                  </div>
+                </div>
+                <div className={styles.nftInfoBG}>
+                  <div className="text-center">
+                    <div className={styles.nftInfoLabel}>{owners}</div>
+                    <div className={styles.nftInfoValue}>OWNERS</div>
+                  </div>
+                </div>
+
+                <div className={styles.nftInfoBG}>
                   <div className="text-center">
                     <div className="flex items-center justify-center">
                       <div className={styles.nftInfoLabel}>
