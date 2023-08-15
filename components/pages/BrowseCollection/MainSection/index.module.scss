@@ -7,10 +7,10 @@
   width: 100%;
   justify-content: space-between;
   margin-top: 16px;
-  margin-bottom: 28px;
+  margin-bottom: 5px;
   @media (min-width: 1024px) {
-    margin-top: 32px;
-    margin-bottom: 121px;
+    margin-top: 0px;
+    margin-bottom: 42px;
   }
 }
 
@@ -54,7 +54,6 @@
   font-size: 14px;
   @media (min-width: 1024px) {
     font-size: 16px;
-    text-align: center;
   }
   line-height: 24px;
   color: var(--text-gray-200-color);
@@ -63,9 +62,8 @@
 .nftInfo {
   width: 345px;
   height: 45px;
-  background: var(--activity-bg-color);
   @media (min-width: 1024px) {
-    width: 700px;
+    width: 720px;
     height: 96px;
     padding-left: 20px;
     padding-right: 15px;
@@ -85,6 +83,15 @@
   z-index: 10;
 }
 
+.bottomMask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  bottom: 0px;
+  background: var(--category-bottom-mask);
+}
+
 .statsArea {
   width: 100%;
   display: flex;
@@ -96,6 +103,16 @@
   padding-bottom: 9px;
 }
 
+.nftInfoBG {
+  width: 160px;
+  height: 58px;
+  background: var(--stats-label-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
 .nftInfoLabel {
   display: flex;
   justify-content: center;
@@ -103,15 +120,9 @@
   font-size: 18px;
   line-height: 24px;
   @media (min-width: 1024px) {
-    font-size: 20px;
-    line-height: 30px;
-    width: 100px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    background-color: var(--stats-label-bg);
-    border-radius: 6px;
     display: flex;
     align-items: center;
+    font-family: 'Muli-Bold';
   }
   color: var(--text-gray-200-color);
 }
@@ -119,13 +130,14 @@
 .nftInfoValue {
   font-family: 'Muli-Regular';
   font-size: 12px;
-  line-height: 18px;
-  @media (min-width: 1024px) {
-    font-size: 16px;
-    line-height: 24px;
-    padding-top: 4px;
-  }
+  line-height: 15px;
+  text-align: center;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+    color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  }
 }
 
 .nftInfoLabelMobile {
@@ -161,5 +173,19 @@
   gap: 14px;
   @media (min-width: 1024px) {
     gap: 20px;
+  }
+}
+
+.iconBlurView {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  background: rgba(var(--background-dark-color-rgb), 0.6);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  @media (min-width: 1024px) {
+    width: 46px;
+    height: 46px;
+    border-radius: 23px;
   }
 }

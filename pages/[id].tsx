@@ -56,7 +56,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collectedNfts, setCollectedNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
-  // const [isMounted, setIsMounted] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
   const [userProfileUrl, setUserProfileUrl] = useState('')
   const [fullScreenMode, setFullScreenMode] = useState(false)
@@ -86,7 +85,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [artistInfo, publicKey])
 
   useEffect(() => {
-    // setIsMounted(true)
     setTimeout(
       () =>
         window.scrollTo({
@@ -152,8 +150,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }
 
   const handleNextPage = () => {
-    // if (totalCount < (currentPage + 1) * rowCount) return
-
     if (artistEnable) {
       const nextPage = artistCurrentPage + 1
       getArtistData(artistPublicKey, artistRowCount, nextPage)

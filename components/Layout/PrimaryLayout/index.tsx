@@ -19,6 +19,8 @@ import ProfileSetupModal from 'components/Modal/ProfileSetupModal'
 
 // resource
 import PreLoaderIcon from 'assets/lottery/preloader.json'
+import FosterHeroLogo from 'assets/icons/foster-hero-logo.svg?component'
+import FosterHeroLogoMobile from 'assets/icons/foster-hero-logo-medium.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -60,19 +62,22 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
       </>
       {!firstLoaded && router.asPath === '/' && (
         <div className={styles.preLoaderView}>
-          <div className="w-full h-auto flex  items-center">
-            <div className="w-full mt-[120px] lg:mt-[200px]">
-              <div className="w-full flex justify-center">
-                <div className={styles.welcome}>Welcome Home</div>
+          <div className="w-full mt-[150px] lg:mt-[216px]">
+            <div className="w-full flex justify-center">
+              <div className="lg:flex hidden">
+                <FosterHeroLogo alt="" />
               </div>
-              <div className="w-full h-[295px] flex justify-center  mt-[40px] mb-[46px]">
-                <div className="w-[254px] h-[295px]">
-                  <Lottie width={254} height={295} animationData={PreLoaderIcon} loop={true} />
-                </div>
+              <div className="flex lg:hidden">
+                <FosterHeroLogoMobile alt="" />
               </div>
-              <div className="w-full flex justify-center">
-                <div className={styles.justDoArt}>JUST DO ART.</div>
+            </div>
+            <div className="w-full flex justify-center">
+              <div className="w-[500px] h-[40px]">
+                <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
               </div>
+            </div>
+            <div className="w-full flex justify-center mt-[150px] lg:mt-[250px]">
+              <div className={styles.justDoArt}>WELCOME HOME</div>
             </div>
           </div>
         </div>
