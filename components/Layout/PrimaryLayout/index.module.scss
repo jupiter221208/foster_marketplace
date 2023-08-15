@@ -30,10 +30,11 @@
 .justDoArt {
   font-family: 'Muli-Regular';
   font-size: 20px;
+  line-height: 30px;
   @media (min-width: 1024px) {
     font-size: 30px;
+    line-height: 40px;
   }
-  line-height: 40px;
-  color: var(--text-gray-200-color);
-  letter-spacing: 1px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+  letter-spacing: 3px;
 }
