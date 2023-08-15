@@ -60,7 +60,7 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
         <PrimaryFooter />
         {connected && profileSetup && !showConnectAlert && <ProfileSetupModal />}
       </>
-      {true /*!firstLoaded*/ && router.asPath === '/' && (
+      {firstLoaded && router.asPath === '/' && (
         <div className={styles.preLoaderView}>
           <div className="w-full h-auto flex  items-center">
             <div className="w-full mt-[200px] lg:mt-[200px]">
