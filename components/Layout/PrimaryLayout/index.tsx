@@ -65,11 +65,12 @@ const PrimaryLayout: FC<PrimaryLayoutProps> = ({ children }) => {
           <div className="w-full h-auto flex  items-center">
             <div className="w-full mt-[200px] lg:mt-[200px]">
               <div className="w-full flex justify-center">
-                {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
+                <div className="lg:flex hidden">
                   <FosterHeroLogo alt="" />
-                ) : (
+                </div>
+                <div className="flex lg:hidden">
                   <FosterHeroLogoMobile alt="" />
-                )}
+                </div>
               </div>
               <div className="w-full flex justify-center mt-[0px]">
                 <div className="w-[500px] h-[40px]">
