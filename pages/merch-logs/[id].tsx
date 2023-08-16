@@ -44,9 +44,8 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
-    dispatch({ type: 'set', isLoading: false })
-
     if (orderData) {
+      dispatch({ type: 'set', isLoading: false })
       let itemData = orderData?.ssorder.items[0]
       let options = itemData.options
       if (options) {
