@@ -152,12 +152,12 @@ const MerchActivity = () => {
           </div>
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={purchases} />
+              <ApparelActivity avtivities={purchases} type="purchases" />
             </div>
           )}
           {activeTab === 1 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={sales} />
+              <ApparelActivity avtivities={sales} type="sales" />
             </div>
           )}
         </div>

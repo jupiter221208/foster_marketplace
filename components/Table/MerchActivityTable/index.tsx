@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 
 const MerchActivityTable = props => {
-  const { data } = props
+  const { data, type } = props
   const dispatch = useDispatch()
   const router = useRouter()
   const { solToUsdRate } = useSolToUsdRate()
@@ -30,7 +30,7 @@ const MerchActivityTable = props => {
           <th>Amount</th>
           <th>Transaction ID</th>
           <th>Date</th>
-          <th>Buyer</th>
+          <th>{type === 'purchases' ? 'Buyer' : 'Seller'}</th>
           <th>Order Details</th>
         </tr>
       </thead>

@@ -23,7 +23,7 @@ import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
 
 const ApparelActivity = props => {
-  const { avtivities } = props
+  const { avtivities, type } = props
   const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
@@ -51,59 +51,35 @@ const ApparelActivity = props => {
 
   useEffect(() => {
     if (!isMounted) return
-    getArtworkData(currentPage, period, searchWord, rowCount)
+    getMerchData(currentPage, period, searchWord, rowCount)
   }, [period])
 
   const getSearchData = () => {
-    getArtworkData(currentPage, period, searchWord, rowCount)
+    getMerchData(currentPage, period, searchWord, rowCount)
   }
 
   const cancelSearch = () => {
     setSearchWord('')
-    getArtworkData(currentPage, period, null, rowCount)
+    getMerchData(currentPage, period, null, rowCount)
   }
 
-  const getArtworkData = (curPage, curDate, search, count) => {
-    setSearchLoading(true)
-    StatsAPI.getStatsArtwork({
-      period: curDate,
-      search: search?.length === 0 ? null : search,
-      page: curPage + 1,
-      per_page: count,
-    }).then(
-      respone => {
-        setSearchLoading(false)
-        const nfts = respone.filter(item => item.asset_url !== '')
-        setCurrentPage(curPage)
-        setTotalCount(count * curPage + nfts.length)
-        setList(nfts)
-
-        window.scrollTo({
-          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
-          behavior: 'smooth',
-        })
-      },
-      error => {
-        setSearchLoading(false)
-      }
-    )
-  }
+  const getMerchData = (curPage, curDate, search, count) => {}
 
   const selectRowCount = count => {
     setRowCount(count)
-    getArtworkData(currentPage, period, searchWord, count)
+    getMerchData(currentPage, period, searchWord, count)
   }
 
   const handleNextPage = () => {
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
-    getArtworkData(nextPage, period, searchWord, rowCount)
+    getMerchData(nextPage, period, searchWord, rowCount)
   }
 
   const handlePreviousPage = () => {
     if (currentPage === 0) return
     const prevPage = currentPage - 1
-    getArtworkData(prevPage, period, searchWord, rowCount)
+    getMerchData(prevPage, period, searchWord, rowCount)
   }
 
   return (
@@ -134,7 +110,7 @@ const ApparelActivity = props => {
 
       {!searchLoading && list.length > 0 && (
         <div className="mt-[20px]">
-          <TableSections data={list} />
+          <TableSections data={list} type={type} />
         </div>
       )}
 

@@ -19,7 +19,7 @@ import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const ArtworksAccordion = props => {
-  const { data } = props
+  const { data, type } = props
   const { solToUsdRate } = useSolToUsdRate()
   const dispatch = useDispatch()
   const router = useRouter()
@@ -79,8 +79,8 @@ const ArtworksAccordion = props => {
                     <div className={styles.secondText}>{'08/16/2023'}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Buyer</div>
-                    <div className={styles.text}>{'Buyer'}</div>
+                    <div className={styles.title}>{type === 'purchases' ? 'Buyer' : 'Seller'}</div>
+                    <div className={styles.text}>{'E03x34***334'}</div>
                   </div>
                   <div className={styles.thirdRow}>
                     <OutlineButton
