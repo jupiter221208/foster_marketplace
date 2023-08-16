@@ -311,7 +311,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          router.push('/')
+          router.push(`/merch-logs/${id}`)
         }}
         data={alertData}
       />
