@@ -9,8 +9,8 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import ArtworksTable from 'components/Table/Stats/ArtworksTable'
 import ArtworksAccordion from 'components/Accordion/Stats/ArtworksAccordion'
+import MerchActivityTable from 'components/Table/MerchActivityTable'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -25,7 +25,7 @@ const TableSection = props => {
   return (
     <section className={styles.container}>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <ArtworksTable data={data} />
+        <MerchActivityTable data={data} />
       ) : (
         <ArtworksAccordion data={data} />
       )}

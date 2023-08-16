@@ -28,6 +28,7 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 // api
 import StatsAPI from 'apis/stats'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
+import { useRouter } from 'next/router'
 
 const MerchActivity = () => {
   const viewport = useViewport()
