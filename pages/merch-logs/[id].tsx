@@ -98,31 +98,31 @@ const MerchDetail = () => {
         <div className={styles.orderTitle}>Order#&nbsp;{id}</div>
       </div>
       {/* Desktop */}
-      <div className="w-full lg:block hidden">
+      <div className="w-full lg:block hidden mt-[30px]">
         <div className={styles.orderInfo}>
           <div>
             <div className={styles.infoTitle}>ORDER PLACED</div>
-            <div className={styles.infoValue}>August 9, 2023</div>
+            <div className={styles.infoValue}>{orderDetails?.orderPlaced}</div>
           </div>
           <div>
             <div className={styles.infoTitle}>TOTAL</div>
-            <div className={styles.infoValue}>$35.67</div>
+            <div className={styles.infoValue}>${orderDetails?.total}</div>
           </div>
           <div>
             <div className={styles.infoTitle}>SHIP TO</div>
             <div className={styles.infoValue}>
-              1234 Dragonsville Ave.
+              {orderDetails?.shipTo.street}
               <br />
-              Phoenix, AZ 12345, United States
+              {orderDetails?.shipTo.city}
             </div>
           </div>
           <div>
             <div className={styles.infoTitle}>SHIPING METHOD</div>
-            <div className={styles.infoValue}>USPS Priority Mail - Package</div>
+            <div className={styles.infoValue}>{orderDetails?.service}</div>
           </div>
           <div>
             <div className={styles.infoTitle}>ESTIMATED DELIVERY DATE</div>
-            <div className={styles.infoValue}>August 23, 2023</div>
+            <div className={styles.infoValue}>{orderDetails?.delivery}</div>
           </div>
         </div>
         <div className="w-full flex justify-between mt-[70px]">
@@ -131,16 +131,23 @@ const MerchDetail = () => {
           </div>
           <div>
             <div className={styles.detailTitle}>Item Details</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Print: Cage of Conscience</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Quantity: 1</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Product: T-Shirt / Medium / White</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
+            <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
+            <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.product}</div>
           </div>
 
           <div>
             <div className={styles.detailTitle}>Payment Details</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Payment Method: USDC</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Quantity: 1</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Product: T-Shirt / Medium / White</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Status:&nbsp;{paymentDetails?.status}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
+            </div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Paid&nbsp;by:&nbsp;{paymentDetails?.paid}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
+            </div>
+            <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
           </div>
 
           <div>
