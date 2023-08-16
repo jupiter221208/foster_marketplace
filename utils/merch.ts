@@ -13,6 +13,23 @@ export const MERCH_MADDIES_ADDRESS = new PublicKey('Ee9ftaQz43zkEjxcrW724e3z64rg
 export const USDC_ADDRESS = new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
 export const USDC_DECIMALS = 6
 
+export const SHIPPING_SERVICE_NAMES = {
+  usps_priority_mail: 'USPS Priority Mail',
+  usps_priority_mail_express: 'USPS Priority Mail Express',
+  usps_parcel_select: 'USPS Parcel Select Ground',
+  usps_first_class_mail: 'USPS First Class Mail',
+  usps_media_mail: 'USPS Media Mail',
+  usps_ground_advantage: 'USPS Ground Advantage',
+  usps_priority_mail_international: 'USPS Priority Mail Intl',
+  usps_priority_mail_express_international: 'USPS Priority Mail Express Intl',
+  usps_first_class_mail_international: 'USPS First Class Mail Intl',
+  globalpost_parcel_select_smart_saver: 'GlobalPost Parcel Select SmartSaver',
+}
+
+export function getShippingServiceName(code: string): string {
+  return SHIPPING_SERVICE_NAMES[code] ?? code
+}
+
 export interface CreatePaymentTransactionArgs {
   metaplex: Metaplex
   nftAddress: string

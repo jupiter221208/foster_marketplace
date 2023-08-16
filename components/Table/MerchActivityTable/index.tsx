@@ -51,8 +51,15 @@ const MerchActivityTable = props => {
               </td>
               <td className="text-center">{getLocalDate(item.created_at)}</td>
               <td className="text-center">{getFirstUpperString(item.asset_name)}</td>
-              <Link href={`merch-logs/${3345}`}>
-                <td className={styles.viewOffer}>View Offer</td>
+              <Link href={`merch-logs/${13931567}`}>
+                <td
+                  className={styles.viewOffer}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                  }}
+                >
+                  View Offer
+                </td>
               </Link>
             </tr>
           )

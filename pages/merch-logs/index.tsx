@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -9,7 +9,6 @@ import Head from 'next/head'
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 
 import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
-import WallArtActivity from 'components/pages/MerchLogs/WallArtActivity'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -22,18 +21,16 @@ import StatsPreviewImage from 'assets/images/stats-preview-image.png'
 // styles
 import styles from './index.module.scss'
 import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
-import CollectionsSection from 'components/pages/Stats/CollectionsSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // api
 import StatsAPI from 'apis/stats'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
-import { useRouter } from 'next/router'
 
 const MerchActivity = () => {
   const viewport = useViewport()
   const isLoading = useSelector<any>(state => state.isLoading)
-
+  const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
@@ -41,6 +38,7 @@ const MerchActivity = () => {
   const [wallarts, setWallArts] = useState([])
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: true })
     getArtworkData()
     getCollectionData()
   }, [])
@@ -73,6 +71,7 @@ const MerchActivity = () => {
       respone => {
         const nfts = respone.filter(item => item.asset_url !== '')
         setApparels(nfts)
+        dispatch({ type: 'set', isLoading: false })
       },
       error => {}
     )

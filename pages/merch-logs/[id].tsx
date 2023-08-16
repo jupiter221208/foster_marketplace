@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
@@ -18,16 +18,23 @@ import OutlineButton from 'components/Button/OutlineButton'
 // api
 import { getOrder, OrderData } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { getShippingServiceName } from 'utils/merch'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
+  const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [itemDetails, setItemDetails] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
+
+  useEffect(() => {
+    dispatch({ type: 'set', isLoading: true })
+  }, [])
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
@@ -37,6 +44,8 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
+
     if (orderData) {
       let itemData = orderData?.ssorder.items[0]
       let options = itemData.options
@@ -65,7 +74,6 @@ const MerchDetail = () => {
       let ssorder = orderData?.ssorder
       if (ssorder) {
         let billTo = ssorder.billTo
-        let service = ssorder.requestedShippingService
         let orderDetails = {
           orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
           total: order.amount.toFixed(2),
@@ -73,7 +81,7 @@ const MerchDetail = () => {
             street: billTo.street1,
             city: billTo.city + ', ' + billTo.state + ' ' + billTo.postal_code + ', ' + billTo.country,
           },
-          service: service,
+          service: getShippingServiceName(ssorder.requestedShippingService),
           delivery: getLocalDateWithoutTime(ssorder.paymentDate),
         }
         setOrderDetails(orderDetails)
@@ -91,6 +99,7 @@ const MerchDetail = () => {
             className={styles.backBG}
             onClick={() => {
               dispatch({ type: 'set', isLoading: true })
+              router.push('/merch-logs')
             }}
           >
             <div className="hidden lg:flex mr-[2px]">
@@ -281,6 +290,7 @@ const MerchDetail = () => {
           </div>
         </div>
       </div>
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
