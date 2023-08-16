@@ -126,8 +126,8 @@ const MerchDetail = () => {
           </div>
         </div>
         <div className="w-full flex justify-between mt-[70px]">
-          <div className="max-w-[183px] object-cover">
-            <Image src={DefaultAvatar} alt="" />
+          <div className="max-w-[183px] max-h-[183px] object-cover">
+            <img src={previewUrl} alt="" />
           </div>
           <div>
             <div className={styles.detailTitle}>Item Details</div>
