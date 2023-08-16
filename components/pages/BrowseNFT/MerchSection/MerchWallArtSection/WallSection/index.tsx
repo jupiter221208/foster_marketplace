@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import { fabric } from 'fabric'
+import { FadeLoader } from 'react-spinners'
+import { useViewport } from 'utils'
+import { dataURLtoFile } from 'utils/helpers'
+import uploadFileToS3 from 'apis/aws'
+import { useDispatch } from 'react-redux'
 
 // styles
 import styles from './index.module.scss'
-import { FadeLoader } from 'react-spinners'
-import { useViewport } from 'utils'
 
 // api
 
 const WallSection = props => {
-  const { wallArt, finishEditing } = props
+  const { nftName, wallArt, finishEditing } = props
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const [bgOrgSize, setBgOrgSize] = useState(null)
   const [artOrgSize, setArtOrgSize] = useState(null)
+
+  const uploadApparelSection = async (imgDataString: string) => {
+    let timestamp = new Date().getTime()
+    let filename = nftName + timestamp + '.png'
+    var imgFile = dataURLtoFile(imgDataString, filename)
+    const { url } = await uploadFileToS3(imgFile, filename)
+    return url + filename
+  }
 
   useEffect(() => {
     const resizeFunction = () => {
@@ -89,18 +101,27 @@ const WallSection = props => {
   }, [wallArt])
 
   useEffect(() => {
-    let newCanvas = canvas as fabric.Canvas
-    if (newCanvas != '' && newCanvas.item(1)) {
-      if (finishEditing) {
-        newCanvas.discardActiveObject()
-        newCanvas.item(1).selectable = false
-      } else {
-        newCanvas.item(1).selectable = true
-      }
+    ;(async () => {
+      let newCanvas = canvas as fabric.Canvas
+      if (newCanvas != '' && newCanvas.item(1)) {
+        if (finishEditing) {
+          newCanvas.discardActiveObject()
+          newCanvas.item(1).selectable = false
+          let imgDataString = newCanvas.toDataURL({
+            format: 'png',
+            quality: 1,
+          })
+          let imgUrl = await uploadApparelSection(imgDataString)
+          dispatch({ type: 'set', printImageUrl: imgUrl })
+          newCanvas.item(1).selectable = false
+        } else {
+          newCanvas.item(1).selectable = true
+        }
 
-      newCanvas.renderAll()
-      setCanvas(newCanvas)
-    }
+        newCanvas.renderAll()
+        setCanvas(newCanvas)
+      }
+    })()
   }, [finishEditing])
 
   const getArtRatio = ratio => {

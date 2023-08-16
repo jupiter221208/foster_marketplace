@@ -53,7 +53,7 @@ const MerchSection = props => {
               )}
               <div className={styles.blurImage} />
 
-              <WallSection wallArt={wallArt} finishEditing={finishEditing} />
+              <WallSection nftName={data?.nftName} wallArt={wallArt} finishEditing={finishEditing} />
             </div>
           </div>
         ) : (
