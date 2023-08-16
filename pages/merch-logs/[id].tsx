@@ -179,7 +179,9 @@ const MerchDetail = () => {
                 borderColor="var(--follow-btn-border-mobile)"
                 width={335}
                 label="Get help"
-                onClick={() => {}}
+                onClick={() => {
+                  window.location.href = 'mailto:admin@fostermarketplace.io'
+                }}
               />
             </div>
             <div className="mt-[12px]">
@@ -187,7 +189,9 @@ const MerchDetail = () => {
                 borderColor="var(--follow-btn-border-mobile)"
                 width={335}
                 label="Write a product review"
-                onClick={() => {}}
+                onClick={() => {
+                  window.location.href = 'mailto:admin@fostermarketplace.io'
+                }}
               />
             </div>
           </div>
@@ -276,7 +280,9 @@ const MerchDetail = () => {
                 borderColor="var(--follow-btn-border-mobile)"
                 width={335}
                 label="Get help"
-                onClick={() => {}}
+                onClick={() => {
+                  window.location.href = 'mailto:admin@fostermarketplace.io'
+                }}
               />
             </div>
             <div className="mt-[12px]">
@@ -284,7 +290,9 @@ const MerchDetail = () => {
                 borderColor="var(--follow-btn-border-mobile)"
                 width={335}
                 label="Write a product review"
-                onClick={() => {}}
+                onClick={() => {
+                  window.location.href = 'mailto:admin@fostermarketplace.io'
+                }}
               />
             </div>
           </div>
