@@ -63,10 +63,10 @@ const MerchDetail = () => {
         let paymentDetails = {
           method: order.payment_method,
           status: 'Complete',
-          commission: order.artist_commission,
+          commission: order.artist_commission.toFixed(2),
           paid: '6GTkpe4***3d3',
-          shipping: order.shipping_amount,
-          tax: order.tax_amount,
+          shipping: order.shipping_amount.toFixed(2),
+          tax: order.tax_amount.toFixed(2),
         }
         setPaymentDetails(paymentDetails)
       }
@@ -79,7 +79,7 @@ const MerchDetail = () => {
           total: order.amount.toFixed(2),
           shipTo: {
             street: billTo.street1,
-            city: billTo.city + ', ' + billTo.state + ' ' + billTo.postal_code + ', ' + billTo.country,
+            city: billTo.city + ', ' + billTo.state + ' ' + billTo['postalCode'] + ', ' + billTo.country,
           },
           service: getShippingServiceName(ssorder.requestedShippingService),
           delivery: getLocalDateWithoutTime(ssorder.paymentDate),
