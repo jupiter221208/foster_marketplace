@@ -65,16 +65,17 @@ const MerchActivity = () => {
   const getAllOrder = () => {
     MerchAPI.getAllOrder().then(
       response => {
+        let orders = response.reverse()
         let artistCommission = 0
         let totalCommission = 0
-        response.forEach(item => {
+        orders.forEach(item => {
           artistCommission += item.artist_commission
           totalCommission += item.amount
         })
         setArtistCommission(artistCommission)
         setTotalCommission(totalCommission)
-        setPurchases(response)
-        setSales(response)
+        setPurchases(orders)
+        setSales(orders)
         dispatch({ type: 'set', isLoading: false })
       },
       error => {}
