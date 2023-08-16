@@ -5,3 +5,67 @@
   font-size: 24px;
   line-height: 30px;
 }
+
+.backBG {
+  @media (min-width: 1024px) {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+  }
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(#fff, 0.3);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.orderInfo {
+  width: 100%;
+  height: 112px;
+  display: flex;
+  justify-content: space-between;
+  background: var(--stats-bg-color);
+  padding: 0px 30px;
+  margin-top: 30px;
+}
+
+.infoTitle {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  margin-top: 30px;
+}
+
+.infoValue {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  margin-top: 8px;
+}
+
+.detailTitle {
+  font-family: 'Muli-Bold';
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+}
+
+.detailValue {
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  margin-top: 8px;
+}
+
+.separator {
+  width: 700px;
+  height: 1px;
+  background: rgba(var(--text-gray-200-color-rgb), 0.15);
+}

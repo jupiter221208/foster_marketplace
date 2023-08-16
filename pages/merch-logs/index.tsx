@@ -128,32 +128,31 @@ const MerchActivity = () => {
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
             <div className="w-full flex justify-between">
               <div className={`${styles.title} z-10`}>Merch Hub Dashboard</div>
-              <div className="flex gap-[30px]">
-                <div>
-                  <div className={styles.countLabel}>Apparel</div>
-                  <div className={styles.countValue}>65</div>
+              <div className="flex gap-[15px]">
+                <div className="flex gap-[6px]">
+                  <div className={styles.countLabel}>$300.50</div>
+                  <div className={styles.countValue}>Artist&nbsp;Commissions</div>
                 </div>
-                <div className={styles.separator}></div>
-                <div>
-                  <div className={styles.countLabel}>Wall&nbsp;Art</div>
-                  <div className={styles.countValue}>64</div>
+                <div className="flex gap-[6px]">
+                  <div className={styles.countLabel}>$300.50</div>
+                  <div className={styles.countValue}>Total&nbsp;Purchases</div>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="w-full mb-[30px]">
+            <div className="w-full mb-[30px] mt-[15px]">
               <div className={`${styles.title} z-10`}>Merch Hub Dashboard</div>
               <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
-                    <div className={styles.countValue}>65</div>
-                    <div className={styles.countLabel}>APPAREL</div>
+                    <div className={styles.countLabel}>$800.32</div>
+                    <div className={styles.countValue}>ARTIST&nbsp;COMISSIONS</div>
                   </div>
                 </div>
                 <div className={styles.countBG}>
                   <div className="w-full">
-                    <div className={styles.countValue}>64</div>
-                    <div className={styles.countLabel}>WALL&nbsp;ART</div>
+                    <div className={styles.countLabel}>$800.32</div>
+                    <div className={styles.countValue}>TOTAL&nbsp;PURCHASES</div>
                   </div>
                 </div>
               </div>

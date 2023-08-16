@@ -1,4 +1,4 @@
 [
-  { "id": 0, "label": "Apparel", "value": "Apparel", "disabled": false },
-  { "id": 1, "label": "Wall Art", "value": "Wall Art", "disabled": false }
+  { "id": 0, "label": "Purchases", "value": "purchases", "disabled": false },
+  { "id": 1, "label": "Sales", "value": "sales", "disabled": false }
 ]
