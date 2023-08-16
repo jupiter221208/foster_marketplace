@@ -106,7 +106,7 @@ const OfferAccordionItem = ({
               </div>
             
               <div className={styles.secondRow}>
-                <div className={styles.title}>{offerType === 'made' ? 'Seller' : 'Buyer'}</div>
+                <div className={styles.title}>{offerType === 'made' ? 'Creator' : 'Buyer'}</div>
                 {ownerOrBuyerAddress ? getShortAddress(ownerOrBuyerAddress.toBase58()) : '-'}
               </div>
               <div className={styles.firstRow}>

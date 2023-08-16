@@ -56,7 +56,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
   const [isLoad, setIsLoad] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
+  const [showAlert, setShowAlert] = useState(true)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   total ??= orderData?.order.amount
@@ -293,8 +293,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         open={showAlert}
         close={() => {
           setShowAlert(false)
-          dispatch({ type: 'set', isLoading: true })
-          router.push(`/merch-logs/${id}`)
+          setTimeout(() => {
+            dispatch({ type: 'set', isLoading: true })
+            router.push(`/merch-logs/${id}`)
+          }, 1000)
         }}
         data={alertData}
       />
