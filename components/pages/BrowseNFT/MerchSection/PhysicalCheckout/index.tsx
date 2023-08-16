@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 // next components
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Image from 'next/image'
 
 // custom functions
@@ -32,6 +32,7 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 
 // api
 import { OrderData, payOrder } from 'apis/merch'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -45,6 +46,8 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const SOL_USD_SLIPPAGE = 0.98
   const viewport = useViewport()
   const router = useRouter()
+  const dispatch = useDispatch()
+  const isLoading = useSelector<any>(state => state.isLoading)
   const { id } = router.query
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -52,11 +55,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const { solToUsdRate, refreshValue } = useSolToUsdRate()
 
   const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
-  const [isLoading, setIsLoading] = useState(false)
-  const [showAlert, setShowAlert] = useState(false)
+  const [isLoad, setIsLoad] = useState(false)
+  const [showAlert, setShowAlert] = useState(true)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
-
   total ??= orderData?.order.amount
   const solAmount = total && solToUsdRate ? total / (solToUsdRate * SOL_USD_SLIPPAGE) : 0
 
@@ -64,8 +66,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     setAlertData([
       {
         id: 0,
-        title: 'PlaceOrder Success!',
-        description: 'You placed the order successfully.',
+        title: 'Order Placed!',
+        description: 'Your order was placed successfully!',
+        description2:
+          'Order details will be emailed to the address provided and can also be tracked on the Foster Merch Hub.',
+        description3: `Your order number is #${id}.`,
         type: 'success',
       },
     ])
@@ -101,29 +106,6 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     })
 
     setList(itemList)
-    // let name = ''
-    // if (type === 'apparel') {
-    //   name =
-    //     nftName +
-    //     '<br/>' +
-    //     data['apparel'].description +
-    //     ' (' +
-    //     data['size'].name +
-    //     ')' +
-    //     '<br/>' +
-    //     getFirstUpperString(data['color'].type)
-    // } else {
-    //   name =
-    //     nftName +
-    //     '<br/>' +
-    //     getFirstUpperString(data.print.type) +
-    //     ' (' +
-    //     getFirstUpperString(data.orientation.type) +
-    //     ')<br/>' +
-    //     data.size.width +
-    //     ' x ' +
-    //     data.size.height
-    // }
   }, [])
 
   const onCheckout = async () => {
@@ -132,7 +114,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       return
     }
 
-    setIsLoading(true)
+    setIsLoad(true)
     let result = false
     try {
       if (!orderData) throw new Error('orderData cannot be null for checkout')
@@ -173,7 +155,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       let response = await payOrder(id, params)
       if (response?.status === 'success') result = true
     } finally {
-      setIsLoading(false)
+      setIsLoad(false)
       if (result) {
         setTimeout(() => {
           setShowAlert(true)
@@ -306,15 +288,17 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           onClick={() => onCheckout()}
         />
       </div>
-      <ProgressingModal open={isLoading} />
+      <ProgressingModal open={isLoad} />
       <Alert
         open={showAlert}
         close={() => {
           setShowAlert(false)
+          dispatch({ type: 'set', isLoading: true })
           router.push(`/merch-logs/${id}`)
         }}
         data={alertData}
       />
+      <FullScreenLoadingModal open={isLoading} />
     </section>
   )
 }

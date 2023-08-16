@@ -87,6 +87,18 @@ const Alert = props => {
                       <div className="w-full flex justify-center mt-1 lg:mt-[15px]">
                         <div className={styles.description}>{item.description}</div>
                       </div>
+                      {item.description2 && (
+                        <div className="w-full flex justify-center mt-1 lg:mt-[15px]">
+                          <div className="max-w-[600px]">
+                            <div className={styles.description}>{item.description2}</div>
+                          </div>
+                        </div>
+                      )}
+                      {item.description3 && (
+                        <div className="w-full flex justify-center mt-1 lg:mt-[15px]">
+                          <div className={styles.description}>{item.description3}</div>
+                        </div>
+                      )}
                     </div>
                   </Dialog.Panel>
                 </Transition.Child>
