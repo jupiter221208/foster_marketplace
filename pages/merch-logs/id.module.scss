@@ -31,8 +31,7 @@
   justify-content: space-between;
   background: var(--stats-bg-color);
   @media (min-width: 1024px) {
-    height: 112px;
-    padding: 0px 30px;
+    padding: 30px;
   }
 }
 
@@ -53,7 +52,6 @@
   @media (min-width: 1024px) {
     font-size: 14px;
     line-height: 18px;
-    margin-top: 30px;
   }
 }
 
