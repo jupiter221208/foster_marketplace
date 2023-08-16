@@ -7,7 +7,6 @@ import StatsSearchBox from 'components/Input/StatsSearchBox'
 
 // styles
 import styles from './index.module.scss'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const SearchSection = props => {
   const { placeholder, searchWord, period, setPeriod, setSearchWord, onSearch, onCancel } = props
@@ -15,35 +14,6 @@ const SearchSection = props => {
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-between gap-[20px]">
-        <div className="lg:hidden flex justify-between gap-[10px]">
-          <TimeSlotButton
-            label="Purchases"
-            onClick={() => setPeriod('purchases')}
-            fontFamily={'Muli-SemiBold'}
-            color={period === 'purchases' ? 'var(--day-btn-color)' : '#979EA2'}
-            backgroundColor01={period === 'purchases' ? 'var(--day-btn-bg-1)' : 'transparent'}
-            backgroundColor02={period === 'purchases' ? 'var(--day-btn-bg-2)' : 'transparent'}
-            gradientDirection="bottom"
-          />
-          <TimeSlotButton
-            label="Sales"
-            onClick={() => setPeriod('sales')}
-            fontFamily={'Muli-SemiBold'}
-            color={period === 'sales' ? 'var(--day-btn-color)' : '#979EA2'}
-            backgroundColor01={period === 'sales' ? 'var(--day-btn-bg-1)' : 'transparent'}
-            backgroundColor02={period === 'sales' ? 'var(--day-btn-bg-2)' : 'transparent'}
-            gradientDirection="bottom"
-          />
-          <TimeSlotButton
-            label="All"
-            onClick={() => setPeriod('all')}
-            fontFamily={'Muli-SemiBold'}
-            color={period === 'all' ? 'var(--day-btn-color)' : '#979EA2'}
-            backgroundColor01={period === 'all' ? 'var(--day-btn-bg-1)' : 'transparent'}
-            backgroundColor02={period === 'all' ? 'var(--day-btn-bg-2)' : 'transparent'}
-            gradientDirection="bottom"
-          />
-        </div>
         <div className="w-[500px] flex items-center gap-2">
           <StatsSearchBox
             value={searchWord}
@@ -113,36 +83,6 @@ const SearchSection = props => {
               </svg>
             )}
           </div>
-        </div>
-
-        <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
-          <TimeSlotButton
-            label="Purchases"
-            onClick={() => setPeriod('purchases')}
-            fontFamily={'Muli-SemiBold'}
-            color={period === 'purchases' ? 'var(--day-btn-color)' : '#979EA2'}
-            backgroundColor01={period === 'purchases' ? 'var(--day-btn-bg-1)' : 'transparent'}
-            backgroundColor02={period === 'purchases' ? 'var(--day-btn-bg-2)' : 'transparent'}
-            gradientDirection="bottom"
-          />
-          <TimeSlotButton
-            label="Sales"
-            onClick={() => setPeriod('sales')}
-            fontFamily={'Muli-SemiBold'}
-            color={period === 'sales' ? 'var(--day-btn-color)' : '#979EA2'}
-            backgroundColor01={period === 'sales' ? 'var(--day-btn-bg-1)' : 'transparent'}
-            backgroundColor02={period === 'sales' ? 'var(--day-btn-bg-2)' : 'transparent'}
-            gradientDirection="bottom"
-          />
-          <TimeSlotButton
-            label="All"
-            onClick={() => setPeriod('all')}
-            fontFamily={'Muli-SemiBold'}
-            color={period === 'all' ? 'var(--day-btn-color)' : '#979EA2'}
-            backgroundColor01={period === 'all' ? 'var(--day-btn-bg-1)' : 'transparent'}
-            backgroundColor02={period === 'all' ? 'var(--day-btn-bg-2)' : 'transparent'}
-            gradientDirection="bottom"
-          />
         </div>
       </div>
     </div>

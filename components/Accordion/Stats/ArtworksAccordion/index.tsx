@@ -1,9 +1,7 @@
 import React, { useRef, useState } from 'react'
 
 // next components
-import Image from 'next/image'
-import ReactPlaceholder from 'react-placeholder'
-import 'react-placeholder/lib/reactPlaceholder.css'
+import Link from 'next/link'
 
 // third party components
 import { Disclosure } from '@headlessui/react'
@@ -14,18 +12,19 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getBuyerName, getFirstUpperString, getLocalDate, getOwnerName } from 'utils/helpers'
+import { getLocalDateWithoutTime, getSliceAddress } from 'utils/helpers'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
-import ImageWithFallback from 'components/ImageWithFallback'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const ArtworksAccordion = props => {
   const { data } = props
+  const { solToUsdRate } = useSolToUsdRate()
   const dispatch = useDispatch()
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
-  const [loaded, setLoaded] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -60,16 +59,11 @@ const ArtworksAccordion = props => {
                   onClick={() => clickRecent(index)}
                 >
                   <div className="flex items-center gap-x-4">
-                    <div className={open ? styles.activeImageArea : styles.imageArea}>
-                      <ImageWithFallback src={item.asset_url} alt="" width={52} height={52} className="rounded-[4px]" />
-                    </div>
                     <div className="block">
-                      <div className={styles.subTitle} onClick={() => router.push(`/nft/${item.mint_address}`)}>
-                        {item.asset_name}
-                      </div>
+                      <div className={styles.subTitle}>{'Short Sleeve: Mens / Unisex - Standard'}</div>
                       <div className="flex gap-1 mt-1 items-center">
                         <SolanaLogoIcon alt="" />
-                        <div className={styles.priceValue}>{item.amount}</div>
+                        <div className={styles.priceValue}>{(item.amount / solToUsdRate).toFixed(2)}</div>
                       </div>
                     </div>
                   </div>
@@ -77,28 +71,26 @@ const ArtworksAccordion = props => {
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Method of Sale</div>
-                    <div className={styles.text}>{item.action_type.replace(/([A-Z])/g, ' $1').trim()}</div>
+                    <div className={styles.title}>Transaction ID</div>
+                    <div className={styles.text}>{getSliceAddress(item.transaction_id)}</div>
                   </div>
                   <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Date</div>
-                    <div className={styles.secondText}>{getLocalDate(item.created_at)}</div>
+                    <div className={styles.secondText}>{'08/16/2023'}</div>
                   </div>
                   <div className={styles.firstRow}>
-                    <div className={styles.title}>Seller</div>
-                    <div className={styles.text} onClick={() => gotoUserDetail(getOwnerName(item))}>
-                      {getOwnerName(item)}
-                    </div>
+                    <div className={styles.title}>Buyer</div>
+                    <div className={styles.text}>{'Buyer'}</div>
                   </div>
-                  <div className={styles.secondRow}>
-                    <div className={styles.secondTitle}>Buyer</div>
-                    <div className={styles.secondText} onClick={() => gotoUserDetail(getBuyerName(item))}>
-                      {getBuyerName(item)}
-                    </div>
-                  </div>
-                  <div className={styles.firstRow}>
-                    <div className={styles.title}>Market</div>
-                    <div className={styles.text}>{getFirstUpperString(item.market)}</div>
+                  <div className={styles.thirdRow}>
+                    <OutlineButton
+                      width={335}
+                      label="View Order"
+                      onClick={() => {
+                        router.push(`merch-logs/${item.id}`)
+                        dispatch({ type: 'set', isLoading: true })
+                      }}
+                    />
                   </div>
                 </Disclosure.Panel>
               </>

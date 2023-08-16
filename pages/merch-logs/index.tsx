@@ -24,7 +24,7 @@ import StatsPreviewModal from 'components/Modal/StatsPreviewModal'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // api
-import StatsAPI from 'apis/stats'
+import MerchAPI from 'apis/merch'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
 
 const MerchActivity = () => {
@@ -34,13 +34,12 @@ const MerchActivity = () => {
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
-  const [apparels, setApparels] = useState([])
-  const [wallarts, setWallArts] = useState([])
+  const [purchases, setPurchases] = useState([])
+  const [sales, setSales] = useState([])
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
-    getArtworkData()
-    getCollectionData()
+    getAllOrder()
   }, [])
 
   useEffect(() => {
@@ -61,36 +60,12 @@ const MerchActivity = () => {
     if (item.id != 4) setActiveTab(item.id)
   }
 
-  const getArtworkData = () => {
-    StatsAPI.getStatsArtwork({
-      period: 'all',
-      search: null,
-      page: 1,
-      per_page: 12,
-    }).then(
-      respone => {
-        const nfts = respone.filter(item => item.asset_url !== '')
-        setApparels(nfts)
+  const getAllOrder = () => {
+    MerchAPI.getAllOrder().then(
+      response => {
+        setPurchases(response)
+        setSales(response)
         dispatch({ type: 'set', isLoading: false })
-      },
-      error => {}
-    )
-  }
-
-  const getCollectionData = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-    StatsAPI.getStatsCollection({
-      period: 'all',
-      search: null,
-      page: 1,
-      per_page: 12,
-    }).then(
-      respone => {
-        const nfts = respone.filter(item => item.cover_image !== '')
-        setWallArts(nfts)
       },
       error => {}
     )
@@ -167,12 +142,12 @@ const MerchActivity = () => {
           </div>
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={apparels} />
+              <ApparelActivity avtivities={purchases} />
             </div>
           )}
           {activeTab === 1 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={apparels} />
+              <ApparelActivity avtivities={sales} />
             </div>
           )}
         </div>

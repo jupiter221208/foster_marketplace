@@ -48,9 +48,10 @@ const MerchDetail = () => {
       dispatch({ type: 'set', isLoading: false })
       let itemData = orderData?.ssorder.items[0]
       let options = itemData.options
+      let nftName = findElement(options, 'name', 'nftName')
       if (options) {
         let itemDetails = {
-          print: findElement(options, 'name', 'nftName')['value'],
+          print: nftName ? nftName['value'] : '',
           quantity: itemData.quantity,
           product: itemData.name,
         }

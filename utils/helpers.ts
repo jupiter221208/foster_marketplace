@@ -210,6 +210,10 @@ export const getBuyerName = item => {
   return 'N/A'
 }
 
+export const getSliceAddress = address => {
+  return address ? address.slice(0, 5) + '***' + address.slice(-3) : ''
+}
+
 export const getLocalDate = dateString => {
   var utcDate = moment.utc(dateString)
   var fmt = 'MM/DD/YYYY hh:mm:ss'

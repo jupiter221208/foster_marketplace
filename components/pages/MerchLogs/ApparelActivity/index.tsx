@@ -29,7 +29,6 @@ const ApparelActivity = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
-  const [feedList, setFeedList] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
@@ -37,41 +36,12 @@ const ApparelActivity = props => {
   const [loading, setLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
 
-  useEffect(() => {
-    let nfts = [
-      {
-        id: 0,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 1,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 2,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 3,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-    ]
-    setFeedList(nfts)
-  }, [])
+  useEffect(() => {}, [])
 
   useEffect(() => {
     if (avtivities.length > 0) {
       setTimeout(() => {
         setLoading(false)
-        setFeedList(avtivities)
         setList(avtivities)
         setTotalCount(12)
         setIsMounted(true)
@@ -107,7 +77,7 @@ const ApparelActivity = props => {
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         setList(nfts)
-        if (feedList.length === 0) setFeedList(nfts)
+
         window.scrollTo({
           top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
           behavior: 'smooth',
@@ -168,7 +138,7 @@ const ApparelActivity = props => {
         </div>
       )}
 
-      <div className="w-full flex justify-end">
+      {/* <div className="w-full flex justify-end">
         <ExplorePagination
           currentPage={currentPage}
           totalCount={totalCount}
@@ -179,7 +149,7 @@ const ApparelActivity = props => {
           handleNext={handleNextPage}
           handlePrev={handlePreviousPage}
         />
-      </div>
+      </div> */}
     </div>
   )
 }
