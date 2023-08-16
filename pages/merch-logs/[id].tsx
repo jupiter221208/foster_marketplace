@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 
 // next component
 import Link from 'next/link'
-import Image from 'next/image'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -22,6 +22,7 @@ import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn }
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
+  const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [orderDetails, setOrderDetails] = useState(null)
   const [itemDetails, setItemDetails] = useState(null)
@@ -86,7 +87,12 @@ const MerchDetail = () => {
     <div className="g-container">
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
         <Link href="/merch-logs">
-          <div className={styles.backBG}>
+          <div
+            className={styles.backBG}
+            onClick={() => {
+              dispatch({ type: 'set', isLoading: true })
+            }}
+          >
             <div className="hidden lg:flex mr-[2px]">
               <ArrowLeftIcon alt="" />
             </div>
