@@ -24,7 +24,9 @@ const MerchActivityTable = props => {
     <table id={'ArtworksTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
-          <th>Order Item</th>
+          <th className="w-[30%] text-start">
+            <div className="ml-3">Order Item</div>
+          </th>
           <th>Amount</th>
           <th>Transaction ID</th>
           <th>Date</th>
@@ -36,7 +38,9 @@ const MerchActivityTable = props => {
         {data.map((item, index) => {
           return (
             <tr key={index}>
-              <td className="text-center">Short Sleeve: Mens / Unisex - Standard</td>
+              <td className="text-start">
+                <div className="ml-3">Short Sleeve: Mens / Unisex - Standard</div>
+              </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px]`}>
                   <SolanaLogoIcon />
