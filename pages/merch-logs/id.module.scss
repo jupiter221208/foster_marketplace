@@ -4,6 +4,7 @@
   font-family: 'Muli-Bold';
   font-size: 24px;
   line-height: 30px;
+  color: var(--text-gray-200-color);
 }
 
 .backBG {
@@ -25,28 +26,47 @@
 
 .orderInfo {
   width: 100%;
-  height: 112px;
   display: flex;
   justify-content: space-between;
   background: var(--stats-bg-color);
-  padding: 0px 30px;
-  margin-top: 30px;
+  @media (min-width: 1024px) {
+    height: 112px;
+    padding: 0px 30px;
+  }
+}
+
+.orderInfoBG {
+  width: calc(100% + 32px);
+  height: auto;
+  background: var(--stats-bg-color);
+  margin: 30px -16px;
+  padding: 18px 16px;
 }
 
 .infoTitle {
   font-family: 'Muli-Light';
-  font-size: 14px;
-  line-height: 18px;
   color: var(--text-gray-200-color);
-  margin-top: 30px;
+  font-size: 12px;
+  line-height: 15px;
+  margin-top: 0px;
+  @media (min-width: 1024px) {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 30px;
+  }
 }
 
 .infoValue {
   font-family: 'Muli-SemiBold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 6px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 8px;
+  }
   color: var(--text-gray-200-color);
-  margin-top: 8px;
 }
 
 .detailTitle {
@@ -62,6 +82,20 @@
   line-height: 20px;
   color: var(--text-gray-200-color);
   margin-top: 8px;
+}
+
+.shipStatusTitle {
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+}
+
+.shipStatusValue {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
 }
 
 .separator {

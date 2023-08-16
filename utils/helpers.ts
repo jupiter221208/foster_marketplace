@@ -217,6 +217,13 @@ export const getLocalDate = dateString => {
   return localDate
 }
 
+export const getLocalDateWithoutTime = dateString => {
+  var utcDate = moment.utc(dateString)
+  var fmt = 'MM/DD/YYYY'
+  const localDate = utcDate.local().format(fmt)
+  return localDate
+}
+
 export const getFirstUpperString = word => {
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
