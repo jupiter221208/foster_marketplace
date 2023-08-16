@@ -36,6 +36,8 @@ const MerchActivity = () => {
   const [previewMode, setPreviewMode] = useState(false)
   const [purchases, setPurchases] = useState([])
   const [sales, setSales] = useState([])
+  const [artistCommission, setArtistCommission] = useState(0)
+  const [totalCommission, setTotalCommission] = useState(0)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -63,6 +65,14 @@ const MerchActivity = () => {
   const getAllOrder = () => {
     MerchAPI.getAllOrder().then(
       response => {
+        let artistCommission = 0
+        let totalCommission = 0
+        response.forEach(item => {
+          artistCommission += item.artist_commission
+          totalCommission += item.amount
+        })
+        setArtistCommission(artistCommission)
+        setTotalCommission(totalCommission)
         setPurchases(response)
         setSales(response)
         dispatch({ type: 'set', isLoading: false })
@@ -104,11 +114,11 @@ const MerchActivity = () => {
               <div className={`${styles.title} z-10`}>Merch Hub Dashboard</div>
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
-                  <div className={styles.countLabel}>$300.50</div>
+                  <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
                   <div className={styles.countValue}>Artist&nbsp;Commissions</div>
                 </div>
                 <div className="flex gap-[6px]">
-                  <div className={styles.countLabel}>$300.50</div>
+                  <div className={styles.countLabel}>${totalCommission.toFixed(2)}</div>
                   <div className={styles.countValue}>Total&nbsp;Purchases</div>
                 </div>
               </div>
