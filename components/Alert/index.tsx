@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 
 // next components
-import Image from 'next/image'
 
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
@@ -11,7 +10,6 @@ import Lottie from 'lottie-react'
 import { useViewport } from 'utils'
 
 // images
-import AlertErrorBlackRedIcon from 'assets/icons/alert-error-black-red.svg'
 import SuccessIcon from 'assets/lottery/success.json'
 import FailureIcon from 'assets/lottery/failure.json'
 import CloseIcon from 'assets/icons/close-black-icon.svg?component'
@@ -68,18 +66,20 @@ const Alert = props => {
                   <Dialog.Panel className="w-full">
                     <div className="w-full mb-[100px]">
                       <div className="w-full flex justify-center">
-                        {item.type === 'success' ? (
-                          <Lottie animationData={SuccessIcon} loop={true} />
-                        ) : (
-                          <Lottie
-                            animationData={FailureIcon}
-                            loop={true}
-                            style={{
-                              width: 100,
-                              height: 100,
-                            }}
-                          />
-                        )}
+                        <div className="w-[100px]">
+                          {item.type === 'success' ? (
+                            <Lottie animationData={SuccessIcon} loop={true} />
+                          ) : (
+                            <Lottie
+                              animationData={FailureIcon}
+                              loop={true}
+                              style={{
+                                width: 100,
+                                height: 100,
+                              }}
+                            />
+                          )}
+                        </div>
                       </div>
                       <div className="w-full flex justify-center mt-1 lg:mt-[15px]">
                         <div className={styles.title}>{item.title}</div>
