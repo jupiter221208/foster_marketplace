@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -20,10 +21,13 @@ import { getOrder, OrderData } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName } from 'utils/merch'
+import { getShortAddress } from 'utils/wallet.util'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
+  const { publicKey } = useWallet()
+  console.log(publicKey?.toBase58(), '=========publicKey========')
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -64,7 +68,6 @@ const MerchDetail = () => {
           method: order.payment_method,
           status: 'Complete',
           commission: order.artist_commission.toFixed(2),
-          paid: '6GTkpe4***3d3',
           shipping: order.shipping_amount.toFixed(2),
           tax: order.tax_amount.toFixed(2),
         }
@@ -158,7 +161,7 @@ const MerchDetail = () => {
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Paid&nbsp;by:&nbsp;{paymentDetails?.paid}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Paid&nbsp;by:&nbsp;{getShortAddress(publicKey)}</div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
             </div>
@@ -253,7 +256,7 @@ const MerchDetail = () => {
           <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
           <div className={styles.detailValue}>Payment&nbsp;Status:&nbsp;{paymentDetails?.status}</div>
           <div className={styles.detailValue}>Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}</div>
-          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{paymentDetails?.paid}</div>
+          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(publicKey)}</div>
           <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
           <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
         </div>
