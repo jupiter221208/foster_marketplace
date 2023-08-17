@@ -20,6 +20,7 @@ const OrderSection = props => {
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [coverUrl, setCoverUrl] = useState('')
+  const [merchType, setMerchType] = useState('')
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
@@ -29,6 +30,9 @@ const OrderSection = props => {
   useEffect(() => {
     if (orderData) {
       let itemData = orderData?.ssorder.items[0]
+      console.log(itemData, '==========itemData========')
+      let type = findElement(itemData.options, 'name', 'type')['value']
+      setMerchType(type)
       setPreviewUrl(itemData.imageUrl)
       setCoverUrl(findElement(itemData.options, 'name', 'assetUrl')['value'])
     }
@@ -39,15 +43,25 @@ const OrderSection = props => {
       <div className={styles.container}>
         <div className="w-full grid grid-cols-2 gap-10">
           <div className="col-span-2 lg:col-span-1">
-            <div className={styles.blurBackground}>
-              <div className="absolute inset-0">
-                <img src={coverUrl} alt="" className="min-w-full min-h-full object-cover" />
+            {merchType === 'apparel' ? (
+              <div className={styles.blurBackground}>
+                <div className="absolute inset-0">
+                  <img src={coverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                </div>
+                <div className={styles.blurImage} />
+                <div className="absolute inset-x-20 z-11">
+                  <img src={previewUrl} alt="" className="min-w-full min-h-full object-cover" />
+                </div>
               </div>
-              <div className={styles.blurImage} />
-              <div className="absolute inset-x-20 z-11">
-                <img src={previewUrl} alt="" className="min-w-full min-h-full object-cover" />
+            ) : merchType === 'wallart' ? (
+              <div className={styles.blurBackground}>
+                <div className="absolute inset-0">
+                  <img src={previewUrl} alt="" className="w-full h-full object-cover" />
+                </div>
               </div>
-            </div>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="col-span-2 lg:col-span-1 z-10">
             <div className={styles.contentContainer}>
