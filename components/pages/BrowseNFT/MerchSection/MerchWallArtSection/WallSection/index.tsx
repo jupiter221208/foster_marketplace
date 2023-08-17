@@ -111,9 +111,7 @@ const WallSection = props => {
             format: 'png',
             quality: 1,
           })
-          console.log('========uploadApparelSection========')
           let imgUrl = await uploadApparelSection(imgDataString)
-          console.log(imgUrl, '========imgUrl========')
 
           dispatch({ type: 'set', printImageUrl: imgUrl })
           newCanvas.item(1).selectable = false

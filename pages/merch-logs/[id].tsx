@@ -27,7 +27,6 @@ const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
   const { publicKey } = useWallet()
-  console.log(publicKey?.toBase58(), '=========publicKey========')
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)

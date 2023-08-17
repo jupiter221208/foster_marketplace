@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 // styles
@@ -30,7 +29,6 @@ const OrderSection = props => {
   useEffect(() => {
     if (orderData) {
       let itemData = orderData?.ssorder.items[0]
-      console.log(itemData, '==========itemData========')
       let type = findElement(itemData.options, 'name', 'type')['value']
       setMerchType(type)
       setPreviewUrl(itemData.imageUrl)
