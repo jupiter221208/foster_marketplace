@@ -378,15 +378,7 @@ const MainSection = props => {
               </div>
             </div>
             <div className="flex justify-start w-full flex-wrap mt-[12px] z-10">
-              {data?.description && (
-                <span className={styles.description}>
-                  {data?.description}
-                  {/* {getShortDescription(viewport, data?.description) + ' '}
-            <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
-              Read&nbsp;more
-            </span> */}
-                </span>
-              )}
+              {data?.description && <span className={styles.description}>{data?.description}</span>}
             </div>
 
             <div className="w-full flex justify-center mt-[30px]">
@@ -414,20 +406,18 @@ const MainSection = props => {
                     <div className="text-center">
                       <div className="flex justify-center">
                         <div className="flex gap-2 items-center">
-                          {/* <Image src={SolanaLogoIcon} alt="" width={18} height={18} /> */}
                           <SolanaLogoMobileIcon />
 
                           <div className={styles.nftInfoLabelMobile}>{floorPrice > 0 ? floorPrice : 'N/A'}</div>
                         </div>
                       </div>
-                      <div className={styles.nftInfoValueMobile}>FLOOR PRICE</div>
+                      <div className={styles.nftInfoValueMobile}>Floor Price</div>
                     </div>
                   </div>
                   <div className={styles.statsArea}>
                     <div className="text-center">
                       <div className="flex items-center justify-center">
                         <div className="flex gap-2 items-center">
-                          {/* <Image src={SolanaLogoIcon} alt="" width={18} /> */}
                           <SolanaLogoMobileIcon />
 
                           <div className={styles.nftInfoLabelMobile}>
@@ -436,7 +426,7 @@ const MainSection = props => {
                         </div>
                       </div>
 
-                      <div className={styles.nftInfoValueMobile}>TOTAL VOLUME</div>
+                      <div className={styles.nftInfoValueMobile}>Total Volume</div>
                     </div>
                   </div>
                 </div>
