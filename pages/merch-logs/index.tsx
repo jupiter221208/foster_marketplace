@@ -81,14 +81,6 @@ const MerchActivity = () => {
     MerchAPI.getAllOrder().then(
       response => {
         let orders = response.reverse()
-        let artistCommission = 0
-        let totalCommission = 0
-        orders.forEach(item => {
-          artistCommission += item.artist_commission
-          totalCommission += item.amount
-          let shares = item.seller_shares
-          shares.key
-        })
 
         const purchaseOrders = orders.filter(({ buyer_address }) => {
           return wallet === buyer_address
@@ -98,8 +90,18 @@ const MerchActivity = () => {
         setPurchases(purchaseOrders)
         setSales(salesOrders)
 
+        let artistCommission = 0
+        let totalCommission = 0
+        purchaseOrders.forEach(item => {
+          artistCommission += item.artist_commission
+          totalCommission += item.amount
+          let shares = item.seller_shares
+          shares.key
+        })
+
         setArtistCommission(artistCommission)
         setTotalCommission(totalCommission)
+
         dispatch({ type: 'set', isLoading: false })
         setIsLoadingData(false)
       },
