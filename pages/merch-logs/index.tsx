@@ -83,10 +83,12 @@ const MerchActivity = () => {
         let orders = response.sort(function (a, b) {
           return b.id - a.id
         })
-        const purchaseOrders = orders.filter(({ buyer_address }) => {
-          return wallet === buyer_address
+        const purchaseOrders = orders.filter(({ buyer_address, transaction_id }) => {
+          return wallet === buyer_address && transaction_id != null
         })
-        const salesOrders = orders.filter(({ seller_shares }) => wallet in seller_shares)
+        const salesOrders = orders.filter(({ seller_shares, transaction_id }) => {
+          return wallet in seller_shares && transaction_id != null
+        })
 
         setPurchases(purchaseOrders)
         setSales(salesOrders)
