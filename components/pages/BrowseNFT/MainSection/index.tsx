@@ -740,7 +740,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                           if (play) setPlay(false)
                         }}
                         dangerouslySetInnerHTML={{
-                          __html: `<video autoplay loop webkit-playsinline playsinline class="max-w-full max-h-full object-cover overflow-hidden">
+                          __html: `<video autoplay loop webkit-playsinline playsinline class="w-full h-full object-cover overflow-hidden">
                       <source src=${nftAssetUrl} type="video/mp4" /></video>`,
                         }}
                       />
