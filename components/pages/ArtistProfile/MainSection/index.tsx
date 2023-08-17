@@ -351,9 +351,9 @@ const MainSection = prop => {
               />
             </div>
             {!isOwn && (
-              <div className="w-[146px] h-[53px] lg:ml-[24px] overflow-hidden">
+              <div className="w-[100px] h-[45px] lg:ml-[10px] overflow-hidden">
                 {!followLoaded && (
-                  <div className="w-[146px] h-[53px] overflow-hidden rounded-[12px]">
+                  <div className="w-[100px] h-[45px] overflow-hidden rounded-[12px]">
                     <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={followLoaded} color="#202427">
                       <div></div>
                     </ReactPlaceholder>
@@ -361,8 +361,8 @@ const MainSection = prop => {
                 )}
                 {follow ? (
                   <OutlineButton
-                    width={146}
-                    height={53}
+                    width={100}
+                    height={45}
                     label="Following"
                     fontSize={18}
                     borderColor="var(--follow-btn-border-mobile)"
@@ -371,8 +371,8 @@ const MainSection = prop => {
                   />
                 ) : (
                   <GradientButton
-                    width={146}
-                    height={53}
+                    width={100}
+                    height={45}
                     fontSize={18}
                     label="Follow"
                     onClick={() => followArtist(artistInfo?.wallet_id)}
