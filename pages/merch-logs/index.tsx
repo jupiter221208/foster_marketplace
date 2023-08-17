@@ -93,9 +93,7 @@ const MerchActivity = () => {
         const purchaseOrders = orders.filter(({ buyer_address }) => {
           return wallet === buyer_address
         })
-        console.log(purchaseOrders, '==========purchaseOrders========')
         const salesOrders = orders.filter(({ seller_shares }) => wallet in seller_shares)
-        console.log(salesOrders, '==========salesOrders========')
 
         setPurchases(purchaseOrders)
         setSales(salesOrders)
