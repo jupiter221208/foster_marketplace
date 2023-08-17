@@ -25,7 +25,7 @@ const MerchActivityTable = props => {
       <thead>
         <tr className={styles.tableHeader}>
           <th className="w-[15%] text-start">
-            <div className="ml-3">Order Item</div>
+            <div className="ml-3">Order Number</div>
           </th>
           <th>Amount</th>
           <th>Transaction ID</th>

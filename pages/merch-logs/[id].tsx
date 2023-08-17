@@ -17,16 +17,16 @@ import styles from './id.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // api
+import MerchAPI from 'apis/merch'
 import { getOrder, OrderData } from 'apis/merch'
 import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName } from 'utils/merch'
-import { getShortAddress } from 'utils/wallet.util'
+import { getShortAddress } from 'utils/strings'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
-  const { publicKey } = useWallet()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -34,6 +34,7 @@ const MerchDetail = () => {
   const [itemDetails, setItemDetails] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
+  const [paidBy, setPaidBy] = useState('')
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -43,6 +44,16 @@ const MerchDetail = () => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     if (isLoggedIn()) {
       getOrder(id).then(setOrderData)
+      MerchAPI.getAllOrder().then(
+        response => {
+          let orders = response.filter(item => item.id.toString() === id)
+          if (orders.length > 0) {
+            let order = orders[0]
+            setPaidBy(order.buyer_address)
+          }
+        },
+        error => {}
+      )
     }
   }, [id])
 
@@ -143,7 +154,7 @@ const MerchDetail = () => {
           </div>
         </div>
         <div className="w-full flex justify-between mt-[70px]">
-          <div className="max-w-[183px] max-h-[183px] object-cover">
+          <div className="w-[183px] h-[183px] object-cover">
             <img src={previewUrl} alt="" />
           </div>
           <div>
@@ -160,7 +171,7 @@ const MerchDetail = () => {
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Paid&nbsp;by:&nbsp;{getShortAddress(publicKey)}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>Paid&nbsp;by:&nbsp;{getShortAddress(paidBy)}</div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
             </div>
@@ -240,7 +251,7 @@ const MerchDetail = () => {
           </div>
         </div>
         <div className="w-full flex justify-center mt-[30px]">
-          <div className="max-w-[183px] max-h-[183px] object-cover">
+          <div className="w-[183px] h-auto object-cover">
             <img src={previewUrl} alt="" />
           </div>
         </div>
@@ -255,7 +266,7 @@ const MerchDetail = () => {
           <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
           <div className={styles.detailValue}>Payment&nbsp;Status:&nbsp;{paymentDetails?.status}</div>
           <div className={styles.detailValue}>Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}</div>
-          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(publicKey)}</div>
+          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paidBy)}</div>
           <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
           <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
         </div>

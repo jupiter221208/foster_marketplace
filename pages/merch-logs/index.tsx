@@ -80,8 +80,9 @@ const MerchActivity = () => {
   const getAllOrder = wallet => {
     MerchAPI.getAllOrder().then(
       response => {
-        let orders = response.reverse()
-
+        let orders = response.sort(function (a, b) {
+          return b.id - a.id
+        })
         const purchaseOrders = orders.filter(({ buyer_address }) => {
           return wallet === buyer_address
         })
@@ -92,11 +93,12 @@ const MerchActivity = () => {
 
         let artistCommission = 0
         let totalCommission = 0
-        purchaseOrders.forEach(item => {
+        salesOrders.forEach(item => {
           artistCommission += item.artist_commission
+        })
+
+        purchaseOrders.forEach(item => {
           totalCommission += item.amount
-          let shares = item.seller_shares
-          shares.key
         })
 
         setArtistCommission(artistCommission)
@@ -143,7 +145,7 @@ const MerchActivity = () => {
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
-                  <div className={styles.countValue}>Artist&nbsp;Commissions</div>
+                  <div className={styles.countValue}>Total&nbsp;Commissions</div>
                 </div>
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${totalCommission.toFixed(2)}</div>
@@ -157,13 +159,13 @@ const MerchActivity = () => {
               <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">
-                    <div className={styles.countLabel}>$800.32</div>
+                    <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
                     <div className={styles.countValue}>ARTIST&nbsp;COMISSIONS</div>
                   </div>
                 </div>
                 <div className={styles.countBG}>
                   <div className="w-full">
-                    <div className={styles.countLabel}>$800.32</div>
+                    <div className={styles.countLabel}>${totalCommission.toFixed(2)}</div>
                     <div className={styles.countValue}>TOTAL&nbsp;PURCHASES</div>
                   </div>
                 </div>
