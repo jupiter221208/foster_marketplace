@@ -23,7 +23,7 @@ import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
 
 const ApparelActivity = props => {
-  const { avtivities, type } = props
+  const { avtivities, type, isLoading } = props
   const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
@@ -33,21 +33,21 @@ const ApparelActivity = props => {
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
   const [period, setPeriod] = useState('all')
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(isLoading)
   const [searchLoading, setSearchLoading] = useState(false)
-
   useEffect(() => {}, [])
 
   useEffect(() => {
-    if (avtivities.length > 0) {
+    setLoading(isLoading)
+    if (isLoading === false) {
+      setList(avtivities)
+      setTotalCount(12)
       setTimeout(() => {
         setLoading(false)
-        setList(avtivities)
-        setTotalCount(12)
         setIsMounted(true)
       }, 1000)
     }
-  }, [avtivities])
+  }, [isLoading, avtivities])
 
   useEffect(() => {
     if (!isMounted) return
@@ -90,7 +90,7 @@ const ApparelActivity = props => {
         </div>
       )}
 
-      {!loading && (
+      {!loading && list.length > 0 && (
         <SearchSection
           placeholder={'Search'}
           searchWord={searchWord}

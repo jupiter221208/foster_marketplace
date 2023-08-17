@@ -56,7 +56,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
   const [isLoad, setIsLoad] = useState(false)
-  const [showAlert, setShowAlert] = useState(true)
+  const [showAlert, setShowAlert] = useState(false)
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   total ??= orderData?.order.amount

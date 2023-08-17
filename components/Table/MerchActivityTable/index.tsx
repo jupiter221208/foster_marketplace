@@ -24,12 +24,12 @@ const MerchActivityTable = props => {
     <table id={'ArtworksTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
-          <th className="w-[30%] text-start">
+          <th className="w-[15%] text-start">
             <div className="ml-3">Order Item</div>
           </th>
           <th>Amount</th>
           <th>Transaction ID</th>
-          <th>Date</th>
+          {/* <th>Date</th> */}
           <th>{type === 'purchases' ? 'Creator' : 'Buyer'}</th>
           <th>Order Details</th>
         </tr>
@@ -39,7 +39,7 @@ const MerchActivityTable = props => {
           return (
             <tr key={index}>
               <td className="text-start">
-                <div className="ml-3">Short Sleeve: Mens / Unisex - Standard</div>
+                <div className="ml-3">{item.id}</div>
               </td>
               <td className="text-center">
                 <div className={`flex justify-center items-center gap-[5px]`}>
@@ -48,8 +48,8 @@ const MerchActivityTable = props => {
                 </div>
               </td>
               <td className="text-center">{getSliceAddress(item.transaction_id)}</td>
-              <td className="text-center">{'08/16/2023'}</td>
-              <td className="text-center">{'Buyer'}</td>
+              {/* <td className="text-center">{'08/16/2023'}</td> */}
+              <td className="text-center">{getSliceAddress(item.buyer_address)}</td>
               <td
                 className={styles.viewOrder}
                 onClick={() => {

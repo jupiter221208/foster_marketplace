@@ -12,6 +12,7 @@ import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
@@ -29,6 +30,7 @@ import HouseStatsTab from 'components/Tab/HouseStatsTab'
 
 const MerchActivity = () => {
   const viewport = useViewport()
+  const { connected, publicKey, signMessage } = useWallet()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -38,11 +40,24 @@ const MerchActivity = () => {
   const [sales, setSales] = useState([])
   const [artistCommission, setArtistCommission] = useState(0)
   const [totalCommission, setTotalCommission] = useState(0)
+  const [isLoadingData, setIsLoadingData] = useState(true)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
-    getAllOrder()
+    if (!connected) {
+      setTimeout(() => {
+        dispatch({ type: 'set', isLoading: false })
+        setIsLoadingData(false)
+      }, 1000)
+    }
   }, [])
+
+  useEffect(() => {
+    if (publicKey) {
+      let wallet = publicKey.toBase58()
+      getAllOrder(wallet)
+    }
+  }, [publicKey])
 
   useEffect(() => {
     let array: any[] = []
@@ -62,7 +77,7 @@ const MerchActivity = () => {
     if (item.id != 4) setActiveTab(item.id)
   }
 
-  const getAllOrder = () => {
+  const getAllOrder = wallet => {
     MerchAPI.getAllOrder().then(
       response => {
         let orders = response.reverse()
@@ -71,12 +86,24 @@ const MerchActivity = () => {
         orders.forEach(item => {
           artistCommission += item.artist_commission
           totalCommission += item.amount
+          let shares = item.seller_shares
+          shares.key
         })
+
+        const purchaseOrders = orders.filter(({ buyer_address }) => {
+          return wallet === buyer_address
+        })
+        console.log(purchaseOrders, '==========purchaseOrders========')
+        const salesOrders = orders.filter(({ seller_shares }) => wallet in seller_shares)
+        console.log(salesOrders, '==========salesOrders========')
+
+        setPurchases(purchaseOrders)
+        setSales(salesOrders)
+
         setArtistCommission(artistCommission)
         setTotalCommission(totalCommission)
-        setPurchases(orders)
-        setSales(orders)
         dispatch({ type: 'set', isLoading: false })
+        setIsLoadingData(false)
       },
       error => {}
     )
@@ -153,12 +180,12 @@ const MerchActivity = () => {
           </div>
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={purchases} type="purchases" />
+              <ApparelActivity avtivities={purchases} type="purchases" isLoading={isLoadingData} />
             </div>
           )}
           {activeTab === 1 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={sales} type="sales" />
+              <ApparelActivity avtivities={sales} type="sales" isLoading={isLoadingData} />
             </div>
           )}
         </div>

@@ -74,13 +74,13 @@ const ArtworksAccordion = props => {
                     <div className={styles.title}>Transaction ID</div>
                     <div className={styles.text}>{getSliceAddress(item.transaction_id)}</div>
                   </div>
-                  <div className={styles.secondRow}>
+                  {/* <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Date</div>
                     <div className={styles.secondText}>{'08/16/2023'}</div>
-                  </div>
-                  <div className={styles.firstRow}>
+                  </div> */}
+                  <div className={styles.secondRow}>
                     <div className={styles.title}>{type === 'purchases' ? 'Creator' : 'Buyer'}</div>
-                    <div className={styles.text}>{'E03x34***334'}</div>
+                    <div className={styles.text}>{getSliceAddress(item.buyer_address)}</div>
                   </div>
                   <div className={styles.thirdRow}>
                     <OutlineButton
