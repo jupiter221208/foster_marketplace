@@ -128,9 +128,9 @@ const MobileMenu = () => {
               type="avatar"
               data={profileMenuList}
             />
+            <MyWalletSubMenu label="My Wallet" type="" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
-            <MyWalletSubMenu label="My Wallet" type="" />
             {/* <AccordionMenu label="Dashboard" type="dashboard" data={[]} path="/dashboard" /> */}
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
