@@ -19,3 +19,11 @@
   }
   cursor: pointer;
 }
+
+.transactionId {
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}

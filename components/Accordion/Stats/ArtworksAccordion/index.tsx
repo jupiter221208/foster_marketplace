@@ -17,6 +17,8 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import OutlineButton from 'components/Button/OutlineButton'
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
 
 const ArtworksAccordion = props => {
   const { data, type } = props
@@ -25,6 +27,7 @@ const ArtworksAccordion = props => {
   const router = useRouter()
   const buttonRefs = useRef<any>([])
   const openedRef = useRef<any | null>(null)
+  const { connection } = useConnection()
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -72,7 +75,12 @@ const ArtworksAccordion = props => {
                 <Disclosure.Panel className={styles.panel}>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Transaction ID</div>
-                    <div className={styles.text}>{getSliceAddress(item.transaction_id)}</div>
+                    <div
+                      className={styles.text}
+                      onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id))}
+                    >
+                      {getSliceAddress(item.transaction_id)}
+                    </div>
                   </div>
                   {/* <div className={styles.secondRow}>
                     <div className={styles.secondTitle}>Date</div>

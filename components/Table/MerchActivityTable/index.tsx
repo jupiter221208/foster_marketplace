@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 // next components
 import Link from 'next/link'
@@ -13,11 +13,14 @@ import { getLocalDateWithoutTime, getSliceAddress } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
+import { getExplorerUrl } from 'utils/explorer'
+import { useConnection } from '@solana/wallet-adapter-react'
 
 const MerchActivityTable = props => {
   const { data, type } = props
   const dispatch = useDispatch()
   const router = useRouter()
+  const { connection } = useConnection()
   const { solToUsdRate } = useSolToUsdRate()
 
   return (
@@ -47,7 +50,12 @@ const MerchActivityTable = props => {
                   {(item.amount / solToUsdRate).toFixed(2)}
                 </div>
               </td>
-              <td className="text-center">{getSliceAddress(item.transaction_id)}</td>
+              <td
+                className={styles.transactionId}
+                onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id))}
+              >
+                {getSliceAddress(item.transaction_id)}
+              </td>
               {/* <td className="text-center">{'08/16/2023'}</td> */}
               <td className="text-center">{getSliceAddress(item.buyer_address)}</td>
               <td
