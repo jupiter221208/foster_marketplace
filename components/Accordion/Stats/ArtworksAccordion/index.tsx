@@ -77,7 +77,7 @@ const ArtworksAccordion = props => {
                     <div className={styles.title}>Transaction ID</div>
                     <div
                       className={styles.text}
-                      onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id))}
+                      onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id, 'tx'))}
                     >
                       {getSliceAddress(item.transaction_id)}
                     </div>

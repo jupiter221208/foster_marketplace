@@ -52,7 +52,7 @@ const MerchActivityTable = props => {
               </td>
               <td
                 className={styles.transactionId}
-                onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id))}
+                onClick={() => window.open(getExplorerUrl(connection.rpcEndpoint, item.transaction_id, 'tx'))}
               >
                 {getSliceAddress(item.transaction_id)}
               </td>
