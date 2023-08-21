@@ -10,7 +10,7 @@ import uploadFileToS3 from 'apis/aws'
 import { dataURLtoFile } from 'utils/helpers'
 
 const ApparelSection = props => {
-  const { nftName, apparel, nftCoverUrl, finishEditing } = props
+  const { canvasId, nftName, apparel, nftCoverUrl, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
   const viewport = useViewport()
@@ -72,7 +72,7 @@ const ApparelSection = props => {
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
-      newCanvas = new fabric.Canvas('canvas')
+      newCanvas = new fabric.Canvas(canvasId)
     } else {
       newCanvas.clear()
       newCanvas.renderAll()
@@ -80,7 +80,7 @@ const ApparelSection = props => {
 
     let screenWidth = window.innerWidth * 0.3
     if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
-      screenWidth = window.innerWidth * 0.85
+      screenWidth = window.innerWidth * 0.85 - 32
     }
     newCanvas.setDimensions({
       width: screenWidth,
@@ -145,7 +145,7 @@ const ApparelSection = props => {
 
   return (
     <div className={styles.container}>
-      <canvas id="canvas" />
+      <canvas id={canvasId} />
       {loader && (
         <div className="w-full absolute">
           <div className="w-full flex justify-center">

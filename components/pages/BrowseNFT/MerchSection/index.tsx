@@ -28,7 +28,7 @@ const MerchSection = props => {
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-10">
         {showApparelMode ? (
-          <div className="col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1 lg:flex hidden">
             <div className={styles.blurBackground}>
               <div className="absolute inset-0">
                 <img src={data?.nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
@@ -36,6 +36,7 @@ const MerchSection = props => {
               <div className={styles.blurImage} />
 
               <ApparelSection
+                canvasId="canvas"
                 nftName={data?.nftName}
                 apparel={apparel}
                 nftCoverUrl={data?.nftCoverUrl}

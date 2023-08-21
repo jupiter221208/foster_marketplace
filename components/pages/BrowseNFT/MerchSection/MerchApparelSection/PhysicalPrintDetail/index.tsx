@@ -25,11 +25,12 @@ import Selection from 'components/Selection'
 import SelectionColor from 'components/SelectionColor'
 import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
+import ApparelSection from '../ApparelSection'
 
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName, subCategory } = props
+  const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory } = props
   const viewport = useViewport()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState({ name: '' })
@@ -42,6 +43,7 @@ const PhysicalPrintDetail = props => {
   const [apparelType, setApparelType] = useState(ApparelType)
   const [qualityType, setQualityType] = useState(QualityType)
   const [cost, setCost] = useState('----')
+  const [previewApparel, setPreviewApparel] = useState('')
 
   useEffect(() => {
     if (data !== null) {
@@ -78,6 +80,7 @@ const PhysicalPrintDetail = props => {
         setPrint({ name: '', type: '' })
         setCost('----')
         onPrint('')
+        setPreviewApparel('')
         setColor({ name: '', type: '' })
       }
     } else {
@@ -126,16 +129,20 @@ const PhysicalPrintDetail = props => {
       if (apparel[gender.type].hasOwnProperty(quality.type)) {
         if (apparel[gender.type][quality.type].hasOwnProperty(color.type)) {
           onPrint(apparel[gender.type][quality.type][color.type].image[print.type])
+          setPreviewApparel(apparel[gender.type][quality.type][color.type].image[print.type])
           let cost = apparel[gender.type][quality.type][color.type].cost
           setCost((cost * quantity).toFixed(2))
         } else {
           onPrint('')
+          setPreviewApparel('')
         }
       } else {
         onPrint('')
+        setPreviewApparel('')
       }
     } else {
       onPrint('')
+      setPreviewApparel('')
     }
 
     if (!size.hasOwnProperty('id')) {
@@ -148,7 +155,7 @@ const PhysicalPrintDetail = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[20px] items-center">
+      <div className="flex gap-[15px] lg:mt-[20px] mt-[0px] items-center">
         <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
@@ -160,8 +167,9 @@ const PhysicalPrintDetail = props => {
         <div className={styles.selecteCategory}>{nftName} - Apparel</div>
       </div>
       <div className={styles.description}>
-        Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Our
-        creator merch hub is simple to use and gives you the tools to foster your creative flavor.
+        {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
+          ? 'Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Our creator merch hub is simple to use and gives you the tools to foster your creative flavor.'
+          : 'Customize your apparel by selecting the base, color, placement, quality, and size.'}
       </div>
       <div className="w-full mt-[30px] lg:mt-[40px]">
         <Selection label="GENDER:" data={GenderType} selected={gender?.name} onSelect={item => setGender(item)} />
@@ -203,6 +211,17 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
       </div>
+      <div className={styles.apparelBG}>
+        <div className="absolute inset-0 w-full h-full"></div>
+        <ApparelSection
+          canvasId="canvas-mobile"
+          nftName={nftName}
+          apparel={previewApparel}
+          nftCoverUrl={nftCoverUrl}
+          finishEditing={false}
+        />
+      </div>
+
       <div className="w-full mt-[30px] flex gap-[30px]">
         <GradientButton
           disabled={!enabled}

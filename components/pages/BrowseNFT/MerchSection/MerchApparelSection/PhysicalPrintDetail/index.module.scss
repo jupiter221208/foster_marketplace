@@ -56,7 +56,7 @@
 }
 
 .description {
-  margin-top: 30px;
+  margin-top: 15px;
   @media (min-width: 1024px) {
     margin-top: 20px;
   }
@@ -118,4 +118,18 @@
     margin-left: 40px;
   }
   background: $brand-05-color;
+}
+
+.apparelBG {
+  width: 100%;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 27px;
+  z-index: 1;
+  position: relative;
 }

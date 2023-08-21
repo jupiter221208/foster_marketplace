@@ -34,7 +34,7 @@ const MerchApparelSection = props => {
   const [totalCost, setTotalCost] = useState(null)
   return (
     <section className={styles.container}>
-      <div className="w-full mb-[45px]">
+      <div className="w-full mb-[45px] lg:flex hidden">
         <MerchStepper currentStep={currentStep} />
       </div>
       {openPrintDetail ? (
@@ -59,6 +59,7 @@ const MerchApparelSection = props => {
           subCategory={subCategory}
           setData={data => setPrintData(data)}
           nftName={nftName}
+          nftCoverUrl={nftCoverUrl}
         />
       ) : openShippingDetail ? (
         <PhysicalShipping
