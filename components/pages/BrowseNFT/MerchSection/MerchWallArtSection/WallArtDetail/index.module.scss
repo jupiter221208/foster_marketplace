@@ -2,9 +2,10 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - 250px);
+  height: auto;
   position: relative;
   @media (min-width: 1024px) {
+    height: calc(100vh - 250px);
   }
 }
 
@@ -121,4 +122,19 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 18px;
+}
+
+.wallartBG {
+  width: 100%;
+  min-height: 375px;
+  @media (min-width: 1024px) {
+    height: calc(100vh - 100px - 60px);
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 27px;
+  z-index: 1;
+  position: relative;
 }

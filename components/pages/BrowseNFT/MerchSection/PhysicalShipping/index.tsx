@@ -53,6 +53,13 @@ const PhysicalShipping = props => {
   ]
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [])
+
+  useEffect(() => {
     if (shipping) {
       setEmail(shipping.email)
       setCountry(shipping.country)

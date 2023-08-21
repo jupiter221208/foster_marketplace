@@ -44,7 +44,7 @@ const PhysicalPrintDetail = props => {
   const [qualityType, setQualityType] = useState(QualityType)
   const [cost, setCost] = useState('----')
   const [previewApparel, setPreviewApparel] = useState('')
-
+  const [finishEditing, setFinishEditing] = useState(false)
   useEffect(() => {
     if (data !== null) {
       setGender(data.gender)
@@ -218,7 +218,7 @@ const PhysicalPrintDetail = props => {
           nftName={nftName}
           apparel={previewApparel}
           nftCoverUrl={nftCoverUrl}
-          finishEditing={false}
+          finishEditing={finishEditing}
         />
       </div>
 
@@ -232,6 +232,7 @@ const PhysicalPrintDetail = props => {
           onClick={() => {
             let data = { apparel, gender, color, print, quality, size, quantity, cost }
             onShipping(data)
+            setFinishEditing(true)
           }}
         />
       </div>

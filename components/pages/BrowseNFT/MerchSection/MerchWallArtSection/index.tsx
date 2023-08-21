@@ -38,16 +38,22 @@ const MerchWallArtSection = props => {
   const [openPrintDetail, setOpenPrintDetail] = useState(open)
   const [openShippingDetail, setOpenShippingDetail] = useState(false)
   const [openShippingMethod, setOpenShippingMethod] = useState(false)
-  const [openCheckoutView, setOpenCheckoutView] = useState(false)
   const [printData, setPrintData] = useState(null)
   const [shippingData, setShippingData] = useState(null)
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [totalCost, setTotalCost] = useState(null)
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [])
+
   return (
     <section className={styles.container}>
-      <div className="w-full px-[20px] mb-[45px]">
+      <div className="w-full px-[20px] mb-[45px] lg:flex hidden">
         <MerchStepper currentStep={currentStep} />
       </div>
       {openPrintDetail ? (

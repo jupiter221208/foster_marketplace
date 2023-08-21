@@ -23,6 +23,7 @@ import WalletTag from './WalletTag'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport } from 'utils'
+import WallSection from '../WallSection'
 
 // api
 
@@ -38,6 +39,8 @@ const WallArtDetail = props => {
   const [cost, setCost] = useState('----')
   const [openEditorModal, setOpenEditorModal] = useState(false)
   const [cropImage, setCropImage] = useState(null)
+  const [previewSection, setPreviewSection] = useState(null)
+  const [finishEditing, setFinishEditing] = useState(false)
 
   useEffect(() => {
     if (subCategory.length > 0) {
@@ -139,7 +142,7 @@ const WallArtDetail = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[20px] items-center">
+      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
@@ -151,8 +154,9 @@ const WallArtDetail = props => {
         <div className={styles.selecteCategory}>{nftName} - Wall Art</div>
       </div>
       <div className={styles.description}>
-        Purchasing physical prints is an excellent way to support your favorite artists. Our creator merch hub is simple
-        to use and provides the tools you need to take your creative flavor from wallets to walls.
+        {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
+          ? 'Purchasing physical prints is an excellent way to support your favorite artists. Our creator merch hub is simple to use and provides the tools you need to take your creative flavor from wallets to walls.'
+          : 'Customize your wall art by selecting the material, orientation, and size.'}
       </div>
 
       <div className="w-full mt-[60px]">
@@ -184,18 +188,58 @@ const WallArtDetail = props => {
         </div>
       </div>
 
-      <div className="absolute bottom-[60px] w-full">
-        {/* <div className="w-full flex">
-          <div className={styles.quantity}>QUANTITY:</div>
-          <input
-            value={quantity}
-            type="number"
-            min="0"
-            placeholder="0"
-            className={styles.inputArea}
-            onChange={event => setQuantity(parseInt(event.target.value))}
+      <div className="lg:hidden block">
+        <div className="w-full mt-[25px] flex">
+          <div className={styles.subTotal}>Subtotal:</div>
+          <div className="flex ml-[20px] items-center">
+            <div className={styles.price}>$ {cost === '----' ? '----' : (parseFloat(cost) * quantity).toFixed(2)}</div>
+            <div className={styles.separator}></div>
+            <div className="flex gap-[10px] items-center">
+              <SolanaLogoIcon alt="" />
+              <div className={styles.price}>
+                {cost === '----' ? '----' : ((parseFloat(cost) * quantity) / 14.7).toFixed(2)}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.wallartBG}>
+          <div className="absolute inset-0 w-full h-full"></div>
+          <WallSection
+            canvasId="wallart-mobile"
+            nftName={nftName}
+            wallArt={previewSection}
+            finishEditing={finishEditing}
           />
-        </div> */}
+        </div>
+        <div className="w-full mt-[30px] flex gap-[30px]">
+          <SecondaryButton
+            backgroundColor="transparent"
+            label="Generate Preview"
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 18}
+            color={enabled ? '#eff0f6' : '#818181'}
+            borderColor={'#202427'}
+            onClick={() => setOpenEditorModal(true)}
+          />
+          <GradientButton
+            disabled={!enabled}
+            label="Next"
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+            fullWidth
+            onClick={() => {
+              if (cropImage === null) {
+                setOpenEditorModal(true)
+              } else {
+                moveShippingPage()
+              }
+            }}
+          />
+        </div>
+      </div>
+
+      <div className="absolute bottom-[60px] w-full lg:flex hidden">
         <div className="w-full mt-[25px] flex">
           <div className={styles.subTotal}>Subtotal:</div>
           <div className="flex ml-[20px] items-center">
@@ -244,7 +288,10 @@ const WallArtDetail = props => {
         getCroppedImage={croppedImage => {
           setCropImage(croppedImage)
           setOpenEditorModal(false)
-          onPrint({ art: croppedImage, wall: print.image, size: size })
+          let image = { art: croppedImage, wall: print.image, size: size }
+          onPrint(image)
+          setPreviewSection(image)
+          setFinishEditing(true)
         }}
         dimension={{ value: [1080, (1080 * size.height) / size.width] }}
       />

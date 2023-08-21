@@ -45,7 +45,7 @@ const MerchSection = props => {
             </div>
           </div>
         ) : showWallArtMode ? (
-          <div className="col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1 lg:flex hidden">
             <div className={styles.blurBackground}>
               {!wallArt && (
                 <div className="absolute inset-0">
@@ -54,7 +54,7 @@ const MerchSection = props => {
               )}
               <div className={styles.blurImage} />
 
-              <WallSection nftName={data?.nftName} wallArt={wallArt} finishEditing={finishEditing} />
+              <WallSection canvasId="wallart" nftName={data?.nftName} wallArt={wallArt} finishEditing={finishEditing} />
             </div>
           </div>
         ) : (

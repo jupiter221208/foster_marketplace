@@ -12,7 +12,7 @@ import styles from './index.module.scss'
 // api
 
 const WallSection = props => {
-  const { nftName, wallArt, finishEditing } = props
+  const { canvasId, nftName, wallArt, finishEditing } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [canvas, setCanvas] = useState('')
@@ -148,7 +148,7 @@ const WallSection = props => {
   const drawApparel = () => {
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
-      newCanvas = new fabric.Canvas('canvas')
+      newCanvas = new fabric.Canvas(canvasId)
       setCanvas(newCanvas)
     } else {
       newCanvas.clear().renderAll()
@@ -230,7 +230,7 @@ const WallSection = props => {
 
   return (
     <div className={styles.container}>
-      <canvas id="canvas" />
+      <canvas id={canvasId} />
       {loader && (
         <div className="w-full h-full top-0 absolute flex justify-center items-center">
           <div className="w-full">

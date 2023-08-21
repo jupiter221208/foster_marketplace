@@ -63,7 +63,7 @@ const OrderSection = props => {
           </div>
           <div className="col-span-2 lg:col-span-1 z-10">
             <div className={styles.contentContainer}>
-              <div className="w-full mb-[45px]">
+              <div className="w-full mb-[45px] lg:flex hidden">
                 <MerchStepper currentStep={3} />
               </div>
               {orderData && (
