@@ -118,7 +118,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
 
   let nftDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
+    'Home to creators, collectors, and curators around the world.\n' +
+    'Pushing the boundaries of digital art on Solana.'
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreen, setFullScreen] = useState(false)
