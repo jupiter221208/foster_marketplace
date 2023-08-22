@@ -224,9 +224,9 @@ const WallArtDetail = props => {
             fullWidth
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 18}
-            color={enabled ? '#eff0f6' : '#818181'}
-            borderColor={'#202427'}
-            onClick={() => setOpenEditorModal(true)}
+            color={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
+            borderColor={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
+            onClick={() => enabled && setOpenEditorModal(true)}
           />
           <GradientButton
             disabled={!enabled}

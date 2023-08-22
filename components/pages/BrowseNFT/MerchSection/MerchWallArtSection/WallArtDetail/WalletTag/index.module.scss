@@ -11,8 +11,10 @@
 
 .selected {
   border: 1px solid var(--main-icon-color);
+  color: var(--text-gray-200-color);
 }
 
 .normal {
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  color: var(--text-gray-200-color);
 }
