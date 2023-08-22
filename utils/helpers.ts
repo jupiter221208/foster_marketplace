@@ -618,7 +618,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--mobile-serach-area-bg', '#313233')
     doc.style.setProperty('--modal-close-btn-bg', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--auction-input-bg', '#202427')
-    doc.style.setProperty('--see-more-border', '#ffffff')
+    doc.style.setProperty('--see-more-border', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--follow-btn-border', '#95dbd5')
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--artist-card-bg', 'rgba(32, 36, 39, 0.7)')
