@@ -33,6 +33,7 @@ const MerchDetail = () => {
   const [orderDetails, setOrderDetails] = useState(null)
   const [itemDetails, setItemDetails] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
+  const [trackingDetails, setTrackingDetails] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
 
@@ -100,6 +101,7 @@ const MerchDetail = () => {
         setOrderDetails(orderDetails)
       }
 
+      setTrackingDetails(orderData?.fulfillment)
       setPreviewUrl(itemData.imageUrl)
     }
   }, [orderData])
@@ -149,8 +151,10 @@ const MerchDetail = () => {
             <div className={styles.infoValue}>{orderDetails?.service}</div>
           </div>
           <div>
-            <div className={styles.infoTitle}>ESTIMATED DELIVERY DATE</div>
-            <div className={styles.infoValue}>{orderDetails?.delivery}</div>
+            <div className={styles.infoTitle}>TRACKING NUMBER</div>
+            <div className={`${styles.infoValue} text-right`}>
+              {trackingDetails === null ? 'Not Available' : trackingDetails?.delivery}
+            </div>
           </div>
         </div>
         <div className="w-full flex justify-between mt-[70px]">
@@ -246,8 +250,10 @@ const MerchDetail = () => {
           </div>
 
           <div className="w-full mt-[15px]">
-            <div className={styles.infoTitle}>Estimated Delivery Date</div>
-            <div className={styles.infoValue}>{orderDetails?.delivery}</div>
+            <div className={styles.infoTitle}>Tracking Number</div>
+            <div className={styles.infoValue}>
+              {trackingDetails === null ? 'Not Available' : trackingDetails?.delivery}
+            </div>
           </div>
         </div>
         <div className="w-full flex justify-center mt-[30px]">

@@ -75,6 +75,13 @@ export interface ShipStationOrderItemOption {
   value: string
 }
 
+export interface TrackingItem {
+  tracking_number: string
+  delivery_date: string
+  fulfillment_service_code: string
+  fulfillment_provider_code: string
+}
+
 export interface OrderData {
   order: {
     id: number
@@ -89,6 +96,7 @@ export interface OrderData {
     shipping_amount: number
   }
   ssorder: ShipStationOrder
+  fulfillment?: TrackingItem
 }
 
 export function prepareCart(data) {
