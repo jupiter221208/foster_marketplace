@@ -526,7 +526,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-artist', '#95dbd5')
     doc.style.setProperty('--dropdown-bg-color', 'rgba(14, 14, 14, 0.8)')
     doc.style.setProperty('--dropdown-border-color', 'rgba(239, 240, 247, 0.1)')
-    doc.style.setProperty('--dropdown-menu-bg', '#202427')
+    doc.style.setProperty('--dropdown-menu-bg', '#2B2B2B')
     doc.style.setProperty('--dropdown-menu-hover-color', '')
     doc.style.setProperty('--dropdown-menu-hover-border', '')
     doc.style.setProperty('--wallet-green-text', '#95dbd5')
