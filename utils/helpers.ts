@@ -768,6 +768,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
-    doc.style.setProperty('--fade-loader-color', '#636DC0')
+    doc.style.setProperty('--fade-loader-color', '#63D6CD')
   }
 }
