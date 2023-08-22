@@ -560,7 +560,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--alpha-area-border', '#95dbd5')
     doc.style.setProperty('--alpha-area-bg', 'transparent')
-    doc.style.setProperty('--profile-menu-item-bg', '#202427')
+    doc.style.setProperty('--profile-menu-item-bg', '#2b2b2b')
     doc.style.setProperty('--profile-menu-item-border', '#5ac3ba')
     doc.style.setProperty('--profile-menu-item-color', '#eff0f6')
     doc.style.setProperty('--follow-box-shadow', '#95dbd5')
