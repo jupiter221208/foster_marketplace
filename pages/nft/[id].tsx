@@ -63,6 +63,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const [showLoading, setShowLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(
@@ -75,6 +76,10 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     )
     dispatch({ type: 'set', isLoading: true })
   }, [])
+
+  useEffect(() => {
+    if (isLoading === false) setShowLoading(false)
+  }, [isLoading])
 
   useEffect(() => {
     if (!nftDetail) return
@@ -118,7 +123,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   let nftImageUrl = getAbsoluteOgUrl(nftDetail?.json?.image ?? DefaultNftBG.src)
 
   let nftDescription =
-    "Solana's first DAO governed NFT marketplace for art and music.\n" + 'Create, collect and curate the flavor.\n'
+    'Home to creators, collectors, and curators around the world.\n' +
+    'Pushing the boundaries of digital art on Solana.'
 
   const [nftCoverUrl, setNftCoverUrl] = useState('')
   const [fullScreen, setFullScreen] = useState(false)
@@ -175,7 +181,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         <div className={styles.bottomLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className="z-10">
+        <div className="z-10 mb-[100px] lg:mb-[0px]">
           {nftDetail && (
             <MainSection
               nftDetail={nftDetail}
@@ -206,7 +212,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         </div>
       )}
 
-      <FullScreenLoadingModal open={isLoading} />
+      <FullScreenLoadingModal open={showLoading} />
     </div>
   )
 }

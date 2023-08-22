@@ -14,10 +14,13 @@ import WalletButton from 'components/Button/WalletButton'
 import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-small.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-small.svg?component'
+import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
+import DiscordLightGreenIcon from 'assets/icons/discord-light-green.svg?component'
+import TwitterLightGreenIcon from 'assets/icons/twitter-light-green.svg?component'
+import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
@@ -28,21 +31,18 @@ import CreateMenuList from 'assets/json/create-menu.json'
 import styles from './index.module.scss'
 
 // call apis
-import authAPI from 'apis/auth'
 import { useViewport } from 'utils'
 import { setColorTheme } from 'utils/helpers'
-import { loginWithSigned } from 'utils/auth'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { deleteCookie } from 'cookies-next'
+import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const viewport = useViewport()
-  const { connected, publicKey, disconnect, signMessage } = useWallet()
+  const { connected, disconnect } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
-  const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [showAlert, setShowAlert] = useState(false)
@@ -116,9 +116,6 @@ const MobileMenu = () => {
 
   return (
     <div className={styles.menu}>
-      <div className={styles.bgImage}>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-      </div>
       {connected ? (
         <div className={styles.container}>
           <div className="w-full flex flex-wrap gap-[10px]">
@@ -169,6 +166,79 @@ const MobileMenu = () => {
               </div>
             </div>
           </div>
+
+          <div className={styles.separator} />
+          <div className="w-full mt-[15px]">
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+                About
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
+                Whitepaper
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                Community
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+                Turkey Circus
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                Terms of Service
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+                Privacy Policy
+              </a>
+            </div>
+          </div>
+          <div className={styles.allRights}>2023 Foster © All Rights Reserved</div>
+          <div className="flex flex-wrap mt-[15px] gap-[18px] justify-start mb-[100px]">
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<InstagramLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<DiscordLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<TwitterLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<GithubLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+          </div>
           {/* connect wallet alert */}
           <Alert
             open={showAlert && loginSignedFlag}
@@ -194,6 +264,78 @@ const MobileMenu = () => {
           <div className="w-full flex items-end mt-5">
             <WalletButton fullWidth />
           </div>
+          <div className={styles.separator} />
+          <div className="w-full mt-[15px]">
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_ABOUT_US} rel="noopener noreferrer">
+                About
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_WHITEPAPER} rel="noopener noreferrer">
+                Whitepaper
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_COMMUNITY} rel="noopener noreferrer">
+                Community
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TURKEY_CIRCUS} rel="noopener noreferrer">
+                Turkey Circus
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TERMS_OF_USE} rel="noopener noreferrer">
+                Terms of Service
+              </a>
+            </div>
+            <div className={styles.footerText}>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_PRIVACY_POLICY} rel="noopener noreferrer">
+                Privacy Policy
+              </a>
+            </div>
+          </div>
+          <div className={styles.allRights}>2023 Foster © All Rights Reserved</div>
+          <div className="flex flex-wrap mt-[15px] gap-[18px] justify-start mb-[100px]">
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_INSTAGRAM_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<InstagramLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_DISCORD_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<DiscordLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_TWITTER_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<TwitterLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+            <div>
+              <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
+                <IconButtonWithSVG
+                  backgroundColor="var(--social-bg-color)"
+                  icon={<GithubLightGreenIcon />}
+                  onClick={() => {}}
+                />
+              </a>
+            </div>
+          </div>
           {/* disconnect wallet alert */}
           <Alert
             open={showAlert}
@@ -205,6 +347,7 @@ const MobileMenu = () => {
           />
         </div>
       )}
+
       <FullScreenLoadingModal open={isLoading} />
     </div>
   )
