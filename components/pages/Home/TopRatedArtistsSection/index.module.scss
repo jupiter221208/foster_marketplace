@@ -15,13 +15,8 @@
   line-height: 36px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
-    font-size: 32px;
+    font-size: 30px;
     line-height: 40px;
-  }
-  @media (min-width: 1280px) {
-    font-family: 'Muli-Bold';
-    font-size: 40px;
-    line-height: 56px;
   }
   color: var(--text-gray-200-color);
 }

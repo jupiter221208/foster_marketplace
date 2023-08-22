@@ -397,8 +397,6 @@ const MainSection = ({
       setSave(saved)
       setShare(sharedSocial)
     }
-
-    dispatch({ type: 'set', isLoading: false })
   }, [nftInfo])
 
   useEffect(() => {

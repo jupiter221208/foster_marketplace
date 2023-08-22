@@ -94,26 +94,6 @@ const MarketplaceReleaseSection = props => {
             ) : (
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Releases</div>
             )}
-            {/* <div className="hidden lg:flex z-10">
-              <Button
-                label="24 hrs"
-                onClick={() => handleChangeActive(0)}
-                color={active === 0 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 0 ? '#5ac3ba' : 'transparent'}
-              />
-              <Button
-                label="7 days"
-                onClick={() => handleChangeActive(1)}
-                color={active === 1 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 1 ? '#5ac3ba' : 'transparent'}
-              />
-              <Button
-                label="30 days"
-                onClick={() => handleChangeActive(2)}
-                color={active === 2 ? '#202427' : '#979EA2'}
-                backgroundColor={active === 2 ? '#5ac3ba' : 'transparent'}
-              />
-            </div> */}
           </div>
           <div className="hidden lg:flex z-10">
             <SeeMoreButton

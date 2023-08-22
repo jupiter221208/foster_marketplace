@@ -47,7 +47,7 @@ const ArtistLayout: FC<ArtistLayoutProps> = ({ children }) => {
         <main className="w-full flex justify-center mt-[80px] lg:mt-[100px] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_100px)]">
           {children}
         </main>
-        <PrimaryFooter />
+        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <PrimaryFooter />}
         {connected && profileSetup && <ProfileSetupModal />}
       </>
     </div>

@@ -66,6 +66,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const viewport = useViewport()
   const dispatch = useDispatch()
+  const [showLoading, setShowLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(
@@ -78,6 +79,10 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     )
     dispatch({ type: 'set', isLoading: true })
   }, [])
+
+  useEffect(() => {
+    if (isLoading === false) setShowLoading(false)
+  }, [isLoading])
 
   useEffect(() => {
     if (!nftDetail) return
@@ -189,7 +194,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
             />
           </div>
         ) : (
-          <div className="z-10">
+          <div className="z-10 mb-[100px] lg:mb-[0px]">
             {nftDetail && (
               <MainSection
                 nftDetail={nftDetail}
@@ -225,7 +230,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         </div>
       )}
 
-      <FullScreenLoadingModal open={isLoading} />
+      <FullScreenLoadingModal open={showLoading} />
     </div>
   )
 }

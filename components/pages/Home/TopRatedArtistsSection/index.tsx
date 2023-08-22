@@ -14,7 +14,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import ArtistCard from 'components/Card/ArtistCard'
 

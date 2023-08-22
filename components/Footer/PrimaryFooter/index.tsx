@@ -289,7 +289,7 @@ const PrimaryFooter = () => {
                 </a>
               </div> */}
               <div>
-                <a target="_blank" href={process.env.NEXT_PUBLIC_MEDIUM_URL} rel="noopener noreferrer">
+                <a target="_blank" href={process.env.NEXT_PUBLIC_GITHUB_URL} rel="noopener noreferrer">
                   <IconButtonWithSVG
                     backgroundColor="var(--social-bg-color)"
                     icon={<GithubLightGreenIcon />}
