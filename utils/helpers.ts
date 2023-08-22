@@ -585,7 +585,7 @@ export const setColorTheme = lightMode => {
     )
     doc.style.setProperty('--mint-progress-bg', 'rgba(12, 12, 12, 0.5)')
     doc.style.setProperty('--mint-progress-mobile-bg', 'rgba(12, 12, 12, 0.5)')
-    doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #202427, #121212)')
+    doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #1B1B1B, #2B2B2B)')
     doc.style.setProperty('--profile-border-color', '#95dbd5')
     doc.style.setProperty('--stats-accordion-bg', '#121212')
     doc.style.setProperty('--stats-accordion-border', '#95dbd5')
