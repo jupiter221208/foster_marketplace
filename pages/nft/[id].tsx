@@ -181,7 +181,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         <div className={styles.bottomLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className="z-10">
+        <div className="z-10 mb-[100px] lg:mb-[0px]">
           {nftDetail && (
             <MainSection
               nftDetail={nftDetail}
