@@ -38,7 +38,7 @@ const Selection = props => {
           {data.map((item, index) => (
             <div
               key={index}
-              className={item.name === selected ? styles.selected : styles.normal}
+              className={item.name === selected ? styles.mobileSelected : styles.mobileNormal}
               onClick={() => onSelect(item)}
             >
               {item.name}
