@@ -69,14 +69,20 @@ const PhysicalShippingMethod = props => {
         data.size.height
     }
 
+    let methods = []
     if (isUniteState()) {
-      let methods = allShippingMethod.shippingMethods.filter(
+      methods = allShippingMethod.shippingMethods.filter(
         item =>
           item.serviceName === 'USPS Priority Mail - Package' ||
           item.serviceName === 'USPS Priority Mail Express - Package'
       )
-      setShippingMethods(methods)
+    } else {
+      methods = allShippingMethod.shippingMethods.filter(
+        item => item.serviceCode === 'usps_priority_mail_international'
+      )
     }
+
+    setShippingMethods(methods)
   }, [])
 
   useEffect(() => {
