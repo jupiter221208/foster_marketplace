@@ -43,6 +43,13 @@ const WallArtDetail = props => {
   const [finishEditing, setFinishEditing] = useState(false)
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }, [])
+
+  useEffect(() => {
     if (subCategory.length > 0) {
       let print = PrintType.filter(item => item.type === subCategory)
       setPrint(print[0])

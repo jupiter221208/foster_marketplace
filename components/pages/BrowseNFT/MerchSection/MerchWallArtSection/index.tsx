@@ -44,13 +44,6 @@ const MerchWallArtSection = props => {
   const [currentStep, setCurrentStep] = useState(1)
   const [totalCost, setTotalCost] = useState(null)
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
-  }, [])
-
   return (
     <section className={styles.container}>
       <div className="w-full px-[20px] mb-[45px] lg:flex hidden">

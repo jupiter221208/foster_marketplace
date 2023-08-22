@@ -47,7 +47,7 @@ const OrderSection = props => {
                   <img src={coverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
                 <div className={styles.blurImage} />
-                <div className="absolute inset-x-20 z-11">
+                <div className="absolute inset-x-5 lg:inset-x-20 z-11">
                   <img src={previewUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
               </div>

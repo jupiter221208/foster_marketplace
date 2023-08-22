@@ -12,6 +12,8 @@
 
 .blurBackground {
   width: 100%;
+  height: auto;
+  min-height: 375px;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
   }
