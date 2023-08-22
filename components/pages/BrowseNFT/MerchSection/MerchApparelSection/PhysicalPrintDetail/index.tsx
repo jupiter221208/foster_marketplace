@@ -218,7 +218,7 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
       </div>
-      <div className={styles.apparelBG}>
+      <div className={`${styles.apparelBG} lg:hidden block`}>
         <div className="absolute inset-0 w-full h-full"></div>
         <ApparelSection
           canvasId="canvas-mobile"

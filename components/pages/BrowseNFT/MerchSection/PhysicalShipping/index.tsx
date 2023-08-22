@@ -193,7 +193,7 @@ const PhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[20px] items-center">
+      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
         <div className={styles.backBG} onClick={() => backToPage()}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
@@ -228,7 +228,7 @@ const PhysicalShipping = props => {
         </div>
         <div className="mt-[10px] ">
           <CountrySelect
-            data={State?.getStatesOfCountry(country?.isoCode)}
+            data={State?.getAllStates()}
             selected={state}
             onChange={item => setState(item)}
             maxHeight="none"
