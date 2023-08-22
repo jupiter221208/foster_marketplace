@@ -45,6 +45,13 @@ const PhysicalPrintDetail = props => {
   const [cost, setCost] = useState('----')
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
+  }, [])
+
   useEffect(() => {
     if (data !== null) {
       setGender(data.gender)

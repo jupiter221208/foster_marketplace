@@ -157,7 +157,7 @@ const WallSection = props => {
     let screenWidth, screenHeight
     if (window.innerWidth < 1024) {
       screenWidth = window.innerWidth - 32
-      screenHeight = window.innerWidth
+      screenHeight = window.innerWidth - 32
     } else {
       screenWidth = Math.floor(window.innerWidth * 0.41)
       screenHeight = window.innerHeight - 160
@@ -201,10 +201,10 @@ const WallSection = props => {
           const artRatio = wallArt.size.width / wallArt.size.height
           let multipleRatio = getArtRatio(artRatio)
           let viewWidth = screenWidth * multipleRatio
-          let ratio = viewWidth / width
+          let ratio = (viewWidth / width) * 0.8
           let leftMargin = (screenWidth - viewWidth) / 2
 
-          if (screenWidth < 1024) leftMargin = (screenWidth - viewWidth) / 2 - 10
+          if (screenWidth < 1024) leftMargin = (screenWidth - viewWidth) / 2 + 12
           img.set({
             scaleX: ratio,
             scaleY: ratio,

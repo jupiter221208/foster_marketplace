@@ -45,7 +45,6 @@ const WallArtDetail = props => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
     })
   }, [])
 
@@ -246,7 +245,7 @@ const WallArtDetail = props => {
         </div>
       </div>
 
-      <div className="absolute bottom-[60px] w-full lg:flex hidden">
+      <div className="absolute bottom-[60px] w-full lg:block hidden">
         <div className="w-full mt-[25px] flex">
           <div className={styles.subTotal}>Subtotal:</div>
           <div className="flex ml-[20px] items-center">
