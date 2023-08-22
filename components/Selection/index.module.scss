@@ -4,19 +4,29 @@
   width: auto;
   height: auto;
   display: flex;
-  font-family: 'Muli-Bold';
+}
+.label {
+  display: flex;
+  min-width: 120px;
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
 }
-.label {
-  width: 120px;
-  color: var(--text-gray-200-color);
+.selectedLabel {
+  font-family: 'Muli-Bold';
 }
 .selected {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
   color: var(--main-icon-color);
   cursor: pointer;
 }
 .normal {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
   color: rgba(var(--text-gray-200-color-rgb), 0.35);
   cursor: pointer;
 }
