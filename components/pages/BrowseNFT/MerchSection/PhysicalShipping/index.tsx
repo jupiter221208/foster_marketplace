@@ -228,7 +228,7 @@ const PhysicalShipping = props => {
         </div>
         <div className="mt-[10px] ">
           <CountrySelect
-            data={State?.getAllStates()}
+            data={State?.getStatesOfCountry(country?.isoCode)}
             selected={state}
             onChange={item => setState(item)}
             maxHeight="none"
