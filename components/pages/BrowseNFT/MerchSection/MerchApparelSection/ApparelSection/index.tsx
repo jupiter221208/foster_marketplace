@@ -149,7 +149,7 @@ const ApparelSection = props => {
       {loader && (
         <div className="w-full absolute">
           <div className="w-full flex justify-center">
-            <FadeLoader color="#63D6CD" width="6" height="12" />
+            <FadeLoader color="var(--fade-loader-color)" width="6" height="12" />
           </div>
           <div className={styles.progressText}>
             {viewport === 'xs' || viewport === 'md' || viewport === 'sm' ? (
