@@ -150,7 +150,7 @@ const TopRatedArtistsSection = () => {
             backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
-            boxShadow={active === 0 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="7 days"
@@ -161,7 +161,7 @@ const TopRatedArtistsSection = () => {
             backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
-            boxShadow={active === 1 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="30 days"
@@ -172,7 +172,7 @@ const TopRatedArtistsSection = () => {
             backgroundColor02={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
-            boxShadow={active === 2 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="All Time"
@@ -183,7 +183,7 @@ const TopRatedArtistsSection = () => {
             backgroundColor02={active === 3 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
-            boxShadow={active === 3 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>

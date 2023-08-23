@@ -188,7 +188,7 @@ const LiveAuctionSection = props => {
             backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={124}
-            boxShadow={active === 0 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="New"
@@ -199,7 +199,7 @@ const LiveAuctionSection = props => {
             backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
-            boxShadow={active === 1 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
           <TimeSlotButton
             label="Ending Soon"
@@ -210,7 +210,7 @@ const LiveAuctionSection = props => {
             backgroundColor02={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
             gradientDirection="bottom"
             width={124}
-            boxShadow={active === 2 ? '0px 3px 6px rgba(32, 36, 39, 0.15)' : ''}
+            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
           />
         </div>
       </div>
