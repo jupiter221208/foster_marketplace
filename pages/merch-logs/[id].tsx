@@ -241,7 +241,7 @@ const MerchDetail = () => {
         </div>
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.infoValue}>
-            Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}{' '}
+            Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
           </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
@@ -280,7 +280,7 @@ const MerchDetail = () => {
           <div className="w-full mt-[15px]">
             <div className={styles.infoTitle}>Tracking Number</div>
             <div className={styles.infoValue}>
-              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.delivery}
+              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.trackingNumber}
             </div>
           </div>
         </div>
@@ -306,7 +306,9 @@ const MerchDetail = () => {
         </div>
         <div className="w-full mt-[45px] flex justify-center">
           <div className="flex">
-            <div className={styles.shipStatusTitle}>Shipping&nbsp;Status&nbsp;</div>
+            <div className={styles.shipStatusTitle}>
+              Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+            </div>
             <div className={styles.shipStatusValue}>
               {orderData && getFirstUpperString(orderData.ssorder.orderStatus)}
             </div>
