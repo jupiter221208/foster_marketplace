@@ -301,17 +301,17 @@ const PrimaryHeader = () => {
         </div>
       </div>
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 262}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
         </div>
       )}
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 130}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 130}px` }}>
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
         </div>
       )}
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 25, left: `${offset[1]}px` }}>
           <WalletButton />
         </div>
       )}
@@ -322,7 +322,7 @@ const PrimaryHeader = () => {
             zIndex: 10000,
             position: 'fixed',
             cursor: 'pointer',
-            top: `${notificationOffset[0] + 27}px`,
+            top: 27,
             left: `${notificationOffset[1] + 5}px`,
           }}
           onClick={() => router.push('/notifications')}
@@ -337,7 +337,7 @@ const PrimaryHeader = () => {
             zIndex: 10000,
             position: 'fixed',
             cursor: 'pointer',
-            top: `${notificationOffset[0] + 17}px`,
+            top: 17,
             left: `${notificationOffset[1] + 27}px`,
           }}
           onClick={() => router.push('/notifications')}
@@ -351,14 +351,17 @@ const PrimaryHeader = () => {
           style={{
             zIndex: 10000,
             position: 'fixed',
-            top: `${profileOffset[0] + 27}px`,
+            top: 27,
             left: `${profileOffset[1] - 0}px`,
           }}
         >
           <ProfileMenu
             avatar={profileImage.length > 0 ? profileImage : AvatarImage}
             menuList={profileMenuList}
-            onSelect={item => router.push(item.path)}
+            onSelect={item => {
+              dispatch({ type: 'set', isLoading: true })
+              router.push(item.path)
+            }}
             connectWalletStatus={connected}
           />
         </div>
@@ -371,7 +374,7 @@ const PrimaryHeader = () => {
             position: 'fixed',
             width: 83,
             height: 44,
-            top: `${profileOffset[0] + 27}px`,
+            top: 27,
             left: `${profileOffset[1] + 70}px`,
           }}
           onClick={() => handleThemeMode()}
