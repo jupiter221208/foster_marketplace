@@ -57,6 +57,7 @@ const MyNFTCard = props => {
             onClick={() => onClickStartAuction(data)}
             height="40px"
             fontSize="14px"
+            fontFamily="Muli-SemiBold"
           />
           <SecondaryButton
             backgroundColor="transparent"
@@ -73,6 +74,7 @@ const MyNFTCard = props => {
             height="26px"
             fontSize="10px"
             borderRadius="6px"
+            fontFamily="Muli-SemiBold"
           />
           <SecondaryButton
             label="List NFT"

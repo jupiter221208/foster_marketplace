@@ -199,6 +199,7 @@ const MyNFTSection = props => {
               top: 550,
             })
             setTimeout(() => {
+              console.log(data, '=========data=========')
               setNFTList(data)
             }, 500)
           }}

@@ -358,7 +358,10 @@ const PrimaryHeader = () => {
           <ProfileMenu
             avatar={profileImage.length > 0 ? profileImage : AvatarImage}
             menuList={profileMenuList}
-            onSelect={item => router.push(item.path)}
+            onSelect={item => {
+              dispatch({ type: 'set', isLoading: true })
+              router.push(item.path)
+            }}
             connectWalletStatus={connected}
           />
         </div>
