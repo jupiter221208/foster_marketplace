@@ -36,7 +36,7 @@ const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const firstLoaded = useSelector<any>(state => state.firstLoaded)
   const openCreateNFTModal = useSelector<any>(state => state.openCreateNFTModal)
   const [heroList, setHeroList] = useState<any[]>([])
   const [artworkCnt, setArtworkCnt] = useState()
@@ -55,6 +55,11 @@ const MainSection = () => {
           setNftCnt(response.stats.users)
           setCollectionCnt(response.stats.collections)
           setArtworkCnt(response.stats.nfts)
+        }
+        if (!firstLoaded) {
+          setTimeout(() => {
+            dispatch({ type: 'set', firstLoaded: true })
+          }, 2000)
         }
       },
       error => {
