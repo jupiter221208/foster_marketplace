@@ -65,6 +65,7 @@ const MyNFTCard = props => {
             onClick={() => onClickListNFT(data)}
             height="40px"
             fontSize="14px"
+            fontFamily="Muli-SemiBold"
           />
         </div>
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
@@ -82,6 +83,7 @@ const MyNFTCard = props => {
             height="26px"
             fontSize="10px"
             borderRadius="6px"
+            fontFamily="Muli-SemiBold"
           />
         </div>
       </div>
