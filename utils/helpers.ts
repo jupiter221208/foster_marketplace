@@ -631,7 +631,7 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.1) 40%,rgba(32, 36, 39, 0.15) 60%,rgba(32, 36, 39, 0.5) 100%)'
     )
     doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #101717, #3A6A68)')
-    doc.style.setProperty('--resource-card-default-bg', '#202427')
+    doc.style.setProperty('--resource-card-default-bg', '#121212')
     doc.style.setProperty('--home-swiper-bg', '#95dbd5')
     doc.style.setProperty('--explore-btn-bg-1', '#5ac3ba')
     doc.style.setProperty('--explore-btn-bg-2', '#378287')
