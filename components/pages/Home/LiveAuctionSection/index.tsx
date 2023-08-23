@@ -64,7 +64,11 @@ const LiveAuctionSection = props => {
           if (!isExpired(item.end_time)) {
             if (item.asset_url.length > 0) {
               if (viewport === 'xs' || viewport === 'md' || viewport === 'xs') {
-                if (item.cover_image_url?.length > 0) lists.push(item)
+                if (item.asset_type === 'video') {
+                  if (item.cover_image_url?.length > 0) lists.push(item)
+                } else {
+                  lists.push(item)
+                }
               } else {
                 lists.push(item)
               }
@@ -143,7 +147,7 @@ const LiveAuctionSection = props => {
               gradientDirection="bottom"
             />
             <TimeSlotButton
-              label="Recently Started"
+              label="New"
               onClick={() => handleChangeActive(1)}
               fontFamily={'Muli-SemiBold'}
               color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
@@ -173,7 +177,44 @@ const LiveAuctionSection = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
+        <div className={styles.slotBG}>
+          <TimeSlotButton
+            label="Starting Soon"
+            onClick={() => handleChangeActive(0)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={124}
+            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="New"
+            onClick={() => handleChangeActive(1)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={86}
+            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="Ending Soon"
+            onClick={() => handleChangeActive(2)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={124}
+            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+        </div>
+      </div>
+      <div className="w-full mt-[30px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.4 : 3.02}
@@ -201,7 +242,7 @@ const LiveAuctionSection = props => {
         </Swiper>
       </div>
       {fromPage !== 'profile' && (
-        <div className="w-full flex lg:hidden justify-center">
+        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
               label="See More"

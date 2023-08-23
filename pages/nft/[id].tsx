@@ -35,7 +35,7 @@ import styles from './index.module.scss'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 
 import nftsAPI from 'apis/nfts'
-import { isLoggedIn, isString } from 'utils/helpers'
+import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'

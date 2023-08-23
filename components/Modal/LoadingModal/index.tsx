@@ -2,9 +2,8 @@ import React, { Fragment } from 'react'
 
 // third party components
 import { Transition } from '@headlessui/react'
-import RingLoader from 'react-spinners/RingLoader'
-
-import styles from './index.module.scss'
+import Lottie from 'lottie-react'
+import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // json
 
@@ -23,8 +22,8 @@ const LoadingModal = props => {
           leaveFrom="opacity-100 scale-100"
           leaveTo="opacity-0 scale-95"
         >
-          <div className={styles.ringLoader}>
-            <RingLoader color="#63D6CD" />
+          <div className="w-[500px] h-[40px]">
+            <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
           </div>
         </Transition.Child>
       </div>

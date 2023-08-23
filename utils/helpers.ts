@@ -388,7 +388,7 @@ export const setColorTheme = lightMode => {
       '--browse-nft-blur-bg',
       'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.3) 40%,rgba(32, 36, 39, 0.2) 60%,rgba(32, 36, 39, 0.5) 100%)'
     )
-    doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #72A4A0, #202427)')
+    doc.style.setProperty('--resource-card-bg', '#CBCDD2')
     doc.style.setProperty('--resource-card-default-bg', '#eff0f6')
     doc.style.setProperty('--home-swiper-bg', '#202427')
     doc.style.setProperty('--explore-btn-bg-1', '#95DBD5')
@@ -497,6 +497,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--fade-loader-color', '#202427')
+    doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -658,8 +659,8 @@ export const setColorTheme = lightMode => {
       '--browse-nft-blur-bg',
       'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.1) 40%,rgba(32, 36, 39, 0.15) 60%,rgba(32, 36, 39, 0.5) 100%)'
     )
-    doc.style.setProperty('--resource-card-bg', 'linear-gradient(to bottom, #101717, #3A6A68)')
-    doc.style.setProperty('--resource-card-default-bg', '#202427')
+    doc.style.setProperty('--resource-card-bg', '#2B2B2B')
+    doc.style.setProperty('--resource-card-default-bg', '#121212')
     doc.style.setProperty('--home-swiper-bg', '#95dbd5')
     doc.style.setProperty('--explore-btn-bg-1', '#5ac3ba')
     doc.style.setProperty('--explore-btn-bg-2', '#378287')
@@ -769,5 +770,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
     doc.style.setProperty('--fade-loader-color', '#63D6CD')
+    doc.style.setProperty('--time-slot-bg', 'rgba(239, 240, 247, 0.05)')
   }
 }
