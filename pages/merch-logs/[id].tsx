@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
-import DefaultAvatar from 'assets/images/dashboard-avatar.png'
 
 // Styles
 import styles from './id.module.scss'
@@ -23,6 +21,7 @@ import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn }
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
+import Button from 'components/Button'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -100,12 +99,21 @@ const MerchDetail = () => {
         }
         setOrderDetails(orderDetails)
       }
-
       setTrackingDetails(orderData?.fulfillment)
       setPreviewUrl(itemData.imageUrl)
     }
   }, [orderData])
 
+  const gotoTrackPage = () => {
+    if (trackingDetails !== null && trackingDetails.trackingNumber.length > 0) {
+      window.open(
+        `https://tools.usps.com/go/TrackConfirmAction.action?tLabels=${trackingDetails.trackingNumber.replaceAll(
+          ' ',
+          ''
+        )}`
+      )
+    }
+  }
   return (
     <div className="g-container">
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
@@ -153,7 +161,7 @@ const MerchDetail = () => {
           <div>
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
             <div className={`${styles.infoValue} text-right`}>
-              {trackingDetails === null ? 'Not Available' : trackingDetails?.delivery}
+              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.trackingNumber}
             </div>
           </div>
         </div>
@@ -183,14 +191,32 @@ const MerchDetail = () => {
           </div>
 
           <div>
-            <div>
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
-                label="Track package"
-                onClick={() => {}}
-              />
-            </div>
+            {trackingDetails === null ? (
+              <div>
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  label="Track package"
+                  disabled={true}
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color="rgba(239, 240, 247, 0.5)"
+                  width={335}
+                />
+              </div>
+            ) : (
+              <div>
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Track package"
+                  onClick={() => gotoTrackPage()}
+                />
+              </div>
+            )}
             <div className="mt-[12px]">
               <OutlineButton
                 borderColor="var(--follow-btn-border-mobile)"
@@ -214,7 +240,9 @@ const MerchDetail = () => {
           </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
-          <div className={styles.infoValue}>Shipping Status: Awaiting Shipment</div>
+          <div className={styles.infoValue}>
+            Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}{' '}
+          </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.separator}></div>
@@ -252,7 +280,7 @@ const MerchDetail = () => {
           <div className="w-full mt-[15px]">
             <div className={styles.infoTitle}>Tracking Number</div>
             <div className={styles.infoValue}>
-              {trackingDetails === null ? 'Not Available' : trackingDetails?.delivery}
+              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.delivery}
             </div>
           </div>
         </div>
@@ -286,14 +314,33 @@ const MerchDetail = () => {
         </div>
         <div className="w-full mt-[30px] mb-[100px] flex justify-center">
           <div>
-            <div>
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
-                label="Track package"
-                onClick={() => {}}
-              />
-            </div>
+            {trackingDetails === null ? (
+              <div>
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
+                  label="Track package"
+                  disabled={true}
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color="rgba(239, 240, 247, 0.5)"
+                  width={335}
+                />
+              </div>
+            ) : (
+              <div>
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Track package"
+                  onClick={() => gotoTrackPage()}
+                />
+              </div>
+            )}
+
             <div className="mt-[12px]">
               <OutlineButton
                 borderColor="var(--follow-btn-border-mobile)"
