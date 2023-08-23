@@ -143,7 +143,7 @@ const MarketplaceReleaseSection = props => {
             ))}
           </Swiper>
         </div>
-        <div className="w-full flex lg:hidden justify-center">
+        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
               label="See More"

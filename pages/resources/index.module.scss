@@ -23,16 +23,12 @@
 }
 
 .title {
-  font-family: 'KCDurhamBoxcar';
+  font-family: 'Muli-Bold';
   font-size: 30px;
-  line-height: 30px;
+  line-height: 36px;
   @media (min-width: 1024px) {
-    font-size: 50px;
-    line-height: 50px;
-  }
-  @media (min-width: 1280px) {
-    font-size: 82px;
-    line-height: 82px;
+    font-size: 40px;
+    line-height: 48px;
   }
   color: var(--text-gray-200-color);
 }

@@ -22,8 +22,8 @@ const ResourcesCard = props => {
         <Image src={data.icon01} alt="" width={data.width} height={data.height} />
       </div>
       <div className="block">
-        <div className={`${styles.title} ${selected ? styles.selected : styles.unselected}`}>{data.title}</div>
-        <div className={selected ? styles.lightDescription : styles.description}>{data.description}</div>
+        <div className={`${styles.title} ${styles.unselected}`}>{data.title}</div>
+        <div className={styles.description}>{data.description}</div>
       </div>
     </div>
   )

@@ -80,7 +80,7 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10">
+      <div className="w-full flex justify-between items-center z-10 mt-[45px]">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">
@@ -139,7 +139,55 @@ const TopRatedArtistsSection = () => {
           />
         </div>
       </div>
-      <div className="w-full mt-[15px] lg:mt-[34px] z-10">
+      <div className="w-full block lg:hidden h-[54px] mt-[15px]">
+        <div className={styles.slotBG}>
+          <TimeSlotButton
+            label="24 hrs"
+            onClick={() => handleChangeActive(0)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={86}
+            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="7 days"
+            onClick={() => handleChangeActive(1)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={86}
+            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="30 days"
+            onClick={() => handleChangeActive(2)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={86}
+            boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="All Time"
+            onClick={() => handleChangeActive(3)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 3 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 3 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 3 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={86}
+            boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+        </div>
+      </div>
+      <div className="w-full mt-[30px] lg:mt-[34px] z-10">
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
           slidesPerView={
@@ -193,7 +241,7 @@ const TopRatedArtistsSection = () => {
             ))}
         </Swiper>
       </div>
-      <div className="w-full flex lg:hidden justify-center">
+      <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
         <div className="w-full max-w-[242px] z-10">
           <OutlineButton
             label="See More"

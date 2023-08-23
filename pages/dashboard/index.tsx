@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // next components
 import Head from 'next/head'
@@ -20,7 +20,9 @@ const Dashbord = () => {
   dispatch({ type: 'set', isGetMyNFTs: false })
   dispatch({ type: 'set', isGetListedNFTs: false })
   const isLoading = useSelector<any>(state => state.isLoading)
-
+  useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
+  }, [])
   return (
     <div className="g-container">
       <Head>

@@ -23,8 +23,6 @@ import { useViewport } from 'utils'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import FosterHeroLogo from 'assets/icons/foster-hero-logo.svg?component'
-import FosterHeroMobileLogo from 'assets/icons/foster-hero-logo-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
