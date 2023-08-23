@@ -469,6 +469,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', '#202427')
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
+    doc.style.setProperty('--time-slot-bg', '#e0e1e7')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -740,5 +741,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
+    doc.style.setProperty('--time-slot-bg', '#2b2b2b')
   }
 }
