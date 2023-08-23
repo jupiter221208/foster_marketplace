@@ -13,7 +13,7 @@
 
 .modalView {
   // width: 100%;
-  width: 474px;
+  width: auto;
   background-color: rgba(18, 18, 18, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -25,8 +25,8 @@
   border-top-right-radius: 20px;
 
   @media (min-width: 1024px) {
+    width: 474px;
     background-color: rgba(var(--background-black-color-rgb), 0.2);
-
     border: 2px solid var(--brand-09-color);
     padding: 51px 30px 42px 30px;
     border-radius: 20px;
