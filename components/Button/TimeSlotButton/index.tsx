@@ -16,6 +16,7 @@ const TimeSlotButton = props => {
     backgroundColor02 = '#4B6E6B',
     width = '',
     height = '',
+    boxShadow = '',
     gradientDirection = 'left',
     fontFamily = '',
     fontSize = '',
@@ -39,6 +40,7 @@ const TimeSlotButton = props => {
         borderRadius: borderRadius,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
+        boxShadow: boxShadow,
       }}
     >
       <div>{label}</div>
