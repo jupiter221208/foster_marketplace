@@ -1501,9 +1501,9 @@ const MainSection = ({
               {nftType.includes('image') && merchToggle && (
                 <div className="w-full flex flex-wrap">
                   <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0 items-">
-                    <div className="w-[199px] h-[199px] flex items-center">
+                    <div className="w-[190px] h-[190px] flex items-center">
                       <div>
-                        <div className="w-full relative flex justify-center">
+                        <div className="w-full relative flex justify-center mt-8">
                           <Image src={PrintApparelSection} alt="" />
                           <div className="absolute w-[40px] h-[40px] mt-[65px]">
                             <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
