@@ -1,12 +1,12 @@
 [
   {
     "id": 0,
-    "name": "FRONT SIDE",
+    "name": "Front",
     "type": "front"
   },
   {
     "id": 1,
-    "name": "BACK SIDE",
+    "name": "Back",
     "type": "back"
   }
 ]

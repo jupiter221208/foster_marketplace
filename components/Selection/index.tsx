@@ -19,7 +19,7 @@ const Selection = props => {
               className={item.name === selected ? styles.selected : styles.normal}
               onClick={() => onSelect(item)}
             >
-              {item.name}
+              {item.name.toUpperCase()}
             </div>
           ))}
         </div>

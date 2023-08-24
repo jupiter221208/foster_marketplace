@@ -1,27 +1,27 @@
 [
   {
     "id": 0,
-    "name": "BASIC",
+    "name": "Basic",
     "type": "basic"
   },
   {
     "id": 1,
-    "name": "CHOICE",
+    "name": "Choice",
     "type": "choice"
   },
   {
     "id": 2,
-    "name": "STANDARD",
+    "name": "Standard",
     "type": "standard"
   },
   {
     "id": 3,
-    "name": "TRIBLEND",
+    "name": "Triblend",
     "type": "triblend"
   },
   {
     "id": 4,
-    "name": "PREMIUM",
+    "name": "Premium",
     "type": "premium"
   }
 ]

@@ -1,25 +1,25 @@
 [
   {
     "id": 0,
-    "name": "ACRYLIC",
+    "name": "Acrylic",
     "type": "acrylic",
     "image": "/images/wallart/canvas.png"
   },
   {
     "id": 1,
-    "name": "METAL",
+    "name": "Metal",
     "type": "metal",
     "image": "/images/wallart/canvas.png"
   },
   {
     "id": 2,
-    "name": "CANVAS",
+    "name": "Canvas",
     "type": "canvas",
     "image": "/images/wallart/canvas.png"
   },
   {
     "id": 3,
-    "name": "POSTER",
+    "name": "Poster",
     "type": "poster",
     "image": "/images/wallart/canvas.png"
   }
