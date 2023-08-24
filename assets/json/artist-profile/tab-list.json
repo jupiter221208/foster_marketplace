@@ -46,5 +46,15 @@
     "label": "Statistics",
     "value": "Statistics",
     "coming_soon": false
+  },
+  {
+    "id": 5,
+    "icon01": "/icons/merch-icon-green.svg",
+    "icon02": "/icons/merch-icon-gray.svg",
+    "icon03": "/icons/merch-icon-gray-light.svg",
+    "icon04": "/icons/merch-icon-gray-dark.svg",
+    "label": "Merch",
+    "value": "Merch",
+    "coming_soon": false
   }
 ]
