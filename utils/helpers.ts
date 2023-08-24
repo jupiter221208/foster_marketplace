@@ -466,6 +466,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--accordian-header-bg', '#7C7E83')
     doc.style.setProperty('--accordian-area-bg', '#D6D8DD')
     doc.style.setProperty('--social-share-bg', '#ffffff')
+    doc.style.setProperty('--social-share-bg-rgb', '255, 255, 255')
     doc.style.setProperty('--social-share-hover', 'rgba(214, 216, 221, 1)')
     doc.style.setProperty('--share-icon-bg', '#D6D8DD')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #eff0f6, #78787B)')
@@ -737,6 +738,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--accordian-header-bg', '#1b1b1b')
     doc.style.setProperty('--accordian-area-bg', '#1b1b1b')
     doc.style.setProperty('--social-share-bg', '#121212')
+    doc.style.setProperty('--social-share-bg-rgb', '18, 18, 18')
     doc.style.setProperty(
       '--social-share-hover',
       'linear-gradient(to bottom, rgba(90, 195, 186, 0.3) 0%, rgba(45, 98, 93, 0.3) 100%)'

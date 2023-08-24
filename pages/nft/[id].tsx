@@ -33,12 +33,14 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 export interface EditionDetail {
   number: number
@@ -54,7 +56,7 @@ export interface BrowseNFTProps {
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddress, error }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
@@ -156,6 +158,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     )
   }
 
+  const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
+
   return (
     <div className="g-container">
       <Head>
@@ -208,6 +212,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
                 }}
               />
             )}
+            <ShopApparelSection shopApparelList={shopApparelList} />
             {collectionId && <MoreCollectionSection collectionId={collectionId} />}
             {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
             <MoreCategorySection categories={categories} />
