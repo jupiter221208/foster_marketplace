@@ -17,6 +17,7 @@ import MerchSection from 'components/pages/BrowseNFT/MerchSection'
 import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
 import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
+import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
 import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
@@ -34,13 +35,13 @@ import styles from './index.module.scss'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
+import ShopWallartlList from 'assets/json/browse-nft/shop-wallart-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 export interface EditionDetail {
   number: number
@@ -215,14 +216,26 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
               />
             )}
             {merchToggle ? (
-              <ShopApparelSection
-                nftDetail={nftDetail}
-                shopApparelList={shopApparelList}
-                openMerchPage={data => {
-                  setMerchData(data)
-                  setOpenMerchPage(true)
-                }}
-              />
+              <div>
+                <ShopApparelSection
+                  title="Shop Apparel"
+                  nftDetail={nftDetail}
+                  shopApparelList={shopApparelList}
+                  openMerchPage={data => {
+                    setMerchData(data)
+                    setOpenMerchPage(true)
+                  }}
+                />
+                <ShopApparelSection
+                  title="Shop Wall Art"
+                  nftDetail={nftDetail}
+                  shopApparelList={ShopWallartlList}
+                  openMerchPage={data => {
+                    setMerchData(data)
+                    setOpenMerchPage(true)
+                  }}
+                />
+              </div>
             ) : (
               <div>
                 {collectionId && <MoreCollectionSection collectionId={collectionId} />}

@@ -26,7 +26,7 @@ import styles from './index.module.scss'
 // api
 
 const ShopApparelSection = props => {
-  const { nftDetail, shopApparelList, openMerchPage } = props
+  const { title, nftDetail, shopApparelList, openMerchPage } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -35,7 +35,7 @@ const ShopApparelSection = props => {
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Shop Apparel</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>{title}</div>
           </div>
         </div>
         <div className="w-full mt-[15px] lg:mt-[34px]">
@@ -67,7 +67,7 @@ const ShopApparelSection = props => {
                         nftName,
                         nftCoverUrl,
                         mintAddress,
-                        category: 'apparel',
+                        category: item.category,
                         subCategory: item.sub_type,
                         base: item.base,
                       }

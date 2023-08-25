@@ -184,22 +184,22 @@ const PhysicalPrintDetail = props => {
           ? 'Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Our creator merch hub is simple to use and gives you the tools to foster your creative flavor.'
           : 'Customize your apparel by selecting the base, color, placement, quality, and size.'}
       </div>
-      <div className="w-full mt-[30px] lg:mt-[40px]">
+      {/* <div className="w-full mt-[30px] lg:mt-[40px]">
         <Selection
           label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'GENDER:' : 'Gender:'}
           data={GenderType}
           selected={gender?.name}
           onSelect={item => setGender(item)}
         />
-      </div>
-      <div className="w-full mt-[25px]">
+      </div> */}
+      {/* <div className="w-full mt-[25px]">
         <Selection
           label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'BASE:' : 'Base:'}
           data={apparelType}
           selected={apparel?.name}
           onSelect={item => setApparel(item)}
         />
-      </div>
+      </div> */}
       <div className="w-full mt-[25px]">
         <Selection
           label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'PLACEMENT:' : 'Placement:'}
@@ -243,7 +243,7 @@ const PhysicalPrintDetail = props => {
           onChange={event => setQuantity(parseInt(event.target.value))}
         />
       </div>
-      <div className="w-full mt-[30px] lg:mt-[100px] flex">
+      <div className="w-full mt-[30px] lg:mt-[160px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
         <div className="flex ml-[10px] lg:ml-[20px] items-center">
           <div className={styles.price}>$ {cost}</div>

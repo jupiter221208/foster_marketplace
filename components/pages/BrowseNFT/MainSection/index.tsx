@@ -1503,7 +1503,7 @@ const MainSection = ({
                   )}
                 </Disclosure>
               </div>
-              {nftType.includes('image') && merchToggle && (
+              {/* {nftType.includes('image') && merchToggle && (
                 <div className="w-full flex flex-wrap">
                   <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0 items-">
                     <div className="w-[190px] h-[190px] flex items-center">
@@ -1669,7 +1669,7 @@ const MainSection = ({
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
