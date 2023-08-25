@@ -10,6 +10,9 @@
   min-width: 120px;
   color: var(--text-gray-200-color);
   font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+  }
   font-size: 14px;
   line-height: 18px;
 }

@@ -81,6 +81,9 @@
 .quantity {
   width: 120px;
   font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+  }
   font-size: 14px;
   color: var(--text-gray-200-color);
 }

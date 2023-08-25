@@ -197,6 +197,18 @@ const WallArtDetail = props => {
         </div>
       </div>
 
+      <div className="w-full mt-[25px] flex">
+        <div className={styles.quantity}>Quantity:</div>
+        <input
+          value={quantity}
+          type="number"
+          min="0"
+          placeholder="0"
+          className={styles.inputArea}
+          onChange={event => setQuantity(parseInt(event.target.value))}
+        />
+      </div>
+
       <div className="lg:hidden block">
         <div className="w-full mt-[25px] flex">
           <div className={styles.subTotal}>Subtotal:</div>

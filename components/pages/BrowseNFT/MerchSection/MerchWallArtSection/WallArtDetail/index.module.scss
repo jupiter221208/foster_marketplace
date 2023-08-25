@@ -141,3 +141,25 @@
   z-index: 1;
   position: relative;
 }
+
+.inputArea {
+  width: 56px;
+  height: 30px;
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  background: var(--step-text-color);
+  padding-left: 20px;
+  outline: none;
+}
+
+.quantity {
+  width: 120px;
+  font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+  }
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+}

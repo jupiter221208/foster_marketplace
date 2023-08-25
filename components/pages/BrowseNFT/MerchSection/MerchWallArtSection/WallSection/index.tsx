@@ -156,8 +156,8 @@ const WallSection = props => {
 
     let screenWidth, screenHeight
     if (window.innerWidth < 1024) {
-      screenWidth = window.innerWidth - 32
-      screenHeight = window.innerWidth - 32
+      screenWidth = window.innerWidth
+      screenHeight = window.innerWidth
     } else {
       screenWidth = Math.floor(window.innerWidth * 0.41)
       screenHeight = window.innerHeight - 160

@@ -180,9 +180,7 @@ const PhysicalPrintDetail = props => {
         <div className={styles.selecteCategory}>{nftName} - Apparel</div>
       </div>
       <div className={styles.description}>
-        {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-          ? 'Creator apparel is an excellent way to support your favorite artists and help them promote their brand. Our creator merch hub is simple to use and gives you the tools to foster your creative flavor.'
-          : 'Customize your apparel by selecting the base, color, placement, quality, and size.'}
+        Select the side of apparel you would like to place the print, fabric color, and quality.
       </div>
       {/* <div className="w-full mt-[30px] lg:mt-[40px]">
         <Selection
@@ -201,39 +199,19 @@ const PhysicalPrintDetail = props => {
         />
       </div> */}
       <div className="w-full mt-[25px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'PLACEMENT:' : 'Placement:'}
-          data={PrintType}
-          selected={print?.name}
-          onSelect={item => setPrint(item)}
-        />
+        <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'QUALITY:' : 'Quality:'}
-          data={qualityType}
-          selected={quality?.name}
-          onSelect={item => setQuality(item)}
-        />
+        <Selection label={'Quality:'} data={qualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
       </div>
       <div className="w-full mt-[25px]">
-        <SelectionColor
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'COLOR:' : 'Color:'}
-          data={ColorType}
-          selected={color?.type}
-          onSelect={item => setColor(item)}
-        />
+        <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} />
       </div>
       <div className="w-full mt-[35px] lg:mt-[25px]">
-        <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'SIZE:' : 'Size:'}
-          data={SizeType}
-          selected={size?.name}
-          onSelect={item => setSize(item)}
-        />
+        <Selection label={'Size:'} data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
       </div>
       <div className="w-full mt-[25px] flex">
-        <div className={styles.quantity}>QUANTITY:</div>
+        <div className={styles.quantity}>Quantity:</div>
         <input
           value={quantity}
           type="number"

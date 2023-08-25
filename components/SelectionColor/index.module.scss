@@ -13,6 +13,7 @@
   font-size: 14px;
   margin-bottom: 15px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
     line-height: 66px;
     margin-bottom: 0px;
   }
@@ -23,7 +24,7 @@
   width: 66px;
   height: 66px;
   border-radius: 33px;
-  border: 1px solid red;
+  border: 1px solid #95dbd5;
   cursor: pointer;
   overflow: hidden;
 }
