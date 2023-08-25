@@ -24,23 +24,30 @@ export const loginWithWallet = async (publicKey, signMessage, dispatch) => {
     localStorage.setItem('signature', walletSign)
   } else {
     walletSign = localStorage.getItem('signature')
-    if (!walletSign) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      walletSign = Buffer.from(signature).toString('hex')
-    }
   }
+  await login(publicKey?.toBase58() || '', walletSign, dispatch)
+}
 
+export const checkExpiryToken = async (publicKey, signMessage, dispatch) => {
+  if (!checkExpiryDate()) {
+    let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
+    let walletSign = Buffer.from(signature).toString('hex')
+    await login(publicKey?.toBase58() || '', walletSign, dispatch)
+    let expiryTimestamp = Date.now() + 59 * 60 * 1000
+    localStorage.setItem('expiryDate', expiryTimestamp.toString())
+    localStorage.setItem('signature', walletSign)
+  }
+}
+
+export const login = async (wallet_id, signature, dispatch) => {
   let { new_user, user, bid_wallet_lock, offer_wallet_lock } = await authAPI.login({
-    wallet_id: publicKey?.toBase58() || '',
-    signature: walletSign,
+    wallet_id,
+    signature,
   })
-
   if (new_user) dispatch({ type: 'set', profileSetup: true })
   dispatch({ type: 'set', profileInfo: user })
   dispatch({ type: 'set', bidWalletLock: bid_wallet_lock })
   dispatch({ type: 'set', offerWalletLock: offer_wallet_lock })
-
-  return user
 }
 
 export const checkExpiryDate = () => {

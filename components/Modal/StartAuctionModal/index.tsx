@@ -31,7 +31,7 @@ import AuctionsAPI from 'apis/auctions'
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch } from 'react-redux'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
+import { checkExpiryToken } from 'utils/auth'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 const StartAuctionModal = props => {
@@ -67,11 +67,7 @@ const StartAuctionModal = props => {
   const { metaplex: mx } = useMetaplex()
 
   const handleStartAuction = async () => {
-    if (!checkExpiryDate()) {
-      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      // await loginWithSigned(publicKey, signature, dispatch)
-      loginWithWallet(publicKey, signMessage, dispatch)
-    }
+    await checkExpiryToken(publicKey, signMessage, dispatch)
 
     onStartProgress()
     const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, Number(price))

@@ -28,7 +28,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // call apis
 import listingsAPI from 'apis/listings'
 import LoadingButton from 'components/Button/LoadingButton'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { checkExpiryToken } from 'utils/auth'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
@@ -42,11 +42,7 @@ const ListNFTModal = props => {
   const handleListNFTClick = async () => {
     setShowLoading(true)
 
-    if (!checkExpiryDate()) {
-      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      // await loginWithSigned(publicKey, signature, dispatch)
-      loginWithWallet(publicKey, signMessage, dispatch)
-    }
+    await checkExpiryToken(publicKey, signMessage, dispatch)
 
     const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
     if (result) {

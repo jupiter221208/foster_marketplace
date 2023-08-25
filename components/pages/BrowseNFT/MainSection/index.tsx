@@ -98,7 +98,7 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
+import { checkExpiryToken } from 'utils/auth'
 import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
@@ -268,14 +268,6 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
 
-  const checkTokenExpiration = async () => {
-    if (!checkExpiryDate()) {
-      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      // await loginWithSigned(publicKey, signature, dispatch)
-      loginWithWallet(publicKey, signMessage, dispatch)
-    }
-  }
-
   const quickBuy = async () => {
     if (!connected) {
       setVisible(true)
@@ -283,7 +275,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     }
     setOpenProgressingModal(true)
 
-    await checkTokenExpiration()
+    await checkExpiryToken(publicKey, signMessage, dispatch)
 
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
@@ -303,7 +295,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
-    await checkTokenExpiration()
+    await checkExpiryToken(publicKey, signMessage, dispatch)
 
     const result = await offerNFT(mx, mintAddress, parseFloat(price))
     await updateSolBalance()
@@ -510,7 +502,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     }, 500)
 
     try {
-      await checkTokenExpiration()
+      await checkExpiryToken(publicKey, signMessage, dispatch)
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
       AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
@@ -552,7 +544,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     setAuctionLoading(true)
 
     try {
-      await checkTokenExpiration()
+      await checkExpiryToken(publicKey, signMessage, dispatch)
 
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
       if (bid) {

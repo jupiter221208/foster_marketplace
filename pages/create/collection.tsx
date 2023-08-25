@@ -30,7 +30,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metap
 
 // call apis
 import collectionsAPI from 'apis/collections'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { checkExpiryToken } from 'utils/auth'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -75,11 +75,7 @@ const Collection = () => {
     try {
       dispatch({ type: 'set', isLoading: true })
 
-      if (!checkExpiryDate()) {
-        let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-        await loginWithSigned(publicKey, signature, dispatch)
-      }
-
+      await checkExpiryToken(publicKey, signMessage, dispatch)
       // TODO: calculate real file size
       // for now, just fund with 0.1 sol which is little over 1GB
       await ensureLocalWalletBalance(0.1 * 1e9)

@@ -43,7 +43,7 @@ import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import { setColorTheme } from 'utils/helpers'
 import userAPI from 'apis/user'
-import { getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
+import { loginWithWallet } from 'utils/auth'
 
 const ArtistHeader = () => {
   const viewport = useViewport()
@@ -219,8 +219,6 @@ const ArtistHeader = () => {
   useEffect(() => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
-      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      // loginWithSigned(publicKey, signature, dispatch)
       loginWithWallet(publicKey, signMessage, dispatch)
     })()
   }, [connected, signMessage])

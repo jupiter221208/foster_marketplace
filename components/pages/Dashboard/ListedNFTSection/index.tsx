@@ -33,7 +33,7 @@ import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
+import { checkExpiryToken } from 'utils/auth'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -78,14 +78,6 @@ const ListedNFTSection = props => {
   function getMintAddress(asset: Nft | Sft | Metadata): PublicKey {
     if ('mintAddress' in asset) return asset.mintAddress
     else return asset.mint.address
-  }
-
-  const checkTokenExpiration = async () => {
-    if (!checkExpiryDate()) {
-      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      // await loginWithSigned(publicKey, signature, dispatch)
-      loginWithWallet(publicKey, signMessage, dispatch)
-    }
   }
 
   const setMyListedNFTs = async () => {
@@ -139,7 +131,7 @@ const ListedNFTSection = props => {
   const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
-      await checkTokenExpiration()
+      await checkExpiryToken(publicKey, signMessage, dispatch)
 
       const result = await cancelList(mx, tradeStateAddress)
       if (result) {
@@ -179,7 +171,7 @@ const ListedNFTSection = props => {
   const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
     setOpenProgressingModal(true)
     try {
-      await checkTokenExpiration()
+      await checkExpiryToken(publicKey, signMessage, dispatch)
 
       const result = await updateList(mx, address, tradeStateAddress, price)
       if (result) {
@@ -230,7 +222,7 @@ const ListedNFTSection = props => {
   const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
-      await checkTokenExpiration()
+      await checkExpiryToken(publicKey, signMessage, dispatch)
 
       const { auction } = await cancelListing(mx, address, sellerAddress)
       auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
@@ -264,7 +256,7 @@ const ListedNFTSection = props => {
     }, 500)
 
     try {
-      await checkTokenExpiration()
+      await checkExpiryToken(publicKey, signMessage, dispatch)
 
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()

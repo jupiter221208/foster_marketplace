@@ -42,7 +42,7 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
+import { getSignMessageVerbiage, loginWithWallet } from 'utils/auth'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -224,8 +224,7 @@ const PrimaryHeader = () => {
   useEffect(() => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
-      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      // loginWithSigned(publicKey, signature, dispatch)
+
       loginWithWallet(publicKey, signMessage, dispatch)
       dispatch({ type: 'set', loginSignedFlag: true })
     })()

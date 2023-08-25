@@ -25,7 +25,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import listingsAPI from 'apis/listings'
 import NoDataSection from '../NoDataSection'
 import usersAPI from 'apis/user'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { checkExpiryToken } from 'utils/auth'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -93,10 +93,7 @@ const OfferSection = () => {
   }, [shownOfferType, offersMade, offersReceived])
 
   const onCancel = async (listing: LazyBidWithAsset) => {
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
-    }
+    await checkExpiryToken(publicKey, signMessage, dispatch)
 
     const { tradeStateAddress, asset } = listing
     const result = await cancelOffer(mx, tradeStateAddress)
@@ -129,10 +126,7 @@ const OfferSection = () => {
   }
 
   const onAccept = async (bid: LazyBidWithAsset) => {
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
-    }
+    await checkExpiryToken(publicKey, signMessage, dispatch)
 
     const result = await acceptOffer(mx, bid)
     if (result) {
