@@ -165,9 +165,9 @@ const WallArtDetail = props => {
           : 'Customize your wall art by selecting the material, orientation, and size.'}
       </div>
 
-      <div className="w-full mt-[60px]">
+      {/* <div className="w-full mt-[60px]">
         <Selection label="PRINT:" data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
-      </div>
+      </div> */}
 
       <div className="w-full mt-[25px]">
         <Selection
@@ -218,7 +218,7 @@ const WallArtDetail = props => {
           />
         </div>
         <div className="w-full mt-[30px] flex gap-[30px]">
-          <SecondaryButton
+          {/* <SecondaryButton
             backgroundColor="transparent"
             label="Generate Preview"
             fullWidth
@@ -227,7 +227,7 @@ const WallArtDetail = props => {
             color={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
             borderColor={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
             onClick={() => enabled && setOpenEditorModal(true)}
-          />
+          /> */}
           <GradientButton
             disabled={!enabled}
             label="Next"
@@ -260,7 +260,7 @@ const WallArtDetail = props => {
           </div>
         </div>
         <div className="w-full mt-[30px] flex gap-[30px]">
-          <SecondaryButton
+          {/* <SecondaryButton
             backgroundColor="transparent"
             label="Generate Preview"
             fullWidth
@@ -269,7 +269,7 @@ const WallArtDetail = props => {
             color={enabled ? '#eff0f6' : '#818181'}
             borderColor={'#202427'}
             onClick={() => setOpenEditorModal(true)}
-          />
+          /> */}
           <GradientButton
             disabled={!enabled}
             label="Next"
