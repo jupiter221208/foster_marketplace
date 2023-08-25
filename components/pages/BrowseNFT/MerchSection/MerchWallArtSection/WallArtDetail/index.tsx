@@ -172,7 +172,7 @@ const WallArtDetail = props => {
 
       <div className="w-full mt-[25px]">
         <Selection
-          label="ORIENTATION:"
+          label="Orientation:"
           data={OrientType}
           selected={orientation?.name}
           onSelect={item => setOrientation(item)}
@@ -180,9 +180,7 @@ const WallArtDetail = props => {
       </div>
 
       <div className="w-full mt-[25px]">
-        <div className={styles.selectSize}>
-          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'SIZE:' : 'Size:'}
-        </div>
+        <div className={styles.selectSize}>{'Size:'}</div>
         <div className="w-full flex flex-wrap gap-[15px] mt-[10px]">
           {sizes.map((item, index) => (
             <div key={index}>
@@ -197,7 +195,7 @@ const WallArtDetail = props => {
         </div>
       </div>
 
-      <div className="w-full mt-[25px] flex">
+      <div className="w-full mt-[20px] flex">
         <div className={styles.quantity}>Quantity:</div>
         <input
           value={quantity}

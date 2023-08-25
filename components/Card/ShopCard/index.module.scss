@@ -5,16 +5,10 @@
   width: 100%;
   max-height: 516px;
   height: 100%;
-  background-color: var(--background-black-color);
   border-radius: 24px;
   @media (min-width: 1024px) {
     border-radius: 24px;
   }
-  @media (min-width: 1536px) {
-    border-radius: 24px;
-  }
-  // border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.15);
-  // border-width: var(--collection-card-border);
   margin: 6px;
   box-shadow: 0px 3px 6px rgba($background-dark-color, 0.3);
   cursor: pointer;
