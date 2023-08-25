@@ -309,9 +309,6 @@ const MerchDetail = () => {
             <div className={styles.shipStatusTitle}>
               Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
             </div>
-            <div className={styles.shipStatusValue}>
-              {orderData && getFirstUpperString(orderData.ssorder.orderStatus)}
-            </div>
           </div>
         </div>
         <div className="w-full mt-[30px] mb-[100px] flex justify-center">
