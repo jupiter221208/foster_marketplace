@@ -229,6 +229,7 @@ export const getLocalDateWithoutTime = dateString => {
 }
 
 export const getFirstUpperString = word => {
+  if (word === null || word?.length === 0) return ''
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 

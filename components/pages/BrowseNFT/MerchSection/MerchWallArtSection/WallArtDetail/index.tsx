@@ -137,6 +137,7 @@ const WallArtDetail = props => {
       }
     })
     setSizes(newSizes)
+    setOpenEditorModal(true)
   }
 
   const moveShippingPage = () => {

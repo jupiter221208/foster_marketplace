@@ -2,25 +2,36 @@
 
 .container {
   width: auto;
-  height: 18px;
-  display: flex;
+  display: block;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
 }
 .label {
+  display: flex;
   font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 18px;
+  margin-bottom: 15px;
+  @media (min-width: 1024px) {
+    line-height: 66px;
+    margin-bottom: 0px;
+  }
   width: 120px;
   color: var(--text-gray-200-color);
 }
 .selected {
-  width: 20px;
-  height: 20px;
+  width: 66px;
+  height: 66px;
+  border-radius: 33px;
   border: 1px solid red;
   cursor: pointer;
+  overflow: hidden;
 }
 .normal {
-  width: 20px;
-  height: 20px;
+  width: 66px;
+  height: 66px;
+  border-radius: 33px;
   border-width: 0px;
   cursor: pointer;
+  overflow: hidden;
 }

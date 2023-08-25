@@ -220,7 +220,7 @@ const PhysicalPrintDetail = props => {
         <SelectionColor
           label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'COLOR:' : 'Color:'}
           data={ColorType}
-          selected={color?.name}
+          selected={color?.type}
           onSelect={item => setColor(item)}
         />
       </div>

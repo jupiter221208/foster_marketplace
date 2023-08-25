@@ -10,8 +10,11 @@
 }
 
 .selected {
-  border: 1px solid var(--main-icon-color);
-  color: var(--text-gray-200-color);
+  background: var(--main-icon-color);
+  color: var(--background-main-color);
+  @media (min-width: 1024px) {
+    border: 1px solid var(--main-icon-color);
+  }
 }
 
 .normal {
