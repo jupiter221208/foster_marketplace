@@ -226,7 +226,7 @@ const PhysicalPrintDetail = props => {
       </div>
       <div className="w-full mt-[35px] lg:mt-[25px]">
         <Selection
-          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'SELECT SIZE:' : 'Select Size:'}
+          label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'SIZE:' : 'Size:'}
           data={SizeType}
           selected={size?.name}
           onSelect={item => setSize(item)}

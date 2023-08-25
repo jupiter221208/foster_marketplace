@@ -126,7 +126,6 @@
 }
 
 .tableHeader {
-  background: $brand-04-color;
   height: 50px;
   display: flex;
   justify-content: space-between;
@@ -135,11 +134,13 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   color: var(--text-gray-200-color);
+  background: var(--stats-bg-color);
 }
 
 .value {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
+  color: var(--text-gray-200-color);
 }
 
 .shippingMethod {

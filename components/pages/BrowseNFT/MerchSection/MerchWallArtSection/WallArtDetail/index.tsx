@@ -180,7 +180,9 @@ const WallArtDetail = props => {
       </div>
 
       <div className="w-full mt-[25px]">
-        <div className={styles.selectSize}>SELECT SIZE:</div>
+        <div className={styles.selectSize}>
+          {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'SIZE:' : 'Size:'}
+        </div>
         <div className="w-full flex flex-wrap gap-[15px] mt-[10px]">
           {sizes.map((item, index) => (
             <div key={index}>
