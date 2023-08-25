@@ -159,6 +159,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   }
 
   const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
+  const [merchToggle, setMerchToggle] = useState(false)
 
   return (
     <div className="g-container">
@@ -206,16 +207,29 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 nftInfo={nftInfo}
                 setFullScreenView={setFullScreenView}
                 reloadNftData={reloadNftData}
+                enableMerch={setMerchToggle}
                 openMerchPage={data => {
                   setMerchData(data)
                   setOpenMerchPage(true)
                 }}
               />
             )}
-            <ShopApparelSection shopApparelList={shopApparelList} />
-            {collectionId && <MoreCollectionSection collectionId={collectionId} />}
-            {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-            <MoreCategorySection categories={categories} />
+            {merchToggle ? (
+              <ShopApparelSection
+                nftDetail={nftDetail}
+                shopApparelList={shopApparelList}
+                openMerchPage={data => {
+                  setMerchData(data)
+                  setOpenMerchPage(true)
+                }}
+              />
+            ) : (
+              <div>
+                {collectionId && <MoreCollectionSection collectionId={collectionId} />}
+                {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
+                <MoreCategorySection categories={categories} />
+              </div>
+            )}
           </div>
         )}
       </div>

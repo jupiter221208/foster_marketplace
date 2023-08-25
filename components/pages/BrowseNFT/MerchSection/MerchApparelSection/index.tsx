@@ -16,6 +16,7 @@ const MerchApparelSection = props => {
     nftCoverUrl,
     mintAddress,
     subCategory,
+    base,
     open,
     onBack,
     setFinishEditing,
@@ -57,6 +58,7 @@ const MerchApparelSection = props => {
           }}
           data={printData}
           subCategory={subCategory}
+          base={base}
           setData={data => setPrintData(data)}
           nftName={nftName}
           nftCoverUrl={nftCoverUrl}

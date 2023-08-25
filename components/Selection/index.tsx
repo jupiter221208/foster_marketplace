@@ -7,7 +7,7 @@ import { getFirstUpperString } from 'utils/helpers'
 
 const Selection = props => {
   const { label, data, selected, onSelect } = props
-  const viewport = useViewport()
+
   return (
     <div className={styles.container}>
       <div className="w-full lg:flex hidden">
@@ -29,7 +29,7 @@ const Selection = props => {
         <div className={styles.label}>
           {label}&nbsp;
           <div className={styles.selectedLabel}>
-            {selected.length === 0
+            {!selected || selected.length === 0
               ? `Select ${getFirstUpperString(label.substring(0, label.length - 1).toLowerCase())}`
               : selected}
           </div>

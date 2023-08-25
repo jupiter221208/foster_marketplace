@@ -119,6 +119,7 @@ export interface MainSectionProps {
   setFullScreenView: any
   reloadNftData: any
   openMerchPage: any
+  enableMerch: any
 }
 
 const MainSection = ({
@@ -128,6 +129,7 @@ const MainSection = ({
   setFullScreenView,
   reloadNftData,
   openMerchPage,
+  enableMerch,
 }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
@@ -373,6 +375,7 @@ const MainSection = ({
       let { auction, merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
       setMerchToggle(merch_hub_enabled)
+      enableMerch(merch_hub_enabled)
 
       setLiveAuction(false)
       if (auction?.auction) {
@@ -726,6 +729,7 @@ const MainSection = ({
         response => {
           if (response !== null) {
             setMerchToggle(true)
+            enableMerch(true)
             setCreateMerchModal(false)
           }
         },
@@ -736,6 +740,7 @@ const MainSection = ({
         response => {
           if (response !== null) {
             setMerchToggle(false)
+            enableMerch(false)
             setRemoveMerchModal(false)
           }
         },

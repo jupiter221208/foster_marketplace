@@ -30,10 +30,10 @@ import ApparelSection from '../ApparelSection'
 // api
 
 const PhysicalPrintDetail = props => {
-  const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory } = props
+  const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory, base } = props
   const viewport = useViewport()
   const [gender, setGender] = useState({ name: '', type: '' })
-  const [apparel, setApparel] = useState({ name: '' })
+  const [apparel, setApparel] = useState(null)
   const [print, setPrint] = useState({ name: '', type: '' })
   const [quality, setQuality] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ name: '' })
@@ -66,6 +66,13 @@ const PhysicalPrintDetail = props => {
   }, [subCategory])
 
   useEffect(() => {
+    if (base && base.length > 0) {
+      let apparel = ApparelType.filter(item => item.name === base)
+      setApparel(apparel[0])
+    }
+  }, [base])
+
+  useEffect(() => {
     if (gender.hasOwnProperty('id')) {
       let genderType = gender.type
       let newApparelType = []
@@ -82,7 +89,6 @@ const PhysicalPrintDetail = props => {
         setQuantity(data.quantity)
         setData(null)
       } else {
-        setApparel({ name: '' })
         setQuality({ name: '', type: '' })
         setPrint({ name: '', type: '' })
         setCost('----')
@@ -96,7 +102,7 @@ const PhysicalPrintDetail = props => {
   }, [gender])
 
   useEffect(() => {
-    if (apparel.hasOwnProperty('id')) {
+    if (apparel && apparel.hasOwnProperty('id')) {
       let apparelQualities = apparel[gender.type]
       let newQualityType = []
       QualityType.map(item => {
@@ -107,7 +113,7 @@ const PhysicalPrintDetail = props => {
   }, [apparel])
 
   useEffect(() => {
-    if (!apparel.hasOwnProperty('id')) {
+    if (!apparel) {
       setEnabled(false)
       return
     }

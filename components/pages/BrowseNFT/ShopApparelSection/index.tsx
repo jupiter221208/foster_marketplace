@@ -26,7 +26,7 @@ import styles from './index.module.scss'
 // api
 
 const ShopApparelSection = props => {
-  const { shopApparelList } = props
+  const { nftDetail, shopApparelList, openMerchPage } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -57,7 +57,23 @@ const ShopApparelSection = props => {
             {shopApparelList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
-                  <ShopCard data={item} onClick={() => {}} />
+                  <ShopCard
+                    data={item}
+                    onClick={() => {
+                      const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
+                      const nftCoverUrl = nftDetail.json?.image ?? ''
+                      const mintAddress = nftDetail.address.toString()
+                      let params = {
+                        nftName,
+                        nftCoverUrl,
+                        mintAddress,
+                        category: 'apparel',
+                        subCategory: item.sub_type,
+                        base: item.base,
+                      }
+                      openMerchPage(params)
+                    }}
+                  />
                 </div>
               </SwiperSlide>
             ))}

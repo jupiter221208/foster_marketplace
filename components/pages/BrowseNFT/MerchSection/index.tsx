@@ -69,6 +69,7 @@ const MerchSection = props => {
               mintAddress={data?.mintAddress}
               open={openApparelDetail}
               subCategory={data?.subCategory}
+              base={data?.base}
               onBack={() => {
                 openNftPage()
               }}
