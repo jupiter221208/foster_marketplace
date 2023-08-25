@@ -109,7 +109,7 @@ const ApparelActivity = props => {
       )}
 
       {!searchLoading && list.length > 0 && (
-        <div className="mt-[20px]">
+        <div className="mt-[10px]">
           <TableSections data={list} type={type} />
         </div>
       )}

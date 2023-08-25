@@ -63,7 +63,7 @@ const ArtworksAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className="block">
-                      <div className={styles.subTitle}>{'Short Sleeve: Mens / Unisex - Standard'}</div>
+                      <div className={styles.subTitle}>{item.id}</div>
                       <div className="flex gap-1 mt-1 items-center">
                         <SolanaLogoIcon alt="" />
                         <div className={styles.priceValue}>{(item.amount / solToUsdRate).toFixed(2)}</div>
