@@ -14,24 +14,24 @@
   line-height: 18px;
 }
 .selectedLabel {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
 }
 .selected {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
   color: var(--main-icon-color);
   cursor: pointer;
 }
 .normal {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
   color: rgba(var(--text-gray-200-color-rgb), 0.35);
   cursor: pointer;
 }
 .mobileNormal {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   padding: 6px;
   line-height: 18px;
@@ -40,7 +40,7 @@
   cursor: pointer;
 }
 .mobileSelected {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
   padding: 6px;

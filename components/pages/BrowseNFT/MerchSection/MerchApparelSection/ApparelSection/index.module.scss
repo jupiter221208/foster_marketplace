@@ -17,7 +17,7 @@
     rgba(var(--background-light-color), 0.4)
   );
   overflow: hidden;
-  max-width: calc(100% - 32px);
+  max-width: calc(100% - 24px);
   max-height: calc(100% - 32px);
   display: flex;
   justify-content: center;
@@ -48,7 +48,7 @@
     font-size: 18px;
     line-height: 23px;
   }
-  color: var(--text-gray-200-color);
+  color: #eff0f6;
   display: flex;
   justify-content: center;
   margin-top: 40px;
