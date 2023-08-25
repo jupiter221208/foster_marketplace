@@ -5,20 +5,14 @@
   height: auto;
   min-height: 375px;
   position: relative;
-  margin: 11px;
   border-radius: 12px;
   padding: 0px;
+  background: var(--merch-mobile-squre-bg);
   @media (min-width: 1024px) {
-    padding: 8px;
+    padding: 0px;
+    background: transparent;
   }
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--background-dark-color), 0.4),
-    rgba(var(--background-light-color), 0.4)
-  );
   overflow: hidden;
-  max-width: calc(100% - 24px);
-  max-height: calc(100% - 32px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,10 +35,12 @@
 }
 
 .progressText {
-  font-family: 'Muli-SemiBold';
-  font-size: 16px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
   line-height: 20px;
+  margin: 0px 24px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
     font-size: 18px;
     line-height: 23px;
   }

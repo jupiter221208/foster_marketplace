@@ -126,7 +126,8 @@
 }
 
 .wallartBG {
-  width: 100%;
+  width: calc(100% + 64px);
+  margin-left: -32px;
   min-height: 375px;
   margin-top: 15px;
   @media (min-width: 1024px) {
@@ -137,7 +138,6 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 27px;
   z-index: 1;
   position: relative;
 }
