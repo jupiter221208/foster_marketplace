@@ -43,8 +43,9 @@ const ListNFTModal = props => {
     setShowLoading(true)
 
     if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
+      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
+      // await loginWithSigned(publicKey, signature, dispatch)
+      loginWithWallet(publicKey, signMessage, dispatch)
     }
 
     const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)

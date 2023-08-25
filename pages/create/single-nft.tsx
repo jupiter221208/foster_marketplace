@@ -48,7 +48,7 @@ import nftsAPI from 'apis/nfts'
 import styles from './single-nft.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -331,8 +331,9 @@ const SingleNft = () => {
       dispatch({ type: 'set', isLoading: true })
 
       if (!checkExpiryDate()) {
-        let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-        await loginWithSigned(publicKey, signature, dispatch)
+        // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
+        // await loginWithSigned(publicKey, signature, dispatch)
+        loginWithWallet(publicKey, signMessage, dispatch)
       }
 
       const attributes = categoryList

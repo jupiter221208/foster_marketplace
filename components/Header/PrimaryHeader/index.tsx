@@ -42,7 +42,7 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -224,9 +224,9 @@ const PrimaryHeader = () => {
   useEffect(() => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
-
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      loginWithSigned(publicKey, signature, dispatch)
+      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
+      // loginWithSigned(publicKey, signature, dispatch)
+      loginWithWallet(publicKey, signMessage, dispatch)
       dispatch({ type: 'set', loginSignedFlag: true })
     })()
   }, [connected])
@@ -359,7 +359,6 @@ const PrimaryHeader = () => {
             avatar={profileImage.length > 0 ? profileImage : AvatarImage}
             menuList={profileMenuList}
             onSelect={item => {
-              dispatch({ type: 'set', isLoading: true })
               router.push(item.path)
             }}
             connectWalletStatus={connected}

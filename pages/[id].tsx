@@ -29,7 +29,7 @@ import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { getSignMessageVerbiage, loginWithSigned, loginWithWallet } from 'utils/auth'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import TabSection from './profile/TabSection'
 
@@ -118,8 +118,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     ;(async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      loginWithSigned(publicKey, signature, dispatch)
+      // let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
+      // loginWithSigned(publicKey, signature, dispatch)
+      loginWithWallet(publicKey, signMessage, dispatch)
       getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true)
       getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true)
     })()
