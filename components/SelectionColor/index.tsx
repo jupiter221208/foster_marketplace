@@ -6,7 +6,7 @@ import { getFirstUpperString } from 'utils/helpers'
 
 const SelectionColor = props => {
   const { label, data, selected, onSelect } = props
-  console.log(selected, '========color======')
+
   return (
     <div className={styles.container}>
       <div className={styles.label}>

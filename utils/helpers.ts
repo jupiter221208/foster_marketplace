@@ -500,6 +500,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--fade-loader-color', '#202427')
     doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--back-btn-bg-color', '255, 255, 255')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -553,6 +554,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--twitter-btn-color2', '#2d625d')
     doc.style.setProperty('--notification-card-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--back-btn-bg-color', '32, 36, 39')
     doc.style.setProperty('--dao-title-color', '#95dbd5')
     doc.style.setProperty('--nft-detail-artist', '#95dbd5')
     doc.style.setProperty('--dropdown-bg-color', 'rgba(14, 14, 14, 0.8)')

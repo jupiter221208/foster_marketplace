@@ -16,14 +16,14 @@ const ApparelSection = props => {
   const viewport = useViewport()
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    const resizeFunction = () => {
-      if (apparel) {
-        // drawApparel()
-      }
-    }
-    window.addEventListener('resize', resizeFunction)
-  }, [])
+  // useEffect(() => {
+  //   const resizeFunction = () => {
+  //     if (apparel) {
+  //       drawApparel()
+  //     }
+  //   }
+  //   window.addEventListener('resize', resizeFunction)
+  // }, [])
 
   useEffect(() => {
     if (apparel) {
@@ -86,10 +86,9 @@ const ApparelSection = props => {
       width: screenWidth,
       height: screenWidth,
     })
-
     new fabric.Image.fromURL(apparel, img => {
       const { width, height } = img.getOriginalSize()
-      img.scale(1)
+      img.scale(screenWidth / 576, false)
       newCanvas.add(img)
       if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
         img.set({
@@ -115,12 +114,13 @@ const ApparelSection = props => {
                 left: (screenWidth * 0.75) / 2,
               })
             } else {
-              img.scaleToWidth(150, false)
+              let ratio = screenWidth / 576
+              img.scaleToWidth(150 * ratio, false)
               img.set({
-                scaleX: 150 / width,
-                scaleY: 150 / width,
-                top: 150,
-                left: screenWidth / 2 - 60,
+                scaleX: (150 * ratio) / width,
+                scaleY: (150 * ratio) / width,
+                top: 150 * ratio,
+                left: ((screenWidth - 150 * (screenWidth / 576)) / 19) * 10,
               })
             }
 
