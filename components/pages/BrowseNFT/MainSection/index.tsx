@@ -37,6 +37,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { fetchSolToUsdRate, useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
@@ -98,7 +99,6 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import { checkExpiryToken } from 'utils/auth'
 import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
@@ -119,8 +119,9 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
+  const { refreshToken } = useAuthentication()
   const profileInfo = useSelector(state => (state as any).profileInfo)
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(null)
 
@@ -275,7 +276,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     }
     setOpenProgressingModal(true)
 
-    await checkExpiryToken(publicKey, signMessage, dispatch)
+    await refreshToken()
 
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
@@ -295,7 +296,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
-    await checkExpiryToken(publicKey, signMessage, dispatch)
+    await refreshToken()
 
     const result = await offerNFT(mx, mintAddress, parseFloat(price))
     await updateSolBalance()
@@ -502,7 +503,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     }, 500)
 
     try {
-      await checkExpiryToken(publicKey, signMessage, dispatch)
+      await refreshToken()
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
       AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
@@ -544,7 +545,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     setAuctionLoading(true)
 
     try {
-      await checkExpiryToken(publicKey, signMessage, dispatch)
+      await refreshToken()
 
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
       if (bid) {
@@ -1122,9 +1123,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
+                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">

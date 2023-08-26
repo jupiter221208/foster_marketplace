@@ -28,8 +28,8 @@ import artistsAPI from 'apis/artists'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { loginWithWallet } from 'utils/auth'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import TabSection from './profile/TabSection'
 
@@ -40,7 +40,8 @@ interface ArtistProfileProps {
 }
 
 const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
-  const { connected, publicKey, signMessage } = useWallet()
+  useAuthentication()
+  const { connected, publicKey } = useWallet()
   const viewport = useViewport()
 
   const dispatch = useDispatch()
@@ -118,11 +119,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     ;(async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      loginWithWallet(publicKey, signMessage, dispatch)
       getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true)
       getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true)
     })()
-  }, [connected, loginAndRefresh, publicArtistData, signMessage])
+  }, [connected, loginAndRefresh, publicArtistData])
 
   const selectRowCount = count => {
     if (artistEnable) {

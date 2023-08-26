@@ -13,7 +13,7 @@ import Alert from 'components/Alert'
 
 // styles
 import styles from './index.module.scss'
-import { checkExpiryDate } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const ModalPlaceBid = props => {
   const {
@@ -36,6 +36,7 @@ const ModalPlaceBid = props => {
   const closeModal = () => {
     onClose()
   }
+  const { isCurrentTokenValid } = useAuthentication()
 
   const onClickPlaceBid = async () => {
     placeBid(price)
@@ -65,7 +66,7 @@ const ModalPlaceBid = props => {
   }, [open])
 
   useEffect(() => {
-    if (!checkExpiryDate()) {
+    if (!isCurrentTokenValid()) {
       setPriceCheckMode(3)
       return
     }

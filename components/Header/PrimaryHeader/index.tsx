@@ -19,6 +19,7 @@ import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
@@ -42,7 +43,6 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { loginWithWallet } from 'utils/auth'
 import { getShortAddress } from 'utils/strings'
 
 const PrimaryHeader = () => {
@@ -141,11 +141,11 @@ const PrimaryHeader = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { user: profileInfo } = useAuthentication()
   const routePath = router.pathname
 
   // update profile menu list
@@ -229,8 +229,6 @@ const PrimaryHeader = () => {
   useEffect(() => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
-
-      loginWithWallet(publicKey, signMessage, dispatch)
       dispatch({ type: 'set', loginSignedFlag: true })
     })()
   }, [connected])

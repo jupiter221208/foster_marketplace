@@ -18,6 +18,7 @@ import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 // custom functions
 import { useViewport } from 'utils'
+import { useAuthentication } from "hooks/useAuthentication"
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
@@ -43,7 +44,6 @@ import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import { setColorTheme } from 'utils/helpers'
 import userAPI from 'apis/user'
-import { loginWithWallet } from 'utils/auth'
 import { getShortAddress } from 'utils/strings'
 
 const ArtistHeader = () => {
@@ -137,11 +137,11 @@ const ArtistHeader = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { user: profileInfo } = useAuthentication()
 
   // update profile menu list
   const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
@@ -220,13 +220,6 @@ const ArtistHeader = () => {
     }
     window.addEventListener('resize', resizeFunction)
   }, [connected])
-
-  useEffect(() => {
-    ;(async () => {
-      if (!connected || profileInfo || loginAndRefresh) return
-      loginWithWallet(publicKey, signMessage, dispatch)
-    })()
-  }, [connected, signMessage])
 
   const handleSelectMenu = (item: any) => {
     if (connected) {

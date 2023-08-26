@@ -33,14 +33,14 @@ import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import { checkExpiryToken } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const ListedNFTSection = props => {
   const { filter } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
@@ -131,7 +131,7 @@ const ListedNFTSection = props => {
   const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
-      await checkExpiryToken(publicKey, signMessage, dispatch)
+      await refreshToken()
 
       const result = await cancelList(mx, tradeStateAddress)
       if (result) {
@@ -171,7 +171,7 @@ const ListedNFTSection = props => {
   const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
     setOpenProgressingModal(true)
     try {
-      await checkExpiryToken(publicKey, signMessage, dispatch)
+      await refreshToken()
 
       const result = await updateList(mx, address, tradeStateAddress, price)
       if (result) {
@@ -222,7 +222,7 @@ const ListedNFTSection = props => {
   const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
-      await checkExpiryToken(publicKey, signMessage, dispatch)
+      await refreshToken()
 
       const { auction } = await cancelListing(mx, address, sellerAddress)
       auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
@@ -256,7 +256,7 @@ const ListedNFTSection = props => {
     }, 500)
 
     try {
-      await checkExpiryToken(publicKey, signMessage, dispatch)
+      await refreshToken()
 
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
