@@ -42,7 +42,8 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { getSignMessageVerbiage, loginWithWallet } from 'utils/auth'
+import { loginWithWallet } from 'utils/auth'
+import { getShortAddress } from 'utils/strings'
 
 const PrimaryHeader = () => {
   const viewport = useViewport()
@@ -55,6 +56,8 @@ const PrimaryHeader = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [profileImage, setProfileImage] = useState('')
+  const [walletAddress, setWalletAddress] = useState('')
+  const [userName, setUserName] = useState('')
   const [isNewNotification, setIsNewNotification] = useState(false)
 
   let timer = null
@@ -161,7 +164,9 @@ const PrimaryHeader = () => {
 
   useEffect(() => {
     if (profileInfo && profileInfo.profile_picture) {
+      setWalletAddress(getShortAddress(profileInfo.wallet_id))
       setProfileImage(profileInfo.profile_picture)
+      setUserName(profileInfo.username)
     }
   }, [profileInfo])
 
@@ -293,9 +298,9 @@ const PrimaryHeader = () => {
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
-            <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
+            <div id="walletButton" className={connected ? 'h-full min-w-[190px]' : 'h-full min-w-[220px]'} />
             <div id="notificationButton" className={connected ? 'min-w-[46px] h-full' : 'w-[0px]'} />
-            <div id="profileButton" className="h-full min-w-[40px]" />
+            <div id="profileButton" className="h-full ml-2 min-w-[150px]" />
           </div>
         </div>
       </div>
@@ -309,12 +314,11 @@ const PrimaryHeader = () => {
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
         </div>
       )}
-      {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: 25, left: `${offset[1]}px` }}>
+      {offset[1] !== 0 && connected && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: 25, left: `${offset[1] - 30}px` }}>
           <WalletButton />
         </div>
       )}
-
       {connected && notificationOffset[1] !== 0 && (
         <div
           style={{
@@ -329,7 +333,6 @@ const PrimaryHeader = () => {
           <NotificationIcon alt="" />
         </div>
       )}
-
       {connected && notificationOffset[1] !== 0 && isNewNotification && (
         <div
           style={{
@@ -344,7 +347,6 @@ const PrimaryHeader = () => {
           <Lottie animationData={NotifyAlarmIcon} loop={true} />
         </div>
       )}
-
       {profileOffset[1] !== 0 && (
         <div
           style={{
@@ -356,6 +358,8 @@ const PrimaryHeader = () => {
         >
           <ProfileMenu
             avatar={profileImage.length > 0 ? profileImage : AvatarImage}
+            wallet={walletAddress}
+            username={userName}
             menuList={profileMenuList}
             onSelect={item => {
               router.push(item.path)
@@ -364,7 +368,6 @@ const PrimaryHeader = () => {
           />
         </div>
       )}
-
       {profileOffset[1] !== 0 && !connected && (
         <div
           style={{
@@ -373,7 +376,7 @@ const PrimaryHeader = () => {
             width: 83,
             height: 44,
             top: 27,
-            left: `${profileOffset[1] + 70}px`,
+            left: `${profileOffset[1] + 140}px`,
           }}
           onClick={() => handleThemeMode()}
         >

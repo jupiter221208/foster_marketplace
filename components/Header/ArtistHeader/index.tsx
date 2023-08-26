@@ -44,6 +44,7 @@ import searchAPI from 'apis/search'
 import { setColorTheme } from 'utils/helpers'
 import userAPI from 'apis/user'
 import { loginWithWallet } from 'utils/auth'
+import { getShortAddress } from 'utils/strings'
 
 const ArtistHeader = () => {
   const viewport = useViewport()
@@ -55,6 +56,8 @@ const ArtistHeader = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
   const [profileImage, setProfileImage] = useState('')
+  const [walletAddress, setWalletAddress] = useState('')
+  const [userName, setUserName] = useState('')
   const [isNewNotification, setIsNewNotification] = useState(false)
 
   let timer = null
@@ -157,6 +160,8 @@ const ArtistHeader = () => {
   useEffect(() => {
     if (profileInfo && profileInfo.profile_picture) {
       setProfileImage(profileInfo.profile_picture)
+      setWalletAddress(getShortAddress(profileInfo.wallet_id))
+      setUserName(profileInfo.username)
     }
   }, [profileInfo])
 
@@ -280,29 +285,25 @@ const ArtistHeader = () => {
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
-            <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
+            <div id="walletButton" className={connected ? 'h-full min-w-[190px]' : 'h-full min-w-[220px]'} />
             <div id="notificationButton" className={connected ? 'min-w-[46px] h-full' : 'w-[0px]'} />
-            <div id="profileButton" className="h-full min-w-[40px]" />
+            <div id="profileButton" className="h-full ml-2 min-w-[150px]" />
           </div>
         </div>
       </div>
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 262}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
         </div>
       )}
+
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
-          <WalletButton />
-        </div>
-      )}
-      {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 130}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 130}px` }}>
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
         </div>
       )}
-      {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
+      {offset[1] !== 0 && connected && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: 25, left: `${offset[1] - 30}px` }}>
           <WalletButton />
         </div>
       )}
@@ -346,6 +347,8 @@ const ArtistHeader = () => {
         >
           <ProfileMenu
             avatar={profileImage.length > 0 ? profileImage : AvatarImage}
+            wallet={walletAddress}
+            username={userName}
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
@@ -360,7 +363,7 @@ const ArtistHeader = () => {
             width: 83,
             height: 44,
             top: `${profileOffset[0] + 27}px`,
-            left: `${profileOffset[1] + 70}px`,
+            left: `${profileOffset[1] + 140}px`,
           }}
           onClick={() => handleThemeMode()}
         >
