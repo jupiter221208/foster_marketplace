@@ -1,9 +1,9 @@
 @import 'assets/scss/variable.module.scss';
 
 .container {
-  max-width: 700px;
+  max-width: 500px;
   width: 100%;
-  max-height: 700px;
+  max-height: 500px;
   border-radius: 20px;
   padding: 0px 15px;
   @media (min-width: 640px) {
@@ -91,7 +91,7 @@
   max-height: 114px;
   height: 74px;
   padding: 18px 30px 18px 14px;
-  background: rgba($background-black-color, 0.4);
+  background: rgba(var(--collection-card-bg-rgb), 0.4);
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   @media (min-width: 1024px) {
@@ -118,7 +118,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   @media (min-width: 1024px) {
     font-size: 20px;
     line-height: 36px;

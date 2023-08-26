@@ -78,9 +78,7 @@ const MainSection = () => {
       </div>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-          <div className="col-span-6">
-            {/* <FosterHeroLogo alt="" /> */}
-
+          <div className="col-span-12">
             <div className={styles.text}>Your Daily Dose of Art.</div>
 
             <div className={styles.slug}>
@@ -89,17 +87,7 @@ const MainSection = () => {
               Pushing the boundaries of digital art on Solana.
             </div>
 
-            <div className="mt-[35px] lg:mt-[50px] xl:mt-[70px] 2xl:mt-[60px] flex justify-center lg:justify-start gap-8">
-              <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
-              <OutlineButton
-                label="Create"
-                width={124}
-                borderWidth={2}
-                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
-              />
-            </div>
-
-            <div className="hidden lg:flex lg:mt-16 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
+            {/* <div className="hidden lg:flex lg:mt-1 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
               <div className="block">
                 <div className={styles.count}>{artworkCnt}</div>
                 <div className={styles.countText}>Artworks</div>
@@ -112,7 +100,7 @@ const MainSection = () => {
                 <div className={styles.count}>{nftCnt}</div>
                 <div className={styles.countText}>Ecosystem</div>
               </div>
-            </div>
+            </div> */}
           </div>
         )}
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -153,16 +141,16 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end lg:py-6"
+            className="w-full col-span-12 lg:col-span-12 lg:py-4 "
             style={{
-              width: viewport === 'xs' || viewport === 'sm' ? 'calc(100% + 32px)' : '100%',
-              marginLeft: viewport === 'xs' || viewport === 'sm' ? '-16px' : '0px',
+              width: '100%',
+              marginLeft: '0px',
             }}
           >
-            <div className="max-w-[700px] w-full">
+            <div className="w-full relative">
               {heroList.length !== 0 && (
                 <Swiper
-                  slidesPerView={1}
+                  slidesPerView={3}
                   spaceBetween={30}
                   pagination={{
                     clickable: true,
@@ -182,9 +170,21 @@ const MainSection = () => {
                   ))}
                 </Swiper>
               )}
+              <div className={styles.leftSide} />
+              <div className={styles.rightSide} />
+            </div>
+            <div className="mt-[35px] lg:mt-[30px] flex justify-center gap-8">
+              <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
+              <OutlineButton
+                label="Create"
+                width={124}
+                borderWidth={2}
+                onClick={() => dispatch({ type: 'set', openCreateNFTModal: true })}
+              />
             </div>
           </div>
         )}
+
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
             <div className="w-full flex justify-center gap-8">
