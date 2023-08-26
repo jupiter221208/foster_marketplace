@@ -140,7 +140,7 @@ const HeroCard = props => {
           </div>
         </a>
       </Link>
-      {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
+      {/* {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
         <div className={styles.cardArea}>
           <div className="flex justify-between gap-[6px]">
             <div className="w-full block">
@@ -171,7 +171,27 @@ const HeroCard = props => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
+      <div className="absolute z-10 right-8 bottom-8 cursor-pointer">
+        <div className="justify-start items-center lg:mt-[10px]">
+          <div className={styles.avatar} onClick={() => gotoAristPage()}>
+            <img
+              src={
+                data.artist_profile_picture &&
+                data.artist_profile_picture !== '' &&
+                data.artist_profile_picture !== undefined
+                  ? data.artist_profile_picture
+                  : '/images/avatar.png'
+              }
+              alt=""
+              width={viewport === 'lg' ? 40 : 60}
+              height={viewport === 'lg' ? 40 : 60}
+              className="rounded-full"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

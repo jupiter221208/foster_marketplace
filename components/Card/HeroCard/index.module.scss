@@ -91,9 +91,9 @@
   max-height: 114px;
   height: 74px;
   padding: 18px 30px 18px 14px;
-  background: rgba(var(--collection-card-bg-rgb), 0.4);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  background: transparent; //(var(--collection-card-bg-rgb), 0.4);
+  // -webkit-backdrop-filter: blur(20px);
+  // backdrop-filter: blur(20px);
   @media (min-width: 1024px) {
     position: absolute;
     bottom: 40px;
@@ -162,7 +162,7 @@
 .avatar {
   width: 60px;
   height: 60px;
-  border-radius: 16px;
+  border-radius: 30x;
   @media (min-width: 1024px) {
     width: 36px;
     height: 36px;
@@ -178,6 +178,7 @@
     height: 60px;
     border-radius: 30px;
   }
+  border: 3px solid rgba(var(--collection-card-bg-rgb), 0.75);
 }
 
 .artistName {
