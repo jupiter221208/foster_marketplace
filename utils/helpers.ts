@@ -450,7 +450,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--stats-label-bg', '#E0E1E7')
     doc.style.setProperty(
       '--category-bottom-mask',
-      'linear-gradient(to bottom, rgba(239, 240, 247, 0), rgba(239, 240, 247, 1))'
+      'linear-gradient(to bottom, rgba(243, 242, 240, 0), rgba(243, 242, 240, 1))'
     )
     doc.style.setProperty('--stats-search-bg', '#E3E4EA')
     doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #E3E4EA, #727275)')
