@@ -697,7 +697,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
 
   return (
     <div className={styles.container}>
-      <div className="w-full grid grid-cols-2 gap-10">
+      <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
         {loading ? (
           <div className="col-span-2 lg:col-span-1">
             <div className={styles.loadingBackground}>
@@ -713,7 +713,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType === 'image' ? (
                 <div className={styles.mobileImageArea}>
-                  <img src={nftCoverUrl} alt="" />
+                  <img src={nftCoverUrl} alt="" className="w-full" />
                   {/* <div className={styles.mobileImageBackground} /> */}
                 </div>
               ) : nftType.includes('audio') ? (
