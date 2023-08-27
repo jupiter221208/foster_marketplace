@@ -18,7 +18,7 @@ import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 // custom functions
 import { useViewport } from 'utils'
-import { useAuthentication } from "hooks/useAuthentication"
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
@@ -55,9 +55,6 @@ const ArtistHeader = () => {
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
-  const [profileImage, setProfileImage] = useState('')
-  const [walletAddress, setWalletAddress] = useState('')
-  const [userName, setUserName] = useState('')
   const [isNewNotification, setIsNewNotification] = useState(false)
 
   let timer = null
@@ -141,7 +138,7 @@ const ArtistHeader = () => {
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const { user: profileInfo } = useAuthentication()
+  const { profileInfo } = useAuthentication()
 
   // update profile menu list
   const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
@@ -154,14 +151,6 @@ const ArtistHeader = () => {
         }
       })
       setProfileMenuList(array)
-    }
-  }, [profileInfo])
-
-  useEffect(() => {
-    if (profileInfo && profileInfo.profile_picture) {
-      setProfileImage(profileInfo.profile_picture)
-      setWalletAddress(getShortAddress(profileInfo.wallet_id))
-      setUserName(profileInfo.username)
     }
   }, [profileInfo])
 
@@ -339,9 +328,9 @@ const ArtistHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileImage.length > 0 ? profileImage : AvatarImage}
-            wallet={walletAddress}
-            username={userName}
+            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            wallet={getShortAddress(profileInfo?.wallet_id)}
+            username={profileInfo?.username ?? ''}
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}

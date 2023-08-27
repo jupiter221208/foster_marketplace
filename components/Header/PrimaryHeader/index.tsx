@@ -55,9 +55,6 @@ const PrimaryHeader = () => {
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
-  const [profileImage, setProfileImage] = useState('')
-  const [walletAddress, setWalletAddress] = useState('')
-  const [userName, setUserName] = useState('')
   const [isNewNotification, setIsNewNotification] = useState(false)
 
   let timer = null
@@ -145,7 +142,7 @@ const PrimaryHeader = () => {
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const { user: profileInfo } = useAuthentication()
+  const { profileInfo } = useAuthentication()
   const routePath = router.pathname
 
   // update profile menu list
@@ -159,14 +156,6 @@ const PrimaryHeader = () => {
         }
       })
       setProfileMenuList(array)
-    }
-  }, [profileInfo])
-
-  useEffect(() => {
-    if (profileInfo && profileInfo.profile_picture) {
-      setWalletAddress(getShortAddress(profileInfo.wallet_id))
-      setProfileImage(profileInfo.profile_picture)
-      setUserName(profileInfo.username)
     }
   }, [profileInfo])
 
@@ -355,13 +344,11 @@ const PrimaryHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileImage.length > 0 ? profileImage : AvatarImage}
-            wallet={walletAddress}
-            username={userName}
+            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            wallet={getShortAddress(profileInfo?.wallet_id)}
+            username={profileInfo?.username ?? ''}
             menuList={profileMenuList}
-            onSelect={item => {
-              router.push(item.path)
-            }}
+            onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
           />
         </div>

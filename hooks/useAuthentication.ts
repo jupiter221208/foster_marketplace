@@ -9,7 +9,7 @@ import { isTokenValid, getSignMessageVerbiage } from 'utils/auth'
 export interface UseAuthenticationReturn {
   isCurrentTokenValid: () => boolean
   refreshToken: (force?: boolean) => Promise<User>
-  user: User | null
+  profileInfo: User | null
 }
 
 let fetchUserPromise: null | Promise<User> = null
@@ -59,8 +59,8 @@ export function useAuthentication(): UseAuthenticationReturn {
 
   useEffect(() => {
     if (!connected || !publicKey) return
-    refreshToken()
+    refreshToken().then(setUser)
   }, [connected, publicKey, refreshToken])
 
-  return { isCurrentTokenValid, refreshToken, user }
+  return { isCurrentTokenValid, refreshToken, profileInfo: user }
 }
