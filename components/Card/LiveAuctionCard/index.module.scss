@@ -95,9 +95,9 @@
     // border-bottom-left-radius: 24px;
     // border-bottom-right-radius: 24px;
   }
-  background: rgba(var(--collection-card-bg-rgb), 0.4);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: var(--header-bg-color);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 }
 
 // w-full flex flex-wrap justify-between

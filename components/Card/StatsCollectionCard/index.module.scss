@@ -12,14 +12,13 @@
     width: 360px;
     height: 360px;
   }
-  box-shadow: 0px 3px 6px rgba(#202427, 0.5);
+  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.3);
   overflow: hidden;
 }
 
 .imageArea {
   position: absolute;
   inset: 0;
-  border-radius: 7px;
   overflow: hidden;
 }
 
@@ -34,23 +33,6 @@
   }
   border-radius: 7px;
   background: linear-gradient(to top, transparent, var(--black-color));
-}
-
-.bottomMask {
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  bottom: 0;
-  width: 100%;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
-  height: 60px;
-  @media (min-width: 1024px) {
-    height: 80px;
-  }
-  background: linear-gradient(to bottom, transparent, rgba($background-dark-color, 0.2));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .volume {
@@ -72,16 +54,8 @@
     line-height: 24px;
   }
   margin-bottom: 8px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
   cursor: pointer;
-}
-
-.artistName {
-  margin-top: 5px;
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 15px;
-  color: rgba(var(--white-color), 0.8);
 }
 
 .avatarArea {
@@ -100,7 +74,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  color: rgba(var(--text-gray-200-color), 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .value {
@@ -112,7 +86,7 @@
     line-height: 18px;
     margin-bottom: 3px;
   }
-  color: rgba($text-gray-200-color, 80%);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
 
 .dataContainer {
@@ -135,9 +109,9 @@
   height: 100%;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
-  background-color: rgba(#121212, 0.5);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background: var(--header-bg-color);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
 }
 
 .dataContentView {
@@ -161,5 +135,5 @@
     font-size: 18px;
     line-height: 23px;
   }
-  color: rgba($text-gray-200-color, 0.75);
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }

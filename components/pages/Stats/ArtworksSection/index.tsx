@@ -190,7 +190,7 @@ const ArtworksSection = props => {
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
             autoplay={{
-              delay: 5000,
+              delay: 500000,
               disableOnInteraction: false,
             }}
           >
