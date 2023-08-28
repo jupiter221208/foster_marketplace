@@ -27,7 +27,7 @@ import { getAbsoluteOgUrl } from 'utils/seo'
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import { useViewport } from 'utils'
-import { loginWithWallet } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
 import TabSection from './TabSection'
 
 type BrowseCollectionProps = {
@@ -37,7 +37,8 @@ type BrowseCollectionProps = {
 
 const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
   const dispatch = useDispatch()
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, publicKey } = useWallet()
+  useAuthentication()
   const viewport = useViewport()
 
   const isLoading = useSelector<any>(state => state.isLoading)
@@ -86,9 +87,8 @@ const BrowseCollection = ({ publicCollectionData }: BrowseCollectionProps) => {
     ;(async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      loginWithWallet(publicKey, signMessage, dispatch)
     })()
-  }, [connected, loginAndRefresh, signMessage])
+  }, [connected, loginAndRefresh])
 
   let collectionTitle = `${collectionData?.collection_name} | Foster Marketplace`
   let collectionImageUrl = getAbsoluteOgUrl(collectionData?.cover_image ?? DefaultNftBG.src)

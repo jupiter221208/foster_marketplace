@@ -14,6 +14,7 @@ import FilterButton from 'components/Button/FilterButton'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { getPriceValue } from 'utils/strings'
 
 // solana
@@ -25,11 +26,10 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import listingsAPI from 'apis/listings'
 import NoDataSection from '../NoDataSection'
 import usersAPI from 'apis/user'
-import { checkExpiryToken } from 'utils/auth'
 
 const OfferSection = () => {
   const viewport = useViewport()
-  const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
   const router = useRouter()
   const { filter } = router.query
 
@@ -93,7 +93,7 @@ const OfferSection = () => {
   }, [shownOfferType, offersMade, offersReceived])
 
   const onCancel = async (listing: LazyBidWithAsset) => {
-    await checkExpiryToken(publicKey, signMessage, dispatch)
+    await refreshToken()
 
     const { tradeStateAddress, asset } = listing
     const result = await cancelOffer(mx, tradeStateAddress)
@@ -126,7 +126,7 @@ const OfferSection = () => {
   }
 
   const onAccept = async (bid: LazyBidWithAsset) => {
-    await checkExpiryToken(publicKey, signMessage, dispatch)
+    await refreshToken()
 
     const result = await acceptOffer(mx, bid)
     if (result) {

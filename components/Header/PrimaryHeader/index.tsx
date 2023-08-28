@@ -19,6 +19,7 @@ import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
@@ -42,7 +43,6 @@ import styles from './index.module.scss'
 // call apis
 import searchAPI from 'apis/search'
 import userAPI from 'apis/user'
-import { loginWithWallet } from 'utils/auth'
 import { getShortAddress } from 'utils/strings'
 
 const PrimaryHeader = () => {
@@ -55,9 +55,6 @@ const PrimaryHeader = () => {
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
-  const [profileImage, setProfileImage] = useState('')
-  const [walletAddress, setWalletAddress] = useState('')
-  const [userName, setUserName] = useState('')
   const [isNewNotification, setIsNewNotification] = useState(false)
 
   let timer = null
@@ -141,11 +138,11 @@ const PrimaryHeader = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const routePath = router.pathname
 
   // update profile menu list
@@ -159,14 +156,6 @@ const PrimaryHeader = () => {
         }
       })
       setProfileMenuList(array)
-    }
-  }, [profileInfo])
-
-  useEffect(() => {
-    if (profileInfo && profileInfo.profile_picture) {
-      setWalletAddress(getShortAddress(profileInfo.wallet_id))
-      setProfileImage(profileInfo.profile_picture)
-      setUserName(profileInfo.username)
     }
   }, [profileInfo])
 
@@ -229,8 +218,6 @@ const PrimaryHeader = () => {
   useEffect(() => {
     ;(async () => {
       if (!connected || profileInfo || loginAndRefresh) return
-
-      loginWithWallet(publicKey, signMessage, dispatch)
       dispatch({ type: 'set', loginSignedFlag: true })
     })()
   }, [connected])
@@ -357,13 +344,11 @@ const PrimaryHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileImage.length > 0 ? profileImage : AvatarImage}
-            wallet={walletAddress}
-            username={userName}
+            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            wallet={getShortAddress(profileInfo?.wallet_id)}
+            username={profileInfo?.username ?? ''}
             menuList={profileMenuList}
-            onSelect={item => {
-              router.push(item.path)
-            }}
+            onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
           />
         </div>
