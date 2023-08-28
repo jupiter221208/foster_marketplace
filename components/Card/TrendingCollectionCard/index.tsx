@@ -50,7 +50,6 @@ const TrendingCollectionCard = props => {
               />
             </div>
             <div className={styles.bidContainer}>
-              <div className={styles.bidBgView} />
               <div className={styles.bidGradientBgView} />
               <div className={styles.bidContentView}>
                 <div className="px-[15px] lg:px-[28px]">
