@@ -451,6 +451,7 @@
 .accordionArea {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 1px;
   min-height: 120px;
   max-height: 230px;
   padding: 8px 8px;
@@ -460,6 +461,7 @@
   border-radius: 0px 0px 12px 12px;
   border: 1px solid rgba(#eceef4, 0.1);
   background-color: var(--accordian-area-bg);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   overflow: scroll;
 }
 
