@@ -2,13 +2,15 @@
 
 .container {
   width: 166px;
-  height: 220px;
+  height: 236px;
   border-radius: 13px;
   @media (min-width: 1024px) {
     width: 280px;
     height: 375px;
     border-radius: 30px;
   }
+  margin-top: 8px;
+  margin-bottom: 8px;
   background: var(--collection-card-bg);
   justify-content: flex-start;
   border: 1px solid var(--nft-border-color);
