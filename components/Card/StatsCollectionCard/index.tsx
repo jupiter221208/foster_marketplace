@@ -19,7 +19,6 @@ const StatsCollectionCard = props => {
   const { data, type } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const [loaded, setLoaded] = useState(false)
   const viewport = useViewport()
 
   return (
