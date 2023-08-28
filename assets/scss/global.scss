@@ -1069,6 +1069,10 @@ h6 {
   fill: var(--menu-item-right-icon);
 }
 
+[data-name='gradient-btn-icon'] {
+  fill: var(--gradient-btn-color);
+}
+
 [data-name='down-icon'] {
   fill: var(--menu-item-right-open-icon);
 }
