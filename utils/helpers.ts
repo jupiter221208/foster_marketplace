@@ -473,7 +473,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
-    doc.style.setProperty('--scroll-bar-thumb', '#3a4a4a')
+    doc.style.setProperty('--scroll-bar-thumb', '#F3F2F0')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -685,10 +685,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-disabled-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--logo-text-color', '#fff')
     doc.style.setProperty('--logo-text-ballon', '#95dbd5')
-    doc.style.setProperty(
-      '--activity-tr-bg',
-      'linear-gradient(to bottom, rgba(55, 130, 135, 0.35), rgba(28, 65, 68, 0.35))'
-    )
+    doc.style.setProperty('--activity-tr-bg', '#2B2B2B')
     doc.style.setProperty('--banner-image-bg', '#ffffff')
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
     doc.style.setProperty('--card-border-color', '#333333')
