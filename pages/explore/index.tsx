@@ -50,6 +50,7 @@ import ExploreAPI from 'apis/explore'
 import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
+import LoadingComponent from './LoadingComponent'
 
 const Explore = () => {
   const router = useRouter()
@@ -78,6 +79,8 @@ const Explore = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
     let array: any[] = []
@@ -117,6 +120,9 @@ const Explore = () => {
 
   useEffect(() => {
     setIsMounted(false)
+    setIsFetching(false)
+    setIsVisibleFetching(true)
+
     setTimeout(() => {
       setIsMounted(true)
     }, 2000)
@@ -157,13 +163,8 @@ const Explore = () => {
       case 1:
         setSortData(CollectionSortList)
         let sortList
-        // if (collectionSort === 'trending') {
         setSelectedSort(CollectionSortList[2])
         sortList = CollectionSortList[2]
-        // } else {
-        //   setSelectedSort(CollectionSortList[0])
-        //   sortList = CollectionSortList[0]
-        // }
         setCurrentPage(collectionCurrentPage)
         let list = []
         CategoryList.filter(category => category.query == collectionCategory).forEach(item => {
@@ -178,7 +179,6 @@ const Explore = () => {
         setSortData(EcosystemSortList)
         setSelectedSort(EcosystemSortList[2])
         setCurrentPage(ecosystemCurrentPage)
-        setEcosystemList([])
         getExploreArtistData(ecosystemCurrentPage, EcosystemSortList[2], rowCount)
         break
       default:
@@ -188,8 +188,6 @@ const Explore = () => {
 
   useEffect(() => {
     if (!isMounted) return
-
-    // if (viewport === 'sm' || viewport === 'md' || viewport === 'xs') return
 
     switch (exploreTab) {
       case 0:
@@ -225,8 +223,7 @@ const Explore = () => {
       }
     })
 
-    dispatch({ type: 'set', isLoading: true })
-    setNftList([])
+    if (nftList.length === 0) dispatch({ type: 'set', isLoading: true })
 
     ExploreAPI.getExploreNFT({
       categories: categoryLabel.length === 0 ? null : categoryLabel,
@@ -237,11 +234,15 @@ const Explore = () => {
       page: curPage + 1,
       per_page: count,
     }).then(
-      respone => {
+      response => {
         dispatch({ type: 'set', isLoading: false })
+        setIsFetching(false)
         let nfts = []
+        if (response.length > 0) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
+
         if (availability.value === 'timed') {
-          respone.forEach(nft => {
+          response.forEach(nft => {
             if (isAvailableAuctionCard(nft)) {
               nfts.push({
                 token_id: nft.token_id,
@@ -262,7 +263,7 @@ const Explore = () => {
             }
           })
         } else {
-          nfts = respone.map(nft => {
+          nfts = response.map(nft => {
             return {
               token_id: nft.token_id,
               image: nft.asset_url,
@@ -285,14 +286,12 @@ const Explore = () => {
         setCurrentPage(curPage)
         setNftCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
-        setNftList(nfts)
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
+        setNftList([...nftList, ...nfts])
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
@@ -304,8 +303,9 @@ const Explore = () => {
         categoryLabel.push(category.query)
       }
     })
-    dispatch({ type: 'set', isLoading: true })
-    setCollectionList([])
+    if (collectionList.length === 0) dispatch({ type: 'set', isLoading: true })
+    else setIsVisibleFetching(false)
+
     ExploreAPI.getExploreCollection({
       categories: categoryLabel.length === 0 ? null : categoryLabel,
       availability: null,
@@ -315,9 +315,12 @@ const Explore = () => {
       page: curPage + 1,
       per_page: count,
     }).then(
-      respone => {
+      response => {
         dispatch({ type: 'set', isLoading: false })
-        const collections = respone.map(nft => {
+        setIsFetching(false)
+        if (response.length > 0) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
+        const collections = response.map(nft => {
           return {
             collectionId: nft.collection_id,
             image: nft.cover_image,
@@ -330,21 +333,18 @@ const Explore = () => {
         setCurrentPage(curPage)
         setCollectionCurrentPage(curPage)
         setTotalCount(count * curPage + collections.length)
-        setCollectionList(collections)
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
+        setCollectionList([...collectionList, ...collections])
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
 
   const getExploreArtistData = async (curPage, sort, count) => {
-    dispatch({ type: 'set', isLoading: true })
-    setEcosystemList([])
+    if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
     ExploreAPI.getExploreArtists({
       categories: null,
       availability: null,
@@ -354,19 +354,21 @@ const Explore = () => {
       page: curPage + 1,
       per_page: count,
     }).then(
-      respone => {
+      response => {
         dispatch({ type: 'set', isLoading: false })
+        setIsFetching(false)
+        if (response.length > 0) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
+
         setCurrentPage(curPage)
         setEcoSystemCurrentPage(curPage)
-        setTotalCount(count * curPage + respone.length)
-        setEcosystemList(respone)
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        })
+        setTotalCount(count * curPage + response.length)
+        setEcosystemList([...ecosystemList, ...response])
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
@@ -481,6 +483,11 @@ const Explore = () => {
     else return false
   }
 
+  useEffect(() => {
+    if (isFetching) {
+      handleNextPage()
+    }
+  }, [isFetching])
   return (
     <div className="g-container">
       <Head>
@@ -665,7 +672,8 @@ const Explore = () => {
                   ))}
                 </div>
               )}
-              <div className="w-full flex justify-end">
+              {isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+              {/* <div className="w-full flex justify-end">
                 <ExplorePagination
                   currentPage={currentPage}
                   totalCount={totalCount}
@@ -676,7 +684,7 @@ const Explore = () => {
                   handleNext={handleNextPage}
                   handlePrev={handlePreviousPage}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
