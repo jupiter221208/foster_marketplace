@@ -15,8 +15,8 @@ const SearchSection = props => {
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-between gap-[20px]">
-        <div className="w-[500px] flex items-center gap-2 lg:block hidden">
-          <StatsSearchBox
+        <div className="w-[500px] items-center gap-2 lg:flex hidden">
+          {/* <StatsSearchBox
             value={searchWord}
             placeholder={placeholder}
             onChange={value => setSearchWord(value)}
@@ -83,7 +83,7 @@ const SearchSection = props => {
                 />
               </svg>
             )}
-          </div>
+          </div> */}
         </div>
 
         <div className="sm:w-auto xs:w-full hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
