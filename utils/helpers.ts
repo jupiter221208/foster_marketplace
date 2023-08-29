@@ -473,6 +473,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
     doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--scroll-bar-thumb', '#3a4a4a')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -748,5 +749,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
     doc.style.setProperty('--time-slot-bg', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--scroll-bar-thumb', '#95dbd5')
   }
 }
