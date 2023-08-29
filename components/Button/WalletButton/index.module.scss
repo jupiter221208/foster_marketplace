@@ -63,7 +63,7 @@
   right: 0;
   margin-top: 28px;
   transform-origin: top right;
-  background-color: var(--dropdown-bg-color);
+  background-color: var(--header-bg-color);
   border-radius: 12px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
@@ -71,7 +71,7 @@
 
 .menuArea {
   background: transparent;
-  border: 1px solid var(--dropdown-border-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 12px;
   padding: 15px;
 }

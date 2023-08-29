@@ -25,7 +25,7 @@ import avatar from 'assets/images/dashboard-avatar.png'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
+import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg?component'
 import DepositIcon from 'assets/icons/deposit-icon.svg?component'
 import DepositDisabledIcon from 'assets/icons/deposit-icon-disabled.svg?component'
 import WithdrawIcon from 'assets/icons/withdraw-icon.svg?component'
@@ -386,7 +386,7 @@ const WalletButton = props => {
                     setShowBiddingWallet(false)
                   }}
                 >
-                  <Image src={EllipseGroupWhiteIcon} />
+                  <EllipseGroupWhiteIcon alt="" />
                 </div>
               </div>
             </div>
@@ -558,7 +558,7 @@ const WalletButton = props => {
                     setShowOfferWallet(false)
                   }}
                 >
-                  <Image src={EllipseGroupWhiteIcon} />
+                  <EllipseGroupWhiteIcon alt="" />
                 </div>
               </div>
             </div>
