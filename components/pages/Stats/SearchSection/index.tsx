@@ -15,7 +15,7 @@ const SearchSection = props => {
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-between gap-[20px]">
-        <div className="w-[500px] flex items-center gap-2">
+        <div className="w-[500px] flex items-center gap-2 lg:block hidden">
           <StatsSearchBox
             value={searchWord}
             placeholder={placeholder}
