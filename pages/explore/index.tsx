@@ -157,7 +157,8 @@ const Explore = () => {
           selectedMedium,
           selectedMarket,
           NFTSortList[0],
-          rowCount
+          rowCount,
+          true
         )
         break
       case 1:
@@ -173,13 +174,13 @@ const Explore = () => {
           list.push(object)
         })
         setCategoryList(list)
-        getExploreCollectionData(collectionCurrentPage, list, sortList, rowCount)
+        getExploreCollectionData(collectionCurrentPage, list, sortList, rowCount, true)
         break
       case 2:
         setSortData(EcosystemSortList)
         setSelectedSort(EcosystemSortList[2])
         setCurrentPage(ecosystemCurrentPage)
-        getExploreArtistData(ecosystemCurrentPage, EcosystemSortList[2], rowCount)
+        getExploreArtistData(ecosystemCurrentPage, EcosystemSortList[2], rowCount, true)
         break
       default:
         break
@@ -198,14 +199,15 @@ const Explore = () => {
           selectedMedium,
           selectedMarket,
           selectedSort,
-          rowCount
+          rowCount,
+          true
         )
         break
       case 1:
-        getExploreCollectionData(collectionCurrentPage, categoryList, selectedSort, rowCount)
+        getExploreCollectionData(collectionCurrentPage, categoryList, selectedSort, rowCount, true)
         break
       case 2:
-        getExploreArtistData(ecosystemCurrentPage, selectedSort, rowCount)
+        getExploreArtistData(ecosystemCurrentPage, selectedSort, rowCount, true)
         break
       default:
         break
@@ -215,13 +217,15 @@ const Explore = () => {
   const [openMobileFilter, setOpenMobileFilter] = useState(false)
   const [openMobileSort, setOpenMobileSort] = useState(false)
 
-  const getExploreNFTData = async (curPage, categoryList, availability, medium, market, sort, count) => {
+  const getExploreNFTData = async (curPage, categoryList, availability, medium, market, sort, count, reset = false) => {
     let categoryLabel = []
     categoryList.map(category => {
       if (category.checked === true) {
         categoryLabel.push(category.query)
       }
     })
+
+    if (reset === true) setNftList([])
 
     if (nftList.length === 0) dispatch({ type: 'set', isLoading: true })
 
@@ -296,7 +300,7 @@ const Explore = () => {
     )
   }
 
-  const getExploreCollectionData = async (curPage, categoryList, sort, count) => {
+  const getExploreCollectionData = async (curPage, categoryList, sort, count, reset = false) => {
     let categoryLabel = []
     categoryList.map(category => {
       if (category.checked === true) {
@@ -305,6 +309,8 @@ const Explore = () => {
     })
     if (collectionList.length === 0) dispatch({ type: 'set', isLoading: true })
     else setIsVisibleFetching(false)
+
+    if (reset === true) setCollectionList([])
 
     ExploreAPI.getExploreCollection({
       categories: categoryLabel.length === 0 ? null : categoryLabel,
@@ -343,8 +349,10 @@ const Explore = () => {
     )
   }
 
-  const getExploreArtistData = async (curPage, sort, count) => {
+  const getExploreArtistData = async (curPage, sort, count, reset = false) => {
     if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
+    if (reset === true) setEcosystemList([])
+
     ExploreAPI.getExploreArtists({
       categories: null,
       availability: null,
@@ -417,7 +425,8 @@ const Explore = () => {
         selectedMedium,
         selectedMarket,
         selectedSort,
-        rowCount
+        rowCount,
+        true
       )
     else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, selectedSort, rowCount)
     else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, rowCount)
@@ -453,11 +462,11 @@ const Explore = () => {
 
       let market = params['market']
       setSelectedMarket(market)
-      getExploreNFTData(currentPage, newCateList, availability, medium, market, selectedSort, rowCount)
+      getExploreNFTData(currentPage, newCateList, availability, medium, market, selectedSort, rowCount, true)
     } else if (exploreTab === 1) {
-      getExploreCollectionData(currentPage, newCateList, selectedSort, rowCount)
+      getExploreCollectionData(currentPage, newCateList, selectedSort, rowCount, true)
     } else {
-      getExploreArtistData(currentPage, selectedSort, rowCount)
+      getExploreArtistData(currentPage, selectedSort, rowCount, true)
     }
   }
 
@@ -466,11 +475,20 @@ const Explore = () => {
     setSelectedSort(sort)
 
     if (exploreTab === 0)
-      getExploreNFTData(currentPage, categoryList, selectedAvailability, selectedMedium, selectedMarket, sort, rowCount)
+      getExploreNFTData(
+        currentPage,
+        categoryList,
+        selectedAvailability,
+        selectedMedium,
+        selectedMarket,
+        sort,
+        rowCount,
+        true
+      )
     else if (exploreTab === 1) {
-      getExploreCollectionData(currentPage, categoryList, sort, rowCount)
+      getExploreCollectionData(currentPage, categoryList, sort, rowCount, true)
     } else {
-      getExploreArtistData(currentPage, sort, rowCount)
+      getExploreArtistData(currentPage, sort, rowCount, true)
     }
   }
 
