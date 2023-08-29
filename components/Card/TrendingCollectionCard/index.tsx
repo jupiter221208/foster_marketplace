@@ -35,7 +35,7 @@ const TrendingCollectionCard = props => {
           }}
         >
           <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-            <div className="w-full h-full">
+            <div className={styles.imageArea}>
               {!loaded && (
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                   <div></div>
