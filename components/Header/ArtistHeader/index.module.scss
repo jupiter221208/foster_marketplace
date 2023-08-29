@@ -10,8 +10,8 @@
     height: 100px;
   }
   border-bottom: 1px solid var(--header-bottom-color);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   background: var(--header-bg-color);
   z-index: 9999;
 }
@@ -59,7 +59,24 @@
   align-items: center;
   width: 100%;
   height: 60px;
-  background: linear-gradient(to bottom, rgba(#000000, 1), rgba(#0f0d0d, 0.62) 62%, rgba(#121212, 0));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background: var(--header-mobile-bg-color);
+  // background: linear-gradient(to bottom, rgba(#000000, 1), rgba(#0f0d0d, 0.62) 62%, rgba(#121212, 0));
+  z-index: 10000;
+}
+
+.mobileNoneBlurContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60px;
+  background: transparent;
   z-index: 10000;
 }
 
@@ -67,7 +84,7 @@
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: rgba(var(--background-light-color), 0.3);
+  background-color: var(--background-main-color);
   backdrop-filter: blur(10px);
 }
 

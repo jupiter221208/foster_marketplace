@@ -231,7 +231,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--sort-item-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--header-bg-color', 'rgba(244, 243, 240, 0.8)')
     doc.style.setProperty('--header-bottom-color', '#CCCDD4')
-    doc.style.setProperty('--header-mobile-bg-color', 'rgba(244, 243, 240, 0.8)')
+    doc.style.setProperty('--header-mobile-bg-color', 'rgba(244, 243, 240, 0.75)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
     doc.style.setProperty('--secondary-button-border', '#eff0f6')

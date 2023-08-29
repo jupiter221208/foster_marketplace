@@ -22,9 +22,9 @@ import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
-import BackButton from 'assets/icons/artist-back-icon.svg'
-import SearchButton from 'assets/icons/artist-search-icon.svg'
-import MenuButton from 'assets/icons/artist-menu-icon.svg'
+import BackButton from 'assets/icons/artist-back-icon.svg?component'
+import SearchButton from 'assets/icons/artist-search-icon.svg?component'
+import MenuButton from 'assets/icons/artist-menu-icon.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
@@ -52,6 +52,7 @@ const ArtistHeader = () => {
   const dispatch = useDispatch()
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const markAsRead = useSelector(state => (state as any).markAsRead)
+  const [isScrollTop, setIsScollTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
@@ -66,6 +67,10 @@ const ArtistHeader = () => {
   }
 
   useEffect(() => {
+    window.addEventListener('scroll', function () {
+      let scrollTop = document.documentElement.scrollTop
+      setIsScollTop(scrollTop < 10)
+    })
     if (connected && router.asPath !== '/notifications') {
       userAPI.getNotifications().then(
         response => {
@@ -355,20 +360,20 @@ const ArtistHeader = () => {
     </div>
   ) : (
     <div className={styles.mobileBlurContainer}>
-      <div className={styles.mobileContainer}>
+      <div className={isScrollTop ? styles.mobileNoneBlurContainer : styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
             <div className={styles.backButton}>
-              <Image src={BackButton} alt="" />
+              <BackButton alt="" />
             </div>
           </div>
           <div className="flex">
             <div className={styles.backButton} onClick={() => handleOpenMobileSearchBox()}>
-              <Image src={SearchButton} alt="" />
+              <SearchButton alt="" />
             </div>
 
             <div className={`${styles.backButton} ml-3`} onClick={() => handleOpenMobileMenu()}>
-              <Image src={MenuButton} alt="" />
+              <MenuButton alt="" />
             </div>
           </div>
         </div>
