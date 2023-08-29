@@ -123,8 +123,6 @@ const OfferAccordionItem = ({
                   <OutlineButton
                     label="Cancel"
                     onClick={() => onCancel(listing)}
-                    // color="#95DBD5"
-                    // borderColor="#95DBD5"
                     width="300px"
                     height="38px"
                   />
@@ -133,9 +131,6 @@ const OfferAccordionItem = ({
                     label="Accept"
                     onClick={() => onAccept(listing)}
                     gradientDirection="right"
-                    backgroundColor01="#172120"
-                    backgroundColor02="#2C5E5A"
-                    color="#95DBD5"
                     width="300px"
                     height="38px"
                   />
