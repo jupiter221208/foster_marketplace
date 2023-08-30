@@ -22,6 +22,7 @@ import { useViewport } from 'utils'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
 import ExplorePagination from 'components/Button/ExplorePagination'
 import LoadingModal from 'components/Modal/LoadingModal'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const CollectionsSection = props => {
   const { collections } = props
@@ -31,7 +32,6 @@ const CollectionsSection = props => {
   const [searchWord, setSearchWord] = useState<any>('')
   const [isMounted, setIsMounted] = useState(false)
   const [list, setList] = useState<any[]>([])
-  const [feedList, setFeedList] = useState([])
   const [period, setPeriod] = useState('all')
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
@@ -39,6 +39,8 @@ const CollectionsSection = props => {
   const [rowCount, setRowCount] = useState(12)
   const [loading, setLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
@@ -49,10 +51,10 @@ const CollectionsSection = props => {
     if (collections.length > 0) {
       setTimeout(() => {
         setLoading(false)
-        setFeedList(collections)
         setList(collections)
         setTotalCount(12)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [collections])
@@ -65,8 +67,14 @@ const CollectionsSection = props => {
   }, [])
 
   useEffect(() => {
+    if (isFetching === true) {
+      handleNextPage()
+    }
+  }, [isFetching])
+
+  useEffect(() => {
     if (!isMounted) return
-    getCollectionData(currentPage, period, searchWord, rowCount)
+    getCollectionData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
   useEffect(() => {
@@ -85,48 +93,36 @@ const CollectionsSection = props => {
     getCollectionData(currentPage, period, null, rowCount)
   }
 
-  const getCollectionData = (curPage, curDate, search, count) => {
-    setSearchLoading(true)
+  const getCollectionData = (curPage, curDate, search, count, reset = false) => {
+    let page = curPage
+    if (reset === true) page = 0
     StatsAPI.getStatsCollection({
       period: curDate,
       search: search?.length === 0 ? null : search,
-      page: curPage + 1,
+      page: page + 1,
       per_page: count,
     }).then(
-      respone => {
-        setSearchLoading(false)
-        const nfts = respone.filter(item => item.cover_image !== '')
+      response => {
+        setIsFetching(false)
+
+        const nfts = response.filter(item => item.cover_image !== '')
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
-        setList(nfts)
-        if (feedList.length === 0) setFeedList(nfts)
-
-        window.scrollTo({
-          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
-          behavior: 'smooth',
-        })
+        if (reset === true) setList(nfts)
+        else setList([...list, ...nfts])
+        if (response.length === rowCount) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
       },
       error => {
-        setSearchLoading(false)
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
 
-  const selectRowCount = count => {
-    setRowCount(count)
-    getCollectionData(currentPage, period, searchWord, count)
-  }
-
   const handleNextPage = () => {
-    if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
     getCollectionData(nextPage, period, searchWord, rowCount)
-  }
-
-  const handlePreviousPage = () => {
-    if (currentPage === 0) return
-    const prevPage = currentPage - 1
-    getCollectionData(prevPage, period, searchWord, rowCount)
   }
 
   return (
@@ -138,7 +134,7 @@ const CollectionsSection = props => {
       )}
 
       {!loading && (
-        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
+        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
@@ -170,7 +166,7 @@ const CollectionsSection = props => {
               disableOnInteraction: false,
             }}
           >
-            {feedList.map((item, index) => (
+            {list.map((item, index) => (
               <SwiperSlide key={index}>
                 <StatsCollectionCard data={item} type="collections" />
               </SwiperSlide>
@@ -203,18 +199,11 @@ const CollectionsSection = props => {
         </div>
       )}
 
-      <div className="w-full flex justify-end">
-        <ExplorePagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          rowCount={rowCount}
-          setRowCount={count => {
-            selectRowCount(count)
-          }}
-          handleNext={handleNextPage}
-          handlePrev={handlePreviousPage}
-        />
-      </div>
+      {isMounted && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+        </div>
+      )}
     </div>
   )
 }

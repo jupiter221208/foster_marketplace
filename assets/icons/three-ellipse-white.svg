@@ -1,3 +1,14 @@
-<svg data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="15.745" height="4.171" viewBox="0 0 15.745 4.171">
-  <path id="noun-ellipsis-440092" d="M2.086,36.754A2.086,2.086,0,1,0,4.172,38.84,2.085,2.085,0,0,0,2.086,36.754Zm5.787,0A2.086,2.086,0,1,0,9.959,38.84,2.085,2.085,0,0,0,7.873,36.754Zm5.787,0a2.086,2.086,0,1,0,2.086,2.086A2.085,2.085,0,0,0,13.66,36.754Z" transform="translate(0 -36.754)" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22.255" height="32.301" viewBox="0 0 22.255 32.301">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_21274" data-name="Rectangle 21274" width="22.255" height="32.301" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="Logo_Vector" data-name="Logo Vector" clip-path="url(#clip-path)">
+    <path id="Path_108543" data-name="Path 108543" d="M0,16.055A16.168,16.168,0,0,1,16.15,0h1.182V2.566H16.15A13.6,13.6,0,0,0,2.566,16.055Z" fill="#8285f1"/>
+    <path id="Path_108544" data-name="Path 108544" d="M27.45,106.635v-2.566h1.175A13.6,13.6,0,0,0,42.209,90.58h2.566a16.168,16.168,0,0,1-16.15,16.055Z" transform="translate(-22.527 -74.335)" fill="#8285f1"/>
+    <path id="Path_108545" data-name="Path 108545" d="M27.45,101.712V99.146h1.175a8.671,8.671,0,0,0,8.668-8.566h2.566a11.24,11.24,0,0,1-11.234,11.132Z" transform="translate(-22.527 -74.335)" fill="#5254c7"/>
+    <path id="Path_108546" data-name="Path 108546" d="M27.45,38.582A11.242,11.242,0,0,1,38.677,27.45h1.182v2.566H38.677a8.672,8.672,0,0,0-8.661,8.566Z" transform="translate(-22.527 -22.527)" fill="#5254c7"/>
+    <path id="Path_108547" data-name="Path 108547" d="M27.45,67.51V64.942h1.175A3.741,3.741,0,0,0,32.368,61.3v-.1a6.311,6.311,0,0,1,6.31-6.3h1.182v2.566H38.677a3.743,3.743,0,0,0-3.736,3.643h0v.1a6.313,6.313,0,0,1-6.317,6.306Z" transform="translate(-22.527 -45.054)" fill="#383885"/>
+  </g>
 </svg>

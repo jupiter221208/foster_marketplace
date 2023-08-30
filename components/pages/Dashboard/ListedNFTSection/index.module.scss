@@ -31,3 +31,15 @@
   }
   color: var(--text-gray-200-color);
 }
+
+.slotBG {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  background: var(--time-slot-bg);
+  padding: 0px 6px;
+  z-index: 10;
+}

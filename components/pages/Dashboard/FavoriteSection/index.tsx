@@ -21,6 +21,7 @@ import styles from './index.module.scss'
 import userAPI from 'apis/user'
 import nftAPI from 'apis/nfts'
 import collectionAPI from 'apis/collections'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -118,9 +119,35 @@ const FavoriteSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="flex">
+      <div className="lg:flex hidden">
         <FilterButton label="Single NFTs" onClick={() => handleChangeActive(0)} selected={active === 0} />
         <FilterButton label="Collections" onClick={() => handleChangeActive(1)} selected={active === 1} />
+      </div>
+      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
+        <div className={styles.slotBG}>
+          <TimeSlotButton
+            label="Single NFTs"
+            onClick={() => handleChangeActive(0)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={160}
+            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="Collections"
+            onClick={() => handleChangeActive(1)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={160}
+            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+        </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12">
         {active === 0 &&

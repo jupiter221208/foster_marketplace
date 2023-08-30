@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -37,6 +37,7 @@ import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
 import { fetchSolToUsdRate, useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
 import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
@@ -52,6 +53,7 @@ import SaleLightIcon from 'assets/icons/sale-light.svg?component'
 import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
@@ -79,6 +81,7 @@ import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder }
 import type { Nft } from '@metaplex-foundation/js'
 
 // call apis
+import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
@@ -86,7 +89,7 @@ import activityAPI from 'apis/activity'
 import AuctionAPI from 'apis/auctions'
 
 import { useWallets } from 'hooks/useWallets'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName, getTimeDifference } from 'utils/helpers'
@@ -98,7 +101,6 @@ import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 import LikeModal from 'components/Modal/LikeModal'
 import OutlineButton from 'components/Button/OutlineButton'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
@@ -106,6 +108,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
+import { getExplorerUrl } from 'utils/explorer'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -116,13 +119,17 @@ export interface MainSectionProps {
 }
 
 const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
-  const viewport = useViewport()
   const router = useRouter()
+  const { id } = router.query
+  const viewport = useViewport()
   const dispatch = useDispatch()
+  const { refreshToken } = useAuthentication()
   const profileInfo = useSelector(state => (state as any).profileInfo)
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(null)
+  const { connection } = useConnection()
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
@@ -254,6 +261,9 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const nftCollectionAddress = nftDetail.collection?.address.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
+  const [nftCollectionUrl, setNftCollectionUrl] = useState('')
+  const [nftCollectionImage, setNftCollectionImage] = useState('')
+
   const [nftPrice, setNftPrice] = useState(0)
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
@@ -262,18 +272,10 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const [activityList, setActivityList] = useState([])
 
   const [isRunning, setIsRunning] = useState(false)
-  const { id } = router.query
 
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
-
-  const checkTokenExpiration = async () => {
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
-    }
-  }
 
   const quickBuy = async () => {
     if (!connected) {
@@ -282,7 +284,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     }
     setOpenProgressingModal(true)
 
-    await checkTokenExpiration()
+    await refreshToken()
 
     const result = await buyNFT(mx, mintAddress, tradeStateAddress, nftPrice)
     await updateSolBalance()
@@ -302,7 +304,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
-    await checkTokenExpiration()
+    await refreshToken()
 
     const result = await offerNFT(mx, mintAddress, parseFloat(price))
     await updateSolBalance()
@@ -446,6 +448,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
             await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
           )
           setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
+          setNftCollectionUrl(collectionMetadata.data.data.uri.replace(/\0/g, ''))
         } catch (e: any) {
           console.error(`could not load collection name from chain: ${e.message}`)
           console.error(e)
@@ -464,6 +467,13 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
       dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
+
+  useEffect(() => {
+    axios
+      .get(nftCollectionUrl)
+      .then(({ data }) => setNftCollectionImage(data?.image))
+      .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
+  }, [nftCollectionUrl])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -509,7 +519,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     }, 500)
 
     try {
-      await checkTokenExpiration()
+      await refreshToken()
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
       AuctionAPI.executeSale(sale.mintAddress.toBase58(), {
@@ -551,7 +561,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     setAuctionLoading(true)
 
     try {
-      await checkTokenExpiration()
+      await refreshToken()
 
       const { bid } = await placeBid(mx, new PublicKey(mintAddress), sellerAddress, parseFloat(price))
       if (bid) {
@@ -704,7 +714,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
 
   return (
     <div className={styles.container}>
-      <div className="w-full grid grid-cols-2 gap-10">
+      <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
         {loading ? (
           <div className="col-span-2 lg:col-span-1">
             <div className={styles.loadingBackground}>
@@ -720,7 +730,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType === 'image' ? (
                 <div className={styles.mobileImageArea}>
-                  <img src={nftCoverUrl} alt="" />
+                  <img src={nftCoverUrl} alt="" className="w-full" />
                   {/* <div className={styles.mobileImageBackground} /> */}
                 </div>
               ) : nftType.includes('audio') ? (
@@ -804,13 +814,16 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
-                <div>
+                <div onClick={() => window.open(explorerURL)}>
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
+                    <div className={styles.ellipseArea}>
                       <ThreeEllipseMobileIcon alt="" />
                     </div>
                   ) : (
-                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
+                    <div className={styles.ellipseArea}>
+                      <ThreeEllipseIcon alt="" />
+                    </div>
+                    // <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                   )}
                 </div>
                 <div className="inline">
@@ -856,19 +869,12 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   </div>
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center">
-                <div
-                  className={styles.collectionName}
-                  onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
-                >
-                  {nftCollectionName}
-                </div>
-              </div>
-              <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[9px]">
+
+              <div className="w-full flex mt-[15px] lg:mt-[28px]">
                 <div className={styles.title}>{nftName}</div>
               </div>
-              <div className="w-full flex flex-wrap mt-[4px] lg:mt-[9px] gap-x-[14px] lg:gap-x-[34px]">
-                <div className="flex gap-1 lg:gap-3">
+              <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
+                <div className="flex gap-1 lg:gap-2">
                   <div className={styles.grayText}>Created by</div>
                   <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
                     {nftCreatorname}
@@ -876,7 +882,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                 </div>
 
                 {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
-                  <div className="flex gap-1 lg:gap-3">
+                  <div className="flex gap-1 lg:gap-2">
                     <div className={styles.grayText}>Fostered by</div>
                     <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
                       {nftOwnerUsername}
@@ -884,6 +890,26 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   </div>
                 )}
               </div>
+              {nftCollectionUrl.length > 0 && (
+                <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
+                  <div className={styles.collectionText}>Collection</div>
+                  <div
+                    className={styles.collectionName}
+                    onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
+                  >
+                    {nftCollectionImage !== undefined && nftCollectionImage.length > 0 && (
+                      <Image
+                        src={nftCollectionImage}
+                        alt=""
+                        width={25}
+                        height={25}
+                        className="object-cover rounded-[4px]"
+                      />
+                    )}
+                    {nftCollectionName}
+                  </div>
+                </div>
+              )}
             </div>
             {editionDetail && (
               <div className={styles.editionContainer}>

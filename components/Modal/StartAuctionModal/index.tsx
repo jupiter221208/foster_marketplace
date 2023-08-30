@@ -16,6 +16,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // custom functions
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // images
 import AudioPlayerBackground from 'assets/images/audio-player.png'
@@ -31,14 +32,12 @@ import AuctionsAPI from 'apis/auctions'
 import { startAuction } from 'utils/auctioneer.util'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useDispatch } from 'react-redux'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 const StartAuctionModal = props => {
   const { data, open, onSuccess, onClose, onStartProgress } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
-  const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
 
   const closeModal = () => {
     setPrice(null)
@@ -67,10 +66,7 @@ const StartAuctionModal = props => {
   const { metaplex: mx } = useMetaplex()
 
   const handleStartAuction = async () => {
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
-    }
+    await refreshToken()
 
     onStartProgress()
     const { auction } = await startAuction(mx, data.mintAddress, startDate, endDate, Number(price))

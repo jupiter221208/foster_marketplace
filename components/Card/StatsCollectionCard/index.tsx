@@ -8,17 +8,18 @@ import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 // icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
-
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 // styles
 import styles from './index.module.scss'
 import ImageWithFallback from 'components/ImageWithFallback'
+import { useViewport } from 'utils'
 
 const StatsCollectionCard = props => {
   const { data, type } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const [loaded, setLoaded] = useState(false)
+  const viewport = useViewport()
 
   return (
     <div
@@ -47,7 +48,11 @@ const StatsCollectionCard = props => {
           <div className="w-full flex justify-between pr-[13px] lg:pr-[25px]">
             <div className={styles.saleName}>{type === 'artworks' ? 'Highest Sale' : 'Total Sales'}</div>
             <div className="flex gap-[4px] items-center">
-              <Image src={SolanaLogoIcon} width={18} height={15} alt="" />
+            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ?
+                <SolanaLogoMobileIcon alt="" />
+                :
+                <SolanaLogoIcon alt="" />
+              }
               <div className={styles.value}>
                 {type === 'artworks' ? parseFloat(data.amount).toFixed(2) : parseFloat(data.total_sales).toFixed(2)}
               </div>

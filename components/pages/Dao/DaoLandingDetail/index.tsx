@@ -18,8 +18,8 @@ import DaoLiveButton from 'components/Table/Dao/LandingTable/DaoLiveButton'
 // images and icons
 import SolIcon from 'assets/icons/solana-logo-dark-medium.svg?component'
 import SolMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
-import NotificationIcon from 'assets/icons/notification-icon-black.svg'
-import NotificationMobileIcon from 'assets/icons/notification-icon-black-mobile.svg'
+import NotificationIcon from 'assets/icons/notification-icon-black.svg?component'
+import NotificationMobileIcon from 'assets/icons/notification-icon-black-mobile.svg?component'
 import ArrowLeftIcon from 'assets/icons/arrow-left-medium.svg?component'
 import ArrowLeftMobileIcon from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
@@ -304,9 +304,9 @@ const DaoLandingDetail = props => {
             fontSize={18}
             width={155}
             height={53}
-            icon={NotificationIcon}
+            icon1={<NotificationIcon alt=""/>}
             disabled={disabledVote}
-            label="Cast Vote"
+            label="Cast&nbsp;Vote"
             onClick={() => onClickCastVoteBtn()}
           />
         </div>
@@ -339,7 +339,7 @@ const DaoLandingDetail = props => {
             gradientDirection="right"
             width={101}
             height={35}
-            icon={NotificationMobileIcon}
+            icon1={<NotificationMobileIcon alt=""/>}
             disabled={disabledVote}
             label="Cast Vote"
             borderRadius={8}

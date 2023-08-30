@@ -15,7 +15,7 @@
   <g id="Group_54189" data-name="Group 54189" transform="translate(-13154 6692)">
     <g id="Component_4579_2" data-name="Component 4579 – 2" transform="translate(13154 -6690)">
       <g id="Group_54123" data-name="Group 54123" transform="translate(0 0)">
-        <rect id="Rectangle_21261" data-name="Rectangle 21261" width="83" height="44" rx="22" transform="translate(0 0)" fill="#e0e1e7"/>
+        <rect id="Rectangle_21261" data-name="Rectangle 21261" width="83" height="44" rx="22" transform="translate(0 0)" fill="#FFFFFF"/>
       </g>
       <g id="Group_54122" data-name="Group 54122" transform="translate(10.71 4.368)">
         <g transform="matrix(1, 0, 0, 1, -10.71, -6.37)" filter="url(#Ellipse_4353)">
@@ -25,10 +25,10 @@
       </g>
     </g>
     <g id="noun-light-mode-4808961" transform="translate(13201.113 -6680.793)">
-      <path id="Path_108466" data-name="Path 108466" d="M562.5,75h1.8v4.5h-1.8Z" transform="translate(-550.812 -75)" fill="#202427"/>
-      <path id="Path_108467" data-name="Path 108467" d="M562.5,937.5h1.8V942h-1.8Z" transform="translate(-550.812 -916.822)" fill="#202427"/>
-      <path id="Path_108468" data-name="Path 108468" d="M937.5,562.5H942v1.8h-4.5Z" transform="translate(-916.822 -550.812)" fill="#202427"/>
-      <path id="Path_108469" data-name="Path 108469" d="M75,562.5h4.5v1.8H75Z" transform="translate(-75 -550.812)" fill="#202427"/>
+      <path id="Path_108466" data-name="Path 108466" d="M562.5,75h1.8v4.5h-1.8Z" transform="translate(-550.812 -75)" fill="#1b1b1b"/>
+      <path id="Path_108467" data-name="Path 108467" d="M562.5,937.5h1.8V942h-1.8Z" transform="translate(-550.812 -916.822)" fill="#1b1b1b"/>
+      <path id="Path_108468" data-name="Path 108468" d="M937.5,562.5H942v1.8h-4.5Z" transform="translate(-916.822 -550.812)" fill="#1b1b1b"/>
+      <path id="Path_108469" data-name="Path 108469" d="M75,562.5h4.5v1.8H75Z" transform="translate(-75 -550.812)" fill="#1b1b1b"/>
       <path id="Path_108470" data-name="Path 108470" d="M812.12,204.469l3.179-3.179,1.271,1.271-3.179,3.179Z" transform="translate(-794.448 -198.262)" fill="#202427"/>
       <path id="Path_108471" data-name="Path 108471" d="M202.25,816.279l3.179-3.179,1.271,1.271-3.179,3.179Z" transform="translate(-199.199 -795.404)" fill="#202427"/>
       <path id="Path_108472" data-name="Path 108472" d="M813.09,813.45l1.271-1.271,3.179,3.179-1.271,1.271Z" transform="translate(-795.394 -794.505)" fill="#202427"/>
