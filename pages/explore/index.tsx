@@ -508,6 +508,7 @@ const Explore = () => {
       handleNextPage()
     }
   }, [isFetching])
+
   return (
     <div className="g-container">
       <Head>
