@@ -168,7 +168,7 @@ const PhysicalPrintDetail = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] lg:mt-[20px] mt-[0px] items-center">
+      <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[0px] items-center">
         <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
@@ -210,16 +210,18 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[35px] lg:mt-[25px]">
         <Selection label={'Size:'} data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
       </div>
-      <div className="w-full mt-[25px] flex">
+      <div className="w-full mt-[25px] block lg:flex">
         <div className={styles.quantity}>Quantity:</div>
-        <input
-          value={quantity}
-          type="number"
-          min="0"
-          placeholder="0"
-          className={styles.inputArea}
-          onChange={event => setQuantity(parseInt(event.target.value))}
-        />
+        <div className="mt-[15px] lg:mt-[0px]">
+          <input
+            value={quantity}
+            type="number"
+            min="0"
+            placeholder="0"
+            className={styles.inputArea}
+            onChange={event => setQuantity(parseInt(event.target.value))}
+          />
+        </div>
       </div>
       <div className="w-full mt-[30px] lg:mt-[160px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
