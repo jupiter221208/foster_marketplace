@@ -20,6 +20,7 @@ import ArtistPagination from 'components/Button/ArtistPagination'
 
 // apis
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const TabSection = props => {
   const {
@@ -30,26 +31,28 @@ const TabSection = props => {
     wallet,
     isOwn,
     isLoaded,
-    artistCurrentPage,
-    artistRowCount,
-    artistTotalCount,
-    collectorCurrentPage,
-    collectorRowCount,
-    collectorTotalCount,
-    selectRowCount,
     handleNextPage,
-    handlePreviousPage,
     setArtistEnable,
-    reloadPage,
     artistStatsInfo,
     collectorStatsInfo,
     setActiveListingLoaded,
     setLiveAuctionLoaded,
+    isVisibleFetching,
+    setIsVisibleFetching,
+    isFetching,
+    setIsFetching,
   } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
   const [tabList, setTabList] = useState<any[]>(TabList)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsMounted(true)
+    }, 1000)
+  }, [])
 
   useEffect(() => {
     let array: any[] = []
@@ -68,11 +71,19 @@ const TabSection = props => {
     else if (activeTab === 2) setArtistEnable(false)
     else {
     }
+
+    setIsVisibleFetching(true)
   }, [activeTab])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
+
+  useEffect(() => {
+    if (isFetching === true) {
+      handleNextPage()
+    }
+  }, [isFetching])
 
   return (
     <div className={styles.container}>
@@ -100,7 +111,8 @@ const TabSection = props => {
       {activeTab === 1 && (
         <div className="w-full">
           <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          <div className="w-full flex justify-end">
+          {isMounted && isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+          {/* <div className="w-full flex justify-end">
             <ArtistPagination
               currentPage={artistCurrentPage}
               rowCount={artistRowCount}
@@ -111,13 +123,15 @@ const TabSection = props => {
               handleNext={handleNextPage}
               handlePrev={handlePreviousPage}
             />
-          </div>
+          </div> */}
         </div>
       )}
       {activeTab === 2 && (
         <div className="w-full">
           <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          <div className="w-full flex justify-end">
+          {isMounted && isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+
+          {/* <div className="w-full flex justify-end">
             <ArtistPagination
               currentPage={collectorCurrentPage}
               rowCount={collectorRowCount}
@@ -128,7 +142,7 @@ const TabSection = props => {
               handleNext={handleNextPage}
               handlePrev={handlePreviousPage}
             />
-          </div>
+          </div> */}
         </div>
       )}
 

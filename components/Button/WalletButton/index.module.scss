@@ -34,26 +34,26 @@
 }
 
 .connectedContainer {
-  min-width: 184px;
-  width: 184px;
+  min-width: 160px;
+  width: 160px;
   height: 49px;
-  border-radius: 12px;
-  background: var(--connected-wallet-bg);
+  // border-radius: 12px;
+  // background: var(--connected-wallet-bg);
   padding-left: 20px;
   padding-right: 20px;
   gap: 13px;
-
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
-  color: var(--single-nft-btn-color);
+  color: var(--text-gray-200-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &:not([disabled]):hover {
-    box-shadow: 0px 5px 15px rgba(var(--single-nft-btn-color), 0.6);
-  }
+  opacity: 0.8;
+  // &:not([disabled]):hover {
+  //   box-shadow: 0px 5px 15px rgba(var(--single-nft-btn-color), 0.6);
+  // }
 }
 
 .menuBlur {
@@ -63,7 +63,7 @@
   right: 0;
   margin-top: 28px;
   transform-origin: top right;
-  background-color: var(--dropdown-bg-color);
+  background-color: var(--header-bg-color);
   border-radius: 12px;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
@@ -71,7 +71,7 @@
 
 .menuArea {
   background: transparent;
-  border: 1px solid var(--dropdown-border-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 12px;
   padding: 15px;
 }

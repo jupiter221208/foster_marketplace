@@ -46,7 +46,12 @@ const ReportMenu = props => {
       <Menu>
         <Menu.Button>
           <div className="flex justify-between items-center">
-            <div className={styles.ellipseArea}>
+            <div
+              className={styles.ellipseArea}
+              onClick={() => {
+                window.open(explorerURL)
+              }}
+            >
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
                 <ThreeEllipseMobileIcon alt="" />
               ) : (
@@ -56,7 +61,7 @@ const ReportMenu = props => {
           </div>
         </Menu.Button>
 
-        <Transition
+        {/* <Transition
           as={Fragment}
           enter="transition ease-out duration-100"
           enterFrom="transform opacity-0 scale-95"
@@ -142,7 +147,7 @@ const ReportMenu = props => {
               )} */}
             </div>
           </Menu.Items>
-        </Transition>
+        </Transition> */}
       </Menu>
     </div>
   )

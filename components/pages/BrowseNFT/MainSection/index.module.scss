@@ -5,16 +5,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 30px;
+  @media (min-width: 1024px) {
+    padding-top: 30px;
+  }
 }
 
 .loadingBackground {
-  width: 100%;
+  width: calc(100% + 32px);
+  margin-left: -16px;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
     border-radius: 27px;
   }
-  border-radius: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -172,9 +174,9 @@
 }
 
 .mobileImageArea {
-  border-radius: 12px;
-  width: 100%;
-  max-height: 400px;
+  width: calc(100% + 32px);
+  left: -16px;
+  // max-height: 400px;
   height: auto;
   display: flex;
   justify-content: center;
@@ -201,7 +203,6 @@
     min-height: calc(100vh - 100px - 60px);
   }
 
-  padding: 20px 16px;
   @media (min-width: 640px) {
     padding: 28px 25px 28px 25px;
   }
@@ -215,25 +216,36 @@
     padding: 38px 40px 38px 40px;
   }
   @media (min-width: 1536px) {
-    padding: 40px 65px 40px 65px;
+    padding: 30px 60px;
   }
 
-  background: var(--nft-detail-bg);
-  border-radius: 27px;
-  border: 1px solid var(--nft-detail-border);
+  // background: var(--nft-detail-bg);
+  // border-radius: 27px;
+  // border: 1px solid var(--nft-detail-border);
 }
 
 .collectionName {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 29px;
-  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  border-radius: 16px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 6px;
+  padding: 8px 12px;
   @media (min-width: 1024px) {
-    margin-top: 30px;
-    font-size: 24px;
-    line-height: 28px;
+    height: 56px;
+    border-radius: 28px;
+    margin-top: 6px;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 8px 16px;
+
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  background: var(--stats-bg-color);
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   cursor: pointer;
   &:hover {
@@ -310,24 +322,36 @@
 
 .grayText {
   font-family: 'Muli-Light';
+  font-size: 14px;
+  line-height: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
+}
+
+.collectionText {
+  font-family: 'Muli-Light';
   font-size: 12px;
   line-height: 16px;
   @media (min-width: 1024px) {
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 1);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .greenText {
   font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
     font-size: 18px;
     line-height: 24px;
   }
-  color: var(--nft-detail-artist);
+  color: var(--text-gray-200-color);
   &:hover {
     @media (min-width: 1024px) {
       cursor: pointer;
@@ -408,7 +432,7 @@
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-family: 'Muli-Bold';
   font-size: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .accordionOpenButton {
@@ -438,17 +462,18 @@
   padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
   border: 1px solid var(--nft-detail-section-border);
-  background: var(--nft-detail-section-bg);
+  background: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 
   font-family: 'Muli-Bold';
   font-size: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .accordionArea {
   display: flex;
   flex-wrap: wrap;
+  margin-left: 1px;
   min-height: 120px;
   max-height: 230px;
   padding: 8px 8px;
@@ -458,6 +483,7 @@
   border-radius: 0px 0px 12px 12px;
   border: 1px solid rgba(#eceef4, 0.1);
   background-color: var(--accordian-area-bg);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   overflow: scroll;
 }
 
@@ -566,7 +592,6 @@
   width: 22px;
   height: 22px;
   border-radius: 11px;
-  background: var(--ellipse-report-bg);
   @media (min-width: 1024px) {
     width: 30px;
     height: 30px;
@@ -575,12 +600,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  &:hover {
-    @media (min-width: 1024px) {
-      background: transparent;
-      box-shadow: 0px 3px 6px var(--main-icon-color);
-    }
-  }
 }
 
 .placeBidEnabledColor {

@@ -39,7 +39,7 @@ const ProgressingModalWithContent = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className={styles.ringLoader}>
-                  <RingLoader color="#63D6CD" />
+                  <RingLoader color="#95dbd5" />
                 </div>
                 <div className="w-full flex justify-center mt-[28px]">
                   <div className={styles.greenText}>Do not close this window</div>

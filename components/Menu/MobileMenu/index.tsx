@@ -149,6 +149,8 @@ const MobileMenu = () => {
 
                 localStorage.removeItem('token')
                 dispatch({ type: 'set', profileInfo: null })
+                localStorage.removeItem('expiryDate')
+                localStorage.removeItem('signature')
                 deleteCookie('token')
               }}
             >

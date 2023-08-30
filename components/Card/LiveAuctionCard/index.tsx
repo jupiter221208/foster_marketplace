@@ -11,7 +11,9 @@ import { useViewport } from 'utils'
 import { calculateTimeLeft, formattedAmount, getTimeDifference } from 'utils/helpers'
 
 // images and icons
-import SolanaLogoIcon from 'assets/icons/solana-logo.svg'
+import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
+import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
+
 import AvatarImage from 'assets/images/dashboard-avatar.png'
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import PlayVideoIcon from 'assets/icons/play-video.svg'
@@ -168,18 +170,25 @@ const LiveAuctionCard = props => {
         </div>
       )}
       <div className={styles.bidContainer}>
-        <div className={styles.bidBgView} />
+        {/* <div className={styles.bidBgView} /> */}
         <div className={styles.bidGradientBgView} />
         <div className={styles.bidContentView}>
           <div>
             <div className={styles.bidName}>{data.current_bid !== null ? 'CURRENT BID' : 'RESERVE PRICE'}</div>
             <div className={styles.bidCountContainer}>
-              <Image
+              {/* <Image
                 src={SolanaLogoIcon}
                 alt=""
                 width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 15 : 17}
                 height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 8 : viewport === 'xl' ? 13 : 15}
-              />
+              /> */}
+              <div className='mt-[-1px] lg:mt-[2px]'>
+              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ?
+                <SolanaLogoMobileIcon alt="" />
+                :
+                <SolanaLogoIcon alt="" />
+              }
+              </div>
               <div className={styles.bidCount}>
                 {data.current_bid !== null && data.current_bid > 0
                   ? formattedAmount(data.current_bid)

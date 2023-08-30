@@ -25,7 +25,7 @@ import avatar from 'assets/images/dashboard-avatar.png'
 import SolanaLogoGreenIcon from 'assets/icons/solana-logo-green-mobile.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark-mobile.svg?component'
 import CopyAltLightGreenIcon from 'assets/icons/copy-alt-dark.svg?component'
-import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg'
+import EllipseGroupWhiteIcon from 'assets/icons/ellipse-group-white.svg?component'
 import DepositIcon from 'assets/icons/deposit-icon.svg?component'
 import DepositDisabledIcon from 'assets/icons/deposit-icon-disabled.svg?component'
 import WithdrawIcon from 'assets/icons/withdraw-icon.svg?component'
@@ -258,8 +258,18 @@ const WalletButton = props => {
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
-          {shortMainAddress}
-          <WalletGrayIcon width="20" height="18" alt="" />
+          {/* {shortMainAddress} */}
+          Manage&nbsp;Wallet
+          <div className="w-3 h-3 flex justify-center items-center mt-1">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
+              <path
+                id="angle-down-9"
+                d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
+                transform="translate(-6.754 -8.879)"
+                fill="var(--chevron-up-icon-color)"
+              />
+            </svg>
+          </div>
         </Menu.Button>
       </div>
       <Transition
@@ -376,7 +386,7 @@ const WalletButton = props => {
                     setShowBiddingWallet(false)
                   }}
                 >
-                  <Image src={EllipseGroupWhiteIcon} />
+                  <EllipseGroupWhiteIcon alt="" />
                 </div>
               </div>
             </div>
@@ -548,7 +558,7 @@ const WalletButton = props => {
                     setShowOfferWallet(false)
                   }}
                 >
-                  <Image src={EllipseGroupWhiteIcon} />
+                  <EllipseGroupWhiteIcon alt="" />
                 </div>
               </div>
             </div>

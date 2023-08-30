@@ -35,7 +35,7 @@ const TrendingCollectionCard = props => {
           }}
         >
           <div className="relative w-full h-full rounded-[24px] overflow-hidden">
-            <div className="w-full h-full">
+            <div className={styles.imageArea}>
               {!loaded && (
                 <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={false} color="#202427">
                   <div></div>
@@ -50,7 +50,6 @@ const TrendingCollectionCard = props => {
               />
             </div>
             <div className={styles.bidContainer}>
-              <div className={styles.bidBgView} />
               <div className={styles.bidGradientBgView} />
               <div className={styles.bidContentView}>
                 <div className="px-[15px] lg:px-[28px]">

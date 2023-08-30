@@ -54,7 +54,7 @@ const CollectionMintProgressingModal = props => {
             >
               <Dialog.Panel className={styles.modalView}>
                 <div className="flex justify-center">
-                  <FadeLoader color="var(--fade-loader-color)" height="10" />
+                  <FadeLoader color="#95dbd5" height="10" />
                 </div>
                 <div className="w-full flex justify-center mt-[28px]">
                   <div className={styles.greenText}>Do not close this window</div>

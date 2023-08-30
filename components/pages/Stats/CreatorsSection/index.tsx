@@ -13,7 +13,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // functions
-import { stringLengthValidate } from 'utils/strings'
 import { useViewport } from 'utils'
 
 // styles
@@ -22,12 +21,11 @@ import styles from './index.module.scss'
 //apis
 import StatsAPI from 'apis/stats'
 import StatsArtistCard from 'components/Card/StatsArtistCard'
-import ExplorePagination from 'components/Button/ExplorePagination'
 import LoadingModal from 'components/Modal/LoadingModal'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const CreatorsSection = props => {
   const { creators } = props
-  const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
   const viewport = useViewport()
@@ -37,9 +35,10 @@ const CreatorsSection = props => {
   const [currentPage, setCurrentPage] = useState(0)
   const [rowCount, setRowCount] = useState(12)
   const [totalCount, setTotalCount] = useState(0)
-  const [feedList, setFeedList] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
@@ -57,17 +56,23 @@ const CreatorsSection = props => {
     if (creators.length > 0) {
       setTimeout(() => {
         setLoading(false)
-        setFeedList(creators)
         setList(creators)
         setTotalCount(12)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [creators])
 
   useEffect(() => {
+    if (isFetching === true) {
+      handleNextPage()
+    }
+  }, [isFetching])
+
+  useEffect(() => {
     if (!isMounted) return
-    getCreatorData(currentPage, period, searchWord, rowCount)
+    getCreatorData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
   const getSearchData = () => {
@@ -79,47 +84,37 @@ const CreatorsSection = props => {
     getCreatorData(currentPage, period, null, rowCount)
   }
 
-  const getCreatorData = (curPage, curDate, search, count) => {
-    setSearchLoading(true)
+  const getCreatorData = (curPage, curDate, search, count, reset = false) => {
+    let page = curPage
+    if (reset === true) page = 0
     StatsAPI.getStatsCreator({
       period: curDate,
       search: search?.length === 0 ? null : search,
-      page: curPage + 1,
+      page: page + 1,
       per_page: count,
     }).then(
-      respone => {
-        setSearchLoading(false)
-        const nfts = respone.filter(item => item.pfp_url !== '')
+      response => {
+        setIsFetching(false)
+
+        const nfts = response.filter(item => item.pfp_url !== '')
         setCurrentPage(curPage)
-        setTotalCount(count * curPage + nfts.length)
-        setList(nfts)
-        if (feedList.length === 0) setFeedList(nfts)
-        window.scrollTo({
-          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
-          behavior: 'smooth',
-        })
+
+        if (reset === true) setList(nfts)
+        else setList([...list, ...nfts])
+
+        if (response.length === rowCount) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
       },
       error => {
-        setSearchLoading(false)
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
 
-  const selectRowCount = count => {
-    setRowCount(count)
-    getCreatorData(currentPage, period, searchWord, count)
-  }
-
   const handleNextPage = () => {
-    if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
     getCreatorData(nextPage, period, searchWord, rowCount)
-  }
-
-  const handlePreviousPage = () => {
-    if (currentPage === 0) return
-    const prevPage = currentPage - 1
-    getCreatorData(prevPage, period, searchWord, rowCount)
   }
 
   return (
@@ -163,7 +158,7 @@ const CreatorsSection = props => {
               disableOnInteraction: false,
             }}
           >
-            {feedList.map((item, index) => (
+            {list.map((item, index) => (
               <SwiperSlide key={index}>
                 <StatsArtistCard data={item} type="creators" />
               </SwiperSlide>
@@ -196,18 +191,11 @@ const CreatorsSection = props => {
         </div>
       )}
 
-      <div className="w-full flex justify-end">
-        <ExplorePagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          rowCount={rowCount}
-          setRowCount={count => {
-            selectRowCount(count)
-          }}
-          handleNext={handleNextPage}
-          handlePrev={handlePreviousPage}
-        />
-      </div>
+      {isMounted && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+        </div>
+      )}
     </div>
   )
 }

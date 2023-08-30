@@ -28,8 +28,8 @@ import artistsAPI from 'apis/artists'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 import { getAbsoluteOgUrl } from 'utils/seo'
-import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import TabSection from './profile/TabSection'
 
@@ -40,7 +40,8 @@ interface ArtistProfileProps {
 }
 
 const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfileProps) => {
-  const { connected, publicKey, signMessage } = useWallet()
+  useAuthentication()
+  const { connected, publicKey } = useWallet()
   const viewport = useViewport()
 
   const dispatch = useDispatch()
@@ -73,6 +74,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collectorToEnd, setCollectorToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
   const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -122,35 +125,14 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     ;(async () => {
       if (!connected || !loginAndRefresh) return
       dispatch({ type: 'set', loginAndRefresh: false })
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      loginWithSigned(publicKey, signature, dispatch)
-      getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true)
-      getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true)
+      getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
+      getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
     })()
-  }, [connected, loginAndRefresh, publicArtistData, signMessage])
-
-  const selectRowCount = count => {
-    if (artistEnable) {
-      setArtistRowCount(count)
-      setArtistCurrentPage(1)
-      getArtistData(artistPublicKey, count, 1)
-    } else {
-      setCollectorRowCount(count)
-      setCollectorCurrentPage(1)
-      getCollectorData(artistPublicKey, count, 1)
-    }
-    setTimeout(
-      () =>
-        window.scrollTo({
-          top: 900,
-        }),
-      100
-    )
-  }
+  }, [connected, loginAndRefresh, publicArtistData])
 
   const reloadPage = () => {
-    getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, false)
-    getCollectorData(artistPublicKey, artistRowCount, artistCurrentPage, false)
+    getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)
+    getCollectorData(artistPublicKey, artistRowCount, artistCurrentPage, false, true)
   }
 
   const handleNextPage = () => {
@@ -161,35 +143,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       const nextPage = collectorCurrentPage + 1
       getCollectorData(artistPublicKey, collectorRowCount, nextPage)
     }
-
-    setTimeout(
-      () =>
-        window.scrollTo({
-          top: 900,
-        }),
-      100
-    )
-  }
-
-  const handlePreviousPage = () => {
-    if (artistEnable) {
-      if (artistCurrentPage === 1) return
-      if (artistToEnd) setArtistToEnd(false)
-      const prevPage = artistCurrentPage - 1
-      getArtistData(artistPublicKey, artistRowCount, prevPage)
-    } else {
-      if (collectorCurrentPage === 1) return
-      if (collectorToEnd) setCollectorToEnd(false)
-      const prevPage = collectorCurrentPage - 1
-      getCollectorData(artistPublicKey, collectorRowCount, prevPage)
-    }
-    setTimeout(
-      () =>
-        window.scrollTo({
-          top: 900,
-        }),
-      100
-    )
   }
 
   const resetData = () => {
@@ -233,12 +186,13 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     )
   }
 
-  const getArtistData = (id, row_count, current_page, refresh = false) => {
+  const getArtistData = (id, row_count, current_page, refresh = false, reset = false) => {
     if (artistToEnd) return
-    setCreatedNfts([])
+
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
+        setIsFetching(false)
         if (isString(response)) return
         let artist = response.artist
 
@@ -248,7 +202,13 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
           setArtistInfo(artist)
         }
         setArtistStatsInfo(response.stats)
-        setCreatedNfts(response.nfts)
+
+        if (response.nfts.length === artistRowCount) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
+
+        if (reset === true) setCreatedNfts(response.nfts)
+        else setCreatedNfts([...createdNfts, ...response.nfts])
+
         setArtistCurrentPage(current_page)
         setArtistTotalCount(response.total_nfts)
         if (response.nfts.length < row_count) {
@@ -256,21 +216,24 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
 
         setCollections(response.collections)
+
         if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
         setIsLoaded(true)
-        console.log(error)
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
 
-  const getCollectorData = (id, row_count, current_page, refresh = false) => {
+  const getCollectorData = (id, row_count, current_page, refresh = false, reset = false) => {
     if (collectorToEnd) return
-    setCollectedNfts([])
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
+        setIsFetching(false)
+
         if (isString(response)) return
         let artist = response.collector
         if (refresh && artist) {
@@ -280,7 +243,13 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setCollectorStatsInfo(response.stats)
         setCollectorTotalCount(response.total_nfts)
-        setCollectedNfts(response.nfts)
+
+        if (response.nfts.length === collectorRowCount) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
+
+        if (reset === true) setCollectedNfts(response.nfts)
+        else setCollectedNfts([...collectedNfts, ...response.nfts])
+
         setCollectorCurrentPage(current_page)
         if (response.nfts.length < row_count) {
           setCollectorToEnd(true)
@@ -291,7 +260,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       },
       error => {
         setIsLoaded(true)
-        console.log(error)
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
@@ -299,8 +269,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   useEffect(() => {
     if (!artistPublicKey) return
     resetData()
-    getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true)
-    getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true)
+    getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
+    getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
     getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true)
     window.scrollTo({
       top: 0,
@@ -356,21 +326,17 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               wallet={artistInfo?.wallet_id}
               isOwn={isOwn}
               isLoaded={isLoaded}
-              artistCurrentPage={artistCurrentPage}
-              artistRowCount={artistRowCount}
-              artistTotalCount={artistTotalCount}
-              collectorCurrentPage={collectorCurrentPage}
-              collectorRowCount={collectorRowCount}
-              collectorTotalCount={collectorTotalCount}
-              selectRowCount={count => selectRowCount(count)}
               handleNextPage={() => handleNextPage()}
-              handlePreviousPage={() => handlePreviousPage()}
               reloadPage={reloadPage}
               setArtistEnable={setArtistEnable}
               artistStatsInfo={artistStatsInfo}
               collectorStatsInfo={collectorStatsInfo}
               setActiveListingLoaded={setActiveListingLoaded}
               setLiveAuctionLoaded={setLiveAuctionLoaded}
+              isVisibleFetching={isVisibleFetching}
+              setIsVisibleFetching={setIsVisibleFetching}
+              isFetching={isFetching}
+              setIsFetching={setIsFetching}
             />
           </div>
         </div>

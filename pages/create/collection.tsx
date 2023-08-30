@@ -21,7 +21,6 @@ import CategoryList from 'assets/json/popular-category.json'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 import { Keypair } from '@solana/web3.js'
 import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metaplex-foundation/js'
@@ -30,7 +29,7 @@ import { CreateNftOutput, JsonMetadata, toMetaplexFileFromBrowser } from '@metap
 
 // call apis
 import collectionsAPI from 'apis/collections'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const Collection = () => {
   const dispatch = useDispatch()
@@ -39,7 +38,7 @@ const Collection = () => {
   // solana
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
-  const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
 
   // --------------variables------------
   const [currentStep, setCurrentStep] = useState(1)
@@ -75,11 +74,7 @@ const Collection = () => {
     try {
       dispatch({ type: 'set', isLoading: true })
 
-      if (!checkExpiryDate()) {
-        let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-        await loginWithSigned(publicKey, signature, dispatch)
-      }
-
+      await refreshToken()
       // TODO: calculate real file size
       // for now, just fund with 0.1 sol which is little over 1GB
       await ensureLocalWalletBalance(0.1 * 1e9)
@@ -269,11 +264,14 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
-          mintAddress: nftKeypair.publicKey,
-          collectionMintAddress: collectionNft?.mintAddress,
-          isSizedCollection: true,
-        })
+        const verifyCollectionTransaction = await mx
+          .nfts()
+          .builders()
+          .verifyCollection({
+            mintAddress: nftKeypair.publicKey,
+            collectionMintAddress: collectionNft?.mintAddress,
+            isSizedCollection: true,
+          })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)

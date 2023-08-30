@@ -15,8 +15,8 @@ const SearchSection = props => {
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-between gap-[20px]">
-        <div className="w-[500px] flex items-center gap-2">
-          <StatsSearchBox
+        <div className="w-[500px] items-center gap-2 lg:flex hidden">
+          {/* <StatsSearchBox
             value={searchWord}
             placeholder={placeholder}
             onChange={value => setSearchWord(value)}
@@ -83,10 +83,10 @@ const SearchSection = props => {
                 />
               </svg>
             )}
-          </div>
+          </div> */}
         </div>
 
-        <div className="sm:w-auto xs:w-full flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+        <div className="sm:w-auto xs:w-full hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
           <TimeSlotButton
             label="24 hrs"
             onClick={() => setPeriod('day')}
@@ -123,6 +123,47 @@ const SearchSection = props => {
             backgroundColor02={period === 'all' ? 'var(--day-btn-bg-2)' : 'transparent'}
             gradientDirection="bottom"
           />
+        </div>
+
+        <div className="sm:w-auto xs:w-full h-[54px] flex lg:hidden justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
+          <div className={styles.slotBG}>
+            <TimeSlotButton
+              label="24 hrs"
+              onClick={() => setPeriod('day')}
+              fontFamily={'Muli-SemiBold'}
+              color={period === 'day' ? 'var(--search-menu-icon-color)' : '#979EA2'}
+              backgroundColor01={period === 'day' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor02={period === 'day' ? 'var(--menu-bg-color)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="7 days"
+              onClick={() => setPeriod('week')}
+              fontFamily={'Muli-SemiBold'}
+              color={period === 'week' ? 'var(--search-menu-icon-color)' : '#979EA2'}
+              backgroundColor01={period === 'week' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor02={period === 'week' ? 'var(--menu-bg-color)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="30 days"
+              onClick={() => setPeriod('month')}
+              fontFamily={'Muli-SemiBold'}
+              color={period === 'month' ? 'var(--search-menu-icon-color)' : '#979EA2'}
+              backgroundColor01={period === 'month' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor02={period === 'month' ? 'var(--menu-bg-color)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+            <TimeSlotButton
+              label="All Time"
+              onClick={() => setPeriod('all')}
+              fontFamily={'Muli-SemiBold'}
+              color={period === 'all' ? 'var(--search-menu-icon-color)' : '#979EA2'}
+              backgroundColor01={period === 'all' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor02={period === 'all' ? 'var(--menu-bg-color)' : 'transparent'}
+              gradientDirection="bottom"
+            />
+          </div>
         </div>
       </div>
     </div>

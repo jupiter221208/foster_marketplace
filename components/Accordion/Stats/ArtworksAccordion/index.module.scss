@@ -71,7 +71,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: var(--stats-bg-color);
+  background-color:  var(--accordion-first-row-bg);
 }
 
 .secondRow {
@@ -82,15 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.thirdRow {
-  width: 100%;
-  height: auto;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  background-color: var(--accordion-second-row-bg);
 }
 
 .title {
@@ -104,7 +96,7 @@
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
-  color: rgba($text-gray-200-color, 0.8);
+  color: rgba(var(--text-gray-200-color-rgb), 0.8);
 }
 
 .subTitle {
@@ -126,7 +118,7 @@
   font-family: 'Muli-Bold';
   font-size: 14px;
   line-height: 18px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }
 
 .priceText {
