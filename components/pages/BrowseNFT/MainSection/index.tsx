@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -53,6 +53,7 @@ import SaleLightIcon from 'assets/icons/sale-light.svg?component'
 import TagLightIcon from 'assets/icons/tag-light.svg?component'
 import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
+import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
@@ -88,7 +89,7 @@ import activityAPI from 'apis/activity'
 import AuctionAPI from 'apis/auctions'
 
 import { useWallets } from 'hooks/useWallets'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName, getTimeDifference } from 'utils/helpers'
@@ -107,6 +108,7 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
+import { getExplorerUrl } from 'utils/explorer'
 
 export interface MainSectionProps {
   nftDetail: Nft
@@ -117,14 +119,17 @@ export interface MainSectionProps {
 }
 
 const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
-  const viewport = useViewport()
   const router = useRouter()
+  const { id } = router.query
+  const viewport = useViewport()
   const dispatch = useDispatch()
   const { refreshToken } = useAuthentication()
   const profileInfo = useSelector(state => (state as any).profileInfo)
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(null)
+  const { connection } = useConnection()
+  const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
@@ -267,7 +272,6 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const [activityList, setActivityList] = useState([])
 
   const [isRunning, setIsRunning] = useState(false)
-  const { id } = router.query
 
   const { metaplex: mx } = useMetaplex()
   const { mainBalance: mainWalletBalance, biddingBalance, offerBalance, updateSolBalance } = useWallets()
@@ -463,17 +467,6 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
       dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
-
-  useEffect(() => {
-    ;(async () => {
-      if (nftCollectionUrl !== null && nftCollectionUrl.length > 0) {
-        try {
-          let response = await axios.get(nftCollectionUrl)
-          setNftCollectionImage(response['image'])
-        } catch {}
-      }
-    })()
-  }, [nftCollectionUrl])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -814,13 +807,16 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
-                <div>
+                <div onClick={() => window.open(explorerURL)}>
                   {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <div className={styles.ellipseArea} onClick={() => setOpenReportMenuModal(true)}>
+                    <div className={styles.ellipseArea}>
                       <ThreeEllipseMobileIcon alt="" />
                     </div>
                   ) : (
-                    <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
+                    <div className={styles.ellipseArea}>
+                      <ThreeEllipseIcon alt="" />
+                    </div>
+                    // <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                   )}
                 </div>
                 <div className="inline">
@@ -887,22 +883,24 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   </div>
                 )}
               </div>
-              <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
-                <div className={styles.grayText}>Collection</div>
-                <div
-                  className={styles.collectionName}
-                  onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
-                >
-                  <Image
-                    src={nftCollectionImage}
-                    alt=""
-                    width={25}
-                    height={25}
-                    className="object-cover rounded-[4px]"
-                  />
-                  {nftCollectionName}
+              {nftCollectionUrl.length > 0 && (
+                <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
+                  <div className={styles.collectionText}>Collection</div>
+                  <div
+                    className={styles.collectionName}
+                    onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
+                  >
+                    {/* <Image
+                      src={nftCollectionImage}
+                      alt=""
+                      width={25}
+                      height={25}
+                      className="object-cover rounded-[4px]"
+                    /> */}
+                    {nftCollectionName}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
             {editionDetail && (
               <div className={styles.editionContainer}>
