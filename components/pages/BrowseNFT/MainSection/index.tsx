@@ -80,6 +80,7 @@ import { toLazyListing, toListingReceiptAccount, toMetadataAccount, GpaBuilder }
 import type { Nft } from '@metaplex-foundation/js'
 
 // call apis
+import axios from 'axios'
 import nftsAPI from 'apis/nfts'
 import usersAPI from 'apis/user'
 import listingsAPI from 'apis/listings'
@@ -255,6 +256,9 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
   const nftCollectionAddress = nftDetail.collection?.address.toString()
 
   const [nftCollectionName, setNftCollectionName] = useState('')
+  const [nftCollectionUrl, setNftCollectionUrl] = useState('')
+  const [nftCollectionImage, setNftCollectionImage] = useState('')
+
   const [nftPrice, setNftPrice] = useState(0)
   const [nftOwnerAddress, setNftOwnerAddress] = useState('')
   const [nftOwnerUsername, setNftOwnerUsername] = useState('')
@@ -440,6 +444,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
             await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
           )
           setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
+          setNftCollectionUrl(collectionMetadata.data.data.uri.replace(/\0/g, ''))
         } catch (e: any) {
           console.error(`could not load collection name from chain: ${e.message}`)
           console.error(e)
@@ -458,6 +463,17 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
       dispatch({ type: 'set', isLoading: false })
     })()
   }, [nftDetail])
+
+  useEffect(() => {
+    ;(async () => {
+      if (nftCollectionUrl !== null && nftCollectionUrl.length > 0) {
+        try {
+          let response = await axios.get(nftCollectionUrl)
+          setNftCollectionImage(response['image'])
+        } catch {}
+      }
+    })()
+  }, [nftCollectionUrl])
 
   const processFinalizeSale = async () => {
     let data = {
@@ -850,19 +866,12 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                   </div>
                 </div>
               </div>
-              <div className="w-full flex justify-between items-center">
-                <div
-                  className={styles.collectionName}
-                  onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
-                >
-                  {nftCollectionName}
-                </div>
-              </div>
-              <div className="w-full flex mt-[0px] md:mt-[8px] lg:mt-[9px]">
+
+              <div className="w-full flex mt-[15px] lg:mt-[28px]">
                 <div className={styles.title}>{nftName}</div>
               </div>
-              <div className="w-full flex flex-wrap mt-[4px] lg:mt-[9px] gap-x-[14px] lg:gap-x-[34px]">
-                <div className="flex gap-1 lg:gap-3">
+              <div className="w-full flex flex-wrap mt-[9px] lg:mt-[6px] gap-x-[14px] lg:gap-x-[34px]">
+                <div className="flex gap-1 lg:gap-2">
                   <div className={styles.grayText}>Created by</div>
                   <div className={styles.greenText} onClick={() => gotoUserDetail(nftCreatorname)}>
                     {nftCreatorname}
@@ -870,13 +879,29 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                 </div>
 
                 {nftOwnerUsername.length > 0 && nftOwnerUsername !== nftCreatorname && (
-                  <div className="flex gap-1 lg:gap-3">
+                  <div className="flex gap-1 lg:gap-2">
                     <div className={styles.grayText}>Fostered by</div>
                     <div className={styles.greenText} onClick={() => gotoUserDetail(nftOwnerUsername)}>
                       {nftOwnerUsername}
                     </div>
                   </div>
                 )}
+              </div>
+              <div className="justify-between items-center mt-[15px] lg:mt-[28px]">
+                <div className={styles.grayText}>Collection</div>
+                <div
+                  className={styles.collectionName}
+                  onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
+                >
+                  <Image
+                    src={nftCollectionImage}
+                    alt=""
+                    width={25}
+                    height={25}
+                    className="object-cover rounded-[4px]"
+                  />
+                  {nftCollectionName}
+                </div>
               </div>
             </div>
             {editionDetail && (
@@ -1123,7 +1148,9 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
+                              {nftCategories?.map((item, index) => (
+                                <SmallCategoryChip data={item} key={index} />
+                              ))}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">

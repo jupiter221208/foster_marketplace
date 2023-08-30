@@ -226,16 +226,27 @@
 }
 
 .collectionName {
-  font-family: 'Muli-Regular';
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 44px;
+  border-radius: 22px;
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
-  line-height: 29px;
-  margin-top: 8px;
+  line-height: 18px;
+  margin-top: 6px;
+  padding: 8px 12px;
   @media (min-width: 1024px) {
-    margin-top: 30px;
-    font-size: 24px;
-    line-height: 28px;
+    height: 56px;
+    border-radius: 28px;
+    margin-top: 6px;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 8px 16px;
+
   }
-  color: rgba(var(--text-gray-200-color-rgb), 0.75);
+  background: var(--stats-bg-color);
+  color: var(--text-gray-200-color);
   white-space: nowrap;
   cursor: pointer;
   &:hover {
@@ -312,24 +323,25 @@
 
 .grayText {
   font-family: 'Muli-Light';
-  font-size: 12px;
+  font-size: 14px;
   line-height: 16px;
   @media (min-width: 1024px) {
     font-size: 18px;
     line-height: 24px;
   }
-  color: rgba(var(--text-gray-200-color-rgb), 1);
+  color: rgba(var(--text-gray-200-color-rgb), 0.9);
 }
 
 .greenText {
   font-family: 'Muli-Regular';
-  font-size: 12px;
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 18px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
     font-size: 18px;
     line-height: 24px;
   }
-  color: var(--nft-detail-artist);
+  color: var(--text-gray-200-color);
   &:hover {
     @media (min-width: 1024px) {
       cursor: pointer;
@@ -570,7 +582,6 @@
   width: 22px;
   height: 22px;
   border-radius: 11px;
-  background: var(--ellipse-report-bg);
   @media (min-width: 1024px) {
     width: 30px;
     height: 30px;
