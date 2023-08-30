@@ -107,7 +107,9 @@ const Explore = () => {
   const [selectedMarket, setSelectedMarket] = useState<any>(MarketList[2])
 
   useEffect(() => {
-    setIsMounted(true)
+    setTimeout(() => {
+      setIsMounted(true)
+    }, 1000)
     return () => {
       dispatch({ type: 'set', availabilityFilter: 3 })
       dispatch({ type: 'set', collectionSort: '' })
@@ -134,6 +136,7 @@ const Explore = () => {
       availability = AvailabilityList[1]
       setSelectedAvailability(availability)
     }
+
     switch (exploreTab) {
       case 0:
         setSortData(NFTSortList)
@@ -224,8 +227,10 @@ const Explore = () => {
         categoryLabel.push(category.query)
       }
     })
-
-    if (reset === true) setNftList([])
+    let page = curPage
+    if (reset === true) {
+      page = 0
+    }
 
     if (nftList.length === 0) dispatch({ type: 'set', isLoading: true })
 
@@ -235,14 +240,14 @@ const Explore = () => {
       medium: medium.value,
       market: market.value,
       sort: sort.value,
-      page: curPage + 1,
+      page: page + 1,
       per_page: count,
     }).then(
       response => {
         dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
         let nfts = []
-        if (response.length > 0) setIsVisibleFetching(true)
+        if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
 
         if (availability.value === 'timed') {
@@ -290,7 +295,9 @@ const Explore = () => {
         setCurrentPage(curPage)
         setNftCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
-        setNftList([...nftList, ...nfts])
+
+        if (reset === true) setNftList([...nfts])
+        else setNftList([...nftList, ...nfts])
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
@@ -307,10 +314,13 @@ const Explore = () => {
         categoryLabel.push(category.query)
       }
     })
-    if (collectionList.length === 0) dispatch({ type: 'set', isLoading: true })
-    else setIsVisibleFetching(false)
 
-    if (reset === true) setCollectionList([])
+    if (collectionList.length === 0) dispatch({ type: 'set', isLoading: true })
+
+    let page = curPage
+    if (reset === true) {
+      page = 0
+    }
 
     ExploreAPI.getExploreCollection({
       categories: categoryLabel.length === 0 ? null : categoryLabel,
@@ -318,13 +328,13 @@ const Explore = () => {
       medium: null,
       market: null,
       sort: sort.value,
-      page: curPage + 1,
+      page: page + 1,
       per_page: count,
     }).then(
       response => {
         dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
-        if (response.length > 0) setIsVisibleFetching(true)
+        if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
         const collections = response.map(nft => {
           return {
@@ -339,7 +349,8 @@ const Explore = () => {
         setCurrentPage(curPage)
         setCollectionCurrentPage(curPage)
         setTotalCount(count * curPage + collections.length)
-        setCollectionList([...collectionList, ...collections])
+        if (reset === true) setCollectionList([...collections])
+        else setCollectionList([...collectionList, ...collections])
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
@@ -351,7 +362,11 @@ const Explore = () => {
 
   const getExploreArtistData = async (curPage, sort, count, reset = false) => {
     if (ecosystemList.length === 0) dispatch({ type: 'set', isLoading: true })
-    if (reset === true) setEcosystemList([])
+
+    let page = curPage
+    if (reset === true) {
+      page = 0
+    }
 
     ExploreAPI.getExploreArtists({
       categories: null,
@@ -359,19 +374,21 @@ const Explore = () => {
       medium: null,
       market: null,
       sort: sort.value,
-      page: curPage + 1,
+      page: page + 1,
       per_page: count,
     }).then(
       response => {
         dispatch({ type: 'set', isLoading: false })
         setIsFetching(false)
-        if (response.length > 0) setIsVisibleFetching(true)
+        if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
 
         setCurrentPage(curPage)
         setEcoSystemCurrentPage(curPage)
         setTotalCount(count * curPage + response.length)
-        setEcosystemList([...ecosystemList, ...response])
+
+        if (reset === true) setEcosystemList([...response])
+        else setEcosystemList([...ecosystemList, ...response])
       },
       error => {
         dispatch({ type: 'set', isLoading: false })
@@ -384,6 +401,7 @@ const Explore = () => {
   const handleNextPage = () => {
     if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
+
     if (exploreTab === 0)
       getExploreNFTData(
         nextPage,
@@ -398,25 +416,9 @@ const Explore = () => {
     else if (exploreTab === 2) getExploreArtistData(nextPage, selectedSort, rowCount)
   }
 
-  const handlePreviousPage = () => {
-    if (currentPage === 0) return
-    const prevPage = currentPage - 1
-    if (exploreTab === 0)
-      getExploreNFTData(
-        prevPage,
-        categoryList,
-        selectedAvailability,
-        selectedMedium,
-        selectedMarket,
-        selectedSort,
-        rowCount
-      )
-    else if (exploreTab === 1) getExploreCollectionData(prevPage, categoryList, selectedSort, rowCount)
-    else if (exploreTab === 2) getExploreArtistData(prevPage, selectedSort, rowCount)
-  }
-
   const selectCategory = categoryList => {
     setCategoryList(categoryList)
+
     if (exploreTab === 0)
       getExploreNFTData(
         currentPage,
@@ -428,8 +430,8 @@ const Explore = () => {
         rowCount,
         true
       )
-    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, selectedSort, rowCount)
-    else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, rowCount)
+    else if (exploreTab === 1) getExploreCollectionData(currentPage, categoryList, selectedSort, rowCount, true)
+    else if (exploreTab === 2) getExploreArtistData(currentPage, selectedSort, rowCount, true)
   }
 
   const selectRowCount = count => {
@@ -502,7 +504,7 @@ const Explore = () => {
   }
 
   useEffect(() => {
-    if (isFetching) {
+    if (isFetching === true) {
       handleNextPage()
     }
   }, [isFetching])
@@ -690,7 +692,9 @@ const Explore = () => {
                   ))}
                 </div>
               )}
-              {isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+              {isMounted && isVisibleFetching && (
+                <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+              )}
               {/* <div className="w-full flex justify-end">
                 <ExplorePagination
                   currentPage={currentPage}

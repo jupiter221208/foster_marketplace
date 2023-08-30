@@ -15,6 +15,7 @@ const LoadingComponent = props => {
 
   useEffect(() => {
     if (!isFetching && isVisible) {
+      console.log(isVisible)
       setIsFetching(true)
     }
   }, [isVisible])
