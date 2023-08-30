@@ -897,13 +897,15 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
                     className={styles.collectionName}
                     onClick={() => router.push(`/collection/${nftCollectionAddress}`)}
                   >
-                    {/* <Image
-                      src={nftCollectionImage}
-                      alt=""
-                      width={25}
-                      height={25}
-                      className="object-cover rounded-[4px]"
-                    /> */}
+                    {nftCollectionImage !== null && nftCollectionImage.length > 0 && (
+                      <Image
+                        src={nftCollectionImage}
+                        alt=""
+                        width={25}
+                        height={25}
+                        className="object-cover rounded-[4px]"
+                      />
+                    )}
                     {nftCollectionName}
                   </div>
                 </div>
