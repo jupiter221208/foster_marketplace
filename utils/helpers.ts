@@ -252,7 +252,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
     doc.style.setProperty('--switch-01-color', '149, 219, 213')
     doc.style.setProperty('--switch-02-color', '75, 110, 107')
-    doc.style.setProperty('--menu-bg-color', '#FFF')
+    doc.style.setProperty('--menu-bg-color', '#F3F2F0')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')
     doc.style.setProperty('--hero-artist-color', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--twitter-btn-color1', '#202427')

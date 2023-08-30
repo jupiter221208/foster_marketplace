@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 60px;
+  height: 80px;
   @media (min-width: 1024px) {
     height: 100px;
   }
@@ -44,7 +44,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 80px;
   background: transparent;
   z-index: 9999;
 }
@@ -58,7 +58,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 80px;
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   background: var(--header-mobile-bg-color);
@@ -75,7 +75,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 60px;
+  height: 80px;
   background: transparent;
   z-index: 10000;
 }
