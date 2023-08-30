@@ -91,7 +91,7 @@ const CollectorsSection = props => {
     StatsAPI.getStatsCollector({
       period: curDate,
       search: search?.length === 0 ? null : search,
-      page: curPage + 1,
+      page: page + 1,
       per_page: count,
     }).then(
       response => {
