@@ -126,25 +126,6 @@ const ReportMenu = props => {
                   </div>
                 )}
               </Menu.Item>
-              {/* {nftType.includes('image') && (
-                <Menu.Item>
-                  {({ active }) => (
-                    <div
-                      className={styles.menuItem}
-                      onClick={() => onClickPrint()}
-                      onMouseEnter={() =>
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHoverPrint(true)
-                      }
-                      onMouseLeave={() =>
-                        viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHoverPrint(false)
-                      }
-                    >
-                      {hoverPrint ? <PhysicalPrintHoverIcon alt="" /> : <PhysicalPrintIcon alt="" />}
-                      Purchase Physical Print
-                    </div>
-                  )}
-                </Menu.Item>
-              )} */}
             </div>
           </Menu.Items>
         </Transition> */}
