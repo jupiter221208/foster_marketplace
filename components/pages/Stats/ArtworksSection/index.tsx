@@ -13,7 +13,6 @@ import { Autoplay, Lazy, Navigation } from 'swiper'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import ExplorePagination from 'components/Button/ExplorePagination'
 import StatsCollectionCard from 'components/Card/StatsCollectionCard'
 // import Marquee from 'react-fast-marquee'
 import { useViewport } from 'utils'
@@ -28,6 +27,7 @@ import styles from './index.module.scss'
 // apis
 import StatsAPI from 'apis/stats'
 import LoadingModal from 'components/Modal/LoadingModal'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const ArtworksSection = props => {
   const { artworks } = props
@@ -37,7 +37,6 @@ const ArtworksSection = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
-  const [feedList, setFeedList] = useState([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
@@ -45,36 +44,11 @@ const ArtworksSection = props => {
   const [screenWidth, setScreenWidth] = useState(1920)
   const [loading, setLoading] = useState(true)
   const [searchLoading, setSearchLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
     setScreenWidth(window.innerWidth)
-    let nfts = [
-      {
-        id: 0,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 1,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 2,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-      {
-        id: 3,
-        asset_url: 'https://arweave.net/abc',
-        amount: ' ',
-        asset_name: ' ',
-      },
-    ]
-    setFeedList(nfts)
   }, [])
 
   useEffect(() => {
@@ -82,10 +56,9 @@ const ArtworksSection = props => {
       setTimeout(() => {
         setLoading(false)
         setScreenWidth(window.innerWidth)
-        setFeedList(artworks)
         setList(artworks)
-        setTotalCount(12)
         setIsMounted(true)
+        setIsVisibleFetching(true)
       }, 1000)
     }
   }, [artworks])
@@ -98,8 +71,14 @@ const ArtworksSection = props => {
   }, [])
 
   useEffect(() => {
+    if (isFetching === true) {
+      handleNextPage()
+    }
+  }, [isFetching])
+
+  useEffect(() => {
     if (!isMounted) return
-    getArtworkData(currentPage, period, searchWord, rowCount)
+    getArtworkData(currentPage, period, searchWord, rowCount, true)
   }, [period])
 
   const getSearchData = () => {
@@ -111,47 +90,37 @@ const ArtworksSection = props => {
     getArtworkData(currentPage, period, null, rowCount)
   }
 
-  const getArtworkData = (curPage, curDate, search, count) => {
-    setSearchLoading(true)
+  const getArtworkData = (curPage, curDate, search, count, reset = false) => {
+    let page = curPage
+    if (reset === true) page = 0
     StatsAPI.getStatsArtwork({
       period: curDate,
       search: search?.length === 0 ? null : search,
       page: curPage + 1,
       per_page: count,
     }).then(
-      respone => {
-        setSearchLoading(false)
-        const nfts = respone.filter(item => item.asset_url !== '')
+      response => {
+        setIsFetching(false)
+
+        const nfts = response.filter(item => item.asset_url !== '')
         setCurrentPage(curPage)
-        setTotalCount(count * curPage + nfts.length)
-        setList(nfts)
-        if (feedList.length === 0) setFeedList(nfts)
-        window.scrollTo({
-          top: viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 400 : 800,
-          behavior: 'smooth',
-        })
+
+        if (reset === true) setList(nfts)
+        else setList([...list, ...nfts])
+
+        if (response.length === rowCount) setIsVisibleFetching(true)
+        else setIsVisibleFetching(false)
       },
       error => {
-        setSearchLoading(false)
+        setIsFetching(false)
+        setIsVisibleFetching(false)
       }
     )
   }
 
-  const selectRowCount = count => {
-    setRowCount(count)
-    getArtworkData(currentPage, period, searchWord, count)
-  }
-
   const handleNextPage = () => {
-    if (totalCount < (currentPage + 1) * rowCount) return
     const nextPage = currentPage + 1
     getArtworkData(nextPage, period, searchWord, rowCount)
-  }
-
-  const handlePreviousPage = () => {
-    if (currentPage === 0) return
-    const prevPage = currentPage - 1
-    getArtworkData(prevPage, period, searchWord, rowCount)
   }
 
   return (
@@ -162,7 +131,7 @@ const ArtworksSection = props => {
         </div>
       )}
       {!loading && (
-        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px]">
+        <div className="w-full mb-0 lg:mb-20 lg:mt-[25px] min-h-[293px] lg:min-h-[418px]">
           <Swiper
             navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
             slidesPerView={
@@ -194,25 +163,12 @@ const ArtworksSection = props => {
               disableOnInteraction: false,
             }}
           >
-            {feedList.map((item: any, index) => (
+            {list.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <StatsCollectionCard key={index} data={item} type="artworks" />
               </SwiperSlide>
             ))}
           </Swiper>
-
-          {/* <Marquee
-          gradient={false}
-          pauseOnHover={false}
-          pauseOnClick={true}
-          speed={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'lg' ? 30 : 30}
-        >
-          <div className="w-full flex gap-4 lg:gap-7 mx-[10px] lg:mx-5">
-            {feedList.map((item: any, index) => (
-              <StatsCollectionCard key={index} data={item} type="artworks" />
-            ))}
-          </div>
-        </Marquee> */}
         </div>
       )}
 
@@ -240,18 +196,11 @@ const ArtworksSection = props => {
         </div>
       )}
 
-      <div className="w-full flex justify-end">
-        <ExplorePagination
-          currentPage={currentPage}
-          totalCount={totalCount}
-          rowCount={rowCount}
-          setRowCount={count => {
-            selectRowCount(count)
-          }}
-          handleNext={handleNextPage}
-          handlePrev={handlePreviousPage}
-        />
-      </div>
+      {isMounted && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+        </div>
+      )}
     </div>
   )
 }
