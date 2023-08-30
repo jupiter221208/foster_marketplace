@@ -18,12 +18,13 @@ import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 // custom functions
 import { useViewport } from 'utils'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
 import AvatarImage from 'assets/images/dashboard-avatar.png'
-import BackButton from 'assets/icons/artist-back-icon.svg'
-import SearchButton from 'assets/icons/artist-search-icon.svg'
-import MenuButton from 'assets/icons/artist-menu-icon.svg'
+import BackButton from 'assets/icons/artist-back-icon.svg?component'
+import SearchButton from 'assets/icons/artist-search-icon.svg?component'
+import MenuButton from 'assets/icons/artist-menu-icon.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
 import FosterLogoDark from 'assets/icons/foster-logo-dark.svg?component'
@@ -43,7 +44,7 @@ import authAPI from 'apis/auth'
 import searchAPI from 'apis/search'
 import { setColorTheme } from 'utils/helpers'
 import userAPI from 'apis/user'
-import { getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { getShortAddress } from 'utils/strings'
 
 const ArtistHeader = () => {
   const viewport = useViewport()
@@ -51,10 +52,10 @@ const ArtistHeader = () => {
   const dispatch = useDispatch()
   const loginAndRefresh = useSelector(state => (state as any).loginAndRefresh)
   const markAsRead = useSelector(state => (state as any).markAsRead)
+  const [isScrollTop, setIsScollTop] = useState(true)
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [searchKeyword, setSearchKeyword] = useState('')
   const [searchList, setSearchList] = useState({ nfts: [], artists: [], collections: [] })
-  const [profileImage, setProfileImage] = useState('')
   const [isNewNotification, setIsNewNotification] = useState(false)
 
   let timer = null
@@ -66,6 +67,10 @@ const ArtistHeader = () => {
   }
 
   useEffect(() => {
+    window.addEventListener('scroll', function () {
+      let scrollTop = document.documentElement.scrollTop
+      setIsScollTop(scrollTop < 10)
+    })
     if (connected && router.asPath !== '/notifications') {
       userAPI.getNotifications().then(
         response => {
@@ -134,11 +139,11 @@ const ArtistHeader = () => {
     setSearchList({ nfts: [], artists: [], collections: [] })
   }
 
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const openMobileMenu = useSelector(state => (state as any).openMobileMenu)
   const openMobileSearchBox = useSelector(state => (state as any).openMobileSearchBox)
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
 
   // update profile menu list
   const [profileMenuList, setProfileMenuList] = useState(ProfileMenuList)
@@ -151,12 +156,6 @@ const ArtistHeader = () => {
         }
       })
       setProfileMenuList(array)
-    }
-  }, [profileInfo])
-
-  useEffect(() => {
-    if (profileInfo && profileInfo.profile_picture) {
-      setProfileImage(profileInfo.profile_picture)
     }
   }, [profileInfo])
 
@@ -216,14 +215,6 @@ const ArtistHeader = () => {
     window.addEventListener('resize', resizeFunction)
   }, [connected])
 
-  useEffect(() => {
-    ;(async () => {
-      if (!connected || profileInfo || loginAndRefresh) return
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      loginWithSigned(publicKey, signature, dispatch)
-    })()
-  }, [connected, signMessage])
-
   const handleSelectMenu = (item: any) => {
     if (connected) {
       router.push(item.path)
@@ -281,29 +272,25 @@ const ArtistHeader = () => {
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
-            <div id="walletButton" className={connected ? 'h-full min-w-[180px]' : 'h-full min-w-[220px]'} />
+            <div id="walletButton" className={connected ? 'h-full min-w-[190px]' : 'h-full min-w-[220px]'} />
             <div id="notificationButton" className={connected ? 'min-w-[46px] h-full' : 'w-[0px]'} />
-            <div id="profileButton" className="h-full min-w-[40px]" />
+            <div id="profileButton" className="h-full ml-2 min-w-[150px]" />
           </div>
         </div>
       </div>
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 262}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
           <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
         </div>
       )}
+
       {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
-          <WalletButton />
-        </div>
-      )}
-      {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 38}px`, left: `${offset[1] - 130}px` }}>
+        <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 130}px` }}>
           <Menu label="Create" menuList={CreateMenuList} onSelect={item => handleSelectMenu(item)} />
         </div>
       )}
-      {offset[1] !== 0 && (
-        <div style={{ zIndex: 10000, position: 'fixed', top: `${offset[0] + 25}px`, left: `${offset[1]}px` }}>
+      {offset[1] !== 0 && connected && (
+        <div style={{ zIndex: 10000, position: 'fixed', top: 25, left: `${offset[1] - 30}px` }}>
           <WalletButton />
         </div>
       )}
@@ -346,7 +333,9 @@ const ArtistHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileImage.length > 0 ? profileImage : AvatarImage}
+            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            wallet={getShortAddress(profileInfo?.wallet_id)}
+            username={profileInfo?.username ?? ''}
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
@@ -361,7 +350,7 @@ const ArtistHeader = () => {
             width: 83,
             height: 44,
             top: `${profileOffset[0] + 27}px`,
-            left: `${profileOffset[1] + 70}px`,
+            left: `${profileOffset[1] + 140}px`,
           }}
           onClick={() => handleThemeMode()}
         >
@@ -371,20 +360,20 @@ const ArtistHeader = () => {
     </div>
   ) : (
     <div className={styles.mobileBlurContainer}>
-      <div className={styles.mobileContainer}>
+      <div className={isScrollTop ? styles.mobileNoneBlurContainer : styles.mobileContainer}>
         <div className="g-container flex justify-between items-center">
           <div className="cursor-pointer" onClick={() => handleGotoHomepage()}>
             <div className={styles.backButton}>
-              <Image src={BackButton} alt="" />
+              <BackButton alt="" />
             </div>
           </div>
           <div className="flex">
             <div className={styles.backButton} onClick={() => handleOpenMobileSearchBox()}>
-              <Image src={SearchButton} alt="" />
+              <SearchButton alt="" />
             </div>
 
             <div className={`${styles.backButton} ml-3`} onClick={() => handleOpenMobileMenu()}>
-              <Image src={MenuButton} alt="" />
+              <MenuButton alt="" />
             </div>
           </div>
         </div>

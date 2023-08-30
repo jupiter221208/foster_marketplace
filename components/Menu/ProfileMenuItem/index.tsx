@@ -36,6 +36,9 @@ const ProfileMenuItem = props => {
           } else disconnect()
 
           localStorage.removeItem('token')
+          localStorage.removeItem('expiryDate')
+          localStorage.removeItem('signature')
+
           dispatch({ type: 'set', profileInfo: null })
           deleteCookie('token')
         }

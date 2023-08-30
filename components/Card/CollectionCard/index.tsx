@@ -44,13 +44,6 @@ const CollectionCard = props => {
         <div className="w-full flex justify-start items-center">
           <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
         </div>
-        <div className="w-full mt-[6px] flex justify-between items-end">
-          <div className="flex flex-wrap gap-1 max-h-[16px] lg:max-h-[30px] overflow-hidden">
-            {category?.map((item, index) => (
-              <SmallCategoryChip data={item} key={index} />
-            ))}
-          </div>
-        </div>
       </div>
       {unSave !== null && (
         <div className="mt-[10px]">

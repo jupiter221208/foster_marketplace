@@ -33,14 +33,15 @@ import auctionAPI from 'apis/auctions'
 import Alert from 'components/Alert'
 import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const ListedNFTSection = props => {
   const { filter } = props
 
   const router = useRouter()
   const dispatch = useDispatch()
-  const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
 
   const [showListNFTModal, setShowListNFTModal] = useState(false)
   const [openProgressingModal, setOpenProgressingModal] = useState(false)
@@ -78,13 +79,6 @@ const ListedNFTSection = props => {
   function getMintAddress(asset: Nft | Sft | Metadata): PublicKey {
     if ('mintAddress' in asset) return asset.mintAddress
     else return asset.mint.address
-  }
-
-  const checkTokenExpiration = async () => {
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
-    }
   }
 
   const setMyListedNFTs = async () => {
@@ -138,7 +132,7 @@ const ListedNFTSection = props => {
   const onCancelList = async ({ address, tradeStateAddress }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
-      await checkTokenExpiration()
+      await refreshToken()
 
       const result = await cancelList(mx, tradeStateAddress)
       if (result) {
@@ -178,7 +172,7 @@ const ListedNFTSection = props => {
   const onUpdatePrice = async ({ address, tradeStateAddress }: ListedNFTCardData, price: number) => {
     setOpenProgressingModal(true)
     try {
-      await checkTokenExpiration()
+      await refreshToken()
 
       const result = await updateList(mx, address, tradeStateAddress, price)
       if (result) {
@@ -229,7 +223,7 @@ const ListedNFTSection = props => {
   const cancelAuction = async ({ address, sellerAddress, name }: ListedNFTCardData) => {
     setOpenProgressingModal(true)
     try {
-      await checkTokenExpiration()
+      await refreshToken()
 
       const { auction } = await cancelListing(mx, address, sellerAddress)
       auctionAPI.cancelAuction(auction.mintAddress.toBase58()).then(res => {
@@ -263,7 +257,7 @@ const ListedNFTSection = props => {
     }, 500)
 
     try {
-      await checkTokenExpiration()
+      await refreshToken()
 
       const { sale } = await executeSale(mx, address, sellerAddress, new PublicKey(highestBid?.buyer_address), price)
       await updateSolBalance()
@@ -302,9 +296,35 @@ const ListedNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex">
+      <div className="lg:flex hidden">
         <FilterButton label="Fixed-Price" onClick={() => handleChangeActive(0)} selected={active === 0} />
         <FilterButton label="Live Auction" onClick={() => handleChangeActive(1)} selected={active === 1} />
+      </div>
+      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
+        <div className={styles.slotBG}>
+          <TimeSlotButton
+            label="Fixed-Price"
+            onClick={() => handleChangeActive(0)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={160}
+            boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+          <TimeSlotButton
+            label="Live&nbsp;Auction"
+            onClick={() => handleChangeActive(1)}
+            fontFamily={'Muli-SemiBold'}
+            color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+            backgroundColor01={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            gradientDirection="bottom"
+            width={160}
+            boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+          />
+        </div>
       </div>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
         {!loading &&

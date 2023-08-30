@@ -19,17 +19,11 @@ import DaoPreviewImage from 'assets/images/dao-preview-image.png'
 // styles
 import styles from './index.module.scss'
 import { useViewport } from 'utils'
-import DaoComingSoon from 'components/pages/Dao/DaoComingSoon'
 import DaoLandingPage from 'components/pages/Dao/DaoLandingPage'
-import DaoLandingDetail from 'components/pages/Dao/DaoLandingDetail'
 
 const Dao = () => {
-  // const [showCircus, setShowCircus] = useState(false)
-  // const [showLift, setShowLift] = useState(false)
-  // const [daoSetup, setDaoSetup] = useState(false)
-  const [daoPage, setDaoPage] = useState('landing')
-  const [proposal, setProposal] = useState()
-  const { connected, publicKey } = useWallet()
+
+  const { connected } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
 

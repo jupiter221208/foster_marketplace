@@ -451,10 +451,10 @@ const MainSection = prop => {
 
             {artistInfo?.bio && (
               <span className={styles.description}>
-                {getShortDescription(viewport, artistInfo?.bio)}&nbsp;
-                <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+                {artistInfo?.bio}
+                {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
                   Read&nbsp;more
-                </span>
+                </span> */}
               </span>
             )}
           </div>
@@ -780,10 +780,10 @@ const MainSection = prop => {
       <div className="flex justify-center w-full flex-wrap mt-[12px] z-10 px-[20px]">
         {artistInfo?.bio && (
           <span className={styles.description}>
-            {getShortDescription(viewport, artistInfo?.bio) + ' '}
-            <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
+            {artistInfo?.bio}
+            {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
               Read&nbsp;more
-            </span>
+            </span> */}
           </span>
         )}
       </div>

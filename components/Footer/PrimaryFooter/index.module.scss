@@ -59,7 +59,7 @@
 .linkText {
   cursor: pointer;
   margin-top: 16px;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 18px;
   line-height: 24px;
   letter-spacing: 0;
@@ -72,7 +72,6 @@
   }
   @media (max-width: 576px) {
     font-size: 12px;
-    font-family: 'Muli-SemiBold';
     margin-top: 14px;
   }
 }

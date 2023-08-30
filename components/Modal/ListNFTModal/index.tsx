@@ -28,7 +28,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // call apis
 import listingsAPI from 'apis/listings'
 import LoadingButton from 'components/Button/LoadingButton'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const ListNFTModal = props => {
   const { data, open, onClose } = props
@@ -38,14 +38,12 @@ const ListNFTModal = props => {
   const [showLoading, setShowLoading] = useState(false)
   const { metaplex: mx } = useMetaplex()
   const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
 
   const handleListNFTClick = async () => {
     setShowLoading(true)
 
-    if (!checkExpiryDate()) {
-      let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-      await loginWithSigned(publicKey, signature, dispatch)
-    }
+    await refreshToken()
 
     const result: any = await listNFT(mx, data.mintAddress, parseFloat(price) * LAMPORTS_PER_SOL)
     if (result) {

@@ -11,7 +11,6 @@ import SecondaryLayout from 'components/Layout/SecondaryLayout'
 import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
-import { useWallet } from '@solana/wallet-adapter-react'
 import { Keypair, PublicKey } from '@solana/web3.js'
 import { toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
 
@@ -48,7 +47,7 @@ import nftsAPI from 'apis/nfts'
 import styles from './single-nft.module.scss'
 import LoadingButton from 'components/Button/LoadingButton'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
-import { checkExpiryDate, getSignMessageVerbiage, loginWithSigned } from 'utils/auth'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const SingleNft = () => {
   const viewport = useViewport()
@@ -324,16 +323,13 @@ const SingleNft = () => {
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
   const [nftAddress, setNFTAddress] = useState<PublicKey | null>(null)
   const [nftMetadata, setNftMetadata] = useState<JsonMetadata>({})
-  const { publicKey, signMessage } = useWallet()
+  const { refreshToken } = useAuthentication()
 
   const createNft = async () => {
     try {
       dispatch({ type: 'set', isLoading: true })
 
-      if (!checkExpiryDate()) {
-        let signature = await signMessage(Buffer.from(getSignMessageVerbiage(publicKey)))
-        await loginWithSigned(publicKey, signature, dispatch)
-      }
+      await refreshToken()
 
       const attributes = categoryList
         .filter(({ checked }) => checked)

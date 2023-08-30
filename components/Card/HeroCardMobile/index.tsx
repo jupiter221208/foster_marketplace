@@ -22,7 +22,6 @@ const HeroCardMobile = props => {
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
-  const firstLoaded = useSelector<any>(state => state.firstLoaded)
 
   const gotoAristPage = () => {
     dispatch({ type: 'set', isLoading: true })
@@ -95,7 +94,6 @@ const HeroCardMobile = props => {
                 loading="lazy"
                 onLoad={() => {
                   setLoaded(true)
-                  if (!firstLoaded) dispatch({ type: 'set', firstLoaded: true })
                 }}
               />
             ) : data.asset_type.includes('video') ? (

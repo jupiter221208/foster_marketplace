@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="19" height="5" viewBox="0 0 19 5">
+<svg data-name="main-color-icon" xmlns="http://www.w3.org/2000/svg" width="19" height="5" viewBox="0 0 19 5">
   <g id="Elipsis_Group" data-name="Elipsis Group" transform="translate(-1741 -965)">
-    <circle id="Ellipse_4324" data-name="Ellipse 4324" cx="2.5" cy="2.5" r="2.5" transform="translate(1741 965)" fill="#fff"/>
-    <circle id="Ellipse_4325" data-name="Ellipse 4325" cx="2.5" cy="2.5" r="2.5" transform="translate(1748 965)" fill="#fff"/>
-    <circle id="Ellipse_4326" data-name="Ellipse 4326" cx="2.5" cy="2.5" r="2.5" transform="translate(1755 965)" fill="#fff"/>
+    <circle id="Ellipse_4324" data-name="Ellipse 4324" cx="2.5" cy="2.5" r="2.5" transform="translate(1741 965)" />
+    <circle id="Ellipse_4325" data-name="Ellipse 4325" cx="2.5" cy="2.5" r="2.5" transform="translate(1748 965)" />
+    <circle id="Ellipse_4326" data-name="Ellipse 4326" cx="2.5" cy="2.5" r="2.5" transform="translate(1755 965)" />
   </g>
 </svg>

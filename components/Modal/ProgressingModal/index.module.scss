@@ -8,12 +8,7 @@
 .bgView {
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
-  background: linear-gradient(
-    90deg,
-    rgba(#305856, 0.5) 0%,
-    rgba(#142021, 0.5) 50%,
-    rgba(var(--background-dark-color), 0.5) 100%
-  );
+  background: rgba(#121212, 0.75);
   // background-color: rgba(var(--background-dark-color), 0.8);
   position: fixed;
   inset: 0;
@@ -22,8 +17,8 @@
 .modalView {
   width: 488px;
   height: 100%;
-  background-color: var(--background-black-color);
-  border: 1px solid var(--brand-09-color);
+  background-color: #1b1b1b;
+  border: 1px solid rgba(#eff0f6, 0.1);
   border-radius: 21px;
   padding: 50px 30px 30px 30px;
 }
@@ -41,7 +36,7 @@
   font-family: 'Muli-Bold';
   font-size: 18px;
   line-height: 24px;
-  color: var(--brand-01-color);
+  color: var(--brand-09-color);
 }
 
 .whiteText {
@@ -53,7 +48,7 @@
 
 .darkBackground {
   width: 100%;
-  background-color: var(--background-dark-color);
+  background-color: #2b2b2b;
   border-radius: 12px;
   padding: 15px;
 
