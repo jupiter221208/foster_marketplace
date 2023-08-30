@@ -468,6 +468,13 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
     })()
   }, [nftDetail])
 
+  useEffect(() => {
+    axios
+      .get(nftCollectionUrl)
+      .then(({ data }) => setNftCollectionImage(data?.image))
+      .catch(e => console.error(`unable to fetch collection nft image: ${e}`))
+  }, [nftCollectionUrl])
+
   const processFinalizeSale = async () => {
     let data = {
       address: new PublicKey(nftDetail.address),
