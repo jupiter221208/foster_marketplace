@@ -27,7 +27,6 @@ const MyCollectionSection = () => {
   // const isLoading = useSelector<any>(state => state.isLoading)
 
   const [collections, setCollections] = useState([])
-  const [collectionList, setCollectionList] = useState([])
   const [isCollectionLoaded, setIsCollectionLoaded] = useState(false)
   const { metaplex: mx } = useMetaplex()
   const [rowCount, setRowCount] = useState(12)
@@ -93,7 +92,7 @@ const MyCollectionSection = () => {
             </div>
           ))}
       </div>
-      {isVisibleFetching && (
+      {isCollectionLoaded && isVisibleFetching && (
         <div className="w-full mt-[-50px] mb-[40px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
@@ -101,7 +100,7 @@ const MyCollectionSection = () => {
       <div className="col-span-12">
         <LoadingModal open={!isCollectionLoaded} />
       </div>
-      {isCollectionLoaded && collectionList.length === 0 && (
+      {isCollectionLoaded && collections.length === 0 && (
         <div className="mt-[35px] lg:mt-[65px]">
           <NoDataSection
             title="No collections were created"
