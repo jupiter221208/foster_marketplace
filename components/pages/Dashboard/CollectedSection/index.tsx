@@ -13,6 +13,7 @@ import styles from './index.module.scss'
 import userAPI from 'apis/user'
 import CollectionCard from 'components/Card/CollectionCard'
 import NoDataSection from '../NoDataSection'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const CollectedSection = props => {
   const { onClickItem } = props
@@ -21,6 +22,9 @@ const CollectedSection = props => {
   const [allNftList, setAllNFTList] = useState([])
   const [loading, setLoading] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
     setLoading(true)
@@ -41,6 +45,24 @@ const CollectedSection = props => {
       }
     )
   }, [])
+
+  useEffect(() => {
+    if (allNftList.length > rowCount) setIsVisibleFetching(true)
+    setNFTList(allNftList.slice(0, rowCount))
+  }, [allNftList])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (nftList.length + rowCount > allNftList.length) {
+        setNFTList([...nftList, ...allNftList.slice(nftList.length, allNftList.length)])
+        setIsVisibleFetching(false)
+      } else {
+        setNFTList([...nftList, ...allNftList.slice(nftList.length, nftList.length + rowCount)])
+        setIsVisibleFetching(true)
+      }
+    }
+  }, [isFetching])
 
   return (
     <section className={styles.container}>
@@ -72,11 +94,16 @@ const CollectedSection = props => {
           />
         </div>
       )}
-      {allNftList.length > 0 && (
+      {!loading && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
+      {/* {allNftList.length > 0 && (
         <div className="w-full flex justify-end">
           <Pagination data={allNftList} getCurrentData={data => setNFTList(data)} />
         </div>
-      )}
+      )} */}
     </section>
   )
 }

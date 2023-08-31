@@ -70,8 +70,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collectorToEnd, setCollectorToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
   const [liveAuctionLoaded, setLiveAuctionLoaded] = useState(false)
-  const [isFetching, setIsFetching] = useState(false)
-  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [isFetchingCreated, setIsFetchingCreated] = useState(false)
+  const [isVisibleFetchingCreated, setIsVisibleFetchingCreated] = useState(false)
+  const [isFetchingCollected, setIsFetchingCollected] = useState(false)
+  const [isVisibleFetchingCollected, setIsVisibleFetchingCollected] = useState(false)
 
   const setFullScreenView = url => {
     window.scrollTo({
@@ -172,7 +174,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     artistsAPI.getArtist(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
-        setIsFetching(false)
+        setIsFetchingCreated(false)
         if (isString(response)) return
         let artist = response.artist
 
@@ -183,8 +185,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setArtistStatsInfo(response.stats)
 
-        if (response.nfts.length === artistRowCount) setIsVisibleFetching(true)
-        else setIsVisibleFetching(false)
+        console.log(response.nfts.length === artistRowCount, '=======artistRowCount=============')
+        if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
+        else setIsVisibleFetchingCreated(false)
 
         if (reset === true) setCreatedNfts(response.nfts)
         else setCreatedNfts([...createdNfts, ...response.nfts])
@@ -201,8 +204,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       },
       error => {
         setIsLoaded(true)
-        setIsFetching(false)
-        setIsVisibleFetching(false)
+        setIsFetchingCreated(false)
+        setIsVisibleFetchingCreated(false)
       }
     )
   }
@@ -212,7 +215,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     artistsAPI.getCollector(id, row_count, current_page).then(
       response => {
         setIsLoaded(true)
-        setIsFetching(false)
+        setIsFetchingCollected(false)
 
         if (isString(response)) return
         let artist = response.collector
@@ -223,9 +226,10 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setCollectorStatsInfo(response.stats)
         setCollectorTotalCount(response.total_nfts)
+        console.log(response.nfts.length === collectorRowCount, '=======collectorRowCount=============')
 
-        if (response.nfts.length === collectorRowCount) setIsVisibleFetching(true)
-        else setIsVisibleFetching(false)
+        if (response.nfts.length === collectorRowCount) setIsVisibleFetchingCollected(true)
+        else setIsVisibleFetchingCollected(false)
 
         if (reset === true) setCollectedNfts(response.nfts)
         else setCollectedNfts([...collectedNfts, ...response.nfts])
@@ -240,8 +244,8 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
       },
       error => {
         setIsLoaded(true)
-        setIsFetching(false)
-        setIsVisibleFetching(false)
+        setIsFetchingCollected(false)
+        setIsVisibleFetchingCollected(false)
       }
     )
   }
@@ -311,10 +315,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
               collectorStatsInfo={collectorStatsInfo}
               setActiveListingLoaded={setActiveListingLoaded}
               setLiveAuctionLoaded={setLiveAuctionLoaded}
-              isVisibleFetching={isVisibleFetching}
-              setIsVisibleFetching={setIsVisibleFetching}
-              isFetching={isFetching}
-              setIsFetching={setIsFetching}
+              isVisibleFetchingCreated={isVisibleFetchingCreated}
+              isFetchingCreated={isFetchingCreated}
+              setIsFetchingCreated={setIsFetchingCreated}
+              isVisibleFetchingCollected={isVisibleFetchingCollected}
+              isFetchingCollected={isFetchingCollected}
+              setIsFetchingCollected={setIsFetchingCollected}
             />
           </div>
         </div>

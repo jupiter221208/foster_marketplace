@@ -449,14 +449,7 @@ const MainSection = prop => {
               </div>
             </div>
 
-            {artistInfo?.bio && (
-              <span className={styles.description}>
-                {artistInfo?.bio}
-                {/* <span className={styles.readMore} onClick={() => setShowReadMore(!showReadMore)}>
-                  Read&nbsp;more
-                </span> */}
-              </span>
-            )}
+            {artistInfo?.bio && <span className={styles.description}>{artistInfo?.bio}</span>}
           </div>
         </div>
 

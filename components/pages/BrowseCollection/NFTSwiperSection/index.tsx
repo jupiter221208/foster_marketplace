@@ -20,106 +20,72 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const [loading, setLoading] = useState(false)
+  const [rowCount, setRowCount] = useState(10)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [nftList, setNFTList] = useState<any[]>([])
 
   useEffect(() => {
     if (nfts) {
-      let newList: any[] = []
-      let tempItem: any[] = []
-      nfts.map((item, index) => {
-        tempItem.push(item)
-        if (index % 2 === 1) {
-          newList.push(tempItem)
-          tempItem = []
-        }
-      })
-      if (tempItem.length > 0) newList.push(tempItem)
-      setNFTList(newList)
+      setNFTList(nfts.slice(0, rowCount))
+      if (nfts.length > rowCount) setIsVisibleFetching(true)
+      setLoading(true)
     }
   }, [nfts])
 
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (nftList.length + rowCount > nfts.length) {
+        setNFTList([...nftList, ...nfts.slice(nftList.length, nfts.length)])
+        setIsVisibleFetching(false)
+      } else {
+        setNFTList([...nftList, ...nfts.slice(nftList.length, nftList.length + rowCount)])
+        setIsVisibleFetching(true)
+      }
+    }
+  }, [isFetching])
+
   return (
-    nfts !== undefined && (
+    nftList !== undefined && (
       <section className={styles.container}>
         <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          {nfts.length > 5 ? (
-            <Swiper
-              navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4
-              }
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              className="showNavigationSwiper"
-              loop
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-            >
-              {nftList.map((item, index) => (
-                <SwiperSlide key={index}>
-                  <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                    {item.map((nftItem, nftIndex) => (
-                      <NFTCard
-                        token_id={item.token_id}
-                        image={nftItem.asset_url}
-                        nftName={nftItem.nft_name}
-                        assetType={nftItem.asset_type}
-                        coverImage={nftItem.cover_image_url}
-                        artistName={nftItem.artist_username}
-                        collectionName={collectionName}
-                        price={nftItem.list_price}
-                        showHideButton={showHideButton}
-                        onClick={() => {
-                          let token_id = nftItem.mintAddress
-                          if (token_id === null || token_id === undefined) token_id = nftItem.token_id
-                          if (token_id !== null && token_id !== undefined) {
-                            dispatch({ type: 'set', isLoading: true })
-                            router.push(`/nft/${token_id.toString()}`)
-                          }
-                        }}
-                        key={nftIndex}
-                      />
-                    ))}
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          ) : (
-            <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-              {nfts.map((item, index) => (
-                <div className="col-span-6 lg:col-span-3" key={index}>
-                  <NFTCard
-                    token_id={item.token_id}
-                    image={item.asset_url}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={collectionName}
-                    artistId={item.artist_id}
-                    price={item.list_price}
-                    showHideButton={showHideButton}
-                    onClick={() => {
-                      let token_id = item.mintAddress
-                      if (token_id === null || token_id === undefined) token_id = item.token_id
-                      if (token_id !== null && token_id !== undefined) {
-                        dispatch({ type: 'set', isLoading: true })
-                        router.push(`/nft/${token_id.toString()}`)
-                      }
-                    }}
-                  />
-                </div>
-              ))}
+          <div className="grid grid-cols-12 gap-[11px] lg:gap-[20px] xl:gap-[34px]">
+            {nftList.map((item, index) => (
+              <div className="col-span-6 lg:col-span-3" key={index}>
+                <NFTCard
+                  token_id={item.token_id}
+                  image={item.asset_url}
+                  nftName={item.nft_name}
+                  assetType={item.asset_type}
+                  coverImage={item.cover_image_url}
+                  artistName={item.artist_username}
+                  collectionName={collectionName}
+                  artistId={item.artist_id}
+                  price={item.list_price}
+                  showHideButton={showHideButton}
+                  onClick={() => {
+                    let token_id = item.mintAddress
+                    if (token_id === null || token_id === undefined) token_id = item.token_id
+                    if (token_id !== null && token_id !== undefined) {
+                      dispatch({ type: 'set', isLoading: true })
+                      router.push(`/nft/${token_id.toString()}`)
+                    }
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          {isVisibleFetching && (
+            <div className="w-full mt-[-50px] mb-[40px]">
+              <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>
           )}
         </div>

@@ -52,60 +52,23 @@ const CollectionSwiperSection = props => {
   ) : (
     <section className={styles.container}>
       <div className="w-full z-10">
-        {collections.length > 4 ? (
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className="navigationSwiper"
-            autoplay={{
-              delay: 5000,
-              disableOnInteraction: false,
-            }}
-          >
-            {collectionList.map((item, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                  {item.map((collectionItem: any, collectionIndex: number) => (
-                    <CollectionCard
-                      image={collectionItem.cover_image}
-                      nftName={collectionItem.collection_name}
-                      artistName={collectionItem.artist_username}
-                      mintAddress={collectionItem.artist_id}
-                      icon={collectionItem.artist_profile_picture}
-                      key={collectionIndex}
-                      onClick={() => {
-                        dispatch({ type: 'set', isLoading: true })
-                        router.push(`/collection/${collectionItem.collection_id}`)
-                      }}
-                    />
-                  ))}
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        ) : (
-          <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
-            {collections.map((item, index) => (
-              <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
-                <CollectionCard
-                  image={item.cover_image}
-                  nftName={item.collection_name}
-                  artistName={item.artist_username}
-                  mintAddress={item.artist_id}
-                  icon={item.artist_profile_picture}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push(`/collection/${item.collection_id}`)
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-12 gap gap-[11px] lg:gap-[20px] xl:gap-[34px] pb-[30px]">
+          {collections.map((item, index) => (
+            <div className="col-span-6 lg:col-span-4 xl:col-span-3" key={index}>
+              <CollectionCard
+                image={item.cover_image}
+                nftName={item.collection_name}
+                artistName={item.artist_username}
+                mintAddress={item.artist_id}
+                icon={item.artist_profile_picture}
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/collection/${item.collection_id}`)
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

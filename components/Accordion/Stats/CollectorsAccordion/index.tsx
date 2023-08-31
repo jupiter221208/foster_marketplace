@@ -74,15 +74,6 @@ const CollectorsAccordion = props => {
                   <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className={styles.panel}>
-                  <div className={styles.secondRow}>
-                    <div className={styles.title}>Purchase Volume</div>
-                    <div className={styles.text}>
-                      <div className="flex items-center gap-[10px]">
-                        <SolanaLogoIcon alt="" />
-                        {parseFloat(item.purchase_volume).toFixed(2)}
-                      </div>
-                    </div>
-                  </div>
                   <div className={styles.firstRow}>
                     <div className={styles.title}>Highest Purchase</div>
                     <div className={styles.text}>

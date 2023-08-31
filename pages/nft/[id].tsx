@@ -58,6 +58,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
   const [nftInfo, setNftInfo] = useState(null)
+  const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
   const profileInfo = useSelector(state => (state as any).profileInfo)
@@ -189,9 +190,10 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
               nftInfo={nftInfo}
               setFullScreenView={setFullScreenView}
               reloadNftData={reloadNftData}
+              setCollectionName={setCollectionName}
             />
           )}
-          {collectionId && <MoreCollectionSection collectionId={collectionId} />}
+          {collectionId && <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />}
           {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
           <MoreCategorySection categories={categories} />
         </div>
