@@ -11,7 +11,6 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 
 // components
 import MyNFTCard from 'components/Card/MyNFTCard'
-import Pagination from 'components/Button/Pagination'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -24,12 +23,7 @@ import { getMyNFTs } from 'utils/nfts.utils'
 import { useMetaplex } from 'hooks/useMetaplex'
 import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
-
-// images
-// import RefreshIcon from 'assets/icons/refresh-icon.svg'
-// import RefreshMobileIcon from 'assets/icons/refresh-icon-mobile.svg'
-// import RefreshLottery from 'assets/lottery/refresh.json'
-// import RefreshMobileLottery from 'assets/lottery/refresh-mobile.json'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -67,6 +61,9 @@ const MyNFTSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [showAlert, setShowAlert] = useState<boolean>(false)
   const [selectedData, setSelectedData] = useState()
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [rowCount, setRowCount] = useState(12)
 
   const handleGotoDetailPage = (data: any) => {
     dispatch({ type: 'set', isLoading: true })
@@ -110,9 +107,29 @@ const MyNFTSection = props => {
   }
 
   useEffect(() => {
-    setAllNftList(myNftList)
-    setFilteredList(myNftList)
+    let list = myNftList as any[]
+    setFilteredList(list)
+    setAllNftList(list)
   }, [myNftList])
+
+  useEffect(() => {
+    let new_list = filteredList as any[]
+    if (new_list.length > rowCount) setIsVisibleFetching(true)
+    setNFTList(new_list.slice(0, rowCount))
+  }, [filteredList])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (nftList.length + rowCount > filteredList.length) {
+        setNFTList([...nftList, ...filteredList.slice(nftList.length, filteredList.length)])
+        setIsVisibleFetching(false)
+      } else {
+        setNFTList([...nftList, ...filteredList.slice(nftList.length, nftList.length + rowCount)])
+        setIsVisibleFetching(true)
+      }
+    }
+  }, [isFetching])
 
   const searchNFT = key => {
     if (key === '') {
@@ -131,38 +148,11 @@ const MyNFTSection = props => {
     }
   }
 
-  // const [refreshing, setRefreshing] = useState(false)
-  // const refreshNFT = () => {
-  //   setRefreshing(true)
-  //   setTimeout(() => {
-  //     setRefreshing(false)
-  //   }, 2000)
-  // }
-
   return (
     <section className={styles.container}>
       {!loading && allNftList.length > 0 && (
         <div className="w-full flex justify-between gap-[15px] items-center">
           <DashboardSearchBox placeholder="Search" onChange={key => searchNFT(key)} />
-          {/* <div className="w-[140px] h-[46px] lg:flex hidden">
-            {refreshing ? (
-              <Lottie animationData={RefreshLottery} loop={true} />
-            ) : (
-              <div className={styles.refreshButton} onClick={() => refreshNFT()}>
-                <Image src={RefreshIcon} width={28} height={28} alt="" />
-                <div className="mb-[4px]">Refresh</div>
-              </div>
-            )}
-          </div>
-          <div className="w-[26px] h-[26px] flex lg:hidden">
-            {refreshing ? (
-              <Lottie width={26} height={26} animationData={RefreshMobileLottery} loop={true} />
-            ) : (
-              <div onClick={() => refreshNFT()}>
-                <Image src={RefreshMobileIcon} width={26} height={26} alt="" />
-              </div>
-            )}
-          </div> */}
         </div>
       )}
       <div className="w-full mt-[15px] lg:mt-[34px] gap-4 lg:gap-[34px] grid grid-cols-12 z-10">
@@ -190,20 +180,12 @@ const MyNFTSection = props => {
           />
         </div>
       )}
-      <div className="w-full flex justify-end">
-        <Pagination
-          data={filteredList}
-          getCurrentData={data => {
-            setNFTList([])
-            window.scrollTo({
-              top: 550,
-            })
-            setTimeout(() => {
-              setNFTList(data)
-            }, 500)
-          }}
-        />
-      </div>
+
+      {isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
 
       <Alert
         open={showAlert}
