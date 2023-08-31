@@ -66,66 +66,78 @@ const SocialShareModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full h-full">
-                <div
-                  className={styles.menuItem}
-                  onClick={() => {
-                    copyToClipboard(fullUrl)
-                    close()
-                  }}
-                >
-                  <FileCopyIcon alt="" />
-                  Copy to Clipboard
+                <div className="flex justify-center mt-[15px] mb-[15px]">
+                  <div className={styles.share}>Share</div>
+                </div>
+                <div className="w-full flex justify-between px-[24px]">
+                  <TelegramShareButton
+                    title={message}
+                    url={fullUrl}
+                    beforeOnClick={close}
+                    onShareWindowClose={() => {
+                      shareNFTSocial('telegram')
+                    }}
+                    className="w-full outline-none border-none drop-shadow-none"
+                  >
+                    <div className={styles.menuItem}>
+                      <div className="flex justify-center mb-[8px]">
+                        <TelegramWhiteIcon alt="" />
+                      </div>
+                      Telegram
+                    </div>
+                  </TelegramShareButton>
+                  <TwitterShareButton
+                    title={message}
+                    url={fullUrl}
+                    beforeOnClick={close}
+                    onShareWindowClose={() => {
+                      shareNFTSocial('twitter')
+                    }}
+                    className="w-full outline-none border-none drop-shadow-none"
+                  >
+                    <div className={styles.menuItem}>
+                      <div className="flex justify-center mb-[8px]">
+                        <TwitterUnfilledWhiteIcon alt="" />
+                      </div>
+                      X
+                    </div>
+                  </TwitterShareButton>
+                  <FacebookShareButton
+                    quote={message}
+                    url={fullUrl}
+                    beforeOnClick={close}
+                    onShareWindowClose={() => {
+                      shareNFTSocial('facebook')
+                    }}
+                    className="w-full outline-none border-none drop-shadow-none"
+                  >
+                    <div className={styles.menuItem}>
+                      <div className="flex justify-center mb-[8px]">
+                        <FacebookWhiteIcon alt="" />
+                      </div>
+                      Facebook
+                    </div>
+                  </FacebookShareButton>
+                </div>
+                <div className={styles.separator}></div>
+                <div className="w-full flex justify-center mb-[30px]">
+                  <div
+                    className={styles.clipboard}
+                    onClick={() => {
+                      copyToClipboard(fullUrl)
+                      close()
+                    }}
+                  >
+                    <FileCopyIcon alt="" />
+                    Copy link
+                  </div>
                 </div>
 
-                <TwitterShareButton
-                  title={message}
-                  url={fullUrl}
-                  beforeOnClick={close}
-                  onShareWindowClose={() => {
-                    shareNFTSocial('twitter')
-                  }}
-                  className="w-full outline-none border-none drop-shadow-none"
-                >
-                  <div className={styles.menuItem}>
-                    <TwitterUnfilledWhiteIcon alt="" />
-                    Share on Twitter
-                  </div>
-                </TwitterShareButton>
-
-                <FacebookShareButton
-                  quote={message}
-                  url={fullUrl}
-                  beforeOnClick={close}
-                  onShareWindowClose={() => {
-                    shareNFTSocial('facebook')
-                  }}
-                  className="w-full outline-none border-none drop-shadow-none"
-                >
-                  <div className={styles.menuItem}>
-                    <FacebookWhiteIcon alt="" />
-                    Share on Facebook
-                  </div>
-                </FacebookShareButton>
-
-                <TelegramShareButton
-                  title={message}
-                  url={fullUrl}
-                  beforeOnClick={close}
-                  onShareWindowClose={() => {
-                    shareNFTSocial('telegram')
-                  }}
-                  className="w-full outline-none border-none drop-shadow-none"
-                >
-                  <div className={styles.menuItem}>
-                    <TelegramWhiteIcon alt="" />
-                    Share on Telegram
-                  </div>
-                </TelegramShareButton>
-                <div className="w-full flex justify-center">
+                {/* <div className="w-full flex justify-center">
                   <div className={styles.cancel} onClick={close}>
                     Cancel
                   </div>
-                </div>
+                </div> */}
               </Dialog.Panel>
             </Transition.Child>
           </div>

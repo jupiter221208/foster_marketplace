@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
 // redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 
 // components
 import OfferTable from 'components/Table/OfferTable'
 import OfferAccordion from 'components/Accordion/OfferAccordion'
-import Pagination from 'components/Button/Pagination'
 import Alert from 'components/Alert'
 import LoadingModal from 'components/Modal/LoadingModal'
 import FilterButton from 'components/Button/FilterButton'
@@ -20,7 +19,6 @@ import { getPriceValue } from 'utils/strings'
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyBids, getReceivedBids, cancelOffer, acceptOffer, LazyBidWithAsset } from 'utils/auction.util'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import listingsAPI from 'apis/listings'
@@ -30,6 +28,7 @@ import usersAPI from 'apis/user'
 // styles
 import styles from './index.module.scss'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const OfferSection = () => {
   const viewport = useViewport()
@@ -48,8 +47,11 @@ const OfferSection = () => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [offerLoaded, setOfferLoaded] = useState(false)
 
+  const [rowCount, setRowCount] = useState(10)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
   const dispatch = useDispatch()
-  const isLoading = useSelector<any>(state => state.isLoading)
 
   const { metaplex: mx } = useMetaplex()
 
@@ -95,6 +97,30 @@ const OfferSection = () => {
     if (shownOfferType === 'made') setShownOfferList(offersMade ?? [])
     else if (shownOfferType === 'received') setShownOfferList(offersReceived ?? [])
   }, [shownOfferType, offersMade, offersReceived])
+
+  useEffect(() => {
+    setShownOfferListChunk(shownOfferList.slice(0, rowCount))
+    if (shownOfferList.length > rowCount) setIsVisibleFetching(true)
+  }, [shownOfferList])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (shownOfferListChunk.length + rowCount > shownOfferList.length) {
+        setShownOfferListChunk([
+          ...shownOfferListChunk,
+          ...shownOfferList.slice(shownOfferListChunk.length, shownOfferList.length),
+        ])
+        setIsVisibleFetching(false)
+      } else {
+        setShownOfferListChunk([
+          ...shownOfferListChunk,
+          ...shownOfferList.slice(shownOfferListChunk.length, shownOfferListChunk.length + rowCount),
+        ])
+        setIsVisibleFetching(true)
+      }
+    }
+  }, [isFetching])
 
   const onCancel = async (listing: LazyBidWithAsset) => {
     await refreshToken()
@@ -252,9 +278,11 @@ const OfferSection = () => {
         </div>
       )}
 
-      <div className="w-full flex justify-end">
-        <Pagination data={shownOfferList} getCurrentData={setShownOfferListChunk} />
-      </div>
+      {isVisibleFetching && (
+        <div className="w-full mt-[-50px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
 
       <Alert
         open={showAlert}

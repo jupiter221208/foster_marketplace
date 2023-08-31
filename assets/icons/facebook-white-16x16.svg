@@ -1,4 +1,11 @@
-<svg id="MSI_Facebook_Ghost_White" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <rect id="Rectangle_20963" data-name="Rectangle 20963" width="32" height="32" rx="6" fill="none" opacity="0.5"/>
-  <path id="facebook-f-3" d="M12.708,4.379h1.347V2.1A18.709,18.709,0,0,0,12.091,2,3.073,3.073,0,0,0,8.81,5.368V7.245H6.61V9.8h2.2V16.33h2.637V9.8h2.193l.33-2.551H11.447V5.618C11.447,4.866,11.647,4.379,12.708,4.379Z" transform="translate(5.667 6.834)" fill="#95dbd5"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <g id="Group_54897" data-name="Group 54897" transform="translate(-72 -642)">
+    <circle id="Ellipse_4355" data-name="Ellipse 4355" cx="25" cy="25" r="25" transform="translate(72 642)" fill="#1673ea"/>
+    <g id="Component_2301_1" data-name="Component 2301 – 1" transform="translate(81 651)">
+      <g id="MSI_Facebook_Ghost_White">
+        <rect id="Rectangle_20963" data-name="Rectangle 20963" width="32" height="32" rx="6" fill="none" opacity="0.5"/>
+        <path id="facebook-f-3" d="M12.708,4.379h1.347V2.1A18.709,18.709,0,0,0,12.091,2,3.073,3.073,0,0,0,8.81,5.368V7.245H6.61V9.8h2.2V16.33h2.637V9.8h2.193l.33-2.551H11.447V5.618C11.447,4.866,11.647,4.379,12.708,4.379Z" transform="translate(5.667 6.834)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
 </svg>

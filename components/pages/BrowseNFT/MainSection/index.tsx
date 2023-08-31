@@ -116,9 +116,17 @@ export interface MainSectionProps {
   nftInfo: any
   setFullScreenView: any
   reloadNftData: any
+  setCollectionName: any
 }
 
-const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, reloadNftData }: MainSectionProps) => {
+const MainSection = ({
+  nftDetail,
+  editionDetail,
+  nftInfo,
+  setFullScreenView,
+  reloadNftData,
+  setCollectionName,
+}: MainSectionProps) => {
   const router = useRouter()
   const { id } = router.query
   const viewport = useViewport()
@@ -448,6 +456,7 @@ const MainSection = ({ nftDetail, editionDetail, nftInfo, setFullScreenView, rel
             await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
           )
           setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
+          setCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
           setNftCollectionUrl(collectionMetadata.data.data.uri.replace(/\0/g, ''))
         } catch (e: any) {
           console.error(`could not load collection name from chain: ${e.message}`)

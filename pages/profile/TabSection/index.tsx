@@ -41,16 +41,20 @@ const TabSection = props => {
     collectorStatsInfo,
     setActiveListingLoaded,
     setLiveAuctionLoaded,
-    isVisibleFetching,
-    setIsVisibleFetching,
-    isFetching,
-    setIsFetching,
+    isVisibleFetchingCreated,
+    isFetchingCreated,
+    setIsFetchingCreated,
+    isVisibleFetchingCollected,
+    isFetchingCollected,
+    setIsFetchingCollected,
   } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
 
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [isMounted, setIsMounted] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
@@ -73,19 +77,67 @@ const TabSection = props => {
 
     if (activeTab === 1) setArtistEnable(true)
     else if (activeTab === 2) setArtistEnable(false)
-    else {
+    else if (activeTab === 3) {
+      setShowCollections(collections.slice(0, rowCount))
+      setIsFetching(false)
+      setIsVisibleFetching(true)
     }
-
-    setIsVisibleFetching(true)
   }, [activeTab])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
 
+  const [showCollections, setShowCollections] = useState([])
+  const [rowCount, setRowCount] = useState(12)
+
   useEffect(() => {
     if (isFetching === true) {
+      if (activeTab === 1 || activeTab === 2) handleNextPage()
+      else if (activeTab === 3) {
+        setIsFetching(false)
+        if (showCollections.length + rowCount > collections.length) {
+          setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setShowCollections([
+            ...showCollections,
+            ...collections.slice(showCollections.length, showCollections.length + rowCount),
+          ])
+          setIsVisibleFetching(true)
+        }
+      }
+    }
+  }, [isFetching])
+
+  useEffect(() => {
+    if (isFetchingCreated === true) {
       handleNextPage()
+    }
+  }, [isFetchingCreated])
+
+  useEffect(() => {
+    if (isFetchingCollected === true) {
+      handleNextPage()
+    }
+  }, [isFetchingCollected])
+
+  useEffect(() => {
+    if (isFetching === true) {
+      if (activeTab === 1 || activeTab === 2) handleNextPage()
+      else if (activeTab === 3) {
+        setIsFetching(false)
+        if (showCollections.length + rowCount > collections.length) {
+          setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setShowCollections([
+            ...showCollections,
+            ...collections.slice(showCollections.length, showCollections.length + rowCount),
+          ])
+          setIsVisibleFetching(true)
+        }
+      }
     }
   }, [isFetching])
 
@@ -115,25 +167,17 @@ const TabSection = props => {
       {activeTab === 1 && (
         <div className="w-full">
           <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {isMounted && isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
-          {/* <div className="w-full flex justify-end">
-            <ArtistPagination
-              currentPage={artistCurrentPage}
-              rowCount={artistRowCount}
-              totalCount={artistTotalCount}
-              setRowCount={count => {
-                selectRowCount(count)
-              }}
-              handleNext={handleNextPage}
-              handlePrev={handlePreviousPage}
-            />
-          </div> */}
+          {createdNfts.length > 0 && isLoaded && isVisibleFetchingCreated && (
+            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
+          )}
         </div>
       )}
       {activeTab === 2 && (
         <div className="w-full">
           <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {isMounted && isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+          {collectedNfts.length > 0 && isLoaded && isVisibleFetchingCollected && (
+            <LoadingComponent isFetching={isFetchingCollected} setIsFetching={setIsFetchingCollected} />
+          )}
 
           {/* <div className="w-full flex justify-end">
             <ArtistPagination
@@ -152,7 +196,10 @@ const TabSection = props => {
 
       {activeTab === 3 && (
         <div className="w-full">
-          <CollectionSwiperSection collections={collections} />
+          <CollectionSwiperSection collections={showCollections} />
+          {collections.length > 0 && isMounted && isVisibleFetching && (
+            <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          )}
         </div>
       )}
 
