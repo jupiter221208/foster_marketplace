@@ -115,7 +115,9 @@ const TabSection = props => {
       {activeTab === 1 && (
         <div className="w-full">
           <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {isMounted && isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+          {createdNfts.length > 0 && isMounted && isVisibleFetching && (
+            <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          )}
           {/* <div className="w-full flex justify-end">
             <ArtistPagination
               currentPage={artistCurrentPage}
@@ -133,7 +135,9 @@ const TabSection = props => {
       {activeTab === 2 && (
         <div className="w-full">
           <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {isMounted && isVisibleFetching && <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />}
+          {collectedNfts.length > 0 && isMounted && isVisibleFetching && (
+            <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          )}
 
           {/* <div className="w-full flex justify-end">
             <ArtistPagination
