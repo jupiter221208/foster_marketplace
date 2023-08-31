@@ -181,7 +181,7 @@ const MyNFTSection = props => {
         </div>
       )}
 
-      {isVisibleFetching && (
+      {!loading && isVisibleFetching && (
         <div className="w-full mt-[-100px] mb-[40px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>

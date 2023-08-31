@@ -71,9 +71,11 @@ const ListedNFTCard = ({ data, type, onClick, onActionClick, cancelAuction, fina
   const [assetJson, setAssetJson] = useState<JsonMetadata>({})
   useEffect(() => {
     if (!uri) return
-    fetch(uri)
-      .then(r => r.json())
-      .then(setAssetJson)
+    try {
+      fetch(uri)
+        .then(r => r.json())
+        .then(setAssetJson)
+    } catch {}
   }, [uri])
 
   const processFinalizeSale = async () => {
