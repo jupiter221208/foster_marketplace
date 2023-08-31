@@ -52,7 +52,6 @@ const MyCollectionSection = () => {
       if (collections.length > rowCount) setIsVisibleFetching(true)
     }
   }, [collections])
-  console.log(myCollections, '=============MyCollections======')
 
   useEffect(() => {
     if (isFetching) {
