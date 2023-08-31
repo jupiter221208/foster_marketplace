@@ -20,6 +20,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
   const viewport = useViewport()
@@ -82,6 +83,11 @@ const NFTSwiperSection = ({ nfts, collectionName, showHideButton }) => {
               </div>
             ))}
           </div>
+          {isVisibleFetching && (
+            <div className="w-full mt-[-50px] mb-[40px]">
+              <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+            </div>
+          )}
         </div>
       </section>
     )
