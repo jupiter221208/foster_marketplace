@@ -9,7 +9,6 @@ import { useWallets } from 'hooks/useWallets'
 import { useSelector, useDispatch } from 'react-redux'
 
 // components
-import Pagination from 'components/Button/Pagination'
 import ListedNFTCard, { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
@@ -25,7 +24,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { PublicKey } from '@solana/web3.js'
 import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import listingsAPI from 'apis/listings'

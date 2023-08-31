@@ -22,6 +22,7 @@ import userAPI from 'apis/user'
 import nftAPI from 'apis/nfts'
 import collectionAPI from 'apis/collections'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const FavoriteSection = () => {
   const router = useRouter()
@@ -117,6 +118,43 @@ const FavoriteSection = () => {
     )
   }
 
+  const [rowCount, setRowCount] = useState(12)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
+  useEffect(() => {
+    if (active === 0) {
+      if (allNftList.length > rowCount) setIsVisibleFetching(true)
+      setNftList(allNftList.slice(0, rowCount))
+    } else {
+      if (collectionList.length > rowCount) setIsVisibleFetching(true)
+      setNftList(collectionList.slice(0, rowCount))
+    }
+  }, [allNftList, collectionList, active])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (active === 0) {
+        if (nftList.length + rowCount > allNftList.length) {
+          setNftList([...nftList, ...allNftList.slice(nftList.length, allNftList.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNftList([...nftList, ...allNftList.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      } else {
+        if (nftList.length + rowCount > collectionList.length) {
+          setNftList([...nftList, ...collectionList.slice(nftList.length, collectionList.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNftList([...nftList, ...collectionList.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      }
+    }
+  }, [isFetching])
+
   return (
     <section className={styles.container}>
       <div className="lg:flex hidden">
@@ -204,10 +242,15 @@ const FavoriteSection = () => {
           />
         </div>
       )}
-      <div className="w-full flex justify-end">
+      {!loading && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
+      {/* <div className="w-full flex justify-end">
         {active === 0 && <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />}
         {active === 1 && <Pagination data={allCollectionList} getCurrentData={data => setCollectionList(data)} />}
-      </div>
+      </div> */}
     </section>
   )
 }

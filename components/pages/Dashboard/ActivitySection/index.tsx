@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 // third party components
 import { useWallet } from '@solana/wallet-adapter-react'
 
-// swiper
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Lazy, Navigation } from 'swiper'
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -36,7 +33,6 @@ const ActivitySection = () => {
   useEffect(() => {
     ActivityAPI.getUserActivity(publicKey?.toBase58()).then(response => {
       if (response.length === 0) return
-      let newList: any[] = []
       let tempItem: any[] = []
       response.reverse().map((item, index) => {
         tempItem.push(item)
