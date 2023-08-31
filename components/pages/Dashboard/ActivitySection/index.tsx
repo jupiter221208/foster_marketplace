@@ -21,10 +21,11 @@ import { useViewport } from 'utils'
 import ActivityAPI from 'apis/activity'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import LoadingModal from 'components/Modal/LoadingModal'
 
 const ActivitySection = () => {
   const viewport = useViewport()
-
+  const [loading, setLoading] = useState(false)
   const [rowCount, setRowCount] = useState(10)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
@@ -39,16 +40,11 @@ const ActivitySection = () => {
       let tempItem: any[] = []
       response.reverse().map((item, index) => {
         tempItem.push(item)
-        // if (index % 10 === 9) {
-        //   newList.push(tempItem)
-        //   tempItem = []
-        // }
       })
       setAllList(tempItem)
       setActivityList(tempItem.slice(0, rowCount))
       if (tempItem.length > rowCount) setIsVisibleFetching(true)
-      // if (tempItem.length > 0) newList.push(tempItem)
-      // setActivityList(newList)
+      setLoading(true)
     })
   }, [publicKey])
 
@@ -68,7 +64,11 @@ const ActivitySection = () => {
   return (
     <section className="w-full mt-6 lg:mt-12">
       <div className="w-full z-10">
-        {activityList.length > 0 ? (
+        {loading === false ? (
+          <div className="col-span-12">
+            <LoadingModal open={!loading} />
+          </div>
+        ) : activityList.length > 0 ? (
           <div>
             {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
               <ActivityTable data={activityList} type={'dashboard'} />
@@ -82,28 +82,6 @@ const ActivitySection = () => {
             )}
           </div>
         ) : (
-          // <Swiper
-          //   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          //   slidesPerView={1}
-          //   spaceBetween={4}
-          //   modules={[Autoplay, Lazy, Navigation]}
-          //   className="showNavigationSwiper"
-          //   loop
-          // >
-          //   {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-          //     ? activityList.length !== 0 &&
-          //       activityList.map((item, index) => (
-          //         <SwiperSlide key={index}>
-          //           <ActivityTable data={item} type={'dashboard'} />
-          //         </SwiperSlide>
-          //       ))
-          //     : activityList.length !== 0 &&
-          //       activityList.map((item, index) => (
-          //         <SwiperSlide key={index}>
-          //           <ActivityAccordion data={item} />
-          //         </SwiperSlide>
-          //       ))}
-          // </Swiper>
           <div className="mt-[40px] lg:mt-[110px]">
             <NoDataSection
               title="No activity history available"
