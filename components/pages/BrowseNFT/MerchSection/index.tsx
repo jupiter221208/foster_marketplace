@@ -89,7 +89,9 @@ const MerchSection = props => {
                 openNftPage()
               }}
               setFinishEditing={editing => setFinishEditing(editing)}
-              setWallArt={image => setWallArt(image)}
+              setWallArt={image => {
+                setWallArt(image)
+              }}
               setShowWallArtMode={mode => setShowWallArtMode(mode)}
             />
           ) : (

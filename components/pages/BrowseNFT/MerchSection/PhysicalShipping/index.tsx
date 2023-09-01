@@ -24,9 +24,11 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 import merchAPI from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
+import WallSection from '../MerchWallArtSection/WallSection'
 
 const PhysicalShipping = props => {
-  const { onBack, onNext, category, data, printData } = props
+  const { onBack, onNext, category, data, printData, wallArt, nftName } = props
+  console.log(wallArt, '===========wallArt==========')
   const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -194,15 +196,14 @@ const PhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
-        {/* <div className={styles.backBG} onClick={() => backToPage()}>
-          <div className="hidden lg:flex mr-[2px]">
-            <ArrowLeftIcon alt="" />
-          </div>
-          <div className="flex lg:hidden">
-            <ArrowLeftIconMobile alt="" />
-          </div>
-        </div> */}
+      <div className="lg:hidden block">
+        <div className={styles.wallartBG}>
+          <div className="absolute inset-0 w-full h-full"></div>
+          <WallSection canvasId="wallart-mobile" nftName={nftName} wallArt={wallArt} finishEditing={true} />
+        </div>
+      </div>
+
+      <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.selecteCategory}>Add Shipping Details</div>
       </div>
       <div className="w-full mt-[20px]">

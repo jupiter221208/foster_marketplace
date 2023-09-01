@@ -43,6 +43,7 @@ const MerchWallArtSection = props => {
   const [shipppingMethod, setShippingMethod] = useState(null)
   const [currentStep, setCurrentStep] = useState(1)
   const [totalCost, setTotalCost] = useState(null)
+  const [previewImage, setPreivewImage] = useState(null)
 
   return (
     <section className={styles.container}>
@@ -58,6 +59,7 @@ const MerchWallArtSection = props => {
           }}
           onPrint={wallArt => {
             setWallArt(wallArt)
+            setPreivewImage(wallArt)
             setShowWallArtMode(true)
           }}
           onShipping={item => {
@@ -91,7 +93,9 @@ const MerchWallArtSection = props => {
           }}
           category={'print'}
           printData={printData}
+          wallArt={previewImage}
           data={shippingData}
+          nftName={nftName}
         />
       ) : openShippingMethod ? (
         <PhysicalShippingMethod

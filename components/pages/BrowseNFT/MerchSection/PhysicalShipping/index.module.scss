@@ -21,6 +21,11 @@
   color: var(--text-gray-200-color);
 }
 
+.wallartBG {
+  width: calc(100% + 32px);
+  margin-left: -16px;
+}
+
 .backBG {
   @media (min-width: 1024px) {
     width: 24px;
