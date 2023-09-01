@@ -111,6 +111,18 @@ export function checkout(data) {
   })
 }
 
+export async function getBuyerOrder(page, per_page) {
+  return client.get(`${API_URL}v1/merch/orders?page=${page}&per_page=${per_page}`).then(response => {
+    return response?.data
+  })
+}
+
+export async function getSellerOrder(page, per_page) {
+  return client.get(`${API_URL}v1/merch/orders/by-seller?page=${page}&per_page=${per_page}`).then(response => {
+    return response?.data
+  })
+}
+
 export async function getOrder(id): Promise<OrderData> {
   return client.get(`${API_URL}v1/merch/orders/${id}`).then(response => {
     return response?.data
@@ -135,4 +147,6 @@ export default {
   getOrder,
   payOrder,
   getAllOrder,
+  getBuyerOrder,
+  getSellerOrder
 }
