@@ -94,6 +94,7 @@ export interface OrderData {
     artist_commission: number
     tax_amount: number
     shipping_amount: number
+    seller_shares: any
   }
   ssorder: ShipStationOrder
   fulfillment?: TrackingItem

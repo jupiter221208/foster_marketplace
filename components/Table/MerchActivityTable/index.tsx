@@ -57,7 +57,7 @@ const MerchActivityTable = props => {
                 {getSliceAddress(item.transaction_id)}
               </td>
               {/* <td className="text-center">{'08/16/2023'}</td> */}
-              <td className="text-center">{getSliceAddress(item.buyer_address)}</td>
+              <td className="text-center">{getSliceAddress(item.creator)}</td>
               <td
                 className={styles.viewOrder}
                 onClick={() => {
