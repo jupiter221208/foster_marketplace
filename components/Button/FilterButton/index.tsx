@@ -15,7 +15,7 @@ const FilterButton = props => {
         color: selected ? 'var(--day-btn-color)' : '#979EA2',
         background: selected ? 'linear-gradient(to bottom, var(--day-btn-bg-1), var(--day-btn-bg-2))' : 'transparent',
         height: height,
-        fontFamily: selected ? 'Muli-Bold' : 'Muli-SemiBold',
+        fontFamily: 'Muli-SemiBold',
       }}
     >
       {label}

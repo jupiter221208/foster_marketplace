@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useMetaplex } from 'hooks/useMetaplex'
 import { getMyCollections } from 'utils/collection.util'
 import NoDataSection from '../NoDataSection'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const MyCollectionSection = () => {
   const router = useRouter()
@@ -26,10 +27,12 @@ const MyCollectionSection = () => {
   // const isLoading = useSelector<any>(state => state.isLoading)
 
   const [collections, setCollections] = useState([])
-  const [collectionList, setCollectionList] = useState([])
   const [isCollectionLoaded, setIsCollectionLoaded] = useState(false)
   const { metaplex: mx } = useMetaplex()
-
+  const [rowCount, setRowCount] = useState(12)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [myCollections, setMyCollections] = useState([])
   useEffect(() => {
     const getCollections = async () => {
       // dispatch({ type: 'set', isLoading: true })
@@ -42,6 +45,29 @@ const MyCollectionSection = () => {
     if (mx) getCollections()
   }, [mx])
 
+  useEffect(() => {
+    if (collections.length > 0) {
+      setMyCollections(collections.slice(0, rowCount))
+      if (collections.length > rowCount) setIsVisibleFetching(true)
+    }
+  }, [collections])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (myCollections.length + rowCount > collections.length) {
+        setMyCollections([...myCollections, ...collections.slice(myCollections.length, collections.length)])
+        setIsVisibleFetching(false)
+      } else {
+        setMyCollections([
+          ...myCollections,
+          ...collections.slice(myCollections.length, myCollections.length + rowCount),
+        ])
+        setIsVisibleFetching(true)
+      }
+    }
+  }, [isFetching])
+
   const getCategory = attributes => {
     if (!Array.isArray(attributes)) return []
     return attributes.map(({ value }) => value).filter(category => !!category)
@@ -50,7 +76,7 @@ const MyCollectionSection = () => {
     <section className={styles.container}>
       <div className="w-full mt-[15px] lg:mt-[34px] gap-[11px] lg:gap-[32px] grid grid-cols-12">
         {isCollectionLoaded &&
-          collectionList.map((item, index) => (
+          myCollections.map((item, index) => (
             <div className="col-span-6 lg:col-span-3" key={index}>
               <DashboardCollectionCard
                 image={item.json?.image}
@@ -66,10 +92,15 @@ const MyCollectionSection = () => {
             </div>
           ))}
       </div>
+      {isCollectionLoaded && isVisibleFetching && (
+        <div className="w-full mt-[-50px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
       <div className="col-span-12">
         <LoadingModal open={!isCollectionLoaded} />
       </div>
-      {isCollectionLoaded && collectionList.length === 0 && (
+      {isCollectionLoaded && collections.length === 0 && (
         <div className="mt-[35px] lg:mt-[65px]">
           <NoDataSection
             title="No collections were created"
@@ -77,9 +108,6 @@ const MyCollectionSection = () => {
           />
         </div>
       )}
-      <div className="w-full flex justify-end">
-        <Pagination data={collections} getCurrentData={data => setCollectionList(data)} />
-      </div>
     </section>
   )
 }

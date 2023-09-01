@@ -12,9 +12,9 @@ import styles from './index.module.scss'
 
 // api
 import userAPI from 'apis/user'
-import NFTCard from 'components/Card/DashboardNFTCard'
 import LoadingModal from 'components/Modal/LoadingModal'
 import DashboardNFTCard from 'components/Card/NFTCard'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const HiddenSection = () => {
   const router = useRouter()
@@ -24,6 +24,9 @@ const HiddenSection = () => {
   const [nftList, setNftList] = useState([])
   const [allNftList, setAllNftList] = useState([])
   const [loading, setLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+  const [rowCount, setRowCount] = useState(12)
 
   useEffect(() => {
     setLoading(true)
@@ -52,6 +55,24 @@ const HiddenSection = () => {
     }
   }, [unhideNftToken])
 
+  useEffect(() => {
+    if (allNftList.length > rowCount) setIsVisibleFetching(true)
+    setNftList(allNftList.slice(0, rowCount))
+  }, [allNftList])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (nftList.length + rowCount > allNftList.length) {
+        setNftList([...nftList, ...allNftList.slice(nftList.length, allNftList.length)])
+        setIsVisibleFetching(false)
+      } else {
+        setNftList([...nftList, ...allNftList.slice(nftList.length, nftList.length + rowCount)])
+        setIsVisibleFetching(true)
+      }
+    }
+  }, [isFetching])
+
   return (
     <section className={styles.container}>
       {!loading && allNftList.length === 0 && (
@@ -79,9 +100,11 @@ const HiddenSection = () => {
           <LoadingModal open={loading} />
         </div>
       </div>
-      <div className="w-full flex justify-end">
-        <Pagination data={allNftList} getCurrentData={data => setNftList(data)} />
-      </div>
+      {!loading && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
     </section>
   )
 }

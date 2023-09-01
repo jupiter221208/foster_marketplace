@@ -25,12 +25,11 @@ import styles from './index.module.scss'
 import collectionAPI from 'apis/collections'
 
 const MoreCollectionSection = props => {
-  const { collectionId } = props
+  const { collectionId, collectionName = '' } = props
   const viewport = useViewport()
   const router = useRouter()
 
   const [nftList, setNftList] = useState([])
-
   useEffect(() => {
     if (collectionId !== null) {
       collectionAPI.getCollectionNft(collectionId).then(
@@ -85,7 +84,7 @@ const MoreCollectionSection = props => {
                   assetType={item.asset_type}
                   coverImage={item.cover_image_url}
                   artistName={item.artist_username}
-                  collectionName={item.collection_name}
+                  collectionName={collectionName}
                   price={item.list_price}
                   onClick={() => router.push(`/nft/${item.token_id}`)}
                 />

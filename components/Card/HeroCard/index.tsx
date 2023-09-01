@@ -174,22 +174,20 @@ const HeroCard = props => {
       )} */}
       <div className="absolute z-10 right-8 bottom-8 cursor-pointer">
         <div className="justify-start items-center lg:mt-[10px]">
-          <div className={styles.avatar} onClick={() => gotoAristPage()}>
-            <img
-              src={
-                data.artist_profile_picture &&
-                data.artist_profile_picture !== '' &&
-                data.artist_profile_picture !== undefined
-                  ? data.artist_profile_picture
-                  : '/images/avatar.png'
-              }
-              alt=""
-              width={viewport === 'lg' ? 40 : 60}
-              height={viewport === 'lg' ? 40 : 60}
-              className="rounded-full"
-              loading="lazy"
-            />
-          </div>
+          {data.artist_profile_picture &&
+            data.artist_profile_picture !== '' &&
+            data.artist_profile_picture !== undefined && (
+              <div className={styles.avatar} onClick={() => gotoAristPage()}>
+                <img
+                  src={data.artist_profile_picture}
+                  alt=""
+                  width={viewport === 'lg' ? 40 : 60}
+                  height={viewport === 'lg' ? 40 : 60}
+                  className="rounded-full"
+                  loading="lazy"
+                />
+              </div>
+            )}
         </div>
       </div>
     </div>

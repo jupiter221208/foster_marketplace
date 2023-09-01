@@ -123,6 +123,7 @@ export interface MainSectionProps {
   reloadNftData: any
   openMerchPage: any
   enableMerch: any
+  setCollectionName: any
 }
 
 const MainSection = ({
@@ -133,6 +134,7 @@ const MainSection = ({
   reloadNftData,
   openMerchPage,
   enableMerch,
+  setCollectionName,
 }: MainSectionProps) => {
   const viewport = useViewport()
   const router = useRouter()
@@ -470,6 +472,7 @@ const MainSection = ({
             await mx.rpc().getAccount(mx.nfts().pdas().metadata({ mint: collectionMint }))
           )
           setNftCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
+          setCollectionName(collectionMetadata.data.data.name.replace(/\0/g, ''))
           setNftCollectionUrl(collectionMetadata.data.data.uri.replace(/\0/g, ''))
         } catch (e: any) {
           console.error(`could not load collection name from chain: ${e.message}`)

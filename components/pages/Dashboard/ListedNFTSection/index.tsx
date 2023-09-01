@@ -9,7 +9,6 @@ import { useWallets } from 'hooks/useWallets'
 import { useSelector, useDispatch } from 'react-redux'
 
 // components
-import Pagination from 'components/Button/Pagination'
 import ListedNFTCard, { ListedNFTCardData } from 'components/Card/ListedNFTCard'
 import UpdateNFTModal from 'components/Modal/UpdateNFTModal'
 import LoadingModal from 'components/Modal/LoadingModal'
@@ -25,7 +24,6 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import { getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { PublicKey } from '@solana/web3.js'
 import type { Nft, Sft, Metadata } from '@metaplex-foundation/js'
-import { useWallet } from '@solana/wallet-adapter-react'
 
 // call apis
 import listingsAPI from 'apis/listings'
@@ -35,6 +33,7 @@ import NoDataSection from '../NoDataSection'
 import ProgressingModal from 'components/Modal/ProgressingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const ListedNFTSection = props => {
   const { filter } = props
@@ -56,6 +55,8 @@ const ListedNFTSection = props => {
   const fixedPriceNFTs: any = useSelector<any>(state => state.fixedPriceNFTs)
   const liveAuctionNFTs: any = useSelector<any>(state => state.liveAuctionNFTs)
   const [active, setActive] = useState(0)
+  const [rowCount, setRowCount] = useState(12)
+
   useEffect(() => {
     if (filter !== undefined) {
       setActive(Number(filter))
@@ -294,6 +295,44 @@ const ListedNFTSection = props => {
     router.push(url)
   }
 
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
+  useEffect(() => {
+    if (active === 0) {
+      let new_list = fixedPriceNFTs as any[]
+      if (new_list.length > rowCount) setIsVisibleFetching(true)
+      setNFTList(new_list.slice(0, rowCount))
+    } else {
+      let new_list = liveAuctionNFTs as any[]
+      if (new_list.length > rowCount) setIsVisibleFetching(true)
+      setNFTList(new_list.slice(0, rowCount))
+    }
+  }, [fixedPriceNFTs, liveAuctionNFTs, active])
+
+  useEffect(() => {
+    if (isFetching) {
+      setIsFetching(false)
+      if (active === 0) {
+        if (nftList.length + rowCount > fixedPriceNFTs.length) {
+          setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, fixedPriceNFTs.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNFTList([...nftList, ...fixedPriceNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      } else {
+        if (nftList.length + rowCount > liveAuctionNFTs.length) {
+          setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, liveAuctionNFTs.length)])
+          setIsVisibleFetching(false)
+        } else {
+          setNFTList([...nftList, ...liveAuctionNFTs.slice(nftList.length, nftList.length + rowCount)])
+          setIsVisibleFetching(true)
+        }
+      }
+    }
+  }, [isFetching])
+
   return (
     <section className={styles.container}>
       <div className="lg:flex hidden">
@@ -361,7 +400,13 @@ const ListedNFTSection = props => {
             />
           </div>
         )}
-      <div className="w-full flex justify-end">
+      {!loading && isVisibleFetching && (
+        <div className="w-full mt-[-100px] mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
+
+      {/* <div className="w-full flex justify-end">
         <Pagination
           data={active === 0 ? fixedPriceNFTs : liveAuctionNFTs}
           getCurrentData={data => {
@@ -371,7 +416,7 @@ const ListedNFTSection = props => {
             }, 500)
           }}
         />
-      </div>
+      </div> */}
 
       <UpdateNFTModal
         data={selectedData}
