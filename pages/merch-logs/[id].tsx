@@ -44,16 +44,16 @@ const MerchDetail = () => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     if (isLoggedIn()) {
       getOrder(id).then(setOrderData)
-      MerchAPI.getAllOrder().then(
-        response => {
-          let orders = response.filter(item => item.id.toString() === id)
-          if (orders.length > 0) {
-            let order = orders[0]
-            setPaidBy(order.buyer_address)
-          }
-        },
-        error => {}
-      )
+      // MerchAPI.getAllOrder().then(
+      //   response => {
+      //     let orders = response.filter(item => item.id.toString() === id)
+      //     if (orders.length > 0) {
+      //       let order = orders[0]
+      //       setPaidBy(order.buyer_address)
+      //     }
+      //   },
+      //   error => {}
+      // )
     }
   }, [id])
 
@@ -82,6 +82,8 @@ const MerchDetail = () => {
           tax: order.tax_amount.toFixed(2),
         }
         setPaymentDetails(paymentDetails)
+        let keys = Object.keys(order.seller_shares)
+        if (keys.length > 0) setPaidBy(keys[0])
       }
 
       let ssorder = orderData?.ssorder
