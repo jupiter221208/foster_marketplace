@@ -98,8 +98,15 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
 
-        const purchaseOrders = response.filter(({ transaction_id }) => {
-          return transaction_id != null
+        let purchaseOrders = []
+        response.forEach(order => {
+          if (order.transaction_id != null) {
+            let keys = Object.keys(order.seller_shares)
+            let creator = ''
+            if (keys.length > 0) creator = keys[0]
+            let new_order = { ...order, creator }
+            purchaseOrders.push(new_order)
+          }
         })
 
         if (reset) setPurchases([...purchaseOrders])
@@ -125,9 +132,16 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
 
-        const salesOrders = response.filter(({ transaction_id }) => {
-          return transaction_id != null
+        let salesOrders = []
+        response.forEach(order => {
+          if (order.transaction_id != null) {
+            let keys = Object.keys(order.seller_shares)
+            let creator = order.buyer_address
+            let new_order = { ...order, creator }
+            salesOrders.push(new_order)
+          }
         })
+
         if (reset === true) setSales([...salesOrders])
         else setSales([...sales, ...salesOrders])
 
@@ -175,6 +189,7 @@ const MerchActivity = () => {
           totalAmount += item.amount
         })
         setTotalCommission(totalAmount)
+        dispatch({ type: 'set', isLoading: false })
       },
       error => {}
     )

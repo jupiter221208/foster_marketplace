@@ -44,16 +44,6 @@ const MerchDetail = () => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
     if (isLoggedIn()) {
       getOrder(id).then(setOrderData)
-      // MerchAPI.getAllOrder().then(
-      //   response => {
-      //     let orders = response.filter(item => item.id.toString() === id)
-      //     if (orders.length > 0) {
-      //       let order = orders[0]
-      //       setPaidBy(order.buyer_address)
-      //     }
-      //   },
-      //   error => {}
-      // )
     }
   }, [id])
 
