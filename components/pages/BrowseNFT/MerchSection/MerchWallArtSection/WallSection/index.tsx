@@ -213,8 +213,8 @@ const WallSection = props => {
             lockAspectRatio: true,
           })
           img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }
-          img.strokeWidth = 20
-          img.stroke = '#222726'
+          img.strokeWidth = screenWidth < 1024 ? 20 : 30
+          img.stroke = '#2b2b2b'
           newCanvas.add(img)
           newCanvas.renderAll()
           img.setControlsVisibility({
