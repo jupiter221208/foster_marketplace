@@ -63,6 +63,18 @@ export const isAvailableDate = (start, end) => {
   else return false
 }
 
+export const dataURLtoFile = (dataurl, filename) => {
+  var arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return new File([u8arr], filename, { type: mime })
+}
+
 export const getDateLabel = date => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   let month = months[date.getMonth()]
@@ -77,6 +89,10 @@ export const getTimeLabel = date => {
   let mins = localDate.getMinutes()
 
   return hours + ':' + mins
+}
+
+export const findElement = (arr, propName, propValue) => {
+  for (var i = 0; i < arr.length; i++) if (arr[i][propName] == propValue) return arr[i]
 }
 
 export const calculateTimeLeftAll = endDate => {
@@ -194,6 +210,10 @@ export const getBuyerName = item => {
   return 'N/A'
 }
 
+export const getSliceAddress = address => {
+  return address ? address.slice(0, 5) + '***' + address.slice(-3) : ''
+}
+
 export const getLocalDate = dateString => {
   var utcDate = moment.utc(dateString)
   var fmt = 'MM/DD/YYYY hh:mm:ss'
@@ -201,7 +221,15 @@ export const getLocalDate = dateString => {
   return localDate
 }
 
+export const getLocalDateWithoutTime = dateString => {
+  var utcDate = moment.utc(dateString)
+  var fmt = 'MM/DD/YYYY'
+  const localDate = utcDate.local().format(fmt)
+  return localDate
+}
+
 export const getFirstUpperString = word => {
+  if (word === null || word?.length === 0) return ''
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
@@ -360,10 +388,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-close-rect', '#DDF2F5')
     doc.style.setProperty('--place-bid-close-path', '#202427')
     doc.style.setProperty('--input-bg', '#E0E1E7')
-    doc.style.setProperty(
-      '--browse-nft-blur-bg',
-      'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.3) 40%,rgba(32, 36, 39, 0.2) 60%,rgba(32, 36, 39, 0.5) 100%)'
-    )
+    doc.style.setProperty('--browse-nft-blur-bg', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--resource-card-bg', '#CBCDD2')
     doc.style.setProperty('--resource-card-default-bg', '#eff0f6')
     doc.style.setProperty('--home-swiper-bg', '#202427')
@@ -442,6 +467,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--accordian-header-bg', '#FFF')
     doc.style.setProperty('--accordian-area-bg', '#FFF')
     doc.style.setProperty('--social-share-bg', '#ffffff')
+    doc.style.setProperty('--social-share-bg-rgb', '255, 255, 255')
     doc.style.setProperty('--social-share-hover', 'rgba(214, 216, 221, 1)')
     doc.style.setProperty('--share-icon-bg', '#D6D8DD')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #eff0f6, #78787B)')
@@ -472,7 +498,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', '#202427')
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
+    doc.style.setProperty('--fade-loader-color', '#202427')
     doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--back-btn-bg-color', '255, 255, 255')
+    doc.style.setProperty('--merch-mobile-squre-bg', '#202427')
     doc.style.setProperty('--scroll-bar-thumb', '#F3F2F0')
     // =====================================================
     // =====================================================
@@ -528,6 +557,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--twitter-btn-color2', '#2d625d')
     doc.style.setProperty('--notification-card-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--back-btn-bg-color', '18, 18, 18')
     doc.style.setProperty('--dao-title-color', '#95dbd5')
     doc.style.setProperty('--nft-detail-artist', '#95dbd5')
     doc.style.setProperty('--dropdown-bg-color', 'rgba(14, 14, 14, 0.8)')
@@ -634,10 +664,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--place-bid-close-rect', 'rgba(239, 240, 246, 0.2)')
     doc.style.setProperty('--place-bid-close-path', '#eff0f6')
     doc.style.setProperty('--input-bg', 'rgba(255, 255, 255, 0.25)')
-    doc.style.setProperty(
-      '--browse-nft-blur-bg',
-      'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.1) 40%,rgba(32, 36, 39, 0.15) 60%,rgba(32, 36, 39, 0.5) 100%)'
-    )
+    doc.style.setProperty('--browse-nft-blur-bg', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--resource-card-bg', '#2B2B2B')
     doc.style.setProperty('--resource-card-default-bg', '#121212')
     doc.style.setProperty('--home-swiper-bg', '#95dbd5')
@@ -713,6 +740,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--accordian-header-bg', '#1b1b1b')
     doc.style.setProperty('--accordian-area-bg', '#1b1b1b')
     doc.style.setProperty('--social-share-bg', '#121212')
+    doc.style.setProperty('--social-share-bg-rgb', '18, 18, 18')
     doc.style.setProperty(
       '--social-share-hover',
       'linear-gradient(to bottom, rgba(90, 195, 186, 0.3) 0%, rgba(45, 98, 93, 0.3) 100%)'
@@ -745,7 +773,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
+    doc.style.setProperty('--fade-loader-color', '#63D6CD')
     doc.style.setProperty('--time-slot-bg', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--merch-mobile-squre-bg', '#1b1b1b')
     doc.style.setProperty('--scroll-bar-thumb', '#95dbd5')
   }
 }

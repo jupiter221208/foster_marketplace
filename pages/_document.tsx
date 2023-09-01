@@ -7,7 +7,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" href="/logo.png" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           <link href="https://fonts.googleapis.com/css?family=Mulish&display=swap" rel="stylesheet" />
         </Head>
         <body style={{ color: 'white' }}>

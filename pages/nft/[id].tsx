@@ -13,9 +13,11 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseNFT/MainSection'
+import MerchSection from 'components/pages/BrowseNFT/MerchSection'
 import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
 import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
+import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
 import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
@@ -32,6 +34,8 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
+import ShopWallartlList from 'assets/json/browse-nft/shop-wallart-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
@@ -53,10 +57,12 @@ export interface BrowseNFTProps {
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddress, error }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
+  const [openMerchPage, setOpenMerchPage] = useState(false)
+  const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState(null)
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
@@ -154,6 +160,9 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     )
   }
 
+  const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
+  const [merchToggle, setMerchToggle] = useState(false)
+
   return (
     <div className="g-container">
       <Head>
@@ -182,21 +191,62 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         <div className={styles.bottomLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className="z-10 mb-[100px] lg:mb-[0px]">
-          {nftDetail && (
-            <MainSection
-              nftDetail={nftDetail}
-              editionDetail={editionDetail}
-              nftInfo={nftInfo}
-              setFullScreenView={setFullScreenView}
-              reloadNftData={reloadNftData}
-              setCollectionName={setCollectionName}
+        {openMerchPage ? (
+          <div className="z-10">
+            <MerchSection
+              data={merchData}
+              openNftPage={() => {
+                setOpenMerchPage(false)
+              }}
             />
-          )}
-          {collectionId && <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />}
-          {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-          <MoreCategorySection categories={categories} />
-        </div>
+          </div>
+        ) : (
+          <div className="z-10 mb-[100px] lg:mb-[0px]">
+            {nftDetail && (
+              <MainSection
+                nftDetail={nftDetail}
+                editionDetail={editionDetail}
+                nftInfo={nftInfo}
+                setFullScreenView={setFullScreenView}
+                reloadNftData={reloadNftData}
+                enableMerch={setMerchToggle}
+                openMerchPage={data => {
+                  setMerchData(data)
+                  setOpenMerchPage(true)
+                }}
+                setCollectionName={setCollectionName}
+              />
+            )}
+            {merchToggle ? (
+              <div>
+                <ShopApparelSection
+                  title="Shop Apparel"
+                  nftDetail={nftDetail}
+                  shopApparelList={shopApparelList}
+                  openMerchPage={data => {
+                    setMerchData(data)
+                    setOpenMerchPage(true)
+                  }}
+                />
+                <ShopApparelSection
+                  title="Shop Wall Art"
+                  nftDetail={nftDetail}
+                  shopApparelList={ShopWallartlList}
+                  openMerchPage={data => {
+                    setMerchData(data)
+                    setOpenMerchPage(true)
+                  }}
+                />
+              </div>
+            ) : (
+              <div>
+                {collectionId && <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />}
+                {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
+                <MoreCategorySection categories={categories} />
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {fullScreen && (

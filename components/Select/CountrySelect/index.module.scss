@@ -1,0 +1,109 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 51px;
+  cursor: pointer;
+  border-radius: 8px;
+  background: var(--ellipse-report-bg);
+  padding-left: 12px;
+  padding-right: 25px;
+  @media (min-width: 1024px) {
+    padding-left: 24px;
+    padding-right: 50px;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+
+.menuBlur {
+  width: 100%;
+  height: 310px;
+  position: absolute;
+  right: 0;
+  margin-top: 4px;
+  transform-origin: top right;
+  background-color: var(--ellipse-report-bg);
+  border-radius: 8px;
+  z-index: 1000;
+  overflow: scroll;
+  // backdrop-filter: blur(30px);
+  // -webkit-backdrop-filter: blur(30px);
+}
+
+.menuArea {
+  width: 100%;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1px solid rgba(var(--text-gray-200-color), 0.05);
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+  z-index: 1;
+  padding: 8px 8px 8px 8px;
+  @media (min-width: 1024px) {
+    padding: 32px 32px 40px 32px;
+  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.menuItem {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  font-family: 'Muli-Regular';
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+
+.activeMenuItem {
+  font-family: 'Muli-SemiBold';
+  color: var(--main-icon-color);
+}
+
+.disabledMenuItem {
+  cursor: default;
+  color: rgba(var(--text-gray-200-color), 0.6);
+}
+
+.placeholder {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+
+.inputArea {
+  width: 100%;
+  height: 30px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: $text-gray-200-color;
+  background: transparent;
+  outline: none;
+}

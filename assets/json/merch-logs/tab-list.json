@@ -1,0 +1,4 @@
+[
+  { "id": 0, "label": "Purchases", "value": "purchases", "disabled": false },
+  { "id": 1, "label": "Sales", "value": "sales", "disabled": false }
+]

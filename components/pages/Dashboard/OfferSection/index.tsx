@@ -180,7 +180,6 @@ const OfferSection = () => {
           amount: getPriceValue(bid.price.basisPoints.toNumber()),
         })
         .then(response => {
-          console.log(response)
           usersAPI.getLockupValues().then(
             response => {
               dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })

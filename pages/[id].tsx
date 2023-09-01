@@ -55,6 +55,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [categoryList, setCategoryList] = useState<any>([])
   const [createdNfts, setCreatedNfts] = useState<any>([])
   const [collectedNfts, setCollectedNfts] = useState<any>([])
+  const [merchNfts, setMerchNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -66,6 +67,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
   const [collectorTotalCount, setCollectorTotalCount] = useState(0)
+  const [merchCurrentPage, setMerchCurrentPage] = useState(1)
+  const [merchRowCount, setMerchRowCount] = useState(12)
+  const [merchTotalCount, setMerchTotalCount] = useState(0)
   const [artistToEnd, setArtistToEnd] = useState(false)
   const [collectorToEnd, setCollectorToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
@@ -168,6 +172,22 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     setCategoryList([])
   }
 
+  const getMerchNftData = (id, row_count, current_page, refresh = false) => {
+    if (artistToEnd) return
+    setMerchNfts([])
+    artistsAPI.getMerchNfts(id, row_count, current_page).then(
+      response => {
+        setIsLoaded(true)
+        if (isString(response)) return
+        setMerchNfts(response)
+      },
+      error => {
+        setIsLoaded(true)
+        console.log(error)
+      }
+    )
+  }
+
   const getArtistData = (id, row_count, current_page, refresh = false, reset = false) => {
     if (artistToEnd) return
 
@@ -255,6 +275,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     resetData()
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
     getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
+    getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true)
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -304,6 +325,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
             <TabSection
               createdNfts={createdNfts}
               collectedNfts={collectedNfts}
+              merchNfts={merchNfts}
               collections={collections}
               wallet={artistInfo?.wallet_id}
               isOwn={isOwn}

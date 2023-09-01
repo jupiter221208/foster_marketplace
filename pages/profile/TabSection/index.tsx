@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Lottie from 'lottie-react'
 
 // next components
 
 // components
 import IconTab from 'components/Tab/IconTab'
-import Image from 'next/image'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
 
 // resources
-import RefreshLottery from 'assets/lottery/refresh.json'
-import RefreshIcon from 'assets/icons/refresh-icon.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
@@ -23,7 +19,6 @@ import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import ArtistPagination from 'components/Button/ArtistPagination'
 
 // apis
-import nftsAPI from 'apis/nfts'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 
@@ -31,6 +26,7 @@ const TabSection = props => {
   const {
     createdNfts,
     collectedNfts,
+    merchNfts,
     collections,
     wallet,
     isOwn,
@@ -235,6 +231,24 @@ const TabSection = props => {
             <div>Collections Published</div>
             <div>{artistStatsInfo?.collections_created}</div>
           </div>
+        </div>
+      )}
+
+      {activeTab === 5 && (
+        <div className="w-full">
+          <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+          {/* <div className="w-full flex justify-end">
+            <ArtistPagination
+              currentPage={collectorCurrentPage}
+              rowCount={collectorRowCount}
+              totalCount={collectorTotalCount}
+              setRowCount={count => {
+                selectRowCount(count)
+              }}
+              handleNext={handleNextPage}
+              handlePrev={handlePreviousPage}
+            />
+          </div> */}
         </div>
       )}
     </div>

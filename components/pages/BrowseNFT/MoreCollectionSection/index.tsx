@@ -30,7 +30,6 @@ const MoreCollectionSection = props => {
   const router = useRouter()
 
   const [nftList, setNftList] = useState([])
-  console.log(collectionName, '============collectionName==========')
   useEffect(() => {
     if (collectionId !== null) {
       collectionAPI.getCollectionNft(collectionId).then(

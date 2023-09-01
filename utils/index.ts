@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { useDispatch } from 'react-redux'
 
-import type { Connection, Transaction } from '@solana/web3.js'
+import { type Connection, type TransactionInstruction, Transaction } from '@solana/web3.js'
 
 export const useViewport = () => {
   const [viewport, setViewport] = useState('lg')
@@ -123,4 +123,33 @@ export async function trySendTransaction(
   }
 
   return null
+}
+
+// TODO: test code
+export async function splitIntoTransactions(instructions: TransactionInstruction[][]): Promise<Transaction[]> {
+  instructions = [...instructions]
+
+  let transactions: Transaction[] = []
+  while (instructions.length > 0) {
+    let tx = new Transaction()
+    let index = 0
+    while (index < instructions.length) {
+      tx.add(...instructions[index])
+      try {
+        tx.serialize({ requireAllSignatures: false })
+        index++
+      } catch (e: any) {
+        if (!e.message.startsWith('Transaction too large')) throw e
+        else if (tx.instructions.length == instructions[index].length)
+          throw new Error(`transaction group ${index} too big for one transaction`)
+        tx.instructions.splice(-1, instructions[index].length)
+        tx.compileMessage()
+      }
+    }
+
+    transactions.splice(0, index)
+    transactions.push(tx)
+  }
+
+  return transactions
 }

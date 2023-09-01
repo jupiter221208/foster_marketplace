@@ -23,7 +23,7 @@ import ZoomOutWhiteIcon from 'assets/icons/zoom-out-white-32x32.svg'
 import styles from './index.module.scss'
 
 const NftImageEditorModal = props => {
-  const { open, close, nftImage, getCroppedImage, dimension } = props
+  const { open, close, nftImage, nftUrl, getCroppedImage, dimension } = props
 
   const [image, setImage] = useState('')
 
@@ -34,6 +34,14 @@ const NftImageEditorModal = props => {
       }, 400)
     }
   }, [nftImage])
+
+  useEffect(() => {
+    if (nftUrl !== undefined && nftUrl !== null) {
+      setTimeout(() => {
+        setImage(nftUrl)
+      }, 400)
+    }
+  }, [nftUrl])
 
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)

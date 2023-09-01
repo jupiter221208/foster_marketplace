@@ -1,0 +1,72 @@
+[
+  {
+    "id": 0,
+    "name": "Hoodie",
+    "start_price": "19.62",
+    "asset_url": "/images/shop-apparel-hoodie.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Hoodie"
+  },
+  {
+    "id": 1,
+    "name": "Short Sleeve",
+    "start_price": "10.14",
+    "asset_url": "/images/shop-apparel-shortsleeve.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "T-Shirt"
+  },
+  {
+    "id": 2,
+    "name": "Sweatshirt",
+    "start_price": "15.30",
+    "asset_url": "/images/shop-apparel-sweatshirt.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Sweatshirt"
+  },
+  {
+    "id": 3,
+    "name": "Long Sleeve",
+    "start_price": "15.36",
+    "asset_url": "/images/shop-apparel-longsleeve.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Long Sleeve"
+  },
+  {
+    "id": 4,
+    "name": "Women's Short Sleeve",
+    "start_price": "11.15",
+    "asset_url": "/images/shop-apparel-women-shortsleeve.png",
+    "category": "apparel",
+    "type": "",
+    "sub_type": "women",
+    "base": "T-Shirt"
+  },
+  {
+    "id": 5,
+    "name": "Youth Short Sleeve",
+    "start_price": "20.04",
+    "asset_url": "/images/shop-apparel-youth-shortsleeve.png",
+    "category": "apparel",
+    "type": "",
+    "sub_type": "youth",
+    "base": "T-Shirt"
+  },
+  {
+    "id": 6,
+    "name": "Youth Hoodie",
+    "start_price": "20.16",
+    "asset_url": "/images/shop-apparel-youth-hoodie.png",
+    "category": "apparel",
+    "type": "",
+    "sub_type": "youth",
+    "base": "Hoodie"
+  }
+]

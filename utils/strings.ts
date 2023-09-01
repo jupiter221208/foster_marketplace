@@ -4,7 +4,7 @@ export const limit = (string = '', limit = 0) => {
 
 export const getShortAddress = address => {
   if (address === null || address === undefined || address.length < 5) return address
-  return address.slice(0, 4) + '..' + address.slice(-4) || ''
+  return address.slice(0, 3) + '***' + address.slice(-3) || ''
 }
 
 export const stringLengthValidate = (string = '', length = 2) => {

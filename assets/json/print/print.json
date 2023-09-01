@@ -1,0 +1,12 @@
+[
+  {
+    "id": 0,
+    "name": "Front",
+    "type": "front"
+  },
+  {
+    "id": 1,
+    "name": "Back",
+    "type": "back"
+  }
+]

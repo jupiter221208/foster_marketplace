@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Women",
+    "type": "women"
+  },
+  {
+    "id": 1,
+    "name": "Mens/Unisex",
+    "type": "man"
+  },
+  {
+    "id": 2,
+    "name": "Youth",
+    "type": "youth"
+  }
+]

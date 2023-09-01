@@ -26,12 +26,14 @@ const OutlineButton = props => {
     paddingRight = '',
     justifyContent = 'center',
     gap = '',
+    disabled = false,
   } = props
 
   return (
     <button
       type="button"
       onClick={() => onClick()}
+      disabled={disabled}
       className={`${styles.container} gap-2 xl:gap-4 whitespace-nowrap`}
       style={{
         backgroundColor: backgroundColor,

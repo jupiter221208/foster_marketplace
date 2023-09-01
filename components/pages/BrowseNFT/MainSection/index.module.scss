@@ -656,6 +656,37 @@
   color: var(--text-gray-200-color);
 }
 
+.printText {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: var(--text-gray-200-color);
+  text-decoration: underline;
+  margin-top: 20px;
+  cursor: pointer;
+  &:hover {
+    color: var(--main-icon-color);
+  }
+}
+
+.categoryText {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 20px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.printTemple {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 4px;
+  border: 4px solid #121212;
+}
 .infoText {
   background: var(--address-btn-bg-color);
   border-radius: 10px;

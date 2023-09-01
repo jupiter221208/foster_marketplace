@@ -28,7 +28,7 @@ const NFTSwiperSection = props => {
     <section className={styles.container}>
       <div className="w-full flex justify-center items-center py-4 text-white text-xl font-bold">
         <div className="w-full flex justify-center">
-          <FadeLoader color="#63D6CD" width="6" height="12" />
+          <FadeLoader color="var(--fade-loader-color)" width="6" height="12" />
         </div>
       </div>
     </section>

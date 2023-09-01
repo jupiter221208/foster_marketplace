@@ -16,6 +16,7 @@ const LoadingButton = props => {
     backgroundColor01 = '#95DBD5',
     backgroundColor02 = '#4B6E6B',
     width = 160,
+    height = 40,
     gradientDirection = 'left',
   } = props
 
@@ -25,6 +26,7 @@ const LoadingButton = props => {
       className={styles.container}
       style={{
         width: fullWidth ? '100%' : width,
+        height,
         background: `linear-gradient(to ${gradientDirection}, ${backgroundColor01}, ${backgroundColor02})`,
       }}
     >
