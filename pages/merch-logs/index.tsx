@@ -60,8 +60,10 @@ const MerchActivity = () => {
 
   useEffect(() => {
     if (publicKey) {
-      let wallet = publicKey.toBase58()
-      getAllOrder(wallet)
+      // let wallet = publicKey.toBase58()
+      // getAllOrder(wallet)
+      getTotalCommission()
+      getTotalAmount()
     }
   }, [publicKey])
 
@@ -80,6 +82,7 @@ const MerchActivity = () => {
   }, [activeTab])
 
   useEffect(() => {
+    console.log(isFetching, buyerPages)
     if (isFetching) {
       if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
       else getSellerOrder(sellerPages, rowCount)
@@ -95,14 +98,22 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
 
-        setBuyerPages(page + 1)
-        if (reset) setPurchases([...response])
-        else setPurchases([...purchases, ...response])
+        const purchaseOrders = response.filter(({ transaction_id }) => {
+          return transaction_id != null
+        })
 
+        if (reset) setPurchases([...purchaseOrders])
+        else setPurchases([...purchases, ...purchaseOrders])
         if (response.length < rowCount) {
           setIsVisibleBuyerFetching(false)
         } else {
+          setTimeout(() => {
+            if (purchaseOrders != response.length) {
+              setIsFetching(true)
+            }
+          }, 2000)
           setIsVisibleBuyerFetching(true)
+          setBuyerPages(page + 1)
         }
       },
       error => {}
@@ -114,15 +125,56 @@ const MerchActivity = () => {
       response => {
         setIsFetching(false)
 
-        setSellerPages(page + 1)
-        if (reset === true) setSales([...response])
-        else setSales([...sales, ...response])
+        const salesOrders = response.filter(({ transaction_id }) => {
+          return transaction_id != null
+        })
+        if (reset === true) setSales([...salesOrders])
+        else setSales([...sales, ...salesOrders])
 
         if (response.length < rowCount) {
           setIsVisibleSellerFetching(false)
         } else {
+          setTimeout(() => {
+            if (salesOrders != response.length) {
+              setIsFetching(true)
+            }
+          }, 2000)
           setIsVisibleSellerFetching(true)
+          setSellerPages(page + 1)
         }
+      },
+      error => {}
+    )
+  }
+
+  const getTotalCommission = () => {
+    MerchAPI.getSellerOrder('all', rowCount).then(
+      response => {
+        const salesOrders = response.filter(({ transaction_id }) => {
+          return transaction_id != null
+        })
+
+        let artistCommission = 0
+        salesOrders.forEach(item => {
+          artistCommission += item.artist_commission
+        })
+        setArtistCommission(artistCommission)
+      },
+      error => {}
+    )
+  }
+
+  const getTotalAmount = () => {
+    MerchAPI.getBuyerOrder('all', rowCount).then(
+      response => {
+        const purchaseOrders = response.filter(({ transaction_id }) => {
+          return transaction_id != null
+        })
+        let totalAmount = 0
+        purchaseOrders.forEach(item => {
+          totalAmount += item.amount
+        })
+        setTotalCommission(totalAmount)
       },
       error => {}
     )
