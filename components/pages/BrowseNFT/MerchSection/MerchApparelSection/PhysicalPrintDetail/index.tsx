@@ -13,6 +13,7 @@ import PrintType from 'assets/json/print/print.json'
 import QualityType from 'assets/json/print/quality.json'
 import SizeType from 'assets/json/print/size.json'
 import ColorType from 'assets/json/print/color.json'
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
@@ -53,6 +54,7 @@ const PhysicalPrintDetail = props => {
   })
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
+  const [apparelList, setApparelList] = useState(ShopApparelList)
   const [apparelType, setApparelType] = useState(ApparelType)
   const [qualityType, setQualityType] = useState(QualityType)
   const [cost, setCost] = useState('----')
@@ -180,6 +182,17 @@ const PhysicalPrintDetail = props => {
     setEnabled(true)
   }, [apparel, color, print, quality, size, quantity])
 
+  const getApparelName = () => {
+    if (apparel) {
+      let type = gender.type
+      let name = apparel?.name
+      let list = apparelList.filter(item => item.base === name && item.sub_type == type)
+      if (list.length > 0) return list[0].name
+      else return name
+    }
+    return ''
+  }
+
   return (
     <section className={styles.container}>
       <div className={`${styles.apparelBG} lg:hidden block`}>
@@ -202,7 +215,7 @@ const PhysicalPrintDetail = props => {
           </div>
         </div> */}
         <div className={styles.selecteCategory}>
-          {apparel?.description}&nbsp;<div className={styles.nftName}>({nftName})</div>
+          {getApparelName()}&nbsp;<div className={styles.nftName}>({nftName})</div>
         </div>
       </div>
       <div className={styles.description}>
