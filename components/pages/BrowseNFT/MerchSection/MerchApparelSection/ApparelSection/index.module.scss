@@ -5,12 +5,12 @@
   height: auto;
   min-height: 375px;
   position: relative;
-  border-radius: 12px;
   padding: 0px;
   background: var(--merch-mobile-squre-bg);
   @media (min-width: 1024px) {
     padding: 0px;
     background: transparent;
+    border-radius: 12px;
   }
   overflow: hidden;
   display: flex;

@@ -24,6 +24,7 @@ import SecondaryButton from 'components/Button/SecondaryButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport } from 'utils'
 import WallSection from '../WallSection'
+import OutlineButton from 'components/Button/OutlineButton'
 
 // api
 
@@ -149,15 +150,26 @@ const WallArtDetail = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
-        <div className={styles.backBG} onClick={onBack}>
+      <div className="lg:hidden block">
+        <div className={styles.wallartBG}>
+          <div className="absolute inset-0 w-full h-full"></div>
+          <WallSection
+            canvasId="wallart-mobile"
+            nftName={nftName}
+            wallArt={previewSection}
+            finishEditing={finishEditing}
+          />
+        </div>
+      </div>
+      <div className="flex gap-[15px] mt-[20px] lg:mt-[20px] items-center">
+        {/* <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
           <div className="flex lg:hidden mr-[2px]">
             <ArrowLeftIconMobile alt="" />
           </div>
-        </div>
+        </div> */}
         <div className={styles.selecteCategory}>{nftName} - Wall Art</div>
       </div>
       <div className={styles.description}>
@@ -195,16 +207,18 @@ const WallArtDetail = props => {
         </div>
       </div>
 
-      <div className="w-full mt-[20px] flex">
+      <div className="w-full mt-[20px] block lg:flex">
         <div className={styles.quantity}>Quantity:</div>
-        <input
-          value={quantity}
-          type="number"
-          min="0"
-          placeholder="0"
-          className={styles.inputArea}
-          onChange={event => setQuantity(parseInt(event.target.value))}
-        />
+        <div className="mt-[10px] lg:mt-[0px]">
+          <input
+            value={quantity}
+            type="number"
+            min="0"
+            placeholder="0"
+            className={styles.inputArea}
+            onChange={event => setQuantity(parseInt(event.target.value))}
+          />
+        </div>
       </div>
 
       <div className="lg:hidden block">
@@ -221,15 +235,7 @@ const WallArtDetail = props => {
             </div>
           </div>
         </div>
-        <div className={styles.wallartBG}>
-          <div className="absolute inset-0 w-full h-full"></div>
-          <WallSection
-            canvasId="wallart-mobile"
-            nftName={nftName}
-            wallArt={previewSection}
-            finishEditing={finishEditing}
-          />
-        </div>
+
         <div className="w-full mt-[30px] flex gap-[30px]">
           {/* <SecondaryButton
             backgroundColor="transparent"
@@ -241,6 +247,14 @@ const WallArtDetail = props => {
             borderColor={enabled ? 'var(--text-gray-200-color)' : 'rgba(var(--text-gray-200-color-rgb), 0.5)'}
             onClick={() => enabled && setOpenEditorModal(true)}
           /> */}
+          <OutlineButton
+            label="Back"
+            onClick={onBack}
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+            color={'var(--text-gray-200-color)'}
+          />
           <GradientButton
             disabled={!enabled}
             label="Next"
@@ -272,7 +286,7 @@ const WallArtDetail = props => {
             </div>
           </div>
         </div>
-        <div className="w-full mt-[30px] flex gap-[30px]">
+        <div className="w-full flex mt-[30px] flex gap-[30px]">
           {/* <SecondaryButton
             backgroundColor="transparent"
             label="Generate Preview"
@@ -283,6 +297,14 @@ const WallArtDetail = props => {
             borderColor={'#202427'}
             onClick={() => setOpenEditorModal(true)}
           /> */}
+          <OutlineButton
+            label="Back"
+            onClick={onBack}
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+            color={'var(--text-gray-200-color)'}
+          />
           <GradientButton
             disabled={!enabled}
             label="Next"

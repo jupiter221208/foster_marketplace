@@ -26,6 +26,7 @@ import SelectionColor from 'components/SelectionColor'
 import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
 import ApparelSection from '../ApparelSection'
+import OutlineButton from 'components/Button/OutlineButton'
 
 // api
 
@@ -34,10 +35,22 @@ const PhysicalPrintDetail = props => {
   const viewport = useViewport()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState(null)
-  const [print, setPrint] = useState({ name: '', type: '' })
+  const [print, setPrint] = useState({
+    id: 0,
+    name: 'Front',
+    type: 'front',
+  })
   const [quality, setQuality] = useState({ name: '', type: '' })
-  const [size, setSize] = useState({ name: '' })
-  const [color, setColor] = useState({ name: '', type: '' })
+  const [size, setSize] = useState({
+    id: 3,
+    name: 'L',
+  })
+  const [color, setColor] = useState({
+    id: 0,
+    name: '#FFFFFF',
+    type: 'white',
+    asset_url: '/images/apparel-color-white.png',
+  })
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelType, setApparelType] = useState(ApparelType)
@@ -90,11 +103,11 @@ const PhysicalPrintDetail = props => {
         setData(null)
       } else {
         setQuality({ name: '', type: '' })
-        setPrint({ name: '', type: '' })
+        setPrint({ id: 0, name: 'Front', type: 'front' })
         setCost('----')
         onPrint('')
         setPreviewApparel('')
-        setColor({ name: '', type: '' })
+        setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
       }
     } else {
       setEnabled(false)
@@ -109,6 +122,7 @@ const PhysicalPrintDetail = props => {
         if (apparelQualities.hasOwnProperty(item.type)) newQualityType.push(item)
       })
       setQualityType(newQualityType)
+      setQuality(newQualityType[0])
     }
   }, [apparel])
 
@@ -168,15 +182,25 @@ const PhysicalPrintDetail = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[0px] items-center">
-        <div className={styles.backBG} onClick={onBack}>
+      <div className={`${styles.apparelBG} lg:hidden block`}>
+        <div className={styles.previewBG}></div>
+        <ApparelSection
+          canvasId="canvas-mobile"
+          nftName={nftName}
+          apparel={previewApparel}
+          nftCoverUrl={nftCoverUrl}
+          finishEditing={finishEditing}
+        />
+      </div>
+      <div className="flex gap-[10px] lg:gap-[15px] lg:mt-[20px] mt-[20px] items-center">
+        {/* <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
           <div className="flex lg:hidden">
             <ArrowLeftIconMobile alt="" />
           </div>
-        </div>
+        </div> */}
         <div className={styles.selecteCategory}>{nftName} - Apparel</div>
       </div>
       <div className={styles.description}>
@@ -234,18 +258,17 @@ const PhysicalPrintDetail = props => {
           </div>
         </div>
       </div>
-      <div className={`${styles.apparelBG} lg:hidden block mt-4`}>
-        <div className={styles.previewBG}></div>
-        <ApparelSection
-          canvasId="canvas-mobile"
-          nftName={nftName}
-          apparel={previewApparel}
-          nftCoverUrl={nftCoverUrl}
-          finishEditing={finishEditing}
-        />
-      </div>
 
       <div className="w-full mt-[30px] flex gap-[30px]">
+        <OutlineButton
+          label="Back"
+          onClick={onBack}
+          fullWidth
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+          color={'var(--text-gray-200-color)'}
+        />
+
         <GradientButton
           disabled={!enabled}
           label="Next"

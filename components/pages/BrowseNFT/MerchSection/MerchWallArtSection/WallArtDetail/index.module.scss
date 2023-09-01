@@ -132,9 +132,7 @@
   width: calc(100% + 64px);
   margin-left: -32px;
   min-height: 375px;
-  margin-top: 15px;
   @media (min-width: 1024px) {
-    margin-top: 0px;
     height: calc(100vh - 100px - 60px);
   }
   display: flex;
