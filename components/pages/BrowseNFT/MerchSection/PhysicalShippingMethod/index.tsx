@@ -19,6 +19,7 @@ import ShippingSelect from 'components/Select/ShippingSelect'
 // api
 import merchAPI from 'apis/merch'
 import LoadingButton from 'components/Button/LoadingButton'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const PhysicalShippingMethod = props => {
   const {
@@ -180,19 +181,19 @@ const PhysicalShippingMethod = props => {
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[20px] items-center">
-        <div className={styles.backBG} onClick={onBack}>
+      <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
+        {/* <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
           <div className="flex lg:hidden mr-[2px]">
             <ArrowLeftIconMobile alt="" />
           </div>
-        </div>
+        </div> */}
         <div className={styles.selecteCategory}>Select Shipping Method</div>
       </div>
-      <div className="mt-[45px]">
-        <div className={styles.shippingMethod}>Shipping Method*</div>
+      <div className="mt-[15px] lg:mt-[45px]">
+        <div className={styles.shippingMethod}>Shipping Method *</div>
       </div>
       <div className="mt-[12px]">
         <ShippingSelect
@@ -235,19 +236,29 @@ const PhysicalShippingMethod = props => {
         </div>
       </div>
 
-      <div className="w-full mt-[30px]">
-        {isLoading ? (
-          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
-        ) : (
-          <GradientButton
-            disabled={!total}
-            label="Proceed to Checkout"
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-            onClick={() => onCheckout()}
-          />
-        )}
+      <div className="w-full flex gap-[30px] mt-[30px]">
+        <OutlineButton
+          label="Back"
+          onClick={onBack}
+          fullWidth
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+          color={'var(--text-gray-200-color)'}
+        />
+        <div className="w-full">
+          {isLoading ? (
+            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
+          ) : (
+            <GradientButton
+              disabled={!total}
+              label="Checkout"
+              fullWidth
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+              onClick={() => onCheckout()}
+            />
+          )}
+        </div>
       </div>
     </section>
   )

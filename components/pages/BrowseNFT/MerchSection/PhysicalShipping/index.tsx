@@ -28,7 +28,6 @@ import WallSection from '../MerchWallArtSection/WallSection'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
-  console.log(wallArt, '===========wallArt==========')
   const viewport = useViewport()
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
@@ -196,18 +195,17 @@ const PhysicalShipping = props => {
 
   return (
     <section className={styles.container}>
-      <div className="lg:hidden block">
+      {/* <div className="lg:hidden block">
         <div className={styles.wallartBG}>
-          <div className="absolute inset-0 w-full h-full"></div>
           <WallSection canvasId="wallart-mobile" nftName={nftName} wallArt={wallArt} finishEditing={true} />
         </div>
-      </div>
+      </div> */}
 
       <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.selecteCategory}>Add Shipping Details</div>
       </div>
       <div className="w-full mt-[20px]">
-        <div className={styles.label}>Email *</div>
+        <div className={styles.label}>Contact Information *</div>
         <div className="w-full mt-[10px]">
           <input
             value={email}
@@ -279,7 +277,7 @@ const PhysicalShipping = props => {
           />
         </div>
       </div>
-      <div className="w-full flex mt-[20px] gap-[30px]">
+      <div className="w-full flex mt-[20px] gap-[30px] mb-[30px]">
         <OutlineButton
           label="Back"
           onClick={() => backToPage()}
