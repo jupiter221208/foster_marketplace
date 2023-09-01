@@ -25,6 +25,7 @@ import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport } from 'utils'
 import WallSection from '../WallSection'
 import OutlineButton from 'components/Button/OutlineButton'
+import { getFirstUpperString } from 'utils/helpers'
 
 // api
 
@@ -170,7 +171,9 @@ const WallArtDetail = props => {
             <ArrowLeftIconMobile alt="" />
           </div>
         </div> */}
-        <div className={styles.selecteCategory}>{nftName} - Wall Art</div>
+        <div className={styles.selecteCategory}>
+          {getFirstUpperString(subCategory)}&nbsp;<div className={styles.nftName}>({nftName})</div>
+        </div>
       </div>
       <div className={styles.description}>
         {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'

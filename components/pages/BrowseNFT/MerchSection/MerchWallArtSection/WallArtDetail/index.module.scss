@@ -10,6 +10,7 @@
 }
 
 .selecteCategory {
+  display: flex;
   font-family: 'Muli-Bold';
   font-size: 18px;
   @media (min-width: 1024px) {
@@ -141,6 +142,15 @@
   overflow: hidden;
   z-index: 1;
   position: relative;
+}
+
+.nftName {
+  font-family: 'Muli-Regular';
+  font-size: 18px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+  }
+  color: var(--text-gray-200-color);
 }
 
 .inputArea {

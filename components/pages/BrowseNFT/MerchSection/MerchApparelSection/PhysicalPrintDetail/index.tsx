@@ -201,7 +201,9 @@ const PhysicalPrintDetail = props => {
             <ArrowLeftIconMobile alt="" />
           </div>
         </div> */}
-        <div className={styles.selecteCategory}>{nftName} - Apparel</div>
+        <div className={styles.selecteCategory}>
+          {apparel?.description}&nbsp;<div className={styles.nftName}>({nftName})</div>
+        </div>
       </div>
       <div className={styles.description}>
         Select the side of apparel you would like to place the print, fabric color, and quality.
