@@ -17,7 +17,7 @@
   line-height: 18px;
 }
 .selectedLabel {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Bold';
 }
 .selected {
   font-family: 'Muli-SemiBold';
@@ -34,7 +34,9 @@
   cursor: pointer;
 }
 .mobileNormal {
+  min-width: 43px;
   font-family: 'Muli-SemiBold';
+  text-align: center;
   font-size: 14px;
   padding: 6px;
   line-height: 18px;
@@ -43,9 +45,11 @@
   cursor: pointer;
 }
 .mobileSelected {
+  min-width: 43px;
   font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
+  text-align: center;
   padding: 6px;
   color: var(--background-main-color);
   background: var(--main-icon-color);

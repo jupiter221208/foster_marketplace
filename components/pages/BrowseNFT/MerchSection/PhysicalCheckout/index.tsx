@@ -33,6 +33,7 @@ import { findElement, getFirstUpperString } from 'utils/helpers'
 // api
 import { OrderData, payOrder } from 'apis/merch'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import OutlineButton from 'components/Button/OutlineButton'
 
 export interface PhysicalCheckoutProps {
   orderData?: OrderData
@@ -166,7 +167,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
   return (
     <section className={styles.container}>
-      <div className="flex gap-[15px] mt-[20px] items-center">
+      {/* <div className="flex gap-[15px] mt-[20px] items-center">
         <div className={styles.backBG} onClick={onBack}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
@@ -176,7 +177,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           </div>
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
-      </div>
+      </div> */}
 
       <div className="mt-[20px] hidden lg:block">
         <TableSection data={list} />
@@ -185,7 +186,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         <div className={styles.tableDivider} />
       </div>
 
-      <div className="w-full flex-wrap h-auto flex gap-[30px] mt-[24px]">
+      <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[24px]">
         <div className="w-[286px] h-[160px] relative hidden lg:block">
           <div className={styles.paymentMethod}>Choose Payment Method*</div>
           <div className="w-full flex justify-between mt-[16px]">
@@ -212,7 +213,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       </div>
 
       {/* Mobile Table */}
-      <div className="w-full mt-[30px] lg:hidden">
+      <div className="w-full lg:hidden">
         <div className={styles.tableHeader}>
           <div>Order</div>
           <div>Details</div>
@@ -279,14 +280,24 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             </div>
           </div>
         </div>
-        <GradientButton
-          disabled={currency.length === 0}
-          label="Place Order"
-          fullWidth
-          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-          fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-          onClick={() => onCheckout()}
-        />
+        <div className="w-full flex gap-[30px]">
+          <OutlineButton
+            label="Cancel Order"
+            onClick={onBack}
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+            color={'var(--text-gray-200-color)'}
+          />
+          <GradientButton
+            disabled={currency.length === 0}
+            label="Place Order"
+            fullWidth
+            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+            onClick={() => onCheckout()}
+          />
+        </div>
       </div>
       <ProgressingModal open={isLoad} />
       <Alert

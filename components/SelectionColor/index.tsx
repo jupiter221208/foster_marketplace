@@ -11,7 +11,9 @@ const SelectionColor = props => {
     <div className={styles.container}>
       <div className={styles.label}>
         {label}
-        <div className="lg:hidden block">&nbsp;{getFirstUpperString(selected)}</div>
+        <div className="lg:hidden block">
+          <div className={styles.labelText}>&nbsp;{getFirstUpperString(selected)}</div>
+        </div>
       </div>
       <div className="flex gap-[15px] lg:gap-[27px]">
         {data.map((item, index) => (

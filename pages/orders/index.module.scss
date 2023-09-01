@@ -11,17 +11,18 @@
 }
 
 .blurBackground {
-  width: 100%;
+  width: calc(100% + 64px);
   height: auto;
+  margin-left: -32px;
   min-height: 375px;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
+    border-radius: 27px;
   }
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 27px;
   z-index: 1;
   position: relative;
 }

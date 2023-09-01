@@ -24,10 +24,15 @@
   width: 66px;
   height: 66px;
   border-radius: 33px;
-  border: 1px solid #95dbd5;
+  border: 3px solid var(--main-icon-color);
   cursor: pointer;
   overflow: hidden;
 }
+
+.labelText {
+  font-family: 'Muli-Bold';
+}
+
 .normal {
   width: 66px;
   height: 66px;

@@ -236,7 +236,7 @@ const WallArtDetail = props => {
           </div>
         </div>
 
-        <div className="w-full mt-[30px] flex gap-[30px]">
+        <div className="w-full mt-[30px] flex gap-[30px] mb-[30px]">
           {/* <SecondaryButton
             backgroundColor="transparent"
             label="Generate Preview"

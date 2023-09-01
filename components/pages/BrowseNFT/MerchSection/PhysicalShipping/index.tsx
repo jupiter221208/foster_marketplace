@@ -23,6 +23,7 @@ import GradientButton from 'components/Button/GradientButton'
 
 // api
 import merchAPI from 'apis/merch'
+import OutlineButton from 'components/Button/OutlineButton'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData } = props
@@ -194,14 +195,14 @@ const PhysicalShipping = props => {
   return (
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
-        <div className={styles.backBG} onClick={() => backToPage()}>
+        {/* <div className={styles.backBG} onClick={() => backToPage()}>
           <div className="hidden lg:flex mr-[2px]">
             <ArrowLeftIcon alt="" />
           </div>
           <div className="flex lg:hidden">
             <ArrowLeftIconMobile alt="" />
           </div>
-        </div>
+        </div> */}
         <div className={styles.selecteCategory}>Add Shipping Details</div>
       </div>
       <div className="w-full mt-[20px]">
@@ -212,6 +213,14 @@ const PhysicalShipping = props => {
             placeholder="Email"
             className={styles.inputArea}
             onChange={event => setEmail(event.target.value)}
+          />
+        </div>
+        <div className="w-full mt-[10px]">
+          <input
+            value={name}
+            placeholder="Name"
+            className={styles.inputArea}
+            onChange={event => setName(event.target.value)}
           />
         </div>
       </div>
@@ -235,14 +244,7 @@ const PhysicalShipping = props => {
             placeholder="State"
           />
         </div>
-        <div className="w-full mt-[10px]">
-          <input
-            value={name}
-            placeholder="Name"
-            className={styles.inputArea}
-            onChange={event => setName(event.target.value)}
-          />
-        </div>
+
         <div className="w-full mt-[10px]">
           <input
             value={city}
@@ -276,19 +278,29 @@ const PhysicalShipping = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[20px]">
-        {isLoading ? (
-          <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
-        ) : (
-          <GradientButton
-            disabled={!enabled}
-            label="Proceed to Checkout"
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
-            onClick={() => proceedToCheckout()}
-          />
-        )}
+      <div className="w-full flex mt-[20px] gap-[30px]">
+        <OutlineButton
+          label="Back"
+          onClick={() => backToPage()}
+          fullWidth
+          height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+          borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
+          color={'var(--text-gray-200-color)'}
+        />
+        <div className="w-full">
+          {isLoading ? (
+            <LoadingButton fullWidth height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53} />
+          ) : (
+            <GradientButton
+              disabled={!enabled}
+              label="Select Shipping"
+              fullWidth
+              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+              fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+              onClick={() => proceedToCheckout()}
+            />
+          )}
+        </div>
       </div>
 
       <Alert
