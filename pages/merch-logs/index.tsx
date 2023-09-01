@@ -27,10 +27,11 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 // api
 import MerchAPI from 'apis/merch'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const MerchActivity = () => {
   const viewport = useViewport()
-  const { connected, publicKey, signMessage } = useWallet()
+  const { connected, publicKey } = useWallet()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -40,14 +41,19 @@ const MerchActivity = () => {
   const [sales, setSales] = useState([])
   const [artistCommission, setArtistCommission] = useState(0)
   const [totalCommission, setTotalCommission] = useState(0)
-  const [isLoadingData, setIsLoadingData] = useState(true)
+  const [isLoadingData, setIsLoadingData] = useState(false)
+  const [rowCount, setRowCount] = useState(10)
+  const [buyerPages, setBuyerPages] = useState(1)
+  const [sellerPages, setSellerPages] = useState(1)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
+  const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
     if (!connected) {
       setTimeout(() => {
         dispatch({ type: 'set', isLoading: false })
-        setIsLoadingData(false)
       }, 1000)
     }
   }, [])
@@ -73,8 +79,53 @@ const MerchActivity = () => {
     setTabList(array)
   }, [activeTab])
 
+  useEffect(() => {
+    if (isFetching) {
+      if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
+      else getSellerOrder(sellerPages, rowCount)
+    }
+  }, [isFetching])
+
   const handleSelectedTab = item => {
-    if (item.id != 4) setActiveTab(item.id)
+    setActiveTab(item.id)
+  }
+
+  const getBuyerOrder = (page, rowCount, reset = false) => {
+    MerchAPI.getBuyerOrder(page, rowCount).then(
+      response => {
+        setIsFetching(false)
+
+        setBuyerPages(page + 1)
+        if (reset) setPurchases([...response])
+        else setPurchases([...purchases, ...response])
+
+        if (response.length < rowCount) {
+          setIsVisibleBuyerFetching(false)
+        } else {
+          setIsVisibleBuyerFetching(true)
+        }
+      },
+      error => {}
+    )
+  }
+
+  const getSellerOrder = (page, rowCount, reset = false) => {
+    MerchAPI.getSellerOrder(page, rowCount).then(
+      response => {
+        setIsFetching(false)
+
+        setSellerPages(page + 1)
+        if (reset === true) setSales([...response])
+        else setSales([...sales, ...response])
+
+        if (response.length < rowCount) {
+          setIsVisibleSellerFetching(false)
+        } else {
+          setIsVisibleSellerFetching(true)
+        }
+      },
+      error => {}
+    )
   }
 
   const getAllOrder = wallet => {
@@ -89,9 +140,6 @@ const MerchActivity = () => {
         const salesOrders = orders.filter(({ seller_shares, transaction_id }) => {
           return wallet in seller_shares && transaction_id != null
         })
-
-        setPurchases(purchaseOrders)
-        setSales(salesOrders)
 
         let artistCommission = 0
         let totalCommission = 0
@@ -190,6 +238,11 @@ const MerchActivity = () => {
           {activeTab === 1 && (
             <div className="w-full z-10">
               <ApparelActivity avtivities={sales} type="sales" isLoading={isLoadingData} />
+            </div>
+          )}
+          {((activeTab === 0 && isVisibleBuyerFetching) || (activeTab === 1 && isVisibleSellerFetching)) && (
+            <div className="w-full mt-[-100px] mb-[40px]">
+              <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>
           )}
         </div>
