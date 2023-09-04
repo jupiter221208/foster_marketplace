@@ -142,6 +142,12 @@ export async function payOrder(id, params) {
   })
 }
 
+export async function getOrderStats() {
+  return client.get(API_URL + 'v1/merch/orders/stats').then(response => {
+    return response?.data
+  })
+}
+
 export default {
   prepareCart,
   checkout,
@@ -149,5 +155,6 @@ export default {
   payOrder,
   getAllOrder,
   getBuyerOrder,
-  getSellerOrder
+  getSellerOrder,
+  getOrderStats
 }

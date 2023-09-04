@@ -40,7 +40,7 @@ const MerchActivity = () => {
   const [purchases, setPurchases] = useState([])
   const [sales, setSales] = useState([])
   const [artistCommission, setArtistCommission] = useState(0)
-  const [totalCommission, setTotalCommission] = useState(0)
+  const [totalAmount, setTotalAmount] = useState(0)
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [rowCount, setRowCount] = useState(10)
   const [buyerPages, setBuyerPages] = useState(1)
@@ -60,10 +60,7 @@ const MerchActivity = () => {
 
   useEffect(() => {
     if (publicKey) {
-      // let wallet = publicKey.toBase58()
-      // getAllOrder(wallet)
-      getTotalCommission()
-      getTotalAmount()
+      getOrderStats()
     }
   }, [publicKey])
 
@@ -161,68 +158,11 @@ const MerchActivity = () => {
     )
   }
 
-  const getTotalCommission = () => {
-    MerchAPI.getSellerOrder('all', rowCount).then(
+  const getOrderStats = () => {
+    MerchAPI.getOrderStats().then(
       response => {
-        const salesOrders = response.filter(({ transaction_id }) => {
-          return transaction_id != null
-        })
-
-        let artistCommission = 0
-        salesOrders.forEach(item => {
-          artistCommission += item.artist_commission
-        })
-        setArtistCommission(artistCommission)
-      },
-      error => {}
-    )
-  }
-
-  const getTotalAmount = () => {
-    MerchAPI.getBuyerOrder('all', rowCount).then(
-      response => {
-        const purchaseOrders = response.filter(({ transaction_id }) => {
-          return transaction_id != null
-        })
-        let totalAmount = 0
-        purchaseOrders.forEach(item => {
-          totalAmount += item.amount
-        })
-        setTotalCommission(totalAmount)
-        dispatch({ type: 'set', isLoading: false })
-      },
-      error => {}
-    )
-  }
-
-  const getAllOrder = wallet => {
-    MerchAPI.getAllOrder().then(
-      response => {
-        let orders = response.sort(function (a, b) {
-          return b.id - a.id
-        })
-        const purchaseOrders = orders.filter(({ buyer_address, transaction_id }) => {
-          return wallet === buyer_address && transaction_id != null
-        })
-        const salesOrders = orders.filter(({ seller_shares, transaction_id }) => {
-          return wallet in seller_shares && transaction_id != null
-        })
-
-        let artistCommission = 0
-        let totalCommission = 0
-        salesOrders.forEach(item => {
-          artistCommission += item.artist_commission
-        })
-
-        purchaseOrders.forEach(item => {
-          totalCommission += item.amount
-        })
-
-        setArtistCommission(artistCommission)
-        setTotalCommission(totalCommission)
-
-        dispatch({ type: 'set', isLoading: false })
-        setIsLoadingData(false)
+        setArtistCommission(response.sold?.totalArtistCommission)
+        setTotalAmount(response.bought?.amount)
       },
       error => {}
     )
@@ -265,7 +205,7 @@ const MerchActivity = () => {
                   <div className={styles.countValue}>Total&nbsp;Commissions</div>
                 </div>
                 <div className="flex gap-[6px]">
-                  <div className={styles.countLabel}>${totalCommission.toFixed(2)}</div>
+                  <div className={styles.countLabel}>${totalAmount.toFixed(2)}</div>
                   <div className={styles.countValue}>Total&nbsp;Purchases</div>
                 </div>
               </div>
@@ -282,7 +222,7 @@ const MerchActivity = () => {
                 </div>
                 <div className={styles.countBG}>
                   <div className="w-full">
-                    <div className={styles.countLabel}>${totalCommission.toFixed(2)}</div>
+                    <div className={styles.countLabel}>${totalAmount.toFixed(2)}</div>
                     <div className={styles.countValue}>TOTAL&nbsp;PURCHASES</div>
                   </div>
                 </div>
