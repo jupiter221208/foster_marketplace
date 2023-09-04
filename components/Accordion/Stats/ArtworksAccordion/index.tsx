@@ -12,7 +12,7 @@ import DownArrowIcon from 'assets/icons/down-arrow-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getLocalDateWithoutTime, getSliceAddress } from 'utils/helpers'
+import { getSliceAddress } from 'utils/helpers'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
