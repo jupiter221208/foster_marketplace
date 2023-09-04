@@ -7,16 +7,8 @@
   height: 100%;
   background-color: var(--collection-card-bg);
   border-radius: 24px;
-  // @media (min-width: 1024px) {
-  //   border-radius: 24px;
-  // }
-  // @media (min-width: 1536px) {
-  //   border-radius: 24px;
-  // }
-  // border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.15);
-  // border-width: var(--collection-card-border);
   margin: 10px;
-  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.3);
+  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
   cursor: pointer;
   overflow: hidden;
 }

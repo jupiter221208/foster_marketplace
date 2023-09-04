@@ -6,7 +6,7 @@
   max-width: 186px;
   max-height: 254px;
   margin: 2px;
-  box-shadow: 0px 2px 4px rgba(black, 0.5);
+  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
   @media (min-width: 414px) {
     max-width: 240px;
     max-height: 327px;
@@ -17,12 +17,10 @@
   }
   @media (min-width: 1024px) {
     margin: 3px;
-    box-shadow: 0px 3px 6px rgba(black, 0.5);
   }
   background-color: var(--background-dark-color);
   border-radius: 29px;
   position: relative;
-  // border: 1px solid rgba(white, 0.1);
   cursor: pointer;
   overflow: hidden;
 }
