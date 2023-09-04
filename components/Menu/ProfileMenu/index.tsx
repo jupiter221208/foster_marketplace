@@ -45,20 +45,7 @@ const ProfileMenu = props => {
 
     setButtonClicked(false)
 
-    if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      dispatch({ type: 'set', showConnectAlert: true })
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 1000)
-    } else {
+    if (!connected) {
       setAlertData([
         {
           id: 0,
@@ -70,6 +57,25 @@ const ProfileMenu = props => {
       setShowAlert(true)
     }
   }, [connected])
+
+  useEffect(() => {
+    if (loginSignedFlag === true) {
+      if (connected) {
+        setAlertData([
+          {
+            id: 0,
+            title: 'Wallet Connected!',
+            description: `You've successfully connected your wallet!`,
+            type: 'success',
+          },
+        ])
+        dispatch({ type: 'set', showConnectAlert: true })
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }
+    }
+  }, [loginSignedFlag])
 
   return (
     <div className="relative flex items-center">

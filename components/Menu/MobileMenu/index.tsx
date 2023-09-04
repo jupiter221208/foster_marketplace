@@ -83,7 +83,10 @@ const MobileMenu = () => {
           type: 'success',
         },
       ])
-      setShowAlert(true)
+      dispatch({ type: 'set', showConnectAlert: true })
+      setTimeout(() => {
+        setShowAlert(true)
+      }, 1000)
     } else {
       setAlertData([
         {

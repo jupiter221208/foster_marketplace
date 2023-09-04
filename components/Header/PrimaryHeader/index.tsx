@@ -215,13 +215,6 @@ const PrimaryHeader = () => {
     window.addEventListener('resize', resizeFunction)
   }, [connected])
 
-  useEffect(() => {
-    ;(async () => {
-      if (!connected || profileInfo || loginAndRefresh) return
-      dispatch({ type: 'set', loginSignedFlag: true })
-    })()
-  }, [connected])
-
   const handleSelectMenu = (item: any) => {
     if (connected) {
       router.push(item.path)

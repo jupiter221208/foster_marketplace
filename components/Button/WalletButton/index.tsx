@@ -216,31 +216,6 @@ const WalletButton = props => {
     }
 
     setButtonClicked(false)
-
-    if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      dispatch({ type: 'set', showConnectAlert: true })
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 1000)
-    } else {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Disconnected!',
-          description: `You've successfully disconnected your wallet!`,
-          type: 'success',
-        },
-      ])
-      setShowAlert(true)
-    }
   }, [connected])
 
   useEffect(() => {
