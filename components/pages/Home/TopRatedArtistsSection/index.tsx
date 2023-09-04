@@ -146,8 +146,8 @@ const TopRatedArtistsSection = () => {
             onClick={() => handleChangeActive(0)}
             fontFamily={'Muli-SemiBold'}
             color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
-            backgroundColor02={active === 0 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor01={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+            backgroundColor02={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
             boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -157,8 +157,8 @@ const TopRatedArtistsSection = () => {
             onClick={() => handleChangeActive(1)}
             fontFamily={'Muli-SemiBold'}
             color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
-            backgroundColor02={active === 1 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor01={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+            backgroundColor02={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
             boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -168,8 +168,8 @@ const TopRatedArtistsSection = () => {
             onClick={() => handleChangeActive(2)}
             fontFamily={'Muli-SemiBold'}
             color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
-            backgroundColor02={active === 2 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+            backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
             boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -179,8 +179,8 @@ const TopRatedArtistsSection = () => {
             onClick={() => handleChangeActive(3)}
             fontFamily={'Muli-SemiBold'}
             color={active === 3 ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={active === 3 ? 'var(--menu-bg-color)' : 'transparent'}
-            backgroundColor02={active === 3 ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor01={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
+            backgroundColor02={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
             gradientDirection="bottom"
             width={86}
             boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
