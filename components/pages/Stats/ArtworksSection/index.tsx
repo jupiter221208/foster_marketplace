@@ -197,8 +197,8 @@ const ArtworksSection = props => {
       )}
 
       {isMounted && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+        <div className="w-full mt-[-40px] lg:mt-[-100px] mb-[80px] lg:mb-[40px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
     </div>
