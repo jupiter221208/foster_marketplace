@@ -43,6 +43,7 @@ import { depositFunds as depositBiddingFunds, withdrawFunds as withdrawBiddingFu
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -202,7 +203,7 @@ const WalletButton = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [buttonClicked, setButtonClicked] = useState(false)
 
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 

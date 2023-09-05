@@ -42,6 +42,7 @@ import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 export interface EditionDetail {
   number: number
@@ -67,7 +68,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)

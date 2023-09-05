@@ -141,7 +141,7 @@ const MainSection = ({
   const { id } = router.query
   const dispatch = useDispatch()
   const { refreshToken } = useAuthentication()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(true)
