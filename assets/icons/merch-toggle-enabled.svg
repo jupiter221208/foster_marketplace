@@ -1,41 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="82" height="48.403" viewBox="0 0 82 48.403">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#95dbd5"/>
-      <stop offset="1" stop-color="#4b6e6b"/>
-    </linearGradient>
-    <filter id="Ellipse_4353" x="0" y="0.403" width="48" height="48" filterUnits="userSpaceOnUse">
-      <feOffset dy="3" input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-opacity="0.161"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Group_54732" data-name="Group 54732" transform="translate(18639 8199.403)">
-    <g id="Group_54131" data-name="Group 54131" transform="translate(-18637 -8199.403)">
-      <rect id="Rectangle_21261" data-name="Rectangle 21261" width="80" height="42.807" rx="21.404" fill="#2b2b2b"/>
+<svg id="Component_4589_2" data-name="merch-toggle-icon" xmlns="http://www.w3.org/2000/svg" width="36.929" height="36.929" viewBox="0 0 36.929 36.929">
+  <circle id="Ellipse_4353" data-name="Ellipse 4353" cx="18.464" cy="18.464" r="18.464" />
+  <g id="Component_4591_2" data-name="Component 4591 – 2" transform="translate(5.145 6.384)">
+    <g id="noun-shirt-1385943">
+      <path id="noun-shirt-1385943-2" data-name="noun-shirt-1385943" d="M9.792,26.9a30.506,30.506,0,0,0-5.738,2.425c-.183.163-2.982,6.863-4.049,8.338-.125.2,4.815,2.06,5.732,2.422V52.055H20.6V40.088c.918-.362,5.858-2.221,5.732-2.422-1.066-1.476-3.866-8.176-4.049-8.338A30.489,30.489,0,0,0,16.548,26.9c-.734,2.784-6.023,2.782-6.756,0Z" transform="translate(-0.003 -26.902)" data-fill="a" fill-rule="evenodd"/>
     </g>
-    <g id="Group_54733" data-name="Group 54733" transform="translate(0 0.031)">
-      <g id="Component_4588_6" data-name="Component 4588 – 6" transform="translate(-18587.82 -8188.244)">
-        <path id="noun-shirt-1385943" d="M7.955,26.9a24.782,24.782,0,0,0-4.661,1.97C3.146,29,.872,34.447.005,35.646a40.165,40.165,0,0,0,4.657,1.968v9.722H16.737V37.614a40.162,40.162,0,0,0,4.657-1.968c-.866-1.2-3.141-6.642-3.289-6.774a24.769,24.769,0,0,0-4.661-1.97c-.6,2.262-4.893,2.26-5.489,0Z" transform="translate(-0.003 -26.902)" fill="#eff0f6" fill-rule="evenodd"/>
-      </g>
-      <g id="Group_54731" data-name="Group 54731" transform="translate(-25210.449 -5756.333)">
-        <g id="Ellipse_4354" data-name="Ellipse 4354" transform="translate(6630 -2428)" fill="none" stroke="#202427" stroke-width="0.5">
-          <circle cx="3.325" cy="3.325" r="3.325" stroke="none"/>
-          <circle cx="3.325" cy="3.325" r="3.075" fill="none"/>
-        </g>
-        <line id="Line_418" data-name="Line 418" x1="4.112" y2="4.638" transform="translate(6631.509 -2427.001)" fill="none" stroke="#202427" stroke-width="0.5"/>
-      </g>
-    </g>
-    <g id="Group_54132" data-name="Group 54132" transform="translate(-34 -65)">
-      <g transform="matrix(1, 0, 0, 1, -18605, -8134.4)" filter="url(#Ellipse_4353)">
-        <circle id="Ellipse_4353-2" data-name="Ellipse 4353" cx="15" cy="15" r="15" transform="translate(9 6.4)" fill="url(#linear-gradient)"/>
-      </g>
-      <g id="Component_4588_7" data-name="Component 4588 – 7" transform="translate(-18591.697 -8123.217)">
-        <path id="noun-shirt-1385943-2" data-name="noun-shirt-1385943" d="M7.955,26.9a24.782,24.782,0,0,0-4.661,1.97C3.146,29,.872,34.447.005,35.646a40.165,40.165,0,0,0,4.657,1.968v9.722H16.737V37.614a40.162,40.162,0,0,0,4.657-1.968c-.866-1.2-3.141-6.642-3.289-6.774a24.769,24.769,0,0,0-4.661-1.97c-.6,2.262-4.893,2.26-5.489,0Z" transform="translate(-0.003 -26.902)" fill="#202427" fill-rule="evenodd"/>
-        <path id="Path_108512" data-name="Path 108512" d="M150.9,150a.9.9,0,0,0-.9.9V155.6a.9.9,0,0,0,.9.9H155.6a.9.9,0,0,0,.9-.9V150.9a.9.9,0,0,0-.9-.9Zm0,.361H155.6a.537.537,0,0,1,.542.542v2.092L155,151.859a.181.181,0,0,0-.255,0l-2.039,2.039-1.317-1.317a.181.181,0,0,0-.255,0l-.775.775V150.9a.537.537,0,0,1,.542-.542Z" transform="translate(-142.554 -145.566)" fill="#95dbd5"/>
-      </g>
-    </g>
+    <path id="Path_108512" data-name="Path 108512" d="M151.111,150A1.114,1.114,0,0,0,150,151.111v5.779A1.114,1.114,0,0,0,151.111,158h5.779A1.114,1.114,0,0,0,158,156.89v-5.779A1.114,1.114,0,0,0,156.89,150Zm0,.445h5.779a.661.661,0,0,1,.667.667v2.575l-1.4-1.4a.223.223,0,0,0-.314,0l-2.51,2.51-1.621-1.621a.222.222,0,0,0-.314,0l-.954.954v-3.02a.661.661,0,0,1,.667-.667Z" transform="translate(-140.833 -144.543)" />
   </g>
 </svg>

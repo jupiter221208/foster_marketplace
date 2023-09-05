@@ -339,6 +339,7 @@ const ArtistHeader = () => {
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
+            handleThemeMode={handleThemeMode}
           />
         </div>
       )}

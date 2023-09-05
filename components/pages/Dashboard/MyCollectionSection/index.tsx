@@ -5,14 +5,13 @@ import { useRouter } from 'next/router'
 
 // components
 import DashboardCollectionCard from 'components/Card/DashboardCollectionCard'
-import Pagination from 'components/Button/Pagination'
 import LoadingModal from 'components/Modal/LoadingModal'
 
 // styles
 import styles from './index.module.scss'
 
 // redux
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 // solana
 import { useMetaplex } from 'hooks/useMetaplex'
@@ -24,8 +23,6 @@ const MyCollectionSection = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
-  // const isLoading = useSelector<any>(state => state.isLoading)
-
   const [collections, setCollections] = useState([])
   const [isCollectionLoaded, setIsCollectionLoaded] = useState(false)
   const { metaplex: mx } = useMetaplex()
@@ -35,12 +32,10 @@ const MyCollectionSection = () => {
   const [myCollections, setMyCollections] = useState([])
   useEffect(() => {
     const getCollections = async () => {
-      // dispatch({ type: 'set', isLoading: true })
       const collections = await getMyCollections(mx)
       let publicKey = mx.identity().publicKey
       setCollections(collections.filter(({ updateAuthorityAddress }) => updateAuthorityAddress?.equals(publicKey)))
       setIsCollectionLoaded(true)
-      // dispatch({ type: 'set', isLoading: false })
     }
     if (mx) getCollections()
   }, [mx])

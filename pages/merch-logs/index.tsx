@@ -79,7 +79,6 @@ const MerchActivity = () => {
   }, [activeTab])
 
   useEffect(() => {
-    console.log(isFetching, buyerPages)
     if (isFetching) {
       if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
       else getSellerOrder(sellerPages, rowCount)
