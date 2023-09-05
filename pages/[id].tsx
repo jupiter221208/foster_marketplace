@@ -205,7 +205,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setArtistStatsInfo(response.stats)
 
-        console.log(response.nfts.length === artistRowCount, '=======artistRowCount=============')
         if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
         else setIsVisibleFetchingCreated(false)
 
@@ -246,7 +245,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setCollectorStatsInfo(response.stats)
         setCollectorTotalCount(response.total_nfts)
-        console.log(response.nfts.length === collectorRowCount, '=======collectorRowCount=============')
 
         if (response.nfts.length === collectorRowCount) setIsVisibleFetchingCollected(true)
         else setIsVisibleFetchingCollected(false)
@@ -258,9 +256,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (response.nfts.length < row_count) {
           setCollectorToEnd(true)
         }
-
-        // setCollections(response.collections)
-        // if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
         setIsLoaded(true)

@@ -41,8 +41,6 @@ const LikeModal = props => {
 
   const reloadFollowing = () => {
     if (type === 'liked') {
-      console.log(wallet)
-
       nftsAPI.getNftLikes(wallet).then(response => {
         if (typeof response !== 'string') setList(response)
       })
