@@ -63,7 +63,7 @@ const OrdersAccordion = props => {
                 >
                   <div className="flex items-center gap-x-4">
                     <div className="block">
-                      <div className={styles.subTitle}>{item.asset_name}</div>
+                      <div className={styles.subTitle}>{item.id}</div>
                       <div className="flex gap-1 mt-1 items-center">
                         <SolanaLogoIcon alt="" />
                         <div className={styles.priceValue}>{(item.amount / solToUsdRate).toFixed(2)}</div>
@@ -92,7 +92,7 @@ const OrdersAccordion = props => {
                   </div>
                   <div className={styles.thirdRow}>
                     <OutlineButton
-                      width={335}
+                      width={300}
                       label="View Order"
                       onClick={() => {
                         router.push(`merch-logs/${item.id}`)

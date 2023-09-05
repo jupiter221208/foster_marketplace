@@ -85,6 +85,15 @@
   background-color: var(--accordion-second-row-bg);
 }
 
+.thirdRow {
+  width: 100%;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
 .title {
   font-family: 'Muli-SemiBold';
   font-size: 14px;
