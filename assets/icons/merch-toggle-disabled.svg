@@ -1,41 +1,13 @@
-<svg id="Component_4586_1" data-name="Component 4586 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="83" height="48" viewBox="0 0 83 48">
-  <defs>
-    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#eff0f6"/>
-      <stop offset="1" stop-color="#78787b"/>
-    </linearGradient>
-    <filter id="Ellipse_4353" x="35" y="0" width="48" height="48" filterUnits="userSpaceOnUse">
-      <feOffset dy="3" input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-opacity="0.161"/>
-      <feComposite operator="in" in2="blur"/>
-      <feComposite in="SourceGraphic"/>
-    </filter>
-  </defs>
-  <g id="Group_54152" data-name="Group 54152" transform="translate(18640 8134)">
-    <g id="Group_54123" data-name="Group 54123" transform="translate(-18640 -8134)">
-      <rect id="Rectangle_21261" data-name="Rectangle 21261" width="80" height="42.807" rx="21.404" fill="#2b2b2b"/>
-    </g>
-    <g id="Component_4588" data-name="Component 4588" transform="translate(-18629.699 -8122.813)">
-      <path id="noun-shirt-1385943" d="M7.955,26.9a24.782,24.782,0,0,0-4.661,1.97C3.146,29,.872,34.447.005,35.646a40.165,40.165,0,0,0,4.657,1.968v9.722H16.737V37.614a40.162,40.162,0,0,0,4.657-1.968c-.866-1.2-3.141-6.642-3.289-6.774a24.769,24.769,0,0,0-4.661-1.97c-.6,2.262-4.893,2.26-5.489,0Z" transform="translate(-0.003 -26.902)" fill="#eff0f6" fill-rule="evenodd"/>
-      <path id="Path_108512" data-name="Path 108512" d="M150.9,150a.9.9,0,0,0-.9.9V155.6a.9.9,0,0,0,.9.9H155.6a.9.9,0,0,0,.9-.9V150.9a.9.9,0,0,0-.9-.9Zm0,.361H155.6a.537.537,0,0,1,.542.542v2.092L155,151.859a.181.181,0,0,0-.255,0l-2.039,2.039-1.317-1.317a.181.181,0,0,0-.255,0l-.775.775V150.9a.537.537,0,0,1,.542-.542Z" transform="translate(-142.554 -145.566)" fill="#202427"/>
-    </g>
-    <g id="Group_54130" data-name="Group 54130">
-      <g transform="matrix(1, 0, 0, 1, -18640, -8134)" filter="url(#Ellipse_4353)">
-        <circle id="Ellipse_4353-2" data-name="Ellipse 4353" cx="15" cy="15" r="15" transform="translate(44 6)" fill="url(#linear-gradient)"/>
+<svg id="Component_4589_4" data-name="merch-toggle-disabled" xmlns="http://www.w3.org/2000/svg" width="36.929" height="36.929" viewBox="0 0 36.929 36.929">
+  <path id="Path_108577" data-name="Path 108577" d="M18.464,0A18.464,18.464,0,1,1,0,18.464,18.464,18.464,0,0,1,18.464,0Z" />
+  <g id="Component_4590_1" data-name="Component 4590 – 1" transform="translate(5.145 6.384)">
+    <path id="noun-shirt-1385943" d="M9.792,26.9a30.506,30.506,0,0,0-5.738,2.425c-.183.163-2.982,6.863-4.049,8.338-.125.2,4.815,2.06,5.732,2.422V52.055H20.6V40.088c.918-.362,5.858-2.221,5.732-2.422-1.066-1.476-3.866-8.176-4.049-8.338A30.489,30.489,0,0,0,16.548,26.9c-.734,2.784-6.023,2.782-6.756,0Z" transform="translate(-0.003 -26.902)" data-fill="a" fill-rule="evenodd"/>
+    <g id="Group_54994" data-name="Group 54994" transform="translate(-1143.069 -180.441)">
+      <g id="Ellipse_4354" data-name="Ellipse 4354" transform="translate(1152.143 185.255)" fill="none" stroke-width="0.5">
+        <circle cx="4.093" cy="4.093" r="4.093" stroke="none"/>
+        <circle cx="4.093" cy="4.093" r="3.843" fill="none"/>
       </g>
-    </g>
-  </g>
-  <g id="Group_54734" data-name="Group 54734" transform="translate(18636 8199.431)">
-    <g id="Component_4588_5" data-name="Component 4588 – 5" transform="translate(-18587.82 -8188.244)">
-      <path id="noun-shirt-1385943-2" data-name="noun-shirt-1385943" d="M7.955,26.9a24.782,24.782,0,0,0-4.661,1.97C3.146,29,.872,34.447.005,35.646a40.165,40.165,0,0,0,4.657,1.968v9.722H16.737V37.614a40.162,40.162,0,0,0,4.657-1.968c-.866-1.2-3.141-6.642-3.289-6.774a24.769,24.769,0,0,0-4.661-1.97c-.6,2.262-4.893,2.26-5.489,0Z" transform="translate(-0.003 -26.902)" fill="#202427" fill-rule="evenodd"/>
-    </g>
-    <g id="Group_54731" data-name="Group 54731" transform="translate(-25210.449 -5756.333)">
-      <g id="Ellipse_4354" data-name="Ellipse 4354" transform="translate(6630 -2428)" fill="none" stroke="#eff0f6" stroke-width="0.5">
-        <circle cx="3.325" cy="3.325" r="3.325" stroke="none"/>
-        <circle cx="3.325" cy="3.325" r="3.075" fill="none"/>
-      </g>
-      <line id="Line_418" data-name="Line 418" x1="4.112" y2="4.638" transform="translate(6631.509 -2427.001)" fill="none" stroke="#eff0f6" stroke-width="0.5"/>
+      <line id="Line_418" data-name="Line 418" x1="5.062" y2="5.71" transform="translate(1154 186.484)" fill="none" stroke-width="0.5"/>
     </g>
   </g>
 </svg>

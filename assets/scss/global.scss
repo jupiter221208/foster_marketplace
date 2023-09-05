@@ -1206,6 +1206,21 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='merch-toggle-icon'] {
+  fill: var(--main-icon-color);
+  [data-fill='a'] {
+    fill: var(--mobile-serachbox-bg);
+  }
+}
+
+[data-name='merch-toggle-disabled'] {
+  fill: var(--merch-disabled-icon-bg);
+  stroke: var(--merch-disabled-icon-bg);
+  [data-fill='a'] {
+    fill: var(--merch-disabled-icon-color);
+  }
+}
+
 [data-name='menu-item-merch'] {
   fill: var(--main-icon-color);
   stroke: var(--main-icon-color);
