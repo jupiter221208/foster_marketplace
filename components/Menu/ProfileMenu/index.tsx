@@ -61,6 +61,7 @@ const ProfileMenu = props => {
   useEffect(() => {
     if (loginSignedFlag === true) {
       if (connected) {
+        dispatch({ type: 'set', loginSignedFlag: false })
         setAlertData([
           {
             id: 0,
@@ -89,7 +90,6 @@ const ProfileMenu = props => {
                     className={styles.signIn}
                     onClick={() => {
                       setButtonClicked(true)
-                      dispatch({ type: 'set', loginSignedFlag: false })
                       setVisible(true)
                     }}
                   >

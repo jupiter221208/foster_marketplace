@@ -42,7 +42,6 @@ const MobileMenu = () => {
   const router = useRouter()
   const { connected, disconnect } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
-  const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [showAlert, setShowAlert] = useState(false)
@@ -246,7 +245,7 @@ const MobileMenu = () => {
           </div>
           {/* connect wallet alert */}
           <Alert
-            open={showAlert && loginSignedFlag}
+            open={showAlert}
             close={() => {
               setShowAlert(false)
               // handleLogin()

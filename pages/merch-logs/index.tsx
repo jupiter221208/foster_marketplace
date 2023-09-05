@@ -163,8 +163,11 @@ const MerchActivity = () => {
       response => {
         setArtistCommission(response.sold?.totalArtistCommission)
         setTotalAmount(response.bought?.amount)
+        dispatch({ type: 'set', isLoading: false })
       },
-      error => {}
+      error => {
+        dispatch({ type: 'set', isLoading: false })
+      }
     )
   }
 
