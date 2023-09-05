@@ -343,6 +343,8 @@ const PrimaryHeader = () => {
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
+            lightMode={lightMode}
+            handleThemeMode={handleThemeMode}
           />
         </div>
       )}
@@ -368,7 +370,6 @@ const PrimaryHeader = () => {
         <div className="g-container flex justify-between items-center">
           <div className="flex">
             <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-              {/* <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" /> */}
               <FosterNavLogo width={101} height={23} />
             </div>
           </div>

@@ -18,27 +18,19 @@ import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?com
 
 import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
-import { setColorTheme } from 'utils/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 
 const ProfileMenu = props => {
-  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus } = props
+  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
   const router = useRouter()
   const dispatch = useDispatch()
-  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const [buttonClicked, setButtonClicked] = useState(false)
   const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
-
-  const handleThemeMode = () => {
-    setColorTheme(!lightMode)
-    dispatch({ type: 'set', lightMode: !lightMode })
-    setLightMode(!lightMode)
-  }
 
   useEffect(() => {
     if (!buttonClicked) {
