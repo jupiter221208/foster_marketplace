@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Head from 'next/head'
 
@@ -30,13 +30,13 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 import ArtistLayout from 'components/Layout/ArtistLayout'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const Category = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  dispatch({ type: 'set', isLoading: false })
-
+  const isLoading = useSelector<any>(state => state.isLoading)
   useEffect(() => {
     setTimeout(
       () =>
@@ -46,6 +46,7 @@ const Category = () => {
         }),
       500
     )
+    dispatch({ type: 'set', isLoading: false })
   }, [])
 
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
@@ -120,6 +121,8 @@ const Category = () => {
             <PopularCategorySection type="category" />
           </div>
         </div>
+
+        <FullScreenLoadingModal open={isLoading} />
       </div>
     </div>
   )

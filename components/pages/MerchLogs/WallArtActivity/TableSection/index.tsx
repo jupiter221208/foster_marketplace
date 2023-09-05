@@ -17,6 +17,7 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import OrdersAccordion from 'components/Accordion/Merch/OrdersAccordion'
 
 const TableSection = props => {
   const { data } = props
@@ -27,7 +28,7 @@ const TableSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <ArtworksTable data={data} />
       ) : (
-        <ArtworksAccordion data={data} />
+        <OrdersAccordion data={data} />
       )}
     </section>
   )

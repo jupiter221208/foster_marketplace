@@ -9,7 +9,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import ArtworksAccordion from 'components/Accordion/Stats/ArtworksAccordion'
+import OrdersAccordion from 'components/Accordion/Merch/OrdersAccordion'
 import MerchActivityTable from 'components/Table/MerchActivityTable'
 
 // custom functions
@@ -27,7 +27,7 @@ const TableSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <MerchActivityTable data={data} type={type} />
       ) : (
-        <ArtworksAccordion data={data} type={type} />
+        <OrdersAccordion data={data} type={type} />
       )}
     </section>
   )

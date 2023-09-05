@@ -215,7 +215,7 @@ const MyWalletSubMenu = props => {
       setAlertData([
         {
           id: 0,
-          title: 'Wallet Disconnected!',
+          title: 'Wallet Disconnected4!',
           description: `You've successfully disconnected your wallet!`,
           type: 'success',
         },

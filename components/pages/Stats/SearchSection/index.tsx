@@ -132,8 +132,8 @@ const SearchSection = props => {
               onClick={() => setPeriod('day')}
               fontFamily={'Muli-SemiBold'}
               color={period === 'day' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={period === 'day' ? 'var(--menu-bg-color)' : 'transparent'}
-              backgroundColor02={period === 'day' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor01={period === 'day' ? 'var(--time-slog-bg)' : 'transparent'}
+              backgroundColor02={period === 'day' ? 'var(--time-slog-bg)' : 'transparent'}
               gradientDirection="bottom"
             />
             <TimeSlotButton
@@ -141,8 +141,8 @@ const SearchSection = props => {
               onClick={() => setPeriod('week')}
               fontFamily={'Muli-SemiBold'}
               color={period === 'week' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={period === 'week' ? 'var(--menu-bg-color)' : 'transparent'}
-              backgroundColor02={period === 'week' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor01={period === 'week' ? 'var(--time-slog-bg)' : 'transparent'}
+              backgroundColor02={period === 'week' ? 'var(--time-slog-bg)' : 'transparent'}
               gradientDirection="bottom"
             />
             <TimeSlotButton
@@ -150,8 +150,8 @@ const SearchSection = props => {
               onClick={() => setPeriod('month')}
               fontFamily={'Muli-SemiBold'}
               color={period === 'month' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={period === 'month' ? 'var(--menu-bg-color)' : 'transparent'}
-              backgroundColor02={period === 'month' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor01={period === 'month' ? 'var(--time-slog-bg)' : 'transparent'}
+              backgroundColor02={period === 'month' ? 'var(--time-slog-bg)' : 'transparent'}
               gradientDirection="bottom"
             />
             <TimeSlotButton
@@ -159,8 +159,8 @@ const SearchSection = props => {
               onClick={() => setPeriod('all')}
               fontFamily={'Muli-SemiBold'}
               color={period === 'all' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-              backgroundColor01={period === 'all' ? 'var(--menu-bg-color)' : 'transparent'}
-              backgroundColor02={period === 'all' ? 'var(--menu-bg-color)' : 'transparent'}
+              backgroundColor01={period === 'all' ? 'var(--time-slog-bg)' : 'transparent'}
+              backgroundColor02={period === 'all' ? 'var(--time-slog-bg)' : 'transparent'}
               gradientDirection="bottom"
             />
           </div>

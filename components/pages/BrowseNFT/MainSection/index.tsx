@@ -141,7 +141,7 @@ const MainSection = ({
   const { id } = router.query
   const dispatch = useDispatch()
   const { refreshToken } = useAuthentication()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
   const [loading, setLoading] = useState<boolean>(true)
@@ -183,6 +183,7 @@ const MainSection = ({
   const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
+  const [merchHover, setMerchHover] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -877,23 +878,30 @@ const MainSection = ({
                       // <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                     )}
                   </div>
+                  <div className="cursor-pointer flex gap-[10px] items-center">
+                    {isCreatedNft &&
+                      (merchToggle ? (
+                        <MerchToggleEnabledIcon
+                          alt=""
+                          onClick={() => {
+                            setRemoveMerchModal(true)
+                          }}
+                          onMouseEnter={() => setMerchHover(true)}
+                          onMouseLeave={() => setMerchHover(false)}
+                        />
+                      ) : (
+                        <MerchToggleDisabledIcon
+                          alt=""
+                          onClick={() => {
+                            setCreateMerchModal(true)
+                          }}
+                          onMouseEnter={() => setMerchHover(true)}
+                          onMouseLeave={() => setMerchHover(false)}
+                        />
+                      ))}
 
-                  {isCreatedNft &&
-                    (merchToggle ? (
-                      <MerchToggleEnabledIcon
-                        alt=""
-                        onClick={() => {
-                          setRemoveMerchModal(true)
-                        }}
-                      />
-                    ) : (
-                      <MerchToggleDisabledIcon
-                        alt=""
-                        onClick={() => {
-                          setCreateMerchModal(true)
-                        }}
-                      />
-                    ))}
+                    {merchHover && <div className={styles.infoText}>Creator Studio</div>}
+                  </div>
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">

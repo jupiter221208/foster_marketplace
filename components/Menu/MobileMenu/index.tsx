@@ -36,20 +36,20 @@ import { setColorTheme } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { deleteCookie } from 'cookies-next'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { connected, disconnect } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
-  const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [buttonClicked, setButtonClicked] = useState(false)
 
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const [profileImage, setProfileImage] = useState('')
   const [profileName, setProfileName] = useState('')
 
@@ -64,6 +64,13 @@ const MobileMenu = () => {
         }
       })
       setProfileMenuList(array)
+
+      if (profileInfo.username) {
+        setProfileName(profileInfo.username)
+      }
+      if (profileInfo.profile_picture) {
+        setProfileImage(profileInfo.profile_picture)
+      }
     }
   }, [profileInfo])
 
@@ -75,15 +82,18 @@ const MobileMenu = () => {
     setButtonClicked(true)
 
     if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      setShowAlert(true)
+      // setAlertData([
+      //   {
+      //     id: 0,
+      //     title: 'Wallet Connected!',
+      //     description: `You've successfully connected your wallet!`,
+      //     type: 'success',
+      //   },
+      // ])
+      // dispatch({ type: 'set', showConnectAlert: true })
+      // setTimeout(() => {
+      //   setShowAlert(true)
+      // }, 1000)
     } else {
       setAlertData([
         {
@@ -96,17 +106,6 @@ const MobileMenu = () => {
       setShowAlert(true)
     }
   }, [connected])
-
-  useEffect(() => {
-    if (profileInfo) {
-      if (profileInfo.username) {
-        setProfileName(profileInfo.username)
-      }
-      if (profileInfo.profile_picture) {
-        setProfileImage(profileInfo.profile_picture)
-      }
-    }
-  }, [profileInfo])
 
   const handleThemeMode = () => {
     setColorTheme(!lightMode)
@@ -243,7 +242,7 @@ const MobileMenu = () => {
           </div>
           {/* connect wallet alert */}
           <Alert
-            open={showAlert && loginSignedFlag}
+            open={showAlert}
             close={() => {
               setShowAlert(false)
               // handleLogin()

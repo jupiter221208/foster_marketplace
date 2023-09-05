@@ -27,6 +27,7 @@ import artistsAPI from 'apis/artists'
 import { useDispatch, useSelector } from 'react-redux'
 import { compareDate, getDateLabel } from 'utils/helpers'
 import NotificationTab from 'components/Tab/NotificationTab'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const Notifications = () => {
   const dispatch = useDispatch()
@@ -39,7 +40,7 @@ const Notifications = () => {
   const [searchedNotification, setSearchedNotification] = useState<any[]>([])
   const [searchWord, setSearchWord] = useState('')
   const viewport = useViewport()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
 
   function getSortedNotification(notifications) {
     let today = new Date().getTime()

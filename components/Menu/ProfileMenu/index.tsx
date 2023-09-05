@@ -20,9 +20,11 @@ import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
 import { setColorTheme } from 'utils/helpers'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const ProfileMenu = props => {
   const { avatar, wallet, username, menuList, onSelect, connectWalletStatus } = props
+  const router = useRouter()
   const dispatch = useDispatch()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [showAlert, setShowAlert] = useState(false)
@@ -45,20 +47,7 @@ const ProfileMenu = props => {
 
     setButtonClicked(false)
 
-    if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      dispatch({ type: 'set', showConnectAlert: true })
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 1000)
-    } else {
+    if (!connected) {
       setAlertData([
         {
           id: 0,
@@ -70,6 +59,26 @@ const ProfileMenu = props => {
       setShowAlert(true)
     }
   }, [connected])
+
+  useEffect(() => {
+    if (loginSignedFlag === true) {
+      if (connected) {
+        dispatch({ type: 'set', loginSignedFlag: false })
+        setAlertData([
+          {
+            id: 0,
+            title: 'Wallet Connected!',
+            description: `You've successfully connected your wallet!`,
+            type: 'success',
+          },
+        ])
+        dispatch({ type: 'set', showConnectAlert: true })
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }
+    }
+  }, [loginSignedFlag])
 
   return (
     <div className="relative flex items-center">
@@ -83,7 +92,6 @@ const ProfileMenu = props => {
                     className={styles.signIn}
                     onClick={() => {
                       setButtonClicked(true)
-                      dispatch({ type: 'set', loginSignedFlag: false })
                       setVisible(true)
                     }}
                   >
@@ -144,8 +152,11 @@ const ProfileMenu = props => {
                   item={item}
                   key={index}
                   onSelect={item => {
-                    if (item.id === 7) setButtonClicked(true)
-                    onSelect(item)
+                    if (item.id === 7) {
+                      setButtonClicked(true)
+                    } else {
+                      onSelect(item)
+                    }
                   }}
                 />
               ))}
@@ -162,6 +173,9 @@ const ProfileMenu = props => {
           open={showAlert}
           close={() => {
             setShowAlert(false)
+            if (!connected) {
+              router.push('/')
+            }
           }}
           data={alertData}
         />

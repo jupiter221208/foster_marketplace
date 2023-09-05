@@ -35,6 +35,7 @@ export function useAuthentication(): UseAuthenticationReturn {
           let signature = Buffer.from(signatureRaw).toString('hex')
           localStorage.setItem('signature', signature)
           signLoginMessagePromise = null
+          dispatch({ type: 'set', loginSignedFlag: true })
           return signature
         })
 
