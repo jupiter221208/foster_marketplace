@@ -20,9 +20,11 @@ import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
 import { setColorTheme } from 'utils/helpers'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const ProfileMenu = props => {
   const { avatar, wallet, username, menuList, onSelect, connectWalletStatus } = props
+  const router = useRouter()
   const dispatch = useDispatch()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [showAlert, setShowAlert] = useState(false)
@@ -150,8 +152,11 @@ const ProfileMenu = props => {
                   item={item}
                   key={index}
                   onSelect={item => {
-                    if (item.id === 7) setButtonClicked(true)
-                    onSelect(item)
+                    if (item.id === 7) {
+                      setButtonClicked(true)
+                    } else {
+                      onSelect(item)
+                    }
                   }}
                 />
               ))}
@@ -168,6 +173,9 @@ const ProfileMenu = props => {
           open={showAlert}
           close={() => {
             setShowAlert(false)
+            if (!connected) {
+              router.push('/')
+            }
           }}
           data={alertData}
         />
