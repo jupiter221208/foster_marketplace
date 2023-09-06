@@ -51,9 +51,13 @@
   letter-spacing: 0;
 }
 
-.selected {
-  color: var(--text-gray-200-color);
+.label {
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   font-family: 'Muli-SemiBold';
   font-size: 20px;
   line-height: 24px;
+}
+
+.selected {
+  color: rgba(var(--text-gray-200-color-rgb), 1) !important;
 }

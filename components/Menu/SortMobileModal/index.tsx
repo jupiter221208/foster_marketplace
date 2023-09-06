@@ -44,7 +44,7 @@ const SortMobileModal = props => {
             >
               <Dialog.Panel className="w-full h-full">
                 <div className={styles.title}>
-                  Sort by
+                  Sort By
                   {/* <div className="mr-[3px]">
                     <Image src={CloseIcon} alt="" onClick={onClose} />
                   </div> */}

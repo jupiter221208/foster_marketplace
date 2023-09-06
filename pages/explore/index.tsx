@@ -21,7 +21,6 @@ import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import OutlineButton from 'components/Button/OutlineButton'
-import ExplorePagination from 'components/Button/ExplorePagination'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
@@ -61,11 +60,9 @@ const Explore = () => {
 
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
-  const collectionSort = useSelector<any>(state => state.collectionSort)
   const collectionCategory = useSelector<any>(state => state.collectionCategory)
   const artworkCategory = useSelector<any>(state => state.artworkCategory)
   const artworkSort = useSelector<any>(state => state.artworkSort)
-  const artistSort = useSelector<any>(state => state.artistSort)
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
   const [nftList, setNftList] = useState<any>([])
@@ -523,8 +520,8 @@ const Explore = () => {
         <div className={styles.topRightEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore the Circus</div>
-        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] xl:mt-[88px] z-10">
+        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore</div>
+        <div className="w-full flex justify-between gap-0 lg:gap-[30px] lg:mt-[40px] xl:gap-[75px] xl:mt-[88px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
             {exploreTab === 0 && (

@@ -36,17 +36,17 @@
   right: 0;
   margin-top: 4px;
   transform-origin: top right;
-  background-color: rgba(var(--background-black-color-rgb), 0.6);
+  background: var(--header-bg-color);
   border-radius: 8px;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .menuArea {
   width: 100%;
   cursor: pointer;
   border-radius: 8px;
-  border: 1px solid rgba(var(--text-gray-200-color), 0.05);
+  border: 1px solid rgba(#fff, 0.05);
   background-color: transparent;
 
   &:focus {

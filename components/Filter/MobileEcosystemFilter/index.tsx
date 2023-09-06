@@ -25,19 +25,6 @@ const MobileEcosystemFilter = props => {
   return (
     <div className={styles.container}>
       <div className={styles.content}>
-        <div className="w-full flex justify-between items-center mb-8">
-          <div className={styles.title}>Filters</div>
-          <div onClick={() => onClose()}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="17.323" height="17.321" viewBox="0 0 17.323 17.321">
-              <path
-                id="times-7"
-                d="M16.689,14.655l6.2-6.187A1.448,1.448,0,1,0,20.843,6.42l-6.187,6.2L8.469,6.42A1.448,1.448,0,0,0,6.421,8.468l6.2,6.187-6.2,6.187A1.448,1.448,0,1,0,8.469,22.89l6.187-6.2,6.187,6.2a1.448,1.448,0,1,0,2.048-2.048Z"
-                transform="translate(-5.994 -5.996)"
-                fill="var(--filter-close-color)"
-              />
-            </svg>
-          </div>
-        </div>
         {/* <Disclosure>
           {({ open }) => (
             <>
@@ -56,7 +43,7 @@ const MobileEcosystemFilter = props => {
             </>
           )}
         </Disclosure> */}
-        <Disclosure>
+        <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
@@ -68,7 +55,6 @@ const MobileEcosystemFilter = props => {
                   data={ArtistVerificationList}
                   selected={selectedVerifyType}
                   onChange={item => setSelectedVerifyType(item)}
-                  direction="rtl"
                 />
               </Disclosure.Panel>
             </>

@@ -6,7 +6,9 @@
 }
 
 .bgView {
-  background-color: rgba(#070101, 0.3);
+  background-color: rgba(#121212, 0.3);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   position: fixed;
   inset: 0;
 }
@@ -20,7 +22,7 @@
   padding: 24px 28px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  background: linear-gradient(to bottom, #202427, #121212);
+  background: var(--ellipse-report-bg);
   border: 1px solid rgba($text-gray-200-color, 0.1);
 }
 
@@ -51,18 +53,19 @@
   line-height: 20px;
   color: $text-gray-200-color;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
 
   text-align: center;
 }
 
 .title {
-  font-family: 'Muli-Regular';
-  font-size: 16px;
-  line-height: 40px;
-  color: rgba($text-gray-200-color, 0.75);
-  display: flex;
-  justify-content: space-between;
+  width: 100%;
+  text-align: center;
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  line-height: 25px;
+  color: var(--text-gray-200-color);
+  margin-bottom: 35px;
 }
 
 .divider {
