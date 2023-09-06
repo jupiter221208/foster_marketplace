@@ -1,8 +1,5 @@
 import { Fragment, useState, useEffect } from 'react'
 
-// next components
-import Image from 'next/image'
-
 // third party components
 import { Dialog, Transition } from '@headlessui/react'
 
@@ -43,12 +40,7 @@ const SortMobileModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full h-full">
-                <div className={styles.title}>
-                  Sort By
-                  {/* <div className="mr-[3px]">
-                    <Image src={CloseIcon} alt="" onClick={onClose} />
-                  </div> */}
-                </div>
+                <div className={styles.title}>Sort By</div>
 
                 <RadioMobile
                   data={data}
