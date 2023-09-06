@@ -278,7 +278,7 @@ const PrimaryHeader = () => {
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
-            <div id="walletButton" className={connected ? 'h-full min-w-[190px]' : 'h-full min-w-[220px]'} />
+            <div id="walletButton" className="h-full min-w-[120px]" />
             <div id="notificationButton" className={connected ? 'min-w-[46px] h-full' : 'w-[0px]'} />
             <div id="profileButton" className="h-full ml-2 min-w-[150px]" />
           </div>
