@@ -279,9 +279,9 @@
 
 .leftSide {
   position: absolute;
-  width: 27vw;
+  width: 26vw;
   height: 100%;
-  background: linear-gradient(to right, var(--background-main-color) 5%, transparent 100%);
+  background: linear-gradient(to right, var(--background-main-color) 10%, transparent 100%);
   left: 0;
   top: 0;
   z-index: 10;
@@ -289,9 +289,9 @@
 
 .rightSide {
   position: absolute;
-  width: 27vw;
+  width: 26vw;
   height: 100%;
-  background: linear-gradient(to left, var(--background-main-color) 5%, transparent 100%);
+  background: linear-gradient(to left, var(--background-main-color) 15%, transparent 100%);
   right: 0;
   top: 0;
   z-index: 10;
