@@ -875,30 +875,29 @@ const MainSection = ({
                       <div className={styles.ellipseArea}>
                         <ThreeEllipseIcon alt="" />
                       </div>
-                      // <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
                     )}
                   </div>
+
                   <div className="cursor-pointer flex gap-[10px] items-center">
-                    {isCreatedNft &&
-                      (merchToggle ? (
-                        <MerchToggleEnabledIcon
-                          alt=""
-                          onClick={() => {
-                            setRemoveMerchModal(true)
-                          }}
-                          onMouseEnter={() => setMerchHover(true)}
-                          onMouseLeave={() => setMerchHover(false)}
-                        />
-                      ) : (
-                        <MerchToggleDisabledIcon
-                          alt=""
-                          onClick={() => {
-                            setCreateMerchModal(true)
-                          }}
-                          onMouseEnter={() => setMerchHover(true)}
-                          onMouseLeave={() => setMerchHover(false)}
-                        />
-                      ))}
+                    {merchToggle ? (
+                      <MerchToggleEnabledIcon
+                        alt=""
+                        onClick={() => {
+                          if (isCreatedNft) setRemoveMerchModal(true)
+                        }}
+                        onMouseEnter={() => setMerchHover(true)}
+                        onMouseLeave={() => setMerchHover(false)}
+                      />
+                    ) : (
+                      <MerchToggleDisabledIcon
+                        alt=""
+                        onClick={() => {
+                          if (isCreatedNft) setCreateMerchModal(true)
+                        }}
+                        onMouseEnter={() => setMerchHover(true)}
+                        onMouseLeave={() => setMerchHover(false)}
+                      />
+                    )}
 
                     {merchHover && <div className={styles.infoText}>Creator Studio</div>}
                   </div>
