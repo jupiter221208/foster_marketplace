@@ -158,10 +158,10 @@ const MainSection = () => {
                     clickable: true,
                   }}
                   modules={[Autoplay, Pagination]}
-                  // autoplay={{
-                  //   delay: 5000,
-                  //   disableOnInteraction: false,
-                  // }}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
