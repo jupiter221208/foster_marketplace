@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper'
+import { EffectCoverflow, Autoplay, Pagination } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -147,21 +147,21 @@ const MainSection = () => {
               marginLeft: '0px',
             }}
           >
-            <div className="w-full relative">
+            <div className="w-full relative" id="heroSwiper">
               {heroList.length !== 0 && (
                 <Swiper
                   slidesPerView={3}
-                  spaceBetween={30}
+                  spaceBetween={0}
+                  centeredSlides={true}
+                  loop
                   pagination={{
                     clickable: true,
                   }}
                   modules={[Autoplay, Pagination]}
-                  className={'heroSwiper'}
-                  loop
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
+                  // autoplay={{
+                  //   delay: 5000,
+                  //   disableOnInteraction: false,
+                  // }}
                 >
                   {heroList.map((item, index) => (
                     <SwiperSlide key={index}>
@@ -173,7 +173,7 @@ const MainSection = () => {
               <div className={styles.leftSide} />
               <div className={styles.rightSide} />
             </div>
-            <div className="mt-[35px] lg:mt-[30px] flex justify-center gap-8">
+            <div className="mt-[35px] lg:mt-[0px] flex justify-center gap-8">
               <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
