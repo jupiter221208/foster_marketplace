@@ -52,13 +52,11 @@
         "title": "How do I purchase Solana (SOL)?",
         "description": [
           "In order to buy the Solana token (SOL), you will need to open an account with a crypto exchange. Leading exchanges that allow users to buy and sell SOL with their local fiat currency include:",
-          "i. FTX or FTX.US",
-          "ii. Coinbase",
-          "iii. Kraken",
-          "iv. Binance or Binance.US",
-          "v. AscendEx",
-          "vi. KuCoin",
-          "vii. Crypto.com"
+          "i. Coinbase",
+          "ii. Kraken",
+          "iii. Binance or Binance.US",
+          "iv. KuCoin",
+          "v. Crypto.com"
         ]
       },
       {
@@ -128,7 +126,7 @@
       },
       {
         "id": 1,
-        "title": "How do I NFT royalties work?",
+        "title": "How do NFT royalties work?",
         "description": [
           "NFT royalties are automatic payments to the original NFT owner made on secondary sales of the owner/artist's creation (i.e., if you select 20% royalties during the minting process, you will receive 20% of the payment every time the NFT is sold)."
         ]
@@ -159,7 +157,7 @@
         "id": 5,
         "title": "When will the NFT streaming feature become available?",
         "description": [
-          "Foster’s NFT streaming protocol will be introduced in phase 3 of the product roadmap, estimated to deploy in Q4 2023."
+          "Foster’s NFT streaming protocol will be introduced in phase 3 of the product roadmap, estimated to deploy in Q4 2024."
         ]
       },
       {
@@ -173,14 +171,14 @@
         "id": 7,
         "title": "How do I hide items from my Foster Marketplace profile?",
         "description": [
-          "If you would like to hide an item you minted, simply go to the user dashboard, and select the Single NFT or Collection you wish to hide under the Hidden tab."
+          "If you would like to hide an NFT, simply find the NFT on your profile page and click the hide icon on the top right. If you would like to unhide the item, select the item you wish to unhide from the Hidden tab on your dashboard."
         ]
       },
       {
         "id": 8,
         "title": "Can I add an NFT to an existing collection?",
         "description": [
-          "The add to existing collection feature will be rolled out in the beta release of Foster Marketplace."
+          "You can add items to any on-chain collection where you hold update authority of the collection. This can be done by selecting “add to an existing collection” on step 3 of minting a single NFT."
         ]
       },
       {
@@ -228,7 +226,7 @@
         "id": 1,
         "title": "What is the utility of Turkey Circus NFTs?",
         "description": [
-          "Turkey Circus NFTs provides holders access to the Foster DAO. Turkey Circus holders will also get 5% revenue share from Foster Core Collections. The Turkey Circus NFT will also unlock access to exclusive features and value-added services both on the marketplace and IRL."
+          "The spectrum of utility as a Turkey Circus holder varies greatly, intending to create opportunities for artists, builders and collectors alike. Learn more by visiting <u><a href='https://turkeycircus.io'>turkeycircus.io</a></u>"
         ]
       },
       {
@@ -264,7 +262,7 @@
       {
         "id": 6,
         "title": "When will the Turkey Circus DAO launch?",
-        "description": ["Turkey Circus governance will be enabled during the beta release of Foster Marketplace."]
+        "description": ["Circus DAO has already launched and is now live."]
       },
       {
         "id": 7,
@@ -277,7 +275,7 @@
         "id": 8,
         "title": "How can I participate in governance activities by the Turkey Circus DAO?",
         "description": [
-          "Turkey Circus DAO activities can be accessed directly from the marketplace. The team will be deploying a DAO user-interface that can only be accessed by wallets holding Turkey Circus NFTs."
+          "Turkey Circus DAO activities can be accessed directly at fostermarketplace.app/dao. However, submitting proposals and voting on proposals is gated to Turkey Circus holders."
         ]
       },
       {
