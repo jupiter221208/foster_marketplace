@@ -6,9 +6,8 @@ import {
 } from '@solana/spl-token'
 import { type Metaplex, sol, token, toMetadata, toMetadataAccount } from '@metaplex-foundation/js'
 
-export const MERCH_FOSTER_ADDRESS = new PublicKey('8urUAT6cdM8JL295vJvngWBcpXBybrs7rrpSa7vGoo5f')
-export const MERCH_MADDIES_ADDRESS = new PublicKey('Ee9ftaQz43zkEjxcrW724e3z64rgrv1rV17hdPJ9dxLL')
-// export const MERCH_MADDIES_ADDRESS = new PublicKey('GhByFEmT6mGm9PCz6bNg7tQ76BkXEpSEkBGAYsBYQbwx') // mainnet address
+export const MERCH_FOSTER_ADDRESS = new PublicKey('BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT')
+export const MERCH_MADDIES_ADDRESS = new PublicKey('GhByFEmT6mGm9PCz6bNg7tQ76BkXEpSEkBGAYsBYQbwx')
 
 export const USDC_ADDRESS = new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
 export const USDC_DECIMALS = 6
