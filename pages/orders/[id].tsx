@@ -53,7 +53,7 @@ const OrderSection = props => {
               </div>
             ) : merchType === 'wallart' ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
+                <div className="w-full h-full">
                   <img src={previewUrl} alt="" className="w-full h-full object-cover" />
                 </div>
               </div>
