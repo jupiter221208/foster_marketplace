@@ -34,9 +34,22 @@ const WallSection = props => {
         let newCanvas = canvas as fabric.Canvas
 
         if (newCanvas != '') {
-          let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
-          let screenWidth = window.innerWidth * width_ratio
-          let screenHeight = window.innerHeight - 150
+          let screenWidth, screenHeight
+          if (window.innerWidth < 576) {
+            screenWidth = window.innerWidth
+            screenHeight = window.innerWidth
+          } else if (window.innerWidth < 768) {
+            screenWidth = window.innerWidth - 100
+            screenHeight = screenWidth * 0.8
+          } else if (window.innerWidth < 1024) {
+            screenWidth = window.innerWidth - 270
+            screenHeight = screenWidth * 0.8
+          } else {
+            let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
+            screenWidth = Math.floor(window.innerWidth * width_ratio)
+            screenHeight = window.innerHeight - 160
+          }
+
           newCanvas.setDimensions({
             width: screenWidth,
             height: screenHeight,
@@ -155,11 +168,18 @@ const WallSection = props => {
     }
 
     let screenWidth, screenHeight
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 576) {
       screenWidth = window.innerWidth
       screenHeight = window.innerWidth
+    } else if (window.innerWidth < 768) {
+      screenWidth = window.innerWidth - 100
+      screenHeight = screenWidth * 0.8
+    } else if (window.innerWidth < 1024) {
+      screenWidth = window.innerWidth - 270
+      screenHeight = screenWidth * 0.8
     } else {
-      screenWidth = Math.floor(window.innerWidth * 0.41)
+      let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
+      screenWidth = Math.floor(window.innerWidth * width_ratio)
       screenHeight = window.innerHeight - 160
     }
 
