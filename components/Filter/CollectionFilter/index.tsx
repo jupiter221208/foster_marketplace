@@ -41,7 +41,7 @@ const CollectionFilter = props => {
         selected={selectedVerifyType}
         onChange={item => setSelectedVerifyType(item)}
       />
-      <div className={`${styles.title} mt-[52px]`}>Ccategories</div>
+      <div className={`${styles.title} mt-[52px]`}>Categories</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       )}
