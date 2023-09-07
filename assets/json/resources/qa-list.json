@@ -479,5 +479,10 @@
         "description": [""]
       }
     ]
+  },
+  {
+    "id": 5,
+    "title": "Creator Studio",
+    "content": []
   }
 ]
