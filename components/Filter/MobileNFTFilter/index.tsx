@@ -57,7 +57,7 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between">
-                <div className={styles.subTitle}>Artist Verification</div>
+                <div className={`${styles.subTitle} mb-[12px]`}>Artist Verification</div>
                 <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -74,7 +74,7 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>Availability</div>
+                <div className={`${styles.subTitle} mt-[12px] mb-[12px]`}>Availability</div>
                 <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -111,7 +111,7 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>Market</div>
+                <div className={`${styles.subTitle} mt-[12px] mb-[12px]`}>Market</div>
                 <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -124,7 +124,7 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>Medium</div>
+                <div className={`${styles.subTitle} mt-[12px] mb-[12px]`}>Medium</div>
                 <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -150,7 +150,7 @@ const MobileNFTFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>Categories</div>
+                <div className={`${styles.subTitle} mt-[12px] mb-[24px]`}>Categories</div>
                 <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>

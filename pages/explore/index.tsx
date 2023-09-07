@@ -522,7 +522,7 @@ const Explore = () => {
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
         <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore</div>
-        <div className="w-full flex justify-between gap-0 lg:gap-[30px] lg:mt-[40px] xl:gap-[75px] xl:mt-[88px] z-10">
+        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] lg:mt-[110px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
             {exploreTab === 0 && (
@@ -541,7 +541,7 @@ const Explore = () => {
           </div>
           {/* content part */}
           <div className="w-full flex-1 flex-wrap">
-            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[88px] z-10">
+            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[80px] z-10">
               <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
