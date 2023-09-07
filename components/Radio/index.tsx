@@ -33,7 +33,7 @@ const Radio = props => {
         />
       )}
       <label
-        className={styles.label}
+        className={`${styles.label} ${selected.id === item.id ? styles.selected : ''}`}
         htmlFor={item.id}
         onClick={() => (item.disabled !== undefined && item.disabled ? {} : onChange(item))}
         style={{ opacity: item.disabled ? 0.5 : 1 }}

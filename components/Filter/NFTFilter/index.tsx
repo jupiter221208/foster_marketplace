@@ -53,25 +53,25 @@ const NFTFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>ARTIST VERIFICATION</div>
+      <div className={styles.title}>Artist Verification</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}
         onChange={item => setSelectedVerifyType(item)}
       />
-      <div className={`${styles.title} mt-[52px]`}>AVAILABILITY</div>
+      <div className={`${styles.title} mt-[52px]`}>Availability</div>
       <Radio data={AvailabilityList} selected={selectedAvailability} onChange={item => setSelectedAvailability(item)} />
       {/* <div className={`${styles.title} mt-[52px]`}>DIMENSIONS</div>
       <Radio data={DimensionList} selected={selectedDimension} onChange={item => setSelectedDimension(item)} /> */}
-      <div className={`${styles.title} mt-[52px]`}>MARKET</div>
+      <div className={`${styles.title} mt-[52px]`}>Market</div>
       <Radio data={MarketList} selected={selectedMarket} onChange={item => setSelectedMarket(item)} />
-      <div className={`${styles.title} mt-[52px]`}>MEDIUM</div>
+      <div className={`${styles.title} mt-[52px]`}>Medium</div>
       <Radio data={MediumList} selected={selectedMedium} onChange={item => setSelectedMedium(item)} />
       {/* <div className={`${styles.title} mt-[52px]`}>PRICE</div>
       <PriceRange />
       <div className={`${styles.title} mt-[52px]`}>ROYALTIES</div>
       <RoyaltyRange /> */}
-      <div className={`${styles.title} mt-[52px]`}>CATEGORIES</div>
+      <div className={`${styles.title} mt-[52px]`}>Categories</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       )}

@@ -16,7 +16,7 @@ const EcosystemFilter = () => {
     <div className={styles.container}>
       {/* <div className={styles.title}>PROFILE</div>
       <Radio data={ProfileList} selected={selectedProfile} onChange={item => setSelectedProfile(item)} /> */}
-      <div className={styles.title}>VERIFICATION STATUS</div>
+      <div className={styles.title}>Verification Status</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}

@@ -1,4 +1,4 @@
-<svg id="noun-filter-1180160" xmlns="http://www.w3.org/2000/svg" width="16.67" height="20.004" viewBox="0 0 16.67 20.004">
-  <path id="Path_108354" data-name="Path 108354" d="M225,150h16.67v1.331H225Z" transform="translate(-225 -150)" fill="#eff0f6"/>
-  <path id="Path_108355" data-name="Path 108355" d="M231.668,317.342,235,313.874v-6.937L241.67,300H225l6.668,6.937Z" transform="translate(-225 -297.338)" fill="#eff0f6"/>
+<svg id="noun-filter-1180160" data-name="stats-btn-icon" xmlns="http://www.w3.org/2000/svg" width="16.67" height="20.004" viewBox="0 0 16.67 20.004">
+  <path id="Path_108354" data-name="Path 108354" d="M225,150h16.67v1.331H225Z" transform="translate(-225 -150)"/>
+  <path id="Path_108355" data-name="Path 108355" d="M231.668,317.342,235,313.874v-6.937L241.67,300H225l6.668,6.937Z" transform="translate(-225 -297.338)" />
 </svg>

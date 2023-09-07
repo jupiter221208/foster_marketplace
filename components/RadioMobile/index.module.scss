@@ -2,7 +2,7 @@
 
 .radio {
   appearance: none;
-  border: 2px solid rgba($text-gray-200-color, 0.6);
+  border: 2px solid rgba(var(--text-gray-200-color-rgb), 0.6);
   background-color: transparent;
   vertical-align: top;
   cursor: pointer;
@@ -11,7 +11,7 @@
   border-radius: 12px;
 
   &:checked {
-    border: 2px solid $brand-09-color;
+    border: 2px solid var(--radio-check-color);
     background-color: transparent;
     display: flex;
     justify-content: center;
@@ -21,36 +21,7 @@
       width: 16px;
       height: 16px;
       border-radius: 8px;
-      background-color: $brand-09-color;
-    }
-  }
-  &:focus {
-    outline: none;
-  }
-}
-
-.lightRadio {
-  appearance: none;
-  border: 2px solid rgba(var(--background-dark-color), 0.6);
-  background-color: transparent;
-  vertical-align: top;
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-
-  &:checked {
-    border: 2px solid var(--background-dark-color);
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &:before {
-      content: '';
-      width: 16px;
-      height: 16px;
-      border-radius: 8px;
-      background-color: var(--background-dark-color);
+      background-color: var(--radio-check-color);
     }
   }
   &:focus {
@@ -61,8 +32,8 @@
 .label {
   flex: 1;
   cursor: pointer;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 16px;
   line-height: 24px;
-  color: $text-gray-200-color;
+  color: var(--text-gray-200-color);
 }

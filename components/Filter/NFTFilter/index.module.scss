@@ -3,15 +3,16 @@
 .container {
   width: 100%;
   height: fit-content;
-  // background-color: rgba(var(--background-black-color), 0.6);
-  border-radius: 23px;
-  padding: 80px 40px 80px 40px;
+  background: var(--activity-bg-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  border-radius: 30px;
+  padding: 45px 40px 45px 40px;
 }
 
 .title {
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Bold';
   font-size: 20px;
   line-height: 25px;
-  color: var(--collection-filter-title);
+  color: var(--text-gray-200-color);
   margin-bottom: 26px;
 }

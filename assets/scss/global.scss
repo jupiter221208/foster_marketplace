@@ -246,7 +246,6 @@
     rgba(32, 36, 39, 0.15) 60%,
     rgba(32, 36, 39, 0.5) 100%
   );
-  --resource-card-bg: linear-gradient(to bottom, #101717, #3a6a68);
   --resource-card-default-bg: #202427;
   --home-swiper-bg: #5ac3ba;
   --explore-btn-bg-1: #5ac3ba;
@@ -1196,6 +1195,10 @@ h6 {
 
 [data-name='activity-down-icon'] {
   fill: var(--main-icon-color);
+}
+
+[data-name='stats-btn-icon'] {
+  fill: var(--stats-btn-icon-color);
 }
 
 [data-name='solana-logo-dark'] {

@@ -21,7 +21,6 @@ import NFTCard from 'components/Card/NFTCard'
 import CollectionCard from 'components/Card/CollectionCard'
 import EcosystemCard from 'components/Card/EcosystemCard'
 import OutlineButton from 'components/Button/OutlineButton'
-import ExplorePagination from 'components/Button/ExplorePagination'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // json
@@ -36,8 +35,8 @@ import MarketList from 'assets/json/explore/market.json'
 
 // images and icons
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import FilterGrayIcon from 'assets/icons/filter-gray.svg'
-import SortGrayIcon from 'assets/icons/sort-gray.svg'
+import FilterGrayIcon from 'assets/icons/filter-gray.svg?component'
+import SortGrayIcon from 'assets/icons/sort-gray.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -51,6 +50,7 @@ import SortMobileModal from 'components/Menu/SortMobileModal'
 import NFTAuctionCard from 'components/Card/NFTAuctionCard'
 import { getTimeDifference, isAvailableDate } from 'utils/helpers'
 import LoadingComponent from './LoadingComponent'
+import GradientButton from 'components/Button/GradientButton'
 
 const Explore = () => {
   const router = useRouter()
@@ -61,11 +61,9 @@ const Explore = () => {
 
   const [isMounted, setIsMounted] = useState(false)
   const availabilityFilter = useSelector<any>(state => state.availabilityFilter)
-  const collectionSort = useSelector<any>(state => state.collectionSort)
   const collectionCategory = useSelector<any>(state => state.collectionCategory)
   const artworkCategory = useSelector<any>(state => state.artworkCategory)
   const artworkSort = useSelector<any>(state => state.artworkSort)
-  const artistSort = useSelector<any>(state => state.artistSort)
   const exploreTab = useSelector<any>(state => state.exploreTab)
   const [tabList, setTabList] = useState<any>(TabList)
   const [nftList, setNftList] = useState<any>([])
@@ -523,8 +521,8 @@ const Explore = () => {
         <div className={styles.topRightEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
-        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore the Circus</div>
-        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] xl:mt-[88px] z-10">
+        <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore</div>
+        <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] lg:mt-[110px] z-10">
           {/* filter menu part */}
           <div className="hidden lg:flex max-w-[324px] min-w-[324px] w-full">
             {exploreTab === 0 && (
@@ -543,7 +541,7 @@ const Explore = () => {
           </div>
           {/* content part */}
           <div className="w-full flex-1 flex-wrap">
-            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-6 lg:mb-[88px] z-10">
+            <div className="w-full flex flex-wrap justify-center lg:justify-between items-center mb-0 lg:mb-[80px] z-10">
               <div className={styles.tabContainer}>
                 <Tab tabList={tabList} onChange={item => handleSelectedTab(item)} />
               </div>
@@ -556,31 +554,39 @@ const Explore = () => {
                 />
               </div>
             </div>
-            <div className="flex lg:hidden w-full justify-between items-center gap-[11px] z-10 my-6">
-              <OutlineButton
+            <div className="flex lg:hidden w-full justify-between items-center gap-[11px] z-10 mb-6 mt-2">
+              <GradientButton
                 label="Filter"
                 onClick={() => setOpenMobileFilter(!openMobileFilter)}
                 fullWidth
-                color="#EFF0F6"
-                backgroundColor={'var(--filter-btn-bg)'}
-                borderColor={'var(--filter-btn-border)'}
+                height="40px"
+                color={'var(--text-gray-200-color)'}
+                icon1={<FilterGrayIcon alt="" />}
+                backgroundColor01="var(--resource-card-bg)"
+                backgroundColor02="var(--resource-card-bg)"
+                gradientDirection="bottom"
                 fontFamily="Muli-Regular"
                 fontSize={14}
                 borderRadius={8}
-                icon={FilterGrayIcon}
+                borderWidth={1}
+                borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                 direction="rtl"
               />
-              <OutlineButton
+              <GradientButton
                 label="Sort"
                 onClick={() => setOpenMobileSort(!openMobileSort)}
                 fullWidth
+                height="40px"
+                color={'var(--text-gray-200-color)'}
+                icon1={<SortGrayIcon alt="" />}
+                backgroundColor01="var(--resource-card-bg)"
+                backgroundColor02="var(--resource-card-bg)"
+                gradientDirection="bottom"
                 fontFamily="Muli-Regular"
                 fontSize={14}
-                color="#EFF0F6"
-                backgroundColor={'var(--filter-btn-bg)'}
-                borderColor={'var(--filter-btn-border)'}
                 borderRadius={8}
-                icon={SortGrayIcon}
+                borderWidth={1}
+                borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                 direction="rtl"
               />
             </div>

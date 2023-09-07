@@ -234,7 +234,7 @@ const WalletButton = props => {
       <div>
         <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
           {/* {shortMainAddress} */}
-          Manage&nbsp;Wallet
+          Wallet
           <div className="w-3 h-3 flex justify-center items-center mt-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
               <path
