@@ -95,6 +95,7 @@ export interface OrderData {
     tax_amount: number
     shipping_amount: number
     seller_shares: any
+    buyer_address: string
   }
   ssorder: ShipStationOrder
   fulfillment?: TrackingItem

@@ -34,7 +34,7 @@ const Selection = props => {
               : selected}
           </div>
         </div>
-        <div className="flex flex-wrap gap-[15px] mt-[15px]">
+        <div className="flex flex-wrap gap-[5px] mt-[15px]">
           {data.map((item, index) => (
             <div
               key={index}

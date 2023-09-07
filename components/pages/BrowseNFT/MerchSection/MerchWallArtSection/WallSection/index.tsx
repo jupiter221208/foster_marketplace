@@ -34,9 +34,22 @@ const WallSection = props => {
         let newCanvas = canvas as fabric.Canvas
 
         if (newCanvas != '') {
-          let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
-          let screenWidth = window.innerWidth * width_ratio
-          let screenHeight = window.innerHeight - 150
+          let screenWidth, screenHeight
+          if (window.innerWidth < 640) {
+            screenWidth = window.innerWidth
+            screenHeight = screenWidth
+          } else if (window.innerWidth < 768) {
+            screenWidth = window.innerWidth - 56
+            screenHeight = screenWidth
+          } else if (window.innerWidth < 1024) {
+            screenWidth = window.innerWidth - 245
+            screenHeight = screenWidth
+          } else {
+            let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
+            screenWidth = Math.floor(window.innerWidth * width_ratio)
+            screenHeight = window.innerHeight - 160
+          }
+
           newCanvas.setDimensions({
             width: screenWidth,
             height: screenHeight,
@@ -155,11 +168,15 @@ const WallSection = props => {
     }
 
     let screenWidth, screenHeight
-    if (window.innerWidth < 1024) {
-      screenWidth = window.innerWidth
-      screenHeight = window.innerWidth
+    if (window.innerWidth < 640) {
+      screenWidth = window.innerWidth - 56
+      screenHeight = screenWidth
+    } else if (window.innerWidth < 1024) {
+      screenWidth = window.innerWidth - 245
+      screenHeight = screenWidth
     } else {
-      screenWidth = Math.floor(window.innerWidth * 0.41)
+      let width_ratio = window.innerWidth > 1680 ? 0.41 : 0.38
+      screenWidth = Math.floor(window.innerWidth * width_ratio)
       screenHeight = window.innerHeight - 160
     }
 
@@ -199,9 +216,10 @@ const WallSection = props => {
           const { width, height } = img.getOriginalSize()
           setArtOrgSize(img.getOriginalSize())
           const artRatio = wallArt.size.width / wallArt.size.height
+
           let multipleRatio = getArtRatio(artRatio)
           let viewWidth = screenWidth * multipleRatio
-          let ratio = (viewWidth / width) * 0.8
+          let ratio = viewWidth / width
           let leftMargin = (screenWidth - viewWidth) / 2
 
           if (screenWidth < 1024) leftMargin = (screenWidth - viewWidth) / 2 + 12
@@ -209,7 +227,7 @@ const WallSection = props => {
             scaleX: ratio,
             scaleY: ratio,
             top: (screenHeight - height * ratio) / 2,
-            left: leftMargin,
+            left: (screenWidth - viewWidth) / 2,
             lockAspectRatio: true,
           })
           img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }

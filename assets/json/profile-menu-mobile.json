@@ -1,7 +1,7 @@
 [
   { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "type": "avatar", "path": "/" },
   { "id": 1, "icon": "", "label": "Dashboard", "type": "dashboard", "path": "/dashboard" },
-  { "id": 2, "icon": "", "label": "Merch Hub", "type": "merch", "path": "/merch-logs" },
+  { "id": 2, "icon": "", "label": "Creator Studio", "type": "merch", "path": "/merch-logs" },
   { "id": 3, "icon": "", "label": "Notifications", "type": "notifications", "path": "/notifications" },
   { "id": 4, "icon": "/icons/setting-green.svg", "label": "Settings", "type": "settings", "path": "/settings" }
 ]

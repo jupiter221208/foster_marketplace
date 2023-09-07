@@ -170,7 +170,7 @@ const MerchActivity = () => {
     )
   }
 
-  let pageTitle = `Merch Hub Activity | Foster Marketplace`
+  let pageTitle = `Creator Studio Activity | Foster Marketplace`
   let pageImageUrl = StatsPreviewImage.src
   let pageDescription = 'An all-in-one hub that provides insights into marketplace trends for artists and collectors.'
 
@@ -200,7 +200,7 @@ const MerchActivity = () => {
         <div className="w-full flex flex-wrap">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
             <div className="w-full flex justify-between">
-              <div className={`${styles.title} z-10`}>Merch Hub Dashboard</div>
+              <div className={`${styles.title} z-10`}>Creator Studio Dashboard</div>
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
@@ -214,7 +214,7 @@ const MerchActivity = () => {
             </div>
           ) : (
             <div className="w-full mb-[30px] mt-[15px]">
-              <div className={`${styles.title} z-10`}>Merch Hub Dashboard</div>
+              <div className={`${styles.title} z-10`}>Creator Studio Dashboard</div>
               <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">

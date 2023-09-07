@@ -70,7 +70,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         title: 'Order Placed!',
         description: 'Your order was placed successfully!',
         description2:
-          'Order details will be emailed to the address provided and can also be tracked on the Foster Merch Hub.',
+          'Order details will be emailed to the address provided and can also be tracked on the Foster Creator Studio.',
         description3: `Your order number is #${id}.`,
         type: 'success',
       },

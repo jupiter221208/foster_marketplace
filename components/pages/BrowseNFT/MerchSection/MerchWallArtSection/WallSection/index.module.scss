@@ -6,7 +6,12 @@
   min-height: 375px;
   overflow: hidden;
   background: var(--merch-mobile-squre-bg);
+  @media (min-width: 1024px) {
+    background: transparent;  
+  }
   z-index: 11;
+  display: flex;
+  justify-content: center;
 }
 
 .canvas-container {

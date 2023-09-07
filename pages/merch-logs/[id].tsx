@@ -70,6 +70,7 @@ const MerchDetail = () => {
           commission: order.artist_commission.toFixed(2),
           shipping: order.shipping_amount.toFixed(2),
           tax: order.tax_amount.toFixed(2),
+          paidBy: order.buyer_address,
         }
         setPaymentDetails(paymentDetails)
         let keys = Object.keys(order.seller_shares)
@@ -175,7 +176,9 @@ const MerchDetail = () => {
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Paid&nbsp;by:&nbsp;{getShortAddress(paidBy)}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}
+            </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}
             </div>
@@ -292,7 +295,7 @@ const MerchDetail = () => {
           <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
           <div className={styles.detailValue}>Payment&nbsp;Status:&nbsp;{paymentDetails?.status}</div>
           <div className={styles.detailValue}>Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}</div>
-          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paidBy)}</div>
+          <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
           <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
           <div className={styles.detailValue}>Tax:&nbsp;${paymentDetails?.tax}</div>
         </div>
