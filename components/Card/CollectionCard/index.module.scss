@@ -17,10 +17,9 @@
   @media (min-width: 1024px) {
     border-radius: 30px;
     padding: 19px;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
   }
   border: 1px solid var(--nft-border-color);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 10px rgba($background-dark-color, 0.1);
 }
 
 .imageArea {

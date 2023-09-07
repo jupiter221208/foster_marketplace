@@ -47,7 +47,7 @@ const MobileEcosystemFilter = props => {
           {({ open }) => (
             <>
               <Disclosure.Button className="flex w-full justify-between items-center">
-                <div className={`${styles.subTitle} mt-[12px]`}>VERIFICATION STATUS</div>
+                <div className={`${styles.subTitle} mt-[12px]`}>Verification Status</div>
                 <DownArrowIcon className={`${open ? 'rotate-180 transform' : ''} mt-1 mr-1`} />
               </Disclosure.Button>
               <Disclosure.Panel>
@@ -66,14 +66,14 @@ const MobileEcosystemFilter = props => {
           <OutlineButton
             label="Cancel"
             onClick={() => onClose()}
-            color="#EFF0F6"
+            color="var(--text-gray-200-color)"
             borderWidth={2}
-            borderColor="#5AC3BA"
+            borderColor="var(--stats-btn-border-color)"
             fullWidth
           />
         </div>
         <div className="w-[94px]">
-          <GradientButton label="Done" onClick={() => onClose()} color="#202427" fullWidth />
+          <GradientButton label="Done" onClick={() => onClose()} fullWidth />
         </div>
       </div>
     </div>

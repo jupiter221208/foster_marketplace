@@ -167,9 +167,9 @@ const MobileNFTFilter = props => {
           <OutlineButton
             label="Cancel"
             onClick={() => onClose()}
-            color="#EFF0F6"
+            color="var(--text-gray-200-color)"
             borderWidth={2}
-            borderColor="#5AC3BA"
+            borderColor="var(--stats-btn-border-color)"
             fullWidth
           />
         </div>
@@ -184,7 +184,6 @@ const MobileNFTFilter = props => {
                 market: selectedMarket,
               })
             }
-            color="#202427"
             fullWidth
           />
         </div>

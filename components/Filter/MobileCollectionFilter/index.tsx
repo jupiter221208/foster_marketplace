@@ -85,14 +85,14 @@ const MobileCollectionFilter = props => {
           <OutlineButton
             label="Cancel"
             onClick={() => onClose()}
-            color="#EFF0F6"
+            color="var(--text-gray-200-color)"
             borderWidth={2}
-            borderColor="#5AC3BA"
+            borderColor="var(--stats-btn-border-color)"
             fullWidth
           />
         </div>
         <div className="w-[94px]">
-          <GradientButton label="Done" onClick={() => onFilter({ category: categoryList })} color="#202427" fullWidth />
+          <GradientButton label="Done" onClick={() => onFilter({ category: categoryList })} fullWidth />
         </div>
       </div>
     </div>

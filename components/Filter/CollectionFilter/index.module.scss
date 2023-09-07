@@ -5,7 +5,8 @@
   height: fit-content;
   border-radius: 23px;
   padding: 80px 40px 80px 40px;
-  // background-color: rgba(var(--background-black-color), 0.6);
+  background: var(--activity-bg-color);
+  border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
 }
 
 .title {

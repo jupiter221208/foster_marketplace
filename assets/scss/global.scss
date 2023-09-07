@@ -1197,6 +1197,10 @@ h6 {
   fill: var(--main-icon-color);
 }
 
+[data-name='stats-btn-icon'] {
+  fill: var(--stats-btn-icon-color);
+}
+
 [data-name='solana-logo-dark'] {
   fill: var(--single-nft-btn-color);
 }
