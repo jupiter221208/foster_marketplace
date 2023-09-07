@@ -43,12 +43,12 @@ const OrderSection = props => {
           <div className="col-span-2 lg:col-span-1">
             {merchType === 'apparel' ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
+                <div className="">
                   <img src={coverUrl} alt="" className="min-w-full min-h-full object-cover" />
                 </div>
                 <div className={styles.blurImage} />
-                <div className="absolute inset-x-5 lg:inset-x-20 z-11">
-                  <img src={previewUrl} alt="" className="min-w-full min-h-full object-cover" />
+                <div className="absolute w-full h-full flex items-center justify-center">
+                  <img src={previewUrl} alt="" className="w-[60%] h-auto object-cover" />
                 </div>
               </div>
             ) : merchType === 'wallart' ? (
