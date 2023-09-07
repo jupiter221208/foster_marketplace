@@ -116,27 +116,29 @@ const MainSection = () => {
               <div className={styles.mobileText}>Home to Digital Creators on Solana</div>
             </div>
             {heroList.length !== 0 && (
-              <Swiper
-                slidesPerView={1}
-                spaceBetween={30}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Autoplay, Pagination]}
-                className={'heroSwiper'}
-                loop
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                }}
-              >
-                {heroList.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <HeroCardMobile data={item} />
-                    <div className={styles.overlay} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              <div className="w-full relative" id="heroSwiper">
+                <Swiper
+                  slidesPerView={1}
+                  spaceBetween={30}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Autoplay, Pagination]}
+                  className={'heroSwiper'}
+                  loop
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
+                >
+                  {heroList.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <HeroCardMobile data={item} />
+                      <div className={styles.overlay} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
             )}
           </div>
         ) : (
