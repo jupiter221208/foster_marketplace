@@ -5,9 +5,9 @@
   height: 100%;
   min-height: 375px;
   overflow: hidden;
-  background: transparent;
+  background: var(--merch-mobile-squre-bg);
   @media (min-width: 1024px) {
-    background: var(--merch-mobile-squre-bg);
+    background: transparent;  
   }
   z-index: 11;
   display: flex;
