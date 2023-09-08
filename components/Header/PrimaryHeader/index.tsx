@@ -22,7 +22,6 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
-import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
@@ -337,7 +336,7 @@ const PrimaryHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            avatar={profileInfo?.profile_picture}
             wallet={getShortAddress(profileInfo?.wallet_id)}
             username={profileInfo?.username ?? ''}
             menuList={profileMenuList}

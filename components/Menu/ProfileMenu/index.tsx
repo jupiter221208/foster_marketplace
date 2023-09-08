@@ -5,6 +5,8 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
 import Image from 'next/image'
+import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
@@ -15,6 +17,7 @@ import styles from './index.module.scss'
 // resources
 import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
@@ -31,6 +34,7 @@ const ProfileMenu = props => {
   const { setVisible } = useWalletModal()
   const [buttonClicked, setButtonClicked] = useState(false)
   const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (!buttonClicked) {
@@ -102,8 +106,20 @@ const ProfileMenu = props => {
                 </div>
               </div>
             ) : (
-              <div className={connectWalletStatus ? styles.activeAvatar : styles.avatar}>
-                <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+              <div className={styles.activeAvatar}>
+                {avatar === null || avatar === undefined ? (
+                  <div className="w-full h-full">
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  </div>
+                ) : avatar?.length > 0 ? (
+                  <div className={styles.avatarArea}>
+                    <img src={avatar} alt="" width={42} height={42} />
+                  </div>
+                ) : (
+                  <Image src={AvatarImage} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+                )}
               </div>
             )}
             {connectWalletStatus && (
