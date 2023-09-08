@@ -56,8 +56,13 @@ const SingleNft = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [screenWidth, setScreenWidth] = useState(1920)
+  const [screenLoaded, setScreenLoaded] = useState(false)
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
+    setTimeout(() => {
+      setScreenLoaded(true)
+    }, 1000)
     setScreenWidth(window.innerWidth)
   }, [])
 
@@ -1041,7 +1046,7 @@ const SingleNft = () => {
         }}
         dimension={selectedDimension}
       />
-      <ProgressingModal open={isLoading} />
+      <ProgressingModal open={screenLoaded && isLoading} />
     </div>
   )
 }
