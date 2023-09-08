@@ -122,7 +122,6 @@
   --outline-button-border: #5ac3ba;
   --outline-button-color: #eff0f6;
 
-  --artwork-bg-color: #202427;
   --step-circle-mobile-color: #95dbd5;
   --step-next-mobile-color: #202427;
   --dimension-bg-color: 12, 12, 12;
@@ -500,6 +499,52 @@ h6 {
 }
 
 #heroSwiper .swiper-pagination-bullet-active {
+  color: var(--white-color);
+  background: var(--home-swiper-bg);
+  width: 35px;
+  height: 8px;
+  border-radius: 4px;
+  @media (max-width: 640px) {
+    width: 18px;
+    height: 4px;
+    border-radius: 2px;
+  }
+}
+
+#heroSwiperMobile {
+  padding-bottom: 46px !important;
+}
+#heroSwiperMobile .swiper-wrapper {
+  padding-bottom: 30px;
+}
+#heroSwiperMobile .swiper-horizontal > .swiper-pagination-bullets,
+#heroSwiperMobile .swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 18px;
+  z-index: 10;
+  @media (min-width: 1024px) {
+    left: -10px;
+    bottom: 0px;
+  }
+}
+
+#heroSwiperMobile .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--text-gray-200-color);
+  @media (max-width: 640px) {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+  }
+}
+
+#heroSwiperMobile .swiper-pagination-bullet-active {
   color: var(--white-color);
   background: var(--home-swiper-bg);
   width: 35px;

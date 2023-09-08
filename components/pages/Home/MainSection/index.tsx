@@ -116,7 +116,7 @@ const MainSection = () => {
               <div className={styles.mobileText}>Home to Digital Creators on Solana</div>
             </div>
             {heroList.length !== 0 && (
-              <div className="w-full relative" id="heroSwiper">
+              <div className="w-full relative" id="heroSwiperMobile">
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={30}
@@ -124,7 +124,7 @@ const MainSection = () => {
                     clickable: true,
                   }}
                   modules={[Autoplay, Pagination]}
-                  className={'heroSwiper'}
+                  className={'heroSwiperMobile'}
                   loop
                   autoplay={{
                     delay: 5000,

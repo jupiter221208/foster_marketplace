@@ -30,7 +30,7 @@
     border-radius: 12px;
     background-color: var(--artwork-bg-color);
   }
-  background: $background-dark-color;
+  background: var(--artwork-bg-mobile-color);
   display: flex;
   justify-content: center;
   align-items: center;

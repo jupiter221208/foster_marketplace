@@ -500,7 +500,7 @@ const SingleNft = () => {
             <div className="relative w-full grid grid-cols-12 gap-0">
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
-                <div className={styles.topLeftEllipse}>
+                {/* <div className={styles.topLeftEllipse}>
                   <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
                     <defs>
                       <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
@@ -518,7 +518,7 @@ const SingleNft = () => {
                       fill="url(#radial-gradient)"
                     />
                   </svg>
-                </div>
+                </div> */}
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Artwork Preview</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
@@ -530,14 +530,14 @@ const SingleNft = () => {
                           height: artWidth,
                         }}
                       >
-                        <div className="absolute inset-0 flex justify-center items-center">
-                          <img src={nftImage} alt="" className="w-full h-full object-cover" />
-                        </div>
+                        {nftImage !== '' && artWidth !== 0 && (
+                          <div className="absolute inset-0 flex justify-center items-center">
+                            <img src={nftImage} alt="" className="w-full h-full object-cover" />
+                          </div>
+                        )}
                         {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />}
-                        {nftImage !== '' && artWidth !== 0 ? (
+                        {nftImage !== '' && artWidth !== 0 && (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
-                        ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                         )}
                       </div>
                     ) : (
@@ -763,13 +763,13 @@ const SingleNft = () => {
           )
         : currentStep !== 4 && (
             // mobile part
-            <div className="g-container mt-[26px] mb-[47px]">
+            <div className="g-container mb-[47px]">
               {/* stepper part */}
-              <div className="w-full">
+              {/* <div className="w-full">
                 <Stepper currentStep={currentStep} />
-              </div>
+              </div> */}
 
-              <div className="w-full flex flex-wrap justify-center mt-[22px]">
+              <div className="w-full flex flex-wrap justify-center">
                 {nftType === 'image' ? (
                   <div
                     className={`${styles.artArea}`}
