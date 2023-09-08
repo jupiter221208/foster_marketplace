@@ -119,7 +119,7 @@ const MobileMenu = () => {
           <div className="w-full flex flex-wrap gap-[10px]">
             <AccordionProfileMenu
               icon={profileImage}
-              label={profileName.length > 0 ? profileName : 'Anonymous'}
+              label={profileName.length > 0 ? profileName : ''}
               type="avatar"
               data={profileMenuList}
             />

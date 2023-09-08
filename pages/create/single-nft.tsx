@@ -728,7 +728,7 @@ const SingleNft = () => {
                           label="Back"
                           onClick={() => handleChangeCurrentStep(currentStep - 1)}
                           backgroundColor={'transparent'}
-                          borderColor={'var(--back-btn-border)'}
+                          borderColor={'var(--back-btn-border-mobile)'}
                           borderWidth={'var(--back-btn-border-width)'}
                           color="var(--main-bg-color)"
                           width={viewport === '2xl' ? 124 : 117}
