@@ -160,13 +160,7 @@ const SuccessMintSingleNFTSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton
-                    fullWidth
-                    label="Tweet your Mint"
-                    color={'var(--mint-btn-color)'}
-                    onClick={() => {}}
-                    direction="rtl"
-                  />
+                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
                 </TwitterShareButton>
               </div>
               <div className="w-full">
@@ -175,7 +169,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   backgroundColor="#63D6CD"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={'var(--outline-button-border)'}
+                  borderColor={'var(--see-more-border)'}
                 />
               </div>
             </div>
@@ -233,15 +227,7 @@ const SuccessMintSingleNFTSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton
-                    fullWidth
-                    label="Tweet your Mint"
-                    backgroundColor01="#95DBD5"
-                    backgroundColor02="#4B6E6B"
-                    color="#202427"
-                    onClick={() => {}}
-                    direction="rtl"
-                  />
+                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
                 </TwitterShareButton>
               </div>
               <div className="w-[221px]">
@@ -250,7 +236,7 @@ const SuccessMintSingleNFTSection = props => {
                   label="List or Start Auction"
                   height="45px"
                   onClick={() => dispatch({ type: 'set', openSellNFTModal: true })}
-                  borderColor={'var(--back-btn-border-mobile)'}
+                  borderColor={'var(--see-more-border)'}
                 />
               </div>
             </div>

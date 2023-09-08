@@ -91,14 +91,7 @@ const SuccessMintCollectionSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton
-                    fullWidth
-                    label="Tweet your Mint"
-                    color={'var(--mint-btn-color)'}
-                    backgroundColor="#378287"
-                    onClick={() => {}}
-                    direction="rtl"
-                  />
+                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
                 </TwitterShareButton>
               </div>
               <div className="w-full">
@@ -170,14 +163,7 @@ const SuccessMintCollectionSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton
-                    fullWidth
-                    label="Tweet your Mint"
-                    color={'var(--mint-btn-color)'}
-                    backgroundColor="#378287"
-                    onClick={() => {}}
-                    direction="rtl"
-                  />
+                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
                 </TwitterShareButton>
               </div>
               <div className="w-[221px]">
