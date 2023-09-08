@@ -198,7 +198,7 @@ const MerchDetail = () => {
                   backgroundColor="transparent"
                   borderColor="var(--follow-btn-border-mobile)"
                   borderWidth={1}
-                  color="rgba(239, 240, 247, 0.5)"
+                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
                   width={335}
                 />
               </div>
@@ -320,7 +320,7 @@ const MerchDetail = () => {
                   backgroundColor="transparent"
                   borderColor="var(--follow-btn-border-mobile)"
                   borderWidth={1}
-                  color="rgba(239, 240, 247, 0.5)"
+                  color={'rgba(var(--main-bg-color-rgb), 0.5)'}
                   width={335}
                 />
               </div>

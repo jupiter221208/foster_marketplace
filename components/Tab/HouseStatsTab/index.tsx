@@ -1,17 +1,24 @@
 import React, { Fragment } from 'react'
+import { useViewport } from 'utils'
 
 // third party component
 import { Tab as HTab } from '@headlessui/react'
 
 // styles
+import styles from './index.module.scss'
 import TabItem from './TabItem'
 
 const HouseStatsTab = props => {
   const { tabList, onChange } = props
+  const viewport = useViewport()
 
   return (
     <HTab.Group>
-      <HTab.List className="flex gap-[14px] lg:gap-[60px] h-[60px] lg:h-[120px] ">
+      <HTab.List
+        className={`${
+          viewport === 'xs' || viewport === 'sm' ? styles.mobileScrollbar : ''
+        } flex gap-[30px] lg:gap-[60px] h-[60px] lg:h-[120px]`}
+      >
         {tabList.map((item, index) => (
           <HTab as={Fragment} key={index}>
             <TabItem item={item} onChange={onChange} />

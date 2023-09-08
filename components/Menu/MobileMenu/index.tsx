@@ -14,7 +14,6 @@ import WalletButton from 'components/Button/WalletButton'
 import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
-import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-small.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-small.svg?component'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
@@ -31,12 +30,12 @@ import CreateMenuList from 'assets/json/create-menu.json'
 import styles from './index.module.scss'
 
 // call apis
-import { useViewport } from 'utils'
 import { setColorTheme } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { deleteCookie } from 'cookies-next'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
 import { useAuthentication } from 'hooks/useAuthentication'
+import AccordionProfileMenu from '../AccordionProfileMenu'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
@@ -50,7 +49,7 @@ const MobileMenu = () => {
   const [buttonClicked, setButtonClicked] = useState(false)
 
   const { profileInfo } = useAuthentication()
-  const [profileImage, setProfileImage] = useState('')
+  const [profileImage, setProfileImage] = useState(null)
   const [profileName, setProfileName] = useState('')
 
   // update profile menu list
@@ -118,9 +117,9 @@ const MobileMenu = () => {
       {connected ? (
         <div className={styles.container}>
           <div className="w-full flex flex-wrap gap-[10px]">
-            <AccordionMenu
-              icon={profileImage.length > 0 ? profileImage : AvatarIcon}
-              label={profileName.length > 0 ? profileName : 'Anonymous'}
+            <AccordionProfileMenu
+              icon={profileImage}
+              label={profileName.length > 0 ? profileName : ''}
               type="avatar"
               data={profileMenuList}
             />

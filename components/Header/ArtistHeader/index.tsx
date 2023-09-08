@@ -21,7 +21,6 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
-import AvatarImage from 'assets/images/dashboard-avatar.png'
 import BackButton from 'assets/icons/artist-back-icon.svg?component'
 import SearchButton from 'assets/icons/artist-search-icon.svg?component'
 import MenuButton from 'assets/icons/artist-menu-icon.svg?component'
@@ -333,7 +332,7 @@ const ArtistHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            avatar={profileInfo?.profile_picture}
             wallet={getShortAddress(profileInfo?.wallet_id)}
             username={profileInfo?.username ?? ''}
             menuList={profileMenuList}

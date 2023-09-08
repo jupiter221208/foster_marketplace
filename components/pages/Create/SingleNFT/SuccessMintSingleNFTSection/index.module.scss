@@ -34,12 +34,12 @@
 
 .mintTitle {
   width: 100%;
-  font-family: 'KCDurhamBoxcar';
-  font-size: 51px;
-  line-height: 51px;
+  font-family: 'Muli-Bold';
+  font-size: 20px;
+  line-height: 25px;
   @media (min-width: 1024px) {
-    font-size: 74px;
-    line-height: 158px;
+    font-size: 30px;
+    line-height: 36px;
   }
   letter-spacing: 0;
   color: var(--radio-check-color);
@@ -48,7 +48,7 @@
 
 .mintText {
   width: 100%;
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-Regular';
   margin-top: 20px;
   font-size: 16px;
   line-height: 20px;
@@ -63,6 +63,6 @@
 }
 
 .mintLinkText {
-  color: var(--brand-09-color);
+  color: var(--main-icon-color);
   text-decoration: underline;
 }

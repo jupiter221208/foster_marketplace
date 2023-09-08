@@ -116,7 +116,7 @@ const MainSection = () => {
               <div className={styles.mobileText}>Home to Digital Creators on Solana</div>
             </div>
             {heroList.length !== 0 && (
-              <div className="w-full relative" id="heroSwiper">
+              <div className="w-full relative" id="heroSwiperMobile">
                 <Swiper
                   slidesPerView={1}
                   spaceBetween={30}
@@ -124,7 +124,7 @@ const MainSection = () => {
                     clickable: true,
                   }}
                   modules={[Autoplay, Pagination]}
-                  className={'heroSwiper'}
+                  className={'heroSwiperMobile'}
                   loop
                   autoplay={{
                     delay: 5000,
@@ -188,7 +188,7 @@ const MainSection = () => {
         )}
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
+          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end lg:mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton

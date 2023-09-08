@@ -29,7 +29,7 @@
   font-size: 14px;
   line-height: 18px;
   color: $text-gray-200-color;
-  background: $background-dark-color;
+  background: var(--dropdown-menu-bg);
   border-radius: 10px;
   padding: 11px 22px;
 }

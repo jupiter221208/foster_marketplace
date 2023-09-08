@@ -66,6 +66,7 @@
   }
   border-radius: 12px;
   border: 2px dashed rgba(var(--text-gray-200-color-rgb), 0.6);
+  background: rgba(var(--main-bg-color-rgb), 0.05);
 }
 
 .mediaDropzone {
@@ -80,7 +81,7 @@
   border-radius: 12px;
   border: 2px dashed rgba(var(--text-gray-200-color), 0.6);
   // background-image: url('../../../../../assets/images/art-bg-gray.svg');
-  background-color: #1d1d1d;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
   background-position: top 5px left 10px;
 }
 

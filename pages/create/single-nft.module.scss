@@ -5,7 +5,7 @@
   top: -1160px;
   left: -1160px;
   z-index: 0;
-  opacity: 0.25;
+  opacity: 0.15;
 }
 
 .leftContainer {
@@ -30,7 +30,7 @@
     border-radius: 12px;
     background-color: var(--artwork-bg-color);
   }
-  background: $background-dark-color;
+  background: var(--artwork-bg-mobile-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,12 +58,12 @@
   width: 100%;
   margin-top: 26px;
 
-  font-family: 'KCDurhamboxcar';
+  font-family: 'Muli-SemiBold';
   font-size: 16px;
   line-height: 21px;
   @media (min-width: 1024px) {
     margin-top: 0px;
-    font-size: 60px;
+    font-size: 30px;
     line-height: 36px;
   }
   letter-spacing: 0;
