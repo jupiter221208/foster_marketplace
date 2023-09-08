@@ -533,7 +533,7 @@ const SingleNft = () => {
                         <div className="absolute inset-0 flex justify-center items-center">
                           <img src={nftImage} alt="" className="w-full h-full object-cover" />
                         </div>
-                        <div className={styles.blurImage} />
+                        {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />}
                         {nftImage !== '' && artWidth !== 0 ? (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
                         ) : (

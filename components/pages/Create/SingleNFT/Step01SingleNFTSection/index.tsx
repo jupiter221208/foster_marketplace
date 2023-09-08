@@ -184,7 +184,7 @@ const Step01SingleNFTSection = props => {
             </Dropzone>
             <div className="mt-[12px] h-[30px] flex items-center">
               <div
-                className="w-[20px] flex justify-center items-center cursor-pointer"
+                className="w-[25px] flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setInfoFocus(true)
                   setTimeout(() => {

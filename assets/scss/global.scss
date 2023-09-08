@@ -122,7 +122,6 @@
   --outline-button-border: #5ac3ba;
   --outline-button-color: #eff0f6;
 
-  --g-left-container-bg: #0f1316;
   --artwork-bg-color: #202427;
   --step-circle-mobile-color: #95dbd5;
   --step-next-mobile-color: #202427;
@@ -429,7 +428,7 @@ h6 {
   @media (min-width: 1536px) {
     padding-left: 150px;
   }
-  background-color: var(--g-left-container-bg);
+  background: var(--g-left-container-bg);
 }
 
 .g-right-container {
