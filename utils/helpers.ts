@@ -695,7 +695,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--back-btn-color', '#378287')
     doc.style.setProperty('--back-btn-border', '#95dbd5')
     doc.style.setProperty('--back-btn-border-mobile', 'rgba(239, 240, 247, 0.1')
-    doc.style.setProperty('--back-btn-border-width', '')
+    doc.style.setProperty('--back-btn-border-width', '1')
     doc.style.setProperty('--artwork-table-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--artwork-table-tr', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--artwork-table-tr-hover-bg', '#202427')
