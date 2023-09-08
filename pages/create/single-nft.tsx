@@ -968,6 +968,7 @@ const SingleNft = () => {
                         label="Back"
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
                         fullWidth
+                        fontFamily="Muli-SemiBold"
                         height="45px"
                         backgroundColor="transparent"
                         color="var(--main-bg-color)"
