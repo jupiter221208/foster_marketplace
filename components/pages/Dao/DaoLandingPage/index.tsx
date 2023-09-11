@@ -222,7 +222,7 @@ const DaoLandingPage = props => {
       //         title: 'CBC Product 0531',
       //         category: 'Product',
       //         author: 'Nicholas',
-      //         vote_start: '2023-05-31 12:00:00',
+      //         vote_start: '2023-09-10 12:00:00',
       //         vote_duration: 120,
       //         total_votes: 300,
       //         approved_votes: 240,
@@ -246,6 +246,7 @@ const DaoLandingPage = props => {
               ...element,
               status: 'closed',
               vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected',
+              // vote_result: 'Passed',
             })
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
@@ -318,13 +319,11 @@ const DaoLandingPage = props => {
       ) : (
         <div>
           <div className="flex justify-center">
-            <DAOLogoMobile />
+            <div className={styles.logo}>CircusDAO Dashboard</div>
+            {/* <DAOLogoMobile /> */}
           </div>
           <div className={styles.landingTitle}>
-            CircusDAO is the governance wing of Foster Marketplace composed of verified Turkey Circus holders. Circus
-            DAO members can vote on proposals. A minimum of&nbsp;
-            <span className={styles.landingTitleBold}>10 Turkeys</span>
-            &nbsp;is required to submit proposals.
+            In order to participate in CircusDAO governance, you must hold at least one turkey.
           </div>
 
           <div className="w-full flex flex-wrap gap-[5px] mt-[22px]">

@@ -31,12 +31,10 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  margin-left: 9px;
   @media (min-width: 1024px) {
     font-family: 'Muli-Bold';
     font-size: 24px;
     line-height: 36px;
-    margin-left: 24px;
   }
   color: var(--text-gray-200-color);
 }
@@ -294,8 +292,8 @@
 
 .description {
   font-family: 'Muli-Bold';
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 18px;
+  line-height: 22px;
   @media (min-width: 1024px) {
     font-size: 24px;
     line-height: 30px;
@@ -305,8 +303,8 @@
 
 .descriptionText {
   font-family: 'Muli-Regular';
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   margin-top: 15px;
   @media (min-width: 1024px) {
     font-size: 20px;

@@ -50,7 +50,7 @@
   font-family: 'Muli-Regular';
   font-size: 14px;
   line-height: 18px;
-  margin-top: 18px;
+  margin-top: 10px;
   text-align: center;
   @media (min-width: 1024px) {
     font-size: 20px;
@@ -164,5 +164,12 @@
     font-size: 18px;
     line-height: 24px;
   }
+  color: var(--text-gray-200-color);
+}
+
+.logo {
+  font-family: 'Muli-Bold';
+  font-size: 24px;
+  line-height: 30px;
   color: var(--text-gray-200-color);
 }

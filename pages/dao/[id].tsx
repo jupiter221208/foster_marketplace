@@ -24,6 +24,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { isExpiredDate } from 'utils/helpers'
 import { DaoProposal, createNewProposalTransaction, DAO_TREASURY_ADDRESS, getCurrentTurkeyNftCount } from 'utils/dao'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 const Dao = () => {
   const router = useRouter()
@@ -32,7 +33,7 @@ const Dao = () => {
   const { connected, publicKey } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
-
+  const [isLoading, setIsLoading] = useState(true)
   const [nfts, setNfts] = useState<GetMyNFTsOutput>([])
   const { id } = router.query
   const paramId = id + ''
@@ -41,11 +42,11 @@ const Dao = () => {
 
   useEffect(() => {
     ;(async () => {
+      setIsLoading(true)
       if (connected) {
         let nfts = await getMyNFTs(metaplex)
         setNftIsLoaded(true)
         setNfts(nfts)
-        // get proposal detail
       }
       getProposal()
     })()
@@ -63,13 +64,17 @@ const Dao = () => {
   }
 
   const getProposal = async () => {
-    if (proposal_id === null) return
+    if (proposal_id === null) {
+      setIsLoading(false)
+      return
+    }
 
     try {
       let vote = {
         proposal_id,
       }
       let response = await axios.post('/api/dao/proposal-detail', vote)
+      setIsLoading(false)
       // let response = {
       //   data: {
       //     success: true,
@@ -79,7 +84,7 @@ const Dao = () => {
       //         title: 'CBC Product 0531',
       //         category: 'Product',
       //         author: 'Nicholas',
-      //         vote_start: '2023-06-08 12:00:00',
+      //         vote_start: '2023-09-08 12:00:00',
       //         vote_duration: 120,
       //         total_votes: 300,
       //         approved_votes: 240,
@@ -100,6 +105,7 @@ const Dao = () => {
               ...element,
               status: 'closed',
               vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected',
+              // vote_result: 'Passed',
             }
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_element = { ...element, status: 'live' }
@@ -110,7 +116,9 @@ const Dao = () => {
           setProposal(new_element)
         }
       }
-    } catch {}
+    } catch {
+      setIsLoading(false)
+    }
   }
 
   const viewport = useViewport()
@@ -141,6 +149,9 @@ const Dao = () => {
         <div className={styles.topLeftEllipse}>
           {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
         </div>
+
+        <FullScreenLoadingModal open={isLoading} />
+
         {proposal !== null && (
           <DaoLandingDetail
             publicKey={publicKey}
