@@ -268,7 +268,7 @@ const DaoLandingDetail = props => {
       </div>
 
       <div className="flex mt-[20px] lg:mt-[101px] items-center">
-        <div className={styles.backBtn} onClick={onBack}>
+        {/* <div className={styles.backBtn} onClick={onBack}>
           <div className={styles.backEllipse}></div>
           <div className="absolute inset-auto hidden lg:flex">
             <ArrowLeftIcon />
@@ -276,7 +276,7 @@ const DaoLandingDetail = props => {
           <div className="absolute inset-auto flex lg:hidden">
             <ArrowLeftMobileIcon />
           </div>
-        </div>
+        </div> */}
         <div className={styles.backText}>Proposal {proposalDetail.id}</div>
         <div className="hidden lg:flex ml-[20px]">
           {proposalDetail.status === 'pending' ? (
@@ -304,7 +304,7 @@ const DaoLandingDetail = props => {
             fontSize={18}
             width={155}
             height={53}
-            icon1={<NotificationIcon alt=""/>}
+            icon1={<NotificationIcon alt="" />}
             disabled={disabledVote}
             label="Cast&nbsp;Vote"
             onClick={() => onClickCastVoteBtn()}
@@ -314,17 +314,6 @@ const DaoLandingDetail = props => {
       <div className="hidden lg:flex mt-[6px] lg:mt-[25px]">
         <div className={styles.proposedBy}>Proposed by</div>
         <div className={styles.proposedText}>{proposalDetail.author}</div>
-        {/* <div
-          className="relative ml-[14px] hidden lg:flex h-[30px] gap-[8px] items-center hover:opacity-80"
-          onClick={() => {
-            copyToClipboard(proposalDetail.wallet_id || '')
-            copyClipboardAlert('main-wallet')
-          }}
-        >
-          <CopyAltLightGreenIcon />
-          <div className={styles.clipboardBtn}>{getShortAddress(proposalDetail.wallet_id)}</div>
-          <CopyClipboardChip identifier="main-wallet" height={24} fontSize={14} />
-        </div> */}
       </div>
 
       <div className="flex lg:hidden mt-[6px] justify-between items-center">
@@ -332,20 +321,19 @@ const DaoLandingDetail = props => {
           <div className={styles.proposedBy}>Proposed by</div>
           <div className={styles.proposedText}>{proposalDetail.author}</div>
         </div>
-        <div>
-          <GradientButton
-            direction="rtl"
-            fontSize={12}
-            gradientDirection="right"
-            width={101}
-            height={35}
-            icon1={<NotificationMobileIcon alt=""/>}
-            disabled={disabledVote}
-            label="Cast Vote"
-            borderRadius={8}
-            onClick={() => onClickCastVoteBtn()}
-          />
-        </div>
+      </div>
+
+      <div className="lg:hidden mt-[20px]">
+        <GradientButton
+          fullWidth
+          fontSize={12}
+          width={101}
+          height={35}
+          disabled={disabledVote}
+          label="Cast Vote"
+          borderRadius={8}
+          onClick={() => onClickCastVoteBtn()}
+        />
       </div>
 
       <div className="mt-[32px] lg:mt-[60px]">

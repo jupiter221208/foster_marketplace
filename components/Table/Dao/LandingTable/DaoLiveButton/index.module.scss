@@ -21,11 +21,11 @@
 }
 
 .viewBtn {
-  width: 90px;
-  height: 40px;
-  background: linear-gradient(to bottom, $brand-09-color, $brand-12-color);
+  width: 80px;
+  height: 37px;
+  background: var(--primary-btn-bg-right);
   border-radius: 8px;
-  color: $background-dark-color;
+  color: var(--gradient-btn-color);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -9,12 +9,12 @@ const DaoLiveButton = props => {
 
   return (
     <div
-      className={hover ? styles.viewBtn : styles.liveBtn}
+      className={styles.viewBtn}
       onMouseEnter={() => onDetail && setHover(true)}
       onMouseLeave={() => onDetail && setHover(false)}
       onClick={onDetail}
     >
-      {hover ? 'View' : label}
+      {label}
     </div>
   )
 }

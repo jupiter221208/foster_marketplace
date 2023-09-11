@@ -222,7 +222,7 @@ const DaoLandingPage = props => {
       //         title: 'CBC Product 0531',
       //         category: 'Product',
       //         author: 'Nicholas',
-      //         vote_start: '2023-05-31 12:00:00',
+      //         vote_start: '2023-09-10 12:00:00',
       //         vote_duration: 120,
       //         total_votes: 300,
       //         approved_votes: 240,
@@ -246,6 +246,7 @@ const DaoLandingPage = props => {
               ...element,
               status: 'closed',
               vote_result: vote_ratio >= 0.7 && element.total_votes >= current_threshold ? 'Passed' : 'Rejected',
+              // vote_result: 'Passed',
             })
           } else if (isExpiredDate(element.vote_start, 0)) {
             new_proposals.push({ ...element, status: 'live' })
