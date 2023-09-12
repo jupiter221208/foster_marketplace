@@ -23,7 +23,6 @@ const NftItemActivity = props => {
 
   const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
-  const [period, setPeriod] = useState('all')
 
   useEffect(() => {
     setList(activities)
@@ -51,8 +50,6 @@ const NftItemActivity = props => {
             placeholder={'Search'}
             searchWord={searchWord}
             setSearchWord={value => setSearchWord(value.toString())}
-            period={period}
-            setPeriod={setPeriod}
           />
         )}
         {activities.length > 0 && (
