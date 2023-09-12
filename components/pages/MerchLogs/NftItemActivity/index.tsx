@@ -19,26 +19,26 @@ import styles from './index.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 const NftItemActivity = props => {
-  const { avtivities, type, isLoading, action, actionAll } = props
+  const { activities, type, isLoading, action, actionAll } = props
 
-  const [searchWord, setSearchWord] = useState<any>(null)
+  const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
   const [period, setPeriod] = useState('all')
 
   useEffect(() => {
-    setList(avtivities)
-  }, [avtivities])
+    setList(activities)
+  }, [activities])
 
   useEffect(() => {
     let length = searchWord?.length
-    if (length >= 0) {
-      const results = avtivities.filter(({ nft_name }) => {
-        return nft_name.includes(searchWord)
+    if (length > 0) {
+      const results = activities.filter(({ nft_name }) => {
+        return nft_name.toLowerCase().includes(searchWord.toLowerCase())
       })
       setList(results)
     } else {
       if (length === 0) {
-        setList(avtivities)
+        setList(activities)
       }
     }
   }, [searchWord])
@@ -46,7 +46,7 @@ const NftItemActivity = props => {
   return (
     <div className={styles.container}>
       <div className="w-full lg:max-w-[760px] hidden lg:flex justify-between">
-        {list.length > 0 && (
+        {activities.length > 0 && (
           <SearchSection
             placeholder={'Search'}
             searchWord={searchWord}
@@ -55,7 +55,7 @@ const NftItemActivity = props => {
             setPeriod={setPeriod}
           />
         )}
-        {list.length > 0 && (
+        {activities.length > 0 && (
           <OutlineButton
             width={138}
             borderColor={'var(--back-btn-border-mobile)'}
@@ -72,7 +72,7 @@ const NftItemActivity = props => {
           <TableSections data={list} type={type} action={action} actionAll={actionAll} />
         </div>
       )}
-      {!isLoading && list.length === 0 && (
+      {!isLoading && activities.length === 0 && searchWord.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[0px]">
           <div className={styles.noArtwork}>{'No artworks currently ' + type}</div>
           <div className={styles.noData}>{'This tab displays the artwork you created with Creator Studio ' + type}</div>

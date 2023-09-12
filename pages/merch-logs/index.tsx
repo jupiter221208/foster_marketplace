@@ -344,7 +344,7 @@ const MerchActivity = () => {
           {activeTab === 2 && (
             <div className="w-full z-10">
               <NftItemActivity
-                avtivities={enabledItems}
+                activities={enabledItems}
                 type="enabled"
                 isLoading={isVisibleEnabledFetching}
                 action={token_id => {
@@ -359,7 +359,7 @@ const MerchActivity = () => {
           {activeTab === 3 && (
             <div className="w-full z-10">
               <NftItemActivity
-                avtivities={disabledItems}
+                activities={disabledItems}
                 type="disabled"
                 isLoading={isVisibleDisabledFetching}
                 action={token_id => {
