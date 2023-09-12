@@ -1,0 +1,17 @@
+@import 'assets/scss/variable.module.scss';
+
+.brand03Text {
+  color: var(--brand-03-color) !important;
+}
+
+.brand06Text {
+  color: var(--brand-06-color) !important;
+}
+
+.itemName {
+  font-family: 'Muli-SemiBold';
+  font-size: 18px;
+  line-height: 24px;
+  margin-left: 25px;
+  color: var(--text-gray-200-color);
+}
