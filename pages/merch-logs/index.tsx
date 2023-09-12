@@ -26,8 +26,11 @@ import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // api
 import MerchAPI from 'apis/merch'
+import ArtistAPI from 'apis/artists'
+import NftAPI from 'apis/nfts'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
+import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -39,15 +42,21 @@ const MerchActivity = () => {
   const [previewMode, setPreviewMode] = useState(false)
   const [purchases, setPurchases] = useState([])
   const [sales, setSales] = useState([])
+  const [enabledItems, setEnabledItems] = useState([])
+  const [disabledItems, setDisabledItems] = useState([])
   const [artistCommission, setArtistCommission] = useState(0)
   const [totalAmount, setTotalAmount] = useState(0)
   const [isLoadingData, setIsLoadingData] = useState(false)
   const [rowCount, setRowCount] = useState(10)
   const [buyerPages, setBuyerPages] = useState(1)
   const [sellerPages, setSellerPages] = useState(1)
+  const [enabledPages, setEnabledPages] = useState(1)
+  const [disabledPages, setDisabledPages] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [isVisibleBuyerFetching, setIsVisibleBuyerFetching] = useState(true)
   const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
+  const [isVisibleEnabledFetching, setIsVisibleEnabledFetching] = useState(true)
+  const [isVisibleDisabledFetching, setIsVisibleDisabledFetching] = useState(true)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -81,7 +90,9 @@ const MerchActivity = () => {
   useEffect(() => {
     if (isFetching) {
       if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
-      else getSellerOrder(sellerPages, rowCount)
+      else if (activeTab === 1) getSellerOrder(sellerPages, rowCount)
+      else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
+      else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
   }, [isFetching])
 
@@ -93,6 +104,7 @@ const MerchActivity = () => {
     MerchAPI.getBuyerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
+        if (isLoadingData) setIsLoadingData(false)
 
         let purchaseOrders = []
         response.forEach(order => {
@@ -111,7 +123,7 @@ const MerchActivity = () => {
           setIsVisibleBuyerFetching(false)
         } else {
           setTimeout(() => {
-            if (purchaseOrders != response.length) {
+            if (purchaseOrders.length != response.length) {
               setIsFetching(true)
             }
           }, 2000)
@@ -123,10 +135,11 @@ const MerchActivity = () => {
     )
   }
 
-  const getSellerOrder = (page, rowCount, reset = false) => {
+  const getSellerOrder = (page, rowCount) => {
     MerchAPI.getSellerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
+        if (isLoadingData) setIsLoadingData(false)
 
         let salesOrders = []
         response.forEach(order => {
@@ -138,14 +151,13 @@ const MerchActivity = () => {
           }
         })
 
-        if (reset === true) setSales([...salesOrders])
-        else setSales([...sales, ...salesOrders])
+        setSales([...sales, ...salesOrders])
 
         if (response.length < rowCount) {
           setIsVisibleSellerFetching(false)
         } else {
           setTimeout(() => {
-            if (salesOrders != response.length) {
+            if (salesOrders.length != response.length) {
               setIsFetching(true)
             }
           }, 2000)
@@ -155,6 +167,104 @@ const MerchActivity = () => {
       },
       error => {}
     )
+  }
+
+  const getEnabledItem = (page, rowCount) => {
+    if (!publicKey) {
+      setIsVisibleEnabledFetching(false)
+      return
+    }
+    ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, true).then(
+      response => {
+        setIsFetching(false)
+        if (isLoadingData) setIsLoadingData(false)
+
+        setEnabledItems([...enabledItems, ...response])
+        if (response.length < rowCount) {
+          setIsVisibleEnabledFetching(false)
+        } else {
+          setIsVisibleEnabledFetching(true)
+          setEnabledPages(page + 1)
+        }
+      },
+      error => {}
+    )
+  }
+
+  const getDisabledItem = (page, rowCount) => {
+    if (!publicKey) {
+      setIsVisibleDisabledFetching(false)
+      return
+    }
+    ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(
+      response => {
+        setIsFetching(false)
+        if (isLoadingData) setIsLoadingData(false)
+
+        setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
+        if (response.length < rowCount) {
+          setIsVisibleDisabledFetching(false)
+        } else {
+          setIsVisibleDisabledFetching(true)
+          setDisabledPages(page + 1)
+        }
+      },
+      error => {}
+    )
+  }
+
+  const enableMerchNft = (id, toggle) => {
+    if (toggle === true) {
+      NftAPI.enableMerchHub(id, { value: true }).then(
+        response => {
+          if (response !== null) {
+            let nft = disabledItems.filter(({ token_id }) => token_id === id)[0]
+            setEnabledItems([nft, ...enabledItems])
+            setDisabledItems(disabledItems.filter(({ token_id }) => token_id !== id))
+          }
+        },
+        err => {}
+      )
+    } else {
+      NftAPI.enableMerchHub(id, { value: false }).then(
+        response => {
+          if (response !== null) {
+            let nft = enabledItems.filter(({ token_id }) => token_id === id)[0]
+            setDisabledItems([nft, ...disabledItems])
+            setEnabledItems(enabledItems.filter(({ token_id }) => token_id !== id))
+          }
+        },
+        err => {}
+      )
+    }
+  }
+
+  const enableAllMerch = toggle => {
+    if (toggle === true) {
+      let tokenIds = []
+      disabledItems.forEach(({ token_id }) => tokenIds.push(token_id))
+      NftAPI.enableAllMerchHub({ tokenIds, value: true }).then(
+        response => {
+          if (response !== null) {
+            setEnabledItems([...disabledItems])
+            setDisabledItems([])
+          }
+        },
+        err => {}
+      )
+    } else {
+      let tokenIds = []
+      enabledItems.forEach(({ token_id }) => tokenIds.push(token_id))
+      NftAPI.enableAllMerchHub({ tokenIds, value: false }).then(
+        response => {
+          if (response !== null) {
+            setDisabledItems([...enabledItems])
+            setEnabledItems([])
+          }
+        },
+        err => {}
+      )
+    }
   }
 
   const getOrderStats = () => {
@@ -241,16 +351,49 @@ const MerchActivity = () => {
           </div>
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={purchases} type="purchases" isLoading={isLoadingData} />
+              <ApparelActivity activities={purchases} type="purchases" isLoading={isVisibleBuyerFetching} />
             </div>
           )}
           {activeTab === 1 && (
             <div className="w-full z-10">
-              <ApparelActivity avtivities={sales} type="sales" isLoading={isLoadingData} />
+              <ApparelActivity activities={sales} type="sales" isLoading={isVisibleSellerFetching} />
             </div>
           )}
-          {((activeTab === 0 && isVisibleBuyerFetching) || (activeTab === 1 && isVisibleSellerFetching)) && (
-            <div className="w-full mt-[-100px] mb-[40px]">
+          {activeTab === 2 && (
+            <div className="w-full z-10">
+              <NftItemActivity
+                activities={enabledItems}
+                type="enabled"
+                isLoading={isVisibleEnabledFetching}
+                action={token_id => {
+                  enableMerchNft(token_id, false)
+                }}
+                actionAll={() => {
+                  enableAllMerch(false)
+                }}
+              />
+            </div>
+          )}
+          {activeTab === 3 && (
+            <div className="w-full z-10">
+              <NftItemActivity
+                activities={disabledItems}
+                type="disabled"
+                isLoading={isVisibleDisabledFetching}
+                action={token_id => {
+                  enableMerchNft(token_id, true)
+                }}
+                actionAll={() => {
+                  enableAllMerch(true)
+                }}
+              />
+            </div>
+          )}
+          {((activeTab === 0 && isVisibleBuyerFetching) ||
+            (activeTab === 1 && isVisibleSellerFetching) ||
+            (activeTab === 2 && isVisibleEnabledFetching) ||
+            (activeTab === 3 && isVisibleDisabledFetching)) && (
+            <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>
           )}

@@ -774,6 +774,80 @@ h6 {
 }
 
 // ####################################################
+// MerchNftTable
+#MerchNftTable {
+  border-collapse: separate;
+  border-spacing: 0 2px;
+}
+
+#MerchNftTable th {
+  border-style: solid none solid none;
+  padding: 4px;
+  background: var(--artwork-tbl-header-bg);
+  height: 30px;
+
+  font-family: 'Muli-SemiBold';
+  font-size: 9px;
+  @media (min-width: 640px) {
+    font-size: 10px;
+  }
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+  @media (min-width: 1024px) {
+    height: 65px;
+    font-size: 14px;
+  }
+
+  @media (min-width: 1536px) {
+    height: 65px;
+    font-size: 16px;
+  }
+  line-height: 24px;
+  letter-spacing: 0;
+  color: var(--text-gray-200-color);
+}
+#MerchNftTable th:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-left-style: solid;
+}
+
+#MerchNftTable th:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-right-style: solid;
+}
+
+#MerchNftTable td {
+  border-style: solid none solid none;
+  padding: 4px;
+  height: 70px;
+  background-color: transparent;
+  font-family: 'Muli-SemiBold';
+  font-size: 9px;
+  @media (min-width: 640px) {
+    font-size: 10px;
+  }
+  @media (min-width: 768px) {
+    font-size: 12px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 14px;
+  }
+  @media (min-width: 1280px) {
+    font-size: 16px;
+    height: 90px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 18px;
+    height: 90px;
+  }
+  line-height: 24px;
+  letter-spacing: 0;
+}
+
+// ####################################################
 // ArtworksTable
 #ArtworksTable {
   border-collapse: separate;

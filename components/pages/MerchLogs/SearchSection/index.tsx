@@ -9,18 +9,13 @@ import StatsSearchBox from 'components/Input/StatsSearchBox'
 import styles from './index.module.scss'
 
 const SearchSection = props => {
-  const { placeholder, searchWord, period, setPeriod, setSearchWord, onSearch, onCancel } = props
+  const { placeholder, searchWord, setSearchWord } = props
 
   return (
     <div className={styles.container}>
       <div className="w-full flex flex-wrap justify-between gap-[20px]">
         <div className="w-[500px] flex items-center gap-2">
-          <StatsSearchBox
-            value={searchWord}
-            placeholder={placeholder}
-            onChange={value => setSearchWord(value)}
-            onCancel={onCancel}
-          />
+          <StatsSearchBox value={searchWord} placeholder={placeholder} onChange={value => setSearchWord(value)} />
         </div>
       </div>
     </div>

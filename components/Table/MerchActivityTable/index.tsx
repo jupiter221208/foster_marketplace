@@ -9,7 +9,7 @@ import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
 import styles from './index.module.scss'
-import { getLocalDateWithoutTime, getSliceAddress } from 'utils/helpers'
+import { getSliceAddress } from 'utils/helpers'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
@@ -32,7 +32,6 @@ const MerchActivityTable = props => {
           </th>
           <th>Amount</th>
           <th>Transaction ID</th>
-          {/* <th>Date</th> */}
           <th>{type === 'purchases' ? 'Creator' : 'Buyer'}</th>
           <th>Order Details</th>
         </tr>
@@ -56,7 +55,6 @@ const MerchActivityTable = props => {
               >
                 {getSliceAddress(item.transaction_id)}
               </td>
-              {/* <td className="text-center">{'08/16/2023'}</td> */}
               <td className="text-center">{getSliceAddress(item.creator)}</td>
               <td
                 className={styles.viewOrder}
