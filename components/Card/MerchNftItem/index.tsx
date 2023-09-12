@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
+
+// Next Component
+import Image from 'next/image'
+
+// thrid-part component
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const MerchNftItem = props => {
-  const { url } = props
+  const { url, width, height } = props
   const [loaded, setLoaded] = useState(false)
 
   return (
@@ -13,10 +18,11 @@ const MerchNftItem = props => {
           <div></div>
         </ReactPlaceholder>
       )}
-      <img
+      <Image
         src={url}
-        loading="lazy"
-        onLoad={() => {
+        width={width}
+        height={height}
+        onLoadingComplete={() => {
           setLoaded(true)
         }}
         className="w-full h-full object-cover"

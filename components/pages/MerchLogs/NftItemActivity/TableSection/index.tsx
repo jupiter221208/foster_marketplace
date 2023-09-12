@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // third party components
 
@@ -7,26 +7,23 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import OrdersAccordion from 'components/Accordion/Merch/OrdersAccordion'
-
-// custom functions
-import { useViewport } from 'utils'
+import NftItemAccordion from 'components/Accordion/Merch/NftItemAccordion'
 
 // styles
 import styles from './index.module.scss'
 import MerchNftTable from 'components/Table/MerchNftTable'
 
 const TableSection = props => {
-  const { data, type, action } = props
-  const viewport = useViewport()
+  const { data, type, action, actionAll } = props
 
   return (
     <section className={styles.container}>
-      {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
-        <MerchNftTable data={data} type={type} action={action} />
-      ) : (
-        <OrdersAccordion data={data} type={type} />
-      )}
+      <div className="hidden lg:block">
+        <MerchNftTable data={data} type={type} action={action} actionAll={actionAll} />
+      </div>
+      <div className="block lg:hidden">
+        <NftItemAccordion data={data} type={type} action={action} actionAll={actionAll} />
+      </div>
     </section>
   )
 }

@@ -26,7 +26,7 @@ const MerchNftTable = props => {
             <tr key={index}>
               <td className="flex items-center">
                 <div className="w-[70px] h-[70px] rounded-[15px] overflow-hidden">
-                  <MerchNftItem url={item.asset_url} />
+                  <MerchNftItem width={70} height={70} url={item.asset_url} />
                 </div>
 
                 <div className={styles.itemName}>{item.nft_name}</div>
