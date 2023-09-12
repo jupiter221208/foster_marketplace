@@ -169,7 +169,7 @@ const MerchActivity = () => {
 
   const getEnabledItem = (page, rowCount) => {
     if (!publicKey) {
-      setIsFetching(false)
+      setIsVisibleEnabledFetching(false)
       return
     }
     ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, true).then(
@@ -190,7 +190,7 @@ const MerchActivity = () => {
 
   const getDisabledItem = (page, rowCount) => {
     if (!publicKey) {
-      setIsFetching(false)
+      setIsVisibleDisabledFetching(false)
       return
     }
     ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(

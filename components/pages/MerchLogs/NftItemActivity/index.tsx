@@ -27,11 +27,8 @@ const NftItemActivity = props => {
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
-  const [currentPage, setCurrentPage] = useState(0)
-  const [rowCount, setRowCount] = useState(12)
   const [period, setPeriod] = useState('all')
   const [loading, setLoading] = useState(isLoading)
-  const [searchLoading, setSearchLoading] = useState(false)
 
   useEffect(() => {
     setLoading(isLoading)
@@ -76,13 +73,7 @@ const NftItemActivity = props => {
         />
       )}
 
-      {!loading && searchLoading && (
-        <div className="mt-10">
-          <LoadingModal open={searchLoading} />
-        </div>
-      )}
-
-      {!searchLoading && list.length > 0 && (
+      {list.length > 0 && (
         <div className="mt-[10px]">
           <TableSections data={list} type={type} action={action} />
         </div>

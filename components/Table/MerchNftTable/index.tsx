@@ -1,18 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
-import 'react-placeholder/lib/reactPlaceholder.css'
 
 // styles
 import styles from './index.module.scss'
-import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
 import GradientButton from 'components/Button/GradientButton'
+import MerchNftItem from 'components/Card/MerchNftItem'
 
 const MerchNftTable = props => {
   const { data, type, action } = props
-  const dispatch = useDispatch()
-  const router = useRouter()
 
   return (
     <table id={'ArtworksTable'} className="w-full table-auto">
@@ -29,7 +25,10 @@ const MerchNftTable = props => {
           return (
             <tr key={index}>
               <td className="flex items-center">
-                <img src={item.asset_url} className="w-[70px] h-[70px] rounded-[15px]" alt="" />
+                <div className="w-[70px] h-[70px] rounded-[15px] overflow-hidden">
+                  <MerchNftItem url={item.asset_url} />
+                </div>
+
                 <div className={styles.itemName}>{item.nft_name}</div>
               </td>
               <td>
