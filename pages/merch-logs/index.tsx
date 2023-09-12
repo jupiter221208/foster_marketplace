@@ -201,7 +201,7 @@ const MerchActivity = () => {
         setIsFetching(false)
         if (isLoadingData) setIsLoadingData(false)
 
-        setDisabledItems([...disabledItems, ...response])
+        setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
         if (response.length < rowCount) {
           setIsVisibleDisabledFetching(false)
         } else {
