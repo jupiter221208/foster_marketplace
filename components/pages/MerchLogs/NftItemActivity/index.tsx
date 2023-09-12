@@ -71,8 +71,14 @@ const NftItemActivity = props => {
       )}
       {!isLoading && activities.length === 0 && searchWord.length === 0 && (
         <div className="w-full mt-[50px] lg:mt-[0px]">
-          <div className={styles.noArtwork}>{'No artworks currently ' + type}</div>
-          <div className={styles.noData}>{'This tab displays the artwork you created with Creator Studio ' + type}</div>
+          <div className={styles.noArtwork}>
+            {type === 'enabled' ? 'No artworks currently enabled' : 'No eligible artworks detected'}
+          </div>
+          <div className={styles.noData}>
+            {type === 'enabled'
+              ? 'This tab displays the artwork you created with Creator Studio enabled'
+              : 'This tab displays any artworks you created that are eligible for Creator Studio'}
+          </div>
         </div>
       )}
     </div>

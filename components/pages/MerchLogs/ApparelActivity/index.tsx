@@ -20,7 +20,7 @@ import styles from './index.module.scss'
 const ApparelActivity = props => {
   const { activities, type, isLoading } = props
 
-  const [searchWord, setSearchWord] = useState<any>(null)
+  const [searchWord, setSearchWord] = useState<any>('')
   const [list, setList] = useState<any[]>([])
   useEffect(() => {}, [])
 
@@ -57,6 +57,19 @@ const ApparelActivity = props => {
       {list.length > 0 && (
         <div className="mt-[10px]">
           <TableSections data={list} type={type} />
+        </div>
+      )}
+
+      {!isLoading && activities?.length === 0 && searchWord.length === 0 && (
+        <div className="w-full mt-[50px] lg:mt-[0px]">
+          <div className={styles.noArtwork}>
+            {type === 'purchases' ? 'No order history detected' : 'No sales history detected'}
+          </div>
+          <div className={styles.noData}>
+            {type === 'purchases'
+              ? "This tab displays any orders you've placed via Creator Studio"
+              : 'This tab displays orders placed for your enabled Creator Studio artwork'}
+          </div>
         </div>
       )}
     </div>
