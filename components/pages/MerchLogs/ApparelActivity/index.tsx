@@ -67,7 +67,7 @@ const ApparelActivity = props => {
           </div>
           <div className={styles.noData}>
             {type === 'purchases'
-              ? "This tab displays any orders you've placed via Creator Studio"
+              ? "This tab displays the orders received for artwork you've enabled Creator Studio"
               : 'This tab displays orders placed for your enabled Creator Studio artwork'}
           </div>
         </div>
