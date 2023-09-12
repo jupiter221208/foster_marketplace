@@ -241,11 +241,29 @@ const MerchActivity = () => {
 
   const enableAllMerch = toggle => {
     if (toggle === true) {
-      setEnabledItems([...disabledItems])
-      setDisabledItems([])
+      let tokenIds = []
+      disabledItems.forEach(({ token_id }) => tokenIds.push(token_id))
+      NftAPI.enableAllMerchHub({ tokenIds, value: true }).then(
+        response => {
+          if (response !== null) {
+            setEnabledItems([...disabledItems])
+            setDisabledItems([])
+          }
+        },
+        err => {}
+      )
     } else {
-      setDisabledItems([...enabledItems])
-      setEnabledItems([])
+      let tokenIds = []
+      enabledItems.forEach(({ token_id }) => tokenIds.push(token_id))
+      NftAPI.enableAllMerchHub({ tokenIds, value: false }).then(
+        response => {
+          if (response !== null) {
+            setDisabledItems([...enabledItems])
+            setEnabledItems([])
+          }
+        },
+        err => {}
+      )
     }
   }
 
