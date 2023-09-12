@@ -11,7 +11,7 @@ const MerchNftTable = props => {
   const { data, type, action } = props
 
   return (
-    <table id={'ArtworksTable'} className="w-full table-auto">
+    <table id={'MerchNftTable'} className="w-full table-auto">
       <thead>
         <tr className={styles.tableHeader}>
           <th className="w-[80%] text-start">
