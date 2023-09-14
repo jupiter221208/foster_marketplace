@@ -147,47 +147,40 @@ const LiveAuctionCard = props => {
                 />
               )}
             </div>
+            {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
+              <div
+                className={styles.avatar}
+                onClick={() => {
+                  router.push(`/${data.artist_username}`)
+                  dispatch({ type: 'set', isLoading: true })
+                }}
+              >
+                <div className="w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] rounded-full overflow-hidden">
+                  <img
+                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
+                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
+                    src={data.artist_profile_picture}
+                    alt=""
+                    className="rounded-full"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </a>
       </Link>
-      {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
-        <div
-          className={styles.avatar}
-          onClick={() => {
-            router.push(`/${data.artist_username}`)
-            dispatch({ type: 'set', isLoading: true })
-          }}
-        >
-          <div className="w-[32px] h-[32px] lg:w-[36px] lg:h-[36px] rounded-full overflow-hidden">
-            <img
-              width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-              height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 32 : 36}
-              src={data.artist_profile_picture}
-              alt=""
-              className="rounded-full"
-            />
-          </div>
-        </div>
-      )}
+
       <div className={styles.bidContainer}>
-        {/* <div className={styles.bidBgView} /> */}
-        <div className={styles.bidGradientBgView} />
         <div className={styles.bidContentView}>
           <div>
-            <div className={styles.bidName}>{data.current_bid !== null ? 'CURRENT BID' : 'RESERVE PRICE'}</div>
+            <div className={styles.bidName}>{data.current_bid !== null ? 'Current Bid' : 'Reserve Price'}</div>
             <div className={styles.bidCountContainer}>
-              {/* <Image
-                src={SolanaLogoIcon}
-                alt=""
-                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 10 : viewport === 'xl' ? 15 : 17}
-                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 8 : viewport === 'xl' ? 13 : 15}
-              /> */}
-              <div className='mt-[-1px] lg:mt-[2px]'>
-              {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ?
-                <SolanaLogoMobileIcon alt="" />
-                :
-                <SolanaLogoIcon alt="" />
-              }
+              <div className="h-full">
+                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                  <SolanaLogoMobileIcon alt="" />
+                ) : (
+                  <SolanaLogoIcon alt="" />
+                )}
               </div>
               <div className={styles.bidCount}>
                 {data.current_bid !== null && data.current_bid > 0
@@ -198,32 +191,32 @@ const LiveAuctionCard = props => {
           </div>
 
           <div>
-            <div className={styles.bidTime}>{auctionStarted ? 'TIME REMAINING' : 'AUCTION STARTS IN'}</div>
-            <div className="flex justify-center">
+            <div className={styles.bidTime}>{auctionStarted ? 'Time Remaining' : 'Auction Starts In'}</div>
+            <div className={styles.bidCountContainer}>
               {timeLeft && timeLeft['days'] !== '00' && (
                 <div>
                   <div className={styles.endTime}>
                     {timeLeft && timeLeft['days']}
-                    <div className={styles.bidDesc}>d</div>
+                    <div className={styles.bidDesc}>D</div>
                   </div>
                 </div>
               )}
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
                   {timeLeft && timeLeft['hours']}
-                  <div className={styles.bidDesc}>h</div>
+                  <div className={styles.bidDesc}>H</div>
                 </div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
                   {timeLeft && timeLeft['minutes']}
-                  <div className={styles.bidDesc}>m</div>
+                  <div className={styles.bidDesc}>M</div>
                 </div>
               </div>
               <div className={styles.endTimeContainer}>
                 <div className={styles.endTime}>
                   {timeLeft && timeLeft['seconds']}
-                  <div className={styles.bidDesc}>s</div>
+                  <div className={styles.bidDesc}>S</div>
                 </div>
               </div>
             </div>
