@@ -80,7 +80,7 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10 mt-[45px]">
+      <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">

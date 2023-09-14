@@ -3,9 +3,11 @@
 .container {
   position: relative;
   z-index: 10;
+  padding-top: 30px;
+  padding-bottom: 30px;
   @media (min-width: 1024px) {
-    margin-top: 86px;
-    margin-bottom: 80px;
+    padding-top: 106px;
+    padding-bottom: 40px;
   }
 }
 

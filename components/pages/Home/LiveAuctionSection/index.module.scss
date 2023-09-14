@@ -2,9 +2,11 @@
 
 .container {
   position: relative;
-  margin-top: 45px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   @media (min-width: 1024px) {
-    margin-top: 86px;
+    padding-top: 100px;
+    padding-bottom: 40px;
   }
   width: 100%;
 }

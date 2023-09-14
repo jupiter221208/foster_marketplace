@@ -28,6 +28,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setColorTheme } from 'utils/helpers'
 import MaintenancePage from './maintenance'
 
+import styles from './index.module.scss'
+
 const Home = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
@@ -46,7 +48,7 @@ const Home = () => {
 
   return (
     // <MaintenancePage />
-    <div className="g-container">
+    <div className="w-full">
       <Head>
         <title>{pageTitle}</title>
 
@@ -64,16 +66,29 @@ const Home = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
 
-      <MainSection />
-      <PopularCategorySection type="home" />
-      <TopRatedArtistsSection />
-      <MarketplaceReleaseSection category={''} />
-      <LiveAuctionSection category={''} fromPage={'home'} />
-      <TrendingCollectionSection category={''} loop={true} />
-      {/* <MostPopularSection category={''} /> */}
-      <CreateSellNFTSection />
+      <div className="g-container">
+        <MainSection />
+      </div>
+      {/* <PopularCategorySection type="home" /> */}
+      <div className={styles.otherBG}>
+        <div className="g-container">
+          <LiveAuctionSection category={''} fromPage={'home'} />
+        </div>
+      </div>
+      <div className="g-container">
+        <MarketplaceReleaseSection category={''} />
+      </div>
+      <div className={styles.otherBG}>
+        <div className="g-container">
+          <TopRatedArtistsSection />
+        </div>
+      </div>
 
-      <FullScreenLoadingModal open={isLoading} />
+      <div className="g-container">
+        <TrendingCollectionSection category={''} loop={true} />
+        <CreateSellNFTSection />
+        <FullScreenLoadingModal open={isLoading} />
+      </div>
     </div>
   )
 }

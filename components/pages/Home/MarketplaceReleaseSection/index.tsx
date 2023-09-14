@@ -14,11 +14,8 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import NFTCard from 'components/Card/NFTCard'
-
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -82,9 +79,6 @@ const MarketplaceReleaseSection = props => {
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className={styles.bottomLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
