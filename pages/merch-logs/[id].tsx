@@ -48,53 +48,51 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
-    if (orderData) {
-      dispatch({ type: 'set', isLoading: false })
-      let itemData = orderData?.ssorder.items[0]
-      let options = itemData.options
-      let nftName = findElement(options, 'name', 'nftName')
-      if (options) {
-        let itemDetails = {
-          print: nftName ? nftName['value'] : '',
-          quantity: itemData.quantity,
-          product: itemData.name,
-        }
-        setItemDetails(itemDetails)
-      }
+    dispatch({ type: 'set', isLoading: false })
 
-      let order = orderData?.order
-      if (order) {
-        let paymentDetails = {
-          method: order.payment_method,
-          status: 'Complete',
-          commission: order.artist_commission.toFixed(2),
-          shipping: order.shipping_amount.toFixed(2),
-          tax: order.tax_amount.toFixed(2),
-          paidBy: order.buyer_address,
-        }
-        setPaymentDetails(paymentDetails)
-        let keys = Object.keys(order.seller_shares)
-        if (keys.length > 0) setPaidBy(keys[0])
-      }
+    if (!orderData) return
+    let { order, ssorder, fulfillment } = orderData
 
-      let ssorder = orderData?.ssorder
-      if (ssorder) {
-        let billTo = ssorder.billTo
-        let orderDetails = {
-          orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
-          total: order.amount.toFixed(2),
-          shipTo: {
-            street: billTo.street1,
-            city: billTo.city + ', ' + billTo.state + ' ' + billTo['postalCode'] + ', ' + billTo.country,
-          },
-          service: getShippingServiceName(ssorder.requestedShippingService),
-          delivery: getLocalDateWithoutTime(ssorder.paymentDate),
-        }
-        setOrderDetails(orderDetails)
+    if (fulfillment) setTrackingDetails(fulfillment)
+
+    let itemData = orderData?.ssorder.items[0]
+    let options = itemData.options
+    let nftName = findElement(options, 'name', 'nftName')
+    if (options) {
+      let itemDetails = {
+        print: nftName ? nftName['value'] : '',
+        quantity: itemData.quantity,
+        product: itemData.name,
       }
-      setTrackingDetails(orderData?.fulfillment)
-      setPreviewUrl(itemData.imageUrl)
+      setItemDetails(itemDetails)
     }
+
+    setPaymentDetails({
+      method: order.payment_method,
+      status: 'Complete',
+      commission: order.artist_commission.toFixed(2),
+      shipping: order.shipping_amount.toFixed(2),
+      tax: order.tax_amount.toFixed(2),
+      paidBy: order.buyer_address,
+    })
+    let keys = Object.keys(order.seller_shares)
+    if (keys.length > 0) setPaidBy(keys[0])
+
+    let billTo = ssorder.billTo
+    setOrderDetails({
+      orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
+      total: order.amount.toFixed(2),
+      shipTo: billTo
+        ? {
+            street: billTo.street1,
+            city: [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
+          }
+        : { street: '---', city: '---' },
+      service: getShippingServiceName(ssorder.requestedShippingService),
+      delivery: getLocalDateWithoutTime(ssorder.paymentDate),
+    })
+
+    setPreviewUrl(itemData.imageUrl)
   }, [orderData])
 
   const gotoTrackPage = () => {
@@ -236,7 +234,7 @@ const MerchDetail = () => {
         </div>
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.infoValue}>
-            Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+            Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
           </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
@@ -302,7 +300,7 @@ const MerchDetail = () => {
         <div className="w-full mt-[45px] flex justify-center">
           <div className="flex">
             <div className={styles.shipStatusTitle}>
-              Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+              Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
             </div>
           </div>
         </div>
