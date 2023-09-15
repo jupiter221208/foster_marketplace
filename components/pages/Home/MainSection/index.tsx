@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { EffectCoverflow, Autoplay, Pagination } from 'swiper'
+import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -79,7 +79,7 @@ const MainSection = () => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12">
-            <div className={styles.text}>Your Daily Dose of Art.</div>
+            <div className={styles.text}>Your Daily Dose of Art</div>
 
             <div className={styles.slug}>
               Home to creators, collectors, and curators around the world.
@@ -143,7 +143,7 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-12 lg:py-4 "
+            className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
             style={{
               width: '100%',
               marginLeft: '0px',
@@ -152,6 +152,7 @@ const MainSection = () => {
             <div className="w-full relative" id="heroSwiper">
               {heroList.length !== 0 && (
                 <Swiper
+                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
                   slidesPerView={3}
                   spaceBetween={0}
                   centeredSlides={true}
@@ -159,7 +160,8 @@ const MainSection = () => {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination]}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className={'heroNavigationSwiper'}
                   autoplay={{
                     delay: 5000,
                     disableOnInteraction: false,
@@ -170,10 +172,10 @@ const MainSection = () => {
                       <HeroCard data={item} />
                     </SwiperSlide>
                   ))}
+                  <div className={styles.leftSide} />
+                  <div className={styles.rightSide} />
                 </Swiper>
               )}
-              <div className={styles.leftSide} />
-              <div className={styles.rightSide} />
             </div>
             <div className="mt-[35px] lg:mt-[0px] flex justify-center gap-8">
               <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />

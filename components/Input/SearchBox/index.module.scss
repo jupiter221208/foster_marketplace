@@ -155,8 +155,7 @@
 
   &:hover {
     @media (min-width: 1024px) {
-      background: var(--search-item-bg);
-      color: $text-gray-200-color;
+      background: var(--profile-menu-item-bg);
       border-radius: 8px;
     }
   }

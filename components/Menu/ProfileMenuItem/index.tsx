@@ -46,8 +46,8 @@ const ProfileMenuItem = props => {
         }
         onSelect(item)
       }}
-      onMouseEnter={() => setMouseHover(true)}
-      onMouseLeave={() => setMouseHover(false)}
+      // onMouseEnter={() => setMouseHover(true)}
+      // onMouseLeave={() => setMouseHover(false)}
     >
       {item.id === 0 ? (
         <div className="w-10 h-10 ml-2 flex justify-center items-center">

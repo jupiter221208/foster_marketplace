@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
+import Lottie from 'lottie-react'
+import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -15,10 +17,7 @@ import 'swiper/css/navigation'
 
 // import Marquee from 'react-fast-marquee'
 
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
@@ -40,6 +39,7 @@ const TrendingCollectionSection = props => {
   const dispatch = useDispatch()
   const [trendingList, setTrendingList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setTrendingList([])
@@ -47,13 +47,16 @@ const TrendingCollectionSection = props => {
   }, [category])
 
   const getTrendingCollectionsFromServer = (category, period) => {
+    setIsLoading(true)
     dashboardAPI.getTrendingCollections(category, period).then(
       response => {
+        setIsLoading(false)
         if (response instanceof Array) {
           setTrendingList(response)
         }
       },
       error => {
+        setIsLoading(false)
         console.log(error)
       }
     )
@@ -84,9 +87,6 @@ const TrendingCollectionSection = props => {
   return (
     (category.length === 0 || trendingList.length > 0) && (
       <section className={styles.container}>
-        <div className={styles.topRightEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -94,45 +94,56 @@ const TrendingCollectionSection = props => {
                 <div className={styles.title}>Trending Collections</div>
               </div>
             ) : (
-              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Collections</div>
+              <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending&nbsp;Collections</div>
             )}
-            <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
-              <TimeSlotButton
-                label="24 hrs"
-                onClick={() => handleChangeActive(0)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="7 days"
-                onClick={() => handleChangeActive(1)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="30 days"
-                onClick={() => handleChangeActive(2)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
-              <TimeSlotButton
-                label="All Time"
-                onClick={() => handleChangeActive(3)}
-                fontFamily={'Muli-SemiBold'}
-                color={active === 3 ? 'var(--day-btn-color)' : '#979EA2'}
-                backgroundColor01={active === 3 ? 'var(--day-btn-bg-1)' : 'transparent'}
-                backgroundColor02={active === 3 ? 'var(--day-btn-bg-2)' : 'transparent'}
-                gradientDirection="bottom"
-              />
+
+            <div className="w-full hidden lg:flex h-[54px] z-10">
+              <div className={styles.slotBG}>
+                <TimeSlotButton
+                  label="24 hrs"
+                  onClick={() => handleChangeActive(0)}
+                  fontFamily={'Muli-SemiBold'}
+                  color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                  backgroundColor01={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+                  backgroundColor02={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+                  gradientDirection="bottom"
+                  width={86}
+                  boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+                />
+                <TimeSlotButton
+                  label="7 days"
+                  onClick={() => handleChangeActive(1)}
+                  fontFamily={'Muli-SemiBold'}
+                  color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                  backgroundColor01={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+                  backgroundColor02={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+                  gradientDirection="bottom"
+                  width={86}
+                  boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+                />
+                <TimeSlotButton
+                  label="30 days"
+                  onClick={() => handleChangeActive(2)}
+                  fontFamily={'Muli-SemiBold'}
+                  color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                  backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                  backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                  gradientDirection="bottom"
+                  width={100}
+                  boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+                />
+                <TimeSlotButton
+                  label="All Time"
+                  onClick={() => handleChangeActive(3)}
+                  fontFamily={'Muli-SemiBold'}
+                  color={active === 3 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                  backgroundColor01={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
+                  backgroundColor02={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
+                  gradientDirection="bottom"
+                  width={100}
+                  boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+                />
+              </div>
             </div>
           </div>
           <div className="hidden lg:flex z-10">
@@ -194,70 +205,78 @@ const TrendingCollectionSection = props => {
             />
           </div>
         </div>
-        <div className="w-full mt-[30px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
-          {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
-            <Swiper
-              navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              className="navigationSwiper"
-              // loop={trendingList.length < 3 ? false : loop}
-              // autoplay={{
-              //   delay: 5000,
-              //   disableOnInteraction: false,
-              // }}
-            >
-              {trendingList.map((item: any, index) => (
-                <SwiperSlide key={index}>
-                  <TrendingCollectionCard
-                    collectionID={item.collection_id}
-                    image={item.cover_image}
-                    collectionName={item.collection_name}
-                    artistName={item.artist_username}
-                    nftCount={item.number_in_collections}
-                    avatar={item.artist_profile_picture}
-                    key={index}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            // <Marquee
-            //   gradient={false}
-            //   pauseOnHover={false}
-            //   pauseOnClick={true}
-            //   speed={
-            //     viewport === 'xs'
-            //       ? 40
-            //       : viewport === 'sm'
-            //       ? 50
-            //       : viewport === 'md'
-            //       ? 60
-            //       : viewport === 'lg'
-            //       ? 70
-            //       : viewport === 'xl'
-            //       ? 90
-            //       : 110
-            //   }
-            // >
-            // <div className="w-full flex gap-5 lg:gap-10 mx-[10px] py-2 lg:mx-5">
-            //   {trendingList.map((item: any, index) => (
-            //     <TrendingCollectionCard
-            //       collectionID={item.collection_id}
-            //       image={item.cover_image}
-            //       collectionName={item.collection_name}
-            //       artistName={item.artist_username}
-            //       nftCount={item.number_in_collections}
-            //       avatar={item.artist_profile_picture}
-            //       key={index}
-            //     />
-            //   ))}
-            // </div>
-            // </Marquee>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="w-full h-[500px] flex justify-center">
+            <div className="w-[500px] h-[40px] mt-[100px]">
+              <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
+            </div>
+          </div>
+        ) : (
+          <div className="w-full mt-[30px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
+            {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
+              <Swiper
+                navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
+                spaceBetween={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+                }
+                modules={[Autoplay, Lazy, Navigation]}
+                className="auctionNavigationSwiper"
+                // loop={trendingList.length < 3 ? false : loop}
+                // autoplay={{
+                //   delay: 5000,
+                //   disableOnInteraction: false,
+                // }}
+              >
+                {trendingList.map((item: any, index) => (
+                  <SwiperSlide key={index}>
+                    <TrendingCollectionCard
+                      collectionID={item.collection_id}
+                      image={item.cover_image}
+                      collectionName={item.collection_name}
+                      artistName={item.artist_username}
+                      nftCount={item.number_in_collections}
+                      avatar={item.artist_profile_picture}
+                      key={index}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              // <Marquee
+              //   gradient={false}
+              //   pauseOnHover={false}
+              //   pauseOnClick={true}
+              //   speed={
+              //     viewport === 'xs'
+              //       ? 40
+              //       : viewport === 'sm'
+              //       ? 50
+              //       : viewport === 'md'
+              //       ? 60
+              //       : viewport === 'lg'
+              //       ? 70
+              //       : viewport === 'xl'
+              //       ? 90
+              //       : 110
+              //   }
+              // >
+              // <div className="w-full flex gap-5 lg:gap-10 mx-[10px] py-2 lg:mx-5">
+              //   {trendingList.map((item: any, index) => (
+              //     <TrendingCollectionCard
+              //       collectionID={item.collection_id}
+              //       image={item.cover_image}
+              //       collectionName={item.collection_name}
+              //       artistName={item.artist_username}
+              //       nftCount={item.number_in_collections}
+              //       avatar={item.artist_profile_picture}
+              //       key={index}
+              //     />
+              //   ))}
+              // </div>
+              // </Marquee>
+            )}
+          </div>
+        )}
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton

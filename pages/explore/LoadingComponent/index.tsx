@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
 // third party components
-import { Transition } from '@headlessui/react'
 import Lottie from 'lottie-react'
 import PreLoaderIcon from 'assets/lottery/preloader.json'
 import useOnScreen from 'components/UseOnScreen/useOnScreen'
