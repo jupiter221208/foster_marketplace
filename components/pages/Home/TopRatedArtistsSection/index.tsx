@@ -80,15 +80,17 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10">
+      <div className="w-full flex justify-center">
+        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+          <div className="w-full flex justify-center items-center z-10">
+            <div className={styles.title}>Trending Artists</div>
+          </div>
+        ) : (
+          <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
+        )}
+      </div>
+      <div className="w-full flex justify-between items-center z-10 mt-[0px] lg:mt-[30px]">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className="w-full flex justify-center items-center z-10">
-              <div className={styles.title}>Trending Artists</div>
-            </div>
-          ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending&nbsp;Artists</div>
-          )}
           <div className="w-full hidden lg:flex h-[54px]">
             <div className={styles.slotBG}>
               <TimeSlotButton

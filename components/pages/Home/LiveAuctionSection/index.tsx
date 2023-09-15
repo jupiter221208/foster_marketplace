@@ -119,23 +119,19 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10">
-        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-            {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              <div
-                className={`${
-                  fromPage === 'profile' ? 'justify-start' : 'justify-center'
-                } w-full flex items-center z-10`}
-              >
-                <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
-              </div>
-            ) : (
-              <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
-                Live&nbsp;Auctions
-              </div>
-            )}
+      <div className="w-full lg:w-auto flex justify-center items-center gap-4 lg:gap-8">
+        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+          <div
+            className={`${fromPage === 'profile' ? 'justify-start' : 'justify-center'} w-full flex items-center z-10`}
+          >
+            <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
           </div>
+        ) : (
+          <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title}`}>Live&nbsp;Auctions</div>
+        )}
+      </div>
+      <div className="w-full flex justify-between items-center mt-[0px] lg:mt-[30px] z-10">
+        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           <div className="hidden lg:flex w-full h-[54px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton
