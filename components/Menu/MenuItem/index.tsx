@@ -28,8 +28,8 @@ const MenuItem = props => {
       onClick={() => {
         onSelect(item)
       }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      // onMouseEnter={() => setHover(true)}
+      // onMouseLeave={() => setHover(false)}
     >
       <div className="w-12 h-12">
         {item.type === 'nft_category' ? (

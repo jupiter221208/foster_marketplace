@@ -130,9 +130,9 @@ const LiveAuctionSection = props => {
           <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title}`}>Live&nbsp;Auctions</div>
         )}
       </div>
-      <div className="w-full flex justify-between items-center mt-[0px] lg:mt-[30px] z-10">
+      <div className="w-full flex justify-between items-center mt-[0px] lg:mt-[50px] z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
-          <div className="hidden lg:flex w-full h-[54px] z-10">
+          <div className="hidden lg:flex w-full h-[54px] ml-[18px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton
                 label="Starting Soon"

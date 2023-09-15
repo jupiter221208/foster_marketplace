@@ -89,7 +89,7 @@ const TopRatedArtistsSection = () => {
           <div className={`${styles.title}`}>Trending&nbsp;Artists</div>
         )}
       </div>
-      <div className="w-full flex justify-between items-center z-10 mt-[0px] lg:mt-[30px]">
+      <div className="w-full flex justify-between items-center z-10 mt-[0px] lg:mt-[50px]">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           <div className="w-full hidden lg:flex h-[54px]">
             <div className={styles.slotBG}>
