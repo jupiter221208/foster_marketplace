@@ -132,38 +132,46 @@ const LiveAuctionSection = props => {
               </div>
             ) : (
               <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title} mr-0 lg:mr-6 xl:mr-8`}>
-                Live Auctions
+                Live&nbsp;Auctions
               </div>
             )}
           </div>
-          <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px] z-10">
-            <TimeSlotButton
-              label="Starting Soon"
-              onClick={() => handleChangeActive(0)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
-            <TimeSlotButton
-              label="New"
-              onClick={() => handleChangeActive(1)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
-            <TimeSlotButton
-              label="Ending Soon"
-              onClick={() => handleChangeActive(2)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
+          <div className="hidden lg:flex w-full h-[54px] z-10">
+            <div className={styles.slotBG}>
+              <TimeSlotButton
+                label="Starting Soon"
+                onClick={() => handleChangeActive(0)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={140}
+                boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+              <TimeSlotButton
+                label="New"
+                onClick={() => handleChangeActive(1)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={86}
+                boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+              <TimeSlotButton
+                label="Ending Soon"
+                onClick={() => handleChangeActive(2)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={124}
+                boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+            </div>
           </div>
         </div>
         <div className="hidden lg:flex z-10">

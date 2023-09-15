@@ -87,46 +87,55 @@ const TopRatedArtistsSection = () => {
               <div className={styles.title}>Trending Artists</div>
             </div>
           ) : (
-            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending Artists</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending&nbsp;Artists</div>
           )}
-
-          <div className="hidden lg:flex justify-between gap-[10px] lg:gap-[30px] xl:gap-[50px]">
-            <TimeSlotButton
-              label="24 hrs"
-              onClick={() => handleChangeActive(0)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 0 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 0 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 0 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
-            <TimeSlotButton
-              label="7 days"
-              onClick={() => handleChangeActive(1)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 1 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 1 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 1 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
-            <TimeSlotButton
-              label="30 days"
-              onClick={() => handleChangeActive(2)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 2 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 2 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 2 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
-            <TimeSlotButton
-              label="All Time"
-              onClick={() => handleChangeActive(3)}
-              fontFamily={'Muli-SemiBold'}
-              color={active === 3 ? 'var(--day-btn-color)' : '#979EA2'}
-              backgroundColor01={active === 3 ? 'var(--day-btn-bg-1)' : 'transparent'}
-              backgroundColor02={active === 3 ? 'var(--day-btn-bg-2)' : 'transparent'}
-              gradientDirection="bottom"
-            />
+          <div className="w-full hidden lg:flex h-[54px]">
+            <div className={styles.slotBG}>
+              <TimeSlotButton
+                label="24 hrs"
+                onClick={() => handleChangeActive(0)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 0 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={86}
+                boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+              <TimeSlotButton
+                label="7 days"
+                onClick={() => handleChangeActive(1)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 1 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={86}
+                boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+              <TimeSlotButton
+                label="30 days"
+                onClick={() => handleChangeActive(2)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={86}
+                boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+              <TimeSlotButton
+                label="All Time"
+                onClick={() => handleChangeActive(3)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 3 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={86}
+                boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+            </div>
           </div>
         </div>
         <div className="hidden lg:flex z-10">
