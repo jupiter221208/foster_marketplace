@@ -581,7 +581,7 @@ h6 {
     &:hover {
       cursor: pointer;
     }
-
+    pointer-events: visible !important;
   }
 
   .swiper-button-next {
@@ -604,6 +604,7 @@ h6 {
     &:hover {
       cursor: pointer;
     }
+    pointer-events: visible !important;
   }
 }
 
@@ -633,7 +634,7 @@ h6 {
     &:hover {
       cursor: pointer;
     }
-
+    pointer-events: visible !important;
   }
 
   .swiper-button-next {
@@ -656,6 +657,7 @@ h6 {
     &:hover {
       cursor: pointer;
     }
+    pointer-events: visible !important;
   }
 }
 
