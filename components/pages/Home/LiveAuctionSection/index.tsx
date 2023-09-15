@@ -168,7 +168,7 @@ const LiveAuctionSection = props => {
                 backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
                 backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
                 gradientDirection="bottom"
-                width={124}
+                width={140}
                 boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
             </div>
@@ -228,7 +228,7 @@ const LiveAuctionSection = props => {
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 3}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
-          className="auctionNavigationSwiper"
+          className={'auctionNavigationSwiper'}
           loop={cardLoop}
           // autoplay={{
           //   delay: 5000,

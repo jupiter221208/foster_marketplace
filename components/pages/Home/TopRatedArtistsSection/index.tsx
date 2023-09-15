@@ -121,7 +121,7 @@ const TopRatedArtistsSection = () => {
                 backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
                 backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
                 gradientDirection="bottom"
-                width={86}
+                width={100}
                 boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
               <TimeSlotButton
@@ -132,7 +132,7 @@ const TopRatedArtistsSection = () => {
                 backgroundColor01={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
                 backgroundColor02={active === 3 ? 'var(--time-slog-bg)' : 'transparent'}
                 gradientDirection="bottom"
-                width={86}
+                width={100}
                 boxShadow={active === 3 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
             </div>
