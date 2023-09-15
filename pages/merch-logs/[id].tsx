@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -15,17 +16,18 @@ import styles from './id.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // api
-import MerchAPI from 'apis/merch'
 import { getOrder, OrderData } from 'apis/merch'
-import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
+import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
+import { set } from '@project-serum/anchor/dist/cjs/utils/features'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
+  const { connected, publicKey } = useWallet()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -35,6 +37,7 @@ const MerchDetail = () => {
   const [trackingDetails, setTrackingDetails] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
+  const [isOwn, setIsOwn] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -75,6 +78,9 @@ const MerchDetail = () => {
       tax: order.tax_amount.toFixed(2),
       paidBy: order.buyer_address,
     })
+
+    setIsOwn(order.buyer_address === publicKey.toBase58())
+
     let keys = Object.keys(order.seller_shares)
     if (keys.length > 0) setPaidBy(keys[0])
 
@@ -142,11 +148,10 @@ const MerchDetail = () => {
             <div className={styles.infoTitle}>SHIP TO</div>
 
             <div className={styles.infoValue}>
-              {orderDetails?.orderNumber === '' ? (
+              {orderDetails?.orderNumber === '' && !isOwn ? (
                 'Hidden for Buyer Safety'
               ) : (
                 <div>
-                  {' '}
                   {orderDetails?.shipTo.street}
                   <br />
                   {orderDetails?.shipTo.city}
@@ -155,17 +160,17 @@ const MerchDetail = () => {
             </div>
           </div>
           <div>
-            <div className={styles.infoTitle}>SHIPING METHOD</div>
+            <div className={styles.infoTitle}>SHIPPING METHOD</div>
             <div className={styles.infoValue}>
-              {orderDetails?.orderNumber === '' ? 'Hidden for Buyer Safety' : orderDetails?.service}
+              {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
             </div>
           </div>
           <div>
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
             <div className={`${styles.infoValue} text-right`}>
-              {orderDetails?.orderNumber === ''
+              {orderDetails?.orderNumber === '' && !isOwn
                 ? 'Hidden for Buyer Safety'
-                : trackingDetails === null
+                : trackingDetails === null && connected
                 ? 'Pending Order Creation'
                 : trackingDetails?.trackingNumber}
             </div>
@@ -273,22 +278,34 @@ const MerchDetail = () => {
           <div className="w-full mt-[15px]">
             <div className="text-start">
               <div className={styles.infoTitle}>SHIP TO</div>
-              <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
-              <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+              {orderDetails?.orderNumber === '' && !isOwn ? (
+                <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+              ) : (
+                <div>
+                  <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
+                  <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="w-full mt-[15px]">
             <div className="text-start">
               <div className={styles.infoTitle}>SHIPPING METHOD</div>
-              <div className={styles.infoValue}>{orderDetails?.service}</div>
+              <div className={styles.infoValue}>
+                {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+              </div>
             </div>
           </div>
 
           <div className="w-full mt-[15px]">
             <div className={styles.infoTitle}>Tracking Number</div>
             <div className={styles.infoValue}>
-              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.trackingNumber}
+              {orderDetails?.orderNumber === '' && !isOwn
+                ? 'Hidden for Buyer Safety'
+                : trackingDetails === null && connected
+                ? 'Pending Order Creation'
+                : trackingDetails?.trackingNumber}
             </div>
           </div>
         </div>

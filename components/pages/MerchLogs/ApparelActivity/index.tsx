@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 // components
-import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
+import CreatorSearchSection from '../CreatorSearchSection'
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-import { useViewport } from 'utils'
 
 // json
 
@@ -56,7 +54,7 @@ const ApparelActivity = props => {
     <div className={styles.container}>
       <div className="hidden lg:block">
         {activities.length > 0 && (
-          <SearchSection
+          <CreatorSearchSection
             placeholder={'Search'}
             searchWord={searchWord}
             setSearchWord={value => setSearchWord(value.toString())}
