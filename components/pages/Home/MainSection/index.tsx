@@ -143,7 +143,7 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-12 lg:py-4 "
+            className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
             style={{
               width: '100%',
               marginLeft: '0px',
