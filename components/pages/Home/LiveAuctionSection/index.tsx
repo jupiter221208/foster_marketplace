@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
+import Lottie from 'lottie-react'
+import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -14,7 +16,6 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 // components
-import Button from 'components/Button'
 import LiveAuctionCard from 'components/Card/LiveAuctionCard'
 
 // custom functions
@@ -41,6 +42,8 @@ const LiveAuctionSection = props => {
   const [type, setType] = useState('recent_started')
   const [isLoaded, setIsLoaded] = useState(false)
   const [showSection, setShowSection] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     getLiveAuctionsFromServer(category, artist, 'recent_started')
   }, [artist, category])
@@ -55,9 +58,10 @@ const LiveAuctionSection = props => {
     return false
   }
   const getLiveAuctionsFromServer = (category, artist, mode) => {
+    setIsLoading(true)
     dashboardAPI.getLiveAuctions(category, artist, mode).then(response => {
       if (setLiveAuctionLoaded) setLiveAuctionLoaded()
-
+      setIsLoading(false)
       if (response !== null && response !== undefined && response.length !== 0) {
         let lists = []
         response.forEach(item => {
@@ -89,6 +93,7 @@ const LiveAuctionSection = props => {
     }),
       error => {
         if (setLiveAuctionLoaded) setLiveAuctionLoaded()
+        setIsLoading(false)
         console.log(error)
       }
   }
@@ -119,22 +124,14 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      <div
-        className={`${
-          fromPage === 'profile' ? 'justify-start' : 'justify-center'
-        } w-full lg:w-auto flex items-center gap-4 lg:gap-8`}
-      >
-        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div
-            className={`${fromPage === 'profile' ? 'justify-start' : 'justify-center'} w-full flex items-center z-10`}
-          >
+      {fromPage !== 'profile' && (
+        <div className="w-full lg:w-auto flex items-center gap-4 lg:gap-8 mb-[0px] lg:mb-[50px]">
+          <div className={`w-full flex justify-center items-center z-10`}>
             <div className={fromPage === 'profile' ? styles.smallTitle : styles.title}>Live Auctions</div>
           </div>
-        ) : (
-          <div className={`${fromPage === 'profile' ? styles.smallTitle : styles.title}`}>Live&nbsp;Auctions</div>
-        )}
-      </div>
-      <div className="w-full flex justify-between items-center mt-[0px] lg:mt-[50px] z-10">
+        </div>
+      )}
+      <div className="w-full flex justify-between items-center z-10">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
           <div className="hidden lg:flex w-full h-[54px] ml-[18px] z-10">
             <div className={styles.slotBG}>
@@ -175,14 +172,16 @@ const LiveAuctionSection = props => {
           </div>
         </div>
         <div className="hidden lg:flex z-10">
-          <SeeMoreButton
-            onClick={() => {
-              dispatch({ type: 'set', exploreTab: 0 })
-              dispatch({ type: 'set', availabilityFilter: 1 })
-              dispatch({ type: 'set', artworkCategory: category })
-              router.push('/explore')
-            }}
-          />
+          {fromPage !== 'profile' && (
+            <SeeMoreButton
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 0 })
+                dispatch({ type: 'set', availabilityFilter: 1 })
+                dispatch({ type: 'set', artworkCategory: category })
+                router.push('/explore')
+              }}
+            />
+          )}
         </div>
       </div>
       <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
@@ -222,32 +221,42 @@ const LiveAuctionSection = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[30px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 3}
-          spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
-          modules={[Autoplay, Lazy, Navigation]}
-          className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
-          loop={cardLoop}
-          // autoplay={{
-          //   delay: 5000,
-          //   disableOnInteraction: false,
-          // }}
-        >
-          {liveAuctionList.map((item: any, index) => (
-            <SwiperSlide key={index}>
-              <LiveAuctionCard
-                data={item}
-                onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
-                  router.push('/nft/' + item.token_id)
-                }}
-                key={index}
-              />
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className="w-full mt-[30px] lg:mt-[40px] z-10">
+        {isLoading ? (
+          <div className="w-full h-[400px] flex justify-center">
+            <div className="w-[500px] h-[40px]">
+              <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
+            </div>
+          </div>
+        ) : (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 3}
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+            }
+            modules={[Autoplay, Lazy, Navigation]}
+            className={liveAuctionList.length > 3 ? 'auctionNavigationSwiper' : 'noScrollNavigationSwiper'}
+            loop={cardLoop}
+            // autoplay={{
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // }}
+          >
+            {liveAuctionList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <LiveAuctionCard
+                  data={item}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push('/nft/' + item.token_id)
+                  }}
+                  key={index}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
       {fromPage !== 'profile' && (
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">

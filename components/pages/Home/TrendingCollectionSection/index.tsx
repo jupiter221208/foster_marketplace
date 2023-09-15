@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 
 // third party components
 import { useDispatch } from 'react-redux'
+import Lottie from 'lottie-react'
+import PreLoaderIcon from 'assets/lottery/preloader.json'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -15,10 +17,7 @@ import 'swiper/css/navigation'
 
 // import Marquee from 'react-fast-marquee'
 
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-
 // components
-import Button from 'components/Button'
 import OutlineButton from 'components/Button/OutlineButton'
 import TrendingCollectionCard from 'components/Card/TrendingCollectionCard'
 
@@ -40,6 +39,7 @@ const TrendingCollectionSection = props => {
   const dispatch = useDispatch()
   const [trendingList, setTrendingList] = useState<any[]>([])
   const [active, setActive] = useState<any>(1)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     setTrendingList([])
@@ -47,13 +47,16 @@ const TrendingCollectionSection = props => {
   }, [category])
 
   const getTrendingCollectionsFromServer = (category, period) => {
+    setIsLoading(true)
     dashboardAPI.getTrendingCollections(category, period).then(
       response => {
+        setIsLoading(false)
         if (response instanceof Array) {
           setTrendingList(response)
         }
       },
       error => {
+        setIsLoading(false)
         console.log(error)
       }
     )
@@ -202,70 +205,78 @@ const TrendingCollectionSection = props => {
             />
           </div>
         </div>
-        <div className="w-full mt-[30px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
-          {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
-            <Swiper
-              navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-              slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
-              spaceBetween={
-                viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-              }
-              modules={[Autoplay, Lazy, Navigation]}
-              className="auctionNavigationSwiper"
-              // loop={trendingList.length < 3 ? false : loop}
-              // autoplay={{
-              //   delay: 5000,
-              //   disableOnInteraction: false,
-              // }}
-            >
-              {trendingList.map((item: any, index) => (
-                <SwiperSlide key={index}>
-                  <TrendingCollectionCard
-                    collectionID={item.collection_id}
-                    image={item.cover_image}
-                    collectionName={item.collection_name}
-                    artistName={item.artist_username}
-                    nftCount={item.number_in_collections}
-                    avatar={item.artist_profile_picture}
-                    key={index}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            // <Marquee
-            //   gradient={false}
-            //   pauseOnHover={false}
-            //   pauseOnClick={true}
-            //   speed={
-            //     viewport === 'xs'
-            //       ? 40
-            //       : viewport === 'sm'
-            //       ? 50
-            //       : viewport === 'md'
-            //       ? 60
-            //       : viewport === 'lg'
-            //       ? 70
-            //       : viewport === 'xl'
-            //       ? 90
-            //       : 110
-            //   }
-            // >
-            // <div className="w-full flex gap-5 lg:gap-10 mx-[10px] py-2 lg:mx-5">
-            //   {trendingList.map((item: any, index) => (
-            //     <TrendingCollectionCard
-            //       collectionID={item.collection_id}
-            //       image={item.cover_image}
-            //       collectionName={item.collection_name}
-            //       artistName={item.artist_username}
-            //       nftCount={item.number_in_collections}
-            //       avatar={item.artist_profile_picture}
-            //       key={index}
-            //     />
-            //   ))}
-            // </div>
-            // </Marquee>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="w-full h-[500px] flex justify-center">
+            <div className="w-[500px] h-[40px] mt-[100px]">
+              <Lottie width={500} height={40} animationData={PreLoaderIcon} loop={true} />
+            </div>
+          </div>
+        ) : (
+          <div className="w-full mt-[30px] lg:mt-[34px] z-10 pb-[0px] lg:pb-[30px]">
+            {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
+              <Swiper
+                navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
+                spaceBetween={
+                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+                }
+                modules={[Autoplay, Lazy, Navigation]}
+                className="auctionNavigationSwiper"
+                // loop={trendingList.length < 3 ? false : loop}
+                // autoplay={{
+                //   delay: 5000,
+                //   disableOnInteraction: false,
+                // }}
+              >
+                {trendingList.map((item: any, index) => (
+                  <SwiperSlide key={index}>
+                    <TrendingCollectionCard
+                      collectionID={item.collection_id}
+                      image={item.cover_image}
+                      collectionName={item.collection_name}
+                      artistName={item.artist_username}
+                      nftCount={item.number_in_collections}
+                      avatar={item.artist_profile_picture}
+                      key={index}
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+              // <Marquee
+              //   gradient={false}
+              //   pauseOnHover={false}
+              //   pauseOnClick={true}
+              //   speed={
+              //     viewport === 'xs'
+              //       ? 40
+              //       : viewport === 'sm'
+              //       ? 50
+              //       : viewport === 'md'
+              //       ? 60
+              //       : viewport === 'lg'
+              //       ? 70
+              //       : viewport === 'xl'
+              //       ? 90
+              //       : 110
+              //   }
+              // >
+              // <div className="w-full flex gap-5 lg:gap-10 mx-[10px] py-2 lg:mx-5">
+              //   {trendingList.map((item: any, index) => (
+              //     <TrendingCollectionCard
+              //       collectionID={item.collection_id}
+              //       image={item.cover_image}
+              //       collectionName={item.collection_name}
+              //       artistName={item.artist_username}
+              //       nftCount={item.number_in_collections}
+              //       avatar={item.artist_profile_picture}
+              //       key={index}
+              //     />
+              //   ))}
+              // </div>
+              // </Marquee>
+            )}
+          </div>
+        )}
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
