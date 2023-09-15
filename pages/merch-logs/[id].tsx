@@ -80,6 +80,7 @@ const MerchDetail = () => {
 
     let billTo = ssorder.billTo
     setOrderDetails({
+      orderNumber: ssorder.orderNumber,
       orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
       total: order.amount.toFixed(2),
       shipTo: billTo
@@ -139,20 +140,34 @@ const MerchDetail = () => {
           </div>
           <div>
             <div className={styles.infoTitle}>SHIP TO</div>
+
             <div className={styles.infoValue}>
-              {orderDetails?.shipTo.street}
-              <br />
-              {orderDetails?.shipTo.city}
+              {orderDetails?.orderNumber === '' ? (
+                'Hidden for Buyer Safety'
+              ) : (
+                <div>
+                  {' '}
+                  {orderDetails?.shipTo.street}
+                  <br />
+                  {orderDetails?.shipTo.city}
+                </div>
+              )}
             </div>
           </div>
           <div>
             <div className={styles.infoTitle}>SHIPING METHOD</div>
-            <div className={styles.infoValue}>{orderDetails?.service}</div>
+            <div className={styles.infoValue}>
+              {orderDetails?.orderNumber === '' ? 'Hidden for Buyer Safety' : orderDetails?.service}
+            </div>
           </div>
           <div>
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
             <div className={`${styles.infoValue} text-right`}>
-              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.trackingNumber}
+              {orderDetails?.orderNumber === ''
+                ? 'Hidden for Buyer Safety'
+                : trackingDetails === null
+                ? 'Pending Order Creation'
+                : trackingDetails?.trackingNumber}
             </div>
           </div>
         </div>
