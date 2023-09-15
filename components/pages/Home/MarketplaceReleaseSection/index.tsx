@@ -42,9 +42,19 @@ const MarketplaceReleaseSection = props => {
     setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '').then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
+        // let newList: any[] = []
+        // let tempItem: any[] = []
+        // response.map((item, index) => {
+        //   tempItem.push(item)
+        //   if (index % 2 === 1) {
+        //     newList.push(tempItem)
+        //     tempItem = []
+        //   }
+        // })
+
+        // if (tempItem.length > 0) newList.push(tempItem)
+
         setAllMarketplaceReleaseList(response)
-        if (response.length > 4) setCardLoop(true)
-        else setCardLoop(false)
       }
     }),
       error => {
@@ -56,25 +66,6 @@ const MarketplaceReleaseSection = props => {
     if (allMarketplaceReleaseList.length === 0) return
     setMarketplaceReleaseList(allMarketplaceReleaseList)
   }, [viewport, allMarketplaceReleaseList])
-
-  const handleChangeActive = value => {
-    setActive(value)
-
-    switch (value) {
-      case 0:
-        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 5))
-        break
-      case 1:
-        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 10))
-        break
-      case 2:
-        setMarketplaceReleaseList(allMarketplaceReleaseList.slice(0, 15))
-        break
-      default:
-        setMarketplaceReleaseList(allMarketplaceReleaseList)
-        break
-    }
-  }
 
   return (
     marketplaceReleaseList.length !== 0 && (
@@ -100,42 +91,25 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-        <div className="w-full mt-[15px] lg:mt-[34px] z-10">
-          <Swiper
-            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-            slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 4}
-            spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
-            }
-            modules={[Autoplay, Lazy, Navigation]}
-            className={'navigationSwiper'}
-            loop={cardLoop}
-            // autoplay={{
-            //   delay: 5000,
-            //   disableOnInteraction: false,
-            // }}
-          >
-            {marketplaceReleaseList.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
-                  <NFTCard
-                    image={item.asset_url}
-                    token_id={item.token_id}
-                    nftName={item.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/nft/${item.token_id}`)
-                    }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+          {marketplaceReleaseList.map((item: any, index) => (
+            <div className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
+              <NFTCard
+                image={item.asset_url}
+                token_id={item.token_id}
+                nftName={item.nft_name}
+                assetType={item.asset_type}
+                coverImage={item.cover_image_url}
+                artistName={item.artist_username}
+                collectionName={item.collection_name}
+                price={item.list_price}
+                onClick={() => {
+                  dispatch({ type: 'set', isLoading: true })
+                  router.push(`/nft/${item.token_id}`)
+                }}
+              />
+            </div>
+          ))}
         </div>
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
