@@ -3,9 +3,9 @@ import client from './client'
 const API_URL = process.env.BACKEND_URL
 
 export interface ShipStationOrder {
-  orderId: number
+  orderId?: number
   orderNumber: string
-  orderKey: string
+  orderKey?: string
   orderDate: string
   paymentDate?: string
   orderStatus: string
@@ -13,8 +13,8 @@ export interface ShipStationOrder {
   customerId?: number
   customerEmail: string
 
-  billTo: ShipStationAddress
-  shipTo: ShipStationAddress
+  billTo?: ShipStationAddress
+  shipTo?: ShipStationAddress
 
   items: ShipStationOrderItem[]
   amountPaid: number
@@ -27,7 +27,7 @@ export interface ShipStationOrder {
   gift: boolean
   giftMessage?: string
 
-  payment_method?: string
+  paymentMethod?: string
   requestedShippingService: string
 
   weight: {
@@ -45,7 +45,7 @@ export interface ShipStationAddress {
   street3?: string
   city?: string
   state: string
-  postal_code: string
+  postalCode: string
   country: string
   phone: string
   residential?: boolean
@@ -157,5 +157,5 @@ export default {
   getAllOrder,
   getBuyerOrder,
   getSellerOrder,
-  getOrderStats
+  getOrderStats,
 }

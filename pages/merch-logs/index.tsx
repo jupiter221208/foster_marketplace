@@ -41,7 +41,11 @@ const MerchActivity = () => {
   const [tabList, setTabList] = useState<any[]>(TabList)
   const [previewMode, setPreviewMode] = useState(false)
   const [purchases, setPurchases] = useState([])
+  const [noTxPurchases, setNoTxPurchases] = useState([])
+  const [allPurchases, setAllPurchases] = useState([])
   const [sales, setSales] = useState([])
+  const [noTxSales, setNoTxSales] = useState([])
+  const [allSales, setAllSales] = useState([])
   const [enabledItems, setEnabledItems] = useState([])
   const [disabledItems, setDisabledItems] = useState([])
   const [artistCommission, setArtistCommission] = useState(0)
@@ -107,18 +111,25 @@ const MerchActivity = () => {
         if (isLoadingData) setIsLoadingData(false)
 
         let purchaseOrders = []
+        let noTxOrders = []
+        let allOrders = []
         response.forEach(order => {
-          if (order.transaction_id != null) {
-            let keys = Object.keys(order.seller_shares)
-            let creator = ''
-            if (keys.length > 0) creator = keys[0]
-            let new_order = { ...order, creator }
+          let keys = Object.keys(order.seller_shares)
+          let creator = ''
+          if (keys.length > 0) creator = keys[0]
+          let new_order = { ...order, creator }
+          if (order.transaction_id != null && order.transaction_id !== '') {
             purchaseOrders.push(new_order)
+          } else {
+            noTxOrders.push(new_order)
           }
+          allOrders.push(new_order)
         })
 
-        if (reset) setPurchases([...purchaseOrders])
-        else setPurchases([...purchases, ...purchaseOrders])
+        setPurchases([...purchases, ...purchaseOrders])
+        setNoTxPurchases([...noTxPurchases, ...noTxOrders])
+        setAllPurchases([...allPurchases, ...allOrders])
+
         if (response.length < rowCount) {
           setIsVisibleBuyerFetching(false)
         } else {
@@ -142,16 +153,22 @@ const MerchActivity = () => {
         if (isLoadingData) setIsLoadingData(false)
 
         let salesOrders = []
+        let noTxOrders = []
+        let allOrders = []
         response.forEach(order => {
-          if (order.transaction_id != null) {
-            let keys = Object.keys(order.seller_shares)
-            let creator = order.buyer_address
-            let new_order = { ...order, creator }
+          let creator = order.buyer_address
+          let new_order = { ...order, creator }
+          if (order.transaction_id != null && order.transaction_id !== '') {
             salesOrders.push(new_order)
+          } else {
+            noTxOrders.push(new_order)
           }
+          allOrders.push(new_order)
         })
 
         setSales([...sales, ...salesOrders])
+        setNoTxSales([...noTxSales, ...noTxOrders])
+        setAllSales([...allSales, ...allOrders])
 
         if (response.length < rowCount) {
           setIsVisibleSellerFetching(false)
@@ -351,12 +368,24 @@ const MerchActivity = () => {
           </div>
           {activeTab === 0 && (
             <div className="w-full z-10">
-              <ApparelActivity activities={purchases} type="purchases" isLoading={isVisibleBuyerFetching} />
+              <ApparelActivity
+                activities={purchases}
+                pendingList={noTxPurchases}
+                allList={allPurchases}
+                type="purchases"
+                isLoading={isVisibleBuyerFetching}
+              />
             </div>
           )}
           {activeTab === 1 && (
             <div className="w-full z-10">
-              <ApparelActivity activities={sales} type="sales" isLoading={isVisibleSellerFetching} />
+              <ApparelActivity
+                activities={sales}
+                pendingList={noTxSales}
+                allList={allSales}
+                type="sales"
+                isLoading={isVisibleSellerFetching}
+              />
             </div>
           )}
           {activeTab === 2 && (

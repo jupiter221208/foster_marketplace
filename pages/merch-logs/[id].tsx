@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // next component
 import Link from 'next/link'
+import { useWallet } from '@solana/wallet-adapter-react'
 
 // Resources
 import SecondaryLayout from 'components/Layout/SecondaryLayout'
@@ -15,17 +16,18 @@ import styles from './id.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // api
-import MerchAPI from 'apis/merch'
 import { getOrder, OrderData } from 'apis/merch'
-import { findElement, getFirstUpperString, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
+import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { getShippingServiceName } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
+import { set } from '@project-serum/anchor/dist/cjs/utils/features'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
+  const { connected, publicKey } = useWallet()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -35,6 +37,7 @@ const MerchDetail = () => {
   const [trackingDetails, setTrackingDetails] = useState(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
+  const [isOwn, setIsOwn] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -48,53 +51,55 @@ const MerchDetail = () => {
   }, [id])
 
   useEffect(() => {
-    if (orderData) {
-      dispatch({ type: 'set', isLoading: false })
-      let itemData = orderData?.ssorder.items[0]
-      let options = itemData.options
-      let nftName = findElement(options, 'name', 'nftName')
-      if (options) {
-        let itemDetails = {
-          print: nftName ? nftName['value'] : '',
-          quantity: itemData.quantity,
-          product: itemData.name,
-        }
-        setItemDetails(itemDetails)
-      }
+    dispatch({ type: 'set', isLoading: false })
 
-      let order = orderData?.order
-      if (order) {
-        let paymentDetails = {
-          method: order.payment_method,
-          status: 'Complete',
-          commission: order.artist_commission.toFixed(2),
-          shipping: order.shipping_amount.toFixed(2),
-          tax: order.tax_amount.toFixed(2),
-          paidBy: order.buyer_address,
-        }
-        setPaymentDetails(paymentDetails)
-        let keys = Object.keys(order.seller_shares)
-        if (keys.length > 0) setPaidBy(keys[0])
-      }
+    if (!orderData) return
+    let { order, ssorder, fulfillment } = orderData
 
-      let ssorder = orderData?.ssorder
-      if (ssorder) {
-        let billTo = ssorder.billTo
-        let orderDetails = {
-          orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
-          total: order.amount.toFixed(2),
-          shipTo: {
-            street: billTo.street1,
-            city: billTo.city + ', ' + billTo.state + ' ' + billTo['postalCode'] + ', ' + billTo.country,
-          },
-          service: getShippingServiceName(ssorder.requestedShippingService),
-          delivery: getLocalDateWithoutTime(ssorder.paymentDate),
-        }
-        setOrderDetails(orderDetails)
+    if (fulfillment) setTrackingDetails(fulfillment)
+
+    let itemData = orderData?.ssorder.items[0]
+    let options = itemData.options
+    let nftName = findElement(options, 'name', 'nftName')
+    if (options) {
+      let itemDetails = {
+        print: nftName ? nftName['value'] : '',
+        quantity: itemData.quantity,
+        product: itemData.name,
       }
-      setTrackingDetails(orderData?.fulfillment)
-      setPreviewUrl(itemData.imageUrl)
+      setItemDetails(itemDetails)
     }
+
+    setPaymentDetails({
+      method: order.payment_method,
+      status: 'Complete',
+      commission: order.artist_commission.toFixed(2),
+      shipping: order.shipping_amount.toFixed(2),
+      tax: order.tax_amount.toFixed(2),
+      paidBy: order.buyer_address,
+    })
+
+    setIsOwn(order.buyer_address === publicKey.toBase58())
+
+    let keys = Object.keys(order.seller_shares)
+    if (keys.length > 0) setPaidBy(keys[0])
+
+    let billTo = ssorder.billTo
+    setOrderDetails({
+      orderNumber: ssorder.orderNumber,
+      orderPlaced: getLocalDateWithoutTime(ssorder.orderDate),
+      total: order.amount.toFixed(2),
+      shipTo: billTo
+        ? {
+            street: billTo.street1,
+            city: [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
+          }
+        : { street: '---', city: '---' },
+      service: getShippingServiceName(ssorder.requestedShippingService),
+      delivery: getLocalDateWithoutTime(ssorder.paymentDate),
+    })
+
+    setPreviewUrl(itemData.imageUrl)
   }, [orderData])
 
   const gotoTrackPage = () => {
@@ -141,20 +146,33 @@ const MerchDetail = () => {
           </div>
           <div>
             <div className={styles.infoTitle}>SHIP TO</div>
+
             <div className={styles.infoValue}>
-              {orderDetails?.shipTo.street}
-              <br />
-              {orderDetails?.shipTo.city}
+              {orderDetails?.orderNumber === '' && !isOwn ? (
+                'Hidden for Buyer Safety'
+              ) : (
+                <div>
+                  {orderDetails?.shipTo.street}
+                  <br />
+                  {orderDetails?.shipTo.city}
+                </div>
+              )}
             </div>
           </div>
           <div>
-            <div className={styles.infoTitle}>SHIPING METHOD</div>
-            <div className={styles.infoValue}>{orderDetails?.service}</div>
+            <div className={styles.infoTitle}>SHIPPING METHOD</div>
+            <div className={styles.infoValue}>
+              {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+            </div>
           </div>
           <div>
             <div className={styles.infoTitle}>TRACKING NUMBER</div>
             <div className={`${styles.infoValue} text-right`}>
-              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.trackingNumber}
+              {orderDetails?.orderNumber === '' && !isOwn
+                ? 'Hidden for Buyer Safety'
+                : trackingDetails === null && connected
+                ? 'Pending Order Creation'
+                : trackingDetails?.trackingNumber}
             </div>
           </div>
         </div>
@@ -236,7 +254,7 @@ const MerchDetail = () => {
         </div>
         <div className="w-full flex justify-center mt-[75px]">
           <div className={styles.infoValue}>
-            Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+            Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
           </div>
         </div>
         <div className="w-full flex justify-center mt-[75px]">
@@ -260,22 +278,34 @@ const MerchDetail = () => {
           <div className="w-full mt-[15px]">
             <div className="text-start">
               <div className={styles.infoTitle}>SHIP TO</div>
-              <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
-              <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+              {orderDetails?.orderNumber === '' && !isOwn ? (
+                <div className={styles.infoValue}>{'Hidden for Buyer Safety'}</div>
+              ) : (
+                <div>
+                  <div className={styles.infoValue}>{orderDetails?.shipTo.street}</div>
+                  <div className={styles.infoValue}>{orderDetails?.shipTo.city}</div>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="w-full mt-[15px]">
             <div className="text-start">
               <div className={styles.infoTitle}>SHIPPING METHOD</div>
-              <div className={styles.infoValue}>{orderDetails?.service}</div>
+              <div className={styles.infoValue}>
+                {orderDetails?.orderNumber === '' && !isOwn ? 'Hidden for Buyer Safety' : orderDetails?.service}
+              </div>
             </div>
           </div>
 
           <div className="w-full mt-[15px]">
             <div className={styles.infoTitle}>Tracking Number</div>
             <div className={styles.infoValue}>
-              {trackingDetails === null ? 'Pending Order Creation' : trackingDetails?.trackingNumber}
+              {orderDetails?.orderNumber === '' && !isOwn
+                ? 'Hidden for Buyer Safety'
+                : trackingDetails === null && connected
+                ? 'Pending Order Creation'
+                : trackingDetails?.trackingNumber}
             </div>
           </div>
         </div>
@@ -302,7 +332,7 @@ const MerchDetail = () => {
         <div className="w-full mt-[45px] flex justify-center">
           <div className="flex">
             <div className={styles.shipStatusTitle}>
-              Shipping Status: {orderData?.ssorder.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
+              Shipping Status: {orderData?.ssorder?.orderStatus === 'shipped' ? 'Shipped' : 'Awaiting Shipment'}
             </div>
           </div>
         </div>

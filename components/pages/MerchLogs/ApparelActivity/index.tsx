@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 // components
-import SearchSection from '../SearchSection'
 import TableSections from './TableSection'
+import CreatorSearchSection from '../CreatorSearchSection'
 
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/navigation'
-
-import { useViewport } from 'utils'
 
 // json
 
@@ -18,26 +16,36 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 const ApparelActivity = props => {
-  const { activities, type, isLoading } = props
+  const { activities, pendingList, allList, type, isLoading } = props
 
   const [searchWord, setSearchWord] = useState<any>('')
+  const [filter, setFilter] = useState(0)
   const [list, setList] = useState<any[]>([])
-  useEffect(() => {}, [])
 
   useEffect(() => {
-    setList(activities)
-  }, [isLoading, activities])
+    setActivityList()
+  }, [isLoading, filter])
+
+  const setActivityList = () => {
+    if (filter === 0) setList(activities)
+    else if (filter === 1) setList(pendingList)
+    else setList(allList)
+  }
 
   useEffect(() => {
     let length = searchWord?.length
+    let searchData = []
     if (length > 0) {
-      const results = activities.filter(({ id }) => {
+      if (filter === 0) searchData = activities
+      else if (filter === 1) searchData = pendingList
+      else searchData = allList
+      const results = searchData.filter(({ id }) => {
         return id.toString().includes(searchWord.toLowerCase())
       })
       setList(results)
     } else {
       if (length === 0) {
-        setList(activities)
+        setActivityList()
       }
     }
   }, [searchWord])
@@ -46,10 +54,11 @@ const ApparelActivity = props => {
     <div className={styles.container}>
       <div className="hidden lg:block">
         {activities.length > 0 && (
-          <SearchSection
+          <CreatorSearchSection
             placeholder={'Search'}
             searchWord={searchWord}
             setSearchWord={value => setSearchWord(value.toString())}
+            onFilter={value => setFilter(value)}
           />
         )}
       </div>
