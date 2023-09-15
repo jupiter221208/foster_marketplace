@@ -66,9 +66,9 @@ const LiveAuctionCard = props => {
 
   return (
     <div className={styles.container}>
-      <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
-        <a>
-          <div className={styles.imageArea}>
+      <div className={styles.imageArea}>
+        <Link href={`${window.origin}/nft/${data.token_id}`} passHref>
+          <a>
             <div className={styles.imageContent}>
               {data.asset_type.includes('video') ? (
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
@@ -147,28 +147,28 @@ const LiveAuctionCard = props => {
                 />
               )}
             </div>
-            {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
-              <div
-                className={styles.avatar}
-                onClick={() => {
-                  router.push(`/${data.artist_username}`)
-                  dispatch({ type: 'set', isLoading: true })
-                }}
-              >
-                <div className="w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] rounded-full overflow-hidden">
-                  <img
-                    width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
-                    src={data.artist_profile_picture}
-                    alt=""
-                    className="rounded-full"
-                  />
-                </div>
-              </div>
-            )}
+          </a>
+        </Link>
+        {data.artist_profile_picture !== null && data.artist_profile_picture.length > 0 && (
+          <div
+            className={styles.avatar}
+            onClick={() => {
+              router.push(`/${data.artist_username}`)
+              dispatch({ type: 'set', isLoading: true })
+            }}
+          >
+            <div className="w-[28px] h-[28px] lg:w-[46px] lg:h-[46px] rounded-full overflow-hidden">
+              <img
+                width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
+                height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 28 : 46}
+                src={data.artist_profile_picture}
+                alt=""
+                className="rounded-full"
+              />
+            </div>
           </div>
-        </a>
-      </Link>
+        )}
+      </div>
 
       <div className={styles.bidContainer}>
         <div className={styles.bidContentView}>

@@ -604,6 +604,19 @@ h6 {
   }
 }
 
+.noScrollNavigationSwiper {
+  padding-bottom: 15px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .swiper-button-prev {
+    display: none;
+  }
+
+  .swiper-button-next {
+    display: none;
+  }
+}
+
 .auctionNavigationSwiper {
   padding-bottom: 15px !important;
   padding-left: 10px !important;
