@@ -119,7 +119,11 @@ const LiveAuctionSection = props => {
 
   return showSection ? (
     <section className={styles.container}>
-      <div className="w-full lg:w-auto flex justify-center items-center gap-4 lg:gap-8">
+      <div
+        className={`${
+          fromPage === 'profile' ? 'justify-start' : 'justify-center'
+        } w-full lg:w-auto flex items-center gap-4 lg:gap-8`}
+      >
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div
             className={`${fromPage === 'profile' ? 'justify-start' : 'justify-center'} w-full flex items-center z-10`}
