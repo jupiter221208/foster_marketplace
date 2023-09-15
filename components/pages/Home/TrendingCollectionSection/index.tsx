@@ -211,7 +211,7 @@ const TrendingCollectionSection = props => {
                 viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
               }
               modules={[Autoplay, Lazy, Navigation]}
-              className="navigationSwiper"
+              className="auctionNavigationSwiper"
               // loop={trendingList.length < 3 ? false : loop}
               // autoplay={{
               //   delay: 5000,

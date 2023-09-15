@@ -557,6 +557,108 @@ h6 {
   }
 }
 
+.auctionNavigationSwiper {
+  padding-bottom: 15px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .swiper-button-prev {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 45%;
+    left: 20px;
+    right: 55px;
+    background: #2b2b2b;
+    color: #eff0f6;
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+
+  }
+
+  .swiper-button-next {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 45%;
+    bottom: 0px;
+    right: 0px;
+    background: #2b2b2b;
+    color: #eff0f6;
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.artistNavigationSwiper {
+  padding-bottom: 15px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .swiper-button-prev {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 40%;
+    left: 20px;
+    right: 55px;
+    background: #2b2b2b;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #eff0f6;
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+
+  }
+
+  .swiper-button-next {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 40%;
+    bottom: 0px;
+    right: 20px;
+    background: #2b2b2b;
+    color: #eff0f6;
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
 .navigationSwiper {
   padding-bottom: 15px !important;
   padding-left: 10px !important;

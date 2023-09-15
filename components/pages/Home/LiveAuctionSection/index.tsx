@@ -228,7 +228,7 @@ const LiveAuctionSection = props => {
           slidesPerView={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 1.07 : 3}
           spaceBetween={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40}
           modules={[Autoplay, Lazy, Navigation]}
-          className="navigationSwiper"
+          className="auctionNavigationSwiper"
           loop={cardLoop}
           // autoplay={{
           //   delay: 5000,
