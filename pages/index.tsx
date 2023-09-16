@@ -65,9 +65,10 @@ const Home = () => {
 
         <link rel="icon" href="/logo.png" />
       </Head>
-
-      <div className="g-container">
-        <MainSection />
+      <div className="w-full flex justify-center">
+        <div className="g-container">
+          <MainSection />
+        </div>
       </div>
       {/* <PopularCategorySection type="home" /> */}
       <div className={styles.otherBG}>
@@ -75,19 +76,22 @@ const Home = () => {
           <LiveAuctionSection category={''} fromPage={'home'} />
         </div>
       </div>
-      <div className="g-container">
-        <MarketplaceReleaseSection category={''} />
+      <div className="w-full flex justify-center">
+        <div className="g-container">
+          <MarketplaceReleaseSection category={''} />
+        </div>
       </div>
       <div className={styles.otherBG}>
         <div className="g-container">
           <TopRatedArtistsSection />
         </div>
       </div>
-
-      <div className="g-container">
-        <TrendingCollectionSection category={''} loop={true} />
-        <CreateSellNFTSection />
-        <FullScreenLoadingModal open={isLoading} />
+      <div className="w-full flex justify-center">
+        <div className="g-container">
+          <TrendingCollectionSection category={''} loop={true} />
+          <CreateSellNFTSection />
+          <FullScreenLoadingModal open={isLoading} />
+        </div>
       </div>
     </div>
   )
