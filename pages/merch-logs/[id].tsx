@@ -91,7 +91,7 @@ const MerchDetail = () => {
       total: order.amount.toFixed(2),
       shipTo: billTo
         ? {
-            street: billTo.street1,
+            street: billTo.street1 + ' ' + billTo.street2,
             city: [billTo.city, billTo.state + ' ' + billTo.postalCode, billTo.country].join(', '),
           }
         : { street: '---', city: '---' },
