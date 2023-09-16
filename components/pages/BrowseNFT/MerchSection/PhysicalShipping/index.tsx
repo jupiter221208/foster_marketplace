@@ -99,6 +99,7 @@ const PhysicalShipping = props => {
       name,
       city,
       street,
+      apartment,
       zipCode,
     }
     let params

@@ -39,7 +39,6 @@ const PhysicalShippingMethod = props => {
   const viewport = useViewport()
 
   const printImageUrl = useSelector(state => (state as any).printImageUrl)
-
   const [shipping, setShipping] = useState(null)
   const [shippingMethods, setShippingMethods] = useState(null)
   const [tax, setTax] = useState(null)
@@ -102,13 +101,13 @@ const PhysicalShippingMethod = props => {
       name: shippingData.name,
       // company: 'USPS',
       street1: shippingData.street,
-      street2: '',
+      street2: shippingData.apartment,
       street3: '',
       city: shippingData.city,
       state: shippingData.state.isoCode,
       postalCode: shippingData.zipCode,
       country: shippingData.country.isoCode,
-      phone: '+1(555)-555-5555',
+      phone: '',
       residential: true,
     }
     const { apparel, gender, quality, color, print, quantity, size } = data
