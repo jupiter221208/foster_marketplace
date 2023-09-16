@@ -6,6 +6,7 @@ import { setCookie } from 'cookies-next'
 
 import { type User, default as authAPI } from 'apis/auth'
 import { isTokenValid, getSignMessageVerbiage } from 'utils/auth'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 export interface UseAuthenticationReturn {
   isCurrentTokenValid: () => boolean
@@ -60,6 +61,7 @@ export function useAuthentication(): UseAuthenticationReturn {
         .then(({ new_user, user, token, bid_wallet_lock, offer_wallet_lock }) => {
           if (!isTokenValid(token)) throw new Error(`received invalid token after login: ${token}`)
 
+          user.profile_picture ??= AvatarImage.src;
           localStorage.setItem('token', token)
           setCookie('token', token, { maxAge: 60 * 6 * 24 })
 
