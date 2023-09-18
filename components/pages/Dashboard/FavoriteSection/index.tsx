@@ -157,11 +157,7 @@ const FavoriteSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="lg:flex hidden">
-        <FilterButton label="Single NFTs" onClick={() => handleChangeActive(0)} selected={active === 0} />
-        <FilterButton label="Collections" onClick={() => handleChangeActive(1)} selected={active === 1} />
-      </div>
-      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
+      <div className="w-full flex lg:w-[250px] h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Single NFTs"
