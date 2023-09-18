@@ -17,7 +17,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import StatsPreviewImage from 'assets/images/stats-preview-image.png'
+import PreviewImage from 'assets/images/preview-image.png'
 
 // styles
 import styles from './index.module.scss'
@@ -298,7 +298,7 @@ const MerchActivity = () => {
   }
 
   let pageTitle = `Creator Studio Activity | Foster Marketplace`
-  let pageImageUrl = StatsPreviewImage.src
+  let pageImageUrl = PreviewImage.src
   let pageDescription = 'An all-in-one hub that provides insights into marketplace trends for artists and collectors.'
 
   return (
