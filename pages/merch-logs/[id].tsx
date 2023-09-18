@@ -114,7 +114,10 @@ const MerchDetail = () => {
     }
   }
 
-  const retryPayment = () => {}
+  const retryPayment = () => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/orders/${id}`)
+  }
   return (
     <div className="g-container">
       <div className="flex gap-[15px] items-center mt-[30px] lg:mt-[65px]">
