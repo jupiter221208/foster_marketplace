@@ -208,19 +208,7 @@ const OfferSection = () => {
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
-      <div className="lg:flex hidden">
-        <FilterButton
-          label="Offers Made"
-          onClick={() => setShownOfferType('made')}
-          selected={shownOfferType === 'made'}
-        />
-        <FilterButton
-          label="Offers Received"
-          onClick={() => setShownOfferType('received')}
-          selected={shownOfferType === 'received'}
-        />
-      </div>
-      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
+      <div className="w-full flex lg:w-[320px] h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Offers Made"
