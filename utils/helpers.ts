@@ -516,6 +516,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--merch-disabled-icon-color', '#202427')
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--stats-btn-border-color', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--scroll-arrow-bg-color', '#F3F2F0')
+    doc.style.setProperty('--scroll-arrow-color', '#202427')
+    doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -803,5 +806,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--merch-disabled-icon-color', '#eff0f6')
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--stats-btn-border-color', 'rgba(255, 255, 255, 0.25)')
+    doc.style.setProperty('--scroll-arrow-bg-color', '#2B2B2B')
+    doc.style.setProperty('--scroll-arrow-color', '#eff0f6')
+    doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(32, 36, 37, 0.1)')
   }
 }
