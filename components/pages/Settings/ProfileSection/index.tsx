@@ -235,11 +235,7 @@ const ProfileSection = prop => {
             </div>
             <div className="mt-4 lg:mt-8 flex">
               <div className={styles.socialIcon}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <InstagramWhiteSmallIcon />
-                ) : (
-                  <InstagramWhiteIcon />
-                )}
+                <InstagramWhiteIcon />
               </div>
 
               <div className="w-full ml-[10px] lg:ml-[24px]">
@@ -262,11 +258,7 @@ const ProfileSection = prop => {
             </div>
             <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <TwitterWhiteSmallIcon />
-                ) : (
-                  <TwitterWhiteIcon />
-                )}
+                <TwitterWhiteIcon />
               </div>
               <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
@@ -289,7 +281,7 @@ const ProfileSection = prop => {
             {/* Personal Web Site */}
             <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <WebSiteSmallIcon /> : <WebSiteIcon />}
+                <WebSiteIcon />
               </div>
               <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
