@@ -216,7 +216,7 @@ const TrendingCollectionSection = props => {
             {trendingList !== null && trendingList !== undefined && trendingList.length !== 0 && (
               <Swiper
                 navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                slidesPerView={viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
+                slidesPerView={viewport === 'xs' ? 1.1 : viewport === 'sm' || viewport === 'md' ? 2 : 3.02}
                 spaceBetween={
                   viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
                 }
