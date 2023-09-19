@@ -14,6 +14,7 @@ import NotifyAlarmIcon from 'assets/lottery/notify-alarm.json'
 // custom components
 import SearchBox from 'components/Input/SearchBox'
 import Menu from 'components/Menu'
+import ExploreMenu from 'components/Menu/ExploreMenu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 // custom functions
@@ -31,7 +32,7 @@ import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?componen
 import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 
 // json
-import ExploreMenuList from 'assets/json/explore-menu.json'
+import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 
@@ -279,7 +280,13 @@ const ArtistHeader = () => {
       </div>
       {offset[1] !== 0 && (
         <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
-          <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
+          <ExploreMenu
+            label="Explore"
+            activeList={activeList}
+            filterList={filterList}
+            categoryList={categoryList}
+            performerList={performerList}
+          />
         </div>
       )}
 

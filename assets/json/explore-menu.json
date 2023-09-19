@@ -1,17 +1,208 @@
-[
-  {
-    "id": 0,
-    "icon": "/icons/dashboard-green.svg",
-    "label": "NFTs by Category",
-    "type": "nft_category",
-    "path": "/explore"
-  },
-  {
-    "id": 1,
-    "icon": "/icons/large-collection-green.svg",
-    "label": "NFTs by Collection",
-    "type": "nft_collection",
-    "path": "/explore"
-  },
-  { "id": 2, "icon": "/icons/artist-green.svg", "label": "NFTs by Artist", "type": "nft_artist", "path": "/explore" }
-]
+{
+  "activeList": [
+    {
+      "id": 0,
+      "label": "Quick Buy",
+      "query": "quick_buy",
+      "path": "/explore"
+    },
+    {
+      "id": 1,
+      "label": "Live Auctions",
+      "query": "live_auctions",
+      "path": "/explore"
+    }
+  ],
+  "filterList": [
+    {
+      "id": 0,
+      "label": "Artworks",
+      "query": "artworks",
+      "path": "/explore"
+    },
+    {
+      "id": 1,
+      "label": "Collections",
+      "query": "collections",
+      "path": "/explore"
+    },
+    {
+      "id": 2,
+      "label": "Ecosystem",
+      "query": "ecosystem",
+      "path": "/explore"
+    }
+  ],
+  "categoryList": [
+    {
+      "id": 0,
+      "label": "3D",
+      "query": "3d",
+      "path": "/explore"
+    },
+    {
+      "id": 1,
+      "label": "Abstract",
+      "query": "abstract",
+      "path": "/explore"
+    },
+    {
+      "id": 2,
+      "label": "AI Art",
+      "query": "ai_art",
+      "path": "/explore"
+    },
+    {
+      "id": 3,
+      "label": "Algorithmic",
+      "query": "algorithmic",
+      "path": "/explore"
+    },
+    {
+      "id": 4,
+      "label": "Animation",
+      "query": "animation",
+      "path": "/explore"
+    },
+    {
+      "id": 5,
+      "label": "Audiovisual",
+      "query": "audiovisual",
+      "path": "/explore"
+    },
+    {
+      "id": 6,
+      "label": "Black & White",
+      "query": "black & white",
+      "path": "/explore"
+    },
+    {
+      "id": 7,
+      "label": "Collaboration",
+      "query": "collaboration",
+      "path": "/explore"
+    },
+    {
+      "id": 8,
+      "label": "Collage",
+      "query": "collage",
+      "path": "/explore"
+    },
+    {
+      "id": 9,
+      "label": "Comedy",
+      "query": "comedy",
+      "path": "/explore"
+    },
+    {
+      "id": 10,
+      "label": "Dark Art",
+      "query": "dark_Art",
+      "path": "/explore"
+    },
+    {
+      "id": 11,
+      "label": "Drawing",
+      "query": "drawing",
+      "path": "/explore"
+    },
+    {
+      "id": 12,
+      "label": "Figurative",
+      "query": "figurative",
+      "path": "/explore"
+    },
+    {
+      "id": 13,
+      "label": "Foster House",
+      "query": "foster House",
+      "path": "/explore"
+    },
+    {
+      "id": 14,
+      "label": "Generative",
+      "query": "generative",
+      "path": "/explore"
+    },
+    {
+      "id": 15,
+      "label": "Glitch",
+      "query": "glitch",
+      "path": "/explore"
+    },
+    {
+      "id": 16,
+      "label": "Music",
+      "query": "music",
+      "path": "/explore"
+    },
+    {
+      "id": 17,
+      "label": "Painting",
+      "query": "painting",
+      "path": "/explore"
+    },
+    {
+      "id": 18,
+      "label": "PFP",
+      "query": "pfp",
+      "path": "/explore"
+    },
+    {
+      "id": 19,
+      "label": "Photography",
+      "query": "photography",
+      "path": "/explore"
+    },
+    {
+      "id": 20,
+      "label": "Pixel Art",
+      "query": "pixel_Art",
+      "path": "/explore"
+    },
+    {
+      "id": 21,
+      "label": "Sports",
+      "query": "Ssorts",
+      "path": "/explore"
+    },
+    {
+      "id": 22,
+      "label": "Surreal",
+      "query": "surreal",
+      "path": "/explore"
+    },
+    {
+      "id": 23,
+      "label": "Circus",
+      "query": "circus",
+      "path": "/explore"
+    }
+  ],
+  "performerList": [
+    {
+      "id": 0,
+      "label": "Artworks",
+      "query": "artworks",
+      "path": "/explore"
+    },
+    {
+      "id": 1,
+      "label": "Collections",
+      "query": "collections",
+      "path": "/explore"
+    },
+    {
+      "id": 2,
+      "label": "Creators",
+      "query": "creators",
+      "path": "/explore"
+    },
+    {
+      "id": 3,
+      "label": "Collectors",
+      "query": "collectors",
+      "path": "/explore"
+    }
+  ]
+}
