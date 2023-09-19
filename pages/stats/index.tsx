@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -31,6 +31,7 @@ import StatsAPI from 'apis/stats'
 
 const Stats = () => {
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
   const status = useSelector<any>(state => state.activeTab)
 
@@ -44,6 +45,7 @@ const Stats = () => {
   const [collectors, setCollectors] = useState([])
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
     getArtworkData()
     getCollectionData()
     getCreatorData()

@@ -52,7 +52,6 @@ const AccordionMenu = props => {
       router.push(path)
     }
   }
-
   return (
     <Disclosure>
       {({ open }) => (
@@ -91,9 +90,9 @@ const AccordionMenu = props => {
               )}
               <div className={open ? styles.openLabel : styles.label}>{label}</div>
             </div>
-            {data.length !== 0 && (open ? <DownIcon /> : <RightIcon />)}
+            {data.length > 0 && (open ? <DownIcon /> : <RightIcon />)}
           </Disclosure.Button>
-          {data.length !== 0 && (
+          {data.length > 0 && (
             <Disclosure.Panel className="px-4 pt-0 pb-2 text-sm text-gray-500">
               {data.map((item, index) => (
                 <div key={index} className={styles.menuItem} onClick={() => handleClick(item)}>

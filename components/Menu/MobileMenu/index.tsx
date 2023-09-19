@@ -23,7 +23,7 @@ import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
-import ExploreMenuList from 'assets/json/explore-menu.json'
+import ExploreMenuList from 'assets/json/explore-mobile-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 
 // styles

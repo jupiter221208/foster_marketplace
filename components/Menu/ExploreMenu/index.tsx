@@ -8,10 +8,12 @@ import Link from 'next/link'
 
 // styles
 import styles from './index.module.scss'
+import { useRouter } from 'next/router'
 
 const ExploreMenu = props => {
   const { activeList, filterList, performerList, categoryList } = props
   const dispatch = useDispatch()
+  const router = useRouter()
   const menuRef = useRef<HTMLElement | null>(null)
   const itemRef = useRef<HTMLElement | null>(null)
   const [itemsToShow, setItemsToShow] = React.useState(6)
@@ -75,7 +77,7 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Active Listings</div>
                 <div className="flex flex-col gap-4">
                   {activeList?.map((item, index) => (
-                    <Link href={`/explore`}>
+                    <Link href={`/explore`} passHref>
                       <p
                         key={index}
                         className={styles.text}
@@ -88,6 +90,7 @@ const ExploreMenu = props => {
                           } else {
                             dispatch({ type: 'set', availabilityFilter: 0 })
                           }
+                          router.push('/explore')
                         }}
                       >
                         {item.label}
@@ -100,7 +103,7 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Filter & Sorting</div>
                 <div className="flex flex-col gap-4">
                   {filterList?.map((item, index) => (
-                    <Link href={`/explore`}>
+                    <Link href={`/explore`} passHref>
                       <p
                         className={styles.text}
                         key={index}
@@ -108,6 +111,7 @@ const ExploreMenu = props => {
                           setIsMenuOpen(false)
                           dispatch({ type: 'set', isLoading: true })
                           dispatch({ type: 'set', exploreTab: index })
+                          router.push('/explore')
                         }}
                       >
                         {item.label}
@@ -120,7 +124,7 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Top Performers</div>
                 <div className="flex flex-col gap-4">
                   {performerList?.map((item, index) => (
-                    <Link href={`/stats`}>
+                    <Link href={`/stats`} passHref>
                       <p
                         className={styles.text}
                         key={index}
@@ -128,6 +132,7 @@ const ExploreMenu = props => {
                           setIsMenuOpen(false)
                           dispatch({ type: 'set', isLoading: true })
                           dispatch({ type: 'set', activeTab: index })
+                          router.push('/stats')
                         }}
                       >
                         {item.label}
@@ -140,13 +145,14 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Categories</div>
                 <div className="flex flex-col flex-grow-0 h-full overflow-auto gap-4 font-normal">
                   {displayItems?.map((item, index) => (
-                    <Link href={`/category/${item.query.toLowerCase()}`}>
+                    <Link href={`/category/${item.query.toLowerCase()}`} passHref>
                       <p
                         className={styles.text}
                         key={index}
                         onClick={() => {
                           setIsMenuOpen(false)
                           dispatch({ type: 'set', isLoading: true })
+                          router.push(`/category/${item.query.toLowerCase()}`)
                         }}
                       >
                         {item.label}

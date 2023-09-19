@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "icon": "/icons/dashboard-green.svg",
+    "label": "NFTs by Category",
+    "type": "nft_category",
+    "path": "/explore"
+  },
+  {
+    "id": 1,
+    "icon": "/icons/large-collection-green.svg",
+    "label": "NFTs by Collection",
+    "type": "nft_collection",
+    "path": "/explore"
+  },
+  { "id": 2, "icon": "/icons/artist-green.svg", "label": "NFTs by Artist", "type": "nft_artist", "path": "/explore" }
+]
