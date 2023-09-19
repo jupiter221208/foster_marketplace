@@ -208,7 +208,7 @@ const OfferSection = () => {
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
-      <div className="w-full flex lg:w-[320px] h-[54px] mt-[15px] z-10">
+      <div className="w-full flex lg:w-[350px] h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Offers Made"

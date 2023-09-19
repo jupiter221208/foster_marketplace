@@ -160,7 +160,7 @@ const FavoriteSection = () => {
       <div className="w-full flex lg:w-[250px] h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
-            label="Single NFTs"
+            label="Artwork"
             onClick={() => handleChangeActive(0)}
             fontFamily={'Muli-SemiBold'}
             color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}

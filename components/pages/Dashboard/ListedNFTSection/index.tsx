@@ -335,7 +335,7 @@ const ListedNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full lg:w-[250px] flex h-[54px] mt-[15px] z-10">
+      <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Fixed-Price"
