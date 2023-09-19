@@ -612,7 +612,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', '#2B2B2B')
     doc.style.setProperty('--search-item-color', '#eff0f6')
     doc.style.setProperty('--resource-card-title', '#95dbd5')
-    doc.style.setProperty('--studio-title-bg', '#2b2b2b')
+    doc.style.setProperty('--studio-title-bg', '#2B2B2B')
     doc.style.setProperty('--nft-detail-section-border', '#202427')
     doc.style.setProperty('--gradient-btn-color', '#202427')
     doc.style.setProperty('--gradient-btn-color-rgb', '32, 36, 39')

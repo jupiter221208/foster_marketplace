@@ -195,7 +195,7 @@ const ProfileSection = prop => {
               <div className={styles.subTitle}>Profile Information</div>
             </div>
 
-            <div className="mt-[0px] lg:mt-8">
+            <div className="mt-[10px] lg:mt-8">
               <Input
                 error={errorMessage}
                 value={userName}
