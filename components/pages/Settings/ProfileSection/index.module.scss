@@ -41,7 +41,7 @@
 
 .socialIcon {
   background: var(--social-bg-color);
-  width: 46px;
+  min-width: 46px;
   height: 50px;
   border-radius: 12px;
   display: flex;

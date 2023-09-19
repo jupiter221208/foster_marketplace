@@ -242,7 +242,7 @@ const ProfileSection = prop => {
                 )}
               </div>
 
-              <div className="w-full ml-[-17px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
                   value={igUrl}
                   label01={errorIGUrl}
@@ -268,7 +268,7 @@ const ProfileSection = prop => {
                   <TwitterWhiteIcon />
                 )}
               </div>
-              <div className="w-full ml-[-17px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
                   value={twitterUrl}
                   label01={errorTwitterUrl}
@@ -291,7 +291,7 @@ const ProfileSection = prop => {
               <div className={styles.socialIcon}>
                 {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <WebSiteSmallIcon /> : <WebSiteIcon />}
               </div>
-              <div className="w-full ml-[-17px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
                   value={websiteUrl}
                   label01={errorWebsiteUrl}
