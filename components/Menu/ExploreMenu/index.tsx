@@ -77,9 +77,8 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Active Listings</div>
                 <div className="flex flex-col gap-4">
                   {activeList?.map((item, index) => (
-                    <Link href={`/explore`} passHref>
+                    <Link key={index} href={`/explore`} passHref>
                       <p
-                        key={index}
                         className={styles.text}
                         onClick={() => {
                           setIsMenuOpen(false)
@@ -103,10 +102,9 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Filter & Sorting</div>
                 <div className="flex flex-col gap-4">
                   {filterList?.map((item, index) => (
-                    <Link href={`/explore`} passHref>
+                    <Link key={index} href={`/explore`} passHref>
                       <p
                         className={styles.text}
-                        key={index}
                         onClick={() => {
                           setIsMenuOpen(false)
                           dispatch({ type: 'set', isLoading: true })
@@ -124,10 +122,9 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Top Performers</div>
                 <div className="flex flex-col gap-4">
                   {performerList?.map((item, index) => (
-                    <Link href={`/stats`} passHref>
+                    <Link key={index} href={`/stats`} passHref>
                       <p
                         className={styles.text}
-                        key={index}
                         onClick={() => {
                           setIsMenuOpen(false)
                           dispatch({ type: 'set', isLoading: true })
@@ -145,10 +142,9 @@ const ExploreMenu = props => {
                 <div className={styles.title}>Categories</div>
                 <div className="flex flex-col flex-grow-0 h-full overflow-auto gap-4 font-normal">
                   {displayItems?.map((item, index) => (
-                    <Link href={`/category/${item.query.toLowerCase()}`} passHref>
+                    <Link key={index} href={`/category/${item.query.toLowerCase()}`} passHref>
                       <p
                         className={styles.text}
-                        key={index}
                         onClick={() => {
                           setIsMenuOpen(false)
                           dispatch({ type: 'set', isLoading: true })
