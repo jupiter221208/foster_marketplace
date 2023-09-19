@@ -191,9 +191,9 @@ const ProfileSection = prop => {
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            {/* <div>
+            <div>
               <div className={styles.subTitle}>Profile Information</div>
-            </div> */}
+            </div>
 
             <div className="mt-[0px] lg:mt-8">
               <Input
@@ -215,7 +215,7 @@ const ProfileSection = prop => {
                 color="var(--text-gray-200-color)"
                 placeholder="Bio"
                 width="100%"
-                height="100%"
+                height="160px"
                 label01="Max Characters 1000"
                 label02={1000 - bio?.length === 1000 ? '' : `${1000 - bio?.length} Characters left`}
                 onChange={value => setBio(value)}

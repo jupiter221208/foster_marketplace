@@ -46,6 +46,7 @@ const StudioSection = prop => {
               <Input
                 error={errorMessage}
                 value={title}
+                backgroundColor={'var(--studio-title-bg)'}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
                 color="var(--text-gray-200-color)"
                 placeholder="Add a note to your collectors when they place an order for any of your enabled studio items."
