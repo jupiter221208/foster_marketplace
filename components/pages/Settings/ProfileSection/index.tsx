@@ -231,7 +231,7 @@ const ProfileSection = prop => {
               />
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
-              <div className={styles.subTitle}>Social Connections & Links</div>
+              <div className={styles.subTitle}>Social Links</div>
             </div>
             <div className="mt-4 lg:mt-8 flex">
               <div className={styles.socialIcon}>
