@@ -121,7 +121,6 @@ export interface MainSectionProps {
   nftInfo: any
   setFullScreenView: any
   reloadNftData: any
-  setOnClickMerchToggle: any
   enableMerch: any
   setCollectionName: any
 }
@@ -132,7 +131,6 @@ const MainSection = ({
   nftInfo,
   setFullScreenView,
   reloadNftData,
-  setOnClickMerchToggle,
   enableMerch,
   setCollectionName,
 }: MainSectionProps) => {
@@ -745,7 +743,6 @@ const MainSection = ({
             setMerchToggle(true)
             enableMerch(true)
             setCreateMerchModal(false)
-            setOnClickMerchToggle(true)
           }
         },
         err => {}
@@ -757,7 +754,6 @@ const MainSection = ({
             setMerchToggle(false)
             enableMerch(false)
             setRemoveMerchModal(false)
-            setOnClickMerchToggle(false)
           }
         },
         err => {}

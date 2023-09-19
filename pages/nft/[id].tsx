@@ -163,16 +163,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
 
   const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
   const [merchToggle, setMerchToggle] = useState(false)
-  const [onClickMerchToggle, setOnClickMerchToggle] = useState(false)
-
-  useEffect(() => {
-    if (onClickMerchToggle) {
-      window.scrollTo({
-        top: window.innerHeight - 100,
-        behavior: 'smooth',
-      })
-    }
-  }, [onClickMerchToggle])
 
   return (
     <div className="g-container">
@@ -221,11 +211,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 setFullScreenView={setFullScreenView}
                 reloadNftData={reloadNftData}
                 enableMerch={setMerchToggle}
-                setOnClickMerchToggle={setOnClickMerchToggle}
-                // openMerchPage={data => {
-                //   setMerchData(data)
-                //   setOpenMerchPage(true)
-                // }}
                 setCollectionName={setCollectionName}
               />
             )}

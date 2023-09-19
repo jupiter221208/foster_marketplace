@@ -23,6 +23,7 @@ import { getShippingServiceName } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
+import GradientButton from 'components/Button/GradientButton'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -214,14 +215,7 @@ const MerchDetail = () => {
           <div>
             {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
               <div>
-                <Button
-                  borderColor="var(--follow-btn-border-mobile)"
-                  backgroundColor="#95dbd5"
-                  width={335}
-                  height={48}
-                  label="Retry Payment"
-                  onClick={() => retryPayment()}
-                />
+                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
               </div>
             ) : trackingDetails === null ? (
               <div>
@@ -361,14 +355,7 @@ const MerchDetail = () => {
           <div>
             {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
               <div>
-                <Button
-                  borderColor="var(--follow-btn-border-mobile)"
-                  backgroundColor="#95dbd5"
-                  width={335}
-                  height={48}
-                  label="Retry Payment"
-                  onClick={() => retryPayment()}
-                />
+                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
               </div>
             ) : trackingDetails === null ? (
               <div>
