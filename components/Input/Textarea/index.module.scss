@@ -5,7 +5,7 @@
   height: 141px;
   font-size: 14px;
   line-height: 21px;
-  background-color: rgba(var(--main-bg-color-rgb), 0.05);
+  background-color: var(--search-bg-color);
 
   @media (min-width: 1024px) {
     height: 100px;

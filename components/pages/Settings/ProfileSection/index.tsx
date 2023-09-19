@@ -200,7 +200,6 @@ const ProfileSection = prop => {
                 error={errorMessage}
                 value={userName}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="var(--setting-input-bg)"
                 color="var(--text-gray-200-color)"
                 placeholder="Username"
                 onChange={value => {
@@ -213,7 +212,6 @@ const ProfileSection = prop => {
               <Textarea
                 value={bio}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="var(--setting-input-bg)"
                 color="var(--text-gray-200-color)"
                 placeholder="Bio"
                 width="100%"
@@ -227,7 +225,6 @@ const ProfileSection = prop => {
               <Input
                 value={userEmail}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="var(--setting-input-bg)"
                 color="var(--text-gray-200-color)"
                 placeholder="Email Address"
                 onChange={value => setUserEmail(value)}
@@ -251,7 +248,6 @@ const ProfileSection = prop => {
                   label01={errorIGUrl}
                   placeholder="Enter your Instagram link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('instagram.com/')) {
@@ -278,7 +274,6 @@ const ProfileSection = prop => {
                   label01={errorTwitterUrl}
                   placeholder="Enter your Twitter link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('twitter.com/')) {
@@ -302,7 +297,6 @@ const ProfileSection = prop => {
                   label01={errorWebsiteUrl}
                   placeholder="Enter your personal website link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('http')) {
