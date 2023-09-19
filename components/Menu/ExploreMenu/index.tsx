@@ -10,9 +10,11 @@ import Link from 'next/link'
 import styles from './index.module.scss'
 
 const ExploreMenu = props => {
+  const { activeList, filterList, performerList, categoryList } = props
   const dispatch = useDispatch()
   const menuRef = useRef<HTMLElement | null>(null)
   const itemRef = useRef<HTMLElement | null>(null)
+  const modalRef = useRef<HTMLElement | null>(null)
   const [itemsToShow, setItemsToShow] = React.useState(6)
 
   const [isMenuOpen, setIsMenuOpen] = React.useState(false) // Initially menu is hidden
@@ -26,7 +28,9 @@ const ExploreMenu = props => {
       menuRef.current &&
       !menuRef.current.contains(event.target) &&
       itemRef.current &&
-      !itemRef.current.contains(event.target)
+      !itemRef.current.contains(event.target) &&
+      modalRef.current &&
+      !modalRef.current.contains(event.target)
     ) {
       setIsMenuOpen(false)
     }
@@ -47,7 +51,7 @@ const ExploreMenu = props => {
     }
   }
 
-  const displayItems = props.categoryList.slice(0, itemsToShow)
+  const displayItems = categoryList.slice(0, itemsToShow)
 
   return (
     <div className="flex items-center">
@@ -69,43 +73,63 @@ const ExploreMenu = props => {
         </HMenu.Button>
         {isMenuOpen && (
           <div ref={menuRef as MutableRefObject<HTMLDivElement>} className={styles.menuArea}>
-            <div className="flex flex-row justify-between w-full p-8 h-full">
+            <div className="flex flex-row justify-between w-full px-6 py-4 h-full">
               <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
-                <div className="text-[18px] font-bold">Active Listings</div>
-                <div className="flex flex-col gap-4 text-[16px] font-normal">
-                  {props.activeList?.map((item, index) => (
-                    <p key={index}>{item.label}</p>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
-                <div className="text-[18px] font-bold">Filter & Sorting</div>
-                <div className="flex flex-col gap-4 text-[16px]">
-                  {props.filterList?.map((item, index) => (
-                    <p key={index}>{item.label}</p>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4 text-[16px] font-normal">
-                <div className="text-[18px] font-bold">Top Performers</div>
-                <div className="flex flex-col gap-4">
-                  {props.performerList?.map((item, index) => (
-                    <p key={index}>{item.label}</p>
-                  ))}
-                </div>
-              </div>
-              <div className="flex flex-col w-1/4 flex-grow p-4 h-full gap-4">
-                <div className="flex-grow text-[18px] font-bold">Categories</div>
-                <div className="flex flex-col flex-grow-0 h-full overflow-auto gap-4 text-[16px] font-normal">
-                  {displayItems?.map((item, index) => (
-                    <Link href={`/category/${item.query.toLowerCase()}`}>
-                      <p key={index} onClick={() => dispatch({ type: 'set', isLoading: true })}>
+                <div className={styles.title}>Active Listings</div>
+                <div ref={modalRef as MutableRefObject<HTMLDivElement>} className="flex flex-col gap-4">
+                  {activeList?.map((item, index) => (
+                    <Link href={`/explore`}>
+                      <p
+                        key={index}
+                        className={styles.text}
+                        onClick={() => {
+                          dispatch({ type: 'set', isLoading: true })
+                          dispatch({ type: 'set', exploreTab: 0 })
+                          if (item.query === 'live_auctions') {
+                            dispatch({ type: 'set', availabilityFilter: 1 })
+                          } else {
+                            dispatch({ type: 'set', availabilityFilter: 0 })
+                          }
+                        }}
+                      >
                         {item.label}
                       </p>
                     </Link>
                   ))}
                 </div>
-                <button className="flex justify-start text-[16px]" onClick={toggleItems}>
+              </div>
+              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4">
+                <div className={styles.title}>Filter & Sorting</div>
+                <div className="flex flex-col gap-4">
+                  {filterList?.map((item, index) => (
+                    <p className={styles.text} key={index}>
+                      {item.label}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col w-1/4 flex-grow p-4 gap-4 font-normal">
+                <div className={styles.title}>Top Performers</div>
+                <div className="flex flex-col gap-4">
+                  {performerList?.map((item, index) => (
+                    <p className={styles.text} key={index}>
+                      {item.label}
+                    </p>
+                  ))}
+                </div>
+              </div>
+              <div className="flex flex-col w-1/4 flex-grow p-4 h-full gap-4">
+                <div className={styles.title}>Categories</div>
+                <div className="flex flex-col flex-grow-0 h-full overflow-auto gap-4 font-normal">
+                  {displayItems?.map((item, index) => (
+                    <Link href={`/category/${item.query.toLowerCase()}`}>
+                      <p className={styles.text} key={index} onClick={() => dispatch({ type: 'set', isLoading: true })}>
+                        {item.label}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+                <button className="flex justify-start" onClick={toggleItems}>
                   <div className={styles.menuItem}>{itemsToShow === 6 ? '+ Show More' : '- Show Less'} </div>
                 </button>
               </div>
