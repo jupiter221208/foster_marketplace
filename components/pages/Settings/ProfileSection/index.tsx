@@ -191,11 +191,11 @@ const ProfileSection = prop => {
       <div className="w-full flex justify-center">
         <div className={styles.content}>
           <div className={styles.innercontent}>
-            <div>
+            {/* <div>
               <div className={styles.subTitle}>Profile Information</div>
-            </div>
+            </div> */}
 
-            <div className="mt-[15px] lg:mt-8">
+            <div className="mt-[0px] lg:mt-8">
               <Input
                 error={errorMessage}
                 value={userName}
@@ -529,7 +529,7 @@ const ProfileSection = prop => {
               </div>
             )}
 
-            <div className="mt-[134px] lg:mt-[61px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
+            <div className="mt-[60px] lg:mt-[61px] mb-[40px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"
