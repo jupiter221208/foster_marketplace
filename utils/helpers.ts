@@ -311,6 +311,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--address-btn-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--mobile-sort-bg', '#F3F2F0')
     doc.style.setProperty('--search-bg-color', 'rgba(32, 36, 39, 0.1)');
+    doc.style.setProperty('--main-search-bg-color', '#F3F2F0');
     doc.style.setProperty('--search-category-color', '#202427')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #E4E4E4, #BFBFBF)')
     doc.style.setProperty('--menu-item-open-bg', '#121212')
@@ -598,6 +599,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--mobile-sort-bg', '#121212')
     doc.style.setProperty('--search-bg-color', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--main-search-bg-color', '#121212')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #1B1B1B, #121212')
     doc.style.setProperty('--menu-item-open-bg', '#202427')
     doc.style.setProperty('--search-category-color', 'rgba(239, 240, 247, 0.6)')

@@ -49,7 +49,7 @@
     {
       "id": 2,
       "label": "AI Art",
-      "query": "ai_art",
+      "query": "ai art",
       "path": "/explore"
     },
     {
@@ -97,7 +97,7 @@
     {
       "id": 10,
       "label": "Dark Art",
-      "query": "dark_Art",
+      "query": "dark Art",
       "path": "/explore"
     },
     {
@@ -157,7 +157,7 @@
     {
       "id": 20,
       "label": "Pixel Art",
-      "query": "pixel_Art",
+      "query": "pixel art",
       "path": "/explore"
     },
     {
