@@ -25,6 +25,10 @@
 .activeTab {
   font-family: 'Muli-ExtraBold';
   color: var(--text-gray-200-color);
+  margin-top: 3px;
+  @media (min-width: 1024px) {
+    margin-top: 2px;
+  }
 }
 
 .tooltip {

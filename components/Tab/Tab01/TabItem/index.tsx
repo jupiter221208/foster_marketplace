@@ -12,12 +12,12 @@ const TabItem = props => {
   return (
     <div className="relative">
       <button
-        className={`${styles.container} ${item.selected ? styles.activeTab : ''}`}
+        className={`${styles.container}`}
         onClick={() => onChange(item)}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        {item.label}
+        <div className={`${item.selected ? styles.activeTab : ''}`}>{item.label}</div>
       </button>
       {item?.coming_soon && hover && (
         <div className={styles.tooltip}>This feature is not available but is coming soon.</div>

@@ -31,14 +31,12 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const ArtworksSection = props => {
   const { artworks } = props
-  const dispatch = useDispatch()
   const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
   const [currentPage, setCurrentPage] = useState(0)
-  const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
   const [period, setPeriod] = useState('all')
   const [screenWidth, setScreenWidth] = useState(1920)

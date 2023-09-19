@@ -309,7 +309,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #eff0f6, #78787B)')
     doc.style.setProperty('--artist-switch-bg', '#CBCDD2')
     doc.style.setProperty('--address-btn-color', 'rgba(32, 36, 39, 0.75)')
-    doc.style.setProperty('--search-bg-color', '#F3F2F0')
+    doc.style.setProperty('--mobile-sort-bg', '#F3F2F0')
+    doc.style.setProperty('--search-bg-color', 'rgba(32, 36, 39, 0.1)');
+    doc.style.setProperty('--main-search-bg-color', '#F3F2F0');
     doc.style.setProperty('--search-category-color', '#202427')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #E4E4E4, #BFBFBF)')
     doc.style.setProperty('--menu-item-open-bg', '#121212')
@@ -322,7 +324,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', '#202427')
     doc.style.setProperty('--search-item-color', '#95DBD5')
     doc.style.setProperty('--resource-card-title', '#eff0f6')
-    doc.style.setProperty('--nft-detail-section-bg', '#7C7E83')
+    doc.style.setProperty('--studio-title-bg', '#FFF')
     doc.style.setProperty('--nft-detail-section-border', '#eff0f6')
     doc.style.setProperty('--gradient-btn-color', '#eff0f6')
     doc.style.setProperty('--gradient-btn-color-rgb', '239, 240, 247')
@@ -515,6 +517,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--merch-disabled-icon-color', '#202427')
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--stats-btn-border-color', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--scroll-arrow-bg-color', '#F3F2F0')
+    doc.style.setProperty('--scroll-arrow-color', '#202427')
+    doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -592,7 +597,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
     doc.style.setProperty('--artist-switch-bg', '#202427')
     doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.75)')
-    doc.style.setProperty('--search-bg-color', '#121212')
+    doc.style.setProperty('--mobile-sort-bg', '#121212')
+    doc.style.setProperty('--search-bg-color', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--main-search-bg-color', '#121212')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #1B1B1B, #121212')
     doc.style.setProperty('--menu-item-open-bg', '#202427')
     doc.style.setProperty('--search-category-color', 'rgba(239, 240, 247, 0.6)')
@@ -605,7 +612,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', '#2B2B2B')
     doc.style.setProperty('--search-item-color', '#eff0f6')
     doc.style.setProperty('--resource-card-title', '#95dbd5')
-    doc.style.setProperty('--nft-detail-section-bg', '#2b2b2b')
+    doc.style.setProperty('--studio-title-bg', '#2B2B2B')
     doc.style.setProperty('--nft-detail-section-border', '#202427')
     doc.style.setProperty('--gradient-btn-color', '#202427')
     doc.style.setProperty('--gradient-btn-color-rgb', '32, 36, 39')
@@ -801,5 +808,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--merch-disabled-icon-color', '#eff0f6')
     doc.style.setProperty('--stats-btn-icon-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--stats-btn-border-color', 'rgba(255, 255, 255, 0.25)')
+    doc.style.setProperty('--scroll-arrow-bg-color', '#2B2B2B')
+    doc.style.setProperty('--scroll-arrow-color', '#eff0f6')
+    doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(32, 36, 37, 0.1)')
   }
 }

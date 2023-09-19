@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -31,7 +31,9 @@ import StatsAPI from 'apis/stats'
 
 const Stats = () => {
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const status = useSelector<any>(state => state.activeTab)
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -43,11 +45,29 @@ const Stats = () => {
   const [collectors, setCollectors] = useState([])
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
     getArtworkData()
     getCollectionData()
     getCreatorData()
     getCollectorData()
   }, [])
+
+  useEffect(() => {
+    switch (status) {
+      case 0:
+        setActiveTab(0)
+        break
+      case 1:
+        setActiveTab(1)
+        break
+      case 2:
+        setActiveTab(2)
+        break
+      case 3:
+        setActiveTab(3)
+        break
+    }
+  }, [status])
 
   useEffect(() => {
     let array: any[] = []

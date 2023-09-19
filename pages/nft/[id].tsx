@@ -211,10 +211,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 setFullScreenView={setFullScreenView}
                 reloadNftData={reloadNftData}
                 enableMerch={setMerchToggle}
-                openMerchPage={data => {
-                  setMerchData(data)
-                  setOpenMerchPage(true)
-                }}
                 setCollectionName={setCollectionName}
               />
             )}

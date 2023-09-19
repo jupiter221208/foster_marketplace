@@ -23,6 +23,7 @@ import { getShippingServiceName } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
+import GradientButton from 'components/Button/GradientButton'
 
 const MerchDetail = () => {
   const router = useRouter()
@@ -76,10 +77,11 @@ const MerchDetail = () => {
       commission: order.artist_commission.toFixed(2),
       shipping: order.shipping_amount.toFixed(2),
       tax: order.tax_amount.toFixed(2),
+      txId: order.transaction_id,
       paidBy: order.buyer_address,
     })
 
-    setIsOwn(order.buyer_address === publicKey.toBase58())
+    setIsOwn(order.buyer_address === publicKey?.toBase58())
 
     let keys = Object.keys(order.seller_shares)
     if (keys.length > 0) setPaidBy(keys[0])
@@ -111,6 +113,11 @@ const MerchDetail = () => {
         )}`
       )
     }
+  }
+
+  const retryPayment = () => {
+    dispatch({ type: 'set', isLoading: true })
+    router.push(`/orders/${id}`)
   }
   return (
     <div className="g-container">
@@ -190,7 +197,9 @@ const MerchDetail = () => {
           <div>
             <div className={styles.detailTitle}>Payment Details</div>
             <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
-            <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Status:&nbsp;{paymentDetails?.status}</div>
+            <div className={`mt-[15px] ${styles.detailValue}`}>
+              Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
+            </div>
             <div className={`mt-[15px] ${styles.detailValue}`}>
               Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}
             </div>
@@ -204,7 +213,11 @@ const MerchDetail = () => {
           </div>
 
           <div>
-            {trackingDetails === null ? (
+            {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+              <div>
+                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
+              </div>
+            ) : trackingDetails === null ? (
               <div>
                 <Button
                   height="48px"
@@ -323,7 +336,9 @@ const MerchDetail = () => {
         <div className="w-full mt-[30px]">
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
           <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
-          <div className={styles.detailValue}>Payment&nbsp;Status:&nbsp;{paymentDetails?.status}</div>
+          <div className={styles.detailValue}>
+            Payment&nbsp;Status:&nbsp;{paymentDetails?.txId.length > 0 ? paymentDetails?.status : 'Pending'}
+          </div>
           <div className={styles.detailValue}>Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}</div>
           <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
           <div className={styles.detailValue}>Shipping&nbsp;&&nbsp;Handling:&nbsp;${paymentDetails?.shipping}</div>
@@ -338,7 +353,11 @@ const MerchDetail = () => {
         </div>
         <div className="w-full mt-[30px] mb-[100px] flex justify-center">
           <div>
-            {trackingDetails === null ? (
+            {paymentDetails?.txId === null || paymentDetails?.txId.length === 0 ? (
+              <div>
+                <GradientButton width={335} height={48} label="Retry Payment" onClick={() => retryPayment()} />
+              </div>
+            ) : trackingDetails === null ? (
               <div>
                 <Button
                   height="48px"

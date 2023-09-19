@@ -152,7 +152,6 @@
   --artist-switch-bg: #1c2121;
   --address-btn-color: rgba(239, 240, 247, 0.6);
 
-  --search-bg-color: #121212;
   --search-category-color: #eff0f6;
 
   --menu-item-open-bg: linear-gradient(to bottom, #378287, #202427);
@@ -203,7 +202,7 @@
   --stats-accordion-bg: #202427;
   --stats-accordion-border: rgba(#202427, 0.1);
   --stats-accordion-normal-border: rgba(239, 240, 247, 0.1);
-
+  --studio-title-bg: #2B2B2B;
   --resource-accordion-dropdown-bg: rgba(#fff, 0.2);
   --resource-accordion-dropdown-color: #eff0f6;
   --resource-accordion-close-color: #95dbd5;
@@ -518,10 +517,11 @@ h6 {
     height: 56px;
     border-radius: 28px;
     top: 45%;
-    left: 0px;
+    left: 5px;
     right: 55px;
-    background: #2b2b2b;
-    color: #eff0f6;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
     &::after {
       font-size: 20px;
       font-weight: 700;
@@ -543,8 +543,9 @@ h6 {
     top: 45%;
     bottom: 0px;
     right: 20px;
-    background: #2b2b2b;
-    color: #eff0f6;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
     &::after {
       font-size: 20px;
       font-weight: 700;
@@ -628,10 +629,11 @@ h6 {
     height: 56px;
     border-radius: 28px;
     top: 45%;
-    left: 20px;
+    left: 25px;
     right: 55px;
-    background: #2b2b2b;
-    color: #eff0f6;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
     &::after {
       font-size: 20px;
       font-weight: 700;
@@ -652,9 +654,10 @@ h6 {
     border-radius: 28px;
     top: 45%;
     bottom: 0px;
-    right: 0px;
-    background: #2b2b2b;
-    color: #eff0f6;
+    right: 5px;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
     &::after {
       font-size: 20px;
       font-weight: 700;
@@ -681,10 +684,9 @@ h6 {
     top: 40%;
     left: 20px;
     right: 55px;
-    background: #2b2b2b;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #eff0f6;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
     &::after {
       font-size: 20px;
       font-weight: 700;
@@ -704,6 +706,111 @@ h6 {
     height: 56px;
     border-radius: 28px;
     top: 40%;
+    bottom: 0px;
+    right: 20px;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+    pointer-events: visible !important;
+  }
+}
+
+.listingNavigationSwiper {
+  padding-bottom: 15px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .swiper-button-prev {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 45%;
+    left: 20px;
+    right: 55px;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+    pointer-events: visible !important;
+  }
+
+  .swiper-button-next {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 45%;
+    bottom: 0px;
+    right: 20px;
+    background: var(--scroll-arrow-bg-color);
+    box-shadow: 0px 0px 10px var(--scroll-arrow-drop-shadow);
+    color: var(--scroll-arrow-color);
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+    pointer-events: visible !important;
+  }
+}
+
+.listingNavigationSwiper {
+  padding-bottom: 15px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  .swiper-button-prev {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 45%;
+    left: 20px;
+    right: 55px;
+    background: #2b2b2b;
+    color: #eff0f6;
+    &::after {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    z-index: 10;
+    opacity: 1 !important;
+    &:hover {
+      cursor: pointer;
+    }
+    pointer-events: visible !important;
+  }
+
+  .swiper-button-next {
+    display: flex;
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 28px;
+    top: 45%;
     bottom: 0px;
     right: 20px;
     background: #2b2b2b;

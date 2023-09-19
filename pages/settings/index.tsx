@@ -12,15 +12,19 @@ import SecuritySection from 'components/pages/Settings/SecuritySection'
 import Alert from 'components/Alert'
 
 // json
-// import TabList from 'assets/json/settings/tab-list.json'
+import TabList from 'assets/json/settings/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
 import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
+import Tab01 from 'components/Tab/Tab01'
+import Tab from 'components/Tab'
+import StudioSection from 'components/pages/Settings/StudioSection'
 
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [tabList, setTabList] = useState<any[]>(TabList)
 
   const alertData = [
     {
@@ -30,6 +34,24 @@ const Settings = () => {
       type: 'success',
     },
   ]
+
+  useEffect(() => {
+    let array: any[] = []
+    TabList.map(item => {
+      let object: any = item
+      if (item.id === selectedTab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array.push(object)
+    })
+    setTabList(array)
+  }, [selectedTab])
+
+  const handleSelectedTab = item => {
+    setSelectedTab(item.id)
+  }
 
   return (
     <div className="g-container">
@@ -64,7 +86,7 @@ const Settings = () => {
             {/* <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
             </div> */}
-            <div className="w-full lg:w-[85%] mt-[32px] lg:mt-[50px]">
+            <div className="w-full lg:w-[70%] mt-[30px] lg:mt-[50px]">
               {selectedTab === 0 && (
                 <ProfileSection
                   success={() => {
@@ -73,7 +95,16 @@ const Settings = () => {
                 />
               )}
             </div>
-            <div className="w-full lg:w-[85%]">
+            <div className="w-full lg:w-[70%] mt-[0px] lg:mt-[20px]">
+              {selectedTab === 1 && (
+                <StudioSection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div>
+            {/* <div className="w-full lg:w-[85%]">
               {selectedTab === 1 && (
                 <NotificationSection
                   success={() => {
@@ -108,7 +139,7 @@ const Settings = () => {
                   }}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

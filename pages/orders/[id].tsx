@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { getOrder, OrderData } from 'apis/merch'
+import { findElement } from 'utils/helpers'
 
 // styles
 import styles from './index.module.scss'
@@ -9,17 +12,19 @@ import MerchStepper from 'components/MerchStepper'
 import PhysicalCheckout from 'components/pages/BrowseNFT/MerchSection/PhysicalCheckout'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
-import { getOrder, OrderData } from 'apis/merch'
-import { findElement } from 'utils/helpers'
-
 const OrderSection = props => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const { id } = router.query
 
   const [orderData, setOrderData] = useState<OrderData | null>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [coverUrl, setCoverUrl] = useState('')
   const [merchType, setMerchType] = useState('')
+
+  useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
+  }, [])
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return

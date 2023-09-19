@@ -121,7 +121,6 @@ export interface MainSectionProps {
   nftInfo: any
   setFullScreenView: any
   reloadNftData: any
-  openMerchPage: any
   enableMerch: any
   setCollectionName: any
 }
@@ -132,7 +131,6 @@ const MainSection = ({
   nftInfo,
   setFullScreenView,
   reloadNftData,
-  openMerchPage,
   enableMerch,
   setCollectionName,
 }: MainSectionProps) => {
