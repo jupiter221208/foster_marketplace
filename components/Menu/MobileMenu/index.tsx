@@ -42,7 +42,6 @@ const MobileMenu = () => {
   const router = useRouter()
   const { connected, disconnect } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
-  const isLoading = useSelector<any>(state => state.isLoading)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
@@ -347,8 +346,6 @@ const MobileMenu = () => {
           />
         </div>
       )}
-
-      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }
