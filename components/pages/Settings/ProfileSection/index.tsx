@@ -536,7 +536,7 @@ const ProfileSection = prop => {
                   onClick={() => {
                     handleSaveUserInfo()
                   }}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
@@ -547,7 +547,7 @@ const ProfileSection = prop => {
                   label="Save"
                   disabled={true}
                   onClick={() => {}}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
