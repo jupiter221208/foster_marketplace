@@ -183,15 +183,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.topRightEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.bottomLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         {openMerchPage ? (
           <div className="z-10">
             <MerchSection

@@ -40,9 +40,6 @@ const SuccessMintCollectionSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
-          <div className={styles.topLeftEllipse}>
-            {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-          </div>
           <div className="w-full flex flex-wrap justify-center mt-[107px] z-10">
             {/* banner image */}
             <div className={styles.bannerImageArea}>

@@ -201,9 +201,6 @@ const Step02CollectionSection = props => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className="relative w-full grid grid-cols-12 gap-0">
           {/* left part */}
-          <div className={styles.topLeftEllipse}>
-            {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-          </div>
           <div className="col-span-12 lg:col-span-6 g-left-container">
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Artwork Preview</div>

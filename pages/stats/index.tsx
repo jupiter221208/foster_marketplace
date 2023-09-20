@@ -174,9 +174,6 @@ const Stats = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
           <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[56px] lg:h-[76px] ">

@@ -22,7 +22,6 @@ import { useViewport } from 'utils'
 import DaoLandingPage from 'components/pages/Dao/DaoLandingPage'
 
 const Dao = () => {
-
   const { connected } = useWallet()
   const { metaplex } = useMetaplex()
   const [nftIsLoaded, setNftIsLoaded] = useState(false)
@@ -71,10 +70,6 @@ const Dao = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full relative flex justify-center">
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-
         {/* {daoPage === 'start' ? (
           <DaoComingSoon onConnect={() => setDaoPage('landing')} />
         ) :  */}

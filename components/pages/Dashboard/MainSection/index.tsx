@@ -222,9 +222,6 @@ const MainSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.topLeftEllipse}>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-      </div>
       <div className={styles.bannerImage}>
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}

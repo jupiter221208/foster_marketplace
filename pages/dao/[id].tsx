@@ -146,10 +146,6 @@ const Dao = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full relative flex justify-center">
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-
         <FullScreenLoadingModal open={isLoading} />
 
         {proposal !== null && (

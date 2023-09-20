@@ -515,12 +515,6 @@ const Explore = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.topRightEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <div className={`${styles.title} w-full text-center hidden lg:flex lg:text-start`}>Explore</div>
         <div className="w-full flex justify-between gap-0 lg:gap-[30px] xl:gap-[75px] lg:mt-[110px] z-10">
           {/* filter menu part */}
@@ -589,15 +583,6 @@ const Explore = () => {
                 borderColor={'rgba(var(--text-gray-200-color-rgb), 0.1)'}
                 direction="rtl"
               />
-            </div>
-            <div className="w-full relative -z-10">
-              <div className={styles.middleRightEllipse}>
-                {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-              </div>
-
-              <div className={styles.bottomLeftEllipse}>
-                {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-              </div>
             </div>
             <div className="w-full relative z-10">
               {exploreTab === 0 && (
