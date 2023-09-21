@@ -55,7 +55,10 @@
   border-radius: 10px;
   outline: none;
 }
-
+.countrySelect {
+  font-size: 14px;
+  font-family: 'Muli-SemiBold';
+}
 .inputArea:-webkit-autofill,
 .inputArea:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;

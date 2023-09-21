@@ -225,6 +225,7 @@ const PhysicalShipping = props => {
         <div className={styles.label}>Shipping Address *</div>
         <div className="mt-[10px] ">
           <CountrySelect
+            className={styles.countrySelect}
             data={Country.getAllCountries()}
             selected={country}
             onChange={item => setCountry(item)}
@@ -234,6 +235,7 @@ const PhysicalShipping = props => {
         </div>
         <div className="mt-[10px] ">
           <CountrySelect
+            className={styles.countrySelect}
             data={State?.getStatesOfCountry(country?.isoCode)}
             selected={state}
             onChange={item => setState(item)}
