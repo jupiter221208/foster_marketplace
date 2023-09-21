@@ -819,13 +819,15 @@ const MainSection = ({
               <div className={styles.blurBackground}>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <img
-                    src={nftCoverUrl}
-                    alt=""
-                    className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
-                  />
-                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
-                    <Image src={FullScreenModeIcon} alt="" />
+                  <div className="relative w-auto h-auto">
+                    <img
+                      src={nftCoverUrl}
+                      alt=""
+                      className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                    />
+                    <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
+                      <Image src={FullScreenModeIcon} alt="" />
+                    </div>
                   </div>
                 </div>
               </div>
