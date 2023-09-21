@@ -784,7 +784,7 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, 1))'
     )
     doc.style.setProperty('--stats-search-bg', '#2b2b2b')
-    doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #1b1b1b, #1b1b1b)')
+    doc.style.setProperty('--artwork-tbl-header-bg', '#242424')
     doc.style.setProperty('--primary-btn-bg-left', '#4B6E6B')
     doc.style.setProperty('--primary-btn-bg-right', '#95DBD5')
     doc.style.setProperty('--auction-card-label', '#95dbd5')
