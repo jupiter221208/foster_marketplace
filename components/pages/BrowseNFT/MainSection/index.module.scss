@@ -39,9 +39,11 @@
 }
 
 .blurImage {
+  min-width: 100%;
+  min-height: 100%;
   position: absolute;
   inset: 0;
-  background: var(--browse-nft-blur-bg);
+  background: rgba(var(--background-light-color-rgb), 0.05);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 10;
@@ -49,22 +51,15 @@
 
 .imageArea {
   position: relative;
-  margin: 11px;
-  border-radius: 12px;
-  padding: 8px;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--background-dark-color), 0.4),
-    rgba(var(--background-light-color), 0.4)
-  );
-  overflow: hidden;
-  max-width: calc(100% - 32px);
-  max-height: calc(100% - 32px);
+  width: 90%;
+  height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 11;
+  // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
 }
+
 
 .fullScreenMode {
   position: absolute;
@@ -242,7 +237,6 @@
     font-size: 18px;
     line-height: 22px;
     padding: 8px 16px;
-
   }
   background: var(--stats-bg-color);
   color: var(--text-gray-200-color);
@@ -404,6 +398,7 @@
 .accordionButton {
   display: flex;
   width: 100%;
+  background: #2f2f2f;
 
   height: 60px;
   @media (min-width: 640px) {
@@ -427,8 +422,8 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px;
-  // border: 1px solid rgba(#eceef4, 0.1);
-  background-color: var(--accordian-header-bg);
+  border: 1px solid rgba(#eceef4, 0.1);
+  // background-color: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -438,6 +433,7 @@
 .accordionOpenButton {
   display: flex;
   width: 100%;
+  background: #2f2f2f;
 
   height: 38px;
   @media (min-width: 640px) {
@@ -462,9 +458,8 @@
   padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
   border: 1px solid var(--nft-detail-section-border);
-  background: var(--accordian-header-bg);
+  // background: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-
   font-family: 'Muli-Bold';
   font-size: 18px;
   color: var(--text-gray-200-color);
