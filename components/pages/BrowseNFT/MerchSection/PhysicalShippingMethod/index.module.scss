@@ -35,19 +35,19 @@
 .orderView {
   width: 100%;
   height: 100%;
-  background: var(--social-bg-color);
+  background: var(--shipping-board-bg);
   border: 1px solid rgba(var(--main-bg-color-rgb), 0.1);
   border-radius: 30px;
   padding: 30px 30px;
 }
 
 .orderTotal {
-  font-family: 'Muli-Bold';
+  font-family: 'Muli-SemiBold';
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 21px;
   }
   color: var(--text-gray-200-color);
 }
@@ -63,8 +63,8 @@
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 21px;
   }
   color: var(--text-gray-200-color);
 }
@@ -86,8 +86,8 @@
   font-size: 14px;
   line-height: 18px;
   @media (min-width: 1024px) {
-    font-size: 18px;
-    line-height: 23px;
+    font-size: 16px;
+    line-height: 21px;
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   text-align: right;

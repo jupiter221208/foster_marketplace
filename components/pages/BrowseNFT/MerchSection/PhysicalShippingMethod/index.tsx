@@ -240,16 +240,16 @@ const PhysicalShippingMethod = props => {
         <div className="xl:w-1/2 w-full h-auto gap-[30px] mt-[24px]">
           <div className="w-full relative">
             <div className={styles.orderView}>
-              <div className="w-full flex justify-between mt-[20px]">
-                <div className={styles.orderTotal}>SUBTOTAL</div>
+              <div className="w-full flex justify-between">
+                <div className={styles.orderTotal}>Subtotal</div>
                 <div className={styles.totalPrice}>${data.cost}</div>
               </div>
               <div className={`${styles.divider} mt-[15px]`} />
               <div className="w-full flex justify-between mt-[15px]">
                 <div className={styles.orderTotal}>
-                  SHIPPING AND
+                  Shipping and
                   <br />
-                  HANDLING
+                  Handling
                 </div>
                 <div className={styles.subPrice}>
                   <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
@@ -258,7 +258,7 @@ const PhysicalShippingMethod = props => {
               </div>
               <div className={`${styles.divider} mt-[15px]`} />
               <div className="w-full flex justify-between mt-[20px]">
-                <div className={styles.orderTotal}>TOTAL</div>
+                <div className={styles.orderTotal}>Total</div>
                 <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
               </div>
             </div>
