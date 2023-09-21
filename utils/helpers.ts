@@ -521,6 +521,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--scroll-arrow-bg-color', '#F3F2F0')
     doc.style.setProperty('--scroll-arrow-color', '#202427')
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
+    doc.style.setProperty('--nft-generative-color', '#FFFFFF')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -813,5 +814,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--scroll-arrow-bg-color', '#2B2B2B')
     doc.style.setProperty('--scroll-arrow-color', '#eff0f6')
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(32, 36, 37, 0.1)')
+    doc.style.setProperty('--nft-generative-color', '#2F2F2F')
   }
 }
