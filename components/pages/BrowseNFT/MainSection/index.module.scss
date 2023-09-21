@@ -2,6 +2,7 @@
 
 .container {
   width: 100%;
+  height: calc(100vh - 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,15 +34,15 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 27px;
   z-index: 1;
   position: relative;
 }
 
 .blurImage {
+  min-width: 100%;
+  min-height: 90%;
   position: absolute;
-  inset: 0;
-  background: var(--browse-nft-blur-bg);
+  background: rgba(var(--background-light-color-rgb), 0.05);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 10;
@@ -49,26 +50,18 @@
 
 .imageArea {
   position: relative;
-  margin: 11px;
-  border-radius: 12px;
-  padding: 8px;
-  background: linear-gradient(
-    to bottom,
-    rgba(var(--background-dark-color), 0.4),
-    rgba(var(--background-light-color), 0.4)
-  );
-  overflow: hidden;
-  max-width: calc(100% - 32px);
-  max-height: calc(100% - 32px);
+  width: 90%;
+  height: 90%;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 11;
+  // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
 }
 
 .fullScreenMode {
   position: absolute;
-  right: 24px;
+  right: 0px;
   bottom: 24px;
   width: 56px;
   height: 56px;
@@ -76,7 +69,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba($background-light-color, 0.15);
+  background: rgba(var(--background-light-color-rgb), 0.15);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 10;
@@ -242,9 +235,8 @@
     font-size: 18px;
     line-height: 22px;
     padding: 8px 16px;
-
   }
-  background: var(--stats-bg-color);
+  background: rgba(var(--background-light-color-rgb), 0.05);
   color: var(--text-gray-200-color);
   white-space: nowrap;
   cursor: pointer;
@@ -404,6 +396,7 @@
 .accordionButton {
   display: flex;
   width: 100%;
+  background: var(--nft-generative-color);
 
   height: 60px;
   @media (min-width: 640px) {
@@ -427,8 +420,7 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px;
-  // border: 1px solid rgba(#eceef4, 0.1);
-  background-color: var(--accordian-header-bg);
+  // background-color: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-family: 'Muli-Bold';
   font-size: 18px;
@@ -438,6 +430,7 @@
 .accordionOpenButton {
   display: flex;
   width: 100%;
+  background: var(--nft-generative-color);
 
   height: 38px;
   @media (min-width: 640px) {
@@ -461,10 +454,8 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
-  border: 1px solid var(--nft-detail-section-border);
-  background: var(--accordian-header-bg);
+  // background: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
-
   font-family: 'Muli-Bold';
   font-size: 18px;
   color: var(--text-gray-200-color);
@@ -481,7 +472,6 @@
     padding: 20px;
   }
   border-radius: 0px 0px 12px 12px;
-  border: 1px solid rgba(#eceef4, 0.1);
   background-color: var(--accordian-area-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   overflow: scroll;
@@ -530,7 +520,7 @@
   padding: 5px;
   border-radius: 12px;
   box-shadow: 0px 3px 6px rgba(var(--brand-01-color), 0.23);
-  background: var(--live-auction-card);
+  background: var(--nft-generative-color);
 }
 
 .auctionBG {

@@ -13,20 +13,13 @@ const ApparelSection = props => {
   const { canvasId, nftName, apparel, nftCoverUrl, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
+  const [isDrawing, setIsDrawing] = useState(false)
+
   const viewport = useViewport()
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   const resizeFunction = () => {
-  //     if (apparel) {
-  //       drawApparel()
-  //     }
-  //   }
-  //   window.addEventListener('resize', resizeFunction)
-  // }, [])
-
   useEffect(() => {
-    if (apparel) {
+    if (apparel && apparel.length > 0) {
       setLoader(false)
       drawApparel()
     } else {
@@ -70,6 +63,9 @@ const ApparelSection = props => {
   }, [finishEditing])
 
   const drawApparel = () => {
+    if (isDrawing) return
+
+    setIsDrawing(true)
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
@@ -90,7 +86,7 @@ const ApparelSection = props => {
     })
     new fabric.Image.fromURL(apparel, img => {
       const { width, height } = img.getOriginalSize()
-      img.scale(screenWidth / 576, false)
+      img.scale(screenWidth / 600, false)
       newCanvas.add(img)
       if (viewport === 'xs' || viewport === 'md' || viewport === 'sm') {
         img.set({
@@ -116,13 +112,13 @@ const ApparelSection = props => {
                 left: (screenWidth * 0.75) / 2,
               })
             } else {
-              let ratio = screenWidth / 576
+              let ratio = screenWidth / 600
               img.scaleToWidth(150 * ratio, false)
               img.set({
                 scaleX: (150 * ratio) / width,
                 scaleY: (150 * ratio) / width,
                 top: 150 * ratio,
-                left: ((screenWidth - 150 * (screenWidth / 576)) / 19) * 10,
+                left: (screenWidth - (150 * ratio) / width) / 2 - (150 * ratio) / 2, //((screenWidth - 150 * (screenWidth / 600)) / 21) * 11,
               })
             }
 
@@ -136,6 +132,7 @@ const ApparelSection = props => {
             })
             newCanvas.setActiveObject(img)
             newCanvas.renderAll()
+            setIsDrawing(false)
           },
           { crossOrigin: 'Anonymous' }
         )

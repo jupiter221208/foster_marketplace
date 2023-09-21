@@ -775,7 +775,7 @@ const MainSection = ({
             </div>
           </div>
         ) : (
-          <div className="col-span-2 lg:col-span-1">
+          <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
@@ -817,12 +817,13 @@ const MainSection = ({
               )
             ) : nftType.includes('image') ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                </div>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <img src={nftCoverUrl} alt="" className="h-full" />
+                  <img
+                    src={nftCoverUrl}
+                    alt=""
+                    className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                  />
                   <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
                     <Image src={FullScreenModeIcon} alt="" />
                   </div>
@@ -1050,12 +1051,12 @@ const MainSection = ({
                     <div className="w-full flex mt-[7px] lg:mt-[20px] gap-6 lg:gap-10">
                       {tradeStateAddress ? (
                         <GradientButton
+                          fullWidth
                           label={'Quick Buy'}
                           onClick={() => quickBuy()}
                           icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
                           fontFamily="Muli-SemiBold"
-                          width={160}
                           height={50}
                           disabled={!tradeStateAddress}
                         />
@@ -1078,7 +1079,7 @@ const MainSection = ({
                         paddingRight="13px"
                         fontFamily="Muli-SemiBold"
                         gap="4px"
-                        width={160}
+                        fullWidth
                         height={50}
                         borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                       />

@@ -287,6 +287,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             label="Cancel Order"
             onClick={onBack}
             fullWidth
+            fontFamily="Muli-SemiBold"
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
             color={'var(--text-gray-200-color)'}
@@ -295,6 +296,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
             disabled={currency.length === 0}
             label="Place Order"
             fullWidth
+            fontFamily="Muli-SemiBold"
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             onClick={() => onCheckout()}

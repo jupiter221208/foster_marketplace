@@ -165,7 +165,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const [merchToggle, setMerchToggle] = useState(false)
 
   return (
-    <div className="g-container">
+    <div className="w-full h-full">
       <Head>
         <title>{nftTitle}</title>
         <meta property="description" content={nftDescription} />
@@ -183,17 +183,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.topRightEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.bottomLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         {openMerchPage ? (
-          <div className="z-10">
+          <div className="g-container z-10">
             <MerchSection
               data={merchData}
               openNftPage={() => {
@@ -203,43 +194,51 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
           </div>
         ) : (
           <div className="z-10 mb-[100px] lg:mb-[0px]">
-            {nftDetail && (
-              <MainSection
-                nftDetail={nftDetail}
-                editionDetail={editionDetail}
-                nftInfo={nftInfo}
-                setFullScreenView={setFullScreenView}
-                reloadNftData={reloadNftData}
-                enableMerch={setMerchToggle}
-                setCollectionName={setCollectionName}
-              />
-            )}
+            <div className="g-container" style={{ background: 'rgba(var(--background-light-color-rgb), 0.05)' }}>
+              {nftDetail && (
+                <MainSection
+                  nftDetail={nftDetail}
+                  editionDetail={editionDetail}
+                  nftInfo={nftInfo}
+                  setFullScreenView={setFullScreenView}
+                  reloadNftData={reloadNftData}
+                  enableMerch={setMerchToggle}
+                  setCollectionName={setCollectionName}
+                />
+              )}
+            </div>
             {merchToggle ? (
-              <div>
-                <ShopApparelSection
-                  title="Shop Apparel"
-                  nftDetail={nftDetail}
-                  shopApparelList={shopApparelList}
-                  openMerchPage={data => {
-                    setMerchData(data)
-                    setOpenMerchPage(true)
-                  }}
-                />
-                <ShopApparelSection
-                  title="Shop Wall Art"
-                  nftDetail={nftDetail}
-                  shopApparelList={ShopWallartlList}
-                  openMerchPage={data => {
-                    setMerchData(data)
-                    setOpenMerchPage(true)
-                  }}
-                />
+              <div className="g-container">
+                <div>
+                  <ShopApparelSection
+                    title="Shop Apparel"
+                    nftDetail={nftDetail}
+                    shopApparelList={shopApparelList}
+                    openMerchPage={data => {
+                      setMerchData(data)
+                      setOpenMerchPage(true)
+                    }}
+                  />
+                  <ShopApparelSection
+                    title="Shop Wall Art"
+                    nftDetail={nftDetail}
+                    shopApparelList={ShopWallartlList}
+                    openMerchPage={data => {
+                      setMerchData(data)
+                      setOpenMerchPage(true)
+                    }}
+                  />
+                </div>
               </div>
             ) : (
-              <div>
-                {collectionId && <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />}
-                {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-                <MoreCategorySection categories={categories} />
+              <div className="g-container">
+                <div>
+                  {collectionId && (
+                    <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />
+                  )}
+                  {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
+                  <MoreCategorySection categories={categories} />
+                </div>
               </div>
             )}
           </div>

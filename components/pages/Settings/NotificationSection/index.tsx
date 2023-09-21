@@ -19,7 +19,7 @@ const NotificationSection = prop => {
   const [bidActivity, setBidActivity] = useState(false)
   const [bidAccepted, setBidAccepted] = useState(false)
   const [successfulSale, setSuccessfulSale] = useState(false)
-  const [successfulPurchase, setSuccessfulPurchase] = useState(false)
+  const [successfulBid, setSuccessfulBid] = useState(false)
   const [auctionOutbid, setAuctionOutbid] = useState(true)
   const [auctionWon, setAuctionWon] = useState(false)
   const [auctionBid, setAuctionBid] = useState(false)
@@ -32,9 +32,9 @@ const NotificationSection = prop => {
         if (response !== null) {
           const settings = response.notification_settings
           setBidActivity(settings.notify_on_offer)
-          setBidAccepted(settings.notify_on_bid)
+          setBidAccepted(settings.notify_on_purchase)
           setSuccessfulSale(settings.notify_on_sale)
-          setSuccessfulPurchase(settings.notify_on_purchase)
+          setSuccessfulBid(settings.notify_on_bid)
           setOldSettings(settings)
         }
       },
@@ -48,16 +48,16 @@ const NotificationSection = prop => {
     if (!oldSettings) return
     if (
       oldSettings['notify_on_offer'] !== bidActivity ||
-      oldSettings['notify_on_bid'] !== bidAccepted ||
+      oldSettings['notify_on_purchase'] !== bidAccepted ||
       oldSettings['notify_on_sale'] !== successfulSale ||
-      oldSettings['notify_on_purchase'] !== successfulPurchase
+      oldSettings['notify_on_bid'] !== successfulBid
     ) {
       setEnableSavle(true)
       return
     }
 
     setEnableSavle(false)
-  }, [bidActivity, bidAccepted, successfulSale, successfulPurchase])
+  }, [bidActivity, bidAccepted, successfulSale, successfulBid])
 
   const handleSaveNotification = () => {
     if (!oldSettings) return
@@ -66,7 +66,7 @@ const NotificationSection = prop => {
     newSettings['notify_on_offer'] = bidActivity
     newSettings['notify_on_bid'] = bidAccepted
     newSettings['notify_on_sale'] = successfulSale
-    newSettings['notify_on_purchase'] = successfulPurchase
+    newSettings['notify_on_purchase'] = successfulBid
 
     notificationAPI.updateNotificationSettings(newSettings).then(
       response => {
@@ -88,56 +88,56 @@ const NotificationSection = prop => {
         <div className={styles.content}>
           <div className="w-full mt-[10px] mb-12">
             <GreenLineCard
-              content="Select which notifications you would like to receive via email and provide the email address you would like
-            the notifications sent to in your profile settings."
+              className={styles.description}
+              content="Select which notifications you would like to receive via email and provide the email address in your profile settings."
             />
           </div>
           <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[94px]">
             <Switch
-              title="Bid Activity"
-              description="When someone makes an offer on one of your items"
+              title="Incoming Offers"
+              description="When someone makes an offer on your artwork"
               enabled={bidActivity}
               onChange={() => setBidActivity(!bidActivity)}
             />
             <Switch
-              title="Bid Accepted"
-              description="When someone accepts your bid"
+              title="Accepted Offers"
+              description="When someone accepts an offer via quick buy"
               enabled={bidAccepted}
               onChange={() => setBidAccepted(!bidAccepted)}
             />
             <Switch
-              title="Successful Sale"
-              description="When someone purchases one of your items"
+              title="Fixed-Price Sales"
+              description="When someone purchases your artwork via quick buy"
               enabled={successfulSale}
               onChange={() => setSuccessfulSale(!successfulSale)}
             />
             <Switch
-              title="Successful Purchase"
-              description="When you successfully buy an item"
-              enabled={successfulPurchase}
-              onChange={() => setSuccessfulPurchase(!successfulPurchase)}
+              title="Incoming Bids"
+              description="When someone places a bid in on auction your published"
+              enabled={successfulBid}
+              onChange={() => setSuccessfulBid(!successfulBid)}
             />
             <Switch
               title="Auction Outbid"
-              description="When an offer you placed is exceeded by another user"
+              description="When a bid you placed is exceeded by another user"
               enabled={auctionOutbid}
               onChange={() => setAuctionOutbid(!auctionOutbid)}
             />
             <Switch
               title="Auction Won"
-              description="When you win an auction"
+              description="When you win an auction and the sale is settled by the owner"
               enabled={auctionWon}
               onChange={() => setAuctionWon(!auctionWon)}
             />
             <Switch
-              title="Auction Bid"
-              description="When someone bids in your auction"
+              title="Successful Auctions"
+              description="When an auction you published ends with a winner"
               enabled={auctionBid}
               onChange={() => setAuctionBid(!auctionBid)}
             />
             <Switch
-              title="Auction Expiration"
-              description="When a timed auction you created ends"
+              title="Expired Auctions"
+              description="When an auction you published ends without a winner"
               enabled={auctionExpiration}
               onChange={() => setAuctionExpiration(!auctionExpiration)}
             />

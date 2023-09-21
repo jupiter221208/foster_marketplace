@@ -50,13 +50,22 @@
   font-size: 14px;
   line-height: 18px;
   color: var(--text-gray-200-color);
-  background: var(--ellipse-report-bg);
+  background: var(--shipping-board-bg);
   padding-left: 20px;
   border-radius: 10px;
   outline: none;
 }
-
+.countrySelect {
+  font-size: 14px;
+  font-family: 'Muli-SemiBold';
+}
 .inputArea:-webkit-autofill,
 .inputArea:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+.inputArea::placeholder {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+

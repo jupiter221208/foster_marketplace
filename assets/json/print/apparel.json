@@ -289,22 +289,22 @@
         "navy": {
           "item_id": 3,
           "cost": 21.14,
-          "image": { "front": "/images/apparel/youth_t_navy.png", "back": "/images/apparel/youth_t_navy_b.png" }
+          "image": { "front": "/images/apparel/man_t_navy.png", "back": "/images/apparel/man_t_navy_b.png" }
         },
         "gray": {
           "item_id": 3,
           "cost": 21.14,
-          "image": { "front": "/images/apparel/youth_t_gray.png", "back": "/images/apparel/youth_t_gray_b.png" }
+          "image": { "front": "/images/apparel/man_t_gray.png", "back": "/images/apparel/man_t_gray_b.png" }
         },
         "black": {
           "item_id": 3,
           "cost": 21.14,
-          "image": { "front": "/images/apparel/youth_t_black.png", "back": "/images/apparel/youth_t_black_b.png" }
+          "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
         },
         "white": {
           "item_id": 4,
           "cost": 20.54,
-          "image": { "front": "/images/apparel/youth_t_white.png", "back": "/images/apparel/youth_t_white_b.png" }
+          "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
         }
       }
     }

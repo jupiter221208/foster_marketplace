@@ -12,7 +12,8 @@ import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useWallet, useConnection } from '@solana/wallet-adapter-react'
+import { useMetaplex } from 'hooks/useMetaplex'
 
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
@@ -31,10 +32,13 @@ import NftAPI from 'apis/nfts'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
+import { getMyNFTs } from 'utils/nfts.utils'
 
 const MerchActivity = () => {
   const viewport = useViewport()
   const { connected, publicKey } = useWallet()
+  const { connection } = useConnection()
+  const { metaplex: mx } = useMetaplex()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -72,6 +76,12 @@ const MerchActivity = () => {
   }, [])
 
   useEffect(() => {
+    if (mx && connection && publicKey) {
+      loadMyNFTs()
+    }
+  }, [mx, connection, publicKey])
+
+  useEffect(() => {
     if (publicKey) {
       getOrderStats()
     }
@@ -96,7 +106,7 @@ const MerchActivity = () => {
       if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
       else if (activeTab === 1) getSellerOrder(sellerPages, rowCount)
       else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
-      else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
+      // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
   }, [isFetching])
 
@@ -208,36 +218,94 @@ const MerchActivity = () => {
     )
   }
 
-  const getDisabledItem = (page, rowCount) => {
-    if (!publicKey) {
-      setIsVisibleDisabledFetching(false)
-      return
-    }
-    ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(
+  const loadMyNFTs = async () => {
+    setIsVisibleDisabledFetching(true)
+    let nfts = await getMyNFTs(mx)
+    let allList = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
+    let validNfts = []
+    allList.forEach(item => {
+      let created = false
+      let creators = item.creators
+      creators.forEach(creator => {
+        if (creator.address.toBase58() === publicKey.toBase58()) {
+          created = true
+          return
+        }
+      })
+      if (created) validNfts.push(item)
+    })
+    let tokenIds = []
+    validNfts.forEach((item: any) => {
+      tokenIds.push(item.mintAddress.toString())
+    })
+    NftAPI.enableAllMerchHub({ tokenIds }).then(
       response => {
-        setIsFetching(false)
-        if (isLoadingData) setIsLoadingData(false)
-
-        setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
-        if (response.length < rowCount) {
+        if (response !== null) {
+          let disabledNfts = []
+          validNfts.forEach((item: any) => {
+            let address = item.mintAddress.toString()
+            let enabled = response[address]
+            if (!enabled)
+              disabledNfts.push({
+                nft_name: item.name,
+                token_id: item.mintAddress.toString(),
+                asset_url: item.json.image,
+              })
+          })
+          setDisabledItems(disabledNfts)
           setIsVisibleDisabledFetching(false)
-        } else {
-          setIsVisibleDisabledFetching(true)
-          setDisabledPages(page + 1)
         }
       },
-      error => {}
+      err => {}
+    )
+  }
+
+  // const getDisabledItem = (page, rowCount) => {
+  //   if (!publicKey) {
+  //     setIsVisibleDisabledFetching(false)
+  //     return
+  //   }
+
+  //   ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(
+  //     response => {
+  //       setIsFetching(false)
+  //       if (isLoadingData) setIsLoadingData(false)
+
+  //       setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
+  //       if (response.length < rowCount) {
+  //         setIsVisibleDisabledFetching(false)
+  //       } else {
+  //         setIsVisibleDisabledFetching(true)
+  //         setDisabledPages(page + 1)
+  //       }
+  //     },
+  //     error => {}
+  //   )
+  // }
+
+  const getNftDetail = (id, toggle) => {
+    NftAPI.getDetail(id).then(
+      response => {
+        if (response != null) {
+          enableMerchNft(id, toggle)
+        }
+      },
+      err => {}
     )
   }
 
   const enableMerchNft = (id, toggle) => {
     if (toggle === true) {
-      NftAPI.enableMerchHub(id, { value: true }).then(
+      NftAPI.enableAllMerchHub({ tokenIds: [id], value: true }).then(
         response => {
           if (response !== null) {
-            let nft = disabledItems.filter(({ token_id }) => token_id === id)[0]
-            setEnabledItems([nft, ...enabledItems])
-            setDisabledItems(disabledItems.filter(({ token_id }) => token_id !== id))
+            if (response.hasOwnProperty(id)) {
+              let nft = disabledItems.filter(({ token_id }) => token_id === id)[0]
+              setEnabledItems([nft, ...enabledItems])
+              setDisabledItems(disabledItems.filter(({ token_id }) => token_id !== id))
+            } else {
+              getNftDetail(id, toggle)
+            }
           }
         },
         err => {}
@@ -320,14 +388,10 @@ const MerchActivity = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-
         <div className="w-full flex flex-wrap">
           {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
             <div className="w-full flex justify-between">
-              <div className={`${styles.title} z-10`}>Creator Studio Dashboard</div>
+              <div className={`${styles.title} z-10`}>Foster Studio Dashboard</div>
               <div className="flex gap-[15px]">
                 <div className="flex gap-[6px]">
                   <div className={styles.countLabel}>${artistCommission.toFixed(2)}</div>
@@ -341,7 +405,7 @@ const MerchActivity = () => {
             </div>
           ) : (
             <div className="w-full mb-[30px] mt-[15px]">
-              <div className={`${styles.title} z-10`}>Creator Studio Dashboard</div>
+              <div className={`${styles.title} z-10`}>Foster Studio Dashboard</div>
               <div className="flex gap-[5px] mt-[15px] lg:mt-[56px]">
                 <div className={styles.countBG}>
                   <div className="w-full">

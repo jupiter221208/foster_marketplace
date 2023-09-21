@@ -11,8 +11,6 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // images
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 import LoadingButton from 'components/Button/LoadingButton'
 import Alert from 'components/Alert'
 
@@ -24,7 +22,6 @@ import GradientButton from 'components/Button/GradientButton'
 // api
 import merchAPI from 'apis/merch'
 import OutlineButton from 'components/Button/OutlineButton'
-import WallSection from '../MerchWallArtSection/WallSection'
 
 const PhysicalShipping = props => {
   const { onBack, onNext, category, data, printData, wallArt, nftName } = props
@@ -228,6 +225,7 @@ const PhysicalShipping = props => {
         <div className={styles.label}>Shipping Address *</div>
         <div className="mt-[10px] ">
           <CountrySelect
+            className={styles.countrySelect}
             data={Country.getAllCountries()}
             selected={country}
             onChange={item => setCountry(item)}
@@ -237,6 +235,7 @@ const PhysicalShipping = props => {
         </div>
         <div className="mt-[10px] ">
           <CountrySelect
+            className={styles.countrySelect}
             data={State?.getStatesOfCountry(country?.isoCode)}
             selected={state}
             onChange={item => setState(item)}
@@ -283,6 +282,7 @@ const PhysicalShipping = props => {
           label="Back"
           onClick={() => backToPage()}
           fullWidth
+          fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
           borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
           color={'var(--text-gray-200-color)'}
@@ -294,6 +294,7 @@ const PhysicalShipping = props => {
             <GradientButton
               disabled={!enabled}
               label="Select Shipping"
+              fontFamily="Muli-SemiBold"
               fullWidth
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}

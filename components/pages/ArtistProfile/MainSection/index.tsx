@@ -311,7 +311,7 @@ const MainSection = prop => {
             />
           </div>
         )}
-        <div className={styles.bottomMask}></div>
+        {/* <div className={styles.bottomMask}></div> */}
       </div>
       <div className="g-container">
         <div className="grid grid-cols-12 items-center mt-[-70px] z-10">

@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 // custom functions
 import { useViewport } from 'utils'
 
+import Radio from 'components/Radio/SwipRadio'
+
 // images
 import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
 import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
@@ -40,10 +42,11 @@ const PhysicalShippingMethod = props => {
 
   const printImageUrl = useSelector(state => (state as any).printImageUrl)
   const [shipping, setShipping] = useState(null)
-  const [shippingMethods, setShippingMethods] = useState(null)
+  const [shippingMethods, setShippingMethods] = useState([])
   const [tax, setTax] = useState(null)
   const [total, setTotal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     let name = ''
     if (type === 'apparel') {
@@ -71,18 +74,57 @@ const PhysicalShippingMethod = props => {
 
     let methods = []
     if (isUniteState()) {
-      methods = allShippingMethod.shippingMethods.filter(
+      let ship_methods = allShippingMethod.shippingMethods.filter(
         item =>
           item.serviceName === 'USPS Priority Mail - Package' ||
           item.serviceName === 'USPS Priority Mail Express - Package'
       )
+      ship_methods.forEach(method => {
+        let newMethod
+        if (method.serviceName === 'USPS Priority Mail - Package') {
+          newMethod = {
+            ...method,
+            id: '0',
+            label: 'USPS Priority Mail',
+            value: method.serviceName,
+            disabled: false,
+            small_tip: '4-7 business days',
+            price: method.shipmentcost,
+          }
+        } else {
+          newMethod = {
+            ...method,
+            id: '1',
+            label: 'USPS Priority Mail Express',
+            value: method.serviceName,
+            disabled: false,
+            small_tip: '1-3 business days',
+            price: method.shipmentcost,
+          }
+        }
+        methods.push(newMethod)
+      })
     } else {
-      methods = allShippingMethod.shippingMethods.filter(
-        item => item.serviceCode === 'usps_priority_mail_international'
-      )
+      let index = 0
+      allShippingMethod.shippingMethods
+        .filter(item => item.serviceCode === 'usps_priority_mail_international')
+        .forEach(method => {
+          let newMethod = {
+            ...method,
+            id: index,
+            label: 'USPS Priority Mail International',
+            value: method.serviceCode,
+            disabled: false,
+            price: method.shipmentcost,
+          }
+          methods.push(newMethod)
+          index++
+        })
     }
-
-    setShippingMethods(methods)
+    if (methods?.length > 0) {
+      setShippingMethods(methods)
+      setShipping(methods[0])
+    }
   }, [])
 
   useEffect(() => {
@@ -161,7 +203,7 @@ const PhysicalShippingMethod = props => {
       giftMessage: 'Fantastic Gift',
       notes: 'Checkout Note',
     }
-    console.log(params)
+
     merchAPI.checkout(params).then(
       response => {
         onNext(response.orderNumber)
@@ -181,65 +223,55 @@ const PhysicalShippingMethod = props => {
   return (
     <section className={styles.container}>
       <div className="flex gap-[15px] mt-[0px] lg:mt-[20px] items-center">
-        {/* <div className={styles.backBG} onClick={onBack}>
-          <div className="hidden lg:flex mr-[2px]">
-            <ArrowLeftIcon alt="" />
-          </div>
-          <div className="flex lg:hidden mr-[2px]">
-            <ArrowLeftIconMobile alt="" />
-          </div>
-        </div> */}
         <div className={styles.selecteCategory}>Select Shipping Method</div>
       </div>
-      <div className="mt-[15px] lg:mt-[45px]">
-        <div className={styles.shippingMethod}>Shipping Method *</div>
-      </div>
-      <div className="mt-[12px]">
-        <ShippingSelect
-          data={shippingMethods}
-          selected={shipping}
-          onChange={item => setShipping(item)}
-          maxHeight="none"
-        />
-      </div>
-      <div className="w-full h-auto gap-[30px] mt-[24px]">
-        <div className="w-full h-[330px] relative">
-          <div className={styles.orderView}>
-            <div className="w-full flex items-center gap-[10px] -ml-[11px]">
-              <div className={styles.orderTicket}></div>
-              <div className={styles.orderTotal}>ORDER TOTAL</div>
-            </div>
-            <div className="w-full flex justify-between mt-[20px]">
-              <div className={styles.orderTotal}>SUBTOTAL</div>
-              <div className={styles.totalPrice}>${data.cost}</div>
-            </div>
-            <div className={`${styles.divider} mt-[15px]`} />
-            <div className="w-full flex justify-between mt-[15px]">
-              <div className={styles.orderTotal}>
-                SHIPPING AND
-                <br />
-                HANDLING
+      <div className="w-full flex xl:flex-row flex-col mt-[20px] justify-between">
+        <div className="min-w-[300px] mt-[12px]">
+          {shipping && (
+            <Radio
+              data={shippingMethods}
+              selected={shipping}
+              onChange={item => {
+                setShipping(item)
+              }}
+            />
+          )}
+        </div>
+        <div className="xl:w-1/2 w-full h-auto gap-[30px] mt-[24px]">
+          <div className="w-full relative">
+            <div className={styles.orderView}>
+              <div className="w-full flex justify-between">
+                <div className={styles.orderTotal}>Subtotal</div>
+                <div className={styles.totalPrice}>${data.cost}</div>
               </div>
-              <div className={styles.subPrice}>
-                <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
-                {/* <div className="mt-[20px]">Handling Fee: ${shipping ? shipping.otherCost : '---'}</div> */}
-                <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+              <div className={`${styles.divider} mt-[15px]`} />
+              <div className="w-full flex justify-between mt-[15px]">
+                <div className={styles.orderTotal}>
+                  Shipping and
+                  <br />
+                  Handling
+                </div>
+                <div className={styles.subPrice}>
+                  <div>Shipping: ${shipping ? shipping.shipmentCost.toFixed(2) : '---'}</div>
+                  <div className="mt-[20px]">Tax: ${tax ? tax.toFixed(2) : '---'}</div>
+                </div>
               </div>
-            </div>
-            <div className={`${styles.divider} mt-[15px]`} />
-            <div className="w-full flex justify-between mt-[20px]">
-              <div className={styles.orderTotal}>TOTAL</div>
-              <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
+              <div className={`${styles.divider} mt-[15px]`} />
+              <div className="w-full flex justify-between mt-[20px]">
+                <div className={styles.orderTotal}>Total</div>
+                <div className={styles.totalPrice}>${total ? total.toFixed(2) : '---'}</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full flex gap-[30px] mt-[30px]">
+      <div className="xl:absolute xl:bottom-[120px] w-full flex gap-[30px] mt-[30px]">
         <OutlineButton
           label="Back"
           onClick={onBack}
           fullWidth
+          fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
           borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
           color={'var(--text-gray-200-color)'}
@@ -251,6 +283,7 @@ const PhysicalShippingMethod = props => {
             <GradientButton
               disabled={!total}
               label="Checkout"
+              fontFamily="Muli-SemiBold"
               fullWidth
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
