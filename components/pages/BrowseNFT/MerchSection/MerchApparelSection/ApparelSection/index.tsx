@@ -13,20 +13,13 @@ const ApparelSection = props => {
   const { canvasId, nftName, apparel, nftCoverUrl, finishEditing } = props
   const [canvas, setCanvas] = useState('')
   const [loader, setLoader] = useState(false)
+  const [isDrawing, setIsDrawing] = useState(false)
+
   const viewport = useViewport()
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   const resizeFunction = () => {
-  //     if (apparel) {
-  //       drawApparel()
-  //     }
-  //   }
-  //   window.addEventListener('resize', resizeFunction)
-  // }, [])
-
   useEffect(() => {
-    if (apparel) {
+    if (apparel && apparel.length > 0) {
       setLoader(false)
       drawApparel()
     } else {
@@ -70,6 +63,9 @@ const ApparelSection = props => {
   }, [finishEditing])
 
   const drawApparel = () => {
+    if (isDrawing) return
+
+    setIsDrawing(true)
     let newCanvas = canvas as fabric.Canvas
     if (newCanvas == '') {
       newCanvas = new fabric.Canvas(canvasId)
@@ -136,6 +132,7 @@ const ApparelSection = props => {
             })
             newCanvas.setActiveObject(img)
             newCanvas.renderAll()
+            setIsDrawing(false)
           },
           { crossOrigin: 'Anonymous' }
         )
