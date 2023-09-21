@@ -285,7 +285,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--radio-check-color', '#202427')
     doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
     doc.style.setProperty('--switch-01-color', '149, 219, 213')
-    doc.style.setProperty('--switch-02-color', '75, 110, 107')
+    doc.style.setProperty('--switch-02-color', '43,43,43')
     doc.style.setProperty('--menu-bg-color', '#F3F2F0')
     doc.style.setProperty('--time-slog-bg', '#FFF')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')

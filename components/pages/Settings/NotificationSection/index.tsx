@@ -88,56 +88,57 @@ const NotificationSection = prop => {
         <div className={styles.content}>
           <div className="w-full mt-[10px] mb-12">
             <GreenLineCard
+              className={styles.description}
               content="Select which notifications you would like to receive via email and provide the email address you would like
             the notifications sent to in your profile settings."
             />
           </div>
           <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[94px]">
             <Switch
-              title="Bid Activity"
-              description="When someone makes an offer on one of your items"
+              title="Incoming Offers"
+              description="When someone makes an offer on your artwork"
               enabled={bidActivity}
               onChange={() => setBidActivity(!bidActivity)}
             />
             <Switch
-              title="Bid Accepted"
-              description="When someone accepts your bid"
+              title="Accepted Offers"
+              description="When someone accepts an offer via quick buy"
               enabled={bidAccepted}
               onChange={() => setBidAccepted(!bidAccepted)}
             />
             <Switch
-              title="Successful Sale"
-              description="When someone purchases one of your items"
+              title="Fixed-Price Sales"
+              description="When someone purchases your artwork via quick buy"
               enabled={successfulSale}
               onChange={() => setSuccessfulSale(!successfulSale)}
             />
             <Switch
-              title="Successful Purchase"
-              description="When you successfully buy an item"
+              title="Incoming Bids"
+              description="When someone places a bid in on auction your published"
               enabled={successfulPurchase}
               onChange={() => setSuccessfulPurchase(!successfulPurchase)}
             />
             <Switch
               title="Auction Outbid"
-              description="When an offer you placed is exceeded by another user"
+              description="When a bid you placed is exceeded by another user"
               enabled={auctionOutbid}
               onChange={() => setAuctionOutbid(!auctionOutbid)}
             />
             <Switch
               title="Auction Won"
-              description="When you win an auction"
+              description="When you win an auction and the sale is settled by the owner"
               enabled={auctionWon}
               onChange={() => setAuctionWon(!auctionWon)}
             />
             <Switch
-              title="Auction Bid"
-              description="When someone bids in your auction"
+              title="Successful Auctions"
+              description="When an auction you published ends with a winner"
               enabled={auctionBid}
               onChange={() => setAuctionBid(!auctionBid)}
             />
             <Switch
-              title="Auction Expiration"
-              description="When a timed auction you created ends"
+              title="Expired Auctions"
+              description="When an auction you published ends without a winner"
               enabled={auctionExpiration}
               onChange={() => setAuctionExpiration(!auctionExpiration)}
             />
