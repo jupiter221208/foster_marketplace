@@ -63,3 +63,9 @@
 .inputArea:-webkit-autofill:focus {
   transition: background-color 600000s 0s, color 600000s 0s;
 }
+.inputArea::placeholder {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
+}
+
