@@ -12,7 +12,8 @@ import ApparelActivity from 'components/pages/MerchLogs/ApparelActivity'
 
 // custom functions
 import { useViewport } from 'utils'
-import { useWallet } from '@solana/wallet-adapter-react'
+import { useWallet, useConnection } from '@solana/wallet-adapter-react'
+import { useMetaplex } from 'hooks/useMetaplex'
 
 // json
 import TabList from 'assets/json/merch-logs/tab-list.json'
@@ -31,10 +32,13 @@ import NftAPI from 'apis/nfts'
 import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
+import { getMyNFTs } from 'utils/nfts.utils'
 
 const MerchActivity = () => {
   const viewport = useViewport()
   const { connected, publicKey } = useWallet()
+  const { connection } = useConnection()
+  const { metaplex: mx } = useMetaplex()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -72,6 +76,12 @@ const MerchActivity = () => {
   }, [])
 
   useEffect(() => {
+    if (mx && connection && publicKey) {
+      loadMyNFTs()
+    }
+  }, [mx, connection, publicKey])
+
+  useEffect(() => {
     if (publicKey) {
       getOrderStats()
     }
@@ -96,7 +106,7 @@ const MerchActivity = () => {
       if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
       else if (activeTab === 1) getSellerOrder(sellerPages, rowCount)
       else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
-      else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
+      // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
   }, [isFetching])
 
@@ -208,27 +218,58 @@ const MerchActivity = () => {
     )
   }
 
-  const getDisabledItem = (page, rowCount) => {
-    if (!publicKey) {
-      setIsVisibleDisabledFetching(false)
-      return
-    }
-    ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(
+  const loadMyNFTs = async () => {
+    setIsVisibleDisabledFetching(true)
+    let nfts = await getMyNFTs(mx)
+    let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
+    let tokenIds = []
+    validNfts.forEach((item: any) => {
+      tokenIds.push(item.mintAddress.toString())
+    })
+    NftAPI.enableAllMerchHub({ tokenIds }).then(
       response => {
-        setIsFetching(false)
-        if (isLoadingData) setIsLoadingData(false)
-
-        setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
-        if (response.length < rowCount) {
+        if (response !== null) {
+          let disabledNfts = []
+          validNfts.forEach((item: any) => {
+            let address = item.mintAddress.toString()
+            let enabled = response[address]
+            if (!enabled)
+              disabledNfts.push({
+                nft_name: item.name,
+                token_id: item.mintAddress.toString(),
+                asset_url: item.json.image,
+              })
+          })
+          setDisabledItems(disabledNfts)
           setIsVisibleDisabledFetching(false)
-        } else {
-          setIsVisibleDisabledFetching(true)
-          setDisabledPages(page + 1)
         }
       },
-      error => {}
+      err => {}
     )
   }
+
+  // const getDisabledItem = (page, rowCount) => {
+  //   if (!publicKey) {
+  //     setIsVisibleDisabledFetching(false)
+  //     return
+  //   }
+
+  //   ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(
+  //     response => {
+  //       setIsFetching(false)
+  //       if (isLoadingData) setIsLoadingData(false)
+
+  //       setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
+  //       if (response.length < rowCount) {
+  //         setIsVisibleDisabledFetching(false)
+  //       } else {
+  //         setIsVisibleDisabledFetching(true)
+  //         setDisabledPages(page + 1)
+  //       }
+  //     },
+  //     error => {}
+  //   )
+  // }
 
   const enableMerchNft = (id, toggle) => {
     if (toggle === true) {
