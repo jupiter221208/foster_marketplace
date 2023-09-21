@@ -89,8 +89,7 @@ const NotificationSection = prop => {
           <div className="w-full mt-[10px] mb-12">
             <GreenLineCard
               className={styles.description}
-              content="Select which notifications you would like to receive via email and provide the email address you would like
-            the notifications sent to in your profile settings."
+              content="Select which notifications you would like to receive via email and provide the email address in your profile settings."
             />
           </div>
           <div className="w-full flex flex-wrap gap-12 mb-[60px] lg:mb-[94px]">

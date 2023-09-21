@@ -35,9 +35,9 @@
 }
 
 .active {
-  background: linear-gradient(to bottom, rgba(var(--switch-01-color), 1), rgba(var(--switch-02-color), 1));
+  background: var(--main-icon-color);
 }
 
 .inactive {
-  background-color: #404147;
+  background: var(--studio-title-bg);
 }

@@ -293,7 +293,7 @@ const MerchActivity = () => {
 
   const enableMerchNft = (id, toggle) => {
     if (toggle === true) {
-      NftAPI.enableAllMerchHub({ token_id: [id], value: true }).then(
+      NftAPI.enableAllMerchHub({ tokenIds: [id], value: true }).then(
         response => {
           if (response !== null) {
             if (response.hasOwnProperty(id)) {
