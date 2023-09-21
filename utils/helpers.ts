@@ -671,7 +671,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--collection-card-bg', '#1a1a1a')
     doc.style.setProperty('--collection-card-bg-rgb', '26, 26, 26')
     doc.style.setProperty('--collection-card-border', '1px')
-    doc.style.setProperty('--profile-card-bg', '#121212')
+    doc.style.setProperty('--profile-card-bg', '#1a1a1a')
     doc.style.setProperty('--mynft-outline-border', '#5ac3ba')
     doc.style.setProperty('--mynft-outline-color', '')
     doc.style.setProperty('--filter-close-color', '#eff0f6')
