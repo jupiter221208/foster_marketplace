@@ -105,7 +105,7 @@ const MerchActivity = () => {
     if (isFetching) {
       if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
       else if (activeTab === 1) getSellerOrder(sellerPages, rowCount)
-      else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
+      // else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
   }, [isFetching])
@@ -229,17 +229,26 @@ const MerchActivity = () => {
     NftAPI.enableAllMerchHub({ tokenIds }).then(
       response => {
         if (response !== null) {
-          let disabledNfts = []
+          let enabledNfts = [],
+            disabledNfts = []
           validNfts.forEach((item: any) => {
             let address = item.mintAddress.toString()
             let enabled = response[address]
-            if (!enabled)
+            if (enabled)
+              enabledNfts.push({
+                nft_name: item.name,
+                token_id: item.mintAddress.toString(),
+                asset_url: item.json.image,
+              })
+            else
               disabledNfts.push({
                 nft_name: item.name,
                 token_id: item.mintAddress.toString(),
                 asset_url: item.json.image,
               })
           })
+          setEnabledItems(enabledNfts)
+          setIsVisibleEnabledFetching(false)
           setDisabledItems(disabledNfts)
           setIsVisibleDisabledFetching(false)
         }
@@ -271,14 +280,29 @@ const MerchActivity = () => {
   //   )
   // }
 
+  const getNftDetail = (id, toggle) => {
+    NftAPI.getDetail(id).then(
+      response => {
+        if (response != null) {
+          enableMerchNft(id, toggle)
+        }
+      },
+      err => {}
+    )
+  }
+
   const enableMerchNft = (id, toggle) => {
     if (toggle === true) {
-      NftAPI.enableMerchHub(id, { value: true }).then(
+      NftAPI.enableAllMerchHub({ token_id: [id], value: true }).then(
         response => {
           if (response !== null) {
-            let nft = disabledItems.filter(({ token_id }) => token_id === id)[0]
-            setEnabledItems([nft, ...enabledItems])
-            setDisabledItems(disabledItems.filter(({ token_id }) => token_id !== id))
+            if (response.hasOwnProperty(id)) {
+              let nft = disabledItems.filter(({ token_id }) => token_id === id)[0]
+              setEnabledItems([nft, ...enabledItems])
+              setDisabledItems(disabledItems.filter(({ token_id }) => token_id !== id))
+            } else {
+              getNftDetail(id, toggle)
+            }
           }
         },
         err => {}
