@@ -2,6 +2,7 @@
 
 .container {
   width: 100%;
+  height: calc(100vh - 100px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,16 +34,14 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  border-radius: 27px;
   z-index: 1;
   position: relative;
 }
 
 .blurImage {
   min-width: 100%;
-  min-height: 100%;
+  min-height: 90%;
   position: absolute;
-  inset: 0;
   background: rgba(var(--background-light-color-rgb), 0.05);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -60,10 +59,9 @@
   // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.4);
 }
 
-
 .fullScreenMode {
   position: absolute;
-  right: 24px;
+  right: 0px;
   bottom: 24px;
   width: 56px;
   height: 56px;
@@ -71,7 +69,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba($background-light-color, 0.15);
+  background: rgba(var(--background-light-color-rgb), 0.15);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   z-index: 10;
@@ -422,7 +420,6 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px;
-  border: 1px solid rgba(#eceef4, 0.1);
   // background-color: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-family: 'Muli-Bold';
@@ -457,7 +454,6 @@
   padding-left: 12px;
   padding-right: 12px;
   border-radius: 12px 12px 0px 0px;
-  border: 1px solid var(--nft-detail-section-border);
   // background: var(--accordian-header-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-family: 'Muli-Bold';
@@ -476,7 +472,6 @@
     padding: 20px;
   }
   border-radius: 0px 0px 12px 12px;
-  border: 1px solid rgba(#eceef4, 0.1);
   background-color: var(--accordian-area-bg);
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   overflow: scroll;

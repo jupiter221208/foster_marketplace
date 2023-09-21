@@ -12,15 +12,12 @@ import SizeType from 'assets/json/wallart/size.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
 import Selection from 'components/Selection'
 import GradientButton from 'components/Button/GradientButton'
 import WalletTag from './WalletTag'
-import SecondaryButton from 'components/Button/SecondaryButton'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport } from 'utils'
 import WallSection from '../WallSection'
@@ -254,6 +251,7 @@ const WallArtDetail = props => {
             label="Back"
             onClick={onBack}
             fullWidth
+            fontFamily="Muli-SemiBold"
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
             color={'var(--text-gray-200-color)'}
@@ -262,6 +260,7 @@ const WallArtDetail = props => {
             disabled={!enabled}
             label="Next"
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+            fontFamily="Muli-SemiBold"
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             fullWidth
             onClick={() => {
@@ -290,20 +289,11 @@ const WallArtDetail = props => {
           </div>
         </div>
         <div className="w-full flex mt-[30px] flex gap-[30px]">
-          {/* <SecondaryButton
-            backgroundColor="transparent"
-            label="Generate Preview"
-            fullWidth
-            height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
-            fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 18}
-            color={enabled ? '#eff0f6' : '#818181'}
-            borderColor={'#202427'}
-            onClick={() => setOpenEditorModal(true)}
-          /> */}
           <OutlineButton
             label="Back"
             onClick={onBack}
             fullWidth
+            fontFamily="Muli-SemiBold"
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
             color={'var(--text-gray-200-color)'}
@@ -311,6 +301,7 @@ const WallArtDetail = props => {
           <GradientButton
             disabled={!enabled}
             label="Next"
+            fontFamily="Muli-SemiBold"
             height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
             fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
             fullWidth

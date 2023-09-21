@@ -17,8 +17,6 @@ import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
 
 // images
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
-import ArrowLeftIcon from 'assets/icons/arrow-left-smallest.svg?component'
-import ArrowLeftIconMobile from 'assets/icons/arrow-left-medium-mobile.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -279,6 +277,7 @@ const PhysicalPrintDetail = props => {
           label="Back"
           onClick={onBack}
           fullWidth
+          fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
           borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
           color={'var(--text-gray-200-color)'}
@@ -287,6 +286,7 @@ const PhysicalPrintDetail = props => {
         <GradientButton
           disabled={!enabled}
           label="Next"
+          fontFamily="Muli-SemiBold"
           fullWidth
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
           fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}

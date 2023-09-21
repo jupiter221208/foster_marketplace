@@ -271,6 +271,7 @@ const PhysicalShippingMethod = props => {
           label="Back"
           onClick={onBack}
           fullWidth
+          fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
           borderColor={'rgba(var(--main-bg-color-rgb), 0.1)'}
           color={'var(--text-gray-200-color)'}
@@ -282,6 +283,7 @@ const PhysicalShippingMethod = props => {
             <GradientButton
               disabled={!total}
               label="Checkout"
+              fontFamily="Muli-SemiBold"
               fullWidth
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
               fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
