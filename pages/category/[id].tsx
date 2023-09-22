@@ -46,7 +46,7 @@ const Category = () => {
       dispatch({ type: 'set', isLoading: false })
     }, 500)
     dispatch({ type: 'set', isLoading: true })
-  }, [])
+  }, [router.query.id])
 
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
   const cateQuery = rawQuery.toLowerCase()
