@@ -21,9 +21,9 @@ const NotificationSection = prop => {
   const [successfulSale, setSuccessfulSale] = useState(false)
   const [successfulBid, setSuccessfulBid] = useState(false)
   const [auctionOutbid, setAuctionOutbid] = useState(true)
-  const [auctionWon, setAuctionWon] = useState(false)
-  const [auctionBid, setAuctionBid] = useState(false)
-  const [auctionExpiration, setAuctionExpiration] = useState(false)
+  // const [auctionWon, setAuctionWon] = useState(false)
+  // const [auctionBid, setAuctionBid] = useState(false)
+  // const [auctionExpiration, setAuctionExpiration] = useState(false)
   const [fosterNewsletter, setFosterNewsletter] = useState(false)
 
   useEffect(() => {
@@ -100,20 +100,20 @@ const NotificationSection = prop => {
               onChange={() => setBidActivity(!bidActivity)}
             />
             <Switch
-              title="Accepted Offers"
-              description="When someone accepts an offer via quick buy"
+              title="Purchases"
+              description="When you successfully purchase an item via offer, auction, or quick buy"
               enabled={bidAccepted}
               onChange={() => setBidAccepted(!bidAccepted)}
             />
             <Switch
-              title="Fixed-Price Sales"
-              description="When someone purchases your artwork via quick buy"
+              title="Sales"
+              description="When someone purchases your artwork via quick buy or winning an auction"
               enabled={successfulSale}
               onChange={() => setSuccessfulSale(!successfulSale)}
             />
             <Switch
               title="Incoming Bids"
-              description="When someone places a bid in on auction your published"
+              description="When someone places a bid in an auction you published"
               enabled={successfulBid}
               onChange={() => setSuccessfulBid(!successfulBid)}
             />
@@ -123,7 +123,7 @@ const NotificationSection = prop => {
               enabled={auctionOutbid}
               onChange={() => setAuctionOutbid(!auctionOutbid)}
             />
-            <Switch
+            {/* <Switch
               title="Auction Won"
               description="When you win an auction and the sale is settled by the owner"
               enabled={auctionWon}
@@ -140,7 +140,7 @@ const NotificationSection = prop => {
               description="When an auction you published ends without a winner"
               enabled={auctionExpiration}
               onChange={() => setAuctionExpiration(!auctionExpiration)}
-            />
+            /> */}
             <Switch
               title="Foster Newsletter"
               description="Occasional updates from the Foster team"

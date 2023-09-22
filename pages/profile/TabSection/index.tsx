@@ -146,6 +146,15 @@ const TabSection = props => {
 
       {activeTab === 0 && (
         <div className="w-full">
+          <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+          {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
+            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
+          )}
+        </div>
+      )}
+
+      {activeTab === 1 && (
+        <div className="w-full">
           <LiveAuctionSection
             category={''}
             artist={wallet}
@@ -159,16 +168,25 @@ const TabSection = props => {
           />
         </div>
       )}
-
-      {activeTab === 1 && (
+      {activeTab === 2 && (
         <div className="w-full">
-          <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {createdNfts.length > 0 && isLoaded && isVisibleFetchingCreated && (
-            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
-          )}
+          <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+          {/* <div className="w-full flex justify-end">
+                  <ArtistPagination
+                    currentPage={collectorCurrentPage}
+                    rowCount={collectorRowCount}
+                    totalCount={collectorTotalCount}
+                    setRowCount={count => {
+                      selectRowCount(count)
+                    }}
+                    handleNext={handleNextPage}
+                    handlePrev={handlePreviousPage}
+                  />
+                </div> */}
         </div>
       )}
-      {activeTab === 2 && (
+
+      {activeTab === 3 && (
         <div className="w-full">
           <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
           {collectedNfts.length > 0 && isLoaded && isVisibleFetchingCollected && (
@@ -176,21 +194,21 @@ const TabSection = props => {
           )}
 
           {/* <div className="w-full flex justify-end">
-            <ArtistPagination
-              currentPage={collectorCurrentPage}
-              rowCount={collectorRowCount}
-              totalCount={collectorTotalCount}
-              setRowCount={count => {
-                selectRowCount(count)
-              }}
-              handleNext={handleNextPage}
-              handlePrev={handlePreviousPage}
-            />
-          </div> */}
+                  <ArtistPagination
+                    currentPage={collectorCurrentPage}
+                    rowCount={collectorRowCount}
+                    totalCount={collectorTotalCount}
+                    setRowCount={count => {
+                      selectRowCount(count)
+                    }}
+                    handleNext={handleNextPage}
+                    handlePrev={handlePreviousPage}
+                  />
+                </div> */}
         </div>
       )}
 
-      {activeTab === 3 && (
+      {activeTab === 4 && (
         <div className="w-full">
           <CollectionSwiperSection collections={showCollections} />
           {collections.length > 0 && isMounted && isVisibleFetching && (
@@ -199,7 +217,7 @@ const TabSection = props => {
         </div>
       )}
 
-      {activeTab === 4 && (
+      {activeTab === 5 && (
         <div className={styles.statsSection}>
           <div className="flex justify-between">
             <div>Total Volume Sold</div>
@@ -231,24 +249,6 @@ const TabSection = props => {
             <div>Collections Published</div>
             <div>{artistStatsInfo?.collections_created}</div>
           </div>
-        </div>
-      )}
-
-      {activeTab === 5 && (
-        <div className="w-full">
-          <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {/* <div className="w-full flex justify-end">
-            <ArtistPagination
-              currentPage={collectorCurrentPage}
-              rowCount={collectorRowCount}
-              totalCount={collectorTotalCount}
-              setRowCount={count => {
-                selectRowCount(count)
-              }}
-              handleNext={handleNextPage}
-              handlePrev={handlePreviousPage}
-            />
-          </div> */}
         </div>
       )}
     </div>
