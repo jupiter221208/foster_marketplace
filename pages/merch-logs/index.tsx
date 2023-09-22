@@ -222,7 +222,10 @@ const MerchActivity = () => {
     setIsVisibleDisabledFetching(true)
     let nfts = await getMyNFTs(mx)
     let allList = nfts.filter(
-      item => item.creators?.length > 0 && item.collectionDetails === null && item.json.properties.category === 'image'
+      item =>
+        item.creators?.length > 0 &&
+        item.collectionDetails === null &&
+        (item.json?.properties?.category ?? 'image') === 'image'
     )
     let validNfts = []
     allList.forEach(item => {
