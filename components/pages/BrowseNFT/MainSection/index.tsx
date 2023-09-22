@@ -788,7 +788,7 @@ const MainSection = ({
                 </div>
               ) : nftType.includes('video') ? (
                 <div className={styles.videoArea}>
-                  <div className={styles.mobileImageArea}>
+                  <div className={styles.mobileVideoThumb}>
                     <img src={nftCoverUrl} alt="" />
                     {play && (
                       <div
