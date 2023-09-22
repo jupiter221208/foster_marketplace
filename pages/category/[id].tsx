@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 import ArtistLayout from 'components/Layout/ArtistLayout'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 const Category = () => {
   const viewport = useViewport()
@@ -129,7 +130,7 @@ const Category = () => {
 export default Category
 
 Category.getLayout = function getLayout(page) {
-  return <ArtistLayout>{page}</ArtistLayout>
+  return <PrimaryLayout>{page}</PrimaryLayout>
 }
 
 export async function getStaticProps() {
