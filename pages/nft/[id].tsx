@@ -195,25 +195,25 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
             </div>
           </div>
         ) : (
-          <div className="flex justify-center">
-            <div className="z-10 mb-[100px] lg:mb-[0px]">
-              {nftDetail && (
-                <div className={styles.mainBG}>
-                  <div className="g-container">
-                    <MainSection
-                      nftDetail={nftDetail}
-                      editionDetail={editionDetail}
-                      nftInfo={nftInfo}
-                      setFullScreenView={setFullScreenView}
-                      reloadNftData={reloadNftData}
-                      enableMerch={setMerchToggle}
-                      setCollectionName={setCollectionName}
-                    />
-                  </div>
+          <div className="z-10 mb-[100px] lg:mb-[0px]">
+            {nftDetail && (
+              <div className={styles.mainBG}>
+                <div className="g-container">
+                  <MainSection
+                    nftDetail={nftDetail}
+                    editionDetail={editionDetail}
+                    nftInfo={nftInfo}
+                    setFullScreenView={setFullScreenView}
+                    reloadNftData={reloadNftData}
+                    enableMerch={setMerchToggle}
+                    setCollectionName={setCollectionName}
+                  />
                 </div>
-              )}
+              </div>
+            )}
 
-              {merchToggle ? (
+            {merchToggle ? (
+              <div className={styles.centerScreen}>
                 <div className="g-container">
                   <ShopApparelSection
                     title="Shop Apparel"
@@ -234,7 +234,9 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     }}
                   />
                 </div>
-              ) : (
+              </div>
+            ) : (
+              <div className={styles.centerScreen}>
                 <div className="g-container">
                   <div>
                     {collectionId && (
@@ -244,8 +246,8 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                     <MoreCategorySection categories={categories} />
                   </div>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         )}
       </div>
