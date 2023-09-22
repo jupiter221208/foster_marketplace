@@ -22,8 +22,8 @@ const NotificationSection = prop => {
   const [successfulBid, setSuccessfulBid] = useState(false)
   const [auctionOutbid, setAuctionOutbid] = useState(true)
   const [auctionWon, setAuctionWon] = useState(false)
-  const [auctionBid, setAuctionBid] = useState(false)
-  const [auctionExpiration, setAuctionExpiration] = useState(false)
+  // const [auctionBid, setAuctionBid] = useState(false)
+  // const [auctionExpiration, setAuctionExpiration] = useState(false)
   const [fosterNewsletter, setFosterNewsletter] = useState(false)
 
   useEffect(() => {
@@ -100,14 +100,14 @@ const NotificationSection = prop => {
               onChange={() => setBidActivity(!bidActivity)}
             />
             <Switch
-              title="Accepted Offers"
-              description="When someone accepts an offer via quick buy"
+              title="Purchases"
+              description="When you successfully purchase an item via offer, auction, or quick buy"
               enabled={bidAccepted}
               onChange={() => setBidAccepted(!bidAccepted)}
             />
             <Switch
-              title="Fixed-Price Sales"
-              description="When someone purchases your artwork via quick buy"
+              title="Sales"
+              description="When someone purchases your artwork via quick buy or winning an auction"
               enabled={successfulSale}
               onChange={() => setSuccessfulSale(!successfulSale)}
             />
@@ -129,7 +129,7 @@ const NotificationSection = prop => {
               enabled={auctionWon}
               onChange={() => setAuctionWon(!auctionWon)}
             />
-            <Switch
+            {/* <Switch
               title="Successful Auctions"
               description="When an auction you published ends with a winner"
               enabled={auctionBid}
@@ -140,7 +140,7 @@ const NotificationSection = prop => {
               description="When an auction you published ends without a winner"
               enabled={auctionExpiration}
               onChange={() => setAuctionExpiration(!auctionExpiration)}
-            />
+            /> */}
             <Switch
               title="Foster Newsletter"
               description="Occasional updates from the Foster team"
