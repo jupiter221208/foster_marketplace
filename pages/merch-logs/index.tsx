@@ -103,18 +103,18 @@ const MerchActivity = () => {
 
   useEffect(() => {
     if (isFetching) {
-      if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
-      else if (activeTab === 1) getSellerOrder(sellerPages, rowCount)
-      else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
+      if (activeTab === 0) getEnabledItem(enabledPages, rowCount)
+      else if (activeTab === 2) getBuyerOrder(buyerPages, rowCount)
+      else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
-  }, [isFetching])
+  }, [isFetching, publicKey, activeTab])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
 
-  const getBuyerOrder = (page, rowCount, reset = false) => {
+  const getBuyerOrder = (page, rowCount) => {
     MerchAPI.getBuyerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
@@ -430,29 +430,8 @@ const MerchActivity = () => {
               }}
             />
           </div>
+
           {activeTab === 0 && (
-            <div className="w-full z-10">
-              <ApparelActivity
-                activities={purchases}
-                pendingList={noTxPurchases}
-                allList={allPurchases}
-                type="purchases"
-                isLoading={isVisibleBuyerFetching}
-              />
-            </div>
-          )}
-          {activeTab === 1 && (
-            <div className="w-full z-10">
-              <ApparelActivity
-                activities={sales}
-                pendingList={noTxSales}
-                allList={allSales}
-                type="sales"
-                isLoading={isVisibleSellerFetching}
-              />
-            </div>
-          )}
-          {activeTab === 2 && (
             <div className="w-full z-10">
               <NftItemActivity
                 activities={enabledItems}
@@ -467,7 +446,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 3 && (
+          {activeTab === 1 && (
             <div className="w-full z-10">
               <NftItemActivity
                 activities={disabledItems}
@@ -482,10 +461,32 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {((activeTab === 0 && isVisibleBuyerFetching) ||
-            (activeTab === 1 && isVisibleSellerFetching) ||
-            (activeTab === 2 && isVisibleEnabledFetching) ||
-            (activeTab === 3 && isVisibleDisabledFetching)) && (
+          {activeTab === 2 && (
+            <div className="w-full z-10">
+              <ApparelActivity
+                activities={purchases}
+                pendingList={noTxPurchases}
+                allList={allPurchases}
+                type="purchases"
+                isLoading={isVisibleBuyerFetching}
+              />
+            </div>
+          )}
+          {activeTab === 3 && (
+            <div className="w-full z-10">
+              <ApparelActivity
+                activities={sales}
+                pendingList={noTxSales}
+                allList={allSales}
+                type="sales"
+                isLoading={isVisibleSellerFetching}
+              />
+            </div>
+          )}
+          {((activeTab === 0 && isVisibleEnabledFetching) ||
+            (activeTab === 1 && isVisibleDisabledFetching) ||
+            (activeTab === 2 && isVisibleBuyerFetching) ||
+            (activeTab === 3 && isVisibleSellerFetching)) && (
             <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>
