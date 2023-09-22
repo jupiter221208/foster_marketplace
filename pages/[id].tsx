@@ -106,12 +106,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [])
 
   useEffect(() => {
-    if (activeListingLoaded && liveAuctionLoaded) {
+    if (createdNfts !== null && createdNfts !== undefined && isLoading) {
       setTimeout(() => {
         dispatch({ type: 'set', isLoading: false })
       }, 1000)
     }
-  }, [activeListingLoaded, liveAuctionLoaded])
+  }, [createdNfts])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
