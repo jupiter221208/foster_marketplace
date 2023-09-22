@@ -88,8 +88,9 @@ const Category = () => {
               <img
                 src={viewport === 'xs' ? categoryInfo?.mobile_banner : categoryInfo?.banner}
                 alt=""
-                className="w-full object-cover"
+                className="w-full object-cover opacity-90"
               />
+              <div className={styles.imageArea}>Sports</div>
             </div>
           ) : (
             <></>
@@ -107,8 +108,6 @@ const Category = () => {
           ) : (
             <></>
           )}
-
-          <div className={styles.bottomMask}></div>
         </div>
         <div className="flex justify-center mt-[10px] lg:mt-[40px]">
           <div className="g-container">
