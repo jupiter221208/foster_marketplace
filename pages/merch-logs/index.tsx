@@ -221,48 +221,29 @@ const MerchActivity = () => {
   const loadMyNFTs = async () => {
     setIsVisibleDisabledFetching(true)
     let nfts = await getMyNFTs(mx)
-    let allList = nfts.filter(
+
+    let eligibleNfts = nfts.filter(
       item =>
         item.creators?.length > 0 &&
         item.collectionDetails === null &&
-        (item.json?.properties?.category ?? 'image') === 'image'
+        (item.json?.properties?.category ?? 'image') === 'image' &&
+        item.creators.some(({ address }) => publicKey.equals(address))
     )
-    let validNfts = []
-    allList.forEach(item => {
-      let created = false
-      let creators = item.creators
-      creators.forEach(creator => {
-        if (creator.address.toBase58() === publicKey.toBase58()) {
-          created = true
-          return
-        }
-      })
-      if (created) validNfts.push(item)
-    })
-    let tokenIds = []
-    validNfts.forEach((item: any) => {
-      tokenIds.push(item.mintAddress.toString())
-    })
-    NftAPI.enableAllMerchHub({ tokenIds }).then(
-      response => {
-        if (response !== null) {
-          let disabledNfts = []
-          validNfts.forEach((item: any) => {
-            let address = item.mintAddress.toString()
-            let enabled = response[address]
-            if (!enabled)
-              disabledNfts.push({
-                nft_name: item.name,
-                token_id: item.mintAddress.toString(),
-                asset_url: item.json.image,
-              })
-          })
-          setDisabledItems(disabledNfts)
-          setIsVisibleDisabledFetching(false)
-        }
-      },
-      err => {}
-    )
+
+    let tokenIds = eligibleNfts.map(({ address }) => address.toBase58())
+
+    let nftStatus = await NftAPI.enableAllMerchHub({ tokenIds })
+    if (!nftStatus) return
+    let disabledNfts = eligibleNfts
+      .filter(({ address }) => nftStatus[address.toBase58()])
+      .map(({ name, address, json }) => ({
+        nft_name: name,
+        token_id: address.toBase58(),
+        asset_url: json?.image,
+      }))
+    setDisabledItems(disabledNfts)
+
+    setIsVisibleDisabledFetching(false)
   }
 
   // const getDisabledItem = (page, rowCount) => {
