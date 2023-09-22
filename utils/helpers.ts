@@ -670,7 +670,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-box-shadow', '0px 3px 6px rgba(18, 18, 18, 0.4)')
     doc.style.setProperty('--wallet-btn-bg', 'linear-gradient(110deg, #121212, #202427)')
     doc.style.setProperty('--wallet-btn-hover', '#95dbd5')
-    doc.style.setProperty('--create-nft-card-bg', '#1b1b1b')
+    doc.style.setProperty('--create-nft-card-bg', '#242424')
     doc.style.setProperty('--collection-card-bg', '#1a1a1a')
     doc.style.setProperty('--collection-card-bg-rgb', '26, 26, 26')
     doc.style.setProperty('--collection-card-border', '1px')

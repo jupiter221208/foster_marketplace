@@ -21,7 +21,7 @@ const NotificationSection = prop => {
   const [successfulSale, setSuccessfulSale] = useState(false)
   const [successfulBid, setSuccessfulBid] = useState(false)
   const [auctionOutbid, setAuctionOutbid] = useState(true)
-  const [auctionWon, setAuctionWon] = useState(false)
+  // const [auctionWon, setAuctionWon] = useState(false)
   // const [auctionBid, setAuctionBid] = useState(false)
   // const [auctionExpiration, setAuctionExpiration] = useState(false)
   const [fosterNewsletter, setFosterNewsletter] = useState(false)
@@ -113,7 +113,7 @@ const NotificationSection = prop => {
             />
             <Switch
               title="Incoming Bids"
-              description="When someone places a bid in on auction your published"
+              description="When someone places a bid in an auction your published"
               enabled={successfulBid}
               onChange={() => setSuccessfulBid(!successfulBid)}
             />
@@ -123,13 +123,13 @@ const NotificationSection = prop => {
               enabled={auctionOutbid}
               onChange={() => setAuctionOutbid(!auctionOutbid)}
             />
-            <Switch
+            {/* <Switch
               title="Auction Won"
               description="When you win an auction and the sale is settled by the owner"
               enabled={auctionWon}
               onChange={() => setAuctionWon(!auctionWon)}
             />
-            {/* <Switch
+            <Switch
               title="Successful Auctions"
               description="When an auction you published ends with a winner"
               enabled={auctionBid}
