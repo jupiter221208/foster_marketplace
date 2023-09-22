@@ -28,8 +28,7 @@ import styles from './index.module.scss'
 const ShopApparelSection = props => {
   const { title, nftDetail, shopApparelList, openMerchPage } = props
   const viewport = useViewport()
-  const router = useRouter()
-  const dispatch = useDispatch()
+
   return (
     shopApparelList.length > 0 && (
       <section className={styles.container}>
@@ -49,16 +48,13 @@ const ShopApparelSection = props => {
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
-            // autoplay={{
-            //   delay: 5000,
-            //   disableOnInteraction: false,
-            // }}
           >
             {shopApparelList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
                   <ShopCard
                     data={item}
+                    nftCoverUrl={nftDetail.json?.image ?? ''}
                     onClick={() => {
                       const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
                       const nftCoverUrl = nftDetail.json?.image ?? ''

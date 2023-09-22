@@ -90,7 +90,7 @@ const Category = () => {
                 alt=""
                 className="w-full object-cover opacity-90"
               />
-              <div className={styles.imageArea}>Sports</div>
+              <div className={styles.imageArea}>{categoryInfo?.name}</div>
             </div>
           ) : (
             <></>

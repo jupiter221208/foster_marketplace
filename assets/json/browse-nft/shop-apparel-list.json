@@ -7,7 +7,8 @@
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
-    "base": "Hoodie"
+    "base": "Hoodie",
+    "top": 0
   },
   {
     "id": 1,
@@ -17,7 +18,8 @@
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
-    "base": "T-Shirt"
+    "base": "T-Shirt",
+    "top": 25
   },
   {
     "id": 2,
@@ -27,7 +29,8 @@
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
-    "base": "Sweatshirt"
+    "base": "Sweatshirt",
+    "top": 10
   },
   {
     "id": 3,
@@ -37,7 +40,8 @@
     "category": "apparel",
     "type": "Unisex",
     "sub_type": "man",
-    "base": "Long Sleeve"
+    "base": "Long Sleeve",
+    "top": 10
   },
   {
     "id": 4,
@@ -47,7 +51,8 @@
     "category": "apparel",
     "type": "",
     "sub_type": "women",
-    "base": "T-Shirt"
+    "base": "T-Shirt",
+    "top": 25
   },
   {
     "id": 5,
@@ -57,7 +62,8 @@
     "category": "apparel",
     "type": "",
     "sub_type": "youth",
-    "base": "T-Shirt"
+    "base": "T-Shirt",
+    "top": 25
   },
   {
     "id": 6,
@@ -67,6 +73,7 @@
     "category": "apparel",
     "type": "",
     "sub_type": "youth",
-    "base": "Hoodie"
+    "base": "Hoodie",
+    "top": 0
   }
 ]

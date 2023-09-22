@@ -218,7 +218,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   <ShopApparelSection
                     title="Shop Apparel"
                     nftDetail={nftDetail}
-                    shopApparelList={shopApparelList}
+                    shopApparelList={ShopApparelList}
                     openMerchPage={data => {
                       setMerchData(data)
                       setOpenMerchPage(true)
