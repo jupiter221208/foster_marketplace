@@ -113,7 +113,7 @@ const NotificationSection = prop => {
             />
             <Switch
               title="Incoming Bids"
-              description="When someone places a bid in an auction your published"
+              description="When someone places a bid in an auction you published"
               enabled={successfulBid}
               onChange={() => setSuccessfulBid(!successfulBid)}
             />
