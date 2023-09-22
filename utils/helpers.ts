@@ -568,7 +568,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--modal-bg-color', '#1b1b1b')
     doc.style.setProperty('--accordion-second-row-bg', 'transparent')
     doc.style.setProperty('--artwork-bg-color', '#2B2B2B')
-    doc.style.setProperty('--artwork-bg-mobile-color', '#1B1B1B')
+    doc.style.setProperty('--artwork-bg-mobile-color', '#242424')
     doc.style.setProperty('--clipboard-btn-color', '#202427')
     doc.style.setProperty('--step-circle-mobile-color', '#95dbd5')
     doc.style.setProperty('--dimension-bg-color', '12, 12, 12')

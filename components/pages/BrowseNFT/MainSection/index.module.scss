@@ -2,11 +2,11 @@
 
 .container {
   width: 100%;
-  height: calc(100vh - 100px);
   display: flex;
   align-items: center;
   justify-content: center;
   @media (min-width: 1024px) {
+    height: calc(100vh - 100px);
     padding-top: 30px;
   }
 }
@@ -40,7 +40,7 @@
 
 .blurImage {
   min-width: 100%;
-  min-height: 90%;
+  min-height: 190%;
   position: absolute;
   background: rgba(var(--background-light-color-rgb), 0.05);
   -webkit-backdrop-filter: blur(10px);
@@ -110,8 +110,8 @@
 }
 
 .videoArea {
-  width: calc(100% + 24px);
-  margin-left: -12px;
+  width: calc(100% + 32px);
+  margin-left: -16px;
   @media (min-width: 1024px) {
     margin-left: 0px;
     height: calc(100vh - 100px - 60px);
@@ -170,6 +170,18 @@
   width: calc(100% + 32px);
   left: -16px;
   // max-height: 400px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  object-fit: cover;
+}
+
+.mobileVideoThumb {
+  width: calc(100% + 32px);
   height: auto;
   display: flex;
   justify-content: center;
