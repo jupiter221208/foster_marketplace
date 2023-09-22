@@ -147,7 +147,7 @@ const TabSection = props => {
       {activeTab === 0 && (
         <div className="w-full">
           <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {createdNfts.length > 0 && isLoaded && isVisibleFetchingCreated && (
+          {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
             <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
           )}
         </div>
