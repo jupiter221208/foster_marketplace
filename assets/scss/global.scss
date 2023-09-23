@@ -53,6 +53,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Betha';
+  src: url('../fonts/Betha/Betha.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --brand-01-color: #5ac3ba;
   --brand-02-color: #378287;
@@ -302,7 +309,6 @@
   --profile-banner-overlay: 18, 18, 18;
   --follow-btn-color: #eff0f6;
   --follow-btn-border: #95dbd5;
-  --hero-overlay-color: rgba(18, 18, 18, 0.5);
   --hide-nft-border-color: #95dbd5;
   --category-chip-bg: rgba(239, 240, 247, 0.15);
   --live-auction-card: #1b1b1b;

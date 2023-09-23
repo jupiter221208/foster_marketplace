@@ -210,7 +210,6 @@ const WallSection = props => {
 
       newCanvas.renderAll()
       newCanvas.item(0).selectable = false
-
       setTimeout(() => {
         new fabric.Image.fromURL(wallArt.art, img => {
           const { width, height } = img.getOriginalSize()
@@ -231,7 +230,7 @@ const WallSection = props => {
             lockAspectRatio: true,
           })
           img.shadow = { color: 'rgba(32,36,39,0.5)', offsetX: 20, offsetY: 20, blur: 20 }
-          img.strokeWidth = 30
+          img.strokeWidth = (30 * width) / 1920
           img.stroke = '#2b2b2b'
           img.selectable = false
           newCanvas.add(img)

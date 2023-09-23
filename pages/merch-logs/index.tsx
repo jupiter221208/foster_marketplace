@@ -76,10 +76,10 @@ const MerchActivity = () => {
   }, [])
 
   useEffect(() => {
-    if (mx && connection && publicKey) {
+    if (mx && connection && publicKey && isVisibleDisabledFetching) {
       loadMyNFTs()
     }
-  }, [mx, connection, publicKey])
+  }, [mx, connection, publicKey, isVisibleDisabledFetching])
 
   useEffect(() => {
     if (publicKey) {
@@ -103,18 +103,18 @@ const MerchActivity = () => {
 
   useEffect(() => {
     if (isFetching) {
-      if (activeTab === 0) getBuyerOrder(buyerPages, rowCount)
-      else if (activeTab === 1) getSellerOrder(sellerPages, rowCount)
-      else if (activeTab === 2) getEnabledItem(enabledPages, rowCount)
+      if (activeTab === 0) getEnabledItem(enabledPages, rowCount)
+      else if (activeTab === 2) getBuyerOrder(buyerPages, rowCount)
+      else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
-  }, [isFetching])
+  }, [isFetching, publicKey, activeTab])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
   }
 
-  const getBuyerOrder = (page, rowCount, reset = false) => {
+  const getBuyerOrder = (page, rowCount) => {
     MerchAPI.getBuyerOrder(page, rowCount).then(
       response => {
         setIsFetching(false)
@@ -221,43 +221,29 @@ const MerchActivity = () => {
   const loadMyNFTs = async () => {
     setIsVisibleDisabledFetching(true)
     let nfts = await getMyNFTs(mx)
-    let allList = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
-    let validNfts = []
-    allList.forEach(item => {
-      let created = false
-      let creators = item.creators
-      creators.forEach(creator => {
-        if (creator.address.toBase58() === publicKey.toBase58()) {
-          created = true
-          return
-        }
-      })
-      if (created) validNfts.push(item)
-    })
-    let tokenIds = []
-    validNfts.forEach((item: any) => {
-      tokenIds.push(item.mintAddress.toString())
-    })
-    NftAPI.enableAllMerchHub({ tokenIds }).then(
-      response => {
-        if (response !== null) {
-          let disabledNfts = []
-          validNfts.forEach((item: any) => {
-            let address = item.mintAddress.toString()
-            let enabled = response[address]
-            if (!enabled)
-              disabledNfts.push({
-                nft_name: item.name,
-                token_id: item.mintAddress.toString(),
-                asset_url: item.json.image,
-              })
-          })
-          setDisabledItems(disabledNfts)
-          setIsVisibleDisabledFetching(false)
-        }
-      },
-      err => {}
+
+    let eligibleNfts = nfts.filter(
+      item =>
+        item.creators?.length > 0 &&
+        item.collectionDetails === null &&
+        (item.json?.properties?.category ?? 'image') === 'image' &&
+        item.creators.some(({ address }) => publicKey.equals(address))
     )
+
+    let tokenIds = eligibleNfts.map(nft => ('mint' in nft ? nft.mint.address : nft.mintAddress))
+
+    let nftStatus = await NftAPI.enableAllMerchHub({ tokenIds })
+    if (!nftStatus) return
+    let disabledNfts = eligibleNfts
+      .filter((_, index) => !nftStatus[tokenIds[index].toBase58()])
+      .map(({ name, json }, index) => ({
+        nft_name: name,
+        token_id: tokenIds[index].toBase58(),
+        asset_url: json?.image,
+      }))
+    setDisabledItems(disabledNfts)
+
+    setIsVisibleDisabledFetching(false)
   }
 
   // const getDisabledItem = (page, rowCount) => {
@@ -430,29 +416,8 @@ const MerchActivity = () => {
               }}
             />
           </div>
+
           {activeTab === 0 && (
-            <div className="w-full z-10">
-              <ApparelActivity
-                activities={purchases}
-                pendingList={noTxPurchases}
-                allList={allPurchases}
-                type="purchases"
-                isLoading={isVisibleBuyerFetching}
-              />
-            </div>
-          )}
-          {activeTab === 1 && (
-            <div className="w-full z-10">
-              <ApparelActivity
-                activities={sales}
-                pendingList={noTxSales}
-                allList={allSales}
-                type="sales"
-                isLoading={isVisibleSellerFetching}
-              />
-            </div>
-          )}
-          {activeTab === 2 && (
             <div className="w-full z-10">
               <NftItemActivity
                 activities={enabledItems}
@@ -467,7 +432,7 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {activeTab === 3 && (
+          {activeTab === 1 && (
             <div className="w-full z-10">
               <NftItemActivity
                 activities={disabledItems}
@@ -482,10 +447,32 @@ const MerchActivity = () => {
               />
             </div>
           )}
-          {((activeTab === 0 && isVisibleBuyerFetching) ||
-            (activeTab === 1 && isVisibleSellerFetching) ||
-            (activeTab === 2 && isVisibleEnabledFetching) ||
-            (activeTab === 3 && isVisibleDisabledFetching)) && (
+          {activeTab === 2 && (
+            <div className="w-full z-10">
+              <ApparelActivity
+                activities={purchases}
+                pendingList={noTxPurchases}
+                allList={allPurchases}
+                type="purchases"
+                isLoading={isVisibleBuyerFetching}
+              />
+            </div>
+          )}
+          {activeTab === 3 && (
+            <div className="w-full z-10">
+              <ApparelActivity
+                activities={sales}
+                pendingList={noTxSales}
+                allList={allSales}
+                type="sales"
+                isLoading={isVisibleSellerFetching}
+              />
+            </div>
+          )}
+          {((activeTab === 0 && isVisibleEnabledFetching) ||
+            (activeTab === 1 && isVisibleDisabledFetching) ||
+            (activeTab === 2 && isVisibleBuyerFetching) ||
+            (activeTab === 3 && isVisibleSellerFetching)) && (
             <div className="w-full mt-[0px] lg:mt-[-100px] mb-[40px]">
               <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
             </div>

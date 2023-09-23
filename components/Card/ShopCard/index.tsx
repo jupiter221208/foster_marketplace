@@ -1,32 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 import Image from 'next/image'
-import Link from 'next/link'
 
 // images and icons
 
 // styles
 import styles from './index.module.scss'
-import ReactPlaceholder from 'react-placeholder/lib'
-import 'react-placeholder/lib/reactPlaceholder.css'
-import ImageWithFallback from 'components/ImageWithFallback'
 
 const ShopCard = props => {
-  const { data, onClick } = props
-
+  const { data, nftCoverUrl = '', onClick } = props
+  const [isLoaded, setIsLoaded] = useState(false)
   return (
     <div className={styles.container}>
-      <div className={styles.imageArea}>
+      <div className={styles.imageArea} onClick={onClick}>
         <div className={styles.imageContent}>
-          <ImageWithFallback
+          <Image
             src={data.asset_url}
-            onClick={onClick}
             layout="fill"
             alt=""
             className="w-full h-full rounded-[24px] object-cover"
+            onLoadingComplete={() => setIsLoaded(true)}
           />
         </div>
+        {nftCoverUrl.length > 0 && isLoaded && (
+          <div className={styles.nftImage}>
+            <div
+              className={`w-[32%] h-[24%] ${
+                data.top === 25 ? '-mt-[25%]' : data.top === 10 ? '-mt-[15%]' : '-mt-[10%]'
+              }`}
+              style={{ opacity: '90%' }}
+            >
+              <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+            </div>
+          </div>
+        )}
       </div>
       <div className={styles.bidContainer}>
         <div className={styles.bidGradientBgView} />
