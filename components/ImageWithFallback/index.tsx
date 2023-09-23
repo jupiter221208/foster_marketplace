@@ -4,7 +4,7 @@ import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const ImageWithFallback = props => {
-  const { src, onClick, ...rest } = props
+  const { src, onClick, onLoaded, ...rest } = props
   const [isNextImage, setIsNextImage] = useState(true)
   const [loaded, setLoaded] = useState(false)
 
@@ -17,7 +17,10 @@ const ImageWithFallback = props => {
         <Image
           {...rest}
           src={src}
-          onLoadingComplete={() => setLoaded(true)}
+          onLoadingComplete={() => {
+            setLoaded(true)
+            onLoaded()
+          }}
           onError={() => {
             setIsNextImage(false)
           }}

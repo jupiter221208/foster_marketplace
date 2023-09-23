@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 // next components
 
@@ -10,6 +10,7 @@ import ImageWithFallback from 'components/ImageWithFallback'
 
 const ShopCard = props => {
   const { data, nftCoverUrl = '', onClick } = props
+  const [isLoaded, setIsLoaded] = useState(false)
   return (
     <div className={styles.container}>
       <div className={styles.imageArea} onClick={onClick}>
@@ -19,12 +20,13 @@ const ShopCard = props => {
             layout="fill"
             alt=""
             className="w-full h-full rounded-[24px] object-cover"
+            onLoaded={() => setIsLoaded(true)}
           />
         </div>
-        {nftCoverUrl.length > 0 && (
+        {nftCoverUrl.length > 0 && isLoaded && (
           <div className={styles.nftImage}>
             <div
-              className={`w-[40%] h-[30%] ${
+              className={`w-[32%] h-[24%] ${
                 data.top === 25 ? '-mt-[25%]' : data.top === 10 ? '-mt-[15%]' : '-mt-[10%]'
               }`}
               style={{ opacity: '90%' }}
