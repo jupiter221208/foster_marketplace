@@ -76,10 +76,11 @@ const MerchActivity = () => {
   }, [])
 
   useEffect(() => {
-    if (mx && connection && publicKey) {
+    console.log(mx, connection, publicKey, isVisibleDisabledFetching, '=====mx======')
+    if (mx && connection && publicKey && isVisibleDisabledFetching) {
       loadMyNFTs()
     }
-  }, [mx, connection, publicKey])
+  }, [mx, connection, publicKey, isVisibleDisabledFetching])
 
   useEffect(() => {
     if (publicKey) {
