@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 
 // next components
+import Image from 'next/image'
 
 // images and icons
 
 // styles
 import styles from './index.module.scss'
-import ImageWithFallback from 'components/ImageWithFallback'
 
 const ShopCard = props => {
   const { data, nftCoverUrl = '', onClick } = props
@@ -15,12 +15,12 @@ const ShopCard = props => {
     <div className={styles.container}>
       <div className={styles.imageArea} onClick={onClick}>
         <div className={styles.imageContent}>
-          <ImageWithFallback
+          <Image
             src={data.asset_url}
             layout="fill"
             alt=""
             className="w-full h-full rounded-[24px] object-cover"
-            onLoaded={() => setIsLoaded(true)}
+            onLoadingComplete={() => setIsLoaded(true)}
           />
         </div>
         {nftCoverUrl.length > 0 && isLoaded && (

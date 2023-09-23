@@ -22,13 +22,28 @@ import { useViewport } from 'utils'
 
 // styles
 import styles from './index.module.scss'
+import WallArtCard from 'components/Card/WallArtCard'
 
 // api
 
 const ShopApparelSection = props => {
-  const { title, nftDetail, shopApparelList, openMerchPage } = props
+  const { title, nftDetail, shopApparelList, openMerchPage, type = '' } = props
   const viewport = useViewport()
 
+  const openPage = item => {
+    const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
+    const nftCoverUrl = nftDetail.json?.image ?? ''
+    const mintAddress = nftDetail.address.toString()
+    let params = {
+      nftName,
+      nftCoverUrl,
+      mintAddress,
+      category: item.category,
+      subCategory: item.sub_type,
+      base: item.base,
+    }
+    openMerchPage(params)
+  }
   return (
     shopApparelList.length > 0 && (
       <section className={styles.container}>
@@ -52,24 +67,11 @@ const ShopApparelSection = props => {
             {shopApparelList.map((item: any, index) => (
               <SwiperSlide key={index}>
                 <div className="flex flex-wrap gap gap-[11px] lg:gap-[20px] xl:gap-[32px]">
-                  <ShopCard
-                    data={item}
-                    nftCoverUrl={nftDetail.json?.image ?? ''}
-                    onClick={() => {
-                      const nftName = (nftDetail.name || nftDetail.json?.name) ?? 'No name found'
-                      const nftCoverUrl = nftDetail.json?.image ?? ''
-                      const mintAddress = nftDetail.address.toString()
-                      let params = {
-                        nftName,
-                        nftCoverUrl,
-                        mintAddress,
-                        category: item.category,
-                        subCategory: item.sub_type,
-                        base: item.base,
-                      }
-                      openMerchPage(params)
-                    }}
-                  />
+                  {type === 'apparel' ? (
+                    <ShopCard data={item} nftCoverUrl={nftDetail.json?.image ?? ''} onClick={() => openPage(item)} />
+                  ) : (
+                    <WallArtCard data={item} onClick={() => openPage(item)} />
+                  )}
                 </div>
               </SwiperSlide>
             ))}

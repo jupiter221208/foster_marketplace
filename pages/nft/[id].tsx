@@ -217,6 +217,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                 <div className="g-container">
                   <ShopApparelSection
                     title="Shop Apparel"
+                    type="apparel"
                     nftDetail={nftDetail}
                     shopApparelList={ShopApparelList}
                     openMerchPage={data => {
@@ -226,6 +227,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   />
                   <ShopApparelSection
                     title="Shop Wall Art"
+                    type="wall"
                     nftDetail={nftDetail}
                     shopApparelList={ShopWallartlList}
                     openMerchPage={data => {
