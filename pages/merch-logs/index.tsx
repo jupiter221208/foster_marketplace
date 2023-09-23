@@ -76,7 +76,6 @@ const MerchActivity = () => {
   }, [])
 
   useEffect(() => {
-    console.log(mx, connection, publicKey, isVisibleDisabledFetching, '=====mx======')
     if (mx && connection && publicKey && isVisibleDisabledFetching) {
       loadMyNFTs()
     }
@@ -235,13 +234,18 @@ const MerchActivity = () => {
 
     let nftStatus = await NftAPI.enableAllMerchHub({ tokenIds })
     if (!nftStatus) return
-    let disabledNfts = eligibleNfts
-      .filter(({ address }) => nftStatus[address.toBase58()])
-      .map(({ name, address, json }) => ({
-        nft_name: name,
-        token_id: address.toBase58(),
-        asset_url: json?.image,
-      }))
+    let disabledNfts = []
+    // .filter(({ address }) => nftStatus[address.toBase58()])
+    eligibleNfts.map(({ name, address, json }) => {
+      let nft = nftStatus[address.toBase58()]
+      if (!nft) {
+        disabledNfts.push({
+          nft_name: name,
+          token_id: address.toBase58(),
+          asset_url: json?.image,
+        })
+      }
+    })
     setDisabledItems(disabledNfts)
 
     setIsVisibleDisabledFetching(false)
