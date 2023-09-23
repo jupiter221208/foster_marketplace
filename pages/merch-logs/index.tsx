@@ -230,22 +230,17 @@ const MerchActivity = () => {
         item.creators.some(({ address }) => publicKey.equals(address))
     )
 
-    let tokenIds = eligibleNfts.map(({ address }) => address.toBase58())
+    let tokenIds = eligibleNfts.map(nft => ('mint' in nft ? nft.mint.address : nft.mintAddress))
 
     let nftStatus = await NftAPI.enableAllMerchHub({ tokenIds })
     if (!nftStatus) return
-    let disabledNfts = []
-    // .filter(({ address }) => nftStatus[address.toBase58()])
-    eligibleNfts.map(({ name, address, json }) => {
-      let nft = nftStatus[address.toBase58()]
-      if (!nft) {
-        disabledNfts.push({
-          nft_name: name,
-          token_id: address.toBase58(),
-          asset_url: json?.image,
-        })
-      }
-    })
+    let disabledNfts = eligibleNfts
+      .filter((_, index) => !nftStatus[tokenIds[index].toBase58()])
+      .map(({ name, json }, index) => ({
+        nft_name: name,
+        token_id: tokenIds[index].toBase58(),
+        asset_url: json?.image,
+      }))
     setDisabledItems(disabledNfts)
 
     setIsVisibleDisabledFetching(false)
