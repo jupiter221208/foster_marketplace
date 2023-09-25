@@ -35,7 +35,7 @@
   {
     "id": 3,
     "name": "Long Sleeve",
-    "start_price": "23.3",
+    "start_price": "23.30",
     "asset_url": "/images/shop-apparel-longsleeve.png",
     "category": "apparel",
     "type": "Unisex",
@@ -57,7 +57,7 @@
   {
     "id": 5,
     "name": "Youth Short Sleeve",
-    "start_price": "27.2",
+    "start_price": "27.20",
     "asset_url": "/images/shop-apparel-youth-shortsleeve.png",
     "category": "apparel",
     "type": "",
@@ -68,7 +68,7 @@
   {
     "id": 6,
     "name": "Youth Hoodie",
-    "start_price": "27.3",
+    "start_price": "27.30",
     "asset_url": "/images/shop-apparel-youth-hoodie.png",
     "category": "apparel",
     "type": "",
