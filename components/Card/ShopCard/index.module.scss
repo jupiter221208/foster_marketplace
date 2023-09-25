@@ -11,9 +11,9 @@
   }
   margin: 6px;
   box-shadow: 0px 3px 6px rgba($background-dark-color, 0.3);
-  background: linear-gradient(135deg, #2a2a2a, #000000);
   cursor: pointer;
   overflow: hidden;
+  border: 1px solid transparent;
 }
 
 .avatar {
@@ -131,6 +131,10 @@
   position: relative;
   width: 100%;
   padding-top: 100%; /* 492:516 Aspect Ratio */
+  background: linear-gradient(135deg, #2a2a2a, #000000);
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+  overflow: hidden;
 }
 
 .imageContent {

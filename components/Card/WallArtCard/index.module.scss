@@ -10,6 +10,7 @@
     border-radius: 24px;
   }
   margin: 6px;
+  border: 1px solid transparent;
   box-shadow: 0px 3px 6px rgba($background-dark-color, 0.3);
   cursor: pointer;
   overflow: hidden;
@@ -130,6 +131,9 @@
   position: relative;
   width: 100%;
   padding-top: 98.878%; /* 492:516 Aspect Ratio */
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+  overflow: hidden;
 }
 
 .imageContent {
