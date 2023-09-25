@@ -752,8 +752,11 @@ const SingleNft = () => {
               </div>
             </div>
           ))
-        : currentStep !== 4 && (
-            // mobile part
+        : currentStep !== 4 &&
+          // mobile part
+          (currentStep === 0 ? (
+            <StepMintTypeSection />
+          ) : (
             <div className="g-container mb-[47px]">
               {/* stepper part */}
               {/* <div className="w-full">
@@ -1007,7 +1010,7 @@ const SingleNft = () => {
                 )}
               </div>
             </div>
-          )}
+          ))}
       <div>
         <video controls className="hidden w-full h-full z-10" id="hidden_video"></video>
       </div>
