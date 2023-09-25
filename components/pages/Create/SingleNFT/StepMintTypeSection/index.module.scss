@@ -7,7 +7,7 @@
     width: 400px;
     height: 400px;
   }
-  background: #242424;
+  background: var(--activity-bg-color);
   border-radius: 30px;
 }
 .title {
