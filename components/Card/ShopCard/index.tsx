@@ -25,7 +25,10 @@ const ShopCard = props => {
         </div>
         {nftCoverUrl.length > 0 && isLoaded && (
           <div className={styles.nftImage}>
-            <div className="w-[34%] h-[34%] -mt-[8%] flex justify-center items-start" style={{ opacity: '80%' }}>
+            <div
+              className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start"
+              style={{ opacity: '80%' }}
+            >
               <img src={nftCoverUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain" />
             </div>
           </div>
