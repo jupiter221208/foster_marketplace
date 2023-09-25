@@ -24,6 +24,7 @@ import Step03SingleNFTSection from 'components/pages/Create/SingleNFT/Step03Sing
 import SuccessMintSingleNFTSection from 'components/pages/Create/SingleNFT/SuccessMintSingleNFTSection'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
+import StepMintTypeSection from 'components/pages/Create/SingleNFT/StepMintTypeSection'
 
 import Chip from 'components/Chip'
 import Stepper from 'components/Stepper'
@@ -74,7 +75,7 @@ const SingleNft = () => {
   }, [])
 
   // variables
-  const [currentStep, setCurrentStep] = useState(1)
+  const [currentStep, setCurrentStep] = useState(0)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
@@ -501,7 +502,11 @@ const SingleNft = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-        ? currentStep !== 4 && (
+        ? currentStep !== 4 &&
+          (currentStep === 0 ? (
+            <StepMintTypeSection />
+          ) : (
+            // <div onClick={() => setCurrentStep(1)}>111</div>
             <div className="relative w-full grid grid-cols-12 gap-0">
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
@@ -746,7 +751,7 @@ const SingleNft = () => {
                 </div>
               </div>
             </div>
-          )
+          ))
         : currentStep !== 4 && (
             // mobile part
             <div className="g-container mb-[47px]">
