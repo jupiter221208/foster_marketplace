@@ -134,7 +134,7 @@ const MakeAnOfferModal = props => {
                       placeholder="Enter offer amount"
                       fullWidth
                       fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 14 : 16}
-                      backgroundColor="#202427"
+                      // backgroundColor="#202427"
                       // borderColor="#202427"
                       onChange={value => onChangeOfferValue(value)}
                     />
