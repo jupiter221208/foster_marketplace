@@ -76,10 +76,7 @@ const SingleNft = () => {
 
   // variables
   const [currentStep, setCurrentStep] = useState(0)
-<<<<<<< HEAD
   const [type, setType] = useState()
-=======
->>>>>>> 48da6657 (Update MintTypeSection)
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
