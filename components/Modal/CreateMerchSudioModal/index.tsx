@@ -35,7 +35,7 @@ const CreateMerchSudioModal = props => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4">
+          <div className="flex min-h-full items-center justify-center px-4 py-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -46,7 +46,7 @@ const CreateMerchSudioModal = props => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className={styles.modalView}>
-                <div className="absolute top-2 right-2 lg:top-5 lg:right-5">
+                {/* <div className="absolute top-2 right-2 lg:top-4 lg:right-4">
                   <IconButton
                     icon={CloseWhiteIcon}
                     onClick={() => close()}
@@ -57,16 +57,16 @@ const CreateMerchSudioModal = props => {
                     iconWidth={12}
                     iconHeight={!2}
                   />
-                </div>
-                <div className="w-full mt-4 lg:mt-1">
-                  <div className={styles.title}>Create Merch Sudio</div>
+                </div> */}
+                <div className="w-full mt-4 lg:mt-0">
+                  <div className={styles.title}>Foster Studio</div>
                 </div>
 
-                <div className="w-full mt-3 lg:mt-5">
+                <div className="w-full mt-3 lg:mt-3">
                   <div className={styles.text}>
-                    Creator Merch Studio allows creators to monetize physical offerings including apparel merchandise
-                    and physical prints. If a user purchases a physical print of this artwork, creators will receive a
-                    10% commission from the sale.
+                    Foster Studio allows creators to monetize physical offerings including apparel and wall art. If a
+                    user purchases a physical offering of this artwork, the creator receives a 20% commission for wall
+                    art purchases and a $5.00 commission on apparel purchases.
                     <br />
                     <br />
                     By clicking &apos;continue&apos; you are providing consent to Foster Marketplace to enable
@@ -77,22 +77,24 @@ const CreateMerchSudioModal = props => {
                 <div className="w-full mt-5 mb-[22px]">
                   <div className={styles.greenLine} />
                 </div>
-                <div className="w-full flex justify-between gap-[48px]">
-                  <OutlineButton
-                    label={'Cancel'}
-                    onClick={close}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                    fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                    fullWidth
-                    borderWidth={2}
-                  />
-                  <GradientButton
-                    label={'Continue'}
-                    onClick={onContinue}
-                    height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '53px'}
-                    fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                    fullWidth
-                  />
+                <div className="w-full flex justify-end">
+                  <div className="flex gap-[20px]">
+                    <OutlineButton
+                      label={'Cancel'}
+                      onClick={close}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '48px'}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                      width={120}
+                      borderWidth={2}
+                    />
+                    <GradientButton
+                      label={'Continue'}
+                      onClick={onContinue}
+                      width={120}
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '48px'}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
+                    />
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
