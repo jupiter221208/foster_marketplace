@@ -108,7 +108,7 @@ const MerchActivity = () => {
       else if (activeTab === 3) getSellerOrder(sellerPages, rowCount)
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
-  }, [isFetching, publicKey, activeTab])
+  }, [isFetching, publicKey])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -245,29 +245,6 @@ const MerchActivity = () => {
 
     setIsVisibleDisabledFetching(false)
   }
-
-  // const getDisabledItem = (page, rowCount) => {
-  //   if (!publicKey) {
-  //     setIsVisibleDisabledFetching(false)
-  //     return
-  //   }
-
-  //   ArtistAPI.getMerchNfts(publicKey.toBase58(), rowCount, page, false).then(
-  //     response => {
-  //       setIsFetching(false)
-  //       if (isLoadingData) setIsLoadingData(false)
-
-  //       setDisabledItems([...disabledItems, ...response.filter(({ asset_type }) => asset_type === 'image')])
-  //       if (response.length < rowCount) {
-  //         setIsVisibleDisabledFetching(false)
-  //       } else {
-  //         setIsVisibleDisabledFetching(true)
-  //         setDisabledPages(page + 1)
-  //       }
-  //     },
-  //     error => {}
-  //   )
-  // }
 
   const getNftDetail = (id, toggle) => {
     NftAPI.getDetail(id).then(

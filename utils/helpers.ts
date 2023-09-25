@@ -559,7 +559,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--avatar-border-color2', '#304e4e')
     doc.style.setProperty('--text-trending-card-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--dashboard-tab-color', 'rgba(239, 240, 247, 0.6)')
-    doc.style.setProperty('--activity-bg-color', '#121212')
+    doc.style.setProperty('--activity-bg-color', '#242424')
     doc.style.setProperty('--activity-td-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--activity-border-color', '#95dbd5')
     doc.style.setProperty('--activity-default-border-color', 'rgba(239, 240, 247, 0.1)')

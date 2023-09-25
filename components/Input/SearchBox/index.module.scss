@@ -26,6 +26,7 @@
 .searchArea {
   background: rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 12px;
+  min-width: 160px;
   display: flex;
   flex: 1;
   @media (min-width: 1024px) {

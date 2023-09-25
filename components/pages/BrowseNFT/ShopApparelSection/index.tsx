@@ -59,7 +59,7 @@ const ShopApparelSection = props => {
               viewport === 'xs' ? 1.2 : viewport === 'sm' || viewport === 'md' ? 2 : viewport === 'lg' ? 3 : 3
             }
             spaceBetween={
-              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 40
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 11 : viewport === 'lg' ? 20 : 20
             }
             modules={[Autoplay, Lazy, Navigation]}
             className="navigationSwiper"
