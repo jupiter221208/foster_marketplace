@@ -117,6 +117,7 @@ import { getExplorerUrl } from 'utils/explorer'
 
 export interface MainSectionProps {
   nftDetail: Nft
+  masterEdition: any
   editionDetail: any
   nftInfo: any
   setFullScreenView: any
@@ -127,6 +128,7 @@ export interface MainSectionProps {
 
 const MainSection = ({
   nftDetail,
+  masterEdition,
   editionDetail,
   nftInfo,
   setFullScreenView,
@@ -986,7 +988,7 @@ const MainSection = ({
                 </div>
               )}
             </div>
-            {editionDetail && (
+            {masterEdition === null && editionDetail && (
               <div className={styles.editionContainer}>
                 <div className="w-full flex justify-between">
                   <div className={styles.editionTitle}>Token Type</div>
@@ -995,7 +997,7 @@ const MainSection = ({
                   </div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
-                  <div className={styles.editionTitle}>Editon Number</div>
+                  <div className={styles.editionTitle}>Edition Number</div>
                   <div className={styles.editionValue}>{editionDetail['number']}</div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
@@ -1006,105 +1008,94 @@ const MainSection = ({
             )}
             <div className="w-full flex flex-wrap">
               {nftPrice > 0 && !liveAuction ? (
-                <>
-                  <div className="w-full flex gap-2 mt-[70px] lg:mt-[0px]">
-                    <div className={styles.fixedPrice}>Fixed Price</div>
-                    <div>
-                      <div className="mt-1 lg:mt-[6px] h-[14px] flex items-center">
-                        <div
-                          className="h-[14px] flex justify-center items-center cursor-pointer"
-                          onMouseEnter={() => setInfoFocus(true)}
-                          onMouseLeave={() => setInfoFocus(false)}
-                          onClick={() => {
-                            setInfoFocus(true)
-                            setTimeout(() => {
-                              setInfoFocus(false)
-                            }, 2000)
-                          }}
-                        >
-                          {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
-                        </div>
-                        {infoFocus && (
-                          <div className={styles.infoText}>
-                            The USD value of this artwork is ${(solToUsdRate * nftPrice).toFixed(2)}
+                masterEdition ? (
+                  <div>123</div>
+                ) : (
+                  <>
+                    <div className="w-full flex gap-2 mt-[70px] lg:mt-[0px]">
+                      <div className={styles.fixedPrice}>Fixed Price</div>
+                      <div>
+                        <div className="mt-1 lg:mt-[6px] h-[14px] flex items-center">
+                          <div
+                            className="h-[14px] flex justify-center items-center cursor-pointer"
+                            onMouseEnter={() => setInfoFocus(true)}
+                            onMouseLeave={() => setInfoFocus(false)}
+                            onClick={() => {
+                              setInfoFocus(true)
+                              setTimeout(() => {
+                                setInfoFocus(false)
+                              }, 2000)
+                            }}
+                          >
+                            {infoFocus ? <InfoGreenIcon /> : <InfoGrayIcon />}
                           </div>
-                        )}
+                          {infoFocus && (
+                            <div className={styles.infoText}>
+                              The USD value of this artwork is ${(solToUsdRate * nftPrice).toFixed(2)}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="w-full flex items-center mt-[9px]">
-                    {/* <div className={`${styles.greenTitle} mr-[10px] lg:mr-4`}>Price</div>
-                    <div className={styles.whiteTitle}>$ {(solToUsdRate * nftPrice).toFixed(2)}</div>
-                    <div className={styles.separatorSol}></div> */}
-                    <div className="flex items-center mt-[3px]">
-                      {/* <Image src={SolanaLogoIcon} alt="" width={24} height={24} /> */}
-                      {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                        <SolanaLogoMobileIcon alt="" />
-                      ) : (
-                        <SolanaLogoIcon alt="" />
-                      )}
+                    <div className="w-full flex items-center mt-[9px]">
+                      <div className="flex items-center mt-[3px]">
+                        {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                          <SolanaLogoMobileIcon alt="" />
+                        ) : (
+                          <SolanaLogoIcon alt="" />
+                        )}
+                      </div>
+                      <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
                     </div>
-                    <div className={`${styles.whiteTitle} ml-[6px]`}>{nftPrice.toFixed(2)}</div>
-                  </div>
 
-                  {isOwnNft === false && (
-                    <div className="w-full flex mt-[7px] lg:mt-[20px] gap-6 lg:gap-10">
-                      {tradeStateAddress ? (
-                        <GradientButton
-                          fullWidth
-                          label={'Quick Buy'}
-                          onClick={() => quickBuy()}
-                          icon1={<QuickBuyBlackIcon alt="" />}
+                    {isOwnNft === false && (
+                      <div className="w-full flex mt-[7px] lg:mt-[20px] gap-6 lg:gap-10">
+                        {tradeStateAddress ? (
+                          <GradientButton
+                            fullWidth
+                            label={'Quick Buy'}
+                            onClick={() => quickBuy()}
+                            icon1={<QuickBuyBlackIcon alt="" />}
+                            direction="rtl"
+                            fontFamily="Muli-SemiBold"
+                            height={50}
+                            disabled={!tradeStateAddress}
+                          />
+                        ) : (
+                          <LoadingButton />
+                        )}
+                        <SecondaryButton
+                          label="Make Offer"
+                          onClick={() => {
+                            if (!connected) {
+                              setVisible(true)
+                              return
+                            }
+                            setOpenOfferModal(true)
+                          }}
+                          icon={<TagWhiteIcon alt="" />}
                           direction="rtl"
+                          borderWidth={2}
+                          paddingLeft="13px"
+                          paddingRight="13px"
                           fontFamily="Muli-SemiBold"
+                          gap="4px"
+                          fullWidth
                           height={50}
-                          disabled={!tradeStateAddress}
+                          borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                         />
-                      ) : (
-                        <LoadingButton />
-                      )}
-                      <SecondaryButton
-                        label="Make Offer"
-                        onClick={() => {
-                          if (!connected) {
-                            setVisible(true)
-                            return
-                          }
-                          setOpenOfferModal(true)
-                        }}
-                        icon={<TagWhiteIcon alt="" />}
-                        direction="rtl"
-                        borderWidth={2}
-                        paddingLeft="13px"
-                        paddingRight="13px"
-                        fontFamily="Muli-SemiBold"
-                        gap="4px"
-                        fullWidth
-                        height={50}
-                        borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
-                      />
-                    </div>
-                  )}
+                      </div>
+                    )}
 
-                  {isOwnNft === true ? (
-                    <div className="w-full flex content-none mt-[20px]">
-                      <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
-                    </div>
-                  ) : (
-                    //  : isOwnNft === false ? (
-                    //   <p className={styles.whiteDescription}>
-                    //     By selecting &quot;Quick Buy&quot; or &quot;Make an offer&quot;, you agree to the&nbsp;
-                    //     <span
-                    //       className={styles.greenDiscription}
-                    //       onClick={() => router.push(process.env.NEXT_PUBLIC_TERMS_OF_USE as unknown as Url)}
-                    //     >
-                    //       Terms of Service
-                    //     </span>
-                    //   </p>
-                    // )
-                    <></>
-                  )}
-                </>
+                    {isOwnNft === true ? (
+                      <div className="w-full flex content-none mt-[20px]">
+                        <p className={styles.whiteDescription}>You are the owner of this NFT.</p>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                )
               ) : endTime !== null &&
                 getTimeDifference(endTime) < 0 &&
                 nftCurrentPrice > 0 &&

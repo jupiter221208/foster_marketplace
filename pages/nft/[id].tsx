@@ -50,15 +50,22 @@ export interface EditionDetail {
   maxSupply?: number
 }
 
+export interface MasterEdition {
+  type: number // Limited / Open Edition
+  number: number // Edition Remaining
+  supply: number // Total Supply
+}
+
 export interface BrowseNFTProps {
   nftDetail?: Nft
+  masterEdition?: MasterEdition
   editionDetail?: EditionDetail
   originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
@@ -202,6 +209,7 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                   <MainSection
                     nftDetail={nftDetail}
                     editionDetail={editionDetail}
+                    masterEdition={masterEdition}
                     nftInfo={nftInfo}
                     setFullScreenView={setFullScreenView}
                     reloadNftData={reloadNftData}
@@ -306,9 +314,16 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
         maxSupply: originalEditionDetail.maxSupply?.toNumber(),
       }
     }
+    let masterEdition = null
+    masterEdition = {
+      number: 0,
+      supply: 10,
+      maxSupply: 100,
+    }
     return {
       nftDetail,
       editionDetail,
+      masterEdition,
       originalEditionDetail,
       mintAddress,
     }
