@@ -24,11 +24,13 @@ import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
 import GradientButton from 'components/Button/GradientButton'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
   const { connected, publicKey } = useWallet()
+  const { profileInfo } = useAuthentication()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -113,7 +115,10 @@ const MerchDetail = () => {
     setHelpTitle(`Foster Studio Support – Order# ${id}`)
     setReviewTitle(`Foster Studio Product Review – Order# ${id}`)
     let helpBody =
-      `<br/>Order#${id}` + 'Username<br/>' + 'Wallet Address<br/><br/>' + 'How can we help you with this order?'
+      `<br/>Order#${id}` +
+      `${profileInfo?.username}<br/>` +
+      `${publicKey.toBase58()}<br/><br/>` +
+      'How can we help you with this order?'
     let reviewBody =
       'Please use the scale (1-4) below when rating your satisfaction for each question:<br/><br/>' +
       '1 – Unsatisfied<br/>' +
