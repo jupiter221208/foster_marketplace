@@ -39,9 +39,14 @@ const MerchDetail = () => {
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
   const [isOwn, setIsOwn] = useState(false)
+  const [helpTitle, setHelpTitle] = useState('')
+  const [helpBody, setHelpBody] = useState('')
+  const [reviewTitle, setReviewTitle] = useState('')
+  const [reviewBody, setReviewBody] = useState('')
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
+    setEmailBody()
   }, [])
 
   useEffect(() => {
@@ -103,6 +108,27 @@ const MerchDetail = () => {
 
     setPreviewUrl(itemData.imageUrl)
   }, [orderData])
+
+  const setEmailBody = () => {
+    setHelpTitle(`Foster Studio Support – Order# ${id}`)
+    setReviewTitle(`Foster Studio Product Review – Order# ${id}`)
+    let helpBody =
+      `<br/>Order#${id}` + 'Username<br/>' + 'Wallet Address<br/><br/>' + 'How can we help you with this order?'
+    let reviewBody =
+      'Please use the scale (1-4) below when rating your satisfaction for each question:<br/><br/>' +
+      '1 – Unsatisfied<br/>' +
+      '2 – Needs Improvement<br/>' +
+      '3 – Meets Expectation<br/>' +
+      '4 – Exceeds Expectation<br/><br/><br/>' +
+      'How satisfied are you with the delivery of the product?<br/>' +
+      'How satisfied are you with the price of the product?<br/>' +
+      'How satisfied are you with the commissions for the sale?<br/>' +
+      'How satisfied are you with the quality of the product?<br/>' +
+      'How satisfied are you with the quality of the art?<br/><br/>' +
+      'Additional Information:'
+    setHelpBody(helpBody)
+    setReviewBody(reviewBody)
+  }
 
   const gotoTrackPage = () => {
     if (trackingDetails !== null && trackingDetails.trackingNumber.length > 0) {
@@ -244,24 +270,37 @@ const MerchDetail = () => {
               </div>
             )}
             <div className="mt-[12px]">
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
-                label="Get help"
-                onClick={() => {
-                  window.location.href = 'mailto:admin@fostermarketplace.io'
-                }}
-              />
+              <a
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({ title: helpTitle, body: helpBody })}`}
+              >
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Get help"
+                  onClick={() => {}}
+                  // onClick={() => {
+                  //   window.location.href = 'mailto:admin@fostermarketplace.io?title=aaa&body=bbb'
+                  // }}
+                />
+              </a>
             </div>
             <div className="mt-[12px]">
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
-                label="Write a product review"
-                onClick={() => {
-                  window.location.href = 'mailto:admin@fostermarketplace.io'
-                }}
-              />
+              <a
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                  title: reviewTitle,
+                  body: reviewBody,
+                })}`}
+              >
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a product review"
+                  onClick={() => {}}
+                  // onClick={() => {
+                  //   window.location.href = 'mailto:admin@fostermarketplace.io'
+                  // }}
+                />
+              </a>
             </div>
           </div>
         </div>
