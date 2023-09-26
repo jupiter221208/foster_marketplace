@@ -21,16 +21,22 @@ import styles from './index.module.scss'
 // resources
 import InfoGrayIcon from 'assets/icons/info-gray.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green.svg?component'
+import SwipRadio from 'components/Radio/SwipRadio'
+import Radio from 'components/Radio'
+import Input from 'components/Input'
+import EditionList from 'assets/json/single-nft/edition-type.json'
+import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 
 const Step01SingleNFTSection = props => {
-  const { nftType, setNftArt, setNftCover } = props
+  const { nftType, setNftArt, setNftCover, type } = props
 
   const viewport = useViewport()
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [infoFocus, setInfoFocus] = useState(false)
-
+  const [edition, setEdition] = useState(2)
+  const [maxNum, setMaxNum] = useState(4)
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
       let description = ''
@@ -114,6 +120,39 @@ const Step01SingleNFTSection = props => {
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
           </div>
+          {type !== 0 && (
+            <>
+              <div className={styles.editionTitle}>Edition type *</div>
+              <div className={styles.editionDescription}>Editions are created on-demand</div>
+              <SwipRadio
+                data={EditionList}
+                selected={edition}
+                onChange={item => {
+                  setEdition(item)
+                }}
+              />
+              {edition['id'] === 0 && (
+                <>
+                  <div className={styles.editionTitle}>Max Supply *</div>
+                  <div className={styles.editionDescription}>The max number of copies that will be created</div>
+                  <div className="flex flex-row justify-between max-w-[450px]">
+                    <Radio
+                      data={MaxNumberList}
+                      className="max-w-max"
+                      selected={maxNum}
+                      onChange={item => setMaxNum(item)}
+                    />
+                  </div>
+                  {maxNum['id'] === 3 && (
+                    <div className="max-w-[450px]">
+                      <Input />
+                      <div>Provide of maxmium supply of editions</div>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
           {nftType === 'audio' && (
             <>
               <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>
@@ -200,6 +239,34 @@ const Step01SingleNFTSection = props => {
               )}
             </div>
           </div>
+          {type !== 0 && (
+            <>
+              <div className={styles.editionTitle}>Edition type *</div>
+              <div className={styles.editionDescription}>Editions are created on-demand</div>
+              <SwipRadio
+                data={EditionList}
+                selected={edition}
+                onChange={item => {
+                  setEdition(item!)
+                }}
+              />
+              {edition['id'] === 0 && (
+                <>
+                  <div className={styles.editionTitle}>Max Supply *</div>
+                  <div className={styles.editionDescription}>The max number of copies that will be created</div>
+                  <div className="flex flex-row justify-between max-w-[450px]">
+                    <Radio data={MaxNumberList} selected={maxNum} onChange={item => setMaxNum(item)} />
+                  </div>
+                  {maxNum['id'] === 3 && (
+                    <div className="max-w-[450px]">
+                      <Input />
+                      <span className={styles.maxInput}>Provide of maxmium supply of editions</span>
+                    </div>
+                  )}
+                </>
+              )}
+            </>
+          )}
           {nftType === 'audio' && (
             <>
               <div className={`${styles.subTitle} mt-10`}>Audio Cover *</div>

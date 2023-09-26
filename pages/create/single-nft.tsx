@@ -76,6 +76,7 @@ const SingleNft = () => {
 
   // variables
   const [currentStep, setCurrentStep] = useState(0)
+  const [type, setType] = useState()
   const [disabledNextButton, setDisabledNextButton] = useState(true)
 
   const handleChangeCurrentStep = step => {
@@ -83,6 +84,9 @@ const SingleNft = () => {
     setCurrentStep(step)
   }
   // step 1
+  const [edition, setEdition] = useState(2)
+  const [maxNum, setMaxNum] = useState(4)
+  const [editionFlag, setEditionFlag] = useState(2)
   const [dimensionList, setDimensionList] = useState(NFTDimensionList)
   const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
   const [nftArt, setNftArt] = useState<any>(null)
@@ -504,7 +508,7 @@ const SingleNft = () => {
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
         ? currentStep !== 4 &&
           (currentStep === 0 ? (
-            <StepMintTypeSection />
+            <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
           ) : (
             // <div onClick={() => setCurrentStep(1)}>111</div>
             <div className="relative w-full grid grid-cols-12 gap-0">
@@ -690,6 +694,7 @@ const SingleNft = () => {
                         setNftCover={item => handleChangeNftCover(item)}
                       />
                     )}
+
                     {currentStep === 2 && (
                       <Step02SingleNFTSection
                         nftName={nftName}
@@ -755,7 +760,7 @@ const SingleNft = () => {
         : currentStep !== 4 &&
           // mobile part
           (currentStep === 0 ? (
-            <StepMintTypeSection />
+            <StepMintTypeSection setCurrentStep={setCurrentStep} setType={setType} />
           ) : (
             <div className="g-container mb-[47px]">
               {/* stepper part */}
