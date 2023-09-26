@@ -237,3 +237,22 @@
     line-height: 24px;
   }
 }
+.editionTitle {
+  margin-top: 20px;
+  font-size: 18px;
+  font-family: 'Muli-Bold';
+  color: var(--main-bg-color);
+}
+.editionDescription {
+  font-size: 16px;
+  font-family: 'Muli-Regular';
+  color: var(--main-bg-color);
+}
+.max {
+  width: 100%;
+  height: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+  font-family: 'Muli-Regular';
+  color: var(--main-bg-color);
+}

@@ -66,6 +66,10 @@
   line-height: 25px;
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
   letter-spacing: 0;
+  width: 300px;
+  @media (min-width: 640px) {
+    width: 100%;
+  }
 }
 .label1 {
   flex: 1;
