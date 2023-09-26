@@ -311,8 +311,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artist-switch-bg', '#CBCDD2')
     doc.style.setProperty('--address-btn-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--mobile-sort-bg', '#F3F2F0')
-    doc.style.setProperty('--search-bg-color', 'rgba(32, 36, 39, 0.1)');
-    doc.style.setProperty('--main-search-bg-color', '#F3F2F0');
+    doc.style.setProperty('--search-bg-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--main-search-bg-color', '#F3F2F0')
     doc.style.setProperty('--search-category-color', '#202427')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #E4E4E4, #BFBFBF)')
     doc.style.setProperty('--menu-item-open-bg', '#121212')
@@ -523,6 +523,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--scroll-arrow-color', '#202427')
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
     doc.style.setProperty('--nft-generative-color', '#FFFFFF')
+    doc.style.setProperty('--nft-type-box-hover', 'rgba(32, 36, 39, 0.25)')
     // =====================================================
     // =====================================================
     // =====================================================
@@ -817,5 +818,6 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--scroll-arrow-color', '#eff0f6')
     doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(32, 36, 37, 0.1)')
     doc.style.setProperty('--nft-generative-color', '#2F2F2F')
+    doc.style.setProperty('--nft-type-box-hover', 'rgba(149, 219, 213, 0.25)')
   }
 }
