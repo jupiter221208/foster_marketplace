@@ -123,7 +123,6 @@ const Step01SingleNFTSection = props => {
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
           </div>
-
           {type !== 0 && (
             <>
               <div className={styles.editionTitle}>Edition type *</div>
