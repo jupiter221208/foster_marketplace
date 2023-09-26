@@ -119,24 +119,24 @@ const MerchDetail = () => {
     setHelpTitle(`Foster Studio Support – Order# ${id}`)
     setReviewTitle(`Foster Studio Product Review – Order# ${id}`)
     let helpBody =
-      `<br/>Order#${id}</br/>` +
-      `${profileInfo?.username ?? ''}<br/>` +
-      `${publicKey.toBase58()}<br/><br/>` +
+      `\nOrder#${id}\n` +
+      `${profileInfo?.username ?? ''}\n` +
+      `${publicKey.toBase58()}\n\n` +
       'How can we help you with this order?'
     let reviewBody =
-      `<br/>Order#${id}</br/>` +
-      `${profileInfo?.username ?? ''}<br/>` +
-      `${publicKey.toBase58()}<br/><br/>` +
-      'Please use the scale (1-4) below when rating your satisfaction for each question:<br/><br/>' +
-      '1 – Unsatisfied<br/>' +
-      '2 – Needs Improvement<br/>' +
-      '3 – Meets Expectation<br/>' +
-      '4 – Exceeds Expectation<br/><br/><br/>' +
-      'How satisfied are you with the delivery of the product?<br/>' +
-      'How satisfied are you with the price of the product?<br/>' +
-      'How satisfied are you with the commissions for the sale?<br/>' +
-      'How satisfied are you with the quality of the product?<br/>' +
-      'How satisfied are you with the quality of the art?<br/><br/>' +
+      `\nOrder#${id}\n` +
+      `${profileInfo?.username ?? ''}\n` +
+      `${publicKey.toBase58()}\n\n` +
+      'Please use the scale (1-4) below when rating your satisfaction for each question:\n' +
+      '1 – Unsatisfied\n' +
+      '2 – Needs Improvement\n' +
+      '3 – Meets Expectation\n' +
+      '4 – Exceeds Expectation\n\n\n' +
+      'How satisfied are you with the delivery of the product?\n' +
+      'How satisfied are you with the price of the product?\n' +
+      'How satisfied are you with the commissions for the sale?\n' +
+      'How satisfied are you with the quality of the product?\n' +
+      'How satisfied are you with the quality of the art?\n\n' +
       'Additional Information:'
     setHelpBody(helpBody)
     setReviewBody(reviewBody)
