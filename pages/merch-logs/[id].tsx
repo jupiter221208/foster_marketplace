@@ -48,8 +48,12 @@ const MerchDetail = () => {
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
-    setEmailBody()
   }, [])
+
+  useEffect(() => {
+    console.log(profileInfo)
+    setEmailBody()
+  }, [profileInfo])
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
@@ -115,11 +119,14 @@ const MerchDetail = () => {
     setHelpTitle(`Foster Studio Support – Order# ${id}`)
     setReviewTitle(`Foster Studio Product Review – Order# ${id}`)
     let helpBody =
-      `<br/>Order#${id}` +
-      `${profileInfo?.username}<br/>` +
+      `<br/>Order#${id}</br/>` +
+      `${profileInfo?.username ?? ''}<br/>` +
       `${publicKey.toBase58()}<br/><br/>` +
       'How can we help you with this order?'
     let reviewBody =
+      `<br/>Order#${id}</br/>` +
+      `${profileInfo?.username ?? ''}<br/>` +
+      `${publicKey.toBase58()}<br/><br/>` +
       'Please use the scale (1-4) below when rating your satisfaction for each question:<br/><br/>' +
       '1 – Unsatisfied<br/>' +
       '2 – Needs Improvement<br/>' +
@@ -276,23 +283,23 @@ const MerchDetail = () => {
             )}
             <div className="mt-[12px]">
               <a
-                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({ title: helpTitle, body: helpBody })}`}
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                  subject: helpTitle,
+                  body: helpBody,
+                })}`}
               >
                 <OutlineButton
                   borderColor="var(--follow-btn-border-mobile)"
                   width={335}
                   label="Get help"
                   onClick={() => {}}
-                  // onClick={() => {
-                  //   window.location.href = 'mailto:admin@fostermarketplace.io?title=aaa&body=bbb'
-                  // }}
                 />
               </a>
             </div>
             <div className="mt-[12px]">
               <a
                 href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
-                  title: reviewTitle,
+                  subject: reviewTitle,
                   body: reviewBody,
                 })}`}
               >
