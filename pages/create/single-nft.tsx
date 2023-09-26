@@ -84,9 +84,8 @@ const SingleNft = () => {
     setCurrentStep(step)
   }
   // step 1
-  const [edition, setEdition] = useState(2)
+  const [editionType, setEditionType] = useState(null)
   const [maxNum, setMaxNum] = useState(4)
-  const [editionFlag, setEditionFlag] = useState(2)
   const [dimensionList, setDimensionList] = useState(NFTDimensionList)
   const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
   const [nftArt, setNftArt] = useState<any>(null)
@@ -269,7 +268,7 @@ const SingleNft = () => {
 
   useEffect(() => {
     handleFormValidate(1)
-  }, [nftArt, nftImage, nftType, nftCover])
+  }, [nftArt, nftImage, nftType, nftCover, editionType])
 
   // step 2
   const [nftName, setNftName] = useState<any>('')
@@ -466,7 +465,9 @@ const SingleNft = () => {
       case 1:
         if (nftArt !== null) {
           if (nftType !== 'audio') {
-            setDisabledNextButton(false)
+            if (type === 0) setDisabledNextButton(false)
+            else if (type === 1 && editionType !== null) setDisabledNextButton(false)
+            else setDisabledNextButton(true)
           } else {
             if (nftImage !== '') {
               setDisabledNextButton(false)
@@ -689,7 +690,9 @@ const SingleNft = () => {
                     {/* upload artwork part */}
                     {currentStep === 1 && (
                       <Step01SingleNFTSection
+                        type={type}
                         nftType={nftType}
+                        setEditionType={item => setEditionType(item)}
                         setNftArt={item => handleChangeNftArt(item)}
                         setNftCover={item => handleChangeNftCover(item)}
                       />

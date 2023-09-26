@@ -28,7 +28,7 @@ import EditionList from 'assets/json/single-nft/edition-type.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 
 const Step01SingleNFTSection = props => {
-  const { nftType, setNftArt, setNftCover, type } = props
+  const { nftType, setNftArt, setNftCover, type, setEditionType } = props
 
   const viewport = useViewport()
 
@@ -36,7 +36,10 @@ const Step01SingleNFTSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [infoFocus, setInfoFocus] = useState(false)
   const [edition, setEdition] = useState(2)
-  const [maxNum, setMaxNum] = useState(4)
+  const [maxNum, setMaxNum] = useState({
+    id: 0,
+    label: '10',
+  })
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
       let description = ''
@@ -120,6 +123,7 @@ const Step01SingleNFTSection = props => {
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
           </div>
+
           {type !== 0 && (
             <>
               <div className={styles.editionTitle}>Edition type *</div>
@@ -129,6 +133,7 @@ const Step01SingleNFTSection = props => {
                 selected={edition}
                 onChange={item => {
                   setEdition(item)
+                  setEditionType(item)
                 }}
               />
               {edition['id'] === 0 && (
@@ -247,7 +252,8 @@ const Step01SingleNFTSection = props => {
                 data={EditionList}
                 selected={edition}
                 onChange={item => {
-                  setEdition(item!)
+                  setEdition(item)
+                  setEditionType(item)
                 }}
               />
               {edition['id'] === 0 && (
