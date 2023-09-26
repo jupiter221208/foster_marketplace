@@ -33,6 +33,8 @@ import HouseStatsTab from 'components/Tab/HouseStatsTab'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
+import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
+import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -65,6 +67,12 @@ const MerchActivity = () => {
   const [isVisibleSellerFetching, setIsVisibleSellerFetching] = useState(true)
   const [isVisibleEnabledFetching, setIsVisibleEnabledFetching] = useState(true)
   const [isVisibleDisabledFetching, setIsVisibleDisabledFetching] = useState(true)
+  const [enableMerchModal, setEnableMerchModal] = useState(false)
+  const [disableMerchModal, setDisableMerchModal] = useState(false)
+  const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
+  const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
+
+  const [tokenId, setTokenId] = useState(false)
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
@@ -259,6 +267,7 @@ const MerchActivity = () => {
 
   const enableMerchNft = (id, toggle) => {
     if (toggle === true) {
+      setEnableMerchModal(false)
       NftAPI.enableAllMerchHub({ tokenIds: [id], value: true }).then(
         response => {
           if (response !== null) {
@@ -274,12 +283,14 @@ const MerchActivity = () => {
         err => {}
       )
     } else {
+      setDisableMerchModal(false)
       NftAPI.enableMerchHub(id, { value: false }).then(
         response => {
           if (response !== null) {
             let nft = enabledItems.filter(({ token_id }) => token_id === id)[0]
             setDisabledItems([nft, ...disabledItems])
             setEnabledItems(enabledItems.filter(({ token_id }) => token_id !== id))
+            setDisableAllMerchModal(false)
           }
         },
         err => {}
@@ -289,6 +300,7 @@ const MerchActivity = () => {
 
   const enableAllMerch = toggle => {
     if (toggle === true) {
+      setEnableAllMerchModal(false)
       let tokenIds = []
       disabledItems.forEach(({ token_id }) => tokenIds.push(token_id))
       NftAPI.enableAllMerchHub({ tokenIds, value: true }).then(
@@ -301,6 +313,7 @@ const MerchActivity = () => {
         err => {}
       )
     } else {
+      setDisableAllMerchModal(false)
       let tokenIds = []
       enabledItems.forEach(({ token_id }) => tokenIds.push(token_id))
       NftAPI.enableAllMerchHub({ tokenIds, value: false }).then(
@@ -401,10 +414,11 @@ const MerchActivity = () => {
                 type="enabled"
                 isLoading={isVisibleEnabledFetching}
                 action={token_id => {
-                  enableMerchNft(token_id, false)
+                  setTokenId(token_id)
+                  setDisableMerchModal(true)
                 }}
                 actionAll={() => {
-                  enableAllMerch(false)
+                  setDisableAllMerchModal(true)
                 }}
               />
             </div>
@@ -416,10 +430,11 @@ const MerchActivity = () => {
                 type="disabled"
                 isLoading={isVisibleDisabledFetching}
                 action={token_id => {
-                  enableMerchNft(token_id, true)
+                  setTokenId(token_id)
+                  setEnableMerchModal(true)
                 }}
                 actionAll={() => {
-                  enableAllMerch(true)
+                  setEnableAllMerchModal(true)
                 }}
               />
             </div>
@@ -456,6 +471,34 @@ const MerchActivity = () => {
           )}
         </div>
       </div>
+      {enableMerchModal && (
+        <CreateMerchSudioModal
+          onContinue={() => enableMerchNft(tokenId, true)}
+          open={enableMerchModal}
+          close={() => setEnableMerchModal(false)}
+        />
+      )}
+      {disableMerchModal && (
+        <RemoveMerchSudioModal
+          onContinue={() => enableMerchNft(tokenId, false)}
+          open={disableMerchModal}
+          close={() => setDisableMerchModal(false)}
+        />
+      )}
+      {enableAllMerchModal && (
+        <CreateMerchSudioModal
+          onContinue={() => enableAllMerch(true)}
+          open={enableAllMerchModal}
+          close={() => setEnableAllMerchModal(false)}
+        />
+      )}
+      {disableAllMerchModal && (
+        <RemoveMerchSudioModal
+          onContinue={() => enableAllMerch(false)}
+          open={disableAllMerchModal}
+          close={() => setDisableAllMerchModal(false)}
+        />
+      )}
       <StatsPreviewModal
         open={previewMode}
         close={() => {

@@ -28,7 +28,11 @@ import EditionList from 'assets/json/single-nft/edition-type.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 
 const Step01SingleNFTSection = props => {
+<<<<<<< HEAD
   const { nftType, setNftArt, setNftCover, type, setEditionType } = props
+=======
+  const { nftType, setNftArt, setNftCover, type } = props
+>>>>>>> 3065d9a0514185430f7be6aaba1089876c3f8257
 
   const viewport = useViewport()
 
@@ -36,10 +40,14 @@ const Step01SingleNFTSection = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [infoFocus, setInfoFocus] = useState(false)
   const [edition, setEdition] = useState(2)
+<<<<<<< HEAD
   const [maxNum, setMaxNum] = useState({
     id: 0,
     label: '10',
   })
+=======
+  const [maxNum, setMaxNum] = useState(4)
+>>>>>>> 3065d9a0514185430f7be6aaba1089876c3f8257
   const handleShowAlert = (type, error) => {
     if (error === 'file-invalid-type') {
       let description = ''
@@ -123,7 +131,10 @@ const Step01SingleNFTSection = props => {
               <div className={styles.infoText}>You can add your artwork to an existing collection on step 3</div>
             )}
           </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3065d9a0514185430f7be6aaba1089876c3f8257
           {type !== 0 && (
             <>
               <div className={styles.editionTitle}>Edition type *</div>
@@ -133,7 +144,10 @@ const Step01SingleNFTSection = props => {
                 selected={edition}
                 onChange={item => {
                   setEdition(item)
+<<<<<<< HEAD
                   setEditionType(item)
+=======
+>>>>>>> 3065d9a0514185430f7be6aaba1089876c3f8257
                 }}
               />
               {edition['id'] === 0 && (
@@ -252,8 +266,12 @@ const Step01SingleNFTSection = props => {
                 data={EditionList}
                 selected={edition}
                 onChange={item => {
+<<<<<<< HEAD
                   setEdition(item)
                   setEditionType(item)
+=======
+                  setEdition(item!)
+>>>>>>> 3065d9a0514185430f7be6aaba1089876c3f8257
                 }}
               />
               {edition['id'] === 0 && (
