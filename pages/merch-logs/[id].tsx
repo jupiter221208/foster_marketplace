@@ -24,11 +24,13 @@ import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
 import GradientButton from 'components/Button/GradientButton'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const MerchDetail = () => {
   const router = useRouter()
   const { id } = router.query
   const { connected, publicKey } = useWallet()
+  const { profileInfo } = useAuthentication()
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
@@ -39,10 +41,19 @@ const MerchDetail = () => {
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
   const [isOwn, setIsOwn] = useState(false)
+  const [helpTitle, setHelpTitle] = useState('')
+  const [helpBody, setHelpBody] = useState('')
+  const [reviewTitle, setReviewTitle] = useState('')
+  const [reviewBody, setReviewBody] = useState('')
 
   useEffect(() => {
     dispatch({ type: 'set', isLoading: true })
   }, [])
+
+  useEffect(() => {
+    console.log(profileInfo)
+    setEmailBody()
+  }, [profileInfo])
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
@@ -103,6 +114,33 @@ const MerchDetail = () => {
 
     setPreviewUrl(itemData.imageUrl)
   }, [orderData])
+
+  const setEmailBody = () => {
+    setHelpTitle(`Foster Studio Support – Order# ${id}`)
+    setReviewTitle(`Foster Studio Product Review – Order# ${id}`)
+    let helpBody =
+      `\nOrder#${id}\n` +
+      `${profileInfo?.username ?? ''}\n` +
+      `${publicKey.toBase58()}\n\n` +
+      'How can we help you with this order?'
+    let reviewBody =
+      `\nOrder#${id}\n` +
+      `${profileInfo?.username ?? ''}\n` +
+      `${publicKey.toBase58()}\n\n` +
+      'Please use the scale (1-4) below when rating your satisfaction for each question:\n' +
+      '1 – Unsatisfied\n' +
+      '2 – Needs Improvement\n' +
+      '3 – Meets Expectation\n' +
+      '4 – Exceeds Expectation\n\n\n' +
+      'How satisfied are you with the delivery of the product?\n' +
+      'How satisfied are you with the price of the product?\n' +
+      'How satisfied are you with the commissions for the sale?\n' +
+      'How satisfied are you with the quality of the product?\n' +
+      'How satisfied are you with the quality of the art?\n\n' +
+      'Additional Information:'
+    setHelpBody(helpBody)
+    setReviewBody(reviewBody)
+  }
 
   const gotoTrackPage = () => {
     if (trackingDetails !== null && trackingDetails.trackingNumber.length > 0) {
@@ -244,24 +282,37 @@ const MerchDetail = () => {
               </div>
             )}
             <div className="mt-[12px]">
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
-                label="Get help"
-                onClick={() => {
-                  window.location.href = 'mailto:admin@fostermarketplace.io'
-                }}
-              />
+              <a
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                  subject: helpTitle,
+                  body: helpBody,
+                })}`}
+              >
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Get help"
+                  onClick={() => {}}
+                />
+              </a>
             </div>
             <div className="mt-[12px]">
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
-                label="Write a product review"
-                onClick={() => {
-                  window.location.href = 'mailto:admin@fostermarketplace.io'
-                }}
-              />
+              <a
+                href={`mailto:admin@fostermarketplace.io?${new URLSearchParams({
+                  subject: reviewTitle,
+                  body: reviewBody,
+                })}`}
+              >
+                <OutlineButton
+                  borderColor="var(--follow-btn-border-mobile)"
+                  width={335}
+                  label="Write a product review"
+                  onClick={() => {}}
+                  // onClick={() => {
+                  //   window.location.href = 'mailto:admin@fostermarketplace.io'
+                  // }}
+                />
+              </a>
             </div>
           </div>
         </div>
