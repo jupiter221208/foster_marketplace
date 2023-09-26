@@ -1,0 +1,14 @@
+[
+  {
+    "id": 0,
+    "name": "Limited Edition",
+    "label": "Limited Edition",
+    "small_tip": "Set the max amount of editions that can be minted"
+  },
+  {
+    "id": 1,
+    "name": "Open Edition",
+    "label": "Open Edition",
+    "small_tip": "Unlimited amount of editions can be minted"
+  }
+]
