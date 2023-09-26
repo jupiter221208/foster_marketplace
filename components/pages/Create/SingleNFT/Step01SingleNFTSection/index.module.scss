@@ -246,7 +246,7 @@
 .editionDescription {
   font-size: 16px;
   font-family: 'Muli-Regular';
-  color: var(--main-bg-color);
+  color: rgba(var(--main-bg-color-rgb), 0.7);
 }
 .max {
   width: 100%;
