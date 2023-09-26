@@ -12,7 +12,7 @@ import MintAudioPlayer from 'components/MediaPlayer/MintAudioPlayer'
 
 // solana components
 import { Keypair, PublicKey } from '@solana/web3.js'
-import { toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
+import { toBigNumber, toMetaplexFile, JsonMetadata } from '@metaplex-foundation/js'
 
 import { useMetaplex } from 'hooks/useMetaplex'
 import { useLocalWalletBundlr } from 'hooks/useLocalWalletBundlr'
@@ -396,6 +396,10 @@ const SingleNft = () => {
       setNftMetadata(metadata)
       let metadataUri = await storage.uploadJson(metadata)
 
+      let maxSupply = toBigNumber(0)
+      if (editionType?.name == 'Limited Edition') maxSupply = toBigNumber(maxNum)
+      else if (editionType?.name == 'Open Edition') maxSupply = null
+
       let nftMint = Keypair.generate()
       let createNftOperation = await mx
         .nfts()
@@ -406,6 +410,7 @@ const SingleNft = () => {
           sellerFeeBasisPoints: royalties * 100,
           useNewMint: nftMint,
           collection: collection?.mintAddress,
+          maxSupply,
         })
       if (collection)
         createNftOperation.add(
