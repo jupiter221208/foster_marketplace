@@ -2,7 +2,9 @@ import React from 'react'
 
 import styles from './index.module.scss'
 import Image from 'next/image'
+import SingleMobileIcon from 'public/icons/single-mobile.svg?component'
 import SingleIcon from 'public/icons/single.svg?component'
+import EditionMobileIcon from 'public/icons/edition-mobile.svg?component'
 import EditionIcon from 'public/icons/edition.svg?component'
 
 const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType: any }) => {
@@ -21,28 +23,34 @@ const MintTypeSection = ({ setCurrentStep, setType }: { setCurrentStep; setType:
               setType(0)
             }}
           >
-            <div className="flex flex-col p-[70px] justify-center w-full">
-              <div className="flex justify-center">
+            <div className="flex flex-col justify-center">
+              <div className="hidden lg:flex mt-[70px] justify-center">
                 <SingleIcon />
               </div>
-              <div className="flex flex-col">
+              <div className="flex lg:hidden justify-center mt-[50px]">
+                <SingleMobileIcon />
+              </div>
+              <div className="flex flex-col mt-[35px]">
                 <span className={styles.tagTitle}>Single</span>
                 <span className={styles.tagSubtitle}>1/1</span>
               </div>
             </div>
           </div>
           <div
-            className={`${styles.singleTag} mt-[46px] sm:mt-[0px]`}
+            className={`${styles.singleTag} mt-[46px] mb-[46px] sm:mt-[0px] sm:mb-[0px]`}
             onClick={() => {
               setCurrentStep(1)
               setType(1)
             }}
           >
-            <div className="flex flex-col p-[70px] justify-center w-full">
-              <div className="flex justify-center">
+            <div className="flex flex-col justify-center">
+              <div className="hidden lg:flex justify-center mt-[70px]">
                 <EditionIcon />
               </div>
-              <div className="flex flex-col">
+              <div className="flex lg:hidden justify-center mt-[50px]">
+                <EditionMobileIcon />
+              </div>
+              <div className="flex flex-col mt-[35px]">
                 <span className={styles.tagTitle}>Edition</span>
                 <span className={styles.tagSubtitle}>Multiple Copies</span>
               </div>

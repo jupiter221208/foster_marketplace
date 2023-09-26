@@ -1,8 +1,8 @@
 @import 'assets/scss/variable.module.scss';
 
 .singleTag {
-  width: 330px;
-  height: 330px;
+  width: 223px;
+  height: 223px;
   @media (min-width: 1024px) {
     width: 400px;
     height: 400px;
@@ -13,18 +13,30 @@
   }
   background: var(--activity-bg-color);
   border-radius: 30px;
+  &:hover {
+    box-shadow: 0px 0px 30px var(--nft-type-box-hover);
+  }
 }
 .title {
-  font-size: 40px;
+  font-size: 24px;
   font-family: 'Muli-Bold';
   font-weight: 500;
   color: var(--merch-disabled-icon-color);
+  @media (min-width: 768px) {
+    font-size: 40px;
+    font-family: 'Muli-Bold';
+    font-weight: 500;
+  }
 }
 .subTitle {
-  font-size: 18px;
-  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  font-family: 'Muli-Regular';
   color: var(--merch-disabled-icon-color);
   text-align: center;
+  @media (min-width: 768px) {
+    font-size: 18px;
+    font-family: 'Muli-SemiBold';
+  }
 }
 .image {
   fill: var(--main--icon-color-rgb);
@@ -38,16 +50,23 @@
 .tagTitle {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-  font-size: 30px;
+  font-size: 15px;
   font-family: 'Muli-SemiBold';
   color: var(--main-bg-color);
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    font-size: 30px;
+    font-family: 'Muli-SemiBold';
+    color: var(--main-bg-color);
+  }
 }
 .tagSubtitle {
   display: flex;
   justify-content: center;
   margin-top: 5px;
-  font-size: 26px;
+  font-size: 15px;
   @media (min-width: 768px) {
     font-size: 30px;
   }
