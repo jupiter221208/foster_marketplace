@@ -226,7 +226,7 @@
         "id": 1,
         "title": "What is the utility of Turkey Circus NFTs?",
         "description": [
-          "The spectrum of utility as a Turkey Circus holder varies greatly, intending to create opportunities for artists, builders and collectors alike. Learn more by visiting <u><a href='https://turkeycircus.io'>turkeycircus.io</a></u>"
+          "The spectrum of utility as a Turkey Circus holder varies greatly, intending to create opportunities for artists, builders and collectors alike. Learn more by visiting <u>a href<='https://turkeycircus.io'>turkeycircus.io</a></u>"
         ]
       },
       {
@@ -483,6 +483,113 @@
   {
     "id": 5,
     "title": "Creator Studio",
-    "content": []
+    "content": [
+      {
+        "id": 0,
+        "title": "What is Foster Studio?",
+        "description": [
+          "Foster Studio is a feature that’s built into the marketplace that provides users the ability to purchase physical offerings of an NFT, such as apparel and wall art."
+        ]
+      },
+      {
+        "id": 1,
+        "title": "How can I enable Foster Studio for my NFT?",
+        "description": [
+          "Foster Studio can only be enabled by the creator of an NFT. It can be enabled individually per NFT or as a batch for all eligible NFTs. In order to enable Foster Studio, the Creator wallet address associated with the NFT must be the wallet signed into the marketplace.",
+          "Foster Studio can be enabled individually from the NFT page or individually and/or as a batch from Eligible Artworks on the Foster Studio Dashboard."
+        ]
+      },
+      {
+        "id": 2,
+        "title": "The artwork I would like to enable does not appear under Eligible Artworks.",
+        "description": [
+          "If the artwork you would like to enable does not appear under Eligible Artworks, it either means [1] the wallet connected to the marketplace is not the creator wallet address associated with the NFT or [2] the NFT was not detected because it was minted and sold on another platform.",
+          "If the NFT was minted and sold on another platform, it is still eligible for Foster Studio, but will need to be indexed by the platform. To index an NFT, use the following template to initiate a search on your browser: <strong>fostermarketplace.app/nft/insert_token_address</strong>. Once the page loads, you can enable Foster Studio by clicking on the Foster Studio icon on the right side of the NFT image."
+        ]
+      },
+      {
+        "id": 3,
+        "title": "What are the artist commissions for each sale?",
+        "description": [
+          "If a user purchases a physical offering, the creator receives a 20% commission for wall art purchases and a $5.00 commission on apparel purchases."
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Does Foster work with a 3rd party for printing and fulfillment?",
+        "description": ["Yes."]
+      },
+      {
+        "id": 5,
+        "title": "How do refunds work?",
+        "description": ["All orders are final, unless there was an issue with the order."]
+      },
+      {
+        "id": 6,
+        "title": "I received my order but something isn’t right.",
+        "description": [
+          "If you’ve received your order and something isn’t right, click ‘Get Help’ from the order summary page. This will open up a separate tab with an outgoing email to <u><a href ='mailto:admin@fostermarketplace.io'>admin@fostermarketplace.io</a></u>. The body of the email will include a built-in template for you to provide details of the issue."
+        ]
+      },
+      {
+        "id": 7,
+        "title": "How can I track my order?",
+        "description": [
+          "Orders can be tracked from the Foster Studio Dashboard. To navigate to the dashboard, click ‘Studio’ from the drop-down menu of the site and then select the ‘Purchases’ tab. Find the order you wish to track and click ‘view order’."
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Can I enable Foster Studio for an NFT that I don’t own?",
+        "description": ["Yes. Foster Studio can be enabled for any NFT when you are the creator."]
+      },
+      {
+        "id": 9,
+        "title": "Can I enable Foster Studio for an NFT that I minted on another platform?",
+        "description": [
+          "Yes. Foster Studio can be enabled for any NFT when you are the creator. If the NFT was minted and sold on another platform, it is still eligible for Foster Studio, but will need to be indexed by the platform. To index an NFT, use the following template to initiate a search on your browser: fostermarketplace.app/nft/insert_token_address. Once the page loads, you can enable Foster Studio by clicking on the Foster Studio icon on the right side of the NFT image."
+        ]
+      },
+      {
+        "id": 10,
+        "title": "My order has been awaiting shipment longer than usual.",
+        "description": [
+          "If it’s been longer than 4 business days and the order still indicates ‘Awaiting shipment’ as the status, click the ‘Get Help’ button from the order summary page. This will open up a separate tab with an outgoing email to admin@fostermarketplace.io for you to provide details of the issue."
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Does the owner of the NFT make any commissions?",
+        "description": [
+          "Not during the alpha release of this feature. However, we will be looking into a split commissions system for the beta release."
+        ]
+      },
+      {
+        "id": 12,
+        "title": "What is the average production time for products?",
+        "description": [
+          "Production time may vary depending on the product:",
+          "i. Apparel Printing",
+          "ii. Wall Art Printing"
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Does the owner of the NFT make any commissions?",
+        "description": [
+          "Not during the alpha release of this feature. However, we will be looking into a split commissions system for the beta release."
+        ]
+      },
+      {
+        "id": 14,
+        "title": "What is the average delivery time after an item ships? ",
+        "description": ["Delivery times may vary depending on the shipping method selected"]
+      },
+      {
+        "id": 15,
+        "title": "Can I ship to any address worldwide?",
+        "description": ["Yes"]
+      }
+    ]
   }
 ]
