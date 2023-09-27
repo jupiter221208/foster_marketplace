@@ -44,6 +44,7 @@ import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
 import PrintApparelSection from 'assets/images/apparel.png'
+import SolanaLogo from 'assets/icons/solana-logo.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
@@ -67,6 +68,8 @@ import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
+import MintValuePlus from 'public/icons/mint-value-plus.svg?component'
+import MintValueMinus from 'public/icons/mint-value-minus.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -1006,10 +1009,56 @@ const MainSection = ({
                 </div>
               </div>
             )}
-            <div className="w-full flex flex-wrap">
+            <div className="w-full flex flex-wrap justify-center">
               {nftPrice > 0 && !liveAuction ? (
                 masterEdition ? (
-                  <div>123</div>
+                  <div className="flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
+                    <div className={styles.masterContainer}>
+                      <div className="w-full flex justify-between">
+                        <div className={styles.masterTitle}>Token Type</div>
+                        <div className={styles.masterValue}>
+                          <SolanaLogo />
+                          {masterEdition['price']}
+                        </div>
+                      </div>
+                      <div className="w-full flex justify-between mt-[10px]">
+                        <div className={styles.masterTitle}>Token Type</div>
+                        <div className={styles.masterValue}>
+                          {masterEdition['type'] ? 'Limited Edition' : 'Open Edition'}
+                        </div>
+                      </div>
+                      <div className="w-full flex justify-between mt-[10px]">
+                        <div className={styles.masterTitle}>Edition Remaining</div>
+                        <div className={styles.masterValue}>{masterEdition['remain']}</div>
+                      </div>
+                      <div className="w-full flex justify-between mt-[10px]">
+                        <div className={styles.masterTitle}>Total Supply</div>
+                        <div className={styles.masterValue}>{masterEdition['supply']}</div>
+                      </div>
+                    </div>
+                    <div className={styles.masterContainer}>
+                      <div className="flex flex-row justify-between">
+                        <div className="flex flex-row gap-2 items-center">
+                          <MintValueMinus />
+                          <div className={styles.mintValue}>3</div>
+                          <MintValuePlus />
+                        </div>
+                        <div className={styles.mintPrice}>
+                          <SolanaLogo />
+                          &nbsp;1.50
+                        </div>
+                      </div>
+                      <GradientButton
+                        fullWidth
+                        label={'Mint Edition'}
+                        direction="rtl"
+                        onClick={() => quickBuy()}
+                        fontFamily="Muli-SemiBold"
+                        height={50}
+                        disabled={!tradeStateAddress}
+                      />
+                    </div>
+                  </div>
                 ) : (
                   <>
                     <div className="w-full flex gap-2 mt-[70px] lg:mt-[0px]">

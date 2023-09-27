@@ -715,3 +715,53 @@
   }
   color: rgba(var(--text-gray-200-color-rgb), 0.75);
 }
+
+.masterContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 350px;
+  height: 150px;
+  border-radius: 20px;
+  padding: 15px;
+  margin-top: 10px;
+  background: var(--nft-generative-color);
+  &:hover {
+    background: var(--main-icon-color-rgb);
+    border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
+  }
+}
+.masterTitle {
+  font-size: 16px;
+  font-family: 'Muli-Light';
+  color: rgba(var(--main-bg-color-rgb), 0.75);
+}
+.masterValue {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-family: 'Muli-SemiBold';
+  color: var(--main-bg-color);
+}
+.mintValue {
+  display: flex;
+  flex-direction: row;
+  width: 50px;
+  height: 40px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.mintPrice {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 40px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-radius: 10px;
+}

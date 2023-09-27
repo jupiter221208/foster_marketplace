@@ -51,8 +51,9 @@ export interface EditionDetail {
 }
 
 export interface MasterEdition {
+  price: number // Mint Price
   type: number // Limited / Open Edition
-  number: number // Edition Remaining
+  remain: number // Edition Remaining
   supply: number // Total Supply
 }
 
@@ -316,9 +317,10 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
     }
     let masterEdition = null
     masterEdition = {
-      number: 0,
-      supply: 10,
-      maxSupply: 100,
+      price: 0.5,
+      type: 1,
+      remain: 97,
+      supply: 100,
     }
     return {
       nftDetail,
