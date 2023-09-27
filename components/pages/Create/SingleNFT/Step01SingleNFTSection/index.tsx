@@ -28,7 +28,7 @@ import EditionList from 'assets/json/single-nft/edition-type.json'
 import MaxNumberList from 'assets/json/single-nft/max-number-list.json'
 
 const Step01SingleNFTSection = props => {
-  const { nftType, setNftArt, setNftCover, type, setEditionType } = props
+  const { nftType, setNftArt, setNftCover, type, setEditionType, setMaxSupply } = props
 
   const viewport = useViewport()
 
@@ -38,6 +38,7 @@ const Step01SingleNFTSection = props => {
   const [edition, setEdition] = useState(2)
   const [maxNum, setMaxNum] = useState({
     id: 0,
+    value: 10,
     label: '10',
   })
   const handleShowAlert = (type, error) => {
@@ -144,12 +145,19 @@ const Step01SingleNFTSection = props => {
                       data={MaxNumberList}
                       className="max-w-max"
                       selected={maxNum}
-                      onChange={item => setMaxNum(item)}
+                      onChange={item => {
+                        setMaxNum(item)
+                        setMaxSupply(item.value)
+                      }}
                     />
                   </div>
                   {maxNum['id'] === 3 && (
                     <div className="max-w-[450px]">
-                      <Input />
+                      <Input
+                        onChange={value => {
+                          setMaxSupply(value)
+                        }}
+                      />
                       <div>Provide of maxmium supply of editions</div>
                     </div>
                   )}

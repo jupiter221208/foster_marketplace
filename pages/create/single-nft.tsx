@@ -700,6 +700,7 @@ const SingleNft = () => {
                         setEditionType={item => setEditionType(item)}
                         setNftArt={item => handleChangeNftArt(item)}
                         setNftCover={item => handleChangeNftCover(item)}
+                        setMaxSupply={setMaxNum}
                       />
                     )}
 
