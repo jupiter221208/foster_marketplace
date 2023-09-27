@@ -1,0 +1,18 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+}
+
+.title {
+  font-family: 'Muli-SemiBold';
+  font-size: 20px;
+  text-align: center;
+  margin-top: 30px;
+  @media (min-width: 1024px) {
+    margin-top: 60px;
+    font-family: 'Muli-Bold';
+    font-size: 30px;
+    text-align: start;
+  }
+  color: var(--text-gray-200-color);
+}

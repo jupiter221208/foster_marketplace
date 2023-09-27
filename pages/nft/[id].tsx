@@ -43,6 +43,7 @@ import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { useAuthentication } from 'hooks/useAuthentication'
+import ProvenanceSection from 'components/pages/BrowseNFT/ProvenanceSection'
 
 export interface EditionDetail {
   number: number
@@ -129,6 +130,8 @@ const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) 
   const collectionId = nftDetail?.collection?.address.toString()
 
   let nftName = (nftDetail?.name || nftDetail?.json?.name) ?? ''
+  const nftUrl = nftDetail.json?.image ?? DefaultNftBG.src
+
   if (editionDetail) {
     let { number, supply, maxSupply } = editionDetail
     let supplyInfo = `#${number}/${supply}`
@@ -169,7 +172,6 @@ const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) 
     )
   }
 
-  const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
   const [merchToggle, setMerchToggle] = useState(false)
 
   return (
@@ -245,6 +247,10 @@ const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) 
                     }}
                   />
                 </div>
+              </div>
+            ) : masterEdition !== null ? (
+              <div className="g-container">
+                <ProvenanceSection nftUrl={nftUrl} />
               </div>
             ) : (
               <div className={styles.centerScreen}>

@@ -1015,7 +1015,7 @@ const MainSection = ({
                   <div className="flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                     <div className={styles.masterContainer}>
                       <div className="w-full flex justify-between">
-                        <div className={styles.masterTitle}>Token Type</div>
+                        <div className={styles.masterTitle}>Mint Price</div>
                         <div className={styles.masterValue}>
                           <SolanaLogo />
                           {masterEdition['price']}
