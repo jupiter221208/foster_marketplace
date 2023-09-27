@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
-import { Metaplex, toOriginalEditionAccount, OriginalEditionAccountData } from '@metaplex-foundation/js'
+import { Metaplex, toNftOriginalEdition, toOriginalEditionAccount } from '@metaplex-foundation/js'
 import type { Sft, Nft } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
@@ -46,28 +46,21 @@ import { useAuthentication } from 'hooks/useAuthentication'
 import ProvenanceSection from 'components/pages/BrowseNFT/ProvenanceSection'
 
 export interface EditionDetail {
-  number: number
   supply: number
   maxSupply?: number
-}
-
-export interface MasterEdition {
-  price: number // Mint Price
-  type: number // Limited / Open Edition
-  remain: number // Edition Remaining
-  supply: number // Total Supply
+  print?: {
+    number: number
+  }
 }
 
 export interface BrowseNFTProps {
   nftDetail?: Nft
-  masterEdition?: MasterEdition
   editionDetail?: EditionDetail
-  originalEditionDetail?: OriginalEditionAccountData
   mintAddress?: PublicKey
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
@@ -133,9 +126,12 @@ const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) 
   const nftUrl = nftDetail.json?.image ?? DefaultNftBG.src
 
   if (editionDetail) {
-    let { number, supply, maxSupply } = editionDetail
-    let supplyInfo = `#${number}/${supply}`
-    if (supply !== maxSupply) supplyInfo = `edition ${number}/${supply}, max ${maxSupply ?? '\u221e'}`
+    let { supply, maxSupply, print } = editionDetail
+    let supplyInfo = `original, ${supply} of ${maxSupply ?? '\u221e'} printed`
+    if (print) {
+      if (supply !== maxSupply) supplyInfo = `edition ${print.number}/${supply}, max ${maxSupply ?? '\u221e'}`
+      else supplyInfo = `#${print.number}/${supply}`
+    }
     nftName = `${nftName} (${supplyInfo})`
   }
   let nftTitle = `${nftName} | Foster Marketplace`
@@ -212,7 +208,6 @@ const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) 
                   <MainSection
                     nftDetail={nftDetail}
                     editionDetail={editionDetail}
-                    masterEdition={masterEdition}
                     nftInfo={nftInfo}
                     setFullScreenView={setFullScreenView}
                     reloadNftData={reloadNftData}
@@ -248,7 +243,7 @@ const BrowseNFT = ({ nftDetail, editionDetail, masterEdition }: BrowseNFTProps) 
                   />
                 </div>
               </div>
-            ) : masterEdition !== null ? (
+            ) : editionDetail.maxSupply !== 0 ? (
               <div className="g-container">
                 <ProvenanceSection nftUrl={nftUrl} />
               </div>
@@ -295,7 +290,7 @@ BrowseNFT.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }
 
-BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
+BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTProps> {
   let mintAddress
   try {
     mintAddress = new PublicKey(query.id)
@@ -311,28 +306,30 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<any> {
     let nftDetail = await metaplex.nfts().findByMint({ mintAddress })
     if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
 
-    let editionDetail = null
-    let originalEditionDetail = null
-    if ('parent' in nftDetail.edition) {
-      originalEditionDetail = toOriginalEditionAccount(await metaplex.rpc().getAccount(nftDetail.edition.parent)).data
+    let editionDetail: EditionDetail | null = null
+    let nftEdition = nftDetail.edition
+    if (nftEdition.isOriginal == false) {
+      let originalEditionDetail = await metaplex
+        .rpc()
+        .getAccount(nftEdition.parent)
+        .then(toOriginalEditionAccount)
+        .then(toNftOriginalEdition)
       editionDetail = {
-        number: nftDetail.edition.number.toNumber(),
         supply: originalEditionDetail.supply.toNumber(),
         maxSupply: originalEditionDetail.maxSupply?.toNumber(),
+        print: {
+          number: nftEdition.number.toNumber(),
+        },
       }
-    }
-    let masterEdition = null
-    masterEdition = {
-      price: 0.5,
-      type: 1,
-      remain: 97,
-      supply: 100,
-    }
+    } else
+      editionDetail = {
+        supply: nftEdition.supply.toNumber(),
+        maxSupply: nftEdition.maxSupply?.toNumber(),
+      }
+
     return {
       nftDetail,
       editionDetail,
-      masterEdition,
-      originalEditionDetail,
       mintAddress,
     }
   } catch (e: any) {

@@ -118,10 +118,11 @@ import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
 
+import { type EditionDetail } from 'pages/nft/[id]'
+
 export interface MainSectionProps {
   nftDetail: Nft
-  masterEdition: any
-  editionDetail: any
+  editionDetail: EditionDetail
   nftInfo: any
   setFullScreenView: any
   reloadNftData: any
@@ -131,7 +132,6 @@ export interface MainSectionProps {
 
 const MainSection = ({
   nftDetail,
-  masterEdition,
   editionDetail,
   nftInfo,
   setFullScreenView,
@@ -991,49 +991,45 @@ const MainSection = ({
                 </div>
               )}
             </div>
-            {masterEdition === null && editionDetail && (
+            {editionDetail.maxSupply !== 0 && (
               <div className={styles.editionContainer}>
                 <div className="w-full flex justify-between">
                   <div className={styles.editionTitle}>Token Type</div>
                   <div className={styles.editionValue}>
-                    {editionDetail['maxSupply'] ? 'Limited Edition' : 'Open Edition'}
+                    {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
                   </div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
                   <div className={styles.editionTitle}>Edition Number</div>
-                  <div className={styles.editionValue}>{editionDetail['number']}</div>
+                  <div className={styles.editionValue}>{editionDetail.print?.number ?? 'Master Edition'}</div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
-                  <div className={styles.editionTitle}>Edition Supply</div>
-                  <div className={styles.editionValue}>{editionDetail['supply']}</div>
+                  <div className={styles.editionTitle}>Total Supply</div>
+                  <div className={styles.editionValue}>{editionDetail.maxSupply ?? '\u221e'}</div>
+                </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.editionTitle}>Editions Printed</div>
+                  <div className={styles.editionValue}>{editionDetail.supply}</div>
+                </div>
+                <div className="w-full flex justify-between mt-[15px]">
+                  <div className={styles.editionTitle}>Editions Remaining</div>
+                  <div className={styles.editionValue}>
+                    {editionDetail.maxSupply ? editionDetail.maxSupply - editionDetail.supply : '\u221e'}
+                  </div>
                 </div>
               </div>
             )}
             <div className="w-full flex flex-wrap justify-center">
               {nftPrice > 0 && !liveAuction ? (
-                masterEdition ? (
+                nftInfo.printing ? (
                   <div className="flex flex-col sm:mx-auto sm:w-full sm:flex sm:flex-row sm:gap-4">
                     <div className={styles.masterContainer}>
                       <div className="w-full flex justify-between">
                         <div className={styles.masterTitle}>Mint Price</div>
                         <div className={styles.masterValue}>
                           <SolanaLogo />
-                          {masterEdition['price']}
+                          {nftInfo.printing.price}
                         </div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[10px]">
-                        <div className={styles.masterTitle}>Token Type</div>
-                        <div className={styles.masterValue}>
-                          {masterEdition['type'] ? 'Limited Edition' : 'Open Edition'}
-                        </div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[10px]">
-                        <div className={styles.masterTitle}>Edition Remaining</div>
-                        <div className={styles.masterValue}>{masterEdition['remain']}</div>
-                      </div>
-                      <div className="w-full flex justify-between mt-[10px]">
-                        <div className={styles.masterTitle}>Total Supply</div>
-                        <div className={styles.masterValue}>{masterEdition['supply']}</div>
                       </div>
                     </div>
                     <div className={styles.masterContainer}>
@@ -1214,14 +1210,16 @@ const MainSection = ({
               ) : !loading && nftInfo && connected ? (
                 isOwnNft === true ? (
                   <div className="w-full flex gap-[20px] mt-[20px]">
-                    <OutlineButton
-                      label="Start Auction"
-                      onClick={() => setShowStartAuctionModal(true)}
-                      color="var(--main-bg-color)"
-                      borderColor="#707070"
-                      borderWidth="2"
-                      fullWidth
-                    />
+                    {editionDetail.maxSupply === 0 && (
+                      <OutlineButton
+                        label="Start Auction"
+                        onClick={() => setShowStartAuctionModal(true)}
+                        color="var(--main-bg-color)"
+                        borderColor="#707070"
+                        borderWidth="2"
+                        fullWidth
+                      />
+                    )}
                     <GradientButton
                       label={'List NFT'}
                       fullWidth
@@ -1270,9 +1268,7 @@ const MainSection = ({
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
+                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
