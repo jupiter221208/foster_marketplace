@@ -25,6 +25,7 @@ import DashboardSearchBox from 'components/Input/DashboardSearchBox'
 import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
@@ -37,14 +38,31 @@ const MyNFTSection = props => {
   const [filteredList, setFilteredList] = useState<any>([])
   const { connection } = useConnection()
   const { publicKey } = useWallet()
-
   const { metaplex: mx } = useMetaplex()
+
   const loadMyNFTs = async () => {
     setLoading(true)
     let nfts = await getMyNFTs(mx)
     let validNfts = nfts.filter(item => item.creators?.length > 0 && item.collectionDetails === null)
+    let myNfts = [],
+      collectedNft = []
+    validNfts.forEach(item => {
+      let created = false
+      let creators = item.creators
+      creators.forEach(creator => {
+        if (creator.address.toBase58() === publicKey.toBase58()) {
+          created = true
+          return
+        }
+      })
+
+      if (created) myNfts.push(item)
+      else collectedNft.push(item)
+    })
+
     dispatch({ type: 'set', isGetMyNFTs: true })
-    dispatch({ type: 'set', myNftList: validNfts })
+    dispatch({ type: 'set', myNftList: myNfts })
+    dispatch({ type: 'set', collectedNftList: collectedNft })
     setLoading(false)
   }
 
@@ -66,6 +84,7 @@ const MyNFTSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
   const [rowCount, setRowCount] = useState(12)
   const [active, setActive] = useState(0)
+  const { refreshToken } = useAuthentication()
 
   const handleGotoDetailPage = (data: any) => {
     dispatch({ type: 'set', isLoading: true })
@@ -110,21 +129,15 @@ const MyNFTSection = props => {
 
   useEffect(() => {
     let list = []
-
     let allList = myNftList as any[]
     allList.forEach(item => {
-      let created = false
-      let creators = item.creators
-      creators.forEach(creator => {
-        if (creator.address.toBase58() === publicKey.toBase58()) {
-          created = true
-          return
-        }
-      })
+      console.log('1111111111111', item)
       if (active === 0) {
-        if (created) list.push(item)
-      } else {
-        if (!created) list.push(item)
+        list.push(item)
+      } else if (active === 1 && item.isOpenEdition) {
+        list.push(item)
+      } else if (active === 2 && item.isLimitedEdition) {
+        list.push(item)
       }
     })
 
@@ -170,9 +183,9 @@ const MyNFTSection = props => {
 
   return (
     <section className={styles.container}>
-      {!loading && allNftList.length > 0 && (
+      {!loading && (
         <div className="w-full flex flex-wrap justify-between gap-[15px] items-center">
-          <div className="w-full lg:w-[300px] flex h-[54px] mt-[15px] z-10">
+          <div className="w-full lg:w-auto flex h-[54px] mt-[15px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton
                 label="Created"
@@ -186,7 +199,7 @@ const MyNFTSection = props => {
                 boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
               <TimeSlotButton
-                label="Collected"
+                label="Open Edition"
                 onClick={() => setActive(1)}
                 fontFamily={'Muli-SemiBold'}
                 color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
@@ -195,6 +208,17 @@ const MyNFTSection = props => {
                 gradientDirection="bottom"
                 width={160}
                 boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
+              />
+              <TimeSlotButton
+                label="Limited Edition"
+                onClick={() => setActive(2)}
+                fontFamily={'Muli-SemiBold'}
+                color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
+                backgroundColor01={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                backgroundColor02={active === 2 ? 'var(--time-slog-bg)' : 'transparent'}
+                gradientDirection="bottom"
+                width={160}
+                boxShadow={active === 2 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
             </div>
           </div>
@@ -211,6 +235,7 @@ const MyNFTSection = props => {
                 onClick={(data: any) => handleGotoDetailPage(data)}
                 onClickStartAuction={item => handleStartAuction(item)}
                 onClickListNFT={item => handleListNFT(item)}
+                active={active}
               />
             </div>
           ))}
@@ -242,7 +267,6 @@ const MyNFTSection = props => {
       />
 
       <ProgressingModal open={openProgressingModal} />
-
       <StartAuctionModal
         data={selectedData}
         open={showStartAuctionModal}

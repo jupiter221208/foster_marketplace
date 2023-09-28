@@ -15,7 +15,7 @@ import { getShortAddress } from 'utils/strings'
 import SecondaryButton from 'components/Button/SecondaryButton'
 
 const MyNFTCard = props => {
-  const { data, onClick, onClickStartAuction, onClickListNFT } = props
+  const { data, onClick, onClickStartAuction, onClickListNFT, active } = props
   const [blurMode, setBlurMode] = useState(false)
 
   return (
@@ -51,23 +51,30 @@ const MyNFTCard = props => {
         <div className="w-full flex items-center">
           <div className={styles.artistName}>{getShortAddress(data.creators[0].address.toString()) || 'No Artist'}</div>
         </div>
-        <div className="w-full hidden lg:flex justify-between items-center mt-4">
-          <GradientButton
-            label="Start Auction"
-            onClick={() => onClickStartAuction(data)}
-            height="40px"
-            fontSize="14px"
-            fontFamily="Muli-SemiBold"
-          />
-          <SecondaryButton
-            backgroundColor="transparent"
-            label="List NFT"
-            onClick={() => onClickListNFT(data)}
-            height="40px"
-            fontSize="14px"
-            fontFamily="Muli-SemiBold"
-          />
-        </div>
+        {active === 0 ? (
+          <div className="w-full hidden lg:flex justify-between items-center mt-4">
+            <GradientButton
+              label="Start Auction"
+              onClick={() => onClickStartAuction(data)}
+              height="40px"
+              fontSize="14px"
+              fontFamily="Muli-SemiBold"
+            />
+            <SecondaryButton
+              backgroundColor="transparent"
+              label="List NFT"
+              onClick={() => onClickListNFT(data)}
+              height="40px"
+              fontSize="14px"
+              fontFamily="Muli-SemiBold"
+            />
+          </div>
+        ) : (
+          <div className="w-full hidden lg:flex justify-between items-center mt-4">
+            <GradientButton label="List Edition" fullWidth />
+          </div>
+        )}
+
         <div className="w-full flex lg:hidden justify-between items-center mt-4">
           <GradientButton
             label="Start Auction"

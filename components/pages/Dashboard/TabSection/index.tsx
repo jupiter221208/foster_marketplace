@@ -106,20 +106,25 @@ const TabSection = () => {
       )} */}
       {activeTab === 3 && (
         <div className="w-full flex flex-wrap">
-          <MyCollectionSection />
+          <CollectedSection changeActiveTab={(selectedTab: number) => setActiveTab(selectedTab)} />
         </div>
       )}
       {activeTab === 4 && (
         <div className="w-full flex flex-wrap">
-          <FavoriteSection />
+          <MyCollectionSection />
         </div>
       )}
       {activeTab === 5 && (
         <div className="w-full flex flex-wrap">
-          <OfferSection />
+          <FavoriteSection />
         </div>
       )}
       {activeTab === 6 && (
+        <div className="w-full flex flex-wrap">
+          <OfferSection />
+        </div>
+      )}
+      {activeTab === 7 && (
         <div className="w-full flex flex-wrap">
           <HiddenSection />
         </div>

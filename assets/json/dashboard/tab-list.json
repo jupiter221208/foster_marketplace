@@ -31,6 +31,16 @@
   },
   {
     "id": 3,
+    "icon01": "/icons/create-dashboard-green.svg",
+    "icon02": "/icons/create-dashboard-gray.svg",
+    "icon03": "/icons/create-dashboard-gray-light.svg",
+    "icon04": "/icons/create-dashboard-gray-dark.svg",
+    "label": "Collected",
+    "value": "Collected",
+    "coming_soon": false
+  },
+  {
+    "id": 4,
     "icon01": "/icons/collection-green.svg",
     "icon02": "/icons/collection-gray.svg",
     "icon03": "/icons/collection-gray-light.svg",
@@ -40,7 +50,7 @@
     "coming_soon": false
   },
   {
-    "id": 4,
+    "id": 5,
     "icon01": "/icons/heart-green.svg",
     "icon02": "/icons/heart-gray.svg",
     "icon03": "/icons/heart-gray-light.svg",
@@ -50,7 +60,7 @@
     "coming_soon": false
   },
   {
-    "id": 5,
+    "id": 6,
     "icon01": "/icons/tag-green.svg",
     "icon02": "/icons/tag-gray.svg",
     "icon03": "/icons/tag-gray-light.svg",
@@ -60,7 +70,7 @@
     "coming_soon": false
   },
   {
-    "id": 6,
+    "id": 7,
     "icon01": "/icons/eye-slash-green.svg",
     "icon02": "/icons/eye-slash-gray.svg",
     "icon03": "/icons/eye-slash-gray-light.svg",
