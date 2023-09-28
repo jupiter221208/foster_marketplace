@@ -158,7 +158,7 @@ const Step01SingleNFTSection = props => {
                           setMaxSupply(value)
                         }}
                       />
-                      <div>Provide of maxmium supply of editions</div>
+                      <div className={styles.max}>Provide of maxmium supply of editions</div>
                     </div>
                   )}
                 </>
