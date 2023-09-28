@@ -325,6 +325,9 @@ const MainSection = ({
     setOpenProgressingModal(false)
   }
 
+  const mintEdition = () => {
+
+  }
   const makeOffer = async price => {
     setOpenProgressingModal(true)
 
@@ -1048,7 +1051,7 @@ const MainSection = ({
                         fullWidth
                         label={'Mint Edition'}
                         direction="rtl"
-                        onClick={() => quickBuy()}
+                        onClick={() => mintEdition()}
                         fontFamily="Muli-SemiBold"
                         height={50}
                         disabled={!tradeStateAddress}

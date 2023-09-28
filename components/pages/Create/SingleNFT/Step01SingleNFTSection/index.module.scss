@@ -241,12 +241,12 @@
   margin-top: 20px;
   font-size: 18px;
   font-family: 'Muli-Bold';
-  color: var(--main-bg-color);
+  color: var(--text-gray-200-color);
 }
 .editionDescription {
   font-size: 16px;
   font-family: 'Muli-Regular';
-  color: rgba(var(--main-bg-color-rgb), 0.7);
+  color: rgba(var(--text-gray-200-color-rgb), 0.7);
 }
 .max {
   width: 100%;
@@ -254,5 +254,5 @@
   margin-top: 10px;
   font-size: 14px;
   font-family: 'Muli-Regular';
-  color: var(--main-bg-color);
+  color: var(--text-gray-200-color);
 }

@@ -5,8 +5,8 @@
     "icon02": "/icons/diamond-gray.svg",
     "icon03": "/icons/diamond-gray-light.svg",
     "icon04": "/icons/diamond-gray-dark.svg",
-    "label": "My NFTs",
-    "value": "My NFTs",
+    "label": "Created",
+    "value": "Created",
     "coming_soon": false
   },
   {
@@ -15,8 +15,8 @@
     "icon02": "/icons/list-ui-alt-gray.svg",
     "icon03": "/icons/list-ui-alt-gray-light.svg",
     "icon04": "/icons/list-ui-alt-gray-dark.svg",
-    "label": "Listed NFTs",
-    "value": "Listed NFTs",
+    "label": "On Sale",
+    "value": "On Sale",
     "coming_soon": false
   },
   {
