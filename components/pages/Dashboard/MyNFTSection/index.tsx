@@ -26,10 +26,12 @@ import NoDataSection from '../NoDataSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 import TimeSlotButton from 'components/Button/TimeSlotButton'
 import { useAuthentication } from 'hooks/useAuthentication'
+import { useViewport } from 'utils'
 
 const MyNFTSection = props => {
   const { changeActiveTab } = props
   const router = useRouter()
+  const viewport = useViewport()
   const dispatch = useDispatch()
   const [loading, setLoading] = useState(false)
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
@@ -190,7 +192,7 @@ const MyNFTSection = props => {
           <div className="w-full lg:w-auto flex h-[54px] mt-[15px] z-10">
             <div className={styles.slotBG}>
               <TimeSlotButton
-                label="Created"
+                label="Single"
                 onClick={() => setActive(0)}
                 fontFamily={'Muli-SemiBold'}
                 color={active === 0 ? 'var(--search-menu-icon-color)' : '#979EA2'}
@@ -201,7 +203,7 @@ const MyNFTSection = props => {
                 boxShadow={active === 0 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
               <TimeSlotButton
-                label="Open Edition"
+                label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Open ED.' : 'Open Edition'}
                 onClick={() => setActive(1)}
                 fontFamily={'Muli-SemiBold'}
                 color={active === 1 ? 'var(--search-menu-icon-color)' : '#979EA2'}
@@ -212,7 +214,7 @@ const MyNFTSection = props => {
                 boxShadow={active === 1 ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
               />
               <TimeSlotButton
-                label="Limited Edition"
+                label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Limited ED.' : 'Limited Edition'}
                 onClick={() => setActive(2)}
                 fontFamily={'Muli-SemiBold'}
                 color={active === 2 ? 'var(--search-menu-icon-color)' : '#979EA2'}
