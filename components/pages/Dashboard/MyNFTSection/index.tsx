@@ -130,14 +130,16 @@ const MyNFTSection = props => {
   useEffect(() => {
     let list = []
     let allList = myNftList as any[]
-    allList.forEach(item => {
-      console.log('1111111111111', item)
-      if (active === 0) {
-        list.push(item)
-      } else if (active === 1 && item.isOpenEdition) {
-        list.push(item)
-      } else if (active === 2 && item.isLimitedEdition) {
-        list.push(item)
+    allList.forEach(nft => {
+      let isSingleNft = nft.edition?.isOriginal == true ? nft.edition?.maxSupply == 0 : true
+      let isOpenEdition = nft.edition?.isOriginal == true && nft.edition?.maxSupply === null
+      let isLimitedEdition = nft.edition?.isOriginal == true && nft.edition?.maxSupply?.gt(0)
+      if (active === 0 && isSingleNft) {
+        list.push(nft)
+      } else if (active === 1 && isOpenEdition) {
+        list.push(nft)
+      } else if (active === 2 && isLimitedEdition) {
+        list.push(nft)
       }
     })
 

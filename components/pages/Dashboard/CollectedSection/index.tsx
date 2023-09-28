@@ -5,7 +5,7 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react'
 import { useRouter } from 'next/router'
 
 // components
-import CollectionCard from 'components/Card/CollectionCard'
+import MyNFTCard from 'components/Card/MyNFTCard'
 import StartAuctionModal from 'components/Modal/StartAuctionModal'
 import ListNFTModal from 'components/Modal/ListNFTModal'
 import ProgressingModal from 'components/Modal/ProgressingModal'
@@ -28,6 +28,7 @@ const CollectedSection = props => {
   const { changeActiveTab } = props
   const router = useRouter()
   const dispatch = useDispatch()
+  const [active, setActive] = useState(0)
   const [allNftList, setAllNFTList] = useState([])
   const isGetMyNFTs = useSelector<any>(state => state.isGetMyNFTs)
   const collectedNftList = useSelector<any>(state => state.collectedNftList)
@@ -128,12 +129,13 @@ const CollectedSection = props => {
         {!loading &&
           allNftList.map((item, index) => (
             <div className="col-span-6 md:col-span-6 lg:col-span-3 gap-[34px]" key={index}>
-              <CollectionCard
+              <MyNFTCard
                 data={item}
                 publicKey={publicKey}
                 onClick={(data: any) => handleGotoDetailPage(data)}
                 onClickStartAuction={item => handleStartAuction(item)}
                 onClickListNFT={item => handleListNFT(item)}
+                active={active}
               />
             </div>
           ))}
