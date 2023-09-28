@@ -268,11 +268,22 @@ const Step01SingleNFTSection = props => {
                   <div className={styles.editionTitle}>Max Supply *</div>
                   <div className={styles.editionDescription}>The max number of copies that will be created</div>
                   <div className="flex flex-row justify-between max-w-[450px]">
-                    <Radio data={MaxNumberList} selected={maxNum} onChange={item => setMaxNum(item)} />
+                    <Radio
+                      data={MaxNumberList}
+                      selected={maxNum}
+                      onChange={item => {
+                        setMaxNum(item)
+                        setMaxSupply(item.value)
+                      }}
+                    />
                   </div>
                   {maxNum['id'] === 3 && (
                     <div className="max-w-[450px]">
-                      <Input />
+                      <Input
+                        onChange={value => {
+                          setMaxSupply(value)
+                        }}
+                      />
                       <span className={styles.maxInput}>Provide of maxmium supply of editions</span>
                     </div>
                   )}

@@ -85,7 +85,7 @@ const SingleNft = () => {
   }
   // step 1
   const [editionType, setEditionType] = useState(null)
-  const [maxNum, setMaxNum] = useState(4)
+  const [maxNum, setMaxNum] = useState(10)
   const [dimensionList, setDimensionList] = useState(NFTDimensionList)
   const [selectedDimension, setSelectedDimension] = useState(dimensionList[0])
   const [nftArt, setNftArt] = useState<any>(null)
@@ -700,7 +700,7 @@ const SingleNft = () => {
                         setEditionType={item => setEditionType(item)}
                         setNftArt={item => handleChangeNftArt(item)}
                         setNftCover={item => handleChangeNftCover(item)}
-                        setMaxSupply={setMaxNum}
+                        setMaxSupply={(value) =>setMaxNum(value)}
                       />
                     )}
 
