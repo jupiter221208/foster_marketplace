@@ -700,7 +700,7 @@ const SingleNft = () => {
                         setEditionType={item => setEditionType(item)}
                         setNftArt={item => handleChangeNftArt(item)}
                         setNftCover={item => handleChangeNftCover(item)}
-                        setMaxSupply={(value) =>setMaxNum(value)}
+                        setMaxSupply={value => setMaxNum(value)}
                       />
                     )}
 
@@ -913,9 +913,12 @@ const SingleNft = () => {
               {/* upload artwork part */}
               {currentStep === 1 && (
                 <Step01SingleNFTSection
+                  type={type}
                   nftType={nftType}
+                  setEditionType={item => setEditionType(item)}
                   setNftArt={item => handleChangeNftArt(item)}
                   setNftCover={item => handleChangeNftCover(item)}
+                  setMaxSupply={value => setMaxNum(value)}
                 />
               )}
 
