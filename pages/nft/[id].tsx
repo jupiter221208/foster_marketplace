@@ -7,7 +7,7 @@ import Image from 'next/image'
 // solana
 import { Connection, PublicKey } from '@solana/web3.js'
 import { Metaplex, toNftOriginalEdition, toOriginalEditionAccount } from '@metaplex-foundation/js'
-import type { Sft, Nft } from '@metaplex-foundation/js'
+import type { Sft, Nft, NftOriginalEdition } from '@metaplex-foundation/js'
 import { useWallet } from '@solana/wallet-adapter-react'
 
 // components
@@ -51,6 +51,10 @@ export interface EditionDetail {
   print?: {
     number: number
   }
+  isOriginal: boolean
+  isSingleNft: boolean
+  isOpenEdition: boolean
+  isLimitedEdition: boolean
 }
 
 export interface BrowseNFTProps {
@@ -306,26 +310,29 @@ BrowseNFT.getInitialProps = async function ({ res, query }): Promise<BrowseNFTPr
     let nftDetail = await metaplex.nfts().findByMint({ mintAddress })
     if (nftDetail.model == 'sft') throw new Error('expected nft, found sft')
 
-    let editionDetail: EditionDetail | null = null
-    let nftEdition = nftDetail.edition
-    if (nftEdition.isOriginal == false) {
-      let originalEditionDetail = await metaplex
+    let originalEdition: NftOriginalEdition | null
+    let print = null
+    if (nftDetail.edition.isOriginal == false) {
+      originalEdition = await metaplex
         .rpc()
-        .getAccount(nftEdition.parent)
+        .getAccount(nftDetail.edition.parent)
         .then(toOriginalEditionAccount)
         .then(toNftOriginalEdition)
-      editionDetail = {
-        supply: originalEditionDetail.supply.toNumber(),
-        maxSupply: originalEditionDetail.maxSupply?.toNumber(),
-        print: {
-          number: nftEdition.number.toNumber(),
-        },
+      print = {
+        number: nftDetail.edition.number.toNumber(),
       }
-    } else
-      editionDetail = {
-        supply: nftEdition.supply.toNumber(),
-        maxSupply: nftEdition.maxSupply?.toNumber(),
-      }
+    } else originalEdition = nftDetail.edition
+
+    let maxSupply = originalEdition.maxSupply?.toNumber()
+    let editionDetail: EditionDetail = {
+      supply: originalEdition.supply.toNumber(),
+      maxSupply,
+      print,
+      isOriginal: originalEdition.isOriginal,
+      isSingleNft: maxSupply === 0,
+      isOpenEdition: maxSupply === null,
+      isLimitedEdition: maxSupply > 0,
+    }
 
     return {
       nftDetail,

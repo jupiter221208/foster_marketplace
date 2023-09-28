@@ -991,12 +991,12 @@ const MainSection = ({
                 </div>
               )}
             </div>
-            {editionDetail.maxSupply !== 0 && (
+            {(editionDetail.isOpenEdition || editionDetail.isLimitedEdition) && (
               <div className={styles.editionContainer}>
                 <div className="w-full flex justify-between">
                   <div className={styles.editionTitle}>Token Type</div>
                   <div className={styles.editionValue}>
-                    {editionDetail.maxSupply ? 'Limited Edition' : 'Open Edition'}
+                    {editionDetail.isLimitedEdition ? 'Limited Edition' : 'Open Edition'}
                   </div>
                 </div>
                 <div className="w-full flex justify-between mt-[15px]">
@@ -1210,7 +1210,7 @@ const MainSection = ({
               ) : !loading && nftInfo && connected ? (
                 isOwnNft === true ? (
                   <div className="w-full flex gap-[20px] mt-[20px]">
-                    {editionDetail.maxSupply === 0 && (
+                    {editionDetail.isSingleNft && (
                       <OutlineButton
                         label="Start Auction"
                         onClick={() => setShowStartAuctionModal(true)}
