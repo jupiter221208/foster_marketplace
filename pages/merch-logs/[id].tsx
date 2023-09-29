@@ -51,9 +51,8 @@ const MerchDetail = () => {
   }, [])
 
   useEffect(() => {
-    console.log(profileInfo)
-    setEmailBody()
-  }, [profileInfo])
+    if (publicKey) setEmailBody()
+  }, [profileInfo, publicKey])
 
   useEffect(() => {
     if (typeof id != 'string' || !Number.isFinite(parseInt(id))) return
