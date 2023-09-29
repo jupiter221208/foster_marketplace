@@ -288,10 +288,18 @@ const MerchDetail = () => {
                   body: helpBody,
                 })}`}
               >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
                   label="Get help"
+                  disabled={true}
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color={'var(--text-gray-200-color)'}
+                  width={335}
                   onClick={() => {}}
                 />
               </a>
@@ -303,14 +311,21 @@ const MerchDetail = () => {
                   body: reviewBody,
                 })}`}
               >
-                <OutlineButton
-                  borderColor="var(--follow-btn-border-mobile)"
-                  width={335}
+                <Button
+                  height="48px"
+                  fontSize="16px"
+                  paddingLeft="37px"
+                  paddingRight="37px"
                   label="Write a product review"
-                  onClick={() => {}}
-                  // onClick={() => {
-                  //   window.location.href = 'mailto:admin@fostermarketplace.io'
-                  // }}
+                  disabled={true}
+                  backgroundColor="transparent"
+                  borderColor="var(--follow-btn-border-mobile)"
+                  borderWidth={1}
+                  color={'var(--text-gray-200-color)'}
+                  width={335}
+                  onClick={() => {
+                    window.location.href = 'mailto:admin@fostermarketplace.io'
+                  }}
                 />
               </a>
             </div>
@@ -436,20 +451,36 @@ const MerchDetail = () => {
             )}
 
             <div className="mt-[12px]">
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
+              <Button
+                height="48px"
+                fontSize="16px"
+                paddingLeft="37px"
+                paddingRight="37px"
                 label="Get help"
+                disabled={true}
+                backgroundColor="transparent"
+                borderColor="var(--follow-btn-border-mobile)"
+                borderWidth={1}
+                color={'var(--text-gray-200-color)'}
+                width={335}
                 onClick={() => {
                   window.location.href = 'mailto:admin@fostermarketplace.io'
                 }}
               />
             </div>
             <div className="mt-[12px]">
-              <OutlineButton
-                borderColor="var(--follow-btn-border-mobile)"
-                width={335}
+              <Button
+                height="48px"
+                fontSize="16px"
+                paddingLeft="37px"
+                paddingRight="37px"
                 label="Write a product review"
+                disabled={true}
+                backgroundColor="transparent"
+                borderColor="var(--follow-btn-border-mobile)"
+                borderWidth={1}
+                color={'var(--text-gray-200-color)'}
+                width={335}
                 onClick={() => {
                   window.location.href = 'mailto:admin@fostermarketplace.io'
                 }}
