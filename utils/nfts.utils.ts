@@ -161,28 +161,37 @@ export async function getMyNFTsDas(mx: Metaplex): Promise<NftData[]> {
   let rpcEndpoint = mx.connection.rpcEndpoint
   if (!new URL(rpcEndpoint).hostname.endsWith('helius.xyz')) throw new Error(`needs helius rpc, found: ${rpcEndpoint}`)
 
-  let {
-    result: { items },
-  } = await fetch(rpcEndpoint, {
-    method: 'POST',
-    headers: {
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({
-      jsonrpc: '2.0',
-      id: 'getMyNFTsDas',
-      method: 'getAssetsByOwner',
-      params: {
-        ownerAddress: mx.identity().publicKey,
-        page: 1,
-        displayOptions: {
-          showUnverifiedCollections: true,
-        },
+  let allNfts = []
+  let limit = 1000
+  for (let page = 1; ; page++) {
+    let {
+      result: { items },
+    } = await fetch(rpcEndpoint, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
       },
-    }),
-  }).then(r => r.json())
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id: 'getMyNFTsDas',
+        method: 'getAssetsByOwner',
+        params: {
+          ownerAddress: mx.identity().publicKey,
+          page,
+          limit,
+          displayOptions: {
+            showUnverifiedCollections: true,
+          },
+        },
+      }),
+    }).then(r => r.json())
 
-  let nonCompressedNfts = items.filter(({ burnt, compression }) => !burnt && !compression.compressed)
+    allNfts.push(...items)
+
+    if (items.length != limit) break
+  }
+
+  let nonCompressedNfts = allNfts.filter(({ burnt, compression }) => !burnt && !compression.compressed)
 
   return nonCompressedNfts.map(({ id, content, creators, grouping, ownership, supply }) => {
     let image = content.links.image
