@@ -16,10 +16,10 @@ import styles from './id.module.scss'
 import OutlineButton from 'components/Button/OutlineButton'
 
 // api
-import { getOrder, OrderData } from 'apis/merch'
+import { getOrder, type OrderData, type ShipStationShipment } from 'apis/merch'
 import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import { getShippingServiceName } from 'utils/merch'
+import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
@@ -37,7 +37,7 @@ const MerchDetail = () => {
   const [orderDetails, setOrderDetails] = useState(null)
   const [itemDetails, setItemDetails] = useState(null)
   const [paymentDetails, setPaymentDetails] = useState(null)
-  const [trackingDetails, setTrackingDetails] = useState(null)
+  const [trackingDetails, setTrackingDetails] = useState<ShipStationShipment>(null)
   const [previewUrl, setPreviewUrl] = useState('')
   const [paidBy, setPaidBy] = useState('')
   const [isOwn, setIsOwn] = useState(false)
@@ -66,9 +66,9 @@ const MerchDetail = () => {
     dispatch({ type: 'set', isLoading: false })
 
     if (!orderData) return
-    let { order, ssorder, fulfillment } = orderData
+    let { order, ssorder, shipment } = orderData
 
-    if (fulfillment) setTrackingDetails(fulfillment)
+    if (shipment) setTrackingDetails(shipment)
 
     let itemData = orderData?.ssorder.items[0]
     let options = itemData.options
@@ -144,12 +144,7 @@ const MerchDetail = () => {
 
   const gotoTrackPage = () => {
     if (trackingDetails !== null && trackingDetails.trackingNumber.length > 0) {
-      window.open(
-        `https://tools.usps.com/go/TrackConfirmAction.action?tLabels=${trackingDetails.trackingNumber.replaceAll(
-          ' ',
-          ''
-        )}`
-      )
+      window.open(getTrackingUrl(trackingDetails))
     }
   }
 

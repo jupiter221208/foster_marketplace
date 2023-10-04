@@ -6,6 +6,9 @@ import {
 } from '@solana/spl-token'
 import { type Metaplex, sol, token, toMetadata, toMetadataAccount } from '@metaplex-foundation/js'
 
+import { type ShipStationShipment } from 'apis/merch'
+import { addUrlSearchParams } from 'utils'
+
 export const MERCH_FOSTER_ADDRESS = new PublicKey('BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT')
 export const MERCH_MADDIES_ADDRESS = new PublicKey('GhByFEmT6mGm9PCz6bNg7tQ76BkXEpSEkBGAYsBYQbwx')
 
@@ -27,6 +30,18 @@ export const SHIPPING_SERVICE_NAMES = {
 
 export function getShippingServiceName(code: string): string {
   return SHIPPING_SERVICE_NAMES[code] ?? code
+}
+
+export function getTrackingUrl({ serviceCode, trackingNumber }: ShipStationShipment): string {
+  if (serviceCode.startsWith('usps_'))
+    return addUrlSearchParams('https://tools.usps.com/go/TrackConfirmAction.action', {
+      tLabels: trackingNumber,
+    }).toString()
+  else if (serviceCode.startsWith('ups_'))
+    return addUrlSearchParams('https://www.ups.com/track', { tracknum: trackingNumber }).toString()
+
+  console.warn(`unknown shipping service: ${serviceCode}, tracking number: ${trackingNumber}`)
+  return '#'
 }
 
 export interface CreatePaymentTransactionArgs {

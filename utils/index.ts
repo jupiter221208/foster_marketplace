@@ -92,6 +92,17 @@ export const fetchSolToUsdRate = async () => {
     .then(({ solana: { usd } }) => usd)
 }
 
+export function addUrlSearchParams(
+  base: string | URL,
+  searchParams: Record<string, undefined | null | string | number | (string | number)[]>
+): URL {
+  let url = new URL(base.toString())
+  for (let [key, value] of Object.entries(searchParams))
+    if (value !== undefined && value !== null) url.searchParams.append(key, value.toString())
+
+  return url
+}
+
 export const ensureMaxDecimals = (n, decimals) => {
   let multiplier = 10 ** decimals
   return Math.floor(n * multiplier) / multiplier
