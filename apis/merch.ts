@@ -75,11 +75,34 @@ export interface ShipStationOrderItemOption {
   value: string
 }
 
-export interface TrackingItem {
-  tracking_number: string
-  delivery_date: string
-  fulfillment_service_code: string
-  fulfillment_provider_code: string
+export interface ShipStationShipment {
+  shipment_id: number
+  createDate: String
+  shipDate: String
+  shipmentCost: number
+  insuranceCost: number
+  trackingNumber: String
+  isreturnLabel: boolean
+  batchNumber?: String
+
+  carrierCode: String
+  serviceCode: String
+  packageCode: String
+  confirmation: String
+  warehouseId: number
+
+  voided: boolean
+  voidDate?: String
+  marketplaceNotified: boolean
+  notifyerrorMessage?: String
+
+  dimensions?: JSON
+
+  insuranceOptions?: JSON
+  advancedOptions?: JSON
+  shipmentItems?: JSON
+  labelData?: JSON
+  formData?: JSON
 }
 
 export interface OrderData {
@@ -98,7 +121,7 @@ export interface OrderData {
     buyer_address: string
   }
   ssorder: ShipStationOrder
-  fulfillment?: TrackingItem
+  shipment?: ShipStationShipment
 }
 
 export function prepareCart(data) {
