@@ -77,24 +77,24 @@ export interface ShipStationOrderItemOption {
 
 export interface ShipStationShipment {
   shipment_id: number
-  createDate: String
-  shipDate: String
+  createDate: string
+  shipDate: string
   shipmentCost: number
   insuranceCost: number
-  trackingNumber: String
-  isreturnLabel: boolean
-  batchNumber?: String
+  trackingNumber: string
+  isReturnLabel: boolean
+  batchNumber?: string
 
-  carrierCode: String
-  serviceCode: String
-  packageCode: String
-  confirmation: String
+  carrierCode: string
+  serviceCode: string
+  packageCode: string
+  confirmation: string
   warehouseId: number
 
   voided: boolean
-  voidDate?: String
+  voidDate?: string
   marketplaceNotified: boolean
-  notifyerrorMessage?: String
+  notifyerrorMessage?: string
 
   dimensions?: JSON
 

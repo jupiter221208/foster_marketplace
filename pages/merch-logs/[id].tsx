@@ -19,7 +19,7 @@ import OutlineButton from 'components/Button/OutlineButton'
 import { getOrder, type OrderData, type ShipStationShipment } from 'apis/merch'
 import { findElement, getLocalDateWithoutTime, isLoggedIn } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
-import { getShippingServiceName } from 'utils/merch'
+import { getShippingServiceName, getTrackingUrl } from 'utils/merch'
 import { getShortAddress } from 'utils/strings'
 import Button from 'components/Button'
 import { set } from '@project-serum/anchor/dist/cjs/utils/features'
@@ -144,12 +144,7 @@ const MerchDetail = () => {
 
   const gotoTrackPage = () => {
     if (trackingDetails !== null && trackingDetails.trackingNumber.length > 0) {
-      window.open(
-        `https://tools.usps.com/go/TrackConfirmAction.action?tLabels=${trackingDetails.trackingNumber.replaceAll(
-          ' ',
-          ''
-        )}`
-      )
+      window.open(getTrackingUrl(trackingDetails))
     }
   }
 
