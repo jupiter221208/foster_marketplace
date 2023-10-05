@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "title": "Short Sleeve",
+    "fields": ["Brand Size", "US Size", "EU Size", "Chest (in)"]
+  },
+  {
+    "id": 1,
+    "title": "Hoodie",
+    "fields": ["Brand Size", "Sleeve Length (in)", "Chest (in)"]
+  },
+  {
+    "id": 2,
+    "title": "Youth Hoodie",
+    "fields": ["Brand Size", "Chest (in)"]
+  },
+  {
+    "id": 3,
+    "title": "Long Sleeve",
+    "fields": ["Brand Size", "US Size", "EU Size", "Chest (in)"]
+  },
+  {
+    "id": 4,
+    "title": "Sweatshirt",
+    "fields": ["Brand Size", "Sleeve(in)", "Chest (in)", "Shoulder (in)"]
+  },
+  {
+    "id": 5,
+    "title": "Women's Short Sleeve",
+    "fields": ["Brand Size", "US Size", "Bust (in)"]
+  },
+  {
+    "id": 6,
+    "title": "Youth Short Sleeve",
+    "fields": ["Brand Size", "US Size", "EU Size", "Chest (in)"]
+  }
+]

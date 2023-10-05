@@ -1,30 +1,311 @@
 [
   {
     "id": 0,
-    "name": "XS"
+    "type": "Short Sleeve",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "XS",
+        "USSize": "34",
+        "EUSize": "44",
+        "Chest": "31 - 34"
+      },
+      {
+        "id": 1,
+        "BrandSize": "S",
+        "USSize": "38",
+        "EUSize": "48",
+        "Chest": "34 - 37"
+      },
+      {
+        "id": 2,
+        "BrandSize": "M",
+        "USSize": "40",
+        "EUSize": "50",
+        "Chest": "38 - 41"
+      },
+      {
+        "id": 3,
+        "BrandSize": "L",
+        "USSize": "42",
+        "EUSize": "52",
+        "Chest": "42 - 45"
+      },
+      {
+        "id": 4,
+        "BrandSize": "XL",
+        "USSize": "44",
+        "EUSize": "54",
+        "Chest": "46 - 49"
+      },
+      {
+        "id": 5,
+        "BrandSize": "2XL",
+        "USSize": "46",
+        "EUSize": "56",
+        "Chest": "50 - 53"
+      },
+      {
+        "id": 6,
+        "BrandSize": "3XL",
+        "USSize": "48",
+        "EUSize": "58",
+        "Chest": "54 - 57"
+      }
+    ]
   },
   {
     "id": 1,
-    "name": "S"
+    "type": "Sweatshirt",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "S",
+        "Sleeve": "33.5",
+        "Chest": "27",
+        "Shoulder": "19.2"
+      },
+      {
+        "id": 1,
+        "BrandSize": "M",
+        "Sleeve": "34.5",
+        "Chest": "28",
+        "Shoulder": "21.2"
+      },
+      {
+        "id": 2,
+        "BrandSize": "L",
+        "Sleeve": "35.5",
+        "Chest": "29",
+        "Shoulder": "23.2"
+      },
+      {
+        "id": 3,
+        "BrandSize": "XL",
+        "Sleeve": "36.5",
+        "Chest": "30",
+        "Shoulder": "25.2"
+      },
+      {
+        "id": 4,
+        "BrandSize": "2XL",
+        "Sleeve": "37.5",
+        "Chest": "31",
+        "Shoulder": "27.2"
+      },
+      {
+        "id": 5,
+        "BrandSize": "3XL",
+        "Sleeve": "38.5",
+        "Chest": "32",
+        "Shoulder": "29.2"
+      }
+    ]
   },
   {
     "id": 2,
-    "name": "M"
+    "type": "Hoodie",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "XS",
+        "SleeveLength": "33.5",
+        "Chest": "38"
+      },
+      {
+        "id": 1,
+        "BrandSize": "S",
+        "SleeveLength": "34.5",
+        "Chest": "40"
+      },
+      {
+        "id": 2,
+        "BrandSize": "M",
+        "SleeveLength": "35.5",
+        "Chest": "44"
+      },
+      {
+        "id": 3,
+        "BrandSize": "L",
+        "SleeveLength": "36.5",
+        "Chest": "47"
+      },
+      {
+        "id": 4,
+        "BrandSize": "XL",
+        "SleeveLength": "37.5",
+        "Chest": "51"
+      },
+      {
+        "id": 5,
+        "BrandSize": "2XL",
+        "SleeveLength": "38.5",
+        "Chest": "54"
+      },
+      {
+        "id": 6,
+        "BrandSize": "3XL",
+        "SleeveLength": "39.5",
+        "Chest": "56"
+      }
+    ]
   },
   {
     "id": 3,
-    "name": "L"
+    "type": "Long Sleeve",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "S",
+        "USSize": "38",
+        "EUSize": "48",
+        "Chest": "34 - 37"
+      },
+      {
+        "id": 1,
+        "BrandSize": "M",
+        "USSize": "40",
+        "EUSize": "50",
+        "Chest": "38 - 41"
+      },
+      {
+        "id": 2,
+        "BrandSize": "L",
+        "USSize": "42",
+        "EUSize": "52",
+        "Chest": "42 - 45"
+      },
+      {
+        "id": 3,
+        "BrandSize": "XL",
+        "USSize": "44",
+        "EUSize": "54",
+        "Chest": "46 - 49"
+      },
+      {
+        "id": 4,
+        "BrandSize": "2XL",
+        "USSize": "46",
+        "EUSize": "56",
+        "Chest": "50 - 53"
+      }
+    ]
   },
   {
     "id": 4,
-    "name": "XL"
+    "type": "Women's Short Sleeve",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "S",
+        "USSize": "6 - 8",
+        "Chest": "30 - 32"
+      },
+      {
+        "id": 1,
+        "BrandSize": "M",
+        "USSize": "10 - 12",
+        "Chest": "32 - 34"
+      },
+      {
+        "id": 2,
+        "BrandSize": "L",
+        "USSize": "14 - 16",
+        "Chest": "34 - 36"
+      },
+      {
+        "id": 3,
+        "BrandSize": "XL",
+        "USSize": "44",
+        "EUSize": "54",
+        "Chest": "36 - 38"
+      }
+    ]
   },
   {
     "id": 5,
-    "name": "2XL"
+    "type": "Youth Hoodie",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "XS",
+        "Chest": "32"
+      },
+      {
+        "id": 1,
+        "BrandSize": "S",
+        "Chest": "34 "
+      },
+      {
+        "id": 2,
+        "BrandSize": "M",
+        "Chest": "36"
+      },
+      {
+        "id": 2,
+        "BrandSize": "L",
+        "Chest": "38"
+      },
+      {
+        "id": 3,
+        "BrandSize": "XL",
+        "Chest": "40"
+      }
+    ]
   },
   {
     "id": 6,
-    "name": "3XL"
+    "type": "Youth Short Sleeve",
+    "size": [
+      {
+        "id": 0,
+        "BrandSize": "XS",
+        "USSize": "34",
+        "EUSize": "44",
+        "Chest": "31 - 34"
+      },
+      {
+        "id": 1,
+        "BrandSize": "S",
+        "USSize": "38",
+        "EUSize": "48",
+        "Chest": "34 - 37"
+      },
+      {
+        "id": 2,
+        "BrandSize": "M",
+        "USSize": "40",
+        "EUSize": "50",
+        "Chest": "38 - 41"
+      },
+      {
+        "id": 3,
+        "BrandSize": "L",
+        "USSize": "42",
+        "EUSize": "52",
+        "Chest": "42 - 45"
+      },
+      {
+        "id": 4,
+        "BrandSize": "XL",
+        "USSize": "44",
+        "EUSize": "54",
+        "Chest": "46 - 49"
+      },
+      {
+        "id": 5,
+        "BrandSize": "2XL",
+        "USSize": "46",
+        "EUSize": "56",
+        "Chest": "50 - 53"
+      },
+      {
+        "id": 6,
+        "BrandSize": "3XL",
+        "USSize": "48",
+        "EUSize": "58",
+        "Chest": "54 - 57"
+      }
+    ]
   }
 ]

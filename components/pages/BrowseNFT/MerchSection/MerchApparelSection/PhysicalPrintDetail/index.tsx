@@ -27,6 +27,8 @@ import { useViewport } from 'utils'
 import ApparelSection from '../ApparelSection'
 import OutlineButton from 'components/Button/OutlineButton'
 
+import SizeChartModal from 'components/Modal/SizeChartModal'
+
 // api
 
 const PhysicalPrintDetail = props => {
@@ -55,6 +57,7 @@ const PhysicalPrintDetail = props => {
   const [apparelList, setApparelList] = useState(ShopApparelList)
   const [apparelType, setApparelType] = useState(ApparelType)
   const [qualityType, setQualityType] = useState(QualityType)
+  const [tableModal, setTableModal] = useState(false)
   const [cost, setCost] = useState('----')
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
@@ -190,6 +193,17 @@ const PhysicalPrintDetail = props => {
     }
     return ''
   }
+  const getApparelDescription = () => {
+    if (apparel) {
+      let type = gender.type
+      let name = apparel?.name
+      let description = apparel?.description
+      let list = apparelList.filter(item => item.base === name && item.sub_type == type)
+      if (list.length > 0) return list[0].description
+      else return description
+    }
+    return ''
+  }
 
   return (
     <section className={styles.container}>
@@ -216,9 +230,7 @@ const PhysicalPrintDetail = props => {
           {getApparelName()}&nbsp;<div className={styles.nftName}>({nftName})</div>
         </div>
       </div>
-      <div className={styles.description}>
-        Select the side of apparel you would like to place the print, fabric color, and quality.
-      </div>
+      <div className={styles.description}>{getApparelDescription()}</div>
       {/* <div className="w-full mt-[30px] lg:mt-[40px]">
         <Selection
           label={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 'GENDER:' : 'Gender:'}
@@ -238,9 +250,9 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[25px]">
         <Selection label={'Placement:'} data={PrintType} selected={print?.name} onSelect={item => setPrint(item)} />
       </div>
-      <div className="w-full mt-[25px]">
+      {/* <div className="w-full mt-[25px]">
         <Selection label={'Quality:'} data={qualityType} selected={quality?.name} onSelect={item => setQuality(item)} />
-      </div>
+      </div> */}
       <div className="w-full mt-[25px]">
         <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} />
       </div>
@@ -259,6 +271,19 @@ const PhysicalPrintDetail = props => {
             onChange={event => setQuantity(parseInt(event.target.value))}
           />
         </div>
+      </div>
+      <div className="w-full mt-[25px] block lg:flex flex-row items-center gap-2">
+        <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
+          Size Chart
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
+          <path
+            id="angle-down-9"
+            d="M17,9.17a1,1,0,0,0-1.41,0L12,12.71,8.46,9.17a1,1,0,1,0-1.41,1.42l4.24,4.24a1,1,0,0,0,1.42,0L17,10.59a1,1,0,0,0,0-1.42Z"
+            transform="translate(-6.754 -8.879)"
+            fill="var(--chevron-up-icon-color)"
+          />
+        </svg>
       </div>
       <div className="w-full mt-[30px] lg:mt-[160px] flex">
         <div className={styles.subTotal}>Subtotal:</div>
@@ -297,6 +322,7 @@ const PhysicalPrintDetail = props => {
           }}
         />
       </div>
+      <SizeChartModal open={tableModal} title={getApparelName()} onClose={() => setTableModal(false)} />
     </section>
   )
 }
