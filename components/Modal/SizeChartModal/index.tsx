@@ -137,7 +137,11 @@ const StartAuctionModal = props => {
                               {SizeTitleList.map((item, index) => {
                                 if (title === item.title)
                                   return item.fields.map((itemfield, index) => {
-                                    return <th className=" px-6 py-4">{itemfield}</th>
+                                    return (
+                                      <th key={index} className=" px-6 py-4">
+                                        {itemfield}
+                                      </th>
+                                    )
                                   })
                               })}
                             </tr>
@@ -149,7 +153,7 @@ const StartAuctionModal = props => {
                                   switch (title) {
                                     case 'Short Sleeve':
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className=" px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className=" px-6 py-4">{sizeItem.USSize}</th>
                                           <th className=" px-6 py-4">{sizeItem.EUSize}</th>
@@ -159,7 +163,7 @@ const StartAuctionModal = props => {
 
                                     case 'Sweatshirt':
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.Sleeve}</th>
                                           <th className="px-6 py-4">{sizeItem.Chest}</th>
@@ -169,7 +173,7 @@ const StartAuctionModal = props => {
 
                                     case 'Hoodie':
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.SleeveLength}</th>
                                           <th>{sizeItem.Chest}</th>
@@ -178,7 +182,7 @@ const StartAuctionModal = props => {
 
                                     case 'Youth Hoodie':
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.Chest}</th>
                                         </tr>
@@ -186,7 +190,7 @@ const StartAuctionModal = props => {
 
                                     case 'Youth Short Sleeve':
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.USSize}</th>
                                           <th className="px-6 py-4">{sizeItem.EUSize}</th>
@@ -196,7 +200,7 @@ const StartAuctionModal = props => {
 
                                     case "Women's Short Sleeve":
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.USSize}</th>
                                           <th className="px-6 py-4">{sizeItem.Chest}</th>
@@ -205,7 +209,7 @@ const StartAuctionModal = props => {
 
                                     case 'Long Sleeve':
                                       return (
-                                        <tr className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
+                                        <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.USSize}</th>
                                           <th className="px-6 py-4">{sizeItem.EUSize}</th>
