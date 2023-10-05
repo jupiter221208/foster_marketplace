@@ -53,22 +53,22 @@
       "basic": {
         "navy": {
           "item_id": 15,
-          "cost": 27.8,
+          "cost": 32.79,
           "image": { "front": "/images/apparel/man_hoodie_navy.png", "back": "/images/apparel/man_hoodie_navy_b.png" }
         },
         "gray": {
           "item_id": 15,
-          "cost": 27.8,
+          "cost": 32.79,
           "image": { "front": "/images/apparel/man_hoodie_gray.png", "back": "/images/apparel/man_hoodie_gray_b.png" }
         },
         "black": {
           "item_id": 15,
-          "cost": 27.8,
+          "cost": 32.79,
           "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png" }
         },
         "white": {
           "item_id": 16,
-          "cost": 27.3,
+          "cost": 32.29,
           "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
         }
       }

@@ -28,7 +28,7 @@ import styles from './index.module.scss'
 // backend
 import AuctionsAPI from 'apis/auctions'
 
-import SizeList from 'assets/json/print/size.json'
+import SizeList from 'assets/json/print/size-chat-modal.json'
 import SizeTitleList from 'assets/json/print/size-title.json'
 
 // solana
@@ -194,7 +194,7 @@ const StartAuctionModal = props => {
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.USSize}</th>
                                           <th className="px-6 py-4">{sizeItem.EUSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.Chest}</th>
+                                          <th className="px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
@@ -203,7 +203,7 @@ const StartAuctionModal = props => {
                                         <tr key={index} className={`${sizeItem.id % 2 === 1 ? styles.itemColor : ''}`}>
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.USSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.Chest}</th>
+                                          <th className="px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
@@ -213,7 +213,7 @@ const StartAuctionModal = props => {
                                           <th className="px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className="px-6 py-4">{sizeItem.USSize}</th>
                                           <th className="px-6 py-4">{sizeItem.EUSize}</th>
-                                          <th className="px-6 py-4">{sizeItem.Chest}</th>
+                                          <th className="px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
                                         </tr>
                                       )
                                   }

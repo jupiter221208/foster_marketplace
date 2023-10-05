@@ -38,7 +38,7 @@ const PhysicalPrintDetail = props => {
   const [apparel, setApparel] = useState(null)
   const [print, setPrint] = useState({
     id: 0,
-    name: 'Front',
+    name: 'Front Side',
     type: 'front',
   })
   const [quality, setQuality] = useState({ name: '', type: '' })
@@ -106,7 +106,7 @@ const PhysicalPrintDetail = props => {
         setData(null)
       } else {
         setQuality({ name: '', type: '' })
-        setPrint({ id: 0, name: 'Front', type: 'front' })
+        setPrint({ id: 0, name: 'Front Side', type: 'front' })
         setCost('----')
         onPrint('')
         setPreviewApparel('')

@@ -2,7 +2,7 @@
   {
     "id": 0,
     "name": "Hoodie",
-    "start_price": "26.85",
+    "start_price": "32.29",
     "asset_url": "/images/shop-apparel-hoodie.png",
     "category": "apparel",
     "type": "Unisex",
@@ -74,7 +74,7 @@
   {
     "id": 6,
     "name": "Youth Hoodie",
-    "start_price": "27.30",
+    "start_price": "32.79",
     "asset_url": "/images/shop-apparel-youth-hoodie.png",
     "category": "apparel",
     "type": "",
