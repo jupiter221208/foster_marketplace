@@ -832,7 +832,7 @@ const MainSection = ({
               </div>
             ) : nftType.includes('audio') ? (
               <div className={styles.blurBackground}>
-                {!nftAssetUrl && (
+                {nftAssetUrl && (
                   <>
                     <div className="absolute inset-0">
                       <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
@@ -849,10 +849,15 @@ const MainSection = ({
               </div>
             ) : nftType.includes('video') ? (
               <div className={styles.blurBackground}>
-                {!nftAssetUrl ? (
+                {nftAssetUrl ? (
                   <>
                     <div className="absolute inset-0">
                       <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                    </div>
+                    <div className={styles.videoArea}>
+                      <video controls autoPlay loop className="max-w-full max-h-full">
+                        <source type="video/mp4" src={nftAssetUrl} />
+                      </video>
                     </div>
                   </>
                 ) : (
