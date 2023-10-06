@@ -157,7 +157,7 @@ const StartAuctionModal = props => {
                                           <th className=" px-6 py-4">{sizeItem.BrandSize}</th>
                                           <th className=" px-6 py-4">{sizeItem.USSize}</th>
                                           <th className=" px-6 py-4">{sizeItem.EUSize}</th>
-                                          <th className=" px-6 py-4">{sizeItem.Chest}</th>
+                                          <th className=" px-6 py-4 min-w-[100px]">{sizeItem.Chest}</th>
                                         </tr>
                                       )
 
