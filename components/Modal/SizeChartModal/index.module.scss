@@ -1,0 +1,176 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  z-index: 10002;
+}
+
+.bgView {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background-color: rgba(var(--background-dark-color-rgb), 0.5);
+  position: fixed;
+  inset: 0;
+}
+
+.modalView {
+  width: 100%;
+  max-width: 600px;
+  background-color: var(--modal-bg-color);
+  border: 1px solid rgba(var(--background-light-color-rgb), 0.1);
+  border-radius: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: var(--text-gray-200-color);
+  align-items: center;
+}
+
+.close {
+  position: absolute;
+  top: 30px;
+  right: 16px;
+  cursor: pointer;
+}
+.image {
+  position: relative;
+  border-radius: 20px;
+  box-shadow: inset 0px 3px 6px #000000cc;
+  overflow: hidden;
+  img {
+    width: 100%;
+    position: relative;
+    z-index: -1;
+    display: block;
+    object-fit: cover;
+    background-size: cover;
+  }
+}
+.tableTitle {
+  font-family: 'Muli-Bold';
+  font-size: 12px;
+  line-height: 24px;
+  color: $text-gray-200-color;
+}
+.title {
+  display: flex;
+  align-items: center;
+  height: 90px;
+  width: 100%;
+  background: var(--table-header-color);
+  font-family: 'Muli-Bold';
+  line-height: 36px;
+  border-radius: 30px 30px 0px 0px;
+  padding: 30px;
+  @media (min-width: 1024px) {
+    font-size: 24px;
+    line-height: 44px;
+  }
+  text-align: center;
+  letter-spacing: 0px;
+  color: var(--text-gray-200-color);
+}
+
+.nftName {
+  font-family: 'Muli-Bold';
+  font-size: 17px;
+  @media (min-width: 1024px) {
+    font-size: 22px;
+  }
+  line-height: 22px;
+  text-align: center;
+  letter-spacing: 0px;
+  color: var(--text-gray-200-color);
+}
+
+.text {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0px;
+  color: var(--brand-06-color);
+}
+
+.datePicker {
+  width: 100%;
+  max-width: 428px;
+  height: 45px;
+  background: rgba(var(--main-bg-color-rgb), 0.05);
+  border-radius: 9px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--text-gray-200-color), 0.1);
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.label {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+  text-align: start;
+}
+
+.termLabel {
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+  text-align: center;
+}
+
+.termService {
+  font-family: 'Muli-Bold';
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--modal-terms-service);
+  text-align: start;
+}
+
+.dateFont {
+  font-family: 'Muli-Regular';
+  font-size: 12px;
+  line-height: 24px;
+  @media (min-width: 1024px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  color: var(--text-gray-200-color);
+}
+
+.dateLabel {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  line-height: 24px;
+  color: var(--text-gray-200-color);
+}
+
+.linkText {
+  color: var(--brand-06-color);
+}
+.table {
+  display: flex;
+  width: 100%;
+  max-width: 321px;
+  margin-top: 10;
+  justify-content: center;
+  overflow: hidden;
+  font-family: 'Muli-SemiBold';
+  font-size: 16px;
+}
+.tableView {
+  overflow-x: auto;
+  border: 1px solid var(--stats-bg-color);
+}
+.header {
+  background: var(--size-chart-modal-title);
+}
+.itemColor {
+  background: var(--second-home-bg);
+}
