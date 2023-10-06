@@ -67,6 +67,7 @@ import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
+import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -831,12 +832,16 @@ const MainSection = ({
               </div>
             ) : nftType.includes('audio') ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
-                    <Image src={FullScreenModeIcon} alt="" />
-                  </div>
-                </div>
+                {nftAssetUrl && (
+                  <>
+                    <div className="absolute inset-0">
+                      <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                      <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
+                        <Image src={FullScreenModeIcon} alt="" />
+                      </div>
+                    </div>
+                  </>
+                )}
                 <div className={styles.blurImage} />
                 <div className={styles.audioArea}>
                   <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
@@ -844,15 +849,33 @@ const MainSection = ({
               </div>
             ) : nftType.includes('video') ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                </div>
+                {nftAssetUrl ? (
+                  <>
+                    <div className="absolute inset-0">
+                      <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                    </div>
+                    <div className={styles.videoArea}>
+                      <video controls autoPlay loop className="max-w-full max-h-full">
+                        <source type="video/mp4" src={nftAssetUrl} />
+                      </video>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.videoArea}>
+                      <video controls autoPlay loop className="max-w-full max-h-full">
+                        <source type="video/mp4" src={nftAssetUrl} />
+                      </video>
+                    </div>
+                    {!nftAssetUrl && (
+                      <div className={styles.errorMessage}>
+                        <ErrorMessageIcon />
+                        <div>Video File Missing</div>
+                      </div>
+                    )}
+                  </>
+                )}
                 <div className={styles.blurImage} />
-                <div className={styles.videoArea}>
-                  <video controls autoPlay loop className="max-w-full max-h-full">
-                    <source type="video/mp4" src={nftAssetUrl} />
-                  </video>
-                </div>
               </div>
             ) : (
               <></>

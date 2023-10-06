@@ -26,6 +26,8 @@
 }
 
 .blurBackground {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   @media (min-width: 1024px) {
     height: calc(100vh - 100px - 60px);
@@ -45,7 +47,6 @@
   background: rgba(var(--background-light-color-rgb), 0.05);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  z-index: 10;
 }
 
 .imageArea {
@@ -705,7 +706,15 @@
     line-height: 24px;
   }
 }
-
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-family: 'Muli-SemiBold';
+  z-index: 10;
+  margin-bottom: 40px;
+}
 .fixedPrice {
   font-family: 'Muli-Light';
   font-size: 14px;

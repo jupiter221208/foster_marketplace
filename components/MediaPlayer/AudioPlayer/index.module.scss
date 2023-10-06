@@ -39,7 +39,14 @@
     padding: 30px 56px 30px 26px;
   }
 }
-
+.errorMessage {
+  display: flex;
+  flex: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-family: 'Muli-SemiBold';
+}
 .playButton {
   display: flex;
   justify-content: center;

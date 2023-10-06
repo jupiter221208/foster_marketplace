@@ -17,6 +17,7 @@ import BackwardWhiteIcon from 'assets/icons/backward-white.svg'
 import ForwardWhiteIcon from 'assets/icons/forward-white.svg'
 import PlayWhiteIcon from 'assets/icons/play-video-border.svg'
 import PauseWhiteIcon from 'assets/icons/pause-video.svg'
+import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -41,21 +42,33 @@ const AudioPlayer = props => {
           </div>
         </div>
       </div>
+
       <div className={styles.contentArea}>
         <audio id="audio">
           <source src={src} />
           Your browser does not support the <code>audio</code> element.
         </audio>
-        <div className={styles.playButton}>
-          <IconButton
-            icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
-            onClick={() => setPlaying(!playing)}
-            backgroundColor="transparent"
-            width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
-            height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
-          />
-        </div>
-        <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
+        {src ? (
+          <>
+            <div className={styles.playButton}>
+              <IconButton
+                icon={playing ? PauseWhiteIcon : PlayWhiteIcon}
+                onClick={() => setPlaying(!playing)}
+                backgroundColor="transparent"
+                width={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
+                height={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? '46px' : '20px'}
+              />
+            </div>
+            <AudioBar curTime={curTime} duration={duration} onTimeUpdate={time => setClickedTime(time)} />
+          </>
+        ) : (
+          <>
+            <div className={styles.errorMessage}>
+              <ErrorMessageIcon />
+              <div>Audio File Missing</div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   )
