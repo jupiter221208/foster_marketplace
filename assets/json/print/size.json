@@ -1,30 +1,68 @@
-[
-  {
-    "id": 0,
-    "name": "XS"
-  },
-  {
-    "id": 1,
-    "name": "S"
-  },
-  {
-    "id": 2,
-    "name": "M"
-  },
-  {
-    "id": 3,
-    "name": "L"
-  },
-  {
-    "id": 4,
-    "name": "XL"
-  },
-  {
-    "id": 5,
-    "name": "2XL"
-  },
-  {
-    "id": 6,
-    "name": "3XL"
-  }
-]
+{
+  "man": [
+    {
+      "id": 0,
+      "name": "S"
+    },
+    {
+      "id": 1,
+      "name": "M"
+    },
+    {
+      "id": 2,
+      "name": "L"
+    },
+    {
+      "id": 3,
+      "name": "XL"
+    },
+    {
+      "id": 4,
+      "name": "2XL"
+    }
+  ],
+  "women": [
+    {
+      "id": 0,
+      "name": "S"
+    },
+    {
+      "id": 1,
+      "name": "M"
+    },
+    {
+      "id": 2,
+      "name": "L"
+    },
+    {
+      "id": 3,
+      "name": "XL"
+    },
+    {
+      "id": 4,
+      "name": "2XL"
+    }
+  ],
+  "youth": [
+    {
+      "id": 0,
+      "name": "YXS"
+    },
+    {
+      "id": 1,
+      "name": "YS"
+    },
+    {
+      "id": 2,
+      "name": "YM"
+    },
+    {
+      "id": 3,
+      "name": "YL"
+    },
+    {
+      "id": 4,
+      "name": "YXL"
+    }
+  ]
+}
