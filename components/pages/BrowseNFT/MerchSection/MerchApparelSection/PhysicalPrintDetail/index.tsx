@@ -43,7 +43,7 @@ const PhysicalPrintDetail = props => {
   })
   const [quality, setQuality] = useState({ name: '', type: '' })
   const [size, setSize] = useState({
-    id: 3,
+    id: 2,
     name: 'L',
   })
   const [color, setColor] = useState({
@@ -92,6 +92,13 @@ const PhysicalPrintDetail = props => {
     if (gender.hasOwnProperty('id')) {
       let genderType = gender.type
       let newApparelType = []
+
+      if (genderType === 'youth') {
+        setSize({
+          id: 2,
+          name: 'YM',
+        })
+      }
       ApparelType.map(item => {
         if (item.hasOwnProperty(genderType)) newApparelType.push(item)
       })
@@ -257,7 +264,12 @@ const PhysicalPrintDetail = props => {
         <SelectionColor label={'Color:'} data={ColorType} selected={color?.type} onSelect={item => setColor(item)} />
       </div>
       <div className="w-full mt-[35px] lg:mt-[25px]">
-        <Selection label={'Size:'} data={SizeType} selected={size?.name} onSelect={item => setSize(item)} />
+        <Selection
+          label={'Size:'}
+          data={SizeType[`${gender?.type}`] == undefined ? [] : SizeType[`${gender?.type}`]}
+          selected={size?.name}
+          onSelect={item => setSize(item)}
+        />
       </div>
       <div className="w-full mt-[25px] block lg:flex">
         <div className={styles.quantity}>Quantity:</div>
