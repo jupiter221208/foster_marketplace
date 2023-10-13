@@ -10,7 +10,7 @@ import { type ShipStationShipment } from 'apis/merch'
 import { addUrlSearchParams } from 'utils'
 
 export const MERCH_FOSTER_ADDRESS = new PublicKey('BH8k3e6qoNYugGpvDZxSKEkKWhv13jYdr4Hym2XwdGYT')
-export const MERCH_MADDIES_ADDRESS = new PublicKey('GhByFEmT6mGm9PCz6bNg7tQ76BkXEpSEkBGAYsBYQbwx')
+export const MERCH_MADDIES_ADDRESS = new PublicKey('A5TdavAYJ45hQyz8B7u6AAjFe8KyXKqWSnygU3YbhKVU')
 
 export const USDC_ADDRESS = new PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v')
 export const USDC_DECIMALS = 6
