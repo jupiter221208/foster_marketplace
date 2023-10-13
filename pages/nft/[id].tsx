@@ -225,16 +225,16 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
                       setOpenMerchPage(true)
                     }}
                   />
-                  <ShopApparelSection
-                    title="Shop Wall Art"
-                    type="wall"
-                    nftDetail={nftDetail}
-                    shopApparelList={ShopWallartlList}
-                    openMerchPage={data => {
-                      setMerchData(data)
-                      setOpenMerchPage(true)
-                    }}
-                  />
+                  {/* <ShopApparelSection
+                      title="Shop Wall Art"
+                      type="wall"
+                      nftDetail={nftDetail}
+                      shopApparelList={ShopWallartlList}
+                      openMerchPage={data => {
+                        setMerchData(data)
+                        setOpenMerchPage(true)
+                      }}
+                    /> */}
                 </div>
               </div>
             ) : (

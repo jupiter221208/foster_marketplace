@@ -921,7 +921,7 @@ const MainSection = ({
                       />
                     )}
 
-                    {merchHover && <div className={styles.infoText}>Creator Studio</div>}
+                    {merchHover && <div className={styles.infoText}>Foster Studio</div>}
                   </div>
                 </div>
                 <div className="inline">
