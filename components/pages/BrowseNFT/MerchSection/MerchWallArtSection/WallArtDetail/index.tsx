@@ -174,7 +174,7 @@ const WallArtDetail = props => {
       </div>
       <div className={styles.description}>
         {viewport === 'lg' || viewport === 'xl' || viewport === '2xl'
-          ? 'Purchasing physical prints is an excellent way to support your favorite artists. Our creator creator studio is simple to use and provides the tools you need to take your creative flavor from wallets to walls.'
+          ? 'Purchasing physical prints is an excellent way to support your favorite artists. Foster studio is simple to use and provides the tools you need to take your creative flavor from wallets to walls.'
           : 'Customize your wall art by selecting the material, orientation, and size.'}
       </div>
 
