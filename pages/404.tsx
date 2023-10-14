@@ -49,7 +49,6 @@ const Custom404Page = () => {
               alt=""
               className="cursor-pointer"
               onClick={() => {
-                dispatch({ type: 'set', isLoading: true })
                 router.push('/')
               }}
             />
@@ -64,7 +63,6 @@ const Custom404Page = () => {
                 color="#9CEDD6"
                 fontSize="18px"
                 onClick={() => {
-                  dispatch({ type: 'set', isLoading: true })
                   router.push('/')
                 }}
                 height="57px"

@@ -8,6 +8,8 @@ import styles from './index.module.scss'
 import { useDispatch } from 'react-redux'
 import { useWallet } from '@solana/wallet-adapter-react'
 
+import MerchHubIcon from 'assets/icons/merch-icon.svg?component'
+import MerchHubHoverIcon from 'assets/icons/merch-hover-icon.svg?component'
 import DashboardIcon from 'assets/icons/dashboard-icon.svg?component'
 import DashboardHoverIcon from 'assets/icons/dashboard-green.svg?component'
 import StatsIcon from 'assets/icons/statistic-icon.svg?component'
@@ -44,31 +46,30 @@ const ProfileMenuItem = props => {
         }
         onSelect(item)
       }}
-      onMouseEnter={() => setMouseHover(true)}
-      onMouseLeave={() => setMouseHover(false)}
+      // onMouseEnter={() => setMouseHover(true)}
+      // onMouseLeave={() => setMouseHover(false)}
     >
       {item.id === 0 ? (
-        <div className="w-10 h-10 ml-2 flex justify-center items-center">
+        <div className="w-10 h-10 ml-2 mr-2 flex justify-center items-center">
           <div className={styles.imageArea}>
             <Image src={avatar} alt="" width={24} height={24} className="rounded-full" />
           </div>
         </div>
       ) : (
-        <div className="w-10 h-10 ml-2 mr-2 flex items-center">
+        <div className="w-10 h-10 ml-2 mr-2 flex justify-center items-center">
           {item.id === 1 ? (
             mouseHover ? (
               <DashboardHoverIcon />
             ) : (
               <DashboardIcon />
             )
-          ) : // : item.id === 2 ? (
-          //   mouseHover ? (
-          //     <NotificationHoverIcon />
-          //   ) : (
-          //     <NotificationIcon />
-          //   )
-          // )
-          item.id === 3 ? (
+          ) : item.id === 2 ? (
+            mouseHover ? (
+              <MerchHubHoverIcon />
+            ) : (
+              <MerchHubIcon />
+            )
+          ) : item.id === 3 ? (
             mouseHover ? (
               <StatsHoverIcon />
             ) : (

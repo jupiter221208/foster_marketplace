@@ -20,7 +20,7 @@ const Checkbox = props => {
               onChange={() => onChange(index)}
             />
             <label
-              className={`${styles.selected} ${item.disabled ? `opacity-60` : ``}`}
+              className={`${styles.label} ${item.disabled ? `opacity-60` : item.checked ? styles.selected : ``}`}
               onClick={() => {
                 if (item.disabled === false) onChange(index)
               }}
@@ -33,7 +33,7 @@ const Checkbox = props => {
         categoryList.map((item, index) => (
           <div key={index} className="w-full flex items-center justify-between">
             <label
-              className={`${styles.selected} ${item.disabled ? `opacity-60` : ``}`}
+              className={`${styles.label} ${item.disabled ? `opacity-60` : item.checked ? styles.selected : ``}`}
               onClick={() => {
                 if (item.disabled === false) onChange(index)
               }}

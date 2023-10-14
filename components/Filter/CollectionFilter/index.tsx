@@ -35,13 +35,13 @@ const CollectionFilter = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>ARTIST VERIFICATION</div>
+      <div className={styles.title}>Artist Verification</div>
       <Radio
         data={ArtistVerificationList}
         selected={selectedVerifyType}
         onChange={item => setSelectedVerifyType(item)}
       />
-      <div className={`${styles.title} mt-[52px]`}>CATEGORIES</div>
+      <div className={`${styles.title} mt-[52px]`}>Categories</div>
       {categoryList.length !== 0 && (
         <Checkbox categoryList={categoryList} onChange={index => handleSelectCategory(index)} />
       )}

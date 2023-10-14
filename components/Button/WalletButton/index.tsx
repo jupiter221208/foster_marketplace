@@ -43,6 +43,7 @@ import { depositFunds as depositBiddingFunds, withdrawFunds as withdrawBiddingFu
 import { useWallets } from 'hooks/useWallets'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const WalletButton = props => {
   const { fullWidth = false } = props
@@ -51,7 +52,6 @@ const WalletButton = props => {
 
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-  const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
   const { mainBalance, offerBalance, biddingBalance, offerWalletAddress, biddingWalletAddress, updateSolBalance } =
     useWallets()
 
@@ -203,7 +203,7 @@ const WalletButton = props => {
   const [alertData, setAlertData] = useState<any[]>([])
   const [buttonClicked, setButtonClicked] = useState(false)
 
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const bidWalletLock = useSelector(state => (state as any).bidWalletLock)
   const offerWalletLock = useSelector(state => (state as any).offerWalletLock)
 
@@ -216,31 +216,6 @@ const WalletButton = props => {
     }
 
     setButtonClicked(false)
-
-    if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      dispatch({ type: 'set', showConnectAlert: true })
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 1000)
-    } else {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Disconnected!',
-          description: `You've successfully disconnected your wallet!`,
-          type: 'success',
-        },
-      ])
-      setShowAlert(true)
-    }
   }, [connected])
 
   useEffect(() => {
@@ -259,7 +234,7 @@ const WalletButton = props => {
       <div>
         <Menu.Button className={styles.connectedContainer} style={{ width: fullWidth ? '100%' : '' }}>
           {/* {shortMainAddress} */}
-          Manage&nbsp;Wallet
+          Wallet
           <div className="w-3 h-3 flex justify-center items-center mt-1">
             <svg xmlns="http://www.w3.org/2000/svg" width="10.542" height="6.247" viewBox="0 0 10.542 6.247">
               <path
@@ -702,7 +677,7 @@ const WalletButton = props => {
       </Transition>
       {/* connect wallet alert */}
       <Alert
-        open={showAlert && loginSignedFlag}
+        open={showAlert}
         close={() => {
           setShowAlert(false)
           setTimeout(() => {
@@ -718,7 +693,6 @@ const WalletButton = props => {
         className={styles.container}
         onClick={() => {
           setButtonClicked(true)
-          dispatch({ type: 'set', loginSignedFlag: false })
           setVisible(true)
         }}
         style={{ width: fullWidth ? '100%' : '' }}

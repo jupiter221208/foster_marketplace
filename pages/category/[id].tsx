@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Head from 'next/head'
 
@@ -30,23 +30,24 @@ import PopularCategoryList from 'assets/json/popular-category.json'
 import styles from './index.module.scss'
 import PopularCategorySection from 'components/pages/Home/PopularCategorySection'
 import ArtistLayout from 'components/Layout/ArtistLayout'
+import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import PrimaryLayout from 'components/Layout/PrimaryLayout'
 
 const Category = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  dispatch({ type: 'set', isLoading: false })
-
+  const isLoading = useSelector<any>(state => state.isLoading)
   useEffect(() => {
-    setTimeout(
-      () =>
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        }),
-      500
-    )
-  }, [])
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+      dispatch({ type: 'set', isLoading: false })
+    }, 500)
+    dispatch({ type: 'set', isLoading: true })
+  }, [router.query.id])
 
   const rawQuery: string = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id ?? ''
   const cateQuery = rawQuery.toLowerCase()
@@ -88,8 +89,9 @@ const Category = () => {
               <img
                 src={viewport === 'xs' ? categoryInfo?.mobile_banner : categoryInfo?.banner}
                 alt=""
-                className="w-full object-cover"
+                className="w-full object-cover opacity-90"
               />
+              <div className={styles.imageArea}>{categoryInfo?.name}</div>
             </div>
           ) : (
             <></>
@@ -107,8 +109,6 @@ const Category = () => {
           ) : (
             <></>
           )}
-
-          <div className={styles.bottomMask}></div>
         </div>
         <div className="flex justify-center mt-[10px] lg:mt-[40px]">
           <div className="g-container">
@@ -120,6 +120,8 @@ const Category = () => {
             <PopularCategorySection type="category" />
           </div>
         </div>
+
+        <FullScreenLoadingModal open={isLoading} />
       </div>
     </div>
   )
@@ -128,7 +130,7 @@ const Category = () => {
 export default Category
 
 Category.getLayout = function getLayout(page) {
-  return <ArtistLayout>{page}</ArtistLayout>
+  return <PrimaryLayout>{page}</PrimaryLayout>
 }
 
 export async function getStaticProps() {

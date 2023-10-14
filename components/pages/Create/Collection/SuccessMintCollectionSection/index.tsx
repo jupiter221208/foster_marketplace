@@ -40,9 +40,6 @@ const SuccessMintCollectionSection = props => {
     <div className="w-full">
       {viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? (
         <div className={`relative g-container w-full flex flex-wrap justify-center ${styles.congratelationsArea}`}>
-          <div className={styles.topLeftEllipse}>
-            {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-          </div>
           <div className="w-full flex flex-wrap justify-center mt-[107px] z-10">
             {/* banner image */}
             <div className={styles.bannerImageArea}>
@@ -91,14 +88,7 @@ const SuccessMintCollectionSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton
-                    fullWidth
-                    label="Tweet your Mint"
-                    color={'var(--mint-btn-color)'}
-                    backgroundColor="#378287"
-                    onClick={() => {}}
-                    direction="rtl"
-                  />
+                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
                 </TwitterShareButton>
               </div>
               <div className="w-full">
@@ -170,14 +160,7 @@ const SuccessMintCollectionSection = props => {
                   onShareWindowClose={() => {}}
                   className="w-full"
                 >
-                  <TweetMintButton
-                    fullWidth
-                    label="Tweet your Mint"
-                    color={'var(--mint-btn-color)'}
-                    backgroundColor="#378287"
-                    onClick={() => {}}
-                    direction="rtl"
-                  />
+                  <TweetMintButton fullWidth label="Tweet your Mint" onClick={() => {}} direction="rtl" />
                 </TwitterShareButton>
               </div>
               <div className="w-[221px]">

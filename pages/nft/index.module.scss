@@ -61,3 +61,18 @@
   align-items: center;
   z-index: 10001;
 }
+.mainBG {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    background: rgba(var(--background-light-color-rgb), 0.05);
+  }
+}
+
+.centerScreen {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+

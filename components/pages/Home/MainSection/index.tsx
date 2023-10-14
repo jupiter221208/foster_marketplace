@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 // third party components
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Autoplay, Pagination } from 'swiper'
+import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -70,20 +70,13 @@ const MainSection = () => {
 
   return (
     <section id="main-section" className={styles.container}>
-      {/* <div className={styles.topLeftEllipse}>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-      </div>
-      <div className={styles.topRightEllipse}>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-      </div> */}
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12">
-            <div className={styles.text}>Your Daily Dose of Art.</div>
-
+            <div className={styles.text}>Foster Studio is Now Live</div>
             <div className={styles.slug}>
-              Home to creators, collectors, and curators around the world.
-              <br />
+              {/* Home to creators, collectors, and curators around the world.
+              <br /> */}
               Pushing the boundaries of digital art on Solana.
             </div>
 
@@ -112,52 +105,56 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Your Daily Dose of Art</div>
-              <div className={styles.mobileText}>Home to Digital Creators on Solana</div>
+              <div className={styles.mobileTitle}>Foster Studio is Now Live</div>
+              <div className={styles.mobileText}>Pushing the boundaries of digital art on Solana.</div>
             </div>
             {heroList.length !== 0 && (
-              <Swiper
-                slidesPerView={1}
-                spaceBetween={30}
-                pagination={{
-                  clickable: true,
-                }}
-                modules={[Autoplay, Pagination]}
-                className={'heroSwiper'}
-                loop
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                }}
-              >
-                {heroList.map((item, index) => (
-                  <SwiperSlide key={index}>
-                    <HeroCardMobile data={item} />
-                    <div className={styles.overlay} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )}
-          </div>
-        ) : (
-          <div
-            className="w-full col-span-12 lg:col-span-12 lg:py-4 "
-            style={{
-              width: '100%',
-              marginLeft: '0px',
-            }}
-          >
-            <div className="w-full relative">
-              {heroList.length !== 0 && (
+              <div className="w-full relative" id="heroSwiperMobile">
                 <Swiper
-                  slidesPerView={3}
+                  slidesPerView={1}
                   spaceBetween={30}
                   pagination={{
                     clickable: true,
                   }}
                   modules={[Autoplay, Pagination]}
-                  className={'heroSwiper'}
+                  className={'heroSwiperMobile'}
                   loop
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
+                >
+                  {heroList.map((item, index) => (
+                    <SwiperSlide key={index}>
+                      <HeroCardMobile data={item} />
+                      <div className={styles.overlay} />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div
+            className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
+            style={{
+              width: '100%',
+              marginLeft: '0px',
+            }}
+          >
+            <div className="w-full relative" id="heroSwiper">
+              {heroList.length !== 0 && (
+                <Swiper
+                  navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+                  slidesPerView={3}
+                  spaceBetween={0}
+                  centeredSlides={true}
+                  loop
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Autoplay, Pagination, Navigation]}
+                  className={'heroNavigationSwiper'}
                   autoplay={{
                     delay: 5000,
                     disableOnInteraction: false,
@@ -168,12 +165,12 @@ const MainSection = () => {
                       <HeroCard data={item} />
                     </SwiperSlide>
                   ))}
+                  <div className={styles.leftSide} />
+                  <div className={styles.rightSide} />
                 </Swiper>
               )}
-              <div className={styles.leftSide} />
-              <div className={styles.rightSide} />
             </div>
-            <div className="mt-[35px] lg:mt-[30px] flex justify-center gap-8">
+            <div className="mt-[35px] lg:mt-[0px] flex justify-center gap-8">
               <GradientButton label="Explore" width={124} onClick={() => router.push('/explore')} />
               <OutlineButton
                 label="Create"
@@ -186,7 +183,7 @@ const MainSection = () => {
         )}
 
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end mt-[20px]">
+          <div className="w-full col-span-12 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end lg:mt-[20px]">
             <div className="w-full flex justify-center gap-8">
               <GradientButton width={88} label="Explore" onClick={() => router.push('/explore')} />
               <OutlineButton

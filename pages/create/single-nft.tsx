@@ -56,8 +56,13 @@ const SingleNft = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
 
   const [screenWidth, setScreenWidth] = useState(1920)
+  const [screenLoaded, setScreenLoaded] = useState(false)
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
+    setTimeout(() => {
+      setScreenLoaded(true)
+    }, 1000)
     setScreenWidth(window.innerWidth)
   }, [])
 
@@ -500,25 +505,6 @@ const SingleNft = () => {
             <div className="relative w-full grid grid-cols-12 gap-0">
               {/* left part */}
               <div className="relative col-span-12 lg:col-span-6 g-left-container">
-                <div className={styles.topLeftEllipse}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
-                    <defs>
-                      <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-                        <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
-                        <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
-                      </radialGradient>
-                    </defs>
-                    <circle
-                      id="Ellipse_4322"
-                      data-name="Ellipse 4322"
-                      cx="1010.5"
-                      cy="1010.5"
-                      r="1010.5"
-                      transform="translate(150 150)"
-                      fill="url(#radial-gradient)"
-                    />
-                  </svg>
-                </div>
                 <div className={styles.leftContainer}>
                   <div className={`${styles.title} w-full`}>Artwork Preview</div>
                   <div className="w-full flex flex-wrap justify-center z-10 mt-[22px]">
@@ -530,14 +516,14 @@ const SingleNft = () => {
                           height: artWidth,
                         }}
                       >
-                        <div className="absolute inset-0 flex justify-center items-center">
-                          <img src={nftImage} alt="" className="w-full h-full object-cover" />
-                        </div>
-                        <div className={styles.blurImage} />
-                        {nftImage !== '' && artWidth !== 0 ? (
+                        {nftImage !== '' && artWidth !== 0 && (
+                          <div className="absolute inset-0 flex justify-center items-center">
+                            <img src={nftImage} alt="" className="w-full h-full object-cover" />
+                          </div>
+                        )}
+                        {nftImage !== '' && artWidth !== 0 && <div className={styles.blurImage} />}
+                        {nftImage !== '' && artWidth !== 0 && (
                           <img src={nftImage} alt="" className="w-full h-full rounded-[12px] object-contain z-10" />
-                        ) : (
-                          <div className={`${styles.artArea}`} style={{ width: artWidth, height: artWidth }} />
                         )}
                       </div>
                     ) : (
@@ -728,8 +714,8 @@ const SingleNft = () => {
                           label="Back"
                           onClick={() => handleChangeCurrentStep(currentStep - 1)}
                           backgroundColor={'transparent'}
-                          borderColor={'var(--back-btn-border)'}
-                          borderWidth={'var(--back-btn-border-width)'}
+                          borderColor={'var(--back-btn-border-mobile)'}
+                          borderWidth={1}
                           color="var(--main-bg-color)"
                           width={viewport === '2xl' ? 124 : 117}
                           height={viewport === '2xl' ? 53 : 46}
@@ -763,13 +749,13 @@ const SingleNft = () => {
           )
         : currentStep !== 4 && (
             // mobile part
-            <div className="g-container mt-[26px] mb-[47px]">
+            <div className="g-container mb-[47px]">
               {/* stepper part */}
-              <div className="w-full">
+              {/* <div className="w-full">
                 <Stepper currentStep={currentStep} />
-              </div>
+              </div> */}
 
-              <div className="w-full flex flex-wrap justify-center mt-[22px]">
+              <div className="w-full flex flex-wrap justify-center">
                 {nftType === 'image' ? (
                   <div
                     className={`${styles.artArea}`}
@@ -968,11 +954,12 @@ const SingleNft = () => {
                         label="Back"
                         onClick={() => handleChangeCurrentStep(currentStep - 1)}
                         fullWidth
+                        fontFamily="Muli-SemiBold"
                         height="45px"
                         backgroundColor="transparent"
                         color="var(--main-bg-color)"
                         borderColor="var(--back-btn-border-mobile)"
-                        borderWidth="var(--back-btn-border-width)"
+                        borderWidth={1}
                       />
                     </div>
                     <div className="col-span-1">
@@ -1009,7 +996,7 @@ const SingleNft = () => {
                       backgroundColor="transparent"
                       color="var(--main-bg-color)"
                       borderColor="var(--back-btn-border-mobile)"
-                      borderWidth="var(--back-btn-border-width)"
+                      borderWidth={1}
                     />
                   </div>
                 )}
@@ -1040,7 +1027,7 @@ const SingleNft = () => {
         }}
         dimension={selectedDimension}
       />
-      <ProgressingModal open={isLoading} />
+      <ProgressingModal open={screenLoaded && isLoading} />
     </div>
   )
 }

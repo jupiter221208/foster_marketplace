@@ -51,7 +51,6 @@ const CreateSellNFTCard = props => {
       <div className={styles.link} onClick={() => handleClickEvent()}>
         {linkText}
         <div className="ml-4">
-          {/* <Image src={ArrowRightGreenIcon} alt="" /> */}
           <ArrowRightGreenIcon />
         </div>
       </div>

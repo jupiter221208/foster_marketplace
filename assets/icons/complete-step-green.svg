@@ -1,6 +1,6 @@
-<svg data-name="stepper" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+<svg data-name="stepper" xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36">
   <g id="Step_Counter" data-name="Step Counter" transform="translate(3.951 -0.049)">
-    <circle id="Ellipse" cx="24" cy="24" r="24" transform="translate(-3.951 0.049)" />
-    <path id="check-26" d="M23.836,7.32a1.373,1.373,0,0,0-1.95,0L11.655,17.565l-4.3-4.312a1.4,1.4,0,1,0-1.95,2.019l5.273,5.273a1.373,1.373,0,0,0,1.95,0L23.836,9.339a1.373,1.373,0,0,0,0-2.019Z" transform="translate(5.421 10.117)" data-fill="a"/>
+    <circle id="Ellipse" cx="18" cy="18" r="18" transform="translate(-3.951 0.049)" />
+    <path id="check-26" d="M23.836,7.32a1.373,1.373,0,0,0-1.95,0L11.655,17.565l-4.3-4.312a1.4,1.4,0,1,0-1.95,2.019l5.273,5.273a1.373,1.373,0,0,0,1.95,0L23.836,9.339a1.373,1.373,0,0,0,0-2.019Z" transform="translate(-0.579 4.117)" data-fill="a"/>
   </g>
 </svg>

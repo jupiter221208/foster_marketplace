@@ -8,7 +8,7 @@ export const getServerSideProps = async ctx => {
     loc: `https://fostermarketplace.app${url}`,
     lastmod: new Date().toISOString().split('T')[0],
     changefreq: 'weekly',
-    priority: 0.8,
+    priority: 1,
   }))
 
   return getServerSideSitemap(ctx, staticFieldsWeekly)

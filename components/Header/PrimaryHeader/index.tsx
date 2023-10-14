@@ -13,6 +13,7 @@ import NotifyAlarmIcon from 'assets/lottery/notify-alarm.json'
 // custom components
 import SearchBox from 'components/Input/SearchBox'
 import Menu from 'components/Menu'
+import ExploreMenu from 'components/Menu/ExploreMenu'
 import WalletButton from 'components/Button/WalletButton'
 import ProfileMenu from 'components/Menu/ProfileMenu'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
@@ -22,7 +23,6 @@ import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 
 // images and icons
-import AvatarImage from 'assets/images/dashboard-avatar.png'
 import SearchWhiteIcon from 'assets/icons/search-white.svg?component'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
@@ -32,7 +32,7 @@ import NotificationIcon from 'assets/icons/notification-icon-navbar.svg?componen
 import FosterHeroLogo from 'assets/icons/foster-hero-logo-new.svg?component'
 
 // json
-import ExploreMenuList from 'assets/json/explore-menu.json'
+import { activeList, filterList, categoryList, performerList } from 'assets/json/explore-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 import ProfileMenuList from 'assets/json/profile-menu.json'
 import { setColorTheme } from 'utils/helpers'
@@ -215,13 +215,6 @@ const PrimaryHeader = () => {
     window.addEventListener('resize', resizeFunction)
   }, [connected])
 
-  useEffect(() => {
-    ;(async () => {
-      if (!connected || profileInfo || loginAndRefresh) return
-      dispatch({ type: 'set', loginSignedFlag: true })
-    })()
-  }, [connected])
-
   const handleSelectMenu = (item: any) => {
     if (connected) {
       router.push(item.path)
@@ -285,7 +278,7 @@ const PrimaryHeader = () => {
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
-            <div id="walletButton" className={connected ? 'h-full min-w-[190px]' : 'h-full min-w-[220px]'} />
+            <div id="walletButton" className="h-full min-w-[120px]" />
             <div id="notificationButton" className={connected ? 'min-w-[46px] h-full' : 'w-[0px]'} />
             <div id="profileButton" className="h-full ml-2 min-w-[150px]" />
           </div>
@@ -293,7 +286,13 @@ const PrimaryHeader = () => {
       </div>
       {offset[1] !== 0 && (
         <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
-          <Menu label="Explore" menuList={ExploreMenuList} onSelect={item => handleExploreMenu(item)} />
+          <ExploreMenu
+            label="Explore"
+            activeList={activeList}
+            filterList={filterList}
+            categoryList={categoryList}
+            performerList={performerList}
+          />
         </div>
       )}
       {offset[1] !== 0 && (
@@ -344,12 +343,14 @@ const PrimaryHeader = () => {
           }}
         >
           <ProfileMenu
-            avatar={profileInfo?.profile_picture ?? AvatarImage}
+            avatar={profileInfo?.profile_picture}
             wallet={getShortAddress(profileInfo?.wallet_id)}
             username={profileInfo?.username ?? ''}
             menuList={profileMenuList}
             onSelect={item => router.push(item.path)}
             connectWalletStatus={connected}
+            lightMode={lightMode}
+            handleThemeMode={handleThemeMode}
           />
         </div>
       )}
@@ -375,7 +376,6 @@ const PrimaryHeader = () => {
         <div className="g-container flex justify-between items-center">
           <div className="flex">
             <div className="flex cursor-pointer items-center" onClick={() => handleGotoHomepage()}>
-              {/* <Image src={lightMode ? LogoDarkIcon : LogoIcon} alt="" /> */}
               <FosterNavLogo width={101} height={23} />
             </div>
           </div>

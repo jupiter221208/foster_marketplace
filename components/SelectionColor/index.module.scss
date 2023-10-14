@@ -1,0 +1,43 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  display: block;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
+}
+.label {
+  display: flex;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  margin-bottom: 15px;
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+    line-height: 66px;
+    margin-bottom: 0px;
+  }
+  width: 120px;
+  color: var(--text-gray-200-color);
+}
+.selected {
+  width: 66px;
+  height: 66px;
+  border-radius: 33px;
+  border: 3px solid var(--main-icon-color);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.labelText {
+  font-family: 'Muli-Bold';
+}
+
+.normal {
+  width: 66px;
+  height: 66px;
+  border-radius: 33px;
+  border-width: 0px;
+  cursor: pointer;
+  overflow: hidden;
+}

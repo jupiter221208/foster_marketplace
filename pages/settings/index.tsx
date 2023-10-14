@@ -12,15 +12,19 @@ import SecuritySection from 'components/pages/Settings/SecuritySection'
 import Alert from 'components/Alert'
 
 // json
-// import TabList from 'assets/json/settings/tab-list.json'
+import TabList from 'assets/json/settings/tab-list.json'
 
 // styles
 import styles from './index.module.scss'
 import DisplayPreferences from 'components/pages/Settings/DisplayPreferences'
+import Tab01 from 'components/Tab/Tab01'
+import Tab from 'components/Tab'
+import StudioSection from 'components/pages/Settings/StudioSection'
 
 const Settings = () => {
   const [selectedTab, setSelectedTab] = useState(0)
   const [showAlert, setShowAlert] = useState<boolean>(false)
+  const [tabList, setTabList] = useState<any[]>(TabList)
 
   const alertData = [
     {
@@ -31,6 +35,24 @@ const Settings = () => {
     },
   ]
 
+  useEffect(() => {
+    let array: any[] = []
+    TabList.map(item => {
+      let object: any = item
+      if (item.id === selectedTab) {
+        object.selected = true
+      } else {
+        object.selected = false
+      }
+      array.push(object)
+    })
+    setTabList(array)
+  }, [selectedTab])
+
+  const handleSelectedTab = item => {
+    setSelectedTab(item.id)
+  }
+
   return (
     <div className="g-container">
       <Head>
@@ -39,32 +61,13 @@ const Settings = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={`${styles.topLeftEllipse} lg:block hidden`}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
-            <defs>
-              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-                <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
-                <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <circle
-              id="Ellipse_4322"
-              data-name="Ellipse 4322"
-              cx="1010.5"
-              cy="1010.5"
-              r="1010.5"
-              transform="translate(150 150)"
-              fill="url(#radial-gradient)"
-            />
-          </svg>
-        </div>
         <div className="w-full flex flex-wrap">
           <div className="w-full flex flex-wrap z-10">
             <div className={`mt-[32px] lg:mt-[100px] ${styles.subject}`}>Settings</div>
-            {/* <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
+            <div className="w-full h-[65px] lg:h-[47px] mt-[32px] lg:mt-[50px] overflow-auto">
               <Tab01 tabList={tabList} onChange={item => handleSelectedTab(item)} />
-            </div> */}
-            <div className="w-full lg:w-[85%] mt-[32px] lg:mt-[50px]">
+            </div>
+            <div className="w-full lg:w-[70%] mt-[30px] lg:mt-[50px]">
               {selectedTab === 0 && (
                 <ProfileSection
                   success={() => {
@@ -82,7 +85,18 @@ const Settings = () => {
                 />
               )}
             </div>
-            <div className="w-full lg:w-[85%]">
+
+            {/* <div className="w-full lg:w-[70%] mt-[0px] lg:mt-[20px]">
+              {selectedTab === 1 && (
+                <StudioSection
+                  success={() => {
+                    setShowAlert(true)
+                  }}
+                />
+              )}
+            </div> */}
+
+            {/*<div className="w-full lg:w-[85%]">
               {selectedTab === 2 && (
                 <DisplayPreferences
                   success={() => {
@@ -108,7 +122,7 @@ const Settings = () => {
                   }}
                 />
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

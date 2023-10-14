@@ -35,6 +35,8 @@ const Collection = () => {
   const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
   const isCollectionMinting = useSelector<any>(state => state.isCollectionMinting)
+  const [screenLoaded, setScreenLoaded] = useState(false)
+
   // solana
   const { metaplex: mx } = useMetaplex()
   const { storage, ensureLocalWalletBalance } = useLocalWalletBundlr()
@@ -55,6 +57,11 @@ const Collection = () => {
   const [categoryList, setCategoryList] = useState<any[]>([])
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
+    setTimeout(() => {
+      setScreenLoaded(true)
+    }, 1000)
+
     let array: any[] = []
     CategoryList.map(item => {
       let object: any = item
@@ -264,14 +271,11 @@ const Collection = () => {
             collection: collectionNft?.mintAddress,
           })
 
-        const verifyCollectionTransaction = await mx
-          .nfts()
-          .builders()
-          .verifyCollection({
-            mintAddress: nftKeypair.publicKey,
-            collectionMintAddress: collectionNft?.mintAddress,
-            isSizedCollection: true,
-          })
+        const verifyCollectionTransaction = await mx.nfts().builders().verifyCollection({
+          mintAddress: nftKeypair.publicKey,
+          collectionMintAddress: collectionNft?.mintAddress,
+          isSizedCollection: true,
+        })
 
         const combinedTransaction = createNftTransaction.append(verifyCollectionTransaction)
         await combinedTransaction.sendAndConfirm(mx)
@@ -389,7 +393,7 @@ const Collection = () => {
           />
         )}
       </div>
-      <ProgressingModal open={isLoading} />
+      <ProgressingModal open={isLoading && screenLoaded} />
       <CollectionMintProgressingModal
         open={isCollectionMinting}
         collectionFiles={collectionFiles}

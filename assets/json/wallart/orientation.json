@@ -1,0 +1,17 @@
+[
+  {
+    "id": 0,
+    "name": "Landscape",
+    "type": "landscape"
+  },
+  {
+    "id": 1,
+    "name": "Portrait",
+    "type": "portrait"
+  },
+  {
+    "id": 2,
+    "name": "Square",
+    "type": "square"
+  }
+]

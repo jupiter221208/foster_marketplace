@@ -61,9 +61,13 @@
 .label {
   flex: 1;
   cursor: pointer;
-  font-family: 'Muli-SemiBold';
+  font-family: 'Muli-Regular';
   font-size: 20px;
-  line-height: 24px;
-  color: var(--text-gray-200-color);
+  line-height: 25px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.75);
   letter-spacing: 0;
+}
+
+.selected {
+  color: rgba(var(--text-gray-200-color-rgb), 1) !important;
 }

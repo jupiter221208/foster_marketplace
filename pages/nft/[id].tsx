@@ -13,9 +13,11 @@ import { useWallet } from '@solana/wallet-adapter-react'
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/BrowseNFT/MainSection'
+import MerchSection from 'components/pages/BrowseNFT/MerchSection'
 import MoreCollectionSection from 'components/pages/BrowseNFT/MoreCollectionSection'
 import MoreArtistSection from 'components/pages/BrowseNFT/MoreArtistSection'
 import MoreCategorySection from 'components/pages/BrowseNFT/MoreCategorySection'
+import ShopApparelSection from 'components/pages/BrowseNFT/ShopApparelSection'
 
 // custom functions
 import { getNFTCategories, NFTArtistInfo } from 'utils/nfts.utils'
@@ -32,12 +34,15 @@ import styles from './index.module.scss'
 
 // resources
 import DefaultNftBG from 'assets/images/default-nft-bg.png'
+import ShopApparelList from 'assets/json/browse-nft/shop-apparel-list.json'
+import ShopWallartlList from 'assets/json/browse-nft/shop-wallart-list.json'
 
 import nftsAPI from 'apis/nfts'
 import { isString } from 'utils/helpers'
 import { useViewport } from 'utils'
 import { getAbsoluteOgUrl } from 'utils/seo'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 export interface EditionDetail {
   number: number
@@ -53,15 +58,17 @@ export interface BrowseNFTProps {
   error?: string
 }
 
-const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddress, error }: BrowseNFTProps) => {
+const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
   const categories = getNFTCategories(nftDetail)
+  const [openMerchPage, setOpenMerchPage] = useState(false)
+  const [merchData, setMerchData] = useState(null)
   const [nftInfo, setNftInfo] = useState(null)
   const [collectionName, setCollectionName] = useState('')
   const [artistInfo, setArtistInfo] = useState<NFTArtistInfo | null>(null)
   const { connected } = useWallet()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const viewport = useViewport()
   const dispatch = useDispatch()
   const [showLoading, setShowLoading] = useState(true)
@@ -154,8 +161,11 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
     )
   }
 
+  const [shopApparelList, setShopApparelList] = useState(ShopApparelList)
+  const [merchToggle, setMerchToggle] = useState(false)
+
   return (
-    <div className="g-container">
+    <div className="w-full h-full">
       <Head>
         <title>{nftTitle}</title>
         <meta property="description" content={nftDescription} />
@@ -173,30 +183,75 @@ const BrowseNFT = ({ nftDetail, editionDetail, originalEditionDetail, mintAddres
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.topRightEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.bottomLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className="z-10 mb-[100px] lg:mb-[0px]">
-          {nftDetail && (
-            <MainSection
-              nftDetail={nftDetail}
-              editionDetail={editionDetail}
-              nftInfo={nftInfo}
-              setFullScreenView={setFullScreenView}
-              reloadNftData={reloadNftData}
-              setCollectionName={setCollectionName}
-            />
-          )}
-          {collectionId && <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />}
-          {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
-          <MoreCategorySection categories={categories} />
-        </div>
+        {openMerchPage ? (
+          <div className="flex justify-center">
+            <div className="g-container z-10">
+              <MerchSection
+                data={merchData}
+                openNftPage={() => {
+                  setOpenMerchPage(false)
+                }}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="z-10 mb-[100px] lg:mb-[0px]">
+            {nftDetail && (
+              <div className={styles.mainBG}>
+                <div className="g-container">
+                  <MainSection
+                    nftDetail={nftDetail}
+                    editionDetail={editionDetail}
+                    nftInfo={nftInfo}
+                    setFullScreenView={setFullScreenView}
+                    reloadNftData={reloadNftData}
+                    enableMerch={setMerchToggle}
+                    setCollectionName={setCollectionName}
+                  />
+                </div>
+              </div>
+            )}
+
+            {merchToggle ? (
+              <div className={styles.centerScreen}>
+                <div className="g-container">
+                  <ShopApparelSection
+                    title="Shop Apparel"
+                    type="apparel"
+                    nftDetail={nftDetail}
+                    shopApparelList={ShopApparelList}
+                    openMerchPage={data => {
+                      setMerchData(data)
+                      setOpenMerchPage(true)
+                    }}
+                  />
+                  {/* <ShopApparelSection
+                      title="Shop Wall Art"
+                      type="wall"
+                      nftDetail={nftDetail}
+                      shopApparelList={ShopWallartlList}
+                      openMerchPage={data => {
+                        setMerchData(data)
+                        setOpenMerchPage(true)
+                      }}
+                    /> */}
+                </div>
+              </div>
+            ) : (
+              <div className={styles.centerScreen}>
+                <div className="g-container">
+                  <div>
+                    {collectionId && (
+                      <MoreCollectionSection collectionId={collectionId} collectionName={collectionName} />
+                    )}
+                    {connected && artistInfo && <MoreArtistSection artistInfo={artistInfo} />}
+                    <MoreCategorySection categories={categories} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {fullScreen && (

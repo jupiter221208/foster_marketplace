@@ -31,14 +31,12 @@ import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const ArtworksSection = props => {
   const { artworks } = props
-  const dispatch = useDispatch()
   const viewport = useViewport()
 
   const [isMounted, setIsMounted] = useState(false)
   const [searchWord, setSearchWord] = useState<any>(null)
   const [list, setList] = useState<any[]>([])
   const [currentPage, setCurrentPage] = useState(0)
-  const [totalCount, setTotalCount] = useState(0)
   const [rowCount, setRowCount] = useState(12)
   const [period, setPeriod] = useState('all')
   const [screenWidth, setScreenWidth] = useState(1920)
@@ -78,17 +76,9 @@ const ArtworksSection = props => {
 
   useEffect(() => {
     if (!isMounted) return
+    setSearchLoading(true)
     getArtworkData(currentPage, period, searchWord, rowCount, true)
   }, [period])
-
-  const getSearchData = () => {
-    getArtworkData(currentPage, period, searchWord, rowCount)
-  }
-
-  const cancelSearch = () => {
-    setSearchWord('')
-    getArtworkData(currentPage, period, null, rowCount)
-  }
 
   const getArtworkData = (curPage, curDate, search, count, reset = false) => {
     let page = curPage
@@ -101,7 +91,7 @@ const ArtworksSection = props => {
     }).then(
       response => {
         setIsFetching(false)
-
+        setSearchLoading(false)
         const nfts = response.filter(item => item.asset_url !== '')
         setCurrentPage(curPage)
 
@@ -179,13 +169,11 @@ const ArtworksSection = props => {
           setSearchWord={value => setSearchWord(value.toString())}
           period={period}
           setPeriod={setPeriod}
-          onCancel={() => cancelSearch()}
-          onSearch={() => getSearchData()}
         />
       )}
 
-      {!loading && searchLoading && (
-        <div className="mt-10">
+      {!loading && searchLoading && !isVisibleFetching && (
+        <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingModal open={searchLoading} />
         </div>
       )}
@@ -197,8 +185,8 @@ const ArtworksSection = props => {
       )}
 
       {isMounted && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
-          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
+        <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
         </div>
       )}
     </div>

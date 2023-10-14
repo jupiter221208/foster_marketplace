@@ -18,6 +18,8 @@ import SolanaSolLogoIcon from 'assets/icons/solana-sol-logo.svg'
 import SolanaSolLogoGrayIcon from 'assets/icons/solana-sol-logo-gray.svg?component'
 import NounProhibitIcon from 'assets/icons/noun-prohibit-dark-red-16x16.svg?component'
 import NounProhibitHoverIcon from 'assets/icons/noun-prohibit-dark-red-16x16-hover.svg'
+import PhysicalPrintIcon from 'assets/icons/physical-print-icon.svg?component'
+import PhysicalPrintHoverIcon from 'assets/icons/physical-print-hover.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
 
@@ -29,11 +31,12 @@ import { getExplorerUrl } from 'utils/explorer'
 import { useConnection } from '@solana/wallet-adapter-react'
 
 const ReportMenu = props => {
-  const { address, onClick } = props
+  const { address, onClickReport, nftType } = props
   const viewport = useViewport()
 
   const [hover, setHover] = useState(false)
   const [hoverReport, setHoverReport] = useState(false)
+  const [hoverPrint, setHoverPrint] = useState(false)
 
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, address), [address, connection])
@@ -110,7 +113,7 @@ const ReportMenu = props => {
                 {({ active }) => (
                   <div
                     className={styles.menuItem}
-                    onClick={() => onClick()}
+                    onClick={() => onClickReport()}
                     onMouseEnter={() =>
                       viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? {} : setHoverReport(true)
                     }

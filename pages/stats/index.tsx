@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 import Head from 'next/head'
@@ -15,7 +15,7 @@ import { useViewport } from 'utils'
 // json
 import TabList from 'assets/json/stats/tab-list.json'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
-import StatsPreviewImage from 'assets/images/stats-preview-image.png'
+import PreviewImage from 'assets/images/preview-image.png'
 
 // styles
 import styles from './index.module.scss'
@@ -31,7 +31,9 @@ import StatsAPI from 'apis/stats'
 
 const Stats = () => {
   const viewport = useViewport()
+  const dispatch = useDispatch()
   const isLoading = useSelector<any>(state => state.isLoading)
+  const status = useSelector<any>(state => state.activeTab)
 
   const [activeTab, setActiveTab] = useState<any>(0)
   const [tabList, setTabList] = useState<any[]>(TabList)
@@ -43,11 +45,29 @@ const Stats = () => {
   const [collectors, setCollectors] = useState([])
 
   useEffect(() => {
+    dispatch({ type: 'set', isLoading: false })
     getArtworkData()
     getCollectionData()
     getCreatorData()
     getCollectorData()
   }, [])
+
+  useEffect(() => {
+    switch (status) {
+      case 0:
+        setActiveTab(0)
+        break
+      case 1:
+        setActiveTab(1)
+        break
+      case 2:
+        setActiveTab(2)
+        break
+      case 3:
+        setActiveTab(3)
+        break
+    }
+  }, [status])
 
   useEffect(() => {
     let array: any[] = []
@@ -132,7 +152,7 @@ const Stats = () => {
   }
 
   let pageTitle = `House Stats | Foster Marketplace`
-  let pageImageUrl = StatsPreviewImage.src
+  let pageImageUrl = PreviewImage.src
   let pageDescription = 'An all-in-one hub that provides insights into marketplace trends for artists and collectors.'
 
   return (
@@ -154,9 +174,6 @@ const Stats = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <div className="w-full flex flex-wrap">
           <div className={`${styles.title} z-10 hidden lg:flex`}>House Stats</div>
           <div className="relative mt-[10px] lg:mt-[84px] w-full h-auto flex relative overflow-hidden  justify-between z-10 h-[56px] lg:h-[76px] ">

@@ -18,15 +18,12 @@ on:
 jobs:
   deps:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - uses: actions/cache@v2
@@ -37,16 +34,13 @@ jobs:
 
   compile:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
     needs: [deps]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
       - name: Retrieve dependencies
         uses: actions/cache@v2
         id: restore-build
@@ -58,16 +52,13 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x]
     needs: [deps]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
       - name: Retrieve dependencies
         uses: actions/cache@v2
         id: restore-build
@@ -84,10 +75,10 @@ jobs:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js 16.x
+      - name: Use Node.js 18
         uses: actions/setup-node@v2
         with:
-          node-version: "16.x"
+          node-version: 18
       - name: Retrieve dependencies
         uses: actions/cache@v2
         id: restore-build

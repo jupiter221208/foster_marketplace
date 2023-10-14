@@ -63,6 +63,18 @@ export const isAvailableDate = (start, end) => {
   else return false
 }
 
+export const dataURLtoFile = (dataurl, filename) => {
+  var arr = dataurl.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  return new File([u8arr], filename, { type: mime })
+}
+
 export const getDateLabel = date => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
   let month = months[date.getMonth()]
@@ -77,6 +89,10 @@ export const getTimeLabel = date => {
   let mins = localDate.getMinutes()
 
   return hours + ':' + mins
+}
+
+export const findElement = (arr, propName, propValue) => {
+  for (var i = 0; i < arr.length; i++) if (arr[i][propName] == propValue) return arr[i]
 }
 
 export const calculateTimeLeftAll = endDate => {
@@ -194,6 +210,10 @@ export const getBuyerName = item => {
   return 'N/A'
 }
 
+export const getSliceAddress = address => {
+  return address ? address.slice(0, 5) + '***' + address.slice(-3) : ''
+}
+
 export const getLocalDate = dateString => {
   var utcDate = moment.utc(dateString)
   var fmt = 'MM/DD/YYYY hh:mm:ss'
@@ -201,7 +221,15 @@ export const getLocalDate = dateString => {
   return localDate
 }
 
+export const getLocalDateWithoutTime = dateString => {
+  var utcDate = moment.utc(dateString)
+  var fmt = 'MM/DD/YYYY'
+  const localDate = utcDate.local().format(fmt)
+  return localDate
+}
+
 export const getFirstUpperString = word => {
+  if (word === null || word?.length === 0) return ''
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
@@ -217,7 +245,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-bg-color-rgb', '32, 36, 39')
     doc.style.setProperty('--main-icon-color', '#202427')
     doc.style.setProperty('--main-icon-color-rgb', '32, 36, 39')
-    doc.style.setProperty('--g-left-container-bg', '#EFF0F6')
+    doc.style.setProperty('--g-left-container-bg', '#FFF')
     doc.style.setProperty('--background-main-color', '#F3F2F0')
     doc.style.setProperty('--background-main-color-rgb', '244, 243, 240')
     doc.style.setProperty('--background-black-color', '#202427')
@@ -230,11 +258,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color-rgb', '32, 36, 39')
     doc.style.setProperty('--sort-item-color', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--header-bg-color', 'rgba(244, 243, 240, 0.8)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(255, 255, 255, 0.75)')
+    doc.style.setProperty('--nav-bg-shadow', 'rgba(32, 36, 39, 0.4)')
+    doc.style.setProperty('--second-home-bg', '#FFF')
     doc.style.setProperty('--header-bottom-color', '#CCCDD4')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(244, 243, 240, 0.75)')
     doc.style.setProperty('--outline-button-border', '#202427')
     doc.style.setProperty('--outline-button-color', '#202427')
-    doc.style.setProperty('--secondary-button-border', '#eff0f6')
+    doc.style.setProperty('--secondary-button-border', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--avatar-border-color1', '#202427')
     doc.style.setProperty('--avatar-border-color2', '#6a6c6e')
     doc.style.setProperty('--text-trending-card-color', 'rgba(149, 219, 213, 1)')
@@ -244,17 +275,22 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--activity-border-color', '#B9BBC1')
     doc.style.setProperty('--activity-box-color', 'rgba(32, 36, 39, 0.1)')
     doc.style.setProperty('--accordion-first-row-bg', '#F3F2F0')
+    doc.style.setProperty('--modal-bg-color', '#F3F2F0')
     doc.style.setProperty('--accordion-second-row-bg', '#FFF')
-    doc.style.setProperty('--artwork-bg-color', '#C8C9CF')
+    doc.style.setProperty('--artwork-bg-color', '#F3F2F0')
+    doc.style.setProperty('--artwork-bg-mobile-color', '#202427')
+    doc.style.setProperty('--clipboard-btn-color', '#C8C9CF')
     doc.style.setProperty('--step-circle-mobile-color', '#202427')
     doc.style.setProperty('--dimension-bg-color', '239, 240, 247')
     doc.style.setProperty('--radio-check-color', '#202427')
     doc.style.setProperty('--brand-02-color-rgb', '55, 130, 135')
     doc.style.setProperty('--switch-01-color', '149, 219, 213')
-    doc.style.setProperty('--switch-02-color', '75, 110, 107')
+    doc.style.setProperty('--switch-02-color', '43,43,43')
     doc.style.setProperty('--menu-bg-color', '#F3F2F0')
+    doc.style.setProperty('--time-slog-bg', '#FFF')
     doc.style.setProperty('--menu-footer-color', '#CFD0D6')
     doc.style.setProperty('--hero-artist-color', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--twitter-text-color', '#eff0f6')
     doc.style.setProperty('--twitter-btn-color1', '#202427')
     doc.style.setProperty('--twitter-btn-color2', '#202427')
     doc.style.setProperty('--notification-card-bg', 'rgba(32, 36, 39, 0.5)')
@@ -274,7 +310,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #eff0f6, #78787B)')
     doc.style.setProperty('--artist-switch-bg', '#CBCDD2')
     doc.style.setProperty('--address-btn-color', 'rgba(32, 36, 39, 0.75)')
-    doc.style.setProperty('--search-bg-color', '#F3F2F0')
+    doc.style.setProperty('--mobile-sort-bg', '#F3F2F0')
+    doc.style.setProperty('--search-bg-color', 'rgba(32, 36, 39, 0.1)')
+    doc.style.setProperty('--main-search-bg-color', '#F3F2F0')
     doc.style.setProperty('--search-category-color', '#202427')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #E4E4E4, #BFBFBF)')
     doc.style.setProperty('--menu-item-open-bg', '#121212')
@@ -287,7 +325,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', '#202427')
     doc.style.setProperty('--search-item-color', '#95DBD5')
     doc.style.setProperty('--resource-card-title', '#eff0f6')
-    doc.style.setProperty('--nft-detail-section-bg', '#7C7E83')
+    doc.style.setProperty('--studio-title-bg', '#FFF')
+    doc.style.setProperty('--switch-disabled-bg', '#CBCDD2')
     doc.style.setProperty('--nft-detail-section-border', '#eff0f6')
     doc.style.setProperty('--gradient-btn-color', '#eff0f6')
     doc.style.setProperty('--gradient-btn-color-rgb', '239, 240, 247')
@@ -297,12 +336,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-border', '#C5C7CC')
     doc.style.setProperty('--alpha-area-border', 'transparent')
     doc.style.setProperty('--alpha-area-bg', '#D8D8DE')
-    doc.style.setProperty('--profile-menu-item-bg', '#202427')
+    doc.style.setProperty('--profile-menu-item-bg', 'rgba(32, 36, 39, 0.05)')
     doc.style.setProperty('--profile-menu-item-border', '')
     doc.style.setProperty('--profile-menu-item-color', '#95dbd5')
     doc.style.setProperty('--follow-box-shadow', 'rgba(32, 36, 39, 0.3)')
     doc.style.setProperty('--read-more-bg', 'rgba(180, 180, 180, 0.9)')
-    doc.style.setProperty('--modal-bg-color', 'rgba(239, 240, 247, 0.7)')
     doc.style.setProperty('--datepicker-bg-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--datepicker-button-bg', 'rgba(239, 240, 247, 1)')
     doc.style.setProperty('--datepicker-date-bg', 'rgba(255, 255, 255, 1)')
@@ -335,6 +373,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-box-shadow', '0px 0px 0px transparent')
     doc.style.setProperty('--wallet-btn-bg', '#202427')
     doc.style.setProperty('--wallet-btn-hover', '#95DBD5')
+    doc.style.setProperty('--create-nft-card-bg', '#FFFFFF')
     doc.style.setProperty('--collection-card-bg', '#FFFFFF')
     doc.style.setProperty('--collection-card-bg-rgb', '255, 255, 255')
     doc.style.setProperty('--collection-card-border', '0px')
@@ -357,15 +396,12 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(32, 36, 39, 0.25)')
     doc.style.setProperty('--artist-card-bg', 'linear-gradient(to bottom, rgba(32, 36, 39, 1), rgba(238, 239, 244, 1)')
     doc.style.setProperty('--nft-info-bg', '#202427')
-    doc.style.setProperty('--place-bid-close-rect', '#DDF2F5')
+    doc.style.setProperty('--place-bid-close-rect', 'rgba(32, 36, 39, 0.05')
     doc.style.setProperty('--place-bid-close-path', '#202427')
     doc.style.setProperty('--input-bg', '#E0E1E7')
-    doc.style.setProperty(
-      '--browse-nft-blur-bg',
-      'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.3) 40%,rgba(32, 36, 39, 0.2) 60%,rgba(32, 36, 39, 0.5) 100%)'
-    )
-    doc.style.setProperty('--resource-card-bg', '#CBCDD2')
-    doc.style.setProperty('--resource-card-default-bg', '#eff0f6')
+    doc.style.setProperty('--browse-nft-blur-bg', 'rgba(32, 36, 39, 0.75)')
+    doc.style.setProperty('--resource-card-bg', '#FFF')
+    doc.style.setProperty('--resource-card-default-bg', '#F3F2F0')
     doc.style.setProperty('--home-swiper-bg', '#202427')
     doc.style.setProperty('--explore-btn-bg-1', '#95DBD5')
     doc.style.setProperty('--explore-btn-bg-2', '#4B6E6B')
@@ -385,7 +421,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--back-btn-color', 'transparent')
     doc.style.setProperty('--back-btn-border', 'rgba(32, 36, 39, 0.5)')
     doc.style.setProperty('--back-btn-border-mobile', 'rgba(32, 36, 39, 0.25)')
-    doc.style.setProperty('--back-btn-border-width', '2')
+    doc.style.setProperty('--back-btn-border-width', '1')
     doc.style.setProperty('--artwork-table-border', 'transparent')
     doc.style.setProperty('--artwork-table-tr', '#202427')
     doc.style.setProperty('--artwork-table-tr-hover-bg', '#CBCDD2')
@@ -418,6 +454,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--card-border-color', '#C1C2C9')
     doc.style.setProperty('--search-menu-icon-color', '#202427')
     doc.style.setProperty('--social-bg-color', '#FFFFFF')
+    doc.style.setProperty('--shipping-board-bg', 'rgba(32, 36, 39, 0.05)')
     doc.style.setProperty('--nft-border-color', '#D7D8DE')
     doc.style.setProperty('--address-btn-bg-color', '#FFF')
     doc.style.setProperty('--stats-bg-color', '#FFF')
@@ -435,13 +472,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '239, 240, 247')
     doc.style.setProperty('--follow-btn-bg', '#121212')
     doc.style.setProperty('--follow-btn-color', '#E0E1E7')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(239, 240, 247, 0.5')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(255, 255, 255, 0.5')
     doc.style.setProperty('--hide-nft-border-color', '#CBCDD2')
     doc.style.setProperty('--category-chip-bg', '#C4C5CA')
     doc.style.setProperty('--live-auction-card', '#FFF')
     doc.style.setProperty('--accordian-header-bg', '#FFF')
     doc.style.setProperty('--accordian-area-bg', '#FFF')
     doc.style.setProperty('--social-share-bg', '#ffffff')
+    doc.style.setProperty('--social-share-bg-rgb', '255, 255, 255')
     doc.style.setProperty('--social-share-hover', 'rgba(214, 216, 221, 1)')
     doc.style.setProperty('--share-icon-bg', '#D6D8DD')
     doc.style.setProperty('--dao-setup-left', 'linear-gradient(to bottom, #eff0f6, #78787B)')
@@ -462,7 +500,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--dao-connect-border-width', '0px')
     doc.style.setProperty('--dao-connect-bg', 'linear-gradient(to bottom, #eff0f6, #78787B)')
     doc.style.setProperty('--dao-treasury-bg', '#FFF')
-    doc.style.setProperty('--g-right-container-bg', '#E3E4EA')
+    doc.style.setProperty('--g-right-container-bg', '#F3F2F0')
     doc.style.setProperty('--deposit-disabled-color', '#5F6165')
     doc.style.setProperty('--nav-divider-color', '#CCCDD4')
     doc.style.setProperty('--profile-setup-bg', 'linear-gradient(to bottom, #F5F5F8, #202427)')
@@ -472,8 +510,22 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', '#202427')
     doc.style.setProperty('--quick-buy-icon-color', '#eff0f6')
     doc.style.setProperty('--alert-close-bg-color', '#8F9093')
+    doc.style.setProperty('--fade-loader-color', '#202427')
     doc.style.setProperty('--time-slot-bg', 'rgba(32, 36, 39, 0.05)')
+    doc.style.setProperty('--back-btn-bg-color', '255, 255, 255')
+    doc.style.setProperty('--merch-mobile-squre-bg', '#202427')
     doc.style.setProperty('--scroll-bar-thumb', '#F3F2F0')
+    doc.style.setProperty('--merch-disabled-icon-bg', '#FFF')
+    doc.style.setProperty('--merch-disabled-icon-color', '#202427')
+    doc.style.setProperty('--stats-btn-icon-color', 'rgba(32, 36, 39, 1)')
+    doc.style.setProperty('--stats-btn-border-color', 'rgba(32, 36, 39, 0.25)')
+    doc.style.setProperty('--scroll-arrow-bg-color', '#F3F2F0')
+    doc.style.setProperty('--scroll-arrow-color', '#202427')
+    doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(0, 0, 0, 0.1)')
+    doc.style.setProperty('--nft-generative-color', '#FFFFFF')
+    doc.style.setProperty('--size-chart-modal-title', '#F3F2F0')
+    doc.style.setProperty('--table-header-color', '#573A01')
+
     // =====================================================
     // =====================================================
     // =====================================================
@@ -483,10 +535,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--main-bg-color-rgb', '239, 240, 247')
     doc.style.setProperty('--main-icon-color', '#95dbd5')
     doc.style.setProperty('--main-icon-color-rgb', '149, 219, 213')
-    doc.style.setProperty('--g-left-container-bg', '#0f1316')
+    doc.style.setProperty('--g-left-container-bg', '#1B1B1B')
     doc.style.setProperty('--g-right-container-bg', '#121212')
-    doc.style.setProperty('--background-main-color', '#121212')
-    doc.style.setProperty('--background-main-color-rgb', '18, 18, 18')
+    doc.style.setProperty('--background-main-color', '#1a1a1a')
+    doc.style.setProperty('--background-main-color-rgb', '26, 26, 26')
     doc.style.setProperty('--background-black-color', '#121212')
     doc.style.setProperty('--background-black-color-rgb', '18, 18, 18')
     doc.style.setProperty('--preload-back-color', 'rgba(18, 18, 18, 0.3)')
@@ -497,24 +549,30 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--text-gray-200-color-rgb', '239, 240, 247')
     doc.style.setProperty('--sort-item-color', '#eff0f6')
     doc.style.setProperty('--header-bg-color', 'rgba(18, 18, 18, 0.7)')
+    doc.style.setProperty('--nav-bg-color', 'rgba(27, 27, 27, 0.75)')
+    doc.style.setProperty('--nav-bg-shadow', 'rgba(0, 0, 0, 0.4)')
+    doc.style.setProperty('--second-home-bg', '#242424')
     doc.style.setProperty('--header-bottom-color', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--header-mobile-bg-color', 'rgba(18, 18, 18, 0.6)')
     doc.style.setProperty('--search-menu-icon-color', '#eff0f6')
     doc.style.setProperty('--outline-button-border', '#5ac3ba')
     doc.style.setProperty('--outline-button-color', '#eff0f6')
-    doc.style.setProperty('--secondary-button-border', '#95dbd5')
+    doc.style.setProperty('--secondary-button-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--avatar-border-color1', '#4ea19b')
     doc.style.setProperty('--avatar-border-color2', '#304e4e')
     doc.style.setProperty('--text-trending-card-color', 'rgba(239, 240, 247, 0.75)')
     doc.style.setProperty('--dashboard-tab-color', 'rgba(239, 240, 247, 0.6)')
-    doc.style.setProperty('--activity-bg-color', '#121212')
+    doc.style.setProperty('--activity-bg-color', '#242424')
     doc.style.setProperty('--activity-td-color', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--activity-border-color', '#95dbd5')
     doc.style.setProperty('--activity-default-border-color', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--activity-box-color', 'transparent')
-    doc.style.setProperty('--accordion-first-row-bg', '#1b1b1b')
+    doc.style.setProperty('--accordion-first-row-bg', '#121212')
+    doc.style.setProperty('--modal-bg-color', '#1b1b1b')
     doc.style.setProperty('--accordion-second-row-bg', 'transparent')
-    doc.style.setProperty('--artwork-bg-color', '#202427')
+    doc.style.setProperty('--artwork-bg-color', '#2B2B2B')
+    doc.style.setProperty('--artwork-bg-mobile-color', '#242424')
+    doc.style.setProperty('--clipboard-btn-color', '#202427')
     doc.style.setProperty('--step-circle-mobile-color', '#95dbd5')
     doc.style.setProperty('--dimension-bg-color', '12, 12, 12')
     doc.style.setProperty('--radio-check-color', '#95dbd5')
@@ -522,12 +580,15 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--switch-01-color', '55, 130, 135')
     doc.style.setProperty('--switch-02-color', '12, 65, 68')
     doc.style.setProperty('--menu-bg-color', '#121212')
+    doc.style.setProperty('--time-slog-bg', '#1a1a1a')
     doc.style.setProperty('--menu-footer-color', '#2b2f32')
     doc.style.setProperty('--hero-artist-color', '#95dbd5')
-    doc.style.setProperty('--twitter-btn-color1', '#5ac3ba')
-    doc.style.setProperty('--twitter-btn-color2', '#2d625d')
+    doc.style.setProperty('--twitter-text-color', '#202427')
+    doc.style.setProperty('--twitter-btn-color1', '#95DBD5')
+    doc.style.setProperty('--twitter-btn-color2', '#4B6E6B')
     doc.style.setProperty('--notification-card-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--background-dark-color-rgb', '32, 36, 39')
+    doc.style.setProperty('--back-btn-bg-color', '18, 18, 18')
     doc.style.setProperty('--dao-title-color', '#95dbd5')
     doc.style.setProperty('--nft-detail-artist', '#95dbd5')
     doc.style.setProperty('--dropdown-bg-color', 'rgba(14, 14, 14, 0.8)')
@@ -543,7 +604,9 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
     doc.style.setProperty('--artist-switch-bg', '#202427')
     doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.75)')
-    doc.style.setProperty('--search-bg-color', '#121212')
+    doc.style.setProperty('--mobile-sort-bg', '#121212')
+    doc.style.setProperty('--search-bg-color', 'rgba(239, 240, 247, 0.1)')
+    doc.style.setProperty('--main-search-bg-color', '#121212')
     doc.style.setProperty('--menu-item-bg', 'linear-gradient(to bottom, #1B1B1B, #121212')
     doc.style.setProperty('--menu-item-open-bg', '#202427')
     doc.style.setProperty('--search-category-color', 'rgba(239, 240, 247, 0.6)')
@@ -556,7 +619,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--search-item-bg', '#2B2B2B')
     doc.style.setProperty('--search-item-color', '#eff0f6')
     doc.style.setProperty('--resource-card-title', '#95dbd5')
-    doc.style.setProperty('--nft-detail-section-bg', '#2b2b2b')
+    doc.style.setProperty('--studio-title-bg', '#2B2B2B')
+    doc.style.setProperty('--switch-disabled-bg', '#2B2B2B')
     doc.style.setProperty('--nft-detail-section-border', '#202427')
     doc.style.setProperty('--gradient-btn-color', '#202427')
     doc.style.setProperty('--gradient-btn-color-rgb', '32, 36, 39')
@@ -566,12 +630,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--nft-detail-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--alpha-area-border', '#95dbd5')
     doc.style.setProperty('--alpha-area-bg', 'transparent')
-    doc.style.setProperty('--profile-menu-item-bg', '#2b2b2b')
+    doc.style.setProperty('--profile-menu-item-bg', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--profile-menu-item-border', '#5ac3ba')
     doc.style.setProperty('--profile-menu-item-color', '#eff0f6')
     doc.style.setProperty('--follow-box-shadow', '#95dbd5')
     doc.style.setProperty('--read-more-bg', 'rgba(18, 18, 18, 0.8)')
-    doc.style.setProperty('--modal-bg-color', 'rgba(18, 18, 18, 0.5)')
     doc.style.setProperty('--datepicker-bg-color', 'rgba(32, 36, 39, 0.9)')
     doc.style.setProperty('--datepicker-button-bg', 'rgba(32, 36, 39, 1)')
     doc.style.setProperty('--datepicker-date-bg', 'rgba(32, 36, 39, 1)')
@@ -594,7 +657,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--connected-wallet-bg', 'linear-gradient(to bottom, #1B1B1B, #2B2B2B)')
     doc.style.setProperty('--profile-border-color', '#95dbd5')
     doc.style.setProperty('--profile-active-border-color', '#95dbd5')
-    doc.style.setProperty('--stats-accordion-bg', '#121212')
+    doc.style.setProperty('--stats-accordion-bg', '#242424')
     doc.style.setProperty('--stats-accordion-border', '#95dbd5')
     doc.style.setProperty('--stats-accordion-normal-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--resource-accordion-dropdown-bg', 'rgba(255, 255, 255, 0.2)')
@@ -610,10 +673,11 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-box-shadow', '0px 3px 6px rgba(18, 18, 18, 0.4)')
     doc.style.setProperty('--wallet-btn-bg', 'linear-gradient(110deg, #121212, #202427)')
     doc.style.setProperty('--wallet-btn-hover', '#95dbd5')
-    doc.style.setProperty('--collection-card-bg', '#121212')
-    doc.style.setProperty('--collection-card-bg-rgb', '18, 18, 18')
+    doc.style.setProperty('--create-nft-card-bg', '#242424')
+    doc.style.setProperty('--collection-card-bg', '#1a1a1a')
+    doc.style.setProperty('--collection-card-bg-rgb', '26, 26, 26')
     doc.style.setProperty('--collection-card-border', '1px')
-    doc.style.setProperty('--profile-card-bg', '#121212')
+    doc.style.setProperty('--profile-card-bg', '#1a1a1a')
     doc.style.setProperty('--mynft-outline-border', '#5ac3ba')
     doc.style.setProperty('--mynft-outline-color', '')
     doc.style.setProperty('--filter-close-color', '#eff0f6')
@@ -631,13 +695,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--follow-btn-border-mobile', 'rgba(239, 240, 247, 0.25)')
     doc.style.setProperty('--artist-card-bg', 'rgba(32, 36, 39, 0.7)')
     doc.style.setProperty('--nft-info-bg', 'rgba(32, 36, 39, 0.5)')
-    doc.style.setProperty('--place-bid-close-rect', 'rgba(239, 240, 246, 0.2)')
+    doc.style.setProperty('--place-bid-close-rect', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--place-bid-close-path', '#eff0f6')
     doc.style.setProperty('--input-bg', 'rgba(255, 255, 255, 0.25)')
-    doc.style.setProperty(
-      '--browse-nft-blur-bg',
-      'linear-gradient(to top,rgba(32, 36, 39, 0.5) 0%,rgba(32, 36, 39, 0.1) 40%,rgba(32, 36, 39, 0.15) 60%,rgba(32, 36, 39, 0.5) 100%)'
-    )
+    doc.style.setProperty('--browse-nft-blur-bg', 'rgba(32, 36, 39, 0.75)')
     doc.style.setProperty('--resource-card-bg', '#2B2B2B')
     doc.style.setProperty('--resource-card-default-bg', '#121212')
     doc.style.setProperty('--home-swiper-bg', '#95dbd5')
@@ -657,8 +718,8 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--tooltip-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--back-btn-color', '#378287')
     doc.style.setProperty('--back-btn-border', '#95dbd5')
-    doc.style.setProperty('--back-btn-border-mobile', '#95dbd5')
-    doc.style.setProperty('--back-btn-border-width', '')
+    doc.style.setProperty('--back-btn-border-mobile', 'rgba(239, 240, 247, 0.1')
+    doc.style.setProperty('--back-btn-border-width', '1')
     doc.style.setProperty('--artwork-table-border', 'rgba(239, 240, 247, 0.1)')
     doc.style.setProperty('--artwork-table-tr', 'rgba(239, 240, 247, 0.8)')
     doc.style.setProperty('--artwork-table-tr-hover-bg', '#202427')
@@ -690,9 +751,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--menu-item-activity-icon', '#95dbd5')
     doc.style.setProperty('--card-border-color', '#333333')
     doc.style.setProperty('--social-bg-color', '#2b2b2b')
+    doc.style.setProperty('--shipping-board-bg', 'rgba(239, 240, 247, 0.05)')
     doc.style.setProperty('--nft-border-color', '#292929')
     doc.style.setProperty('--address-btn-bg-color', '#2B2B2B')
-    doc.style.setProperty('--stats-bg-color', '#1b1b1b')
+    doc.style.setProperty('--stats-bg-color', '#242424')
     doc.style.setProperty('--tab-bottom-color', '#95dbd5')
     doc.style.setProperty('--top-artist-bg', 'linear-gradient(to bottom, rgba(149, 219, 213, 1), rgba(75, 110, 107, 1)')
     doc.style.setProperty('--sell-nft-border', 'rgba(255, 255, 255, 0.1)')
@@ -706,13 +768,14 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-banner-overlay', '18, 18, 18')
     doc.style.setProperty('--follow-btn-bg', '#1b1b1b')
     doc.style.setProperty('--follow-btn-color', '#eff0f6')
-    doc.style.setProperty('--hero-overlay-color', 'rgba(18, 18, 18, 0.5)')
+    doc.style.setProperty('--hero-overlay-color', 'rgba(26, 26, 26, 0.5)')
     doc.style.setProperty('--hide-nft-border-color', '#95dbd5')
     doc.style.setProperty('--category-chip-bg', 'rgba(239, 240, 247, 0.15)')
     doc.style.setProperty('--live-auction-card', '#1b1b1b')
     doc.style.setProperty('--accordian-header-bg', '#1b1b1b')
     doc.style.setProperty('--accordian-area-bg', '#1b1b1b')
     doc.style.setProperty('--social-share-bg', '#121212')
+    doc.style.setProperty('--social-share-bg-rgb', '18, 18, 18')
     doc.style.setProperty(
       '--social-share-hover',
       'linear-gradient(to bottom, rgba(90, 195, 186, 0.3) 0%, rgba(45, 98, 93, 0.3) 100%)'
@@ -727,7 +790,7 @@ export const setColorTheme = lightMode => {
       'linear-gradient(to bottom, rgba(18, 18, 18, 0), rgba(18, 18, 18, 1))'
     )
     doc.style.setProperty('--stats-search-bg', '#2b2b2b')
-    doc.style.setProperty('--artwork-tbl-header-bg', 'linear-gradient(to bottom, #1b1b1b, #1b1b1b)')
+    doc.style.setProperty('--artwork-tbl-header-bg', '#242424')
     doc.style.setProperty('--primary-btn-bg-left', '#4B6E6B')
     doc.style.setProperty('--primary-btn-bg-right', '#95DBD5')
     doc.style.setProperty('--auction-card-label', '#95dbd5')
@@ -735,7 +798,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--auction-card-color', '#202427')
     doc.style.setProperty('--dao-connect-border-width', '1px')
     doc.style.setProperty('--dao-connect-bg', 'transparent')
-    doc.style.setProperty('--dao-treasury-bg', '#1b1b1b')
+    doc.style.setProperty('--dao-treasury-bg', '#242424')
     doc.style.setProperty('--deposit-disabled-color', '#E2E6EA')
     doc.style.setProperty('--nav-divider-color', '#292929')
     doc.style.setProperty('--profile-setup-bg', 'linear-gradient(to bottom, #264e51, #131516)')
@@ -745,7 +808,19 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--profile-divider', 'rgba(239, 240, 247, 0.5)')
     doc.style.setProperty('--quick-buy-icon-color', '#202427')
     doc.style.setProperty('--alert-close-bg-color', '#434343')
+    doc.style.setProperty('--fade-loader-color', '#63D6CD')
     doc.style.setProperty('--time-slot-bg', 'rgba(239, 240, 247, 0.05)')
+    doc.style.setProperty('--merch-mobile-squre-bg', '#1b1b1b')
     doc.style.setProperty('--scroll-bar-thumb', '#95dbd5')
+    doc.style.setProperty('--merch-disabled-icon-bg', '#2B2B2B')
+    doc.style.setProperty('--merch-disabled-icon-color', '#eff0f6')
+    doc.style.setProperty('--stats-btn-icon-color', 'rgba(239, 240, 247, 0.75)')
+    doc.style.setProperty('--stats-btn-border-color', 'rgba(255, 255, 255, 0.25)')
+    doc.style.setProperty('--scroll-arrow-bg-color', '#2B2B2B')
+    doc.style.setProperty('--scroll-arrow-color', '#eff0f6')
+    doc.style.setProperty('--scroll-arrow-drop-shadow', 'rgba(32, 36, 37, 0.1)')
+    doc.style.setProperty('--nft-generative-color', '#2F2F2F')
+    doc.style.setProperty('--size-chart-modal-title', '#242424')
+    doc.style.setProperty('--table-header-color', '#242424')
   }
 }

@@ -13,7 +13,7 @@
     min-width: 200px;
     height: 50px;
     border-radius: 12px;
-    background: rgba(var(--text-gray-200-color-rgb), 0.1);
+    background: var(--search-bg-color);
     padding-left: 10px;
     padding-right: 15px;
   }
@@ -26,6 +26,7 @@
 .searchArea {
   background: rgba(var(--text-gray-200-color-rgb), 0.1);
   border-radius: 12px;
+  min-width: 160px;
   display: flex;
   flex: 1;
   @media (min-width: 1024px) {
@@ -95,7 +96,7 @@
     max-height: 600px;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background-color: var(--search-bg-color);
+    background-color: var(--main-search-bg-color);
     border-radius: 15px;
     border: 1px solid rgba(var(--text-gray-200-color-rgb), 0.1);
   }
@@ -155,8 +156,7 @@
 
   &:hover {
     @media (min-width: 1024px) {
-      background: var(--search-item-bg);
-      color: $text-gray-200-color;
+      background: var(--profile-menu-item-bg);
       border-radius: 8px;
     }
   }

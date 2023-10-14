@@ -156,6 +156,17 @@ class Nfts {
       return response.data
     })
   }
+
+  enableMerchHub(id, params) {
+    return client.post(`${API_URL}v1/nfts/merch_hub/${id}`, params).then(response => {
+      return response.data
+    })
+  }
+  enableAllMerchHub(params) {
+    return client.post(`${API_URL}v1/nfts/merch_hub/batch`, params).then(response => {
+      return response.data
+    })
+  }
 }
 
 export default new Nfts()

@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Lottie from 'lottie-react'
 
 // next components
 
 // components
 import IconTab from 'components/Tab/IconTab'
-import Image from 'next/image'
 
 // json
 import TabList from 'assets/json/artist-profile/tab-list.json'
 
 // resources
-import RefreshLottery from 'assets/lottery/refresh.json'
-import RefreshIcon from 'assets/icons/refresh-icon.svg'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 
 // styles
@@ -23,7 +19,6 @@ import NFTSwiperSection from 'components/pages/ArtistProfile/NFTSwiperSection'
 import ArtistPagination from 'components/Button/ArtistPagination'
 
 // apis
-import nftsAPI from 'apis/nfts'
 import CollectionSwiperSection from 'components/pages/ArtistProfile/CollectionSwiperSection'
 import LoadingComponent from 'pages/explore/LoadingComponent'
 
@@ -31,6 +26,7 @@ const TabSection = props => {
   const {
     createdNfts,
     collectedNfts,
+    merchNfts,
     collections,
     wallet,
     isOwn,
@@ -150,6 +146,15 @@ const TabSection = props => {
 
       {activeTab === 0 && (
         <div className="w-full">
+          <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+          {createdNfts?.length > 0 && isLoaded && isVisibleFetchingCreated && (
+            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
+          )}
+        </div>
+      )}
+
+      {activeTab === 1 && (
+        <div className="w-full">
           <LiveAuctionSection
             category={''}
             artist={wallet}
@@ -163,16 +168,25 @@ const TabSection = props => {
           />
         </div>
       )}
-
-      {activeTab === 1 && (
+      {activeTab === 2 && (
         <div className="w-full">
-          <NFTSwiperSection nfts={createdNfts} showHideButton={isOwn} isLoaded={isLoaded} />
-          {createdNfts.length > 0 && isLoaded && isVisibleFetchingCreated && (
-            <LoadingComponent isFetching={isFetchingCreated} setIsFetching={setIsFetchingCreated} />
-          )}
+          <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+          {/* <div className="w-full flex justify-end">
+                  <ArtistPagination
+                    currentPage={collectorCurrentPage}
+                    rowCount={collectorRowCount}
+                    totalCount={collectorTotalCount}
+                    setRowCount={count => {
+                      selectRowCount(count)
+                    }}
+                    handleNext={handleNextPage}
+                    handlePrev={handlePreviousPage}
+                  />
+                </div> */}
         </div>
       )}
-      {activeTab === 2 && (
+
+      {activeTab === 3 && (
         <div className="w-full">
           <NFTSwiperSection nfts={collectedNfts} showHideButton={isOwn} isLoaded={isLoaded} />
           {collectedNfts.length > 0 && isLoaded && isVisibleFetchingCollected && (
@@ -180,21 +194,21 @@ const TabSection = props => {
           )}
 
           {/* <div className="w-full flex justify-end">
-            <ArtistPagination
-              currentPage={collectorCurrentPage}
-              rowCount={collectorRowCount}
-              totalCount={collectorTotalCount}
-              setRowCount={count => {
-                selectRowCount(count)
-              }}
-              handleNext={handleNextPage}
-              handlePrev={handlePreviousPage}
-            />
-          </div> */}
+                  <ArtistPagination
+                    currentPage={collectorCurrentPage}
+                    rowCount={collectorRowCount}
+                    totalCount={collectorTotalCount}
+                    setRowCount={count => {
+                      selectRowCount(count)
+                    }}
+                    handleNext={handleNextPage}
+                    handlePrev={handlePreviousPage}
+                  />
+                </div> */}
         </div>
       )}
 
-      {activeTab === 3 && (
+      {activeTab === 4 && (
         <div className="w-full">
           <CollectionSwiperSection collections={showCollections} />
           {collections.length > 0 && isMounted && isVisibleFetching && (
@@ -203,7 +217,7 @@ const TabSection = props => {
         </div>
       )}
 
-      {activeTab === 4 && (
+      {activeTab === 5 && (
         <div className={styles.statsSection}>
           <div className="flex justify-between">
             <div>Total Volume Sold</div>

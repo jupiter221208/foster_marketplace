@@ -1,0 +1,27 @@
+[
+  {
+    "id": 0,
+    "name": "Basic",
+    "type": "basic"
+  },
+  {
+    "id": 1,
+    "name": "Choice",
+    "type": "choice"
+  },
+  {
+    "id": 2,
+    "name": "Standard",
+    "type": "standard"
+  },
+  {
+    "id": 3,
+    "name": "Triblend",
+    "type": "triblend"
+  },
+  {
+    "id": 4,
+    "name": "Premium",
+    "type": "premium"
+  }
+]

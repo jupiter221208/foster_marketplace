@@ -1,0 +1,200 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  position: relative;
+  width: 100%;
+  max-height: 516px;
+  height: 100%;
+  border-radius: 24px;
+  @media (min-width: 1024px) {
+    border-radius: 24px;
+  }
+  margin: 6px;
+  box-shadow: 0px 3px 6px rgba($background-dark-color, 0.3);
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+.avatar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  @media (min-width: 1024px) {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  background-color: rgba(#ffffff, 0.3);
+  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+}
+
+.playButton {
+  position: absolute;
+  z-index: 10001;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--background-light-color), 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.bidContainer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 53px;
+  overflow: hidden;
+  @media (min-width: 640px) {
+    height: 60px;
+  }
+  @media (min-width: 1024px) {
+    width: 100%;
+    height: 70px;
+  }
+  @media (min-width: 1280px) {
+    width: 100%;
+    height: 84px;
+  }
+  @media (min-width: 1536px) {
+    width: 100%;
+    height: 94px;
+  }
+  @media (min-width: 1768px) {
+    width: 100%;
+    height: 120px;
+  }
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bidGradientBgView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  @media (min-width: 1024px) {
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
+  }
+  background: rgba(var(--social-share-bg-rgb), 0.75);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.bidContentView {
+  -webkit-transform: translate3d(0, 0, 0);
+  position: absolute;
+  width: auto;
+
+  inset: 2px 14px 6px 14px;
+  @media (max-width: 374px) {
+    inset: 2px 8px 6px 8px;
+  }
+  @media (min-width: 640px) {
+    height: 60px;
+    inset: 4px 14px 10px 14px;
+  }
+  @media (min-width: 1024px) {
+    height: 70px;
+    inset: 5px 14px 10px 14px;
+  }
+  @media (min-width: 1280px) {
+    height: 84px;
+    inset: 10px 14px 10px 20px;
+  }
+  @media (min-width: 1536px) {
+    height: 94px;
+    inset: 12px 12px 8px 24px;
+  }
+  @media (min-width: 1768px) {
+    height: 104px;
+    inset: 24px 16px 8px 24px;
+  }
+  z-index: 10;
+}
+
+.imageArea {
+  position: relative;
+  width: 100%;
+  padding-top: 100%; /* 492:516 Aspect Ratio */
+  background: linear-gradient(135deg, #2a2a2a, #000000);
+  border-bottom-left-radius: 27px;
+  border-bottom-right-radius: 27px;
+  overflow: hidden;
+}
+
+.imageContent {
+  position: absolute;
+  inset: 10px 10px 0px 10px;
+  display: flex;
+  justify-content: center;
+  border-radius: 24px;
+  border: 1px solid transparent;
+  @media (min-width: 1024px) {
+    border-radius: 24px;
+  }
+}
+
+.nftImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  color: var(--main-bg-color);
+  @media (min-width: 1024px) {
+    font-size: 20px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 22px;
+  }
+}
+
+.type {
+  font-family: 'Muli-Light';
+  font-size: 14px;
+  color: rgba(var(--main-bg-color-rgb), 0.9);
+  @media (min-width: 1024px) {
+    font-size: 15px;
+  }
+  @media (min-width: 1536px) {
+    font-size: 16px;
+  }
+}
+
+.startPrice {
+  font-family: 'Muli-SemiBold';
+  font-size: 12px;
+  color: var(--main-icon-color);
+  @media (min-width: 1280px) {
+    margin-top: 4px;
+    font-size: 16px;
+  }
+  @media (min-width: 1536px) {
+    margin-top: 8px;
+  }
+  @media (min-width: 1768px) {
+    margin-top: 12px;
+  }
+}

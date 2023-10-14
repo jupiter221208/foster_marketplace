@@ -24,11 +24,12 @@ import SelectCategoryMenu from 'components/Menu/SelectCategoryMenu'
 import ArrowDownIcon from 'assets/icons/arrow-down-small.svg?component'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import { limit } from 'utils/strings'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const DaoSubmitModal = props => {
   const { data, open, onSubmit, onClose } = props
   const { publicKey } = useWallet()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
 
   const viewport = useViewport()
   const [startDate, setStartDate] = useState(new Date())

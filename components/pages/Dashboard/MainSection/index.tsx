@@ -42,12 +42,13 @@ import uploadFileToS3API from 'apis/aws'
 import { copyClipboardAlert, copyToClipboard } from 'utils/helpers'
 import CopyClipboardChip from 'components/Chip/CopyClipboardChip'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const MainSection = () => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
 
   const { publicKey } = useWallet()
   const shortAddress = useMemo(() => getShortAddress(publicKey || ('' as unknown as PublicKey)), [publicKey])
@@ -221,9 +222,6 @@ const MainSection = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.topLeftEllipse}>
-        {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-      </div>
       <div className={styles.bannerImage}>
         <img
           src={croppedBanner !== '' ? croppedBanner : banner !== undefined ? banner : BannerImage.src}

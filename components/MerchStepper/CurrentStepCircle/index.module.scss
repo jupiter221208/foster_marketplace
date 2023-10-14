@@ -1,0 +1,44 @@
+@import 'assets/scss/variable.module.scss';
+
+.outerCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  @media (min-width: 1024px) {
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+  }
+  background-color: transparent;
+  border: 2px solid var(--step-circle-mobile-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerCircle {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  @media (min-width: 1024px) {
+    font-size: 18px;
+    line-height: 18px;
+    padding-bottom: 2px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+  }
+  font-size: 18px;
+  line-height: 24px;
+  background-color: var(--step-circle-mobile-color);
+  color: var(--step-text-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: 'Muli-Bold';
+
+  letter-spacing: 0;
+}

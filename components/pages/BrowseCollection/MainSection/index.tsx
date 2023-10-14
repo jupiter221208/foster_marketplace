@@ -192,7 +192,7 @@ const MainSection = props => {
             ) : (
               <img src={bannerImage.src} alt="" className="w-full h-[435px] lg:h-[412px] object-cover mb-[12px] " />
             )}
-            <div className={styles.bottomMask}></div>
+            {/* <div className={styles.bottomMask}></div> */}
 
             {publicKey?.toBase58() === data?.minter_id && (
               <div className="absolute right-7 bottom-7 cursor-pointer">

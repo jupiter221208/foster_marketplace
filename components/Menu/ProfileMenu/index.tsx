@@ -5,6 +5,8 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 
 // next components
 import Image from 'next/image'
+import ReactPlaceholder from 'react-placeholder/lib'
+import 'react-placeholder/lib/reactPlaceholder.css'
 
 // third party components
 import { Menu, Transition } from '@headlessui/react'
@@ -15,28 +17,24 @@ import styles from './index.module.scss'
 // resources
 import DarkLightModeMobileIcon from 'assets/icons/dark-light-mode-mobile.svg?component'
 import LightDarkModeMobileIcon from 'assets/icons/light-dark-mode-mobile.svg?component'
+import AvatarImage from 'assets/images/dashboard-avatar.png'
 
 import ProfileMenuItem from '../ProfileMenuItem'
 import Alert from 'components/Alert'
-import { setColorTheme } from 'utils/helpers'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const ProfileMenu = props => {
-  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus } = props
+  const { avatar, wallet, username, menuList, onSelect, connectWalletStatus, lightMode, handleThemeMode } = props
+  const router = useRouter()
   const dispatch = useDispatch()
-  const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const [buttonClicked, setButtonClicked] = useState(false)
   const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
-
-  const handleThemeMode = () => {
-    setColorTheme(!lightMode)
-    dispatch({ type: 'set', lightMode: !lightMode })
-    setLightMode(!lightMode)
-  }
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     if (!buttonClicked) {
@@ -45,20 +43,7 @@ const ProfileMenu = props => {
 
     setButtonClicked(false)
 
-    if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      dispatch({ type: 'set', showConnectAlert: true })
-      setTimeout(() => {
-        setShowAlert(true)
-      }, 1000)
-    } else {
+    if (!connected) {
       setAlertData([
         {
           id: 0,
@@ -70,6 +55,26 @@ const ProfileMenu = props => {
       setShowAlert(true)
     }
   }, [connected])
+
+  useEffect(() => {
+    if (loginSignedFlag === true) {
+      if (connected) {
+        dispatch({ type: 'set', loginSignedFlag: false })
+        setAlertData([
+          {
+            id: 0,
+            title: 'Wallet Connected!',
+            description: `You've successfully connected your wallet!`,
+            type: 'success',
+          },
+        ])
+        dispatch({ type: 'set', showConnectAlert: true })
+        setTimeout(() => {
+          setShowAlert(true)
+        }, 1000)
+      }
+    }
+  }, [loginSignedFlag])
 
   return (
     <div className="relative flex items-center">
@@ -83,7 +88,6 @@ const ProfileMenu = props => {
                     className={styles.signIn}
                     onClick={() => {
                       setButtonClicked(true)
-                      dispatch({ type: 'set', loginSignedFlag: false })
                       setVisible(true)
                     }}
                   >
@@ -102,8 +106,20 @@ const ProfileMenu = props => {
                 </div>
               </div>
             ) : (
-              <div className={connectWalletStatus ? styles.activeAvatar : styles.avatar}>
-                <Image src={avatar} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+              <div className={styles.activeAvatar}>
+                {avatar === null || avatar === undefined ? (
+                  <div className="w-full h-full">
+                    <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
+                      <div></div>
+                    </ReactPlaceholder>
+                  </div>
+                ) : avatar?.length > 0 ? (
+                  <div className={styles.avatarArea}>
+                    <img src={avatar} alt="" width={42} height={42} />
+                  </div>
+                ) : (
+                  <Image src={AvatarImage} alt="" width={42} height={42} layout="responsive" objectFit="cover" />
+                )}
               </div>
             )}
             {connectWalletStatus && (
@@ -144,8 +160,11 @@ const ProfileMenu = props => {
                   item={item}
                   key={index}
                   onSelect={item => {
-                    if (item.id === 7) setButtonClicked(true)
-                    onSelect(item)
+                    if (item.id === 7) {
+                      setButtonClicked(true)
+                    } else {
+                      onSelect(item)
+                    }
                   }}
                 />
               ))}
@@ -162,6 +181,9 @@ const ProfileMenu = props => {
           open={showAlert}
           close={() => {
             setShowAlert(false)
+            if (!connected) {
+              router.push('/')
+            }
           }}
           data={alertData}
         />

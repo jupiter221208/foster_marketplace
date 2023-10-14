@@ -1,0 +1,57 @@
+@import 'assets/scss/variable.module.scss';
+
+.container {
+  width: auto;
+  height: auto;
+  display: flex;
+}
+.label {
+  display: flex;
+  min-width: 120px;
+  color: var(--text-gray-200-color);
+  font-family: 'Muli-Regular';
+  @media (min-width: 1024px) {
+    font-family: 'Muli-Bold';
+  }
+  font-size: 14px;
+  line-height: 18px;
+}
+.selectedLabel {
+  font-family: 'Muli-Bold';
+}
+.selected {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--main-icon-color);
+  cursor: pointer;
+}
+.normal {
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(var(--text-gray-200-color-rgb), 0.35);
+  cursor: pointer;
+}
+.mobileNormal {
+  min-width: 43px;
+  font-family: 'Muli-SemiBold';
+  text-align: center;
+  font-size: 14px;
+  padding: 6px;
+  line-height: 18px;
+  color: var(--text-gray-200-color);
+  border: 1px solid rgba(var(--main-bg-color-rgb), 0.25);
+  cursor: pointer;
+}
+.mobileSelected {
+  min-width: 43px;
+  font-family: 'Muli-SemiBold';
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  padding: 6px;
+  color: var(--background-main-color);
+  background: var(--main-icon-color);
+  cursor: pointer;
+}

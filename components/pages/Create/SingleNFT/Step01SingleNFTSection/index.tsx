@@ -13,7 +13,7 @@ import Alert from 'components/Alert'
 import { useViewport } from 'utils'
 
 // images and icons
-import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg'
+import UploadGreenIcon from 'assets/icons/upload-green-24x24.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -170,7 +170,7 @@ const Step01SingleNFTSection = props => {
                 <section className={styles.dropzone}>
                   <div {...getRootProps()} className={styles.selectArea}>
                     <input {...getInputProps()} />
-                    <Image src={UploadGreenIcon} alt="" />
+                    <UploadGreenIcon alt="" />
                     <p className={styles.subTitle}>Upload Here</p>
                     <p className={styles.text}>
                       Supported File Formats
@@ -184,7 +184,7 @@ const Step01SingleNFTSection = props => {
             </Dropzone>
             <div className="mt-[12px] h-[30px] flex items-center">
               <div
-                className="w-[20px] flex justify-center items-center cursor-pointer"
+                className="w-[25px] flex justify-center items-center cursor-pointer"
                 onClick={() => {
                   setInfoFocus(true)
                   setTimeout(() => {
@@ -219,7 +219,7 @@ const Step01SingleNFTSection = props => {
                     <section className={nftType === 'audio' ? styles.mediaDropzone : styles.dropzone}>
                       <div {...getRootProps()} className={styles.selectArea}>
                         <input {...getInputProps()} />
-                        <Image src={UploadGreenIcon} alt="" />
+                        <UploadGreenIcon alt="" />
                         <p className={styles.subTitle}>Upload Here</p>
                         <p className={styles.text}>
                           Supported File Formats

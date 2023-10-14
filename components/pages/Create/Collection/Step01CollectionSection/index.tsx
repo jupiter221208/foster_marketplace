@@ -251,9 +251,6 @@ const Step01CollectionSection = props => {
         <div className="w-full grid grid-cols-12 gap-0">
           {/* left part */}
           <div className="relative col-span-12 lg:col-span-6 g-left-container">
-            <div className={styles.topLeftEllipse}>
-              {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-            </div>
             <div className={styles.leftContainer}>
               <div className={`${styles.title} w-full`}>Collection Cover Image & Banner</div>
               <div className="w-full mt-[57px]">

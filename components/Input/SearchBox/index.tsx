@@ -132,7 +132,7 @@ const SearchBox = props => {
 
       {searchList.nfts.length === 0 && searchList.artists.length === 0 && searchList.collections.length === 0 ? null : (
         <div className={styles.contentArea}>
-          {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>ARTWORK</div>}
+          {searchList.nfts.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Artwork</div>}
           <div className="w-full flex flex-wrap">
             {searchList.nfts.map((item, index) => (
               <div
@@ -159,7 +159,7 @@ const SearchBox = props => {
             ))}
           </div>
           {searchList.nfts.length !== 0 && searchList.artists.length !== 0 && <div className="w-full h-10" />}
-          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>MEMBER</div>}
+          {searchList.artists.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Member</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.artists.map((item, index) => (
               <div
@@ -193,7 +193,7 @@ const SearchBox = props => {
           {(searchList.nfts.length !== 0 || searchList.artists.length !== 0) && searchList.collections.length !== 0 && (
             <div className="w-full h-10" />
           )}
-          {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[18px]`}>COLLECTION</div>}
+          {searchList.collections.length !== 0 && <div className={`${styles.title} mb-[18px]`}>Collection</div>}
           <div className="w-full flex flex-wrap gap-[9px]">
             {searchList.collections.map((item, index) => (
               <div

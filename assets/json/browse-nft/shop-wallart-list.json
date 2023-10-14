@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "name": "Acrylic",
+    "start_price": "40.95",
+    "asset_url": "/images/shop-wallart-acrylic.png",
+    "category": "print",
+    "type": "",
+    "sub_type": "acrylic",
+    "base": ""
+  },
+  {
+    "id": 1,
+    "name": "Poster",
+    "start_price": "8.58",
+    "asset_url": "/images/shop-wallart-poster.png",
+    "category": "print",
+    "type": "",
+    "sub_type": "poster",
+    "base": ""
+  },
+  {
+    "id": 2,
+    "name": "Canvas",
+    "start_price": "12.95",
+    "asset_url": "/images/shop-wallart-canvas.png",
+    "category": "print",
+    "type": "",
+    "sub_type": "canvas",
+    "base": ""
+  },
+  {
+    "id": 3,
+    "name": "Metal Print",
+    "start_price": "31.33",
+    "asset_url": "/images/shop-wallart-metal.png",
+    "category": "print",
+    "type": "",
+    "sub_type": "metal",
+    "base": ""
+  }
+]

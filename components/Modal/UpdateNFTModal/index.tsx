@@ -95,7 +95,6 @@ const UpdateNFTModal = props => {
                   <PriceInput
                     value={price}
                     placeholder="Enter price value"
-                    backgroundColor="#202427"
                     fullWidth
                     onChange={value => setPrice(value)}
                   />

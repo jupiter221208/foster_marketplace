@@ -55,6 +55,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [categoryList, setCategoryList] = useState<any>([])
   const [createdNfts, setCreatedNfts] = useState<any>([])
   const [collectedNfts, setCollectedNfts] = useState<any>([])
+  const [merchNfts, setMerchNfts] = useState<any>([])
   const [collections, setCollections] = useState<any>([])
   const [artistEnable, setArtistEnable] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -66,6 +67,9 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   const [collectorCurrentPage, setCollectorCurrentPage] = useState(1)
   const [collectorRowCount, setCollectorRowCount] = useState(12)
   const [collectorTotalCount, setCollectorTotalCount] = useState(0)
+  const [merchCurrentPage, setMerchCurrentPage] = useState(1)
+  const [merchRowCount, setMerchRowCount] = useState(12)
+  const [merchTotalCount, setMerchTotalCount] = useState(0)
   const [artistToEnd, setArtistToEnd] = useState(false)
   const [collectorToEnd, setCollectorToEnd] = useState(false)
   const [activeListingLoaded, setActiveListingLoaded] = useState(false)
@@ -102,12 +106,12 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
   }, [])
 
   useEffect(() => {
-    if (activeListingLoaded && liveAuctionLoaded) {
+    if (createdNfts !== null && createdNfts !== undefined && isLoading) {
       setTimeout(() => {
         dispatch({ type: 'set', isLoading: false })
       }, 1000)
     }
-  }, [activeListingLoaded, liveAuctionLoaded])
+  }, [createdNfts])
 
   useEffect(() => {
     if (hideNftToken.length > 0) {
@@ -168,6 +172,22 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     setCategoryList([])
   }
 
+  const getMerchNftData = (id, row_count, current_page, refresh = false) => {
+    if (artistToEnd) return
+    setMerchNfts([])
+    artistsAPI.getMerchNfts(id, row_count, current_page).then(
+      response => {
+        setIsLoaded(true)
+        if (isString(response)) return
+        setMerchNfts(response)
+      },
+      error => {
+        setIsLoaded(true)
+        console.log(error)
+      }
+    )
+  }
+
   const getArtistData = (id, row_count, current_page, refresh = false, reset = false) => {
     if (artistToEnd) return
 
@@ -185,7 +205,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setArtistStatsInfo(response.stats)
 
-        console.log(response.nfts.length === artistRowCount, '=======artistRowCount=============')
         if (response.nfts.length === artistRowCount) setIsVisibleFetchingCreated(true)
         else setIsVisibleFetchingCreated(false)
 
@@ -226,7 +245,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         }
         setCollectorStatsInfo(response.stats)
         setCollectorTotalCount(response.total_nfts)
-        console.log(response.nfts.length === collectorRowCount, '=======collectorRowCount=============')
 
         if (response.nfts.length === collectorRowCount) setIsVisibleFetchingCollected(true)
         else setIsVisibleFetchingCollected(false)
@@ -238,9 +256,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         if (response.nfts.length < row_count) {
           setCollectorToEnd(true)
         }
-
-        // setCollections(response.collections)
-        // if (categoryList.length === 0) setCategoryList(response.categories)
       },
       error => {
         setIsLoaded(true)
@@ -255,6 +270,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
     resetData()
     getArtistData(artistPublicKey, artistRowCount, artistCurrentPage, true, true)
     getCollectorData(artistPublicKey, collectorRowCount, collectorCurrentPage, true, true)
+    getMerchNftData(artistPublicKey, merchRowCount, merchCurrentPage, true)
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -284,12 +300,6 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
-        <div className={styles.topRightEllipse}>
-          {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && <EllipseGreen />}
-        </div>
         <MainSection
           artistInfo={artistInfo}
           categoryList={categoryList}
@@ -304,6 +314,7 @@ const ArtistProfile = ({ artistPublicKey, publicArtistData, error }: ArtistProfi
             <TabSection
               createdNfts={createdNfts}
               collectedNfts={collectedNfts}
+              merchNfts={merchNfts}
               collections={collections}
               wallet={artistInfo?.wallet_id}
               isOwn={isOwn}

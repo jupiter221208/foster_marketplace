@@ -1,15 +1,6 @@
 [
   {
     "id": 0,
-    "icon01": "/icons/tag-green.svg",
-    "icon02": "/icons/tag-gray.svg",
-    "icon03": "/icons/tag-gray-light.svg",
-    "icon04": "/icons/tag-gray-dark.svg",
-    "label": "Listed",
-    "value": "Listed"
-  },
-  {
-    "id": 1,
     "icon01": "/icons/list-ui-alt-green.svg",
     "icon02": "/icons/list-ui-alt-gray.svg",
     "icon03": "/icons/list-ui-alt-gray-light.svg",
@@ -18,7 +9,26 @@
     "value": "Created"
   },
   {
+    "id": 1,
+    "icon01": "/icons/tag-green.svg",
+    "icon02": "/icons/tag-gray.svg",
+    "icon03": "/icons/tag-gray-light.svg",
+    "icon04": "/icons/tag-gray-dark.svg",
+    "label": "Listed",
+    "value": "Listed"
+  },
+  {
     "id": 2,
+    "icon01": "/icons/merch-icon-green.svg",
+    "icon02": "/icons/merch-icon-gray.svg",
+    "icon03": "/icons/merch-icon-gray-light.svg",
+    "icon04": "/icons/merch-icon-gray-dark.svg",
+    "label": "Merch",
+    "value": "Merch",
+    "coming_soon": false
+  },
+  {
+    "id": 3,
     "icon01": "/icons/create-dashboard-green.svg",
     "icon02": "/icons/create-dashboard-gray.svg",
     "icon03": "/icons/create-dashboard-gray-light.svg",
@@ -28,7 +38,7 @@
     "coming_soon": false
   },
   {
-    "id": 3,
+    "id": 4,
     "icon01": "/icons/collection-green.svg",
     "icon02": "/icons/collection-gray.svg",
     "icon03": "/icons/collection-gray-light.svg",
@@ -38,7 +48,7 @@
     "coming_soon": false
   },
   {
-    "id": 4,
+    "id": 5,
     "icon01": "/icons/heart-rate-green.svg",
     "icon02": "/icons/heart-rate-gray.svg",
     "icon03": "/icons/heart-rate-gray-light.svg",

@@ -4,6 +4,8 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import Cropper from 'react-easy-crop'
 import { Point, Area } from 'react-easy-crop/types'
+import Lottie from 'lottie-react'
+import LoadingIcon from 'assets/lottery/loader-black.json'
 
 // custom components
 import Button from 'components/Button'
@@ -21,10 +23,11 @@ import ZoomOutWhiteIcon from 'assets/icons/zoom-out-white-32x32.svg'
 
 // styles
 import styles from './index.module.scss'
+import LoadingButton from 'components/Button/LoadingButton'
 
 const NftImageEditorModal = props => {
-  const { open, close, nftImage, getCroppedImage, dimension } = props
-
+  const { open, close, nftImage, nftUrl, getCroppedImage, dimension } = props
+  const [loading, setLoading] = useState(false)
   const [image, setImage] = useState('')
 
   useEffect(() => {
@@ -34,6 +37,14 @@ const NftImageEditorModal = props => {
       }, 400)
     }
   }, [nftImage])
+
+  useEffect(() => {
+    if (nftUrl !== undefined && nftUrl !== null) {
+      setTimeout(() => {
+        setImage(nftUrl)
+      }, 400)
+    }
+  }, [nftUrl])
 
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
@@ -45,8 +56,10 @@ const NftImageEditorModal = props => {
 
   const showCroppedImage = useCallback(async () => {
     try {
+      setLoading(true)
       const croppedImage: any = await getCroppedImg(image, croppedAreaPixels)
       getCroppedImage(croppedImage)
+      setLoading(false)
     } catch (e) {
       console.error(e)
     }
@@ -106,14 +119,22 @@ const NftImageEditorModal = props => {
                   </div>
                   <div className={styles.title}>Crop Photo</div>
                   <div className="flex lg:hidden w-full max-w-[68px]">
-                    <Button
-                      label="Crop"
-                      backgroundColor="transparent"
-                      color="rgba(239, 240, 246, 0.75)"
-                      fullWidth
-                      fontSize="16px"
-                      onClick={() => showCroppedImage()}
-                    />
+                    {loading ? (
+                      <div className="w-full flex justify-center items-center">
+                        <div className="w-[30px] h-[30px]">
+                          <Lottie animationData={LoadingIcon} loop={true} />
+                        </div>
+                      </div>
+                    ) : (
+                      <Button
+                        label="Crop"
+                        backgroundColor="transparent"
+                        color="rgba(239, 240, 246, 0.75)"
+                        fullWidth
+                        fontSize="16px"
+                        onClick={() => showCroppedImage()}
+                      />
+                    )}
                   </div>
                 </div>
                 <div className={styles.cropContainer}>
@@ -150,13 +171,11 @@ const NftImageEditorModal = props => {
                     />
                   </div>
                   <div className="hidden lg:flex w-full max-w-[99px]">
-                    <GradientButton
-                      label="Crop"
-                      gradientDirection="bottom"
-                      fullWidth
-                      height="45px"
-                      onClick={() => showCroppedImage()}
-                    />
+                    {loading ? (
+                      <LoadingButton fullWidth height={45} />
+                    ) : (
+                      <GradientButton label="Crop" fullWidth height="45px" onClick={() => showCroppedImage()} />
+                    )}
                   </div>
                 </div>
               </Dialog.Panel>

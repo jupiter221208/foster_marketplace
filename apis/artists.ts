@@ -25,6 +25,14 @@ class Artists {
     })
   }
 
+  getMerchNfts(wallet_id, per_page, page, enabled = true) {
+    return client
+      .get(API_URL + 'v1/artists/' + wallet_id + '/merch-hub-nfts?enabled=' + enabled + '&per_page=' + per_page + '&page=' + page)
+      .then(response => {
+        return response.data
+      })
+  }
+
   getCollector(wallet_id, per_page, page) {
     if (isLoggedIn())
       return client

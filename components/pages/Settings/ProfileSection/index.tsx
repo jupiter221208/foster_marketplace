@@ -195,12 +195,11 @@ const ProfileSection = prop => {
               <div className={styles.subTitle}>Profile Information</div>
             </div>
 
-            <div className="mt-[15px] lg:mt-8">
+            <div className="mt-[10px] lg:mt-8">
               <Input
                 error={errorMessage}
                 value={userName}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="var(--setting-input-bg)"
                 color="var(--text-gray-200-color)"
                 placeholder="Username"
                 onChange={value => {
@@ -213,11 +212,10 @@ const ProfileSection = prop => {
               <Textarea
                 value={bio}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="var(--setting-input-bg)"
                 color="var(--text-gray-200-color)"
                 placeholder="Bio"
                 width="100%"
-                height="100%"
+                height="160px"
                 label01="Max Characters 1000"
                 label02={1000 - bio?.length === 1000 ? '' : `${1000 - bio?.length} Characters left`}
                 onChange={value => setBio(value)}
@@ -227,31 +225,25 @@ const ProfileSection = prop => {
               <Input
                 value={userEmail}
                 fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                backgroundColor="var(--setting-input-bg)"
                 color="var(--text-gray-200-color)"
                 placeholder="Email Address"
                 onChange={value => setUserEmail(value)}
               />
             </div>
             <div className="mt-[45px] lg:mt-[60px]">
-              <div className={styles.subTitle}>Social Connections & Links</div>
+              <div className={styles.subTitle}>Social Links</div>
             </div>
             <div className="mt-4 lg:mt-8 flex">
               <div className={styles.socialIcon}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <InstagramWhiteSmallIcon />
-                ) : (
-                  <InstagramWhiteIcon />
-                )}
+                <InstagramWhiteIcon />
               </div>
 
-              <div className="w-full ml-[-17px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
                   value={igUrl}
                   label01={errorIGUrl}
                   placeholder="Enter your Instagram link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('instagram.com/')) {
@@ -266,19 +258,14 @@ const ProfileSection = prop => {
             </div>
             <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                  <TwitterWhiteSmallIcon />
-                ) : (
-                  <TwitterWhiteIcon />
-                )}
+                <TwitterWhiteIcon />
               </div>
-              <div className="w-full ml-[-17px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
                   value={twitterUrl}
                   label01={errorTwitterUrl}
                   placeholder="Enter your Twitter link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('twitter.com/')) {
@@ -294,15 +281,14 @@ const ProfileSection = prop => {
             {/* Personal Web Site */}
             <div className="mt-[10px] lg:mt-[30px] flex ">
               <div className={styles.socialIcon}>
-                {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <WebSiteSmallIcon /> : <WebSiteIcon />}
+                <WebSiteIcon />
               </div>
-              <div className="w-full ml-[-17px] lg:ml-[24px]">
+              <div className="w-full ml-[10px] lg:ml-[24px]">
                 <Input
                   value={websiteUrl}
                   label01={errorWebsiteUrl}
                   placeholder="Enter your personal website link"
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '14px' : '16px'}
-                  backgroundColor="var(--setting-input-bg)"
                   color="var(--text-gray-200-color)"
                   onChange={value => {
                     if (value.includes('http')) {
@@ -543,14 +529,14 @@ const ProfileSection = prop => {
               </div>
             )}
 
-            <div className="mt-[134px] lg:mt-[61px] mb-[188px] lg:mb-[158px] w-full flex justify-end items-center gap-6">
+            <div className="mt-[60px] lg:mt-[61px] mb-[40px] lg:mb-[158px] w-full flex justify-center lg:justify-end items-center gap-6">
               {enableSave ? (
                 <GradientButton
                   label="Save"
                   onClick={() => {
                     handleSaveUserInfo()
                   }}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}
@@ -561,7 +547,7 @@ const ProfileSection = prop => {
                   label="Save"
                   disabled={true}
                   onClick={() => {}}
-                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '50%' : ''}
+                  width={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '100%' : ''}
                   height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '44px' : '52px'}
                   fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '16px' : '18px'}
                   paddingLeft={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? '' : '40px'}

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "name": "Hoodie",
+    "start_price": "34.00",
+    "asset_url": "/images/shop-apparel-hoodie.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Hoodie",
+    "top": 10,
+    "description": "Beat the cold with this premium pullover hoodie that’s just the right layer of warm and cozy. Made with three-panel fleece lining, this pullover is double stitched for durability and roomy. Pick one in your favorite color to match your style."
+  },
+  {
+    "id": 1,
+    "name": "Short Sleeve",
+    "start_price": "24.00",
+    "asset_url": "/images/shop-apparel-shortsleeve.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "T-Shirt",
+    "top": 25,
+    "description": "This classic unisex short sleeve tee fits like a well-loved favorite. These t-shirts have ribbed knit collars to bolster shaping, soft cotton and quality print. The shoulders have taping for better fit over time. Dual side seams hold the garment’s shape for longer."
+  },
+  {
+    "id": 2,
+    "name": "Sweatshirt",
+    "start_price": "32.00",
+    "asset_url": "/images/shop-apparel-sweatshirt.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Sweatshirt",
+    "top": 10,
+    "description": "Made with 85% organic ring-spun cotton and 15% recycled polyester, this unisex sweatshirt provides a cozy feeling that’s great for daily wear. The set-in sleeve along with the self-fabric, half-moon at the back neck add extra comfort & durability points."
+  },
+  {
+    "id": 3,
+    "name": "Long Sleeve",
+    "start_price": "25.30",
+    "asset_url": "/images/shop-apparel-longsleeve.png",
+    "category": "apparel",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Long Sleeve",
+    "top": 10,
+    "description": "This premium long sleeve tee have ribbed knit collars to bolster shaping, soft cotton and quality print. The shoulders have taping for better fit over time. Dual side seams hold the garment’s shape for longer."
+  },
+  {
+    "id": 4,
+    "name": "Women's Short Sleeve",
+    "start_price": "23.00",
+    "asset_url": "/images/shop-apparel-women-shortsleeve.png",
+    "category": "apparel",
+    "type": "",
+    "sub_type": "women",
+    "base": "T-Shirt",
+    "top": 25,
+    "description": "Made to feel like a well-loved favorite, these tees come with a feminine fit that is as stylish as it is comfy. The ribbed knitting makes the collar highly elastic while the twill tape on the shoulder seams stabilizes the back of the shirt and prevents stretching."
+  },
+  {
+    "id": 5,
+    "name": "Youth Short Sleeve",
+    "start_price": "24.00",
+    "asset_url": "/images/shop-apparel-youth-shortsleeve.png",
+    "category": "apparel",
+    "type": "",
+    "sub_type": "youth",
+    "base": "T-Shirt",
+    "top": 25,
+    "description": "This lightweight (4.0 oz) side-seamed youth short sleeved tee maximizes comfort all day long. The ring-spun cotton makes it perfect for displaying custom artwork. Side seams keep the garment’s shape, and the shoulders have tape for longer fitting."
+  },
+  {
+    "id": 6,
+    "name": "Youth Hoodie",
+    "start_price": "31.00",
+    "asset_url": "/images/shop-apparel-youth-hoodie.png",
+    "category": "apparel",
+    "type": "",
+    "sub_type": "youth",
+    "base": "Hoodie",
+    "top": 10,
+    "description": "Kids will love this custom youth hoodie. Made with three-panel fleece lining, this pullover is double stitched for durability and roomy. Pick one in your kids favorite color to match his or her style."
+  }
+]

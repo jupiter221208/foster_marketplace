@@ -1,0 +1,13 @@
+<svg id="Component_4589_4" data-name="merch-toggle-disabled" xmlns="http://www.w3.org/2000/svg" width="36.929" height="36.929" viewBox="0 0 36.929 36.929">
+  <path id="Path_108577" data-name="Path 108577" d="M18.464,0A18.464,18.464,0,1,1,0,18.464,18.464,18.464,0,0,1,18.464,0Z" />
+  <g id="Component_4590_1" data-name="Component 4590 – 1" transform="translate(5.145 6.384)">
+    <path id="noun-shirt-1385943" d="M9.792,26.9a30.506,30.506,0,0,0-5.738,2.425c-.183.163-2.982,6.863-4.049,8.338-.125.2,4.815,2.06,5.732,2.422V52.055H20.6V40.088c.918-.362,5.858-2.221,5.732-2.422-1.066-1.476-3.866-8.176-4.049-8.338A30.489,30.489,0,0,0,16.548,26.9c-.734,2.784-6.023,2.782-6.756,0Z" transform="translate(-0.003 -26.902)" data-fill="a" fill-rule="evenodd"/>
+    <g id="Group_54994" data-name="Group 54994" transform="translate(-1143.069 -180.441)">
+      <g id="Ellipse_4354" data-name="Ellipse 4354" transform="translate(1152.143 185.255)" fill="none" stroke-width="0.5">
+        <circle cx="4.093" cy="4.093" r="4.093" stroke="none"/>
+        <circle cx="4.093" cy="4.093" r="3.843" fill="none"/>
+      </g>
+      <line id="Line_418" data-name="Line 418" x1="5.062" y2="5.71" transform="translate(1154 186.484)" fill="none" stroke-width="0.5"/>
+    </g>
+  </g>
+</svg>

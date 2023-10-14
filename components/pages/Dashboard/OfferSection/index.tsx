@@ -180,7 +180,6 @@ const OfferSection = () => {
           amount: getPriceValue(bid.price.basisPoints.toNumber()),
         })
         .then(response => {
-          console.log(response)
           usersAPI.getLockupValues().then(
             response => {
               dispatch({ type: 'set', bidWalletLock: response.bid_wallet_lock })
@@ -209,27 +208,15 @@ const OfferSection = () => {
 
   return (
     <section className="w-full mt-6 lg:mt-12 z-10">
-      <div className="lg:flex hidden">
-        <FilterButton
-          label="Offers Made"
-          onClick={() => setShownOfferType('made')}
-          selected={shownOfferType === 'made'}
-        />
-        <FilterButton
-          label="Offers Received"
-          onClick={() => setShownOfferType('received')}
-          selected={shownOfferType === 'received'}
-        />
-      </div>
-      <div className="w-full flex lg:hidden h-[54px] mt-[15px] z-10">
+      <div className="w-full flex lg:w-[350px] h-[54px] mt-[15px] z-10">
         <div className={styles.slotBG}>
           <TimeSlotButton
             label="Offers Made"
             onClick={() => setShownOfferType('made')}
             fontFamily={'Muli-SemiBold'}
             color={shownOfferType === 'made' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'made' ? 'var(--menu-bg-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'made' ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor01={shownOfferType === 'made' ? 'var(--time-slog-bg)' : 'transparent'}
+            backgroundColor02={shownOfferType === 'made' ? 'var(--time-slog-bg)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={shownOfferType === 'made' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}
@@ -239,8 +226,8 @@ const OfferSection = () => {
             onClick={() => setShownOfferType('received')}
             fontFamily={'Muli-SemiBold'}
             color={shownOfferType === 'received' ? 'var(--search-menu-icon-color)' : '#979EA2'}
-            backgroundColor01={shownOfferType === 'received' ? 'var(--menu-bg-color)' : 'transparent'}
-            backgroundColor02={shownOfferType === 'received' ? 'var(--menu-bg-color)' : 'transparent'}
+            backgroundColor01={shownOfferType === 'received' ? 'var(--time-slog-bg)' : 'transparent'}
+            backgroundColor02={shownOfferType === 'received' ? 'var(--time-slog-bg)' : 'transparent'}
             gradientDirection="bottom"
             width={160}
             boxShadow={shownOfferType === 'received' ? '0px 0px 10px rgba(32, 36, 39, 0.15)' : ''}

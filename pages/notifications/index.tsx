@@ -27,6 +27,8 @@ import artistsAPI from 'apis/artists'
 import { useDispatch, useSelector } from 'react-redux'
 import { compareDate, getDateLabel } from 'utils/helpers'
 import NotificationTab from 'components/Tab/NotificationTab'
+import LoadingModal from 'components/Modal/LoadingModal'
+import { useAuthentication } from 'hooks/useAuthentication'
 
 const Notifications = () => {
   const dispatch = useDispatch()
@@ -38,8 +40,9 @@ const Notifications = () => {
   const [filterNotification, setFilterNotification] = useState<any[]>([])
   const [searchedNotification, setSearchedNotification] = useState<any[]>([])
   const [searchWord, setSearchWord] = useState('')
+  const [loading, setLoading] = useState(true)
   const viewport = useViewport()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
 
   function getSortedNotification(notifications) {
     let today = new Date().getTime()
@@ -129,6 +132,9 @@ const Notifications = () => {
 
     userAPI.getNotifications().then(
       response => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 1000)
         if (response !== null) {
           if (response.notifications.length > 0) {
             getNotifications([...response.notifications])
@@ -136,6 +142,7 @@ const Notifications = () => {
         }
       },
       error => {
+        setLoading(false)
         console.log(error)
       }
     )
@@ -283,25 +290,6 @@ const Notifications = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className={styles.container}>
-        <div className={styles.topLeftEllipse}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="2321" height="2321" viewBox="0 0 2321 2321">
-            <defs>
-              <radialGradient id="radial-gradient" cx="0.5" cy="0.5" r="0.5" gradientUnits="objectBoundingBox">
-                <stop offset="0" stopColor="var(--ellipse-svg-1)" stopOpacity="0.404" />
-                <stop offset="1" stopColor="var(--ellipse-svg-2)" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            <circle
-              id="Ellipse_4322"
-              data-name="Ellipse 4322"
-              cx="1010.5"
-              cy="1010.5"
-              r="1010.5"
-              transform="translate(150 150)"
-              fill="url(#radial-gradient)"
-            />
-          </svg>
-        </div>
         <div className="hidden lg:flex w-full z-10">
           <div className={styles.title}>Notifications</div>
         </div>
@@ -318,7 +306,13 @@ const Notifications = () => {
                 Filter
               </div>
             </div>
-            <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+            {loading ? (
+              <div className="mt-[140px] h-[540px] max-h-[540px]">
+                <LoadingModal open={loading} />
+              </div>
+            ) : (
+              <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+            )}
           </div>
         ) : (
           <div className="w-full flex justify-between mt-[21px] lg:mt-[38px] gap-10">
@@ -327,9 +321,16 @@ const Notifications = () => {
                 <div className={styles.tabContainer}>
                   <NotificationTab tabList={tabList} onChange={item => handleSelectedTab(item)} />
                 </div>
-                <div className="mt-[20px] h-[540px] max-h-[540px]">
-                  <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
-                </div>
+
+                {loading ? (
+                  <div className="mt-[140px] h-[540px] max-h-[540px]">
+                    <LoadingModal open={loading} />
+                  </div>
+                ) : (
+                  <div className="mt-[20px] h-[540px] max-h-[540px]">
+                    <NotificationsCard data={searchedNotification} onClickMarkAsRead={() => onClickMarkAsRead()} />
+                  </div>
+                )}
               </div>
             </div>
             <div className="w-[45%] mt-[-20px]">

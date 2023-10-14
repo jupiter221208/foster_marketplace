@@ -74,24 +74,9 @@ const CollectionsSection = props => {
 
   useEffect(() => {
     if (!isMounted) return
+    setSearchLoading(true)
     getCollectionData(currentPage, period, searchWord, rowCount, true)
   }, [period])
-
-  useEffect(() => {
-    if (!isMounted) return
-    if (searchWord.length === 0) {
-      getCollectionData(currentPage, period, '', rowCount)
-    }
-  }, [searchWord])
-
-  const getSearchData = () => {
-    getCollectionData(currentPage, period, searchWord, rowCount)
-  }
-
-  const cancelSearch = () => {
-    setSearchWord('')
-    getCollectionData(currentPage, period, null, rowCount)
-  }
 
   const getCollectionData = (curPage, curDate, search, count, reset = false) => {
     let page = curPage
@@ -104,12 +89,13 @@ const CollectionsSection = props => {
     }).then(
       response => {
         setIsFetching(false)
-
+        setSearchLoading(false)
         const nfts = response.filter(item => item.cover_image !== '')
         setCurrentPage(curPage)
         setTotalCount(count * curPage + nfts.length)
         if (reset === true) setList(nfts)
         else setList([...list, ...nfts])
+
         if (response.length === rowCount) setIsVisibleFetching(true)
         else setIsVisibleFetching(false)
       },
@@ -182,13 +168,11 @@ const CollectionsSection = props => {
           setSearchWord={value => setSearchWord(value.toString())}
           period={period}
           setPeriod={setPeriod}
-          onCancel={() => cancelSearch()}
-          onSearch={() => getSearchData()}
         />
       )}
 
-      {!loading && searchLoading && (
-        <div className="mt-10">
+      {!loading && searchLoading && !isVisibleFetching && (
+        <div className="mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingModal open={searchLoading} />
         </div>
       )}
@@ -200,7 +184,7 @@ const CollectionsSection = props => {
       )}
 
       {isMounted && isVisibleFetching && (
-        <div className="w-full mt-[-100px] mb-[40px]">
+        <div className="w-full mt-[-40px] lg:mt-[40px] mb-[80px] lg:mb-[160px]">
           <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />{' '}
         </div>
       )}

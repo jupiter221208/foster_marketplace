@@ -14,7 +14,6 @@ import WalletButton from 'components/Button/WalletButton'
 import MyWalletSubMenu from 'components/Menu/MyWalletSubMenu'
 
 // images and icons
-import AvatarIcon from 'assets/images/dashboard-avatar.png'
 import DarkLightModeIcon from 'assets/icons/dark-light-mode-small.svg?component'
 import LightDarkModeIcon from 'assets/icons/light-dark-mode-small.svg?component'
 import InstagramLightGreenIcon from 'assets/icons/instagram-light-green.svg?component'
@@ -24,33 +23,32 @@ import GithubLightGreenIcon from 'assets/icons/github-light-green.svg?component'
 
 // json data
 import ProfileMenuList from 'assets/json/profile-menu-mobile.json'
-import ExploreMenuList from 'assets/json/explore-menu.json'
+import ExploreMenuList from 'assets/json/explore-mobile-menu.json'
 import CreateMenuList from 'assets/json/create-menu.json'
 
 // styles
 import styles from './index.module.scss'
 
 // call apis
-import { useViewport } from 'utils'
 import { setColorTheme } from 'utils/helpers'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 import { deleteCookie } from 'cookies-next'
 import IconButtonWithSVG from 'components/Button/IconButtonWithSVG'
+import { useAuthentication } from 'hooks/useAuthentication'
+import AccordionProfileMenu from '../AccordionProfileMenu'
 
 const MobileMenu = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const { connected, disconnect } = useWallet()
   const [lightMode, setLightMode] = useState(useSelector(state => (state as any).lightMode))
-  const loginSignedFlag = useSelector(state => (state as any).loginSignedFlag)
-  const isLoading = useSelector<any>(state => state.isLoading)
 
   const [showAlert, setShowAlert] = useState(false)
   const [alertData, setAlertData] = useState<any[]>([])
   const [buttonClicked, setButtonClicked] = useState(false)
 
-  const profileInfo = useSelector(state => (state as any).profileInfo)
-  const [profileImage, setProfileImage] = useState('')
+  const { profileInfo } = useAuthentication()
+  const [profileImage, setProfileImage] = useState(null)
   const [profileName, setProfileName] = useState('')
 
   // update profile menu list
@@ -64,6 +62,13 @@ const MobileMenu = () => {
         }
       })
       setProfileMenuList(array)
+
+      if (profileInfo.username) {
+        setProfileName(profileInfo.username)
+      }
+      if (profileInfo.profile_picture) {
+        setProfileImage(profileInfo.profile_picture)
+      }
     }
   }, [profileInfo])
 
@@ -75,15 +80,18 @@ const MobileMenu = () => {
     setButtonClicked(true)
 
     if (connected) {
-      setAlertData([
-        {
-          id: 0,
-          title: 'Wallet Connected!',
-          description: `You've successfully connected your wallet!`,
-          type: 'success',
-        },
-      ])
-      setShowAlert(true)
+      // setAlertData([
+      //   {
+      //     id: 0,
+      //     title: 'Wallet Connected!',
+      //     description: `You've successfully connected your wallet!`,
+      //     type: 'success',
+      //   },
+      // ])
+      // dispatch({ type: 'set', showConnectAlert: true })
+      // setTimeout(() => {
+      //   setShowAlert(true)
+      // }, 1000)
     } else {
       setAlertData([
         {
@@ -97,17 +105,6 @@ const MobileMenu = () => {
     }
   }, [connected])
 
-  useEffect(() => {
-    if (profileInfo) {
-      if (profileInfo.username) {
-        setProfileName(profileInfo.username)
-      }
-      if (profileInfo.profile_picture) {
-        setProfileImage(profileInfo.profile_picture)
-      }
-    }
-  }, [profileInfo])
-
   const handleThemeMode = () => {
     setColorTheme(!lightMode)
     dispatch({ type: 'set', lightMode: !lightMode })
@@ -119,20 +116,20 @@ const MobileMenu = () => {
       {connected ? (
         <div className={styles.container}>
           <div className="w-full flex flex-wrap gap-[10px]">
-            <AccordionMenu
-              icon={profileImage.length > 0 ? profileImage : AvatarIcon}
-              label={profileName.length > 0 ? profileName : 'Anonymous'}
+            <AccordionProfileMenu
+              icon={profileImage}
+              label={profileName.length > 0 ? profileName : ''}
               type="avatar"
               data={profileMenuList}
             />
+            <MyWalletSubMenu label="My Wallet" type="" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
-            <MyWalletSubMenu label="My Wallet" type="" />
-            <AccordionMenu label="Dashboard" type="dashboard" data={[]} path="/dashboard" />
+            {/* <AccordionMenu label="Dashboard" type="dashboard" data={[]} path="/dashboard" /> */}
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
             <AccordionMenu label="DAO" type="dao" data={[]} path="/dao" />
             <AccordionMenu label="Resources" type="resources" data={[]} path="/resources" />
-            <AccordionMenu label="Notifications" type="notifications" data={[]} path="/notifications" />
+            {/* <AccordionMenu label="Notifications" type="notifications" data={[]} path="/notifications" /> */}
             <div className="w-full flex justify-end mt-[10px]" onClick={() => handleThemeMode()}>
               {lightMode ? <LightDarkModeIcon /> : <DarkLightModeIcon />}
             </div>
@@ -243,7 +240,7 @@ const MobileMenu = () => {
           </div>
           {/* connect wallet alert */}
           <Alert
-            open={showAlert && loginSignedFlag}
+            open={showAlert}
             close={() => {
               setShowAlert(false)
               // handleLogin()
@@ -349,8 +346,6 @@ const MobileMenu = () => {
           />
         </div>
       )}
-
-      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

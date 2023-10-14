@@ -43,6 +43,7 @@ import { loadAuctionHouse } from 'utils/auction.util'
 import { getBuyerEscrowBalanceDeficit, placeBid } from 'utils/auctioneer.util'
 
 // images and icons
+import PrintApparelSection from 'assets/images/apparel.png'
 import SolanaLogoIcon from 'assets/icons/solana-logo-dark.svg?component'
 import SolanaLogoMobileIcon from 'assets/icons/solana-logo-dark-small.svg?component'
 import QuickBuyBlackIcon from 'assets/icons/quick-buy-black.svg?component'
@@ -55,6 +56,8 @@ import HeartFilledWhiteIcon from 'assets/icons/heart-filled-white-46x46.svg'
 import ShareSmallIcon from 'assets/icons/share-black-desktop-small.svg?component'
 import ThreeEllipseIcon from 'assets/icons/three-ellipse-white.svg?component'
 import ThreeEllipseMobileIcon from 'assets/icons/three-ellipse-white-mobile.svg?component'
+import MerchToggleDisabledIcon from 'assets/icons/merch-toggle-disabled.svg?component'
+import MerchToggleEnabledIcon from 'assets/icons/merch-toggle-enabled.svg?component'
 import HeartFilledRedIcon from 'assets/icons/heart-filled-red-46x46.svg'
 import TicketWhiteIcon from 'assets/icons/ticket-white-46x46.svg'
 import TicketGreenIcon from 'assets/icons/ticket-green-46x46.svg'
@@ -64,6 +67,7 @@ import ActivityDownIcon from 'assets/icons/activity-down-icon.svg?component'
 import FullScreenModeIcon from 'assets/icons/fullscreen-mode.svg'
 import InfoGrayIcon from 'assets/icons/info-gray-small.svg?component'
 import InfoGreenIcon from 'assets/icons/info-green-small.svg?component'
+import ErrorMessageIcon from 'assets/icons/error-message-icon.svg?component'
 
 // json
 // import TimeList from 'assets/json/browse-nft/time-list.json'
@@ -89,13 +93,13 @@ import activityAPI from 'apis/activity'
 import AuctionAPI from 'apis/auctions'
 
 import { useWallets } from 'hooks/useWallets'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import { useConnection, useWallet } from '@solana/wallet-adapter-react'
 import { useWalletModal } from '@solana/wallet-adapter-react-ui'
 import { isBuyerExisting, isAmountExisting } from 'utils/activity.util'
 import { compareDate, getBuyerName, getOwnerName, getTimeDifference } from 'utils/helpers'
 import ModalPlaceBid from 'components/Modal/ModalPlaceBid'
 import AuctionCard from 'components/Card/AuctionCard'
-// import DateSelect from 'components/DateSelect'
 import SecondaryButton from 'components/Button/SecondaryButton'
 import SocialShareModal from 'components/Menu/SocialShareModal'
 import ReportMobileModal from 'components/Menu/ReportMobileModal'
@@ -108,6 +112,8 @@ import ListNFTModal from 'components/Modal/ListNFTModal'
 import { getShortAddress } from 'utils/wallet.util'
 import { executeSale } from 'utils/auctioneer.util'
 import EscrowDeficientModal from 'components/Modal/EscrowDeficientModal'
+import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
+import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
 import { getExplorerUrl } from 'utils/explorer'
 
 export interface MainSectionProps {
@@ -116,6 +122,7 @@ export interface MainSectionProps {
   nftInfo: any
   setFullScreenView: any
   reloadNftData: any
+  enableMerch: any
   setCollectionName: any
 }
 
@@ -125,24 +132,25 @@ const MainSection = ({
   nftInfo,
   setFullScreenView,
   reloadNftData,
+  enableMerch,
   setCollectionName,
 }: MainSectionProps) => {
+  const viewport = useViewport()
   const router = useRouter()
   const { id } = router.query
-  const viewport = useViewport()
   const dispatch = useDispatch()
   const { refreshToken } = useAuthentication()
-  const profileInfo = useSelector(state => (state as any).profileInfo)
+  const { profileInfo } = useAuthentication()
   const { connected, publicKey } = useWallet()
   const { setVisible } = useWalletModal()
-  const [loading, setLoading] = useState<boolean>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const { solToUsdRate } = useSolToUsdRate()
   const { connection } = useConnection()
   const explorerURL = useMemo(() => getExplorerUrl(connection.rpcEndpoint, id as string), [id, connection])
 
   const buttonRefs = useRef<any[]>([])
   const openedRef = useRef<any>(null)
   const [openShareModal, setOpenShareModal] = useState(false)
-  const [solToUsdRate, setSolToUsdRate] = useState(0)
   const [nftReservePrice, setNftReservePrice] = useState(0)
   const [nftCurrentPrice, setNftCurrentPrice] = useState(0)
   const [sellerAddress, setSellerAddress] = useState<PublicKey>()
@@ -159,6 +167,7 @@ const MainSection = ({
 
   const [auctionLoading, setAuctionLoading] = useState<boolean>(false)
   const [openReportModal, setOpenReportModal] = useState(false)
+
   const [openReportMenuModal, setOpenReportMenuModal] = useState(false)
   const [showModalPlaceBid, setShowModalPlaceBid] = useState(false)
   const [like, setLike] = useState<boolean>(false)
@@ -170,8 +179,10 @@ const MainSection = ({
   const [saveCount, setSaveCount] = useState(0)
   const [showSaveModal, setShowSaveModal] = useState(false)
   const [isOwnNft, setIsOwnNft] = useState(null)
+  const [isCreatedNft, setIsCreatedNft] = useState(null)
   const [play, setPlay] = useState(true)
   const [infoFocus, setInfoFocus] = useState(false)
+  const [merchHover, setMerchHover] = useState(false)
 
   const clickRecent = index => {
     const clickedButton = buttonRefs.current[index]
@@ -235,8 +246,6 @@ const MainSection = ({
   const [alertData, setAlertData] = useState<any[]>([])
 
   useEffect(() => {
-    fetchSolToUsdRate().then(setSolToUsdRate)
-
     setAlertData([
       {
         id: 0,
@@ -278,6 +287,9 @@ const MainSection = ({
   const [nftCreatorname, setNftCreatorname] = useState('')
   const [tradeStateAddress, setTradeStateAddress] = useState('')
   const [activityList, setActivityList] = useState([])
+  const [merchToggle, setMerchToggle] = useState(false)
+  const [createMerchModal, setCreateMerchModal] = useState(false)
+  const [removeMerchModal, setRemoveMerchModal] = useState(false)
 
   const [isRunning, setIsRunning] = useState(false)
 
@@ -364,8 +376,10 @@ const MainSection = ({
 
   useEffect(() => {
     if (nftInfo) {
-      let { auction, likes, shares, saves, liked, saved, shared } = nftInfo
+      let { auction, merch_hub_enabled, likes, shares, saves, liked, saved, shared } = nftInfo
       let sharedSocial = shared?.facebook || shared?.twitter || shared?.telegram
+      setMerchToggle(merch_hub_enabled)
+      enableMerch(merch_hub_enabled)
 
       setLiveAuction(false)
       if (auction?.auction) {
@@ -396,7 +410,10 @@ const MainSection = ({
     if (publicKey !== null && sellerAddress !== null) {
       setIsOwnNft(publicKey?.toBase58() === sellerAddress?.toBase58())
     }
-  }, [publicKey, sellerAddress])
+    if (publicKey !== null && nftInfo?.creator_address !== null) {
+      setIsCreatedNft(publicKey?.toBase58() === nftInfo?.creator_address)
+    }
+  }, [publicKey, sellerAddress, nftInfo])
 
   useEffect(() => {
     ;(async () => {
@@ -407,7 +424,6 @@ const MainSection = ({
       setLoading(true)
 
       let tokenAccount = await getNFTTokenAccount(mx, new PublicKey(nftDetail.address))
-
       setSellerAddress(tokenAccount.owner)
 
       let createAddress = getNFTArtistPublicKey({ creators: nftDetail.creators })
@@ -676,7 +692,6 @@ const MainSection = ({
     } else {
       nftsAPI.unsaveNft(id).then(
         response => {
-          console.log(response)
           if (response !== null) {
             setSaveCount(saveCount - 1)
             setSave(newStatus)
@@ -721,6 +736,32 @@ const MainSection = ({
     setOpenProgressingModal(true)
   }
 
+  const enableMerchToggle = toggle => {
+    if (toggle === true) {
+      nftsAPI.enableMerchHub(id, { value: true }).then(
+        response => {
+          if (response !== null) {
+            setMerchToggle(true)
+            enableMerch(true)
+            setCreateMerchModal(false)
+          }
+        },
+        err => {}
+      )
+    } else {
+      nftsAPI.enableMerchHub(id, { value: false }).then(
+        response => {
+          if (response !== null) {
+            setMerchToggle(false)
+            enableMerch(false)
+            setRemoveMerchModal(false)
+          }
+        },
+        err => {}
+      )
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className="w-full grid grid-cols-2 gap-4 lg:gap-10">
@@ -735,20 +776,20 @@ const MainSection = ({
             </div>
           </div>
         ) : (
-          <div className="col-span-2 lg:col-span-1">
+          <div className="lg:max-w-[816px] lg:max-h-[816px] col-span-2 lg:col-span-1">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-              nftType === 'image' ? (
+              nftType.includes('image') ? (
                 <div className={styles.mobileImageArea}>
                   <img src={nftCoverUrl} alt="" className="w-full" />
                   {/* <div className={styles.mobileImageBackground} /> */}
                 </div>
               ) : nftType.includes('audio') ? (
                 <div className={styles.audioArea}>
-                  <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
                 </div>
               ) : nftType.includes('video') ? (
                 <div className={styles.videoArea}>
-                  <div className={styles.mobileImageArea}>
+                  <div className={styles.mobileVideoThumb}>
                     <img src={nftCoverUrl} alt="" />
                     {play && (
                       <div
@@ -775,43 +816,66 @@ const MainSection = ({
               ) : (
                 <></>
               )
-            ) : nftType === 'image' ? (
+            ) : nftType.includes('image') ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                </div>
                 <div className={styles.blurImage} />
                 <div className={styles.imageArea}>
-                  <img src={nftCoverUrl} alt="" className="h-full" />
+                  <img
+                    src={nftCoverUrl}
+                    alt=""
+                    className="w-auto h-auto max-w-full max-h-full object-contain shadow-[0_0_30px_rgba(0,0,0,0.4)]"
+                  />
                   <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
                     <Image src={FullScreenModeIcon} alt="" />
                   </div>
                 </div>
               </div>
-            ) : nftType === 'audio' ? (
+            ) : nftType.includes('audio') ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                  <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
-                    <Image src={FullScreenModeIcon} alt="" />
-                  </div>
-                </div>
+                {nftAssetUrl && (
+                  <>
+                    <div className="absolute inset-0">
+                      <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                      <div className={styles.fullScreenMode} onClick={() => setFullScreenView(nftCoverUrl)}>
+                        <Image src={FullScreenModeIcon} alt="" />
+                      </div>
+                    </div>
+                  </>
+                )}
                 <div className={styles.blurImage} />
                 <div className={styles.audioArea}>
-                  <AudioPlayer src={nftAssetUrl || '/audios/audio-01.mp3'} cover={nftCoverUrl} />
+                  <AudioPlayer src={nftAssetUrl} cover={nftCoverUrl} />
                 </div>
               </div>
-            ) : nftType === 'video' ? (
+            ) : nftType.includes('video') ? (
               <div className={styles.blurBackground}>
-                <div className="absolute inset-0">
-                  <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
-                </div>
+                {nftAssetUrl ? (
+                  <>
+                    <div className="absolute inset-0">
+                      <img src={nftCoverUrl} alt="" className="min-w-full min-h-full object-cover" />
+                    </div>
+                    <div className={styles.videoArea}>
+                      <video controls autoPlay loop className="max-w-full max-h-full">
+                        <source type="video/mp4" src={nftAssetUrl} />
+                      </video>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.videoArea}>
+                      <video controls autoPlay loop className="max-w-full max-h-full">
+                        <source type="video/mp4" src={nftAssetUrl} />
+                      </video>
+                    </div>
+                    {!nftAssetUrl && (
+                      <div className={styles.errorMessage}>
+                        <ErrorMessageIcon />
+                        <div>Video File Missing</div>
+                      </div>
+                    )}
+                  </>
+                )}
                 <div className={styles.blurImage} />
-                <div className={styles.videoArea}>
-                  <video controls autoPlay loop className="max-w-full max-h-full">
-                    <source type="video/mp4" src={nftAssetUrl || '/images/Page-Animation.webm'} />
-                  </video>
-                </div>
               </div>
             ) : (
               <></>
@@ -823,17 +887,42 @@ const MainSection = ({
           <div className={styles.nftDetailCard}>
             <div className="w-full flex flex-wrap">
               <div className="w-full flex flex-wrap justify-between items-center">
-                <div onClick={() => window.open(explorerURL)}>
-                  {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <div className={styles.ellipseArea}>
-                      <ThreeEllipseMobileIcon alt="" />
-                    </div>
-                  ) : (
-                    <div className={styles.ellipseArea}>
-                      <ThreeEllipseIcon alt="" />
-                    </div>
-                    // <ReportMenu address={id} onClick={() => setOpenReportModal(true)} />
-                  )}
+                <div className="flex items-center gap-[10px] lg:gap-[20px]">
+                  <div className="cursor-pointer" onClick={() => window.open(explorerURL)}>
+                    {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+                      <div className={styles.ellipseArea}>
+                        <ThreeEllipseMobileIcon alt="" />
+                      </div>
+                    ) : (
+                      <div className={styles.ellipseArea}>
+                        <ThreeEllipseIcon alt="" />
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="cursor-pointer flex gap-[10px] items-center">
+                    {merchToggle ? (
+                      <MerchToggleEnabledIcon
+                        alt=""
+                        onClick={() => {
+                          if (isCreatedNft) setRemoveMerchModal(true)
+                        }}
+                        onMouseEnter={() => setMerchHover(true)}
+                        onMouseLeave={() => setMerchHover(false)}
+                      />
+                    ) : (
+                      <MerchToggleDisabledIcon
+                        alt=""
+                        onClick={() => {
+                          if (isCreatedNft) setCreateMerchModal(true)
+                        }}
+                        onMouseEnter={() => setMerchHover(true)}
+                        onMouseLeave={() => setMerchHover(false)}
+                      />
+                    )}
+
+                    {merchHover && <div className={styles.infoText}>Foster Studio</div>}
+                  </div>
                 </div>
                 <div className="inline">
                   <div className="flex gap-4 sm:gap-1 xs:gap-1 md:gap-3">
@@ -985,12 +1074,12 @@ const MainSection = ({
                     <div className="w-full flex mt-[7px] lg:mt-[20px] gap-6 lg:gap-10">
                       {tradeStateAddress ? (
                         <GradientButton
+                          fullWidth
                           label={'Quick Buy'}
                           onClick={() => quickBuy()}
                           icon1={<QuickBuyBlackIcon alt="" />}
                           direction="rtl"
                           fontFamily="Muli-SemiBold"
-                          width={160}
                           height={50}
                           disabled={!tradeStateAddress}
                         />
@@ -1013,7 +1102,7 @@ const MainSection = ({
                         paddingRight="13px"
                         fontFamily="Muli-SemiBold"
                         gap="4px"
-                        width={160}
+                        fullWidth
                         height={50}
                         borderColor="rgba(var(--main-bg-color-rgb), 0.25)"
                       />
@@ -1181,102 +1270,102 @@ const MainSection = ({
                   )}
                 </Disclosure>
                 {/*<Disclosure as="div" className="mt-2">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button
-                        className={open ? styles.accordionOpenButton : styles.accordionButton}
-                        data-value={open}
-                        ref={ref => {
-                          buttonRefs.current[1] = ref
-                        }}
-                        onClick={() => clickRecent(1)}
-                      >
-                        <div className="flex items-center gap-3">
-                          {open ? (
-                            <svg
-                              id="Price_History_Icon"
-                              data-name="Price History Icon"
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="46"
-                              height="46"
-                              viewBox="0 0 46 46"
-                            >
-                              <rect
-                                id="Rectangle_20893"
-                                data-name="Rectangle 20893"
-                                width="46"
-                                height="46"
-                                fill="none"
-                              />
-                              <g id="noun-chart-1186582-EFF0F6" transform="translate(9.979 10.02)">
-                                <path
-                                  id="Path_105746"
-                                  data-name="Path 105746"
-                                  d="M10.148,20.356a9.882,9.882,0,0,1-7.145-3A10,10,0,0,1,3,3.063a10.161,10.161,0,0,1,14.37,14.37A10.476,10.476,0,0,1,10.148,20.356Zm0-18.673A8.226,8.226,0,0,0,4.141,4.2a8.429,8.429,0,0,0,0,12.016,8.429,8.429,0,0,0,12.016,0,8.477,8.477,0,0,0,0-12.016A8.226,8.226,0,0,0,10.148,1.682Z"
-                                  transform="translate(0 -0.079)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105747"
-                                  data-name="Path 105747"
-                                  d="M63.006,65.766a2.639,2.639,0,0,1-1.949-.812L53.75,57.647l.812-.568a9.281,9.281,0,0,0,2.517-2.517l.568-.812,7.388,7.388a2.794,2.794,0,0,1,0,3.9,3.118,3.118,0,0,1-2.03.731Zm-6.739-7.957,6.008,6.008a1.091,1.091,0,0,0,1.543-1.543l-6.008-6.008a7.32,7.32,0,0,1-.731.812A2.3,2.3,0,0,1,56.267,57.809Z"
-                                  transform="translate(-39.785 -39.806)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105748"
-                                  data-name="Path 105748"
-                                  d="M14.688,37.5h1.624v7.957H14.688Z"
-                                  transform="translate(-10.872 -27.778)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105749"
-                                  data-name="Path 105749"
-                                  d="M28.75,45.312h1.624v7.469H28.75Z"
-                                  transform="translate(-21.281 -33.56)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105750"
-                                  data-name="Path 105750"
-                                  d="M43.125,20h1.624V34.046H43.125Z"
-                                  transform="translate(-31.921 -14.824)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                                <path
-                                  id="Path_105751"
-                                  data-name="Path 105751"
-                                  d="M57.188,33.75h1.624v8.931H57.188Z"
-                                  transform="translate(-42.33 -25.002)"
-                                  fill="var(--menu-item-activity-icon)"
-                                />
-                              </g>
-                            </svg>
-                          ) : (
-                            <Image src={PriceHistoryGreenIcon} alt="" />
-                          )}
-                          <div>Price History</div>
-                        </div>
-                        <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
-                      </Disclosure.Button>
-                      <Disclosure.Panel className={styles.accordionArea}>
-                        <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
-                          <div className="w-[100px] lg:w-[150px] z-10">
-                            <DateSelect
-                              data={TimeList}
-                              selected={selectedTime}
-                              onChange={item => setSelectedTime(item)}
+              {({ open }) => (
+                <>
+                  <Disclosure.Button
+                    className={open ? styles.accordionOpenButton : styles.accordionButton}
+                    data-value={open}
+                    ref={ref => {
+                      buttonRefs.current[1] = ref
+                    }}
+                    onClick={() => clickRecent(1)}
+                  >
+                    <div className="flex items-center gap-3">
+                      {open ? (
+                        <svg
+                          id="Price_History_Icon"
+                          data-name="Price History Icon"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="46"
+                          height="46"
+                          viewBox="0 0 46 46"
+                        >
+                          <rect
+                            id="Rectangle_20893"
+                            data-name="Rectangle 20893"
+                            width="46"
+                            height="46"
+                            fill="none"
+                          />
+                          <g id="noun-chart-1186582-EFF0F6" transform="translate(9.979 10.02)">
+                            <path
+                              id="Path_105746"
+                              data-name="Path 105746"
+                              d="M10.148,20.356a9.882,9.882,0,0,1-7.145-3A10,10,0,0,1,3,3.063a10.161,10.161,0,0,1,14.37,14.37A10.476,10.476,0,0,1,10.148,20.356Zm0-18.673A8.226,8.226,0,0,0,4.141,4.2a8.429,8.429,0,0,0,0,12.016,8.429,8.429,0,0,0,12.016,0,8.477,8.477,0,0,0,0-12.016A8.226,8.226,0,0,0,10.148,1.682Z"
+                              transform="translate(0 -0.079)"
+                              fill="var(--menu-item-activity-icon)"
                             />
-                          </div>
-                          <div className="flex flex-1">
-                            <Line options={options as any} data={data} height="100px" width="150px" />
-                          </div>
-                        </div>
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure> */}
+                            <path
+                              id="Path_105747"
+                              data-name="Path 105747"
+                              d="M63.006,65.766a2.639,2.639,0,0,1-1.949-.812L53.75,57.647l.812-.568a9.281,9.281,0,0,0,2.517-2.517l.568-.812,7.388,7.388a2.794,2.794,0,0,1,0,3.9,3.118,3.118,0,0,1-2.03.731Zm-6.739-7.957,6.008,6.008a1.091,1.091,0,0,0,1.543-1.543l-6.008-6.008a7.32,7.32,0,0,1-.731.812A2.3,2.3,0,0,1,56.267,57.809Z"
+                              transform="translate(-39.785 -39.806)"
+                              fill="var(--menu-item-activity-icon)"
+                            />
+                            <path
+                              id="Path_105748"
+                              data-name="Path 105748"
+                              d="M14.688,37.5h1.624v7.957H14.688Z"
+                              transform="translate(-10.872 -27.778)"
+                              fill="var(--menu-item-activity-icon)"
+                            />
+                            <path
+                              id="Path_105749"
+                              data-name="Path 105749"
+                              d="M28.75,45.312h1.624v7.469H28.75Z"
+                              transform="translate(-21.281 -33.56)"
+                              fill="var(--menu-item-activity-icon)"
+                            />
+                            <path
+                              id="Path_105750"
+                              data-name="Path 105750"
+                              d="M43.125,20h1.624V34.046H43.125Z"
+                              transform="translate(-31.921 -14.824)"
+                              fill="var(--menu-item-activity-icon)"
+                            />
+                            <path
+                              id="Path_105751"
+                              data-name="Path 105751"
+                              d="M57.188,33.75h1.624v8.931H57.188Z"
+                              transform="translate(-42.33 -25.002)"
+                              fill="var(--menu-item-activity-icon)"
+                            />
+                          </g>
+                        </svg>
+                      ) : (
+                        <Image src={PriceHistoryGreenIcon} alt="" />
+                      )}
+                      <div>Price History</div>
+                    </div>
+                    <ActivityDownIcon className={`${open ? 'rotate-180 transform' : ''} mr-2`} />
+                  </Disclosure.Button>
+                  <Disclosure.Panel className={styles.accordionArea}>
+                    <div className="w-full flex justify-between gap-4 lg:gap-[30px]">
+                      <div className="w-[100px] lg:w-[150px] z-10">
+                        <DateSelect
+                          data={TimeList}
+                          selected={selectedTime}
+                          onChange={item => setSelectedTime(item)}
+                        />
+                      </div>
+                      <div className="flex flex-1">
+                        <Line options={options as any} data={data} height="100px" width="150px" />
+                      </div>
+                    </div>
+                  </Disclosure.Panel>
+                </>
+              )}
+            </Disclosure> */}
                 <Disclosure as="div" className="mt-2">
                   {({ open }) => (
                     <>
@@ -1347,7 +1436,6 @@ const MainSection = ({
                               </g>
                             </svg>
                           ) : (
-                            // <Image src={NotificationGreenIcon} alt="" />
                             <NotificationGreenIcon alt="" />
                           )}
                           <div>Activity</div>
@@ -1400,15 +1488,15 @@ const MainSection = ({
                                     ) : (
                                       <div className="w-3 h-3 lg:w-8 lg:h-8 flex items-center">
                                         {/* <Image
-                                          src={item.action_type === 'AuctionStarted' ? SaleLightIcon : TagLightIcon}
-                                          alt=""
-                                          width={
-                                            viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                          }
-                                          height={
-                                            viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
-                                          }
-                                        /> */}
+                                      src={item.action_type === 'AuctionStarted' ? SaleLightIcon : TagLightIcon}
+                                      alt=""
+                                      width={
+                                        viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                      }
+                                      height={
+                                        viewport === 'xs' ? 12 : viewport === 'sm' || viewport === 'md' ? 18 : 32
+                                      }
+                                    /> */}
                                         {item.action_type === 'AuctionStarted' ? (
                                           <SaleLightIcon alt="" />
                                         ) : (
@@ -1471,6 +1559,173 @@ const MainSection = ({
                   )}
                 </Disclosure>
               </div>
+              {/* {nftType.includes('image') && merchToggle && (
+                <div className="w-full flex flex-wrap">
+                  <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0 items-">
+                    <div className="w-[190px] h-[190px] flex items-center">
+                      <div>
+                        <div className="w-full relative flex justify-center mt-8">
+                          <Image src={PrintApparelSection} alt="" />
+                          <div className="absolute w-[40px] h-[40px] mt-[65px]">
+                            <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                          </div>
+                        </div>
+                        <div
+                          className={styles.categoryText}
+                          onClick={() => {
+                            let params = {
+                              nftName,
+                              nftCoverUrl,
+                              mintAddress,
+                              category: 'apparel',
+                              subCategory: '',
+                            }
+                            openMerchPage(params)
+                          }}
+                        >
+                          Apparel
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-8 ml-3">
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'apparel',
+                            subCategory: 'man',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Mens / Unisex
+                      </div>
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'apparel',
+                            subCategory: 'women',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Womens
+                      </div>
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'apparel',
+                            subCategory: 'youth',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Youth
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-100 lg:w-[50%] flex mt-10 lg:mt-0">
+                    <div className="flex items-center">
+                      <div>
+                        <div className="w-[127px] h-[157px] mx-8 mt-8 relative flex">
+                          <img src={nftCoverUrl} alt="" className="w-full h-full object-cover" />
+                          <div className={styles.printTemple} />
+                        </div>
+                        <div className="mt-[10px]">
+                          <div
+                            className={styles.categoryText}
+                            onClick={() => {
+                              let params = {
+                                nftName,
+                                nftCoverUrl,
+                                mintAddress,
+                                category: 'print',
+                                subCategory: '',
+                              }
+                              openMerchPage(params)
+                            }}
+                          >
+                            Physical Print
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="mt-[18px] ml-3">
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'print',
+                            subCategory: 'acrylic',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Arcrylic
+                      </div>
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'print',
+                            subCategory: 'metal',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Metal
+                      </div>
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'print',
+                            subCategory: 'canvas',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Canvas
+                      </div>
+                      <div
+                        className={styles.printText}
+                        onClick={() => {
+                          let params = {
+                            nftName,
+                            nftCoverUrl,
+                            mintAddress,
+                            category: 'print',
+                            subCategory: 'poster',
+                          }
+                          openMerchPage(params)
+                        }}
+                      >
+                        Poster
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )} */}
             </div>
           </div>
         </div>
@@ -1581,6 +1836,20 @@ const MainSection = ({
           collectionName={nftCollectionName}
         />
       )}
+      {createMerchModal && (
+        <CreateMerchSudioModal
+          onContinue={() => enableMerchToggle(true)}
+          open={createMerchModal}
+          close={() => setCreateMerchModal(false)}
+        />
+      )}
+      {removeMerchModal && (
+        <RemoveMerchSudioModal
+          onContinue={() => enableMerchToggle(false)}
+          open={removeMerchModal}
+          close={() => setRemoveMerchModal(false)}
+        />
+      )}
       {openShareModal && (
         <SocialShareModal
           open={openShareModal}
@@ -1602,6 +1871,7 @@ const MainSection = ({
             setOpenReportMenuModal(false)
             setOpenReportModal(true)
           }}
+          nftType={nftType}
         />
       )}
     </div>

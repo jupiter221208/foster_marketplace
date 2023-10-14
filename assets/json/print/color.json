@@ -1,0 +1,26 @@
+[
+  {
+    "id": 0,
+    "name": "#FFFFFF",
+    "type": "white",
+    "asset_url": "/images/apparel-color-white.png"
+  },
+  {
+    "id": 1,
+    "name": "#000000",
+    "type": "black",
+    "asset_url": "/images/apparel-color-black.png"
+  },
+  {
+    "id": 2,
+    "name": "#4B494A",
+    "type": "gray",
+    "asset_url": "/images/apparel-color-gray.png"
+  },
+  {
+    "id": 3,
+    "name": "#323544",
+    "type": "navy",
+    "asset_url": "/images/apparel-color-navy.png"
+  }
+]

@@ -1,6 +1,7 @@
 [
-  { "id": 0, "icon": "/images/avatar.png", "label": "Profile", "path": "/" },
-  { "id": 1, "icon": "/icons/dashboard-green.svg", "label": "Dashboard", "path": "/dashboard" },
-  { "id": 6, "icon": "/icons/setting-green.svg", "label": "Settings", "path": "/settings" },
-  { "id": 7, "icon": "/icons/logout-green.svg", "label": "Logout", "path": "/" }
+  { "id": 0, "label": "Profile", "path": "/" },
+  { "id": 1, "label": "Dashboard", "path": "/dashboard" },
+  { "id": 2, "label": "Studio", "path": "/merch-logs" },
+  { "id": 6, "label": "Settings", "path": "/settings" },
+  { "id": 7, "label": "Logout", "path": "/" }
 ]
