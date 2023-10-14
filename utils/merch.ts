@@ -120,7 +120,7 @@ export async function createPaymentTransaction({
       let ixs: TransactionInstruction[] = []
       if (!ataAccountInfos[i])
         ixs.push(createAssociatedTokenAccountInstruction(identity.publicKey, ataAddresses[i], address, USDC_ADDRESS))
-      ixs.push(createTransferInstruction(sourceAta, ataAddresses[i], identity.publicKey, amount))
+      ixs.push(createTransferInstruction(sourceAta, ataAddresses[i], identity.publicKey, Math.floor(amount)))
       instructions.push(ixs)
     }
   } else throw new Error(`unsupported currency: ${currency}`)
