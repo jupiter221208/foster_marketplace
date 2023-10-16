@@ -121,12 +121,12 @@ const MerchDetail = () => {
     let helpBody =
       `\nOrder#${id}\n` +
       `${profileInfo?.username ?? ''}\n` +
-      `${publicKey.toBase58()}\n\n` +
+      `${publicKey}\n\n` +
       'How can we help you with this order?'
     let reviewBody =
       `\nOrder#${id}\n` +
       `${profileInfo?.username ?? ''}\n` +
-      `${publicKey.toBase58()}\n\n` +
+      `${publicKey}\n\n` +
       'Please use the scale (1-4) below when rating your satisfaction for each question:\n' +
       '1 – Unsatisfied\n' +
       '2 – Needs Improvement\n' +

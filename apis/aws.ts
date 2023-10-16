@@ -7,7 +7,7 @@ const uploadFileToS3 = async (file: any, filename: string) => {
     })
     const url = new URL(data.url)
     try {
-        const { data } = await axios.put(url, file, {
+        const { data } = await axios.put(url.toString(), file, {
             headers: {
                 "Content-type": file.type,
                 "Access-Control-Allow-Origin": "*",
