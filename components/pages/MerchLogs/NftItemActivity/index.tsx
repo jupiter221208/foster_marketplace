@@ -25,10 +25,6 @@ const NftItemActivity = props => {
   const [list, setList] = useState<any[]>([])
 
   useEffect(() => {
-    setList(activities)
-  }, [activities])
-
-  useEffect(() => {
     let length = searchWord?.length
     if (length > 0) {
       const results = activities.filter(({ nft_name }) => {
@@ -40,7 +36,7 @@ const NftItemActivity = props => {
         setList(activities)
       }
     }
-  }, [searchWord])
+  }, [searchWord, activities])
 
   return (
     <div className={styles.container}>

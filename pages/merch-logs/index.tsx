@@ -244,10 +244,10 @@ const MerchActivity = () => {
     if (!nftStatus) return
     let disabledNfts = eligibleNfts
       .filter((_, index) => !nftStatus[tokenIds[index].toBase58()])
-      .map(({ name, json }, index) => ({
-        nft_name: name,
-        token_id: tokenIds[index].toBase58(),
-        asset_url: json?.image,
+      .map(nft => ({
+        nft_name: nft.name,
+        token_id: ('mint' in nft ? nft.mint.address : nft.mintAddress).toBase58(),
+        asset_url: nft.json?.image,
       }))
     setDisabledItems(disabledNfts)
 
