@@ -221,14 +221,14 @@ const MainSection = prop => {
   const uploadBannerFile = async (file: any, filename: string) => {
     setBannerUploadingToS3(true)
     const { url } = await uploadFileToS3API(file, filename)
-    setBannerPictureUrl(url + filename)
+    setBannerPictureUrl(url)
     setBannerUploadingToS3(false)
   }
 
   const uploadAvatarFile = async (file: any, filename: string) => {
     setAvatarUploadingToS3(true)
     const { url } = await uploadFileToS3API(file, filename)
-    setAvatarPictureUrl(url + filename)
+    setAvatarPictureUrl(url)
     setAvatarUploadingToS3(false)
   }
 

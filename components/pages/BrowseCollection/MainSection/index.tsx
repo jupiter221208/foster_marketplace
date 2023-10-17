@@ -160,7 +160,7 @@ const MainSection = props => {
   const uploadBannerFile = async (file: any, filename: string) => {
     setBannerUploadingToS3(true)
     const { data, url } = await uploadFileToS3(file, filename)
-    setBannerPictureUrl(url + filename)
+    setBannerPictureUrl(url)
     setBannerUploadingToS3(false)
   }
 

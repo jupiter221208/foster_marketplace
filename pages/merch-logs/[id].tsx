@@ -121,12 +121,12 @@ const MerchDetail = () => {
     let helpBody =
       `\nOrder#${id}\n` +
       `${profileInfo?.username ?? ''}\n` +
-      `${publicKey.toBase58()}\n\n` +
+      `${publicKey}\n\n` +
       'How can we help you with this order?'
     let reviewBody =
       `\nOrder#${id}\n` +
       `${profileInfo?.username ?? ''}\n` +
-      `${publicKey.toBase58()}\n\n` +
+      `${publicKey}\n\n` +
       'Please use the scale (1-4) below when rating your satisfaction for each question:\n' +
       '1 – Unsatisfied\n' +
       '2 – Needs Improvement\n' +
@@ -383,7 +383,7 @@ const MerchDetail = () => {
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
           <div className={styles.detailValue}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
           <div className={styles.detailValue}>
-            Payment&nbsp;Status:&nbsp;{paymentDetails?.txId.length > 0 ? paymentDetails?.status : 'Pending'}
+            Payment&nbsp;Status:&nbsp;{paymentDetails?.txId?.length > 0 ? paymentDetails?.status : 'Pending'}
           </div>
           <div className={styles.detailValue}>Creator&nbsp;Commission:&nbsp;${paymentDetails?.commission}</div>
           <div className={styles.detailValue}>Paid&nbsp;by:&nbsp;{getShortAddress(paymentDetails?.paidBy)}</div>
