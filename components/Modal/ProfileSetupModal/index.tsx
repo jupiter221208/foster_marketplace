@@ -106,7 +106,7 @@ const ProfileSetupModal = () => {
   const uploadFile = async (file: any, filename: string) => {
     setUploadingToS3(true)
     const { data, url } = await uploadFileToS3API(file, filename)
-    setProfilePictureUrl(url + filename)
+    setProfilePictureUrl(url)
     setUploadingToS3(false)
   }
 
