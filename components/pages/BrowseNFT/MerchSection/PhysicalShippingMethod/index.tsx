@@ -75,13 +75,17 @@ const PhysicalShippingMethod = props => {
     let methods = []
     if (isUniteState()) {
       let ship_methods = allShippingMethod.shippingMethods.filter(
-        item =>
-          item.serviceName === 'USPS Priority Mail - Package' ||
-          item.serviceName === 'USPS Priority Mail Express - Package'
+        item => item.serviceCode === 'usps_priority_mail' || item.serviceCode === 'usps_priority_mail_express'
       )
+
+      let minCostOne = Number.MAX_VALUE
+      let minCostTwo = Number.MAX_VALUE
+      let minCostMethodOne
+      let minCostMethodTwo
       ship_methods.forEach(method => {
         let newMethod
-        if (method.serviceName === 'USPS Priority Mail - Package') {
+
+        if (method.serviceCode === 'usps_priority_mail') {
           newMethod = {
             ...method,
             id: '0',
@@ -89,7 +93,11 @@ const PhysicalShippingMethod = props => {
             value: method.serviceName,
             disabled: false,
             small_tip: '4-7 business days',
-            price: method.shipmentcost,
+            price: method.shipmentCost,
+          }
+          if (newMethod.price < minCostOne) {
+            minCostOne = newMethod.price
+            minCostMethodOne = newMethod
           }
         } else {
           newMethod = {
@@ -99,13 +107,20 @@ const PhysicalShippingMethod = props => {
             value: method.serviceName,
             disabled: false,
             small_tip: '1-3 business days',
-            price: method.shipmentcost,
+            price: method.shipmentCost,
+          }
+          if (newMethod.price < minCostTwo) {
+            minCostTwo = newMethod.price
+            minCostMethodTwo = newMethod
           }
         }
-        methods.push(newMethod)
       })
+      methods.push(minCostMethodOne)
+      methods.push(minCostMethodTwo)
     } else {
       let index = 0
+      let minCost = Number.MAX_VALUE
+      let minCostMethod
       allShippingMethod.shippingMethods
         .filter(item => item.serviceCode === 'usps_priority_mail_international')
         .forEach(method => {
@@ -115,11 +130,15 @@ const PhysicalShippingMethod = props => {
             label: 'USPS Priority Mail International',
             value: method.serviceCode,
             disabled: false,
-            price: method.shipmentcost,
+            price: method.shipmentCost,
           }
-          methods.push(newMethod)
+          if (newMethod.price < minCost) {
+            minCost = newMethod.price
+            minCostMethod = newMethod
+          }
           index++
         })
+      methods.push(minCostMethod)
     }
     if (methods?.length > 0) {
       setShippingMethods(methods)
