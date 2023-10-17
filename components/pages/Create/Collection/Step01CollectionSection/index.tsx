@@ -151,7 +151,7 @@ const Step01CollectionSection = props => {
 
   const uploadBannerFile = async (file: any, filename: string) => {
     const { url } = await uploadFileToS3API(file, filename)
-    setBannerAWSUrl(url + filename)
+    setBannerAWSUrl(url)
   }
 
   useEffect(() => {
@@ -172,7 +172,7 @@ const Step01CollectionSection = props => {
 
   const uploadCoverfile = async (file: any, filename: string) => {
     const { url } = await uploadFileToS3API(file, filename)
-    setCoverAWSUrl(url + filename)
+    setCoverAWSUrl(url)
   }
 
   const [showCategoryList, setShowCategoryList] = useState(false)

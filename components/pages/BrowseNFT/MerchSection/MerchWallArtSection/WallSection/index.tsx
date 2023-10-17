@@ -25,7 +25,7 @@ const WallSection = props => {
     let filename = nftName + timestamp + '.png'
     var imgFile = dataURLtoFile(imgDataString, filename)
     const { url } = await uploadFileToS3(imgFile, filename)
-    return url + filename
+    return url
   }
 
   useEffect(() => {

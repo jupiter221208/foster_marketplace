@@ -33,6 +33,8 @@ const TabSection = props => {
     isLoaded,
     handleNextPage,
     setArtistEnable,
+    setMerchEnable,
+    setCollectorEnable,
     artistStatsInfo,
     collectorStatsInfo,
     setActiveListingLoaded,
@@ -43,6 +45,9 @@ const TabSection = props => {
     isVisibleFetchingCollected,
     isFetchingCollected,
     setIsFetchingCollected,
+    isVisibleFetchingMerch,
+    isFetchingMerch,
+    setIsFetchingMerch,
   } = props
 
   const [activeTab, setActiveTab] = useState<any>(0)
@@ -71,12 +76,21 @@ const TabSection = props => {
     })
     setTabList(array)
 
-    if (activeTab === 1) setArtistEnable(true)
-    else if (activeTab === 2) setArtistEnable(false)
-    else if (activeTab === 3) {
+    if (activeTab === 1) {
+      setArtistEnable(true)
+      setMerchEnable(false)
+      setCollectorEnable(false)
+    } else if (activeTab === 2) {
+      setArtistEnable(false)
+      setMerchEnable(true)
+      setCollectorEnable(false)
+    } else if (activeTab === 3) {
       setShowCollections(collections.slice(0, rowCount))
       setIsFetching(false)
       setIsVisibleFetching(true)
+      setArtistEnable(false)
+      setMerchEnable(false)
+      setCollectorEnable(true)
     }
   }, [activeTab])
 
@@ -117,6 +131,12 @@ const TabSection = props => {
       handleNextPage()
     }
   }, [isFetchingCollected])
+
+  useEffect(() => {
+    if (isFetchingMerch === true) {
+      handleNextPage()
+    }
+  }, [isFetchingMerch])
 
   useEffect(() => {
     if (isFetching === true) {
@@ -171,6 +191,9 @@ const TabSection = props => {
       {activeTab === 2 && (
         <div className="w-full">
           <NFTSwiperSection nfts={merchNfts} showHideButton={isOwn} isLoaded={isLoaded} />
+          {merchNfts?.length > 0 && isLoaded && isVisibleFetchingMerch && (
+            <LoadingComponent isFetching={isFetchingMerch} setIsFetching={setIsFetchingMerch} />
+          )}
           {/* <div className="w-full flex justify-end">
                   <ArtistPagination
                     currentPage={collectorCurrentPage}

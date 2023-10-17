@@ -73,7 +73,7 @@ const MainSection = () => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12">
-            <div className={styles.text}>Foster Studio is Now Live</div>
+            <div className={styles.text}>Foster Studio is Live</div>
             <div className={styles.slug}>
               {/* Home to creators, collectors, and curators around the world.
               <br /> */}
@@ -105,7 +105,7 @@ const MainSection = () => {
             }}
           >
             <div className={styles.contentArea}>
-              <div className={styles.mobileTitle}>Foster Studio is Now Live</div>
+              <div className={styles.mobileTitle}>Foster Studio is Live</div>
               <div className={styles.mobileText}>Pushing the boundaries of digital art on Solana.</div>
             </div>
             {heroList.length !== 0 && (
