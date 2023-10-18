@@ -279,6 +279,15 @@ const ArtistHeader = () => {
         </div>
       </div>
       {offset[1] !== 0 && (
+        <div
+          className={styles.studioMenu}
+          style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 392}px` }}
+          onClick={() => router.push('/studio')}
+        >
+          Studio
+        </div>
+      )}
+      {offset[1] !== 0 && (
         <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
           <ExploreMenu
             label="Explore"

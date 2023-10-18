@@ -26,6 +26,7 @@ import SingleNftIcon from 'assets/icons/single-nft-icon.svg?component'
 import CollectionNftIcon from 'assets/icons/large-collection-icon.svg?component'
 import SettingsIcon from 'assets/icons/setting-icon.svg?component'
 import MerchIcon from 'assets/icons/merch-icon.svg?component'
+import StudioIcon from 'public/icons/merch-icon.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -81,6 +82,8 @@ const AccordionMenu = props => {
                 <StatsIcon />
               ) : type === 'dao' ? (
                 <DAOIcon />
+              ) : type === 'studio' ? (
+                <StudioIcon />
               ) : type === 'resources' ? (
                 <ResourceIcon />
               ) : type === 'notifications' ? (

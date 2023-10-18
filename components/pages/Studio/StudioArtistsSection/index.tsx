@@ -1,0 +1,161 @@
+import React, { useEffect, useState } from 'react'
+
+// next components
+import { useRouter } from 'next/router'
+
+// third party components
+import { useDispatch } from 'react-redux'
+import Lottie from 'lottie-react'
+import PreLoaderIcon from 'assets/lottery/preloader.json'
+
+// swiper
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, Lazy, Navigation } from 'swiper'
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+
+// components
+import OutlineButton from 'components/Button/OutlineButton'
+import ArtistCard from 'components/Card/ArtistCard'
+
+// custom functions
+import { useViewport } from 'utils'
+
+// images and icons
+import Artist from 'assets/images/dashboard-avatar.png'
+
+// styles
+import styles from './index.module.scss'
+
+// call apis
+import dashboardAPI from 'apis/dashboard'
+import SeeMoreButton from 'components/Button/SeeMoreButton'
+import TimeSlotButton from 'components/Button/TimeSlotButton'
+
+const TopRatedArtistsSection = () => {
+  const viewport = useViewport()
+  const router = useRouter()
+  const dispatch = useDispatch()
+
+  const [artistsList, setArtistsList] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    getTopRatedArtistsFromServer('all')
+  }, [])
+
+  const getTopRatedArtistsFromServer = period => {
+    setIsLoading(true)
+    dashboardAPI.getTopRatedArtists(period).then(
+      response => {
+        setIsLoading(false)
+        if (response !== undefined && response !== null) {
+          setArtistsList(response)
+        }
+      },
+      error => {
+        setIsLoading(false)
+        console.log(error)
+      }
+    )
+  }
+
+  return (
+    <section className={styles.container}>
+      <div className="w-full flex flex-row items-center">
+        <div className="w-full">
+          {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
+            <div className="w-full flex justify-start items-center z-10">
+              <div className={styles.title}>Studio Artists</div>
+            </div>
+          ) : (
+            <div className={`${styles.title}`}>Studio&nbsp;Artists</div>
+          )}
+        </div>
+        <div className="w-full flex justify-end">
+          <div className="hidden lg:flex z-10">
+            <SeeMoreButton
+              onClick={() => {
+                dispatch({ type: 'set', exploreTab: 2 })
+                dispatch({ type: 'set', artistSort: 'top' })
+                router.push('/explore')
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="w-full mt-[30px] lg:mt-[34px] z-10">
+        <Swiper
+          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+          slidesPerView={
+            viewport === 'xs'
+              ? 2
+              : viewport === 'sm'
+              ? 2.5
+              : viewport === 'md'
+              ? 3
+              : viewport === 'lg'
+              ? 3
+              : viewport === 'xl'
+              ? 4
+              : 5
+          }
+          spaceBetween={
+            viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+              ? 16
+              : viewport === 'lg'
+              ? 20
+              : viewport === 'xl'
+              ? 24
+              : 24
+          }
+          initialSlide={5}
+          modules={[Autoplay, Lazy, Navigation]}
+          className={artistsList.length > 5 ? 'artistNavigationSwiper' : 'noScrollNavigationSwiper'}
+          // loop
+          // autoplay={{
+          //   delay: 5000,
+          //   disableOnInteraction: false,
+          // }}
+        >
+          {artistsList.length !== 0 &&
+            artistsList.map((item: any, index) => (
+              <SwiperSlide key={index}>
+                <ArtistCard
+                  image={
+                    item.profile_picture !== null && item.profile_picture !== undefined && item.profile_picture !== ''
+                      ? item.profile_picture
+                      : Artist.src
+                  }
+                  username={item.username}
+                  onClick={() => {
+                    dispatch({ type: 'set', isLoading: true })
+                    router.push('/' + item.username)
+                  }}
+                  key={index}
+                />
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
+      <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
+        <div className="w-full max-w-[242px] z-10">
+          <OutlineButton
+            label="See More"
+            fullWidth
+            onClick={() => {
+              dispatch({ type: 'set', exploreTab: 2 })
+              dispatch({ type: 'set', artistSort: 'top' })
+              router.push('/explore')
+            }}
+            borderColor={'var(--see-more-border)'}
+            height="40px"
+          />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default TopRatedArtistsSection
