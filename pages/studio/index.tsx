@@ -7,10 +7,9 @@ import { useEffect } from 'react'
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
 import MainSection from 'components/pages/Studio/MainSection'
 import StudioArtistsSection from 'components/pages/Studio/StudioArtistsSection'
-import MarketplaceReleaseSection from 'components/pages/Home/MarketplaceReleaseSection'
+import NewStudioReleasesSection from 'components/pages/Studio/NewStudioReleasesSection'
 import ExploreStudioArtworkSection from 'components/pages/Studio/ExploreStudioArtworkSection'
-import LiveAuctionSection from 'components/pages/Home/LiveAuctionSection'
-import CreateSellNFTSection from 'components/pages/Home/CreateSellNFTSection'
+import TrendingSection from 'components/pages/Studio/TrendingSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
@@ -62,19 +61,16 @@ const Home = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full flex justify-center">
-        <div className="g-container">
-          <MainSection />
-        </div>
+        <MainSection />
       </div>
-      {/* <PopularCategorySection type="home" /> */}
       <div className={styles.otherBG}>
         <div className="g-container">
-          <LiveAuctionSection category={''} fromPage={'home'} />
+          <TrendingSection category={''} />
         </div>
       </div>
       <div className="w-full flex justify-center">
         <div className="g-container">
-          <MarketplaceReleaseSection category={''} />
+          <NewStudioReleasesSection category={''} />
         </div>
       </div>
       <div className={styles.otherBG}>
@@ -85,7 +81,6 @@ const Home = () => {
       <div className="w-full flex justify-center">
         <div className="g-container">
           <ExploreStudioArtworkSection category={''} loop={true} />
-          <CreateSellNFTSection />
           <FullScreenLoadingModal open={isLoading} />
         </div>
       </div>

@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectCoverflow, Autoplay, Pagination, Navigation } from 'swiper'
+import Hero1List from 'assets/json/hero/hero-list.json'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -21,8 +22,10 @@ import CreateNFTModal from 'components/Modal/CreateNFTModal'
 // custom functions
 import { useViewport } from 'utils'
 
+import Image from 'next/image'
+
 // images and icons
-import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
+import StudioAvatar from 'assets/images/studio-avatar.png'
 
 // styles
 import styles from './index.module.scss'
@@ -30,8 +33,10 @@ import styles from './index.module.scss'
 // call apis
 import dashboardAPI from 'apis/dashboard'
 import GradientButton from 'components/Button/GradientButton'
-import HeroCardMobile from 'components/Card/HeroCardMobile'
-import StudioCard from 'components/Card/HeroCard'
+import StudioHeroCardMobile from 'components/Card/StudioCardMobile'
+import StudioCard from 'components/Card/StudioCard'
+import StudioHeroList from 'assets/json/hero/hero-list.json'
+import StudioHeroMobileList from 'assets/json/hero/hero-mobile-list.json'
 
 const MainSection = () => {
   const viewport = useViewport()
@@ -73,28 +78,17 @@ const MainSection = () => {
     <section id="main-section" className={styles.container}>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
-          <div className="col-span-12">
+          <div className="col-span-12 justify-center">
+            <div className="flex justify-center mb-[40px]">
+              <Image src={StudioAvatar} alt="" className="w-full h-full object-cover" />
+            </div>
             <div className={styles.text}>Ready to level-up your wardrobe?</div>
             <div className={styles.slug}>
               Pick your base and then select from the available studio artwork to begin designing.
             </div>
-
-            {/* <div className="hidden lg:flex lg:mt-1 xl:mt-[80px] 2xl:mt-[190px] flex-wrap lg:gap-6 xl:gap-10 2xl:gap-20">
-              <div className="block">
-                <div className={styles.count}>{artworkCnt}</div>
-                <div className={styles.countText}>Artworks</div>
-              </div>
-              <div className="block items-center">
-                <div className={styles.count}>{collectionCnt}</div>
-                <div className={styles.countText}>Collections</div>
-              </div>
-              <div className="block">
-                <div className={styles.count}>{nftCnt}</div>
-                <div className={styles.countText}>Ecosystem</div>
-              </div>
-            </div> */}
           </div>
         )}
+
         {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
           <div
             className="w-full col-span-12 min-h-[508px]"
@@ -109,11 +103,10 @@ const MainSection = () => {
                 Pick your base and then select from the available studio artwork to begin designing.
               </div>
             </div>
-
-            {heroList.length !== 0 && (
+            {StudioHeroMobileList.length !== 0 && (
               <div className="w-full relative" id="heroSwiperMobile">
                 <Swiper
-                  slidesPerView={1}
+                  slidesPerView={2}
                   spaceBetween={30}
                   pagination={{
                     clickable: true,
@@ -121,14 +114,14 @@ const MainSection = () => {
                   modules={[Autoplay, Pagination]}
                   className={'heroSwiperMobile'}
                   loop
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
+                  // autoplay={{
+                  //   delay: 5000,
+                  //   disableOnInteraction: false,
+                  // }}
                 >
-                  {heroList.map((item, index) => (
+                  {StudioHeroMobileList.map((item, index) => (
                     <SwiperSlide key={index}>
-                      <HeroCardMobile data={item} />
+                      <StudioHeroCardMobile data={item} />
                       <div className={styles.overlay} />
                     </SwiperSlide>
                   ))}
@@ -137,21 +130,23 @@ const MainSection = () => {
             )}
           </div>
         ) : (
-          <div className="w-[1450px] h-[500px]">
-            <div
-              className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
-              style={{
-                width: '100%',
-                marginLeft: '0px',
-              }}
-            >
-              <div className="w-full relative" id="heroSwiper">
-                {heroList.length !== 0 && (
+          <div
+            className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
+            style={{
+              width: '100%',
+              marginLeft: '0px',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <div className="g-container" style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="w-full relative bg-[#121212] rounded-[50px]" id="heroSwiper" style={{ width: '1435px' }}>
+                {StudioHeroList.length !== 0 && (
                   <Swiper
                     navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-                    slidesPerView={3}
+                    slidesPerView={4}
                     spaceBetween={0}
-                    centeredSlides={true}
+                    centeredSlides={false}
                     loop
                     pagination={{
                       clickable: true,
@@ -163,13 +158,11 @@ const MainSection = () => {
                       disableOnInteraction: false,
                     }}
                   >
-                    {heroList.map((item, index) => (
-                      <SwiperSlide key={index}>
+                    {StudioHeroList.map((item: any, index) => (
+                      <SwiperSlide key={index} style={{ width: 'fit-content' }}>
                         <StudioCard data={item} />
                       </SwiperSlide>
                     ))}
-                    <div className={styles.leftSide} />
-                    <div className={styles.rightSide} />
                   </Swiper>
                 )}
               </div>
