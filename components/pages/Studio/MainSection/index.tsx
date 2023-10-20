@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import StuidoCard from 'components/Card/StudioCard'
+import StudioCard from 'components/Card/StudioCard'
 import CreateNFTModal from 'components/Modal/CreateNFTModal'
 
 // custom functions
@@ -35,7 +35,6 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import GradientButton from 'components/Button/GradientButton'
 import StudioHeroCardMobile from 'components/Card/StudioCardMobile'
-import StudioCard from 'components/Card/StudioCard'
 import StudioHeroList from 'assets/json/hero/hero-list.json'
 import StudioHeroMobileList from 'assets/json/hero/hero-mobile-list.json'
 import { NextButton, PreviewButton } from './customButton'
@@ -90,8 +89,7 @@ const MainSection = ({ onchange, heroValue }) => {
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12 justify-center">
-            <div className="flex justify-center mb-[40px]">
-              {/* <StudioAvatar1 alt="" className="w-full h-full object-cover" /> */}
+            <div className="flex justify-center mb-[30px]">
               <Image src={StudioAvatar} alt="" className="w-full h-full object-cover" />
             </div>
             <div className={styles.text}>Ready to level-up your wardrobe?</div>
@@ -159,16 +157,17 @@ const MainSection = ({ onchange, heroValue }) => {
                   {StudioHeroList.length !== 0 && (
                     <Swiper
                       slidesPerView={4}
-                      spaceBetween={20}
+                      spaceBetween={15}
                       pagination={{
                         clickable: true,
                       }}
                       modules={[Autoplay, Pagination]}
                       loop
                       autoplay={{
-                        delay: 5000,
+                        delay: 1000000,
                         disableOnInteraction: false,
                       }}
+                      onSwiper={setSwiper}
                     >
                       {StudioHeroList.map((item: any, index) => (
                         <SwiperSlide key={index}>

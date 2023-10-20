@@ -25,8 +25,11 @@ import { setColorTheme } from 'utils/helpers'
 
 import styles from './index.module.scss'
 
-const Home = () => {
-  const [heroState, setHeroState] = useState(false)
+const Studio = () => {
+  const [heroState, setHeroState] = useState({
+    selected: false,
+    data: {},
+  })
   const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
@@ -65,16 +68,16 @@ const Home = () => {
         <MainSection onchange={setHeroState} heroValue={heroState} />
       </div>
       <div className={styles.otherBG}>
-        {heroState && (
+        {heroState.selected && (
           <div className="g-container">
-            <TrendingSection category={''} />
+            <TrendingSection category={''} heroValue={heroState} />
           </div>
         )}
       </div>
-      {heroState && (
+      {heroState.selected && (
         <div className="w-full flex justify-center">
           <div className="g-container">
-            <NewStudioReleasesSection category={''} />
+            <NewStudioReleasesSection category={''} heroValue={heroState} />
           </div>
         </div>
       )}
@@ -93,8 +96,8 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Studio
 
-Home.getLayout = function getLayout(page) {
+Studio.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }

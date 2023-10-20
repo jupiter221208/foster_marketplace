@@ -17,6 +17,7 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import StudioHeroList from 'assets/json/hero/hero-list.json'
+import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
 
 const StudioCard = props => {
   const { data, change, value } = props
@@ -36,6 +37,16 @@ const StudioCard = props => {
   //   router.push(`/nft/${data.token_id}`)
   // }
 
+  const onSelected = name => {
+    StudioApparelList.map(item => {
+      if (item.name === name) {
+        change({
+          selected: true,
+          data: item,
+        })
+      }
+    })
+  }
   return (
     <div>
       {/* <div className={styles.container}> */}
@@ -59,7 +70,10 @@ const StudioCard = props => {
           }}
           loading="lazy"
           onClick={() => {
-            change(!value)
+            onSelected(data.name)
+          }}
+          style={{
+            border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
           }}
         />
         <div className="w-full flex flex-col items-center justify-center mt-[10px]">

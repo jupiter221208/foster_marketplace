@@ -15,7 +15,7 @@ import 'swiper/css/navigation'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTCard from 'components/Card/NFTCard'
+import StudioReleaseCard from 'components/Card/StudioReleaseCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -24,39 +24,31 @@ import { useViewport } from 'utils'
 import styles from './index.module.scss'
 
 // call apis
-import dashboardAPI from 'apis/dashboard'
+import merchAPI from 'apis/merch'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
 const MarketplaceReleaseSection = props => {
-  const { category } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [marketplaceReleaseList, setMarketplaceReleaseList] = useState<any[]>([])
-  const [allMarketplaceReleaseList, setAllMarketplaceReleaseList] = useState<any[]>([])
-  const [active, setActive] = useState<any>(0)
-  const [cardLoop, setCardLoop] = useState(true)
+  const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(8)
 
   useEffect(() => {
-    setAllMarketplaceReleaseList([])
-    dashboardAPI.getMarketplaceReleases(category, '').then(response => {
+    merchAPI.getRecentlyEnabledNfts(page, perPage).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        setAllMarketplaceReleaseList(response)
+        setStudioReleaseList(response)
       }
     }),
       error => {
         console.log(error)
       }
-  }, [category])
-
-  useEffect(() => {
-    if (allMarketplaceReleaseList.length === 0) return
-    setMarketplaceReleaseList(allMarketplaceReleaseList)
-  }, [viewport, allMarketplaceReleaseList])
+  }, [])
 
   return (
-    marketplaceReleaseList.length !== 0 && (
+    studioReleaseList.length !== 0 && (
       <section className={styles.container}>
         <div className="w-full flex justify-between items-center z-10">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
@@ -73,17 +65,18 @@ const MarketplaceReleaseSection = props => {
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
+                // dispatch({ type: 'set', artworkCategory: category })
                 router.push('/explore')
               }}
             />
           </div>
         </div>
         <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
-          {marketplaceReleaseList.map((item: any, index) => (
+          {studioReleaseList.map((item: any, index) => (
             <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
-              <NFTCard
-                image={item.asset_url}
+              <StudioReleaseCard
+                image={props.heroValue.data}
+                nftImage={item.asset_url}
                 token_id={item.token_id}
                 nftName={item.nft_name}
                 assetType={item.asset_type}
@@ -105,8 +98,7 @@ const MarketplaceReleaseSection = props => {
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
+                // dispatch({ type: 'set', artworkCategory: category })
               }}
               borderColor={'var(--see-more-border)'}
               height="40px"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactPlaceholder from 'react-placeholder'
 import 'react-placeholder/lib/reactPlaceholder.css'
 import Link from 'next/link'
@@ -37,7 +37,7 @@ import ImageWithFallback from 'components/ImageWithFallback'
 const TrendingCard = props => {
   const {
     token_id,
-    image,
+    imagedata,
     nftName,
     coverImage = '',
     artistName,
@@ -48,6 +48,7 @@ const TrendingCard = props => {
     unSave = null,
     showHideButton = false,
     showUnhideButton = false,
+    innerimage,
   } = props
   const viewport = useViewport()
   const dispatch = useDispatch()
@@ -55,8 +56,11 @@ const TrendingCard = props => {
   const [loaded, setLoaded] = useState(false)
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
+  const [image, setImage] = useState('')
+  const imageLabelList = ['navy', 'black', 'gray', 'white']
 
   const [isLoading, setIsLoading] = useState(false)
+  const [assetUrl, setAssetUrl] = useState('')
 
   const performHideNft = () => {
     setIsLoading(true)
@@ -84,6 +88,21 @@ const TrendingCard = props => {
     )
   }
 
+  useEffect(() => {
+    if (innerimage) {
+      for (var i = 0; i < innerimage.length; i++) {
+        if (innerimage[i].name == 'assetUrl') {
+          setAssetUrl(innerimage[i].value)
+        }
+      }
+    }
+    if (imagedata) {
+      const randomNumber = Math.floor(Math.random() * 4)
+      let label = imageLabelList[randomNumber]
+      setImage(imagedata[label].image.front)
+    }
+  }, [innerimage, imagedata])
+
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
@@ -91,78 +110,13 @@ const TrendingCard = props => {
           <Link href={`${window.origin}/nft/${token_id}`} passHref>
             <a>
               <div className={styles.imageContent}>
-                {assetType?.includes('video') ? (
-                  viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-                    <div className="w-full relative flex justify-center items-center rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                      {play ? (
-                        <div
-                          className="w-full h-full absolute"
-                          dangerouslySetInnerHTML={{
-                            __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                    <source src=${image} type="video/mp4" /></video>`,
-                          }}
-                          onClick={() => onClick()}
-                        />
-                      ) : coverImage != null && coverImage !== '' ? (
-                        <Image
-                          src={coverImage}
-                          alt=""
-                          layout="fill"
-                          className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                          onClick={() => onClick()}
-                        />
-                      ) : (
-                        <Image
-                          src={DefaultNftBG}
-                          alt=""
-                          className="w-full h-full object-cover"
-                          onClick={() => onClick()}
-                        />
-                      )}
-                      <div className={styles.playButton}>
-                        <div className={`${play ? 'w-[18px]' : 'w-[22px]'} h-[18px] flex justify-end`}>
-                          <Image
-                            src={play ? PauseVideoIcon : PlayVideoIcon}
-                            width={18}
-                            height={18}
-                            alt=""
-                            onClick={() => setPlay(!play)}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    <div
-                      className="w-full"
-                      dangerouslySetInnerHTML={{
-                        __html: `<video autoplay loop muted webkit-playsinline playsinline class="w-full h-full object-cover rounded-[10px] lg:rounded-[24px] overflow-hidden">
-                  <source src=${image} type="video/mp4" /></video>`,
-                      }}
-                      onClick={() => onClick()}
-                    />
-                  )
-                ) : assetType?.includes('audio') ? (
-                  coverImage !== null && coverImage !== '' ? (
-                    <ImageWithFallback
-                      src={coverImage}
-                      onClick={onClick}
-                      layout="fill"
-                      alt=""
-                      className="w-full h-full rounded-[10px] lg:rounded-[24px] object-cover"
-                    />
-                  ) : (
-                    <Image src={DefaultNftBG} alt="" className="w-full h-full object-cover" onClick={() => onClick()} />
-                  )
-                ) : image !== null && image !== '' ? (
-                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                ) : coverImage !== null && coverImage !== '' ? (
-                  <ImageWithFallback
-                    src={coverImage}
-                    onClick={onClick}
-                    layout="fill"
-                    alt=""
-                    className={styles.imageNft}
-                  />
+                {image !== null && image !== '' ? (
+                  <>
+                    <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                    <span className={styles.nftImage}>
+                      <img src={assetUrl} onClick={onClick} alt="" width={'35%'} height={'35%'}></img>
+                    </span>
+                  </>
                 ) : (
                   <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
                 )}
@@ -188,18 +142,6 @@ const TrendingCard = props => {
             </div>
 
             <div className="w-full flex items-center">
-              {/* {coverImage && coverImage !== '' && coverImage !== undefined && (
-                <div className={styles.avatar}>
-                  <img
-                    src={image}
-                    alt=""
-                    width={viewport === 'lg' ? 40 : 60}
-                    height={viewport === 'lg' ? 40 : 60}
-                    className="rounded-full"
-                    loading="lazy"
-                  />
-                </div>
-              )} */}
               <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
             </div>
           </div>

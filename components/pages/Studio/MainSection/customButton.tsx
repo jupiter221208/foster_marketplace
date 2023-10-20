@@ -1,6 +1,12 @@
 export const NextButton = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85">
+    <svg
+      data-name="merch-toggle-disabled"
+      xmlns="http://www.w3.org/2000/svg"
+      width="85"
+      height="85"
+      viewBox="0 0 85 85"
+    >
       <defs>
         <filter id="Path_108522" x="0" y="0" width="85" height="85" filterUnits="userSpaceOnUse">
           <feOffset />
@@ -18,7 +24,6 @@ export const NextButton = () => {
               data-name="Path 108522"
               d="M27.5,0A27.5,27.5,0,1,1,0,27.5,27.5,27.5,0,0,1,27.5,0Z"
               transform="translate(70 15) rotate(90)"
-              fill="#2b2b2b"
             />
           </g>
           <g id="Component_2300_6" data-name="Component 2300 – 6" transform="translate(17.224 33.5) rotate(-90)">
@@ -27,7 +32,7 @@ export const NextButton = () => {
                 id="noun-left-4606382"
                 d="M12.609,29.893a1.714,1.714,0,0,1,0-2.431l7.36-7.342-7.36-7.342a1.719,1.719,0,1,1,2.431-2.431L23.6,18.9v0a1.708,1.708,0,0,1,0,2.429L15.04,29.891v0a1.714,1.714,0,0,1-2.431,0Z"
                 transform="translate(-12.104 -9.844)"
-                fill="#eff0f6"
+                data-fill="a"
               />
             </g>
           </g>
@@ -39,7 +44,13 @@ export const NextButton = () => {
 
 export const PreviewButton = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="85" height="85" viewBox="0 0 85 85">
+    <svg
+      data-name="merch-toggle-disabled"
+      xmlns="http://www.w3.org/2000/svg"
+      width="85"
+      height="85"
+      viewBox="0 0 85 85"
+    >
       <defs>
         <filter id="Path_108522" x="0" y="0" width="85" height="85" filterUnits="userSpaceOnUse">
           <feOffset />
@@ -58,7 +69,6 @@ export const PreviewButton = () => {
                 data-name="Path 108522"
                 d="M27.5,0A27.5,27.5,0,1,1,0,27.5,27.5,27.5,0,0,1,27.5,0Z"
                 transform="translate(70 15) rotate(90)"
-                fill="#2b2b2b"
               />
             </g>
             <g id="Component_2300_6" data-name="Component 2300 – 6" transform="translate(17.223 33.501) rotate(-90)">
@@ -67,7 +77,7 @@ export const PreviewButton = () => {
                   id="noun-left-4606382"
                   d="M23.6,29.893a1.714,1.714,0,0,0,0-2.431l-7.36-7.342,7.36-7.342a1.719,1.719,0,0,0-2.431-2.431L12.611,18.9v0a1.708,1.708,0,0,0,0,2.429l8.557,8.557v0a1.714,1.714,0,0,0,2.431,0Z"
                   transform="translate(-12.104 -9.844)"
-                  fill="#eff0f6"
+                  data-fill="a"
                 />
               </g>
             </g>

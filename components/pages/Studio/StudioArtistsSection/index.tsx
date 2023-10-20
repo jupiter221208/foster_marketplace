@@ -79,7 +79,6 @@ const TopRatedArtistsSection = () => {
               onClick={() => {
                 dispatch({ type: 'set', exploreTab: 2 })
                 dispatch({ type: 'set', artistSort: 'top' })
-                router.push('/explore')
               }}
             />
           </div>
@@ -147,7 +146,6 @@ const TopRatedArtistsSection = () => {
             onClick={() => {
               dispatch({ type: 'set', exploreTab: 2 })
               dispatch({ type: 'set', artistSort: 'top' })
-              router.push('/explore')
             }}
             borderColor={'var(--see-more-border)'}
             height="40px"

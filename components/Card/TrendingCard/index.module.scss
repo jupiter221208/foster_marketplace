@@ -136,7 +136,7 @@
 .imageArea {
   position: relative;
   width: 100%;
-  padding-top: 117.757%; /* 321:378 Aspect Ratio */
+  padding-top: 100%; /* 321:378 Aspect Ratio */
 }
 
 .imageContent {
@@ -144,6 +144,8 @@
   inset: 0;
   display: flex;
   justify-content: center;
+  background-image: url('/images/Card-background.png');
+  background-size: contain;
   // align-items: center;
   // border: 1px solid rgba(var(--text-gray-200-color), 0.1);
   border-radius: 10px;
@@ -161,17 +163,10 @@
   border-radius: 10px;
   margin: 0 auto;
   transition: transform 0.2s;
+  padding: 25px !important;
   @media (min-width: 1024px) {
     max-width: 600px;
     border-radius: 24px;
-  }
-  &:hover {
-    @media (min-width: 1024px) {
-      border-radius: 30px;
-      -ms-transform: scale(1.2);
-      -webkit-transform: scale(1.2);
-      transform: scale(1.2);
-    }
   }
 }
 
@@ -250,4 +245,10 @@
     height: 60px;
   }
   border: 3px solid rgba(var(--collection-card-bg-rgb), 0.75);
+}
+.nftImage {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 30%;
 }
