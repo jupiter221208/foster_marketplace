@@ -150,7 +150,6 @@
 }
 
 .overlay {
-  position: absolute;
   left: 0px;
   top: 0px;
   width: 100%;
@@ -250,7 +249,6 @@
   left: 0;
   top: 110px;
   right: 0;
-  margin-top: -15px;
 }
 
 .cardTitle {
@@ -294,4 +292,23 @@
   right: 0;
   top: 0;
   z-index: 10;
+}
+.studio {
+  width: 1435px;
+  height: 100%;
+  position: relative;
+  border-radius: 50px;
+  background-color: var(--g-right-container-bg);
+}
+.prevButton {
+  position: absolute;
+  top: 45%;
+  z-index: 99;
+  left: -15px;
+}
+.nextButton {
+  position: absolute;
+  top: 45%;
+  z-index: 99;
+  right: -15px;
 }

@@ -19,7 +19,7 @@ import 'react-placeholder/lib/reactPlaceholder.css'
 import StudioHeroList from 'assets/json/hero/hero-list.json'
 
 const StudioCard = props => {
-  const { data } = props
+  const { data, change, value } = props
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -37,14 +37,14 @@ const StudioCard = props => {
   // }
 
   return (
-    <div style={{ width: 'fit-content' }}>
+    <div>
       {/* <div className={styles.container}> */}
       {/* <Link href={`${window.origin}/nft/${data.token_id}`} passHref> */}{' '}
       {/* <a>
         <div className={styles.imageArea}>
 
           <div className={styles.imageContent}> */}
-      <div className="w-[300px]" style={{ height: 'fit-content' }}>
+      <div className="w-full">
         {!loaded && (
           <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={loaded} color="#202427">
             <div></div>
@@ -53,15 +53,21 @@ const StudioCard = props => {
         <img
           src={data['asset_url']}
           alt=""
-          className="w-full h-[300px] object-cover rounded-[24px]"
+          className={styles.imageStatus}
           onLoad={() => {
             setLoaded(true)
           }}
           loading="lazy"
+          onClick={() => {
+            change(!value)
+          }}
         />
-        <div className="flex items-center">
-          <div className={styles.heroName}>{data['name']}</div>
-          <div className={styles.heroType}>( {data['type']} )</div>
+        <div className="w-full flex flex-col items-center justify-center mt-[10px]">
+          <div className="w-full flex flex-row justify-center">
+            <div className={styles.heroName}>{data['name']}</div>
+            <div className={styles.heroType}>( {data['type']} )</div>
+          </div>
+          <div className={styles.heroPrice}>Starting at {data['start_price']}</div>
         </div>
       </div>
       {/* </div>

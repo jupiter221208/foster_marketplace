@@ -58,7 +58,7 @@ const MarketplaceReleaseSection = props => {
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full flex justify-between items-center z-10 mb-[60px]">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-center items-center z-10">
@@ -79,8 +79,10 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
+
         <Swiper
-          slidesPerView={4}
+          slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 2}
+          spaceBetween={50}
           modules={[Autoplay]}
           loop
           autoplay={{
@@ -100,7 +102,6 @@ const MarketplaceReleaseSection = props => {
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
                     collectionName={item.collection_name}
-                    price={item.list_price}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
                       router.push(`/nft/${item.token_id}`)
@@ -111,6 +112,7 @@ const MarketplaceReleaseSection = props => {
             ))}
           </div>
         </Swiper>
+
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton

@@ -16,7 +16,7 @@ import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
 const StudioHeroCardMobile = props => {
-  const { data } = props
+  const { data, change, value } = props
   const router = useRouter()
   const dispatch = useDispatch()
   const [profileLoaded, setProfileLoaded] = useState(false)
@@ -35,25 +35,8 @@ const StudioHeroCardMobile = props => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.imageBG}>
-        <img
-          src={
-            data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-              ? data.asset_url
-              : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-              ? data.cover_image_url
-              : '/images/banner.png'
-          }
-          alt=""
-          // width={375}
-          // layout="fill"
-          height={375}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-        <div className={styles.overlayMask} />
-      </div>
-      <div className="relative mt-[-175px] px-[15px] z-10">
+      <div className={styles.imageBG}></div>
+      <div className={styles.mobileImageArea}>
         <div className={styles.imageArea}>
           <div className={styles.imageContent}>
             {!loaded && (
@@ -64,55 +47,32 @@ const StudioHeroCardMobile = props => {
               </div>
             )}
             <img
-              src={
-                data.asset_url !== '' && data.asset_url !== null && data.asset_url !== undefined
-                  ? data.asset_url
-                  : data.cover_image_url !== '' && data.cover_image_url !== null && data.cover_image_url !== undefined
-                  ? data.cover_image_url
-                  : '/images/banner.png'
-              }
+              src={data['asset_url']}
               alt=""
               width={550}
               height={772}
-              className="w-full h-full object-cover rounded-[24px]"
+              className={styles.mobileImageStatus}
               loading="lazy"
               onLoad={() => {
                 setLoaded(true)
               }}
+              onClick={() => {
+                change(!value)
+              }}
             />
+            <div className="w-full flex flex-col items-center justify-center mt-[10px]">
+              <div className="w-full flex flex-row justify-center">
+                <p className="inline text-center items-center gap-2">
+                  <span className={styles.mobileheroName}>{data['name']}</span>
+                  <span className={styles.mobileheroType}>( {data['type']} )</span>
+                </p>
+              </div>
+              <div className={styles.mobileheroPrice}>Starting at {data['start_price']}</div>
+            </div>
           </div>
         </div>
       </div>
-      {data.artist_profile_picture && data.artist_profile_picture !== '' && data.artist_profile_picture !== undefined && (
-        <div className={styles.avatarArea}>
-          <div className={styles.avatar}>
-            {!profileLoaded && (
-              <div className="w-[60px] h-[60px] rounded-full overflow-hidden">
-                <ReactPlaceholder showLoadingAnimation={true} type="rect" ready={profileLoaded} color="#202427">
-                  <div></div>
-                </ReactPlaceholder>
-              </div>
-            )}
-            <img
-              src={
-                data.artist_profile_picture &&
-                data.artist_profile_picture !== '' &&
-                data.artist_profile_picture !== undefined
-                  ? data.artist_profile_picture
-                  : '/images/avatar.png'
-              }
-              alt=""
-              width={60}
-              height={60}
-              className="rounded-full"
-              loading="lazy"
-              onLoad={() => setProfileLoaded(true)}
-            />
-          </div>
-        </div>
-      )}
     </div>
   )
 }
-
 export default StudioHeroCardMobile

@@ -15,7 +15,7 @@ import 'swiper/css/navigation'
 
 // components
 import OutlineButton from 'components/Button/OutlineButton'
-import NFTCard from 'components/Card/NFTCard'
+import TrendingCard from 'components/Card/TrendingCard'
 
 // custom functions
 import { useViewport } from 'utils'
@@ -27,7 +27,7 @@ import styles from './index.module.scss'
 import dashboardAPI from 'apis/dashboard'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
 
-const MarketplaceReleaseSection = props => {
+const TrendingSection = props => {
   const { category } = props
   const viewport = useViewport()
   const router = useRouter()
@@ -58,7 +58,7 @@ const MarketplaceReleaseSection = props => {
   return (
     marketplaceReleaseList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full flex justify-between items-center z-10 mb-[70px]">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-center items-center z-10">
@@ -68,21 +68,11 @@ const MarketplaceReleaseSection = props => {
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Trending</div>
             )}
           </div>
-          <div className="hidden lg:flex z-10">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-            />
-          </div>
         </div>
         <Swiper
           navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={3}
-          spaceBetween={0}
+          slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 3 : 1}
+          spaceBetween={40}
           centeredSlides={true}
           loop
           modules={[Autoplay, Navigation]}
@@ -96,15 +86,13 @@ const MarketplaceReleaseSection = props => {
             {marketplaceReleaseList.map((item: any, index) => (
               <SwiperSlide>
                 <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
-                  <NFTCard
+                  <TrendingCard
                     image={item.asset_url}
                     token_id={item.token_id}
                     nftName={item.nft_name}
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
-                    collectionName={item.collection_name}
-                    price={item.list_price}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
                       router.push(`/nft/${item.token_id}`)
@@ -115,25 +103,9 @@ const MarketplaceReleaseSection = props => {
             ))}
           </div>
         </Swiper>
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
-          </div>
-        </div>
       </section>
     )
   )
 }
 
-export default MarketplaceReleaseSection
+export default TrendingSection

@@ -487,6 +487,33 @@ h6 {
   }
 }
 
+#heroStudioSwiper .swiper-horizontal > .swiper-pagination-bullets,
+#heroStudioSwiper .swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 18px;
+  z-index: 10;
+  @media (min-width: 1024px) {
+    left: -10px;
+    bottom: 0px;
+  }
+}
+
+#heroStudioSwiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--text-gray-200-color);
+  @media (max-width: 640px) {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+  }
+}
+
 #heroSwiper .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
@@ -494,6 +521,19 @@ h6 {
   background: var(--text-gray-200-color);
   @media (max-width: 640px) {
     width: 4px;
+    height: 4px;
+    border-radius: 2px;
+  }
+}
+
+#heroStudioSwiper .swiper-pagination-bullet-active {
+  color: var(--white-color);
+  background: var(--home-swiper-bg);
+  width: 35px;
+  height: 8px;
+  border-radius: 4px;
+  @media (max-width: 640px) {
+    width: 18px;
     height: 4px;
     border-radius: 2px;
   }
@@ -580,6 +620,11 @@ h6 {
     left: -10px;
     bottom: 0px;
   }
+}
+
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 30px;
 }
 
 #heroSwiperMobile .swiper-pagination-bullet {

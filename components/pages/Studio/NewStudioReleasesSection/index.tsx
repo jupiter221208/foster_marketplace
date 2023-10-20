@@ -42,18 +42,6 @@ const MarketplaceReleaseSection = props => {
     setAllMarketplaceReleaseList([])
     dashboardAPI.getMarketplaceReleases(category, '').then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        // let newList: any[] = []
-        // let tempItem: any[] = []
-        // response.map((item, index) => {
-        //   tempItem.push(item)
-        //   if (index % 2 === 1) {
-        //     newList.push(tempItem)
-        //     tempItem = []
-        //   }
-        // })
-
-        // if (tempItem.length > 0) newList.push(tempItem)
-
         setAllMarketplaceReleaseList(response)
       }
     }),
@@ -101,8 +89,6 @@ const MarketplaceReleaseSection = props => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
-                collectionName={item.collection_name}
-                price={item.list_price}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
                   router.push(`/nft/${item.token_id}`)

@@ -1,7 +1,7 @@
 // next components
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // components
 import PrimaryLayout from 'components/Layout/PrimaryLayout'
@@ -26,6 +26,7 @@ import { setColorTheme } from 'utils/helpers'
 import styles from './index.module.scss'
 
 const Home = () => {
+  const [heroState, setHeroState] = useState(false)
   const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
@@ -61,18 +62,22 @@ const Home = () => {
         <link rel="icon" href="/logo.png" />
       </Head>
       <div className="w-full flex justify-center">
-        <MainSection />
+        <MainSection onchange={setHeroState} heroValue={heroState} />
       </div>
       <div className={styles.otherBG}>
-        <div className="g-container">
-          <TrendingSection category={''} />
-        </div>
+        {heroState && (
+          <div className="g-container">
+            <TrendingSection category={''} />
+          </div>
+        )}
       </div>
-      <div className="w-full flex justify-center">
-        <div className="g-container">
-          <NewStudioReleasesSection category={''} />
+      {heroState && (
+        <div className="w-full flex justify-center">
+          <div className="g-container">
+            <NewStudioReleasesSection category={''} />
+          </div>
         </div>
-      </div>
+      )}
       <div className={styles.otherBG}>
         <div className="g-container">
           <StudioArtistsSection />
