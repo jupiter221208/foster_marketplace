@@ -24,6 +24,7 @@ import Selection from 'components/Selection'
 import SelectionColor from 'components/SelectionColor'
 import GradientButton from 'components/Button/GradientButton'
 import { useViewport } from 'utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
 import OutlineButton from 'components/Button/OutlineButton'
 
@@ -34,6 +35,7 @@ import SizeChartModal from 'components/Modal/SizeChartModal'
 const PhysicalPrintDetail = props => {
   const { onBack, onPrint, onShipping, data, setData, nftName, nftCoverUrl, subCategory, base } = props
   const viewport = useViewport()
+  const { solToUsdRate } = useSolToUsdRate()
   const [gender, setGender] = useState({ name: '', type: '' })
   const [apparel, setApparel] = useState(null)
   const [print, setPrint] = useState({
@@ -304,7 +306,9 @@ const PhysicalPrintDetail = props => {
           <div className={styles.separator}></div>
           <div className="flex gap-[10px] items-center">
             <SolanaLogoIcon alt="" />
-            <div className={styles.price}>{cost === '----' ? '----' : (parseFloat(cost) / 14.7).toFixed(2)}</div>
+            <div className={styles.price}>
+              {cost === '----' ? '----' : (parseFloat(cost) / solToUsdRate).toFixed(2)}
+            </div>
           </div>
         </div>
       </div>
