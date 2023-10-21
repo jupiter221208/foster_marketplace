@@ -74,7 +74,7 @@ const TrendingSection = props => {
         >
           <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
             {trendingList?.map((item: any, index) => (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
                   <TrendingCard
                     imagedata={props.heroValue.data}
