@@ -11,7 +11,7 @@ export const NextButton = () => {
         <filter id="Path_108522" x="0" y="0" width="85" height="85" filterUnits="userSpaceOnUse">
           <feOffset />
           <feGaussianBlur stdDeviation="5" result="blur" />
-          <feFlood flood-color="#202427" flood-opacity="0.102" />
+          <feFlood floodColor="#202427" floodOpacity="0.102" />
           <feComposite operator="in" in2="blur" />
           <feComposite in="SourceGraphic" />
         </filter>
@@ -55,7 +55,7 @@ export const PreviewButton = () => {
         <filter id="Path_108522" x="0" y="0" width="85" height="85" filterUnits="userSpaceOnUse">
           <feOffset />
           <feGaussianBlur stdDeviation="5" result="blur" />
-          <feFlood flood-color="#202427" flood-opacity="0.102" />
+          <feFlood floodColor="#202427" floodOpacity="0.102" />
           <feComposite operator="in" in2="blur" />
           <feComposite in="SourceGraphic" />
         </filter>
