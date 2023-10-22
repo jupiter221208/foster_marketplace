@@ -41,8 +41,13 @@ export function useSolToUsdRate() {
     }
   }, [])
 
+  function solToUsdWithSlippage(slippage = 0.02) {
+    return localSolToUsdRate * (1 - slippage)
+  }
+
   return {
     solToUsdRate: localSolToUsdRate,
     refreshValue,
+    solToUsdWithSlippage,
   }
 }

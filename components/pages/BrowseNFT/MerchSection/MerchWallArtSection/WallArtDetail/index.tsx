@@ -20,6 +20,7 @@ import GradientButton from 'components/Button/GradientButton'
 import WalletTag from './WalletTag'
 import NftImageEditorModal from 'components/Modal/NftImageEditorModal'
 import { useViewport } from 'utils'
+import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import WallSection from '../WallSection'
 import OutlineButton from 'components/Button/OutlineButton'
 import { getFirstUpperString } from 'utils/helpers'
@@ -29,6 +30,7 @@ import { getFirstUpperString } from 'utils/helpers'
 const WallArtDetail = props => {
   const { onBack, onPrint, onShipping, subCategory, data, setData, nftName, nftImage } = props
   const viewport = useViewport()
+  const { solToUsdRate } = useSolToUsdRate()
   const [print, setPrint] = useState({ name: '', type: '', image: '' })
   const [orientation, setOrientation] = useState({ name: '', type: '' })
   const [size, setSize] = useState({ width: 1, height: 1, price: '' })
@@ -230,7 +232,7 @@ const WallArtDetail = props => {
             <div className="flex gap-[10px] items-center">
               <SolanaLogoIcon alt="" />
               <div className={styles.price}>
-                {cost === '----' ? '----' : ((parseFloat(cost) * quantity) / 14.7).toFixed(2)}
+                {cost === '----' ? '----' : ((parseFloat(cost) * quantity) / solToUsdRate).toFixed(2)}
               </div>
             </div>
           </div>
@@ -283,7 +285,7 @@ const WallArtDetail = props => {
             <div className="flex gap-[10px] items-center">
               <SolanaLogoIcon alt="" />
               <div className={styles.price}>
-                {cost === '----' ? '----' : ((parseFloat(cost) * quantity) / 14.7).toFixed(2)}
+                {cost === '----' ? '----' : ((parseFloat(cost) * quantity) / solToUsdRate).toFixed(2)}
               </div>
             </div>
           </div>

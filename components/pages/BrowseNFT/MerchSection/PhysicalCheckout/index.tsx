@@ -44,7 +44,6 @@ export interface PhysicalCheckoutProps {
 }
 
 const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckoutProps) => {
-  const SOL_USD_SLIPPAGE = 0.98
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
@@ -53,7 +52,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const { connected } = useWallet()
   const { setVisible } = useWalletModal()
   const { metaplex } = useMetaplex()
-  const { solToUsdRate, refreshValue } = useSolToUsdRate()
+  const { solToUsdRate, solToUsdWithSlippage, refreshValue } = useSolToUsdRate()
 
   const [currency, setCurrency] = useState<'sol' | 'usdc'>('sol')
   const [isLoad, setIsLoad] = useState(false)
@@ -61,7 +60,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
   const [list, setList] = useState([])
   const [alertData, setAlertData] = useState<any[]>([])
   total ??= orderData?.order.amount
-  const solAmount = total && solToUsdRate ? total / (solToUsdRate * SOL_USD_SLIPPAGE) : 0
+  const solAmount = total && solToUsdRate ? total / solToUsdWithSlippage() : 0
 
   useEffect(() => {
     setAlertData([
@@ -143,7 +142,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
           fosterAmount: order.foster_commission + order.tax_amount,
           artistAmount: order.artist_commission,
         },
-        solToUsdRate: (await refreshValue()) * SOL_USD_SLIPPAGE,
+        solToUsdRate: solToUsdWithSlippage(),
         currency,
       })
       let { blockhash } = await metaplex.connection.getLatestBlockhash()

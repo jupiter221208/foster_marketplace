@@ -36,7 +36,7 @@ import SmallCategoryChip from 'components/Chip/SmallCategoryChip'
 import LoadingButton from 'components/Button/LoadingButton'
 
 // custom functions
-import { fetchSolToUsdRate, useViewport } from 'utils'
+import { useViewport } from 'utils'
 import { useAuthentication } from 'hooks/useAuthentication'
 import { getNFTCategories, getNFTTokenAccount, getNFTSocialInfo, getNFTArtistPublicKey } from 'utils/nfts.utils'
 import { loadAuctionHouse } from 'utils/auction.util'
@@ -1255,9 +1255,7 @@ const MainSection = ({
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => (
-                                <SmallCategoryChip data={item} key={index} />
-                              ))}
+                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
