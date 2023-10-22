@@ -62,32 +62,6 @@ const TrendingCard = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [assetUrl, setAssetUrl] = useState('')
 
-  const performHideNft = () => {
-    setIsLoading(true)
-
-    nftAPI.hideNft(token_id).then(
-      response => {
-        setIsLoading(false)
-        setDisplayHideConfirm(false)
-        dispatch({ type: 'set', hideNftToken: token_id })
-      },
-      error => {}
-    )
-  }
-
-  const performUnhideNft = () => {
-    setIsLoading(true)
-
-    nftAPI.unhideNft(token_id).then(
-      response => {
-        setIsLoading(false)
-        setDisplayUnhideConfirm(false)
-        dispatch({ type: 'set', unhideNftToken: token_id })
-      },
-      error => {}
-    )
-  }
-
   useEffect(() => {
     if (innerimage) {
       for (var i = 0; i < innerimage.length; i++) {
@@ -107,22 +81,20 @@ const TrendingCard = props => {
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
-          <Link href={`${window.origin}/nft/${token_id}`} passHref>
-            <a>
-              <div className={styles.imageContent}>
-                {image !== null && image !== '' ? (
-                  <>
-                    <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                    <span className={styles.nftImage}>
-                      <img src={assetUrl} onClick={onClick} alt="" width={'35%'} height={'35%'}></img>
-                    </span>
-                  </>
-                ) : (
-                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                )}
-              </div>
-            </a>
-          </Link>
+          <a>
+            <div className={styles.imageContent}>
+              {image !== null && image !== '' ? (
+                <>
+                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                  <span className={styles.nftImage}>
+                    <img src={assetUrl} onClick={onClick} alt="" width={'35%'} height={'35%'}></img>
+                  </span>
+                </>
+              ) : (
+                <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+              )}
+            </div>
+          </a>
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
@@ -179,7 +151,7 @@ const TrendingCard = props => {
                   <div className={styles.hideCancelButton} onClick={() => setDisplayHideConfirm(false)}>
                     Cancel
                   </div>
-                  <div className={styles.hideButton} onClick={() => performHideNft()}>
+                  <div className={styles.hideButton}>
                     <div className="flex gap-[6px]">
                       <Image
                         src={
@@ -218,7 +190,7 @@ const TrendingCard = props => {
                   <div className={styles.hideCancelButton} onClick={() => setDisplayUnhideConfirm(false)}>
                     Cancel
                   </div>
-                  <div className={styles.hideButton} onClick={() => performUnhideNft()}>
+                  <div className={styles.hideButton}>
                     <div className="flex gap-[6px]">
                       <Image
                         src={

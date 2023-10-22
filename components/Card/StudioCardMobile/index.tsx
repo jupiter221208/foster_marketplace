@@ -15,6 +15,8 @@ import DefaultNftBG from 'assets/images/default-nft-bg.png'
 import ReactPlaceholder from 'react-placeholder/lib'
 import 'react-placeholder/lib/reactPlaceholder.css'
 
+import StudioApparelList from 'assets/json/hero/hero-apparel-list.json'
+
 const StudioHeroCardMobile = props => {
   const { data, change, value } = props
   const router = useRouter()
@@ -22,6 +24,17 @@ const StudioHeroCardMobile = props => {
   const [profileLoaded, setProfileLoaded] = useState(false)
   const onClick = () => {}
   const [loaded, setLoaded] = useState(false)
+
+  const onSelected = name => {
+    StudioApparelList.map(item => {
+      if (item.name === name) {
+        change({
+          selected: true,
+          data: item,
+        })
+      }
+    })
+  }
 
   // const gotoAristPage = () => {
   //   dispatch({ type: 'set', isLoading: true })
@@ -57,7 +70,10 @@ const StudioHeroCardMobile = props => {
                 setLoaded(true)
               }}
               onClick={() => {
-                change(!value)
+                onSelected(data.name)
+              }}
+              style={{
+                border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
               }}
             />
             <div className="w-full flex flex-col items-center justify-center mt-[10px]">

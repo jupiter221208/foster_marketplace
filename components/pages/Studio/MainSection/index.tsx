@@ -25,8 +25,8 @@ import { useViewport } from 'utils'
 import Image from 'next/image'
 
 // images and icons
-import StudioAvatar1 from 'assets/icons/studio-avatar1.svg?component'
-import StudioAvatar from 'assets/images/studio-avatar.png'
+import StudioAvatar from 'assets/images/logo-02.png'
+import StudioTitle from 'assets/icons/logo-studio.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -63,34 +63,16 @@ const MainSection = ({ onchange, heroValue }) => {
     dispatch({ type: 'set', openCreateNFTModal: false })
   }
 
-  useEffect(() => {
-    dashboardAPI.getDashboardBanner().then(
-      response => {
-        if (response !== null && response !== undefined) {
-          setHeroList(response.featured_nfts)
-          setNftCnt(response.stats.users)
-          setCollectionCnt(response.stats.collections)
-          setArtworkCnt(response.stats.nfts)
-        }
-        if (!firstLoaded) {
-          setTimeout(() => {
-            dispatch({ type: 'set', firstLoaded: true })
-          }, 2000)
-        }
-      },
-      error => {
-        console.log(error)
-      }
-    )
-  }, [])
-
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full grid grid-cols-12 z-10 items-center">
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12 justify-center">
-            <div className="flex justify-center mb-[30px]">
-              <Image src={StudioAvatar} alt="" className="w-full h-full object-cover" />
+            <div className="flex items-center justify-center mb-[20px]">
+              <Image src={StudioAvatar} alt="" width={132} height={132} />
+              <div className="flex ml-[25px]">
+                <StudioTitle />
+              </div>
             </div>
             <div className={styles.text}>Ready to level-up your wardrobe?</div>
             <div className={styles.slug}>
