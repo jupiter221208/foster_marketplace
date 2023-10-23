@@ -229,7 +229,7 @@ const PrimaryHeader = () => {
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
             {routePath === '/' || 'studio' ? (
-              <div className={styles.heroLogoArea}>
+              <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
                 <FosterHeroLogo alt="" />
               </div>
             ) : (
