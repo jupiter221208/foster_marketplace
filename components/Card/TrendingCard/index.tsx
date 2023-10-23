@@ -57,6 +57,7 @@ const TrendingCard = props => {
   const [displayHideConfirm, setDisplayHideConfirm] = useState(false)
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
   const [image, setImage] = useState('')
+  const [name, setName] = useState('')
   const imageLabelList = ['navy', 'black', 'gray', 'white']
 
   const [isLoading, setIsLoading] = useState(false)
@@ -76,6 +77,16 @@ const TrendingCard = props => {
       setImage(imagedata[label].image.front)
     }
   }, [innerimage, imagedata])
+
+  useEffect(() => {
+    if (nftName) {
+      for (var i = 0; i < innerimage.length; i++) {
+        if (nftName[i].name == 'nftName') {
+          setName(nftName[i].value)
+        }
+      }
+    }
+  }, [nftName])
 
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
@@ -110,12 +121,9 @@ const TrendingCard = props => {
         <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
           <div className="w-full">
             <div className="flex items-center">
-              <div className={styles.nftName}>{nftName}</div>
+              <div className={styles.nftName}>{name}</div>
             </div>
-
-            <div className="w-full flex items-center">
-              <div className={styles.artistName}>{artistName || collectionName || 'Ecosystem Artist'}</div>
-            </div>
+            <div className="w-full flex items-center"> </div>
           </div>
         </div>
         {unSave !== null && (

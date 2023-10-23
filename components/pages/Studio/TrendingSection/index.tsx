@@ -81,7 +81,7 @@ const TrendingSection = props => {
                     imagedata={props.heroValue.data}
                     innerimage={item.ssorder.items[0].options}
                     token_id={item.token_id}
-                    nftName={item.ssorder.items[0]?.name}
+                    nftName={item.ssorder.items[0]?.options}
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
