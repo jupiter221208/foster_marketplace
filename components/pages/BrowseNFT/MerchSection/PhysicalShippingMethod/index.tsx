@@ -115,6 +115,8 @@ const PhysicalShippingMethod = props => {
           }
         }
       })
+      minCostMethodOne.price = minCostOne.toFixed(2)
+      minCostMethodTwo.price = minCostTwo.toFixed(2)
       methods.push(minCostMethodOne)
       methods.push(minCostMethodTwo)
     } else {
