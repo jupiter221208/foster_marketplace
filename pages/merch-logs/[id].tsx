@@ -73,11 +73,13 @@ const MerchDetail = () => {
     let itemData = orderData?.ssorder.items[0]
     let options = itemData.options
     let nftName = findElement(options, 'name', 'nftName')
+    let size = findElement(options, 'name', 'size')
     if (options) {
       let itemDetails = {
         print: nftName ? nftName['value'] : '',
         quantity: itemData.quantity,
         product: itemData.name,
+        size: size ? size['value'] : ''
       }
       setItemDetails(itemDetails)
     }
@@ -224,10 +226,8 @@ const MerchDetail = () => {
             <div className={styles.detailTitle}>Item Details</div>
             <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
             <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.product}</div>
-            <div className={`mt-[9px] ${styles.detailValue}`}>Size:&nbsp;{itemDetails?.size}</div>
+            <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.product}&nbsp;({itemDetails.size})</div>
           </div>
-
           <div>
             <div className={styles.detailTitle}>Payment Details</div>
             <div className={`mt-[15px] ${styles.detailValue}`}>Payment&nbsp;Method:&nbsp;{paymentDetails?.method}</div>
@@ -378,8 +378,7 @@ const MerchDetail = () => {
           <div className={styles.detailTitle}>Item&nbsp;Details</div>
           <div className={styles.detailValue}>Print:&nbsp;{itemDetails?.print}</div>
           <div className={styles.detailValue}>Quantity:&nbsp;{itemDetails?.quantity}</div>
-          <div className={styles.detailValue}>Product:&nbsp;{itemDetails?.product}</div>
-          <div className={styles.detailValue}>Size:&nbsp;{itemDetails?.size}</div>
+          <div className={styles.detailValue}>Product:&nbsp;{itemDetails?.product}&nbsp;({itemDetails?.size})</div>
         </div>
         <div className="w-full mt-[30px]">
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
