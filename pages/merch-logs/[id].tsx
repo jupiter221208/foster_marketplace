@@ -359,7 +359,7 @@ const MerchDetail = () => {
           </div>
 
           <div className="w-full mt-[15px]">
-            <div className={styles.infoTitle}>Tracking Number</div>
+            <div className={styles.infoTitle}>TRACKING NUMBER</div>
             <div className={styles.infoValue}>
               {orderDetails?.orderNumber === '' && !isOwn
                 ? 'Hidden for Buyer Safety'
