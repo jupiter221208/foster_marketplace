@@ -225,6 +225,7 @@ const MerchDetail = () => {
             <div className={`mt-[15px] ${styles.detailValue}`}>Print:&nbsp;{itemDetails?.print}</div>
             <div className={`mt-[9px] ${styles.detailValue}`}>Quantity:&nbsp;{itemDetails?.quantity}</div>
             <div className={`mt-[9px] ${styles.detailValue}`}>Product:&nbsp;{itemDetails?.product}</div>
+            <div className={`mt-[9px] ${styles.detailValue}`}>Size:&nbsp;{itemDetails?.size}</div>
           </div>
 
           <div>
@@ -378,6 +379,7 @@ const MerchDetail = () => {
           <div className={styles.detailValue}>Print:&nbsp;{itemDetails?.print}</div>
           <div className={styles.detailValue}>Quantity:&nbsp;{itemDetails?.quantity}</div>
           <div className={styles.detailValue}>Product:&nbsp;{itemDetails?.product}</div>
+          <div className={styles.detailValue}>Size:&nbsp;{itemDetails?.size}</div>
         </div>
         <div className="w-full mt-[30px]">
           <div className={styles.detailTitle}>Payment&nbsp;Details</div>
