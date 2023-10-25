@@ -38,8 +38,8 @@ const TopRatedArtistsSection = () => {
   const dispatch = useDispatch()
 
   const [artistsList, setArtistsList] = useState<any[]>([])
-  const [page, setPage] = useState()
-  const [perPage, setPerPage] = useState()
+  const [page, setPage] = useState(1)
+  const [perPage, setPerPage] = useState(10)
 
   useEffect(() => {
     merchAPI.getArtistsMerchHub(page, perPage).then(response => {
@@ -50,7 +50,7 @@ const TopRatedArtistsSection = () => {
       error => {
         console.log(error)
       }
-  }, [])
+  }, [page, perPage])
 
   return (
     <section className={styles.container}>

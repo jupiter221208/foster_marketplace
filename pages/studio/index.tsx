@@ -31,7 +31,12 @@ const Studio = () => {
     data: {},
   })
   const isLoading = useSelector<any>(state => state.isLoading)
+  const dispatch = useDispatch()
   useDetectRouterPath(useRouter())
+
+  useEffect(() => {
+    dispatch({ type: 'set', isLoading: true })
+  }, [])
 
   let pageTitle = 'Foster Marketplace'
   let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
