@@ -66,7 +66,6 @@ const MarketplaceReleaseSection = props => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 0 })
                 // dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
               }}
             />
           </div>
@@ -76,9 +75,10 @@ const MarketplaceReleaseSection = props => {
             <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
               <StudioReleaseCard
                 image={props.heroValue.data}
-                nftImage={item.asset_url}
+                nftImage={item.nft.asset_url}
                 token_id={item.token_id}
-                nftName={item.nft_name}
+                nftName={item.nft.nft_name}
+                userName={item.artist.username}
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}

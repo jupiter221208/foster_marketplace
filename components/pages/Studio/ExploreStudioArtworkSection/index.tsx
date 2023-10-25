@@ -74,7 +74,6 @@ const MarketplaceReleaseSection = props => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 0 })
                 dispatch({ type: 'set', artworkCategory: category })
-                router.push('/explore')
               }}
             />
           </div>
@@ -122,7 +121,6 @@ const MarketplaceReleaseSection = props => {
                 dispatch({ type: 'set', exploreTab: 0 })
                 dispatch({ type: 'set', availabilityFilter: 0 })
                 dispatch({ type: 'set', artworkCategory: category })
-                // router.push('/explore')
               }}
               borderColor={'var(--see-more-border)'}
               height="40px"

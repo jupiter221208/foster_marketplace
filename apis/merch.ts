@@ -201,4 +201,5 @@ export default {
   getOrderStats,
   getRecentOrders,
   getRecentlyEnabledNfts,
+  getArtistsMerchHub,
 }

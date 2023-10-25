@@ -97,9 +97,16 @@ const TrendingCard = props => {
               {image !== null && image !== '' ? (
                 <>
                   <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                  <span className={styles.nftImage}>
-                    <img src={assetUrl} onClick={onClick} alt="" width={'35%'} height={'35%'}></img>
-                  </span>
+                  <div className={styles.nftImage}>
+                    <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
+                      <img
+                        src={assetUrl}
+                        onClick={onClick}
+                        alt=""
+                        className="w-auto h-auto max-w-full max-h-full object-contain"
+                      ></img>
+                    </div>
+                  </div>
                 </>
               ) : (
                 <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />

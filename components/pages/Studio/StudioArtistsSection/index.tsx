@@ -29,9 +29,8 @@ import Artist from 'assets/images/dashboard-avatar.png'
 import styles from './index.module.scss'
 
 // call apis
-import dashboardAPI from 'apis/dashboard'
+import merchAPI from 'apis/merch'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
-import TimeSlotButton from 'components/Button/TimeSlotButton'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -39,27 +38,19 @@ const TopRatedArtistsSection = () => {
   const dispatch = useDispatch()
 
   const [artistsList, setArtistsList] = useState<any[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [page, setPage] = useState()
+  const [perPage, setPerPage] = useState()
 
   useEffect(() => {
-    getTopRatedArtistsFromServer('all')
-  }, [])
-
-  const getTopRatedArtistsFromServer = period => {
-    setIsLoading(true)
-    dashboardAPI.getTopRatedArtists(period).then(
-      response => {
-        setIsLoading(false)
-        if (response !== undefined && response !== null) {
-          setArtistsList(response)
-        }
-      },
+    merchAPI.getArtistsMerchHub(page, perPage).then(response => {
+      if (response !== null && response !== undefined && response.length !== 0) {
+        setArtistsList(response)
+      }
+    }),
       error => {
-        setIsLoading(false)
         console.log(error)
       }
-    )
-  }
+  }, [])
 
   return (
     <section className={styles.container}>

@@ -38,6 +38,7 @@ const DashboardNFTCard = props => {
   const {
     token_id,
     image,
+    userName,
     nftName,
     coverImage = '',
     artistName,
@@ -118,9 +119,16 @@ const DashboardNFTCard = props => {
                       alt=""
                       className={styles.imageNft}
                     />
-                    <span className={styles.nftImage}>
-                      <img src={assetUrl} onClick={onClick} alt="" width={'35%'} height={'35%'}></img>
-                    </span>
+                    <div className={styles.nftImage}>
+                      <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
+                        <img
+                          src={assetUrl}
+                          onClick={onClick}
+                          alt=""
+                          className="w-auto h-auto max-w-full max-h-full object-contain"
+                        ></img>
+                      </div>
+                    </div>
                   </>
                 ) : (
                   <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
@@ -144,6 +152,9 @@ const DashboardNFTCard = props => {
           <div className="w-full">
             <div className="flex items-center">
               <div className={styles.nftName}>{nftName}</div>
+            </div>
+            <div className="w-full flex justify-between items-center mt-[2px]">
+              <div className={styles.artistName}>{userName}</div>
             </div>
             <div className="w-full flex justify-between items-center mt-[2px]">
               {price && (
