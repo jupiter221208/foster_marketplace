@@ -107,7 +107,7 @@ const DashboardNFTCard = props => {
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
-          <Link href={`${window.origin}/nft/${token_id}`} passHref>
+          <Link href={`${window.origin}/merch-logs/${token_id}`} passHref>
             <a>
               <div className={styles.imageContent}>
                 {innerImage !== null && innerImage !== '' ? (

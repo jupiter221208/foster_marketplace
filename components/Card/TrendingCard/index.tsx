@@ -92,27 +92,29 @@ const TrendingCard = props => {
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
-          <a>
-            <div className={styles.imageContent}>
-              {image !== null && image !== '' ? (
-                <>
-                  <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                  <div className={styles.nftImage}>
-                    <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
-                      <img
-                        src={assetUrl}
-                        onClick={onClick}
-                        alt=""
-                        className="w-auto h-auto max-w-full max-h-full object-contain"
-                      ></img>
+          <Link href={`${window.origin}/merch-logs/${token_id}`} passHref>
+            <a>
+              <div className={styles.imageContent}>
+                {image !== null && image !== '' ? (
+                  <>
+                    <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
+                    <div className={styles.nftImage}>
+                      <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
+                        <img
+                          src={assetUrl}
+                          onClick={onClick}
+                          alt=""
+                          className="w-auto h-auto max-w-full max-h-full object-contain"
+                        ></img>
+                      </div>
                     </div>
-                  </div>
-                </>
-              ) : (
-                <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-              )}
-            </div>
-          </a>
+                  </>
+                ) : (
+                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+                )}
+              </div>
+            </a>
+          </Link>
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}

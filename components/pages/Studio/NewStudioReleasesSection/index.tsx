@@ -76,7 +76,7 @@ const MarketplaceReleaseSection = props => {
               <StudioReleaseCard
                 image={props.heroValue.data}
                 nftImage={item.nft.asset_url}
-                token_id={item.token_id}
+                token_id={item.nft.token_id}
                 nftName={item.nft.nft_name}
                 userName={item.artist.username}
                 assetType={item.asset_type}
@@ -84,7 +84,7 @@ const MarketplaceReleaseSection = props => {
                 artistName={item.artist_username}
                 onClick={() => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/nft/${item.token_id}`)
+                  router.push(`/merch-logs/${item.nft.token_id}`)
                 }}
               />
             </div>

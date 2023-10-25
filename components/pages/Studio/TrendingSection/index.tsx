@@ -80,14 +80,14 @@ const TrendingSection = props => {
                   <TrendingCard
                     imagedata={props.heroValue.data}
                     innerimage={item.ssorder.items[0].options}
-                    token_id={item.token_id}
+                    token_id={item.order.buyer_address}
                     nftName={item.ssorder.items[0]?.options}
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
                     onClick={() => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/nft/${item.token_id}`)
+                      router.push(`/merch-logs/${item.order.buyer_address}`)
                     }}
                   />
                 </div>
