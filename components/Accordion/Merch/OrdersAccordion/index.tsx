@@ -88,7 +88,7 @@ const OrdersAccordion = props => {
                   </div> */}
                   <div className={styles.secondRow}>
                     <div className={styles.title}>{type === 'purchases' ? 'Creator' : 'Buyer'}</div>
-                    <div className={styles.text}>{getSliceAddress(item.buyer_address)}</div>
+                    <div className={styles.text}>{getSliceAddress(item.creator)}</div>
                   </div>
                   <div className={styles.thirdRow}>
                     <OutlineButton
