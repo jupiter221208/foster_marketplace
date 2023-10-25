@@ -13,7 +13,7 @@ import TrendingSection from 'components/pages/Studio/TrendingSection'
 import FullScreenLoadingModal from 'components/Modal/FullScreenLoadingModal'
 
 // images
-import PreviewImage from 'assets/images/preview-image.png'
+import StudioPreviewImage from 'assets/images/studio-preview-image.png'
 
 // custom functions
 import { useDetectRouterPath } from 'utils'
@@ -33,11 +33,9 @@ const Studio = () => {
   const isLoading = useSelector<any>(state => state.isLoading)
   useDetectRouterPath(useRouter())
 
-  let pageTitle = 'Foster Marketplace'
-  let pageImageUrl = getAbsoluteOgUrl(PreviewImage.src)
-  let pageDescription =
-    'Home to creators, collectors, and curators around the world.\n' +
-    'Pushing the boundaries of digital art on Solana.'
+  let pageTitle = 'Foster Studio'
+  let pageImageUrl = getAbsoluteOgUrl(StudioPreviewImage.src)
+  let pageDescription = 'Pushing the boundaries of digital art on Solana'
 
   const lightDarkMode = useSelector(state => (state as any).lightMode)
 
