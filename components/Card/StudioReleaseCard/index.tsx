@@ -60,7 +60,8 @@ const DashboardNFTCard = props => {
   const [isLoading, setIsLoading] = useState(false)
   const [assetUrl, setAssetUrl] = useState('')
   const [innerImage, setInnerImage] = useState('')
-  const imageLabelList = ['navy', 'black', 'gray', 'white']
+  const imageLabelList = ['white', 'black', 'gray', 'navy']
+  const [randomColorNumber, setRandomColorNumber] = useState(-1)
 
   const performHideNft = () => {
     setIsLoading(true)
@@ -100,6 +101,7 @@ const DashboardNFTCard = props => {
       const randomNumber = Math.floor(Math.random() * 4)
       let label = imageLabelList[randomNumber]
       setInnerImage(image[label].image.front)
+      setRandomColorNumber(randomNumber)
     }
   }, [nftImage, image])
 
@@ -107,35 +109,26 @@ const DashboardNFTCard = props => {
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
-          <Link href={`${window.origin}/merch-logs/${token_id}`} passHref>
-            <a>
-              <div className={styles.imageContent}>
-                {innerImage !== null && innerImage !== '' ? (
-                  <>
-                    <ImageWithFallback
-                      src={innerImage}
-                      onClick={onClick}
-                      layout="fill"
-                      alt=""
-                      className={styles.imageNft}
-                    />
-                    <div className={styles.nftImage}>
-                      <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
-                        <img
-                          src={assetUrl}
-                          onClick={onClick}
-                          alt=""
-                          className="w-auto h-auto max-w-full max-h-full object-contain"
-                        ></img>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                )}
-              </div>
-            </a>
-          </Link>
+          <div
+            className={styles.imageContent}
+            onClick={() => {
+              onClick(randomColorNumber)
+            }}
+          >
+            {innerImage !== null && innerImage !== '' ? (
+              <>
+                <ImageWithFallback src={innerImage} layout="fill" alt="" className={styles.imageNft} />
+                <div className={styles.nftImage}>
+                  <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
+                    <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+            )}
+          </div>
+
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}

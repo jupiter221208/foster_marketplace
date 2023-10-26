@@ -61,6 +61,8 @@ export interface BrowseNFTProps {
 const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
   const nftType = nftDetail?.json?.properties?.category as string
   const isLoading = useSelector<any>(state => state.isLoading)
+  const apparelType = useSelector<any>(state => state.apparelType)
+  const detailShow = useSelector<any>(state => state.detailShow)
   const categories = getNFTCategories(nftDetail)
   const [openMerchPage, setOpenMerchPage] = useState(false)
   const [merchData, setMerchData] = useState(null)
@@ -83,11 +85,36 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       500
     )
     dispatch({ type: 'set', isLoading: true })
+    dispatch({ type: 'set', apparelType })
+    dispatch({ type: 'set', detailShow: true })
   }, [])
 
   useEffect(() => {
     if (isLoading === false) setShowLoading(false)
   }, [isLoading])
+
+  useEffect(() => {
+    if (detailShow === true) {
+      if (apparelType !== undefined || apparelType !== '' || apparelType !== null) {
+        const nftName = (nftDetail?.name || nftDetail.json?.name) ?? 'No name found'
+        const nftCoverUrl = nftDetail.json?.image ?? ''
+        const mintAddress = nftDetail.address.toString()
+        const item = ShopApparelList.find(apparel => apparel.name === apparelType)
+
+        let params = {
+          nftName,
+          nftCoverUrl,
+          mintAddress,
+          category: item.category,
+          subCategory: item.sub_type,
+          base: item.base,
+        }
+        setMerchData(params)
+        setOpenMerchPage(true)
+        dispatch({ type: 'set', detailShow: false })
+      }
+    }
+  }, [detailShow, apparelType])
 
   useEffect(() => {
     if (!nftDetail) return

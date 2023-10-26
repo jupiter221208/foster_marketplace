@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -31,7 +31,7 @@ const TrendingSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const apparelType = useSelector<any>(state => state.apparelType)
   const [trendingList, setTrendingList] = useState<any[]>([])
 
   useEffect(() => {
@@ -80,14 +80,24 @@ const TrendingSection = props => {
                   <TrendingCard
                     imagedata={props.heroValue.data}
                     innerimage={item.ssorder.items[0].options}
-                    token_id={item.order.buyer_address}
+                    nftAddress={
+                      item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value || null
+                    }
                     nftName={item.ssorder.items[0]?.options}
                     assetType={item.asset_type}
                     coverImage={item.cover_image_url}
                     artistName={item.artist_username}
-                    onClick={() => {
+                    onClick={color => {
                       dispatch({ type: 'set', isLoading: true })
-                      router.push(`/merch-logs/${item.order.buyer_address}`)
+                      dispatch({ type: 'set', apparelType })
+                      dispatch({ type: 'set', detailShow: true })
+                      dispatch({ type: 'set', apparelColor: color })
+                      router.push(
+                        `/nft/${
+                          item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value ||
+                          null
+                        }`
+                      )
                     }}
                   />
                 </div>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 // third party components
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 // swiper
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -31,7 +31,7 @@ const MarketplaceReleaseSection = props => {
   const viewport = useViewport()
   const router = useRouter()
   const dispatch = useDispatch()
-
+  const apparelType = useSelector<any>(state => state.apparelType)
   const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
@@ -82,9 +82,12 @@ const MarketplaceReleaseSection = props => {
                 assetType={item.asset_type}
                 coverImage={item.cover_image_url}
                 artistName={item.artist_username}
-                onClick={() => {
+                onClick={color => {
                   dispatch({ type: 'set', isLoading: true })
-                  router.push(`/merch-logs/${item.nft.token_id}`)
+                  dispatch({ type: 'set', apparelType })
+                  dispatch({ type: 'set', detailShow: true })
+                  dispatch({ type: 'set', apparelColor: color })
+                  router.push(`/nft/${item.nft.token_id}`)
                 }}
               />
             </div>

@@ -58,8 +58,8 @@ const TrendingCard = props => {
   const [displayUnhideConfirm, setDisplayUnhideConfirm] = useState(false)
   const [image, setImage] = useState('')
   const [name, setName] = useState('')
-  const imageLabelList = ['navy', 'black', 'gray', 'white']
-
+  const imageLabelList = ['white', 'black', 'gray', 'navy']
+  const [randomColorNumber, setRandomColorNumber] = useState(-1)
   const [isLoading, setIsLoading] = useState(false)
   const [assetUrl, setAssetUrl] = useState('')
 
@@ -75,6 +75,7 @@ const TrendingCard = props => {
       const randomNumber = Math.floor(Math.random() * 4)
       let label = imageLabelList[randomNumber]
       setImage(imagedata[label].image.front)
+      setRandomColorNumber(randomNumber)
     }
   }, [innerimage, imagedata])
 
@@ -92,29 +93,25 @@ const TrendingCard = props => {
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
-          <Link href={`${window.origin}/merch-logs/${token_id}`} passHref>
-            <a>
-              <div className={styles.imageContent}>
-                {image !== null && image !== '' ? (
-                  <>
-                    <ImageWithFallback src={image} onClick={onClick} layout="fill" alt="" className={styles.imageNft} />
-                    <div className={styles.nftImage}>
-                      <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
-                        <img
-                          src={assetUrl}
-                          onClick={onClick}
-                          alt=""
-                          className="w-auto h-auto max-w-full max-h-full object-contain"
-                        ></img>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
-                )}
-              </div>
-            </a>
-          </Link>
+          <div
+            className={styles.imageContent}
+            onClick={() => {
+              onClick(randomColorNumber)
+            }}
+          >
+            {image !== null && image !== '' ? (
+              <>
+                <ImageWithFallback src={image} layout="fill" alt="" className={styles.imageNft} />
+                <div className={styles.nftImage}>
+                  <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
+                    <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+            )}
+          </div>
           {showHideButton === true && (
             <div className={styles.hideBtnArea} onClick={() => setDisplayHideConfirm(true)}>
               {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? <HideMobileIcon /> : <HideIcon />}
