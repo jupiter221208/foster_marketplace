@@ -119,7 +119,7 @@ const DashboardNFTCard = props => {
               <>
                 <ImageWithFallback src={innerImage} layout="fill" alt="" className={styles.imageNft} />
                 <div className={styles.nftImage}>
-                  <div className="w-[30%] h-[30%] lg:w-[34%] h-[34%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
+                  <div className="w-[30%] h-[30%] lg:-mt-[8%] -mt-[8%] flex justify-center items-start">
                     <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
                   </div>
                 </div>

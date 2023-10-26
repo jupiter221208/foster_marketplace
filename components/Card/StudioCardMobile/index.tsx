@@ -71,6 +71,7 @@ const StudioHeroCardMobile = props => {
               }}
               onClick={() => {
                 onSelected(data.name)
+                dispatch({ type: 'set', apparelType: data.name })
               }}
               style={{
                 border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
