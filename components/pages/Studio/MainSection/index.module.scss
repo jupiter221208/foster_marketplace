@@ -21,6 +21,14 @@
   position: relative;
 }
 
+.gradient {
+  position: absolute;
+  width: 100%;
+  height: 400px;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, rgba(26, 26, 26, 0), rgba(26, 26, 26, 1));
+}
+
 .topLeftEllipse {
   position: absolute;
   width: 2021px;

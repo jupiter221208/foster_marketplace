@@ -69,8 +69,8 @@ const MainSection = ({ onchange, heroValue }) => {
         {(viewport === 'lg' || viewport === 'xl' || viewport === '2xl') && (
           <div className="col-span-12 justify-center">
             <div className="flex items-center justify-center mb-[20px]">
-              <Image src={StudioAvatar} alt="" width={132} height={132} />
-              <div className="flex ml-[25px]">
+              <Image src={StudioAvatar} alt="" width={90} height={90} />
+              <div className="flex ml-[20px]">
                 <StudioTitle />
               </div>
             </div>
@@ -95,10 +95,10 @@ const MainSection = ({ onchange, heroValue }) => {
                 Pick your base and then select from the available studio artwork to begin designing.
               </div>
             </div>
-            {StudioHeroMobileList.length !== 0 && (
+            {StudioHeroList.length !== 0 && (
               <div className="w-full relative px-[20px]" id="heroSwiperMobile">
                 <Swiper
-                  slidesPerView={2}
+                  slidesPerView={1}
                   spaceBetween={0}
                   pagination={{
                     clickable: true,
@@ -107,12 +107,12 @@ const MainSection = ({ onchange, heroValue }) => {
                   className={'heroSwiperMobile'}
                   loop
                   autoplay={{
-                    delay: 100000,
+                    delay: 1000,
                     disableOnInteraction: false,
                   }}
                 >
                   <div>
-                    {StudioHeroMobileList.map((item, index) => (
+                    {StudioHeroList.map((item, index) => (
                       <SwiperSlide key={index} className="">
                         <StudioHeroCardMobile data={item} change={onchange} value={heroValue} />
                         <div className={styles.overlay} />
@@ -170,6 +170,7 @@ const MainSection = ({ onchange, heroValue }) => {
           </div>
         )}
       </div>
+      <div className={styles.gradient}></div>
       <CreateNFTModal open={openCreateNFTModal} close={() => handleCloseCreateNFTModal()} />
     </section>
   )

@@ -66,7 +66,7 @@ const Studio = () => {
       <div className="w-full flex justify-center">
         <MainSection onchange={setHeroState} heroValue={heroState} />
       </div>
-      <div className={styles.otherBG}>
+      <div>
         {heroState.selected && (
           <div className="g-container">
             <TrendingSection category={''} heroValue={heroState} />
@@ -80,12 +80,12 @@ const Studio = () => {
           </div>
         </div>
       )}
-      <div className={styles.otherBG}>
+      <div>
         <div className="g-container">
           <StudioArtistsSection />
         </div>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center mb-[200px]">
         <div className="g-container">
           <ExploreStudioArtworkSection category={''} loop={true} />
           <FullScreenLoadingModal open={isLoading} />

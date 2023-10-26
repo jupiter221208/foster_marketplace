@@ -35,9 +35,10 @@ const MarketplaceReleaseSection = props => {
   const [studioReleaseList, setStudioReleaseList] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
+  const [seed, setSeed] = useState(Math.random())
 
   useEffect(() => {
-    merchAPI.getRecentlyEnabledNfts(page, perPage).then(response => {
+    merchAPI.getRecentlyEnabledNfts(seed, page, perPage).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setStudioReleaseList(response)
       }
