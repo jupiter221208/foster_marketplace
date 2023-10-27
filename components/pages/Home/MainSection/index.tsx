@@ -142,7 +142,7 @@ const MainSection = () => {
               marginLeft: '0px',
             }}
           >
-            <div className="w-full relative" id="heroSwiper">
+            <div className="w-full relative mt-[15px]" id="heroSwiper">
               {heroList.length !== 0 && (
                 <Swiper
                   navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}

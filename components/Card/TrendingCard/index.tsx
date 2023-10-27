@@ -39,11 +39,9 @@ const TrendingCard = props => {
     token_id,
     imagedata,
     nftName,
-    coverImage = '',
-    artistName,
-    collectionName,
-    assetType,
-    price,
+    userName,
+    profilePicture,
+    assetUrl,
     onClick,
     unSave = null,
     showHideButton = false,
@@ -61,34 +59,16 @@ const TrendingCard = props => {
   const imageLabelList = ['white', 'black', 'gray', 'navy']
   const [randomColorNumber, setRandomColorNumber] = useState(-1)
   const [isLoading, setIsLoading] = useState(false)
-  const [assetUrl, setAssetUrl] = useState('')
   const [showNftImage, setShowNftImage] = useState(false)
 
   useEffect(() => {
-    if (innerimage) {
-      for (var i = 0; i < innerimage.length; i++) {
-        if (innerimage[i].name == 'assetUrl') {
-          setAssetUrl(innerimage[i].value)
-        }
-      }
-    }
     if (imagedata) {
       const randomNumber = Math.floor(Math.random() * 4)
       let label = imageLabelList[randomNumber]
       setImage(imagedata[label].image.front)
       setRandomColorNumber(randomNumber)
     }
-  }, [innerimage, imagedata])
-
-  useEffect(() => {
-    if (nftName) {
-      for (var i = 0; i < innerimage.length; i++) {
-        if (nftName[i].name == 'nftName') {
-          setName(nftName[i].value)
-        }
-      }
-    }
-  }, [nftName])
+  }, [imagedata])
 
   const setImageLoaded = () => {
     setShowNftImage(true)
@@ -138,12 +118,30 @@ const TrendingCard = props => {
           )}
         </div>
 
-        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[5px] lg:px-[9px]">
+        <div className="relative w-full mt-[3px] lg:mt-[9px] flex flex-wrap justify-between items-center px-[10px] lg:px-[15px]">
           <div className="w-full">
             <div className="flex items-center">
-              <div className={styles.nftName}>{name}</div>
+              <div className={styles.nftName}>{nftName}</div>
             </div>
-            <div className="w-full flex items-center"> </div>
+            <div className="w-full flex items-center">
+              <div className="justify-start items-center lg:mt-[10px] cursor-pointer">
+                {profilePicture && profilePicture !== '' && profilePicture !== undefined && (
+                  <div className={styles.avatar}>
+                    <img
+                      src={profilePicture}
+                      alt=""
+                      width={viewport === 'lg' ? 40 : 60}
+                      height={viewport === 'lg' ? 40 : 60}
+                      className="rounded-full"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="w-full flex justify-between items-center mt-[2px]">
+                <div className={styles.artistName}>@{userName}</div>
+              </div>
+            </div>
           </div>
         </div>
         {unSave !== null && (

@@ -26,6 +26,7 @@ import styles from './index.module.scss'
 // call apis
 import merchAPI from 'apis/merch'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const MarketplaceReleaseSection = props => {
   const { category } = props
@@ -37,6 +38,15 @@ const MarketplaceReleaseSection = props => {
   const [seed, setSeed] = useState(Math.random())
   const [refresh, setRefresh] = useState(new Date())
   const [artworkList, setArtworkList] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
+
+  useEffect(() => {
+    setLoading(false)
+    setIsFetching(false)
+    setIsVisibleFetching(false)
+  }, [refresh])
 
   useEffect(() => {
     merchAPI.getArtworkMerchHub(seed, page, perPage).then(response => {
@@ -67,6 +77,9 @@ const MarketplaceReleaseSection = props => {
               onClick={() => {
                 setSeed(Math.random())
                 setRefresh(new Date())
+                setLoading(true)
+                setIsFetching(true)
+                setIsVisibleFetching(true)
               }}
             />
           </div>
@@ -85,27 +98,29 @@ const MarketplaceReleaseSection = props => {
             disableOnInteraction: false,
           }}
         >
-          <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
-            {artworkList.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
-                  <NFTCard
-                    image={item.nft.asset_url}
-                    token_id={item.nft.token_id}
-                    nftName={item.nft.nft_name}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist.username}
-                    collectionName={item.collection_name}
-                    onClick={() => {
-                      dispatch({ type: 'set', isLoading: true })
-                      router.push(`/nft/${item.nft.token_id}`)
-                    }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </div>
+          {!loading && (
+            <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+              {artworkList.map((item: any, index) => (
+                <SwiperSlide key={index}>
+                  <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
+                    <NFTCard
+                      image={item.nft.asset_url}
+                      token_id={item.nft.token_id}
+                      nftName={item.nft.nft_name}
+                      assetType={item.asset_type}
+                      coverImage={item.cover_image_url}
+                      artistName={item.artist.username}
+                      collectionName={item.collection_name}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push(`/nft/${item.nft.token_id}`)
+                      }}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </div>
+          )}
         </Swiper>
 
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
@@ -122,6 +137,12 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
+
+        {loading && isVisibleFetching && (
+          <div className="w-full mt-[200px]">
+            <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+          </div>
+        )}
       </section>
     )
   )

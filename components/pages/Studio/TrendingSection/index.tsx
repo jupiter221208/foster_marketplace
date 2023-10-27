@@ -25,11 +25,6 @@ import styles from './index.module.scss'
 
 // call apis
 import merchAPI from 'apis/merch'
-import SeeMoreButton from 'components/Button/SeeMoreButton'
-
-function checkArrayForName(array, nameValue) {
-  return array.some(obj => obj.name === nameValue)
-}
 
 const TrendingSection = props => {
   const viewport = useViewport()
@@ -41,20 +36,21 @@ const TrendingSection = props => {
   useEffect(() => {
     merchAPI.getRecentOrders().then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
-        let newData = []
-        const uniqueAssetUrls = new Set()
+        let arr = Object.keys(response.nftData).map(key => response.nftData[key])
 
-        response.forEach(item => {
-          const ssorderItem = item.ssorder.items[0].options
-          if (checkArrayForName(ssorderItem, 'assetUrl')) {
-            const assetUrl = ssorderItem.find(item => item.name === 'assetUrl').value
-            if (!uniqueAssetUrls.has(assetUrl)) {
-              uniqueAssetUrls.add(assetUrl)
-              newData.push(item)
-            }
-          }
-        })
-        setTrendingList(newData)
+        // let newData = []
+        // const uniqueAssetUrls = new Set()
+
+        // arr.forEach(item => {
+        //   const objectArray: any[] = item.nft[0]
+        //   console.log('222222222222222222', objectArray)
+        //   const assetUrl = objectArray.find(item => item.nft === 'assetUrl')
+        //   if (!uniqueAssetUrls.has(assetUrl)) {
+        //     uniqueAssetUrls.add(assetUrl)
+        //     newData.push(item)
+        //   }
+        // })
+        setTrendingList(arr)
       }
     }),
       error => {
@@ -96,25 +92,17 @@ const TrendingSection = props => {
                 <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
                   <TrendingCard
                     imagedata={props.heroValue.data}
-                    innerimage={item.ssorder.items[0].options}
-                    nftAddress={
-                      item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value || null
-                    }
-                    nftName={item.ssorder.items[0]?.options}
-                    assetType={item.asset_type}
-                    coverImage={item.cover_image_url}
-                    artistName={item.artist_username}
+                    nftName={item.nft.nft_name}
+                    userName={item.artist.username}
+                    assetUrl={item.nft.asset_url}
+                    profilePicture={item.artist.profile_picture}
+                    token_id={item.nft.token_id}
                     onClick={color => {
                       dispatch({ type: 'set', isLoading: true })
                       dispatch({ type: 'set', apparelType })
                       dispatch({ type: 'set', detailShow: true })
                       dispatch({ type: 'set', apparelColor: color })
-                      router.push(
-                        `/nft/${
-                          item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value ||
-                          null
-                        }`
-                      )
+                      router.push(`/nft/${item.nft.token_id}`)
                     }}
                   />
                 </div>

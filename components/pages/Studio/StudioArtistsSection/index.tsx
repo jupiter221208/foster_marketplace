@@ -31,6 +31,7 @@ import styles from './index.module.scss'
 // call apis
 import merchAPI from 'apis/merch'
 import SeeMoreButton from 'components/Button/SeeMoreButton'
+import LoadingComponent from 'pages/explore/LoadingComponent'
 
 const TopRatedArtistsSection = () => {
   const viewport = useViewport()
@@ -40,10 +41,20 @@ const TopRatedArtistsSection = () => {
   const [artistsList, setArtistsList] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
+  const [seed, setSeed] = useState(Math.random())
   const [refresh, setRefresh] = useState(new Date())
+  const [loading, setLoading] = useState(false)
+  const [isFetching, setIsFetching] = useState(false)
+  const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
-    merchAPI.getArtistsMerchHub(page, perPage).then(response => {
+    setLoading(false)
+    setIsFetching(false)
+    setIsVisibleFetching(false)
+  }, [refresh])
+
+  useEffect(() => {
+    merchAPI.getArtistsMerchHub(seed, page, perPage).then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         setArtistsList(response)
       }
@@ -69,7 +80,11 @@ const TopRatedArtistsSection = () => {
           <div className="hidden lg:flex z-10">
             <SeeMoreButton
               onClick={() => {
+                setSeed(Math.random())
                 setRefresh(new Date())
+                setLoading(true)
+                setIsFetching(true)
+                setIsVisibleFetching(true)
               }}
             />
           </div>
@@ -109,24 +124,30 @@ const TopRatedArtistsSection = () => {
           //   disableOnInteraction: false,
           // }}
         >
-          {artistsList.length !== 0 &&
-            artistsList.map((item: any, index) => (
-              <SwiperSlide key={index}>
-                <ArtistCard
-                  image={
-                    item.profile_picture !== null && item.profile_picture !== undefined && item.profile_picture !== ''
-                      ? item.profile_picture
-                      : Artist.src
-                  }
-                  username={item.username}
-                  onClick={() => {
-                    dispatch({ type: 'set', isLoading: true })
-                    router.push('/' + item.username)
-                  }}
-                  key={index}
-                />
-              </SwiperSlide>
-            ))}
+          {!loading && (
+            <div>
+              {artistsList.length !== 0 &&
+                artistsList.map((item: any, index) => (
+                  <SwiperSlide key={index}>
+                    <ArtistCard
+                      image={
+                        item.profile_picture !== null &&
+                        item.profile_picture !== undefined &&
+                        item.profile_picture !== ''
+                          ? item.profile_picture
+                          : Artist.src
+                      }
+                      username={item.username}
+                      onClick={() => {
+                        dispatch({ type: 'set', isLoading: true })
+                        router.push('/' + item.username)
+                      }}
+                      key={index}
+                    />
+                  </SwiperSlide>
+                ))}
+            </div>
+          )}
         </Swiper>
       </div>
       <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
@@ -135,6 +156,7 @@ const TopRatedArtistsSection = () => {
             label="See More"
             fullWidth
             onClick={() => {
+              setSeed(Math.random())
               setRefresh(new Date())
             }}
             borderColor={'var(--see-more-border)'}
@@ -142,6 +164,11 @@ const TopRatedArtistsSection = () => {
           />
         </div>
       </div>
+      {loading && isVisibleFetching && (
+        <div className="w-full mt-[-100px]">
+          <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
+        </div>
+      )}
     </section>
   )
 }

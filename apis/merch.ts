@@ -186,10 +186,12 @@ export async function getRecentlyEnabledNfts(seed, page, per_page) {
     })
 }
 
-export async function getArtistsMerchHub(page, per_page) {
-  return client.get(`${API_URL}v1/merch/artists-with-merch-hub?page=${page}&per_page=${per_page}`).then(response => {
-    return response?.data
-  })
+export async function getArtistsMerchHub(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/artists-with-merch-hub?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
 }
 
 export async function getArtworkMerchHub(seed, page, per_page) {
