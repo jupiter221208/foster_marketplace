@@ -122,7 +122,8 @@ const TrendingCard = props => {
                 )}
               </>
             ) : (
-              <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
+              <></>
+              // <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />
             )}
           </div>
           {showHideButton === true && (

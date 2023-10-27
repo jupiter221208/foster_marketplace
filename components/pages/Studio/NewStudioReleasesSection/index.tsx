@@ -36,6 +36,7 @@ const MarketplaceReleaseSection = props => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
+  const [refresh, setRefresh] = useState(new Date())
 
   useEffect(() => {
     merchAPI.getRecentlyEnabledNfts(seed, page, perPage).then(response => {
@@ -46,7 +47,7 @@ const MarketplaceReleaseSection = props => {
       error => {
         console.log(error)
       }
-  }, [])
+  }, [refresh])
 
   return (
     studioReleaseList.length !== 0 && (
@@ -61,17 +62,8 @@ const MarketplaceReleaseSection = props => {
               <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>New Studio Releases</div>
             )}
           </div>
-          <div className="hidden lg:flex z-10">
-            <SeeMoreButton
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                // dispatch({ type: 'set', artworkCategory: category })
-              }}
-            />
-          </div>
         </div>
-        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
+        <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[30px] lg:mt-[34px] z-10">
           {studioReleaseList.map((item: any, index) => (
             <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 flex items-center">
               <StudioReleaseCard
@@ -93,21 +85,6 @@ const MarketplaceReleaseSection = props => {
               />
             </div>
           ))}
-        </div>
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
-          <div className="w-full max-w-[242px] z-10">
-            <OutlineButton
-              label="See More"
-              fullWidth
-              onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                // dispatch({ type: 'set', artworkCategory: category })
-              }}
-              borderColor={'var(--see-more-border)'}
-              height="40px"
-            />
-          </div>
         </div>
       </section>
     )

@@ -107,7 +107,7 @@ const MainSection = ({ onchange, heroValue }) => {
                   className={'heroSwiperMobile'}
                   loop
                   autoplay={{
-                    delay: 1000,
+                    delay: 10000,
                     disableOnInteraction: false,
                   }}
                 >
@@ -146,7 +146,7 @@ const MainSection = ({ onchange, heroValue }) => {
                       modules={[Autoplay, Pagination]}
                       loop
                       autoplay={{
-                        delay: 1000,
+                        delay: 10000,
                         disableOnInteraction: false,
                       }}
                       onSwiper={setSwiper}

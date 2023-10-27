@@ -35,7 +35,7 @@ const MarketplaceReleaseSection = props => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(8)
   const [seed, setSeed] = useState(Math.random())
-
+  const [refresh, setRefresh] = useState(new Date())
   const [artworkList, setArtworkList] = useState<any[]>([])
 
   useEffect(() => {
@@ -47,12 +47,12 @@ const MarketplaceReleaseSection = props => {
       error => {
         console.log(error)
       }
-  }, [])
+  }, [refresh])
 
   return (
     artworkList.length !== 0 && (
       <section className={styles.container}>
-        <div className="w-full flex justify-between items-center z-10 mb-[60px]">
+        <div className="w-full flex justify-between items-center z-10 mb-[30px]">
           <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center gap-4 lg:gap-8">
             {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
               <div className="w-full flex justify-center items-center z-10">
@@ -65,9 +65,8 @@ const MarketplaceReleaseSection = props => {
           <div className="hidden lg:flex z-10">
             <SeeMoreButton
               onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
+                setSeed(Math.random())
+                setRefresh(new Date())
               }}
             />
           </div>
@@ -109,15 +108,14 @@ const MarketplaceReleaseSection = props => {
           </div>
         </Swiper>
 
-        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
+        <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
               label="See More"
               fullWidth
               onClick={() => {
-                dispatch({ type: 'set', exploreTab: 0 })
-                dispatch({ type: 'set', availabilityFilter: 0 })
-                dispatch({ type: 'set', artworkCategory: category })
+                setSeed(Math.random())
+                setRefresh(new Date())
               }}
               borderColor={'var(--see-more-border)'}
               height="40px"

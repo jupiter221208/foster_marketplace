@@ -40,6 +40,7 @@ const TopRatedArtistsSection = () => {
   const [artistsList, setArtistsList] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
+  const [refresh, setRefresh] = useState(new Date())
 
   useEffect(() => {
     merchAPI.getArtistsMerchHub(page, perPage).then(response => {
@@ -50,11 +51,11 @@ const TopRatedArtistsSection = () => {
       error => {
         console.log(error)
       }
-  }, [page, perPage])
+  }, [refresh])
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex justify-between items-center z-10">
+      <div className="w-full flex justify-between items-center z-10 mb-[30px]">
         <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
             <div className="w-full flex justify-center items-center z-10">
@@ -68,8 +69,7 @@ const TopRatedArtistsSection = () => {
           <div className="hidden lg:flex z-10">
             <SeeMoreButton
               onClick={() => {
-                dispatch({ type: 'set', exploreTab: 2 })
-                dispatch({ type: 'set', artistSort: 'top' })
+                setRefresh(new Date())
               }}
             />
           </div>
@@ -129,14 +129,13 @@ const TopRatedArtistsSection = () => {
             ))}
         </Swiper>
       </div>
-      <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[15px]">
+      <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
         <div className="w-full max-w-[242px] z-10">
           <OutlineButton
             label="See More"
             fullWidth
             onClick={() => {
-              dispatch({ type: 'set', exploreTab: 2 })
-              dispatch({ type: 'set', artistSort: 'top' })
+              setRefresh(new Date())
             }}
             borderColor={'var(--see-more-border)'}
             height="40px"
