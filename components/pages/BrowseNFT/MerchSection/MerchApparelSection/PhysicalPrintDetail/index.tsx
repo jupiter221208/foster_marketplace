@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 // next components
 
@@ -27,7 +28,6 @@ import { useViewport } from 'utils'
 import { useSolToUsdRate } from 'hooks/useSolToUsdRate'
 import ApparelSection from '../ApparelSection'
 import OutlineButton from 'components/Button/OutlineButton'
-
 import SizeChartModal from 'components/Modal/SizeChartModal'
 
 // api
@@ -54,6 +54,7 @@ const PhysicalPrintDetail = props => {
     type: 'white',
     asset_url: '/images/apparel-color-white.png',
   })
+  const dispatch = useDispatch()
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
@@ -63,6 +64,20 @@ const PhysicalPrintDetail = props => {
   const [cost, setCost] = useState('----')
   const [previewApparel, setPreviewApparel] = useState('')
   const [finishEditing, setFinishEditing] = useState(false)
+  const apparelColor = useSelector<any>(state => state.apparelColor)
+
+  useEffect(() => {
+    const defaulteColor = apparelColor as number
+    if (
+      defaulteColor !== undefined &&
+      defaulteColor !== null &&
+      defaulteColor !== -1 &&
+      defaulteColor < ColorType.length
+    ) {
+      setColor(ColorType[defaulteColor])
+      dispatch({ type: 'set', apparelColor: -1 })
+    }
+  }, [apparelColor])
 
   useEffect(() => {
     window.scrollTo({
@@ -119,7 +134,7 @@ const PhysicalPrintDetail = props => {
         setCost('----')
         onPrint('')
         setPreviewApparel('')
-        setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
+        // setColor({ id: 0, name: '#FFFFFF', type: 'white', asset_url: '/images/apparel-color-white.png' })
       }
     } else {
       setEnabled(false)

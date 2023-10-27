@@ -228,8 +228,8 @@ const PrimaryHeader = () => {
       <div className={styles.blurContainer}>
         <div className={styles.container}>
           <div className="g-container w-full h-full flex justify-between items-center gap-4">
-            {routePath === '/' ? (
-              <div className={styles.heroLogoArea}>
+            {routePath === '/' || 'studio' ? (
+              <div className={styles.heroLogoArea} onClick={() => router.push('/')}>
                 <FosterHeroLogo alt="" />
               </div>
             ) : (
@@ -276,6 +276,7 @@ const PrimaryHeader = () => {
               </div> */}
             </div>
             <div className="cursor-pointer min-w-[40px] xl:min-w-[70px] 2xl:min-w-[140px] flex items-center" />
+            <div id="studioButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="exploreButton" className="h-full w-[100px] min-w-[100px]" />
             <div id="createButton" className="h-full min-w-[80px]" />
             <div id="walletButton" className="h-full min-w-[120px]" />
@@ -284,6 +285,15 @@ const PrimaryHeader = () => {
           </div>
         </div>
       </div>
+      {offset[1] !== 0 && (
+        <div
+          className={styles.studioMenu}
+          style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 370}px` }}
+          onClick={() => router.push('/studio')}
+        >
+          Studio
+        </div>
+      )}
       {offset[1] !== 0 && (
         <div style={{ zIndex: 10000, position: 'fixed', top: 38, left: `${offset[1] - 262}px` }}>
           <ExploreMenu

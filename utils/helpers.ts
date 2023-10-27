@@ -307,6 +307,10 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-active-text', '#202427')
     doc.style.setProperty('--follow-text-color', '#202427')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to right, #4C706C, #95DBD5)')
+    doc.style.setProperty(
+      '--hero-bg-color',
+      'linear-gradient(to bottom, rgba(243, 242, 240, 0), rgba(243, 242, 240, 1)'
+    )
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #eff0f6, #78787B)')
     doc.style.setProperty('--artist-switch-bg', '#CBCDD2')
     doc.style.setProperty('--address-btn-color', 'rgba(32, 36, 39, 0.75)')
@@ -601,6 +605,7 @@ export const setColorTheme = lightMode => {
     doc.style.setProperty('--wallet-active-text', '#95dbd5')
     doc.style.setProperty('--follow-text-color', '#95dbd5')
     doc.style.setProperty('--follow-bg-color', 'linear-gradient(to bottom, #121212, #2d625d)')
+    doc.style.setProperty('--hero-bg-color', 'linear-gradient(to bottom, rgba(26, 26, 26, 0), rgba(26, 26, 26, 1)')
     doc.style.setProperty('--artist-switch-color', 'linear-gradient(to right, #202427, #173437)')
     doc.style.setProperty('--artist-switch-bg', '#202427')
     doc.style.setProperty('--address-btn-color', 'rgba(239, 240, 247, 0.75)')

@@ -172,6 +172,36 @@ export async function getOrderStats() {
   })
 }
 
+export async function getRecentOrders() {
+  return client.get(API_URL + 'v1/merch/orders/recent').then(response => {
+    return response?.data
+  })
+}
+
+export async function getRecentlyEnabledNfts(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/recently-enabled-nfts?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
+}
+
+export async function getArtistsMerchHub(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/artists-with-merch-hub?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
+}
+
+export async function getArtworkMerchHub(seed, page, per_page) {
+  return client
+    .get(`${API_URL}v1/merch/nfts-with-merch-hub?seed=${seed}&page=${page}&per_page=${per_page}`)
+    .then(response => {
+      return response?.data
+    })
+}
+
 export default {
   prepareCart,
   checkout,
@@ -181,4 +211,8 @@ export default {
   getBuyerOrder,
   getSellerOrder,
   getOrderStats,
+  getRecentOrders,
+  getRecentlyEnabledNfts,
+  getArtistsMerchHub,
+  getArtworkMerchHub,
 }

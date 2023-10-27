@@ -1,0 +1,72 @@
+[
+  {
+    "id": 0,
+    "name": "Hoodie",
+    "start_price": "34.00",
+    "asset_url": "/images/hero/Hoodie-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Hoodie"
+  },
+  {
+    "id": 1,
+    "name": "Short Sleeve",
+    "start_price": "24.00",
+    "asset_url": "/images/hero/ShortSleeve-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "T-Shirt"
+  },
+  {
+    "id": 2,
+    "name": "Sweatshirt",
+    "start_price": "32.00",
+    "asset_url": "/images/hero/SweatShirt-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Sweatshirt"
+  },
+  {
+    "id": 3,
+    "name": "Long Sleeve",
+    "start_price": "25.30",
+    "asset_url": "/images/hero/LongSleeve-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "man",
+    "base": "Long Sleeve"
+  },
+  {
+    "id": 4,
+    "name": "Women's Short Sleeve",
+    "start_price": "23.00",
+    "asset_url": "/images/hero/Women's Short Sleeve-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "women",
+    "base": "T-Shirt"
+  },
+  {
+    "id": 5,
+    "name": "Youth Short Sleeve",
+    "start_price": "24.00",
+    "asset_url": "/images/hero/YouthShortSleeve-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "youth",
+    "base": "T-Shirt"
+  },
+  {
+    "id": 6,
+    "name": "Youth Hoodie",
+    "start_price": "31.00",
+    "asset_url": "/images/hero/YouthHoodie-mobile.png",
+    "category": "hero",
+    "type": "Unisex",
+    "sub_type": "youth",
+    "base": "Hoodie"
+  }
+]

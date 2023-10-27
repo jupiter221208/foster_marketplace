@@ -122,6 +122,7 @@ const MobileMenu = () => {
               type="avatar"
               data={profileMenuList}
             />
+            <AccordionMenu label="Studio" type="studio" data={[]} path="/studio" />
             <MyWalletSubMenu label="My Wallet" type="" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
@@ -251,6 +252,7 @@ const MobileMenu = () => {
       ) : (
         <div className={styles.container}>
           <div className="w-full flex flex-col flex-wrap items-start gap-[10px]">
+            <AccordionMenu label="Studio" type="studio" data={[]} path="/studio" />
             <AccordionMenu label="Explore" type="explore" data={ExploreMenuList} />
             <AccordionMenu label="Create" type="create" data={CreateMenuList} />
             <AccordionMenu label="Stats" type="stats" data={[]} path="/stats" />
