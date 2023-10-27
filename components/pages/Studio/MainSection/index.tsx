@@ -104,7 +104,7 @@ const MainSection = ({ onchange, heroValue }) => {
                     clickable: true,
                   }}
                   modules={[Autoplay, Pagination]}
-                  className={'heroSwiperMobile'}
+                  className={'heroMobileStudioSwiper'}
                   loop
                   autoplay={{
                     delay: 10000,
@@ -140,6 +140,7 @@ const MainSection = ({ onchange, heroValue }) => {
                     <Swiper
                       slidesPerView={4}
                       spaceBetween={15}
+                      className={'heroStudioSwiper'}
                       pagination={{
                         clickable: true,
                       }}

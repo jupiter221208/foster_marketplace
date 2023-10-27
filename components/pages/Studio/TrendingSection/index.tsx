@@ -42,9 +42,17 @@ const TrendingSection = props => {
     merchAPI.getRecentOrders().then(response => {
       if (response !== null && response !== undefined && response.length !== 0) {
         let newData = []
-        response.map(item => {
+        const uniqueAssetUrls = new Set()
+
+        response.forEach(item => {
           const ssorderItem = item.ssorder.items[0].options
-          if (checkArrayForName(ssorderItem, 'assetUrl')) newData.push(item)
+          if (checkArrayForName(ssorderItem, 'assetUrl')) {
+            const assetUrl = ssorderItem.find(item => item.name === 'assetUrl').value
+            if (!uniqueAssetUrls.has(assetUrl)) {
+              uniqueAssetUrls.add(assetUrl)
+              newData.push(item)
+            }
+          }
         })
         setTrendingList(newData)
       }
@@ -85,30 +93,31 @@ const TrendingSection = props => {
           <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
             {trendingList.map((item: any, index) => (
               <SwiperSlide key={index}>
-                {/* <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center"> */}
-                <TrendingCard
-                  imagedata={props.heroValue.data}
-                  innerimage={item.ssorder.items[0].options}
-                  nftAddress={
-                    item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value || null
-                  }
-                  nftName={item.ssorder.items[0]?.options}
-                  assetType={item.asset_type}
-                  coverImage={item.cover_image_url}
-                  artistName={item.artist_username}
-                  onClick={color => {
-                    dispatch({ type: 'set', isLoading: true })
-                    dispatch({ type: 'set', apparelType })
-                    dispatch({ type: 'set', detailShow: true })
-                    dispatch({ type: 'set', apparelColor: color })
-                    router.push(
-                      `/nft/${
-                        item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value || null
-                      }`
-                    )
-                  }}
-                />
-                {/* </div> */}
+                <div key={index} className="flex col-span-6 lg:col-span-4 2xl:col-span-3 items-center">
+                  <TrendingCard
+                    imagedata={props.heroValue.data}
+                    innerimage={item.ssorder.items[0].options}
+                    nftAddress={
+                      item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value || null
+                    }
+                    nftName={item.ssorder.items[0]?.options}
+                    assetType={item.asset_type}
+                    coverImage={item.cover_image_url}
+                    artistName={item.artist_username}
+                    onClick={color => {
+                      dispatch({ type: 'set', isLoading: true })
+                      dispatch({ type: 'set', apparelType })
+                      dispatch({ type: 'set', detailShow: true })
+                      dispatch({ type: 'set', apparelColor: color })
+                      router.push(
+                        `/nft/${
+                          item.ssorder.items[0].options.find((option: any) => option.name === 'nftAddress')?.value ||
+                          null
+                        }`
+                      )
+                    }}
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </div>

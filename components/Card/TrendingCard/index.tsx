@@ -95,7 +95,7 @@ const TrendingCard = props => {
   }
 
   return (
-    <div className="w-full h-full relative p-[2px] lg:p-[3px]">
+    <div className="w-full h-full relative p-[10px] lg:p-[12px]">
       <div className={styles.container}>
         <div className={styles.imageArea}>
           <div

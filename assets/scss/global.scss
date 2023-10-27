@@ -624,9 +624,22 @@ h6 {
   }
 }
 
+.heroStudioSwiper {
+  .swiper-pagination {
+    position: relative !important;
+    margin-top: 30px;
+  }
+}
+
+.heroMobileStudioSwiper{
+  .swiper-pagination {
+    position: relative !important;
+    margin-top: 50px;
+  }
+}
+
 .swiper-pagination {
   position: relative !important;
-  margin-top: 20px;
 }
 
 #heroSwiperMobile .swiper-pagination-bullet {
