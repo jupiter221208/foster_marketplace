@@ -54,17 +54,17 @@ const TopRatedArtistsSection = () => {
 
   return (
     <section className={styles.container}>
-      <div className="w-full flex flex-row items-center">
-        <div className="w-full">
+      <div className="w-full flex justify-between items-center z-10">
+        <div className="w-full lg:w-auto flex justify-center lg:justify-start items-center">
           {viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? (
-            <div className="w-full flex justify-start items-center z-10">
+            <div className="w-full flex justify-center items-center z-10">
               <div className={styles.title}>Studio Artists</div>
             </div>
           ) : (
-            <div className={`${styles.title}`}>Studio&nbsp;Artists</div>
+            <div className={`${styles.title} mr-0 lg:mr-6 xl:mr-8`}>Studio&nbsp;Artists</div>
           )}
         </div>
-        <div className="w-full flex justify-end">
+        <div className="sm:w-full flex justify-end">
           <div className="hidden lg:flex z-10">
             <SeeMoreButton
               onClick={() => {

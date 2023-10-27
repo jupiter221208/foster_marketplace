@@ -62,6 +62,7 @@ const TrendingCard = props => {
   const [randomColorNumber, setRandomColorNumber] = useState(-1)
   const [isLoading, setIsLoading] = useState(false)
   const [assetUrl, setAssetUrl] = useState('')
+  const [showNftImage, setShowNftImage] = useState(false)
 
   useEffect(() => {
     if (innerimage) {
@@ -89,6 +90,10 @@ const TrendingCard = props => {
     }
   }, [nftName])
 
+  const setImageLoaded = () => {
+    setShowNftImage(true)
+  }
+
   return (
     <div className="w-full h-full relative p-[2px] lg:p-[3px]">
       <div className={styles.container}>
@@ -101,12 +106,20 @@ const TrendingCard = props => {
           >
             {image !== null && image !== '' ? (
               <>
-                <ImageWithFallback src={image} layout="fill" alt="" className={styles.imageNft} />
-                <div className={styles.nftImage}>
-                  <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
-                    <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                <ImageWithFallback
+                  src={image}
+                  layout="fill"
+                  alt=""
+                  className={styles.imageNft}
+                  setImageLoaded={setImageLoaded}
+                />
+                {showNftImage && (
+                  <div className={styles.nftImage}>
+                    <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
+                      <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                    </div>
                   </div>
-                </div>
+                )}
               </>
             ) : (
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />

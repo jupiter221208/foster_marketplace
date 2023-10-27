@@ -62,6 +62,7 @@ const DashboardNFTCard = props => {
   const [innerImage, setInnerImage] = useState('')
   const imageLabelList = ['white', 'black', 'gray', 'navy']
   const [randomColorNumber, setRandomColorNumber] = useState(-1)
+  const [showNftImage, setShowNftImage] = useState(false)
 
   const performHideNft = () => {
     setIsLoading(true)
@@ -88,6 +89,8 @@ const DashboardNFTCard = props => {
       error => {}
     )
   }
+
+  const setImageLoaded = () => [setShowNftImage(true)]
 
   useEffect(() => {
     if (nftImage) {
@@ -117,12 +120,20 @@ const DashboardNFTCard = props => {
           >
             {innerImage !== null && innerImage !== '' ? (
               <>
-                <ImageWithFallback src={innerImage} layout="fill" alt="" className={styles.imageNft} />
-                <div className={styles.nftImage}>
-                  <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
-                    <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                <ImageWithFallback
+                  src={innerImage}
+                  layout="fill"
+                  alt=""
+                  className={styles.imageNft}
+                  setImageLoaded={setImageLoaded}
+                />
+                {showNftImage && (
+                  <div className={styles.nftImage}>
+                    <div className="w-[30%] h-[30%] lg:-mt-[12%] -mt-[12%] flex justify-center items-start opacity-80">
+                      <img src={assetUrl} alt="" className="w-auto h-auto max-w-full max-h-full object-contain"></img>
+                    </div>
                   </div>
-                </div>
+                )}
               </>
             ) : (
               <Image src={DefaultNftBG} alt="" className={styles.imageNft} onClick={() => onClick()} />

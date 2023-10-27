@@ -112,7 +112,7 @@ const MainSection = () => {
               <div className="w-full relative" id="heroSwiperMobile">
                 <Swiper
                   slidesPerView={1}
-                  spaceBetween={30}
+                  spaceBetween={20}
                   pagination={{
                     clickable: true,
                   }}
@@ -136,7 +136,7 @@ const MainSection = () => {
           </div>
         ) : (
           <div
-            className="w-full col-span-12 lg:col-span-12 lg:pt-[40px] "
+            className="w-full col-span-12 lg:col-span-12 lg:pt-[20px] "
             style={{
               width: '100%',
               marginLeft: '0px',

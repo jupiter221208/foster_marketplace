@@ -146,7 +146,7 @@ const MainSection = ({ onchange, heroValue }) => {
                       modules={[Autoplay, Pagination]}
                       loop
                       autoplay={{
-                        delay: 1000000,
+                        delay: 1000,
                         disableOnInteraction: false,
                       }}
                       onSwiper={setSwiper}
