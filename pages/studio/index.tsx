@@ -32,6 +32,7 @@ const Studio = () => {
   })
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
+  const [showLoading, setShowLoading] = useState(true)
   useDetectRouterPath(useRouter())
 
   let pageTitle = 'Foster Studio'
@@ -43,6 +44,12 @@ const Studio = () => {
   useEffect(() => {
     setColorTheme(lightDarkMode)
   }, [])
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (isLoading === false) setShowLoading(false)
+    }, 1000)
+  }, [isLoading])
 
   return (
     // <MaintenancePage />
@@ -88,9 +95,9 @@ const Studio = () => {
       <div className="w-full flex justify-center mb-[200px]">
         <div className="g-container">
           <ExploreStudioArtworkSection category={''} loop={true} />
-          <FullScreenLoadingModal open={isLoading} />
         </div>
       </div>
+      <FullScreenLoadingModal open={showLoading} />
     </div>
   )
 }
