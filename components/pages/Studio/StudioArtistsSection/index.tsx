@@ -48,9 +48,11 @@ const TopRatedArtistsSection = () => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
-    setLoading(false)
-    setIsFetching(false)
-    setIsVisibleFetching(false)
+    setTimeout(() => {
+      setLoading(false)
+      setIsFetching(false)
+      setIsVisibleFetching(false)
+    }, 2000)
   }, [refresh])
 
   useEffect(() => {
@@ -90,41 +92,42 @@ const TopRatedArtistsSection = () => {
           </div>
         </div>
       </div>
+
       <div className="w-full mt-[30px] lg:mt-[34px] z-10">
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={
-            viewport === 'xs'
-              ? 2
-              : viewport === 'sm'
-              ? 2.5
-              : viewport === 'md'
-              ? 3
-              : viewport === 'lg'
-              ? 3
-              : viewport === 'xl'
-              ? 4
-              : 5
-          }
-          spaceBetween={
-            viewport === 'xs' || viewport === 'sm' || viewport === 'md'
-              ? 16
-              : viewport === 'lg'
-              ? 20
-              : viewport === 'xl'
-              ? 24
-              : 24
-          }
-          initialSlide={5}
-          modules={[Autoplay, Lazy, Navigation]}
-          className={artistsList.length > 5 ? 'artistNavigationSwiper' : 'noScrollNavigationSwiper'}
-          // loop
-          // autoplay={{
-          //   delay: 5000,
-          //   disableOnInteraction: false,
-          // }}
-        >
-          {!loading && (
+        {!loading && (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={
+              viewport === 'xs'
+                ? 2
+                : viewport === 'sm'
+                ? 2.5
+                : viewport === 'md'
+                ? 3
+                : viewport === 'lg'
+                ? 3
+                : viewport === 'xl'
+                ? 4
+                : 5
+            }
+            spaceBetween={
+              viewport === 'xs' || viewport === 'sm' || viewport === 'md'
+                ? 16
+                : viewport === 'lg'
+                ? 20
+                : viewport === 'xl'
+                ? 24
+                : 24
+            }
+            initialSlide={5}
+            modules={[Autoplay, Lazy, Navigation]}
+            className={artistsList.length > 5 ? 'artistNavigationSwiper' : 'noScrollNavigationSwiper'}
+            // loop
+            // autoplay={{
+            //   delay: 5000,
+            //   disableOnInteraction: false,
+            // }}
+          >
             <div>
               {artistsList.length !== 0 &&
                 artistsList.map((item: any, index) => (
@@ -147,8 +150,8 @@ const TopRatedArtistsSection = () => {
                   </SwiperSlide>
                 ))}
             </div>
-          )}
-        </Swiper>
+          </Swiper>
+        )}
       </div>
       <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
         <div className="w-full max-w-[242px] z-10">

@@ -32,7 +32,7 @@ const Studio = () => {
   })
   const isLoading = useSelector<any>(state => state.isLoading)
   const dispatch = useDispatch()
-  const [showLoading, setShowLoading] = useState(true)
+  const router = useRouter()
   useDetectRouterPath(useRouter())
 
   let pageTitle = 'Foster Studio'
@@ -47,9 +47,14 @@ const Studio = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (isLoading === false) setShowLoading(false)
-    }, 1000)
-  }, [isLoading])
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      })
+      dispatch({ type: 'set', isLoading: false })
+    }, 500)
+    dispatch({ type: 'set', isLoading: true })
+  }, [router.query.id])
 
   return (
     // <MaintenancePage />
@@ -97,7 +102,7 @@ const Studio = () => {
           <ExploreStudioArtworkSection category={''} loop={true} />
         </div>
       </div>
-      <FullScreenLoadingModal open={showLoading} />
+      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

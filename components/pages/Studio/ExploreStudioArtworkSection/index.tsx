@@ -43,9 +43,11 @@ const MarketplaceReleaseSection = props => {
   const [isVisibleFetching, setIsVisibleFetching] = useState(false)
 
   useEffect(() => {
-    setLoading(false)
-    setIsFetching(false)
-    setIsVisibleFetching(false)
+    setTimeout(() => {
+      setLoading(false)
+      setIsFetching(false)
+      setIsVisibleFetching(false)
+    }, 2000)
   }, [refresh])
 
   useEffect(() => {
@@ -84,21 +86,20 @@ const MarketplaceReleaseSection = props => {
             />
           </div>
         </div>
-
-        <Swiper
-          navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
-          slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 2}
-          centeredSlides={false}
-          spaceBetween={20}
-          modules={[Autoplay, Navigation]}
-          className={'heroNavigationSwiper'}
-          loop
-          autoplay={{
-            delay: 5000,
-            disableOnInteraction: false,
-          }}
-        >
-          {!loading && (
+        {!loading && (
+          <Swiper
+            navigation={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? true : false}
+            slidesPerView={viewport === 'lg' || viewport === 'xl' || viewport === '2xl' ? 4 : 2}
+            centeredSlides={false}
+            spaceBetween={20}
+            modules={[Autoplay, Navigation]}
+            className={'heroNavigationSwiper'}
+            loop
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+          >
             <div className="w-full grid grid-cols-12 gap-[20px] lg:gap-[50px] mt-[15px] lg:mt-[34px] z-10">
               {artworkList.map((item: any, index) => (
                 <SwiperSlide key={index}>
@@ -120,9 +121,8 @@ const MarketplaceReleaseSection = props => {
                 </SwiperSlide>
               ))}
             </div>
-          )}
-        </Swiper>
-
+          </Swiper>
+        )}
         <div className="w-full flex lg:hidden justify-center lg:mt-0 mt-[30px]">
           <div className="w-full max-w-[242px] z-10">
             <OutlineButton
@@ -139,7 +139,7 @@ const MarketplaceReleaseSection = props => {
         </div>
 
         {loading && isVisibleFetching && (
-          <div className="w-full mt-[200px]">
+          <div className="w-full mt-[100px]">
             <LoadingComponent isFetching={isFetching} setIsFetching={setIsFetching} />
           </div>
         )}
