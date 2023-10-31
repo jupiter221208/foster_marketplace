@@ -124,7 +124,7 @@ const TrendingCard = props => {
               <div className={styles.nftName}>{nftName}</div>
             </div>
             <div className="w-full flex items-center">
-              <div className="justify-start items-center lg:mt-[10px] cursor-pointer">
+              <div className="justify-start items-center mr-[10px] lg:mr-[0px] cursor-pointer">
                 {profilePicture && profilePicture !== '' && profilePicture !== undefined && (
                   <div className={styles.avatar}>
                     <img

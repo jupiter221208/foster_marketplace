@@ -184,9 +184,9 @@
 }
 
 .nftName {
-  font-family: 'Muli-SemiBold';
-  font-size: 12px;
-  line-height: 14px;
+  font-family: 'Muli-Bold';
+  font-size: 16px;
+  line-height: 30px;
   @media (min-width: 1024px) {
     font-size: 22px;
     line-height: 36px;
@@ -199,10 +199,11 @@
 }
 
 .artistName {
-  font-family: 'Muli-SemiBold';
-  font-size: 10px;
-  line-height: 12px;
+  font-family: 'Muli-Regular';
+  font-size: 14px;
+  line-height: 15px;
   @media (min-width: 1024px) {
+    font-family: 'Muli-SemiBold';
     font-size: 18px;
     line-height: 24px;
     margin-left: 12px;
@@ -231,17 +232,9 @@
   color: var(--text-gray-200-color);
 }
 .avatar {
-  width: 60px;
-  height: 60px;
+  width: 48px;
+  height: 48px;
   @media (min-width: 1024px) {
-    width: 36px;
-    height: 36px;
-  }
-  @media (min-width: 1280px) {
-    width: 48px;
-    height: 48px;
-  }
-  @media (min-width: 1536px) {
     width: 60px;
     height: 60px;
   }

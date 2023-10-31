@@ -85,8 +85,6 @@ const BrowseNFT = ({ nftDetail, editionDetail }: BrowseNFTProps) => {
       500
     )
     dispatch({ type: 'set', isLoading: true })
-    dispatch({ type: 'set', apparelType })
-    dispatch({ type: 'set', detailShow: true })
   }, [])
 
   useEffect(() => {

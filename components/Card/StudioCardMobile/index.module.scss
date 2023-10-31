@@ -220,12 +220,4 @@
   border-radius: 24px;
   background-color: var(--activity-bg-color);
   opacity: 90%;
-  &:hover {
-    border: 1px solid var(--main-icon-color);
-    border-radius: 24px;
-  }
-  &::selection {
-    border: 1px solid var(--main-icon-color);
-    border-radius: 24px;
-  }
 }
