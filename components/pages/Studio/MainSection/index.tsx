@@ -63,6 +63,17 @@ const MainSection = ({ onchange, heroValue }) => {
     dispatch({ type: 'set', openCreateNFTModal: false })
   }
 
+  useEffect(() => {
+    if (!firstLoaded) {
+      setTimeout(() => {
+        dispatch({ type: 'set', firstLoaded: true })
+      }, 2000)
+    }
+    error => {
+      console.log(error)
+    }
+  }, [])
+
   return (
     <section id="main-section" className={styles.container}>
       <div className="w-full grid grid-cols-12 z-10 items-center">

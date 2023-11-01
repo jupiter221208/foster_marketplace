@@ -77,7 +77,7 @@ const StudioHeroCardMobile = props => {
                 border: value.data.name === data.name ? '1px solid var(--main-icon-color)' : '',
               }}
             />
-            <div className="w-full flex flex-col items-center justify-center mt-[10px]">
+            <div className="w-full flex flex-col items-center justify-center mt-[15px]">
               <div className="w-full flex flex-row justify-center">
                 <p className="inline text-center items-center gap-2">
                   <span className={styles.mobileheroName}>{data['name']}</span>

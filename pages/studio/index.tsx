@@ -82,6 +82,7 @@ const Studio = () => {
         {heroState.selected && (
           <div className="g-container">
             <TrendingSection category={''} heroValue={heroState} />
+            <FullScreenLoadingModal open={isLoading} />
           </div>
         )}
       </div>
@@ -89,6 +90,7 @@ const Studio = () => {
         <div className="w-full flex justify-center">
           <div className="g-container">
             <NewStudioReleasesSection category={''} heroValue={heroState} />
+            <FullScreenLoadingModal open={isLoading} />
           </div>
         </div>
       )}
@@ -102,7 +104,6 @@ const Studio = () => {
           <ExploreStudioArtworkSection category={''} loop={true} />
         </div>
       </div>
-      <FullScreenLoadingModal open={isLoading} />
     </div>
   )
 }

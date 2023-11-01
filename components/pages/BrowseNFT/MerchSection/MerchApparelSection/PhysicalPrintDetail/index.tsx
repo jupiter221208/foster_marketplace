@@ -301,7 +301,7 @@ const PhysicalPrintDetail = props => {
           />
         </div>
       </div>
-      <div className="w-full mt-[25px] block lg:flex flex-row items-center gap-2">
+      <div className="w-full mt-[25px] block flex flex-row items-center gap-2">
         <div className={styles.sizeChart} onClick={() => setTableModal(true)}>
           Size Chart
         </div>
