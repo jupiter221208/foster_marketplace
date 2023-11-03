@@ -1,0 +1,195 @@
+[
+  {
+    "id": 0,
+    "name": "Hoodie",
+    "navy": {
+      "item_id": 0,
+      "cost": 34,
+      "image": {
+        "front": "/images/apparel/man_hoodie_navy.png",
+        "back": "/images/apparel/man_hoodie_navy_b.png"
+      }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 34,
+      "image": {
+        "front": "/images/apparel/man_hoodie_gray.png",
+        "back": "/images/apparel/man_hoodie_gray_b.png"
+      }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 34,
+      "image": {
+        "front": "/images/apparel/man_hoodie_black.png",
+        "back": "/images/apparel/man_hoodie_black_b.png"
+      }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 34,
+      "image": {
+        "front": "/images/apparel/man_hoodie_white.png",
+        "back": "/images/apparel/man_hoodie_white_b.png"
+      }
+    }
+  },
+  {
+    "id": 1,
+    "name": "Youth Hoodie",
+    "navy": {
+      "item_id": 0,
+      "cost": 31,
+      "image": { "front": "/images/apparel/man_hoodie_navy.png", "back": "/images/apparel/man_hoodie_navy_b.png" }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 31,
+      "image": { "front": "/images/apparel/man_hoodie_gray.png", "back": "/images/apparel/man_hoodie_gray_b.png" }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 31,
+      "image": { "front": "/images/apparel/man_hoodie_black.png", "back": "/images/apparel/man_hoodie_black_b.png" }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 31,
+      "image": { "front": "/images/apparel/man_hoodie_white.png", "back": "/images/apparel/man_hoodie_white_b.png" }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Sweatshirt",
+    "navy": {
+      "item_id": 0,
+      "cost": 32,
+      "image": { "front": "/images/apparel/man_sweat_navy.png", "back": "/images/apparel/man_sweat_navy_b.png" }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 32,
+      "image": { "front": "/images/apparel/man_sweat_gray.png", "back": "/images/apparel/man_sweat_gray_b.png" }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 32,
+      "image": { "front": "/images/apparel/man_sweat_black.png", "back": "/images/apparel/man_sweat_black_b.png" }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 32,
+      "image": { "front": "/images/apparel/man_sweat_white.png", "back": "/images/apparel/man_sweat_white_b.png" }
+    }
+  },
+  {
+    "id": 3,
+    "name": "Long Sleeve",
+
+    "navy": {
+      "item_id": 0,
+      "cost": 25.3,
+      "image": {
+        "front": "/images/apparel/man_longsleeve_navy.png",
+        "back": "/images/apparel/man_longsleeve_navy_b.png"
+      }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 25.3,
+      "image": {
+        "front": "/images/apparel/man_longsleeve_gray.png",
+        "back": "/images/apparel/man_longsleeve_gray_b.png"
+      }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 25.3,
+      "image": {
+        "front": "/images/apparel/man_longsleeve_black.png",
+        "back": "/images/apparel/man_longsleeve_black_b.png"
+      }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 25.3,
+      "image": {
+        "front": "/images/apparel/man_longsleeve_white.png",
+        "back": "/images/apparel/man_longsleeve_white_b.png"
+      }
+    }
+  },
+  {
+    "id": 4,
+    "name": "Women's Short Sleeve",
+    "navy": {
+      "item_id": 0,
+      "cost": 23,
+      "image": { "front": "/images/apparel/women_t_navy.png", "back": "/images/apparel/women_t_navy_b.png" }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 23,
+      "image": { "front": "/images/apparel/women_t_gray.png", "back": "/images/apparel/women_t_gray_b.png" }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 23,
+      "image": { "front": "/images/apparel/women_t_black.png", "back": "/images/apparel/women_t_black_b.png" }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 23,
+      "image": { "front": "/images/apparel/women_t_white.png", "back": "/images/apparel/women_t_white_b.png" }
+    }
+  },
+  {
+    "id:": 5,
+    "name": "Short Sleeve",
+    "navy": {
+      "item_id": 0,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_navy.png", "back": "/images/apparel/man_t_navy_b.png" }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_gray.png", "back": "/images/apparel/man_t_gray_b.png" }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
+    }
+  },
+  {
+    "id:": 6,
+    "name": "Youth Short Sleeve",
+    "navy": {
+      "item_id": 0,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_navy.png", "back": "/images/apparel/man_t_navy_b.png" }
+    },
+    "gray": {
+      "item_id": 1,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_gray.png", "back": "/images/apparel/man_t_gray_b.png" }
+    },
+    "black": {
+      "item_id": 2,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_black.png", "back": "/images/apparel/man_t_black_b.png" }
+    },
+    "white": {
+      "item_id": 3,
+      "cost": 24,
+      "image": { "front": "/images/apparel/man_t_white.png", "back": "/images/apparel/man_t_white_b.png" }
+    }
+  }
+]
