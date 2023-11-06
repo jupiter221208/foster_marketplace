@@ -125,7 +125,7 @@ const TrendingCard = props => {
             </div>
             <div className="w-full flex items-end mt-[-30px]">
               <div className="w-full flex justify-between items-center">
-                <div className={styles.artistName}>@{userName}</div>
+                <div className={styles.artistName}>{userName}</div>
               </div>
               <div className="justify-start items-center cursor-pointer">
                 {profilePicture && profilePicture !== '' && profilePicture !== undefined && (
