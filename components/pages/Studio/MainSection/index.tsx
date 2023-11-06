@@ -114,13 +114,9 @@ const MainSection = ({ onchange, heroValue }) => {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Autoplay, Pagination]}
+                  modules={[Pagination]}
                   className={'heroMobileStudioSwiper'}
                   loop
-                  autoplay={{
-                    delay: 10000,
-                    disableOnInteraction: false,
-                  }}
                 >
                   <div>
                     {StudioHeroList.map((item, index) => (
@@ -155,12 +151,8 @@ const MainSection = ({ onchange, heroValue }) => {
                       pagination={{
                         clickable: true,
                       }}
-                      modules={[Autoplay, Pagination]}
+                      modules={[Pagination]}
                       loop
-                      autoplay={{
-                        delay: 10000,
-                        disableOnInteraction: false,
-                      }}
                       onSwiper={setSwiper}
                     >
                       {StudioHeroList.map((item: any, index) => (

@@ -201,12 +201,11 @@
 .artistName {
   font-family: 'Muli-Regular';
   font-size: 14px;
-  line-height: 15px;
+  line-height: 20px;
   @media (min-width: 1024px) {
     font-family: 'Muli-SemiBold';
     font-size: 18px;
     line-height: 24px;
-    margin-left: 12px;
   }
   letter-spacing: 0;
   color: var(--main-icon-color);
