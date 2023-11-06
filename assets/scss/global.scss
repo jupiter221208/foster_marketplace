@@ -640,6 +640,9 @@ h6 {
 
 .swiper-pagination {
   position: relative !important;
+  @media (max-width : 1024px) {
+    margin-top: -20px;
+  }
 }
 
 #heroSwiperMobile .swiper-pagination-bullet {
