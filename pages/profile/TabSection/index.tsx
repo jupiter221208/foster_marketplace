@@ -84,13 +84,13 @@ const TabSection = props => {
       setArtistEnable(false)
       setMerchEnable(true)
       setCollectorEnable(false)
-    } else if (activeTab === 3) {
+    } else if (activeTab === 4) {
       setShowCollections(collections.slice(0, rowCount))
       setIsFetching(false)
       setIsVisibleFetching(true)
-      setArtistEnable(false)
-      setMerchEnable(false)
-      setCollectorEnable(true)
+      // setArtistEnable(false)
+      // setMerchEnable(false)
+      // setCollectorEnable(false)
     }
   }, [activeTab])
 
@@ -104,18 +104,20 @@ const TabSection = props => {
   useEffect(() => {
     if (isFetching === true) {
       if (activeTab === 1 || activeTab === 2) handleNextPage()
-      else if (activeTab === 3) {
-        setIsFetching(false)
-        if (showCollections.length + rowCount > collections.length) {
-          setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
-          setIsVisibleFetching(false)
-        } else {
-          setShowCollections([
-            ...showCollections,
-            ...collections.slice(showCollections.length, showCollections.length + rowCount),
-          ])
-          setIsVisibleFetching(true)
-        }
+      else if (activeTab === 4) {
+        setTimeout(() => {
+          setIsFetching(false)
+          if (showCollections.length + rowCount > collections.length) {
+            setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
+            setIsVisibleFetching(false)
+          } else {
+            setShowCollections([
+              ...showCollections,
+              ...collections.slice(showCollections.length, showCollections.length + rowCount),
+            ])
+            setIsVisibleFetching(true)
+          }
+        }, 2000)
       }
     }
   }, [isFetching])
@@ -138,24 +140,24 @@ const TabSection = props => {
     }
   }, [isFetchingMerch])
 
-  useEffect(() => {
-    if (isFetching === true) {
-      if (activeTab === 1 || activeTab === 2) handleNextPage()
-      else if (activeTab === 3) {
-        setIsFetching(false)
-        if (showCollections.length + rowCount > collections.length) {
-          setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
-          setIsVisibleFetching(false)
-        } else {
-          setShowCollections([
-            ...showCollections,
-            ...collections.slice(showCollections.length, showCollections.length + rowCount),
-          ])
-          setIsVisibleFetching(true)
-        }
-      }
-    }
-  }, [isFetching])
+  // useEffect(() => {
+  //   if (isFetching === true) {
+  //     if (activeTab === 1 || activeTab === 2) handleNextPage()
+  //     else if (activeTab === 3) {
+  //       setIsFetching(false)
+  //       if (showCollections.length + rowCount > collections.length) {
+  //         setShowCollections([...showCollections, ...collections.slice(showCollections.length, collections.length)])
+  //         setIsVisibleFetching(false)
+  //       } else {
+  //         setShowCollections([
+  //           ...showCollections,
+  //           ...collections.slice(showCollections.length, showCollections.length + rowCount),
+  //         ])
+  //         setIsVisibleFetching(true)
+  //       }
+  //     }
+  //   }
+  // }, [isFetching])
 
   return (
     <div className={styles.container}>
