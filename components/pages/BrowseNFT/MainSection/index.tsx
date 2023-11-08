@@ -907,7 +907,8 @@ const MainSection = ({
                       <MerchToggleEnabledIcon
                         alt=""
                         onClick={() => {
-                          if (isCreatedNft) setRemoveMerchModal(true)
+                          // if (isCreatedNft)
+                          setRemoveMerchModal(true)
                         }}
                         onMouseEnter={() => setMerchHover(true)}
                         onMouseLeave={() => setMerchHover(false)}
@@ -916,7 +917,8 @@ const MainSection = ({
                       <MerchToggleDisabledIcon
                         alt=""
                         onClick={() => {
-                          if (isCreatedNft) setCreateMerchModal(true)
+                          // if (isCreatedNft)
+                          setCreateMerchModal(true)
                         }}
                         onMouseEnter={() => setMerchHover(true)}
                         onMouseLeave={() => setMerchHover(false)}
@@ -1255,7 +1257,9 @@ const MainSection = ({
                           <div className={styles.whiteDescription}>{nftDescription}</div>
                           <div className="w-full flex justify-between mt-2 gap-2 lg:gap-3 xl:gap-4">
                             <div className="flex flex-wrap items-end mt-2 gap-2 lg:gap-3 xl:gap-4">
-                              {nftCategories?.map((item, index) => <SmallCategoryChip data={item} key={index} />)}
+                              {nftCategories?.map((item, index) => (
+                                <SmallCategoryChip data={item} key={index} />
+                              ))}
                             </div>
                             <div className="flex items-end">
                               <div className="block text-center">
