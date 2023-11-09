@@ -330,7 +330,7 @@ const PhysicalPrintDetail = props => {
 
       <div className="w-full mt-[30px] flex gap-[30px]">
         <OutlineButton
-          label="Back"
+          label="Add to Cart"
           onClick={onBack}
           fullWidth
           fontFamily="Muli-SemiBold"
@@ -341,7 +341,7 @@ const PhysicalPrintDetail = props => {
 
         <GradientButton
           disabled={!enabled}
-          label="Next"
+          label="Buy Now"
           fontFamily="Muli-SemiBold"
           fullWidth
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
