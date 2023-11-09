@@ -93,6 +93,7 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
     let itemList = []
     orderData?.ssorder.items.forEach(item => {
       let itemQuantity = item.quantity
+      let imageUrl = item.imageUrl
       let options = item.options
       var type = findElement(options, 'name', 'type')['value']
       var nftName = findElement(options, 'name', 'nftName')['value']
@@ -101,11 +102,11 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
       var itemName
       if (type === 'apparel') {
         var color = findElement(options, 'name', 'color')['value']
-        itemName = nftName + '<br/>' + name + ' (' + size + ')' + '<br/>' + getFirstUpperString(color)
+        itemName = nftName + '<br/>' + getFirstUpperString(color) + '<br/>' + 'Qty:' + itemQuantity
       } else {
-        itemName = nftName + '<br/>' + name + ' (' + size + ')'
+        itemName = nftName + '<br/>' + name + '<br/>' + 'Qty:' + itemQuantity
       }
-      itemList.push({ name: itemName, quantity: itemQuantity, shipping: itemShipping })
+      itemList.push({ url: imageUrl, name: itemName, shipping: itemShipping })
     })
 
     setList(itemList)
@@ -180,14 +181,10 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
         </div>
         <div className={styles.selecteCategory}>Checkout</div>
       </div> */}
-
+      <div className={styles.summary}>Order Summary</div>
       <div className="mt-[20px] hidden lg:block">
         <TableSection data={list} />
       </div>
-      <div className="lg:flex hidden">
-        <div className={styles.tableDivider} />
-      </div>
-
       <div className="w-full flex-wrap h-auto flex gap-[30px] lg:mt-[24px]">
         <div className="w-[286px] h-[160px] relative hidden lg:block">
           <div className={styles.paymentMethod}>Choose Payment Method*</div>
@@ -216,27 +213,21 @@ const PhysicalCheckout = ({ orderData, onBack, onNext, total }: PhysicalCheckout
 
       {/* Mobile Table */}
       <div className="w-full lg:hidden">
-        <div className={styles.tableHeader}>
-          <div>Order</div>
-          <div>Details</div>
-        </div>
         {list.map((item, index) => {
           return (
             <div key={index}>
-              <div className="w-full flex justify-between px-3 mt-[30px]">
-                <div className={styles.value}>Item</div>
+              <div className={`${styles.tableColor} w-full flex justify-between px-3 mt-[30px]`}>
+                <div className="w-full h-full">
+                  <img src={item.url} className="w-[50%] h-[50%]" />
+                </div>
                 <div className={`${styles.value} w-[200px] text-right`}>
                   <p dangerouslySetInnerHTML={{ __html: item.name }} />
                 </div>
               </div>
-              <div className="w-full flex justify-between px-3 mt-[30px]">
-                <div className={styles.value}>Quantity</div>
-                <div className={styles.value}>{item.quantity}</div>
-              </div>
 
-              <div className="w-full flex justify-between px-3 mt-[30px] mb-[30px]">
-                <div className={styles.value}>{'Shipping\nAddress'}</div>
-                <div className={`${styles.value} w-[200px] text-right`}>
+              <div className="w-full flex flex-col px-3 mt-[30px] mb-[30px]">
+                <div className={styles.value}>{'Shipping\nAddress:'}</div>
+                <div className={`${styles.value} text-left mt-[12px]`}>
                   <p dangerouslySetInnerHTML={{ __html: item.shipping }} />
                 </div>
               </div>

@@ -304,7 +304,7 @@ const PhysicalShippingMethod = props => {
           ) : (
             <GradientButton
               disabled={!total}
-              label="Checkout"
+              label={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 'Checkout' : 'Proceed to Checkout'}
               fontFamily="Muli-SemiBold"
               fullWidth
               height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
