@@ -19,6 +19,7 @@ import { useMetaplex } from 'hooks/useMetaplex'
 import TabList from 'assets/json/merch-logs/tab-list.json'
 import EllipseGreen from 'assets/icons/ellipse-green.svg?component'
 import PreviewImage from 'assets/images/preview-image.png'
+import SolanaIcon from 'assets/icons/solana-logo.svg?component'
 
 // styles
 import styles from './index.module.scss'
@@ -35,6 +36,8 @@ import NftItemActivity from 'components/pages/MerchLogs/NftItemActivity'
 import { getMyNFTs } from 'utils/nfts.utils'
 import CreateMerchSudioModal from 'components/Modal/CreateMerchSudioModal'
 import RemoveMerchSudioModal from 'components/Modal/RemoveMerchSudioModal'
+import GradientButton from 'components/Button/GradientButton'
+import ShoppingCartActivity from 'components/pages/MerchLogs/ShoppingCartActivity'
 
 const MerchActivity = () => {
   const viewport = useViewport()
@@ -71,6 +74,9 @@ const MerchActivity = () => {
   const [disableMerchModal, setDisableMerchModal] = useState(false)
   const [enableAllMerchModal, setEnableAllMerchModal] = useState(false)
   const [disableAllMerchModal, setDisableAllMerchModal] = useState(false)
+  const imgUrl = useSelector<any>(state => state.printImageUrl)
+  const [imageUrl, setImageUrl] = useState([])
+  const [array, setArray] = useState([])
 
   const [tokenId, setTokenId] = useState(false)
 
@@ -117,6 +123,23 @@ const MerchActivity = () => {
       // else if (activeTab === 3) getDisabledItem(disabledPages, rowCount)
     }
   }, [isFetching, publicKey])
+
+  useEffect(() => {
+    const storedArray = JSON.parse(localStorage.getItem('data'))
+    setArray([...array, storedArray])
+  }, [])
+
+  useEffect(() => {
+    console.info(imgUrl)
+    if (imgUrl) {
+      setImageUrl([...imageUrl, imgUrl])
+    }
+  }, [imgUrl])
+
+  // useEffect(() => {
+  //   localStorage.setItem('url', JSON.stringify(imageUrl))
+  //   console.log('imageUrl==============', imageUrl)
+  // }, [imageUrl])
 
   const handleSelectedTab = item => {
     setActiveTab(item.id)
@@ -459,6 +482,36 @@ const MerchActivity = () => {
                 type="sales"
                 isLoading={isVisibleSellerFetching}
               />
+            </div>
+          )}
+          {activeTab === 4 && (
+            <div className="w-full grid grid-cols-3">
+              <div className="col-span-2">
+                <ShoppingCartActivity data={array} url={imageUrl} />
+              </div>
+              <div className="flex col-span-1 ml-[40px] h-[200px]">
+                <div className={styles.tableColor}>
+                  <div className="flex flex-row items-center justify-between">
+                    <div className={styles.subTotal}>Subtotal:</div>
+                    <div className="flex flex-row items-center">
+                      <div className={styles.costDivider} />
+                      <div className="flex ml-[5px]">
+                        <SolanaIcon alt="" className="text-[20px]" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="w-full flex">
+                    <GradientButton
+                      label="Place Order"
+                      fullWidth
+                      fontFamily="Muli-SemiBold"
+                      height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
+                      fontSize={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 15 : 18}
+                      onClick={onclick}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           )}
           {((activeTab === 0 && isVisibleEnabledFetching) ||

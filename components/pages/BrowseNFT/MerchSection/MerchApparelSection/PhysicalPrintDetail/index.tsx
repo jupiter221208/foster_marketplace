@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 // next components
+import { useRouter } from 'next/router'
 
 // components
 
@@ -55,6 +56,7 @@ const PhysicalPrintDetail = props => {
     asset_url: '/images/apparel-color-white.png',
   })
   const dispatch = useDispatch()
+  const router = useRouter()
   const [quantity, setQuantity] = useState(1)
   const [enabled, setEnabled] = useState(false)
   const [apparelList, setApparelList] = useState(ShopApparelList)
@@ -228,6 +230,20 @@ const PhysicalPrintDetail = props => {
     }
     return ''
   }
+  const handleSaveData = () => {
+    let existingData = JSON.parse(localStorage.getItem('data')) || []
+    if (!Array.isArray(existingData)) {
+      existingData = []
+    }
+    let data = { apparel, gender, color, print, quality, size, quantity, cost }
+    onShipping(data)
+    setFinishEditing(true)
+
+    existingData.push(data)
+    localStorage.setItem('data', JSON.stringify(existingData))
+    console.log('existingData==============', existingData)
+    router.push(`/merch-logs/`)
+  }
 
   return (
     <section className={styles.container}>
@@ -331,7 +347,7 @@ const PhysicalPrintDetail = props => {
       <div className="w-full mt-[30px] flex gap-[30px]">
         <OutlineButton
           label="Add to Cart"
-          onClick={onBack}
+          onClick={handleSaveData}
           fullWidth
           fontFamily="Muli-SemiBold"
           height={viewport === 'xs' || viewport === 'sm' || viewport === 'md' ? 45 : 53}
