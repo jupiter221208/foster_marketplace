@@ -102,3 +102,7 @@ export default Home
 Home.getLayout = function getLayout(page) {
   return <PrimaryLayout>{page}</PrimaryLayout>
 }
+
+export function getStaticProps() {
+  return { props: {} }
+}
