@@ -84,9 +84,8 @@ const ActiveListingSection = props => {
           {exploreList.length > 4 ? (
             <div className="grid sm:grid-cols-4 grid-cols-2 gap gap-[11px] lg:gap-[20px] xl:gap-[34px]">
               {exploreList.map((item, index) => (
-                <div>
+                <div key={index}>
                   <NFTCard
-                    key={index}
                     token_id={item.token_id}
                     image={item.asset_url}
                     nftName={item.nft_name}
